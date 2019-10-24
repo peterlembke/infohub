@@ -1,0 +1,93 @@
+{
+    "version": {
+        "date": "2019-10-19 16:20:40",
+        "plugin": "infohub_configlocal",
+        "data_checksum": "a5ef465a3a6938aa2e651e3d0ae244e7",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_configlocal": {
+            "The menu will render here": "Menyn kommer att visas här",
+            "Use the menu": "Använd menyn"
+        },
+        "infohub_configlocal_allow": {
+            "Make things larger.": "Gör saker större.",
+            "Make things smaller": "Gör saker mindre",
+            "Normal size (Size 1)": "Normal storlek (storlek 1)",
+            "Size 2": "Storlek 2",
+            "Size 3": "Storlek 3",
+            "Size 4": "Storlek 4",
+            "Max size (Size 5)": "Maxstorlek (storlek 5)"
+        },
+        "infohub_configlocal_colour": {
+            "Colours": "Färger",
+            "Colour schema": "Färgschema",
+            "Here you can modify the colour schema.": "Här kan du ändra färgschemat.",
+            "Background": "Bakgrund",
+            "Background colour.": "Bakgrundsfärg.",
+            "Text": "Text",
+            "Text colour.": "Textfärg.",
+            "Button text": "Knapptext",
+            "Button text colour.": "Knapptextfärg.",
+            "Button background 1": "Knappbakgrund 1",
+            "Button background gradient upper.": "Övre knappgradient övre.",
+            "Button background 2": "Knappbakgrund 2",
+            "Button background gradient lower.": "Knappbakgrundsgradient lägre.",
+            "Borders": "Gränser",
+            "Name": "Namn",
+            "Name of this colour schema": "Namn på det här färgschemat",
+            "Write a name": "Skriv ett namn",
+            "Save colour schema": "Spara färgschema",
+            "Delete colour schema": "Radera färgschema"
+        },
+        "infohub_configlocal_debug": {
+            "debug level": "felsökningsnivå",
+            "Make things larger.": "Gör saker större.",
+            "Make things smaller": "Gör saker mindre",
+            "Normal size (Size 1)": "Normal storlek (storlek 1)",
+            "Size 2": "Storlek 2",
+            "Size 4": "Storlek 4",
+            "Max size (Size 5)": "Maxstorlek (storlek 5)"
+        },
+        "infohub_configlocal_font": {
+            "Global font settings": "Globala teckensnittinställningar",
+            "Here you can fine tune how all text should be displayed": "Här kan du finjustera hur all text ska visas",
+            "Font weight": "Fontvikt",
+            "How bold do you want the text. Default 400": "Hur fet stil vill du ha texten. Standard 400",
+            "Font size": "Teckenstorlek",
+            "How large letters do you want. Default 16px": "Hur stora bokstäver vill du ha. Standard 16px",
+            "Letter spacing": "Brevavstånd",
+            "The space between the letters. Default 0px": "Utrymmet mellan bokstäverna. Standard 0px",
+            "Test": "Test",
+            "Save": "Spara"
+        },
+        "infohub_configlocal_language": {
+            "Language": "Språk",
+            "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Här kan du välja ditt föredragna språk. Det används sedan till att översätta all text i alla plugins.",
+            "Select a language": "Välj ett språk",
+            "Select a language you can speak and click on Transfer": "Välj ett språk som du talar och tryck på Överför",
+            "Transfer": "Överföring",
+            "Language codes": "Språkkoder",
+            "Language codes you prefer. Comma separate them. I prefer: sv,en": "Språkkoder du föredrar. Komma separera dem. Jag föredrar: sv, en",
+            "Save": "Spara"
+        },
+        "infohub_configlocal_menu": {
+            "Configuration - Local on this device": "Konfiguration - Lokal på den här enheten",
+            "Zoom level": "Zoomnivå",
+            "Language preferred": "Språk föredraget",
+            "Colour schema": "Färgschema",
+            "Font settings": "Teckensnittinställningar",
+            "Allow things": "Tillåt saker",
+            "For developers": "För utvecklare"
+        },
+        "infohub_configlocal_zoom": {
+            "Zoom settings": "Zoominställningar",
+            "Use this zoom if you have no keyboard.  CTRL + or CTRL -": "Använd denna zoom om du inte har något tangentbord. CTRL + eller CTRL -",
+            "+": "+",
+            "-": "-",
+            "Normal 100%": "Normal 100%"
+        }
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "version": {
+        "date": "2019-10-19 20:27:51",
+        "plugin": "infohub_configlocal",
+        "data_checksum": "a5ef465a3a6938aa2e651e3d0ae244e7",
+        "language": "es",
+        "country": "ES",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_configlocal": {
+            "The menu will render here": "El menú se mostrará aquí",
+            "Use the menu": "Usa el menú"
+        },
+        "infohub_configlocal_allow": {
+            "Make things larger.": "Hacer las cosas más grandes",
+            "Make things smaller": "Hacer las cosas más pequeñas",
+            "Normal size (Size 1)": "Tamaño normal (Tamaño 1)",
+            "Size 2": "Tamaño 2",
+            "Size 3": "Tamaño 3",
+            "Size 4": "Tamaño 4",
+            "Max size (Size 5)": "Tamaño máximo (tamaño 5)"
+        },
+        "infohub_configlocal_colour": {
+            "Colours": "Colores",
+            "Colour schema": "Esquema de color",
+            "Here you can modify the colour schema.": "Aquí puede modificar el esquema de color",
+            "Background": "Fondo",
+            "Background colour.": "Color de fondo",
+            "Text": "Texto",
+            "Text colour.": "Color del texto",
+            "Button text": "Texto del botón",
+            "Button text colour.": "Color del texto del botón",
+            "Button background 1": "Fondo de botón 1",
+            "Button background gradient upper.": "Gradiente de fondo del botón superior",
+            "Button background 2": "Fondo de botón 2",
+            "Button background gradient lower.": "Gradiente de fondo del botón inferior",
+            "Borders": "Fronteras",
+            "Name": "Nombre",
+            "Name of this colour schema": "Nombre de este esquema de color.",
+            "Write a name": "Ingrese un nombre",
+            "Save colour schema": "Guardar esquema de color",
+            "Delete colour schema": "Eliminar esquema de color"
+        },
+        "infohub_configlocal_debug": {
+            "debug level": "nivel de depuración",
+            "Make things larger.": "Agrandar las cosas",
+            "Make things smaller": "Hacer las cosas más pequeñas",
+            "Normal size (Size 1)": "Tamaño normal (Tamaño 1)",
+            "Size 2": "Tamaño 2",
+            "Size 4": "Tamaño 4",
+            "Max size (Size 5)": "Tamaño máximo (tamaño 5)"
+        },
+        "infohub_configlocal_font": {
+            "Global font settings": "Configuración de fuente global",
+            "Here you can fine tune how all text should be displayed": "Aquí puede ajustar cómo se debe mostrar todo el texto",
+            "Font weight": "Peso de fuente",
+            "How bold do you want the text. Default 400": "Qué tan negrita desea el texto. Predeterminado 400",
+            "Font size": "Tamaño de fuente",
+            "How large letters do you want. Default 16px": "¿Cuántas letras quieres? Predeterminado 16px",
+            "Letter spacing": "Espacio entre letras",
+            "The space between the letters. Default 0px": "El espacio entre las letras. Predeterminado 0px",
+            "Test": "Prueba",
+            "Save": "Guardar"
+        },
+        "infohub_configlocal_language": {
+            "Language": "Idioma",
+            "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Aquí puede seleccionar sus idiomas preferidos. Esto se utiliza para traducir los textos en todos los complementos a lo que prefiera.",
+            "Select a language": "Selecciona un idioma",
+            "Select a language you can speak and click on Transfer": "Seleccione un idioma que pueda hablar y haga clic en Transferir",
+            "Transfer": "Transferencia",
+            "Language codes": "Códigos de idioma",
+            "Language codes you prefer. Comma separate them. I prefer: sv,en": "Códigos de idioma que prefiera. Separelos por comas. Prefiero: sv, en",
+            "Save": "Guardar"
+        },
+        "infohub_configlocal_menu": {
+            "Configuration - Local on this device": "Configuración - Local en este dispositivo",
+            "Zoom level": "Nivel de zoom",
+            "Language preferred": "Idioma preferido",
+            "Colour schema": "Esquema de color",
+            "Font settings": "Configuración de fuente",
+            "Allow things": "Permitir cosas",
+            "For developers": "Para desarrolladores"
+        },
+        "infohub_configlocal_zoom": {
+            "Zoom settings": "Configuración de zoom",
+            "Use this zoom if you have no keyboard.  CTRL + or CTRL -": "Use este zoom si no tiene teclado. CTRL + o CTRL -",
+            "+": "+",
+            "-": "-",
+            "Normal 100%": "Normal 100%"
+        }
+    }
+}

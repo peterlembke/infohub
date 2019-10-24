@@ -1,0 +1,91 @@
+{
+    "version": {
+        "date": "2019-10-19 20:33:44",
+        "plugin": "infohub_contact",
+        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_contact": {
+            "Instructions": "Instruktioner",
+            "Use the menu.": "Använd menyn."
+        },
+        "infohub_contact_client": {
+            "Refresh Clients": "Uppdatera klienter",
+            "Client Contacts": "Klientkontakter",
+            "List all client contacts": "Lista alla klientkontakter",
+            "New": "Ny",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Import": "Importera",
+            "Export": "Exportera",
+            "Groups": "Grupper",
+            "Pick groups for this client": "Välj grupper för den här klienten",
+            "One contact": "En kontakt",
+            "This is the data form for one contact": "Detta är dataformuläret för en kontakt",
+            "Node": "Nod",
+            "Your unique name of the client": "Ditt unika namn på klienten",
+            "Note": "Obs",
+            "Any text you want": "All text du vill",
+            "Domain address": "Domänadress",
+            "The domain address to your server": "Domänadressen till din server",
+            "User name": "Användarnamn",
+            "You get a Hub-UUID when you save (Leave blank)": "Du får en hub-UUID när du sparar (lämna tomt)",
+            "Shared secret": "Delad hemlighet",
+            "You will get a 2K random string when you save (Leave blank)": "Du får en 2K slumpmässig sträng när du sparar (Lämna tomt)",
+            "Allowed plugins": "Tillåtna plugins",
+            "List with all plugin names you can send messages to on this node": "Lista med alla insticksnamn som du kan skicka meddelanden till på denna nod"
+        },
+        "infohub_contact_doc": {
+            "Documentation will render here": "Dokumentation kommer att visas här",
+            "Main Doc": "Huvuddokument",
+            "Client Doc": "Klientdokument",
+            "Server Doc": "Server Doc",
+            "Group Doc": "Gruppdokument"
+        },
+        "infohub_contact_group": {
+            "Refresh groups": "Uppdatera grupper",
+            "Group names": "Gruppnamn",
+            "New": "Ny",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Rights for one group": "Rättigheter för en grupp",
+            "Group name": "Gruppnamn",
+            "Your note": "Din anteckning",
+            "Select server plugins in this group": "Välj serverplugins i denna grupp"
+        },
+        "infohub_contact_menu": {
+            "Contact manager": "Kontaktchef",
+            "Documentation": "Dokumentation",
+            "Group rights": "Grupprättigheter",
+            "Client contact": "Klientkontakt",
+            "Server contact": "Serverkontakt"
+        },
+        "infohub_contact_server": {
+            "Refresh": "Uppdatera",
+            "Server Contacts": "Serverkontakter",
+            "List all server contacts": "Lista alla serverkontakter",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Import": "Importera",
+            "Export": "Exportera",
+            "Ping server": "Ping-server",
+            "One contact": "En kontakt",
+            "This is the data form for one contact.": "Detta är dataformuläret för en kontakt.",
+            "Node": "Nod",
+            "Your unique node name": "Ditt unika nodnamn",
+            "Note": "Obs",
+            "Any text you want": "All text du vill",
+            "Domain address": "Domänadress",
+            "The domain address to the remote server": "Domänadressen till fjärrservern",
+            "User name": "Användarnamn",
+            "Hub-UUID you got from the remote server": "Hub-UUID som du fick från fjärrservern",
+            "Shared secret": "Delad hemlighet",
+            "2K random string you got from the remove server": "2K slumpmässig sträng du fick från borttagningsservern",
+            "Allowed plugins": "Tillåtna plugins",
+            "List with all plugin names you can send messages to on this node": "Lista med alla insticksnamn som du kan skicka meddelanden till på denna nod"
+        }
+    }
+}

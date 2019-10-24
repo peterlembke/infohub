@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_welcome",
+    "title": "Welcome",
+    "description": "Welcome to InfoHub. This is an inspirational journey what InfoHub can do and will do in the future.",
+    "uses": ["infohub_welcome_welcome", "infohub_welcome_menu", "infohub_rendermenu", "infohub_welcome_tech", "infohub_welcome_youcan"]
+}

@@ -1,0 +1,1043 @@
+/*
+ Copyright (C) 2010- Peter Lembke, CharZam soft
+ the program is distributed under the terms of the GNU General Public License
+
+ InfoHub is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ InfoHub is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ */
+function infohub_renderdocument() {
+
+// include "infohub_base.js"
+
+    // ***********************************************************
+    // * jshint.com options to suppress some warnings
+    // ***********************************************************
+
+    /*jshint evil:true */
+    /*jshint devel:true */
+    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+
+    // ***********************************************************
+    // * your private class variables below, only declare with var
+    // ***********************************************************
+
+    var _Version = function () {
+        return {
+            'date': '2019-08-09',
+            'since': '2019-08-09',
+            'version': '1.0.0',
+            'checksum': '{{checksum}}',
+            'class_name': 'infohub_document',
+            'note': 'Take a markdown, parse some of it and divide into renderable parts',
+            'status': 'normal',
+            'license_name': 'GNU GPL 3 or later',
+            'title': 'Document'
+        };
+    };
+
+    var _GetCmdFunctions = function () {
+        return {
+            'create': 'normal',
+            'event_message': 'normal'
+        };
+    };
+
+    /**
+     * Internal functions must start with a capital letter
+     * Used by renderers to get a proper function name
+     * @version 2016-10-16
+     * @since   2016-10-16
+     * @author  Peter Lembke
+     * @param $text
+     * @return string
+     */
+    var _GetFuncName = function($text)
+    {
+        "use strict";
+
+        let $response = '';
+
+        const $parts = $text.split('_');
+
+        for (let $key in $parts)
+        {
+            if ($parts.hasOwnProperty($key) === false) {
+                continue;
+            }
+
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+        }
+
+        return $response;
+    };
+
+    /**
+     * Get instructions and create the message to InfoHub View
+     * @version 2013-04-15
+     * @since   2013-04-15
+     * @author  Peter Lembke
+     */
+    $functions.push("create"); // Enable this function
+    var create = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'type': '',
+            'alias': '',
+            'original_alias': '',
+            'text': '',
+            'step': 'step_start',
+            'html': '',
+            'css_data': {}
+        };
+        $in = _Merge($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            $in.func = _GetFuncName($in.type);
+            $in.type = '';
+            const $response = internal_Cmd($in);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': $response.what,
+                    'how': $response.how,
+                    'where': $response.where
+                },
+                'data_back': {
+                    'step': 'step_final',
+                    'alias': $in.alias
+                }
+            });
+        }
+
+        if ($in.step === 'step_final') {
+            if (_Empty($in.alias) === 'false') {
+                // All IDs become unique by inserting the parent alias in each ID.
+                const $find = '{box_id}';
+                const $replace = $find + '_' + $in.alias;
+                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
+            }
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message,
+            'html': $in.html,
+            'css_data': $in.css_data
+        };
+    };
+
+    /**
+     * Event links end up here
+     * @version 2019-08-17
+     * @since   2013-08-17
+     * @author  Peter Lembke
+     */
+    $functions.push("event_message"); // Enable this function
+    var event_message = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'final_node': 'client',
+            'final_plugin': '',
+            'final_function': '',
+            'alias': '',
+            'event_data': '',
+            'event_type': '',
+            'id': '',
+            'innerHTML': '',
+            'parent_box_id': '',
+            'parent_id': '',
+            'type': '',
+            'data': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from infohub_renderdocument -> event_message'
+            }
+        };
+        $in = _Merge($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            return _SubCall({
+                'to': {
+                    'node': $in.final_node,
+                    'plugin': $in.final_plugin,
+                    'function': $in.final_function
+                },
+                'data': {
+                    'event_type': $in.event_type,
+                    'event_data': $in.event_data,
+                    'innerHTML': $in.innerHTML
+                },
+                'data_back': {
+                    'step': 'step_final'
+                }
+            });
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message
+        };
+    };
+
+    /**
+     * Parse the markdown text and divide it into blocks that can be rendered separately
+     * @version 2019-07-16
+     * @since   2019-07-16
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_Document');
+    var internal_Document = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {},
+            'step': 'step_start',
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {}
+            }
+        };
+
+        $in = _Default($default, $in);
+
+        let $text = $in.text;
+        let $what = $in.what;
+
+        if ($in.step === 'step_start')
+        {
+            $text = _Replace('[*', '[', $text);
+
+            let $response = internal_ParseCodeSegment({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_ParseInlineCodeSegment({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleImages({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleLinks({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleHeaders({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleStyle({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleLists({
+                'text': $text,
+                'what': $what
+            });
+
+            $text = $response.text;
+            $what = $response.what;
+
+            $response = internal_HandleNewline({
+                'text': $text
+            });
+
+            $text = $response.text;
+
+            $what['document'] = {
+                'type': 'text',
+                'text': $text,
+                'class': 'text_document'
+            };
+
+            $what['light'] = {
+                'type': 'common',
+                'subtype': 'containerStart',
+                'class': 'light',
+                'tag': 'span'
+            };
+
+            $what['/light'] = {
+                'type': 'common',
+                'subtype': 'containerStop',
+                'tag': 'span'
+            };
+
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the document divided into segments',
+            'what': $what,
+            'how': {
+                'mode': 'one box',
+                'text': '[document]',
+                'css_data': {
+                    '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
+                    '.text_document': 'font: Times;',
+                    '.light': 'background-color: yellow; display: inline-block;'
+                }
+            },
+            'where': {
+                'mode': 'html'
+            }
+
+        };
+
+    };
+
+    /**
+     * Pulls out the code segments from the text and substitute them with code boxes that will be rendered
+     * @version 2019-08-14
+     * @since   2019-07-31
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_ParseCodeSegment');
+    var internal_ParseCodeSegment = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {},
+            'step': 'step_start'
+        };
+        $in = _Default($default, $in);
+
+        let $text = '';
+
+        if ($in.step === 'step_start')
+        {
+            // Code can start with ``` and end with ```
+            let $segments = $in.text.split('```');
+            let $segment = '';
+            let $tag = '';
+
+            for (let $i = 0; $i < $segments.length; $i++)
+            {
+                $segment = $segments[$i];
+
+                if (_Empty($segment) === 'true') {
+                    continue;
+                }
+
+                if ($i % 2 === 0) { // % means modulus, the rest of a division with 2
+                    $text = $text + $segment;
+                    continue;
+                }
+
+                $tag = 'code_' + $i;
+
+                $segment = _SetSafeCodeCharacters($segment.trim());
+
+                $in.what[$tag] = {
+                    'type': 'common',
+                    'subtype': 'codecontainer',
+                    'data': $segment
+                };
+
+                $text = $text + '[' + $tag + ']';
+            }
+
+            // In markdown code can start with newline + 4 spaces and end with two newline. I do not support that.
+
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'All code segments are now rendered separately',
+            'text': $text,
+            'what': $in.what
+        };
+
+    };
+
+    /**
+     * Pulls out the code segments from the text and substitute them with code boxes that will be rendered
+     * @version 2019-08-14
+     * @since   2019-07-31
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_ParseInlineCodeSegment');
+    var internal_ParseInlineCodeSegment = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {},
+            'step': 'step_start'
+        };
+        $in = _Default($default, $in);
+
+        let $text = '';
+
+        if ($in.step === 'step_start')
+        {
+            // Code can start with ` and end with `
+            let $segments = $in.text.split('`');
+            let $segment = '';
+            let $tag = '';
+
+            for (let $i = 0; $i < $segments.length; $i++)
+            {
+                $segment = $segments[$i];
+
+                if (_Empty($segment) === 'true') {
+                    continue;
+                }
+
+                if ($i % 2 === 0) { // % means modulus, the rest of a division with 2
+                    $text = $text + $segment;
+                    continue;
+                }
+
+                $tag = 'inline_code_' + $i;
+
+                $segment = _SetSafeCodeCharacters($segment.trim());
+
+                $in.what[$tag] = {
+                    'type': 'common',
+                    'subtype': 'codecontainer',
+                    'data': $segment,
+                    'tag': '', // Makes it inline
+                    'class': 'code-inline'
+                };
+
+                $text = $text + '[' + $tag + ']';
+            }
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'All inline code segments are now rendered separately',
+            'text': $text,
+            'what': $in.what
+        };
+
+    };
+
+    /**
+     * Set safe code characters. I do not want them to render as html so I substitute them.
+     * https://unicode-table.com/en/
+     * @version 2019-08-18
+     * @since   2019-08-18
+     * @author  Peter Lembke
+     */
+    var _SetSafeCodeCharacters = function ($text) {
+        "use strict";
+
+        $text = _Replace('<', '&#60;', $text);
+        $text = _Replace('>', '&#62;', $text);
+        $text = _Replace('[', '&#91;', $text);
+        $text = _Replace(']', '&#93;', $text);
+        $text = _Replace('/', '&#47;', $text);
+
+        return $text;
+    };
+
+    /**
+     * Extract all image commands
+     * @version 2019-08-04
+     * @since   2019-08-04
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleImages');
+    var internal_HandleImages = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        let $first = 0,
+            $second = 0,
+            $i = 0,
+            $tag = '',
+            $tagPrefix = 'image_',
+            $modifiedText = $in.text,
+            $what = $in.what,
+            $leave = 40;
+
+        const $notFound = -1;
+
+        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
+        {
+            $leave--;
+
+            $second = $in.text.indexOf('](', $second);
+            $first = $in.text.lastIndexOf('![', $second);
+
+            $second = $second + 2;
+
+            if ($first === $notFound) {
+                continue;
+            }
+
+            const $label = $in.text.substr($first +2, $second - 2 - $first - 2);
+
+            if (_Empty($label) === 'true') {
+                continue;
+            }
+
+            if ($label.indexOf("\n") !== $notFound) {
+                continue;
+            }
+
+            if ($label.indexOf(']') !== $notFound) {
+                continue;
+            }
+
+            $first = $in.text.indexOf(')', $second);
+            if ($first === $notFound) {
+                continue;
+            }
+
+            const $url = $in.text.substr($second, $first - $second);
+
+            if (_Empty($url) === 'true') {
+                continue;
+            }
+
+            if ($url.indexOf("\n") !== $notFound) {
+                continue;
+            }
+
+            if ($url.indexOf('[') !== $notFound) {
+                continue;
+            }
+
+            if ($url.toLowerCase().substr(0,4) === 'http')
+            {
+                const $fullToFind = '![' + $label + '](' + $url + ')';
+                const $replaceWith = '';
+                $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
+                $second = $second + 2;
+                continue;
+            }
+
+            $i++;
+            $tag = $tagPrefix + $i;
+
+            leave: {
+
+                if ($url.substr(0, 11) === 'data:image/')
+                {
+                    let $subtype = 'image'; // Render an image (jpeg/png) or an svg
+                    if ($url.substr(12, 3) === 'svg') {
+                        $subtype = 'svg';
+                    }
+
+                    $what[$tag] = {
+                        'type': 'common',
+                        'subtype': $subtype,
+                        'data': $url
+                    };
+
+                    break leave;
+                }
+
+                if ($url.indexOf('/') === $notFound)
+                {
+                    // ![label](my_image)
+                    $tag = $url;
+                    break leave;
+                }
+
+                if ($url.indexOf('/') !== $notFound)
+                {
+                    // example: infohub_demo/asset/icon/common/duckduckgo-v107.svg
+                    const $urlParts = $url.split('/');
+
+                    const $pluginName = $urlParts.shift(); // infohub_demo
+                    const $asset = $urlParts.shift(); // asset
+                    const $imageOrIcon = $urlParts.shift(); // icon
+                    let $assetName = $urlParts.join('/');
+
+                    const $assetParts = $assetName.split('.');
+                    $assetName = $assetParts[0]; // common/duckduckgo-v107
+                    const $assetExtension = $assetParts[1]; // svg
+
+                    let $subtype = 'image'; // Render an image (jpeg/png) or an svg
+                    if ($assetParts[1] === 'svg') {
+                        $subtype = 'svg';
+                    }
+
+                    $what[$tag] = {
+                        'type': 'common',
+                        'subtype': $subtype,
+                        'data': '[' + $tag + '_asset]'
+                    };
+
+                    $what[$tag + '_asset'] = {
+                        'plugin': 'infohub_asset',
+                        'type': $imageOrIcon,
+                        'subtype': $assetExtension,
+                        'asset_name': $assetName,
+                        'plugin_name': $pluginName
+                    };
+
+                    break leave;
+                }
+
+            }
+
+
+            const $fullToFind = '![' + $label + '](' + $url + ')';
+            const $replaceWith = '[' + $tag + ']';
+            $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
+
+            $second = $second + 2;
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all images',
+            'text': $modifiedText,
+            'what': $what
+        };
+
+    };
+
+    /**
+     * Extract all link commands
+     * @version 2019-08-04
+     * @since   2019-08-04
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleLinks');
+    var internal_HandleLinks = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        const $notFound = -1;
+
+        let $first = 0,
+            $second = 0,
+            $i = 0,
+            $tag = '',
+            $tagPrefix = 'link_',
+            $modifiedText = $in.text,
+            $what = $in.what,
+            $leave = 40;
+
+        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
+        {
+            $leave--;
+
+            $second = $in.text.indexOf('](', $second);
+            $first = $in.text.lastIndexOf('[', $second);
+
+            $second = $second + 2;
+
+            if ($first === $notFound) {
+                continue;
+            }
+
+            const $label = $in.text.substr($first +1, $second - 2 - $first - 1);
+
+            if (_Empty($label) === 'true') {
+                continue;
+            }
+
+            if ($label.indexOf("\n") !== $notFound) {
+                continue;
+            }
+
+            if ($label.indexOf(']') !== $notFound) {
+                continue;
+            }
+
+            $first = $in.text.indexOf(')', $second);
+            if ($first === $notFound) {
+                continue;
+            }
+
+            const $url = $in.text.substr($second, $first - $second);
+
+            if (_Empty($url) === 'true') {
+                continue;
+            }
+
+            if ($url.indexOf("\n") !== $notFound) {
+                continue;
+            }
+
+            if ($url.indexOf('[') !== $notFound) {
+                continue;
+            }
+
+            $i++;
+            $tag = $tagPrefix + $i;
+
+            let $type = 'event';
+            if ($url.toLowerCase().substr(0, 4) === 'http') {
+                $type = 'external';
+            }
+
+            if ($type === 'event')
+            {
+                const $urlParts = $url.split('|');
+
+                $what[$tag] = {
+                    'type': 'link',
+                    'subtype': 'link',
+                    'alias': $tag,
+                    'event_data': $urlParts[2],
+                    'show': $label,
+                    'to_node': 'client',
+                    'to_plugin': 'infohub_renderdocument',
+                    'to_function': 'event_message', // Hard coded in the go() function
+                    'final_node': 'client',
+                    'final_plugin': $urlParts[0],
+                    'final_function': $urlParts[1],
+                    'class': 'link'
+                };
+            }
+
+            if ($type === 'external') {
+                $what[$tag] = {
+                    'type': 'link',
+                    'subtype': 'external',
+                    'alias': $tag,
+                    'show': $label,
+                    'url': $url
+                };
+            }
+
+            const $fullToFind = '[' + $label + '](' + $url + ')';
+            const $replaceWith = '[' + $tag + ']';
+            $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
+
+            $second = $second + 2;
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all links',
+            'text': $modifiedText,
+            'what': $what
+        };
+    };
+
+    /**
+     * Convert all header codes to h1 h2 and so on
+     * @version 2019-08-14
+     * @since   2019-08-14
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleHeaders');
+    var internal_HandleHeaders = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        let $modifiedText = $in.text;
+
+        const $notFound = -1;
+
+        for (let $i = 4; $i > 0; $i--)
+        {
+            const $find = "#".repeat($i) + ' ';
+
+            let $first = 0,
+                $second = 0,
+                $leave = 40;
+
+            while ($in.text.indexOf($find, $second) !== $notFound && $leave > 0)
+            {
+                $leave--;
+
+                $first = $in.text.indexOf($find, $second);
+                $first = $first + $find.length;
+
+                $second = $in.text.indexOf("\n", $first);
+                if ($second === $notFound) {
+                    $second = $first + $find.length;
+                    continue;
+                }
+
+                const $command = $in.text.substr($first, $second - $first);
+
+                let $id = $command.toLowerCase();
+                $id = _Replace(' ', '-', $id);
+                $id = ' id="' + $id + '"';
+
+                const $findThis = $find + $command + "\n"; // Yes we will find and remove the newline at the end on the line
+                const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' + $i + '>';
+                $modifiedText = $modifiedText.replace($findThis, $replaceWith);
+            }
+
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all headers',
+            'text': $modifiedText,
+            'what': $in.what
+        };
+    };
+
+    /**
+     * Convert all **bold text** to [b]bold text[/b]
+     * @version 2019-08-14
+     * @since   2019-08-14
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleStyle');
+    var internal_HandleStyle = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        let $text = $in.text;
+
+        $text = _FindStyle({
+            'text': $text,
+            'find': '**',
+            'start_tag': '[b]',
+            'end_tag': '[/b]'
+        });
+
+        $text = _FindStyle({
+            'text': $text,
+            'find': '__',
+            'start_tag': '[u]',
+            'end_tag': '[/u]'
+        });
+
+        $text = _FindStyle({
+            'text': $text,
+            'find': '//',
+            'start_tag': '[i]',
+            'end_tag': '[/i]'
+        });
+
+        $text = _FindStyle({
+            'text': $text,
+            'find': '~~',
+            'start_tag': '[strike]',
+            'end_tag': '[/strike]'
+        });
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all styles in the text',
+            'text': $text,
+            'what': $in.what
+        };
+    };
+
+    /**
+     * Find the style and swap with start tag or end tag.
+     * @param $in
+     * @returns {string}
+     * @private
+     */
+    var _FindStyle = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'find': '**',
+            'start_tag': '[b]',
+            'end_tag': '[/b]'
+        };
+        $in = _Default($default, $in);
+
+        let $modifiedText = '';
+        let $parts = $in.text.split($in.find);
+        let $length = $parts.length;
+
+        for (let $i = 0; $i < $length; $i++)
+        {
+            $modifiedText = $modifiedText + $parts[$i];
+
+            if ($i === $length-1) {
+                continue; // We want no extra tag at the end of the text
+            }
+
+            let $tag = $in.start_tag;
+            if ($i % 2 === 1) {
+                $tag = $in.end_tag;
+            }
+
+            $modifiedText = $modifiedText + $tag;
+        }
+
+        return $modifiedText;
+    };
+
+
+    /**
+     * Find all lists and render them separately
+     * @version 2019-08-17
+     * @since   2019-08-17
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleLists');
+    var internal_HandleLists = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        let $modifiedText = $in.text,
+            $first = 0,
+            $second = 0,
+            $i = 0,
+            $leave = 40;
+
+        const $findFirst = "\n* ",
+            $findLast = "\n\n",
+            $tagPrefix = 'list_',
+            $notFound = -1;
+
+        while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave > 0)
+        {
+            $leave--;
+
+            $first = $in.text.indexOf($findFirst, $second);
+            $first = $first + $findFirst.length;
+
+            $second = $in.text.indexOf($findLast, $first);
+            if ($second === $notFound) {
+                $second = $first + $findFirst.length;
+                continue;
+            }
+
+            $i++;
+            const $tag = $tagPrefix + $i;
+
+            const $command = $in.text.substr($first, $second - $first);
+            const $findThis = "\n* " + $command + "\n";
+            const $replaceWith = '[' + $tag + ']';
+            $modifiedText = $modifiedText.replace($findThis, $replaceWith); // Yes we remove the newlines surrounding the list
+
+            const $listLabels = $command.split("\n* ");
+
+            let $option = [];
+            for (let $nr = 0; $nr < $listLabels.length; $nr++) {
+                $option.push({
+                    'label': $listLabels[$nr]
+                })
+            }
+
+            $in.what[$tag] = {
+                'type': 'common',
+                'subtype': 'list',
+                'class': 'list',
+                'option': $option
+            };
+
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all lists',
+            'text': $modifiedText,
+            'what': $in.what
+        };
+    };
+
+    /**
+     * Convert all **bold text** to [b]bold text[/b]
+     * @version 2019-08-14
+     * @since   2019-08-14
+     * @author  Peter Lembke
+     */
+    $functions.push('internal_HandleNewline');
+    var internal_HandleNewline = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'text': '',
+            'what': {}
+        };
+        $in = _Default($default, $in);
+
+        $in.text = _Replace("\n", '<br>', $in.text);
+
+        return {
+            'answer': 'true',
+            'message': 'Handled all newline',
+            'text': $in.text
+        };
+    };
+}
+//# sourceURL=infohub_renderdocument.js

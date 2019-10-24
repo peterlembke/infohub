@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_tools",
+    "title": "Tools",
+    "description": "List of tools. This is a useful demo.",
+    "uses": ["infohub_tools_menu", "infohub_rendermenu"]
+}

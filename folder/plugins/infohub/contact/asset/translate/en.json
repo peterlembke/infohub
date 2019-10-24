@@ -1,0 +1,91 @@
+{
+    "version": {
+        "date": "2019-10-19 20:33:44",
+        "plugin": "infohub_contact",
+        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "language": "en",
+        "country": "GB",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_contact": {
+            "Instructions": "Instructions",
+            "Use the menu.": "Use the menu."
+        },
+        "infohub_contact_client": {
+            "Refresh Clients": "Refresh Clients",
+            "Client Contacts": "Client Contacts",
+            "List all client contacts": "List all client contacts",
+            "New": "New",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Import": "Import",
+            "Export": "Export",
+            "Groups": "Groups",
+            "Pick groups for this client": "Pick groups for this client",
+            "One contact": "One contact",
+            "This is the data form for one contact": "This is the data form for one contact",
+            "Node": "Node",
+            "Your unique name of the client": "Your unique name of the client",
+            "Note": "Note",
+            "Any text you want": "Any text you want",
+            "Domain address": "Domain address",
+            "The domain address to your server": "The domain address to your server",
+            "User name": "User name",
+            "You get a Hub-UUID when you save (Leave blank)": "You get a Hub-UUID when you save (Leave blank)",
+            "Shared secret": "Shared secret",
+            "You will get a 2K random string when you save (Leave blank)": "You will get a 2K random string when you save (Leave blank)",
+            "Allowed plugins": "Allowed plugins",
+            "List with all plugin names you can send messages to on this node": "List with all plugin names you can send messages to on this node"
+        },
+        "infohub_contact_doc": {
+            "Documentation will render here": "Documentation will render here",
+            "Main Doc": "Main Doc",
+            "Client Doc": "Client Doc",
+            "Server Doc": "Server Doc",
+            "Group Doc": "Group Doc"
+        },
+        "infohub_contact_group": {
+            "Refresh groups": "Refresh groups",
+            "Group names": "Group names",
+            "New": "New",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Rights for one group": "Rights for one group",
+            "Group name": "Group name",
+            "Your note": "Your note",
+            "Select server plugins in this group": "Select server plugins in this group"
+        },
+        "infohub_contact_menu": {
+            "Contact manager": "Contact manager",
+            "Documentation": "Documentation",
+            "Group rights": "Group rights",
+            "Client contact": "Client contact",
+            "Server contact": "Server contact"
+        },
+        "infohub_contact_server": {
+            "Refresh": "Refresh",
+            "Server Contacts": "Server Contacts",
+            "List all server contacts": "List all server contacts",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Import": "Import",
+            "Export": "Export",
+            "Ping server": "Ping server",
+            "One contact": "One contact",
+            "This is the data form for one contact.": "This is the data form for one contact.",
+            "Node": "Node",
+            "Your unique node name": "Your unique node name",
+            "Note": "Note",
+            "Any text you want": "Any text you want",
+            "Domain address": "Domain address",
+            "The domain address to the remote server": "The domain address to the remote server",
+            "User name": "User name",
+            "Hub-UUID you got from the remote server": "Hub-UUID you got from the remote server",
+            "Shared secret": "Shared secret",
+            "2K random string you got from the remove server": "2K random string you got from the remove server",
+            "Allowed plugins": "Allowed plugins",
+            "List with all plugin names you can send messages to on this node": "List with all plugin names you can send messages to on this node"
+        }
+    }
+}

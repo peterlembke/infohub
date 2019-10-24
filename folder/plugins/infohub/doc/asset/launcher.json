@@ -1,0 +1,6 @@
+{
+  "plugin": "infohub_doc",
+  "title": "Doc",
+  "description": "Full documentation over Infohub and all plugins.",
+  "uses": ["infohub_doc_get", "infohub_doc_navigate", "infohub_doc_document", "infohub_doc_index", "infohub_doc_visited"]
+}

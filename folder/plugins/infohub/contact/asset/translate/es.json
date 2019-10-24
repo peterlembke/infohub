@@ -1,0 +1,91 @@
+{
+    "version": {
+        "date": "2019-10-19 20:33:44",
+        "plugin": "infohub_contact",
+        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "language": "es",
+        "country": "ES",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_contact": {
+            "Instructions": "Instrucciones",
+            "Use the menu.": "Usa el menú"
+        },
+        "infohub_contact_client": {
+            "Refresh Clients": "Actualizar clientes",
+            "Client Contacts": "Contactos del cliente",
+            "List all client contacts": "Listar todos los contactos del cliente",
+            "New": "Nuevo",
+            "Save": "Guardar",
+            "Delete": "Eliminar",
+            "Import": "Importar",
+            "Export": "Exportar",
+            "Groups": "Grupos",
+            "Pick groups for this client": "Seleccionar grupos para este cliente",
+            "One contact": "Un contacto",
+            "This is the data form for one contact": "Este es el formulario de datos para un contacto",
+            "Node": "Nodo",
+            "Your unique name of the client": "Su nombre único del cliente",
+            "Note": "Nota",
+            "Any text you want": "Cualquier texto que desee",
+            "Domain address": "Dirección de dominio",
+            "The domain address to your server": "La dirección de dominio a su servidor",
+            "User name": "Nombre de usuario",
+            "You get a Hub-UUID when you save (Leave blank)": "Obtiene un Hub-UUID cuando guarda (Dejar en blanco)",
+            "Shared secret": "Secreto compartido",
+            "You will get a 2K random string when you save (Leave blank)": "Obtendrá una cadena aleatoria de 2K cuando guarde (deje en blanco)",
+            "Allowed plugins": "Complementos permitidos",
+            "List with all plugin names you can send messages to on this node": "Lista con todos los nombres de complementos a los que puede enviar mensajes en este nodo"
+        },
+        "infohub_contact_doc": {
+            "Documentation will render here": "La documentación se mostrará aquí",
+            "Main Doc": "Doc principal",
+            "Client Doc": "Doc del cliente",
+            "Server Doc": "Server Doc",
+            "Group Doc": "Doc. De grupo"
+        },
+        "infohub_contact_group": {
+            "Refresh groups": "Actualizar grupos",
+            "Group names": "Nombres de grupo",
+            "New": "Nuevo",
+            "Save": "Guardar",
+            "Delete": "Eliminar",
+            "Rights for one group": "Derechos para un grupo",
+            "Group name": "Nombre del grupo",
+            "Your note": "Su nota",
+            "Select server plugins in this group": "Seleccionar complementos de servidor en este grupo"
+        },
+        "infohub_contact_menu": {
+            "Contact manager": "Administrador de contactos",
+            "Documentation": "Documentación",
+            "Group rights": "Derechos de grupo",
+            "Client contact": "Contacto del cliente",
+            "Server contact": "Contacto del servidor"
+        },
+        "infohub_contact_server": {
+            "Refresh": "Actualizar",
+            "Server Contacts": "Contactos del servidor",
+            "List all server contacts": "Listar todos los contactos del servidor",
+            "Save": "Guardar",
+            "Delete": "Eliminar",
+            "Import": "Importar",
+            "Export": "Exportar",
+            "Ping server": "servidor de ping",
+            "One contact": "Un contacto",
+            "This is the data form for one contact.": "Este es el formulario de datos para un contacto",
+            "Node": "Nodo",
+            "Your unique node name": "Su nombre de nodo único",
+            "Note": "Nota",
+            "Any text you want": "Cualquier texto que desee",
+            "Domain address": "Dirección de dominio",
+            "The domain address to the remote server": "La dirección de dominio del servidor remoto",
+            "User name": "Nombre de usuario",
+            "Hub-UUID you got from the remote server": "Hub-UUID que obtuvo del servidor remoto",
+            "Shared secret": "Secreto compartido",
+            "2K random string you got from the remove server": "cadena aleatoria 2K que obtuvo del servidor de eliminación",
+            "Allowed plugins": "Complementos permitidos",
+            "List with all plugin names you can send messages to on this node": "Lista con todos los nombres de complementos a los que puede enviar mensajes en este nodo"
+        }
+    }
+}

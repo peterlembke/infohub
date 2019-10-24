@@ -1,0 +1,19 @@
+{
+    "publisher_name": "The Noun project",
+    "publisher_url": "https://thenounproject.com",
+    "publisher_note": "Millions of community created icons.",
+    "publisher_video_url": "https://www.youtube.com/user/TheNounProject",
+    "collection_name": "Web Hosting Glyph Concept Icons Collection",
+    "collection_url": "https://thenounproject.com/vectorsmarket/collection/web-hosting-glyph-concept-icons/",
+    "collection_note": "",
+    "license_name": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "license_note": "The Attribution License allows users to use the Icon for free through the Services, as long as they attribute it to the author.",
+    "author_name": "Vectors Market",
+    "author_url": "https://thenounproject.com/vectorsmarket/",
+    "author_note": "We are a passionate team of thinkers specialized in creating digital products. The fun part is that we really love our job.",
+    "icon_name": "Debug",
+    "icon_url": "https://thenounproject.com/search/?q=debug&i=1460994",
+    "icon_note": "Insect in a window",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

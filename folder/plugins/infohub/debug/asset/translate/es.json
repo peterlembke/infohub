@@ -1,0 +1,18 @@
+{
+    "version": {
+        "date": "2019-10-19 20:41:38",
+        "plugin": "infohub_debug",
+        "data_checksum": "51ed009a608acac9310f7310e7a1781e",
+        "language": "es",
+        "country": "ES",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_debug": {
+            "Reload page. shift alt ctrl 1": "Recargar página. Shift alt ctrl 1",
+            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Limpia los complementos antiguos marcados por el servidor. Recarga la página. Shift alt ctrl 2",
+            "Clean out all local plugins, reload page. shift alt ctrl 3": "Limpia todos los complementos locales, vuelve a cargar la página. Shift alt ctrl 3",
+            "Clean out all local data, reload page. shift alt ctrl 4": "Limpia todos los datos locales, vuelve a cargar la página. Shift alt ctrl 4"
+        }
+    }
+}

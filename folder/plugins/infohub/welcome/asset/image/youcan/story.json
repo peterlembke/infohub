@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/photo-license/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "rawpixel.com",
+    "author_url": "https://www.pexels.com/@rawpixel",
+    "author_note": "Visit rawpixel.com for more free images, PSD mockups and vectors.",
+    "icon_name": "Story",
+    "icon_url": "https://www.pexels.com/photo/white-printer-paper-besides-macbook-pro-on-table-1345089/",
+    "icon_note": "Write your own story with text, images, graphs etc.",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

@@ -1,0 +1,6 @@
+{
+    "client": {
+        "client_cache_lifetime": 604800
+    },
+    "server": {}
+}

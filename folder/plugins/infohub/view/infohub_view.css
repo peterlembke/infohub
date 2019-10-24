@@ -1,0 +1,46 @@
+/*
+    The css for the infohub_view
+    @version 2019-08-03
+    @since 2013-11-26
+    @author Peter Lembke
+*/
+
+.data {
+    width:auto;
+    width: 100%;
+    box-sizing: border-box;
+    word-break: break-all;
+    /* border: 3px solid red; */
+}
+
+.side {
+    /*float: left;*/
+    /*display: inline-flex;
+    flex-wrap: wrap;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;*/
+    display: inline-block;
+    word-break: break-all;
+    vertical-align: top;
+    /* border: 3px solid green; */
+}
+
+.under {
+    /*
+    float: none;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+    */
+    display: block;
+    word-break: break-all;
+    /* border: 3px solid blue; */
+}
+
+.end {
+    clear: left;
+    display: none;
+    width:0;
+    height:0;
+}

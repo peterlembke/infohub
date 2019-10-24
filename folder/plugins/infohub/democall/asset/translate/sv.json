@@ -1,0 +1,31 @@
+{
+    "version": {
+        "date": "2019-10-19 21:05:59",
+        "plugin": "infohub_democall",
+        "data_checksum": "2fd9d11a1a29469ed07db938aadc4db3",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_democall": {
+            "Instructions": "Instruktioner",
+            "Use the menu.": "Använd menyn.",
+            "Result": "Resultat"
+        },
+        "infohub_democall_menu": {
+            "Demo Call": "Demo - anrop",
+            "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]": "[i] Här kan du undersöka vad som händer om du ringer ett plugin som saknas eller en saknad funktion. [/i]",
+            "Client - Correct call. Plugin and function exist": "Klient - Rätt anrop. Plugin och funktion finns",
+            "Client - Plugin exist, cmd function do not exist": "Klient - Plugin finns, cmd-funktion finns inte",
+            "Client - Plugin is missing": "Klient - Plugin saknas",
+            "Server - Correct call. Plugin and function exist": "Server - Rätt anrop. Plugin och funktion finns",
+            "Server - Plugin exist, cmd function do not exist": "Server - Plugin finns, cmd-funktion finns inte",
+            "Server - Plugin is missing": "Server - Plugin saknas",
+            "Client - Child talk to valid responders": "Klient - Barns prat med giltiga svarare",
+            "Client - Invalid call to sibling child": "Klient - Ogiltigt anrop till syskonbarnet",
+            "Client - Invalid call from child to parent": "Klient - Ogiltigt anrop från barn till förälder",
+            "Server - Run all server tests": "Server - Kör alla servertester"
+        }
+    }
+}

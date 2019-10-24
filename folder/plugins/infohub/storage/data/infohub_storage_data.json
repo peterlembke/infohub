@@ -1,0 +1,28 @@
+{
+    "client": {
+        "plugin_name_handler": "infohub_storage_data_idbkeyval",
+        "plugin_name_owner": "",
+        "used_for": "all",
+        "not_used_for": "",
+        "db_type": "idbkeyval",
+        "db_host": "127.0.0.1",
+        "db_port": "3306",
+        "db_user": "infohubuser",
+        "db_password": "infohubpassword",
+        "db_name": "main",
+        "path": "infohub_storagemanager\/config"
+    },
+    "server": {
+        "plugin_name_handler": "infohub_storage_data_sqlite",
+        "plugin_name_owner": "",
+        "used_for": "all",
+        "not_used_for": "",
+        "db_type": "sqlite",
+        "db_host": "127.0.0.1",
+        "db_port": "3306",
+        "db_user": "infohubuser",
+        "db_password": "infohubpassword",
+        "db_name": "main",
+        "path": "infohub_storagemanager\/config"
+    }
+}

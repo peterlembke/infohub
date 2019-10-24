@@ -1,0 +1,93 @@
+{
+    "version": {
+        "date": "2019-10-19 16:20:40",
+        "plugin": "infohub_configlocal",
+        "data_checksum": "a5ef465a3a6938aa2e651e3d0ae244e7",
+        "language": "en",
+        "country": "GB",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_configlocal": {
+            "The menu will render here": "The menu will render here",
+            "Use the menu": "Use the menu"
+        },
+        "infohub_configlocal_allow": {
+            "Make things larger.": "Make things larger.",
+            "Make things smaller": "Make things smaller",
+            "Normal size (Size 1)": "Normal size (Size 1)",
+            "Size 2": "Size 2",
+            "Size 3": "Size 3",
+            "Size 4": "Size 4",
+            "Max size (Size 5)": "Max size (Size 5)"
+        },
+        "infohub_configlocal_colour": {
+            "Colours": "Colours",
+            "Colour schema": "Colour schema",
+            "Here you can modify the colour schema.": "Here you can modify the colour schema.",
+            "Background": "Background",
+            "Background colour.": "Background colour.",
+            "Text": "Text",
+            "Text colour.": "Text colour.",
+            "Button text": "Button text",
+            "Button text colour.": "Button text colour.",
+            "Button background 1": "Button background 1",
+            "Button background gradient upper.": "Button background gradient upper.",
+            "Button background 2": "Button background 2",
+            "Button background gradient lower.": "Button background gradient lower.",
+            "Borders": "Borders",
+            "Name": "Name",
+            "Name of this colour schema": "Name of this colour schema",
+            "Write a name": "Write a name",
+            "Save colour schema": "Save colour schema",
+            "Delete colour schema": "Delete colour schema"
+        },
+        "infohub_configlocal_debug": {
+            "debug level": "debug level",
+            "Make things larger.": "Make things larger.",
+            "Make things smaller": "Make things smaller",
+            "Normal size (Size 1)": "Normal size (Size 1)",
+            "Size 2": "Size 2",
+            "Size 4": "Size 4",
+            "Max size (Size 5)": "Max size (Size 5)"
+        },
+        "infohub_configlocal_font": {
+            "Global font settings": "Global font settings",
+            "Here you can fine tune how all text should be displayed": "Here you can fine tune how all text should be displayed",
+            "Font weight": "Font weight",
+            "How bold do you want the text. Default 400": "How bold do you want the text. Default 400",
+            "Font size": "Font size",
+            "How large letters do you want. Default 16px": "How large letters do you want. Default 16px",
+            "Letter spacing": "Letter spacing",
+            "The space between the letters. Default 0px": "The space between the letters. Default 0px",
+            "Test": "Test",
+            "Save": "Save"
+        },
+        "infohub_configlocal_language": {
+            "Language": "Language",
+            "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.",
+            "Select a language": "Select a language",
+            "Select a language you can speak and click on Transfer": "Select a language you can speak and click on Transfer",
+            "Transfer": "Transfer",
+            "Language codes": "Language codes",
+            "Language codes you prefer. Comma separate them. I prefer: sv,en": "Language codes you prefer. Comma separate them. I prefer: sv,en",
+            "Save": "Save"
+        },
+        "infohub_configlocal_menu": {
+            "Configuration - Local on this device": "Configuration - Local on this device",
+            "Zoom level": "Zoom level",
+            "Language preferred": "Language preferred",
+            "Colour schema": "Colour schema",
+            "Font settings": "Font settings",
+            "Allow things": "Allow things",
+            "For developers": "For developers"
+        },
+        "infohub_configlocal_zoom": {
+            "Zoom settings": "Zoom settings",
+            "Use this zoom if you have no keyboard.  CTRL + or CTRL -": "Use this zoom if you have no keyboard.  CTRL + or CTRL -",
+            "+": "+",
+            "-": "-",
+            "Normal 100%": "Normal 100%"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Pexels License",
+    "license_url": "https://www.pexels.com/photo-license/",
+    "license_note": "Free for personal and commercial use. No attribution required",
+    "author_name": "Daniel Watson",
+    "author_url": "https://www.pexels.com/@daniel-watson-90038",
+    "author_note": "",
+    "icon_name": "Tree",
+    "icon_url": "https://www.pexels.com/photo/gray-trunk-green-leaf-tree-beside-body-of-water-762679/",
+    "icon_note": "Gray trunk green leaf tree beside body of water",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

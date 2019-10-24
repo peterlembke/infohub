@@ -1,0 +1,31 @@
+Compresion
+
+# Javascript
+
+## LZW encode/decode
+https://gist.github.com/revolunet/843889
+http://rosettacode.org/wiki/LZW_compression
+
+http://www.marklomas.net/ch-egg/articles/lzwjs.htm
+
+https://webdevwonders.com/lzw-compression-and-decompression-with-javascript-and-php/
+http://rosettacode.org/wiki/LZW_compression#JavaScript
+http://rosettacode.org/wiki/LZW_compression#PHP
+
+## LZ string  The best alternative for Javascript but not for PHP
+http://pieroxy.net/blog/pages/lz-string/index.html
+https://github.com/pieroxy/lz-string/releases
+https://chrome.google.com/webstore/detail/lzipped-local-storage/beicplgjaeliclenmidelkloajghllll
+https://github.com/kriserickson/lz-localstorage-chrome-extension
+
+PHP
+https://github.com/nullpunkt/lz-string-php
+
+## Zlib
+https://github.com/nodeca/pako
+http://nodeca.github.io/pako/
+
+## Huffman - PHP & JS
+https://code.kuederle.com/huffman/
+https://en.wikipedia.org/wiki/Huffman_coding
+

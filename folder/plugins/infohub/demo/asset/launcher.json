@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_demo",
+    "title": "Demo",
+    "description": "Demos what you can do with InfoHub.",
+    "uses": ["infohub_demo_menu", "infohub_rendermenu"]
+}

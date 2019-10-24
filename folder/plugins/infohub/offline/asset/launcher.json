@@ -1,0 +1,5 @@
+{
+    "plugin": "infohub_offline",
+    "title": "Offline",
+    "description": "Here you can prepare for offline. Also handle offline/online event subscribers."
+}

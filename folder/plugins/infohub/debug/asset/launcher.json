@@ -1,0 +1,5 @@
+{
+    "plugin": "infohub_debug",
+    "title": "Debug",
+    "description": "Tool for developers and testers."
+}

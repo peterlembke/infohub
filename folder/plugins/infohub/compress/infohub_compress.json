@@ -1,0 +1,8 @@
+{
+    "server": {
+        "log": {
+            "compress": "",
+            "internal_CompressGzip": ""
+        }
+    }
+}

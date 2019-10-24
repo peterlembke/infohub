@@ -1,0 +1,476 @@
+/**
+ * infohub_render_map.js render map html
+ * @category InfoHub
+ * @package render_html5
+ * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
+ * @author Peter Lembke <peter.lembke@infohub.se>
+ * @link https://infohub.se/ InfoHub main page
+ * @license InfoHub is distributed under the terms of the GNU General Public License
+ * InfoHub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * InfoHub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ */
+function infohub_render_map() {
+
+    // include "infohub_base.js"
+
+    // ***********************************************************
+    // * your private class variables below, only declare with var
+    // ***********************************************************
+
+    var _Version = function() {
+        return {
+            'date': '2017-02-18',
+            'since': '2014-11-01',
+            'version': '1.0.0',
+            'checksum': '{{checksum}}',
+            'class_name': 'infohub_render_map',
+            'note': 'Render HTML for a map from OpenStreetMap, Google Maps, GPSies',
+            'status': 'normal',
+            'license_name': 'GNU GPL 3 or later'
+        };
+    };
+
+    var _GetCmdFunctions = function() {
+        return {
+            'create': 'normal'
+        };
+    };
+
+    // ***********************************************************
+    // * The private functions, add your own in your plugin
+    // * These functions can be used directly in your functions.
+    // * Name: _CamelCaseData
+    // ***********************************************************
+
+    /**
+     * Internal functions must start with a capital letter
+     * Used by renderers to get a proper function name
+     * @version 2016-10-16
+     * @since   2016-10-16
+     * @author  Peter Lembke
+     * @param $text
+     * @return string
+     */
+    var _GetFuncName = function($text)
+    {
+        "use strict";
+
+        let $response = '';
+
+        const $parts = $text.split('_');
+
+        for (let $key in $parts) {
+            if ($parts.hasOwnProperty($key) === false) {
+                continue;
+            }
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+        }
+
+        return $response;
+    };
+
+    /**
+     * Get the html parameters: id, name, class
+     * @version 2017-02-24
+     * @since 2017-02-22
+     * @param $in
+     * @returns {string}
+     * @private
+     */
+    var _GetId = function ($in)
+    {
+        "use strict";
+
+        let $parameter = [];
+
+        const $default = {
+            'id': '',
+            'name': '',
+            'class': ''
+        };
+        $in = _Default($default, $in);
+
+        if ($in.id !== '') {
+            const $id = 'id="{box_id}_' + $in.id + '"';
+            $parameter.push($id);
+        }
+
+        if ($in.name !== '') {
+            const $name = 'name="' + $in.name + '"';
+            $parameter.push($name);
+        }
+
+        if ($in.class !== '') {
+            let $class = $in.class;
+            if ($class.charAt(0) == parseInt($class.charAt(0))) {
+                $class = 'a' + $class;
+            }
+            $class = 'class="' + $class + '" ';
+            $parameter.push($class);
+        }
+
+        return $parameter.join(' ');
+    };
+
+    var _AddOverlay = function ($html, $alias)
+    {
+        "use strict";
+
+        const $id = '{box_id}_' + $alias,
+            $command = 'document.getElementById(\''+ $id +'\').style.pointerEvents=',
+            $on = "'auto'",
+            $off = "''",
+            $onclick = 'onclick="' + $command + $on + '"',
+            $tab = 'tabindex="-1" ',
+            $padlockCharacter = 'Lock', // "\uD83D\uDD12",
+            $lock = '<a href="javascript:void(0)" '+ 'onclick="' + $command + $off +'">' + $padlockCharacter + '</a>';
+
+        $html = '<div class="map_overlay" ' + $tab + $onclick + '>' + $html + '</div>' + $lock;
+
+        return $html;
+    };
+
+    // *****************************************************************************
+    // * Functions you only can reach with CMD()
+    // * Observe function names are lower_case
+    // *****************************************************************************
+
+    /**
+     * Get instructions and create the message to InfoHub View
+     * @version 2013-04-15
+     * @since   2013-04-15
+     * @author  Peter Lembke
+     */
+    $functions.push("create"); // Enable this function
+    var create = function ($in)
+    {
+        "use strict";
+
+        if (_IsSet($in.subtype) === 'false') {
+            $in.subtype = 'openstreetmap';
+        }
+
+        $in.func = _GetFuncName($in.subtype);
+        let $response = internal_Cmd($in);
+
+        const $default = {
+            'answer': 'false',
+            'message': '',
+            'html': '',
+            'css_data': {}
+        };
+        $response = _Default($default, $response);
+
+        return {
+            'answer': $response.answer,
+            'message': $response.message,
+            'html': $response.html,
+            'css_data': $response.css_data
+        };
+    };
+
+    // *****************************************************************************
+    // * Internal function that you only can reach from internal_Cmd
+    // *****************************************************************************
+
+    /**
+     * Create HTML for Openstreetmap
+     * @version 2014-03-08
+     * @since   2014-03-08
+     * @author  Peter Lembke
+     */
+    var internal_Openstreetmap = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'openstreetmap',
+            'alias': '',
+            'class': 'map',
+            'point_latitude': '59.294597',
+            'point_longitude': '18.156281',
+            'zoom': '12',
+            'marker': 'true'
+        };
+        $in = _Default($default, $in);
+
+        let $marker = '';
+        if ($in.marker === 'true') {
+            $marker='&amp;marker=' + $in.point_latitude + '%2C' + $in.point_longitude;
+        }
+
+        const $zoomNumber = Math.pow(10, (2.0 - 5.0*parseFloat($in.zoom)/15.0)); // 100 = world, 10 = europa, 1 = Stockholm/Linköping, 0.1 = Stockholm+Surbubs, 0.01 = Part of town, 0.001 = Almost max
+
+        let $p = {
+            lat1: parseFloat($in.point_latitude) - $zoomNumber * 0.57,
+            long1: parseFloat($in.point_longitude) - $zoomNumber * 2.2,
+            lat2: parseFloat($in.point_latitude) + $zoomNumber * 0.57,
+            long2: parseFloat($in.point_longitude) + $zoomNumber * 2.2
+        };
+        $p = $p.long1 + '%2C' + $p.lat1 + '%2C' + $p.long2 + '%2C' + $p.lat2;
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        let $html = '<iframe sandbox="allow-scripts" ' + $id + ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + $p + '&amp;layer=mapnik' + $marker + '" style="border: 1px solid black"></iframe>';
+
+        $html = _AddOverlay($html, $in.alias);
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for an Openstreetmap map',
+            'html': $html,
+            'css_data': {
+                '.map_overlay iframe': 'pointer-events: none;'
+            }
+        };
+    };
+
+    /**
+     * Create HTML for Openstreetmaplink
+     * @version 2016-11-03
+     * @since   2016-11-03
+     * @author  Peter Lembke
+     */
+    var internal_Openstreetmaplink = function ($in)
+    {
+        "use strict";
+
+        let $cssData = {};
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'openstreetmaplink',
+            'alias': '',
+            'class': 'right',
+            'point_latitude': '59.294597',
+            'point_longitude': '18.156281',
+            'label': 'New tab'
+        };
+        $in = _Default($default, $in);
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+
+        const $html = '<div ' + $id + '><a href="https://www.openstreetmap.org/?mlat=' + $in.point_latitude + '&amp;mlon=' + $in.point_longitude + '#map=7/' + $in.point_latitude + '/' + $in.point_longitude + '" target="_blank">' + $in.label + '</a></div>';
+
+        if ($in.class === 'right') {
+            $cssData = {
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+            };
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for an Openstreetmap link to a new tab',
+            'html': $html,
+            'css_data': $cssData
+        };
+    };
+
+    /**
+     * Create HTML for Googlemaps
+     * @version 2014-03-08
+     * @since   2014-03-08
+     * @author  Peter Lembke
+     */
+    var internal_Googlemaps = function ($in)
+    {
+        "use strict";
+
+        let $html = '';
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'googlemaps',
+            'alias': '',
+            'class': 'map',
+            'data': '',
+            'point_latitude': '59.294597',
+            'point_longitude': '18.156281',
+            'zoom': '12',
+            'marker': 'true',
+            'height': '350'
+        };
+        $in = _Default($default, $in);
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $parameters = ' sandbox="allow-scripts allow-same-origin" width="100%" height="'+$in.height+'" frameborder="0"  scrolling="no" marginwidth="0" marginheight="0"';
+
+        if ($in.data === '') {
+            $html = '<iframe ' + $id + $parameters + ' src="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;output=embed&amp;iwloc=near"></iframe>';
+        } else {
+            $html = '<iframe ' + $id + $parameters + ' src="https://mapsengine.google.com/map/embed?mid=' + $in.data + '"></iframe>';
+        }
+
+        $html = _AddOverlay($html, $in.alias);
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a Google maps',
+            'html': $html,
+            'css_data': {
+                '.map_overlay iframe': 'pointer-events: none;'
+            }
+        };
+    };
+
+    /**
+     * Create HTML for Googlemapslink
+     * @version 2016-11-03
+     * @since   2016-11-03
+     * @author  Peter Lembke
+     */
+    var internal_Googlemapslink = function ($in)
+    {
+        "use strict";
+
+        var $html = '', $cssData = {};
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'googlemapslink',
+            'alias': '',
+            'class': 'right',
+            'data': '',
+            'point_latitude': '59.294597',
+            'point_longitude': '18.156281',
+            'label': 'New tab'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.data === '') {
+            $html = '<a href="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;source=embed" target="_blank">' + $in.label + '</a>';
+        } else {
+            $html = '<a href="https://mapsengine.google.com/map/embed?mid=' + $in.data + '" target="_blank">' + $in.label + '</a>';
+        }
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        $html = '<div ' + $id + '>' + $html + '</div>';
+
+        if ($in.class === 'right') {
+            $cssData = {
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+            };
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a Googlemaps link to a new tab',
+            'html': $html,
+            'css_data': $cssData
+        };
+    };
+
+    /**
+     * Create HTML for Bingmaps
+     * @version 2018-04-14
+     * @since   2018-04-14
+     * @author  Peter Lembke
+     */
+    var internal_Bingmaps = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'bingmaps',
+            'alias': '',
+            'class': 'map',
+            'point_latitude': '59.32652908731827',
+            'point_longitude': '18.070166899475115',
+            'zoom': '14', // 1 world, 2=half world, 5 country, 10 city, 16 street
+            'height': '500',
+            'width': '500',
+            'static_map': 'false', // typ=s (static image) or typ=d (dynamic with pan and zoom)
+            'map_style': 'street' // areal_labels, areal, street (always labels)
+        };
+        $in = _Default($default, $in);
+
+        let $typ = 'd'; // Dynamic map with pan and zoom
+        if ($in.static_map === 'true') {
+            $typ = 's';
+        }
+
+        const $mapStyle = {
+            'areal_labels': 'd',
+            'areal': 'a',
+            'street': 'r'
+        };
+
+        let $sty = $mapStyle.street;
+        if (_IsSet($mapStyle[$in.map_style]) === 'true') {
+            $sty = $mapStyle[$in.map_style];
+        }
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $parameters = ' sandbox="allow-scripts" width="100%" height="' + $in.height + '" frameborder="0"  scrolling="no" marginwidth="0"';
+        const $url = 'https://www.bing.com/maps/embed?';
+
+        const $getParams = 'h=' + $in.height + '&w=' + $in.width + '&cp=' + $in.point_latitude + '~' + $in.point_longitude + '&lvl=' + $in.zoom + '&typ=' + $typ + '&sty=' + $sty;
+
+        let $html = '<iframe ' + $id + $parameters + ' src="'+ $url + $getParams + '&src=SHELL&FORM=MBEDV8"></iframe>';
+
+        $html = _AddOverlay($html, $in.alias);
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a Bing map',
+            'html': $html,
+            'css_data': {
+                '.map_overlay iframe': 'pointer-events: none;'
+            }
+        };
+    };
+
+    /**
+     * Create HTML for Bingmapslink
+     * @version 2018-04-14
+     * @since   2018-04-14
+     * @author  Peter Lembke
+     */
+    var internal_Bingmapslink = function ($in)
+    {
+        "use strict";
+
+        var $cssData = {};
+
+        const $default = {
+            'type': 'map',
+            'subtype': 'bingmapslink',
+            'alias': '',
+            'class': 'right',
+            'data': '',
+            'point_latitude': '59.294597',
+            'point_longitude': '18.156281',
+            'label': 'New tab'
+        };
+        $in = _Default($default, $in);
+
+        let $html = '<a href="https://www.bing.com/maps?cp=' + $in.point_latitude + '~' + $in.point_longitude + '&sty=r&lvl=16&FORM=MBEDLD" target="_blank">' + $in.label + '</a>';
+
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        $html = '<div ' + $id + '>' + $html + '</div>';
+
+        if ($in.class === 'right') {
+            $cssData = {
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+            };
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a Bingmaps link to a new tab',
+            'html': $html,
+            'css_data': $cssData
+        };
+    };
+
+}
+//# sourceURL=infohub_render_map.js

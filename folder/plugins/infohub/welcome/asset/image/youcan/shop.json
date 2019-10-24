@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/creative-commons-images/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "Pixabay",
+    "author_url": "https://www.pexels.com/@pixabay",
+    "author_note": "",
+    "icon_name": "Shop",
+    "icon_url": "https://www.pexels.com/photo/close-up-of-row-325876/",
+    "icon_note": "Suits for sale",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

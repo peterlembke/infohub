@@ -1,0 +1,96 @@
+{
+    "client": {
+        "client_call": {
+            "to": {
+                "node": "client",
+                "plugin": "infohub_compress",
+                "function": "compress"
+            },
+            "data": {
+                "compression_method": "gzip",
+                "uncompressed_data": "hello"
+            },
+            "data_back": {}
+        },
+        "server_call": {
+            "to": {
+                "node": "server",
+                "plugin": "infohub_compress",
+                "function": "compress"
+            },
+            "data": {
+                "compression_method": "gzip",
+                "uncompressed_data": "hello"
+            },
+            "data_back": {}
+        },
+        "client_gui_simple": {
+            "to": {
+                "node": "client",
+                "plugin": "infohub_render",
+                "function": "create"
+            },
+            "data": {
+                "what": {
+                    "form_demo": {
+                        "plugin": "infohub_renderform",
+                        "type": "form",
+                        "content": "[select_demo]<br>[text_demo]",
+                        "label": "Select a demo",
+                        "description": "Select a row in te dropdown and see a text"
+                    },
+                    "select_demo": {
+                        "plugin": "infohub_renderform",
+                        "type": "select",
+                        "label": "Select demo",
+                        "description": "Select a demo text",
+                        "size": "1",
+                        "multiple": "false",
+                        "options": [
+                            {
+                                "type": "option",
+                                "value": "one",
+                                "label": "One",
+                                "selected": "true"
+                            },
+                            {
+                                "type": "option",
+                                "value": "two",
+                                "label": "Two",
+                                "selected": "false"
+                            },
+                            {
+                                "type": "option",
+                                "value": "three",
+                                "label": "Three",
+                                "selected": "false"
+                            }
+                        ],
+                        "to_plugin": "infohub_tools",
+                        "to_function": "click",
+                        "event_data": "testcall|select_demo"
+                    },
+                    "text_demo": {
+                        "type": "form",
+                        "subtype": "text",
+                        "input_type": "text",
+                        "placeholder": "The demo text you selected",
+                        "class": "text",
+                        "css_data": {}
+                    }
+                },
+                "how": {
+                    "mode": "one box",
+                    "text": "[form_demo]"
+                },
+                "where": {
+                    "box_id": "main.body.infohub_tools.tools.[demo]",
+                    "max_width": 320,
+                    "scroll_to_box_id": "true"
+                }
+            },
+            "data_back": {}
+        }
+    },
+    "server": {}
+}

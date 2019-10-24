@@ -1,0 +1,19 @@
+{
+    "publisher_name": "The Noun project",
+    "publisher_url": "https://thenounproject.com",
+    "publisher_note": "Millions of community created icons.",
+    "publisher_video_url": "https://www.youtube.com/user/TheNounProject",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "license_note": "The Attribution License allows users to use the Icon for free through the Services, as long as they attribute it to the author.",
+    "author_name": "Stéphanie Rusch",
+    "author_url": "https://thenounproject.com/BeezkOt/",
+    "author_note": "Stéphanie Rusch",
+    "icon_name": "Online",
+    "icon_url": "https://thenounproject.com/BeezkOt/uploads/?i=90579",
+    "icon_note": "A WiFi symbol in a solid background circle",
+    "attribute": "{icon_name|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

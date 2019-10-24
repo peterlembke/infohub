@@ -1,0 +1,196 @@
+/*
+ Copyright (C) 2010- Peter Lembke, CharZam soft
+ the program is distributed under the terms of the GNU General Public License
+
+ InfoHub is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ InfoHub is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ */
+function infohub_welcome_menu() {
+
+// include "infohub_base.js"
+
+    // ***********************************************************
+    // * jshint.com options to suppress some warnings
+    // ***********************************************************
+
+    /*jshint evil:true */
+    /*jshint devel:true */
+    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+
+    // ***********************************************************
+    // * your private class variables below, only declare with var
+    // ***********************************************************
+
+    var _Version = function() {
+        return {
+            'date': '2018-09-09',
+            'version': '1.0.0',
+            'checksum': '{{checksum}}',
+            'class_name': 'infohub_welcome_menu',
+            'note': 'Render a menu for infohub_configlocal',
+            'status': 'normal',
+            'license_name': 'GNU GPL 3 or later'
+        };
+    };
+
+    var _GetCmdFunctions = function() {
+        return {
+            'create': 'normal'
+        };
+    };
+
+    /**
+     * Internal functions must start with a capital letter
+     * Used by renderers to get a proper function name
+     * @version 2016-10-16
+     * @since   2016-10-16
+     * @author  Peter Lembke
+     * @param $text
+     * @return string
+     */
+    var _GetFuncName = function($text) {
+        "use strict";
+        var $parts = [], $key, $response = '';
+        $parts = $text.split('_');
+        for ($key in $parts) {
+            if ($parts.hasOwnProperty($key) === false) {
+                continue;
+            }
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+        }
+        return $response;
+    };
+    
+    var $classTranslations = {};
+
+    /**
+     * Translate - Substitute a string for another string using a class local object
+     * @param {type} $string
+     * @returns string
+     */
+    $functions.push('_Translate');
+    var _Translate = function ($string) 
+    {
+        if (typeof $classTranslations !== 'object') { return $string; }
+        return _GetData({
+            'name': _GetClassName() + '|' + $string, 
+            'default': $string, 'data': $classTranslations, 'split': '|'
+        });
+    };
+
+    // ***********************************************************
+    // * your class functions below, only declare with var
+    // * Can only be reached trough cmd()
+    // ***********************************************************
+
+    /**
+     * Get instructions and create the message to InfoHub View
+     * @version 2016-10-16
+     * @since   2016-10-16
+     * @author  Peter Lembke
+     */
+    $functions.push('create');
+    var create = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'subtype': 'menu',
+            'parent_box_id': '',
+            'translations': {}
+        };
+        $in = _Default($default, $in);
+
+        $classTranslations = $in.translations;
+
+        $in.func = _GetFuncName($in.subtype);
+        var $response = internal_Cmd($in);
+
+        return {
+            'answer': $response.answer,
+            'message': $response.message,
+            'data': $response.data
+        };
+    };
+
+    /**
+     * Gives you a menu where you can click on a row to see a demo
+     * @param $in
+     * @returns {*}
+     */
+    $functions.push("internal_Menu");
+    var internal_Menu = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'subtype': 'menu',
+            'parent_box_id': ''
+        };
+        $in = _Default($default, $in);
+
+        const $data = {
+            'to': {
+                'node': 'client',
+                'plugin': 'infohub_render',
+                'function': 'create'
+            },
+            'data': {
+                'what': {
+                    'my_menu': {
+                        'plugin': 'infohub_rendermenu',
+                        'type': 'menu',
+                        'options': {
+                            'welcome': {
+                                'alias': 'welcome_link',
+                                'event_data': 'welcome',
+                                'button_label': _Translate('Welcome'),
+                                'to_plugin': 'infohub_welcome'
+                            },
+                            'you_can': {
+                                'alias': 'you_can_link',
+                                'event_data': 'youcan',
+                                'button_label': _Translate('You can do all this'),
+                                'to_plugin': 'infohub_welcome'
+                            },
+                            'tech': {
+                                'alias': 'tech_link',
+                                'event_data': 'tech',
+                                'button_label': _Translate('If you like tech'),
+                                'to_plugin': 'infohub_welcome'
+                            }
+                        }
+                    }
+                },
+                'how': {
+                    'mode': 'one box',
+                    'text': '[my_menu]'
+                },
+                'where': {
+                    'box_id': $in.parent_box_id + '.menu',
+                    'max_width': 320,
+                    'scroll_to_box_id': 'true'
+                }
+            },
+            'data_back': {'step': 'step_end'}
+        };
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the render data that will create a menu',
+            'data': $data
+        };
+    };
+
+}
+//# sourceURL=infohub_welcome_menu.js

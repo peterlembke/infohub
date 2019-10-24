@@ -1,0 +1,8 @@
+{
+    "server": {
+        "log": {
+            "calculate_checksum": "The function name you want to log as key. This data string can be left empty",
+            "internal_CalculateCrc32": "internal functions can only be logged if they are called with internal_Cmd."
+        }
+    }
+}

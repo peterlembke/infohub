@@ -1,0 +1,69 @@
+html {
+    box-sizing: border-box;
+}
+
+/*
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+*/
+
+body {
+    border:0;
+    padding:0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, ul {
+    margin: 2px 0 2px 0;
+}
+
+.sanity {
+    color:black;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;
+    font-size:14px;
+    padding:10px 10px 10px 60px;
+    margin:10px;
+    background-color:#fff8c4;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICBoZWlnaHQ9IjEwMCUiICAgd2lkdGg9IjEwMCUiICAgaWQ9InN2ZzEwIiAgIHZlcnNpb249IjEuMSIgICB5PSIwcHgiICAgeD0iMHB4IiAgIHZpZXdCb3g9IjAgMCA4OS45NjUzNDcgODAuNzU1MTE5IiAgIGRhdGEtbmFtZT0iTGF5ZXIgMSI+ICA8bWV0YWRhdGEgaWQ9Im1ldGFkYXRhMTYiPiAgICA8cmRmOlJERj4gICAgICA8Y2M6V29yayByZGY6YWJvdXQ9IiI+ICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4gICAgICAgIDxkYzp0eXBlIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+ICAgICAgICA8ZGM6dGl0bGU+MTwvZGM6dGl0bGU+ICAgICAgPC9jYzpXb3JrPiAgICA8L3JkZjpSREY+ICA8L21ldGFkYXRhPiAgPGRlZnMgaWQ9ImRlZnMxNCIgLz4gIDx0aXRsZSBpZD0idGl0bGUyIj4xPC90aXRsZT4gIDxwYXRoICAgICBpZD0icGF0aDQ1NDYiICAgICBkPSJtIDQxLjgyMzM3MSw1LjMxNjM3NjIgNy45NjM0MywwLjE0MTY3OSAzNS40NDUwMSw2MC43MTUyNDk4IHYgMCBsIC0yLjk0MjM3LDguODA4OTE0IEggNi41NDc5MTE0IGwgLTIuNzE0MzYsLTYuNjU3MzI1IHYgMCB6IiAgICAgc3R5bGU9ImZpbGw6I2ZmZmYwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIiAvPiAgPHBhdGggICAgIHN0eWxlPSJmaWxsOiNmZjAwMDAiICAgICBpZD0icGF0aDQiICAgICBkPSJtIDU0LjE2NzA2Myw1LjMwMzAzODIgYSAxMC42MDQ3NCwxMC42MDQ3NCAwIDAgMCAtMTguMzY4NzIsMCBMIDEuNDIwOTYzNCw2NC44NDYwNjggYSAxMC42MDYsMTAuNjA2IDAgMCAwIDkuMTg0Mzg5NiwxNS45MDkwNSBoIDY4Ljc1NDcgYSAxMC42MDYsMTAuNjA2IDAgMCAwIDkuMTg0MzMsLTE1LjkwOTA1IHogbSAyOS4xODE3LDY3LjE0OTUxOTggYSA0LjU1OTgxLDQuNTU5ODEgMCAwIDEgLTMuOTg4NzEsMi4zMDM0MSBoIC02OC43NTQ3IEEgNC42MDc2OSw0LjYwNzY5IDAgMCAxIDYuNjE1NjAzNCw2Ny44NDU2ODggTCA0MC45OTI5ODMsOC4zMDI2ODgyIGEgNC42MDcsNC42MDcgMCAwIDEgNy45Nzk0NCwwIGwgMzQuMzc3MzIsNTkuNTQyOTk5OCBhIDQuNTYxMjgsNC41NjEyOCAwIDAgMSAtOS44ZS00LDQuNjA2ODcgeiIgLz4gIDxwYXRoICAgICBpZD0icGF0aDYiICAgICBkPSJtIDQ0Ljk4MjQ5MywyMS4wNzA0MjggYyAtMi40MTAyOCwwIC00LjM0NTgzLDEuNTgxNTQgLTQuMjgxNDQsMy40OTgyOSBsIDEuMDU1MjQsMzEuMzgyODQgYyAwLjA0Njc1LDEuMzkwNjkgMS40Nzc0MiwyLjQ5ODc4IDMuMjI2MiwyLjQ5ODc4IDEuNzQ4NzgsMCAzLjE3OTQ0LC0xLjEwODEyIDMuMjI2MTgsLTIuNDk4NzggbCAxLjA1NTI0LC0zMS4zODI4MSBjIDAuMDY0NDYsLTEuOTE2NzggLTEuODcxMTQsLTMuNDk4MzIgLTQuMjgxNDIsLTMuNDk4MzIgeiIgLz4gIDxwYXRoICAgICBpZD0icGF0aDgiICAgICBkPSJtIDQ0Ljk4MjY3Myw2Mi43MTkxMDggYSAzLjE5OTU5LDMuMTk5NTkgMCAxIDAgMy4xOTk1OCwzLjE5OTU5IDMuMTk5NTYsMy4xOTk1NiAwIDAgMCAtMy4xOTk1OCwtMy4xOTk1OSB6IiAvPjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 50%;
+    background-size: 32px;
+    border:1px solid #f2c779;
+    display: none;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+/* To avoid mobile to zoom the input boxes */
+/* https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone */
+/*
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+*/

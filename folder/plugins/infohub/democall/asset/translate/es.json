@@ -1,0 +1,31 @@
+{
+    "version": {
+        "date": "2019-10-19 21:05:59",
+        "plugin": "infohub_democall",
+        "data_checksum": "2fd9d11a1a29469ed07db938aadc4db3",
+        "language": "es",
+        "country": "ES",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_democall": {
+            "Instructions": "Instrucciones",
+            "Use the menu.": "Usar el menú",
+            "Result": "Resultado"
+        },
+        "infohub_democall_menu": {
+            "Demo Call": "Llamada de demostración",
+            "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]": "[i] Aquí puede explorar qué sucede si llama a un complemento que falta o una función que falta. [/i]",
+            "Client - Correct call. Plugin and function exist": "Cliente: llamada correcta. El complemento y la función existen",
+            "Client - Plugin exist, cmd function do not exist": "Cliente: el complemento existe, la función cmd no existe",
+            "Client - Plugin is missing": "Cliente: falta el complemento",
+            "Server - Correct call. Plugin and function exist": "Servidor: llamada correcta. El complemento y la función existen",
+            "Server - Plugin exist, cmd function do not exist": "Servidor: el complemento existe, la función cmd no existe",
+            "Server - Plugin is missing": "Servidor: falta el complemento",
+            "Client - Child talk to valid responders": "Cliente - Niño habla con respondedores válidos",
+            "Client - Invalid call to sibling child": "Cliente - Llamada no válida al hermano menor",
+            "Client - Invalid call from child to parent": "Cliente: llamada no válida de hijo a padre",
+            "Server - Run all server tests": "Servidor: ejecutar todas las pruebas del servidor"
+        }
+    }
+}

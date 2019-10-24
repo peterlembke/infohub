@@ -1,0 +1,27 @@
+{
+    "version": {
+        "date": "2019-10-19 21:10:51",
+        "plugin": "infohub_doc",
+        "data_checksum": "01a94cfe595f7182dd0574670fe0e844",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_doc_document": {
+            "Document": "Dokument",
+            "Here you will see the document": "Här ser du dokumentet"
+        },
+        "infohub_doc_index": {
+            "Refresh index": "Uppdatera index",
+            "Index": "Index"
+        },
+        "infohub_doc_navigate": {
+            "Refresh navigate": "Uppdatera navigera",
+            "Navigation": "Navigering"
+        },
+        "infohub_doc_visited": {
+            "Refresh visited": "Uppdatera besökte"
+        }
+    }
+}

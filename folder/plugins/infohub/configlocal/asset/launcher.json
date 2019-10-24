@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_configlocal",
+    "title": "Config Local",
+    "description": "Configuration you want on this device",
+    "uses": ["infohub_configlocal_menu", "infohub_rendermenu"]
+}

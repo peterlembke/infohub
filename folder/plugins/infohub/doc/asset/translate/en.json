@@ -1,0 +1,27 @@
+{
+    "version": {
+        "date": "2019-10-19 21:10:51",
+        "plugin": "infohub_doc",
+        "data_checksum": "01a94cfe595f7182dd0574670fe0e844",
+        "language": "en",
+        "country": "GB",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_doc_document": {
+            "Document": "Document",
+            "Here you will see the document": "Here you will see the document"
+        },
+        "infohub_doc_index": {
+            "Refresh index": "Refresh index",
+            "Index": "Index"
+        },
+        "infohub_doc_navigate": {
+            "Refresh navigate": "Refresh navigate",
+            "Navigation": "Navigation"
+        },
+        "infohub_doc_visited": {
+            "Refresh visited": "Refresh visited"
+        }
+    }
+}

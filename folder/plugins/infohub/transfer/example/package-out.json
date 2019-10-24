@@ -1,0 +1,51 @@
+{
+  "to_node": "server",
+  "messages": [
+    {
+      "to": {
+        "node": "server",
+        "plugin": "infohub_launcher",
+        "function": "get_full_list"
+      },
+      "data": {
+        "list_checksum": "06116e36ba5d9136ed5ab217146b8c90"
+      },
+      "callstack": [
+        {
+          "to": {
+            "node": "client",
+            "plugin": "infohub_launcher",
+            "function": "event_message"
+          },
+          "data_back": {
+            "step": "step_end"
+          },
+          "data_request": []
+        },
+        {
+          "to": {
+            "node": "client",
+            "plugin": "infohub_launcher",
+            "function": "refresh_list"
+          },
+          "data_back": {
+            "list_name": "full_list",
+            "step": "step_update_full_list_response"
+          },
+          "data_request": []
+        },
+        {
+          "to": {
+            "node": "client",
+            "plugin": "infohub_launcher",
+            "function": "update_full_list"
+          },
+          "data_back": {
+            "step": "step_get_full_list_response"
+          },
+          "data_request": []
+        }
+      ]
+    }
+  ]
+}

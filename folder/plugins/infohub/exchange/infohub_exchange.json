@@ -1,0 +1,40 @@
+{
+    "client": {
+        "domain": {
+            "default": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "www.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "local.infohub.workbench": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "local.pi3.workbench": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "local.infohub.demo": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
+            },
+            "local.infohub.welcome": {
+                "node": "server",
+                "plugin": "infohub_random",
+                "function": "random"
+            }
+        }
+    },
+    "server": {}
+}

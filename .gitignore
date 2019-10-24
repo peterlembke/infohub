@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+folder/config/*
+folder/log/*
+folder/session/*
+folder/doc/old/*
+folder/db/*
+*-test-php.json
+*-test-js.json
+/nbproject/private/
+nbproject/*

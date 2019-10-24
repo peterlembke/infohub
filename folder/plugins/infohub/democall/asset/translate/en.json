@@ -1,0 +1,31 @@
+{
+    "version": {
+        "date": "2019-10-19 21:05:59",
+        "plugin": "infohub_democall",
+        "data_checksum": "2fd9d11a1a29469ed07db938aadc4db3",
+        "language": "en",
+        "country": "GB",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_democall": {
+            "Instructions": "Instructions",
+            "Use the menu.": "Use the menu.",
+            "Result": "Result"
+        },
+        "infohub_democall_menu": {
+            "Demo Call": "Demo Call",
+            "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]": "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]",
+            "Client - Correct call. Plugin and function exist": "Client - Correct call. Plugin and function exist",
+            "Client - Plugin exist, cmd function do not exist": "Client - Plugin exist, cmd function do not exist",
+            "Client - Plugin is missing": "Client - Plugin is missing",
+            "Server - Correct call. Plugin and function exist": "Server - Correct call. Plugin and function exist",
+            "Server - Plugin exist, cmd function do not exist": "Server - Plugin exist, cmd function do not exist",
+            "Server - Plugin is missing": "Server - Plugin is missing",
+            "Client - Child talk to valid responders": "Client - Child talk to valid responders",
+            "Client - Invalid call to sibling child": "Client - Invalid call to sibling child",
+            "Client - Invalid call from child to parent": "Client - Invalid call from child to parent",
+            "Server - Run all server tests": "Server - Run all server tests"
+        }
+    }
+}

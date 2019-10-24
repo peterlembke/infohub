@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/creative-commons-images/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "Kaboompics.com",
+    "author_url": "https://www.pexels.com/@kaboompics",
+    "author_note": "Visit my website & download more FREE PHOTOS",
+    "icon_name": "Calendar",
+    "icon_url": "https://www.pexels.com/photo/personal-organizer-and-pink-flowers-on-desk-6374/",
+    "icon_note": "Personal organizer and pink flowers on desk",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_translate",
+    "title": "Translate",
+    "description": "Create template files that you can translate",
+    "uses": ["infohub_language"]
+}
