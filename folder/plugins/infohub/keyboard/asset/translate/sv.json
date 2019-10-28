@@ -1,0 +1,20 @@
+{
+    "version": {
+        "date": "2019-10-26 22:34:56",
+        "plugin": "infohub_keyboard",
+        "data_checksum": "f13c6111e2bfef8463dff57c003485c6",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_keyboard": {
+            "Keyboard tests": "Tangentbordstester",
+            "Try combinations on your keyboard for SHIFT + CTRL + ALT and another key. The combination form a string above.": "Prova kombinationer på tangentbordet för SHIFT + CTRL + ALT och en annan tangent. Kombinationen bildar en sträng ovan.",
+            "Subscribe": "Prenumerera",
+            "Unsubscribe": "Avsluta prenumerationen",
+            "Show subscribers": "Visa prenumeranter",
+            "Keyboard Demo popup": "Demo koppla till popup"
+        }
+    }
+}

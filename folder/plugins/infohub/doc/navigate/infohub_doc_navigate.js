@@ -111,6 +111,7 @@ function infohub_doc_navigate() {
         const $default = {
             'box_id': '',
             'step': 'step_start',
+            'translations': {},
             'response': {
                 'answer': '',
                 'message': '',
@@ -122,6 +123,8 @@ function infohub_doc_navigate() {
 
         if ($in.step === 'step_start')
         {
+            $classTranslations = $in.translations;
+
             const $buttonLabel = _Translate('Refresh navigate');
             const $boxId = _GetBoxId('navigate');
 

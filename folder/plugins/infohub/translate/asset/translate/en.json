@@ -1,0 +1,45 @@
+{
+    "version": {
+        "date": "2019-10-26 23:53:04",
+        "plugin": "infohub_translate",
+        "data_checksum": "526acf83057600854b30e7a50d58628e",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_translate": {
+            "Instructions": "Instructions",
+            "Use the menu.": "Use the menu."
+        },
+        "infohub_translate_createfiles": {
+            "Create files": "Create files",
+            "Refresh lists": "Refresh lists",
+            "Select plugin": "Select plugin",
+            "Lists all client plugins that can have translation files. Select a plugin and click Create files.": "Lists all client plugins that can have translation files. Select a plugin and click Create files."
+        },
+        "infohub_translate_doc": {
+            "Documentation will render here": "Documentation will render here",
+            "Main Doc": "Main Doc",
+            "Create files Doc": "Create files Doc",
+            "Merge files Doc": "Merge files Doc",
+            "Update files Doc": "Update files Doc"
+        },
+        "infohub_translate_menu": {
+            "Translation tool": "Translation tool",
+            "Documentation": "Documentation",
+            "Create translation files": "Create translation files",
+            "Merge translation files": "Merge translation files",
+            "Update translation files": "Update translation files"
+        },
+        "infohub_translate_mergefiles": {
+            "Merge files": "Merge files",
+            "Merge the two files": "Merge the two files"
+        },
+        "infohub_translate_updatefiles": {
+            "If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.": "If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.",
+            "Update translation file": "Update translation file",
+            "Select file": "Select file"
+        }
+    }
+}

@@ -82,7 +82,8 @@ function infohub_demo_common() {
     var create = function ($in) 
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',

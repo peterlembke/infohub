@@ -330,7 +330,8 @@ function infohub_welcome() {
                         },
                         'data': {
                             'subtype': $in.event_data,
-                            'parent_box_id': $in.parent_box_id
+                            'parent_box_id': $in.parent_box_id,
+                            'translations': $classTranslations
                         },
                         'data_back': {
                             'step': 'step_start_response'

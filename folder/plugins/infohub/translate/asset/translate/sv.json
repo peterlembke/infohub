@@ -1,0 +1,45 @@
+{
+    "version": {
+        "date": "2019-10-26 23:53:04",
+        "plugin": "infohub_translate",
+        "data_checksum": "526acf83057600854b30e7a50d58628e",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_translate": {
+            "Instructions": "Instruktioner",
+            "Use the menu.": "Använd menyn."
+        },
+        "infohub_translate_createfiles": {
+            "Create files": "Skapa filer",
+            "Refresh lists": "Uppdatera listor",
+            "Select plugin": "Välj plugin",
+            "Lists all client plugins that can have translation files. Select a plugin and click Create files.": "Listar alla klientplugins som kan ha översättningsfiler. Välj ett plugin och klicka på Skapa filer."
+        },
+        "infohub_translate_doc": {
+            "Documentation will render here": "Dokumentation kommer att visas här",
+            "Main Doc": "Huvuddokument",
+            "Create files Doc": "Skapa filer Doc",
+            "Merge files Doc": "Slå samman filer Doc",
+            "Update files Doc": "Uppdatera filer Doc"
+        },
+        "infohub_translate_menu": {
+            "Translation tool": "Översättningsverktyg",
+            "Documentation": "Dokumentation",
+            "Create translation files": "Skapa översättningsfiler",
+            "Merge translation files": "Slå samman översättningsfiler",
+            "Update translation files": "Uppdatera översättningsfiler"
+        },
+        "infohub_translate_mergefiles": {
+            "Merge files": "Slå samman filer",
+            "Merge the two files": "Slå samman de två filerna"
+        },
+        "infohub_translate_updatefiles": {
+            "If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.": "Om du redan har en språkfil och vill lägga till de senaste fraserna använder du den här funktionen. Ladda upp filen. Skaffa de nya fraserna och ladda ner den uppdaterade filen.",
+            "Update translation file": "Uppdatera översättningsfilen",
+            "Select file": "Välj fil"
+        }
+    }
+}

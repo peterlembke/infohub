@@ -72,23 +72,17 @@ function infohub_translate_mergefiles() {
     var $classTranslations = {};
 
     /**
-     * Translate
-     * Substitute a string for another string using a class local object
+     * Translate - Substitute a string for another string using a class local object
      * @param {type} $string
      * @returns string
      */
     $functions.push('_Translate');
     var _Translate = function ($string)
     {
-        if (typeof $pluginTranslationsMerged !== 'object') {
-            return $string;
-        }
-
+        if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
-            'name': $string,
-            'default': $string,
-            'data': $pluginTranslationsMerged,
-            'split': '|'
+            'name': _GetClassName() + '|' + $string,
+            'default': $string, 'data': $classTranslations, 'split': '|'
         });
     };
 

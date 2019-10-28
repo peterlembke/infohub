@@ -38,9 +38,9 @@ function infohub_plugin() {
     $functions.push('_Version');
     var _Version = function() {
         return {
-            'date': '2015-02-12',
+            'date': '2019-10-27',
             'since': '2015-02-12',
-            'version': '1.0.0',
+            'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_plugin',
             'note': 'Used by infohub_exchange to handle plugin requests. Finds the plugin in local storage or requests it from the server, then starts the plugin',
@@ -50,7 +50,8 @@ function infohub_plugin() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    var _GetCmdFunctions = function()
+    {
         return {
             'plugin_request': 'normal',
             'plugin_start': 'normal',
@@ -74,27 +75,28 @@ function infohub_plugin() {
      * @param $in
      */
     $functions.push('plugin_request');
-    var plugin_request = function ($in) {
+    var plugin_request = function ($in)
+    {
         "use strict";
 
-        var $answer, $message,
-            $default = {
-                'plugin_name':'',
-                'step': 'plugin_request_from_cache',
-                'answer': 'false',
-                'message': '',
-                'data': {},
-                'found': '',
-                'old': '',
-                'plugins': {},
-                'start_plugin': 'true'
-            };
+        const $default = {
+            'plugin_name':'',
+            'step': 'plugin_request_from_cache',
+            'answer': 'false',
+            'message': '',
+            'data': {},
+            'found': '',
+            'old': '',
+            'plugins': {},
+            'start_plugin': 'true'
+        };
         $in = _Default($default,$in);
 
-        $answer = 'false';
-        $message = 'There was an error';
+        let $answer = 'false';
+        let $message = 'There was an error';
 
-        if ($in.step === 'plugin_request_from_cache') {
+        if ($in.step === 'plugin_request_from_cache')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -113,7 +115,8 @@ function infohub_plugin() {
             });
         }
 
-        if ($in.step === 'plugin_request_from_cache_response') {
+        if ($in.step === 'plugin_request_from_cache_response')
+        {
             $in.step = 'plugin_request_from_server';
             if ($in.found === 'true' && $in.old === 'false') {
                 $in = _ByVal($in.data);
@@ -122,12 +125,17 @@ function infohub_plugin() {
             }
         }
 
-        if ($in.step === 'plugin_request_from_server') {
-            var $missingPluginNames = [];
-
+        if ($in.step === 'plugin_request_from_server')
+        {
+            let $missingPluginNames = [];
             $missingPluginNames.push($in.plugin_name);
+
             return _SubCall({
-                'to': {'node': 'server', 'plugin': 'infohub_plugin', 'function': 'plugins_request'},
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_plugin',
+                    'function': 'plugins_request'
+                },
                 'data': {
                     'plugin_node': 'client',
                     'plugin_name': $in.plugin_name,
@@ -144,13 +152,16 @@ function infohub_plugin() {
         if ($in.step === 'plugin_request_from_server_response') {
             if (_Count($in.plugins) > 0) {
 
-                var $response, $plugin;
-                $response = _Pop($in.plugins);
-                $plugin = $response.data;
+                const $response = _Pop($in.plugins);
+                const $plugin = $response.data;
                 $in.plugins = $response.object;
 
                 return _SubCall({
-                    'to': {'node': 'client', 'plugin': 'infohub_cache', 'function': 'save_data_to_cache'},
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_cache',
+                        'function': 'save_data_to_cache'
+                    },
                     'data': {
                         'prefix': 'plugin',
                         'key': $plugin.plugin_name,
@@ -170,12 +181,21 @@ function infohub_plugin() {
             $in.step = 'step_start_plugin';
         }
 
-        if ($in.step === 'step_start_plugin') {
+        if ($in.step === 'step_start_plugin')
+        {
             $in.step = 'step_start_plugin_response';
-            if ($in.start_plugin !== 'false') {
+
+            if ($in.start_plugin !== 'false')
+            {
                 return _SubCall({
-                    'to': {'node': 'client', 'plugin': 'infohub_plugin', 'function': 'plugin_start'},
-                    'data': {'plugin_name': $in.plugin_name},
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_plugin',
+                        'function': 'plugin_start'
+                    },
+                    'data': {
+                        'plugin_name': $in.plugin_name
+                    },
                     'data_back': {
                         'plugin_name': $in.plugin_name,
                         'step': 'step_start_plugin_response'
@@ -183,6 +203,7 @@ function infohub_plugin() {
                 });
             }
         }
+
         if ($in.step === 'step_start_plugin_response') {
             $answer = $in.answer;
             $message = $in.message;
@@ -201,29 +222,38 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_start');
-    var plugin_start = function ($in) {
+    var plugin_start = function ($in)
+    {
         // "use strict"; // Do not use strict with eval()
-        var $answer, $message,
-            $default = {
-                'plugin_name':'',
-                'step': 'step_get_plugin_from_cache',
-                'answer': 'false',
-                'message': '',
-                'data': {},
-                'found': '',
-                'old': '',
-                'plugins': {} // Used for storing infohub_base + the plugin you want to start
-            };
+
+        const $default = {
+            'plugin_name':'',
+            'step': 'step_get_plugin_from_cache',
+            'answer': 'false',
+            'message': '',
+            'data': {},
+            'found': '',
+            'old': '',
+            'plugins': {} // Used for storing infohub_base + the plugin you want to start
+        };
         $in = _Default($default,$in);
 
-        $answer = 'false';
-        $message = 'An error occurred';
+        let $answer = 'false';
+        let $message = 'An error occurred';
+        let $worker;
 
         if ($in.step === 'step_get_plugin_from_cache')
         {
             return _SubCall({
-                'to': {'node': 'client', 'plugin': 'infohub_cache', 'function': 'load_data_from_cache'},
-                'data': {'prefix': 'plugin', 'key': $in.plugin_name},
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_cache',
+                    'function': 'load_data_from_cache'
+                },
+                'data': {
+                    'prefix': 'plugin',
+                    'key': $in.plugin_name
+                },
                 'data_back': {
                     'step': 'step_get_plugin_from_cache_response',
                     'plugins': $in.plugins,
@@ -247,8 +277,15 @@ function infohub_plugin() {
         if ($in.step === 'step_get_base_class_from_cache')
         {
             return _SubCall({
-                'to': {'node': 'client', 'plugin': 'infohub_cache', 'function': 'load_data_from_cache'},
-                'data': {'prefix': 'plugin', 'key': 'infohub_base'},
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_cache',
+                    'function': 'load_data_from_cache'
+                },
+                'data': {
+                    'prefix': 'plugin',
+                    'key': 'infohub_base'
+                },
                 'data_back': {
                     'step': 'step_get_base_class_from_cache_response',
                     'plugins': $in.plugins,
@@ -271,13 +308,12 @@ function infohub_plugin() {
 
         if ($in.step === 'step_start_plugin')
         {
+            let $ok = 'true';
+            const $basePlugin = $in.plugins.infohub_base;
+            let $pluginCode = $in.plugins[$in.plugin_name].plugin_code;
+            let $webWorkerFlag = 'true';
+
             block: {
-
-                var $ok = 'true',
-                    $basePlugin = $in.plugins.infohub_base,
-                    $pluginCode = $in.plugins[$in.plugin_name].plugin_code,
-                    $webWorkerFlag = 'true', $blob, $worker, $message, $event;
-
                 if (_Empty($pluginCode) === 'true') {
                     $message = 'Have no plugin code class:' + $in.plugin_name;
                     break block;
@@ -318,7 +354,7 @@ function infohub_plugin() {
 
                 if ($webWorkerFlag === 'true') {
                     /*
-                    $blob = new Blob([$pluginCode], {type: 'application/javascript'});
+                    const $blob = new Blob([$pluginCode], {type: 'application/javascript'});
                     $worker = new Worker(URL.createObjectURL($blob));
                     $worker.onmessage = function($in) { // Move this function to infohub_exchange
                         $message = JSON.parse($in);
@@ -328,7 +364,7 @@ function infohub_plugin() {
                             };
                         $package.messages.push($message);
                         setTimeout(function(){
-                            $event = new CustomEvent('infohub_call_main',
+                            const $event = new CustomEvent('infohub_call_main',
                                 { detail: {'plugin': this, 'package': $package}, bubbles: true, cancelable: true }
                             );
                             document.dispatchEvent($event);
@@ -368,7 +404,8 @@ function infohub_plugin() {
             $message = $in.message;
         }
 
-        if ($in.step === 'step_error') {
+        if ($in.step === 'step_error')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -387,7 +424,8 @@ function infohub_plugin() {
             });
         }
 
-        if ($in.step === 'step_error_response') {
+        if ($in.step === 'step_error_response')
+        {
             $answer = $in.answer;
             $message = $in.message;
         }
@@ -484,23 +522,28 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('download_all_plugins');
-    var download_all_plugins = function ($in) {
+    var download_all_plugins = function ($in)
+    {
         "use strict";
-        var $missingPluginNames = [], $count = 0, $pluginName, $response, $plugin,
-            $default = {
-                'answer': 'false',
-                'message': '',
-                'data': {},
-                'plugin_names': {},
-                'plugins': {},
-                'step': 'step_get_all_plugin_names'
-            };
+
+        const $default = {
+            'answer': 'false',
+            'message': '',
+            'data': {},
+            'plugin_names': {},
+            'plugins': {},
+            'step': 'step_get_all_plugin_names'
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_get_all_plugin_names')
         {
             return _SubCall({
-                'to': {'node': 'server', 'plugin': 'infohub_plugin', 'function': 'get_all_plugin_names'},
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_plugin',
+                    'function': 'get_all_plugin_names'
+                },
                 'data': {},
                 'data_back': {
                     'step': 'step_get_all_plugin_names_response'
@@ -516,12 +559,17 @@ function infohub_plugin() {
 
         if ($in.step === 'step_save_data_to_cache')
         {
-            if (_Count($in.plugins) > 0) {
-                $response = _Pop($in.plugins);
-                $plugin = _ByVal($response.data);
+            if (_Count($in.plugins) > 0)
+            {
+                const $response = _Pop($in.plugins);
+                const $plugin = _ByVal($response.data);
 
                 return _SubCall({
-                    'to': {'node': 'client', 'plugin': 'infohub_cache', 'function': 'save_data_to_cache'},
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_cache',
+                        'function': 'save_data_to_cache'
+                    },
                     'data': {
                         'prefix': 'plugin',
                         'key': $plugin.plugin_name,
@@ -541,21 +589,28 @@ function infohub_plugin() {
 
         if ($in.step === 'step_download_some_plugins')
         {
-            $count = 0;
-            $missingPluginNames = [];
+            let $count = 0;
+            let $missingPluginNames = [];
+            let $pluginName;
 
             // @todo When logged in I want to increase the limit from 20 to 100.
-            while ($count < 20 && _Count($in.plugin_names) > 0 ) {
-                $response = _Pop($in.plugin_names);
+            while ($count < 20 && _Count($in.plugin_names) > 0 )
+            {
+                const $response = _Pop($in.plugin_names);
                 $pluginName = $response.key;
                 $in.plugin_names = _ByVal($response.object);
                 $missingPluginNames.push($pluginName);
                 $count++;
             }
 
-            if (_Count($missingPluginNames) > 0) {
+            if (_Count($missingPluginNames) > 0)
+            {
                 return _SubCall({
-                    'to': {'node': 'server', 'plugin': 'infohub_plugin', 'function': 'plugins_request'},
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_plugin',
+                        'function': 'plugins_request'
+                    },
                     'data': {
                         'missing_plugin_names': $missingPluginNames
                     },

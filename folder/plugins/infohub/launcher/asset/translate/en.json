@@ -1,0 +1,27 @@
+{
+    "version": {
+        "date": "2019-10-27 08:01:25",
+        "plugin": "infohub_launcher",
+        "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_launcher": {
+            "Switch list": "Switch list",
+            "My list": "My list",
+            "All available plugins": "All available plugins",
+            "Instructions": "Instructions",
+            "Switch list. Refresh. Click icon.": "Switch list. Refresh. Click icon.",
+            "Help": "Help",
+            "Refresh": "Refresh",
+            "Update this list": "Update this list",
+            "_AddIcon got an invalid list": "_AddIcon got an invalid list",
+            "_AddIcon got an empty item": "_AddIcon got an empty item",
+            "Add to my list": "Add to my list",
+            "Remove from my list": "Remove from my list",
+            "Run plugin": "Run plugin"
+        }
+    }
+}

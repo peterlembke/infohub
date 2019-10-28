@@ -37,7 +37,7 @@ function infohub_translate_updatefiles() {
             'since': '2019-09-28',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
-            'class_name': 'infohub_menu',
+            'class_name': 'infohub_translate_updatefiles',
             'note': 'Upload an existing language file and you will get the latest phrases',
             'status': 'normal',
             'license_name': 'GNU GPL 3 or later'
@@ -72,18 +72,17 @@ function infohub_translate_updatefiles() {
     var $classTranslations = {};
 
     /**
-     * Translate
-     * Substitute a string for another string using a class local object
+     * Translate - Substitute a string for another string using a class local object
      * @param {type} $string
      * @returns string
      */
     $functions.push('_Translate');
     var _Translate = function ($string)
     {
-        if (typeof $pluginTranslationsMerged !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
-                'name': $string, 'default': $string,
-                'data': $pluginTranslationsMerged, 'split': '|'
+            'name': _GetClassName() + '|' + $string,
+            'default': $string, 'data': $classTranslations, 'split': '|'
         });
     };
 
@@ -165,8 +164,10 @@ function infohub_translate_updatefiles() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render') {
+        if ($in.step === 'step_render')
+        {
             $classTranslations = $in.translations;
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -194,7 +195,7 @@ function infohub_translate_updatefiles() {
                         },
                         'text_instructions': {
                             'type': 'text',
-                            'text': 'If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.'
+                            'text': _Translate('If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.')
                         }
                     },
                     'how': {

@@ -39,8 +39,9 @@ function infohub_asset() {
     $functions.push("_Version");
     var _Version = function() {
         return {
-            'date': '2018-11-18',
-            'version': '1.1.0',
+            'date': '2019-10-27',
+            'since': '2017-12-23',
+            'version': '1.1.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_asset',
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
@@ -75,11 +76,14 @@ function infohub_asset() {
      * @private
      */
     $functions.push("_GetGrandPluginName");
-    var _GetGrandPluginName = function($pluginName) {
-        var $parts = $pluginName.split('_');
+    var _GetGrandPluginName = function($pluginName)
+    {
+        const $parts = $pluginName.split('_');
+
         if (_Count($parts) > 2) {
             return $parts[0] + '_' + $parts[1];
         }
+
         return $pluginName;
     };
 
@@ -91,9 +95,11 @@ function infohub_asset() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in) {
+    var create = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'type': 'icon', // icon, image, audio, video.
             'subtype': 'svg',
             'asset_name': '',
@@ -171,20 +177,22 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("update_all_assets");
-    var update_all_assets = function ($in) {
+    var update_all_assets = function ($in)
+    {
         "use strict";
-        var $answer, $message, $messageArray = [], $key, $messageOut,
-            $default = {
-                'list': {}, // each key is a plugin name. Data is not used and can be anything.
-                'step': 'step_multi_message',
-                'from_plugin': {'node': '', 'plugin': ''},
-                'response': {},
-                'data_back': {}
-            };
+
+        const $default = {
+            'list': {}, // each key is a plugin name. Data is not used and can be anything.
+            'step': 'step_multi_message',
+            'from_plugin': {'node': '', 'plugin': ''},
+            'response': {},
+            'data_back': {}
+        };
         $in = _Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report';
+        let $messageArray = [];
+        let $answer = 'false';
+        let $message = 'Nothing to report';
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -199,11 +207,13 @@ function infohub_asset() {
         if ($in.step === 'step_multi_message')
         {
             $messageArray = [];
-            for ($key in $in.list) {
+            for (let $key in $in.list)
+            {
                 if ($in.list.hasOwnProperty($key) === false) {
                     continue;
                 }
-                $messageOut = _SubCall({
+
+                const $messageOut = _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_asset',
@@ -244,38 +254,39 @@ function infohub_asset() {
     var update_all_plugin_assets = function ($in)
     {
         "use strict";
-        var $timestampWhenOld, $index, $answer, $message, $assetPath, $messageArray = [], $key, $pluginName,
-            $messageOut, $fromPlugin,
-            $default = {
+
+        const $default = {
+            'plugin_name': '',
+            'step': 'step_get_asset_index_from_storage',
+            'from_plugin': {'node': '', 'plugin': '' },
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {}
+            },
+            'data_back': {
                 'plugin_name': '',
-                'step': 'step_get_asset_index_from_storage',
-                'from_plugin': {'node': '', 'plugin': '' },
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'data': {}
-                },
-                'data_back': {
-                    'plugin_name': '',
-                    'data': {}
-                },
-                'config': {
-                    'client_cache_lifetime': 0
-                }
-            };
+                'data': {}
+            },
+            'config': {
+                'client_cache_lifetime': 0
+            }
+        };
         $in = _Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report';
-        $assetPath = 'infohub_asset/asset/';
+        let $index;
+        let $messageArray = [];
+        let $answer = 'false';
+        let $message = 'Nothing to report';
+        const $assetPath = 'infohub_asset/asset/';
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
             $in.step = 'step_end';
         }
 
-        $fromPlugin = $in.from_plugin.plugin;
-        $pluginName = _GetGrandPluginName($fromPlugin);
+        const $fromPlugin = $in.from_plugin.plugin;
+        let $pluginName = _GetGrandPluginName($fromPlugin);
         if ($fromPlugin === 'infohub_asset' || $fromPlugin === 'infohub_workbench' || $fromPlugin === 'infohub_standalone') {
             if (_Empty($in.plugin_name) === 'false') {
                 $pluginName = $in.plugin_name;
@@ -304,7 +315,7 @@ function infohub_asset() {
         {
             $in.step = 'step_get_plugin_assets_from_server';
 
-            $default = {
+            const $default = {
                 'micro_time': 0.0,
                 'time_stamp': '',
                 'checksums': {},
@@ -314,7 +325,7 @@ function infohub_asset() {
 
             if ($in.response.answer === 'true')
             {
-                $timestampWhenOld = $index.micro_time + $in.config.client_cache_lifetime;
+                const $timestampWhenOld = $index.micro_time + $in.config.client_cache_lifetime;
 
                 if ($timestampWhenOld >= _MicroTime() && $index.full_sync_done === 'true') {
                     $message = 'The asset index for this plugin is quite fresh. I will not update it.';
@@ -357,9 +368,9 @@ function infohub_asset() {
         if ($in.step === 'step_save_assets_in_storage')
         {
             $messageArray = [];
-            for ($key in $in.data_back.data) {
+            for (let $key in $in.data_back.data) {
                 if ($in.data_back.data.hasOwnProperty($key)) {
-                    $messageOut = _SubCall({
+                    const $messageOut = _SubCall({
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_storage',
@@ -404,21 +415,21 @@ function infohub_asset() {
     var update_specific_assets = function ($in)
     {
         "use strict";
-        var $answer, $message, $response, $pluginName, $assetName, $localChecksum,
-            $localAssets, $wantedAssets, $path, $checksum, $updateAssets,
-            $default = {
-                'list': {},
-                'step': 'step_get_assets_from_storage',
-                'from_plugin': {'node': '', 'plugin': '' },
-                'response': {},
-                'data_back': {
-                    'wanted_assets': {}
-                }
-            };
+
+        const $default = {
+            'list': {},
+            'step': 'step_get_assets_from_storage',
+            'from_plugin': {'node': '', 'plugin': '' },
+            'response': {},
+            'data_back': {
+                'wanted_assets': {}
+            }
+        };
         $in = _Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report';
+        let $updateAssets;
+        let $answer = 'false';
+        let $message = 'Nothing to report';
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -432,11 +443,11 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_assets_from_storage')
         {
-            $wantedAssets = {};
-            for ($pluginName in $in.list) {
-                for ($assetName in $in.list[$pluginName]) {
-                    $path = 'infohub_asset/asset/' + $pluginName + '/' + $assetName;
-                    $checksum = $in.list[$pluginName][$assetName];
+            let $wantedAssets = {};
+            for (let $pluginName in $in.list) {
+                for (let $assetName in $in.list[$pluginName]) {
+                    const $path = 'infohub_asset/asset/' + $pluginName + '/' + $assetName;
+                    const $checksum = $in.list[$pluginName][$assetName];
                     $wantedAssets[$path] = $checksum;
                 }
             }
@@ -460,27 +471,29 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_assets_from_storage_response') 
         {
-            $default = {
+            const $default = {
                 'answer': 'false',
                 'message': 'Failure'
             };
-            $response = _Default($default, $in.response);
+            const $response = _Default($default, $in.response);
             
-            $localAssets = _ByVal($in.response.items);
-            $wantedAssets = _ByVal($in.data_back.wanted_assets);
+            const $localAssets = _ByVal($in.response.items);
+            const $wantedAssets = _ByVal($in.data_back.wanted_assets);
             
             $in.step = 'step_end';
             
-            if ($response.answer === 'true') {
+            if ($response.answer === 'true')
+            {
                 $updateAssets = {};
                 
-                for ($path in $wantedAssets) {
+                for (let $path in $wantedAssets)
+                {
                     if (_IsSet($localAssets[$path]) === 'false') {
                         $updateAssets[$path] = $wantedAssets[$path];
                         continue;
                     }
                     
-                    $localChecksum = _GetData({
+                    const $localChecksum = _GetData({
                         'name': 'checksum',
                         'default': '',
                         'data': $localAssets[$path]
@@ -497,7 +510,8 @@ function infohub_asset() {
             }
         }
 
-        if ($in.step === 'step_update_specific_assets') {
+        if ($in.step === 'step_update_specific_assets')
+        {
             return _SubCall({
                 'to': {
                     'node': 'server',
@@ -524,7 +538,8 @@ function infohub_asset() {
 
         // @todo Pull out all data that need to be in the assets indexes
 
-        if ($in.step === 'step_save_to_storage') {
+        if ($in.step === 'step_save_to_storage')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -542,9 +557,11 @@ function infohub_asset() {
 
         // @todo Load, Update, Save each plugin assets index
 
-        if ($in.step === 'step_save_to_storage_response') {
+        if ($in.step === 'step_save_to_storage_response')
+        {
             $answer = $in.response.answer;
             $message = $in.response.message;
+
             if ($answer === 'true') {
                 $message = 'All requested assets are updated. The new/changed are saved to Storage'
             }
@@ -567,37 +584,35 @@ function infohub_asset() {
     var get_plugin_assets = function ($in)
     {
         "use strict";
-        var $pluginName, $key, $path, $paths, $newKey, $fromPlugin,
-            $remove, $removeLength, $answer, $message,
-            $default = {
+        const $default = {
+            'list': {},
+            'plugin_name': '', // plugin_name can be used by Asset and Launcher
+            'from_plugin': {'node': '', 'plugin': '', 'function': '' },
+            'step': 'step_get_assets_from_storage',
+            'response': {
+                'answer': '',
+                'message': '',
+                'items': {}
+            },
+            'data_back': {
                 'list': {},
-                'plugin_name': '', // plugin_name can be used by Asset and Launcher
-                'from_plugin': {'node': '', 'plugin': '', 'function': '' },
-                'step': 'step_get_assets_from_storage',
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'items': {}
-                },
-                'data_back': {
-                    'list': {},
-                    'assets': {},
-                    'plugin_name': '',
-                    'latest_key': ''
-                }
-            };
+                'assets': {},
+                'plugin_name': '',
+                'latest_key': ''
+            }
+        };
         $in = _Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report';
+        let $answer = 'false';
+        let $message = 'Nothing to report';
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
             $in.step = 'step_end';
         }
 
-        $pluginName = _GetGrandPluginName($in.from_plugin.plugin);
-        $fromPlugin = $in.from_plugin.plugin;
+        let $pluginName = _GetGrandPluginName($in.from_plugin.plugin);
+        const $fromPlugin = $in.from_plugin.plugin;
         if ($fromPlugin === 'infohub_asset' || $fromPlugin === 'infohub_launcher' || $fromPlugin === 'infohub_translate') {
             if (_Empty($in.plugin_name) === 'false') {
                 $pluginName = $in.plugin_name;
@@ -606,9 +621,9 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_assets_from_storage')
         {
-            $paths = {};
-            for ($key in $in.list) {
-                $path = 'infohub_asset/asset/' + $pluginName + '/' + $key;
+            let $paths = {};
+            for (let $key in $in.list) {
+                const $path = 'infohub_asset/asset/' + $pluginName + '/' + $key;
                 $paths[$path] = {};
             }
 
@@ -634,13 +649,14 @@ function infohub_asset() {
             $answer = $in.response.answer;
             $message = $in.response.message;
 
-            if ($in.response.answer === 'true') {
-                $remove = 'infohub_asset/asset/' + $pluginName + '/';
-                $removeLength = $remove.length;
+            if ($in.response.answer === 'true')
+            {
+                const $remove = 'infohub_asset/asset/' + $pluginName + '/';
+                const $removeLength = $remove.length;
 
-                for ($key in $in.response.items) {
+                for (let $key in $in.response.items) {
                     if ($in.response.items.hasOwnProperty($key) === true) {
-                        $newKey = $key.substr($removeLength);
+                        const $newKey = $key.substr($removeLength);
                         $in.data_back.assets[$newKey] = $in.response.items[$key];
                     }
                 }
@@ -667,32 +683,35 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("get_asset_and_license");
-    var get_asset_and_license = function($in) {
+    var get_asset_and_license = function($in)
+    {
         "use strict";
-        var $answer, $message, $pluginName, $response, $fileName, $list, $asset, $assetLicense, $keepAsset = 'true', $data, $mimeType, $isBinary,
-            $default = {
-                'plugin_name': '', // Use by infohub_asset, infohub_render
-                'asset_name': '',
-                'asset_type': 'icon', // image, audio, video, icon
-                'extension': 'svg', // jpeg, png, gif, svg, oga, mp3, ogv, mp4, json
-                'from_plugin': {'node': '', 'plugin': '' },
-                'step': 'step_get_plugin_assets',
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'data': {},
-                    'assets': {}
-                },
-                'data_back': {
-                    'step': ''
-                }
-            };
+
+        const $default = {
+            'plugin_name': '', // Use by infohub_asset, infohub_render
+            'asset_name': '',
+            'asset_type': 'icon', // image, audio, video, icon
+            'extension': 'svg', // jpeg, png, gif, svg, oga, mp3, ogv, mp4, json
+            'from_plugin': {'node': '', 'plugin': '' },
+            'step': 'step_get_plugin_assets',
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {},
+                'assets': {}
+            },
+            'data_back': {
+                'step': ''
+            }
+        };
         $in = _Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report';
+        let $fileName, $asset, $assetLicense;
+        let $keepAsset = 'true';
+        let $answer = 'false';
+        let $message = 'Nothing to report';
 
-        $pluginName = _GetGrandPluginName($in.from_plugin.plugin);
+        let $pluginName = _GetGrandPluginName($in.from_plugin.plugin);
         if ($in.from_plugin.plugin === 'infohub_asset') {
             if (_Empty($in.plugin_name) === 'false') {
                 $pluginName = $in.plugin_name;
@@ -706,8 +725,8 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_plugin_assets')
         {
-            $list = {};
-            $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
+            let $list = {};
+            let $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
             $list[$fileName] = {};
             $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
             $list[$fileName] = {};
@@ -763,7 +782,7 @@ function infohub_asset() {
         if ($in.step === 'step_keep_assets') 
         {
             if ($in.extension !== 'svg' && $in.extension !== 'json' ) {
-                $mimeType = _GetMimeType($in.extension);
+                const $mimeType = _GetMimeType($in.extension);
                 $asset = 'data:' + $mimeType + ';base64,' + $asset;
             }
             
@@ -801,7 +820,7 @@ function infohub_asset() {
 
             $asset = '<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> <svg version="1.1" id="default" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <circle cx="25" cy="25" r="20" stroke="#9933ff" stroke-width="3" fill="white" /> </svg>';
             $answer = 'true';
-            $message = 'Here are the default type:'+$in.asset_type+', extension:' + $in.extension + '. I did not have all the required assets.';
+            $message = 'Here are the default type:' + $in.asset_type + ', extension:' + $in.extension + '. I did not have all the required assets.';
             $in.step = 'step_default_' + $in.asset_type;
 
             if ($in.extension === 'json') {
@@ -856,9 +875,11 @@ function infohub_asset() {
      * @returns {*}
      * @private
      */
-    var _GetMimeType = function($extension) {
+    var _GetMimeType = function($extension)
+    {
         "use strict";
-        var $mime = {
+
+        const $mime = {
             'svg': 'image/svg+xml',
             'jpeg': 'image/jpeg',
             'jpg': 'image/jpeg',
@@ -869,9 +890,11 @@ function infohub_asset() {
             'mp3': 'audio/mpeg3',
             'mp4': 'video/mp4'
         };
+
         if (_IsSet($mime[$extension]) === 'true') {
             return $mime[$extension];
         }
+
         return '';
     };
 

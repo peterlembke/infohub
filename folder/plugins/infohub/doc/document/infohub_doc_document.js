@@ -102,6 +102,7 @@ function infohub_doc_document() {
         const $default = {
             'box_id': '',
             'step': 'step_start',
+            'translations': {},
             'response': {
                 'answer': '',
                 'message': '',
@@ -113,6 +114,8 @@ function infohub_doc_document() {
 
         if ($in.step === 'step_start')
         {
+            $classTranslations = $in.translations;
+
             const $headLabel = _Translate('Document');
             const $headText = _Translate('Here you will see the document');
             const $boxId = _GetBoxId('document');

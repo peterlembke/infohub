@@ -97,18 +97,21 @@ function infohub_doc_visited() {
     var setup_gui = function ($in) {
         "use strict";
         var $default = {
-                'box_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'data': {}
-                }
-            };
+            'box_id': '',
+            'step': 'step_start',
+            'translations': {},
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {}
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start')
         {
+            $classTranslations = $in.translations;
+
             return _SubCall({
                 'to': {
                     'node': 'client',

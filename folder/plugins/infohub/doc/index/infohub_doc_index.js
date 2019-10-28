@@ -99,6 +99,7 @@ function infohub_doc_index() {
         var $default = {
                 'box_id': '',
                 'step': 'step_start',
+                'translations': {},
                 'response': {
                     'answer': '',
                     'message': '',
@@ -109,6 +110,8 @@ function infohub_doc_index() {
 
         if ($in.step === 'step_start')
         {
+            $classTranslations = $in.translations;
+
             return _SubCall({
                 'to': {
                     'node': 'client',

@@ -1,0 +1,20 @@
+{
+    "version": {
+        "date": "2019-10-26 22:34:56",
+        "plugin": "infohub_keyboard",
+        "data_checksum": "f13c6111e2bfef8463dff57c003485c6",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_keyboard": {
+            "Keyboard tests": "Pruebas de teclado",
+            "Try combinations on your keyboard for SHIFT + CTRL + ALT and another key. The combination form a string above.": "Pruebe combinaciones en su teclado para SHIFT + CTRL + ALT y otra tecla. La combinación forma una cadena arriba",
+            "Subscribe": "Suscribirse",
+            "Unsubscribe": "Cancelar suscripción",
+            "Show subscribers": "Mostrar suscriptores",
+            "Keyboard Demo popup": "Ventana emergente de demostración de teclado"
+        }
+    }
+}

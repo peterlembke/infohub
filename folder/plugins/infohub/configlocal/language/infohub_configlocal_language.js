@@ -47,6 +47,7 @@ function infohub_configlocal_language() {
         return {
             'create': 'normal',
             'click_transfer': 'normal',
+            'click_submit': 'normal',
             'apply_config': 'normal'
         };
     };
@@ -142,9 +143,9 @@ function infohub_configlocal_language() {
                             'type': 'button',
                             'mode': 'submit',
                             'button_label': _Translate('Save'),
-                            'event_data': 'language',
+                            'event_data': 'language|submit',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'submit'
+                            'to_function': 'click'
                         }
                     },
                     'how': {
@@ -186,8 +187,6 @@ function infohub_configlocal_language() {
     {
         "use strict";
 
-        let $ok = 'false';
-
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -199,6 +198,9 @@ function infohub_configlocal_language() {
         };
         $in = _Default($default, $in);
 
+        let $ok = 'false';
+        let $newTextWithLanguageCodes = '';
+
         if ($in.step === 'step_form_read')
         {
             return _SubCall({
@@ -208,7 +210,7 @@ function infohub_configlocal_language() {
                     'function': 'form_read'
                 },
                 'data': {
-                    'id': $in.box_id + '.[my_form]'
+                    'id': $in.box_id + '.[my_form_form]'
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -219,16 +221,75 @@ function infohub_configlocal_language() {
 
         if ($in.step === 'step_form_read_response')
         {
-            window.alert('hello');
-            let $a = 1;
+            const $newLanguageCode = _GetData({
+                'name': 'response/form_data/select_language_code/value/0',
+                'default': '',
+                'data': $in
+            });
+
+            const $languagesText = _GetData({
+                'name': 'response/form_data/language/value',
+                'default': '',
+                'data': $in
+            });
+
+            let $languageArray = $languagesText.split(',');
+            let $lookup = {};
+
+            for (let $key in $languageArray) {
+                if ($languageArray.hasOwnProperty($key) === false) {
+                    continue;
+                }
+                const $languageCode = $languageArray[$key];
+                $lookup[$languageCode] = 1;
+            }
+
+            $in.step = 'step_end';
+            $ok = 'true'; // It is ok if we already have the language code
+
+            if (_IsSet($lookup[$newLanguageCode]) === 'false')
+            {
+                $lookup[$newLanguageCode] = 1;
+
+                let $newCodesArray = [];
+                for (let $key in $lookup) {
+                    if (_Empty($key) === 'true') {
+                        continue;
+                    }
+                    $newCodesArray.push($key);
+                }
+                $newTextWithLanguageCodes = $newCodesArray.join(',');
+                $in.step = 'step_update_text';
+            }
         }
 
         if ($in.step === 'step_update_text')
         {
+            const $formData = {
+                'language': {'value': $newTextWithLanguageCodes }
+            };
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'form_write'
+                },
+                'data': {
+                    'id': $in.box_id + '.[my_form_form]',
+                    'form_data': $formData
+                },
+                'data_back': {
+                    'step': 'step_update_text_response'
+                }
+            });
         }
 
         if ($in.step === 'step_update_text_response')
         {
+            if ($in.answer === 'true') {
+                $ok = 'true';
+            }
         }
 
         return {
@@ -239,7 +300,103 @@ function infohub_configlocal_language() {
     };
 
     /**
-     * Apply the language config
+     * Save the config
+     * I can not let the button directly call "submit" in the parent because the event would
+     * have come from infohub_render and the function should only accept calls from the children.
+     * @version 2019-10-28
+     * @since 2019-10-28
+     * @author Peter Lembke
+     */
+    $functions.push("click_submit");
+    var click_submit = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_form_read',
+            'answer': '',
+            'message': '',
+            'response': {
+                'form_data': {
+                    'language': {
+                        'value': ''
+                    }
+                }
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $ok = 'false';
+
+        if ($in.step === 'step_form_read')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'form_read'
+                },
+                'data': {
+                    'id': $in.box_id + '.[my_form_form]'
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_form_read_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_form_read_response')
+        {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.step = 'step_save_config';
+            }
+        }
+
+        if ($in.step === 'step_save_config')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'submit'
+                },
+                'data': {
+                    'event_data': 'language',
+                    'form_data': {
+                        'language': {
+                            'value': $in.response.form_data.language.value
+                        }
+                    }
+                },
+                'data_back': {
+                    'step': 'step_save_config_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_save_config_response')
+        {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $ok = 'true';
+            }
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message,
+            'ok': $ok
+        };
+    };
+
+    /**
+     * Ran by the parent "apply_config". All child plugins have this function and all are run.
+     * In this function we see that you have at least one language set. If you do not then the language
+     * you have set in your browser will be set as your preferred language in InfoHub. Then at least you have something
+     * that might be of relevance to you.
      * @version 2019-10-19
      * @since 2019-10-19
      * @author Peter Lembke

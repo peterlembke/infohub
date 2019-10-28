@@ -1,10 +1,15 @@
 # Infohub Translate Merge files
-Here you can merge the first file with the translated second file to get a complete translation file for a plugin in a specific language. 
+Here you can merge the key file and the translated file into the final language file for a specific language. 
 
 ## GUI
-* Button: "Upload file 1"
-* Button: "Upload file 2"
-* Button: "Merge files" - Will download the result
+* Button: "Merge the two files"
+Will give you a file selector. Here you can select the two files. Use CTRL to select the second file.
+When you press ok the files are merged and the resulting file are downloaded.
+
+Rename the resulting file to a proper language code like: sv.json and place the file in
+```
+folder/plugins/domainname/pluginname/asset/translate/sv.json
+```
 
 ## License
 This documentation is copyright (C) 2019 Peter Lembke.  
@@ -13,4 +18,4 @@ You should have received a copy of the GNU Free Documentation License along with
 
 ## footer
 Since 2019-09-29 by Peter Lembke  
-Updated 2019-09-29 by Peter Lembke
+Updated 2019-10-26 by Peter Lembke

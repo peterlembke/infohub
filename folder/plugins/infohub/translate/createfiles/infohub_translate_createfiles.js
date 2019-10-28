@@ -74,18 +74,17 @@ function infohub_translate_createfiles() {
     var $classTranslations = {};
 
     /**
-     * Translate
-     * Substitute a string for another string using a class local object
+     * Translate - Substitute a string for another string using a class local object
      * @param {type} $string
      * @returns string
      */
     $functions.push('_Translate');
     var _Translate = function ($string)
     {
-        if (typeof $pluginTranslationsMerged !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
-                'name': $string, 'default': $string,
-                'data': $pluginTranslationsMerged, 'split': '|'
+            'name': _GetClassName() + '|' + $string,
+            'default': $string, 'data': $classTranslations, 'split': '|'
         });
     };
 
@@ -190,7 +189,7 @@ function infohub_translate_createfiles() {
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[button_refresh][select_plugin][button_create_files][my_container]'
+                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_files][my_container]'
                         },
                         'button_refresh': {
                             'plugin': 'infohub_renderform',
@@ -216,6 +215,12 @@ function infohub_translate_createfiles() {
                             'css_data': {
                                 '.select': 'max-width: 200px;'
                             }
+                        },
+                        'missing_plugin_name': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'text',
+                            'label': _Translate('Plugin name'),
+                            'description':_Translate( 'You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.')
                         },
                         'button_create_files': {
                             'plugin': 'infohub_renderform',
@@ -398,12 +403,25 @@ function infohub_translate_createfiles() {
 
             if ($in.response.answer === 'true')
             {
+                const $pluginNameSelected = _GetData({
+                    'name': 'response/form_data/select_plugin/value/0',
+                    'default': '',
+                    'data': $in
+                });
+
+                const $pluginNameText = _GetData({
+                    'name': 'response/form_data/missing_plugin_name/value',
+                    'default': '',
+                    'data': $in
+                });
+
+                let $pluginName = $pluginNameSelected;
+                if (_Empty($pluginNameText) === 'false') {
+                    $pluginName = $pluginNameText;
+                }
+
                 $nodeData = {
-                    'plugin_name': _GetData({
-                        'name': 'response/form_data/select_plugin/value/0',
-                        'default': '',
-                        'data': $in
-                    })
+                    'plugin_name': $pluginName
                 };
 
                 $in.step = 'step_ask_server';

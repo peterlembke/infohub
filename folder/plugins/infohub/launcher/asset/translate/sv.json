@@ -1,0 +1,27 @@
+{
+    "version": {
+        "date": "2019-10-27 08:01:25",
+        "plugin": "infohub_launcher",
+        "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_launcher": {
+            "Switch list": "Byt lista",
+            "My list": "Min lista",
+            "All available plugins": "Alla tillgängliga plugins",
+            "Instructions": "Instruktioner",
+            "Switch list. Refresh. Click icon.": "Byt lista. Uppdatera. Klicka på ikonen.",
+            "Help": "Hjälp",
+            "Refresh": "Uppdatera",
+            "Update this list": "Uppdatera denna lista",
+            "_AddIcon got an invalid list": "_AddIcon fick en ogiltig lista",
+            "_AddIcon got an empty item": "_AddIcon fick ett tomt objekt",
+            "Add to my list": "Lägg till i min lista",
+            "Remove from my list": "Ta bort från min lista",
+            "Run plugin": "Kör plugin"
+        }
+    }
+}

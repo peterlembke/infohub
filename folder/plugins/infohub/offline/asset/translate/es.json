@@ -1,0 +1,21 @@
+{
+    "version": {
+        "date": "2019-10-26 23:16:23",
+        "plugin": "infohub_offline",
+        "data_checksum": "da0c5d5c92dde503e201920171610a71",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_offline": {
+            "Offline tools": "Herramientas sin conexión",
+            "Tools to see if you are online/offline. See what plugins are subscribing to that event. Buttons to download and store data to prepare for offline usage.": "Herramientas para ver si está en línea / fuera de línea. Vea qué complementos se están suscribiendo a ese evento. Botones para descargar y almacenar datos para prepararse para el uso sin conexión",
+            "Download plugins": "Descargar complementos",
+            "Download assets": "Descargar activos",
+            "Download documentation": "Descargar documentación",
+            "Show subscribers": "Mostrar suscriptores",
+            "Status": "Estado"
+        }
+    }
+}

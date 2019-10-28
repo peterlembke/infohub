@@ -425,18 +425,21 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push("click_menu");
-    var click_menu = function ($in) {
+    var click_menu = function ($in)
+    {
         "use strict";
-        var $pluginName,
-            $default = {
-                'step': 'step_start',
-                'event_data': '',
-                'parent_box_id': ''
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'event_data': '',
+            'parent_box_id': ''
+        };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') {
-            $pluginName = _GetPluginName($in.event_data);
+        if ($in.step === 'step_start')
+        {
+            const $pluginName = _GetPluginName($in.event_data);
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -468,22 +471,23 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in) {
+    var click = function ($in)
+    {
         "use strict";
-        var $parts = [], $childName, $clickName,
-            $default = {
-                'event_data': '', // childName|clickName
-                'value': '', // Selected option in select lists
-                'box_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'There was an error',
-                    'ok': 'false',
-                    'value': [], // All selected options in select lists
-                    'files_data': [] // For the import button
-                }
-            };
+
+        const $default = {
+            'event_data': '', // childName|clickName
+            'value': '', // Selected option in select lists
+            'box_id': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'There was an error',
+                'ok': 'false',
+                'value': [], // All selected options in select lists
+                'files_data': [] // For the import button
+            }
+        };
         $in = _Default($default, $in);
 
         if (_Empty($in.event_data) === 'true') {
@@ -493,9 +497,9 @@ function infohub_translate() {
 
         if ($in.step === 'step_start') {
 
-            $parts = $in.event_data.split('|');
-            $childName = $parts[0];
-            $clickName = $parts[1];
+            const $parts = $in.event_data.split('|');
+            const $childName = $parts[0];
+            const $clickName = $parts[1];
 
             return _SubCall({
                 'to': {
@@ -532,9 +536,11 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push("call_server");
-    var call_server = function ($in) {
+    var call_server = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_start',
             'to': {'function': ''},
             'data': {},

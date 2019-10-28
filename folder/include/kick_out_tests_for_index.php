@@ -96,9 +96,11 @@ declare(strict_types=1);
             GetOut(7,'infohub.php can not be called directly');
         }
 
+        /* Prevents you from mentioning fight club, I mean Infohub in a link. Makes the link useless.
         if ($_SERVER['HTTP_REFERER'] !== $url) {
             GetOut(7,'infohub.php must be called from index.php. ' . $url . ', ' . $_SERVER['HTTP_REFERER']);
         }
+        */
 
         if (isset($_POST['package']) === false) {
             GetOut(7.0, 'POST name must be "package"');

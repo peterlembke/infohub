@@ -22,9 +22,9 @@ function infohub_language() {
     $functions.push('_Version');
     var _Version = function() {
         return {
-            'date': '2019-09-29',
+            'date': '2019-10-27',
             'since': '2019-04-02',
-            'version': '1.0.0',
+            'version': '1.1.0',
             'class_name': 'infohub_language',
             'checksum': '{{checksum}}',
             'note': 'Helps you with language codes',
@@ -37,7 +37,8 @@ function infohub_language() {
         return {
             'create': 'normal',
             'option_list_main_languages': 'normal',
-            'option_list_all_languages': 'normal'
+            'option_list_all_languages': 'normal',
+            'get_translations': 'normal'
         };
     };
     
@@ -79,7 +80,6 @@ function infohub_language() {
             'description': '',
             'languages': 'main', // main or all
             'parent_box_id': '',
-            'translations': {},
             'response': {
                 'answer': 'false',
                 'message': ''
@@ -89,8 +89,6 @@ function infohub_language() {
 
         if ($in.step === 'step_start')
         {
-            $classTranslations = $in.translations;
-
             let $sourceFunction = 'option_list_main_languages';
             if ($in.languages === 'all') {
                 $sourceFunction = 'option_list_all_languages';
@@ -164,7 +162,7 @@ function infohub_language() {
         "use strict";
 
         const $default = {
-            'step': 'step_create_options_list'
+            'step': 'step_update_plugin_assets'
         };
         $in = _Default($default, $in);
 
@@ -174,9 +172,29 @@ function infohub_language() {
         let $options = [],
             $ok = 'false';
 
+        if ($in.step === 'step_update_plugin_assets')
+        {
+            if (_Empty($classTranslations) === 'true') {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_language',
+                        'function': 'get_translations'
+                    },
+                    'data': {},
+                    'data_back': {
+                        'step': 'step_create_options_list'
+                    }
+                });
+            }
+
+            $in.step = 'step_create_options_list';
+        }
+
         if ($in.step === 'step_create_options_list')
         {
-            const $rawData = _RawData();
+            let $rawData = _RawData();
+            $rawData = _SortObject($rawData);
 
             for (let $key in $rawData)
             {
@@ -220,13 +238,33 @@ function infohub_language() {
         let $options = [], $ok = 'false';
 
         const $default = {
-            'step': 'step_create_options_list'
+            'step': 'step_update_plugin_assets'
         };
         $in = _Default($default, $in);
 
+        if ($in.step === 'step_update_plugin_assets')
+        {
+            if (_Empty($classTranslations) === 'true') {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_language',
+                        'function': 'get_translations'
+                    },
+                    'data': {},
+                    'data_back': {
+                        'step': 'step_create_options_list'
+                    }
+                });
+            }
+
+            $in.step = 'step_create_options_list';
+        }
+
         if ($in.step === 'step_create_options_list')
         {
-            const $rawData = _RawData();
+            let $rawData = _RawData();
+            $rawData = _SortObject($rawData);
 
             for (let $key in $rawData)
             {
@@ -246,6 +284,103 @@ function infohub_language() {
             'options': $options,
             'ok': $ok
         };
+    };
+
+    /**
+     * Download the plugin assets and read the wanted translation data so we can translate the language names.
+     * @version 2019-10-27
+     * @since   2019-10-27
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    $functions.push('get_translations');
+    var get_translations = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'step': 'step_update_plugin_assets',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_update_plugin_assets')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_asset',
+                    'function': 'update_all_plugin_assets'
+                },
+                'data': {
+                    'plugin_name': _GetClassName()
+                },
+                'data_back': {
+                    'step': 'step_get_translations'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_translations')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_translate',
+                    'function': 'get_translate_data'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_get_translations_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_translations_response') {
+            $classTranslations = _ByVal($in.response.data);
+            $in.step = 'step_end';
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Now the translations have been read'
+        };
+    };
+
+    /**
+     * An object that has key-value can be sorted alphabetically on the value string by this function
+     * @param $data
+     * @private
+     */
+    $functions.push('_SortObject');
+    var _SortObject = function ($data)
+    {
+        const $values = Object.values($data).sort(function(a,b){
+            return a.localeCompare(b);
+        });
+
+        let $index = {};
+        for (let $key in $data) {
+            if ($data.hasOwnProperty($key) === false) {
+                continue;
+            }
+            const $value = $data[$key];
+            $index[$value] = $key;
+        }
+
+        let $out = {};
+        for (let $valueNumber in $values) {
+            const $value = $values[$valueNumber];
+            const $key = $index[$value];
+            $out[$key] = $value;
+        }
+
+        return $out;
     };
 
     /**
@@ -497,7 +632,6 @@ function infohub_language() {
             "zu-ZA": _Translate("Zulu (South Africa)")
         };
     };
-
 }
 
 //# sourceURL=infohub_language.js

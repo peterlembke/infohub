@@ -108,7 +108,7 @@ function infohub_translate_menu() {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': 'Translation tool'
+                            'data': _Translate('Translation tool')
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',

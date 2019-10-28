@@ -1,0 +1,21 @@
+{
+    "version": {
+        "date": "2019-10-26 23:16:23",
+        "plugin": "infohub_offline",
+        "data_checksum": "da0c5d5c92dde503e201920171610a71",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_offline": {
+            "Offline tools": "Frånkopplad, verktyg",
+            "Tools to see if you are online/offline. See what plugins are subscribing to that event. Buttons to download and store data to prepare for offline usage.": "Verktyg för att se om du är frånkopplad / påkopplad. Se vilka plugins som prenumererar på den händelsen. Knappar för att ladda ner och lagra data för att förbereda för frånkopplad användning.",
+            "Download plugins": "Ladda ner plugins",
+            "Download assets": "Ladda ner tillgångar",
+            "Download documentation": "Hämta dokumentation",
+            "Show subscribers": "Visa prenumeranter",
+            "Status": "Status"
+        }
+    }
+}
