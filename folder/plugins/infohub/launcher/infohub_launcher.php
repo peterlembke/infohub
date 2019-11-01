@@ -54,7 +54,7 @@ class infohub_launcher extends infohub_base
 
     /**
      * Get a new updated full_list
-     * The list key is plugin name, the data is the assets launcher.json, icon/icon.svg, icon/icon.json
+     * The list key is plugin name, the data is the checksums of files launcher.json, icon/icon.svg, icon/icon.json
      * @version 2018-11-18
      * @since   2018-11-14
      * @author  Peter Lembke
@@ -79,7 +79,7 @@ class infohub_launcher extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report';
         $fullList = array();
-        
+
         if ($in['step'] === 'step_get_full_list')
         {
             return $this->_Subcall(array(
@@ -100,33 +100,36 @@ class infohub_launcher extends infohub_base
         {
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
-            $fullList = array();
-            
-            if ($answer === 'true')
-            {
-                $list = $in['response']['data'];
-                ksort($list);
-                $listChecksum = md5(json_encode($list));
-
-                $do = 'update';
-                if ($listChecksum === $in['list_checksum']) {
-                    $do = 'keep';
-                    $list = array();
-                }
-
-                $fullList = array(
-                    'name' => 'full_list',
-                    'do' => $do,
-                    'micro_time' => $this->_MicroTime(),
-                    'time_stamp' => $this->_TimeStamp(),
-                    'list_checksum' => $listChecksum,
-                    'list' => $list
-                );
-                
-                $message = 'Here are the full_list';
-            }
-            
             $in['step'] = 'step_end';
+
+            if ($answer === 'true') {
+                $in['step'] = 'step_prepare_full_list';
+            }
+        }
+
+        if ($in['step'] === 'step_prepare_full_list')
+        {
+            $list = $in['response']['data'];
+            ksort($list);
+            $listChecksum = md5(json_encode($list));
+
+            $do = 'update';
+            if ($listChecksum === $in['list_checksum']) {
+                $do = 'keep';
+                $list = array();
+            }
+
+            $fullList = array(
+                'name' => 'full_list',
+                'do' => $do,
+                'micro_time' => $this->_MicroTime(),
+                'time_stamp' => $this->_TimeStamp(),
+                'list_checksum' => $listChecksum,
+                'list' => $list
+            );
+
+            $answer = 'true';
+            $message = 'Here are the full_list';
         }
 
         return array(

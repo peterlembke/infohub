@@ -971,7 +971,15 @@ function infohub_launcher() {
                 'message': '',
                 'list_name': '',
                 'list': {},
-                'updated': 'false'
+                'updated': 'false',
+                'data': {
+                    'language': ''
+                }
+            },
+            'data_back': {
+                'list_name': '',
+                'list': {},
+                'language_codes': []
             }
         };
         $in = _Default($default, $in);
@@ -1007,7 +1015,9 @@ function infohub_launcher() {
 
         if ($in.step === 'step_update_full_list_response')
         {
-            $in.step = 'step_update_specific_assets';
+            $in.step = 'step_get_selected_language';
+
+            $in.data_back.list = $in.response.list;
 
             if ($in.response.updated === 'false') {
                 $in.step = 'step_render_list';
@@ -1019,6 +1029,48 @@ function infohub_launcher() {
             }
         }
 
+        if ($in.step === 'step_get_selected_language') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'get_config'
+                },
+                'data': {
+                    'section_name': 'language'
+                },
+                'data_back': {
+                    'list_name': $in.data_back.list_name,
+                    'list': $in.data_back.list,
+                    'step': 'step_get_selected_language_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_selected_language_response')
+        {
+            $in.data_back.language_codes = $in.response.data.language.split(',');
+
+            let $files = {}; // The translation files we want for each plugin
+            for (let $number in $in.data_back.language_codes) {
+                const $languageCode = $in.data_back.language_codes[$number];
+                const $fileName = 'translate/' + $languageCode + '.json';
+                $files[$fileName] = 'local'; // local = I am happy with a local version if exist
+            }
+
+            // Merge in the wanted translation files into each plugin
+            for (let $key in $in.data_back.list)
+            {
+                if ($in.data_back.list.hasOwnProperty($key) === false) {
+                    continue;
+                }
+
+                $in.data_back.list[$key] = _Merge($in.data_back.list[$key], $files);
+            }
+
+            $in.step = 'step_update_specific_assets';
+        }
+
         if ($in.step === 'step_update_specific_assets') {
             return _SubCall({
                 'to': {
@@ -1027,7 +1079,7 @@ function infohub_launcher() {
                     'function': 'update_specific_assets'
                 },
                 'data': {
-                    'list': $in.response.list
+                    'list': $in.data_back.list
                 },
                 'data_back': {
                     'list_name': $in.list_name,
@@ -1827,26 +1879,31 @@ function infohub_launcher() {
     $functions.push("get_launch_information");
     var get_launch_information = function($in) {
         "use strict";
-        var $launchData;
 
         const $default = {
             'plugin_name': '', // infohub_asset and infohub_launcher can use this.
             'from_plugin': {'node': '', 'plugin': '' },
-            'step': 'step_get_assets',
+            'step': 'step_get_selected_language',
             'response': {
                 'answer': '',
                 'message': '',
-                'assets': {}
+                'assets': {},
+                'data': {
+                    'language': ''
+                }
             },
             'data_back': {
                 'step': '',
-                'plugin_name': ''
+                'plugin_name': '',
+                'language_codes_array': []
             }
         };
         $in = _Default($default, $in);
 
         let $answer = 'false';
         let $message = 'Nothing to report from infohub_launcher -> get_launch_information. Check if the step names are OK';
+        let $translationAssets = {}; // The translation assets we need. Based on user selected preferred languages
+        let $launchData = {};
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -1860,13 +1917,61 @@ function infohub_launcher() {
             }
         }
 
+        if ($in.step === 'step_get_selected_language') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'get_config'
+                },
+                'data': {
+                    'section_name': 'language'
+                },
+                'data_back': {
+                    'plugin_name': $pluginName,
+                    'step': 'step_get_selected_language_response',
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_selected_language_response') {
+            $in.step = 'step_get_assets';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_create_paths_to_translation_assets';
+            }
+        }
+
+        if ($in.step === 'step_create_paths_to_translation_assets')
+        {
+            let $languageCodesArray = $in.response.data.language.split(',');
+            $in.data_back.language_codes_array = $languageCodesArray;
+
+            for (let $number in $languageCodesArray)
+            {
+                const $languageCode = $languageCodesArray[$number];
+                if (_Empty($languageCode) === 'true') {
+                    continue;
+                }
+
+                const $fileName = 'translate/' + $languageCode + '.json';
+                $translationAssets[$fileName] = 'local'; // local = I am happy with a local version if it exists
+            }
+
+            $in.step = 'step_get_assets';
+        }
+
+
         if ($in.step === 'step_get_assets')
         {
-            const $list = {
+            let $list = {
                 'launcher.json': '',
                 'icon/icon.svg': '',
                 'icon/icon.json': ''
             };
+
+            if (_Count($translationAssets) > 0) {
+                $list = _Merge($translationAssets, $list);
+            }
 
             return _SubCall({
                 'to': {
@@ -1880,7 +1985,8 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'step': 'step_get_assets_response',
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $pluginName,
+                    'language_codes_array': $in.data_back.language_codes_array
                 }
             });
         }
@@ -1926,6 +2032,51 @@ function infohub_launcher() {
                     'title': $title,
                     'description': 'Unknown description for ' + $title
                 };
+            }
+
+            // Merge the translation files and pick title and description if they are set
+            const $codesArray = $in.data_back.language_codes_array;
+            if (_Empty($codesArray) === 'false') {
+                let $result = {};
+                for (let $number = $codesArray.length -1; $number >= 0; $number--)
+                {
+                    const $code = $codesArray[$number];
+                    if (_Empty($code) === 'true') {
+                        continue;
+                    }
+
+                    const $path = 'translate/' + $code + '.json';
+                    const $translate = _GetData({
+                        'name': 'response|assets|' + $path,
+                        'default': {},
+                        'data': $in,
+                        'split': '|'
+                    });
+                    if (_IsSet($translate['contents']) === 'true') {
+                        const $contents = _JsonDecode($translate['contents']);
+                        $result = _Merge($result, $contents);
+                    }
+                }
+                if (_Empty($result) === 'false') {
+                    const $title = _GetData({
+                        'name': 'launcher|title',
+                        'default': '',
+                        'data': $result,
+                        'split': '|'
+                    });
+                    if (_Empty($title) === 'false') {
+                        $launchData.title = $title;
+                    }
+                    const $description = _GetData({
+                        'name': 'launcher|description',
+                        'default': '',
+                        'data': $result,
+                        'split': '|'
+                    });
+                    if (_Empty($description) === 'false') {
+                        $launchData.description = $description;
+                    }
+                }
             }
 
             $in.step = 'step_default_icon';

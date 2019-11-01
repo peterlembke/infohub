@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Avkopplat",
+        "description": "Du kan köra infohub i avkopplat läge. Med det här verktyget kan du förbereda att gå avkopplat genom att ladda ned data till din webbläsare."
+    },
     "data": {
         "infohub_offline": {
             "Offline tools": "Frånkopplad, verktyg",

@@ -3,9 +3,13 @@
         "date": "2019-10-27 08:01:25",
         "plugin": "infohub_launcher",
         "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
-        "language": "",
-        "country": "",
+        "language": "sv",
+        "country": "SE",
         "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Programstartare",
+        "description": "Plugin med ett grafiskt gränssnitt som visar ikoner för tillgängliga plugins som du kan starta. Den faktiska starten hanteras av Workbench."
     },
     "data": {
         "infohub_launcher": {

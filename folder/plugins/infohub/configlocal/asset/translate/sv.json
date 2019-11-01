@@ -7,6 +7,10 @@
         "country": "SE",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Inställningar",
+        "description": "Inställningar du kan göra som bara sparas lokalt i din webbläsare."
+    },
     "data": {
         "infohub_configlocal": {
             "The menu will render here": "Menyn kommer att visas här",

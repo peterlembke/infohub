@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Tangentbord",
+        "description": "Du kan se här vilka plugins som prenumererar på globala tangentbordstryckningar. Kan vara intressant om du utvecklar plugins till InfoHub."
+    },
     "data": {
         "infohub_keyboard": {
             "Keyboard tests": "Tangentbordstester",

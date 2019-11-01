@@ -7,6 +7,10 @@
         "country": "SE",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Demo",
+        "description": "Demonstrationsprogram som visar dig vad du kan göra med InfoHub."
+    },
     "data": {
         "infohub_demo": {
             "Instructions": "Instruktioner",

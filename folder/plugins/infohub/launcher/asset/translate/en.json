@@ -3,9 +3,13 @@
         "date": "2019-10-27 08:01:25",
         "plugin": "infohub_launcher",
         "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
-        "language": "",
-        "country": "",
+        "language": "en",
+        "country": "GB",
         "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Launcher",
+        "description": "Plugin with a GUI that show icons for available plugins that you can start. The actual starting are handled by the Workbench."
     },
     "data": {
         "infohub_launcher": {

@@ -7,6 +7,10 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Demo",
+        "description": "Demos that show you what you can do with InfoHub."
+    },
     "data": {
         "infohub_demo": {
             "Instructions": "Instructions",

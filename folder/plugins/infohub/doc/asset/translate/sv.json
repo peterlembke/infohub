@@ -7,6 +7,10 @@
         "country": "SE",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Dokumentation",
+        "description": "Här finns all dokumentation. Både den generella documentationen och den specifika för varje plugin."
+    },
     "data": {
         "infohub_doc_document": {
             "Document": "Dokument",

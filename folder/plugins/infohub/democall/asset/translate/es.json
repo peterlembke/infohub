@@ -7,6 +7,10 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Llamada de demostración",
+        "description": "Muestra lo que sucede cuando se llama a un complemento o función que no existe."
+    },
     "data": {
         "infohub_democall": {
             "Instructions": "Instrucciones",

@@ -7,6 +7,10 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Configuración",
+        "description": "Configuraciones que puede realizar que solo se almacenan localmente en su navegador."
+    },
     "data": {
         "infohub_configlocal": {
             "The menu will render here": "El menú se mostrará aquí",

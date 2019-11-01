@@ -596,8 +596,7 @@ function infohub_translate() {
     {
         "use strict";
 
-        var $parts, $key, $assetKey, $data = {}, $i, $languageCodesString,
-            $pluginName, $languageCode, $translations, $merged;
+        var $parts, $key, $assetKey, $data = {}, $pluginName;
 
         const $default = {
             'step': 'step_get_language_codes',
@@ -642,7 +641,7 @@ function infohub_translate() {
 
         if ($in.step === 'step_get_language_codes_response')
         {
-            $languageCodesString = _GetData({
+            const $languageCodesString = _GetData({
                 'name': 'response|data|language',
                 'default': '',
                 'data': $in,
@@ -655,7 +654,7 @@ function infohub_translate() {
             if (_Empty($languageCodesString) === 'false')
             {
                 $parts = $languageCodesString.split(',');
-                for ($i=0; $i < $parts.length; $i++)
+                for (let $i=0; $i < $parts.length; $i++)
                 {
                     $key = $parts[$i].trim().toLowerCase();
                     $languageCodes.push($key); // Preserves the order
@@ -701,14 +700,15 @@ function infohub_translate() {
         if ($in.step === 'step_get_translations_response')
         {
             // Now fill object $translations with language code as key and asset contents data as data.
-            $translations = {};
-            for ($key in $in.response.assets) {
+            let $translations = {};
+            for (let $key in $in.response.assets)
+            {
                 if ($in.response.assets.hasOwnProperty($key) === false) {
                     continue;
                 }
 
                 // You have "translate/sv_se.json", remove "translate/" and ".json". Left is "sv_se"
-                $languageCode = $key.slice('translate/'.length).slice(0,-'.json'.length);
+                const $languageCode = $key.slice('translate/'.length).slice(0,-'.json'.length);
 
                 $translations[$languageCode] = _GetData({
                     'name': $key + '|contents|data',
@@ -719,9 +719,10 @@ function infohub_translate() {
             }
 
             // Merge together your preferred translations with the least preferred first and your most preferred on top.
-            $merged = {};
-            for ($i=$languageCodes.length-1; $i >= 0; $i--) {
-                $languageCode = $languageCodes[$i];
+            let $merged = {};
+            for (let $i=$languageCodes.length-1; $i >= 0; $i--)
+            {
+                const $languageCode = $languageCodes[$i];
                 if (_IsSet($translations[$languageCode]) === 'true') {
                     $merged = _MergeData($merged, $translations[$languageCode]);
                 }

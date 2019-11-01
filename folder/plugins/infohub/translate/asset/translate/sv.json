@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Översätt",
+        "description": "Verktyg för att skapa och underhålla översättningsfiler. Mest användbart om du är specialintresserad eller utvecklar plugins till InfoHub"
+    },
     "data": {
         "infohub_translate": {
             "Instructions": "Instruktioner",

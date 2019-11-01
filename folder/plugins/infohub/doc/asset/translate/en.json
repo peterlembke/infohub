@@ -7,6 +7,10 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Doc",
+        "description": "Full documentation over Infohub and all plugins."
+    },
     "data": {
         "infohub_doc_document": {
             "Document": "Document",

@@ -7,6 +7,10 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Documentación",
+        "description": "Aquí está toda la documentación. Tanto la documentación general como la específica para cada complemento."
+    },
     "data": {
         "infohub_doc_document": {
             "Document": "Documento",

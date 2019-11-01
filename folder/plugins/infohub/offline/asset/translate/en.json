@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Offline",
+        "description": "Here you can prepare for offline. Also handle offline/online event subscribers."
+    },
     "data": {
         "infohub_offline": {
             "Offline tools": "Offline tools",

@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Desconectado",
+        "description": "Aquí puede prepararse para fuera de línea. También maneje suscriptores de eventos fuera de línea / en línea."
+    },
     "data": {
         "infohub_offline": {
             "Offline tools": "Herramientas sin conexión",

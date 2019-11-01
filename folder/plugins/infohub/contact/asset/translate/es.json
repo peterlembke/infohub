@@ -7,6 +7,10 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Contactos",
+        "description": "Herramientas para administrar cuentas de inicio de sesión y utilizadas solo por el administrador. Administre los contactos entrantes que desean ingresar al servidor de InfoHub. Administre contactos salientes donde InfoHub quiera contactar a otro InfoHub."
+    },
     "data": {
         "infohub_contact": {
             "Instructions": "Instrucciones",

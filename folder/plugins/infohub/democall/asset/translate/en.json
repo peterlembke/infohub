@@ -7,6 +7,10 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Demo Call",
+        "description": "Shows what happens when you call a plugin or function that do not exist."
+    },
     "data": {
         "infohub_democall": {
             "Instructions": "Instructions",

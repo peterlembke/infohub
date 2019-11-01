@@ -7,6 +7,10 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Node contacts",
+        "description": "Handles all node connections. Server uses this data to connect to other nodes."
+    },
     "data": {
         "infohub_contact": {
             "Instructions": "Instructions",

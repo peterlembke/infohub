@@ -7,6 +7,10 @@
         "country": "SE",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Avlusning",
+        "description": "Verktyg du kan använda för att starta om Infohub och samtidigt rensa bort viss data. Perfekt när du behöver avlusa programkod."
+    },
     "data": {
         "infohub_debug": {
             "Reload page. shift alt ctrl 1": "Ladda om sidan. shift alt ctrl 1",

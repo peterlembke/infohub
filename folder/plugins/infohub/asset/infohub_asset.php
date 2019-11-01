@@ -322,6 +322,17 @@ class infohub_asset extends infohub_base
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $data = $in['response']['data'];
+
+            foreach ($in['data_back']['assets_requested'] as $path => $checksum) {
+                if (isset($in['response']['data'][$path]['checksum']) === true) {
+                    if ($data[$path]['checksum'] !== $checksum) {
+                        continue; // This is a new asset. Let us keep that in the response
+                    }
+                    // We already have this asset or the asset do not exist. Let us remove it from the response
+                    unset($data[$path]);
+                }
+            }
+
         }
         
         leave:

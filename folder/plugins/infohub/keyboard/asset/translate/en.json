@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Keyboard",
+        "description": "Subscribe to key combinations."
+    },
     "data": {
         "infohub_keyboard": {
             "Keyboard tests": "Keyboard tests",

@@ -7,6 +7,10 @@
         "country": "SE",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Demo anrop",
+        "description": "Här kan du undersöka hur felaktiga anrop ser ut. Bra att veta om du ska utveckla plugins till InfoHub."
+    },
     "data": {
         "infohub_democall": {
             "Instructions": "Instruktioner",

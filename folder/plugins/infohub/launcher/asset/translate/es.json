@@ -3,9 +3,13 @@
         "date": "2019-10-27 08:01:25",
         "plugin": "infohub_launcher",
         "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
-        "language": "",
-        "country": "",
+        "language": "es",
+        "country": "ES",
         "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Iniciador de programa",
+        "description": "Complemento con una GUI que muestra íconos de los complementos disponibles que puede iniciar. Workbench maneja el inicio real."
     },
     "data": {
         "infohub_launcher": {

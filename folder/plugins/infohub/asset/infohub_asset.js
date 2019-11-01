@@ -444,8 +444,18 @@ function infohub_asset() {
         if ($in.step === 'step_get_assets_from_storage')
         {
             let $wantedAssets = {};
-            for (let $pluginName in $in.list) {
-                for (let $assetName in $in.list[$pluginName]) {
+            for (let $pluginName in $in.list)
+            {
+                if ($in.list.hasOwnProperty($pluginName) === false) {
+                    continue;
+                }
+
+                for (let $assetName in $in.list[$pluginName])
+                {
+                    if ($in.list[$pluginName].hasOwnProperty($assetName) === false) {
+                        continue;
+                    }
+
                     const $path = 'infohub_asset/asset/' + $pluginName + '/' + $assetName;
                     const $checksum = $in.list[$pluginName][$assetName];
                     $wantedAssets[$path] = $checksum;
@@ -498,7 +508,14 @@ function infohub_asset() {
                         'default': '',
                         'data': $localAssets[$path]
                     });
-                    
+
+                    if (_Empty($localChecksum) === 'false') {
+                        if ($wantedAssets[$path] === 'local') {
+                            // We want the existing local version
+                            $wantedAssets[$path] = $localChecksum;
+                        }
+                    }
+
                     if ($localChecksum !== $wantedAssets[$path]) {
                         $updateAssets[$path] = $localChecksum;
                     }

@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Välkommen",
+        "description": "Välkommen till InfoHub. Här kan du läsa mer och inspireras av visionen med InfoHub."
+    },
     "data": {
         "infohub_welcome_menu": {
             "Welcome": "Välkommen",

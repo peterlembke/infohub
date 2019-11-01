@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Bienvenido",
+        "description": "Bienvenido a InfoHub. Este es un viaje inspirador que InfoHub puede hacer y hará en el futuro."
+    },
     "data": {
         "infohub_welcome_menu": {
             "Welcome": "Bienvenido",

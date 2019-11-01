@@ -94,11 +94,23 @@ The child plugin must get the translations. When you initialize the child plugin
 ```
 And then use the translations as usual. Do remember to read the first section above: "Use in your plugin".
 
+## Icons and descriptions
+The icon title and the description that you find in asset/launcher.json can be translated by adding this in your translation files:
+```
+    },
+    "launcher": {
+        "title": "Translate",
+        "description": "Create template files that you can translate"
+    },
+    "data": {
+```
+See how this is done in the plugins infohub_demo, infohub_tools etc.
+
 ## License
 This documentation is copyright (C) 2019 Peter Lembke.  
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Links, and no Back-Cover Links.  
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ## footer
-Updated 2019-10-26 by Peter Lembke
+Updated 2019-11-01 by Peter Lembke
 Since 2019-03-14 by Peter Lembke  

@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Teclado",
+        "description": "Suscribirse a combinaciones de teclas."
+    },
     "data": {
         "infohub_keyboard": {
             "Keyboard tests": "Pruebas de teclado",

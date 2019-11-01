@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Verktyg",
+        "description": "Verktyg är en samling med grafiska gränssnitt som använder funktioner i Infohub. Till exempel checksum, kryptering, lösenord, slumptal, tid osv. Delvis demo, delvis nytta för dig."
+    },
     "data": {
         "infohub_tools": {
             "Instructions": "Instruktioner",

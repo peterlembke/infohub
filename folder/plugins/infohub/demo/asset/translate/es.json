@@ -7,6 +7,10 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Manifestación",
+        "description": "Demostración que le muestra lo que puede hacer con InfoHub."
+    },
     "data": {
         "infohub_demo": {
             "Instructions": "Instrucciones",

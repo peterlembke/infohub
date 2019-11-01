@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Welcome",
+        "description": "Welcome to InfoHub. This is an inspirational journey what InfoHub can do and will do in the future."
+    },
     "data": {
         "infohub_welcome_menu": {
             "Welcome": "Welcome",

@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Traducir",
+        "description": "Cree archivos de plantilla que pueda traducir."
+    },
     "data": {
         "infohub_translate": {
             "Instructions": "Instrucciones",

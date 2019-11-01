@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Tools",
+        "description": "List of tools. This is a useful demo."
+    },
     "data": {
         "infohub_tools": {
             "Instructions": "Instructions",

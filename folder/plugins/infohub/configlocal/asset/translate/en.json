@@ -7,6 +7,10 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Settings",
+        "description": "Settings that are only saved locally in your browser."
+    },
     "data": {
         "infohub_configlocal": {
             "The menu will render here": "The menu will render here",
