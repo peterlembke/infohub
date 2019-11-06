@@ -52,24 +52,120 @@ See the [home page](https://www.infohub.se).
 *  PHP Storage
 *  JS Core
 *  JS Storage
-*  Translation system
+*  Translation system - Spanish, English, Swedish
 *  Assets system
 *  Documentation system
 *  JS rendering system inclusive forms
 
-## Planned parts
-*  PHP Login (Working on it)
-*  JS Login (Working on it)
-*  PHP Plugin test system (Working on it)
-*  JS Plugin test system (Working on it)
-*  Offline (Some support exist)
-*  Translations. Not fully covered yet. English, Spanish, Swedish to start with
+## Planned parts I am working on
+I am working on this list in this order:
+* JS Offline - Service worker must update cached files - v 1.2.2
+* JS Encryption - Single point encryption  - v 1.2.3
+* PHP Login & Sessions - Login without revealing password - v 1.3.0
+* JS Login & Sessions - Sessions without cookies - v 1.3.0
+I have started many of them and there are detailed plans done.
 
 ## Future plans
-I have a long list with features that I might implement in some order
-* Encryption - two parties encryption but also single point encryption 
-* Web workers - Just because I can :-). InfoHub is so flexible.
-*  
+InfoHub is your private place on the internet.
+To keep your data safe I will be very restrictive of what features Infohub will get.
+
+In the infohub domain I will implement
+* Planned parts I am working on
+* Developer tools
+* System features
+* Accessibility
+
+I have more domain names. They are not part of the Infohub core and are optional.
+
+In the teamfakta domain I will implement
+ * Apps for personal data
+ * Enrich personal data from outer sources
+ * Enrich personal data from calculations
+ * Static data that could enrich your personal data
+ 
+### Developer tools
+Things I will implement.
+* PHP Plugin test system - Tests will write them self. Will record live data. 
+* JS Plugin test system - Tests will write them self. Will record live data.
+* JS Developer config - Enable the four restart buttons on the keyboard, view developer plugins, enable logging.
+
+### System features
+Things I will implement.
+* JS Web workers - So I can encapsulate plugins from reaching each other
+* JS Cron - A cron you can subscribe to and get a message when it is time
+    can be used for saving data at intervals 
+* PHP Cron - A cron you can subscribe to and get a message when it is time
+    can be used to take backups, clean out expired data
+* Subscribe to messages - An intercept system for messages so plugins can be extended, modified, substituted. 
+
+### Accessibility
+Things I will implement.
+* Colour - Colour schema that suit you best.
+* Audio - Audio feedback when loading, saving, end of line and so on.
+* Image - Set how image colours should be transformed to suite your eyes.
+* Font - Select the font type you prefer from the browser built in fonts.
+
+### Apps for personal data
+Things I will implement.
+* Tree - The main organizer for your pieces of data. Here all personal data is stored.
+
+Each of the plugins below is a graphical interface that help you to register and view a specific kind of data.
+Things I might implement.
+* Health - Your health data. Resting pulse, Blood sugar, blood pressure, weight, measures.
+* Training - Your workouts like running, gym, spinning, walking etc.
+* Thing - Register your larger things: What it is, when you bought it, serial number, warranty and so on.
+* Usage - Register when you use a thing. Could be running shoes, moped, bicycle etc.  
+* Calendar - Your future and past todo and what you have done. Find data by date.
+* Planning - Your projects. You can set up tasks in projects here. Date when things must be done and when they were done.
+* Diary - How was your day. Write the text version of your day and use links to your data.
+* Media (images/video/audio) - Your catalog with media and its meta data.
+* Contact - The contact information to your friends.
+* Budget - Calculate your income and expected expenses in this plugin.
+* Expense - Register your purchases to keep track where the money goes.   
+* Review - Write your reviews of films, books, records, TV series, games, subscriptions, magazines. 
+    Then you can see what movies you have seen and when you saw them.
+* Story - Pick data from the other plugins and put together a story that look like a newspaper.
+* Place - You can register places you have visited and get a map with dots.
+* Event - Register events you want to participate in or have participated in. 
+
+### Enrich personal data from outer sources
+Data that the server fetch from 3rd party API or from other Infohub servers and can enrich your personal data.
+* Weather - Get the weather and temperature for a place and date.
+* Map - Get a snapshot from an open street map
+* Event - Get event details
+* Holiday - Get data for your calendar
+* Name of the day - Get data for your calendar
+* Sun/moon cycles - So you know when it is dark and how dark
+
+### Enrich personal data from calculations
+* Pace - calculator for your workouts or running events
+* Graph - Use data from the other plugins and select a graph to view the data.
+
+### Static data that could enrich your personal data
+Things I might implement.
+* Country flags and country information. 
+    Can be used in your texts.
+* Colour names and their colour codes. 
+    You can write the name of a colour and it is then possible to see that colour.
 
 ## Bad ideas
-I also have a long list with bad ideas and why they are bad for InfoHub.
+Things I will not implement.
+I have a long list with bad ideas and why they are bad for InfoHub.
+Some examples:
+* Interface to Twitter, Facebook, Google Calendar, LinkedIn, Garmin, Wordpress, Bank data.
+    Bad because Infohub is not about sharing. And Infohub is also not a reader for external data.
+    Use the services as they were intended to be used.
+* Image editor, Video editor, Audio editor.
+    Bad because InfoHub is about information. There are excellent tools outside InfoHub that can handle this.
+* Tracking behaviour, Tracking position, even calculating any GPS data is bad. IP positioning.
+    All kind of tracking is against what Infohub is about. Privacy.
+* Send/receive sms/email/slack/chat
+    Bad because Infohub is not about sharing. Use appropriate software for that instead.
+* Scraping data from sites
+    That practive is not fair. Bad idea.
+* Read RSS files, Wikipedia, Web search like DuckduckGo, Bing, Google etc. 
+    Use the services as they were intended to be used. Infohub is not a viewer for external data.
+* Smart home with Telldus live, and view webcam streams.
+    Bad because there are already appropriate software for that. Also not so good to have login to these services stored on the Infohub server.
+
+Updated 2019-11-03
