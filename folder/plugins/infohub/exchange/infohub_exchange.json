@@ -11,15 +11,34 @@
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
+            "doc.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
+            },
+            "demo.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
+            },
             "local.infohub.workbench": {
                 "node": "client",
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
-            "local.pi3.workbench": {
+            "local.infohub.doc": {
                 "node": "client",
-                "plugin": "infohub_workbench",
-                "function": "startup"
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
             },
             "local.infohub.demo": {
                 "node": "client",
@@ -29,10 +48,14 @@
                     "plugin_name": "infohub_demo"
                 }
             },
-            "local.infohub.welcome": {
+            "local.infohub.random": {
                 "node": "server",
                 "plugin": "infohub_random",
-                "function": "random"
+                "function": "random_number",
+                "data": {
+                    "min": 1,
+                    "max": 100
+                }
             }
         }
     },

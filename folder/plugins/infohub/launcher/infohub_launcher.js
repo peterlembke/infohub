@@ -404,9 +404,6 @@ function infohub_launcher() {
             });
             $messagesArray.push($messageOut);
 
-            // The first command in start.js is to check this flag.
-            localStorage.removeItem('cold_start');
-
             return {
                 'answer': 'true',
                 'message': 'Sending all rendering messages',

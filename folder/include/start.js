@@ -52,7 +52,7 @@ function infohub_start() {
 
     /**
      * Set/Check the cold_start flag in localStorage
-     * Will be removed in the end of infohub_launcher -> setup_gui
+     * Will be removed in the end of this file when the first message have been sent. See end of _SendFirstMessage
      * @param {type} $in
      * @returns {Boolean}
      */
@@ -716,6 +716,10 @@ function infohub_start() {
             );
             document.dispatchEvent($event);
             $progress.whatArea('clean_up',0, 'Have sent first message');
+
+            // The first command in start.js is to check this flag. We have gone so far now that it is time to reset the flag.
+            localStorage.removeItem('cold_start');
+
         }, 0.0);
 
     };
