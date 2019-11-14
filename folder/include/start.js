@@ -75,6 +75,13 @@ function infohub_start() {
 
         if ($failedStarts === 3) {
             $progress.whatArea('start',0, 'Failed start - Clearing local storage and database and trying again');
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                    }
+                });
+            }
             localStorage.clear();
             indexedDB.deleteDatabase("localforage");
             indexedDB.deleteDatabase("keyval-store"); // idbkeyval

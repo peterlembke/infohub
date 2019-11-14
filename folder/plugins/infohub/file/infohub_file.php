@@ -51,6 +51,7 @@ class infohub_file extends infohub_base
             'read' => 'normal',
             'write' => 'normal',
             'get_folder_structure' => 'normal',
+            'index_checksum' => 'normal', // infohub_offline
             'launcher_get_full_list' => 'normal', // infohub_launcher
             'asset_get_all_assets_for_one_plugin' => 'normal', // infohub_asset
             'asset_get_assets_requested' => 'normal', // infohub_asset
@@ -310,6 +311,38 @@ class infohub_file extends infohub_base
         $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
 
         return $this->internal_Cmd($in);
+    }
+
+    /**
+     * Calculate the checksum the same way as in index.php
+     * @version 2019-11-13
+     * @since   2019-11-13
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function index_checksum(array $in = array()): array
+    {
+        $default = array();
+        $in = $this->_Default($default, $in);
+
+        $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
+        $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
+        $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
+
+        $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng);
+
+        $files = ['progress.js', 'error_handler_and_frame_breakout.js', 'the_go_function.js', 'sanity_check.js', 'start.js', 'install_service_worker.js'];
+        foreach ($files as $fileName) {
+            $fileContents = file_get_contents(INCLUDES . DS . $fileName);
+            $checksum = $checksum . md5($fileContents);
+        }
+
+        return array(
+            'answer' => 'true',
+            'message' => 'Here are the checksum',
+            'checksum' => md5($checksum)
+        );
     }
 
     /**

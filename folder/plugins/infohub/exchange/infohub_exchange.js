@@ -262,45 +262,51 @@ function infohub_exchange() {
      * @author Peter Lembke
      */
     $functions.push("startup");
-    var startup = function ($in) {
+    var startup = function ($in)
+    {
         "use strict";
-        var $subCall, $data,
-            $currentHostname = _GetCurrentHostname(),
-            $domain,
-            $default = {
-                'step': 'step_send_first_message',
-                'parent_box_id': '1',
-                'message': '',
-                'answer': '',
-                'execution_time': 0,
-                'all_plugins': {},
-                'plugin_index': {},
-                'config': {}
-            };
+
+        const $default = {
+            'step': 'step_send_first_message',
+            'parent_box_id': '1',
+            'message': '',
+            'answer': '',
+            'execution_time': 0,
+            'all_plugins': {},
+            'plugin_index': {},
+            'config': {}
+        };
         $in = _Default($default,$in);
 
-        $domain = _GetData({name: 'domain', 'default': '', 'data': $in.config });
+        let $domain = _GetData({
+            name: 'domain',
+            'default': '',
+            'data': $in.config
+        });
+
+        let $messages = [];
 
         if ($in.step === 'step_send_first_message')
         {
-            $subCall = {};
-            $data = {};
+            let $subCall = {};
 
             if (typeof $domain.default !== 'undefined') {
                 $subCall = $domain.default;
             }
 
+            const $currentHostname = _GetCurrentHostname();
+
             if (typeof $domain[$currentHostname] !== 'undefined') {
                 $subCall = $domain[$currentHostname];
             }
 
-            $data = _GetData({
+            let $data = _GetData({
                 'name': 'data',
                 'default': {},
                 'data': $subCall,
             });
 
-            return _SubCall({
+            let $messageOut = _SubCall({
                 'to': {
                     'node': $subCall.node,
                     'plugin': $subCall.plugin,
@@ -308,13 +314,12 @@ function infohub_exchange() {
                 },
                 'data': $data,
                 'data_back': {
-                    'step': 'step_trigger_keyboard'
+                    'step': 'step_end'
                 }
             });
-        }
+            $messages.push($messageOut);
 
-        if ($in.step === 'step_trigger_keyboard') {
-            return _SubCall({
+            $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
@@ -324,13 +329,12 @@ function infohub_exchange() {
                     'event_type': 'ping' // Just to wake up the plugin, it has event observers that must be run
                 },
                 'data_back': {
-                    'step': 'step_trigger_offline'
+                    'step': 'step_end'
                 }
             });
-        }
+            $messages.push($messageOut);
 
-        if ($in.step === 'step_trigger_offline') {
-            return _SubCall({
+            $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_offline',
@@ -343,11 +347,26 @@ function infohub_exchange() {
                     'step': 'step_end'
                 }
             });
+            $messages.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_offline',
+                    'function': 'update_service_worker'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+            $messages.push($messageOut);
         }
 
         return {
             'answer': 'true',
-            'message': 'Leaving function infohub_exchange->startup()'
+            'message': 'Leaving function infohub_exchange->startup()',
+            'messages': $messages
         };
     };
 

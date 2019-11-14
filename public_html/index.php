@@ -39,9 +39,16 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-title" content="Infohub">
         <meta name="allowed-outgoing-urls" content="origin">
-        <link rel="stylesheet" type="text/css" id="infohub_global" href="data:text/css;base64,<?php echo base64_encode(file_get_contents(INCLUDES . '/infohub_global.css')); ?>">
-        <link rel="shortcut icon" id="favicon" href="data:image/png;base64,<?php echo base64_encode(file_get_contents(MAIN . '/favicon.png')); ?>" />
-        <link rel="apple-touch-icon" href="data:image/png;base64,<?php echo base64_encode(file_get_contents(MAIN . '/infohub.png')); ?>">
+        <?php
+            $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
+            $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
+            $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
+
+            $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng);
+        ?>
+        <link rel="stylesheet" type="text/css" id="infohub_global" href="data:text/css;base64,<?php echo $globalCss; ?>">
+        <link rel="shortcut icon" id="favicon" href="data:image/png;base64,<?php echo $faviconPng; ?>" />
+        <link rel="apple-touch-icon" href="data:image/png;base64,<?php echo $infohubPng; ?>">
         <link rel="manifest" href="manifest.json">
     </head>
     <body style="zoom: 100%;">
@@ -53,6 +60,7 @@
             <div id="progress_text"></div>
         </div>
         <div id="1" box_mode="data" class="main" box_alias="main">
+            Loading InfoHub...
             <noscript>
                 <legend>Information</legend>
                 <br/>
@@ -63,11 +71,17 @@
                 <a href="https://enablejavascript.co/" target="_blank"> enable</a> JavaScript and reload the page.<br/>
             </noscript>
         </div>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'progress.js');?></script>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'error_handler_and_frame_breakout.js');?></script>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'the_go_function.js');?></script>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'sanity_check.js');?></script>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'start.js');?></script>
-        <script><?php echo file_get_contents(INCLUDES . DS . 'install_service_worker.js');?></script>
+        <?php
+            $files = ['progress.js', 'error_handler_and_frame_breakout.js', 'the_go_function.js', 'sanity_check.js', 'start.js', 'install_service_worker.js'];
+            foreach ($files as $fileName) {
+                $fileContents = file_get_contents(INCLUDES . DS . $fileName);
+                echo "<script>$fileContents</script>";
+                $checksum = $checksum . md5($fileContents);
+            }
+        ?>
+        <script>
+            var $renderedTime = "<?php echo microtime(true); ?>";
+            var $renderedChecksum = "<?php echo md5($checksum); ?>";
+        </script>
     </body>
 </html>

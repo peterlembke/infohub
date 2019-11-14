@@ -15,7 +15,12 @@
  You should have received a copy of the GNU General Public License
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
-// progress
+
+/**
+ * Progress help the startup.js to show loading progress.
+ * Normally the startup is so fast that you do not see the progress.
+ * On a cold start it will be different with longer wait.
+ */
 function progress() {
     "use strict";
 

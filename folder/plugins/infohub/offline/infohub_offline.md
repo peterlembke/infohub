@@ -65,7 +65,10 @@ When a offline event occur, then a message comes to this function. We create a k
 All subscribers with this key will have their messages sent out.  
 
 # Hard coded subscribers
-online and offline - Always sent to Infohub_Transfer.  
+DEPRECATED: online and offline - Always sent to Infohub_Transfer.
+
+# Service worker - update
+Service worker is now updated during refresh if the last check is at least 10 minutes old and you get a response from the server and the checksum is different compared to what you have - then the service worker are unregistered and the page is refreshed when the ban time is up.  
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  
@@ -73,4 +76,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Created 2018-10-26 by Peter Lembke  
-Updated 2018-10-26 by Peter Lembke  
+Updated 2019-11-14 by Peter Lembke  

@@ -1,16 +1,18 @@
-![Infohub Logo](https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/welcome/asset/icon/infohub-logo-done.svg)
+![Infohub Logo](folder/plugins/infohub/welcome/asset/icon/infohub-logo-done.svg)
 # InfoHub
 - See the [home page](https://www.infohub.se) for more information.
 
 # Your private place on the web
-This is not about sharing. InfoHub handle your private data on your own or your friends trusted server.
-This is a generic platform where you run your plugins. The long term aim is to create trustworthy operating system in your browser.
+This is not about sharing. InfoHub handle your private data on your own or your friends trusted server on the internet or in your private network.
+This is a generic platform where you run your plugins. The long term aim is to create a trustworthy operating system for your browser.
+
+You can run the [workbench](https://www.infohub.se) or start a plugin as [stand alone](https://demo.infohub.se).
 
 # Plugins
 You can use existing plugins. You can also easily write your own plugins if you have basic knowledge of a programming language where there exist a core. I have written a core for PHP and for Javascript.
 A plugin is one single class that always extend the base class, that is it.
 
-# Lead words in building InfoHub
+# Lead words in building InfoHub ![Infohub](folder/favicon.png)
 I refer to these rules every time I am in doubt how to solve something.
 
 **No exceptions**
@@ -30,7 +32,6 @@ I refer to these rules every time I am in doubt how to solve something.
 # What is this repository for?
 - The master branch contain the on going development for the complete InfoHub.
 - I set a tag when there is some stable release
-- Branch: php-core will contain the minimum required files to run InfoHub on a web server
 - There will be other branches
 
 # How do I set it up?
@@ -45,22 +46,24 @@ There are no forum yet.
 
 See the [home page](https://www.infohub.se).
 
-# Plans for InfoHub
+# Plans for InfoHub ![Infohub](folder/favicon.png)
 
 ## Done parts
-*  PHP Core
-*  PHP Storage
-*  JS Core
-*  JS Storage
-*  Translation system - Spanish, English, Swedish
-*  Assets system
-*  Documentation system
-*  JS rendering system inclusive forms
+* PHP Core
+* PHP Storage
+* JS Core
+* JS Storage
+* Translation system - Spanish, English, Swedish
+* Assets system
+* Documentation system
+* JS rendering system inclusive forms
+* JS and PHP logging system
 
 ## Planned parts I am working on
 I am working on this list in this order:
+* doc.infohub.se - Runs only the documentation plugin. To show that Infohub can be used as a "normal" web page with any content. You do not need to run Workbench.
 * JS Offline - Service worker must update cached files - v 1.2.2
-* JS Encryption - Single point encryption  - v 1.2.3
+* JS Encryption - Single point encryption - v 1.2.3
 * PHP Login & Sessions - Login without revealing password - v 1.3.0
 * JS Login & Sessions - Sessions without cookies - v 1.3.0
 I have started many of them and there are detailed plans done.
@@ -69,7 +72,7 @@ I have started many of them and there are detailed plans done.
 InfoHub is your private place on the internet.
 To keep your data safe I will be very restrictive of what features Infohub will get.
 
-In the infohub domain I will implement
+In the Infohub domain I will implement
 * Planned parts I am working on
 * Developer tools
 * System features
@@ -82,7 +85,7 @@ In the teamfakta domain I will implement
  * Enrich personal data from outer sources
  * Enrich personal data from calculations
  * Static data that could enrich your personal data
- 
+
 ### Developer tools
 Things I will implement.
 * PHP Plugin test system - Tests will write them self. Will record live data. 
@@ -168,4 +171,45 @@ Some examples:
 * Smart home with Telldus live, and view webcam streams.
     Bad because there are already appropriate software for that. Also not so good to have login to these services stored on the Infohub server.
 
+## Beyond PHP and Javascript - "There is another system"
+The Infohub Core can be implemented in any language. 
+The PHP/JS cores are template implementations how the systems work. If you implement an Infohub core in another language you might have to modify the systems to suite that platform. The important thing is that as a developer you can recognize the inner workings of the system when you jump between implementations.
+
+The core concepts are:
+
+* Level 1
+    * Communication between nodes in the Infohub format
+    * Kickout tests
+* Level 2
+    * Message queues system
+    * Plugin system
+* Level 3 - Pick what you need
+    * Login and sessions
+    * Storage system
+    * Rendering system for Graphical User Interface
+
+You could have a static software that implement Level 1 so other Infohub cores can communicate with it.
+
+You could implement Level 2 so other developers more easily can get started with the core and write plugins.
+
+You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and login & sessions but do not need a GUI.
+
 Updated 2019-11-03
+
+# Images
+The launcher is where you start plugins.
+![Welcome](folder/doc/images/launcher.png)
+## Welcome plugin.
+![Launcher](folder/doc/images/welcome.png)
+## Tools desktop
+![Tools desktop](folder/doc/images/tools-desktop.png)
+## Tools on a smaller screen.
+![Tools mobile](folder/doc/images/tools.png)
+# Settings for language
+![Language](folder/doc/images/language.png)
+# Settings for zoom
+![Zoom](folder/doc/images/zoom.png)
+## Documentation
+![Documentation](folder/doc/images/doc.png)
+
+That is just some examples of what Infohub cam do. ![Infohub](folder/favicon.png)

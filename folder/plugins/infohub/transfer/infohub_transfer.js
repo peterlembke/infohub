@@ -602,7 +602,7 @@ function infohub_transfer() {
         });
 
         const xmlHttp = new XMLHttpRequest();
-        const $maxWaitTimeMS = 8000.0;
+        const $maxWaitTimeMS = 4000.0;
 
         var noResponseTimer = setTimeout(function() {
             xmlHttp.abort();

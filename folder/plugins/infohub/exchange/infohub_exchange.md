@@ -2,8 +2,8 @@
 Your local message router  
 
 # Introduction
-When the code get a package with messages it arrives to Infohub_Exchange for sorting. There are several message queues the message will pass on its way to the destination - the plugin.  
-The answer from a plugin also goes into the queues and are rerouted to its destination by Infohub Exchange.  
+When Infohub get a package with messages the messages arrives to Infohub_Exchange for sorting. There are several message queues the message will pass trough on its way to the destination.  
+Responses from plugins also goes into the queues and are rerouted to its destination by Infohub Exchange.  
 
 # Pre-sorting
 Each message in the incoming package must pass trough some strict checks.  
@@ -19,7 +19,7 @@ You can talk with your siblings. infohub_democall_child -> infohub_democall_sibl
 You can talk with any level 1 plugin in the same node.  
 Level 1 plugins can talk to level 1 plugins in other nodes.
 For practical reasons a server node can not talk to the client node.
-That might change in the future if I overcome the technical obsicals  
+That might change in the future if I overcome the technical obstacles.  
 
 ## Why these rules
 These rules exist for security reasons to bring order into the message flow. The message flow are easier to understand with clear rules.  
@@ -59,21 +59,31 @@ Now all tasks are done and infohub.php have nothing more to do and will exit.
 You can see all features of the Exchange plugin in action if you study infohub_demo.  
 
 # Configuration
-You can have a JSON file in each plugin folder. That JSON can contain configuration for your server node and your client node.  
+You can have a JSON file in each plugin folder. That JSON can contain configuration for your server node and your client node.
+  
 You can see examples of this in infohub_exchange.json and in infohub_storage_data.json  
-Use by adding "config": {} to the default values in your client cmd function. Use by adding "config" => array() to the default values in your server cmd function.  
-Your server plugin will only get access to config data in the server section of the file. Your client plugin will only get access to the config data in the client section of the file.  
+Use by adding "config": {} to the default values in your client cmd function. Use by adding "config" => array() to the default values in your server cmd function.
+  
+Your server plugin will only get access to config data in the server section of the file. Your client plugin will only get access to the config data in the client section of the file.
+  
 Why do this feature exist? Should not all data be stored in Storage? Yes all data should be stored in storage. There are just two problems with that,
 first we have the rule "Be self sufficient" - not to be dependent. And we also have the problem that core plugins sometimes need the data before Storage is available.
+
 There can also be other considerations like that data is needed on every call but could be changed, like in the case with infohub_storage_data.json where the login credentials for the database is required in each call.  
 The config file is NOT for default values. Default values should be part of the code. The config file is NOT for data that you could store in Storage instead.
-There are only some rare cases where the config file is a good thing. When should you use a config file:  
+There are only some rare cases where the config file is a good thing. 
 
+When should you use a config file:  
 - You have read-only data that seldom change
 - Some of the data are needed in every call
 - It is not much data, less than 10Kb for each node
 
 It is not a big deal to start out with a config file and then if you later see that you should have used a Storage instead, then you just swap to Storage.
+
+## Override configuration
+If you need to change a configuration file then you copy it to folder/config and do the changes there.
+
+If a config json file exist in folder/config then it is used INSTEAD OF the original file.
 
 # Domains start message
 When your browser get the plugin code from the server you also get the config file data. infohub_exchange.json contain start messages for different domain names.  
@@ -85,7 +95,7 @@ In the example below you see domain names and their start messages. Remember tha
         "domain": {
             "default": {
                 "node": "client",
-                "plugin": "infohub_demo",
+                "plugin": "infohub_workbench",
                 "function": "startup"
             },
             "www.infohub.se": {
@@ -93,26 +103,65 @@ In the example below you see domain names and their start messages. Remember tha
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
+            "doc.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
+            },
+            "demo.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
+            },
             "local.infohub.workbench": {
                 "node": "client",
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
+            "local.infohub.doc": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
+            },
             "local.infohub.demo": {
                 "node": "client",
-                "plugin": "infohub_demo",
-                "function": "startup"
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
             },
-            "local.infohub.welcome": {
+            "local.infohub.random": {
                 "node": "server",
                 "plugin": "infohub_random",
-                "function": "random"
+                "function": "random_number",
+                "data": {
+                    "min": 1,
+                    "max": 100
+                }
             }
         }
     },
     "server": {}
 }
 ```
+Exchange will match the URL address and see what start message to send.
+You can have any node, plugin, function in the message. In the last row for local.infohub.random you will only see the response in the browser developer tools network tab. It will give you a server response with a random number.
+
+Plugins with a graphical user interface can not just be called directly because some boxes need to be setup first. Then you call infohub_standalone and tell what plugin should be run.
+
+The normal start is to call infohub_workbench.
+
+With this you can see that the same Infohub can be used for presenting totally different web pages. 
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  
@@ -120,4 +169,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Created 2016-03-31 by Peter Lembke  
-Last updated 2017-06-04 by Peter Lembke  
+Updated 2019-11-09 by Peter Lembke  
