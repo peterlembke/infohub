@@ -42,25 +42,40 @@ class kickOut
     protected function quickTests(): void
     {
         $fileName = $this->getFileName();
-        if ($fileName !== 'index.php') {
-            $this->GetOut('The kick out tests are only available for index.php');
+        if ($fileName !== 'infohub.php') {
+            $this->GetOut('The kick out tests are only available for infohub.php');
         }
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-            $this->GetOut('REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . ' must be GET');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->GetOut('REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . ' must be POST');
         }
 
         if($_SERVER['QUERY_STRING'] !== '') {
             $this->GetOut('QUERY_STRING must be empty: ' . $_SERVER['QUERY_STRING']);
         }
 
-        if (count($_POST) !== 0) {
-            $this->GetOut('POST count: ' . count($_POST) . ' must be 0');
+        if (count($_POST) !== 1) {
+            $this->GetOut('POST count: ' . count($_POST) . ' must be 1');
         }
 
         if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] != '127.0.0.1' and $_SERVER['SERVER_ADDR'] != '::1') {
             $this->GetOut("Only a client can start this file.");
         }
+
+        if (isset($_POST['package']) === false) {
+            $this->GetOut('POST name must be "package"');
+        }
+
+        $maxPostLength = 1024 * 1024;
+
+        $postLength = ceil(strlen($_POST['package']));
+        if ($postLength > $maxPostLength) {
+            $this->GetOut('Length of POST max ' . abs(floor($maxPostLength / 1024)) . 'Kb, you sent ' . abs(floor($postLength / 1024)) . 'Kb'  );
+        }
+        if (strlen($_POST['package']) < 18) {
+            $this->GetOut('Length of POST minimum 18 bytes');
+        }
+        $_POST['package'] = str_replace('\"', '"', $_POST['package']);
     }
 
     /**
@@ -110,12 +125,14 @@ class kickOut
             $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace($fileName, '', $_SERVER['REQUEST_URI']);
         }
 
-        if (isset($_SERVER['HTTP_REFERER']) === true and $_SERVER['HTTP_REFERER'] !== $url) {
+        if (isset($_SERVER['HTTP_REFERER']) === false) {
+            $this->GetOut('infohub.php can not be called directly');
+        }
+
+        if ($_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
-            if ($refererFileName !== 'serviceworker.js') {
-                $message = "HTTP_REFERER must be empty or the same as the url. Open this page in a fresh browser. Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
-                $this->GetOut($message);
-            }
+            $message = "HTTP_REFERER must be empty or the same as the url. Open this page in a fresh browser. Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
+            $this->GetOut($message);
         }
     }
 
@@ -158,9 +175,24 @@ class kickOut
      * If you end up here you will be thrown out
      * @param $message | A message to display to the user
      */
-    protected function GetOut(string $message = ''): void
+    public function GetOut(string $message = ''): void
     {
-        $messageOut = '<html><head></head><body><div class="form" id="info"><h1>Information</h1><div id="alert" class="label">' . $message . '</div><br /></div></body></html>';
+        $messageOut = array(
+            'to' => array(
+                'node' => 'client',
+                'plugin' => 'infohub_transfer',
+                'function' => 'ban_seconds'
+            ),
+            'data' => array(
+                'answer' => 'false',
+                'data' => 0,
+                'banned_until' => 0,
+                'ban_seconds' => 0,
+                'message' => $message
+            )
+        );
+        $package = array('to_node' => 'client', 'messages' => array($messageOut));
+        $messageOut = json_encode($package, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         echo $messageOut;
         exit();

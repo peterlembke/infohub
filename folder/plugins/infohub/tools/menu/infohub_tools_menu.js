@@ -136,7 +136,6 @@ function infohub_tools_menu() {
                                     'to_plugin': 'infohub_tools',
                                     'to_function': 'click_menu'
                                 },
-                                /*
                                 'encrypt': {
                                     'alias': 'encrypt_link',
                                     'event_data': 'encrypt',
@@ -144,7 +143,6 @@ function infohub_tools_menu() {
                                     'to_plugin': 'infohub_tools',
                                     'to_function': 'click_menu'
                                 },
-                                 */
                                 'time': {
                                     'alias': 'time_link',
                                     'event_data': 'time',

@@ -270,7 +270,8 @@ function infohub_welcome() {
                 },
                 'data': {
                     'subtype': $loadOption,
-                    'parent_box_id': $in.parent_box_id
+                    'parent_box_id': $in.parent_box_id,
+                    'translations': $classTranslations
                 },
                 'data_back': {
                     'subtype': $loadOption,

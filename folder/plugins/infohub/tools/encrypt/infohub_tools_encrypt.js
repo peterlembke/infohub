@@ -179,20 +179,14 @@ function infohub_tools_encrypt() {
                         },
                         'my_plain_text': {
                             'type': 'form',
-                            'subtype': 'text',
-                            'input_type': 'text',
+                            'subtype': 'textarea',
                             'placeholder': _Translate('Plain text'),
-                            'value': _Translate('My plain text'),
-                            'class': 'text',
-                            'css_data': {}
+                            'value': _Translate('My plain text')
                         },
                         'my_encrypted_text': {
                             'type': 'form',
-                            'subtype': 'text',
-                            'input_type': 'text',
-                            'placeholder': _Translate('Encrypted text'),
-                            'class': 'text',
-                            'css_data': {}
+                            'subtype': 'textarea',
+                            'placeholder': _Translate('Encrypted text')
                         },
                         'my_encrypt_button': {
                             'plugin': 'infohub_renderform',
@@ -248,7 +242,11 @@ function infohub_tools_encrypt() {
         const $default = {
             'step': 'step_start',
             'form_data': {},
-            'response': {}
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -257,30 +255,43 @@ function infohub_tools_encrypt() {
         if ($in.step === 'step_start')
         {
             const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'server', 'data': $in });
-            const $method = _GetData({'name': 'form_data/my_select_method/value/0', 'default': 'AES-128-CBC', 'data': $in });
+            const $method = _GetData({'name': 'form_data/my_select_method/value/0', 'default': 'pgp', 'data': $in });
             const $plainText = _GetData({'name': 'form_data/my_plain_text/value', 'default': 'Hello friend', 'data': $in });
             const $encryptionKey = _GetData({'name': 'form_data/my_encryption_key/value', 'default': 'infohub2010', 'data': $in });
 
-            return _SubCall({
+            const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_encrypt',
                     'function': 'encrypt'
                 },
                 'data': {
-                    'plain_text': $plainText,
-                    'encryption_key': $encryptionKey,
+                    'text': $plainText,
+                    'password': $encryptionKey,
                     'method': $method
+                },
+                'data_back': {}
+            };
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_tools',
+                    'function': 'call_server'
+                },
+                'data': {
+                    'send_data': $callServer
                 },
                 'data_back': {
                     'step': 'step_response'
                 }
             });
+
         }
 
         if ($in.step === 'step_response') {
             $formData =  {
-                'my_encrypted_text': { 'value': $in.response.encrypted_text }
+                'my_encrypted_text': { 'value': $in.response.data }
             };
             $in.step = 'step_display_data';
         }
@@ -332,17 +343,11 @@ function infohub_tools_encrypt() {
         if ($in.step === 'step_start')
         {
             const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'server', 'data': $in });
-            const $methodServer = _GetData({'name': 'form_data/my_select_method_server/value/0', 'default': 'AES-128-CBC', 'data': $in });
-            const $methodClient = _GetData({'name': 'form_data/my_select_method_client/value/0', 'default': 'AES-128-CBC', 'data': $in });
+            const $method = _GetData({'name': 'form_data/my_select_method/value/0', 'default': 'pgp', 'data': $in });
             const $encryptedText = _GetData({'name': 'form_data/my_encrypted_text/value', 'default': '', 'data': $in });
             const $encryptionKey = _GetData({'name': 'form_data/my_encryption_key/value', 'default': 'infohub2010', 'data': $in });
 
-            let $method = $methodServer;
-            if ($node === 'client') {
-                $method = $methodClient;
-            }
-
-            return _SubCall({
+            const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_encrypt',
@@ -350,18 +355,31 @@ function infohub_tools_encrypt() {
                 },
                 'data': {
                     'encrypted_text': $encryptedText,
-                    'encryption_key': $encryptionKey,
+                    'password': $encryptionKey,
                     'method': $method
+                },
+                'data_back': {}
+            };
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_tools',
+                    'function': 'call_server'
+                },
+                'data': {
+                    'send_data': $callServer
                 },
                 'data_back': {
                     'step': 'step_response'
                 }
             });
+
         }
 
         if ($in.step === 'step_response') {
             $formData =  {
-                'my_plain_text': { 'value': $in.response.plain_text }
+                'my_plain_text': { 'value': $in.response.data }
             };
             $in.step = 'step_display_data';
         }

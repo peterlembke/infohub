@@ -16,7 +16,7 @@
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 // Retrieve and start the core plugins
-function infohub_start() {
+function infohub_start($progress) {
 
     var $globalOnline = 'true', // Indicate if the server have answered or not
         $globalOnlineTimer = 0; // When server have not answered then $globalOnline is 'false' for 30 seconds
@@ -717,7 +717,10 @@ function infohub_start() {
             return;
         }
 
-        setTimeout(function(){
+        setTimeout(function() {
+
+            localStorage.removeItem('cold_start');
+
             const $event = new CustomEvent('infohub_call_main',
                 { detail: {'plugin': $plugin, 'package': $package}, bubbles: true, cancelable: true }
             );
@@ -725,7 +728,6 @@ function infohub_start() {
             $progress.whatArea('clean_up',0, 'Have sent first message');
 
             // The first command in start.js is to check this flag. We have gone so far now that it is time to reset the flag.
-            localStorage.removeItem('cold_start');
 
         }, 0.0);
 
@@ -770,6 +772,6 @@ function infohubCallMainHandler($eventData)
 }
 document.addEventListener("infohub_call_main", infohubCallMainHandler, false);
 
-var $infohub_start = new infohub_start();
+var $infohub_start = new infohub_start($progress);
 $infohub_start.start();
 //# sourceURL=start.js

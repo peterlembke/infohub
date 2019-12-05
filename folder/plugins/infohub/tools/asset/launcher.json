@@ -2,5 +2,5 @@
     "plugin": "infohub_tools",
     "title": "Tools",
     "description": "List of tools. This is a useful demo.",
-    "uses": ["infohub_tools_menu", "infohub_rendermenu"]
+    "uses": ["infohub_tools_menu", "infohub_rendermenu", "infohub_tools_checksum", "infohub_checksum", "infohub_tools_uuid", "infohub_uuid", "infohub_tools_random", "infohub_random", "infohub_tools_time", "infohub_time"]
 }

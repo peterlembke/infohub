@@ -46,14 +46,6 @@ if ($opcacheRestricted == false) {
     // ini_set('opcache.enable', '1'); // set to '1' when in production
 }
 
-$week = 7.0 * 24.0 * 60.0 * 60.0;
-$oneWeek = (string) floor($week);
-ini_set('session.cookie_lifetime', $oneWeek);
-ini_set('session.gc_maxlifetime', $oneWeek);
-ini_set('session.save_path', SESSION);
-// ini_set('session.hash_function', 'whirlpool');
-session_start();
-
 // Set a default time zone. If you exclude this row then you will get an error
 // See: https://www.php.net/manual/en/timezones.php
 date_default_timezone_set('Europe/Stockholm');

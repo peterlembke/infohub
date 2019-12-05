@@ -977,7 +977,21 @@ function infohub_offline() {
             $in.step = 'step_end';
         }
 
-        let $time = $renderedTime;
+        let $localRenderedTime = 0.0;
+        if ('$renderedTime' in window) {
+            $localRenderedTime = $renderedTime;
+        } else {
+            $in.step = 'step_end';
+        }
+
+        let $localRenderedChecksum = '';
+        if ('$renderedChecksum' in window) {
+            $localRenderedChecksum = $renderedTime;
+        } else {
+            $in.step = 'step_end';
+        }
+
+        let $time = $localRenderedTime;
 
         if ($in.step === 'step_load_data') {
 
@@ -1002,7 +1016,7 @@ function infohub_offline() {
 
             if ($in.answer === 'true') {
                 if ($in.response.data.time_epoc > 0.0) {
-                    if ($in.response.data.time_epoc > $renderedTime) {
+                    if ($in.response.data.time_epoc > $localRenderedTime) {
                         $time = $in.response.data.time_epoc;
                     }
                 }
@@ -1025,7 +1039,7 @@ function infohub_offline() {
                     'function': 'index_checksum'
                 },
                 'data': {
-                    'rendered_checksum': $renderedChecksum
+                    'rendered_checksum': $localRenderedChecksum
                 },
                 'data_back': {
                     'step': 'step_server_response'
@@ -1063,7 +1077,7 @@ function infohub_offline() {
                             'data': {
                                 'time_epoc': _MicroTime(),
                                 'time_stamp': _TimeStamp(),
-                                'checksum': $renderedChecksum
+                                'checksum': $localRenderedChecksum
                             }
                         },
                         'data_back': {

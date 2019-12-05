@@ -205,10 +205,9 @@ class infohub_encrypt extends infohub_base
 
     /**
      * Get list with encryption methods you can use on this server
-     * https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php
      * @version 2018-03-15
      * @since   2018-03-15
-     * @author  From PHP documentation
+     * @author  Peter Lembke
      * @param array $in
      * @return array|bool
      */
@@ -227,11 +226,20 @@ class infohub_encrypt extends infohub_base
         );
     }
 
+    /**
+     * Get all cipher methods available except the most weak ones.
+     * https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php
+     * @version 2018-03-15
+     * @since   2018-03-15
+     * @author  From PHP documentation
+     * @param array $in
+     * @return array
+     */
     final protected function _GetCipherMethods(array $in = array())
     {
-        $ciphers             = openssl_get_cipher_methods();
+        $ciphers = openssl_get_cipher_methods();
         $ciphersAndAliases = openssl_get_cipher_methods(true);
-        $cipherAliases      = array_diff($ciphersAndAliases, $ciphers);
+        $cipherAliases = array_diff($ciphersAndAliases, $ciphers);
 
         //ECB mode should be avoided
         $ciphers = array_filter( $ciphers, function($n) { return stripos($n,"ecb") === false; } );
@@ -241,6 +249,11 @@ class infohub_encrypt extends infohub_base
         $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"rc2") === false; } );
         $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"rc4") === false; } );
         $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"md5") === false; } );
+
+        // Remove short keys 2019-11-19
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"128") === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"192") === false; } );
+
         $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,"des") === false; } );
         $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,"rc2") === false; } );
 
@@ -327,8 +340,10 @@ class infohub_encrypt extends infohub_base
 
     /**
      * Returns a random binary encryption key
-     * @param $in
-     * @return string
+     *
+     * @param array $in
+     * @return array
+     * @throws Exception
      */
     final protected function create_encryption_key(array $in = array())
     {
@@ -344,6 +359,7 @@ class infohub_encrypt extends infohub_base
         else if (function_exists('openssl_random_pseudo_bytes')) {
             $data = openssl_random_pseudo_bytes($in['length_in_bytes']); // PHP < 7
         }
+
         return array(
             'answer' => 'true',
             'message' => 'Here are the random key',

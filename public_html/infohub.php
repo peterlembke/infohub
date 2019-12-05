@@ -23,7 +23,7 @@
 
     include_once 'define_folders.php';
     include_once INCLUDES . DS . 'settings_and_errors.php';
-    include_once INCLUDES . DS . 'kick_out_tests.php';
+    include_once INCLUDES . DS . 'kick_out_tests_for_infohub.php';
 
     $corePlugins = array('infohub_base', 'infohub_exchange', 'infohub_plugin', 'infohub_transfer');
     foreach ($corePlugins as $pluginName) {
@@ -31,15 +31,14 @@
         if (file_exists($path) === true) {
             include_once $path;
         } else {
-            GetOut(0, 'Could not start server core plugin:' . $pluginName);
+            $kick->GetOut('Could not start server core plugin:' . $pluginName);
         }
     }
 
-    $package = $_POST['package'];
-    $package = json_decode($package, true);
-    
+    $package = json_decode($_POST['package'], true);
+
     if (empty($package)) {
-        GetOut(3.0, 'Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
+        $kick->GetOut('Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
         return;
     }
 
@@ -57,5 +56,5 @@
     $response = $infoHubExchange->cmd($in);
 
     if (isset($response['answer']) and $response['answer'] === 'false') {
-        GetOut(3.0, $response['message']);
+        $kick->GetOut($response['message']);
     }

@@ -1,63 +1,46 @@
 # Infohub Encrypt
-You can encrypt/decrypt your data.  
+Use OpenPGP to encrypt and decrypt your data on the client or on the server.   
 
 # Introduction
-You can create a random encryption key and encrypt your data (make it unreadable). Then you can store the data in the database, and keep the key separate and secret. If someone steal the database then the data is encrypted and they will have some trouble decoding it.  
-With encryption you also have some protection against data manipulation where someone edit your data directly in the database to avoid any security you have.  
+There are for now only one use case for encryption and that is the client encrypting data that are to be stored in local Storage or are transported and stored on the server.
 
-# Encryption Key
-Encryption keys are created with function create_encryption_key. Parameter: length_in_bytes  
-You will get a binary key back.  
+Encryption is complicated business. I have investigated the built in methods in the browsers and the build in methods in PHP. It is a jungle and if you do anything wrong then the encryption is worthless.
 
-# Get available options
-With function get_available_options you get an options list with all available encryption options, excluded some that are considered unsecure.  
+You also have to determine if you want a simple password or a two key solution with one public and one private key. And then if you want the client and server to encrypt/decrypt each others packages then it will get even more complicated.
 
-# is_method_valid
-With function is_method_valid and the parameter: method (string) you can check if the method is valid for usage.  
+It would be nice if PHP and the browsers had solutions that were easy to use for none experts.
+
+From that background I have returned to what I trust and have used before: Pretty good privacy. PGP. PGP exist in [PHP](https://stackoverflow.com/questions/15969740/encrypt-files-using-pgp-in-php) and in [Javascript](https://openpgpjs.org/openpgpjs/doc/#encrypt-and-decrypt-uint8array-data-with-a-password).
+
+# Password
+I will use a single point encrypt/decrypt so a single password will do nicely.
+The server and client will not exchange encrypted data.
 
 # Encrypt
-With this function: encrypt, you can encrypt a string. You provide an encryption key, the name of the encryption method, and the text you want to encrypt.  
+Provide a text and a password. Encrypt will return the encrypted text.
 
 ```
 $default = array(
-    'plain_text' => 'Hello World',
-    'encryption_key' => 'infohub2010',
-    'method' => 'AES-128-CBC'
+    'text' => 'Hello World',
+    'password' => 'infohub2010',
 );
 ```
 
 # Decrypt
-With this function: decrypt, you can decrypt a string. You provide the encryption_key, the encrypted text, the name of the encryption method.  
+Provide an encrypted text and a password. Decrypt will return the text.
 
 ```
 $default = array(
-    'encrypted_text' => '', // Base 64 encoded cipher text
-    'encryption_key' => 'infohub2010',
-    'method' => 'AES-128-CBC'
+    'encrypted_text' => '',
+    'password' => ''
 );
 ```
 
-# PHP version
-PHP have built in encryption and have a lot of methods ready to use. The PHP version of the plugin works well.  
-The PHP version run on the server. Today the plugin uses an encryption key, so the plugin is suitable for encrypting data before storing in the database. It is not suitable for data traffic.  
+# PHP version (server)
+Depends on you installing the PHP plugin gnupg. Read more here: [PHP](https://stackoverflow.com/questions/15969740/encrypt-files-using-pgp-in-php) 
 
-# Javascript version
-Javascript are about to get some basic encryption but the support in different browsers are fragmented.  
-A substitute for the native support is to use an encryption library. Today the plugin do not work at all.  
-The aim is to get some encryption methods to work. Preferable the ones that are native in the browser.  
-
-# Single key
-Methods that use a single encryption key are suitable for situations where you do not have to share the key. One example is to encrypt before you store the data in a database. Then you can decrypt the data when you need it.  
-Both the client and the server have storage. That can benefit from encryption.  
-
-# Public Private key
-There are methods that allow you to create a private and a public key. You produce the key pair and you share the public key with anyone. When you send data you encrypt the message with the receivers public key and sign with your key. The receiver can then verify that the message comes from you and need the private key to decrypt the message.  
-This kind of encryption is suitable for communication. Infohub will have that in the future.  
-
-# Encryption
-All encryption can be broken, but it takes time and computer power. The encryption method describe how the data should be handled. And the method can also be run backwards to get the plain text back.  
-Encryption methods that take very little time and computer power to crack, they are considered weak.  
-You can very well invent your own encryption method. The security of your encryption method should not relay on that your code is secret. You should be able to go public with your code.  
+# Javascript version (browser)
+The [Javascript](https://openpgpjs.org/openpgpjs/doc/#encrypt-and-decrypt-uint8array-data-with-a-password) version has an embedded pgp library.
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  
@@ -65,4 +48,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Created 2018-09-25 by Peter Lembke  
-Updated 2018-09-25 by Peter Lembke  
+Updated 2019-11-19 by Peter Lembke  

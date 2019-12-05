@@ -84,10 +84,10 @@ class infohub_transfer extends infohub_base {
                 'messages' => $messages
             );
 
-            $bannedSecondsLeft = $_SESSION['banned_until'] - microtime(true);
+            $bannedSecondsLeft = 0; // $_SESSION['banned_until'] - microtime(true);
             $package['ban_seconds'] = $bannedSecondsLeft;
 
-            $package['banned_until'] = $_SESSION['banned_until'];
+            $package['banned_until'] = microtime(true); // $_SESSION['banned_until'];
 
             $packageJson = $this->_JsonEncode($package);
 

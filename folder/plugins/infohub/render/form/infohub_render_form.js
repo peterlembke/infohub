@@ -743,7 +743,8 @@ function infohub_render_form() {
             'event_data': '',
             'custom_variables': {},
             'rows': 4,
-            'cols': 0
+            'cols': 0,
+            'value': ''
         };
         $in = _Default($default, $in);
 
@@ -803,7 +804,7 @@ function infohub_render_form() {
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
 
-        $in.html = '<textarea' + $id + _GetParameters($in, $fields) + $destination + $event + '></textarea>';
+        $in.html = '<textarea' + $id + _GetParameters($in, $fields) + $destination + $event + '>'+$in.value+'</textarea>';
 
         return {
             'answer': 'true',
