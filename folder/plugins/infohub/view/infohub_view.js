@@ -1829,17 +1829,18 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $boxNode, $names, $index, $answer = 'false', $message = '';
+        let $answer = 'false',
+            $message = '';
 
         leave: {
-            $boxNode = _GetNode($in.id);
+            let $boxNode = _GetNode($in.id);
             if ($boxNode === false) {
                 $message = 'Box id:"' + $in.id + '" was not found';
                 break leave;
             }
 
-            $names = $boxNode.className.split(' ');
-            $index = $names.indexOf($in.class);
+            let $names = $boxNode.className.split(' ');
+            let $index = $names.indexOf($in.class);
             if ($in.cmd === 'add') {
                 $message = 'added';
                 if ($index > -1) {
@@ -1902,11 +1903,13 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $linkElements, $link, $message = '', $addedLink = 'false';
+        let $message = '',
+            $addedLink = 'false';
 
         leave: {
-            $linkElements = document.getElementsByTagName("link");
-            $link = $linkElements.namedItem($in.id);
+            let $linkElements = document.getElementsByTagName("link");
+            let $link = $linkElements.namedItem($in.id);
+
             if ($link !== null) {
                 $message = 'There already exist a link with that id';
                 break leave;
@@ -1978,7 +1981,9 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $linkElements, $link, $message = '', $linkInserted = 'false', $faviconSet = 'false';
+        let $message = '',
+            $linkInserted = 'false',
+            $faviconSet = 'false';
 
         leave: {
             if ($in.image_data === '') {
@@ -1986,8 +1991,8 @@ function infohub_view() {
                 break leave;
             }
 
-            $linkElements = document.getElementsByTagName("link");
-            $link = $linkElements.namedItem('favicon');
+            let $linkElements = document.getElementsByTagName("link");
+            let $link = $linkElements.namedItem('favicon');
             if ($link === null) {
                 $link = document.createElement('link');
                 $linkInserted = 'true';
@@ -2058,16 +2063,18 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $updated = 'false', $message = '', $element, $type = '', $useValue, $nodeName;
+        let $updated = 'false',
+            $message = '',
+            $type = '';
 
         leave: {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Can not find the id:' + $in.id;
                 break leave;
             }
 
-            $nodeName = $element.nodeName.toLowerCase();
+            const $nodeName = $element.nodeName.toLowerCase();
 
             if ($nodeName === 'select') {
                 $element.innerHTML = $in.text;
@@ -2085,7 +2092,7 @@ function infohub_view() {
 
             $type = $element.type; // Only input tags have a type
 
-            $useValue = ['text', 'textarea', 'button', 'submit', 'reset'];
+            const $useValue = ['text', 'textarea', 'button', 'submit', 'reset'];
             if ($useValue.indexOf($type) >= 0) {
                 $element.value = $in.text;
                 $message = 'Updated the value on this input object';
@@ -2142,16 +2149,18 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $text = '', $message = '', $element, $type = '', $useValue, $nodeName;
+        var $text = '',
+            $message = '',
+            $type = '';
 
         leave: {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Can not find the id:' + $in.id;
                 break leave;
             }
 
-            $nodeName = $element.nodeName.toLowerCase();
+            const $nodeName = $element.nodeName.toLowerCase();
 
             if (($nodeName !== 'input' && $nodeName !== 'textarea') || typeof $element.type === 'undefined') {
                 $text = $element.innerText;
@@ -2161,7 +2170,7 @@ function infohub_view() {
 
             $type = $element.type; // Only input tags have a type
 
-            $useValue = ['text', 'button', 'submit', 'reset'];
+            let $useValue = ['text', 'button', 'submit', 'reset'];
             if ($useValue.indexOf($type) >= 0) {
                 $text = $element.value;
                 $message = 'Got the value from this input object';
@@ -2226,7 +2235,8 @@ function infohub_view() {
 
         $in = _Default($default, $in);
 
-        var $html = '', $message = '';
+        let $html = '',
+            $message = '';
 
         leave: {
 
@@ -2396,7 +2406,7 @@ function infohub_view() {
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'id': '' // Id for an object
         };
         $in = _Default($default, $in);
@@ -2418,21 +2428,22 @@ function infohub_view() {
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'id': ''
         };
         $in = _Default($default, $in);
 
-        var $element, $message = 'Object is found to be hidden', $data, $visible = 'false';
+        let $message = 'Object is found to be hidden',
+            $visible = 'false';
 
         leave: {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Can not find object with id:' + $in.id;
                 break leave;
             }
 
-            $data = $element.style.display.toLowerCase();
+            const $data = $element.style.display.toLowerCase();
 
             if ($data !== 'none') {
                 $message = 'Object is found to be visible';
@@ -2596,10 +2607,11 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $element, $message = '', $enabled = 'true';
+        let $message = '',
+            $enabled = 'true';
 
         leave: {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Can not find object with id:' + $in.id;
                 break leave;
@@ -2663,10 +2675,11 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $element, $message, $setDisabled, $currentlyDisabled, $isEnabled = 'unknown';
+        let $message,
+            $isEnabled = 'unknown';
 
         leave: {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Can not find object with id:' + $in.id;
                 break leave;
@@ -2674,11 +2687,11 @@ function infohub_view() {
 
             if ($in.set_enabled === 'switch')
             {
-                $setDisabled = true;
+                let $setDisabled = true;
                 $message = 'Object is now disabled';
                 $isEnabled = 'false';
 
-                $currentlyDisabled = $element.disabled;
+                const $currentlyDisabled = $element.disabled;
                 if ($currentlyDisabled === true) {
                     $setDisabled = false;
                     $message = 'Object is now enabled';
@@ -2804,8 +2817,8 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        let $exist = 'false';
-        let $message = '';
+        let $exist = 'false',
+            $message = '';
 
         const $element = _GetNode($in.id);
 
@@ -2872,7 +2885,9 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        var $element, $message, $data, $isMarked = 'unknown', $key;
+        let $element,
+            $message,
+            $isMarked = 'unknown';
 
         leave: {
             $element = _GetNode($in.id);
@@ -2909,7 +2924,7 @@ function infohub_view() {
         }
 
         if ($isMarked !== 'unknown') {
-            $key = 'mark_' + $isMarked;
+            const $key = 'mark_' + $isMarked;
             $element.style.boxShadow = $in[$key].box_shadow;
         }
 
@@ -2938,10 +2953,10 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        let $answer = 'false';
-        let $message = 'Nothing to report from form_select_read';
-        let $exist = 'false';
-        let $value = [];
+        let $answer = 'false',
+            $message = 'Nothing to report from form_select_read',
+            $exist = 'false',
+            $value = [];
 
         leave:
         {
@@ -3011,9 +3026,10 @@ function infohub_view() {
     {
         "use strict";
 
-        var $answer = 'true', $exist = 'true', $message = '',
-            $element, $selector, $elementList, $data = {}, $type,
-            $value, $itemName, $box, $alias, $formData = {}, $checkBoxData, $i;
+        let $answer = 'true',
+            $exist = 'true',
+            $message = '',
+            $formData = {};
 
         const $default = {
             'id': ''
@@ -3022,29 +3038,29 @@ function infohub_view() {
 
         leave:
         {
-            $element = _GetNode($in.id);
+            let $element = _GetNode($in.id);
             if (!$element) {
                 $message = 'Id do not exist in the DOM';
                 $exist = 'false';
                 break leave;
             }
 
-            $selector = '[renderer=\'infohub_render_form\']';
-            $elementList = $element.querySelectorAll($selector);
+            const $selector = '[renderer=\'infohub_render_form\']';
+            let $elementList = $element.querySelectorAll($selector);
 
             for (let $listItemNumber in $elementList) {
                 if ($elementList.hasOwnProperty($listItemNumber)) {
 
-                    $box = $elementList[$listItemNumber];
+                    let $box = $elementList[$listItemNumber];
 
                     if ($box.tagName === 'FORM' || $box.tagName === 'BUTTON' || $box.tagName === 'DATALIST') {
                         continue;
                     }
 
-                    $data = {};
+                    let $data = {};
 
                     Array.prototype.slice.call($box.attributes).forEach(function(item) {
-                        $itemName = item.name;
+                        let $itemName = item.name;
                         if ($itemName === 'step') { $itemName = 'step_value'; }
                         $data[$itemName] = item.value;
                     });
@@ -3056,13 +3072,13 @@ function infohub_view() {
                         continue;
                     }
 
-                    $alias = $data['form_alias'];
-                    $type = $data['type'];
+                    let $alias = $data['form_alias'];
+                    let $type = $data['type'];
 
                     if ($type === 'radio' || $type === 'checkbox')
                     {
-                        $value = $data['value'];
-                        $checkBoxData = 'false';
+                        const $value = $data['value'];
+                        let $checkBoxData = 'false';
                         if ($box.checked === true) {
                             $checkBoxData = 'true';
                         }
@@ -3074,7 +3090,7 @@ function infohub_view() {
 
                     if ($type === 'select') {
                         $answer = [];
-                        for ($i = 0; $i < $box.options.length; $i++) {
+                        for (let $i = 0; $i < $box.options.length; $i++) {
                             if ($box.options[$i].selected) {
                                 $answer.push($box.options[$i].value);
                             }
@@ -3323,7 +3339,8 @@ function infohub_view() {
     {
         "use strict";
 
-        var $formDataToUpdate = {}, $current;
+        let $formDataToUpdate = {},
+            $current;
 
         const $default = {
             'id': '',
@@ -3333,48 +3350,51 @@ function infohub_view() {
         };
 
         for (let $key in $newFormData) {
-            if ($newFormData.hasOwnProperty($key)) {
 
-                if (_IsSet($currentFormData[$key]) === 'false') {
+            if ($newFormData.hasOwnProperty($key) === false) {
+                continue;
+            }
+
+            if (_IsSet($currentFormData[$key]) === 'false') {
+                continue;
+            }
+
+            $current = _Default($default, $currentFormData[$key]);
+
+            if ($current.type !== '' && _IsSet($newFormData[$key].value) === 'true') {
+                $formDataToUpdate[$key] = {
+                    'id': $current.id,
+                    'type': $current.type,
+                    'value': $newFormData[$key].value,
+                    'form_alias': $current.form_alias,
+                    'mode': $newFormData[$key].mode
+                };
+                continue;
+            }
+
+            // We have covered everything now except the case with radio buttons and checkboxes
+
+            $current = _ByVal($currentFormData[$key]);
+
+            for (let $checkBoxKey in $current) {
+
+                if ($current.hasOwnProperty($checkBoxKey) === false) {
                     continue;
                 }
 
-                $current = _Default($default, $currentFormData[$key]);
-
-                if ($current.type !== '' && _IsSet($newFormData[$key].value) === 'true') {
-                    $formDataToUpdate[$key] = {
-                        'id': $current.id,
-                        'type': $current.type,
-                        'value': $newFormData[$key].value,
-                        'form_alias': $current.form_alias,
-                        'mode': $newFormData[$key].mode
-                    };
+                if (_GetData({'name': $key+'/'+$checkBoxKey+'/value', 'default': '', 'data': $newFormData }) === '') {
                     continue;
                 }
 
-                // We have covered everything now except the case with radio buttons and checkboxes
+                $current[$checkBoxKey] = _Default($default, $current[$checkBoxKey]);
 
-                $current = _ByVal($currentFormData[$key]);
-
-                for (let $checkBoxKey in $current) {
-                    if ($current.hasOwnProperty($checkBoxKey)) {
-
-                        if (_GetData({'name': $key+'/'+$checkBoxKey+'/value', 'default': '', 'data': $newFormData }) === '') {
-                            continue;
-                        }
-
-                        $current[$checkBoxKey] = _Default($default, $current[$checkBoxKey]);
-
-                        $formDataToUpdate[$key + '.' + $checkBoxKey] = {
-                            'id': $current[$checkBoxKey].id,
-                            'type': $current[$checkBoxKey].type,
-                            'value': $newFormData[$key][$checkBoxKey].value,
-                            'form_alias': $current[$checkBoxKey].form_alias,
-                            'mode': $newFormData[$key][$checkBoxKey].mode
-                        };
-                    }
-                }
-
+                $formDataToUpdate[$key + '.' + $checkBoxKey] = {
+                    'id': $current[$checkBoxKey].id,
+                    'type': $current[$checkBoxKey].type,
+                    'value': $newFormData[$key][$checkBoxKey].value,
+                    'form_alias': $current[$checkBoxKey].form_alias,
+                    'mode': $newFormData[$key][$checkBoxKey].mode
+                };
             }
         }
 
@@ -3423,7 +3443,8 @@ function infohub_view() {
     var _SetBoxIdInString = function ($id, $data)
     {
         const $boxId = _GetBoxId($id);
-        $data = $data.replace(new RegExp('{box_id}', 'gi'), $boxId); // gi = Global (all occurrences in the string), Ignore case.
+        $data = $data.replace(new RegExp('{box_id}', 'gi'), $boxId);
+        // gi = Global (all occurrences in the string), Ignore case.
 
         return $data;
     };
@@ -3439,14 +3460,15 @@ function infohub_view() {
     {
         "use strict";
 
-        var $reader, $filesData = [], $blob, $timer;
-
         const $default = {
             'id': '',
             'read_binary': 'false',
             'callback_function': null
         };
         $in = _Default($default, $in);
+
+        let $filesData = [],
+            $timer;
 
         const $box = _GetNode($in.id);
 
@@ -3462,7 +3484,7 @@ function infohub_view() {
         }
 
         let $filesLeft = $box.files.length;
-        $reader = new FileReader();
+        let $reader = new FileReader();
 
         $reader.onload = function(event) {
             $filesData[$filesLeft-1].content = event.target.result;
@@ -3480,7 +3502,7 @@ function infohub_view() {
         $timer = setInterval(readNextBlob, 200);
         function readNextBlob() {
             if ($reader.readyState !== $reader.LOADING && $filesLeft > 0) {
-                $blob = $box.files[$filesLeft-1];
+                const $blob = $box.files[$filesLeft-1];
                 if ($in.read_as_binary === 'true') {
                     $reader.readAsBinaryString($blob);
                 } else {
@@ -3511,9 +3533,10 @@ function infohub_view() {
         let element = document.createElement('a');
 
         for (let $attributeName in $in) {
-            if ($in.hasOwnProperty($attributeName)) {
-                element.setAttribute($attributeName, $in[$attributeName]);
+            if ($in.hasOwnProperty($attributeName) === false) {
+                continue;
             }
+            element.setAttribute($attributeName, $in[$attributeName]);
         }
 
         element.style.display = 'none';

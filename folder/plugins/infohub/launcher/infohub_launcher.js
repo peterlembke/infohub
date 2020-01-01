@@ -215,7 +215,19 @@ function infohub_launcher() {
                             'button_label': _Translate('Switch list'),
                             'event_data': 'switch_button',
                             'to_plugin': 'infohub_launcher',
-                            'to_function': 'switch_button'
+                            'to_function': 'switch_button',
+                            'css_data': {
+                                '.button':
+                                    'font-size: 20px;'+
+                                    'max-width: 320px;'+
+                                    'box-sizing:border-box;'+
+                                    'border-radius: 20px;'+
+                                    'background-color: #bcdebc;'+
+                                    'background: linear-gradient(#caefca, #ffffff);'+
+                                    'border: 1px solid #a6c8a6;'+
+                                    'margin: 10px 0px 0px 0px;'+
+                                    'padding: 4px 10px;'
+                            }
                         }
                     },
                     'how': {
@@ -363,6 +375,7 @@ function infohub_launcher() {
                     'where': {
                         'box_id': 'main.body.infohub_launcher.information',
                         'set_visible': 'true',
+                        'max_width': 320,
                         'scroll_to_box_id': 'true'
                     }
                 },
@@ -386,7 +399,19 @@ function infohub_launcher() {
                             'mode': 'button',
                             'button_label': _Translate('Refresh'),
                             'to_plugin': 'infohub_debug',
-                            'to_function': 'refresh_plugins_and_reload_page'
+                            'to_function': 'refresh_plugins_and_reload_page',
+                            'css_data': {
+                                '.button':
+                                    'font-size: 20px;'+
+                                    'max-width: 320px;'+
+                                    'box-sizing:border-box;'+
+                                    'border-radius: 20px;'+
+                                    'background-color: #bcdebc;'+
+                                    'background: linear-gradient(#caefca, #ffffff);'+
+                                    'border: 1px solid #a6c8a6;'+
+                                    'margin: 10px 0px 0px 0px;'+
+                                    'padding: 4px 10px;'
+                            }
                         }
                     },
                     'how': {
@@ -830,6 +855,9 @@ function infohub_launcher() {
 
         if ($in.step === 'step_create_option_list') {
             for (let $key in $in.response.data.list) {
+                if ($in.response.data.list.hasOwnProperty($key) === false) {
+                    continue;
+                }
                 $options.push({"type": "option", "value": $key, "label": $key });
             }
         }
@@ -1851,6 +1879,7 @@ function infohub_launcher() {
                     },
                     'where': {
                         'box_id': 'main.body.infohub_launcher.information',
+                        'max_width': 320,
                         'scroll_to_box_id': 'true'
                     }
                 },

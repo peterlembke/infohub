@@ -9,7 +9,7 @@
     width:auto;
     width: 100%;
     box-sizing: border-box;
-    word-break: break-all;
+    /* word-break: break-all; */
     /* border: 3px solid red; */
 }
 
@@ -21,7 +21,7 @@
     overflow: auto;
     box-sizing: border-box;*/
     display: inline-block;
-    word-break: break-all;
+    /* word-break: break-all; */
     vertical-align: top;
     /* border: 3px solid green; */
 }
@@ -34,7 +34,7 @@
     box-sizing: border-box;
     */
     display: block;
-    word-break: break-all;
+    /* word-break: break-all; */
     /* border: 3px solid blue; */
 }
 

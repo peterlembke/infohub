@@ -152,6 +152,11 @@ class infohub_transfer extends infohub_base {
             }
         }
 
+        // We will not try to upset the other node by manipulate the step parameter in the function we call.
+        if (isset($oneMessage['data']['step'])) {
+            unset($oneMessage['data']['step']);
+        }
+
         return $oneMessage;
     }
 

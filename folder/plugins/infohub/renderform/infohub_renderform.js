@@ -183,7 +183,8 @@ function infohub_renderform() {
                 'head_label': $in.label,
                 'content_data': $in.description + '[form]',
                 'original_alias': $in.original_alias,
-                'open': $in.open
+                'open': $in.open,
+                'css_data': $in.css_data
             },
             'form': {
                 'type': 'form',
@@ -264,7 +265,7 @@ function infohub_renderform() {
                 'tag': 'span',
                 'data': $in.button_label,
                 'css_data': {
-                    '.container': 'display:inline; float:center;'
+                    '.container': 'display:inline; float:center; padding-right: 4px;'
                 },
             },
             'button_icon': {

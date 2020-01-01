@@ -460,12 +460,12 @@ function infohub_transfer() {
             const $nodeName = 'server';
 
             if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
-                $globalSendToNode[$nodeName] = $messagesArray;
-                break leave;
+                $globalSendToNode[$nodeName] = [];
             }
 
             for (let $nr = 0; $nr < $messagesArray.length; $nr++) {
-                $globalSendToNode[$nodeName].push($messagesArray[$nr]);
+                const $message = _PickUpCallStack($messagesArray[$nr]);
+                $globalSendToNode[$nodeName].push($message);
             }
         }
 
@@ -850,6 +850,11 @@ function infohub_transfer() {
             for (let $key in $message.data.response) {
                 delete $message.data[$key];
             }
+        }
+
+        // We will not try to upset the other node by manipulate the step parameter in the function we call.
+        if (_IsSet($message.data.step) === 'true') {
+            delete $message.data.step;
         }
 
         return $message;

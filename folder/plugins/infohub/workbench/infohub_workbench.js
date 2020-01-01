@@ -375,7 +375,7 @@ function infohub_workbench() {
                             'alias': 'menuimage',
                             'class': 'svg noselect',
                             'css_data': {
-                                '.svg': 'width:80px; height:80px; padding:2px; max-width:80px;'
+                                '.svg': 'width:64px; height:64px; padding:2px; max-width:80px;'
                             }
                         },
                         'menuiconasset': {

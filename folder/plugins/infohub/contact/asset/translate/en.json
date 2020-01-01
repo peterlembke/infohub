@@ -87,7 +87,7 @@
             "User name": "User name",
             "Hub-UUID you got from the remote server": "Hub-UUID you got from the remote server",
             "Shared secret": "Shared secret",
-            "2K random string you got from the remove server": "2K random string you got from the remove server",
+            "2K random string you got from the remote server": "2K random string you got from the remote server",
             "Allowed plugins": "Allowed plugins",
             "List with all plugin names you can send messages to on this node": "List with all plugin names you can send messages to on this node"
         }

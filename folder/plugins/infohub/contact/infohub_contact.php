@@ -130,7 +130,7 @@ class infohub_contact extends infohub_base
                     'function' => 'write'
                 ),
                 'data' => array(
-                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['node_data']['node'],
+                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['node_data']['user_name'],
                     'data' => $in['node_data']
                 ),
                 'data_back' => array(
@@ -167,7 +167,7 @@ class infohub_contact extends infohub_base
     {
         $default = array(
             'type' => 'server', // server or client
-            'node' => '',
+            'user_name' => '',
             'step' => 'step_delete_node_data',
             'response' => array(
                 'answer' => 'false',
@@ -188,7 +188,7 @@ class infohub_contact extends infohub_base
                     'function' => 'write'
                 ),
                 'data' => array(
-                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['node'],
+                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['user_name'],
                     'data' => ''
                 ),
                 'data_back' => array(
@@ -227,7 +227,7 @@ class infohub_contact extends infohub_base
     {
         $default = array(
             'type' => 'server', // server or client
-            'node' => '',
+            'user_name' => '',
             'step' => 'step_load_node_data',
             'response' => array()
         );
@@ -246,7 +246,7 @@ class infohub_contact extends infohub_base
                     'function' => 'read'
                 ),
                 'data' => array(
-                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['node']
+                    'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['user_name']
                 ),
                 'data_back' => array(
                     'step' => 'step_load_node_data_response'
@@ -278,7 +278,8 @@ class infohub_contact extends infohub_base
             'answer' => $answer,
             'message' => $message,
             'node_data' => $nodeData,
-            'ok' => $ok
+            'ok' => $ok,
+            'post_exist' => $in['response']['post_exist']
         );
     }
 
@@ -345,7 +346,8 @@ class infohub_contact extends infohub_base
             foreach ($nodeList as $node => $data) {
                 $nodeList[$node] = $this->_Default($default, $data);
                 $nodeName = $nodeList[$node]['node'];
-                $options[] = array("type" => "option", "value" => $nodeName, "label" => $nodeName);
+                $userName = $nodeList[$node]['user_name'];
+                $options[] = array("type" => "option", "value" => $userName, "label" => $nodeName);
             }
             $ok = 'true';
 

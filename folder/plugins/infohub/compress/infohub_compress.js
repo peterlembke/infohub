@@ -73,13 +73,15 @@ function infohub_compress() {
         };
         $in = _Default($default, $in);
 
+        let $functionName;
+
         if ($in.step === 'step_start')
         {
             $in.data_back.uncompressed_length = $in.uncompressed_data.length;
 
             $in.step = 'step_ask_child_plugin';
 
-            const $functionName = 'Compress' + _UcWords($in.compression_method);
+            $functionName = 'Compress' + _UcWords($in.compression_method);
             if (_MethodExists('internal_' + $functionName) === true) {
                 $in.step = 'step_ask_function';
             }
@@ -166,6 +168,8 @@ function infohub_compress() {
             }
         };
 
+        let $functionName;
+
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start')
@@ -182,7 +186,7 @@ function infohub_compress() {
 
         if ($in.step === 'step_ask_child_plugin')
         {
-            const $pluginName = 'infohub_compress_' + $in.compression_method;
+            $pluginName = 'infohub_compress_' + $in.compression_method;
             return _SubCall({
                 'to': {
                     'node': 'client',

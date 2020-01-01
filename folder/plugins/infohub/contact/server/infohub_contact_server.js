@@ -262,7 +262,7 @@ function infohub_contact_server() {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
                             'label': _Translate('Shared secret'),
-                            'description': _Translate('2K random string you got from the remove server'),
+                            'description': _Translate('2K random string you got from the remote server'),
                             'show_characters': 'false',
                             'show_words': 'false',
                             'show_rows': 'false',

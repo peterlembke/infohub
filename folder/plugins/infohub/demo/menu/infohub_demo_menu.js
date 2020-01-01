@@ -198,6 +198,13 @@ function infohub_demo_menu() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
                                 },
+                                'table_demo': {
+                                    'alias': 'table_demo_link',
+                                    'event_data': 'table',
+                                    'button_label': _Translate('Table'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu'
+                                },
                                 'markdown_demo': {
                                     'alias': 'markdown_demo_link',
                                     'event_data': 'markdown',

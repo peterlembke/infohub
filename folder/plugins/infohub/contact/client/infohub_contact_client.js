@@ -566,7 +566,7 @@ function infohub_contact_client() {
     $functions.push("click_delete");
     var click_delete = function ($in) {
         "use strict";
-        var $ok = 'false', $node = '',
+        var $ok = 'false', $userName = '',
             $default = {
                 'box_id': '',
                 'step': 'step_form_read',
@@ -597,11 +597,11 @@ function infohub_contact_client() {
 
         if ($in.step === 'step_form_read_response') {
             if ($in.answer === 'true') {
-                $node = $in.response.form_data.text_node.value;
+                $userName = $in.response.form_data.text_user_name.value;
                 $in.step = 'step_delete_node_data';
-                if (_Empty($node) === 'true') {
+                if (_Empty($userName) === 'true') {
                     $in.step = 'step_end';
-                    $in.message = 'Node name is empty';
+                    $in.message = 'User name is empty';
                 }
             }
             if ($in.answer === 'false') {
@@ -623,7 +623,7 @@ function infohub_contact_client() {
                         'function': 'delete_node_data'
                     },
                     'data': {
-                        'node': $node,
+                        'user_name': $userName,
                         'type': 'client'
                     }                
                 },
@@ -686,7 +686,7 @@ function infohub_contact_client() {
                         'function': 'load_node_data'
                     },
                     'data': {
-                        'node': $in.value,
+                        'user_name': $in.value,
                         'type': 'client'
                     }
                 },
@@ -928,7 +928,7 @@ function infohub_contact_client() {
         if ($in.step === 'step_check_if_json') 
         {
             $nodeData = $in.files_data[0].content;
-            $in.step = 'step_form_write'
+            $in.step = 'step_form_write';
             if (typeof $nodeData !== 'object') {
                 $in.message = 'This is not a json file';
                 $in.step = 'step_end';

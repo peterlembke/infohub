@@ -87,7 +87,7 @@
             "User name": "Användarnamn",
             "Hub-UUID you got from the remote server": "Hub-UUID som du fick från fjärrservern",
             "Shared secret": "Delad hemlighet",
-            "2K random string you got from the remove server": "2K slumpmässig sträng du fick från borttagningsservern",
+            "2K random string you got from the remote server": "2K slumpmässig sträng du fick från fjärrservern",
             "Allowed plugins": "Tillåtna plugins",
             "List with all plugin names you can send messages to on this node": "Lista med alla insticksnamn som du kan skicka meddelanden till på denna nod"
         }

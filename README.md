@@ -58,15 +58,16 @@ See the [home page](https://www.infohub.se).
 * Documentation system
 * JS rendering system inclusive forms
 * JS and PHP logging system
-
-## Planned parts I am working on
-I am working on this list in this order:
 * doc.infohub.se - Runs only the documentation plugin. To show that Infohub can be used as a "normal" web page with any content. You do not need to run Workbench.
 * JS Offline - Service worker must update cached files - v 1.2.2
 * JS Encryption - Single point encryption - v 1.2.3
+
+## Planned parts I am working on
+I am working on this list in this order:
+* infohub_audio + demo - Using Howler to play sound.
 * PHP Login & Sessions - Login without revealing password - v 1.3.0
 * JS Login & Sessions - Sessions without cookies - v 1.3.0
-I have started many of them and there are detailed plans done.
+After I have released v 1.3.0 I will put up a new plan what to work on next on InfoHub. 
 
 ## Future plans
 InfoHub is your private place on the internet.
@@ -107,6 +108,7 @@ Things I will implement.
 * Audio - Audio feedback when loading, saving, end of line and so on.
 * Image - Set how image colours should be transformed to suite your eyes.
 * Font - Select the font type you prefer from the browser built in fonts.
+* Keyboard navigation - tab index, short cut keys.
 
 ### Apps for personal data
 Things I will implement.
@@ -212,4 +214,4 @@ The launcher is where you start plugins.
 ## Documentation
 ![Documentation](folder/doc/images/doc.png)
 
-That is just some examples of what Infohub cam do. ![Infohub](folder/favicon.png)
+That is just some examples of what Infohub can do. ![Infohub](folder/favicon.png)
