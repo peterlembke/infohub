@@ -6,10 +6,46 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+Below is the aim for version 1.3.0
 - infohub_audio - Using Howler to play sound.
-- Client login + GUI
-- Server login
-- Sessions
+- infohub_transfer, use sessions data
+- infohub_session, Validate if session is still valid
+- infohub_transfer, Incoming - if no session_id or wrong sign_code then restrict what messages are allowed
+- If I am not logged in then show only the login plugin.
+- Have logged in user_id available to all plugins
+- Register sessions on user
+- Infohub_Exchange must check if the plugin you send a message to is allowed
+
+## [1.2.5] - 2020-01-19
+Code on [Github](https://github.com/peterlembke/infohub/releases/tag/v1.2.5)
+Main focus in this release are login and session. Many features are still missing, see Unreleased.
+
+### Added
+- infohub_login - GUI for using a contact file and login to the server
+- infohub_session - Used by infohub_login to register a session
+- infohub_checksum_doublemetaphone.js - Found a good JS code and implemented that. 
+- infohub_base.php - Now support messages with short tail. (Messages that have a short callstack) 
+
+### Changed
+- CHANGELOG - Updated this document
+- Progress bar - Standard HTML5 progress bar
+- phpinfo.php - Now accessible. changed .htaccess
+- Table - Now tables use strings as ID instead of integers.
+- Table demo - Updated the demo to use hub_id
+- Debug, updated the documentation and the debug module doc how to debug infohub.
+- Infohub_cache - Updated the documentation
+- infohub_contact - the user_id is now a hub_id with prefix `user_`
+- infohub_renderform - Removed the alert box on submit buttons that fails. You can handle that in your event function instead.
+- infohub_storage_data_idbkeyval.js - Now give accurate post_exist back
+- on File, MySQL, PGSQL, SQLite: Change to PDO::ATTR_PERSISTENT => false, and also return post_exist on PostInsert.
+- infohub_base.js - Some refactoring to use const and let
+
+### Removed
+
+### Fixed
+- start.js - Bug that made the progress fail
+- Icon translation "programstartare" was too long. Changed to "Program startare" and it became two rows.
+- Icon translation "Dokumentation" was too long. Changed to "Dokumen- tation" and it became two rows.
 
 ## [1.2.4] - 2020-01-01
 Code on [Github](https://github.com/peterlembke/infohub/releases/tag/v1.2.4)  

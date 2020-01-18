@@ -25,8 +25,7 @@ function progress() {
     "use strict";
 
     let $percent,
-        $objDone = document.getElementById('done'),
-        $objLeft = document.getElementById('left'),
+        $objProgress = document.getElementById('progress'),
         $objText = document.getElementById('progress_text');
 
     const $areaCodeNumbers = {
@@ -59,19 +58,12 @@ function progress() {
         let $areaPercent = $areaCodeNumbers[$areaCode]/$numberOfAreas * 100.0;
         let $areaPartPercent = 1 / $numberOfAreas * $partPercent;
 
-        $percent = Math.round($areaPercent + $areaPartPercent);
-        if ($percent > 100) {
-            $percent = 100;
+        let $percent = $areaPercent + $areaPartPercent;
+        if ($percent > 100.0) {
+            $percent = 100.0;
         }
 
-        $objDone.style.width = $percent + "%";
-
-        let $percentLeft = 100 - $percent - 1;
-        if ($percentLeft < 0) {
-            $percentLeft = 0;
-        }
-
-        $objLeft.style.width = $percentLeft + "%";
+        $objProgress.value = $percent;
 
         if (typeof $text  === 'string') {
             if ($text === '') {

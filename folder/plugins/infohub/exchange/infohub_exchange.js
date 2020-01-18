@@ -1085,7 +1085,6 @@ function infohub_exchange() {
                 $run = $that;
             }
 
-
             $dataMessage.callback_function = function($response)
             {
                 _SortAdd({

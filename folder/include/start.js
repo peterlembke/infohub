@@ -44,7 +44,7 @@ function infohub_start($progress) {
         }
 
         if ($missingPluginNames.length === 0) {
-            $progress.whatArea('start_core_plugins',0, 'Start the core');
+            $progress.whatArea('start_core_plugin',0, 'Start the core');
             const $corePluginNames = _GetCorePluginNames();
             _StartCore($corePluginNames);
         }

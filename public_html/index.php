@@ -55,8 +55,7 @@
         <div id="error" class="error" box_alias="error"></div>
         <div id="sanity" class="sanity" box_alias="sanity"></div>
         <div id="log" class="log" box_alias="log">
-            <span id="done" style="background-color: #b2de98;width: 0;height:20px;display:inline-block;"></span>
-            <span id="left" style="background-color: #d6d6d6; width: 100%;height:20px;display:inline-block;"></span>
+            <progress id="progress" value="0" max="100" style="width: 100%; height: 32px; border: solid 2px;"></progress>
             <div id="progress_text"></div>
         </div>
         <div id="1" box_mode="data" class="main" box_alias="main">

@@ -123,6 +123,7 @@ function infohub_storage_data_idbkeyval() {
      * Write data to the database
      * Give connection credentials, a path and the data.
      * If data is empty then the post is deleted.
+     * @todo Check if the post exist and give an accurate post_exist back
      * @param array $in
      * @return array
      */
@@ -154,27 +155,57 @@ function infohub_storage_data_idbkeyval() {
 
         var $dataString = JSON.stringify($in.data);
 
+        if (_Empty($in.data) === 'true') {
+            $dataString = '';
+        }
+
         $WriteCache[$in.path] = $dataString;
 
-        idbKeyval.set($in.path, $dataString).then(function ()
-        {
-            delete $WriteCache[$in.path];
-            $in.callback_function({
-                'answer': 'true',
-                'message': 'Here are the data I wrote to indexedDb',
-                'path': $in.path,
-                'data': $in.data,
-                'post_exist': 'true'
+        if (_Empty($in.data) === 'true') {
+
+            idbKeyval.del($in.path).then(function ()
+            {
+                delete $WriteCache[$in.path];
+                $in.callback_function({
+                    'answer': 'true',
+                    'message': 'Deleted the post in indexedDb',
+                    'path': $in.path,
+                    'data': $in.data,
+                    'post_exist': 'false' // Successfully deleted the post
+                });
+            }).catch(function (err) {
+                $in.callback_function({
+                    'answer': 'false',
+                    'message': 'Error' + err,
+                    'path': $in.path,
+                    'data': $in.data,
+                    'post_exist': 'true' // @todo Post still exist if it existed from the beginning
+                });
             });
-        }).catch(function (err) {
-            $in.callback_function({
-                'answer': 'false',
-                'message': 'Error' + err,
-                'path': $in.path,
-                'data': $in.data,
-                'post_exist': 'false'
+
+        } else {
+
+            idbKeyval.set($in.path, $dataString).then(function ()
+            {
+                delete $WriteCache[$in.path];
+                $in.callback_function({
+                    'answer': 'true',
+                    'message': 'Here are the data I wrote to indexedDb',
+                    'path': $in.path,
+                    'data': $in.data,
+                    'post_exist': 'true'
+                });
+            }).catch(function (err) {
+                $in.callback_function({
+                    'answer': 'false',
+                    'message': 'Error' + err,
+                    'path': $in.path,
+                    'data': $in.data,
+                    'post_exist': 'false' // @todo Might exist if it existed from the beginning
+                });
             });
-        });
+
+        }
 
         return {};
     };

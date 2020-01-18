@@ -5,6 +5,7 @@
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser, eval, devel, single */
+    /*jshint esversion: 6 */
 
     // ***********************************************************
     // * The only public variables, do not add your own
@@ -841,34 +842,39 @@
     $functions.push('cmd');
     this.cmd = function ($in) {
         // "use strict";
+
         var $startTime = _MicroTime(),
-            $answer, $message, $functionName, $runThisRow, $errorStack,
-            $key, $subCall, $response, $callResponse, $oneCallResponse, $out,
-            $status,
-            $default = {
-                'to': {'node': 'client', 'plugin': '', 'function': ''},
-                'callstack': [],
-                'data': {},
-                'data_back': {},
-                'wait': 0.2,
-                'callback_function': null
-            };
+            $runThisRow, $errorStack,
+            $subCall, $response, $oneCallResponse,
+            $status;
 
+        const $default = {
+            'to': {
+                'node': 'client',
+                'plugin': '',
+                'function': ''
+            },
+            'callstack': [],
+            'data': {},
+            'data_back': {},
+            'wait': 0.2,
+            'callback_function': null
+        };
         $in = _Default($default, $in);
-        // $in.to = _Default($default.to, $in.to);
 
-        $answer = 'false';
-        $message = '';
+        let $answer = 'false';
+        let $message = '';
 
-        $out = {
+        let $out = {
             'data': {}
         };
-        $callResponse = {
+
+        let $callResponse = {
             'answer': $answer,
             'message': $message
         };
 
-        $functionName = $in.to.function.toLowerCase();
+        const $functionName = $in.to.function.toLowerCase();
         internal_Log({'message': 'Will call: ' + $functionName, 'function_name': 'cmd', 'object': $in, 'depth': 1});
 
         var callbackFunction = function($callResponse)
@@ -914,7 +920,10 @@
                 internal_Log({
                     'message': $message,
                     'function_name': $functionName,
-                    'object': {'in': $in, 'out': $out }
+                    'object': {
+                        'in': $in,
+                        'out': $out
+                    }
                 });
             }
 
@@ -943,11 +952,13 @@
 
             $out.from = _ByVal($in.to); // Add the message origin
 
-            if (_GetData({
-                    'name': 'data/i_want_a_short_tail',
-                    'default': 'false',
-                    'data': $out
-                }) === 'true')
+            const $iWantAShortTail = _GetData({
+                'name': 'data/i_want_a_short_tail',
+                'default': 'false',
+                'data': $out
+            });
+
+            if ($iWantAShortTail === 'true')
             {
                 delete $out.data.i_want_a_short_tail;
                 while ($out.callstack.length > 1) {
@@ -1033,11 +1044,13 @@
                 delete $callResponse.messages;
             }
 
-            if (_GetData({
-                    'name': 'data/i_want_a_short_tail',
-                    'default': 'false',
-                    'data': $callResponse
-                }) === 'true') {
+            let $iWantAShortTail = _GetData({
+                'name': 'data/i_want_a_short_tail',
+                'default': 'false',
+                'data': $callResponse
+            });
+
+            if ($iWantAShortTail === 'true') {
                 $callResponse.data.i_want_a_short_tail = 'false';
             }
 

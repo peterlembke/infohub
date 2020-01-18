@@ -228,6 +228,7 @@ class infohub_storage_data_pgsql extends infohub_base
             ));
             $answer = $response['answer'];
             $message = $response['message'];
+            $postExist = $response['post_exist'];
             goto leave;
         }
 
@@ -656,7 +657,8 @@ EOD;
 
         $out = array(
             'answer' => $response['answer'],
-            'message' => 'Post insert: ' . $response['message']
+            'message' => 'Post insert: ' . $response['message'],
+            'post_exist' => $response['answer']
         );
         return $out;
     }

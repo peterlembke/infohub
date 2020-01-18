@@ -831,30 +831,30 @@ class infohub_exchange extends infohub_base {
             
             $dataMessage['data']['config'] = $response['config'];
 
-            $response = $run->cmd($dataMessage);
+            $dataMessage['callback_function'] = function($response)
+            {
+                if ($response !== '') {
+                    if (count($response['log_array']) > 0)
+                    {
+                        $this->internal_LogArrayToConsole(array(
+                            'log_array' => $response['log_array']
+                        ));
 
-            if ($response !== '') {
-                if (count($response['log_array']) > 0) {
-                    
-                    // Write to logfiles
-                    $this->internal_LogArrayToConsole(array(
-                        'log_array' => $response['log_array']
-                    ));
-                    
-                    // Pull out the errors and attach them to the message
-                    $answer = $this->internal_GetErrorArrayFromLogArray(array(
-                        'log_array' => $response['log_array']
-                    ));
-                    $response['error_array'] = $answer['error_array'];
-                    
+                        // Pull out the errors and attach them to the message
+                        $answer = $this->internal_GetErrorArrayFromLogArray(array(
+                            'log_array' => $response['log_array']
+                        ));
+                        $response['error_array'] = $answer['error_array'];
+                    }
+                    unset($response['log_array']);
                 }
-                unset($response['log_array']);
 
-                $response['from'] = $dataMessage['to']; // Add the origin
                 $this->_SortAdd(array(
-                    'message' => $response
+                    'message'=> $response
                 ));
-            }
+            };
+
+            $response = $run->cmd($dataMessage); // // callback_function is always used by cmd(). see above.
         }
 
         return array(

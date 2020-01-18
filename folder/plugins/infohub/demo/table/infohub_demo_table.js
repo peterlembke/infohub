@@ -108,17 +108,17 @@ function infohub_demo_table() {
                     'what': {
                         'my_table': {
                             'type': 'table',
-                            'id_field_name': 'id', // Name of the field that has the ID number
+                            'id_field_name': 'hub_id', // Name of the field that has the ID number
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
                             'to_function': 'click',
                             'event_data': 'table|row', // infohub_demo parse this and call infohub_demo_table -> click_row
                             'height': 120,
                             'definition': {
-                                'id': {
-                                    'name': 'id',
+                                'hub_id': {
+                                    'name': 'hub_id',
                                     'label': _Translate('Id'),
-                                    'default': 0,
+                                    'default': '',
                                     'class': 'right',
                                     'show': 'false'
                                 },
@@ -164,12 +164,12 @@ function infohub_demo_table() {
                                 },
                             }, // Define each column here
                             'data': [
-                                {'id': 1, 'name': 'Ab', 'year': '2000', 'score': 10, 'email': 'ab@email.com'},
-                                {'id': 2, 'name': 'Ba', 'year': '1999', 'score': -5, 'email': 'ba@email.com'},
-                                {'id': 3, 'name': 'Ce', 'year': '1997', 'score': 3, 'email': 'ce@email.com'},
-                                {'id': 4, 'name': 'Du', 'year': '2005', 'score': 7, 'email': 'du@email.com', 'image': '[svg_example]'},
-                                {'id': 5, 'name': 'Fe', 'year': '1997', 'score': -8, 'email': 'fe@email.com'},
-                                {'id': 6, 'name': 'Go', 'year': '1997', 'score': 3, 'email': 'go@email.com'}
+                                {'hub_id': '1578031402.443:588342714995535' , 'name': 'Ab', 'year': '2000', 'score': 10, 'email': 'ab@email.com'},
+                                {'hub_id': '1578031501.037:8282858282167634', 'name': 'Ba', 'year': '1999', 'score': -5, 'email': 'ba@email.com'},
+                                {'hub_id': '1578031519.928:5102017188330457', 'name': 'Ce', 'year': '1997', 'score': 3, 'email': 'ce@email.com'},
+                                {'hub_id': '1578031537.655:80290150987442', 'name': 'Du', 'year': '2005', 'score': 7, 'email': 'du@email.com', 'image': '[svg_example]'},
+                                {'hub_id': '1578031557.069:9570541949382424', 'name': 'Fe', 'year': '1997', 'score': -8, 'email': 'fe@email.com'},
+                                {'hub_id': '1578031571.334:12142242923887636', 'name': 'Go', 'year': '1997', 'score': 3, 'email': 'go@email.com'}
                             ] // The rows with data that will be in the table
                         },
                         'svg_example': {

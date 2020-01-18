@@ -11,7 +11,7 @@
     # You can turn off features here
     RewriteRule test.php - [R=404,L,NC]
     RewriteRule testmenu.php - [R=404,L,NC]
-    RewriteRule phpinfo.php - [R=404,L,NC]
+    # RewriteRule phpinfo.php - [R=404,L,NC]
     RewriteRule callback.php - [R=404,L,NC]
 
     ## Every existing file, folder and link should be accessible

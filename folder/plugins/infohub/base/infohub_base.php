@@ -197,7 +197,15 @@ class infohub_base
         }
         return 'true';
     }
-    
+
+    final protected function _IsSet($object): string
+    {
+        if (isset($object) === false) {
+            return 'false';
+        }
+        return 'true';
+    }
+
     /**
      * Wrapper so it is easier to change the places where json is used.
      * @param $data
@@ -419,14 +427,20 @@ class infohub_base
     final public function cmd(array $in = array()): array
     {
         $startTime = $this->_MicroTime();
+        $status = null;
         $this->globalLogArray = array();
 
         $default = array(
-            'to' => array('node' => 'server', 'plugin' => '', 'function' => ''),
+            'to' => array(
+                'node' => 'server',
+                'plugin' => '',
+                'function' => ''
+            ),
             'callstack' => array(),
             'data' => array(),
             'data_back' => array(),
-            'wait' => 0.2
+            'wait' => 0.2,
+            'callback_function' => null
         );
         $in = $this->_Default($default, $in);
 
@@ -436,6 +450,7 @@ class infohub_base
         $out = array(
             'data' => array()
         );
+
         $callResponse = array(
             'answer' => $answer,
             'message' => $message
@@ -455,6 +470,121 @@ class infohub_base
 
         $functionName = strtolower($in['to']['function']);
         $this->internal_Log(array('message' => 'Will call: ' . $functionName, 'function_name' => 'cmd', 'object' => $in, 'depth' => 1));
+
+        $callbackFunction = function($callResponse)
+        use ($functionName, $out, &$in, $startTime, &$status)
+        {
+            $message = '';
+
+            if (is_array($callResponse) === false) {
+                $message = 'Function: ' . $functionName . ', did not return an object as it should. (' . gettype($callResponse) . ')';
+                $callResponse = array();
+            }
+
+            $this->internal_Log(array(
+                'message' => 'Back from: ' . $functionName,
+                'function_name' => $functionName,
+                'object' => $callResponse
+            ));
+
+            $callResponse = $this->_Merge(array('func' => 'ReturnCall'), $callResponse);
+
+            if ($callResponse['func'] === 'SubCall') {
+                $subCall = $callResponse;
+                $subCall['original_message'] = $in;
+                $response = $this->internal_Cmd($subCall);
+                if ($response['answer'] === 'false') {
+                    $message = $response['message'];
+                }
+                $out = $response['sub_call_data'];
+            }
+
+            if ($callResponse['func'] === 'ReturnCall') {
+                $response = $this->internal_Cmd(array(
+                    'func'=> 'ReturnCall',
+                    'variables'=> $callResponse,
+                    'original_message'=> $in
+                ));
+                if ($response['answer'] === 'false') {
+                    $message = $response['message'];
+                }
+                $out = $response['return_call_data'];
+            }
+
+            if ($message !== '') {
+                $out['data']['message'] = $message;
+                $callResponse['message'] = $message;
+                $this->internal_Log(array(
+                    'message'=> $message,
+                    'function_name'=> $functionName,
+                    'object'=> array(
+                        'in'=> $in,
+                        'out'=> $out
+                    )
+                ));
+            }
+
+            $out['execution_time'] = $this->_MicroTime() - $startTime;
+            $this->internal_Log(array(
+                'message'=> 'Leaving cmd()',
+                'function_name'=> $functionName,
+                'start_time'=> $startTime,
+                'depth'=> 0, // @todo should be -1 but multiple messages gives too many -1
+                'execution_time'=> $out['execution_time']
+            ));
+
+            if (isset($status) === 'true') {
+                $out['function_status'] = $status;
+
+                if ($status['value'] === 1) {
+                    $sleep = (int) ($out['execution_time'] * 1000);
+                    usleep($sleep); // There is a cost in using emerging and deprecated functions.
+                }
+            }
+
+            $out['from'] = $in['to']; // Add the message origin
+
+            $iWantAShortTail = $this->_GetData(array(
+                'name'=> 'data/i_want_a_short_tail',
+                'default'=> 'false',
+                'data'=> $out
+            ));
+
+            if ($iWantAShortTail === 'true')
+            {
+                unset($out['data']['i_want_a_short_tail']);
+                while (count($out['callstack']) > 1) {
+                    array_shift($out['callstack']);
+                }
+            }
+
+            if (isset($this->configLog[$functionName]))
+            {
+                // See example in infohub_checksum.json
+
+                $this->internal_Log(array(
+                    'message' => 'Temporary debug logging',
+                    'level' => 'debug',
+                    'function_name' => $functionName,
+                    'execution_time' => $out['execution_time'],
+                    'object' => array(
+                        'in' => $in,
+                        'out' => $out
+                    )
+                ));
+            }
+
+            $out['log_array'] = $this->globalLogArray;
+
+            if (isset($in['callback_function'])) {
+                if ($in['callback_function'] instanceof Closure) {
+                    $in['callback_function']($out); // Call the callback function
+                    return array();
+                }
+            }
+
+            return $out;
+        };
 
         if ($functionName === 'cmd' or is_int(strpos($functionName, 'internal_')) == true or substr($functionName, 0, 1) === '_') {
             $message = 'function name: ' . $functionName . ', are not allowed to be called';
@@ -478,6 +608,8 @@ class infohub_base
             goto leave;
         }
 
+        $in['data']['callback_function'] = $callbackFunction;
+
         $this->internal_Log(array('message' => 'Calling: ' . $functionName, 'function_name' => 'cmd', 'object' => $in));
         try {
             $this->firstDefault = null;
@@ -494,94 +626,51 @@ class infohub_base
             $callResponse['message'] = $message;
         }
 
-        if (is_array($callResponse) === false) {
-            $message = 'Function: ' . $functionName . ', did not return an object as it should. (' . gettype($callResponse) . ')';
-            $callResponse = array();
-        }
-
-        $this->internal_Log(array(
-            'message' => 'Back from: ' . $functionName,
-            'function_name' => $functionName,
-            'object' => $callResponse
-        ));
-
         leave:
 
-        // If we have no 'func' then we get a ReturnCall
-        $callResponse = array_merge(array('func' => 'ReturnCall'), $callResponse);
-
-        if ($callResponse['func'] === 'SubCall') {
-            $subCall = $callResponse;
-            $subCall['original_message'] = $in;
-            $response = $this->internal_Cmd($subCall);
-            if ($response['answer'] === 'false') {
-                $message = $response['message'];
-            }
-            $out = $response['sub_call_data'];
-        }
-
-        if ($callResponse['func'] === 'ReturnCall') {
-            $response = $this->internal_Cmd(array(
-                'func' => 'ReturnCall',
-                'variables' => $callResponse,
-                'original_message' => $in
-            ));
-            if ($response['answer'] === 'false') {
-                $message = $response['message'];
-            }
-            $out = $response['return_call_data'];
-        }
-
-        if ($message !== '') {
-            $out['data']['message'] = $message;
-            $callResponse['message'] = $message;
-            $this->internal_Log(array(
-                'message' => $message,
-                'function_name' => $functionName,
-                'object' => array(
-                    'in' => $in,
-                    'out' => $out
-                )
-            ));
-        }
-
-        $out['execution_time'] = $this->_MicroTime() - $startTime;
-        $this->internal_Log(array(
-            'message' => 'Leaving cmd()',
-            'function_name' => $functionName,
-            'depth' => -1,
-            'execution_time' => $out['execution_time']
-        ));
-
-        if (isset($status)) {
-            $out['function_status'] = $status;
-
-            if ($status['value'] === 1) {
-                $sleep = (int) ($out['execution_time'] * 1000);
-                usleep($sleep); // There is a cost in using emerging and deprecated functions.
-            }
-        }
-
-        if (isset($this->configLog[$functionName]))
+        if ($this->_Empty($callResponse) === 'false')
         {
-            // See example in infohub_checksum.json
-
-            $this->internal_Log(array(
-                'message' => 'Temporary debug logging',
-                'level' => 'debug',
-                'function_name' => $functionName,
-                'execution_time' => $out['execution_time'],
-                'object' => array(
-                    'in' => $in,
-                    'out' => $out
-                )
+            $messages = $this->_GetData(array(
+                'name'=> 'messages',
+                'default'=> array(),
+                'data'=> $callResponse
             ));
+
+            if (count($messages) > 0)
+            {
+                while (count($messages) > 0)
+                {
+                    $oneCallResponse = array_pop($messages);
+                    if (isset($oneCallResponse['data']) === true) {
+                        $oneCallResponse['data']['i_want_a_short_tail'] = 'true';
+                        $callbackFunction($oneCallResponse);
+                    }
+                }
+                unset($callResponse['messages']);
+            }
+
+            $iWantAShortTail = $this->_GetData(array(
+                'name'=> 'data/i_want_a_short_tail',
+                'default'=> 'false',
+                'data'=> $callResponse
+            ));
+
+            if ($iWantAShortTail === 'true') {
+                $callResponse['data']['i_want_a_short_tail'] = 'false';
+            }
+
+            $this->configLog = array();
+
+            return $callbackFunction($callResponse);
+
+        } else {
+            if (isset($callResponse) === false) {
+                // If you use the callback then you must return an empty object {}
+                // window.alert('Function do not return anything. ' + $in.to.plugin + '.' + $functionName);
+            }
         }
-        $this->configLog = array();
 
-        $out['log_array'] = $this->globalLogArray;
-
-        return $out;
+        return array();
     }
 
     /**

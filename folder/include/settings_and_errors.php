@@ -18,7 +18,7 @@ declare(strict_types=1);
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 
-$mode = 'developer';
+$mode = 'developer'; // developer or production
 
 $opcacheRestricted = ini_get('opcache.restrict_api');
 if (is_string($opcacheRestricted) === true) {
@@ -65,8 +65,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-$GLOBALS['infohub_error_message'] = '';
-$GLOBALS['infohub_minimum_error_level'] = 'error'; // log or error
+$GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
+$GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'log' if you want to debug in general.
 
 function myErrorHandler($code, $message, $file, $line) {
     $toErrorLog = array(

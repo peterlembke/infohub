@@ -25,6 +25,8 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  */
 class infohub_contact extends infohub_base
 {
+    const PREFIX = 'user';
+
     protected final function _Version(): array
     {
         return array(
@@ -110,7 +112,7 @@ class infohub_contact extends infohub_base
         }
 
         if ($in['step'] === 'step_check_user_name_response') {
-            $in['node_data']['user_name'] = $in['response']['data'];
+            $in['node_data']['user_name'] = self::PREFIX . '_' . $in['response']['data'];
             $in['step'] = 'step_check_shared_secret';
         }
 

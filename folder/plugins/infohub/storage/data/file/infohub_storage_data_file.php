@@ -273,7 +273,7 @@ class infohub_storage_data_file extends infohub_base
         try {
             $connectionOptions = array(
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                PDO::ATTR_PERSISTENT => true
+                PDO::ATTR_PERSISTENT => false // If set to true you can get "[Errno 104] Connection reset by peer"
             );
             $connection = new PDO($connectionString, $userName, $password, $connectionOptions);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -8,7 +8,7 @@
         "file_type": "finished_file"
     },
     "launcher": {
-        "title": "Programstartare",
+        "title": "Program startare",
         "description": "Plugin med ett grafiskt gränssnitt som visar ikoner för tillgängliga plugins som du kan starta. Den faktiska starten hanteras av Workbench."
     },
     "data": {

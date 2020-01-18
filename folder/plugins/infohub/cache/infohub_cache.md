@@ -7,8 +7,11 @@ When the infohub core in your browser require a plugin then infohub_cache can ei
 
 # Caching in Infohub
 Infohub avoid caching of data. It is better to rethink the solution again or optimize the code rather than using a cache.  
-Caches add extra complexity and speeds up bad solutions. Avoid them as much as you can.  
-On the server side there are no infohub_cache (for now at least). On the client infohub_cache are the only plugin that handle the localStorage.  
+
+Caches add extra complexity and speeds up bad solutions. Avoid them as much as you can.
+  
+On the server side there are no infohub_cache (for now at least). On the client infohub_cache are the only plugin that handle the localStorage.
+  
 infohub_cache only (for now) store plugins in the localStorage. The plugins have been requested from the server and are stored locally for one purpose - offline apps.  
 
 # The browser core
@@ -24,7 +27,25 @@ First of all, do not use this plugin. Leave the caching to the infohub core. Now
 * _validate_cache_ : Deletes old data. You must give a prefix, you can give a checksums object. `{'prefix': '', 'checksums': {} };` If you give 'checksums' then give all the key and checksum. They will then be used to find old items regardless of cache lifetime.  
 
 # Offline app
-There are two benefits with the browser plugin cache. You reduce the number of requests done to the server. When you have all the plugins you do not have to ask the server at all, and you can then run the app without a network connection.  
+There are two benefits with the browser plugin cache. You reduce the number of requests done to the server. 
+
+When you have all the plugins you do not have to ask the server at all, and you can then run the app without a network connection.
+
+# Browser cache life time
+The browser cache is handled by [infohub_cache](plugin_infohub_cache).
+
+The cache is updated when it gets old. See `infohub_cache.json`:
+```
+{
+    "client": {
+        "client_cache_lifetime": 604740
+    },
+    "server": {}
+}
+```   
+If you need to change anything in this file then copy the file to `folder/config/infohub_cache.json` and do your changes. Your file will be used instead of the original file.
+
+The default cache lifetime is 604740 seconds. It is 7 days - 60 seconds. (7 * 24 * 60 * 60 - 60).
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  
@@ -32,6 +53,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Created 2016-11-02 by Peter Lembke  
-Updated 2018-08-11 by Peter Lembke  
-
-
+Updated 2020-01-02 by Peter Lembke  

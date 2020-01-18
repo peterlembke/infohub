@@ -169,7 +169,8 @@ function infohub_checksum() {
             {"type": "option", "value": 'crc32', "label": 'CRC32' },
             {"type": "option", "value": 'luhn', "label": 'Luhn' },
             {"type": "option", "value": 'md5', "label": 'MD5', 'selected': 'true'  },
-            {"type": "option", "value": 'personnummer', "label": 'Personnummer' }
+            {"type": "option", "value": 'personnummer', "label": 'Personnummer' },
+            {"type": "option", "value": 'doublemetaphone', "label": 'Double metaphone' }
         ];
 
         return {

@@ -1225,11 +1225,13 @@ function infohub_renderform() {
 
                     if ($in.response.answer === 'false' || $ok === 'false') {
                         $assetName = 'icons8-cancel';
+                        /* You can handle this in your event function instead
                         alert(_GetData({
                             'name': 'response/message',
                             'default': '',
                             'data': $in,
                         }));
+                        */
                     }
 
                     let $messageArray = [];

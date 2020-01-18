@@ -282,7 +282,7 @@ function infohub_render_table() {
         {
             const $item = $in.data[$i];
 
-            let $id = 0;
+            let $id = '';
             if (_IsSet($item[$idFieldName])) {
                 $id = $item[$idFieldName];
             }
@@ -346,8 +346,8 @@ function infohub_render_table() {
             const $fieldsHTML = $valueArray.join('');
 
             let $eventData = '';
-            if (_Empty($in.event_data) === 'false' && $id > 0) {
-                $eventData = ' event_data="' + $in.event_data + '|' + $id.toString() + '"';
+            if (_Empty($in.event_data) === 'false' && $id !== '') {
+                $eventData = ' event_data="' + $in.event_data + '|' + $id + '"';
             }
 
             const $rowHtml = '<tr' + $rowIdString + $destination + $eventData + '>' + $fieldsHTML + '</tr>';
