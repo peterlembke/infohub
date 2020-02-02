@@ -19,19 +19,11 @@ function infohub_demo_frog() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2018-04-21',
@@ -44,14 +36,14 @@ function infohub_demo_frog() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_frog': 'normal'
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -59,9 +51,12 @@ function infohub_demo_frog() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -80,10 +75,11 @@ function infohub_demo_frog() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
@@ -190,18 +186,22 @@ function infohub_demo_frog() {
      * @author Peter Lembke
      */
     $functions.push("click_frog");
-    var click_frog = function ($in) {
+    const click_frog = function ($in)
+    {
         "use strict";
-        var $data,
-            $default = {
-                'step': 'step_start',
-                'event_data': '',
-                'box_id': '',
-                'data_back': {}
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'event_data': '',
+            'box_id': '',
+            'data_back': {}
+        };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') {
+        let $data;
+
+        if ($in.step === 'step_start')
+        {
             $data = {
                 'frog_correct': {
                     'type': 'frog',
@@ -222,12 +222,14 @@ function infohub_demo_frog() {
                     'ok': 'false',
                 },
             };
+
             if (_IsSet($data[$in.event_data]) === 'true') {
                 $in.step = 'step_make_frog';
             }
         }
         
-        if ($in.step === 'step_make_frog') {
+        if ($in.step === 'step_make_frog')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -284,6 +286,5 @@ function infohub_demo_frog() {
             'ok': $in.data_back.ok
         };
     };
-
 }
 //# sourceURL=infohub_demo_frog.js

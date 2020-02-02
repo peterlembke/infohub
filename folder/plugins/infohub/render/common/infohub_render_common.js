@@ -21,11 +21,7 @@ function infohub_render_common() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-17',
             'since': '2015-02-15',
@@ -38,7 +34,7 @@ function infohub_render_common() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal', // ContainerStart, ContainerStop, Container, Codecontainer, Iframe, Legend, Image, Value, List, LabelData
             'event_message': 'normal'
@@ -60,7 +56,7 @@ function infohub_render_common() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -88,10 +84,9 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
-        let $name, $class, $id, $parameter = [];
 
         const $default = {
             'id': '',
@@ -99,6 +94,8 @@ function infohub_render_common() {
             'class': ''
         };
         $in = _Default($default, $in);
+
+        let $name, $class, $id, $parameter = [];
 
         if ($in.id !== '') {
             $id = 'id="{box_id}_' + $in.id + '"';
@@ -132,7 +129,7 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    var _Display = function ($in)
+    const _Display = function ($in)
     {
         "use strict";
 
@@ -171,7 +168,7 @@ function infohub_render_common() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
         $in = _ByVal($in);
@@ -207,7 +204,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    var internal_ContainerStart = function ($in)
+    const internal_ContainerStart = function ($in)
     {
         "use strict";
 
@@ -249,7 +246,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    var internal_ContainerStop = function ($in)
+    const internal_ContainerStop = function ($in)
     {
         "use strict";
 
@@ -284,7 +281,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    var internal_Container = function ($in)
+    const internal_Container = function ($in)
     {
         "use strict";
 
@@ -350,7 +347,7 @@ function infohub_render_common() {
      * @since   2018-10-22
      * @author  Peter Lembke
      */
-    var internal_Codecontainer = function ($in)
+    const internal_Codecontainer = function ($in)
     {
         "use strict";
 
@@ -409,7 +406,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    var internal_Iframe = function ($in)
+    const internal_Iframe = function ($in)
     {
         "use strict";
 
@@ -452,7 +449,7 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    var internal_Legend = function ($in)
+    const internal_Legend = function ($in)
     {
         "use strict";
 
@@ -500,7 +497,7 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    var internal_Image = function ($in)
+    const internal_Image = function ($in)
     {
         "use strict";
 
@@ -547,7 +544,7 @@ function infohub_render_common() {
      * @param {type} $in
      * @returns {infohub_render_common.internal_Svg.infohub_render_commonAnonym$18}
      */
-    var internal_Svg = function ($in)
+    const internal_Svg = function ($in)
     {
         "use strict";
 
@@ -590,7 +587,7 @@ function infohub_render_common() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    var internal_Value = function ($in)
+    const internal_Value = function ($in)
     {
         "use strict";
 
@@ -613,7 +610,7 @@ function infohub_render_common() {
      * @since   2019-10-06
      * @author  Peter Lembke
      */
-    var internal_Join = function ($in)
+    const internal_Join = function ($in)
     {
         "use strict";
 
@@ -661,7 +658,7 @@ function infohub_render_common() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    var internal_List = function ($in)
+    const internal_List = function ($in)
     {
         "use strict";
 
@@ -717,7 +714,7 @@ function infohub_render_common() {
      * @since   2018-06-30
      * @author  Peter Lembke
      */
-    var internal_LabelData = function ($in)
+    const internal_LabelData = function ($in)
     {
         "use strict";
 
@@ -751,6 +748,5 @@ function infohub_render_common() {
             'css_data': $in.css_data
         };
     };
-
 }
 //# sourceURL=infohub_render_common.js

@@ -19,23 +19,15 @@ function infohub_demo_markdown() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
-            'date': '2019-03-28',
+            'date': '2020-01-21',
             'since': '2018-04-15',
-            'version': '2.0.0',
+            'version': '2.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_demo_markdown',
             'note': 'Render a markdown demo for infohub_demo',
@@ -44,7 +36,7 @@ function infohub_demo_markdown() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_file_read': 'normal',
@@ -52,7 +44,7 @@ function infohub_demo_markdown() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -60,9 +52,12 @@ function infohub_demo_markdown() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -76,15 +71,16 @@ function infohub_demo_markdown() {
 
     /**
      * Get instructions and create the message to InfoHub View
-     * @version 2019-03-28
+     * @version 2020-01-21
      * @since   2016-10-16
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
@@ -171,29 +167,30 @@ function infohub_demo_markdown() {
 
     /**
      * File read markdown. The text file format used on Githib for the README.md files.
-     * @version 2019-02-03
+     * @version 2020-01-21
      * @since 2019-02-03
      * @author Peter Lembke
      */
     $functions.push("click_file_read");
-    var click_file_read = function ($in) {
+    const click_file_read = function ($in)
+    {
         "use strict";
-        var $content, 
-            $default = {
-                'answer': 'true',
-                'message': 'Nothing to report',
-                'ok': 'false',
-                'step': 'step_start',
-                'box_id': '',
-                'files_data': []
-            };
+
+        const $default = {
+            'answer': 'true',
+            'message': 'Nothing to report',
+            'ok': 'false',
+            'step': 'step_start',
+            'box_id': '',
+            'files_data': []
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') 
         {           
             if ($in.files_data.length >= 1) 
             {
-                $content = $in.files_data[0].content;
+                let $content = $in.files_data[0].content;
                 $content = $content.substr('data:text/markdown;base64,'.length);
                 $content = atob($content);
                 $content = _Replace("\n", "\r\n", $content);
@@ -233,27 +230,28 @@ function infohub_demo_markdown() {
     
     /**
      * Button click for Markdown to HTML
-     * @version 2019-02-03
+     * @version 2020-01-21
      * @since 2019-02-03
      * @author Peter Lembke
      */
     $functions.push("click_markdown_to_html");
-    var click_markdown_to_html = function ($in) {
+    const click_markdown_to_html = function ($in)
+    {
         "use strict";
-        var $content,
-            $default = {
-                'answer': 'true',
-                'message': 'Nothing to report',
-                'ok': 'false',
-                'step': 'step_read_markdown_type',
-                'box_id': '',
-                'type': '',
-                'text': '',
-                'markdown_type': 'showdown',
-                'response': {
-                    'value': []
-                }
-            };
+
+        const $default = {
+            'answer': 'true',
+            'message': 'Nothing to report',
+            'ok': 'false',
+            'step': 'step_read_markdown_type',
+            'box_id': '',
+            'type': '',
+            'text': '',
+            'markdown_type': 'showdown',
+            'response': {
+                'value': []
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_read_markdown_type') 
@@ -280,6 +278,7 @@ function infohub_demo_markdown() {
                 if (_IsSet($in.response.value[0]) === 'true') {
                     $in.markdown_type = $in.response.value[0];
                 }
+
                 $in.step = 'step_read_markdown_box';
             }
         }
@@ -323,7 +322,7 @@ function infohub_demo_markdown() {
                         'my_markdown': {
                             'plugin': 'infohub_markdown',
                             'type': $in.markdown_type,
-                            'text': $text
+                            'text': $in.text
                         }
                     },
                     'how': {
@@ -355,6 +354,5 @@ function infohub_demo_markdown() {
             'ok': $in.ok
         };
     };
-
 }
 //# sourceURL=infohub_demo_markdown.js

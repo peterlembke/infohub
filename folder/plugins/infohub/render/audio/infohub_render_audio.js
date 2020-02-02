@@ -21,11 +21,7 @@ function infohub_render_audio() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-04-14',
             'since': '2014-11-01',
@@ -38,7 +34,7 @@ function infohub_render_audio() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -59,17 +55,19 @@ function infohub_render_audio() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
         let $response = '';
         let $parts = $text.split('_');
 
-        for (let $key in $parts) {
+        for (let $key in $parts)
+        {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
+
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
 
@@ -84,7 +82,7 @@ function infohub_render_audio() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -119,7 +117,7 @@ function infohub_render_audio() {
         return $parameter.join(' ');
     };
     
-    var _GetSandbox = function ()
+    const _GetSandbox = function ()
     {
         "use strict";
 
@@ -140,7 +138,7 @@ function infohub_render_audio() {
      * @author  Peter Lembke
      */
     $functions.push('create'); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -177,7 +175,7 @@ function infohub_render_audio() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    var internal_Jamendo = function ($in)
+    const internal_Jamendo = function ($in)
     {
         "use strict";
 
@@ -210,11 +208,9 @@ function infohub_render_audio() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    var internal_Jamendolink = function ($in)
+    const internal_Jamendolink = function ($in)
     {
         "use strict";
-
-        var $cssData = {};
 
         const $default = {
             'type': 'audio',
@@ -228,6 +224,8 @@ function infohub_render_audio() {
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<div ' + $id + '><a href="https://www.jamendo.com/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
+
+        let $cssData = {};
 
         if ($in.class === 'right') {
             $cssData = {
@@ -249,7 +247,7 @@ function infohub_render_audio() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Soundcloud = function ($in)
+    const internal_Soundcloud = function ($in)
     {
         "use strict";
 
@@ -283,7 +281,7 @@ function infohub_render_audio() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Soundcloudlink = function ($in)
+    const internal_Soundcloudlink = function ($in)
     {
         "use strict";
 
@@ -322,7 +320,7 @@ function infohub_render_audio() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Spotify = function ($in)
+    const internal_Spotify = function ($in)
     {
         "use strict";
 
@@ -358,7 +356,7 @@ function infohub_render_audio() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Spotifylink = function ($in)
+    const internal_Spotifylink = function ($in)
     {
         "use strict";
 
@@ -390,6 +388,5 @@ function infohub_render_audio() {
             'css_data': $cssData
         };
     };
-
 }
 //# sourceURL=infohub_render_audio.js

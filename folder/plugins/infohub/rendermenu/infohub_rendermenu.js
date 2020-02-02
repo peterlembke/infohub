@@ -20,11 +20,7 @@ function infohub_rendermenu() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-09-05',
             'since': '2018-09-05',
@@ -37,7 +33,7 @@ function infohub_rendermenu() {
         };
     };
 
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'create': 'normal',
@@ -60,7 +56,7 @@ function infohub_rendermenu() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -89,7 +85,7 @@ function infohub_rendermenu() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -150,7 +146,7 @@ function infohub_rendermenu() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Menu = function ($in)
+    const internal_Menu = function ($in)
     {
         "use strict";
 
@@ -236,7 +232,6 @@ function infohub_rendermenu() {
                 'mode': 'html'
             }
         };
-
     };
 
     /**
@@ -245,7 +240,7 @@ function infohub_rendermenu() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -271,8 +266,6 @@ function infohub_rendermenu() {
             'answer': 'true',
             'message': 'Done handling events'
         };
-
     };
-
 }
 //# sourceURL=infohub_rendermenu.js

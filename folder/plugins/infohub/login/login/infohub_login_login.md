@@ -28,14 +28,14 @@ The plugin infohub_contact have all information needed to communicate with anoth
     'shared_secret' => 'jhgb78g0gnuognuognuyg',
 }
 ```
-See [infohub_contact](plugin_infohub_contact) for more information.
+See [infohub_contact](plugin,infohub_contact) for more information.
 
 # infohub_session
 The plugin infohub_session will handle the package_password after login.
-See [infohub_session](plugin_infohub_session) for more information.
+See [infohub_session](plugin,infohub_session) for more information.
 
 # infohub_transfer
-The plugin [infohub_transfer](plugin_infohub_transfer) see if a message want to leave the node. 
+The plugin [infohub_transfer](plugin,infohub_transfer) see if a message want to leave the node. 
 Infohub Transfer check if there is an open session, if not then ask infohub_login to do a login to that node.
 
 # infohub_login
@@ -47,7 +47,7 @@ When Infohub_transfer want to send a package to a node but has no session_code t
 
 The response from the node contain the result. You will get a static session_id and a package_password.
 
-Any of the nodes can any time declare that the connection agreement is terminated by calling a function in [infohub_session](plugin_infohub_session).
+Any of the nodes can any time declare that the connection agreement is terminated by calling a function in [infohub_session](plugin,infohub_session).
 
 ## login_request
 Infohub Transfer ask Infohub_Login to initiate a session with a named node. 
@@ -116,7 +116,7 @@ Now Infohub_Login must verify the responder_calculated_id_code and then decide t
 ### Session_id and package_password
 After login when you got the `login_challenge_response` you have the `session_id` and the first `package_password`.
 Now infohub_login will provide most data to infohub_session.
-See what happens next at [infohub_session](plugin_infohub_session).
+See what happens next at [infohub_session](plugin,infohub_session).
 
 # calculated_id_code
 In the contact data in Infohub_Contact you have node, plugin, function to the function that will calculate and verify the calculated_id_code.

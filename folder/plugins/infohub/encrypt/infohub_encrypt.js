@@ -30,7 +30,7 @@ function infohub_encrypt() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-11-19',
             'since': '2019-11-19',
@@ -44,7 +44,7 @@ function infohub_encrypt() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'encrypt': 'normal',
             'decrypt': 'normal',
@@ -66,7 +66,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('encrypt');
-    var encrypt = function ($in)
+    const encrypt = function ($in)
     {
         "use strict";
 
@@ -147,7 +147,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('decrypt');
-    var decrypt = function ($in)
+    const decrypt = function ($in)
     {
         const $default = {
             'encrypted_text': '',
@@ -227,7 +227,7 @@ function infohub_encrypt() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
 
@@ -248,7 +248,7 @@ function infohub_encrypt() {
         };
     };
 
-    var _GetAvailableMethods = function ($in) {
+    const _GetAvailableMethods = function ($in) {
         "use strict";
         return ['pgp','none'];
     };

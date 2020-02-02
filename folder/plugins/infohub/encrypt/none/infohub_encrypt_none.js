@@ -30,7 +30,7 @@ function infohub_encrypt_none() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-11-19',
             'since': '2019-11-19',
@@ -44,7 +44,7 @@ function infohub_encrypt_none() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'encrypt': 'normal',
             'decrypt': 'normal'
@@ -66,7 +66,7 @@ function infohub_encrypt_none() {
      * @return array
      */
     $functions.push('encrypt');
-    var encrypt = function ($in)
+    const encrypt = function ($in)
     {
         "use strict";
 
@@ -112,7 +112,7 @@ function infohub_encrypt_none() {
      * @return array
      */
     $functions.push('decrypt');
-    var decrypt = function ($in)
+    const decrypt = function ($in)
     {
         "use strict";
 

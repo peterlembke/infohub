@@ -116,9 +116,9 @@ Javascript simply say "This thing you asked me to do will take some time, I'll c
 InfoHub in JavaScript give you a `callback_function` that you can call when you want to get out of the hell. Here is an example:  
     
 ```
-var startup = function ($in) {
+const startup = function ($in) {
     "use strict";
-    var $subCall,
+    const $subCall,
         $default = {
             'step': 'step_plugin_list',
             'parent_box_id': '1',

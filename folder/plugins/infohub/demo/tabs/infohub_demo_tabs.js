@@ -19,19 +19,11 @@ function infohub_demo_tabs() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-03-28',
             'since': '2018-05-15',
@@ -44,13 +36,13 @@ function infohub_demo_tabs() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'create': 'normal'
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -58,9 +50,12 @@ function infohub_demo_tabs() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -79,25 +74,29 @@ function infohub_demo_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in) {
+    const create = function ($in)
+    {
         "use strict";
-        var $tabs, $exampleContent, $messageOut, $messageArray, $boxId,
-            $default = {
-                'parent_box_id': '',
-                'translations': {},
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'Nothing to report'
-                }
-            };
+
+        const $default = {
+            'parent_box_id': '',
+            'translations': {},
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report'
+            },
+            'data_back': {
+                'box_id': ''
+            }
+        };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
+        if ($in.step === 'step_start')
         {
             $classTranslations = $in.translations;
             
-            $exampleContent = {
+            const $exampleContent = {
                 'what': {
                     'image_example': {
                         'type': 'common',
@@ -118,7 +117,7 @@ function infohub_demo_tabs() {
                 }
             };
 
-            $tabs = [
+            const $tabs = [
                 {'alias': 'gui', 'label': 'Tab 1' }, // alias must be a single word here.
                 {'alias': 'doc', 'label': 'Tab 2' },
                 {'alias': 'config', 'label': 'Tab 3' },
@@ -130,8 +129,7 @@ function infohub_demo_tabs() {
                 {'alias': 'close', 'label': 'Tab 9' }
             ];
 
-            $messageArray = [];
-            $boxId = $in.parent_box_id + '.demo';
+            const $boxId = $in.parent_box_id + '.demo';
 
             return _SubCall({
                 'to': {
@@ -145,7 +143,8 @@ function infohub_demo_tabs() {
                     'highlight_tab_alias': 'stat'
                 },
                 'data_back': {
-                    'step': 'step_scroll'
+                    'step': 'step_scroll',
+                    'box_id': $boxId,
                 }
             });
         }
@@ -159,7 +158,7 @@ function infohub_demo_tabs() {
                     'function': 'scroll_to_box_id'
                 },
                 'data': {
-                    'box_id': $boxId
+                    'box_id': $in.data_back.box_id
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -172,6 +171,5 @@ function infohub_demo_tabs() {
             'message': $in.response.message,
         };
     };
-
 }
 //# sourceURL=infohub_demo_tabs.js

@@ -1,4 +1,2 @@
 # Infohub Markdown Showdown
-
-https://github.com/showdownjs/showdown
-
+* URL [Showdown](https://github.com/showdownjs/showdown)

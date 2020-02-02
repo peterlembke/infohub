@@ -27,11 +27,7 @@ function infohub_configlocal_zoom() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-18',
             'since': '2018-05-25',
@@ -44,7 +40,7 @@ function infohub_configlocal_zoom() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_change': 'normal',
@@ -52,7 +48,7 @@ function infohub_configlocal_zoom() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -60,9 +56,12 @@ function infohub_configlocal_zoom() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string,
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -81,10 +80,11 @@ function infohub_configlocal_zoom() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
@@ -177,7 +177,7 @@ function infohub_configlocal_zoom() {
      * @author Peter Lembke
      */
     $functions.push("click_change");
-    var click_change = function ($in)
+    const click_change = function ($in)
     {
         "use strict";
 
@@ -283,7 +283,7 @@ function infohub_configlocal_zoom() {
      * @author Peter Lembke
      */
     $functions.push("apply_config");
-    var apply_config = function ($in)
+    const apply_config = function ($in)
     {
         "use strict";
 

@@ -20,7 +20,7 @@ function infohub_language() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-27',
             'since': '2019-04-02',
@@ -33,7 +33,7 @@ function infohub_language() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'option_list_main_languages': 'normal',
@@ -42,7 +42,7 @@ function infohub_language() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -50,7 +50,7 @@ function infohub_language() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -66,7 +66,7 @@ function infohub_language() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -157,7 +157,7 @@ function infohub_language() {
      * @author  Peter Lembke
      */
     $functions.push('option_list_main_languages');
-    var option_list_main_languages = function ($in)
+    const option_list_main_languages = function ($in)
     {
         "use strict";
 
@@ -228,7 +228,7 @@ function infohub_language() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('option_list_all_languages');
-    var option_list_all_languages = function ($in) 
+    const option_list_all_languages = function ($in)
     {
         "use strict";
 
@@ -295,7 +295,7 @@ function infohub_language() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('get_translations');
-    var get_translations = function ($in)
+    const get_translations = function ($in)
     {
         "use strict";
 
@@ -358,7 +358,7 @@ function infohub_language() {
      * @private
      */
     $functions.push('_SortObject');
-    var _SortObject = function ($data)
+    const _SortObject = function ($data)
     {
         const $values = Object.values($data).sort(function(a,b){
             return a.localeCompare(b);
@@ -388,7 +388,7 @@ function infohub_language() {
      * @returns {infohub_language._RawData.infohub_languageAnonym$7}
      */
     $functions.push('_RawData');
-    var _RawData = function ()
+    const _RawData = function ()
     {
         return {
             "af": _Translate("Afrikaans"),

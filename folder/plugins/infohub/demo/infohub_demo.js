@@ -19,19 +19,11 @@ function infohub_demo() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2013-12-25',
@@ -45,18 +37,19 @@ function infohub_demo() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
+            'click_link': 'normal',
             'event_message': 'normal'
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
-        var $pluginType = 'welcome',
+        let $pluginType = 'welcome',
             $tmp = $data.split("_");
 
         if (_IsSet($tmp[0]) === 'true') {
@@ -66,7 +59,7 @@ function infohub_demo() {
         return 'infohub_demo_' + $pluginType;
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -74,9 +67,12 @@ function infohub_demo() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -95,9 +91,11 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'box_id': '',
             'step': 'step_start'
         };
@@ -158,7 +156,8 @@ function infohub_demo() {
             });
         }
 
-        if ($in.step === 'step_get_translations') {
+        if ($in.step === 'step_get_translations')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -197,7 +196,8 @@ function infohub_demo() {
             });
         }
 
-        if ($in.step === 'step_render_instructions') {
+        if ($in.step === 'step_render_instructions')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -249,18 +249,21 @@ function infohub_demo() {
      * @author Peter Lembke
      */
     $functions.push("click_menu");
-    var click_menu = function ($in) {
+    const click_menu = function ($in)
+    {
         "use strict";
-        var $pluginName,
-            $default = {
-                'step': 'step_start',
-                'event_data': '',
-                'parent_box_id': ''
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'event_data': '',
+            'parent_box_id': ''
+        };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') {
-            $pluginName = _GetPluginName($in.event_data);
+        if ($in.step === 'step_start')
+        {
+            const $pluginName = _GetPluginName($in.event_data);
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -292,25 +295,26 @@ function infohub_demo() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in) {
+    const click = function ($in)
+    {
         "use strict";
-        var $parts = [], $childName, $clickName, $eventData,
-            $default = {
-                'event_data': '', // childName|clickName|RestOfEventData
-                'level': '', // For the advanced list
-                'value': '', // Selected option in select lists
-                'box_id': '',
-                'step': 'step_start',
-                'type': '',
-                'event_type': '',
-                'response': {
-                    'answer': 'false',
-                    'message': 'There was an error',
-                    'ok': 'false',
-                    'value': [], // All selected options in select lists
-                    'files_data': [] // For the import button
-                }
-            };
+
+        const $default = {
+            'event_data': '', // childName|clickName|RestOfEventData
+            'level': '', // For the advanced list
+            'value': '', // Selected option in select lists
+            'box_id': '',
+            'step': 'step_start',
+            'type': '',
+            'event_type': '',
+            'response': {
+                'answer': 'false',
+                'message': 'There was an error',
+                'ok': 'false',
+                'value': [], // All selected options in select lists
+                'files_data': [] // For the import button
+            }
+        };
         $in = _Default($default, $in);
         
         if (_Empty($in.event_data) === 'true') {
@@ -320,11 +324,11 @@ function infohub_demo() {
 
         if ($in.step === 'step_start') {
             
-            $parts = $in.event_data.split('|');
-            $childName = $parts[0];
-            $clickName = $parts[1];
+            const $parts = $in.event_data.split('|');
+            const $childName = $parts[0];
+            const $clickName = $parts[1];
             
-            $eventData = '';
+            let $eventData = '';
             if (_IsSet($parts[2]) === 'true') {
                 $eventData = $parts[2];
             }
@@ -366,6 +370,30 @@ function infohub_demo() {
     };
 
     /**
+     * Simple demo how to use links in a Markdown document
+     * @version 2020-01-24
+     * @since 2020-01-24
+     * @author Peter Lembke
+     */
+    $functions.push("click_link");
+    const click_link = function ($in)
+    {
+        "use strict";
+
+        const $default = {
+            'event_data': '',
+        };
+        $in = _Default($default, $in);
+
+        window.alert($in.event_data);
+
+        return {
+            'answer': 'true',
+            'message': 'Done'
+        };
+    };
+
+    /**
      * If you do not state a to_function in your rendered object
      * then you end up in the event_message function when there is an event.
      * @version 2019-03-31
@@ -373,17 +401,19 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in) {
+    const event_message = function ($in)
+    {
         "use strict";
-        var $default = {
-                'parent_id': '',
-                'box_id': '',
-                'step': 'step_start',
-                'event_data': '',
-                'type': '',
-                'event_type': '',
-                'parent_box_id': ''
-            };
+
+        const $default = {
+            'parent_id': '',
+            'box_id': '',
+            'step': 'step_start',
+            'event_data': '',
+            'type': '',
+            'event_type': '',
+            'parent_box_id': ''
+        };
         $in = _Merge($default, $in);
 
         if ($in.step === 'step_start')
@@ -407,8 +437,6 @@ function infohub_demo() {
             'answer': 'true',
             'message': 'Done handle the event'
         };
-
     };
-
 }
 //# sourceURL=infohub_demo.js

@@ -22,11 +22,7 @@ function infohub_renderadvancedlist() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-10-29',
             'since': '2017-10-29',
@@ -39,7 +35,7 @@ function infohub_renderadvancedlist() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'expand': 'normal'
@@ -61,7 +57,7 @@ function infohub_renderadvancedlist() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -91,7 +87,7 @@ function infohub_renderadvancedlist() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -146,7 +142,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    var internal_AdvancedList = function ($in)
+    const internal_AdvancedList = function ($in)
     {
         "use strict";
 
@@ -181,7 +177,6 @@ function infohub_renderadvancedlist() {
                 'mode': 'html'
             }
         };
-
     };
 
     /**
@@ -192,17 +187,17 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    var _StructureData = function ($option, $separator)
+    const _StructureData = function ($option, $separator)
     {
         "use strict";
 
-        var $dataOut = {}, $level, $parts, $parent;
+        let $dataOut = {};
 
         for (let $key in $option) {
             if ($option.hasOwnProperty($key))
             {
-                $level = $option[$key].level;
-                $parts = $level.split($separator);
+                let $level = $option[$key].level;
+                let $parts = $level.split($separator);
 
                 if ($parts.length >= 2) {
                     if ($parts[0] == $parts[1]) {
@@ -212,7 +207,7 @@ function infohub_renderadvancedlist() {
                 }
 
                 $parts.pop();
-                $parent = $parts.join($separator);
+                let $parent = $parts.join($separator);
 
                 if ($parent === '') {
                     $parent = 'rootlevel';
@@ -239,7 +234,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    var _LabelData = function ($dataIn, $labelExpand, $labelContract)
+    const _LabelData = function ($dataIn, $labelExpand, $labelContract)
     {
         "use strict";
 
@@ -281,7 +276,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    var _GetWhat = function ($dataIn, $cssData, $labelExpand, $labelContract)
+    const _GetWhat = function ($dataIn, $cssData, $labelExpand, $labelContract)
     {
         "use strict";
 
@@ -347,7 +342,6 @@ function infohub_renderadvancedlist() {
         }
 
         return $what;
-
     };
 
     /**
@@ -359,11 +353,9 @@ function infohub_renderadvancedlist() {
      * @returns {*}
      */
     $functions.push("expand"); // Enable this function
-    var expand = function ($in)
+    const expand = function ($in)
     {
         "use strict";
-
-        var $parts, $ids = [], $id = '';
 
         const $default = {
             'box_id': '',
@@ -395,7 +387,10 @@ function infohub_renderadvancedlist() {
 
         if ($in.step === 'step_get_box_id_response')
         {
-            $parts = $in.list_path.split('_');
+            let $parts = $in.list_path.split('_'),
+                $ids = [],
+                $id = '';
+
             while (_Count($parts) > 0)
             {
                 $id = $in.box_id + '_' + $in.data_back.list_name + '_childlist_' + $parts.join('_');
@@ -444,6 +439,5 @@ function infohub_renderadvancedlist() {
             'message': 'Done expanding nodes in the advanced list'
         };
     }
-
 }
 //# sourceURL=infohub_renderadvancedlist.js

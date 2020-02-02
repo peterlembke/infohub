@@ -20,7 +20,7 @@ function infohub_keyboard() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-10-18',
             'version': '1.0.0',
@@ -32,7 +32,7 @@ function infohub_keyboard() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'subscribe': 'normal',
@@ -47,7 +47,7 @@ function infohub_keyboard() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -55,7 +55,7 @@ function infohub_keyboard() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -77,33 +77,34 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_ConvertToKey');
-    var _ConvertToKey = function ($in) {
+    const _ConvertToKey = function ($in)
+    {
         "use strict";
-        var $dataKey, $shift, $alt, $ctrl,
-            $default = {
-                'alt_key': 'false',
-                'ctrl_key': 'false',
-                'shift_key': 'false',
-                'key_code': 0
-            };
+
+        const $default = {
+            'alt_key': 'false',
+            'ctrl_key': 'false',
+            'shift_key': 'false',
+            'key_code': 0
+        };
         $in = _Default($default, $in);
 
-        $shift = '';
+        let $shift = '';
         if ($in.shift_key === 'true') {
             $shift = 'shift_';
         }
 
-        $alt = '';
+        let $alt = '';
         if ($in.alt_key === 'true') {
             $alt = 'alt_';
         }
 
-        $ctrl = '';
+        let $ctrl = '';
         if ($in.ctrl_key === 'true') {
             $ctrl = 'ctrl_';
         }
 
-        $dataKey = $shift + $alt + $ctrl;
+        let $dataKey = $shift + $alt + $ctrl;
 
         if ($dataKey !== '') {
             $dataKey = $dataKey + $in.key_code;
@@ -119,14 +120,15 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_GetSubscribersMessages');
-    var _GetSubscribersMessages = function ($key) {
+    const _GetSubscribersMessages = function ($key)
+    {
         "use strict";
-        var $data, $messages = [], $staticSubscriptions, $realKey;
 
-        $data = _LoadData();
+        const $data = _LoadData();
+        const $realKey = $key;
 
-        $realKey = $key;
-        $messages = _AddMessages($key, $realKey, $data,$messages);
+        let $messages = [];
+        $messages = _AddMessages($key, $realKey, $data, $messages);
         $messages = _AddMessages('all', $realKey, $data, $messages);
 
         return $messages;
@@ -139,25 +141,29 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_AddMessages');
-    var _AddMessages = function ($key, $realKey, $data, $messages) {
+    const _AddMessages = function ($key, $realKey, $data, $messages)
+    {
         "use strict";
-        var $from, $message;
 
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
 
-        for ($from in $data[$key]) {
+        for (let $from in $data[$key])
+        {
             if ($data[$key].hasOwnProperty($from) === false) {
                 continue;
             }
 
-            $message = $data[$key][$from];
+            let $message = $data[$key][$from];
+
             $message = _SubCall($message); // Make sure the message contain all that is needed for a sub call.
+
             $message.data_back = {
                 'step': 'step_end',
                 'key': $key
             };
+
             $message.data.key = $realKey;
 
             $messages.push($message);
@@ -173,16 +179,17 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_LoadData');
-    var _LoadData = function () {
+    const _LoadData = function ()
+    {
         "use strict";
-        var $jsonData, $data, $staticSubscriptions;
-        $jsonData = sessionStorage.getItem('infohub_keyboard');
-        $data = JSON.parse($jsonData);
+
+        const $jsonData = sessionStorage.getItem('infohub_keyboard');
+        let $data = JSON.parse($jsonData);
         if (_Empty($data) === 'true') {
             $data = {};
         }
 
-        $staticSubscriptions = {
+        const $staticSubscriptions = {
             'shift_alt_ctrl_49': { // 49 = "1"
                 'client|infohub_debug': {
                     'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'reload_page'}
@@ -216,13 +223,15 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_SaveData');
-    var _SaveData = function ($data) {
+    const _SaveData = function ($data)
+    {
         "use strict";
-        var $jsonData;
+
         if (_Empty($data) === 'true') {
             $data = {};
         }
-        $jsonData = JSON.stringify($data);
+
+        const $jsonData = JSON.stringify($data);
         sessionStorage.setItem('infohub_keyboard', $jsonData);
     };
 
@@ -238,9 +247,11 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'box_id': '',
             'step': 'step_get_translations'
         };
@@ -375,25 +386,31 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    var subscribe = function ($in) {
+    const subscribe = function ($in)
+    {
         "use strict";
-        var $key = '', $response, $from, $messageOut = {}, $messageOutDefault,
-            $answer = 'true', $message = 'Now you subscribe to the combinations you want',
-            $default = {
-                'subscriptions': {}, // Add the key_combination string and the message you want.
-                'from_plugin': {'node': '', 'plugin': '', 'function': '' }
-            };
+
+        const $default = {
+            'subscriptions': {}, // Add the key_combination string and the message you want.
+            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+        };
         $in = _Default($default, $in);
 
-        $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
+        const $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
 
-        $messageOutDefault = {
+        const $messageOutDefault = {
             'to': {'node': '', 'plugin': '', 'function': '' },
             'data': {}
         };
 
+        let $key= '', // If the loop break then I want to return $key
+            $messageOut = {}, // If the loop break then I want to return $messageOut
+            $answer = 'true',
+            $message = 'Now you subscribe to the combinations you want';
+
         leave: {
-            for ($key in $in.subscriptions) {
+            for ($key in $in.subscriptions)
+            {
                 if ($in.subscriptions.hasOwnProperty($key) === false) {
                     continue;
                 }
@@ -413,14 +430,15 @@ function infohub_keyboard() {
                 }
             }
 
-            for ($key in $in.subscriptions) {
+            for ($key in $in.subscriptions)
+            {
                 if ($in.subscriptions.hasOwnProperty($key) === false) {
                     continue;
                 }
 
                 $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
 
-                $response = internal_Cmd({
+                const $response = internal_Cmd({
                     'func': 'Subscribe',
                     'from': $from,
                     'key': $key,
@@ -454,20 +472,25 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    var unsubscribe = function ($in) {
+    const unsubscribe = function ($in)
+    {
         "use strict";
-        var $key, $response, $from,
-            $default = {
-                'subscriptions': {}, // Add the key_combination string and and empty message
-                'from_plugin': {'node': '', 'plugin': '', 'function': '' }
-            };
+
+        const $default = {
+            'subscriptions': {}, // Add the key_combination string and and empty message
+            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+        };
         $in = _Default($default, $in);
 
-        $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
+        const $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
 
-        for ($key in $in.subscriptions) {
+        for (let $key in $in.subscriptions) {
             if ($in.subscriptions.hasOwnProperty($key) === true) {
-                $response = internal_Cmd({'func': 'Unsubscribe', 'from': $from, 'key': $key});
+                const $response = internal_Cmd({
+                    'func': 'Unsubscribe',
+                    'from': $from,
+                    'key': $key
+                });
             }
         }
 
@@ -486,15 +509,16 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    var unsubscribe_all = function ($in) {
+    const unsubscribe_all = function ($in)
+    {
         "use strict";
-        var $from,
-            $default = {
-                'from_plugin': {'node': '', 'plugin': '', 'function': '' }
-            };
+
+        const $default = {
+            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+        };
         $in = _Default($default, $in);
 
-        $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
+        const $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
 
         return internal_Cmd({
             'func': 'UnsubscribeAll',
@@ -509,17 +533,18 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    var internal_Subscribe = function ($in) {
+    const internal_Subscribe = function ($in)
+    {
         "use strict";
-        var $jsonData, $data,
-            $default = {
-                'from': '', // "node|plugin_name"
-                'key': '', // example: "shift_alt_ctrl_49"
-                'message': {} // The message you want to send when key combination is pressed
-            };
+
+        const $default = {
+            'from': '', // "node|plugin_name"
+            'key': '', // example: "shift_alt_ctrl_49"
+            'message': {} // The message you want to send when key combination is pressed
+        };
         $in = _Default($default, $in);
 
-        $data = _LoadData();
+        let $data = _LoadData();
         if (_IsSet($data[$in.key]) === 'false') {
             $data[$in.key] = {};
         }
@@ -539,17 +564,20 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    var internal_Unsubscribe = function ($in) {
+    const internal_Unsubscribe = function ($in)
+    {
         "use strict";
-        var $data,
-            $changed = 'false', $message = 'Could not find that key',
-            $default = {
-                'from': '',
-                'key': ''
-            };
+
+        const $default = {
+            'from': '',
+            'key': ''
+        };
         $in = _Default($default, $in);
 
-        $data = _LoadData();
+        let $changed = 'false',
+            $message = 'Could not find that key';
+
+        let $data = _LoadData();
 
         if (_IsSet($data[$in.key]) === 'true') {
             if (_IsSet($data[$in.key][$in.from]) === 'true') {
@@ -580,18 +608,21 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    var internal_UnsubscribeAll = function ($in) {
+    const internal_UnsubscribeAll = function ($in)
+    {
         "use strict";
-        var $data, $key,
-            $changed = 'false', $message = 'Could not find any keys',
-            $default = {
-                'from': ''
-            };
+
+        const $default = {
+            'from': ''
+        };
         $in = _Default($default, $in);
 
-        $data = _LoadData();
+        let $changed = 'false',
+            $message = 'Could not find any keys';
 
-        for ($key in $data) {
+        let $data = _LoadData();
+
+        for (let $key in $data) {
             if ($data.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -621,14 +652,17 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_subscribe');
-    var gui_subscribe = function ($in) {
+    const gui_subscribe = function ($in)
+    {
         "use strict";
-        var $subscribe = {},
-            $default = {
-                'step': 'step_start',
-                'response': {}
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'response': {}
+        };
         $in = _Default($default, $in);
+
+        let $subscribe = {};
 
         if ($in.step === 'step_start') {
             return _SubCall({
@@ -656,7 +690,11 @@ function infohub_keyboard() {
         if ($in.step === 'step_subscribe') {
 
             $subscribe[$in.response.text] = {
-                'to': {'node': 'client', 'plugin': 'infohub_keyboard', 'function': 'demo_popup'}
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_keyboard',
+                    'function': 'demo_popup'
+                }
             };
 
             return _SubCall({
@@ -686,14 +724,17 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_unsubscribe');
-    var gui_unsubscribe = function ($in) {
+    const gui_unsubscribe = function ($in)
+    {
         "use strict";
-        var $subscribe = {},
-            $default = {
-                'step': 'step_start',
-                'response': {}
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'response': {}
+        };
         $in = _Default($default, $in);
+
+        let $subscribe = {};
 
         if ($in.step === 'step_start') {
             return _SubCall({
@@ -742,21 +783,22 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    var gui_show_subscribers = function ($in) {
+    const gui_show_subscribers = function ($in)
+    {
         "use strict";
-        var $data,
-            $default = {
-                'step': 'step_start',
-                'response': {
-                    'answer': '',
-                    'message': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'response': {
+                'answer': '',
+                'message': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
 
-            $data = _LoadData();
+            const $data = _LoadData();
 
             return _SubCall({
                 'to': {
@@ -789,12 +831,13 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('demo_popup');
-    var demo_popup = function ($in) {
+    const demo_popup = function ($in)
+    {
         "use strict";
-        var $data,
-            $default = {
-                'step': 'step_start'
-            };
+
+        const $default = {
+            'step': 'step_start'
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
@@ -814,17 +857,19 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('all_keys_to_gui');
-    var all_keys_to_gui = function ($in) {
+    const all_keys_to_gui = function ($in)
+    {
         "use strict";
-        var $default = {
-                'step': 'step_start',
-                'key': '',
-                'data_back': {},
-                'response': {
-                    'answer': 'false',
-                    'message': 'Done'
-                }
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'key': '',
+            'data_back': {},
+            'response': {
+                'answer': 'false',
+                'message': 'Done'
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
@@ -862,33 +907,36 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in) {
+    const event_message = function ($in)
+    {
         "use strict";
-        var $key, $messagesOut,
-            $answer = 'true', $message = 'Nothing to report',
-            $default = {
-                'from_plugin': {'node': '', 'plugin': '', 'function': '' },
-                'alt_key': 'false',
-                'ctrl_key': 'false',
-                'shift_key': 'false',
-                'key_code': 0,
-                'step': 'step_start',
-                'data_back': {
-                    'key': ''
-                },
-                'response': {
-                    'answer': '',
-                    'message': ''
-                }
-            };
+
+        const $default = {
+            'from_plugin': {'node': '', 'plugin': '', 'function': '' },
+            'alt_key': 'false',
+            'ctrl_key': 'false',
+            'shift_key': 'false',
+            'key_code': 0,
+            'step': 'step_start',
+            'data_back': {
+                'key': ''
+            },
+            'response': {
+                'answer': '',
+                'message': ''
+            }
+        };
         $in = _Default($default, $in);
+
+        let $answer = 'true',
+            $message = 'Nothing to report';
 
         if ($in.step === 'step_start') {
 
-            $key = _ConvertToKey($in);
+            const $key = _ConvertToKey($in);
 
             $in.data_back.key = $key;
-            $messagesOut = _GetSubscribersMessages($key);
+            const $messagesOut = _GetSubscribersMessages($key);
             if (_Empty($messagesOut) === 'false') {
                 if (Array.isArray($messagesOut)) {
                     return  {
@@ -898,6 +946,7 @@ function infohub_keyboard() {
                     }
                 }
             }
+
             $answer = 'true';
             $message = 'No subscriber to key';
         }
@@ -919,7 +968,7 @@ function infohub_keyboard() {
 function keyUp(event) {
     event = event || window.event;
     if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
-        var $alt = event.altKey, $ctrl= event.ctrlKey, $shift = event.shiftKey;
+        const $alt = event.altKey, $ctrl= event.ctrlKey, $shift = event.shiftKey;
         if ($alt || $shift || $ctrl) {
             // If shift is used then it can not be alone, must be in a combination with ctrl or alt or both.
             if (($alt && !$shift && !$ctrl) || (!$alt && !$shift && $ctrl) || ($alt && !$shift && $ctrl) || ($alt && $shift && !$ctrl) || ($alt && $shift && $ctrl) || (!$alt && $shift && $ctrl)) {

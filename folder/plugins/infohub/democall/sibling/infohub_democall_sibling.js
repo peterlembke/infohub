@@ -19,19 +19,11 @@ function infohub_democall_sibling() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-07',
             'version': '2.0.0',
@@ -43,7 +35,7 @@ function infohub_democall_sibling() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'sibling_func': 'normal',
             'invalid_call_to_sibling_grandchild': 'normal',
@@ -59,10 +51,10 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('sibling_func');
-    var sibling_func = function ($in)
+    const sibling_func = function ($in)
     {
         "use strict";
-        var $default = {
+        const $default = {
             'alert': '',
         };
         $in = _Default($default, $in);
@@ -82,10 +74,11 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('invalid_call_to_sibling_grandchild');
-    var invalid_call_to_sibling_grandchild = function ($in)
+    const invalid_call_to_sibling_grandchild = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
@@ -130,10 +123,11 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('answer_child');
-    var answer_child = function ($in)
+    const answer_child = function ($in)
     {
         "use strict";
-        var $default = {};
+
+        const $default = {};
         $in = _Default($default, $in);
 
         alert('Welcome to infohub_democall_sibling -> answer_child');
@@ -143,7 +137,5 @@ function infohub_democall_sibling() {
             'message': 'Done'
         };
     };
-
-
 }
 //# sourceURL=infohub_democall_sibling.js

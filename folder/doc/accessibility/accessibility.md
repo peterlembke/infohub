@@ -19,7 +19,7 @@ Accessibility in Infohub include:
 * Design - Keep the design together.
 
 # Translations
-You can read more about translations [here](plugin_infohub_translate).
+You can read more about translations [here](plugin,infohub_translate).
 
 All plugins that has a graphical user interface can also have language files with translations.
 

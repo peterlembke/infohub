@@ -19,19 +19,11 @@ function infohub_demo_document() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2018-04-15',
@@ -44,7 +36,7 @@ function infohub_demo_document() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_file_read': 'normal',
@@ -53,7 +45,7 @@ function infohub_demo_document() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -61,9 +53,12 @@ function infohub_demo_document() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -71,7 +66,7 @@ function infohub_demo_document() {
     };
 
     // ***********************************************************
-    // * your class functions below, only declare with var
+    // * your class functions below, only declare with const
     // * Can only be reached trough cmd()
     // ***********************************************************
 
@@ -82,10 +77,11 @@ function infohub_demo_document() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
@@ -176,7 +172,7 @@ function infohub_demo_document() {
      * @author Peter Lembke
      */
     $functions.push("click_file_read");
-    var click_file_read = function ($in)
+    const click_file_read = function ($in)
     {
         "use strict";
 
@@ -213,10 +209,9 @@ function infohub_demo_document() {
                         'step': 'step_box_data_response'
                     }
                 });
-
-            } else {
-                $in.message = 'You have not selected a file';
             }
+
+            $in.message = 'You have not selected a file';
         }
         
         if ($in.step === 'step_box_data_response') {
@@ -240,11 +235,11 @@ function infohub_demo_document() {
      * @author Peter Lembke
      */
     $functions.push("click_load_example");
-    var click_load_example = function ($in)
+    const click_load_example = function ($in)
     {
         "use strict";
 
-        let $default = {
+        const $default = {
             'answer': 'true',
             'message': 'Nothing to report',
             'ok': 'false',
@@ -257,12 +252,25 @@ function infohub_demo_document() {
         if ($in.step === 'step_start')
         {
             const $content = ` 
-# Title
-The main text
+# Main title
+Small example how Markdown can be used.
 
-## Sub title
-The sub text in //italic// and in **bold** and in __underline__ with a [link](https://www.teamfakta.se).
+## Style
+Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^highlighted^^.  
+
+## Link
+- External [link](https://www.teamfakta.se).
+- Internal [link](infohub_demo|click_link|my_message)
+
+## Image
+- Jpeg image ![Alternative text](infohub_demo/asset/image/common/con00004.jpeg)
+- SVG image ![My alternative text](infohub_demo/asset/icon/common/duckduckgo-v107.svg)
+- My provided icon [my_icon]
+
+## Render anything
+- Current time: [time]
 `;
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -300,7 +308,7 @@ The sub text in //italic// and in **bold** and in __underline__ with a [link](ht
      * @author Peter Lembke
      */
     $functions.push("click_markdown_to_html");
-    var click_markdown_to_html = function ($in)
+    const click_markdown_to_html = function ($in)
     {
         "use strict";
 
@@ -345,8 +353,6 @@ The sub text in //italic// and in **bold** and in __underline__ with a [link](ht
         
         if ($in.step === 'step_render_html') 
         {
-            $in.text = $in.text + "\nmy icon: [my_icon]";
-
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -372,6 +378,11 @@ The sub text in //italic// and in **bold** and in __underline__ with a [link](ht
                                     'subtype': 'svg',
                                     'asset_name': 'link/infohub-logo-mini-done',
                                     'plugin_name': 'infohub_demo'
+                                },
+                                'time': {
+                                    'type': 'common',
+                                    'subtype': 'value',
+                                    'data': _TimeStamp()
                                 }
                             }
                         }
@@ -405,6 +416,5 @@ The sub text in //italic// and in **bold** and in __underline__ with a [link](ht
             'ok': $in.ok
         };
     };
-
 }
 //# sourceURL=infohub_demo_document.js

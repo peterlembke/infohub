@@ -21,11 +21,7 @@ function infohub_render_video() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-22',
             'since': '2014-11-01',
@@ -38,7 +34,7 @@ function infohub_render_video() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -59,7 +55,7 @@ function infohub_render_video() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -85,7 +81,7 @@ function infohub_render_video() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -132,7 +128,7 @@ function infohub_render_video() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -169,7 +165,7 @@ function infohub_render_video() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Youtube = function ($in)
+    const internal_Youtube = function ($in)
     {
         "use strict";
 
@@ -201,7 +197,7 @@ function infohub_render_video() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Youtubelink = function ($in)
+    const internal_Youtubelink = function ($in)
     {
         "use strict";
 
@@ -240,7 +236,7 @@ function infohub_render_video() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Vimeo = function ($in)
+    const internal_Vimeo = function ($in)
     {
         "use strict";
 
@@ -272,7 +268,7 @@ function infohub_render_video() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Vimeolink = function ($in)
+    const internal_Vimeolink = function ($in)
     {
         "use strict";
 
@@ -310,7 +306,7 @@ function infohub_render_video() {
      * @since   2018-04-13
      * @author  Peter Lembke
      */
-    var internal_Dailymotion = function ($in)
+    const internal_Dailymotion = function ($in)
     {
         "use strict";
 
@@ -342,7 +338,7 @@ function infohub_render_video() {
      * @since   2018-04-13
      * @author  Peter Lembke
      */
-    var internal_Dailymotionlink = function ($in)
+    const internal_Dailymotionlink = function ($in)
     {
         "use strict";
 

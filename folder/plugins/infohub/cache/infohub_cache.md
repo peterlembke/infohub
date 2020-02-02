@@ -32,7 +32,7 @@ There are two benefits with the browser plugin cache. You reduce the number of r
 When you have all the plugins you do not have to ask the server at all, and you can then run the app without a network connection.
 
 # Browser cache life time
-The browser cache is handled by [infohub_cache](plugin_infohub_cache).
+The browser cache is handled by [infohub_cache](plugin,infohub_cache).
 
 The cache is updated when it gets old. See `infohub_cache.json`:
 ```

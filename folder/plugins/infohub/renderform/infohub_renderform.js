@@ -22,11 +22,9 @@ function infohub_renderform() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
 
-    var _Version = function() {
+
+    const _Version = function() {
         return {
             'date': '2019-03-12',
             'since': '2018-05-30',
@@ -39,7 +37,7 @@ function infohub_renderform() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal', // Form, Text, Range, Color, Select, Textarea, Radios, Checkboxes
             'event_message': 'normal'
@@ -61,7 +59,7 @@ function infohub_renderform() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -93,7 +91,7 @@ function infohub_renderform() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -156,7 +154,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Form = function ($in)
+    const internal_Form = function ($in)
     {
         "use strict";
 
@@ -222,7 +220,7 @@ function infohub_renderform() {
      * @since   2019-01-01
      * @author  Peter Lembke
      */
-    var internal_Button = function ($in)
+    const internal_Button = function ($in)
     {
         "use strict";
 
@@ -300,7 +298,7 @@ function infohub_renderform() {
      * @since   2019-09-07
      * @author  Peter Lembke
      */
-    var internal_File = function ($in)
+    const internal_File = function ($in)
     {
         "use strict";
 
@@ -382,7 +380,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Text = function ($in)
+    const internal_Text = function ($in)
     {
         "use strict";
 
@@ -465,12 +463,11 @@ function infohub_renderform() {
 
     /**
      * Basic form
-     * @todo Use let and const from here and downwards
      * @version 2018-06-25
      * @since   2018-06-22
      * @author  Peter Lembke
      */
-    var internal_Range = function ($in)
+    const internal_Range = function ($in)
     {
         "use strict";
 
@@ -583,7 +580,7 @@ function infohub_renderform() {
      * @since   2018-06-22
      * @author  Peter Lembke
      */
-    var internal_Color = function ($in)
+    const internal_Color = function ($in)
     {
         "use strict";
 
@@ -654,7 +651,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Select = function ($in)
+    const internal_Select = function ($in)
     {
         "use strict";
 
@@ -736,7 +733,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Textarea = function ($in)
+    const internal_Textarea = function ($in)
     {
         "use strict";
 
@@ -858,7 +855,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Radios = function ($in)
+    const internal_Radios = function ($in)
     {
         "use strict";
 
@@ -917,7 +914,6 @@ function infohub_renderform() {
                 'mode': 'html'
             }
         };
-
     };
 
     /**
@@ -926,7 +922,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    var internal_Checkboxes = function ($in)
+    const internal_Checkboxes = function ($in)
     {
         "use strict";
 
@@ -983,10 +979,9 @@ function infohub_renderform() {
                 'mode': 'html'
             }
         };
-
     };
 
-    var _Signs = function ($in)
+    const _Signs = function ($in)
     {
         "use strict";
 
@@ -1044,10 +1039,9 @@ function infohub_renderform() {
         }
 
         return $row;
-
     };
 
-    var _CountText = function ($in)
+    const _CountText = function ($in)
     {
         "use strict";
 
@@ -1066,7 +1060,7 @@ function infohub_renderform() {
         return $out;
     };
 
-    var _WordCount = function ($text)
+    const _WordCount = function ($text)
     {
         "use strict";
 
@@ -1093,7 +1087,7 @@ function infohub_renderform() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -1289,55 +1283,45 @@ function infohub_renderform() {
                         'messages': $messageArray
                     };
                 }
-
             }
         }
 
-        if ($in.type === 'text') {
-            if ($in.event_type === 'keyup') {
-                if ($in.step === 'step_start')
-                {
-                    $in = _Delete($in, { 'innerHTML': '' });
+        if ($in.type === 'text' && $in.event_type === 'keyup' && $in.step === 'step_start')
+        {
+            $in = _Delete($in, { 'innerHTML': '' });
 
-                    if ($in.maxlength > 0)
-                    {
-                        const $id = $in.box_id + '_' + $in.form_alias + '_characters_left_data';
-                        const $valueInteger = $in.maxlength - $in.value.length;
+            if ($in.maxlength > 0)
+            {
+                const $id = $in.box_id + '_' + $in.form_alias + '_characters_left_data';
+                const $valueInteger = $in.maxlength - $in.value.length;
 
-                        return _SubCall({
-                            'to': {'node': 'client', 'plugin': 'infohub_view', 'function': 'set_text'},
-                            'data': { 'id': $id, 'text': $valueInteger.toString() },
-                            'data_back': _Merge($in, {'step': 'step_send_to_final_plugin'})
-                        });
-                    }
-
-                }
+                return _SubCall({
+                    'to': {'node': 'client', 'plugin': 'infohub_view', 'function': 'set_text'},
+                    'data': { 'id': $id, 'text': $valueInteger.toString() },
+                    'data_back': _Merge($in, {'step': 'step_send_to_final_plugin'})
+                });
             }
         }
 
-        if ($in.type === 'textarea') {
-            if ($in.event_type === 'keyup') {
-                if ($in.step === 'step_start')
-                {
-                    $in = _Delete($in, { 'innerHTML': '' });
+        if ($in.type === 'textarea' && $in.event_type === 'keyup' && $in.step === 'step_start')
+        {
+            $in = _Delete($in, { 'innerHTML': '' });
 
-                    const $id = $in.box_id + '_' + $in.form_alias + '_count_';
-                    const $countText = _CountText({'text': $in.value });
+            const $id = $in.box_id + '_' + $in.form_alias + '_count_';
+            const $countText = _CountText({'text': $in.value });
 
-                    const $do = [
-                        {'func': 'SetText', 'id': $id + 'characters_data' , 'text': $countText.characters.toString() },
-                        {'func': 'SetText', 'id': $id + 'words_data', 'text': $countText.words.toString() },
-                        {'func': 'SetText', 'id': $id + 'rows_data', 'text': $countText.rows.toString() },
-                        {'func': 'SetText', 'id': $id + 'paragraphs_data', 'text': $countText.paragraphs.toString() }
-                    ];
+            const $do = [
+                {'func': 'SetText', 'id': $id + 'characters_data' , 'text': $countText.characters.toString() },
+                {'func': 'SetText', 'id': $id + 'words_data', 'text': $countText.words.toString() },
+                {'func': 'SetText', 'id': $id + 'rows_data', 'text': $countText.rows.toString() },
+                {'func': 'SetText', 'id': $id + 'paragraphs_data', 'text': $countText.paragraphs.toString() }
+            ];
 
-                    return _SubCall({
-                        'to': {'node': 'client', 'plugin': 'infohub_view', 'function': 'mass_update'},
-                        'data': { 'do': $do },
-                        'data_back': _Merge($in, {'step': 'step_send_to_final_plugin'})
-                    });
-                }
-            }
+            return _SubCall({
+                'to': {'node': 'client', 'plugin': 'infohub_view', 'function': 'mass_update'},
+                'data': { 'do': $do },
+                'data_back': _Merge($in, {'step': 'step_send_to_final_plugin'})
+            });
         }
 
         if ($in.type === 'select') {
@@ -1404,7 +1388,6 @@ function infohub_renderform() {
         if ($in.step === 'step_send_to_final_plugin') 
         {
             leave:  {
-
                 if (_Empty($in.final_node) ==='true') { break leave; }
                 if (_Empty($in.final_plugin) ==='true') { break leave; }
                 if (_Empty($in.final_function) ==='true') { break leave; }
@@ -1432,8 +1415,6 @@ function infohub_renderform() {
             'answer': 'true',
             'message': 'Done handling events'
         };
-
     };
-
 }
 //# sourceURL=infohub_renderform.js

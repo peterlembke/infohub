@@ -20,7 +20,7 @@ function infohub_checksum() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-25',
             'since': '2017-02-25',
@@ -33,7 +33,7 @@ function infohub_checksum() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal',
@@ -54,22 +54,24 @@ function infohub_checksum() {
      * @returns {*}
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) {
-        var $functionName, $pluginName,
-            $default = {
-                'type': 'md5',
-                'value': '',
-                'checksum': '',
-                'step': 'start_step',
-                'answer': 'false',
-                'message': 'Could not get a checksum',
-                'verified': 'false'
-            };
+    const calculate_checksum = function($in)
+    {
+        "use strict";
+
+        const $default = {
+            'type': 'md5',
+            'value': '',
+            'checksum': '',
+            'step': 'start_step',
+            'answer': 'false',
+            'message': 'Could not get a checksum',
+            'verified': 'false'
+        };
         $in = _Default($default, $in);
 
         if ($in['step'] === 'start_step') {
 
-            $functionName = 'Calculate' + _UcWords($in.type);
+            const $functionName = 'Calculate' + _UcWords($in.type);
             if (_MethodExists('internal_' + $functionName) === true) {
                 return internal_Cmd({
                     'func': $functionName,
@@ -77,7 +79,7 @@ function infohub_checksum() {
                 });
             }
 
-            $pluginName = 'infohub_checksum_' + $in.type;
+            const $pluginName = 'infohub_checksum_' + $in.type;
             return _SubCall({
                 'to': {'node': 'client', 'plugin': $pluginName, 'function': 'calculate_checksum'},
                 'data': {'value': $in.value, 'checksum': $in.checksum },
@@ -104,9 +106,11 @@ function infohub_checksum() {
      * @returns {*}
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) {
-        var $functionName, $pluginName,
-            $default = {
+    const verify_checksum = function($in)
+    {
+        "use strict";
+
+        const $default = {
             'type': 'md5',
             'value': '',
             'checksum': '',
@@ -119,7 +123,7 @@ function infohub_checksum() {
 
         if ($in['step'] === 'start_step') {
 
-            $functionName = 'Verify' + _UcWords($in.type);
+            const $functionName = 'Verify' + _UcWords($in.type);
             if (_MethodExists('internal_' + $functionName) === true) {
                 return internal_Cmd({
                     'func': $functionName,
@@ -128,7 +132,7 @@ function infohub_checksum() {
                 });
             }
 
-            $pluginName = 'infohub_checksum_' + $in.type;
+            const $pluginName = 'infohub_checksum_' + $in.type;
             return _SubCall({
                 'to': {'node': 'client', 'plugin': $pluginName, 'function': 'verify_checksum'},
                 'data': {'value': $in.value, 'checksum': $in.checksum },
@@ -162,10 +166,11 @@ function infohub_checksum() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
-        var $options = [
+
+        const $options = [
             {"type": "option", "value": 'crc32', "label": 'CRC32' },
             {"type": "option", "value": 'luhn', "label": 'Luhn' },
             {"type": "option", "value": 'md5', "label": 'MD5', 'selected': 'true'  },

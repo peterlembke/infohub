@@ -27,16 +27,12 @@ function infohub_plugin() {
 // webworker=false
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-27',
             'since': '2015-02-12',
@@ -50,7 +46,7 @@ function infohub_plugin() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'plugin_request': 'normal',
@@ -75,7 +71,7 @@ function infohub_plugin() {
      * @param $in
      */
     $functions.push('plugin_request');
-    var plugin_request = function ($in)
+    const plugin_request = function ($in)
     {
         "use strict";
 
@@ -222,7 +218,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_start');
-    var plugin_start = function ($in)
+    const plugin_start = function ($in)
     {
         // "use strict"; // Do not use strict with eval()
 
@@ -394,9 +390,7 @@ function infohub_plugin() {
                         'step': 'step_plugin_started_response'
                     }
                 });
-
             }
-
         }
 
         if ($in.step === 'step_plugin_started_response') {
@@ -434,7 +428,6 @@ function infohub_plugin() {
             'answer': $answer,
             'message': $message
         };
-
     };
 
     /**
@@ -445,7 +438,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_list');
-    var plugin_list = function ($in)
+    const plugin_list = function ($in)
     {
         "use strict";
 
@@ -513,7 +506,6 @@ function infohub_plugin() {
             'answer': 'true',
             'message': 'The plugin time stamps have now been updated'
         };
-
     };
 
     /**
@@ -522,7 +514,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('download_all_plugins');
-    var download_all_plugins = function ($in)
+    const download_all_plugins = function ($in)
     {
         "use strict";
 
@@ -628,8 +620,6 @@ function infohub_plugin() {
             'answer': 'true',
             'message': 'Done with storing all plugins'
         };
-
     };
-
 }
 //# sourceURL=infohub_plugin.js

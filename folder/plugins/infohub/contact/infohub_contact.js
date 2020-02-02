@@ -19,19 +19,11 @@ function infohub_contact() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-13',
             'since': '2019-01-16',
@@ -45,7 +37,7 @@ function infohub_contact() {
         };
     };
     
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'setup_gui': 'normal',
@@ -55,10 +47,10 @@ function infohub_contact() {
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
-        var $pluginType = 'welcome',
-            $tmp = $data.split("_");
+        let $pluginType = 'welcome';
+        const $tmp = $data.split("_");
 
         if (_IsSet($tmp[0]) === 'true') {
             $pluginType = $tmp[0];
@@ -67,7 +59,7 @@ function infohub_contact() {
         return 'infohub_contact_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -75,9 +67,12 @@ function infohub_contact() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -97,25 +92,26 @@ function infohub_contact() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in) {
+    const create = function ($in)
+    {
         "use strict";
-        var $find, $replace,
-            $default = {
-                'type': '',
-                'alias': '',
-                'original_alias': '',
-                'step': 'step_get_doc_file',
-                'html': '',
-                'css_data': {},
-                'response': {
-                    'answer': 'false',
-                    'message': 'nothing to report from infohub_contact->create',
-                    'data': {},
-                    'contents': '',
-                    'checksum': '',
-                    'html': ''
-                }
-            };
+
+        const $default = {
+            'type': '',
+            'alias': '',
+            'original_alias': '',
+            'step': 'step_get_doc_file',
+            'html': '',
+            'css_data': {},
+            'response': {
+                'answer': 'false',
+                'message': 'nothing to report from infohub_contact->create',
+                'data': {},
+                'contents': '',
+                'checksum': '',
+                'html': ''
+            }
+        };
         $in = _Merge($default, $in);
 
         if ($in.step === 'step_get_doc_file') 
@@ -159,8 +155,8 @@ function infohub_contact() {
         if ($in.step === 'step_final') {
             if (_Empty($in.alias) === 'false') {
                 // All IDs become unique by inserting the parent alias in each ID.
-                $find = '{box_id}';
-                $replace = $find + '_' + $in.alias;
+                const $find = '{box_id}';
+                const $replace = $find + '_' + $in.alias;
                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
             }
         }
@@ -180,9 +176,11 @@ function infohub_contact() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'box_id': '',
             'step': 'step_start',
             'response': {
@@ -264,7 +262,6 @@ function infohub_contact() {
         }
 
         if ($in.step === 'step_get_translations_response') {
-            
             $classTranslations = _ByVal($in.response.data);
             $in.step = 'step_menu';
         }
@@ -341,18 +338,19 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push("click_menu");
-    var click_menu = function ($in) {
+    const click_menu = function ($in)
+    {
         "use strict";
-        var $pluginName,
-            $default = {
-                'step': 'step_start',
-                'event_data': '',
-                'parent_box_id': ''
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'event_data': '',
+            'parent_box_id': ''
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            $pluginName = _GetPluginName($in.event_data);
+            const $pluginName = _GetPluginName($in.event_data);
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -384,22 +382,23 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in) {
+    const click = function ($in)
+    {
         "use strict";
-        var $parts = [], $childName, $clickName,
-            $default = {
-                'event_data': '', // childName|clickName
-                'value': '', // Selected option in select lists
-                'box_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'There was an error',
-                    'ok': 'false',
-                    'value': [], // All selected options in select lists
-                    'files_data': [] // For the import button
-                }
-            };
+
+        const $default = {
+            'event_data': '', // childName|clickName
+            'value': '', // Selected option in select lists
+            'box_id': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'There was an error',
+                'ok': 'false',
+                'value': [], // All selected options in select lists
+                'files_data': [] // For the import button
+            }
+        };
         $in = _Default($default, $in);
         
         if (_Empty($in.event_data) === 'true') {
@@ -409,9 +408,9 @@ function infohub_contact() {
 
         if ($in.step === 'step_start') {
             
-            $parts = $in.event_data.split('|');
-            $childName = $parts[0];
-            $clickName = $parts[1];
+            const $parts = $in.event_data.split('|');
+            const $childName = $parts[0];
+            const $clickName = $parts[1];
             
             return _SubCall({
                 'to': {
@@ -448,18 +447,20 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push("call_server");
-    var call_server = function ($in) {
+    const call_server = function ($in)
+    {
         "use strict";
-        var $default = {
-                'step': 'step_start',
-                'to': {'function': ''},
-                'data': {},
-                'response': {},
-                'from_plugin': {
-                    'node': '',
-                    'plugin': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'to': {'function': ''},
+            'data': {},
+            'response': {},
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {

@@ -24,12 +24,8 @@ function infohub_storage_data_idbkeyval() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     $functions.push('_Version');
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-03-09',
             'version': '1.0.0',
@@ -42,7 +38,7 @@ function infohub_storage_data_idbkeyval() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
             'write': 'normal',
@@ -50,7 +46,7 @@ function infohub_storage_data_idbkeyval() {
         };
     };
 
-    var $WriteCache = {};
+    let $WriteCache = {};
 
     /**
      * You give connection credentials and a path,
@@ -59,7 +55,7 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('read');
-    var read = function ($in)
+    const read = function ($in)
     {
         "use strict";
 
@@ -128,11 +124,11 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('write');
-    var write = function ($in)
+    const write = function ($in)
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_idbkeyval',
                 'plugin_name_owner': '',
@@ -153,7 +149,7 @@ function infohub_storage_data_idbkeyval() {
             return {};
         }
 
-        var $dataString = JSON.stringify($in.data);
+        let $dataString = JSON.stringify($in.data);
 
         if (_Empty($in.data) === 'true') {
             $dataString = '';
@@ -217,15 +213,16 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('read_paths');
-    var read_paths = function ($in)
+    const read_paths = function ($in)
     {
         "use strict";
 
-        var $data = {}, $key, $path,
-            $default = {
-                'path': '',
-                'callback_function': null
-            };
+        let $data = {};
+
+        const $default = {
+            'path': '',
+            'callback_function': null
+        };
         $in = _Default($default, $in);
 
         if (!window.idbKeyval)
@@ -243,9 +240,9 @@ function infohub_storage_data_idbkeyval() {
         {
             $in.path = $in.path.substr(0, $in.path.indexOf('*'));
 
-            for ($key in keys) {
+            for (let $key in keys) {
                 if (keys.hasOwnProperty($key)) {
-                    $path = keys[$key];
+                    const $path = keys[$key];
                     if ($path.indexOf($in.path) === 0) {
                         $data[$path] = {};
                     }

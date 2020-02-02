@@ -19,19 +19,11 @@ function infohub_welcome_welcome() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2015-02-12',
             'version': '1.0.0',
@@ -43,7 +35,7 @@ function infohub_welcome_welcome() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,20 +50,25 @@ function infohub_welcome_welcome() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        let $response = '';
+        const $parts = $text.split('_');
+
+        for (let $key in $parts)
+        {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
+
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -79,9 +76,12 @@ function infohub_welcome_welcome() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -95,7 +95,7 @@ function infohub_welcome_welcome() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -114,7 +114,7 @@ function infohub_welcome_welcome() {
     };
 
     $functions.push("internal_Welcome");
-    var internal_Welcome = function ($in)
+    const internal_Welcome = function ($in)
     {
         "use strict";
 

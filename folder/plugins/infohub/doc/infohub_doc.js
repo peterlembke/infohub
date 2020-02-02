@@ -19,19 +19,11 @@ function infohub_doc() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-04-13',
             'since': '2019-04-13',
@@ -45,7 +37,7 @@ function infohub_doc() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'create': 'normal',
             'setup_gui': 'normal',
@@ -56,7 +48,7 @@ function infohub_doc() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -64,9 +56,12 @@ function infohub_doc() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string,
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -79,7 +74,7 @@ function infohub_doc() {
     // ***********************************************************
 
     $functions.push("_GetBoxId");
-    var _GetBoxId = function() {
+    const _GetBoxId = function() {
         return 'main.body.' + _GetClassName();
     };
 
@@ -91,25 +86,26 @@ function infohub_doc() {
      * @author  Peter Lembke
      */
     $functions.push("create");
-    var create = function ($in) {
+    const create = function ($in)
+    {
         "use strict";
-        var $find, $replace,
-            $default = {
-                'type': 'document', // navigate, visited, index, document
-                'area': 'main',
-                'document_name': 'main',
-                'alias': '',
-                'original_alias': '',
-                'step': 'step_call_child',
-                'html': '',
-                'css_data': {},
-                'response': {
-                    'answer': 'false',
-                    'message': 'nothing to report from infohub_doc->create',
-                    'data': {},
-                    'html': ''
-                }
-            };
+
+        const $default = {
+            'type': 'document', // navigate, visited, index, document
+            'area': 'main',
+            'document_name': 'main',
+            'alias': '',
+            'original_alias': '',
+            'step': 'step_call_child',
+            'html': '',
+            'css_data': {},
+            'response': {
+                'answer': 'false',
+                'message': 'nothing to report from infohub_doc->create',
+                'data': {},
+                'html': ''
+            }
+        };
         $in = _Merge($default, $in);
 
         if ($in.step === 'step_call_child')
@@ -133,8 +129,8 @@ function infohub_doc() {
         if ($in.step === 'step_final') {
             if (_Empty($in.alias) === 'false') {
                 // All IDs become unique by inserting the parent alias in each ID.
-                $find = '{box_id}';
-                $replace = $find + '_' + $in.alias;
+                const $find = '{box_id}';
+                const $replace = $find + '_' + $in.alias;
                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
             }
         }
@@ -154,19 +150,22 @@ function infohub_doc() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $messages = [], $messageOut,
-            $default = {
-                'box_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'data': {}
-                }
-            };
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_start',
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {}
+            }
+        };
         $in = _Merge($default, $in);
+
+        let $messages = [];
 
         if ($in.step === 'step_start')
         {
@@ -264,7 +263,7 @@ function infohub_doc() {
 
         if ($in.step === 'step_render')
         {
-            $messageOut = _SubCall({
+            let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_navigate',
@@ -358,11 +357,11 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push("click_link");
-    var click_link = function ($in)
+    const click_link = function ($in)
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'event_data': '', // area,document_name
             'box_id': '',
             'area': '',
@@ -421,24 +420,25 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push("event_message");
-    var event_message = function ($in) {
+    const event_message = function ($in)
+    {
         "use strict";
-        var $parts = [], $className, $childName, $functionName,
-            $default = {
-                'event_data': '', // full_child_name|full_child_function_name
-                'value': '', // Selected option in select lists
-                'box_id': '',
-                'id': '',
-                'area': '',
-                'document_name': '',
-                'parent_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'There was an error',
-                    'ok': 'false'
-                }
-            };
+
+        const $default = {
+            'event_data': '', // full_child_name|full_child_function_name
+            'value': '', // Selected option in select lists
+            'box_id': '',
+            'id': '',
+            'area': '',
+            'document_name': '',
+            'parent_id': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'There was an error',
+                'ok': 'false'
+            }
+        };
         $in = _Default($default, $in);
 
         if (_Empty($in.event_data) === 'true') {
@@ -448,11 +448,11 @@ function infohub_doc() {
 
         if ($in.step === 'step_start')
         {
-            $parts = $in.event_data.split('|');
-            $childName = $parts[0];
-            $functionName = $parts[1];
+            const $parts = $in.event_data.split('|');
+            const $childName = $parts[0];
+            const $functionName = $parts[1];
 
-            $className = _GetClassName();
+            const $className = _GetClassName();
 
             if ($childName.indexOf($className + '_') !== 0) {
                 return {
@@ -508,25 +508,26 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push("call_server");
-    var call_server = function ($in) {
+    const call_server = function ($in)
+    {
         "use strict";
-        var $className,
-            $default = {
-                'step': 'step_start',
-                'to': {'function': ''},
-                'data': {},
-                'response': {},
-                'from_plugin': {
-                    'node': '',
-                    'plugin': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'to': {'function': ''},
+            'data': {},
+            'response': {},
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            }
+        };
         $in = _Default($default, $in);
 
-        $className = _GetClassName();
+        const $className = _GetClassName();
 
-        if ($in.step === 'step_start') {
-
+        if ($in.step === 'step_start')
+        {
             if ($in.from_plugin.node !== 'client') {
                 return {
                     'answer': 'false',
@@ -565,7 +566,7 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push("get_all_documents");
-    var get_all_documents = function ($in)
+    const get_all_documents = function ($in)
     {
         "use strict";
 

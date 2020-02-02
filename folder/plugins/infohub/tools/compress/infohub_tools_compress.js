@@ -19,19 +19,11 @@ function infohub_tools_compress() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-07-08',
             'since': '2019-07-03',
@@ -44,7 +36,7 @@ function infohub_tools_compress() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_handle_node_select': 'normal',
@@ -53,7 +45,7 @@ function infohub_tools_compress() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -61,7 +53,7 @@ function infohub_tools_compress() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -82,7 +74,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -307,7 +299,6 @@ function infohub_tools_compress() {
             'answer': $in.response.answer,
             'message': $in.response.message
         };
-
     };
 
     /**
@@ -317,7 +308,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    var click_handle_node_select = function ($in)
+    const click_handle_node_select = function ($in)
     {
         "use strict";
 
@@ -366,7 +357,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_compress');
-    var click_button_compress = function ($in)
+    const click_button_compress = function ($in)
     {
         "use strict";
 
@@ -467,7 +458,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_uncompress');
-    var click_button_uncompress = function ($in)
+    const click_button_uncompress = function ($in)
     {
         "use strict";
 
@@ -559,6 +550,5 @@ function infohub_tools_compress() {
             'ok': $ok
         };
     };
-
 }
 //# sourceURL=infohub_tools_compress.js

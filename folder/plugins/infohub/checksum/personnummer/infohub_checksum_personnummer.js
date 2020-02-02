@@ -20,7 +20,7 @@ function infohub_checksum_personnummer() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-07-29',
             'since': '2017-03-01',
@@ -35,7 +35,7 @@ function infohub_checksum_personnummer() {
 
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal'
@@ -55,14 +55,17 @@ function infohub_checksum_personnummer() {
      * @return array|bool
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) {
+    const calculate_checksum = function($in)
+    {
         "use strict";
-        var $result,
-            $default = {'value': '' };
+
+        const $default = {
+            'value': ''
+        };
         $in = _Default($default, $in);
 
-        $in.value = _CleanUPPersonnummer($in.value);
-        $result = _PersonnummerCalculateChecksum($in.value);
+        $in.value = _CleanUpPersonnummer($in.value);
+        const $result = _PersonnummerCalculateChecksum($in.value);
 
         return {
             'answer': 'true',
@@ -82,19 +85,20 @@ function infohub_checksum_personnummer() {
      * @return array|bool
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) {
+    const verify_checksum = function($in)
+    {
         "use strict";
-        var $verified, $result,
-            $default = {
-                'value': '',
-                'checksum': ''
-            };
+
+        const $default = {
+            'value': '',
+            'checksum': ''
+        };
         $in = _Default($default, $in);
 
-        $in.value = _CleanUPPersonnummer($in.value);
+        $in.value = _CleanUpPersonnummer($in.value);
 
-        $verified = 'false';
-        $result = _PersonnummerVerifyChecksum($in.value);
+        let $verified = 'false';
+        const $result = _PersonnummerVerifyChecksum($in.value);
         if ($result === $in['checksum']) {
             $verified = 'true';
         }
@@ -108,10 +112,9 @@ function infohub_checksum_personnummer() {
         };
     };
 
-    var _CleanUPPersonnummer = function($value)
+    const _CleanUpPersonnummer = function($value)
     {
-        var $output = _RemoveAllButNumbers($value);
-        return $output;
+        return _RemoveAllButNumbers($value);
     };
 
     /**
@@ -120,16 +123,17 @@ function infohub_checksum_personnummer() {
      * http://www.skatteverket.se/privat/folkbokforing/personnummer/personnumretsuppbyggnad.4.18e1b10334ebe8bc80001502.html
      * Example from Skatteverket: 640823–323, remove the - and it calculates to 6408233234
      * @param string $valueString
-     * @return int
+     * @return string
      */
-    var _PersonnummerCalculateChecksum = function($valueString) {
+    const _PersonnummerCalculateChecksum = function($valueString)
+    {
         "use strict";
-        var $numbers, $number, $sum, $index, $checksumDigit, $result;
 
-        $numbers = $valueString;
-        $sum = 0;
-        for ($index in $numbers) {
-            $number = $numbers[$index];
+        const $numbers = $valueString;
+        let $sum = 0;
+
+        for (let $index in $numbers) {
+            let $number = $numbers[$index];
             if ($index % 2 === 0) {
                 $number = (2 * $number).toString();
                 $number = _PersonnummerSum($number);
@@ -137,42 +141,50 @@ function infohub_checksum_personnummer() {
             $sum = $sum + parseInt($number);
         }
 
-        $checksumDigit = ($sum * 9).toString();
+        let $checksumDigit = ($sum * 9).toString();
         $checksumDigit = $checksumDigit.slice(-1);
-        $result = $valueString + $checksumDigit;
+        const $result = $valueString + $checksumDigit;
 
         return $result;
     };
 
-    var _PersonnummerSum = function($valueString) {
+    const _PersonnummerSum = function($valueString)
+    {
         "use strict";
-        var $numbers, $sum, $key;
 
-        $numbers = $valueString;
-        $sum = 0;
-        for ($key in $numbers) {
-            $sum = $sum + parseInt($numbers[$key]);
+        const $numbers = $valueString;
+        let $sum = 0;
+        for (let $key in $numbers) {
+            if ($numbers.hasOwnProperty($key)) {
+                $sum = $sum + parseInt($numbers[$key]);
+            }
         }
+
         return $sum;
     };
 
-    var _PersonnummerVerifyChecksum = function($valueString) {
+    const _PersonnummerVerifyChecksum = function($valueString)
+    {
         "use strict";
-        var $checksum, $result, $resultChecksum;
 
-        $checksum = $valueString;
+        const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
-        $result = _PersonnummerCalculateChecksum($valueString);
-        $resultChecksum = $result.splice(-1);
+        const $result = _PersonnummerCalculateChecksum($valueString);
+        const $resultChecksum = $result.splice(-1);
+
         if ($checksum === $resultChecksum) {
             return true;
         }
+
         return false;
     };
 
-    var _RemoveAllButNumbers = function($valueString) {
+    const _RemoveAllButNumbers = function($valueString)
+    {
         "use strict";
-        var $output = $valueString.replace(/[^0-9.]/g, "");
+
+        const $output = $valueString.replace(/[^0-9.]/g, "");
+
         return $output;
     };
 

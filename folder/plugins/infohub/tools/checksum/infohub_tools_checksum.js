@@ -19,19 +19,11 @@ function infohub_tools_checksum() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-31',
             'since': '2018-07-29',
@@ -44,7 +36,7 @@ function infohub_tools_checksum() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_handle_node_select': 'normal',
@@ -52,7 +44,7 @@ function infohub_tools_checksum() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -60,7 +52,7 @@ function infohub_tools_checksum() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -84,7 +76,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -236,7 +228,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    var click_handle_node_select = function ($in)
+    const click_handle_node_select = function ($in)
     {
         "use strict";
 
@@ -285,7 +277,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_checksum');
-    var click_handle_checksum = function ($in)
+    const click_handle_checksum = function ($in)
     {
         "use strict";
 
@@ -362,6 +354,5 @@ function infohub_tools_checksum() {
             'ok': 'true'
         };
     };
-
 }
 //# sourceURL=infohub_tools_checksum.js

@@ -20,7 +20,7 @@ function infohub_checksum_crc32() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-25',
             'since': '2017-02-25',
@@ -35,7 +35,7 @@ function infohub_checksum_crc32() {
 
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'emerging',
             'verify_checksum': 'emerging'
@@ -55,13 +55,14 @@ function infohub_checksum_crc32() {
      * @return array|bool
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) {
+    const calculate_checksum = function($in)
+    {
         "use strict";
-        var $result,
-            $default = {'value': '' };
+
+        const $default = {'value': '' };
         $in = _Default($default, $in);
 
-        $result = _Crc32($in.value);
+        const $result = _Crc32($in.value);
 
         return {
             'answer': 'true',
@@ -81,17 +82,18 @@ function infohub_checksum_crc32() {
      * @return array|bool
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) {
+    const verify_checksum = function($in)
+    {
         "use strict";
-        var $verified, $response,
-            $default = {
-                'value': '',
-                'checksum': ''
-            };
+
+        const $default = {
+            'value': '',
+            'checksum': ''
+        };
         $in = _Default($default, $in);
 
-        $verified = 'false';
-        $response = _Crc32($in.value);
+        let $verified = 'false';
+        const $response = _Crc32($in.value);
         if ($response === $in['checksum']) {
             $verified = 'true';
         }
@@ -120,16 +122,16 @@ function infohub_checksum_crc32() {
      * @param $value
      * @private
      */
-    var _Crc32 = function($value)
+    const _Crc32 = function($value)
     {
         "use strict";
 
-        var makeCRCTable = function(){
+        const makeCRCTable = function(){
             var c;
             var crcTable = [];
-            for(var n =0; n < 256; n++){
+            for(let n =0; n < 256; n++){
                 c = n;
-                for(var k =0; k < 8; k++){
+                for(let k =0; k < 8; k++){
                     c = ((c&1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1));
                 }
                 crcTable[n] = c;
@@ -137,7 +139,7 @@ function infohub_checksum_crc32() {
             return crcTable;
         };
 
-        var crc32 = function(str) {
+        const crc32 = function(str) {
             var crcTable = makeCRCTable();
             var crc = 0 ^ (-1);
 

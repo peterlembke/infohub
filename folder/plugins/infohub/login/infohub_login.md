@@ -5,23 +5,23 @@ The JS version has the same features as the PHP version and has a graphical user
 
 ## Client version
 This is what you see when you start the "Login" plugin in your browser.
-With the [menu](plugin_infohub_login_menu) you can navigate to different features of the plugin.
+With the [menu](plugin,infohub_login_menu) you can navigate to different features of the plugin.
 
-In the [One contact](plugin_infohub_login_contact) form you can see your contact information.
+In the [One contact](plugin,infohub_login_contact) form you can see your contact information.
 
-When you [login](plugin_infohub_login_login) your browser start to negotiate with the server. If all went well then you can communicate with the server.
+When you [login](plugin,infohub_login_login) your browser start to negotiate with the server. If all went well then you can communicate with the server.
 
-You can [import](plugin_infohub_login_login), [export](plugin_infohub_login_export), [forget](plugin_infohub_login_forget) contact data.
+You can [import](plugin,infohub_login_login), [export](plugin,infohub_login_export), [forget](plugin,infohub_login_forget) contact data.
 
-You can [set a password](plugin_infohub_login_password) on your shared secret.
+You can [set a password](plugin,infohub_login_password) on your shared secret.
 
-You can also [logout](plugin_infohub_login_password) from the server. 
+You can also [logout](plugin,infohub_login_password) from the server. 
 
 ## Server version
 The server version run on the server and handle the incoming login request.
 The login is done in a way so both sides can prove that they know the shared_secret without revealing the shared_secret.
 
-You can read about this process in detail here: [login](plugin_infohub_login_login) 
+You can read about this process in detail here: [login](plugin,infohub_login_login) 
 
 # License
 This documentation is copyright (C) 2019 Peter Lembke.

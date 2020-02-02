@@ -27,11 +27,7 @@ function infohub_configlocal_font() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-12',
             'since': '2019-02-22',
@@ -44,14 +40,14 @@ function infohub_configlocal_font() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_test': 'normal',
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -59,7 +55,7 @@ function infohub_configlocal_font() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -80,10 +76,11 @@ function infohub_configlocal_font() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_render',
             'subtype': 'menu',
             'translations': {},
@@ -187,40 +184,43 @@ function infohub_configlocal_font() {
      * @author Peter Lembke
      */
     $functions.push("click_test");
-    var click_test = function ($in) {
+    const click_test = function ($in)
+    {
         "use strict";
-        var $fontWeight, $fontSize, $letterSpacing, $messageArray = [], $messageOut,
-            $default = {
-                'step': 'step_set_style',
-                'form_data': {},
-                'response': {
-                    'answer': 'false',
-                    'message': 'Nothing to report'
-                }
-            };
+
+        const $default = {
+            'step': 'step_set_style',
+            'form_data': {},
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report'
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === "step_set_style")
         {
-            $fontWeight = _GetData({
+            let $messageArray = [];
+
+            const $fontWeight = _GetData({
                 'name': 'form_data/font_weight/value',
                 'default': '400',
                 'data': $in
             });
 
-            $fontSize = _GetData({
+            const $fontSize = _GetData({
                 'name': 'form_data/font_size/value',
                 'default': '16',
                 'data': $in
             });
 
-            $letterSpacing = _GetData({
+            const $letterSpacing = _GetData({
                 'name': 'form_data/letter_spacing/value',
                 'default': '0',
                 'data': $in
             });
             
-            $messageOut = _SubCall({
+            let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',

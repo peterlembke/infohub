@@ -19,19 +19,11 @@ function infohub_doc_index() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-04-13',
             'since': '2019-04-13',
@@ -45,7 +37,7 @@ function infohub_doc_index() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'setup_gui': 'normal',
             'click_refresh': 'normal',
@@ -53,7 +45,7 @@ function infohub_doc_index() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -61,7 +53,7 @@ function infohub_doc_index() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -76,7 +68,7 @@ function infohub_doc_index() {
     // ***********************************************************
 
     $functions.push("_GetBoxId");
-    var _GetBoxId = function($child) {
+    const _GetBoxId = function($child) {
         
         if (_Empty($child) === 'true') {
             $child = 'index';
@@ -94,9 +86,11 @@ function infohub_doc_index() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
                 'box_id': '',
                 'step': 'step_start',
                 'translations': {},
@@ -165,7 +159,7 @@ function infohub_doc_index() {
      * @author Peter Lembke
      */
     $functions.push("click_refresh");
-    var click_refresh = function ($in)
+    const click_refresh = function ($in)
     {
         "use strict";
 
@@ -325,18 +319,20 @@ function infohub_doc_index() {
      * @author Peter Lembke
      */
     $functions.push("click_item");
-    var click_item = function ($in) {
+    const click_item = function ($in)
+    {
         "use strict";
-        var $default = {
-                'box_id': '',
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'There was an error',
-                    'ok': 'false',
-                    'value': [], // All selected options in select lists
-                }
-            };
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'There was an error',
+                'ok': 'false',
+                'value': [], // All selected options in select lists
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') 
@@ -377,6 +373,5 @@ function infohub_doc_index() {
             'ok': $in.response.ok
         };
     };
-
 }
 //# sourceURL=infohub_doc_index.js

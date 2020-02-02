@@ -19,19 +19,11 @@ function infohub_tools_encrypt() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-31',
             'since': '2018-07-30',
@@ -44,7 +36,7 @@ function infohub_tools_encrypt() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_handle_encrypt': 'normal',
@@ -53,7 +45,7 @@ function infohub_tools_encrypt() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -61,7 +53,7 @@ function infohub_tools_encrypt() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -82,7 +74,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -235,7 +227,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_encrypt');
-    var click_handle_encrypt = function ($in)
+    const click_handle_encrypt = function ($in)
     {
         "use strict";
 
@@ -327,7 +319,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_decrypt');
-    var click_handle_decrypt = function ($in)
+    const click_handle_decrypt = function ($in)
     {
         "use strict";
 
@@ -415,7 +407,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    var click_handle_node_select = function ($in)
+    const click_handle_node_select = function ($in)
     {
         "use strict";
 
@@ -456,6 +448,5 @@ function infohub_tools_encrypt() {
             'ok': 'true'
         }
     };
-
 }
 //# sourceURL=infohub_tools_encrypt.js

@@ -20,7 +20,7 @@ function infohub_compress() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-07-07',
             'since': '2019-07-02',
@@ -33,7 +33,7 @@ function infohub_compress() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'compress': 'normal',
             'uncompress': 'normal',
@@ -54,7 +54,7 @@ function infohub_compress() {
      * @returns {*}
      */
     $functions.push("compress");
-    var compress = function($in)
+    const compress = function($in)
     {
         const $default = {
             'compression_method': 'gzip',
@@ -150,7 +150,7 @@ function infohub_compress() {
      * @returns {*}
      */
     $functions.push("uncompress");
-    var uncompress = function($in)
+    const uncompress = function($in)
     {
         const $default = {
             'compression_method': 'gzip',
@@ -255,10 +255,11 @@ function infohub_compress() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
-        var $options = [
+
+        const $options = [
             {"type": "option", "value": 'gzip', "label": 'Gzip' },
             {"type": "option", "value": 'lz', "label": 'LZ' }
         ];

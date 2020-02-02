@@ -9,7 +9,7 @@ The refresh methods used in Infohub Debug wait for the ban time to end and then 
 Infohub is designed with speed in mind. The browser locally caches plugins, assets, settings. Normally all these are automatically updated when the cache gets old. If they are not updated or you want to speed things up then you need to handle the cache yourself.
 
 # Browser cache life time
-The browser cache is handled by [infohub_cache](plugin_infohub_cache).
+The browser cache is handled by [infohub_cache](plugin,infohub_cache).
 
 The cache is updated when it gets old. See `infohub_cache.json`:
 ```
@@ -39,7 +39,7 @@ The #2 was intended to be faster than #3 but they are roughly at the same speed 
 # Key listeners
 Infohub Debug register four keyboard key combinations and have listeners for them.
 
-You can see the keyboard subscriptions in [infohub_keyboard](plugin_infohub_keyboard).
+You can see the keyboard subscriptions in [infohub_keyboard](plugin,infohub_keyboard).
 
 ## Mac and Linux/Windows
 On Linux/Windows you use SHIFT + ALT + CTRL.

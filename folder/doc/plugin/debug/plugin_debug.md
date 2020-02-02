@@ -16,7 +16,7 @@ var get_launch_information = function($in) {
 Make sure all your cmd-functions are listed in `_GetCmdFunctions` like this: (Example from infohub_doc.js)  
 
 ```
-var _GetCmdFunctions = function () {
+const _GetCmdFunctions = function () {
     return {
         'get_launch_information': 'normal',
         'view_document': 'normal',
@@ -153,9 +153,9 @@ All assets (icons etc that exist in the plugin folder "asset") are saved in inde
 ## Keyboard refresh commands
 These commands will be your primary tool for clearing/updating the cache in the browser.
 
-You find details how they work here: [infohub_debug](plugin_infohub_debug).
+You find details how they work here: [infohub_debug](plugin,infohub_debug).
 
-You can see the refresh buttons being registered in [infohub_keyboard](plugin_infohub_keyboard). 
+You can see the refresh buttons being registered in [infohub_keyboard](plugin,infohub_keyboard). 
 
 You can 
 

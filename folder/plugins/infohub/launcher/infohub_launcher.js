@@ -19,17 +19,9 @@ function infohub_launcher() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
-
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
 
     /**
      * Mandatory version information
@@ -37,7 +29,7 @@ function infohub_launcher() {
      * @private
      */
     $functions.push("_Version");
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-06-19',
             'since': '2017-06-02',
@@ -58,7 +50,7 @@ function infohub_launcher() {
      * @private
      */
     $functions.push("_GetCmdFunctions");
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal', // Set up the launcher graphical user interface
             'first_contact': 'normal', // Step by step you are guided how to use infohub
@@ -78,11 +70,11 @@ function infohub_launcher() {
     };
 
     $functions.push("_GetBoxId");
-    var _GetBoxId = function() {
+    const _GetBoxId = function() {
         return 'main.body.' + _GetClassName();
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     $functions.push('_Translate');
     /**
@@ -90,9 +82,12 @@ function infohub_launcher() {
      * @param {type} $string
      * @returns string
      */
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string,
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -112,7 +107,7 @@ function infohub_launcher() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -450,7 +445,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("first_contact");
-    var first_contact = function ($in)
+    const first_contact = function ($in)
     {
         "use strict";
 
@@ -585,7 +580,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("switch_button");
-    var switch_button = function ($in)
+    const switch_button = function ($in)
     {
         "use strict";
 
@@ -645,7 +640,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("render_list");
-    var render_list = function ($in)
+    const render_list = function ($in)
     {
         "use strict";
 
@@ -810,7 +805,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("get_option_list");
-    var get_option_list = function ($in)
+    const get_option_list = function ($in)
     {
         "use strict";
 
@@ -876,7 +871,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("_AddIcon");
-    var _AddIcon = function ($what, $list, $item)
+    const _AddIcon = function ($what, $list, $item)
     {
         leave:
         {
@@ -984,7 +979,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("refresh_list");
-    var refresh_list = function ($in)
+    const refresh_list = function ($in)
     {
         "use strict";
 
@@ -1159,7 +1154,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("get_list");
-    var get_list = function ($in)
+    const get_list = function ($in)
     {
         "use strict";
 
@@ -1212,7 +1207,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("update_full_list");
-    var update_full_list = function ($in)
+    const update_full_list = function ($in)
     {
         "use strict";
 
@@ -1648,7 +1643,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("my_list_remove");
-    var my_list_remove = function ($in)
+    const my_list_remove = function ($in)
     {
         "use strict";
         let $myList;
@@ -1781,7 +1776,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("plugin_information");
-    var plugin_information = function ($in)
+    const plugin_information = function ($in)
     {
         "use strict";
 
@@ -1903,7 +1898,8 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("get_launch_information");
-    var get_launch_information = function($in) {
+    const get_launch_information = function($in)
+    {
         "use strict";
 
         const $default = {
@@ -2062,8 +2058,10 @@ function infohub_launcher() {
 
             // Merge the translation files and pick title and description if they are set
             const $codesArray = $in.data_back.language_codes_array;
-            if (_Empty($codesArray) === 'false') {
+            if (_Empty($codesArray) === 'false')
+            {
                 let $result = {};
+
                 for (let $number = $codesArray.length -1; $number >= 0; $number--)
                 {
                     const $code = $codesArray[$number];
@@ -2083,6 +2081,7 @@ function infohub_launcher() {
                         $result = _Merge($result, $contents);
                     }
                 }
+
                 if (_Empty($result) === 'false') {
                     const $title = _GetData({
                         'name': 'launcher|title',
@@ -2155,7 +2154,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("get_launch_list");
-    var get_launch_list = function($in)
+    const get_launch_list = function($in)
     {
         "use strict";
 
@@ -2252,7 +2251,7 @@ function infohub_launcher() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -2408,6 +2407,5 @@ function infohub_launcher() {
             'message': 'event message done'
         };
     };
-
 }
 //# sourceURL=infohub_launcher.js

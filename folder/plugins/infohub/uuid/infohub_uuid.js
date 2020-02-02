@@ -20,7 +20,7 @@ function infohub_uuid() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-05-19',
             'since': '2018-05-19',
@@ -34,7 +34,7 @@ function infohub_uuid() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'uuid': 'normal',
             'get_available_options': 'normal',
@@ -50,7 +50,7 @@ function infohub_uuid() {
 	 * @author Your name
 	 */
 	$functions.push("uuid");
-	var uuid = function ($in)
+	const uuid = function ($in)
     {
         "use strict";
 
@@ -122,7 +122,7 @@ function infohub_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
 
@@ -143,7 +143,7 @@ function infohub_uuid() {
 	 * @since 2018-05-19
 	 */
 	$functions.push("guidv0");
-	var guidv0 = function($in)
+	const guidv0 = function($in)
     {
         "use strict";
 
@@ -160,7 +160,7 @@ function infohub_uuid() {
      * @author https://www.w3resource.com/javascript-exercises/javascript-math-exercise-23.php
      */
     $functions.push("guidv4");
-    var guidv4 = function($in)
+    const guidv4 = function($in)
     {
         "use strict";
 
@@ -188,7 +188,7 @@ function infohub_uuid() {
      * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
      **/
     $functions.push("guidv4b");
-    var guidv4b = function($in)
+    const guidv4b = function($in)
     {
         "use strict";
 
@@ -221,7 +221,7 @@ function infohub_uuid() {
      * @return string
      */
     $functions.push("hub_id");
-    var hub_id = function($in)
+    const hub_id = function($in)
     {
         "use strict";
 
@@ -235,7 +235,5 @@ function infohub_uuid() {
             'data': $result
         };
     }
-
-
 }
 //# sourceURL=infohub_uuid.js

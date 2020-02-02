@@ -19,19 +19,11 @@ function infohub_demo_form2() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2018-05-25',
@@ -44,7 +36,7 @@ function infohub_demo_form2() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_form2_buttons': 'normal',
@@ -52,7 +44,7 @@ function infohub_demo_form2() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -60,9 +52,12 @@ function infohub_demo_form2() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -81,10 +76,11 @@ function infohub_demo_form2() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
@@ -312,22 +308,26 @@ function infohub_demo_form2() {
      * @author Peter Lembke
      */
     $functions.push("click_form2_buttons");
-    var click_form2_buttons = function ($in) {
+    const click_form2_buttons = function ($in)
+    {
         "use strict";
-        var $formData = {}, $subCallData = {}, 
-            $answer = 'false', $message = 'Trying to get form data',
-            $ok = 'false',
-            $default = {
-                'step': 'step_start',
-                'type': '',
-                'event_type': '',
-                'event_data': '',
-                'response': {
-                    'answer': 'false',
-                    'message': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_start',
+            'type': '',
+            'event_type': '',
+            'event_data': '',
+            'response': {
+                'answer': 'false',
+                'message': ''
+            }
+        };
         $in = _Default($default, $in);
+
+        let $formData = {},
+            $answer = 'false',
+            $message = 'Trying to get form data',
+            $ok = 'false';
 
         if ($in.step === 'step_start') {
             if ($in.type === 'button') {
@@ -432,11 +432,13 @@ function infohub_demo_form2() {
      * @author Peter Lembke
      */
     $functions.push("click_submit");
-    var click_submit = function ($in) {
+    const click_submit = function ($in)
+    {
         "use strict";
-        var $default = {
-                'step': 'step_start'
-            };
+
+        const $default = {
+            'step': 'step_start'
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
@@ -448,7 +450,6 @@ function infohub_demo_form2() {
             'message': 'Submit done',
             'ok': 'true'
         };
-
     };
 
 }

@@ -19,19 +19,11 @@ function infohub_democall_menu() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-05-19',
             'version': '2.0.0',
@@ -43,7 +35,7 @@ function infohub_democall_menu() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,11 +50,13 @@ function infohub_democall_menu() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        let $response = '';
+        let $parts = $text.split('_');
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -71,7 +65,7 @@ function infohub_democall_menu() {
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -79,7 +73,7 @@ function infohub_democall_menu() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -100,10 +94,11 @@ function infohub_democall_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {}
@@ -113,7 +108,7 @@ function infohub_democall_menu() {
         $classTranslations = $in.translations;
 
         $in.func = _GetFuncName($in.subtype);
-        var $response = internal_Cmd($in);
+        const $response = internal_Cmd($in);
 
         return {
             'answer': $response.answer,
@@ -128,18 +123,17 @@ function infohub_democall_menu() {
      * @returns {*}
      */
     $functions.push("internal_Menu");
-    var internal_Menu = function ($in)
+    const internal_Menu = function ($in)
     {
         "use strict";
 
-        var $data,
-            $default = {
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': ''
         };
         $in = _Default($default, $in);
 
-        $data = {
+        const $data = {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
@@ -244,6 +238,5 @@ function infohub_democall_menu() {
             'data': $data
         };
     };
-
 }
 //# sourceURL=infohub_democall_menu.js

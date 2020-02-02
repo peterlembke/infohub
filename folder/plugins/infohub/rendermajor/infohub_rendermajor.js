@@ -22,11 +22,7 @@ function infohub_rendermajor() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-18',
             'since': '2016-10-26',
@@ -39,7 +35,7 @@ function infohub_rendermajor() {
         };
     };
 
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'create': 'normal'
@@ -61,7 +57,7 @@ function infohub_rendermajor() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -93,7 +89,7 @@ function infohub_rendermajor() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -165,7 +161,7 @@ function infohub_rendermajor() {
      * @since   2016-10-26
      * @author  Peter Lembke
      */
-    var internal_PresentationBox = function ($in)
+    const internal_PresentationBox = function ($in)
     {
         "use strict";
 
@@ -259,7 +255,6 @@ function infohub_rendermajor() {
                     'embed': $in.content_embed,
                     'original_alias': $in.original_alias
                 };
-
             }
         }
 
@@ -302,8 +297,6 @@ function infohub_rendermajor() {
                 'mode': 'html'
             }
         };
-
     };
-
 }
 //# sourceURL=infohub_rendermajor.js

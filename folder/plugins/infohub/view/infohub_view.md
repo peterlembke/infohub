@@ -288,7 +288,7 @@ box_id, the ID of the box that you want to show/hide. 1=show, 0=hide.
 Here you can set a specific box to show or hide, and in the same call you can set the box siblings to show/hide or opposite to what you set on the box.  
     
 ```
-var $default = {
+const $default = {
     'box_id': '1', // Can be the box_id or the full friendly name box id
     'box_view': '1', // 0 = hide, 1= show
     'siblings_box_view': '' // All the siblings to box_id can be set to 0 or 1 or nothing.

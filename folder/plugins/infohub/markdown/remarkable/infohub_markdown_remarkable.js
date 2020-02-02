@@ -20,10 +20,11 @@ function infohub_markdown_remarkable() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
-            'date': '2019-03-13',
-            'version': '1.0.0',
+            'date': '2020-01-21',
+            'since': '2019-03-13',
+            'version': '1.0.1',
             'class_name': 'infohub_markdown_remarkable',
             'checksum': '{{checksum}}',
             'note': 'Wrapper for the Remarkable Markdown to HTML converter',
@@ -32,7 +33,7 @@ function infohub_markdown_remarkable() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'convert': 'normal'
         };
@@ -50,13 +51,16 @@ function infohub_markdown_remarkable() {
      * @author  Peter Lembke
      */
     $functions.push("convert"); // Enable this function
-    var convert = function ($in) {
+    const convert = function ($in)
+    {
         "use strict";
-        var $html = '', $markDownParser,
-            $default = {
-                'text': '',
-                'step': 'step_start',
-            };
+
+        let $html = '', $markDownParser;
+
+        const $default = {
+            'text': '',
+            'step': 'step_start',
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') 

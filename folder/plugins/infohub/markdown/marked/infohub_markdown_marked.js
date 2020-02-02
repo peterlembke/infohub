@@ -20,10 +20,11 @@ function infohub_markdown_marked() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
-            'date': '2019-03-13',
-            'version': '1.0.0',
+            'date': '2020-01-21',
+            'since': '2019-03-13',
+            'version': '1.0.1',
             'class_name': 'infohub_markdown_marked',
             'checksum': '{{checksum}}',
             'note': 'Wrapper for the Marked Markdown to HTML converter',
@@ -32,7 +33,7 @@ function infohub_markdown_marked() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'convert': 'normal'
         };
@@ -50,20 +51,23 @@ function infohub_markdown_marked() {
      * @author  Peter Lembke
      */
     $functions.push("convert"); // Enable this function
-    var convert = function ($in) {
+    const convert = function ($in)
+    {
         "use strict";
-        var $html = '', $options,
-            $default = {
-                'text': '',
-                'step': 'step_start',
-            };
+
+        let $html = '';
+
+        const $default = {
+            'text': '',
+            'step': 'step_start',
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') 
         {
             $in.text = _Replace('[*', '[', $in.text);
 
-            $options = {
+            const $options = {
                 'gfm': true,
                 'tables': true
             };

@@ -12,13 +12,13 @@ The file contain JSON in a readable pretty format with lines and indention at th
     - name (Plugin class name = plugin name)
     - version (Example 1.0.0 , from the code)
     - date (Version date, from the code)
-    - checksum = md5(plugin_code)
+    - checksum = md5(plugin,code)
 - base
     - type (Always the same type as the plugin)
     - name (Always infohub_base)
     - version (From the code)
     - date (From the code)
-    - checksum = md5(plugin_code)
+    - checksum = md5(plugin,code)
 - function_list
     - List with all function names
     - List with all test names for this function, in_checksum is used as a temporary name

@@ -19,19 +19,11 @@ function infohub_doc_get() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-04-18',
             'since': '2019-04-16',
@@ -45,7 +37,7 @@ function infohub_doc_get() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'get_document': 'normal',
             'get_documents_list': 'normal',
@@ -60,7 +52,7 @@ function infohub_doc_get() {
      * @author Peter Lembke
      */
     $functions.push("get_document");
-    var get_document = function ($in) 
+    const get_document = function ($in)
     {
         "use strict";
 
@@ -213,7 +205,7 @@ function infohub_doc_get() {
      * @author  Peter Lembke
      */
     $functions.push('get_documents_list');
-    var get_documents_list = function ($in)
+    const get_documents_list = function ($in)
     {
         "use strict";
         
@@ -346,7 +338,7 @@ function infohub_doc_get() {
      * @author Peter Lembke
      */
     $functions.push("get_all_documents");
-    var get_all_documents = function ($in)
+    const get_all_documents = function ($in)
     {
         "use strict";
 
@@ -445,6 +437,5 @@ function infohub_doc_get() {
             'ok': $in.response.ok
         };
     };
-
 }
 //# sourceURL=infohub_doc_get.js

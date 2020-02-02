@@ -19,19 +19,11 @@ function infohub_welcome() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-09-09',
             'since': '2018-09-09',
@@ -45,7 +37,7 @@ function infohub_welcome() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'startup': 'normal',
             'setup_gui': 'normal',
@@ -54,10 +46,10 @@ function infohub_welcome() {
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
-        let $pluginType = 'welcome',
-            $tmp = $data.split("_");
+        let $pluginType = 'welcome';
+        const $tmp = $data.split("_");
 
         if (_IsSet($tmp[0]) === 'true') {
             $pluginType = $tmp[0];
@@ -66,7 +58,7 @@ function infohub_welcome() {
         return 'infohub_welcome_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -74,7 +66,7 @@ function infohub_welcome() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -86,11 +78,6 @@ function infohub_welcome() {
         });
     };
 
-    // ***********************************************************
-    // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
-    // ***********************************************************
-
     /**
      * Setup the Config Graphical User Interface
      * @version 2018-09-09
@@ -98,7 +85,7 @@ function infohub_welcome() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -217,7 +204,7 @@ function infohub_welcome() {
      * @author Peter Lembke
      */
     $functions.push("startup");
-    var startup = function ($in)
+    const startup = function ($in)
     {
         "use strict";
 
@@ -300,7 +287,7 @@ function infohub_welcome() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -371,8 +358,6 @@ function infohub_welcome() {
             'answer': 'false',
             'message': 'Did not handle the event message'
         };
-
     };
-
 }
 //# sourceURL=infohub_welcome.js

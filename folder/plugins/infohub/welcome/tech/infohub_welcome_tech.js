@@ -19,19 +19,11 @@ function infohub_welcome_tech() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2015-02-12',
             'version': '1.0.0',
@@ -43,7 +35,7 @@ function infohub_welcome_tech() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,7 +50,7 @@ function infohub_welcome_tech() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -76,7 +68,7 @@ function infohub_welcome_tech() {
         return $response;
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -84,9 +76,12 @@ function infohub_welcome_tech() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -100,7 +95,7 @@ function infohub_welcome_tech() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -119,7 +114,7 @@ function infohub_welcome_tech() {
     };
 
     $functions.push("internal_Tech");
-    var internal_Tech = function ($in)
+    const internal_Tech = function ($in)
     {
         "use strict";
 
@@ -374,7 +369,6 @@ function infohub_welcome_tech() {
             'message': 'Here are the render data that will create a welcome text',
             'data': $data
         };
-
     };
 }
 //# sourceURL=infohub_welcome_tech.js

@@ -21,11 +21,7 @@ function infohub_render_form() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-12',
             'since': '2018-05-27',
@@ -38,7 +34,7 @@ function infohub_render_form() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'event_message': 'normal',
@@ -61,7 +57,7 @@ function infohub_render_form() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -86,11 +82,9 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
-
-        var $parameter = [];
 
         const $default = {
             'id': '',
@@ -98,6 +92,8 @@ function infohub_render_form() {
             'class': ''
         };
         $in = _Default($default, $in);
+
+        let $parameter = [];
 
         if ($in.id !== '') {
             const $id = 'id="{box_id}_' + $in.id + '"';
@@ -130,11 +126,11 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    var _GetParameters = function ($in, $fields)
+    const _GetParameters = function ($in, $fields)
     {
         "use strict";
 
-        var $useFields = [];
+        let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true')
         {
@@ -175,7 +171,6 @@ function infohub_render_form() {
         return  ' ' +  $useFields.join(' ') + $disabled + $multiple;
     };
 
-
     /**
      * Get the options rendered to HTML
      * @version 2018-05-31
@@ -184,7 +179,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    var _GetOptions = function ($in)
+    const _GetOptions = function ($in)
     {
         "use strict";
 
@@ -195,14 +190,14 @@ function infohub_render_form() {
         };
         $in = _Default($default, $in);
 
-        for (let $i=0; $i < $in.options.length; $i++)
+        for (let $optionCountNumber = 0; $optionCountNumber < $in.options.length; $optionCountNumber++)
         {
-            if (_IsSet($in.options[$i]) === 'false') {
+            if (_IsSet($in.options[$optionCountNumber]) === 'false') {
                 continue;
             }
 
             const $default = {'type': '', 'label': '', 'value': '', 'selected': 'false' };
-            let $data = _Default($default, $in.options[$i]);
+            let $data = _Default($default, $in.options[$optionCountNumber]);
 
             $selected = '';
             if ($data.selected === 'true') {
@@ -240,7 +235,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    var _GetDataListOptions = function ($in)
+    const _GetDataListOptions = function ($in)
     {
         "use strict";
 
@@ -275,7 +270,7 @@ function infohub_render_form() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -311,7 +306,7 @@ function infohub_render_form() {
      * @returns {{answer: string, message: string, html: string}}
      */
     $functions.push('render_options');
-    var render_options = function ($in)
+    const render_options = function ($in)
     {
         "use strict";
 
@@ -340,7 +335,7 @@ function infohub_render_form() {
      * @since   2018-05-25
      * @author  Peter Lembke
      */
-    var internal_Button = function ($in)
+    const internal_Button = function ($in)
     {
         "use strict";
 
@@ -423,7 +418,7 @@ function infohub_render_form() {
      * @since   2019-01-12
      * @author  Peter Lembke
      */
-    var internal_File = function ($in)
+    const internal_File = function ($in)
     {
         "use strict";
 
@@ -519,7 +514,7 @@ function infohub_render_form() {
      * @since   2018-05-25
      * @author  Peter Lembke
      */
-    var internal_Text = function ($in)
+    const internal_Text = function ($in)
     {
         "use strict";
 
@@ -631,7 +626,7 @@ function infohub_render_form() {
      * @since   2018-09-02
      * @author  Peter Lembke
      */
-    var internal_Range = function ($in)
+    const internal_Range = function ($in)
     {
         "use strict";
 
@@ -722,7 +717,7 @@ function infohub_render_form() {
      * @since   2018-05-29
      * @author  Peter Lembke
      */
-    var internal_Textarea = function ($in)
+    const internal_Textarea = function ($in)
     {
         "use strict";
 
@@ -822,7 +817,7 @@ function infohub_render_form() {
      * @since   2018-05-29
      * @author  Peter Lembke
      */
-    var internal_Select = function ($in)
+    const internal_Select = function ($in)
     {
         "use strict";
 
@@ -932,7 +927,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Datalist = function ($in)
+    const internal_Datalist = function ($in)
     {
         "use strict";
 
@@ -975,7 +970,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Radio = function ($in)
+    const internal_Radio = function ($in)
     {
         "use strict";
 
@@ -1052,7 +1047,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Radios = function ($in)
+    const internal_Radios = function ($in)
     {
         "use strict";
 
@@ -1144,7 +1139,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Checkbox = function ($in)
+    const internal_Checkbox = function ($in)
     {
         "use strict";
 
@@ -1223,7 +1218,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Checkboxes = function ($in)
+    const internal_Checkboxes = function ($in)
     {
         "use strict";
 
@@ -1315,7 +1310,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Form = function ($in)
+    const internal_Form = function ($in)
     {
         "use strict";
 
@@ -1388,7 +1383,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    var internal_Fieldset = function ($in)
+    const internal_Fieldset = function ($in)
     {
         "use strict";
 

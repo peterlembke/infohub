@@ -1,0 +1,85 @@
+{
+    "version": {
+        "date": "2020-01-19 20:14:18",
+        "plugin": "infohub_login",
+        "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
+        "language": "en",
+        "country": "US",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_login": {
+            "Instructions": "Instructions",
+            "Use the menu.": "Use the menu."
+        },
+        "infohub_login_contact": {
+            "One contact": "One contact",
+            "This is the data form for one contact": "This is the data form for one contact",
+            "Node": "Node",
+            "Any text you want": "Any text you want",
+            "Note": "Note",
+            "Save": "Save",
+            "Domain address": "Domain address",
+            "The domain address to your server": "The domain address to your server",
+            "User name": "User name",
+            "This is you on the server": "This is you on the server",
+            "Shared secret": "Shared secret",
+            "You share this secret with the server": "You share this secret with the server",
+            "Checksum": "Checksum",
+            "Checksum of domain address + user name + shared secret.": "Checksum of domain address + user name + shared secret.",
+            "Allowed plugins": "Allowed plugins",
+            "List with all plugin names you can send messages to on the remote node": "List with all plugin names you can send messages to on the remote node"
+        },
+        "infohub_login_export": {
+            "Export contact": "Export contact",
+            "Here you can export the contact data": "Here you can export the contact data",
+            "Export": "Export"
+        },
+        "infohub_login_forget": {
+            "Forget contact": "Forget contact",
+            "Here you can let the browser forget the contact data. You can always import your file again.": "Here you can let the browser forget the contact data. You can always import your file again.",
+            "Forget": "Forget"
+        },
+        "infohub_login_import": {
+            "Import": "Import",
+            "Import the contact information from file": "Import the contact information from file",
+            "Select file": "Select file"
+        },
+        "infohub_login_login": {
+            "Login": "Login",
+            "Here you can use the contact data you imported and login to the server": "Here you can use the contact data you imported and login to the server",
+            "Password": "Password",
+            "Missing user name": "Missing user name",
+            "Missing random code": "Missing random code",
+            "The answer from the server took too long time. I will abandon the login attempt": "The answer from the server took too long time. I will abandon the login attempt",
+            "Failed to login": "Failed to login",
+            "Success logging in": "Success logging in",
+            "The random code do not have the correct length": "The random code do not have the correct length",
+            "Unlikely that the total average has no decimals": "Unlikely that the total average has no decimals",
+            "Unlikely that the average is equal to the total average": "Unlikely that the average is equal to the total average",
+            "These simple tests show that the random_code at least is not a flatline of numbers.": "These simple tests show that the random_code at least is not a flatline of numbers."
+        },
+        "infohub_login_logout": {
+            "Logout": "Logout",
+            "Here you can logout from the server": "Here you can logout from the server",
+            "Failed to logout": "Failed to logout",
+            "Success logging out": "Success logging out"
+        },
+        "infohub_login_menu": {
+            "Menu": "Menu",
+            "Import contact data": "Import contact data",
+            "Login": "Login",
+            "Set password": "Set password",
+            "Export contact data": "Export contact data",
+            "Logout": "Logout",
+            "Forget contact": "Forget contact"
+        },
+        "infohub_login_password": {
+            "Set password": "Set password",
+            "When you set your local password you scramble the shared secret so that it require your password to work": "When you set your local password you scramble the shared secret so that it require your password to work",
+            "Current password": "Current password",
+            "New password": "New password",
+            "Change password": "Change password"
+        }
+    }
+}

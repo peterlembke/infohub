@@ -21,11 +21,7 @@ function infohub_render_table() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-12-31',
             'since': '2019-12-28',
@@ -38,7 +34,7 @@ function infohub_render_table() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,7 +54,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -102,11 +98,11 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    var _GetParameters = function ($in, $fields)
+    const _GetParameters = function ($in, $fields)
     {
         "use strict";
 
-        var $useFields = [];
+        let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true')
         {
@@ -151,7 +147,7 @@ function infohub_render_table() {
      * @author  Peter Lembke
      */
     $functions.push("create");
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -195,7 +191,7 @@ function infohub_render_table() {
      * @returns {{}|{answer: string, data: [], message: string}}
      * @private
      */
-    var _SetDefaultInValues = function($in)
+    const _SetDefaultInValues = function($in)
     {
         "use strict";
 
@@ -269,7 +265,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    var _AllRowsHtml = function ($in)
+    const _AllRowsHtml = function ($in)
     {
         "use strict";
 
@@ -364,7 +360,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    var _RenderHead = function($in)
+    const _RenderHead = function($in)
     {
         "use strict";
 
@@ -412,6 +408,5 @@ function infohub_render_table() {
 
         return '<thead><tr>' + $labelArray.join('') + '</tr></thead>';
     };
-
 }
 //# sourceURL=infohub_render_table.js

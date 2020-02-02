@@ -20,7 +20,7 @@ function infohub_validate() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-08-13',
             'since': '2018-08-13',
@@ -33,7 +33,7 @@ function infohub_validate() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'validate_has_data': 'normal',
             'validate_is_true': 'normal',
@@ -51,7 +51,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_has_data');
-    var validate_has_data = function ($in)
+    const validate_has_data = function ($in)
     {
         "use strict";
 
@@ -82,7 +82,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_true');
-    var validate_is_true = function ($in)
+    const validate_is_true = function ($in)
     {
         "use strict";
 
@@ -113,7 +113,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_false');
-    var validate_is_false = function ($in)
+    const validate_is_false = function ($in)
     {
         "use strict";
 
@@ -144,7 +144,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_integer');
-    var validate_is_integer = function ($in)
+    const validate_is_integer = function ($in)
     {
         "use strict";
 
@@ -165,6 +165,5 @@ function infohub_validate() {
             'valid': $valid
         };
     };
-
 }
 //# sourceURL=infohub_validate.js

@@ -20,7 +20,7 @@ function infohub_markdown() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function()
+    const _Version = function()
     {
         return {
             'date': '2019-03-13',
@@ -58,7 +58,7 @@ function infohub_markdown() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -88,11 +88,9 @@ function infohub_markdown() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-
-        var $find, $replace;
 
         const $default = {
             'text': '',
@@ -145,8 +143,8 @@ function infohub_markdown() {
         if ($in.step === 'step_final') {
             if (_Empty($in.alias) === 'false') {
                 // All IDs become unique by inserting the parent alias in each ID.
-                $find = '{box_id}';
-                $replace = $find + '_' + $in.alias;
+                const $find = '{box_id}';
+                const $replace = $find + '_' + $in.alias;
                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
             }
         }
@@ -166,7 +164,7 @@ function infohub_markdown() {
      * @author  Peter Lembke
      */
     $functions.push("get_render_list"); // Enable this function
-    var get_render_list = function ($in) 
+    const get_render_list = function ($in)
     {
         "use strict";
 
@@ -184,16 +182,16 @@ function infohub_markdown() {
      * @author  Peter Lembke
      */
     $functions.push("get_render_option_list"); // Enable this function
-    var get_render_option_list = function ($in) 
+    const get_render_option_list = function ($in)
     {
         "use strict";
 
-        var $key, $option, $options = [],
+        let $options = [],
             $list = _RenderList();
     
-        for ($key in $list) {
+        for (let $key in $list) {
             if ($list.hasOwnProperty($key) === true) {
-                $option = {"type": "option", "value": $key, "label": $list[$key] };
+                const $option = {"type": "option", "value": $key, "label": $list[$key] };
                 $options.push($option);
             }
         }
@@ -206,7 +204,13 @@ function infohub_markdown() {
        };
     };
 
-    var _RenderList = function ($in) 
+    /**
+     * List of supported Markdown converters
+     * @param $in
+     * @returns {{marked: string, remarkable: string, showdown: string}}
+     * @private
+     */
+    const _RenderList = function ($in)
     {
         "use strict";
 
@@ -216,6 +220,5 @@ function infohub_markdown() {
             'showdown': 'Showdown'
        };
     };
-
 }
 //# sourceURL=infohub_markdown.js

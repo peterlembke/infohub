@@ -22,11 +22,7 @@ function infohub_tabs() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-02-02',
             'since': '2017-10-15',
@@ -39,7 +35,7 @@ function infohub_tabs() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'init': 'normal',
             'add': 'normal',
@@ -51,17 +47,6 @@ function infohub_tabs() {
         };
     };
 
-    // ***********************************************************
-    // * The private functions, add your own in your plugin
-    // * These functions can be used directly in your functions.
-    // * Name: _CamelCaseData
-    // ***********************************************************
-
-    // *****************************************************************************
-    // * Functions you only can reach with CMD()
-    // * Observe function names are lower_case
-    // *****************************************************************************
-
     /**
      * Set up the box system
      * You need to provide a parent box id
@@ -70,7 +55,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push("init"); // Enable this function
-    var init = function ($in)
+    const init = function ($in)
     {
         "use strict";
 
@@ -219,7 +204,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push("add"); // Enable this function
-    var add = function ($in)
+    const add = function ($in)
     {
         "use strict";
 
@@ -361,7 +346,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push("remove"); // Enable this function
-    var remove = function ($in)
+    const remove = function ($in)
     {
         "use strict";
 
@@ -459,7 +444,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push("siblings_box_view"); // Enable this function
-    var siblings_box_view = function ($in)
+    const siblings_box_view = function ($in)
     {
         "use strict";
 
@@ -504,7 +489,7 @@ function infohub_tabs() {
      * @returns {*}
      */
     $functions.push('highlight_tab');
-    var highlight_tab = function ($in)
+    const highlight_tab = function ($in)
     {
         "use strict";
 
@@ -591,7 +576,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push("setup_full_tab_system"); // Enable this function
-    var setup_full_tab_system = function ($in)
+    const setup_full_tab_system = function ($in)
     {
         "use strict";
 
@@ -822,7 +807,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('_GetTabsRenderData');
-    var _GetTabsRenderData = function ($tabs)
+    const _GetTabsRenderData = function ($tabs)
     {
         const $default = {
             'alias': '', // alias must be a single word here.
@@ -850,7 +835,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('_GetTabRenderData');
-    var _GetTabRenderData = function ($alias, $label, $content)
+    const _GetTabRenderData = function ($alias, $label, $content)
     {
         const $class = '.' + $alias;
 
@@ -909,7 +894,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -1014,8 +999,6 @@ function infohub_tabs() {
             'answer': 'true',
             'message': 'event message done'
         };
-
     };
-
 }
 //# sourceURL=infohub_tabs.js

@@ -20,7 +20,7 @@ function infohub_checksum_md5() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-25',
             'since': '2017-02-25',
@@ -35,7 +35,7 @@ function infohub_checksum_md5() {
 
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'emerging',
             'verify_checksum': 'emerging'
@@ -55,13 +55,16 @@ function infohub_checksum_md5() {
      * @return array|bool
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) {
+    const calculate_checksum = function($in)
+    {
         "use strict";
-        var $result,
-            $default = {'value': '' };
+
+        const $default = {
+            'value': ''
+        };
         $in = _Default($default, $in);
 
-        $result = _Md5($in.value);
+        const $result = _Md5($in.value);
 
         return {
             'answer': 'true',
@@ -81,17 +84,18 @@ function infohub_checksum_md5() {
      * @return array|bool
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) {
+    const verify_checksum = function($in)
+    {
         "use strict";
-        var $verified, $response,
-            $default = {
-                'value': '',
-                'checksum': ''
-            };
+
+        const $default = {
+            'value': '',
+            'checksum': ''
+        };
         $in = _Default($default, $in);
 
-        $verified = 'false';
-        $response = _Md5($in.value);
+        let $verified = 'false';
+        const $response = _Md5($in.value);
         if ($response === $in['checksum']) {
             $verified = 'true';
         }
@@ -115,7 +119,7 @@ function infohub_checksum_md5() {
      * @param $value
      * @private
      */
-    var _Md5 = function($value)
+    const _Md5 = function($value)
     {
         return SparkMD5.hash($value);
     };

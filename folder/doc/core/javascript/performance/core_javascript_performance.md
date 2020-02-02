@@ -67,7 +67,7 @@ That is why it is so important that every function work on a copy of the object.
 I have tried two different methods to copy an object. I have not made any comparisons yet.  
     
 ## Manifest (Done)
-I have tried the cache.manifest to get index.php working offline. The usage of manifest files are deprecated, see here: https://en.wikipedia.org/wiki/Cache_manifest_in_HTML5  
+I have tried the cache.manifest to get index.php working offline. The usage of manifest files are deprecated, see [here](https://en.wikipedia.org/wiki/Cache_manifest_in_HTML5).  
 The new thing is service workers. So I have deleted everything about manifest from the code. That made the load a little faster.  
     
 ## Storage - Get final connection (Done)

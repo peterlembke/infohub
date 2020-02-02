@@ -22,12 +22,8 @@ function infohub_render() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-12',
             'since': '2014-11-01',
@@ -41,7 +37,7 @@ function infohub_render() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'validate_has_data': 'removed',
@@ -71,7 +67,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetId');
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -115,7 +111,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetDisplay');
-    var _GetDisplay = function ($in)
+    const _GetDisplay = function ($in)
     {
         "use strict";
 
@@ -141,8 +137,8 @@ function infohub_render() {
      * @returns {*}
      * @private
      */
-    $functions.push('_Pop');
-    var _Pop = function($obj)
+    $functions.push('_PopItem');
+    const _PopItem = function($obj)
     {
         "use strict";
 
@@ -167,7 +163,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_AddStyle');
-    var _AddStyle = function($in)
+    const _AddStyle = function($in)
     {
         "use strict";
 
@@ -207,7 +203,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_DecodeData');
-    var _DecodeData = function($data)
+    const _DecodeData = function($data)
     {
         if (typeof $data !== 'string') {
             return {};
@@ -240,43 +236,44 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
-        var $data, $key, $response, $plugin, $find, $replace, $regexp,$boxVisible,
-            $default = {
-                'what': {},
-                'how': {
-                    'mode': 'one box',
-                    'text': '',
-                    'css_data': {}
-                },
-                'where': {
-                    'mode': 'view',
-                    'parent_box_id': '',
-                    'box_position': 'last',
-                    'box_alias': 'rendered_data',
-                    'max_width': 0,
-                    'box_id': '',
-                    'scroll_to_box_id': 'false',
-                    'set_visible': '' // true, false, or empty string
-                },
-                'what_done': {}, // All rendered from 'what'
-                'css_all': {},
-                'html': '', // Latest item that have been rendered to HTML
-                'display': '', // inline, block, none, or leave blank
-                'css_data': {},
-                'latest_item_name': '', // Latest item name that have been rendered
-                'latest_plugin_name': '',
-                'step': 'step_start',
-                'data_back': {},
-                'response': {},
-                'from_plugin': {
-                    'node': '',
-                    'plugin': ''
-                }
-            };
+        let $data, $key, $response, $plugin, $find, $replace, $regexp,$boxVisible;
+
+        const $default = {
+            'what': {},
+            'how': {
+                'mode': 'one box',
+                'text': '',
+                'css_data': {}
+            },
+            'where': {
+                'mode': 'view',
+                'parent_box_id': '',
+                'box_position': 'last',
+                'box_alias': 'rendered_data',
+                'max_width': 0,
+                'box_id': '',
+                'scroll_to_box_id': 'false',
+                'set_visible': '' // true, false, or empty string
+            },
+            'what_done': {}, // All rendered from 'what'
+            'css_all': {},
+            'html': '', // Latest item that have been rendered to HTML
+            'display': '', // inline, block, none, or leave blank
+            'css_data': {},
+            'latest_item_name': '', // Latest item name that have been rendered
+            'latest_plugin_name': '',
+            'step': 'step_start',
+            'data_back': {},
+            'response': {},
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_what_response')
@@ -352,7 +349,7 @@ function infohub_render() {
         if ($in.step === 'step_what') {
             // Pop out an item from the object 'what' and send it for rendering.
             if (_Count($in.what) > 0) {
-                $data = _Pop($in.what);
+                $data = _PopItem($in.what);
 
                 if (_IsSet($data.type) === 'false') {
                     $data.type = 'frog'
@@ -376,7 +373,7 @@ function infohub_render() {
             // We are here because the form element need options but they are empty.
             // There is a source_plugin and source_function that can provide the missing options.
 
-            $default = {
+            const $default = {
                 'source_node': 'client',
                 'source_plugin': 'infohub_render',
                 'source_function': 'get_test_options'
@@ -648,7 +645,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('internal_GetExtraTags');
-    var internal_GetExtraTags = function ($in)
+    const internal_GetExtraTags = function ($in)
     {
         "use strict";
 
@@ -708,20 +705,20 @@ function infohub_render() {
      * @returns {{answer: string, message: string, html: *}}
      */
     $functions.push('internal_AssembleHTML');
-    var internal_AssembleHTML = function ($in)
+    const internal_AssembleHTML = function ($in)
     {
         "use strict";
 
-        var $html, $start, $stop, $part, $findThis, $htmlPart;
+        let $html = $in.main.html;
 
-        $html = $in.main.html;
+        while ($html.indexOf('[') > -1)
+        {
+            const $start = $html.indexOf('[');
+            const $stop = $html.indexOf(']', $start);
+            const $part = $html.substring($start + 1, $stop);
+            const $findThis = '[' + $part + ']';
 
-        while ($html.indexOf('[') > -1) {
-            $start = $html.indexOf('[');
-            $stop = $html.indexOf(']', $start);
-            $part = $html.substring($start + 1, $stop);
-            $findThis = '[' + $part + ']';
-            $htmlPart = '';
+            let $htmlPart = '';
             if (typeof $in[$part] !== 'undefined') {
                 if (typeof $in[$part] === 'string') {
                     $htmlPart = $in[$part];
@@ -730,6 +727,7 @@ function infohub_render() {
                     $htmlPart = $in[$part].html;
                 }
             }
+
             $html = $html.split($findThis).join($htmlPart);
         }
 
@@ -746,26 +744,26 @@ function infohub_render() {
      * @returns {{answer: string, message: string, html: (string|*|$in.html), sections_count: number}}
      */
     $functions.push('internal_FixBase64Data');
-    var internal_FixBase64Data = function ($in)
+    const internal_FixBase64Data = function ($in)
     {
         "use strict";
-
-        var $html, $start, $stop, $part, $newPart, $position, $findThis, $htmlPart, $sectionsCount = 0;
 
         const $default = {
             'html': ''
         };
         $in = _Default($default, $in);
 
-        $html = $in.html;
+        let $html = $in.html,
+            $sectionsCount;
 
         // Convert a section of the code to BASE64
-        while ($html.indexOf('{{*') > -1) {
-            $start = $html.indexOf('{{*') + 3;
-            $stop = $html.indexOf('*}}', $start);
-            $part = $html.substring($start, $stop);
-            $findThis = '{{*' + $part + '*}}';
-            $htmlPart = btoa($part);
+        while ($html.indexOf('{{*') > -1)
+        {
+            const $start = $html.indexOf('{{*') + 3;
+            const $stop = $html.indexOf('*}}', $start);
+            const $part = $html.substring($start, $stop);
+            const $findThis = '{{*' + $part + '*}}';
+            const $htmlPart = btoa($part);
             $html = $html.split($findThis).join($htmlPart);
             $sectionsCount++;
         }
@@ -784,7 +782,7 @@ function infohub_render() {
      * @returns {*}
      */
     $functions.push('validate_form_data');
-    var validate_form_data = function ($in)
+    const validate_form_data = function ($in)
     {
         "use strict";
 
@@ -857,7 +855,7 @@ function infohub_render() {
         {
             while (_Count($in.form_data) > 0)
             {
-                let $item = _Pop($in.form_data);
+                let $item = _PopItem($in.form_data);
                 if (_Empty($item) === 'true') {
                     break;
                 }
@@ -903,7 +901,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('get_test_options');
-    var get_test_options = function ($in)
+    const get_test_options = function ($in)
     {
         "use strict";
 
@@ -926,7 +924,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('render_options');
-    var render_options = function ($in)
+    const render_options = function ($in)
     {
         "use strict";
 
@@ -1004,7 +1002,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('submit');
-    var submit = function ($in)
+    const submit = function ($in)
     {
         "use strict";
 
@@ -1169,7 +1167,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('click_and_scroll');
-    var click_and_scroll = function ($in)
+    const click_and_scroll = function ($in)
     {
         "use strict";
 
@@ -1225,7 +1223,6 @@ function infohub_render() {
             'answer': 'true',
             'message': 'Done handling events'
         };
-
     };
 
     /**
@@ -1234,7 +1231,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -1502,7 +1499,7 @@ function infohub_render() {
                     break external_link;
                 }
                 // It depends on the browser settings if this opens a popup or a new tab.
-                var win = window.open($data, '_blank');
+                window.open($data, '_blank');
                 $in.step = 'step_end';
             }
         }
@@ -1512,8 +1509,6 @@ function infohub_render() {
             'message': $message,
             'ok': $in.ok
         };
-
     };
-
 }
 //# sourceURL=infohub_render.js

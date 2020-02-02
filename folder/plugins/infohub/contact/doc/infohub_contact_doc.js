@@ -27,11 +27,7 @@ function infohub_contact_doc() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-14',
             'since': '2019-02-16',
@@ -44,7 +40,7 @@ function infohub_contact_doc() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_main': 'normal',
@@ -54,7 +50,7 @@ function infohub_contact_doc() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -62,7 +58,7 @@ function infohub_contact_doc() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -83,7 +79,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
         var $default = {
@@ -188,15 +184,15 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    var click_main = function ($in)
+    const click_main = function ($in)
     {
         "use strict";
-        var $default = {
-                'step': 'step_render',
-                'response': {
-                    'html': ''
-                }
-            };
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'html': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
@@ -217,15 +213,16 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_client');
-    var click_client = function ($in)
+    const click_client = function ($in)
     {
         "use strict";
-        var $default = {
-                'step': 'step_render',
-                'response': {
-                    'html': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'html': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
@@ -246,15 +243,16 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_server');
-    var click_server = function ($in)
+    const click_server = function ($in)
     {
         "use strict";
-        var $default = {
-                'step': 'step_render',
-                'response': {
-                    'html': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'html': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
@@ -275,15 +273,16 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_group');
-    var click_group = function ($in)
+    const click_group = function ($in)
     {
         "use strict";
-        var $default = {
-                'step': 'step_render',
-                'response': {
-                    'html': ''
-                }
-            };
+
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'html': ''
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
@@ -304,7 +303,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
-    var _GetCall = function ($fileName)
+    const _GetCall = function ($fileName)
     {
         "use strict";
 
@@ -336,7 +335,6 @@ function infohub_contact_doc() {
             }
         });
     };
-
 
 }
 //# sourceURL=infohub_contact_doc.js

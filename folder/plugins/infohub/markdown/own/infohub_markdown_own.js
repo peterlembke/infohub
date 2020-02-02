@@ -20,10 +20,11 @@ function infohub_markdown_own() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
-            'date': '2019-02-01',
-            'version': '1.0.0',
+            'date': '2020-01-21',
+            'since': '2019-02-01',
+            'version': '1.0.1',
             'class_name': 'infohub_markdown',
             'checksum': '{{checksum}}',
             'note': 'This plugin is a renderer. Markdown is a text format suitable for humans to read as it is. This plugin parse the text and create HTML to increase the readability in a browser.',
@@ -32,7 +33,7 @@ function infohub_markdown_own() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -53,16 +54,20 @@ function infohub_markdown_own() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        let $response = '';
+        let $parts = $text.split('_');
+
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
+
         return $response;
     };
 
@@ -77,26 +82,28 @@ function infohub_markdown_own() {
      * @since   2013-04-15
      * @author  Peter Lembke
      */
-    $functions.push("create"); // Enable this function
-    var create = function ($in) {
+    $functions.push("create");
+    const create = function ($in)
+    {
         "use strict";
-        var $find, $replace,
-            $default = {
-                'text': '',
-                'alias': '',
-                'original_alias': '',
-                'step': 'step_start',
-                'html': '',
-                'css_data': {
-                    '.bold': 'font-weight: bold;',
-                    '.italic': 'font-style: italic;',
-                    '.strike': 'text-decoration: line-through'
-                }
-            };
+
+        const $default = {
+            'text': '',
+            'alias': '',
+            'original_alias': '',
+            'step': 'step_start',
+            'html': '',
+            'css_data': {
+                '.bold': 'font-weight: bold;',
+                '.italic': 'font-style: italic;',
+                '.strike': 'text-decoration: line-through'
+            }
+        };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_start') {
-            var $response = internal_Cmd({
+        if ($in.step === 'step_start')
+        {
+            const $response = internal_Cmd({
                 'func': 'Markdown',
                 'text': $in.text
             });
@@ -123,8 +130,8 @@ function infohub_markdown_own() {
         if ($in.step === 'step_final') {
             if (_Empty($in.alias) === 'false') {
                 // All IDs become unique by inserting the parent alias in each ID.
-                $find = '{box_id}';
-                $replace = $find + '_' + $in.alias;
+                const $find = '{box_id}';
+                const $replace = $find + '_' + $in.alias;
                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
             }
         }
@@ -145,32 +152,34 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_Markdown = function ($in) {
+    const internal_Markdown = function ($in)
+    {
         "use strict";
-        var $parts, $parseFunctions, $text, $response, $func, $i,
-            $default = {
-                'text': '',
-                'class': 'markdown',
-                'css_data': {},
-                'original_alias': ''
-            };
+
+        const $default = {
+            'text': '',
+            'class': 'markdown',
+            'css_data': {},
+            'original_alias': ''
+        };
         $in = _Default($default, $in);
         
-        $text = _Replace('[*', '[', $in.text);
-        $parts = {};
+        let $text = _Replace('[*', '[', $in.text);
+        let $parts = {};
         
-        $parseFunctions = ['CodeFencing', 'CodeIndent', 'CodeInline', 'Emoji',
+        const $parseFunctions = ['CodeFencing', 'CodeIndent', 'CodeInline', 'Emoji',
             'EmphasisStrikeTrough', 'Images', 'Links', 
             'ListsUnordered', 'ListsOrdered' ,'Blockquotes', 'TaskList', 
             'Tables', 'Headers'];
 
-        for ($i = 0; $i < $parseFunctions.length; $i++) 
+        for (let $i = 0; $i < $parseFunctions.length; $i++)
         {
-            $func = 'Parse' + $parseFunctions[$i];
-            $response = internal_Cmd({
+            const $func = 'Parse' + $parseFunctions[$i];
+            const $response = internal_Cmd({
                 'func': $func,
                 'text': $text
             });
+
             $parts = _Merge($parts, $response.parts);
             $text = $response.text;
         }
@@ -200,12 +209,15 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseCodeFencing = function ($in) {
+    const internal_ParseCodeFencing = function ($in)
+    {
         "use strict";
-        var $text, $parts = {}, $blocks = [], $nr = 0, $i, $blockName = '',
-            $default = {
-                'text': ''
-            };
+
+        var $text, $parts = {}, $blocks = [], $nr = 0, $i, $blockName = '';
+
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
         $text = $in.text;
@@ -244,14 +256,17 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseCodeIndent = function ($in) {
+    const internal_ParseCodeIndent = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {}, $blocks = [], $nr = 0, $i, $blockName = '', $end,
             $startOfRest = 0,
-            $findStart = "\n\n    ", $findEnd = "\n\n", $code, $findIndent = "\n    ",
-            $default = {
-                'text': ''
-            };
+            $findStart = "\n\n    ", $findEnd = "\n\n", $code, $findIndent = "\n    ";
+
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
         $text = $in.text;
@@ -296,8 +311,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseCodeInline = function ($in) {
+    const internal_ParseCodeInline = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {}, $blocks = [], $nr = 0, $blockName,
             $findStart = " `", $findEnd = "` ", $start, $end, $code,
             $default = {
@@ -340,8 +357,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseEmoji = function ($in) {
+    const internal_ParseEmoji = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {}, $blocks = [], $nr = 0, $blockName,
             $findStart = " :", $findEnd = ": ", $start, $end, $code,
             $default = {
@@ -385,8 +404,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseEmphasisStrikeTrough = function ($in) {
+    const internal_ParseEmphasisStrikeTrough = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {}, $find, $start, $lengthData, $findString,
             $leftPart, $middlePart, $lastPart, $i, $middlePartStart, $lastPartStart,
             $class,
@@ -437,8 +458,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseImages = function ($in) {
+    const internal_ParseImages = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -463,8 +486,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseLinks = function ($in) {
+    const internal_ParseLinks = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -489,8 +514,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseListsUnordered = function ($in) {
+    const internal_ParseListsUnordered = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -515,8 +542,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseListsOrdered = function ($in) {
+    const internal_ParseListsOrdered = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -541,8 +570,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseBlockquotes = function ($in) {
+    const internal_ParseBlockquotes = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -568,8 +599,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseTaskList = function ($in) {
+    const internal_ParseTaskList = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -594,8 +627,10 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseTables = function ($in) {
+    const internal_ParseTables = function ($in)
+    {
         "use strict";
+
         var $text, $parts = {},
             $default = {
                 'text': ''
@@ -620,12 +655,15 @@ function infohub_markdown_own() {
      * @since   2019-02-01
      * @author  Peter Lembke
      */
-    var internal_ParseHeaders = function ($in) {
+    const internal_ParseHeaders = function ($in)
+    {
         "use strict";
-        var $text, $parts = {}, $rows = [], $nr, $i,
-            $default = {
-                'text': ''
-            };
+
+        var $text, $parts = {}, $rows = [], $nr, $i;
+
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
         $rows = $in.text.split(/\r|\r\n|\n/);
@@ -647,8 +685,6 @@ function infohub_markdown_own() {
             'text': $text,
             'parts': $parts
         };
-
     };
-
 }
 //# sourceURL=infohub_markdown.js

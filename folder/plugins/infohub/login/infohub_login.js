@@ -19,19 +19,11 @@ function infohub_login() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function()
+    const _Version = function()
     {
         return {
             'date': '2020-01-03',
@@ -46,7 +38,7 @@ function infohub_login() {
         };
     };
 
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'setup_gui': 'normal',
@@ -56,7 +48,7 @@ function infohub_login() {
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
         let $pluginType = 'login',
             $tmp = $data.split("_");
@@ -68,7 +60,7 @@ function infohub_login() {
         return 'infohub_login_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -76,9 +68,11 @@ function infohub_login() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
 
         return _GetData({
             'name': _GetClassName() + '|' + $string,
@@ -98,7 +92,7 @@ function infohub_login() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -317,7 +311,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push("click_menu");
-    var click_menu = function ($in)
+    const click_menu = function ($in)
     {
         "use strict";
 
@@ -363,7 +357,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in)
+    const click = function ($in)
     {
         "use strict";
 
@@ -431,7 +425,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push("call_server");
-    var call_server = function ($in)
+    const call_server = function ($in)
     {
         "use strict";
 
@@ -478,6 +472,5 @@ function infohub_login() {
 
         return $in.response;
     };
-
 }
 //# sourceURL=infohub_login.js

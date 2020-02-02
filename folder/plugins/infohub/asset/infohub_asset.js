@@ -27,17 +27,13 @@ function infohub_asset() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     /**
      * Mandatory version information
      * @returns {{date: string, version: string, checksum: string, class_name: string, note: string, status: string, license_name: string, icon: string, title: string, icon_license: string}}
      * @private
      */
     $functions.push("_Version");
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-27',
             'since': '2017-12-23',
@@ -57,7 +53,7 @@ function infohub_asset() {
      * @private
      */
     $functions.push("_GetCmdFunctions");
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal', // Used by infohub_render to render an asset
             'update_all_assets': 'normal', // Use by infohub_offline, infohub_asset
@@ -76,7 +72,7 @@ function infohub_asset() {
      * @private
      */
     $functions.push("_GetGrandPluginName");
-    var _GetGrandPluginName = function($pluginName)
+    const _GetGrandPluginName = function($pluginName)
     {
         const $parts = $pluginName.split('_');
 
@@ -95,7 +91,7 @@ function infohub_asset() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -177,7 +173,7 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("update_all_assets");
-    var update_all_assets = function ($in)
+    const update_all_assets = function ($in)
     {
         "use strict";
 
@@ -251,7 +247,7 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("update_all_plugin_assets");
-    var update_all_plugin_assets = function ($in)
+    const update_all_plugin_assets = function ($in)
     {
         "use strict";
 
@@ -412,7 +408,7 @@ function infohub_asset() {
      * @returns {{answer: string, message: *, messages: Array}}
      */
     $functions.push("update_specific_assets");
-    var update_specific_assets = function ($in)
+    const update_specific_assets = function ($in)
     {
         "use strict";
 
@@ -598,7 +594,7 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("get_plugin_assets");
-    var get_plugin_assets = function ($in)
+    const get_plugin_assets = function ($in)
     {
         "use strict";
         const $default = {
@@ -700,7 +696,7 @@ function infohub_asset() {
      * @author Peter Lembke
      */
     $functions.push("get_asset_and_license");
-    var get_asset_and_license = function($in)
+    const get_asset_and_license = function($in)
     {
         "use strict";
 
@@ -892,7 +888,7 @@ function infohub_asset() {
      * @returns {*}
      * @private
      */
-    var _GetMimeType = function($extension)
+    const _GetMimeType = function($extension)
     {
         "use strict";
 

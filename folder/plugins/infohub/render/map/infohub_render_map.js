@@ -21,11 +21,7 @@ function infohub_render_map() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-18',
             'since': '2014-11-01',
@@ -38,7 +34,7 @@ function infohub_render_map() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -59,7 +55,7 @@ function infohub_render_map() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -85,7 +81,7 @@ function infohub_render_map() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -120,7 +116,7 @@ function infohub_render_map() {
         return $parameter.join(' ');
     };
 
-    var _AddOverlay = function ($html, $alias)
+    const _AddOverlay = function ($html, $alias)
     {
         "use strict";
 
@@ -150,7 +146,7 @@ function infohub_render_map() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -187,7 +183,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Openstreetmap = function ($in)
+    const internal_Openstreetmap = function ($in)
     {
         "use strict";
 
@@ -239,7 +235,7 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Openstreetmaplink = function ($in)
+    const internal_Openstreetmaplink = function ($in)
     {
         "use strict";
 
@@ -280,7 +276,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    var internal_Googlemaps = function ($in)
+    const internal_Googlemaps = function ($in)
     {
         "use strict";
 
@@ -327,11 +323,9 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    var internal_Googlemapslink = function ($in)
+    const internal_Googlemapslink = function ($in)
     {
         "use strict";
-
-        var $html = '', $cssData = {};
 
         const $default = {
             'type': 'map',
@@ -344,6 +338,9 @@ function infohub_render_map() {
             'label': 'New tab'
         };
         $in = _Default($default, $in);
+
+        let $html = '',
+            $cssData = {};
 
         if ($in.data === '') {
             $html = '<a href="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;source=embed" target="_blank">' + $in.label + '</a>';
@@ -374,7 +371,7 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    var internal_Bingmaps = function ($in)
+    const internal_Bingmaps = function ($in)
     {
         "use strict";
 
@@ -435,11 +432,9 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    var internal_Bingmapslink = function ($in)
+    const internal_Bingmapslink = function ($in)
     {
         "use strict";
-
-        var $cssData = {};
 
         const $default = {
             'type': 'map',
@@ -453,6 +448,7 @@ function infohub_render_map() {
         };
         $in = _Default($default, $in);
 
+        let $cssData = {};
         let $html = '<a href="https://www.bing.com/maps?cp=' + $in.point_latitude + '~' + $in.point_longitude + '&sty=r&lvl=16&FORM=MBEDLD" target="_blank">' + $in.label + '</a>';
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
@@ -471,6 +467,5 @@ function infohub_render_map() {
             'css_data': $cssData
         };
     };
-
 }
 //# sourceURL=infohub_render_map.js

@@ -19,19 +19,11 @@ function infohub_login_password() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-09-12',
             'since': '2019-09-02',
@@ -44,7 +36,7 @@ function infohub_login_password() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_password_change': 'normal',
@@ -53,7 +45,7 @@ function infohub_login_password() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -61,7 +53,7 @@ function infohub_login_password() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
 
@@ -83,7 +75,7 @@ function infohub_login_password() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -178,7 +170,7 @@ function infohub_login_password() {
      * @author Peter Lembke
      */
     $functions.push("click_password_change");
-    var click_password_change = function ($in)
+    const click_password_change = function ($in)
     {
         "use strict";
 
@@ -373,7 +365,7 @@ function infohub_login_password() {
      * @author Peter Lembke
      */
     $functions.push("shared_secret_scramble");
-    var shared_secret_scramble = function ($in)
+    const shared_secret_scramble = function ($in)
     {
         "use strict";
 
@@ -405,7 +397,7 @@ function infohub_login_password() {
      * @author Peter Lembke
      */
     $functions.push("shared_secret_restore");
-    var shared_secret_restore = function ($in)
+    const shared_secret_restore = function ($in)
     {
         "use strict";
 
@@ -435,7 +427,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, shared_secret_scrambled: *, message: *, ok: *}}
      */
-    var internal_ModifySharedSecret = function ($in)
+    const internal_ModifySharedSecret = function ($in)
     {
         "use strict";
 
@@ -485,7 +477,7 @@ function infohub_login_password() {
      * @returns {ArrayBufferLike}
      * @private
      */
-    var _Base64ToArrayBuffer = function ($base64String)
+    const _Base64ToArrayBuffer = function ($base64String)
     {
         const $binaryString =  window.atob($base64String);
         const $length = $binaryString.length;
@@ -506,7 +498,7 @@ function infohub_login_password() {
      * @returns {string}
      * @private
      */
-    var _ArrayBufferToBase64 = function($arrayBuffer)
+    const _ArrayBufferToBase64 = function($arrayBuffer)
     {
         let $stringWithBinaryData = '';
         const $binaryIntegerArray = new Uint8Array($arrayBuffer);

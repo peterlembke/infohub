@@ -11,6 +11,7 @@ The core plugins are:
 * infohub_exchange
 * infohub_plugin
 * infohub_transfer
+
 They are started by folder/include/start.js
 
 If you want to create a new Infohub core in another language then start with these five core plugins.

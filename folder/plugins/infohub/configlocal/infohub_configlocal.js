@@ -27,11 +27,7 @@ function infohub_configlocal() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-12',
             'since': '2018-09-09',
@@ -45,7 +41,7 @@ function infohub_configlocal() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'startup': 'normal',
@@ -59,7 +55,7 @@ function infohub_configlocal() {
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
         let $pluginType = 'welcome',
             $tmp = $data.split("_");
@@ -71,7 +67,7 @@ function infohub_configlocal() {
         return 'infohub_configlocal_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -79,9 +75,12 @@ function infohub_configlocal() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string,
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -101,7 +100,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -223,7 +222,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push("startup");
-    var startup = function ($in)
+    const startup = function ($in)
     {
         "use strict";
 
@@ -301,7 +300,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push("submit");
-    var submit = function ($in)
+    const submit = function ($in)
     {
         "use strict";
 
@@ -363,7 +362,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('click_menu');
-    var click_menu = function ($in)
+    const click_menu = function ($in)
     {
         "use strict";
 
@@ -476,7 +475,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in)
+    const click = function ($in)
     {
         "use strict";
 
@@ -541,7 +540,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('load_items');
-    var load_items = function ($in)
+    const load_items = function ($in)
     {
         "use strict";
 
@@ -599,7 +598,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('get_config');
-    var get_config = function ($in)
+    const get_config = function ($in)
     {
         "use strict";
 
@@ -667,7 +666,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('apply_config');
-    var apply_config = function ($in)
+    const apply_config = function ($in)
     {
         "use strict";
 

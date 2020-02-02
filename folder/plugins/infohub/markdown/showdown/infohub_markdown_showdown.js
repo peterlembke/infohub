@@ -20,7 +20,7 @@ function infohub_markdown_showdown() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-04-04',
             'version': '1.0.0',
@@ -32,7 +32,7 @@ function infohub_markdown_showdown() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'convert': 'normal'
         };
@@ -50,14 +50,17 @@ function infohub_markdown_showdown() {
      * @author  Peter Lembke
      */
     $functions.push("convert"); // Enable this function
-    var convert = function ($in) {
+    const convert = function ($in)
+    {
         "use strict";
-        var $html = '',
-            $default = {
-                'text': '',
-                'step': 'step_start',
-            };
+
+        const $default = {
+            'text': '',
+            'step': 'step_start',
+        };
         $in = _Default($default, $in);
+
+        let $html = '';
 
         if ($in.step === 'step_start') 
         {
@@ -67,8 +70,8 @@ function infohub_markdown_showdown() {
             showdown.setOption('tasklists', true);
             showdown.setOption('openLinksInNewWindow', true);
             
-            var converter = new showdown.Converter(),
-                $html = converter.makeHtml($in.text);
+            const converter = new showdown.Converter();
+            $html = converter.makeHtml($in.text);
         }
         
         return {

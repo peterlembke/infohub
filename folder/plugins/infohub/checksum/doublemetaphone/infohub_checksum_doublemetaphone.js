@@ -20,7 +20,7 @@ function infohub_checksum_doublemetaphone() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2020-01-10',
             'since': '2017-03-01',
@@ -33,7 +33,7 @@ function infohub_checksum_doublemetaphone() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal'
@@ -54,7 +54,7 @@ function infohub_checksum_doublemetaphone() {
      * @return array
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) 
+    const calculate_checksum = function($in)
     {
         "use strict";
 
@@ -86,7 +86,7 @@ function infohub_checksum_doublemetaphone() {
      * @return array
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) 
+    const verify_checksum = function($in)
     {
         "use strict";
 

@@ -21,11 +21,7 @@ function infohub_render_text() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-02-18',
             'since': '2016-10-08',
@@ -38,7 +34,7 @@ function infohub_render_text() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,7 +54,7 @@ function infohub_render_text() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -105,7 +101,7 @@ function infohub_render_text() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -165,7 +161,7 @@ function infohub_render_text() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    var internal_Text = function ($in)
+    const internal_Text = function ($in)
     {
         "use strict";
 
@@ -219,7 +215,7 @@ function infohub_render_text() {
         };
     };
 
-    var _CheckParts = function ($in)
+    const _CheckParts = function ($in)
     {
         let $copy = $in.what_done,
             $next, $previous, $start, $stop, $part, $find, $html;
@@ -260,7 +256,7 @@ function infohub_render_text() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    var _Exchange = function ($find)
+    const _Exchange = function ($find)
     {
         "use strict";
 
@@ -304,6 +300,5 @@ function infohub_render_text() {
 
         return $html;
     };
-
 }
 //# sourceURL=infohub_render_text.js

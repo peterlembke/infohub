@@ -19,19 +19,11 @@ function infohub_translate_createfiles() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-01',
             'since': '2019-09-28',
@@ -44,7 +36,7 @@ function infohub_translate_createfiles() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_refresh': 'normal',
@@ -53,7 +45,7 @@ function infohub_translate_createfiles() {
         };
     };
 
-    var $pluginTranslationsMerged = {};
+    let $pluginTranslationsMerged = {};
 
     /**
      * Get the level 1 plugin name from a plugin name
@@ -63,15 +55,18 @@ function infohub_translate_createfiles() {
      * @private
      */
     $functions.push("_GetGrandPluginName");
-    var _GetGrandPluginName = function($pluginName) {
-        var $parts = $pluginName.split('_');
+    const _GetGrandPluginName = function($pluginName)
+    {
+        const $parts = $pluginName.split('_');
+
         if (_Count($parts) > 2) {
             return $parts[0] + '_' + $parts[1];
         }
+
         return $pluginName;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -79,9 +74,12 @@ function infohub_translate_createfiles() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string,
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -94,23 +92,25 @@ function infohub_translate_createfiles() {
      * @returns string
      */
     $functions.push('_MergeData');
-    var _MergeData = function ($object1, $object2) {
+    const _MergeData = function ($object1, $object2)
+    {
         "use strict";
+
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
             }
         }
+
         return _ByVal($object1);
     };
 
     $functions.push('_MergeKeys');
-    var _MergeKeys = function ($object1, $object2)
+    const _MergeKeys = function ($object1, $object2)
     {
         "use strict";
-        var $key;
 
-        for ($key in $object2)
+        for (let $key in $object2)
         {
             if ($object2.hasOwnProperty($key) === false) {
                 continue;
@@ -151,7 +151,7 @@ function infohub_translate_createfiles() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -273,7 +273,7 @@ function infohub_translate_createfiles() {
      * @author Peter Lembke
      */
     $functions.push("click_refresh");
-    var click_refresh = function ($in)
+    const click_refresh = function ($in)
     {
         "use strict";
 
@@ -351,7 +351,7 @@ function infohub_translate_createfiles() {
      * @author  Peter Lembke
      */
     $functions.push('click_create_files');
-    var click_create_files = function ($in)
+    const click_create_files = function ($in)
     {
         "use strict";
 
@@ -586,6 +586,5 @@ function infohub_translate_createfiles() {
             'ok': $in.data_back.ok
         };
     };
-
 }
 //# sourceURL=infohub_translate_createfiles.js

@@ -1,0 +1,85 @@
+{
+    "version": {
+        "date": "2020-01-19 20:14:18",
+        "plugin": "infohub_login",
+        "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_login": {
+            "Instructions": "Instrucciones",
+            "Use the menu.": "Usa el menú"
+        },
+        "infohub_login_contact": {
+            "One contact": "Un contacto",
+            "This is the data form for one contact": "Este es el formulario de datos para un contacto",
+            "Node": "Nodo",
+            "Any text you want": "Cualquier texto que desee",
+            "Note": "Nota",
+            "Save": "Guardar",
+            "Domain address": "Dirección de dominio",
+            "The domain address to your server": "La dirección de dominio a su servidor",
+            "User name": "Nombre de usuario",
+            "This is you on the server": "Este es usted en el servidor",
+            "Shared secret": "Secreto compartido",
+            "You share this secret with the server": "Usted comparte este secreto con el servidor",
+            "Checksum": "Suma de verificación",
+            "Checksum of domain address + user name + shared secret.": "Suma de verificación de la dirección de dominio + nombre de usuario + secreto compartido",
+            "Allowed plugins": "Complementos permitidos",
+            "List with all plugin names you can send messages to on the remote node": "Lista con todos los nombres de complementos a los que puede enviar mensajes en el nodo remoto"
+        },
+        "infohub_login_export": {
+            "Export contact": "Contacto de exportación",
+            "Here you can export the contact data": "Aquí puede exportar los datos de contacto",
+            "Export": "Exportar"
+        },
+        "infohub_login_forget": {
+            "Forget contact": "Olvidar contacto",
+            "Here you can let the browser forget the contact data. You can always import your file again.": "Aquí puede dejar que el navegador olvide los datos de contacto. Siempre puede importar su archivo nuevamente",
+            "Forget": "Olvidar"
+        },
+        "infohub_login_import": {
+            "Import": "Importar",
+            "Import the contact information from file": "Importar la información de contacto del archivo",
+            "Select file": "Seleccionar archivo"
+        },
+        "infohub_login_login": {
+            "Login": "Iniciar sesión",
+            "Here you can use the contact data you imported and login to the server": "Aquí puede usar los datos de contacto que importó e iniciar sesión en el servidor",
+            "Password": "Contraseña",
+            "Missing user name": "Falta nombre de usuario",
+            "Missing random code": "Falta código aleatorio",
+            "The answer from the server took too long time. I will abandon the login attempt": "La respuesta del servidor tomó demasiado tiempo. Abandonaré el intento de inicio de sesión",
+            "Failed to login": "Error al iniciar sesión",
+            "Success logging in": "Inicio de sesión correcto",
+            "The random code do not have the correct length": "El código aleatorio no tiene la longitud correcta",
+            "Unlikely that the total average has no decimals": "Es improbable que el promedio total no tenga decimales",
+            "Unlikely that the average is equal to the total average": "Es improbable que el promedio sea igual al promedio total",
+            "These simple tests show that the random_code at least is not a flatline of numbers.": "Estas pruebas simples muestran que al menos random_code no es una línea plana de números"
+        },
+        "infohub_login_logout": {
+            "Logout": "Cerrar sesión",
+            "Here you can logout from the server": "Aquí puede cerrar sesión desde el servidor",
+            "Failed to logout": "Error al cerrar sesión",
+            "Success logging out": "Cierre de sesión correcto"
+        },
+        "infohub_login_menu": {
+            "Menu": "Menú",
+            "Import contact data": "Importar datos de contacto",
+            "Login": "Iniciar sesión",
+            "Set password": "Establecer contraseña",
+            "Export contact data": "Exportar datos de contacto",
+            "Logout": "Cerrar sesión",
+            "Forget contact": "Olvidar contacto"
+        },
+        "infohub_login_password": {
+            "Set password": "Establecer contraseña",
+            "When you set your local password you scramble the shared secret so that it require your password to work": "Cuando configura su contraseña local, codifica el secreto compartido para que requiera su contraseña para funcionar",
+            "Current password": "Contraseña actual",
+            "New password": "Nueva contraseña",
+            "Change password": "Cambiar contraseña"
+        }
+    }
+}

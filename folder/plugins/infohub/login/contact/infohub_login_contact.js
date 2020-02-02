@@ -19,19 +19,11 @@ function infohub_login_contact() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-09-08',
             'since': '2019-09-08',
@@ -44,7 +36,7 @@ function infohub_login_contact() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'view_contact': 'normal',
@@ -55,7 +47,7 @@ function infohub_login_contact() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -63,7 +55,7 @@ function infohub_login_contact() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
 
@@ -80,7 +72,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("_SetDefaultNodeData");
-    var _SetDefaultNodeData = function ($nodeData)
+    const _SetDefaultNodeData = function ($nodeData)
     {
         "use strict";
 
@@ -109,7 +101,7 @@ function infohub_login_contact() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -274,7 +266,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("view_contact");
-    var view_contact = function ($in)
+    const view_contact = function ($in)
     {
         "use strict";
 
@@ -406,7 +398,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("storage_read_contact_data");
-    var storage_read_contact_data = function ($in)
+    const storage_read_contact_data = function ($in)
     {
         "use strict";
 
@@ -468,7 +460,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("storage_write_contact_data");
-    var storage_write_contact_data = function ($in)
+    const storage_write_contact_data = function ($in)
     {
         "use strict";
 
@@ -520,7 +512,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("storage_forget_contact_data");
-    var storage_forget_contact_data = function ($in)
+    const storage_forget_contact_data = function ($in)
     {
         "use strict";
 
@@ -571,7 +563,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push("click_save");
-    var click_save = function ($in)
+    const click_save = function ($in)
     {
         "use strict";
 
@@ -681,6 +673,5 @@ function infohub_login_contact() {
             'ok': $in.response.ok
         };
     };
-
 }
 //# sourceURL=infohub_login_contact.js

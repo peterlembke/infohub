@@ -28,7 +28,7 @@ You have several examples how to use language files in your plugins. See infohub
 
 Add this to your plugins, yes your child plugins too:
 ```
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -36,7 +36,7 @@ Add this to your plugins, yes your child plugins too:
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string) 
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({

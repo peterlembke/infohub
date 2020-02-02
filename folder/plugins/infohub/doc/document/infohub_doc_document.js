@@ -19,19 +19,11 @@ function infohub_doc_document() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-04-16',
             'since': '2019-04-16',
@@ -45,7 +37,7 @@ function infohub_doc_document() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'setup_gui': 'normal',
             'view_document': 'normal',
@@ -54,7 +46,7 @@ function infohub_doc_document() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -62,7 +54,7 @@ function infohub_doc_document() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -77,7 +69,7 @@ function infohub_doc_document() {
     // ***********************************************************
 
     $functions.push("_GetBoxId");
-    var _GetBoxId = function($child) {
+    const _GetBoxId = function($child) {
 
         if (_Empty($child) === 'true') {
             $child = 'document';
@@ -95,7 +87,7 @@ function infohub_doc_document() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -168,7 +160,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push("view_document");
-    var view_document = function ($in)
+    const view_document = function ($in)
     {
         "use strict";
 
@@ -275,7 +267,7 @@ function infohub_doc_document() {
      * @returns {*|void|string}
      * @private
      */
-    var _UpdateNavigationLinks = function ($text)
+    const _UpdateNavigationLinks = function ($text)
     {
         "use strict";
 
@@ -341,7 +333,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push("click_link");
-    var click_link = function ($in)
+    const click_link = function ($in)
     {
         "use strict";
 
@@ -393,7 +385,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push("get_document_html");
-    var get_document_html = function ($in)
+    const get_document_html = function ($in)
     {
         "use strict";
 

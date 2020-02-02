@@ -25,11 +25,7 @@ function infohub_storage() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2018-03-25',
             'version': '1.1.0',
@@ -41,7 +37,7 @@ function infohub_storage() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
             'write': 'normal',
@@ -65,7 +61,7 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('read');
-    var read = function ($in)
+    const read = function ($in)
     {
         "use strict";
 
@@ -113,7 +109,7 @@ function infohub_storage() {
                 $in.path = $in.path.toLowerCase().trim();
                 if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
                     $in.response.answer = 'false';
-                    var $row = 'Your plugin: %s, is not allowed to read this path: %s';
+                    const $row = 'Your plugin: %s, is not allowed to read this path: %s';
                     $in.response.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
                     $in.response.data = {};
                     break leave;
@@ -162,7 +158,7 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('write');
-    var write = function ($in)
+    const write = function ($in)
     {
         "use strict";
 
@@ -229,7 +225,7 @@ function infohub_storage() {
             }
 
             if ($in.step === 'step_end') {
-                var $a = 1;
+                const $a = 1;
             }
 
         }
@@ -254,7 +250,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('read_many');
-    var read_many = function ($in)
+    const read_many = function ($in)
     {
         "use strict";
 
@@ -329,7 +325,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('write_many');
-    var write_many = function ($in)
+    const write_many = function ($in)
     {
         "use strict";
 

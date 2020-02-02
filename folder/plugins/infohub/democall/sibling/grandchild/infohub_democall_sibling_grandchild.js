@@ -19,19 +19,11 @@ function infohub_democall_sibling_grandchild() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-07',
             'version': '2.0.0',
@@ -43,7 +35,7 @@ function infohub_democall_sibling_grandchild() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'grandchild_func': 'normal',
             'call_level1': 'normal',
@@ -59,10 +51,11 @@ function infohub_democall_sibling_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('grandchild_func');
-    var grandchild_func = function ($in)
+    const grandchild_func = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'alert': ''
         };
         $in = _Default($default, $in);
@@ -82,10 +75,11 @@ function infohub_democall_sibling_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('call_level1');
-    var sibling_func = function ($in)
+    const sibling_func = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_call_level1',
             'response': {
                 'answer': 'false',
@@ -130,10 +124,11 @@ function infohub_democall_sibling_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('call_parent');
-    var call_parent = function ($in)
+    const call_parent = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_call_parent',
             'response': {}
         };
@@ -163,6 +158,5 @@ function infohub_democall_sibling_grandchild() {
             'message': 'done'
         };
     };
-
 }
 //# sourceURL=infohub_democall_sibling_grandchild.js

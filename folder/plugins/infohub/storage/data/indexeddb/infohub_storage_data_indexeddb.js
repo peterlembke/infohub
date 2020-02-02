@@ -24,12 +24,8 @@ function infohub_storage_data_indexeddb() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     $functions.push('_Version');
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2017-08-26',
             'version': '1.0.0',
@@ -42,7 +38,7 @@ function infohub_storage_data_indexeddb() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
             'write': 'normal'
@@ -56,7 +52,7 @@ function infohub_storage_data_indexeddb() {
      * @return array
      */
     $functions.push('read');
-    var read = function ($in)
+    const read = function ($in)
     {
         "use strict";
 
@@ -72,7 +68,7 @@ function infohub_storage_data_indexeddb() {
         };
         $in = _Default($default, $in);
 
-        var $storeName = $in.connect.plugin_name_owner;
+        const $storeName = $in.connect.plugin_name_owner;
 
         if (!window.indexedDB) {
             $in.callback_function({
@@ -81,7 +77,7 @@ function infohub_storage_data_indexeddb() {
             });
         }
 
-        var $request = window.indexedDB.open($in.connect.db_name);
+        let $request = window.indexedDB.open($in.connect.db_name);
 
         $request.onerror = function(event) {
             // General error handler that take all bubbled errors
@@ -106,8 +102,8 @@ function infohub_storage_data_indexeddb() {
         };
 
         $request.onsuccess = function(event) {
-            var $database = event.target.result;
-            var $storeExist = $database.objectStoreNames.contains($storeName);
+            let $database = event.target.result;
+            const $storeExist = $database.objectStoreNames.contains($storeName);
             if ($storeExist === false) {
                 $in.callback_function({
                     'answer': 'false',
@@ -116,9 +112,9 @@ function infohub_storage_data_indexeddb() {
                 return {};
             }
 
-            var $transaction = $database.transaction($storeName, "readwrite");
-            var $store = $transaction.objectStore($storeName);
-            var $get = $store.get($in.path);
+            let $transaction = $database.transaction($storeName, "readwrite");
+            let $store = $transaction.objectStore($storeName);
+            let $get = $store.get($in.path);
             $get.onsuccess = function (event) {
                 $in.callback_function({
                     'answer': 'true',
@@ -140,7 +136,7 @@ function infohub_storage_data_indexeddb() {
      * @return array
      */
     $functions.push('write');
-    var write = function ($in)
+    const write = function ($in)
     {
         "use strict";
 
@@ -157,8 +153,8 @@ function infohub_storage_data_indexeddb() {
         };
         $in = _Default($default, $in);
 
-        var $storeName = $in.connect.plugin_name_owner;
-        var $indexName = $storeName + '-index';
+        const $storeName = $in.connect.plugin_name_owner;
+        const $indexName = $storeName + '-index';
 
         if (!window.indexedDB) {
             $in.callback_function({
@@ -168,7 +164,7 @@ function infohub_storage_data_indexeddb() {
             return {};
         }
 
-        var $request = window.indexedDB.open($in.connect.db_name);
+        let $request = window.indexedDB.open($in.connect.db_name);
 
         $request.onerror = function(event) {
             // General error handler that take all bubbled errors
@@ -188,32 +184,32 @@ function infohub_storage_data_indexeddb() {
         };
 
         $request.onupgradeneeded = function(event) {
-            var $database = event.target.result;
-            var $store = $database.createObjectStore($storeName, {keyPath: "bubble_path"});
-            var $index = $store.createIndex($indexName, ["bubble_path"], { unique: true });
+            let $database = event.target.result;
+            let $store = $database.createObjectStore($storeName, {keyPath: "bubble_path"});
+            let $index = $store.createIndex($indexName, ["bubble_path"], { unique: true });
         };
 
         $request.onsuccess = function(event) {
-            var $database = event.target.result;
-            var $storeExist = $database.objectStoreNames.contains($storeName);
+            let $database = event.target.result;
+            let $storeExist = $database.objectStoreNames.contains($storeName);
             if ($storeExist === false) {
-                var $newVersion = $database.version + 1;
+                const $newVersion = $database.version + 1;
                 $database.close();
 
-                var $dbUpdate = window.indexedDB.open($in.connect.db_name, $newVersion);
+                let $dbUpdate = window.indexedDB.open($in.connect.db_name, $newVersion);
 
                 $dbUpdate.onupgradeneeded = function(event) {
-                    var $database = event.target.result;
-                    var $store = $database.createObjectStore($storeName, {keyPath: "bubble_path"});
-                    var $index = $store.createIndex($indexName, ["bubble_path"], { unique: true });
+                    let $database = event.target.result;
+                    let $store = $database.createObjectStore($storeName, {keyPath: "bubble_path"});
+                    let $index = $store.createIndex($indexName, ["bubble_path"], { unique: true });
 
                     $store.transaction.oncomplete = function(event)
                     {
-                        var $transaction = $database.transaction($storeName, "readwrite");
+                        let $transaction = $database.transaction($storeName, "readwrite");
                         $store = $transaction.objectStore($storeName);
 
                         if (_Empty($in.data) === 'true') {
-                            var $delete = $store.delete($in.path);
+                            let $delete = $store.delete($in.path);
                             $delete.onsuccess = function (event) {
                                 $in.callback_function({
                                     'answer': 'true',
@@ -225,7 +221,7 @@ function infohub_storage_data_indexeddb() {
                             };
                         } else {
                             $in.data.bubble_path = $in.path;
-                            var $put = $store.put($in.data);
+                            let $put = $store.put($in.data);
                             $put.onsuccess = function (event) {
                                 $in.callback_function({
                                     'answer': 'true',
@@ -237,14 +233,13 @@ function infohub_storage_data_indexeddb() {
                             };
                         }
                     };
-
                 };
             } else {
-                var $transaction = $database.transaction($storeName, "readwrite");
-                var $store = $transaction.objectStore($storeName);
+                let $transaction = $database.transaction($storeName, "readwrite");
+                let $store = $transaction.objectStore($storeName);
 
                 if (_Empty($in.data) === 'true') {
-                    var $delete = $store.delete($in.path);
+                    let $delete = $store.delete($in.path);
                     $delete.onsuccess = function (event) {
                         $in.callback_function({
                             'answer': 'true',
@@ -252,11 +247,12 @@ function infohub_storage_data_indexeddb() {
                             'path': $in.path,
                             'data': $in.data
                         });
+
                         return {};
                     };
                 } else {
                     $in.data.bubble_path = $in.path;
-                    var $put = $store.put($in.data);
+                    let $put = $store.put($in.data);
                     $put.onsuccess = function (event) {
                         $in.callback_function({
                             'answer': 'true',
@@ -264,16 +260,14 @@ function infohub_storage_data_indexeddb() {
                             'path': $in.path,
                             'data': $in.data
                         });
+
                         return {};
                     };
                 }
-
             }
-
         };
 
         return {};
     };
-
 }
 //# sourceURL=infohub_storage_data_indexeddb.js

@@ -1,0 +1,85 @@
+{
+    "version": {
+        "date": "2020-01-19 20:14:18",
+        "plugin": "infohub_login",
+        "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
+        "language": "",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "data": {
+        "infohub_login": {
+            "Instructions": "Instruktioner",
+            "Use the menu.": "Använd menyn."
+        },
+        "infohub_login_contact": {
+            "One contact": "En kontakt",
+            "This is the data form for one contact": "Detta är dataformuläret för en kontakt",
+            "Node": "Nod",
+            "Any text you want": "All text du vill",
+            "Note": "Obs",
+            "Save": "Spara",
+            "Domain address": "Domänadress",
+            "The domain address to your server": "Domänadressen till din server",
+            "User name": "Användarnamn",
+            "This is you on the server": "Det här är du på servern",
+            "Shared secret": "Delad hemlighet",
+            "You share this secret with the server": "Du delar denna hemlighet med servern",
+            "Checksum": "Checksumma",
+            "Checksum of domain address + user name + shared secret.": "Kontrollsumma för domänadress + användarnamn + delad hemlighet.",
+            "Allowed plugins": "Tillåtna plugins",
+            "List with all plugin names you can send messages to on the remote node": "Lista med alla insticksnamn som du kan skicka meddelanden till på fjärrnoden"
+        },
+        "infohub_login_export": {
+            "Export contact": "Exportera kontakt",
+            "Here you can export the contact data": "Här kan du exportera kontaktdata",
+            "Export": "Exportera"
+        },
+        "infohub_login_forget": {
+            "Forget contact": "Glöm kontakt",
+            "Here you can let the browser forget the contact data. You can always import your file again.": "Här kan du låta webbläsaren glömma kontaktdata. Du kan alltid importera din fil igen.",
+            "Forget": "Glöm"
+        },
+        "infohub_login_import": {
+            "Import": "Importera",
+            "Import the contact information from file": "Importera kontaktinformationen från filen",
+            "Select file": "Välj fil"
+        },
+        "infohub_login_login": {
+            "Login": "Logga in",
+            "Here you can use the contact data you imported and login to the server": "Här kan du använda kontaktdata som du importerade och logga in på servern",
+            "Password": "Lösenord",
+            "Missing user name": "Saknar användarnamn",
+            "Missing random code": "Saknar slumpmässig kod",
+            "The answer from the server took too long time. I will abandon the login attempt": "Svaret från servern tog för lång tid. Jag lämnar inloggningsförsöket",
+            "Failed to login": "Det gick inte att logga in",
+            "Success logging in": "Framgångsinloggning",
+            "The random code do not have the correct length": "Slumpmässig kod har inte rätt längd",
+            "Unlikely that the total average has no decimals": "Det är osannolikt att det totala genomsnittet inte har några decimaler",
+            "Unlikely that the average is equal to the total average": "Det är osannolikt att genomsnittet är lika med det totala genomsnittet",
+            "These simple tests show that the random_code at least is not a flatline of numbers.": "Dessa enkla test visar att den slumpmässiga koden åtminstone inte är en plattlinje med siffror."
+        },
+        "infohub_login_logout": {
+            "Logout": "Logga ut",
+            "Here you can logout from the server": "Här kan du logga ut från servern",
+            "Failed to logout": "Det gick inte att logga ut",
+            "Success logging out": "Framgång logga ut"
+        },
+        "infohub_login_menu": {
+            "Menu": "Meny",
+            "Import contact data": "Importera kontaktdata",
+            "Login": "Logga in",
+            "Set password": "Ställ in lösenord",
+            "Export contact data": "Exportera kontaktdata",
+            "Logout": "Logga ut",
+            "Forget contact": "Glöm kontakt"
+        },
+        "infohub_login_password": {
+            "Set password": "Ställ in lösenord",
+            "When you set your local password you scramble the shared secret so that it require your password to work": "När du ställer in ditt lokala lösenord kryper du den delade hemligheten så att det kräver att ditt lösenord fungerar",
+            "Current password": "Aktuellt lösenord",
+            "New password": "Nytt lösenord",
+            "Change password": "Ändra lösenord"
+        }
+    }
+}

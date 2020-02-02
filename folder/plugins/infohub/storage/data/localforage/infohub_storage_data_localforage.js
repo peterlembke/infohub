@@ -24,12 +24,8 @@ function infohub_storage_data_localforage() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     $functions.push('_Version');
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2018-03-17',
             'version': '1.0.0',
@@ -42,7 +38,7 @@ function infohub_storage_data_localforage() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
             'write': 'normal',
@@ -50,7 +46,7 @@ function infohub_storage_data_localforage() {
         };
     };
 
-    var $WriteCache = {};
+    let $WriteCache = {};
 
     /**
      * You give connection credentials and a path,
@@ -59,22 +55,23 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('read');
-    var read = function ($in)
+    const read = function ($in)
     {
         "use strict";
 
-        var $postExist,
-            $default = {
-                'connect': {
-                    'plugin_name_handler': 'infohub_storage_data_localforage',
-                    'plugin_name_owner': '',
-                    'db_type': 'localforage',
-                    'db_name': 'infohub'
-                },
-                'path': '',
-                'callback_function': null
-            };
+        const $default = {
+            'connect': {
+                'plugin_name_handler': 'infohub_storage_data_localforage',
+                'plugin_name_owner': '',
+                'db_type': 'localforage',
+                'db_name': 'infohub'
+            },
+            'path': '',
+            'callback_function': null
+        };
         $in = _Default($default, $in);
+
+        let $postExist;
 
         if (!window.localforage) {
             $in.callback_function({
@@ -126,11 +123,11 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('write');
-    var write = function ($in)
+    const write = function ($in)
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_localforage',
                 'plugin_name_owner': '',
@@ -185,16 +182,17 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('read_paths');
-    var read_paths = function ($in)
+    const read_paths = function ($in)
     {
         "use strict";
 
-        var $data = {}, $key, $path,
-            $default = {
-                'path': '',
-                'callback_function': null
-            };
+        const $default = {
+            'path': '',
+            'callback_function': null
+        };
         $in = _Default($default, $in);
+
+        let $data = {};
 
         if (!window.localforage)
         {
@@ -211,9 +209,9 @@ function infohub_storage_data_localforage() {
         {
             $in.path = $in.path.substr(0, $in.path.indexOf('*'));
 
-            for ($key in keys) {
+            for (let $key in keys) {
                 if (keys.hasOwnProperty($key)) {
-                    $path = keys[$key];
+                    const $path = keys[$key];
                     if ($path.indexOf($in.path) === 0) {
                         $data[$path] = {};
                     }

@@ -20,7 +20,7 @@ function infohub_template() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2015-02-12',
             'version': '1.0.0',
@@ -32,7 +32,7 @@ function infohub_template() {
         };
     };
 
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'my_function': 'normal'
@@ -46,17 +46,12 @@ function infohub_template() {
     // ***********************************************************
 
     $functions.push("_GetText");
-    var _GetText = function ($in)
+    const _GetText = function ($in)
     {
         "use strict";
 
         return 'Text from _GetText';
     };
-
-    // ***********************************************************
-    // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
-    // ***********************************************************
 
 	/**
 	 * One row description of this function.
@@ -66,7 +61,7 @@ function infohub_template() {
 	 * @author Your name
 	 */
 	$functions.push("startup");
-	var startup = function ($in)
+	const startup = function ($in)
     {
         "use strict";
 
@@ -134,11 +129,11 @@ function infohub_template() {
 	 * @author Your name
 	 */
 	$functions.push("my_function");
-	var my_function = function($in)
+	const my_function = function($in)
     {
         "use strict";
 
-        var $default = {
+        const $default = {
             'step': 'start',
             'data': ' Default text from my_function '
         };
@@ -168,7 +163,7 @@ function infohub_template() {
 	 * @since 2012-01-01
 	 * @author Your name
 	 */
-	var internal_MyFunction = function($in)
+	const internal_MyFunction = function($in)
     {
         "use strict";
 

@@ -19,19 +19,11 @@ function infohub_translate_doc() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-09-28',
             'since': '2019-09-28',
@@ -44,7 +36,7 @@ function infohub_translate_doc() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_main': 'normal',
@@ -54,7 +46,7 @@ function infohub_translate_doc() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -62,7 +54,7 @@ function infohub_translate_doc() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -83,10 +75,11 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
@@ -188,10 +181,11 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    var click_main = function ($in)
+    const click_main = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_render',
             'response': {
                 'html': ''
@@ -217,10 +211,11 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_createfiles');
-    var click_createfiles = function ($in)
+    const click_createfiles = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_render',
             'response': {
                 'html': ''
@@ -246,10 +241,11 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_mergefiles');
-    var click_mergefiles = function ($in)
+    const click_mergefiles = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_render',
             'response': {
                 'html': ''
@@ -275,10 +271,11 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_updatefiles');
-    var click_updatefiles = function ($in)
+    const click_updatefiles = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'step': 'step_render',
             'response': {
                 'html': ''
@@ -304,7 +301,7 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
-    var _GetCall = function ($fileName)
+    const _GetCall = function ($fileName)
     {
         "use strict";
 
@@ -336,6 +333,5 @@ function infohub_translate_doc() {
             }
         });
     };
-
 }
 //# sourceURL=infohub_translate_doc.js

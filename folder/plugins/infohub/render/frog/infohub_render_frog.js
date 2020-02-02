@@ -21,11 +21,7 @@ function infohub_render_frog() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2016-10-08',
             'since': '2016-10-08',
@@ -38,7 +34,7 @@ function infohub_render_frog() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'create': 'normal'
         };
@@ -58,7 +54,7 @@ function infohub_render_frog() {
      * @returns {string}
      * @private
      */
-    var _GetId = function ($in)
+    const _GetId = function ($in)
     {
         "use strict";
 
@@ -106,7 +102,7 @@ function infohub_render_frog() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -133,6 +129,5 @@ function infohub_render_frog() {
             }
         };
     };
-
 }
 //# sourceURL=infohub_render_frog.js

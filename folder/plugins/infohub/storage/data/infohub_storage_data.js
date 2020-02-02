@@ -26,12 +26,10 @@ function infohub_storage_data() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
+
 
     $functions.push('_Version');
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2018-03-28',
             'version': '1.3.2',
@@ -44,7 +42,7 @@ function infohub_storage_data() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
             'write': 'normal',
@@ -66,7 +64,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('read');
-    var read = function ($in)
+    const read = function ($in)
     {
         "use strict";
 
@@ -233,7 +231,7 @@ function infohub_storage_data() {
      * @returns {*}
      */
     $functions.push('write');
-    var write = function ($in)
+    const write = function ($in)
     {
         "use strict";
 
@@ -402,7 +400,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('write_paths');
-    var write_paths = function ($in)
+    const write_paths = function ($in)
     {
         "use strict";
 
@@ -516,7 +514,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('_SetConnectionDefault');
-    var _SetConnectionDefault = function($in)
+    const _SetConnectionDefault = function($in)
     {
         const $default = {
             'plugin_name_handler': 'infohub_storage_data_indexeddb', // Name of the storage child plugin that can handle this connection

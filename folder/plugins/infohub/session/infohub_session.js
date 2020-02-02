@@ -19,19 +19,11 @@ function infohub_session() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function()
+    const _Version = function()
     {
         return {
             'date': '2020-01-12',
@@ -46,7 +38,7 @@ function infohub_session() {
         };
     };
 
-    var _GetCmdFunctions = function()
+    const _GetCmdFunctions = function()
     {
         return {
             'initiator_store_session_data': 'normal',
@@ -66,7 +58,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push("initiator_store_session_data");
-    var initiator_store_session_data = function ($in)
+    const initiator_store_session_data = function ($in)
     {
         "use strict";
 
@@ -124,7 +116,6 @@ function infohub_session() {
             'message': $in.response.message,
             'ok': $in.response.answer
         };
-
     };
 
     /**
@@ -136,7 +127,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push("initiator_end_session");
-    var initiator_end_session = function ($in)
+    const initiator_end_session = function ($in)
     {
         "use strict";
 
@@ -158,8 +149,8 @@ function infohub_session() {
 
         let $sessionId = '';
 
-        if ($in.step === 'step_get_session_data') {
-
+        if ($in.step === 'step_get_session_data')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -174,10 +165,10 @@ function infohub_session() {
                     'step': 'step_get_session_data_response'
                 }
             });
-
         }
 
-        if ($in.step === 'step_get_session_data_response') {
+        if ($in.step === 'step_get_session_data_response')
+        {
             $sessionId = _GetData({
                 'name': 'response/data/session_id',
                 'default': '',
@@ -189,7 +180,8 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_responder_end_session') {
+        if ($in.step === 'step_responder_end_session')
+        {
             return _SubCall({
                 'to': {
                     'node': $in.node,
@@ -206,13 +198,15 @@ function infohub_session() {
             });
         }
 
-        if ($in.step === 'step_responder_end_session_response') {
+        if ($in.step === 'step_responder_end_session_response')
+        {
             if ($in.response.answer === 'true') {
                 $in.step = 'step_delete_session_data';
             }
         }
 
-        if ($in.step === 'step_delete_session_data') {
+        if ($in.step === 'step_delete_session_data')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -239,7 +233,6 @@ function infohub_session() {
             'message': $in.response.message,
             'ok': $in.response.answer
         };
-
     };
 
     /**
@@ -249,7 +242,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push("initiator_calculate_sign_code");
-    var initiator_calculate_sign_code = function ($in)
+    const initiator_calculate_sign_code = function ($in)
     {
         "use strict";
 
@@ -353,7 +346,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push("initiator_verify_sign_code");
-    var initiator_verify_sign_code = function ($in)
+    const initiator_verify_sign_code = function ($in)
     {
         "use strict";
 
@@ -469,7 +462,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push("initiator_check_session_valid");
-    var initiator_check_session_valid = function ($in)
+    const initiator_check_session_valid = function ($in)
     {
         "use strict";
 
@@ -502,13 +495,12 @@ function infohub_session() {
         };
     };
 
-    var _CreatedAt = function ($in)
+    const _CreatedAt = function ($in)
     {
         "use strict";
 
         const $time = _MicroTime();
         return $time;
     }
-
 }
 //# sourceURL=infohub_session.js

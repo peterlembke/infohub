@@ -20,7 +20,7 @@ function infohub_compress_gzip() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-07-02',
             'since': '2019-07-02',
@@ -33,7 +33,7 @@ function infohub_compress_gzip() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'compress': 'normal',
             'uncompress': 'normal'
@@ -53,9 +53,10 @@ function infohub_compress_gzip() {
      * @return array|bool
      */
     $functions.push("compress");
-    var compress = function($in)
+    const compress = function($in)
     {
         "use strict";
+
         const $default = {
             'uncompressed_data': ''
         };
@@ -89,7 +90,7 @@ function infohub_compress_gzip() {
      * @return array|bool
      */
     $functions.push("uncompress");
-    var uncompress = function($in)
+    const uncompress = function($in)
     {
         "use strict";
 

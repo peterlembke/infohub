@@ -16,6 +16,7 @@
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 // Retrieve and start the core plugins
+// See bottom of this plugin for the command that trigger this start class
 function infohub_start($progress) {
 
     var $globalOnline = 'true', // Indicate if the server have answered or not
@@ -56,7 +57,7 @@ function infohub_start($progress) {
      * @param {type} $in
      * @returns {Boolean}
      */
-    var _ColdStart = function ()
+    const _ColdStart = function ()
     {
         "use strict";
 
@@ -119,7 +120,7 @@ function infohub_start($progress) {
      * Plugins that must be started before you can send the first message
      * @returns {string[]}
      */
-    var _GetCorePluginNames = function ()
+    const _GetCorePluginNames = function ()
     {
         "use strict";
 
@@ -135,7 +136,7 @@ function infohub_start($progress) {
      * Plugins that you need locally
      * @returns {string[]}
      */
-    var _GetNeededPluginNames = function ()
+    const _GetNeededPluginNames = function ()
     {
         "use strict";
 
@@ -143,6 +144,8 @@ function infohub_start($progress) {
             'infohub_asset',
             'infohub_base',
             'infohub_cache',
+            'infohub_checksum',
+            'infohub_checksum_md5',
             'infohub_compress',
             'infohub_compress_gzip',
             'infohub_configlocal',
@@ -158,6 +161,7 @@ function infohub_start($progress) {
             'infohub_render_text',
             'infohub_renderform',
             'infohub_rendermajor',
+            'infohub_session',
             'infohub_storage',
             'infohub_storage_data',
             'infohub_storage_data_idbkeyval',
@@ -176,7 +180,7 @@ function infohub_start($progress) {
      * @returns {Array}
      * @private
      */
-    var _GetMissingPluginNames = function ($corePluginNames)
+    const _GetMissingPluginNames = function ($corePluginNames)
     {
         "use strict";
 
@@ -212,7 +216,7 @@ function infohub_start($progress) {
      * @returns {*}
      * @private
      */
-    var _Count = function ($object)
+    const _Count = function ($object)
     {
         "use strict";
 
@@ -233,7 +237,7 @@ function infohub_start($progress) {
      * @returns {}
      * @private
      */
-    var _GetPackage = function ($missingPluginNames)
+    const _GetPackage = function ($missingPluginNames)
     {
         "use strict";
 
@@ -263,7 +267,7 @@ function infohub_start($progress) {
      * AJAX call to the server
      * @param $package
      */
-    var _CallServer = function ($package)
+    const _CallServer = function ($package)
     {
         "use strict";
 
@@ -276,7 +280,7 @@ function infohub_start($progress) {
 
         const $maxWaitTimeMS = 4000.0;
 
-        var noResponseTimer = setTimeout(function() {
+        const noResponseTimer = setTimeout(function() {
             xmlHttp.abort();
             _SetGlobalOnline('false');
         }, $maxWaitTimeMS);
@@ -329,7 +333,7 @@ function infohub_start($progress) {
      * @param $value
      * @private
      */
-    var _SetGlobalOnline = function ($value)
+    const _SetGlobalOnline = function ($value)
     {
         "use strict";
 
@@ -368,7 +372,7 @@ function infohub_start($progress) {
      * @returns {*}
      * @private
      */
-    var _IsErrorMessage = function ($response)
+    const _IsErrorMessage = function ($response)
     {
         const $errorMessageArray = ['{"type":"exception",', '{"type":"error",'];
 
@@ -393,7 +397,7 @@ function infohub_start($progress) {
      * Handles the AJAX response from the server
      * @param $serverResponse
      */
-    var _HandleServerResponse = function ($serverResponse)
+    const _HandleServerResponse = function ($serverResponse)
     {
         "use strict";
 
@@ -422,7 +426,7 @@ function infohub_start($progress) {
      * @returns {{answer: string, message: string, items: {}}}
      * @private
      */
-    var _GetMessagesFromResponse = function ($response)
+    const _GetMessagesFromResponse = function ($response)
     {
         "use strict";
 
@@ -477,7 +481,7 @@ function infohub_start($progress) {
      * @param $plugins
      * @private
      */
-    var _StorePlugins = function ($plugins)
+    const _StorePlugins = function ($plugins)
     {
         "use strict";
 
@@ -528,7 +532,7 @@ function infohub_start($progress) {
      * @returns {number}
      * @private
      */
-    var _MicroTime = function ()
+    const _MicroTime = function ()
     {
         "use strict";
 
@@ -543,7 +547,7 @@ function infohub_start($progress) {
      * @param $corePluginNames
      * @private
      */
-    var _StartCore = function ($corePluginNames)
+    const _StartCore = function ($corePluginNames)
     {
         "use strict";
 
@@ -564,7 +568,7 @@ function infohub_start($progress) {
      * @returns {{answer: string, message: string, all_started: string, started: {}, not_started: {}}}
      * @private
      */
-    var _StartPlugins = function ($corePluginNames)
+    const _StartPlugins = function ($corePluginNames)
     {
         "use strict";
 
@@ -640,7 +644,7 @@ function infohub_start($progress) {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    var _StartPlugin = function ($in)
+    const _StartPlugin = function ($in)
     {
         let $response = {
             'answer': 'false',
@@ -682,7 +686,7 @@ function infohub_start($progress) {
      * Sends the first message as an event.
      * @private
      */
-    var _SendFirstMessage = function ()
+    const _SendFirstMessage = function ()
     {
         "use strict";
 

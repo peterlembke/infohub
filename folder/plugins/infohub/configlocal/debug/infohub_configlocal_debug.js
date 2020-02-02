@@ -27,11 +27,7 @@ function infohub_configlocal_debug() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-05-25',
             'version': '2.0.0',
@@ -43,7 +39,7 @@ function infohub_configlocal_debug() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -58,11 +54,14 @@ function infohub_configlocal_debug() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        const $parts = $text.split('_');
+        let $response = '';
+
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -71,7 +70,7 @@ function infohub_configlocal_debug() {
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -79,9 +78,12 @@ function infohub_configlocal_debug() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -100,10 +102,11 @@ function infohub_configlocal_debug() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {}
@@ -112,7 +115,7 @@ function infohub_configlocal_debug() {
 
         $classTranslations = _ByVal($in.translations);
         $in.func = _GetFuncName($in.subtype);
-        var $response = internal_Cmd($in);
+        const $response = internal_Cmd($in);
 
         return {
             'answer': $response.answer,
@@ -127,17 +130,16 @@ function infohub_configlocal_debug() {
      * @returns {*}
      */
     $functions.push("internal_debug");
-    var internal_debug = function ($in)
+    const internal_debug = function ($in)
     {
         "use strict";
 
-        var $data,
-            $default = {
-                'parent_box_id': ''
-            };
+        const $default = {
+            'parent_box_id': ''
+        };
         $in = _Default($default, $in);
 
-        $data = {
+        const $data = {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',

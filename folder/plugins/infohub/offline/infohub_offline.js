@@ -20,7 +20,7 @@ function infohub_offline() {
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-11-14',
             'since': '2018-10-26',
@@ -33,7 +33,7 @@ function infohub_offline() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'subscribe': 'normal',
@@ -49,7 +49,7 @@ function infohub_offline() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -57,7 +57,7 @@ function infohub_offline() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -79,11 +79,11 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetOnline');
-    var _GetOnline = function ()
+    const _GetOnline = function ()
     {
         "use strict";
 
-        let $online = navigator.onLine ? "true" : "false";
+        const $online = navigator.onLine ? "true" : "false";
 
         return $online;
     };
@@ -95,13 +95,19 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetStatus');
-    var _GetStatus = function ($online)
+    const _GetStatus = function ($online)
     {
         "use strict";
 
         let $status = "unknown";
-        if ($online === 'false') { $status = 'offline'; }
-        if ($online === 'true') { $status = 'online'; }
+
+        if ($online === 'false') {
+            $status = 'offline';
+        }
+
+        if ($online === 'true') {
+            $status = 'online';
+        }
 
         return $status;
     };
@@ -113,7 +119,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetSubscribersMessages');
-    var _GetSubscribersMessages = function ($key)
+    const _GetSubscribersMessages = function ($key)
     {
         "use strict";
 
@@ -134,7 +140,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_AddMessages');
-    var _AddMessages = function ($key, $realKey, $data, $messages)
+    const _AddMessages = function ($key, $realKey, $data, $messages)
     {
         "use strict";
 
@@ -142,7 +148,8 @@ function infohub_offline() {
             return $messages;
         }
 
-        for (let $from in $data[$key]) {
+        for (let $from in $data[$key])
+        {
             if ($data[$key].hasOwnProperty($from) === false) {
                 continue;
             }
@@ -168,7 +175,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_LoadData');
-    var _LoadData = function ()
+    const _LoadData = function ()
     {
         "use strict";
 
@@ -208,7 +215,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_SaveData');
-    var _SaveData = function ($data)
+    const _SaveData = function ($data)
     {
         "use strict";
 
@@ -231,7 +238,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -391,7 +398,6 @@ function infohub_offline() {
             'answer': 'true',
             'message': 'plugin GUI is done'
         };
-
     };
 
     /**
@@ -404,7 +410,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    var subscribe = function ($in)
+    const subscribe = function ($in)
     {
         "use strict";
 
@@ -489,7 +495,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    var unsubscribe = function ($in)
+    const unsubscribe = function ($in)
     {
         "use strict";
 
@@ -522,7 +528,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    var unsubscribe_all = function ($in)
+    const unsubscribe_all = function ($in)
     {
         "use strict";
 
@@ -546,7 +552,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    var internal_Subscribe = function ($in)
+    const internal_Subscribe = function ($in)
     {
         "use strict";
 
@@ -577,11 +583,11 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    var internal_Unsubscribe = function ($in)
+    const internal_Unsubscribe = function ($in)
     {
         "use strict";
 
-        var $changed = 'false',
+        let $changed = 'false',
             $message = 'Could not find that key';
 
         const $default = {
@@ -621,7 +627,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    var internal_UnsubscribeAll = function ($in)
+    const internal_UnsubscribeAll = function ($in)
     {
         "use strict";
 
@@ -665,7 +671,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_plugins');
-    var gui_download_plugins = function ($in)
+    const gui_download_plugins = function ($in)
     {
         "use strict";
 
@@ -703,7 +709,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_assets');
-    var gui_download_assets = function ($in)
+    const gui_download_assets = function ($in)
     {
         "use strict";
 
@@ -772,7 +778,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_documentation');
-    var gui_download_documentation = function ($in)
+    const gui_download_documentation = function ($in)
     {
         "use strict";
 
@@ -810,7 +816,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    var gui_show_subscribers = function ($in)
+    const gui_show_subscribers = function ($in)
     {
         "use strict";
 
@@ -860,7 +866,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_indicator');
-    var update_indicator = function ($in)
+    const update_indicator = function ($in)
     {
         "use strict";
 
@@ -944,7 +950,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_service_worker');
-    var update_service_worker = function ($in)
+    const update_service_worker = function ($in)
     {
         "use strict";
 
@@ -1121,7 +1127,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 

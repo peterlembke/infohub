@@ -2,7 +2,7 @@
 You can render a table with columns and rows.
 
 ## Demo
-You can see a [demo](plugin_infohub_demo_table).
+You can see a [demo](plugin,infohub_demo_table).
 
 ## Usage
 ```

@@ -19,20 +19,12 @@ function infohub_workbench() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
     $functions.push("_Version");
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2017-03-08',
             'since': '2017-03-08',
@@ -47,7 +39,7 @@ function infohub_workbench() {
     };
 
     $functions.push("_GetCmdFunctions");
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'startup': 'normal',
             'setup_gui': 'normal',
@@ -56,14 +48,9 @@ function infohub_workbench() {
     };
 
     $functions.push("_GetBoxId");
-    var _GetBoxId = function() {
+    const _GetBoxId = function() {
         return 'main.body.' + _GetClassName();
     };
-
-    // ***********************************************************
-    // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
-    // ***********************************************************
 
     /**
      * First function to start. Sets up the basic boxes "head" and "body" if not already exist
@@ -73,7 +60,7 @@ function infohub_workbench() {
      * @author Peter Lembke
      */
     $functions.push("startup");
-    var startup = function ($in)
+    const startup = function ($in)
     {
         "use strict";
 
@@ -156,7 +143,7 @@ function infohub_workbench() {
      * @author  Peter Lembke
      */
     $functions.push('setup_plugin');
-    var setup_plugin = function ($in)
+    const setup_plugin = function ($in)
     {
         "use strict";
 
@@ -540,8 +527,6 @@ function infohub_workbench() {
             'answer': $answer,
             'message': $message
         };
-
     };
-
 }
 //# sourceURL=infohub_workbench.js

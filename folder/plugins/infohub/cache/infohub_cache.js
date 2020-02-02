@@ -28,7 +28,7 @@ function infohub_cache() {
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     $functions.push('_Version');
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2015-06-06',
             'version': '1.0.0',
@@ -40,7 +40,7 @@ function infohub_cache() {
     };
 
     $functions.push('_GetCmdFunctions');
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'save_data_to_cache': 'normal',
             'load_data_from_cache': 'normal',
@@ -65,7 +65,7 @@ function infohub_cache() {
      * @author  Peter Lembke
      */
     $functions.push('_LocalStorageExist');
-    var _LocalStorageExist = function ()
+    const _LocalStorageExist = function ()
     {
         "use strict";
 
@@ -98,7 +98,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('save_data_to_cache');
-    var save_data_to_cache = function ($in)
+    const save_data_to_cache = function ($in)
     {
         "use strict";
 
@@ -166,7 +166,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('load_data_from_cache');
-    var load_data_from_cache = function ($in)
+    const load_data_from_cache = function ($in)
     {
         "use strict";
 
@@ -238,7 +238,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('load_index_from_cache');
-    var load_index_from_cache = function ($in)
+    const load_index_from_cache = function ($in)
     {
         "use strict";
 
@@ -271,7 +271,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('update_index_in_cache');
-    var update_index_in_cache = function ($in)
+    const update_index_in_cache = function ($in)
     {
         "use strict";
 
@@ -331,7 +331,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('remove_data_from_cache');
-    var remove_data_from_cache = function ($in)
+    const remove_data_from_cache = function ($in)
     {
         "use strict";
 
@@ -359,7 +359,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_RemoveDataFromCache');
-    var internal_RemoveDataFromCache = function ($in)
+    const internal_RemoveDataFromCache = function ($in)
     {
         "use strict";
 
@@ -418,7 +418,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('remove_data_from_cache_by_prefix');
-    var remove_data_from_cache_by_prefix = function ($in)
+    const remove_data_from_cache_by_prefix = function ($in)
     {
         "use strict";
 
@@ -482,7 +482,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('validate_cache');
-    var validate_cache = function ($in)
+    const validate_cache = function ($in)
     {
         "use strict";
 
@@ -589,7 +589,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
     $functions.push('internal_LoadDataFromIndex');
-    var internal_LoadDataFromIndex = function ($in)
+    const internal_LoadDataFromIndex = function ($in)
     {
         "use strict";
 
@@ -648,7 +648,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
     $functions.push('internal_SaveDataToIndex');
-    var internal_SaveDataToIndex = function ($in)
+    const internal_SaveDataToIndex = function ($in)
     {
         "use strict";
 
@@ -733,7 +733,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
     $functions.push('internal_RemoveDataFromIndex');
-    var internal_RemoveDataFromIndex = function ($in)
+    const internal_RemoveDataFromIndex = function ($in)
     {
         "use strict";
 
@@ -808,7 +808,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
     $functions.push('internal_LoadIndex');
-    var internal_LoadIndex = function ($in)
+    const internal_LoadIndex = function ($in)
     {
         "use strict";
 
@@ -840,7 +840,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
     $functions.push('internal_SaveIndex');
-    var internal_SaveIndex = function ($in)
+    const internal_SaveIndex = function ($in)
     {
         "use strict";
 
@@ -871,7 +871,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_LocalStorageLoad');
-    var internal_LocalStorageLoad = function ($in)
+    const internal_LocalStorageLoad = function ($in)
     {
         "use strict";
 
@@ -944,7 +944,7 @@ function infohub_cache() {
      * @returns {{answer: string, message: string, key: *}}
      */
     $functions.push('internal_LocalStorageSave');
-    var internal_LocalStorageSave = function ($in)
+    const internal_LocalStorageSave = function ($in)
     {
         "use strict";
 

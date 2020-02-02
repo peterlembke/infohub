@@ -27,11 +27,7 @@ function infohub_contact_server() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-02-16',
             'version': '1.0.0',
@@ -43,7 +39,7 @@ function infohub_contact_server() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'create': 'normal',
             'click_refresh': 'normal',
@@ -55,7 +51,7 @@ function infohub_contact_server() {
         };
     };
     
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -63,9 +59,12 @@ function infohub_contact_server() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -84,10 +83,10 @@ function infohub_contact_server() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
@@ -99,8 +98,10 @@ function infohub_contact_server() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render') {
+        if ($in.step === 'step_render')
+        {
             $classTranslations = $in.translations;
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -312,23 +313,26 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push("click_refresh");
-    var click_refresh = function ($in) {
+    const click_refresh = function ($in)
+    {
         "use strict";
-        var $data = {}, $messageArray = [], $messageOut = {},
-            $default = {
-                'box_id': '',
-                'step': 'step_render_options',
-                'response': {
-                    'answer': 'false',
-                    'message': '',
-                    'node_list': [],
-                    'ok': 'false'
-                }
-            };
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_render_options',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'node_list': [],
+                'ok': 'false'
+            }
+        };
         $in = _Default($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_render_options') {
-            $messageOut = _SubCall({
+            let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
@@ -366,19 +370,22 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push("click_save");
-    var click_save = function ($in) 
+    const click_save = function ($in)
     {
         "use strict";
-        var $ok = 'false', $nodeData = {},
-            $default = {
-                'box_id': '',
-                'step': 'step_form_read',
-                'answer': '',
-                'message': '',
-                'response': {
-                    'form_data': {}
-                }
-            };
+
+        let $ok = 'false',
+            $nodeData = {};
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_form_read',
+            'answer': '',
+            'message': '',
+            'response': {
+                'form_data': {}
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_form_read') {
@@ -462,18 +469,22 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push("click_delete");
-    var click_delete = function ($in) {
+    const click_delete = function ($in)
+    {
         "use strict";
-        var $ok = 'false', $node = '',
-            $default = {
-                'box_id': '',
-                'step': 'step_form_read',
-                'answer': '',
-                'message': '',
-                'response': {
-                    'form_data': {}
-                }
-            };
+
+        let $ok = 'false',
+            $node = '';
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_form_read',
+            'answer': '',
+            'message': '',
+            'response': {
+                'form_data': {}
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_form_read') {
@@ -554,20 +565,22 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push("click_list");
-    var click_list = function ($in) {
+    const click_list = function ($in)
+    {
         "use strict";
-        var $default = {
-                'value': '',
-                'box_id': '',
-                'step': 'step_load_node_data',
-                'ok': 'false',
-                'response': {
-                    'answer': '',
-                    'message': '',
-                    'node_data': {},
-                    'ok': 'false'
-                }
-            };
+
+        const $default = {
+            'value': '',
+            'box_id': '',
+            'step': 'step_load_node_data',
+            'ok': 'false',
+            'response': {
+                'answer': '',
+                'message': '',
+                'node_data': {},
+                'ok': 'false'
+            }
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_load_node_data') {
@@ -642,18 +655,21 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push("click_import");
-    var click_import = function ($in) {
+    const click_import = function ($in)
+    {
         "use strict";
-        var $nodeData = {}, $ok = 'false',
-            $mode,
-            $default = {
-                'box_id': '',
-                'step': 'step_file_read_response',
-                'answer': '',
-                'message': '',
-                'event_data': '',
-                'files_data': []
-            };
+
+        let $nodeData = {},
+            $ok = 'false';
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_file_read_response',
+            'answer': '',
+            'message': '',
+            'event_data': '',
+            'files_data': []
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_file_read_response') 
@@ -668,7 +684,7 @@ function infohub_contact_server() {
         if ($in.step === 'step_check_if_json') 
         {
             $nodeData = $in.files_data[0].content;
-            $in.step = 'step_form_write'
+            $in.step = 'step_form_write';
             if (typeof $nodeData !== 'object') {
                 $in.message = 'This is not a json file';
                 $in.step = 'step_end';
@@ -676,7 +692,7 @@ function infohub_contact_server() {
         }
             
         if ($in.step === 'step_form_write') {
-            $default = {
+            const $defaultNodeData = {
                 'node': '',
                 'note': '',
                 'domain_address': '',
@@ -684,9 +700,9 @@ function infohub_contact_server() {
                 'shared_secret': '',
                 'plugin_names': []
             };
-            $nodeData = _Default($default, $nodeData);
+            $nodeData = _Default($defaultNodeData, $nodeData);
             
-            $mode = 'clean_and_add';
+            const $mode = 'clean_and_add';
             
             return _SubCall({
                 'to': {
@@ -734,18 +750,23 @@ function infohub_contact_server() {
      * @author  Peter Lembke
      */
     $functions.push('click_export');
-    var click_export = function ($in) {
+    const click_export = function ($in)
+    {
         "use strict";
-        var $nodeData = {}, $ok = 'false', $content = '', $fileName = '',
-            $default = {
-                'box_id': '',
-                'step': 'step_form_read',
-                'answer': 'false',
-                'message': 'Nothing',
-                'response': {
-                    'form_data': {}
-                }
-            };
+
+        let $nodeData = {},
+            $ok = 'false',
+            $content = '';
+
+        const $default = {
+            'box_id': '',
+            'step': 'step_form_read',
+            'answer': 'false',
+            'message': 'Nothing',
+            'response': {
+                'form_data': {}
+            }
+        };
         $in = _Merge($default, $in);
 
         if ($in.step === 'step_form_read') {
@@ -784,7 +805,8 @@ function infohub_contact_server() {
 
         if ($in.step === 'step_file_write') 
         {
-            $fileName = $nodeData['node'] + '.json';
+            const $fileName = $nodeData['node'] + '.json';
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -816,6 +838,5 @@ function infohub_contact_server() {
         };
 
     };
-
 }
 //# sourceURL=infohub_contact_server.js

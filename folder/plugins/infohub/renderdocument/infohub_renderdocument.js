@@ -27,11 +27,7 @@ function infohub_renderdocument() {
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2019-08-09',
             'since': '2019-08-09',
@@ -45,7 +41,7 @@ function infohub_renderdocument() {
         };
     };
 
-    var _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function () {
         return {
             'create': 'normal',
             'event_message': 'normal'
@@ -61,7 +57,7 @@ function infohub_renderdocument() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -88,7 +84,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -151,7 +147,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push("event_message"); // Enable this function
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -208,7 +204,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Document');
-    var internal_Document = function ($in)
+    const internal_Document = function ($in)
     {
         "use strict";
 
@@ -343,7 +339,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseCodeSegment');
-    var internal_ParseCodeSegment = function ($in)
+    const internal_ParseCodeSegment = function ($in)
     {
         "use strict";
 
@@ -389,7 +385,7 @@ function infohub_renderdocument() {
                 $text = $text + '[' + $tag + ']';
             }
 
-            // In markdown code can start with newline + 4 spaces and end with two newline. I do not support that.
+            // In markdown code can start with newline + 4 spaces and end with two newline. I do not support that yet.
 
         }
 
@@ -409,7 +405,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseInlineCodeSegment');
-    var internal_ParseInlineCodeSegment = function ($in)
+    const internal_ParseInlineCodeSegment = function ($in)
     {
         "use strict";
 
@@ -474,7 +470,7 @@ function infohub_renderdocument() {
      * @since   2019-08-18
      * @author  Peter Lembke
      */
-    var _SetSafeCodeCharacters = function ($text) {
+    const _SetSafeCodeCharacters = function ($text) {
         "use strict";
 
         $text = _Replace('<', '&#60;', $text);
@@ -493,7 +489,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleImages');
-    var internal_HandleImages = function ($in)
+    const internal_HandleImages = function ($in)
     {
         "use strict";
 
@@ -659,7 +655,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLinks');
-    var internal_HandleLinks = function ($in)
+    const internal_HandleLinks = function ($in)
     {
         "use strict";
 
@@ -786,7 +782,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleHeaders');
-    var internal_HandleHeaders = function ($in)
+    const internal_HandleHeaders = function ($in)
     {
         "use strict";
 
@@ -827,7 +823,7 @@ function infohub_renderdocument() {
                 $id = _Replace(' ', '-', $id);
                 $id = ' id="' + $id + '"';
 
-                const $findThis = $find + $command + "\n"; // Yes we will find and remove the newline at the end on the line
+                const $findThis = $find + $command + "\n"; // Yes we will find and remove the newline at the end of the line
                 const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' + $i + '>';
                 $modifiedText = $modifiedText.replace($findThis, $replaceWith);
             }
@@ -849,7 +845,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleStyle');
-    var internal_HandleStyle = function ($in)
+    const internal_HandleStyle = function ($in)
     {
         "use strict";
 
@@ -889,6 +885,13 @@ function infohub_renderdocument() {
             'end_tag': '[/strike]'
         });
 
+        $text = _FindStyle({
+            'text': $text,
+            'find': '^^',
+            'start_tag': '[light]',
+            'end_tag': '[/light]'
+        });
+
         return {
             'answer': 'true',
             'message': 'Handled all styles in the text',
@@ -903,7 +906,7 @@ function infohub_renderdocument() {
      * @returns {string}
      * @private
      */
-    var _FindStyle = function ($in)
+    const _FindStyle = function ($in)
     {
         "use strict";
 
@@ -946,7 +949,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLists');
-    var internal_HandleLists = function ($in)
+    const internal_HandleLists = function ($in)
     {
         "use strict";
 
@@ -1015,13 +1018,13 @@ function infohub_renderdocument() {
     };
 
     /**
-     * Convert all **bold text** to [b]bold text[/b]
+     * Convert all new lines to br tags or else they will vanish.
      * @version 2019-08-14
      * @since   2019-08-14
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleNewline');
-    var internal_HandleNewline = function ($in)
+    const internal_HandleNewline = function ($in)
     {
         "use strict";
 

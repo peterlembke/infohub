@@ -19,19 +19,11 @@ function infohub_demo_form() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2018-05-25',
@@ -44,7 +36,7 @@ function infohub_demo_form() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_file_read': 'normal',
@@ -61,20 +53,24 @@ function infohub_demo_form() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        let $response = '';
+        const $parts = $text.split('_');
+
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
+
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -82,9 +78,12 @@ function infohub_demo_form() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -103,10 +102,11 @@ function infohub_demo_form() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
-        var $default = {
+
+        const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
@@ -335,28 +335,33 @@ function infohub_demo_form() {
      * @author Peter Lembke
      */
     $functions.push("click_file_read");
-    var click_file_read = function ($in) {
+    const click_file_read = function ($in)
+    {
         "use strict";
-        var $i, $render, $what = {}, $name, $links, 
-            $default = {
-                'answer': 'false',
-                'message': 'Nothing to report',
-                'step': 'step_start',
-                'box_id': '',
-                'files_data': []
-            };
+
+        const $default = {
+            'answer': 'false',
+            'message': 'Nothing to report',
+            'step': 'step_start',
+            'box_id': '',
+            'files_data': []
+        };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
+        let $what = {};
+
+        if ($in.step === 'step_start')
         {
-            $links = '';
-            for ($i=0; $i< $in.files_data.length; $i++) {
-                $name = 'my_image_' + $i;
+            let $links = '';
+
+            for (let $fileNumber = 0; $fileNumber < $in.files_data.length; $fileNumber++)
+            {
+                const $name = 'my_image_' + $fileNumber;
                 $links = $links + '[' + $name + ']';
                 $what[$name] = {
                     'type': 'common',
                     'subtype': 'image',
-                    'data': $in.files_data[$i].content
+                    'data': $in.files_data[$fileNumber].content
                 };
             }
 
@@ -398,11 +403,13 @@ function infohub_demo_form() {
      * @author Peter Lembke
      */
     $functions.push("click_file_write");
-    var click_file_write = function ($in) {
+    const click_file_write = function ($in)
+    {
         "use strict";
-        var $default = {
-                'step': 'step_start'
-            };
+
+        const $default = {
+            'step': 'step_start'
+        };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') 
@@ -429,6 +436,5 @@ function infohub_demo_form() {
             'ok': 'true' // Gives an OK on the button you clicked
         };
     };
-
 }
 //# sourceURL=infohub_demo_form.js

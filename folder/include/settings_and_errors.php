@@ -102,8 +102,10 @@ function myExceptionHandler($exception) {
  */
 function shutdownFunction() {
     $lastError = error_get_last();
-    if ($lastError['type'] === E_ERROR or $lastError['type'] === E_WARNING) {
-        myErrorHandler($lastError['type'], $lastError['message'], $lastError['file'], $lastError['line']);
+    if (isset($lastError['type'])) {
+        if ($lastError['type'] === E_ERROR or $lastError['type'] === E_WARNING) {
+            myErrorHandler($lastError['type'], $lastError['message'], $lastError['file'], $lastError['line']);
+        }
     }
     // No error.
 }

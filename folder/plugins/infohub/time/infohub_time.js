@@ -19,7 +19,7 @@ function infohub_time() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-08-11',
             'since': '2018-08-11',
@@ -32,7 +32,7 @@ function infohub_time() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'time': 'normal',
             'get_available_options': 'normal'
@@ -48,7 +48,7 @@ function infohub_time() {
      * @returns {*}
      */
     $functions.push("time");
-    var time = function($in)
+    const time = function($in)
     {
         "use strict";
 
@@ -95,7 +95,7 @@ function infohub_time() {
      * @author  Peter Lembke
      * @return array|bool
      */
-    var _Time = function ()
+    const _Time = function ()
     {
         "use strict";
 
@@ -114,7 +114,7 @@ function infohub_time() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
 
@@ -131,6 +131,5 @@ function infohub_time() {
             'options': $options
         };
     };
-
 }
 //# sourceURL=infohub_time.js

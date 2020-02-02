@@ -79,7 +79,7 @@ function progress() {
      * @returns {*}
      * @private
      */
-    var _Count = function ($object)
+    const _Count = function ($object)
     {
         "use strict";
 

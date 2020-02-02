@@ -19,19 +19,11 @@ function infohub_welcome_youcan() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-10-06',
             'since': '2015-02-12',
@@ -44,7 +36,7 @@ function infohub_welcome_youcan() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal'
         };
@@ -59,20 +51,25 @@ function infohub_welcome_youcan() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text) {
+    const _GetFuncName = function($text)
+    {
         "use strict";
-        var $parts = [], $key, $response = '';
-        $parts = $text.split('_');
-        for ($key in $parts) {
+
+        let $response = '';
+        const $parts = $text.split('_');
+
+        for (let $key in $parts)
+        {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
+
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -80,9 +77,12 @@ function infohub_welcome_youcan() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
             'default': $string, 'data': $classTranslations, 'split': '|'
@@ -96,7 +96,7 @@ function infohub_welcome_youcan() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -105,7 +105,7 @@ function infohub_welcome_youcan() {
         $classTranslations = $in.translations;
 
         $in.func = _GetFuncName($in.subtype);
-        var $response = internal_Cmd($in);
+        const $response = internal_Cmd($in);
 
         return {
             'answer': $response.answer,
@@ -115,7 +115,7 @@ function infohub_welcome_youcan() {
     };
 
     $functions.push("internal_Youcan");
-    var internal_Youcan = function ($in)
+    const internal_Youcan = function ($in)
     {
         "use strict";
 
@@ -263,7 +263,6 @@ function infohub_welcome_youcan() {
             'message': 'Here are the render data that will create a welcome text',
             'data': $data
         };
-
     };
 }
 //# sourceURL=infohub_welcome_youcan.js

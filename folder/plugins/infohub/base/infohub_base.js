@@ -7,17 +7,14 @@
     /*jslint browser, eval, devel, single */
     /*jshint esversion: 6 */
 
-    // ***********************************************************
-    // * The only public variables, do not add your own
-    // ***********************************************************
-
-    var $functions = [], // Array with all functions
+    let $functions = [], // Array with all functions
         $firstDefault = null; // Used ONLY by the test() function.
 
     $functions.push('_VersionBase');
-    var _VersionBase = function() {
+    const _VersionBase = function() {
         return {
-            'date': '2016-01-06',
+            'date': '2020-01-24',
+            'since': '2016-01-06',
             'version': '1.0.0',
             'checksum': '{{base_checksum}}',
             'class_name': 'infohub_base',
@@ -27,7 +24,7 @@
     };
 
     $functions.push('_GetCmdFunctionsBase');
-    var _GetCmdFunctionsBase = function () {
+    const _GetCmdFunctionsBase = function () {
         return {
             'version': 'normal',
             'function_names': 'normal'
@@ -53,7 +50,7 @@
      * @return new object
      */
     $functions.push('_Default');
-    var _Default = function ($default, $in)
+    const _Default = function ($default, $in)
     {
         "use strict";
 
@@ -77,7 +74,7 @@
             return _ByVal($default);
         }
 
-        var $callbackFunction = '';
+        let $callbackFunction = '';
         if (typeof $in.callback_function === 'function') {
             $callbackFunction = $in.callback_function;
         }
@@ -151,7 +148,7 @@
      * @private
      */
     $functions.push('_GetDataType');
-    var _GetDataType = function (obj) {
+    const _GetDataType = function (obj) {
         return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
     };
 
@@ -168,10 +165,10 @@
      * @return new object
      */
     $functions.push('_Merge');
-    var _Merge = function ($object1, $object2)
+    const _Merge = function ($object1, $object2)
     {
         "use strict";
-        var $newObject = {};
+        let $newObject = {};
 
         if (typeof $object1 === 'object') {
             for (let $key in $object1) {
@@ -205,10 +202,11 @@
      * @return new object
      */
     $functions.push('_Delete');
-    var _Delete = function ($object1, $object2)
+    const _Delete = function ($object1, $object2)
     {
         "use strict";
-        var $newObject = _ByVal($object1);
+
+        let $newObject = _ByVal($object1);
 
         for (let $key in $object2) {
             if ($object1.hasOwnProperty($key) === true) {
@@ -228,7 +226,7 @@
      * @return new object
      */
     $functions.push('_ByVal');
-    var _ByVal = function ($object)
+    const _ByVal = function ($object)
     {
         "use strict";
 
@@ -249,15 +247,15 @@
      * @private
      */
     $functions.push('_Clone');
-    var _Clone = function (objectToBeCloned) {
+    const _Clone = function (objectToBeCloned) {
         if (!(objectToBeCloned instanceof Object)) {
             return objectToBeCloned;
         }
 
-        var objectClone;
+        let objectClone;
 
         // Filter out special objects.
-        var Constructor = objectToBeCloned.constructor;
+        let Constructor = objectToBeCloned.constructor;
         switch (Constructor) {
             // Implement other special objects here.
             case RegExp:
@@ -271,7 +269,7 @@
         }
 
         // Clone each property.
-        for (var prop in objectToBeCloned) {
+        for (let prop in objectToBeCloned) {
             objectClone[prop] = _Clone(objectToBeCloned[prop]);
         }
 
@@ -286,7 +284,7 @@
      * @private
      */
     $functions.push('_MiniClone');
-    var _MiniClone = function (objectToBeCloned)
+    const _MiniClone = function (objectToBeCloned)
     {
         if (!(objectToBeCloned instanceof Object)) { return objectToBeCloned; }
 
@@ -311,24 +309,27 @@
      * @private
      */
     $functions.push('_MethodExists');
-    var _MethodExists = function ($functionName)
+    const _MethodExists = function ($functionName)
     {
         "use strict";
 
-        var _ValidName = function ($name) {
-            var $myRegExp = /^([a-zA-Z0-9_]+)$/;
+        const _ValidName = function ($name) {
+            const $myRegExp = /^([a-zA-Z0-9_]+)$/;
             return $myRegExp.test($name);
         };
 
         if (typeof $functionName !== 'string') {
             return false;
         }
+
         if ($functions.indexOf($functionName) > -1) {
             return true;
         }
+
         if (_ValidName($functionName) === false) {
             return false;
         }
+
         try {
             if (typeof eval($functionName) === 'function') {
                 return true;
@@ -336,6 +337,7 @@
         } catch ($err) {
             return false;
         }
+
         return false;
     };
 
@@ -346,17 +348,20 @@
      * @return string
      */
     $functions.push('_TimeStamp');
-    var _TimeStamp = function ($in) {
+    const _TimeStamp = function ($in)
+    {
         "use strict";
-        var $date = new Date(),
+
+        const $date = new Date(),
             yyyy = $date.getFullYear().toString(),
             mm = ('0' + ($date.getMonth() + 1).toString() ).slice(-2), // getMonth() is zero-based
             dd = ('0' + $date.getDate().toString() ).slice(-2),
             hh = ('0' + $date.getHours().toString() ).slice(-2),
             min = ('0' + $date.getMinutes().toString() ).slice(-2),
-            sec = ('0' + $date.getSeconds().toString() ).slice(-2),
-            offsetTotal, offsetHours, offsetMinutes, offsetSign = '-', offsetResult = '+01:00',
-            $result;
+            sec = ('0' + $date.getSeconds().toString() ).slice(-2);
+
+        let offsetTotal, offsetHours, offsetMinutes, offsetSign = '-', offsetResult = '+01:00', $result;
+
         if ($in === 'c') {
             offsetTotal = $date.getTimezoneOffset();
             if (offsetTotal < 0) {
@@ -370,6 +375,7 @@
         } else {
             $result = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + min + ':' + sec;
         }
+
         return $result;
     };
 
@@ -381,9 +387,10 @@
      * @return string
      */
     $functions.push('_MicroTime');
-    var _MicroTime = function ()
+    const _MicroTime = function ()
     {
         "use strict";
+
         let $timestamp = (new Date()).getTime() / 1000.0;
 
         if (window.top !== window.self) {
@@ -399,7 +406,7 @@
      * @return string
      */
     $functions.push('_JsonEncode');
-    var _JsonEncode = function ($data)
+    const _JsonEncode = function ($data)
     {
         "use strict";
 
@@ -418,7 +425,7 @@
      * @return string
      */
     $functions.push('_JsonDecode');
-    var _JsonDecode = function ($row)
+    const _JsonDecode = function ($row)
     {
         "use strict";
 
@@ -441,7 +448,7 @@
      * @return string
      */
     $functions.push('_EncodeUtf8');
-    var _EncodeUtf8 = function ($data)
+    const _EncodeUtf8 = function ($data)
     {
         "use strict";
 
@@ -456,7 +463,7 @@
      * @return string
      */
     $functions.push('_DecodeUtf8');
-    var _DecodeUtf8 = function ($data)
+    const _DecodeUtf8 = function ($data)
     {
         "use strict";
 
@@ -473,16 +480,16 @@
      * @private
      */
     $functions.push('_GetData');
-    var _GetData = function ($in)
+    const _GetData = function ($in)
     {
         "use strict";
 
         const $default = {
-                'name': '',
-                'default': null,
-                'data': {},
-                'split': '/'
-            };
+            'name': '',
+            'default': null,
+            'data': {},
+            'split': '/'
+        };
         $in = _Default($default, $in);
 
         const $names = $in.name.split($in.split);
@@ -508,7 +515,8 @@
      * @returns {string}
      * @private
      */
-    var _UcWords = function ($string)
+    $functions.push('_UcWords');
+    const _UcWords = function ($string)
     {
         "use strict";
 
@@ -532,7 +540,7 @@
      * @private
      */
     $functions.push('_SprintF');
-    var _SprintF = function ($row, $substituteArray)
+    const _SprintF = function ($row, $substituteArray)
     {
         "use strict";
 
@@ -561,8 +569,10 @@
      * @private
      */
     $functions.push('_Pop');
-    var _Pop = function ($in)
+    const _Pop = function ($in)
     {
+        "use strict";
+
         $in = _ByVal($in);
 
         for (let $key in $in)
@@ -585,7 +595,7 @@
      * @private
      */
     $functions.push('_SubCall');
-    var _SubCall = function ($in)
+    const _SubCall = function ($in)
     {
         "use strict";
 
@@ -597,6 +607,7 @@
             'track': 'false',
             'wait': 0.2
         };
+
         const $out = _Default($default, $in);
 
         return $out;
@@ -609,7 +620,7 @@
      * @private
      */
     $functions.push('_Count');
-    var _Count = function ($object)
+    const _Count = function ($object)
     {
         "use strict";
 
@@ -631,16 +642,18 @@
      * @private
      */
     $functions.push('_Empty');
-    var _Empty = function ($object)
+    const _Empty = function ($object)
     {
         "use strict";
 
         if (typeof $object === 'undefined' || $object === null) {
             return 'true';
         }
+
         if (typeof $object === 'object' && _Count($object) === 0) {
             return 'true';
         }
+
         if (typeof $object === 'string' && $object === '') {
             return 'true';
         }
@@ -654,12 +667,12 @@
      * @private
      */
     $functions.push('_IsSet');
-    var _IsSet = function ()
+    const _IsSet = function ()
     {
         "use strict";
 
-        var $arguments = arguments,
-            $undefined;
+        const $arguments = arguments;
+        let $undefined;
 
         if ($arguments.length === 0) {
             return 'false';
@@ -668,6 +681,7 @@
         if ($arguments[0] === $undefined || $arguments[0] === null) {
             return 'false';
         }
+
         return 'true';
     };
 
@@ -682,14 +696,14 @@
      * @private
      */
     $functions.push('_Replace');
-    var _Replace = function ($find, $replace, $string)
+    const _Replace = function ($find, $replace, $string)
     {
         "use strict";
 
         if (typeof $string === 'string' && typeof $find === 'string' && typeof $replace === 'string')
         {
             $find = $find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-            var $regexp = new RegExp($find, 'g');
+            const $regexp = new RegExp($find, 'g');
             $string = $string.replace($regexp, $replace);
         }
 
@@ -702,8 +716,10 @@
      * @return string
      */
     $functions.push('_GetCmdFunctionStatus');
-    var _GetCmdFunctionStatus = function ($functionName)
+    const _GetCmdFunctionStatus = function ($functionName)
     {
+        "use strict";
+
         let $functions = _GetCmdFunctions();
         const $functionsBase = _GetCmdFunctionsBase();
         $functions = _Merge($functionsBase, $functions);
@@ -766,8 +782,10 @@
      * @private
      */
     $functions.push('_GetClassName');
-    var _GetClassName = function ()
+    const _GetClassName = function ()
     {
+        "use strict";
+
         if (typeof _Version !== 'function') {
             return '';
         }
@@ -788,9 +806,11 @@
      * @private
      */
     $functions.push('_GetCallerPluginName');
-    var _GetCallerPluginName = function ($in)
+    const _GetCallerPluginName = function ($in)
     {
-        var _GetLastInArray = function ($dataArray) {
+        "use strict";
+
+        const _GetLastInArray = function ($dataArray) {
             if (Array.isArray($dataArray)) {
                 if ($dataArray.length > 0) {
                     return $dataArray[$dataArray.length - 1];
@@ -799,13 +819,13 @@
             return null;
         };
 
-        var $fromPlugin = {}, $lastInCallStack,
-            $default = {
-                'callstack': []
-            };
+        let $default = {
+            'callstack': []
+        };
         $in = _Default($default, $in);
 
-        $lastInCallStack = _GetLastInArray($in.callstack);
+        let $fromPlugin = {};
+        let $lastInCallStack = _GetLastInArray($in.callstack);
         if (_Empty($lastInCallStack) === 'false') {
             if (_IsSet($lastInCallStack.to) === 'true') {
                 $fromPlugin = $lastInCallStack.to;
@@ -843,10 +863,7 @@
     this.cmd = function ($in) {
         // "use strict";
 
-        var $startTime = _MicroTime(),
-            $runThisRow, $errorStack,
-            $subCall, $response, $oneCallResponse,
-            $status;
+        const $startTime = _MicroTime();
 
         const $default = {
             'to': {
@@ -861,6 +878,10 @@
             'callback_function': null
         };
         $in = _Default($default, $in);
+
+        let $runThisRow, $errorStack,
+            $subCall, $response, $oneCallResponse,
+            $status;
 
         let $answer = 'false';
         let $message = '';
@@ -877,7 +898,7 @@
         const $functionName = $in.to.function.toLowerCase();
         internal_Log({'message': 'Will call: ' + $functionName, 'function_name': 'cmd', 'object': $in, 'depth': 1});
 
-        var callbackFunction = function($callResponse)
+        const callbackFunction = function($callResponse)
         {
             if (typeof $callResponse !== 'object') {
                 $message = 'Function: ' + $functionName + ' did not return an object as it should. (' + typeof($callResponse) + ')';
@@ -936,7 +957,7 @@
                 'execution_time': $out.execution_time
             });
 
-            var sleep = function ($milliseconds) {
+            const sleep = function ($milliseconds) {
                 $milliseconds += new Date().getTime();
                 while (new Date() < $milliseconds) {
                 }
@@ -1077,7 +1098,8 @@
      */
     this.test = function ($functionName, $in) {
         // "use strict";
-        var $callResponse = {},
+
+        let $callResponse = {},
             $errorMessage = '', $runThisRow, $answer;
 
         leave:
@@ -1118,6 +1140,7 @@
             'out': $callResponse,
             'error_message': $errorMessage
         };
+
         return $answer;
     };
 
@@ -1136,9 +1159,11 @@
      * @returns {boolean}
      */
     $functions.push("version");
-    var version = function ($in) {
+    const version = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
                 'date': '',
                 'version': '',
                 'checksum': '',
@@ -1154,6 +1179,7 @@
             $versionBase = _Default($default, _VersionBase()),
 
             $navigator = window.navigator,
+
             $clientInfo = {
                 'browser_name': $navigator.appName,
                 'browser_version': $navigator.appVersion,
@@ -1181,13 +1207,16 @@
      * @returns {boolean}
      */
     $functions.push("function_names");
-    var function_names = function ($in) {
+    const function_names = function ($in)
+    {
         "use strict";
-        var $answer = {
+
+        const $answer = {
             'answer': 'true',
             'message': 'All function_names in this plugin',
             'data': $functions
         };
+
         return $answer;
     };
 
@@ -1209,19 +1238,22 @@
      * @return object
      */
     $functions.push("internal_Cmd");
-    var internal_Cmd = function ($in) {
+    const internal_Cmd = function ($in)
+    {
         // "use strict"; // Do not use strict with eval()
 
-        var $startTime = _MicroTime(),
-            $message, $functionName, $runThisRow, $callResponse, $errorStack,
-            $default = {'func': ''};
+        const $startTime = _MicroTime();
+
+        const $default = {'func': ''};
         $in = _Merge($default, $in);
+
+        let $errorStack;
+        let $message = '';
+        let $callResponse = {};
+        let $functionName = 'internal_' + $in.func;
 
         tests:
         {
-            $message = '';
-            $callResponse = {};
-            $functionName = 'internal_' + $in.func;
             internal_Log({
                 'message': 'Will call: ' + $functionName,
                 'function_name': $functionName,
@@ -1242,7 +1274,7 @@
             });
 
             try {
-                $runThisRow = '$callResponse = ' + $functionName + "($in)";
+                const $runThisRow = '$callResponse = ' + $functionName + "($in)";
                 $firstDefault = null;
                 eval($runThisRow);
             } catch ($err) {
@@ -1299,6 +1331,7 @@
         }
 
         $callResponse.execution_time = _MicroTime() - $startTime;
+
         internal_Log({
             'message': 'Leaving internal_Cmd()',
             'function_name': $functionName,
@@ -1306,6 +1339,7 @@
             'execution_time': $callResponse.execution_time,
             'depth': -1
         });
+
         return $callResponse;
     };
 
@@ -1325,7 +1359,8 @@
      * @uses start_time | integer | important when you create a new group
      */
     $functions.push("internal_Log");
-    var internal_Log = function ($in) {
+    const internal_Log = function ($in)
+    {
         "use strict";
 
         if (!window.console) {
@@ -1335,19 +1370,22 @@
             };
         }
 
-        var $message, $toScreen = '', $errorBox,
-            $default = {
-                'time_stamp': _TimeStamp(),
-                'node_name': 'client',
-                'plugin_name': _GetClassName(),
-                'function_name': '',
-                'message': '',
-                'level': 'log',
-                'object': {},
-                'depth': 0,
-                'get_backtrace': 'false',
-                'execution_time': 0.0
-            };
+        let $message,
+            $toScreen = '',
+            $errorBox;
+
+        const $default = {
+            'time_stamp': _TimeStamp(),
+            'node_name': 'client',
+            'plugin_name': _GetClassName(),
+            'function_name': '',
+            'message': '',
+            'level': 'log',
+            'object': {},
+            'depth': 0,
+            'get_backtrace': 'false',
+            'execution_time': 0.0
+        };
         $in = _Default($default, $in);
 
         if (_IsSet($GLOBALS.infohub_minimum_error_level) === 'false') {
@@ -1442,22 +1480,23 @@
      * @return object
      */
     $functions.push("internal_SubCall");
-    var internal_SubCall = function ($in) {
+    const internal_SubCall = function ($in)
+    {
         "use strict";
-        var $out, $callStackAdd,
-            $default = {
-                'func': 'SubCall',
-                'to': {'node': 'client', 'plugin': 'exchange', 'function': 'default'}, // Where to send this message
-                'data': {}, // The data you want to be available to the sub-function you call.
-                'data_request': [], // Array with variable names you want from the sub-function. Leave blank to get everything.
-                'data_back': {}, // Return these variables untouched in the returning message. (OPTIONAL)
-                'wait': 10.0, // Seconds you can wait before this message really need to be sent.
-                'track': 'false', // 'true' lets Cmd add an array of where this message have been.
-                'original_message': {} // Original message that came into cmd().
-            };
+
+        const $default = {
+            'func': 'SubCall',
+            'to': {'node': 'client', 'plugin': 'exchange', 'function': 'default'}, // Where to send this message
+            'data': {}, // The data you want to be available to the sub-function you call.
+            'data_request': [], // Array with variable names you want from the sub-function. Leave blank to get everything.
+            'data_back': {}, // Return these variables untouched in the returning message. (OPTIONAL)
+            'wait': 10.0, // Seconds you can wait before this message really need to be sent.
+            'track': 'false', // 'true' lets Cmd add an array of where this message have been.
+            'original_message': {} // Original message that came into cmd().
+        };
         $in = _Default($default, $in);
 
-        $out = {
+        let $out = {
             'to': $in.to,
             'data': $in.data,
             'data_back': $in.data_back,
@@ -1471,13 +1510,14 @@
 
         if (_IsSet($in.original_message.callstack) === 'true') {
             $out.callstack = $in.original_message.callstack;
-            $callStackAdd = {
+            const $callStackAdd = {
                 'to': $in.original_message.to,
                 'data_back': $in.data_back,
                 'data_request': $in.data_request
             };
             $out.callstack.push(_ByVal($callStackAdd));
         }
+
         return {
             'answer': 'true',
             'message': 'Here are a sub call message',
@@ -1496,34 +1536,40 @@
      * @uses data_request | array | Array with Data variables we want back (OPTIONAL) If omitted you get what the function give you
      */
     $functions.push("internal_ReturnCall");
-    var internal_ReturnCall = function ($in) {
+    const internal_ReturnCall = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'func': 'ReturnCall',
             'variables': {},
             'original_message': {}
         };
         $in = _Default($default, $in);
 
-        var $defaultMessageFromCallStack = {
-                'to': {},
-                'data_back': {},
-                'data_request': []
-            },
-            $messageFromCallStack = {},
-            $dataSend = {},
-            $variableName = '', $length, $i, $out;
+
+        let $messageFromCallStack = {};
 
         if ($in.original_message.callstack.length > 0) {
             // pop() moves the last value of the array to your variable
             $messageFromCallStack = $in.original_message.callstack.pop();
         }
+
+        const $defaultMessageFromCallStack = {
+            'to': {},
+            'data_back': {},
+            'data_request': []
+        };
+
         $messageFromCallStack = _Default($defaultMessageFromCallStack, $messageFromCallStack);
 
-        $length = $messageFromCallStack.data_request.length;
+        let $dataSend = {};
+
+        const $length = $messageFromCallStack.data_request.length;
         if ($length > 0) {
-            for ($i = 0; $i < $length; $i++) {
-                $variableName = $messageFromCallStack.data_request[$i];
+            for (let dataRequestIndex = 0; dataRequestIndex < $length; dataRequestIndex++)
+            {
+                const $variableName = $messageFromCallStack.data_request[dataRequestIndex];
                 if ($in.variables.hasOwnProperty($variableName)) {
                     $dataSend[$variableName] = $in.variables[$variableName];
                 }
@@ -1541,11 +1587,12 @@
         // You validate the 'response' in the step that handle the subcall response.
         $messageFromCallStack.data_back.response = _ByVal($dataSend);
 
-        $out = {
+        const $out = {
             'to': $messageFromCallStack.to, // To Node
             'callstack': $in.original_message.callstack, // Rest of the callstack
             'data': _Merge($dataSend, $messageFromCallStack.data_back) // Kept for legacy and for simplicity
         };
+
         return {
             'answer': 'true',
             'message': 'Here you get a return message',

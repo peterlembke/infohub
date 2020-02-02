@@ -3,23 +3,23 @@ With this menu you can navigate in infohub_login and use different features.
 
 ## Import contact data
 Here you can import the file you got from the server owner. It is a JSON file and it will allow you to login to that server.
-Read more here: [infohub_login_import](plugin_infohub_login_import) 
+Read more here: [infohub_login_import](plugin,infohub_login_import) 
 
 ## Login
 Here you can use the previously imported contact and login to the server.
-Read more here: [infohub_login_login](plugin_infohub_login_login) 
+Read more here: [infohub_login_login](plugin,infohub_login_login) 
 
 ## Set password
 Here you can set a password on the shared secret so that it is useless if someone steal the shared_secret.
-Read more here: [infohub_login_password](plugin_infohub_login_password) 
+Read more here: [infohub_login_password](plugin,infohub_login_password) 
 
 ## Export contact data
 Here you can export your current contact to a file. Useful for backup or for logging in on more devices.
-Read more here: [infohub_login_export](plugin_infohub_login_export) 
+Read more here: [infohub_login_export](plugin,infohub_login_export) 
 
 ## Logout
 Here you can logout. With this you tell the other node that you do not want an active connection and instead want to login the next time you want to send messages.
-Read more here: [infohub_login_logout](plugin_infohub_login_logout) 
+Read more here: [infohub_login_logout](plugin,infohub_login_logout) 
 
 # License
 This documentation is copyright (C) 2019 Peter Lembke.

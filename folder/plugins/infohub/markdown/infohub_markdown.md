@@ -41,11 +41,22 @@ return _SubCall({
 });
 ```
 
+## Supported types
+There are some well known libraries that convert Markdown to HTML and they are included as child plugins here.
+* [Marked](plugin,infohub_markdown_marked) 
+* [Remarkable](plugin,infohub_markdown_remarkable) 
+* [Showdown](plugin,infohub_markdown_showdown)
+* [Infohub](plugin,infohub_markdown_own)
+Each of them are really good and have different strengths. That is why I did not just settle for one.  
+
+## Documentation rendering
+There is another plugin called [infohub_renderdocument](plugin,infohub_renderdocument).
+This plugin are used when rendering the documentation. It is based totally on the renderers that are in Infohub. It is fast and flexible. You can review that as an alternative to you Markdown rendering.  
+
 ## More about Markdown in general
-
-https://guides.github.com/features/mastering-markdown/
-https://www.markdownguide.org/cheat-sheet/
-https://github.github.com/gfm/
-http://demo.showdownjs.com/#!#tables
-https://github.com/showdownjs/showdown
-
+Links to information about Markdown in general.
+* [Github features](https://guides.github.com/features/mastering-markdown/)
+* [Markdown guide](https://www.markdownguide.org/cheat-sheet/)
+* [Github gfm](https://github.github.com/gfm/)
+* [Showdown - tables](http://demo.showdownjs.com/#!#tables)
+* [Showdown](https://github.com/showdownjs/showdown)

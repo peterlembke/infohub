@@ -19,19 +19,11 @@ function infohub_democall() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-05-19',
             'since': '2018-05-19',
@@ -45,7 +37,7 @@ function infohub_democall() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'startup': 'normal',
             'setup_gui': 'normal',
@@ -53,9 +45,9 @@ function infohub_democall() {
         };
     };
 
-    var _GetPluginName = function($data)
+    const _GetPluginName = function($data)
     {
-        var $pluginType = 'welcome',
+        let $pluginType = 'welcome',
             $tmp = $data.split("_");
 
         if (_IsSet($tmp[0]) === 'true') {
@@ -65,7 +57,7 @@ function infohub_democall() {
         return 'infohub_democall_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -73,7 +65,7 @@ function infohub_democall() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -99,9 +91,11 @@ function infohub_democall() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in) {
+    const setup_gui = function ($in)
+    {
         "use strict";
-        var $default = {
+
+        const $default = {
             'box_id': '',
             'step': 'step_start'
         };
@@ -253,14 +247,16 @@ function infohub_democall() {
      * @author Peter Lembke
      */
     $functions.push("startup");
-    var startup = function ($in) {
+    const startup = function ($in)
+    {
         "use strict";
-        var $default = {
-                'step': 'step_democall_list',
-                'parent_box_id': '1',
-                'callback_function': null,
-                'data': {}
-            };
+
+        const $default = {
+            'step': 'step_democall_list',
+            'parent_box_id': '1',
+            'callback_function': null,
+            'data': {}
+        };
         $in = _Default($default, $in);
 
         if ($in.step === "step_democall_list")
@@ -305,7 +301,7 @@ function infohub_democall() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    var event_message = function ($in)
+    const event_message = function ($in)
     {
         "use strict";
 
@@ -454,8 +450,6 @@ function infohub_democall() {
             'message': $in.message,
             'ok': $in.ok
         };
-
     };
-
 }
 //# sourceURL=infohub_democall.js

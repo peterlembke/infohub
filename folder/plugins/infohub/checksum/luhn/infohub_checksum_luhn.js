@@ -20,7 +20,7 @@ function infohub_checksum_luhn() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-07-29',
             'since': '2017-03-01',
@@ -35,7 +35,7 @@ function infohub_checksum_luhn() {
 
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal'
@@ -55,15 +55,16 @@ function infohub_checksum_luhn() {
      * @return array|bool
      */
     $functions.push("calculate_checksum");
-    var calculate_checksum = function($in) {
+    const calculate_checksum = function($in)
+    {
         "use strict";
-        var $result,
-            $default = {'value': '' };
+
+        const $default = {'value': '' };
         $in = _Default($default, $in);
 
         $in['value'] = _RemoveAllButNumbers($in['value']);
 
-        $result = _LuhnCalculateChecksum($in.value);
+        const $result = _LuhnCalculateChecksum($in.value);
 
         return {
             'answer': 'true',
@@ -83,19 +84,20 @@ function infohub_checksum_luhn() {
      * @return array|bool
      */
     $functions.push("verify_checksum");
-    var verify_checksum = function($in) {
+    const verify_checksum = function($in)
+    {
         "use strict";
-        var $verified, $result,
-            $default = {
-                'value': '',
-                'checksum': ''
-            };
+
+        const $default = {
+            'value': '',
+            'checksum': ''
+        };
         $in = _Default($default, $in);
 
         $in['value'] = _RemoveAllButNumbers($in['value']);
 
-        $verified = 'false';
-        $result = _LuhnVerifyChecksum($in.value);
+        let $verified = 'false';
+        const $result = _LuhnVerifyChecksum($in.value);
         if ($result === true) {
             $verified = 'true';
         }
@@ -116,15 +118,15 @@ function infohub_checksum_luhn() {
      * @returns {string}
      * @private
      */
-    var _LuhnCalculateChecksum = function($valueString) {
+    const _LuhnCalculateChecksum = function($valueString)
+    {
         "use strict";
-        var $numbers, $number, $sum, $index, $checksumDigit, $result;
 
-        $sum = 0;
+        let $sum = 0;
         if ($valueString !== '') {
-            $numbers = $valueString;
-            for ($index in $numbers) {
-                $number = $numbers[$index];
+            const $numbers = $valueString;
+            for (let $index in $numbers) {
+                let $number = $numbers[$index];
                 if ($index % 2 === 1) {
                     $number = (2 * $number).toString();
                     $number = _LuhnSum($number);
@@ -133,42 +135,48 @@ function infohub_checksum_luhn() {
             }
         }
 
-        $checksumDigit = ($sum * 9).toString();
+        let $checksumDigit = ($sum * 9).toString();
         $checksumDigit = $checksumDigit.slice(-1);
-        $result = $valueString + $checksumDigit;
+        const $result = $valueString + $checksumDigit;
 
         return $result;
     };
 
-    var _LuhnSum = function($valueString) {
+    const _LuhnSum = function($valueString)
+    {
         "use strict";
-        var $numbers, $sum, $key;
 
-        $numbers = $valueString;
-        $sum = 0;
-        for ($key in $numbers) {
+        const $numbers = $valueString;
+        let $sum = 0;
+        for (let $key in $numbers) {
             $sum = $sum + parseInt($numbers[$key]);
         }
+
         return $sum;
     };
 
-    var _LuhnVerifyChecksum = function($valueString) {
+    const _LuhnVerifyChecksum = function($valueString)
+    {
         "use strict";
-        var $checksum, $result, $resultChecksum;
 
-        $checksum = $valueString;
+        const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
-        $result = _LuhnCalculateChecksum($valueString);
-        $resultChecksum = $result.splice(-1);
+        const $result = _LuhnCalculateChecksum($valueString);
+        const $resultChecksum = $result.splice(-1);
+
         if ($checksum === $resultChecksum) {
             return true;
         }
+
         return false;
     };
 
-    var _RemoveAllButNumbers = function($valueString) {
+    const _RemoveAllButNumbers = function($valueString)
+    {
         "use strict";
-        var $output = $valueString.replace(/[^0-9.]/g, "");
+
+        const $output = $valueString.replace(/[^0-9.]/g, "");
+
         return $output;
     };
 }

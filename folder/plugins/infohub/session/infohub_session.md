@@ -1,5 +1,5 @@
 # Infohub_Session
-When [infohub_login](plugin_infohub_login) have successfully logged you in to the remote server it calls infohub_session and provide some data.
+When [infohub_login](plugin,infohub_login) have successfully logged you in to the remote server it calls infohub_session and provide some data.
 infohub_session store the data. The data are used for calculating and verifying one time passwords.
 
 Only infohub_transfer and infohub_login on the same node can use infohub_session. 

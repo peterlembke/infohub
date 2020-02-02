@@ -22,11 +22,11 @@ function infohub_debug() {
 
     // include "infohub_base.js"
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
+    /*jshint evil:true */
+    /*jshint devel:true */
+    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2018-09-09',
             'since': '2018-09-09',
@@ -39,7 +39,7 @@ function infohub_debug() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'create': 'normal',
@@ -67,7 +67,7 @@ function infohub_debug() {
      * @param $text
      * @return string
      */
-    var _GetFuncName = function($text)
+    const _GetFuncName = function($text)
     {
         "use strict";
 
@@ -84,7 +84,7 @@ function infohub_debug() {
         return $response;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -92,7 +92,7 @@ function infohub_debug() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -120,7 +120,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -195,7 +195,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -255,7 +255,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("clear_plugins"); // Enable this function
-    var clear_plugins = function ($in)
+    const clear_plugins = function ($in)
     {
         "use strict";
 
@@ -293,7 +293,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("clear_database"); // Enable this function
-    var clear_database = function ($in)
+    const clear_database = function ($in)
     {
         "use strict";
 
@@ -325,7 +325,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("refresh_plugins"); // Enable this function
-    var refresh_plugins = function ($in)
+    const refresh_plugins = function ($in)
     {
         "use strict";
 
@@ -377,7 +377,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("reload_page"); // Enable this function
-    var reload_page = function ($in)
+    const reload_page = function ($in)
     {
         "use strict";
 
@@ -413,7 +413,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("refresh_plugins_and_reload_page"); // Enable this function
-    var refresh_plugins_and_reload_page = function ($in)
+    const refresh_plugins_and_reload_page = function ($in)
     {
         "use strict";
 
@@ -477,7 +477,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("clear_storage_and_reload_page"); // Enable this function
-    var clear_storage_and_reload_page = function ($in)
+    const clear_storage_and_reload_page = function ($in)
     {
         "use strict";
 
@@ -514,7 +514,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("set_cold_start_and_reload_page"); // Enable this function
-    var set_cold_start_and_reload_page = function ($in)
+    const set_cold_start_and_reload_page = function ($in)
     {
         "use strict";
 
@@ -551,7 +551,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push("keyboard_subscribe"); // Enable this function
-    var keyboard_subscribe = function ($in)
+    const keyboard_subscribe = function ($in)
     {
         "use strict";
 
@@ -618,7 +618,7 @@ function infohub_debug() {
      * @since   2018-09-09
      * @author  Peter Lembke
      */
-    var internal_DebugButtons = function ($in)
+    const internal_DebugButtons = function ($in)
     {
         "use strict";
 

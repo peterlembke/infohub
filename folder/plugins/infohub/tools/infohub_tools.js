@@ -19,19 +19,11 @@ function infohub_tools() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function () {
+    const _Version = function () {
         return {
             'date': '2018-08-04',
             'since': '2018-07-26',
@@ -45,7 +37,7 @@ function infohub_tools() {
         };
     };
 
-    var _GetCmdFunctions = function ()
+    const _GetCmdFunctions = function ()
     {
         return {
             'setup_gui': 'normal',
@@ -56,7 +48,7 @@ function infohub_tools() {
         };
     };
 
-    var _GetPluginName = function ($data)
+    const _GetPluginName = function ($data)
     {
         let $pluginType = 'welcome';
 
@@ -69,7 +61,7 @@ function infohub_tools() {
         return 'infohub_tools_' + $pluginType;
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -77,7 +69,7 @@ function infohub_tools() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -101,7 +93,7 @@ function infohub_tools() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    var setup_gui = function ($in)
+    const setup_gui = function ($in)
     {
         "use strict";
 
@@ -255,7 +247,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push("click_menu");
-    var click_menu = function ($in)
+    const click_menu = function ($in)
     {
         "use strict";
 
@@ -300,7 +292,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push("click");
-    var click = function ($in)
+    const click = function ($in)
     {
         "use strict";
 
@@ -383,7 +375,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push("call_server");
-    var call_server = function ($in)
+    const call_server = function ($in)
     {
         "use strict";
 
@@ -420,7 +412,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push("get_available_options");
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         "use strict";
 
@@ -455,6 +447,5 @@ function infohub_tools() {
 
         return $in.response;
     };
-
 }
 //# sourceURL=infohub_tools.js

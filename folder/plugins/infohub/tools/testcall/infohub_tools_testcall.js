@@ -19,19 +19,11 @@ function infohub_tools_testcall() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-07-11',
             'since': '2019-07-10',
@@ -44,7 +36,7 @@ function infohub_tools_testcall() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_select_template': 'normal',
@@ -54,7 +46,7 @@ function infohub_tools_testcall() {
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -62,7 +54,7 @@ function infohub_tools_testcall() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string) 
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
@@ -83,20 +75,20 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
         const $default = {
-                'subtype': 'menu',
-                'parent_box_id': '',
-                'translations': {},
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'Nothing to report from tools_testcall'
-                }
-            };
+            'subtype': 'menu',
+            'parent_box_id': '',
+            'translations': {},
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from tools_testcall'
+            }
+        };
         $in = _Default($default, $in);
 
         const $size = '1';
@@ -213,7 +205,6 @@ function infohub_tools_testcall() {
             'answer': $in.response.answer,
             'message': $in.response.message
         };
-
     };
 
     /**
@@ -223,7 +214,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_select_template');
-    var click_select_template = function ($in)
+    const click_select_template = function ($in)
     {
         "use strict";
 
@@ -277,7 +268,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_send');
-    var click_button_send = function ($in)
+    const click_button_send = function ($in)
     {
         "use strict";
 
@@ -363,7 +354,7 @@ function infohub_tools_testcall() {
      * @return array
      */
     $functions.push('get_available_options');
-    var get_available_options = function ($in)
+    const get_available_options = function ($in)
     {
         const $default = {
             'config': {}
@@ -396,7 +387,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_select_demo');
-    var click_select_demo = function ($in)
+    const click_select_demo = function ($in)
     {
         "use strict";
 
@@ -432,6 +423,5 @@ function infohub_tools_testcall() {
             'ok': 'true'
         };
     };
-
 }
 //# sourceURL=infohub_tools_testcall.js

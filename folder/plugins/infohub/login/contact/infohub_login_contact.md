@@ -28,12 +28,12 @@ This is the place on internet where the messages will go to.
 This is you on the server. 
 
 The username is a Hub-UUID and is constructed by the current timestamp since EPOC, a colon and then a random string.
-You can read more about [Hub-UUID](plugin_infohub_uuid).
+You can read more about [Hub-UUID](plugin,infohub_uuid).
 
 ## Shared secret
 You share this secret with the server. Do not reveal it with anyone else. Protect it to your best effort.
 
-The shared secret is 2048 byte long. You can scramble the shared secret with a password. See [password](plugin_infohub_login_password).
+The shared secret is 2048 byte long. You can scramble the shared secret with a password. See [password](plugin,infohub_login_password).
 
 ## Checksum
 The checksum is calculated every time your contact data are displayed.

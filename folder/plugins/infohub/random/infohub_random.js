@@ -21,7 +21,7 @@ function infohub_random() {
 
 // include "infohub_base.js"
 
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2019-01-07',
             'since': '2018-07-29',
@@ -34,7 +34,7 @@ function infohub_random() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'random_number': 'normal',
             'random_numbers': 'normal'
@@ -50,11 +50,12 @@ function infohub_random() {
      * @returns {*}
      */
     $functions.push("random_number");
-    var random_number = function($in) {
-        var $default = {
-                'min': 0,
-                'max': 0
-            };
+    const random_number = function($in)
+    {
+        const $default = {
+            'min': 0,
+            'max': 0
+        };
         $in = _Default($default, $in);
 
         return internal_Cmd({
@@ -73,18 +74,18 @@ function infohub_random() {
      * @returns {*}
      */
     $functions.push("internal_RandomNumber");
-    var internal_RandomNumber = function($in) {
-        var $answer, $message, $result, $ok,
-            $default = {
-                'min': 0,
-                'max': 0
-            };
+    const internal_RandomNumber = function($in)
+    {
+        const $default = {
+            'min': 0,
+            'max': 0
+        };
         $in = _Default($default, $in);
 
-        $answer = 'true';
-        $message = 'Could not generate a random number';
-        $ok = 'false';
-        $result = 0;
+        let $answer = 'true';
+        let $message = 'Could not generate a random number';
+        let $ok = 'false';
+        let $result = 0;
 
         leave: {
             if ($in['min'] < 0 || $in['max'] < 0) {
@@ -136,25 +137,25 @@ function infohub_random() {
      * @uses
      */
     $functions.push("random_numbers");
-    var random_numbers = function($in)
+    const random_numbers = function($in)
     {
-        var $i, $response, $answer, $message, $result, $ok,
-            $default = {
-                'min': 0,
-                'max': 0,
-                'count': 10
-            };
+        const $default = {
+            'min': 0,
+            'max': 0,
+            'count': 10
+        };
         $in = _Default($default, $in);
 
-        $answer = 'true';
-        $message = 'Could not generate your random numbers';
-        $result = [];
-        $ok = 'false';
+        let $answer = 'true',
+            $message = 'Could not generate your random numbers',
+            $result = [],
+            $ok = 'false';
 
         leave: {
 
-            for ($i = $in['count']; $i > 0; $i--) {
-                $response = internal_Cmd({
+            for (let $randomCountNumber = $in['count']; $randomCountNumber > 0; $randomCountNumber--)
+            {
+                let $response = internal_Cmd({
                     'func': 'RandomNumber',
                     'min': $in['min'],
                     'max': $in['max']
@@ -182,6 +183,5 @@ function infohub_random() {
             'data': $result
         };
     };
-
 }
 //# sourceURL=infohub_random.js

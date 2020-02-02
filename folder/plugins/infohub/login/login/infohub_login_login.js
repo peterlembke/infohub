@@ -19,19 +19,11 @@ function infohub_login_login() {
 
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
     /*jshint evil:true */
     /*jshint devel:true */
     /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
-    // ***********************************************************
-    // * your private class variables below, only declare with var
-    // ***********************************************************
-
-    var _Version = function() {
+    const _Version = function() {
         return {
             'date': '2020-01-12',
             'since': '2019-09-02',
@@ -44,14 +36,14 @@ function infohub_login_login() {
         };
     };
 
-    var _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
             'click_login': 'normal'
         };
     };
 
-    var $classTranslations = {};
+    let $classTranslations = {};
 
     /**
      * Translate - Substitute a string for another string using a class local object
@@ -59,7 +51,7 @@ function infohub_login_login() {
      * @returns string
      */
     $functions.push('_Translate');
-    var _Translate = function ($string)
+    const _Translate = function ($string)
     {
         if (typeof $classTranslations !== 'object') { return $string; }
 
@@ -70,7 +62,7 @@ function infohub_login_login() {
     };
 
     // ***********************************************************
-    // * your class functions below, only declare with var
+    // * your class functions below, only declare with const
     // * Can only be reached trough cmd()
     // ***********************************************************
 
@@ -81,7 +73,7 @@ function infohub_login_login() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    var create = function ($in)
+    const create = function ($in)
     {
         "use strict";
 
@@ -178,7 +170,7 @@ function infohub_login_login() {
      * @author Peter Lembke
      */
     $functions.push("click_login");
-    var click_login = function ($in)
+    const click_login = function ($in)
     {
         "use strict";
 
@@ -610,7 +602,7 @@ function infohub_login_login() {
      * @param $in
      * @returns {{answer: string, verified: string, message: string, random_code: string}}
      */
-    var internal_CreateRandomCode = function($in)
+    const internal_CreateRandomCode = function($in)
     {
         const $default = {
             'length':  256
@@ -656,7 +648,7 @@ function infohub_login_login() {
      * @returns {number}
      * @private
      */
-    var _Random = function($min = 0, $max = 0)
+    const _Random = function($min = 0, $max = 0)
     {
         const $diff = $max - $min + 1;
         let $randomNumber = Math.floor((Math.random() * $diff) + $min);
@@ -674,7 +666,7 @@ function infohub_login_login() {
      * @param $in
      * @returns {{answer: string, verified: string, message: string}}
      */
-    var internal_VerifyRandomCode = function($in)
+    const internal_VerifyRandomCode = function($in)
     {
         const $default = {
             'random_code': '',
@@ -764,7 +756,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    var _MergeBase64Strings = function($string1, $string2)
+    const _MergeBase64Strings = function($string1, $string2)
     {
         let $data1 = atob($string1),
             $data2 = atob($string2),
@@ -790,7 +782,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    var _DeductBase64Strings = function($string1, $string2)
+    const _DeductBase64Strings = function($string1, $string2)
     {
         let $data1 = atob($string1),
             $data2 = atob($string2),
@@ -819,7 +811,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    var _RotateBase64String = function($string1, $steps)
+    const _RotateBase64String = function($string1, $steps)
     {
         let $data1 = atob($string1);
 
