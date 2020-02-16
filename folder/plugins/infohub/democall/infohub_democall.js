@@ -17,11 +17,9 @@
  */
 function infohub_democall() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -93,8 +91,6 @@ function infohub_democall() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start'
@@ -249,8 +245,6 @@ function infohub_democall() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_democall_list',
             'parent_box_id': '1',
@@ -303,8 +297,6 @@ function infohub_democall() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',

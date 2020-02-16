@@ -17,11 +17,9 @@
  */
 function infohub_doc() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -88,8 +86,6 @@ function infohub_doc() {
     $functions.push("create");
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'document', // navigate, visited, index, document
             'area': 'main',
@@ -152,8 +148,6 @@ function infohub_doc() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -359,8 +353,6 @@ function infohub_doc() {
     $functions.push("click_link");
     const click_link = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // area,document_name
             'box_id': '',
@@ -422,8 +414,6 @@ function infohub_doc() {
     $functions.push("event_message");
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // full_child_name|full_child_function_name
             'value': '', // Selected option in select lists
@@ -510,8 +500,6 @@ function infohub_doc() {
     $functions.push("call_server");
     const call_server = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},
@@ -568,8 +556,6 @@ function infohub_doc() {
     $functions.push("get_all_documents");
     const get_all_documents = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {}
@@ -592,6 +578,5 @@ function infohub_doc() {
 
         return $in.response;
     };
-
 }
 //# sourceURL=infohub_doc.js

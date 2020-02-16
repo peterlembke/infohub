@@ -1,6 +1,6 @@
 {
     "version": {
-        "date": "2020-01-19 20:14:18",
+        "date": "2020-02-09 08:02:00",
         "plugin": "infohub_login",
         "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
         "language": "",
@@ -53,7 +53,7 @@
             "Missing random code": "Saknar slumpmässig kod",
             "The answer from the server took too long time. I will abandon the login attempt": "Svaret från servern tog för lång tid. Jag lämnar inloggningsförsöket",
             "Failed to login": "Det gick inte att logga in",
-            "Success logging in": "Framgångsinloggning",
+            "Success logging in": "Du är nu inloggad",
             "The random code do not have the correct length": "Slumpmässig kod har inte rätt längd",
             "Unlikely that the total average has no decimals": "Det är osannolikt att det totala genomsnittet inte har några decimaler",
             "Unlikely that the average is equal to the total average": "Det är osannolikt att genomsnittet är lika med det totala genomsnittet",
@@ -63,7 +63,7 @@
             "Logout": "Logga ut",
             "Here you can logout from the server": "Här kan du logga ut från servern",
             "Failed to logout": "Det gick inte att logga ut",
-            "Success logging out": "Framgång logga ut"
+            "Success logging out": "Du är nu utloggad"
         },
         "infohub_login_menu": {
             "Menu": "Meny",

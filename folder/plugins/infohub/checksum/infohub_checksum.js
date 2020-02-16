@@ -18,6 +18,8 @@
  */
 function infohub_checksum() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -56,8 +58,6 @@ function infohub_checksum() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'md5',
             'value': '',
@@ -69,13 +69,13 @@ function infohub_checksum() {
         };
         $in = _Default($default, $in);
 
-        if ($in['step'] === 'start_step') {
+        if ($in.step === 'start_step') {
 
             const $functionName = 'Calculate' + _UcWords($in.type);
             if (_MethodExists('internal_' + $functionName) === true) {
                 return internal_Cmd({
                     'func': $functionName,
-                    'value': $in['value']
+                    'value': $in.value
                 });
             }
 
@@ -108,8 +108,6 @@ function infohub_checksum() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'md5',
             'value': '',
@@ -121,14 +119,14 @@ function infohub_checksum() {
         };
         $in = _Default($default, $in);
 
-        if ($in['step'] === 'start_step') {
+        if ($in.step === 'start_step') {
 
             const $functionName = 'Verify' + _UcWords($in.type);
             if (_MethodExists('internal_' + $functionName) === true) {
                 return internal_Cmd({
                     'func': $functionName,
-                    'value': $in['value'],
-                    'checksum': $in['checksum']
+                    'value': $in.value,
+                    'checksum': $in.checksum
                 });
             }
 
@@ -168,8 +166,6 @@ function infohub_checksum() {
     $functions.push('get_available_options');
     const get_available_options = function ($in)
     {
-        "use strict";
-
         const $options = [
             {"type": "option", "value": 'crc32', "label": 'CRC32' },
             {"type": "option", "value": 'luhn', "label": 'Luhn' },

@@ -18,6 +18,8 @@
  */
 function infohub_checksum_luhn() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_checksum_luhn() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {'value': '' };
         $in = _Default($default, $in);
 
@@ -86,8 +86,6 @@ function infohub_checksum_luhn() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'checksum': ''
@@ -120,8 +118,6 @@ function infohub_checksum_luhn() {
      */
     const _LuhnCalculateChecksum = function($valueString)
     {
-        "use strict";
-
         let $sum = 0;
         if ($valueString !== '') {
             const $numbers = $valueString;
@@ -144,8 +140,6 @@ function infohub_checksum_luhn() {
 
     const _LuhnSum = function($valueString)
     {
-        "use strict";
-
         const $numbers = $valueString;
         let $sum = 0;
         for (let $key in $numbers) {
@@ -157,8 +151,6 @@ function infohub_checksum_luhn() {
 
     const _LuhnVerifyChecksum = function($valueString)
     {
-        "use strict";
-
         const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
         const $result = _LuhnCalculateChecksum($valueString);
@@ -173,8 +165,6 @@ function infohub_checksum_luhn() {
 
     const _RemoveAllButNumbers = function($valueString)
     {
-        "use strict";
-
         const $output = $valueString.replace(/[^0-9.]/g, "");
 
         return $output;

@@ -17,11 +17,9 @@
  */
 function infohub_demo_markdown() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -78,8 +76,6 @@ function infohub_demo_markdown() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -174,8 +170,6 @@ function infohub_demo_markdown() {
     $functions.push("click_file_read");
     const click_file_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',
@@ -215,7 +209,7 @@ function infohub_demo_markdown() {
         }
         
         if ($in.step === 'step_box_data_response') {
-            if ($in.asnwer === 'true') {
+            if ($in.answer === 'true') {
                 $in.ok = 'true';
                 $in.message = 'Have displayed the file content in the box';
             }
@@ -237,8 +231,6 @@ function infohub_demo_markdown() {
     $functions.push("click_markdown_to_html");
     const click_markdown_to_html = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',

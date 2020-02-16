@@ -19,6 +19,8 @@
  */
 function infohub_render_frog() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function () {
@@ -56,8 +58,6 @@ function infohub_render_frog() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -104,8 +104,6 @@ function infohub_render_frog() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'class': 'frog_image'

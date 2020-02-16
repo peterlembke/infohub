@@ -27,6 +27,8 @@
  */
 function infohub_encrypt() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -68,8 +70,6 @@ function infohub_encrypt() {
     $functions.push('encrypt');
     const encrypt = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'password': '',
@@ -87,17 +87,17 @@ function infohub_encrypt() {
         {
             $in.step = 'step_call_child';
 
-            if (_Empty($in['text']) === 'true') {
+            if (_Empty($in.text) === 'true') {
                 $in.response.message = 'text is empty';
                 $in.step = 'step_exit';
             }
 
-            if (_Empty($in['password']) === 'true') {
+            if (_Empty($in.password) === 'true') {
                 $in.response.message = 'password is empty';
                 $in.step = 'step_exit';
             }
 
-            if (_Empty($in['method']) === 'true') {
+            if (_Empty($in.method) === 'true') {
                 $in.response.message = 'method is empty';
                 $in.step = 'step_exit';
             }
@@ -166,17 +166,17 @@ function infohub_encrypt() {
         {
             $in.step = 'step_call_child';
 
-            if (_Empty($in['encrypted_text']) === 'true') {
+            if (_Empty($in.encrypted_text) === 'true') {
                 $in.response.message = 'encrypted_text is empty';
                 $in.step = 'step_exit';
             }
 
-            if (_Empty($in['password']) === 'true') {
+            if (_Empty($in.password) === 'true') {
                 $in.response.message = 'password is empty';
                 $in.step = 'step_exit';
             }
 
-            if (_Empty($in['method']) === 'true') {
+            if (_Empty($in.method) === 'true') {
                 $in.response.message = 'method is empty';
                 $in.step = 'step_exit';
             }
@@ -229,8 +229,6 @@ function infohub_encrypt() {
     $functions.push('get_available_options');
     const get_available_options = function ($in)
     {
-        "use strict";
-
         const $methods = _GetAvailableMethods();
         let $options = [];
 
@@ -249,7 +247,6 @@ function infohub_encrypt() {
     };
 
     const _GetAvailableMethods = function ($in) {
-        "use strict";
         return ['pgp','none'];
     };
 

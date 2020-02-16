@@ -17,11 +17,9 @@
  */
 function infohub_doc_document() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -89,8 +87,6 @@ function infohub_doc_document() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -162,8 +158,6 @@ function infohub_doc_document() {
     $functions.push("view_document");
     const view_document = function ($in)
     {
-        "use strict";
-
         const $boxId = _GetBoxId('document');
 
         const $default = {
@@ -269,8 +263,6 @@ function infohub_doc_document() {
      */
     const _UpdateNavigationLinks = function ($text)
     {
-        "use strict";
-
         const $notFound = -1;
 
         let $first = 0,
@@ -280,7 +272,7 @@ function infohub_doc_document() {
 
         while ($text.indexOf('](', $second) !== $notFound && $leave > 0)
         {
-            $leave--;
+            $leave = $leave - 1;
 
             $second = $text.indexOf('](', $second);
             $second = $second + 2;
@@ -335,8 +327,6 @@ function infohub_doc_document() {
     $functions.push("click_link");
     const click_link = function ($in)
     {
-        "use strict";
-
         const $default = {
             'area': '',
             'document_name': '',
@@ -352,8 +342,6 @@ function infohub_doc_document() {
 
         if ($in.step === 'step_start')
         {
-            const $boxId = _GetBoxId('document');
-
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -387,8 +375,6 @@ function infohub_doc_document() {
     $functions.push("get_document_html");
     const get_document_html = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {

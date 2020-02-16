@@ -19,6 +19,8 @@
  */
 function infohub_render_map() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_render_map() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -83,8 +83,6 @@ function infohub_render_map() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -118,8 +116,6 @@ function infohub_render_map() {
 
     const _AddOverlay = function ($html, $alias)
     {
-        "use strict";
-
         const $id = '{box_id}_' + $alias,
             $command = 'document.getElementById(\''+ $id +'\').style.pointerEvents=',
             $on = "'auto'",
@@ -148,8 +144,6 @@ function infohub_render_map() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         if (_IsSet($in.subtype) === 'false') {
             $in.subtype = 'openstreetmap';
         }
@@ -185,8 +179,6 @@ function infohub_render_map() {
      */
     const internal_Openstreetmap = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmap',
@@ -237,8 +229,6 @@ function infohub_render_map() {
      */
     const internal_Openstreetmaplink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
 
         const $default = {
@@ -278,8 +268,6 @@ function infohub_render_map() {
      */
     const internal_Googlemaps = function ($in)
     {
-        "use strict";
-
         let $html = '';
 
         const $default = {
@@ -325,8 +313,6 @@ function infohub_render_map() {
      */
     const internal_Googlemapslink = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'map',
             'subtype': 'googlemapslink',
@@ -373,8 +359,6 @@ function infohub_render_map() {
      */
     const internal_Bingmaps = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'map',
             'subtype': 'bingmaps',
@@ -434,8 +418,6 @@ function infohub_render_map() {
      */
     const internal_Bingmapslink = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'map',
             'subtype': 'bingmapslink',

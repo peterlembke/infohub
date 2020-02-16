@@ -19,6 +19,8 @@
  */
 function infohub_random() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -60,8 +62,8 @@ function infohub_random() {
 
         return internal_Cmd({
             'func': 'RandomNumber',
-            'min': $in['min'],
-            'max': $in['max']
+            'min': $in.min,
+            'max': $in.max
         });
     };
 
@@ -88,17 +90,17 @@ function infohub_random() {
         let $result = 0;
 
         leave: {
-            if ($in['min'] < 0 || $in['max'] < 0) {
+            if ($in.min < 0 || $in.max < 0) {
                 $message = 'negative values is not allowed';
                 break leave;
             }
 
-            if ($in['min'] > $in['max']) {
+            if ($in.min > $in.max) {
                 $message = 'min can not be larger than max';
                 break leave;
             }
 
-            if ($in['max'] > Number.MAX_SAFE_INTEGER || $in['min'] > Number.MAX_SAFE_INTEGER) {
+            if ($in.max > Number.MAX_SAFE_INTEGER || $in.min > Number.MAX_SAFE_INTEGER) {
                 $message = 'max can not be larger than Number.MAX_SAFE_INTEGER, it is ' + Number.MAX_SAFE_INTEGER;
                 break leave;
             }
@@ -121,8 +123,8 @@ function infohub_random() {
             'answer': $answer,
             'message': $message,
             'ok': $ok,
-            'min': $in['min'],
-            'max': $in['max'],
+            'min': $in.min,
+            'max': $in.max,
             'data': $result
         };
     };
@@ -153,20 +155,20 @@ function infohub_random() {
 
         leave: {
 
-            for (let $randomCountNumber = $in['count']; $randomCountNumber > 0; $randomCountNumber--)
+            for (let $randomCountNumber = $in.count; $randomCountNumber > 0; $randomCountNumber = $randomCountNumber - 1)
             {
                 let $response = internal_Cmd({
                     'func': 'RandomNumber',
-                    'min': $in['min'],
-                    'max': $in['max']
+                    'min': $in.min,
+                    'max': $in.max
                 });
 
-                if ($response['answer'] === 'false' || $response['ok'] === 'false') {
-                    $message = $response['message'];
+                if ($response.answer === 'false' || $response.ok === 'false') {
+                    $message = $response.message;
                     break leave;
                 }
 
-                $result.push($response['data']);
+                $result.push($response.data);
             }
 
             $answer = 'true';
@@ -178,8 +180,8 @@ function infohub_random() {
             'answer': $answer,
             'message': $message,
             'ok': $ok,
-            'min': $in['min'],
-            'max': $in['max'],
+            'min': $in.min,
+            'max': $in.max,
             'data': $result
         };
     };

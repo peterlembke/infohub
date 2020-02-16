@@ -17,11 +17,9 @@
  */
 function infohub_login_contact() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -74,8 +72,6 @@ function infohub_login_contact() {
     $functions.push("_SetDefaultNodeData");
     const _SetDefaultNodeData = function ($nodeData)
     {
-        "use strict";
-
         const $default = {
             'node': '',
             'note': '',
@@ -103,8 +99,6 @@ function infohub_login_contact() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'contact',
             'parent_box_id': '',
@@ -268,8 +262,6 @@ function infohub_login_contact() {
     $functions.push("view_contact");
     const view_contact = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_read_data_from_storage',
             'response': {
@@ -400,8 +392,6 @@ function infohub_login_contact() {
     $functions.push("storage_read_contact_data");
     const storage_read_contact_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_read',
             'answer': 'true',
@@ -462,8 +452,6 @@ function infohub_login_contact() {
     $functions.push("storage_write_contact_data");
     const storage_write_contact_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_write',
             'answer': 'true',
@@ -514,8 +502,6 @@ function infohub_login_contact() {
     $functions.push("storage_forget_contact_data");
     const storage_forget_contact_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_write',
             'answer': 'true',
@@ -565,8 +551,6 @@ function infohub_login_contact() {
     $functions.push("click_save");
     const click_save = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_read_form',
             'box_id': '',

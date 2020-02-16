@@ -20,6 +20,8 @@
  */
 function infohub_render() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -69,15 +71,13 @@ function infohub_render() {
     $functions.push('_GetId');
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
-        'id': '',
-        'name': '',
-        'class': ''
-    };
+            'id': '',
+            'name': '',
+            'class': ''
+        };
         $in = _Default($default, $in);
 
         if ($in.id !== '') {
@@ -113,8 +113,6 @@ function infohub_render() {
     $functions.push('_GetDisplay');
     const _GetDisplay = function ($in)
     {
-        "use strict";
-
         const $default = {
             'display': ''
         };
@@ -140,8 +138,6 @@ function infohub_render() {
     $functions.push('_PopItem');
     const _PopItem = function($obj)
     {
-        "use strict";
-
         let $first;
 
         for (let $key in $obj) {
@@ -156,17 +152,15 @@ function infohub_render() {
         return {};
     };
 
+    $functions.push('_AddStyle');
     /**
      * Add scoped style to this html
      * @param $in
-     * @returns {*|string|$in.html}
+     * @returns {string}
      * @private
      */
-    $functions.push('_AddStyle');
     const _AddStyle = function($in)
     {
-        "use strict";
-
         const $default = {
             'html': '',
             'css_data': {},
@@ -196,31 +190,6 @@ function infohub_render() {
         return $in.html;
     };
 
-    /**
-     * Decode the BASE64 data into a JSON that is decoded into an object
-     * @param $data
-     * @returns {*|string|$in.html}
-     * @private
-     */
-    $functions.push('_DecodeData');
-    const _DecodeData = function($data)
-    {
-        if (typeof $data !== 'string') {
-            return {};
-        }
-
-        if (_Empty($data) === 'true') {
-            return {};
-        }
-
-        $data = atob($data);
-        if ($data.substr(0,1) === '{') {
-            $data = JSON.parse($data);
-        }
-
-        return $data;
-    };
-
     // *****************************************************************************
     // * Functions you only can reach with CMD()
     // * Observe function names are lower_case
@@ -238,9 +207,7 @@ function infohub_render() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
-        let $data, $key, $response, $plugin, $find, $replace, $regexp,$boxVisible;
+        let $data, $key, $response, $plugin;
 
         const $default = {
             'what': {},
@@ -282,7 +249,7 @@ function infohub_render() {
             {
                 $in.what[ $in.latest_item_name ] = {
                     'type': 'frog'
-                }
+                };
             }
             else
             {
@@ -298,8 +265,8 @@ function infohub_render() {
 
                 /*
                  // All IDs become unique by inserting the parent alias in each ID.
-                 $find = '{box_id}';
-                 $replace = $find + '_' + $in.latest_item_name;
+                 const $find = '{box_id}';
+                 const $replace = $find + '_' + $in.latest_item_name;
                  $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
                  */
 
@@ -352,7 +319,7 @@ function infohub_render() {
                 $data = _PopItem($in.what);
 
                 if (_IsSet($data.type) === 'false') {
-                    $data.type = 'frog'
+                    $data.type = 'frog';
                 }
 
                 if (_IsSet($data.alias) === 'true' && _IsSet($data.original_alias) === 'false') {
@@ -638,17 +605,17 @@ function infohub_render() {
 // * Internal function that you only can reach from internal_Cmd
 // *****************************************************************************
 
+    $functions.push('internal_GetExtraTags');
     /**
      * Tags that are commonly used in texts.
      * @version 2015-04-06
      * @since   2015-04-06
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, data: {}, message: string}}
      */
-    $functions.push('internal_GetExtraTags');
     const internal_GetExtraTags = function ($in)
     {
-        "use strict";
-
         const $tags = {
             ':-)': '☺',
             ':-(': '☹',
@@ -707,8 +674,6 @@ function infohub_render() {
     $functions.push('internal_AssembleHTML');
     const internal_AssembleHTML = function ($in)
     {
-        "use strict";
-
         let $html = $in.main.html;
 
         while ($html.indexOf('[') > -1)
@@ -738,23 +703,21 @@ function infohub_render() {
         };
     };
 
+    $functions.push('internal_FixBase64Data');
     /**
      * BASE64 encode HTML code that are wrapped with {{* html-code *}}
      * @param $in
-     * @returns {{answer: string, message: string, html: (string|*|$in.html), sections_count: number}}
+     * @returns {{answer: string, html: *, sections_count: *, message: string}}
      */
-    $functions.push('internal_FixBase64Data');
     const internal_FixBase64Data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'html': ''
         };
         $in = _Default($default, $in);
 
         let $html = $in.html,
-            $sectionsCount;
+            $sectionsCount = 0;
 
         // Convert a section of the code to BASE64
         while ($html.indexOf('{{*') > -1)
@@ -765,7 +728,7 @@ function infohub_render() {
             const $findThis = '{{*' + $part + '*}}';
             const $htmlPart = btoa($part);
             $html = $html.split($findThis).join($htmlPart);
-            $sectionsCount++;
+            $sectionsCount = $sectionsCount + 1;
         }
 
         return {
@@ -784,8 +747,6 @@ function infohub_render() {
     $functions.push('validate_form_data');
     const validate_form_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_loop',
             'form_data': {},
@@ -895,16 +856,16 @@ function infohub_render() {
         };
     };
 
+    $functions.push('get_test_options');
     /**
      * @version 2018-06-13
      * @since   2017-02-11
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
      */
-    $functions.push('get_test_options');
     const get_test_options = function ($in)
     {
-        "use strict";
-
         return {
             'answer': 'true',
             'message': 'You did not set your own source for the select so you ended up here',
@@ -926,8 +887,6 @@ function infohub_render() {
     $functions.push('render_options');
     const render_options = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'source_node': '',
@@ -996,16 +955,16 @@ function infohub_render() {
         };
     };
 
+    $functions.push('submit');
     /**
      * @version 2018-06-13
      * @since   2017-02-11
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{valid: *, answer: string, message: string, ok: *}|*}
      */
-    $functions.push('submit');
     const submit = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_id': 0,
             'box_id': '',
@@ -1036,7 +995,7 @@ function infohub_render() {
         if ($in.step === 'step_start')
         {
             if ($in.type === 'button' && $in.mode === 'submit') {
-                $in.step = 'step_form_read'
+                $in.step = 'step_form_read';
             }
         }
 
@@ -1169,8 +1128,6 @@ function infohub_render() {
     $functions.push('click_and_scroll');
     const click_and_scroll = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'box_id': '',
@@ -1233,8 +1190,6 @@ function infohub_render() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         let $data, $isValid;
 
         const $default = {
@@ -1352,14 +1307,14 @@ function infohub_render() {
         {
             const $find = 'data:application/json;base64,';
 
-            for (let $i = 0; $i < $in.response.files_data.length; $i++) {
-                let $content = $in.response.files_data[$i].content;
+            for (let $fileNumber = 0; $fileNumber < $in.response.files_data.length; $fileNumber = $fileNumber + 1) {
+                let $content = $in.response.files_data[$fileNumber].content;
                 if (typeof $content === 'string') {
                     if ($find === $content.substr(0,$find.length)) {
                         $content = $content.substr($find.length);
                         $content = atob($content);
                         $content = decodeURIComponent(escape($content));
-                        $in.response.files_data[$i].content = _JsonDecode($content);
+                        $in.response.files_data[$fileNumber].content = _JsonDecode($content);
                     }
                 }
             }

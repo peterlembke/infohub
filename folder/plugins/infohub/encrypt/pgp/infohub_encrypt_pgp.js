@@ -27,6 +27,8 @@
  */
 function infohub_encrypt_pgp() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -67,8 +69,6 @@ function infohub_encrypt_pgp() {
     $functions.push('encrypt');
     const encrypt = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'password': '',
@@ -127,8 +127,6 @@ function infohub_encrypt_pgp() {
     $functions.push('decrypt');
     const decrypt = function ($in)
     {
-        "use strict";
-
         const $default = {
             'encrypted_text': '',
             'password': '',

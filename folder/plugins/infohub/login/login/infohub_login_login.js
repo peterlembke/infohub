@@ -17,11 +17,9 @@
  */
 function infohub_login_login() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -75,8 +73,6 @@ function infohub_login_login() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -172,11 +168,9 @@ function infohub_login_login() {
     $functions.push("click_login");
     const click_login = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
-            'step': 'step_get_password',
+            'step': 'step_do_we_already_have_a_valid_session',
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
@@ -187,9 +181,11 @@ function infohub_login_login() {
                 'session_created_at': 0.0,
                 'logged_in': 'false',
                 'text': '',
-                'shared_secret_modified': ''
+                'shared_secret_modified': '',
+                'session_valid': 'false'
             },
             'data_back': {
+                'box_id': '',
                 'contact': {}, // All contact details including shared_secret
                 'initiator_user_name': '', // Your Hub-UUID username from the contact details
                 'initiator_random_code': '', // BASE64 string with 256 bytes of random binary data
@@ -216,6 +212,35 @@ function infohub_login_login() {
             $ok = 'false',
             $messages = [],
             $password = '';
+
+        if ($in.step === 'step_do_we_already_have_a_valid_session')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'initiator_check_session_valid'
+                },
+                'data': {
+                    'node': 'server'
+                },
+                'data_back': {
+                    'step': 'step_do_we_already_have_a_valid_session_response',
+                    'box_id': $in.box_id
+                }
+            });
+        }
+
+        if ($in.step === 'step_do_we_already_have_a_valid_session_response')
+        {
+            $in.step = 'step_get_password';
+            if ($in.response.session_valid === 'true') {
+                $answer = 'true';
+                $message = _Translate('You are already logged in');
+                $ok = 'true';
+                $in.step = 'step_show_result';
+            }
+        }
 
         if ($in.step === 'step_get_password')
         {
@@ -272,6 +297,9 @@ function infohub_login_login() {
                 $in.data_back.contact = $contact;
 
                 $in.step = 'step_shared_secret_restore';
+                if ($in.data_back.password === '') {
+                    $in.step = 'step_login_request';
+                }
             }
         }
 
@@ -306,7 +334,7 @@ function infohub_login_login() {
             $in.step = 'step_show_result';
             if ($in.response.answer === 'true') {
 
-                let $sharedSecret = $in.response.shared_secret_modified;
+                const $sharedSecret = $in.response.shared_secret_modified;
                 $in.data_back.contact.shared_secret = $sharedSecret;
 
                 $in.step = 'step_login_request';
@@ -365,7 +393,7 @@ function infohub_login_login() {
 
         if ($in.step === 'step_login_request_response')
         {
-            $in['step'] = 'step_show_result';
+            $in.step = 'step_show_result';
             if ($in.response.answer === 'true') {
                 $in.step = 'step_prepare_login_challenge';
 
@@ -380,7 +408,7 @@ function infohub_login_login() {
                 let $diff = _MicroTime() - $in.data_back.initiator_seconds_since_epoc;
                 if ($diff < 0.0 || $diff > 2.0) {
                     $message = _Translate('The answer from the server took too long time. I will abandon the login attempt');
-                    $in['step'] = 'step_show_result';
+                    $in.step = 'step_show_result';
                 }
             }
         }
@@ -403,11 +431,25 @@ function infohub_login_login() {
             // Do an md5 of the rotatedResult. That is the initiator_calculated_id_code
             const $toMd5Checksum = $in.data_back.initiator_seconds_since_epoc + $rotatedResult + $in.data_back.responder_seconds_since_epoc;
 
+            /** For debug purposes
+            console.log('$randomCode: ' + $randomCode);
+            console.log('$in.data_back.contact.shared_secret: ' + $in.data_back.contact.shared_secret);
+            console.log('$diff: ' + $diff);
+            console.log('$rotatedDiff: ' + $rotatedDiff);
+            console.log('$rotatedResult: ' + $rotatedResult);
+            console.log('$toMd5Checksum: ' + $toMd5Checksum);
+            */
+
             $steps = 64;
             $rotatedDiff = _RotateBase64String($diff, $steps);
 
             // Merge rotated diff and shared_secret
             let $leftOversValue = _MergeBase64Strings($rotatedDiff, $in.data_back.contact.shared_secret);
+
+            /** For debug purposes
+            console.log('$rotatedDiff: ' + $rotatedDiff);
+            console.log('$leftOversValue: ' + $leftOversValue);
+            */
 
             return _SubCall({
                 'to': {
@@ -437,7 +479,7 @@ function infohub_login_login() {
 
         if ($in.step === 'step_prepare_login_challenge_response')
         {
-            $in['step'] = 'step_show_result';
+            $in.step = 'step_show_result';
             if ($in.response.answer === 'true') {
                 $in.data_back.initiator_calculated_id_code = $in.response.checksum;
                 $in.step = 'step_left_overs';
@@ -472,7 +514,7 @@ function infohub_login_login() {
 
         if ($in.step === 'step_left_overs_response')
         {
-            $in['step'] = 'step_show_result';
+            $in.step = 'step_show_result';
             if ($in.response.answer === 'true') {
                 $in.data_back.left_overs = $in.response.checksum;
                 $in.step = 'step_login_challenge';
@@ -516,12 +558,14 @@ function infohub_login_login() {
         if ($in.step === 'step_login_challenge_response')
         {
             $in.step = 'step_show_result';
+            $message = _Translate('Failed to login') + ': ' + $message;
             if ($in.response.logged_in === 'true')
             {
                 $in.data_back.session_id = $in.response.session_id;
                 $in.data_back.session_created_at = $in.response.session_created_at;
                 $in.step = 'step_initiator_store_session_data';
                 $ok = 'true';
+                $message = _Translate('Success logging in');
             }
         }
 
@@ -559,11 +603,6 @@ function infohub_login_login() {
 
         if ($in.step === 'step_show_result')
         {
-            $message = _Translate('Failed to login') + ': ' + $message;
-            if ($ok === 'true') {
-                $message = _Translate('Success logging in');
-            }
-
             let $subCall = _SubCall({
                 'to': {
                     'node': 'client',
@@ -615,7 +654,7 @@ function infohub_login_login() {
         while ($verified === 'false')
         {
             let $randomCodeString = '';
-            for (let $i = 0; $i < $in.length; $i++) {
+            for (let $position = 0; $position < $in.length; $position = $position + 1) {
                 let $randomNumber = _Random(0,255);
                 $randomCodeString = $randomCodeString + String.fromCharCode($randomNumber);
             }
@@ -628,7 +667,7 @@ function infohub_login_login() {
                 'random_code': $randomCodeBase64Encoded
             });
 
-            if ($response['verified'] === 'true') {
+            if ($response.verified === 'true') {
                 $verified = 'true';
             }
         }
@@ -688,9 +727,9 @@ function infohub_login_login() {
             let $average = [];
             const $spread = [2,3,5,7,11,13];
 
-            for (let $i=0; $i < $length; $i++)
+            for (let $i = 0; $i < $length; $i = $i + 1)
             {
-                for (let $position=0; $position < $spread.length; $position++)
+                for (let $position = 0; $position < $spread.length; $position = $position + 1)
                 {
 
                     if (_IsSet($average[$position]) === 'false') {
@@ -707,8 +746,8 @@ function infohub_login_login() {
             }
 
             let $sum = 0;
-            for (let $pos = 0; $pos < $average.length; $pos++) {
-                $sum = $sum + $average[$pos];
+            for (let $position = 0; $position < $average.length; $position = $position + 1) {
+                $sum = $sum + $average[$position];
             }
 
             let $totalAverage = $sum / $spread.length;
@@ -762,7 +801,7 @@ function infohub_login_login() {
             $data2 = atob($string2),
             $result = '';
 
-        for (let $position = 0; $position < $data1.length; $position++) {
+        for (let $position = 0; $position < $data1.length; $position = $position + 1) {
             const $value = ($data1.charCodeAt($position) + $data2.charCodeAt($position)) % 256;
             $result = $result + String.fromCharCode($value);
         }
@@ -788,11 +827,14 @@ function infohub_login_login() {
             $data2 = atob($string2),
             $result = '';
 
-        for (let $position = 0; $position < $data1.length; $position++) {
+        for (let $position = 0; $position < $data1.length; $position = $position + 1)
+        {
             let $value = $data1.charCodeAt($position) - $data2.charCodeAt($position);
+
             if ($value < 0) {
                 $value = $value + 256;
             }
+
             $result = $result + String.fromCharCode($value);
         }
 

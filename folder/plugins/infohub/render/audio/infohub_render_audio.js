@@ -19,6 +19,8 @@
  */
 function infohub_render_audio() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_render_audio() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         let $parts = $text.split('_');
 
@@ -84,8 +84,6 @@ function infohub_render_audio() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -119,8 +117,6 @@ function infohub_render_audio() {
     
     const _GetSandbox = function ()
     {
-        "use strict";
-
         const $row = 'sandbox="allow-same-origin allow-scripts"';
 
         return $row;
@@ -140,8 +136,6 @@ function infohub_render_audio() {
     $functions.push('create'); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         if (_IsSet($in.subtype) === 'false') {
             $in.subtype = 'soundcloud';
         }
@@ -177,8 +171,6 @@ function infohub_render_audio() {
      */
     const internal_Jamendo = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'audio',
             'subtype': 'jamendo',
@@ -210,8 +202,6 @@ function infohub_render_audio() {
      */
     const internal_Jamendolink = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'audio',
             'subtype': 'jamendolink',
@@ -249,8 +239,6 @@ function infohub_render_audio() {
      */
     const internal_Soundcloud = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'audio',
             'subtype': 'soundcloud',
@@ -283,8 +271,6 @@ function infohub_render_audio() {
      */
     const internal_Soundcloudlink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
 
         const $default = {
@@ -322,8 +308,6 @@ function infohub_render_audio() {
      */
     const internal_Spotify = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'audio',
             'subtype': 'spotify',
@@ -358,8 +342,6 @@ function infohub_render_audio() {
      */
     const internal_Spotifylink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
 
         const $default = {

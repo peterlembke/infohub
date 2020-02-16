@@ -17,6 +17,8 @@
  */
 function infohub_markdown() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -60,11 +62,8 @@ function infohub_markdown() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
-        let $parts = [], $response = '';
-
-        $parts = $text.split('_');
+        let $response = '';
+        let $parts = $text.split('_');
 
         for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
@@ -90,8 +89,6 @@ function infohub_markdown() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'type': 'showdown', // The child renderer. marked, remarkable, showdown
@@ -166,8 +163,6 @@ function infohub_markdown() {
     $functions.push("get_render_list"); // Enable this function
     const get_render_list = function ($in)
     {
-        "use strict";
-
        return {
            'answer': 'true',
            'message': 'Here are the list with all Markdown renderers',
@@ -184,8 +179,6 @@ function infohub_markdown() {
     $functions.push("get_render_option_list"); // Enable this function
     const get_render_option_list = function ($in)
     {
-        "use strict";
-
         let $options = [],
             $list = _RenderList();
     
@@ -212,8 +205,6 @@ function infohub_markdown() {
      */
     const _RenderList = function ($in)
     {
-        "use strict";
-
        return {
             'marked': 'Marked',
             'remarkable': 'Remarkable',

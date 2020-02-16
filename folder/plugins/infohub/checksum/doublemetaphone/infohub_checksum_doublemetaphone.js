@@ -18,6 +18,8 @@
  */
 function infohub_checksum_doublemetaphone() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -56,8 +58,6 @@ function infohub_checksum_doublemetaphone() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '' 
         };
@@ -88,8 +88,6 @@ function infohub_checksum_doublemetaphone() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'checksum': ''

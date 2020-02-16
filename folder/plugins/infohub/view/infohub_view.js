@@ -17,6 +17,8 @@
  */
 function infohub_view() {
 
+    "use strict";
+
 // webworker=false
 // include "infohub_base.js"
 
@@ -91,8 +93,6 @@ function infohub_view() {
     $functions.push('_Log');
     const _Log = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': '_Log',
             'message': ''
@@ -125,8 +125,6 @@ function infohub_view() {
     $functions.push('_BoxData');
     const _BoxData = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_data': '',
             'variables': {}
@@ -164,8 +162,6 @@ function infohub_view() {
     $functions.push('_GetBoxId');
     const _GetBoxId = function ($id)
     {
-        "use strict";
-
         let $box = document;
 
         if ($id === '1101_menutitle') {
@@ -316,7 +312,7 @@ function infohub_view() {
             }
 
             $children = $box.childNodes;
-            for (let $i = 0; $i < $children.length; $i++) {
+            for (let $i = 0; $i < $children.length; $i = $i + 1) {
                 if ($children[$i].tagName === 'DIV') {
                     $list.push($children[$i].id);
                 }
@@ -368,8 +364,6 @@ function infohub_view() {
     $functions.push('_GetMaxWidth');
     const _GetMaxWidth = function ($maxWidth)
     {
-        "use strict";
-
         let $answer = 'none';
 
         leave:
@@ -400,8 +394,6 @@ function infohub_view() {
     $functions.push('_GetNode');
     const _GetNode = function ($id)
     {
-        "use strict";
-
         const $convertedId = _GetBoxId($id);
 
         const $node = document.getElementById($convertedId);
@@ -427,8 +419,6 @@ function infohub_view() {
     $functions.push('init');
     const init = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -459,8 +449,6 @@ function infohub_view() {
     $functions.push('get_box_id');
     const get_box_id = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1'
         };
@@ -486,8 +474,6 @@ function infohub_view() {
     $functions.push('scroll_to_box_id');
     const scroll_to_box_id = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1'
         };
@@ -539,8 +525,6 @@ function infohub_view() {
     $functions.push('box_mode');
     const box_mode = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1',
             'box_mode': 'under', // 'under', 'side'
@@ -559,8 +543,6 @@ function infohub_view() {
     $functions.push('internal_BoxMode');
     const internal_BoxMode = function ($in)
     {
-        "use strict";
-
         let $message = '';
         let $done = 'false';
 
@@ -632,7 +614,7 @@ function infohub_view() {
             // All children get their class name set to the parent box mode name.
             let $children = $box.childNodes;
             const $childCount = $children.length;
-            for (let $i = 0; $i < $childCount; $i++) {
+            for (let $i = 0; $i < $childCount; $i = $i + 1) {
                 if ($children[$i].tagName === 'DIV') {
                     if ($children[$i].className !== 'end') {
                         $children[$i].className = $in.box_mode;
@@ -668,8 +650,6 @@ function infohub_view() {
     $functions.push('box_delete');
     const box_delete = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1'
         };
@@ -692,8 +672,6 @@ function infohub_view() {
     $functions.push('internal_BoxDelete');
     const internal_BoxDelete = function ($in)
     {
-        "use strict";
-
         let $message,
             $done = 'false';
 
@@ -740,8 +718,6 @@ function infohub_view() {
     $functions.push('box_clear');
     const box_clear = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': ''
         };
@@ -768,8 +744,6 @@ function infohub_view() {
     $functions.push('internal_BoxClear');
     const internal_BoxClear = function ($in)
     {
-        "use strict";
-
         let $message = '',
             $answer = 'false';
 
@@ -835,8 +809,6 @@ function infohub_view() {
     $functions.push('box_insert');
     const box_insert = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -879,8 +851,6 @@ function infohub_view() {
     $functions.push('boxes_insert');
     const boxes_insert = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -892,7 +862,7 @@ function infohub_view() {
         };
         $in = _Default($default, $in);
 
-        $in['func'] = 'BoxesInsert';
+        $in.func = 'BoxesInsert';
 
         let $response = internal_Cmd($in);
 
@@ -910,8 +880,6 @@ function infohub_view() {
     $functions.push('internal_BoxesInsert');
     const internal_BoxesInsert = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -969,8 +937,6 @@ function infohub_view() {
     $functions.push('boxes_insert_detailed');
     const boxes_insert_detailed = function ($in)
     {
-        "use strict";
-
         const $default = {
             'items': [],
             'css_all': {}
@@ -997,7 +963,7 @@ function infohub_view() {
 
         let $response;
 
-        for (let $i=0; $i < $itemsCount; $i++)
+        for (let $i=0; $i < $itemsCount; $i = $i + 1)
         {
             const $item = _Default($itemDefault, $in.items[$i]);
 
@@ -1030,8 +996,6 @@ function infohub_view() {
     $functions.push('internal_CssAll');
     const internal_CssAll = function ($in)
     {
-        "use strict";
-
         const $default = {
             'css_all': {}
         };
@@ -1043,7 +1007,7 @@ function infohub_view() {
                 continue;
             }
 
-            let $response = internal_Cmd({
+            internal_Cmd({
                 'func': 'Css',
                 'id': $key,
                 'css_data': $in.css_all[$key]
@@ -1064,8 +1028,6 @@ function infohub_view() {
     $functions.push('internal_BoxInsert');
     const internal_BoxInsert = function ($in)
     {
-        "use strict";
-
         let $default = {
             'func': 'BoxInsert',
             'parent_box_id': '', // Parent box id.
@@ -1227,8 +1189,6 @@ function infohub_view() {
     $functions.push('box_view');
     const box_view = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1',
             'box_view': '1'
@@ -1254,8 +1214,6 @@ function infohub_view() {
     $functions.push('internal_BoxView');
     const internal_BoxView = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '0',
             'box_view': '1'
@@ -1263,7 +1221,7 @@ function infohub_view() {
         $in = _Default($default, $in);
 
         let $answer = 'false',
-            $message = '';
+            $message;
 
         leave: {
 
@@ -1312,8 +1270,6 @@ function infohub_view() {
     $functions.push('siblings_box_view');
     const siblings_box_view = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '1', // Can be the box_id or the full friendly name box id
             'box_view': '1', // 0 = hide, 1= show
@@ -1342,8 +1298,6 @@ function infohub_view() {
     $functions.push('internal_SiblingsBoxView');
     const internal_SiblingsBoxView = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'SiblingsBoxView',
             'box_id': '1',
@@ -1354,8 +1308,8 @@ function infohub_view() {
 
         $in.box_id = _GetBoxId($in.box_id);
 
-        let $answer = 'false', $message = '',
-            $response, $box, $i, $boxId, $boxView, $alias;
+        let $answer = 'false', $message,
+            $response, $box, $boxId, $boxView, $alias;
 
         if ($in.box_view !== '0') {
             $in.box_view = '1';
@@ -1433,8 +1387,6 @@ function infohub_view() {
     $functions.push('box_list');
     const box_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '0'
         };
@@ -1458,8 +1410,6 @@ function infohub_view() {
     $functions.push('internal_BoxList');
     const internal_BoxList = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'BoxList',
             'box_id': '0'
@@ -1488,7 +1438,7 @@ function infohub_view() {
             }
 
             let $children = $box.childNodes;
-            for (let $i = 0; $i < $children.length; $i++) {
+            for (let $i = 0; $i < $children.length; $i = $i + 1) {
                 if ($children[$i].tagName === 'DIV') {
                     $alias = $children[$i].getAttribute('box_alias');
                     if (_Empty($alias) === 'false') {
@@ -1525,8 +1475,6 @@ function infohub_view() {
     $functions.push('box_data');
     const box_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '0',
             'box_data': '',
@@ -1558,8 +1506,6 @@ function infohub_view() {
     $functions.push('internal_BoxData');
     const internal_BoxData = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '0',
             'box_data': '',
@@ -1571,7 +1517,7 @@ function infohub_view() {
 
         $in.box_id = _GetBoxId($in.box_id);
 
-        let $answer = 'false', $message = '', $boxAlias = '', $anchor = '', $box, $boxData = '', $boxMode = '';
+        let $answer = 'false', $message, $boxAlias = '', $anchor = '', $box, $boxData = '', $boxMode = '';
 
         leave: {
             $box = _GetNode($in.box_id);
@@ -1652,8 +1598,6 @@ function infohub_view() {
     $functions.push('box_copy');
     const box_copy = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_box_id': '1',
             'to_box_id': '2'
@@ -1679,16 +1623,17 @@ function infohub_view() {
     $functions.push('internal_BoxCopy');
     const internal_BoxCopy = function ($in)
     {
-        "use strict";
-
-        let $answer = 'false', $boxFrom, $boxTo, $message = '';
-
         const $default = {
             'func': 'BoxCopy',
             'from_box_id': '1',
             'to_box_id': '2'
         };
         $in = _Default($default, $in);
+
+        let $answer = 'false',
+            $boxFrom,
+            $boxTo,
+            $message = '';
 
         leave: {
             $boxFrom = _GetNode($in.from_box_id);
@@ -1742,8 +1687,6 @@ function infohub_view() {
     $functions.push('internal_GetBeforeBoxId');
     const internal_GetBeforeBoxId = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'GetBeforeBoxId',
             'parent_box_id': '',
@@ -1803,8 +1746,6 @@ function infohub_view() {
     $functions.push('modify_class');
     const modify_class = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // ID of the box
             'class': 'yes', // The class name
@@ -1830,8 +1771,6 @@ function infohub_view() {
     $functions.push('internal_ModifyClass');
     const internal_ModifyClass = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // ID of the object to modify
             'class': 'yes', // The class name
@@ -1905,15 +1844,13 @@ function infohub_view() {
     $functions.push('internal_Css');
     const internal_Css = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // plugin name: example infohub_render_video
             'css_data': '' // The css data encoded as base64 text
         };
         $in = _Default($default, $in);
 
-        let $message = '',
+        let $message,
             $addedLink = 'false';
 
         leave: {
@@ -1963,8 +1900,6 @@ function infohub_view() {
     $functions.push('set_favicon');
     const set_favicon = function ($in)
     {
-        "use strict";
-
         const $default = {
             'image_data': '' // The PNG image data encoded as base64 text
         };
@@ -1984,14 +1919,12 @@ function infohub_view() {
     $functions.push('internal_SetFavicon');
     const internal_SetFavicon = function ($in)
     {
-        "use strict";
-
         const $default = {
             'image_data': '' // The image data encoded as base64 text
         };
         $in = _Default($default, $in);
 
-        let $message = '',
+        let $message,
             $linkInserted = 'false',
             $faviconSet = 'false';
 
@@ -2020,7 +1953,7 @@ function infohub_view() {
                 $message = 'favicon was added';
             }
 
-            $faviconSet = 'true'
+            $faviconSet = 'true';
         }
 
         return {
@@ -2028,8 +1961,7 @@ function infohub_view() {
             'message': $message,
             'link_inserted': $linkInserted,
             'favicon_set': $faviconSet
-        }
-
+        };
     };
 
     /**
@@ -2041,8 +1973,6 @@ function infohub_view() {
     $functions.push('set_text');
     const set_text = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // Id for an object
             'text': '' // Text you want to insert into the object
@@ -2065,8 +1995,6 @@ function infohub_view() {
     $functions.push('internal_SetText');
     const internal_SetText = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // Id for an object
             'text': '' // Text you want to insert into the object
@@ -2074,7 +2002,7 @@ function infohub_view() {
         $in = _Default($default, $in);
 
         let $updated = 'false',
-            $message = '',
+            $message,
             $type = '';
 
         leave: {
@@ -2119,7 +2047,7 @@ function infohub_view() {
             'message': $message,
             'type': $type,
             'updated': $updated
-        }
+        };
     };
 
     /**
@@ -2131,8 +2059,6 @@ function infohub_view() {
     $functions.push('get_text');
     const get_text = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2152,15 +2078,13 @@ function infohub_view() {
     $functions.push('internal_GetText');
     const internal_GetText = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
         $in = _Default($default, $in);
 
         let $text = '',
-            $message = '',
+            $message,
             $type = '';
 
         leave: {
@@ -2204,7 +2128,7 @@ function infohub_view() {
             'message': $message,
             'type': $type,
             'text': $text
-        }
+        };
     };
 
     /**
@@ -2216,8 +2140,6 @@ function infohub_view() {
     $functions.push('get_html');
     const get_html = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2237,8 +2159,6 @@ function infohub_view() {
     $functions.push('internal_GetHtml');
     const internal_GetHtml = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2246,7 +2166,7 @@ function infohub_view() {
         $in = _Default($default, $in);
 
         let $html = '',
-            $message = '';
+            $message;
 
         leave: {
 
@@ -2265,7 +2185,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'html': $html
-        }
+        };
     };
 
     /**
@@ -2277,8 +2197,6 @@ function infohub_view() {
     $functions.push('zoom_level');
     const zoom_level = function ($in)
     {
-        "use strict";
-
         const $default = {
             'current_zoom_level': 0,
             'zoom_level': 0,
@@ -2305,8 +2223,6 @@ function infohub_view() {
     $functions.push('internal_ZoomLevel');
     const internal_ZoomLevel = function ($in)
     {
-        "use strict";
-
         let $zoomLevel = 100, // Percent
             $currentZoomLevel = 100;
 
@@ -2345,7 +2261,7 @@ function infohub_view() {
             'answer': 'true',
             'message': 'Document zoom level is set',
             'new_zoom_level': $zoomLevel
-        }
+        };
     };
 
     /**
@@ -2357,8 +2273,6 @@ function infohub_view() {
     $functions.push('style');
     const style = function ($in)
     {
-        "use strict";
-
         const $default = {
             'entity': 'body',
             'data': '',
@@ -2387,8 +2301,6 @@ function infohub_view() {
     $functions.push('internal_Style');
     const internal_Style = function ($in)
     {
-        "use strict";
-
         const $default = {
             'entity': '',
             'data': '',
@@ -2402,7 +2314,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': 'Entity style set'
-        }
+        };
     };
 
     /**
@@ -2414,8 +2326,6 @@ function infohub_view() {
     $functions.push('is_visible');
     const is_visible = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2436,8 +2346,6 @@ function infohub_view() {
     $functions.push('internal_IsVisible');
     const internal_IsVisible = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': ''
         };
@@ -2467,8 +2375,7 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'visible': $visible
-        }
-
+        };
     };
 
     /**
@@ -2480,8 +2387,6 @@ function infohub_view() {
     $functions.push('set_visible');
     const set_visible = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // Id for an object
             'set_visible': '' // 'true', 'false', 'switch', empty string
@@ -2505,8 +2410,6 @@ function infohub_view() {
     $functions.push('internal_SetVisible');
     const internal_SetVisible = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'set_visible': '', // 'true', 'false', 'switch'
@@ -2568,7 +2471,6 @@ function infohub_view() {
             }
 
             $message = 'Please set_visible to either true, false or switch';
-
         }
 
         return {
@@ -2576,8 +2478,7 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'is_visible': $isVisible
-        }
-
+        };
     };
 
     /**
@@ -2589,8 +2490,6 @@ function infohub_view() {
     $functions.push('is_enabled');
     const is_enabled = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2610,8 +2509,6 @@ function infohub_view() {
     $functions.push('internal_IsEnabled');
     const internal_IsEnabled = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': ''
         };
@@ -2640,7 +2537,7 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'is_enabled': $enabled
-        }
+        };
     };
 
     /**
@@ -2652,8 +2549,6 @@ function infohub_view() {
     $functions.push('set_enabled');
     const set_enabled = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // Id for an object
             'set_enabled': 'true' // 'true', 'false', 'switch'
@@ -2677,8 +2572,6 @@ function infohub_view() {
     $functions.push('internal_SetEnabled');
     const internal_SetEnabled = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'set_enabled': 'true' // 'true', 'false', 'switch'
@@ -2735,20 +2628,19 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'is_enabled': $isEnabled
-        }
+        };
     };
 
+    $functions.push('toggle');
     /**
      * Switch visibility for an object
      * Use "set_visible" instead if you can. It can do the same thing.
      * Used by infohub_render_link when creating toggle links.
      * @param $in
+     * @returns {{answer: string, message: string}}
      */
-    $functions.push('toggle');
     const toggle = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': ''
         };
@@ -2769,8 +2661,6 @@ function infohub_view() {
     $functions.push('mass_update');
     const mass_update = function ($in)
     {
-        "use strict";
-
         const $default = {
             'do': []
         };
@@ -2778,7 +2668,7 @@ function infohub_view() {
 
         let $responses = [];
 
-        for (let $key=0; $key < $in.do.length; $key++) {
+        for (let $key=0; $key < $in.do.length; $key = $key + 1) {
             $responses[$key] = internal_Cmd($in.do[$key]);
         }
 
@@ -2799,8 +2689,6 @@ function infohub_view() {
     $functions.push('id_exist');
     const id_exist = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2820,8 +2708,6 @@ function infohub_view() {
     $functions.push('internal_IdExist');
     const internal_IdExist = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '' // Id for an object
         };
@@ -2846,7 +2732,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'exist': $exist
-        }
+        };
     };
 
     /**
@@ -2858,8 +2744,6 @@ function infohub_view() {
     $functions.push('mark_object');
     const mark_object = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '', // Id for an object
             'mark': 'true' // 'true', 'false', 'switch'
@@ -2881,8 +2765,6 @@ function infohub_view() {
     $functions.push('internal_MarkObject');
     const internal_MarkObject = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'mark': 'true', // 'true', 'false', 'switch'
@@ -2943,8 +2825,7 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'is_marked': $isMarked
-        }
-
+        };
     };
 
     /**
@@ -2956,16 +2837,14 @@ function infohub_view() {
     $functions.push('form_select_read');
     const form_select_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': ''
         };
         $in = _Default($default, $in);
 
         let $answer = 'false',
-            $message = 'Nothing to report from form_select_read',
-            $exist = 'false',
+            $message,
+            $exist,
             $value = [];
 
         leave:
@@ -2985,7 +2864,8 @@ function infohub_view() {
                 break leave;
             }
 
-            for (let $i = 0; $i < $element.options.length; $i++) {
+            for (let $i = 0; $i < $element.options.length; $i = $i + 1)
+            {
                 if ($element.options[$i].selected) {
                     $value.push($element.options[$i].value);
                 }
@@ -3013,8 +2893,6 @@ function infohub_view() {
     $functions.push('form_read');
     const form_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': ''
         };
@@ -3034,8 +2912,6 @@ function infohub_view() {
     $functions.push('internal_FormRead');
     const internal_FormRead = function ($in)
     {
-        "use strict";
-
         let $answer = 'true',
             $exist = 'true',
             $message = '',
@@ -3058,62 +2934,63 @@ function infohub_view() {
             const $selector = '[renderer=\'infohub_render_form\']';
             let $elementList = $element.querySelectorAll($selector);
 
-            for (let $listItemNumber in $elementList) {
-                if ($elementList.hasOwnProperty($listItemNumber)) {
-
-                    let $box = $elementList[$listItemNumber];
-
-                    if ($box.tagName === 'FORM' || $box.tagName === 'BUTTON' || $box.tagName === 'DATALIST') {
-                        continue;
-                    }
-
-                    let $data = {};
-
-                    Array.prototype.slice.call($box.attributes).forEach(function(item) {
-                        let $itemName = item.name;
-                        if ($itemName === 'step') { $itemName = 'step_value'; }
-                        $data[$itemName] = item.value;
-                    });
-
-                    $data = _ReadProperty($box, 'value', $data);
-                    $data = _ReadProperty($box, 'innerHTML', $data);
-
-                    if (_GetData({'name': 'form_alias', 'default': '', 'data': $data}) === '') {
-                        continue;
-                    }
-
-                    let $alias = $data['form_alias'];
-                    let $type = $data['type'];
-
-                    if ($type === 'radio' || $type === 'checkbox')
-                    {
-                        const $value = $data['value'];
-                        let $checkBoxData = 'false';
-                        if ($box.checked === true) {
-                            $checkBoxData = 'true';
-                        }
-                        $data['value'] = $checkBoxData;
-
-                        $formData[$alias + '.' + $value] = _ByVal($data);
-                        continue;
-                    }
-
-                    if ($type === 'select') {
-                        $answer = [];
-                        for (let $i = 0; $i < $box.options.length; $i++) {
-                            if ($box.options[$i].selected) {
-                                $answer.push($box.options[$i].value);
-                            }
-                        }
-                        $data['value'] = _ByVal($answer);
-                        $data['innerHTML'] = '';
-                        $formData[$alias] = _ByVal($data);
-                        continue;
-                    }
-
-                    $formData[$alias] = _ByVal($data);
-
+            for (let $listItemNumber in $elementList)
+            {
+                if ($elementList.hasOwnProperty($listItemNumber) === false ) {
+                    continue;
                 }
+
+                let $box = $elementList[$listItemNumber];
+
+                if ($box.tagName === 'FORM' || $box.tagName === 'BUTTON' || $box.tagName === 'DATALIST') {
+                    continue;
+                }
+
+                let $data = {};
+
+                Array.prototype.slice.call($box.attributes).forEach(function(item) {
+                    let $itemName = item.name;
+                    if ($itemName === 'step') { $itemName = 'step_value'; }
+                    $data[$itemName] = item.value;
+                });
+
+                $data = _ReadProperty($box, 'value', $data);
+                $data = _ReadProperty($box, 'innerHTML', $data);
+
+                if (_GetData({'name': 'form_alias', 'default': '', 'data': $data}) === '') {
+                    continue;
+                }
+
+                let $alias = $data.form_alias;
+                let $type = $data.type;
+
+                if ($type === 'radio' || $type === 'checkbox')
+                {
+                    const $value = $data.value;
+                    let $checkBoxData = 'false';
+                    if ($box.checked === true) {
+                        $checkBoxData = 'true';
+                    }
+                    $data.value = $checkBoxData;
+
+                    $formData[$alias + '.' + $value] = _ByVal($data);
+                    continue;
+                }
+
+                if ($type === 'select') {
+                    $answer = [];
+                    for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
+                        if ($box.options[$i].selected) {
+                            $answer.push($box.options[$i].value);
+                        }
+                    }
+                    $data.value = _ByVal($answer);
+                    $data.innerHTML = '';
+                    $formData[$alias] = _ByVal($data);
+                    continue;
+                }
+
+                $formData[$alias] = _ByVal($data);
             }
 
             $answer = 'true';
@@ -3126,7 +3003,7 @@ function infohub_view() {
             'message': $message,
             'exist': $exist,
             'form_data': $formData
-        }
+        };
     };
 
     const _ReadProperty = function ($box, $method, $data)
@@ -3159,8 +3036,6 @@ function infohub_view() {
     $functions.push('form_write');
     const form_write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'form_data': {}
@@ -3182,8 +3057,6 @@ function infohub_view() {
     $functions.push('internal_FormWrite');
     const internal_FormWrite = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'form_data': {}
@@ -3269,7 +3142,7 @@ function infohub_view() {
                 {
                     $box.options.length = 0;
 
-                    for (let $i=0; $i < $value.length; $i++)
+                    for (let $i=0; $i < $value.length; $i = $i + 1)
                     {
                         let $option = document.createElement("option");
                         $option.text = $value[$i];
@@ -3282,23 +3155,22 @@ function infohub_view() {
                 }
 
                 let $selectIndex = {};
-                for (let $i=0; $i < $value.length; $i++) {
+                for (let $i=0; $i < $value.length; $i = $i + 1) {
                     $selectIndex[$value[$i]] = 1;
                 }
 
-                for (let $i = 0; $i < $box.options.length; $i++) {
+                for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
                     $box.options[$i].selected = false;
                 }
 
-                for (let $i = 0; $i < $box.options.length; $i++) {
+                for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
                     if (_IsSet($selectIndex[$box.options[$i].value]) === 'true') {
                         $box.options[$i].selected = true;
                     }
                 }
-                _Go($box, 'onchange');
-                continue;
-            }
 
+                _Go($box, 'onchange');
+            }
         }
 
         const $answer = 'true';
@@ -3307,7 +3179,7 @@ function infohub_view() {
         return {
             'answer': $answer,
             'message': $message
-        }
+        };
     };
 
     $functions.push('_Go');
@@ -3319,8 +3191,6 @@ function infohub_view() {
      */
     const _Go = function ($box, $property)
     {
-        "use strict";
-
         if (_IsSet($box[$property]) === 'false') {
             return;
         }
@@ -3347,8 +3217,6 @@ function infohub_view() {
      */
     const _GetFormDataToUpdate = function ($currentFormData, $newFormData)
     {
-        "use strict";
-
         let $formDataToUpdate = {},
             $current;
 
@@ -3468,8 +3336,6 @@ function infohub_view() {
     $functions.push('file_read');
     const file_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'read_binary': 'false',
@@ -3482,7 +3348,7 @@ function infohub_view() {
 
         const $box = _GetNode($in.id);
 
-        for (let $i = 0; $i < $box.files.length; $i++) {
+        for (let $i = 0; $i < $box.files.length; $i = $i + 1) {
             $filesData[$i] = {
                 'name': $box.files[$i].name,
                 'size': $box.files[$i].size,
@@ -3496,9 +3362,11 @@ function infohub_view() {
         let $filesLeft = $box.files.length;
         let $reader = new FileReader();
 
-        $reader.onload = function(event) {
+        $reader.onload = function(event)
+        {
             $filesData[$filesLeft-1].content = event.target.result;
-            $filesLeft--;
+            $filesLeft = $filesLeft - 1;
+
             if ($filesLeft === 0) {
                 clearInterval($timer);
                 $in.callback_function({
@@ -3538,8 +3406,6 @@ function infohub_view() {
     $functions.push('_ATag');
     const _ATag = function ($in)
     {
-        "use strict";
-
         let element = document.createElement('a');
 
         for (let $attributeName in $in) {
@@ -3571,8 +3437,6 @@ function infohub_view() {
     $functions.push('file_write');
     const file_write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'file_name': '',
             'content': ''
@@ -3599,8 +3463,6 @@ function infohub_view() {
     $functions.push('sms_send');
     const sms_send = function ($in)
     {
-        "use strict";
-
         const $default = {
             'number': '',
             'content': ''
@@ -3626,8 +3488,6 @@ function infohub_view() {
     $functions.push('call_number');
     const call_number = function ($in)
     {
-        "use strict";
-
         const $default = {
             'number': ''
         };
@@ -3655,8 +3515,6 @@ function infohub_view() {
     $functions.push("event_message"); // Enable this function
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_id': 0,
             'box_id': '',
@@ -3715,14 +3573,14 @@ function infohub_view() {
                         }
                     }
 
-                    $response = internal_Cmd({
+                    internal_Cmd({
                         'func': 'SetVisible',
                         'id': $in.other_id,
                         'set_visible': 'switch',
                         'block_type_visible': $blockTypeVisible
                     });
 
-                    $response = internal_Cmd({
+                    internal_Cmd({
                         'func': 'SetVisible',
                         'id': $in.id,
                         'set_visible': 'switch',

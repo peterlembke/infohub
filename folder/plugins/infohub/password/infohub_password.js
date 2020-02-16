@@ -18,6 +18,8 @@
  */
 function infohub_password() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -56,8 +58,6 @@ function infohub_password() {
     $functions.push("generate");
     const generate = function($in)
     {
-        "use strict";
-
         const $default = {
             'number_of_passwords': 30, // Number of passwords you want to select from
             'password_length': 0, // wanted password length, give 0 for a random length 16-64 characters
@@ -74,7 +74,7 @@ function infohub_password() {
         const $message = 'Password generator '  + $lengthText + " characters from group 0-" + $in.max_group_number + '.';
         let $passwordArray = [];
 
-        for (let $passwordNumber = $in.number_of_passwords; $passwordNumber > 0; $passwordNumber--) {
+        for (let $passwordNumber = $in.number_of_passwords; $passwordNumber > 0; $passwordNumber = $passwordNumber - 1) {
             $passwordArray.push(_Generate($in.password_length, $in.max_group_number));
         }
 
@@ -93,8 +93,6 @@ function infohub_password() {
      */
     const _Generate = function($length, $maxGroupNumber)
     {
-        "use strict";
-
         if ($length < 0) { $length = 0; }
         if ($maxGroupNumber < 0) { $maxGroupNumber = 0; }
         if ($maxGroupNumber > 4) { $maxGroupNumber = 4; }
@@ -123,8 +121,6 @@ function infohub_password() {
      */
     const _GetRandomLength = function()
     {
-        "use strict";
-
         return _Random(16,64);
     };
 
@@ -139,8 +135,6 @@ function infohub_password() {
      */
     const _GetGroupString = function($length)
     {
-        "use strict";
-
         if ($length < 0) { $length = 64; }
 
         const $start = '0000011111222333344';
@@ -157,7 +151,7 @@ function infohub_password() {
         const $characterArray = $string.split(""),
             $characterCount = $characterArray.length;
 
-        for (let $characterNumber = $characterCount - 1; $characterNumber > 0; $characterNumber--)
+        for (let $characterNumber = $characterCount - 1; $characterNumber > 0; $characterNumber = $characterNumber - 1)
         {
             const $characterNewNumber = Math.floor(Math.random() * ($characterNumber + 1));
             const $copyCharacter = $characterArray[$characterNumber];
@@ -176,8 +170,6 @@ function infohub_password() {
      */
     const _GetRandomGroupCharacter = function($groupNumber, $maxGroupNumber)
     {
-        "use strict";
-
         const $group = _GetGroupData($groupNumber, $maxGroupNumber);
         const $length = $group.length;
         if ($length <= 0) {
@@ -192,8 +184,6 @@ function infohub_password() {
 
     const _Random = function($min, $max)
     {
-        "use strict";
-
         if ($min < 0) { $min = 0; }
         if ($max < 0) { $max = 0; }
 
@@ -209,8 +199,6 @@ function infohub_password() {
      */
     const _GetGroupData = function($groupNumber, $maxGroupNumber)
     {
-        "use strict";
-
         if ($groupNumber < 0) {
             $groupNumber = 0;
         }

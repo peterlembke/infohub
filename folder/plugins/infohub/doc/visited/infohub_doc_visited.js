@@ -17,11 +17,9 @@
  */
 function infohub_doc_visited() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -88,8 +86,6 @@ function infohub_doc_visited() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -161,8 +157,6 @@ function infohub_doc_visited() {
     $functions.push("click_item");
     const click_item = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',

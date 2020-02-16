@@ -17,11 +17,9 @@
  */
 function infohub_welcome() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -87,8 +85,6 @@ function infohub_welcome() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start'
@@ -206,8 +202,6 @@ function infohub_welcome() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        "use strict";
-
         const $pluginName = 'infohub_welcome', $loadOption = 'welcome';
 
         const $default = {
@@ -289,8 +283,6 @@ function infohub_welcome() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_id': '',
             'box_id': '',
@@ -343,7 +335,7 @@ function infohub_welcome() {
                     'answer': 'true',
                     'message': 'Here comes a multi message',
                     'messages': $in.data
-                }
+                };
             } else {
                 // We have a normal message from the child plugin
                 return _SubCall($in.data);

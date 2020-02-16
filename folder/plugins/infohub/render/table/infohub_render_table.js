@@ -19,6 +19,8 @@
  */
 function infohub_render_table() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -56,8 +58,6 @@ function infohub_render_table() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -100,15 +100,18 @@ function infohub_render_table() {
      */
     const _GetParameters = function ($in, $fields)
     {
-        "use strict";
-
         let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true')
         {
             $in = _Merge($in, $in.custom_variables);
 
-            for (let $keyOut in $in.custom_variables) {
+            for (let $keyOut in $in.custom_variables)
+            {
+                if ($in.custom_variables.hasOwnProperty($keyOut) === false) {
+                    continue;
+                }
+
                 if ($keyOut === 'custom_variables') { continue; }
                 if (_IsSet($fields[$keyOut]) === 'true') { continue; }
                 $fields[$keyOut] = $keyOut;
@@ -116,7 +119,8 @@ function infohub_render_table() {
             delete $in.custom_variables;
         }
 
-        for (let $keyOut in $fields) {
+        for (let $keyOut in $fields)
+        {
             if ($fields.hasOwnProperty($keyOut)) {
                 let $keyIn = $fields[$keyOut];
                 let $data = $in[$keyIn];
@@ -149,8 +153,6 @@ function infohub_render_table() {
     $functions.push("create");
     const create = function ($in)
     {
-        "use strict";
-
         $in = _SetDefaultInValues($in);
 
         const $constants = {
@@ -193,8 +195,6 @@ function infohub_render_table() {
      */
     const _SetDefaultInValues = function($in)
     {
-        "use strict";
-
         let $default = {
             'type': 'table',
             'alias': '', // Your name on this table. Full name will be {box_id}_{alias}
@@ -251,7 +251,7 @@ function infohub_render_table() {
         }
 
         // data - set default values
-        for (let $i = 0; $i < $in.data.length; $i++) {
+        for (let $i = 0; $i < $in.data.length; $i = $i + 1) {
             $in.data[$i] = _Default($defaultData, $in.data[$i]);
         }
 
@@ -267,14 +267,12 @@ function infohub_render_table() {
      */
     const _AllRowsHtml = function ($in)
     {
-        "use strict";
-
         const $idFieldName = $in.id_field_name;
         const $destination = ' to_node="' + $in.to_node + '" to_plugin="' + $in.to_plugin + '" to_function="' + $in.to_function + '"';
 
         let $rowArray = [];
 
-        for (let $i = 0; $i < $in.data.length; $i++)
+        for (let $i = 0; $i < $in.data.length; $i = $i + 1)
         {
             const $item = $in.data[$i];
 
@@ -362,8 +360,6 @@ function infohub_render_table() {
      */
     const _RenderHead = function($in)
     {
-        "use strict";
-
         let $labelArray = [];
         for (let $fieldName in $in.definition)
         {

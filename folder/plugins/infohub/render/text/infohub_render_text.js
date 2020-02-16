@@ -19,6 +19,8 @@
  */
 function infohub_render_text() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -56,8 +58,6 @@ function infohub_render_text() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -103,8 +103,6 @@ function infohub_render_text() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         let $default = {
             'what_done': {},
             'text': '',
@@ -163,8 +161,6 @@ function infohub_render_text() {
      */
     const internal_Text = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'Text',
             'what_done': {},
@@ -188,7 +184,8 @@ function infohub_render_text() {
         $in.text = $in.text.split("\n");
 
         // Each row get a <p> and a </p>
-        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth < $aliasDepth; $currentAliasDepth++) {
+        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth < $aliasDepth; $currentAliasDepth = $currentAliasDepth + 1)
+        {
             if ($in.text[$currentAliasDepth].charAt(0) === ' ') {
                 $in.text[$currentAliasDepth] = '<p>' + $in.text[$currentAliasDepth].slice(1) + '</p>';
                 $cssData['p:first-letter'] = 'font-size: 1.5em;';
@@ -258,8 +255,6 @@ function infohub_render_text() {
      */
     const _Exchange = function ($find)
     {
-        "use strict";
-
         const $data = {
             ':-)': '☺',
             ':-(': '☹',

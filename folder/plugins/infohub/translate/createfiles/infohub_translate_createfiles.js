@@ -17,11 +17,9 @@
  */
 function infohub_translate_createfiles() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -94,8 +92,6 @@ function infohub_translate_createfiles() {
     $functions.push('_MergeData');
     const _MergeData = function ($object1, $object2)
     {
-        "use strict";
-
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
@@ -108,8 +104,6 @@ function infohub_translate_createfiles() {
     $functions.push('_MergeKeys');
     const _MergeKeys = function ($object1, $object2)
     {
-        "use strict";
-
         for (let $key in $object2)
         {
             if ($object2.hasOwnProperty($key) === false) {
@@ -153,8 +147,6 @@ function infohub_translate_createfiles() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -275,8 +267,6 @@ function infohub_translate_createfiles() {
     $functions.push("click_refresh");
     const click_refresh = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_render_plugin_options',
@@ -353,8 +343,6 @@ function infohub_translate_createfiles() {
     $functions.push('click_create_files');
     const click_create_files = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -443,12 +431,12 @@ function infohub_translate_createfiles() {
                         'function': 'create_template_file'
                     },
                     'data': {
-                        'plugin_name': $nodeData['plugin_name']
+                        'plugin_name': $nodeData.plugin_name
                     }
                 },
                 'data_back': {
                     'step': 'step_ask_server_response',
-                    'plugin_name': $nodeData['plugin_name']
+                    'plugin_name': $nodeData.plugin_name
                 }
             });
         }

@@ -17,11 +17,9 @@
  */
 function infohub_login_export() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -75,8 +73,6 @@ function infohub_login_export() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -147,8 +143,6 @@ function infohub_login_export() {
     $functions.push("click_export");
     const click_export = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_read_contact',

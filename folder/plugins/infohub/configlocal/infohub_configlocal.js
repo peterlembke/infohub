@@ -17,15 +17,9 @@
  */
 function infohub_configlocal() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -102,8 +96,6 @@ function infohub_configlocal() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start'
@@ -224,8 +216,6 @@ function infohub_configlocal() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        "use strict";
-
         const $pluginName = 'infohub_configlocal';
 
         const $default = {
@@ -302,8 +292,6 @@ function infohub_configlocal() {
     $functions.push("submit");
     const submit = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_save',
             'data': null,
@@ -342,7 +330,7 @@ function infohub_configlocal() {
             return {
                 'answer': 'false',
                 'message': 'The call do not come from a child. I will do nothing.'
-            }
+            };
         }
 
         if ($in.step === "step_save_response")
@@ -364,8 +352,6 @@ function infohub_configlocal() {
     $functions.push('click_menu');
     const click_menu = function ($in)
     {
-        "use strict";
-
         let $names = [];
 
         const $default = {
@@ -477,8 +463,6 @@ function infohub_configlocal() {
     $functions.push("click");
     const click = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -542,8 +526,6 @@ function infohub_configlocal() {
     $functions.push('load_items');
     const load_items = function ($in)
     {
-        "use strict";
-
         const $default = {
             'section_names_array': [],
             'step': 'step_load_data',
@@ -559,7 +541,7 @@ function infohub_configlocal() {
         {
             let $paths = {};
 
-            for (let $i=0; $i < $in.section_names_array.length; $i++) {
+            for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
                 const $path = 'infohub_configlocal/' + $in.section_names_array[$i];
                 $paths[$path]= 1;
             }
@@ -600,8 +582,6 @@ function infohub_configlocal() {
     $functions.push('get_config');
     const get_config = function ($in)
     {
-        "use strict";
-
         let $out = {};
 
         const $default = {
@@ -668,8 +648,6 @@ function infohub_configlocal() {
     $functions.push('apply_config');
     const apply_config = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_get_config',
             'response': {
@@ -717,7 +695,7 @@ function infohub_configlocal() {
                 $childName = '',
                 $config = {};
 
-            for (let $i = 0; $i < $children.length; $i++)
+            for (let $i = 0; $i < $children.length; $i = $i + 1)
             {
                 $childName = $children[$i];
 

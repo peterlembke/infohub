@@ -17,17 +17,9 @@
  */
 function infohub_tools_uuid() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
-
-
 
     const _Version = function() {
         return {
@@ -81,8 +73,6 @@ function infohub_tools_uuid() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
                 'subtype': 'menu',
                 'parent_box_id': '',
@@ -219,8 +209,6 @@ function infohub_tools_uuid() {
     $functions.push('click_handle_uuid');
     const click_handle_uuid = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -314,8 +302,6 @@ function infohub_tools_uuid() {
     $functions.push('click_handle_node_select');
     const click_handle_node_select = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -351,8 +337,7 @@ function infohub_tools_uuid() {
             'answer': 'true',
             'message': 'Handled the node select',
             'ok': 'true'
-        }
+        };
     };
-
 }
 //# sourceURL=infohub_tools_uuid.js

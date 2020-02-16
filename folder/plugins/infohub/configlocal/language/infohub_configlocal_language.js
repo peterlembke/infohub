@@ -17,15 +17,9 @@
  */
 function infohub_configlocal_language() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -79,8 +73,6 @@ function infohub_configlocal_language() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -182,8 +174,6 @@ function infohub_configlocal_language() {
     $functions.push("click_transfer");
     const click_transfer = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -307,8 +297,6 @@ function infohub_configlocal_language() {
     $functions.push("click_submit");
     const click_submit = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -401,8 +389,6 @@ function infohub_configlocal_language() {
     $functions.push("apply_config");
     const apply_config = function ($in)
     {
-        "use strict";
-
         const $default = {
             'local_config': {
                 'language': {

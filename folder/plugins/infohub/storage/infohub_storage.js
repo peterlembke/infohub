@@ -23,6 +23,8 @@
  */
 function infohub_storage() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function () {
@@ -63,8 +65,6 @@ function infohub_storage() {
     $functions.push('read');
     const read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'path': '',
             'step': 'step_start',
@@ -160,8 +160,6 @@ function infohub_storage() {
     $functions.push('write');
     const write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'path': '',
             'data': {},
@@ -252,8 +250,6 @@ function infohub_storage() {
     $functions.push('read_many');
     const read_many = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': ''},
             'step': 'step_read',
@@ -327,8 +323,6 @@ function infohub_storage() {
     $functions.push('write_many');
     const write_many = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': ''},
             'step': 'step_write',
@@ -360,7 +354,7 @@ function infohub_storage() {
 
             if ($in.step === 'step_write') {
                 if (_Count($in.paths) > 0) {
-                    const $pop = _Pop($in['paths']);
+                    const $pop = _Pop($in.paths);
 
                     return _SubCall({
                         'to': {
@@ -389,6 +383,5 @@ function infohub_storage() {
             'items': $in.data_back.items
         };
     };
-
 }
 //# sourceURL=infohub_storage.js

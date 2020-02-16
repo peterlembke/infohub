@@ -19,7 +19,9 @@
  */
 function infohub_render_common() {
 
-    // include "infohub_base.js"
+    "use strict";
+
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -58,18 +60,19 @@ function infohub_render_common() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         if (_Empty($text) === 'true') {
             return '';
         }
 
         let $response = '';
         let $parts = $text.split('_');
-        for (let $key in $parts) {
+
+        for (let $key in $parts)
+        {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
+
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
 
@@ -86,8 +89,6 @@ function infohub_render_common() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'name': '',
@@ -131,8 +132,6 @@ function infohub_render_common() {
      */
     const _Display = function ($in)
     {
-        "use strict";
-
         const $default = {
             'display': ''
         };
@@ -170,7 +169,6 @@ function infohub_render_common() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
         $in = _ByVal($in);
 
         $in.func = _GetFuncName($in.subtype);
@@ -206,8 +204,6 @@ function infohub_render_common() {
      */
     const internal_ContainerStart = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'class': 'container',
@@ -248,8 +244,6 @@ function infohub_render_common() {
      */
     const internal_ContainerStop = function ($in)
     {
-        "use strict";
-
         const $default = {
                 'tag': 'div' // span, p, div
             };
@@ -283,8 +277,6 @@ function infohub_render_common() {
      */
     const internal_Container = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'class': 'container',
@@ -349,8 +341,6 @@ function infohub_render_common() {
      */
     const internal_Codecontainer = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'class': 'code-example',
@@ -408,8 +398,6 @@ function infohub_render_common() {
      */
     const internal_Iframe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'height': '350px',
@@ -451,8 +439,6 @@ function infohub_render_common() {
      */
     const internal_Legend = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'label': '',
@@ -499,8 +485,6 @@ function infohub_render_common() {
      */
     const internal_Image = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'data': '',
@@ -546,8 +530,6 @@ function infohub_render_common() {
      */
     const internal_Svg = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'data': '',
@@ -558,12 +540,18 @@ function infohub_render_common() {
 
         let $html = '';
 
-        if ($in.data !== '') {
+        if ($in.data !== '')
+        {
             if ($in.data.indexOf('<svg') >= 0) {
                 $in.data = _Replace("\n", '', $in.data);
             }
 
-            const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = _GetId({
+                'id': $in.alias,
+                'name': $in.alias,
+                'class': $in.class
+            });
+
             $html = '<div ' + $id + '>' + $in.data + '</div>';
         }
 
@@ -589,8 +577,6 @@ function infohub_render_common() {
      */
     const internal_Value = function ($in)
     {
-        "use strict";
-
         const $default = {
             'data': ''
         };
@@ -612,8 +598,6 @@ function infohub_render_common() {
      */
     const internal_Join = function ($in)
     {
-        "use strict";
-
         const $default = {
             'title': '',
             'data0': '',
@@ -631,7 +615,8 @@ function infohub_render_common() {
 
         let $htmlArray = [];
 
-        for (let $i = 0; $i < 10; $i++) {
+        for (let $i = 0; $i < 10; $i = $i + 1)
+        {
             const $key = 'data' + $i;
             const $data = $in[$key];
             if ($data !== '') {
@@ -660,8 +645,6 @@ function infohub_render_common() {
      */
     const internal_List = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'class': 'list',
@@ -680,7 +663,7 @@ function infohub_render_common() {
 
         let $id;
 
-        for (let $rowNumber = 0; $rowNumber < $in.option.length; $rowNumber++)
+        for (let $rowNumber = 0; $rowNumber < $in.option.length; $rowNumber = $rowNumber + 1)
         {
             let $row = $in.option[$rowNumber];
             $row = _Default($optionDefault, $row);
@@ -716,8 +699,6 @@ function infohub_render_common() {
      */
     const internal_LabelData = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'label': '',

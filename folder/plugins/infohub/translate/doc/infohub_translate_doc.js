@@ -17,11 +17,9 @@
  */
 function infohub_translate_doc() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -77,8 +75,6 @@ function infohub_translate_doc() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -183,8 +179,6 @@ function infohub_translate_doc() {
     $functions.push('click_main');
     const click_main = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -213,8 +207,6 @@ function infohub_translate_doc() {
     $functions.push('click_createfiles');
     const click_createfiles = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -243,8 +235,6 @@ function infohub_translate_doc() {
     $functions.push('click_mergefiles');
     const click_mergefiles = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -273,8 +263,6 @@ function infohub_translate_doc() {
     $functions.push('click_updatefiles');
     const click_updatefiles = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -303,8 +291,6 @@ function infohub_translate_doc() {
     $functions.push('_GetCall');
     const _GetCall = function ($fileName)
     {
-        "use strict";
-
         return _SubCall({
             'to': {
                 'node': 'client',

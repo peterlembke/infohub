@@ -17,15 +17,9 @@
  */
 function infohub_configlocal_debug() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -56,8 +50,6 @@ function infohub_configlocal_debug() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         const $parts = $text.split('_');
         let $response = '';
 
@@ -104,8 +96,6 @@ function infohub_configlocal_debug() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -132,8 +122,6 @@ function infohub_configlocal_debug() {
     $functions.push("internal_debug");
     const internal_debug = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': ''
         };

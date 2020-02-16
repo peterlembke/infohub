@@ -17,11 +17,9 @@
  */
 function infohub_login_forget() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -72,8 +70,6 @@ function infohub_login_forget() {
     $functions.push("_SetDefaultNodeData");
     const _SetDefaultNodeData = function ($nodeData)
     {
-        "use strict";
-
         const $default = {
             'node': '',
             'note': '',
@@ -101,8 +97,6 @@ function infohub_login_forget() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -173,8 +167,6 @@ function infohub_login_forget() {
     $functions.push("click_forget");
     const click_forget = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_save_data_in_storage',
@@ -183,8 +175,6 @@ function infohub_login_forget() {
             'ok': 'false'
         };
         $in = _Default($default, $in);
-
-        let $nodeData = {};
 
         if ($in.step === 'step_save_data_in_storage')
         {

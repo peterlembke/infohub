@@ -18,6 +18,8 @@
  */
 function infohub_compress_gzip() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -55,8 +57,6 @@ function infohub_compress_gzip() {
     $functions.push("compress");
     const compress = function($in)
     {
-        "use strict";
-
         const $default = {
             'uncompressed_data': ''
         };
@@ -69,8 +69,8 @@ function infohub_compress_gzip() {
         const $binaryDataUint8Array = $compressor.compress();
 
         let $binaryDataString = '';
-        for (let $nr = 0; $nr < $binaryDataUint8Array.length; $nr++) {
-            $binaryDataString = $binaryDataString + String.fromCharCode($binaryDataUint8Array[$nr]);
+        for (let $dataNumber = 0; $dataNumber < $binaryDataUint8Array.length; $dataNumber = $dataNumber + 1) {
+            $binaryDataString = $binaryDataString + String.fromCharCode($binaryDataUint8Array[$dataNumber]);
         }
         const $base64EncodedBinaryString = btoa($binaryDataString);
 
@@ -92,8 +92,6 @@ function infohub_compress_gzip() {
     $functions.push("uncompress");
     const uncompress = function($in)
     {
-        "use strict";
-
         const $default = {
             'compressed_data': ''
         };

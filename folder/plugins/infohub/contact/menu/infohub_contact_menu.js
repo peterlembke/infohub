@@ -17,15 +17,9 @@
  */
 function infohub_contact_menu() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -80,8 +74,6 @@ function infohub_contact_menu() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',

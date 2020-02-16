@@ -17,11 +17,9 @@
  */
 function infohub_doc_get() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -54,8 +52,6 @@ function infohub_doc_get() {
     $functions.push("get_document");
     const get_document = function ($in)
     {
-        "use strict";
-
         const $default = {
             'area': 'main', // main or plugin
             'document_name': 'main',
@@ -152,7 +148,7 @@ function infohub_doc_get() {
 
             if ($in.response.answer === 'false') {
                 $in.data_back.data = $in.response.message;
-                $in.response.ok = 'false'
+                $in.response.ok = 'false';
             }
 
             if ($in.response.answer === 'true') {
@@ -207,8 +203,6 @@ function infohub_doc_get() {
     $functions.push('get_documents_list');
     const get_documents_list = function ($in)
     {
-        "use strict";
-        
         const $default = {
             'step': 'step_get_navigation_from_storage',
             'response': {},
@@ -242,7 +236,7 @@ function infohub_doc_get() {
 
             if (_Empty($in.response.data) === 'false') {
                 $in.data_back.data = _ByVal($in.response.data);
-                $in.step = 'step_check_if_data_is_old'
+                $in.step = 'step_check_if_data_is_old';
             }
         }
 
@@ -340,8 +334,6 @@ function infohub_doc_get() {
     $functions.push("get_all_documents");
     const get_all_documents = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_get_all_documents_from_server',
             'response': {

@@ -18,6 +18,8 @@
 */
 function infohub_uuid() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -52,8 +54,6 @@ function infohub_uuid() {
 	$functions.push("uuid");
 	const uuid = function ($in)
     {
-        "use strict";
-
         const $default = {
             'version': '100',
             'count': 1
@@ -67,22 +67,19 @@ function infohub_uuid() {
             $response = {},
             $data = '', $out = [];
 
-        for (let $i = $in.count; $i > 0; $i--)
+        for (let $i = $in.count; $i > 0; $i = $i - 1)
         {
             switch ($in.version) {
                 case '0':
                     return guidv0();
-                    break;
                 case '4':
                     return guidv4b();
-                    break;
                 case '100':
                     return hub_id();
-                    break;
                 default:
             }
 
-            if ($response['answer'] === 'true') {
+            if ($response.answer === 'true') {
                 $data = $response.data;
                 $UuidIndex[$data] = 1;
             } else {
@@ -124,8 +121,6 @@ function infohub_uuid() {
     $functions.push('get_available_options');
     const get_available_options = function ($in)
     {
-        "use strict";
-
         return {
             'answer': 'true',
             'message': 'All UUID versions',
@@ -145,8 +140,6 @@ function infohub_uuid() {
 	$functions.push("guidv0");
 	const guidv0 = function($in)
     {
-        "use strict";
-
         return {
             'answer': 'true' ,
             'message': 'Here are the guidv0',
@@ -162,8 +155,6 @@ function infohub_uuid() {
     $functions.push("guidv4");
     const guidv4 = function($in)
     {
-        "use strict";
-
         let $timeStamp = new Date().getTime();
         let $uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
 
@@ -190,11 +181,11 @@ function infohub_uuid() {
     $functions.push("guidv4b");
     const guidv4b = function($in)
     {
-        "use strict";
-
         var $lut = [], $result, $d0, $d1, $d2, $d3;
 
-        for (var $i=0; $i<256; $i++) { $lut[$i] = ($i<16?'0':'')+($i).toString(16); }
+        for (let $i=0; $i<256; $i = $i + 1) {
+            $lut[$i] = ($i<16?'0':'')+($i).toString(16);
+        }
 
         $d0 = Math.random()*0xffffffff|0;
         $d1 = Math.random()*0xffffffff|0;
@@ -223,8 +214,6 @@ function infohub_uuid() {
     $functions.push("hub_id");
     const hub_id = function($in)
     {
-        "use strict";
-
         const $result = _MicroTime() + ':' + Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654
         // substring(2) remove the 0. and leave 4568548654
@@ -234,6 +223,6 @@ function infohub_uuid() {
             'message': 'Here are the infohub_uid',
             'data': $result
         };
-    }
+    };
 }
 //# sourceURL=infohub_uuid.js

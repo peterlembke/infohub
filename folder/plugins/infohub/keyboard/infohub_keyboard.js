@@ -17,6 +17,8 @@
  */
 function infohub_keyboard() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -79,8 +81,6 @@ function infohub_keyboard() {
     $functions.push('_ConvertToKey');
     const _ConvertToKey = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alt_key': 'false',
             'ctrl_key': 'false',
@@ -122,8 +122,6 @@ function infohub_keyboard() {
     $functions.push('_GetSubscribersMessages');
     const _GetSubscribersMessages = function ($key)
     {
-        "use strict";
-
         const $data = _LoadData();
         const $realKey = $key;
 
@@ -143,8 +141,6 @@ function infohub_keyboard() {
     $functions.push('_AddMessages');
     const _AddMessages = function ($key, $realKey, $data, $messages)
     {
-        "use strict";
-
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
@@ -181,8 +177,6 @@ function infohub_keyboard() {
     $functions.push('_LoadData');
     const _LoadData = function ()
     {
-        "use strict";
-
         const $jsonData = sessionStorage.getItem('infohub_keyboard');
         let $data = JSON.parse($jsonData);
         if (_Empty($data) === 'true') {
@@ -225,8 +219,6 @@ function infohub_keyboard() {
     $functions.push('_SaveData');
     const _SaveData = function ($data)
     {
-        "use strict";
-
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -249,8 +241,6 @@ function infohub_keyboard() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_get_translations'
@@ -388,8 +378,6 @@ function infohub_keyboard() {
     $functions.push('subscribe');
     const subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
@@ -474,8 +462,6 @@ function infohub_keyboard() {
     $functions.push('unsubscribe');
     const unsubscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
@@ -486,7 +472,7 @@ function infohub_keyboard() {
 
         for (let $key in $in.subscriptions) {
             if ($in.subscriptions.hasOwnProperty($key) === true) {
-                const $response = internal_Cmd({
+                internal_Cmd({
                     'func': 'Unsubscribe',
                     'from': $from,
                     'key': $key
@@ -511,8 +497,6 @@ function infohub_keyboard() {
     $functions.push('unsubscribe_all');
     const unsubscribe_all = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
         };
@@ -535,8 +519,6 @@ function infohub_keyboard() {
     $functions.push('internal_Subscribe');
     const internal_Subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
@@ -566,8 +548,6 @@ function infohub_keyboard() {
     $functions.push('internal_Unsubscribe');
     const internal_Unsubscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from': '',
             'key': ''
@@ -589,7 +569,7 @@ function infohub_keyboard() {
 
                 _SaveData($data);
                 $changed = 'true';
-                $message = 'Removed your key'
+                $message = 'Removed your key';
             }
         }
 
@@ -610,8 +590,6 @@ function infohub_keyboard() {
     $functions.push('internal_UnsubscribeAll');
     const internal_UnsubscribeAll = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from': ''
         };
@@ -654,8 +632,6 @@ function infohub_keyboard() {
     $functions.push('gui_subscribe');
     const gui_subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {}
@@ -726,8 +702,6 @@ function infohub_keyboard() {
     $functions.push('gui_unsubscribe');
     const gui_unsubscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {}
@@ -785,8 +759,6 @@ function infohub_keyboard() {
     $functions.push('gui_show_subscribers');
     const gui_show_subscribers = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {
@@ -833,8 +805,6 @@ function infohub_keyboard() {
     $functions.push('demo_popup');
     const demo_popup = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -859,8 +829,6 @@ function infohub_keyboard() {
     $functions.push('all_keys_to_gui');
     const all_keys_to_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'key': '',
@@ -909,8 +877,6 @@ function infohub_keyboard() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': '' },
             'alt_key': 'false',
@@ -943,7 +909,7 @@ function infohub_keyboard() {
                         'answer': 'true',
                         'message': 'Here comes a multi message',
                         'messages': $messagesOut
-                    }
+                    };
                 }
             }
 
@@ -966,6 +932,9 @@ function infohub_keyboard() {
 }
 
 function keyUp(event) {
+
+    "use strict";
+
     event = event || window.event;
     if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
         const $alt = event.altKey, $ctrl= event.ctrlKey, $shift = event.shiftKey;

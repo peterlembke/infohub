@@ -17,15 +17,9 @@
  */
 function infohub_renderdocument() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function () {
         return {
@@ -59,8 +53,6 @@ function infohub_renderdocument() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -86,8 +78,6 @@ function infohub_renderdocument() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'alias': '',
@@ -149,8 +139,6 @@ function infohub_renderdocument() {
     $functions.push("event_message"); // Enable this function
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'final_node': 'client',
             'final_plugin': '',
@@ -206,8 +194,6 @@ function infohub_renderdocument() {
     $functions.push('internal_Document');
     const internal_Document = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {},
@@ -290,13 +276,13 @@ function infohub_renderdocument() {
 
             $text = $response.text;
 
-            $what['document'] = {
+            $what.document = {
                 'type': 'text',
                 'text': $text,
                 'class': 'text_document'
             };
 
-            $what['light'] = {
+            $what.light = {
                 'type': 'common',
                 'subtype': 'containerStart',
                 'class': 'light',
@@ -341,8 +327,6 @@ function infohub_renderdocument() {
     $functions.push('internal_ParseCodeSegment');
     const internal_ParseCodeSegment = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {},
@@ -359,7 +343,7 @@ function infohub_renderdocument() {
             let $segment = '';
             let $tag = '';
 
-            for (let $i = 0; $i < $segments.length; $i++)
+            for (let $i = 0; $i < $segments.length; $i = $i + 1)
             {
                 $segment = $segments[$i];
 
@@ -407,8 +391,6 @@ function infohub_renderdocument() {
     $functions.push('internal_ParseInlineCodeSegment');
     const internal_ParseInlineCodeSegment = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {},
@@ -425,7 +407,7 @@ function infohub_renderdocument() {
             let $segment = '';
             let $tag = '';
 
-            for (let $i = 0; $i < $segments.length; $i++)
+            for (let $i = 0; $i < $segments.length; $i = $i + 1)
             {
                 $segment = $segments[$i];
 
@@ -470,9 +452,8 @@ function infohub_renderdocument() {
      * @since   2019-08-18
      * @author  Peter Lembke
      */
-    const _SetSafeCodeCharacters = function ($text) {
-        "use strict";
-
+    const _SetSafeCodeCharacters = function ($text)
+    {
         $text = _Replace('<', '&#60;', $text);
         $text = _Replace('>', '&#62;', $text);
         $text = _Replace('[', '&#91;', $text);
@@ -491,8 +472,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleImages');
     const internal_HandleImages = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}
@@ -512,7 +491,7 @@ function infohub_renderdocument() {
 
         while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
         {
-            $leave--;
+            $leave = $leave - 1;
 
             $second = $in.text.indexOf('](', $second);
             $first = $in.text.lastIndexOf('![', $second);
@@ -565,7 +544,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            $i++;
+            $i = $i + 1;
             $tag = $tagPrefix + $i;
 
             leave: {
@@ -657,8 +636,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleLinks');
     const internal_HandleLinks = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}
@@ -678,7 +655,7 @@ function infohub_renderdocument() {
 
         while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
         {
-            $leave--;
+            $leave = $leave - 1;
 
             $second = $in.text.indexOf('](', $second);
             $first = $in.text.lastIndexOf('[', $second);
@@ -722,7 +699,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            $i++;
+            $i = $i + 1;
             $tag = $tagPrefix + $i;
 
             let $type = 'event';
@@ -784,8 +761,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleHeaders');
     const internal_HandleHeaders = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}
@@ -796,7 +771,7 @@ function infohub_renderdocument() {
 
         const $notFound = -1;
 
-        for (let $i = 4; $i > 0; $i--)
+        for (let $i = 4; $i > 0; $i = $i - 1)
         {
             const $find = "#".repeat($i) + ' ';
 
@@ -806,7 +781,7 @@ function infohub_renderdocument() {
 
             while ($in.text.indexOf($find, $second) !== $notFound && $leave > 0)
             {
-                $leave--;
+                $leave = $leave - 1;
 
                 $first = $in.text.indexOf($find, $second);
                 $first = $first + $find.length;
@@ -847,8 +822,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleStyle');
     const internal_HandleStyle = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}
@@ -908,8 +881,6 @@ function infohub_renderdocument() {
      */
     const _FindStyle = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'find': '**',
@@ -922,7 +893,7 @@ function infohub_renderdocument() {
         let $parts = $in.text.split($in.find);
         let $length = $parts.length;
 
-        for (let $i = 0; $i < $length; $i++)
+        for (let $i = 0; $i < $length; $i = $i + 1)
         {
             $modifiedText = $modifiedText + $parts[$i];
 
@@ -951,8 +922,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleLists');
     const internal_HandleLists = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}
@@ -972,7 +941,7 @@ function infohub_renderdocument() {
 
         while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave > 0)
         {
-            $leave--;
+            $leave = $leave - 1;
 
             $first = $in.text.indexOf($findFirst, $second);
             $first = $first + $findFirst.length;
@@ -983,7 +952,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            $i++;
+            $i = $i + 1;
             const $tag = $tagPrefix + $i;
 
             const $command = $in.text.substr($first, $second - $first);
@@ -994,10 +963,11 @@ function infohub_renderdocument() {
             const $listLabels = $command.split("\n* ");
 
             let $option = [];
-            for (let $nr = 0; $nr < $listLabels.length; $nr++) {
+            for (let $nr = 0; $nr < $listLabels.length; $nr = $nr + 1)
+            {
                 $option.push({
                     'label': $listLabels[$nr]
-                })
+                });
             }
 
             $in.what[$tag] = {
@@ -1026,8 +996,6 @@ function infohub_renderdocument() {
     $functions.push('internal_HandleNewline');
     const internal_HandleNewline = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'what': {}

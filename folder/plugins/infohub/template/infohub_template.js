@@ -18,6 +18,8 @@
 */
 function infohub_template() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -48,8 +50,6 @@ function infohub_template() {
     $functions.push("_GetText");
     const _GetText = function ($in)
     {
-        "use strict";
-
         return 'Text from _GetText';
     };
 
@@ -63,8 +63,6 @@ function infohub_template() {
 	$functions.push("startup");
 	const startup = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'start',
             'data': 'default data'
@@ -92,7 +90,6 @@ function infohub_template() {
                     'step': 'step_end'
                 }
             });
-
         }
 
         if ($in.step === 'end') {
@@ -131,8 +128,6 @@ function infohub_template() {
 	$functions.push("my_function");
 	const my_function = function($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'start',
             'data': ' Default text from my_function '
@@ -165,8 +160,6 @@ function infohub_template() {
 	 */
 	const internal_MyFunction = function($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'start',
             'data': ' Default text from MyFunction '
@@ -176,8 +169,11 @@ function infohub_template() {
         // Start your code here
         $in.data = 'Text from MyFunction';
 
-		return {'answer': 'true' ,'data': $in.data, 'message': 'Have run MyFunction' };
+		return {
+		    'answer': 'true' ,
+            'data': $in.data,
+            'message': 'Have run MyFunction'
+		};
 	};
-
 }
 //# sourceURL=infohub_template.js

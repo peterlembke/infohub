@@ -17,15 +17,9 @@
  */
 function infohub_contact_doc() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -81,8 +75,7 @@ function infohub_contact_doc() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-        var $default = {
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
@@ -186,7 +179,6 @@ function infohub_contact_doc() {
     $functions.push('click_main');
     const click_main = function ($in)
     {
-        "use strict";
         const $default = {
             'step': 'step_render',
             'response': {
@@ -215,8 +207,6 @@ function infohub_contact_doc() {
     $functions.push('click_client');
     const click_client = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -245,8 +235,6 @@ function infohub_contact_doc() {
     $functions.push('click_server');
     const click_server = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -275,8 +263,6 @@ function infohub_contact_doc() {
     $functions.push('click_group');
     const click_group = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'response': {
@@ -305,8 +291,6 @@ function infohub_contact_doc() {
     $functions.push('_GetCall');
     const _GetCall = function ($fileName)
     {
-        "use strict";
-
         return _SubCall({
             'to': {
                 'node': 'client',

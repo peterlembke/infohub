@@ -18,6 +18,8 @@
  */
 function infohub_compress_lz() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -55,8 +57,6 @@ function infohub_compress_lz() {
     $functions.push("compress");
     const compress = function($in)
     {
-        "use strict";
-
         const $default = {
             'uncompressed_data': ''
         };
@@ -82,8 +82,6 @@ function infohub_compress_lz() {
     $functions.push("uncompress");
     const uncompress = function($in)
     {
-        "use strict";
-
         const $default = {
             'compressed_data': ''
         };

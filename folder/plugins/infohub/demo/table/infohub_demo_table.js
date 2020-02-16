@@ -17,11 +17,9 @@
  */
 function infohub_demo_table() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -77,8 +75,6 @@ function infohub_demo_table() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -216,7 +212,6 @@ function infohub_demo_table() {
     $functions.push('click_row');
     const click_row = function ($in)
     {
-        "use strict";
         window.alert('Clicked row with ID: ' + $in.event_data);
 
         return {

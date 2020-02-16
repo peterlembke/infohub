@@ -17,11 +17,9 @@
  */
 function infohub_transfer() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -67,7 +65,6 @@ function infohub_transfer() {
      */
     const _IsOnline = function ()
     {
-        "use strict";
         const $online = navigator.onLine ? "true" : "false";
 
         return $online;
@@ -81,8 +78,6 @@ function infohub_transfer() {
      */
     const _SetGlobalOnline = function ($value)
     {
-        "use strict";
-
         if ($value !== 'true' && $value !== 'false') {
             return;
         }
@@ -124,12 +119,11 @@ function infohub_transfer() {
      */
     const send = function ($in)
     {
-        "use strict";
-
         const $default = {
             'to_node': {}, // node name as key and an array with messages to that node
             'config': {},
-            'from_plugin': {}
+            'from_plugin': {},
+            'step': 'step_start'
         };
 
         $in = _Default($default, $in);
@@ -154,7 +148,7 @@ function infohub_transfer() {
 
             internal_AddMessagesToGlobalSendToNode($in);
 
-            if ($globalSendAtTimeStamp == 0) {
+            if ($globalSendAtTimeStamp === 0.0) {
                 $globalSendAtTimeStamp = $response.timestamp;
             }
 
@@ -201,8 +195,6 @@ function infohub_transfer() {
     $functions.push('internal_AddMessagesToGlobalSendToNode');
     const internal_AddMessagesToGlobalSendToNode = function ($in)
     {
-        "use strict";
-
         const $default = {
             'to_node': {} // Node name as key and data as an array with messages
         };
@@ -235,8 +227,6 @@ function infohub_transfer() {
     $functions.push('ban_seconds');
     const ban_seconds = function ($in)
     {
-        "use strict";
-
         const $default = {
             'banned_until': 0.0,
             'ban_seconds': 10.0,
@@ -245,7 +235,11 @@ function infohub_transfer() {
         $in = _Default($default,$in);
 
         if ($in.message !== '') {
-            internal_Log({'level': 'error', 'message': 'Got an error message:' + $in.message, 'function_name': $in.func });
+            internal_Log({
+                'level': 'error',
+                'message': 'Got an error message:' + $in.message,
+                'function_name': $in.func
+            });
         }
 
         const $bannedUntil = _MicroTime(true) + $in.ban_seconds;
@@ -279,8 +273,6 @@ function infohub_transfer() {
     $functions.push('internal_GetWaitMilliseconds');
     const internal_GetWaitMilliseconds = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'internal_GetWaitMilliseconds',
             'to_node': { }
@@ -296,9 +288,9 @@ function infohub_transfer() {
                 continue;
             }
 
-            for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId++)
+            for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId = $messageId + 1)
             {
-                $messageCount++;
+                $messageCount = $messageCount + 1;
                 const $messageData = $in.to_node[$nodeName][$messageId];
 
                 if (_IsSet($messageData.wait) === 'false') {
@@ -347,8 +339,6 @@ function infohub_transfer() {
     $functions.push('internal_Send');
     const internal_Send = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -390,20 +380,32 @@ function infohub_transfer() {
                     continue;
                 }
 
+                // @todo HUB-560, add session_id, sign_code, sign_code_created_at, user_id
+
                 let $package = {
                     'to_node': $nodeName,
+                    'session_id': '',
+                    'sign_code': '',
+                    'user_id': '',
                     'messages': _ByVal($globalSendToNode[$nodeName])
                 };
 
                 delete ($globalSendToNode[$nodeName]);
 
                 $package = _SendingMessagesClean($package);
-
                 const $packageJson = JSON.stringify($package);
-                internal_Cmd({'func': 'AjaxCall', 'package': $packageJson});
+
+                internal_Cmd({
+                    'func': 'AjaxCall',
+                    'package': $packageJson
+                });
 
                 $message = 'Sent message to node:' + $nodeName + ', with ' + $packageJson.length + ' bytes of data.';
-                internal_Log({'level': 'log', 'message': $message, 'object': $package});
+                internal_Log({
+                    'level': 'log',
+                    'message': $message,
+                    'object': $package
+                });
             }
 
             $globalBannedUntil = _MicroTime(true) + 5.0; // (was 1.2) Set a high ban time in seconds. Server will return with the real ban timestamp.
@@ -431,8 +433,6 @@ function infohub_transfer() {
     $functions.push('internal_PutPackageBack');
     const internal_PutPackageBack = function ($in)
     {
-        "use strict";
-
         const $default = {
             'package': ''
         };
@@ -459,8 +459,8 @@ function infohub_transfer() {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            for (let $nr = 0; $nr < $messagesArray.length; $nr++) {
-                const $message = _PickUpCallStack($messagesArray[$nr]);
+            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1) {
+                const $message = _PickUpCallStack($messagesArray[$messageNumber]);
                 $globalSendToNode[$nodeName].push($message);
             }
         }
@@ -485,8 +485,6 @@ function infohub_transfer() {
     $functions.push('internal_HandleOffline');
     const internal_HandleOffline = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -584,8 +582,6 @@ function infohub_transfer() {
     $functions.push('internal_AjaxCall');
     const internal_AjaxCall = function ($in)
     {
-        "use strict";
-
         const $default = {
             'package': ''
         };
@@ -665,9 +661,11 @@ function infohub_transfer() {
                         'object': $package
                     });
 
-                    if (typeof $package.error_array === 'array') {
-                        if ($package.error_array.length > 0) {
-                            _BoxError($package.error_array, 'true');
+                    if (_IsSet($package.error_array) === 'true') {
+                        if (Array.isArray($package.error_array) === true) {
+                            if ($package.error_array.length > 0) {
+                                _BoxError($package.error_array, 'true');
+                            }
                         }
                     }
 
@@ -723,8 +721,6 @@ function infohub_transfer() {
      */
     const _ReceivedMessagesCleanAndExpand = function ($package)
     {
-        "use strict";
-
         const $default = {
             'to_node': '',
             'messages': []
@@ -756,8 +752,6 @@ function infohub_transfer() {
      */
     const _SendingMessagesClean = function ($package)
     {
-        "use strict";
-
         const $default = {
                 'to_node': '',
                 'messages': []
@@ -806,12 +800,12 @@ function infohub_transfer() {
     /**
      * Clean up the outgoing message so it has no duplicate data
      * and no variables that can interfere.
-     * @param $package
+     * @param $message
+     * @returns {{}|{answer: string, data: [], message: string}}
+     * @private
      */
     const _CleanMessage = function ($message)
     {
-        "use strict";
-
         const $default = {
             'to': {},
             'callstack': [],
@@ -829,7 +823,9 @@ function infohub_transfer() {
 
             // Remove duplicates. These will expand on the other side anyhow. See _ExpandMessage
             for (let $key in $message.data.data_back) {
-                delete $message.data[$key];
+                if ($message.data.data_back.hasOwnProperty($key)) {
+                    delete $message.data[$key];
+                }
             }
         }
 
@@ -859,12 +855,12 @@ function infohub_transfer() {
     /**
      * Expands the incoming message so the response data are merged in to the data
      * And last the data_back data are merged into the data
-     * @param $package
+     * @param $message
+     * @returns {{}|{answer: string, data: [], message: string}}
+     * @private
      */
     const _ExpandMessage = function ($message)
     {
-        "use strict";
-
         const $default = {
             'to': {},
             'callstack': [],
@@ -896,8 +892,6 @@ function infohub_transfer() {
      */
     const _LeaveCallStack = function ($message)
     {
-        "use strict";
-
         const $default = {
             'to': {'node': '', 'plugin': '', 'function': ''},
             'callstack': [],
@@ -946,8 +940,6 @@ function infohub_transfer() {
      */
     const _PickUpCallStack = function ($message)
     {
-        "use strict";
-
         const $default = {
             'to': {'node': '', 'plugin': '', 'function': ''},
             'callstack': [],
@@ -987,13 +979,11 @@ function infohub_transfer() {
      */
     const _GetUniqueIdentiferHubId = function()
     {
-        "use strict";
-
         const $result = _MicroTime() + ':' + Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654
         // substring(2) remove the 0. and leave 4568548654
 
-        return $result
+        return $result;
     };
 
 
@@ -1007,8 +997,6 @@ function infohub_transfer() {
     $functions.push('_BoxError');
     const _BoxError = function ($message, $doHtmlToText)
     {
-        "use strict";
-
         if (typeof $doHtmlToText === 'undefined') {
             $doHtmlToText = 'true';
         }
@@ -1026,7 +1014,7 @@ function infohub_transfer() {
 
         if (Array.isArray($message) === true) {
             const $messageLength = $message.length;
-            for (let $i = 0; $i < $messageLength; $i++) {
+            for (let $i = 0; $i < $messageLength; $i=$i+1) {
                 $message[$i] = _HtmlToText($message[$i]);
                 $boxError.innerHTML = $message[$i] + "\n<br>" + $boxError.innerHTML;
             }
@@ -1035,9 +1023,7 @@ function infohub_transfer() {
         if (typeof $message === 'object') {
             $message = JSON.stringify($message);
             $boxError.innerHTML = $message + "\n<br>" + $boxError.innerHTML;
-            return;
         }
-
     };
 
     /**
@@ -1051,7 +1037,6 @@ function infohub_transfer() {
     $functions.push('_HtmlToText');
     const _HtmlToText = function ($message)
     {
-        "use strict";
         $message = $message.replace(/&/g, '&amp;');
         $message = $message.replace(/</g, '&lt;');
         $message = $message.replace(/>/g, '&gt;');

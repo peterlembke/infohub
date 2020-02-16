@@ -20,6 +20,8 @@
  */
 function infohub_tabs() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_tabs() {
     $functions.push("init"); // Enable this function
     const init = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '', // The box where you want the tabs
             'step': 'step_start',
@@ -206,8 +206,6 @@ function infohub_tabs() {
     $functions.push("add"); // Enable this function
     const add = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -348,8 +346,6 @@ function infohub_tabs() {
     $functions.push("remove"); // Enable this function
     const remove = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -446,8 +442,6 @@ function infohub_tabs() {
     $functions.push("siblings_box_view"); // Enable this function
     const siblings_box_view = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -491,8 +485,6 @@ function infohub_tabs() {
     $functions.push('highlight_tab');
     const highlight_tab = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -578,8 +570,6 @@ function infohub_tabs() {
     $functions.push("setup_full_tab_system"); // Enable this function
     const setup_full_tab_system = function ($in)
     {
-        "use strict";
-
         let $default = {
             'parent_box_id': '', // The box where you want the tabs
             'highlight_tab_alias': '',
@@ -816,9 +806,9 @@ function infohub_tabs() {
         };
 
         let $result = [];
-        for (let $key in $tabs) {
-            if ($tabs.hasOwnProperty($key))
-            {
+        for (let $key in $tabs)
+        {
+            if ($tabs.hasOwnProperty($key)) {
                 let $oneTab = $tabs[$key];
                 $oneTab = _Default($default, $oneTab);
                 $result.push(_GetTabRenderData($oneTab.alias, $oneTab.label, $oneTab.content));
@@ -896,8 +886,6 @@ function infohub_tabs() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',

@@ -17,11 +17,9 @@
  */
 function infohub_translate_mergefiles() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -92,8 +90,6 @@ function infohub_translate_mergefiles() {
     $functions.push('_MergeData');
     const _MergeData = function ($object1, $object2)
     {
-        "use strict";
-
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
@@ -106,8 +102,6 @@ function infohub_translate_mergefiles() {
     $functions.push('_MergeKeys');
     const _MergeKeys = function ($object1, $object2)
     {
-        "use strict";
-
         for (let $key in $object2)
         {
             if ($object2.hasOwnProperty($key) === false) {
@@ -151,8 +145,6 @@ function infohub_translate_mergefiles() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -228,8 +220,6 @@ function infohub_translate_mergefiles() {
     $functions.push('click_merge_files');
     const click_merge_files = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -251,7 +241,7 @@ function infohub_translate_mergefiles() {
             $in.step = 'step_get_files';
             if ($in.files_data.length !== 2) {
                 $in.message = 'You need to select two json files';
-                $in.step = 'step_end'
+                $in.step = 'step_end';
             }
         }
 
@@ -259,7 +249,7 @@ function infohub_translate_mergefiles() {
         {
             let $checksums = {};
 
-            for (let $i=0; $i<2; $i++)
+            for (let $i=0; $i<2; $i = $i + 1)
             {
                 const $fileData = _GetData({
                     'name': 'files_data/'+$i+'/content',
@@ -327,7 +317,7 @@ function infohub_translate_mergefiles() {
 
             $file.key_file.version.file_type = 'finished_file';
             let $withHeader = $file.key_file;
-            $withHeader['data'] = $newFile;
+            $withHeader.data = $newFile;
 
             const $fileName = $withHeader.version.plugin + '_' + $file.translate_file.version.language;
             const $extension = '.json';

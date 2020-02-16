@@ -18,6 +18,8 @@
  */
 function infohub_checksum_crc32() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_checksum_crc32() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {'value': '' };
         $in = _Default($default, $in);
 
@@ -84,8 +84,6 @@ function infohub_checksum_crc32() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'checksum': ''
@@ -124,8 +122,6 @@ function infohub_checksum_crc32() {
      */
     const _Crc32 = function($value)
     {
-        "use strict";
-
         const makeCRCTable = function(){
             var c;
             var crcTable = [];

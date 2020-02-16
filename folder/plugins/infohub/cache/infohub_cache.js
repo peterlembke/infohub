@@ -17,15 +17,9 @@
  */
 function infohub_cache() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     $functions.push('_Version');
     const _Version = function() {
@@ -67,8 +61,6 @@ function infohub_cache() {
     $functions.push('_LocalStorageExist');
     const _LocalStorageExist = function ()
     {
-        "use strict";
-
         let $exist = 'false';
 
         try {
@@ -77,7 +69,7 @@ function infohub_cache() {
             return 'false';
         }
 
-        if ($exist == true) {
+        if ($exist === true) {
             return 'true';
         }
 
@@ -100,8 +92,6 @@ function infohub_cache() {
     $functions.push('save_data_to_cache');
     const save_data_to_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': '',
@@ -168,8 +158,6 @@ function infohub_cache() {
     $functions.push('load_data_from_cache');
     const load_data_from_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': '',
@@ -240,8 +228,6 @@ function infohub_cache() {
     $functions.push('load_index_from_cache');
     const load_index_from_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': ''
         };
@@ -273,8 +259,6 @@ function infohub_cache() {
     $functions.push('update_index_in_cache');
     const update_index_in_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'data': {} // Complete list you want to compare the local list with
@@ -308,7 +292,7 @@ function infohub_cache() {
 
         if ($changed === 'true')
         {
-            $response = internal_Cmd({
+            internal_Cmd({
                 'func': 'SaveIndex',
                 'prefix': $in.prefix,
                 'index': $localIndex
@@ -333,8 +317,6 @@ function infohub_cache() {
     $functions.push('remove_data_from_cache');
     const remove_data_from_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': ''
@@ -361,8 +343,6 @@ function infohub_cache() {
     $functions.push('internal_RemoveDataFromCache');
     const internal_RemoveDataFromCache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': ''
@@ -420,8 +400,6 @@ function infohub_cache() {
     $functions.push('remove_data_from_cache_by_prefix');
     const remove_data_from_cache_by_prefix = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': ''
         };
@@ -484,8 +462,6 @@ function infohub_cache() {
     $functions.push('validate_cache');
     const validate_cache = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'checksums': {}, // local storage key as key, checksum string as data
@@ -591,8 +567,6 @@ function infohub_cache() {
     $functions.push('internal_LoadDataFromIndex');
     const internal_LoadDataFromIndex = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': ''
@@ -650,8 +624,6 @@ function infohub_cache() {
     $functions.push('internal_SaveDataToIndex');
     const internal_SaveDataToIndex = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': '',
@@ -735,8 +707,6 @@ function infohub_cache() {
     $functions.push('internal_RemoveDataFromIndex');
     const internal_RemoveDataFromIndex = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': ''
@@ -810,8 +780,6 @@ function infohub_cache() {
     $functions.push('internal_LoadIndex');
     const internal_LoadIndex = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': ''
         };
@@ -842,8 +810,6 @@ function infohub_cache() {
     $functions.push('internal_SaveIndex');
     const internal_SaveIndex = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'index': {}
@@ -873,8 +839,6 @@ function infohub_cache() {
     $functions.push('internal_LocalStorageLoad');
     const internal_LocalStorageLoad = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': ''
@@ -946,8 +910,6 @@ function infohub_cache() {
     $functions.push('internal_LocalStorageSave');
     const internal_LocalStorageSave = function ($in)
     {
-        "use strict";
-
         const $default = {
             'prefix': '',
             'key': '',

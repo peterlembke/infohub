@@ -24,9 +24,9 @@
  */
 function infohub_storage_data() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-
 
     $functions.push('_Version');
     const _Version = function () {
@@ -66,8 +66,6 @@ function infohub_storage_data() {
     $functions.push('read');
     const read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'calling_plugin': {
                 'node': '',
@@ -94,7 +92,7 @@ function infohub_storage_data() {
         let $message = 'Nothing to report';
         let $postExist = 'false';
 
-        let $connect = _SetConnectionDefault($in['config']);
+        let $connect = _SetConnectionDefault($in.config);
 
         leave:
         {
@@ -233,8 +231,6 @@ function infohub_storage_data() {
     $functions.push('write');
     const write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'path': '',
             'data': {},
@@ -402,8 +398,6 @@ function infohub_storage_data() {
     $functions.push('write_paths');
     const write_paths = function ($in)
     {
-        "use strict";
-
         const $default = {
             'connect': {},
             'path': '',

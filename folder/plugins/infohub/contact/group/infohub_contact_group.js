@@ -17,15 +17,9 @@
  */
 function infohub_contact_group() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -82,8 +76,6 @@ function infohub_contact_group() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -255,8 +247,6 @@ function infohub_contact_group() {
     $functions.push("click_refresh_group");
     const click_refresh_group = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_render_options',
@@ -333,8 +323,6 @@ function infohub_contact_group() {
     $functions.push("click_list_group");
     const click_list_group = function ($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'box_id': '',
@@ -415,8 +403,6 @@ function infohub_contact_group() {
     $functions.push("click_new_group");
     const click_new_group = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_empty_form',
             'box_id': '',
@@ -469,8 +455,6 @@ function infohub_contact_group() {
     $functions.push("click_save_group");
     const click_save_group = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $groupData = {};
 
@@ -564,8 +548,6 @@ function infohub_contact_group() {
     $functions.push("click_delete_group");
     const click_delete_group = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $groupName = '';
 

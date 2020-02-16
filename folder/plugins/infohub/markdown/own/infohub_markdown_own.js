@@ -17,6 +17,8 @@
  */
 function infohub_markdown_own() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -56,15 +58,15 @@ function infohub_markdown_own() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
+        let $response = '',
+            $parts = $text.split('_');
 
-        let $response = '';
-        let $parts = $text.split('_');
-
-        for (let $key in $parts) {
+        for (let $key in $parts)
+        {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
+
             $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
 
@@ -85,8 +87,6 @@ function infohub_markdown_own() {
     $functions.push("create");
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'alias': '',
@@ -154,8 +154,6 @@ function infohub_markdown_own() {
      */
     const internal_Markdown = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': '',
             'class': 'markdown',
@@ -172,9 +170,9 @@ function infohub_markdown_own() {
             'ListsUnordered', 'ListsOrdered' ,'Blockquotes', 'TaskList', 
             'Tables', 'Headers'];
 
-        for (let $i = 0; $i < $parseFunctions.length; $i++)
+        for (let $functionNumber = 0; $functionNumber < $parseFunctions.length; $functionNumber = $functionNumber + 1)
         {
-            const $func = 'Parse' + $parseFunctions[$i];
+            const $func = 'Parse' + $parseFunctions[$functionNumber];
             const $response = internal_Cmd({
                 'func': $func,
                 'text': $text
@@ -211,32 +209,30 @@ function infohub_markdown_own() {
      */
     const internal_ParseCodeFencing = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $blocks = [], $nr = 0, $i, $blockName = '';
-
         const $default = {
             'text': ''
         };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text;
+        let $blocks = $text.split('```'); // Cut text in blocks
+        let $nr = 0;
+        let $parts = {};
         
-        $blocks = $text.split('```'); // Cut text in blocks
-        
-        for ($i=0; $i < $blocks.length; $i++) {
+        for (let $i = 0; $i < $blocks.length; $i = $i + 1)
+        {
             if ($i % 2 === 0) {
                 continue;
             }
             
-            $blockName = 'codefencing' + $nr;
+            const $blockName = 'codefencing' + $nr;
             $parts[$blockName] = {
                 'type': 'common',
                 'subtype': 'codecontainer',
                 'data': $blocks[$i],
             };
             $blocks[$i] = '['+ $blockName +']';
-            $nr++;
+            $nr = $nr + 1;
         }
         $text = $blocks.join('');
         
@@ -258,31 +254,32 @@ function infohub_markdown_own() {
      */
     const internal_ParseCodeIndent = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $blocks = [], $nr = 0, $i, $blockName = '', $end,
-            $startOfRest = 0,
-            $findStart = "\n\n    ", $findEnd = "\n\n", $code, $findIndent = "\n    ";
-
         const $default = {
             'text': ''
         };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        const $findStart = "\n\n    ",
+            $findEnd = "\n\n",
+            $findIndent = "\n    ";
 
-        $blocks = $text.split($findStart); // Cut text in blocks
-        
+        let $text = $in.text,
+            $blocks = $text.split($findStart), // Cut text in blocks
+            $parts = {},
+            $nr = 0,
+            $startOfRest = 0;
+
         if ($blocks.length >= 2) {
-            for ($i=1; $i < $blocks.length;$i++) {
-                $end = $blocks[$i].indexOf($findEnd);
+            for (let $i=1; $i < $blocks.length;$i = $i + 1)
+            {
+                let $end = $blocks[$i].indexOf($findEnd);
                 $startOfRest = $end + $findEnd.length -1;
                 if ($end === -1) {
                     $end = $blocks[$i].length;
                     $startOfRest = $end;
                 }
-                $blockName = 'codeindent' + $nr;
-                $code = $blocks[$i].substr(0,$end);
+                const $blockName = 'codeindent' + $nr;
+                let $code = $blocks[$i].substr(0, $end);
                 $code = _Replace($findIndent, "\n", $code);
                 $parts[$blockName] = {
                     'type': 'common',
@@ -290,7 +287,7 @@ function infohub_markdown_own() {
                     'data': $code,
                 };
                 $blocks[$i] = '['+ $blockName +']' + $blocks[$i].substr($startOfRest);
-                $nr++;
+                $nr = $nr + 1;
             }
             $text = $blocks.join();
         }
@@ -313,20 +310,26 @@ function infohub_markdown_own() {
      */
     const internal_ParseCodeInline = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $blocks = [], $nr = 0, $blockName,
-            $findStart = " `", $findEnd = "` ", $start, $end, $code,
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
-        
-        $text = $in.text;
-        while (($start = $text.indexOf($findStart)) !== -1) {
-            $end = $text.substr($start).indexOf($findEnd);
-            $code = $text.substr($start+2,$end-2);
-            $blockName = 'codeinline' + $nr;
+
+        let $text = $in.text;
+        let $parts = {};
+        let $start;
+        let $nr = 0;
+        const $findStart = " `",
+            $findEnd = "` ";
+
+
+        while (($start = $text.indexOf($findStart)) !== -1)
+        {
+            let $end = $text.substr($start).indexOf($findEnd);
+            const $code = $text.substr($start+2,$end-2);
+
+            const $blockName = 'codeinline' + $nr;
+
             $parts[$blockName] = {
                 'type': 'common',
                 'subtype': 'codecontainer',
@@ -334,7 +337,7 @@ function infohub_markdown_own() {
                 'tag': '',
                 'class': 'no-css-please'
             };
-            $nr++;
+            $nr = $nr + 1;
             $text = $text.substr(0,$start+1) + '[' + $blockName + ']' + $text.substr($start + $end +1);
         }
         
@@ -359,26 +362,32 @@ function infohub_markdown_own() {
      */
     const internal_ParseEmoji = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $blocks = [], $nr = 0, $blockName,
-            $findStart = " :", $findEnd = ": ", $start, $end, $code,
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
-        while (($start = $text.indexOf($findStart)) !== -1) {
-            $end = $text.substr($start).indexOf($findEnd);
-            $code = $text.substr($start+2,$end-2);
-            $blockName = 'emoji' + $nr;
+        let $text = $in.text;
+        let $start;
+        let $parts = {};
+        let $nr = 0;
+
+        const $findStart = " :",
+            $findEnd = ": ";
+
+        while (($start = $text.indexOf($findStart)) !== -1)
+        {
+            const $end = $text.substr($start).indexOf($findEnd);
+            const $code = $text.substr($start+2,$end-2);
+            const $blockName = 'emoji' + $nr;
+
             $parts[$blockName] = {
                 'plugin': 'infohub_renderemoji',
                 'type': 'unicode', // Unicode or image
                 'data': $code
             };
-            $nr++;
+
+            $nr = $nr + 1;
             $text = $text.substr(0,$start+1) + '[' + $blockName + ']' + $text.substr($start + $end +1);
         }
         
@@ -400,40 +409,38 @@ function infohub_markdown_own() {
      * Strike trough: "~~" <span class="strike-trough">My italic text</span>
      * Italic: "*" or "_" <span class="italic">My italic text</span>
      * https://guides.github.com/features/mastering-markdown/
+     * @todo This function do not work since $parts is empty
      * @version 2019-02-01
      * @since   2019-02-01
      * @author  Peter Lembke
      */
     const internal_ParseEmphasisStrikeTrough = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $find, $start, $lengthData, $findString,
-            $leftPart, $middlePart, $lastPart, $i, $middlePartStart, $lastPartStart,
-            $class,
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text;
+        const $find = ['**', '__', '*', '_', '~~'];
+        const $class = ['bold', 'bold', 'italic', 'italic', 'strike'];
+        let $start,
+            $parts;
         
-        $find = ['**', '__', '*', '_', '~~'];
-        $class = ['bold', 'bold', 'italic', 'italic', 'strike'];
-        
-        for ($i=0; $i < $find.length; $i++)
+        for (let $i = 0; $i < $find.length; $i = $i + 1)
         {
-            $findString = $find[$i];
+            const $findString = $find[$i];
+
             while (($start = $text.indexOf($findString)) !== -1)
             {
-                $middlePartStart = $start + $findString.length;
-                $lengthData = $text.substr($middlePartStart).indexOf($findString);
+                const $middlePartStart = $start + $findString.length;
+                const $lengthData = $text.substr($middlePartStart).indexOf($findString);
                 
-                $leftPart = $text.substr(0, $start);
-                $middlePart = $text.substr($middlePartStart, $lengthData);
+                const $leftPart = $text.substr(0, $start);
+                const $middlePart = $text.substr($middlePartStart, $lengthData);
                 
-                $lastPartStart = $start + $findString.length + $lengthData + $findString.length;
-                $lastPart = $text.substr($lastPartStart);
+                const $lastPartStart = $start + $findString.length + $lengthData + $findString.length;
+                const $lastPart = $text.substr($lastPartStart);
                 
                 $text = $leftPart + '<span class="' + $class[$i] + '">' + $middlePart + '</span>' + $lastPart; 
             }
@@ -460,15 +467,13 @@ function infohub_markdown_own() {
      */
     const internal_ParseImages = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text,
+            $parts = {};
         
         return {
             'answer': 'true',
@@ -488,16 +493,14 @@ function infohub_markdown_own() {
      */
     const internal_ParseLinks = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
-        
+        let $text = $in.text;
+        let $parts = {};
+
         return {
             'answer': 'true',
             'message': 'Here are the parts',
@@ -516,16 +519,14 @@ function infohub_markdown_own() {
      */
     const internal_ParseListsUnordered = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
-        
+        let $text = $in.text;
+        let $parts = {};
+
         return {
             'answer': 'true',
             'message': 'Here are the parts',
@@ -544,16 +545,14 @@ function infohub_markdown_own() {
      */
     const internal_ParseListsOrdered = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+       const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
-        
+        let $text = $in.text;
+        let $parts = {};
+
         return {
             'answer': 'true',
             'message': 'Here are the parts',
@@ -572,15 +571,13 @@ function infohub_markdown_own() {
      */
     const internal_ParseBlockquotes = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text;
+        let $parts = {};
         
         return {
             'answer': 'true',
@@ -588,7 +585,6 @@ function infohub_markdown_own() {
             'text': $text,
             'parts': $parts
         };
-
     };
 
     /**
@@ -601,15 +597,13 @@ function infohub_markdown_own() {
      */
     const internal_ParseTaskList = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text;
+        let $parts = {};
         
         return {
             'answer': 'true',
@@ -629,15 +623,13 @@ function infohub_markdown_own() {
      */
     const internal_ParseTables = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {},
-            $default = {
-                'text': ''
-            };
+        const $default = {
+            'text': ''
+        };
         $in = _Default($default, $in);
         
-        $text = $in.text;
+        let $text = $in.text;
+        let $parts = {};
         
         return {
             'answer': 'true',
@@ -657,27 +649,28 @@ function infohub_markdown_own() {
      */
     const internal_ParseHeaders = function ($in)
     {
-        "use strict";
-
-        var $text, $parts = {}, $rows = [], $nr, $i;
-
         const $default = {
             'text': ''
         };
         $in = _Default($default, $in);
-        
-        $rows = $in.text.split(/\r|\r\n|\n/);
-        for ($i=0;$i < $rows.length;$i++) {
+
+        let $parts = {};
+
+        let $rows = $in.text.split(/\r|\r\n|\n/);
+        for (let $i = 0;$i < $rows.length; $i = $i + 1)
+        {
             if ($rows[$i].substr(0,1) === '#') {
-                $nr = $rows[$i].indexOf(' ');
-                $rows[$i] = '<h'+$nr+'>' + $rows[$i].substr($nr+1) + '</h'+$nr+'>';
-            } else {
-                if ($rows[$i] !== '') {
-                    $rows[$i] = '<p>' + $rows[$i] + '</p>';
-                }
+                const $nr = $rows[$i].indexOf(' ');
+                $rows[$i] = '<h' + $nr + '>' + $rows[$i].substr($nr + 1) + '</h' + $nr + '>';
+                continue;
+            }
+
+            if ($rows[$i] !== '') {
+                $rows[$i] = '<p>' + $rows[$i] + '</p>';
             }
         }
-        $text = $rows.join('');
+
+        const $text = $rows.join('');
         
         return {
             'answer': 'true',

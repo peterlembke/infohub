@@ -17,11 +17,9 @@
  */
 function infohub_demo_form() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -55,8 +53,6 @@ function infohub_demo_form() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -104,8 +100,6 @@ function infohub_demo_form() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -337,8 +331,6 @@ function infohub_demo_form() {
     $functions.push("click_file_read");
     const click_file_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report',
@@ -354,7 +346,7 @@ function infohub_demo_form() {
         {
             let $links = '';
 
-            for (let $fileNumber = 0; $fileNumber < $in.files_data.length; $fileNumber++)
+            for (let $fileNumber = 0; $fileNumber < $in.files_data.length; $fileNumber = $fileNumber + 1)
             {
                 const $name = 'my_image_' + $fileNumber;
                 $links = $links + '[' + $name + ']';
@@ -405,8 +397,6 @@ function infohub_demo_form() {
     $functions.push("click_file_write");
     const click_file_write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };

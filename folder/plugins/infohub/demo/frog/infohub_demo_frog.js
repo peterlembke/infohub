@@ -17,11 +17,9 @@
  */
 function infohub_demo_frog() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -77,8 +75,6 @@ function infohub_demo_frog() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -188,8 +184,6 @@ function infohub_demo_frog() {
     $functions.push("click_frog");
     const click_frog = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',

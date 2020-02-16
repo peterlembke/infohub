@@ -17,11 +17,9 @@
  */
 function infohub_launcher() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     /**
      * Mandatory version information
@@ -79,10 +77,11 @@ function infohub_launcher() {
     $functions.push('_Translate');
     /**
      * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
+     * @param {string} $string
+     * @returns {string|{}}
+     * @private
      */
-    const _Translate = function ($string)
+    const _Translate = function ($string = '')
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -109,8 +108,6 @@ function infohub_launcher() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_boxes'
@@ -428,7 +425,7 @@ function infohub_launcher() {
                 'answer': 'true',
                 'message': 'Sending all rendering messages',
                 'messages': $messagesArray
-            }
+            };
         }
 
         return {
@@ -447,8 +444,6 @@ function infohub_launcher() {
     $functions.push("first_contact");
     const first_contact = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_is_my_list_empty',
             'response': {
@@ -582,8 +577,6 @@ function infohub_launcher() {
     $functions.push("switch_button");
     const switch_button = function ($in)
     {
-        "use strict";
-
         let $listName = 'my_list';
 
         const $default = {
@@ -642,10 +635,8 @@ function infohub_launcher() {
     $functions.push("render_list");
     const render_list = function ($in)
     {
-        "use strict";
-
-        let $text = '';
-        let $what = {};
+        let $text = '',
+            $what = {};
 
         const $default = {
             'list_name': '',
@@ -668,7 +659,7 @@ function infohub_launcher() {
 
         if ($listName !== 'my_list' && $listName !== 'full_list') {
             window.alert('infohub_launcher -> render_list() can not render the list: ' + $listName);
-            $in['step'] = 'step_end';
+            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_read_local_list') {
@@ -807,8 +798,6 @@ function infohub_launcher() {
     $functions.push("get_option_list");
     const get_option_list = function ($in)
     {
-        "use strict";
-
         let $options = [];
 
         const $default = {
@@ -825,7 +814,7 @@ function infohub_launcher() {
         const $listName = $in.list_name;
         if ($listName !== 'my_list' && $listName !== 'full_list') {
             window.alert('infohub_launcher -> get_option_list() can not give option values for the list: ' + $listName);
-            $in['step'] = 'step_end';
+            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_read_local_list') {
@@ -981,8 +970,6 @@ function infohub_launcher() {
     $functions.push("refresh_list");
     const refresh_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'list_name': '',
             'step': 'step_start',
@@ -1072,7 +1059,12 @@ function infohub_launcher() {
             $in.data_back.language_codes = $in.response.data.language.split(',');
 
             let $files = {}; // The translation files we want for each plugin
-            for (let $number in $in.data_back.language_codes) {
+            for (let $number in $in.data_back.language_codes)
+            {
+                if ($in.data_back.language_codes.hasOwnProperty($number) === false) {
+                    continue;
+                }
+
                 const $languageCode = $in.data_back.language_codes[$number];
                 const $fileName = 'translate/' + $languageCode + '.json';
                 $files[$fileName] = 'local'; // local = I am happy with a local version if exist
@@ -1156,8 +1148,6 @@ function infohub_launcher() {
     $functions.push("get_list");
     const get_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'list_name': 'full_list',
             'step': 'step_start',
@@ -1209,8 +1199,6 @@ function infohub_launcher() {
     $functions.push("update_full_list");
     const update_full_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_get_full_list_from_client',
             'data_back': {
@@ -1442,9 +1430,7 @@ function infohub_launcher() {
     $functions.push("my_list_add");
     var my_list_add = function ($in)
     {
-        "use strict";
-
-        var $data, $myList;
+        let $data, $myList;
 
         const $default = {
             'plugin': '',
@@ -1544,10 +1530,10 @@ function infohub_launcher() {
         {
             if (_IsSet($in.response.data.list[$in.plugin]) === 'false') {
                 $message = 'I loaded the server list from Storage but the plugin data do not exist there';
-                $in['step'] = 'step_end';
+                $in.step = 'step_end';
             } else {
                 $data = _ByVal($in.response.data.list[$in.plugin]);
-                $in['step'] = 'step_get_my_list_from_storage';
+                $in.step = 'step_get_my_list_from_storage';
             }
         }
 
@@ -1574,7 +1560,7 @@ function infohub_launcher() {
         {
             if (_IsSet($in.response.data[$in.plugin]) === 'true') {
                 $message = 'I loaded my list from Storage but the plugin is already in the list';
-                $in['step'] = 'step_end';
+                $in.step = 'step_end';
             } else {
                 const $defaultResponseData = {
                     'micro_time': 0.0,
@@ -1583,7 +1569,7 @@ function infohub_launcher() {
                     'list_checksum': ''
                 };
                 $myList = _Default($defaultResponseData, $in.response.data);
-                $in['step'] = 'step_add_data_to_my_list';
+                $in.step = 'step_add_data_to_my_list';
             }
         }
 
@@ -1645,7 +1631,6 @@ function infohub_launcher() {
     $functions.push("my_list_remove");
     const my_list_remove = function ($in)
     {
-        "use strict";
         let $myList;
 
         const $default = {
@@ -1717,11 +1702,11 @@ function infohub_launcher() {
         {
             if (_IsSet($in.response.data.list[$in.plugin]) === 'false') {
                 $message = 'I loaded my list from Storage but the plugin is already gone from the list';
-                $in['step'] = 'step_end';
+                $in.step = 'step_end';
             } else {
                 $myList = _ByVal($in.response.data);
                 delete($myList.list[$in.plugin]);
-                $in['step'] = 'step_save_my_list_to_storage';
+                $in.step = 'step_save_my_list_to_storage';
             }
         }
 
@@ -1778,8 +1763,6 @@ function infohub_launcher() {
     $functions.push("plugin_information");
     const plugin_information = function ($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name': '',
             'list_name': '',
@@ -1900,8 +1883,6 @@ function infohub_launcher() {
     $functions.push("get_launch_information");
     const get_launch_information = function($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name': '', // infohub_asset and infohub_launcher can use this.
             'from_plugin': {'node': '', 'plugin': '' },
@@ -2062,7 +2043,7 @@ function infohub_launcher() {
             {
                 let $result = {};
 
-                for (let $number = $codesArray.length -1; $number >= 0; $number--)
+                for (let $number = $codesArray.length -1; $number >= 0; $number = $number - 1)
                 {
                     const $code = $codesArray[$number];
                     if (_Empty($code) === 'true') {
@@ -2076,8 +2057,8 @@ function infohub_launcher() {
                         'data': $in,
                         'split': '|'
                     });
-                    if (_IsSet($translate['contents']) === 'true') {
-                        const $contents = _JsonDecode($translate['contents']);
+                    if (_IsSet($translate.contents) === 'true') {
+                        const $contents = _JsonDecode($translate.contents);
                         $result = _Merge($result, $contents);
                     }
                 }
@@ -2118,8 +2099,8 @@ function infohub_launcher() {
 
         if ($in.step === 'step_default_icon')
         {
-            $launchData['icon'] = '<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> <svg version="1.1" id="default" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <circle cx="25" cy="25" r="20" stroke="#9933ff" stroke-width="3" fill="white" /> </svg>';
-            $launchData['icon_license'] = {
+            $launchData.icon = '<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> <svg version="1.1" id="default" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <circle cx="25" cy="25" r="20" stroke="#9933ff" stroke-width="3" fill="white" /> </svg>';
+            $launchData.icon_license = {
                 "publisher_name": "InfoHub",
                 "publisher_url": "https://infohub.se",
                 "publisher_note": "",
@@ -2156,8 +2137,6 @@ function infohub_launcher() {
     $functions.push("get_launch_list");
     const get_launch_list = function($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': '' },
             'step': 'step_get_launch_information',
@@ -2253,8 +2232,6 @@ function infohub_launcher() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -2269,7 +2246,7 @@ function infohub_launcher() {
         };
         $in = _Merge($default, $in);
 
-        const $parts = $in['event_data'].split('|');
+        const $parts = $in.event_data.split('|');
         const $listName = $parts[0];
         const $pluginName = $parts[1];
         const $command = $parts[2];

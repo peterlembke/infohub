@@ -17,11 +17,9 @@
  */
 function infohub_tools_random() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -74,8 +72,6 @@ function infohub_tools_random() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -221,8 +217,6 @@ function infohub_tools_random() {
     $functions.push('click_handle_random');
     const click_handle_random = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'box_id': '',

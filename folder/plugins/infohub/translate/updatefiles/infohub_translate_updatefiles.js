@@ -17,11 +17,9 @@
  */
 function infohub_translate_updatefiles() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -92,8 +90,6 @@ function infohub_translate_updatefiles() {
     $functions.push('_MergeData');
     const _MergeData = function ($object1, $object2)
     {
-        "use strict";
-
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
@@ -106,8 +102,6 @@ function infohub_translate_updatefiles() {
     $functions.push('_MergeKeys');
     const _MergeKeys = function ($object1, $object2)
     {
-        "use strict";
-
         for (let $key in $object2)
         {
             if ($object2.hasOwnProperty($key) === false) {
@@ -150,8 +144,6 @@ function infohub_translate_updatefiles() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -232,8 +224,6 @@ function infohub_translate_updatefiles() {
     $functions.push('click_upload');
     const click_upload = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -261,7 +251,7 @@ function infohub_translate_updatefiles() {
             $in.step = 'step_get_file';
             if ($in.files_data.length !== 1) {
                 $in.message = 'You need to select one json file';
-                $in.step = 'step_end'
+                $in.step = 'step_end';
             }
         }
 

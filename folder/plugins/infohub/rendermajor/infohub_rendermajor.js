@@ -20,6 +20,8 @@
  */
 function infohub_rendermajor() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -59,8 +61,6 @@ function infohub_rendermajor() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -91,8 +91,6 @@ function infohub_rendermajor() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'alias': '',
@@ -163,8 +161,6 @@ function infohub_rendermajor() {
      */
     const internal_PresentationBox = function ($in)
     {
-        "use strict";
-
         const $default = {
             'head_label': '',
             'head_text': '',
@@ -262,13 +258,13 @@ function infohub_rendermajor() {
 
             let $legendData = '';
             if (_IsSet($parts.head) === 'true') {
-                $legendData = $legendData + '[head]'
+                $legendData = $legendData + '[head]';
             }
             if (_IsSet($parts.content) === 'true') {
-                $legendData = $legendData + '[content]'
+                $legendData = $legendData + '[content]';
             }
             if (_IsSet($parts.foot) === 'true') {
-                $legendData = $legendData + '[foot]'
+                $legendData = $legendData + '[foot]';
             }
 
             let $label = '';

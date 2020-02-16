@@ -25,7 +25,8 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 class infohub_plugin_information extends infohub_base
 {
 
-    Protected final function _Version() {
+    protected function _Version(): array
+    {
         return array(
             'date' => '2016-01-30',
             'version' => '1.0.0',

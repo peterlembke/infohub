@@ -17,11 +17,9 @@
  */
 function infohub_demo() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -93,8 +91,6 @@ function infohub_demo() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start'
@@ -251,8 +247,6 @@ function infohub_demo() {
     $functions.push("click_menu");
     const click_menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -297,8 +291,6 @@ function infohub_demo() {
     $functions.push("click");
     const click = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -378,8 +370,6 @@ function infohub_demo() {
     $functions.push("click_link");
     const click_link = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '',
         };
@@ -403,8 +393,6 @@ function infohub_demo() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_id': '',
             'box_id': '',

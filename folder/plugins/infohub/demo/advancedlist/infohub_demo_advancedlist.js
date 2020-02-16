@@ -17,11 +17,9 @@
  */
 function infohub_demo_advancedlist() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -77,8 +75,6 @@ function infohub_demo_advancedlist() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -206,8 +202,6 @@ function infohub_demo_advancedlist() {
     $functions.push("click_advanced_list");
     const click_advanced_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'level': '',

@@ -20,9 +20,9 @@
  */
 function infohub_renderform() {
 
+    "use strict";
+
     // include "infohub_base.js"
-
-
 
     const _Version = function() {
         return {
@@ -61,8 +61,6 @@ function infohub_renderform() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         const $parts = $text.split('_');
 
         let $response = '';
@@ -93,8 +91,6 @@ function infohub_renderform() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'alias': '',
@@ -156,8 +152,6 @@ function infohub_renderform() {
      */
     const internal_Form = function ($in)
     {
-        "use strict";
-
         const $default = {
             'content': '',
             'to_node': 'client',
@@ -222,8 +216,6 @@ function infohub_renderform() {
      */
     const internal_Button = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -300,8 +292,6 @@ function infohub_renderform() {
      */
     const internal_File = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -382,8 +372,6 @@ function infohub_renderform() {
      */
     const internal_Text = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'label': '', // The clickable text at the top
@@ -469,8 +457,6 @@ function infohub_renderform() {
      */
     const internal_Range = function ($in)
     {
-        "use strict";
-
         const $default = {
                 'enabled': 'true',
                 'label': '',
@@ -530,33 +516,33 @@ function infohub_renderform() {
         };
 
         if ($in.show_max === 'true') {
-            $parts['range_max'] = {
+            $parts.range_max = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Max',
                 'data': '-'
             };
-            $parts['presentation_box']['content_data'] = '[range_max]' + $parts['presentation_box']['content_data'];
+            $parts.presentation_box.content_data = '[range_max]' + $parts.presentation_box.content_data;
         }
 
         if ($in.show_value === 'true') {
-            $parts['range_value'] = {
+            $parts.range_value = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Value',
                 'data': '-'
             };
-            $parts['presentation_box']['content_data'] = '[range_value]' + $parts['presentation_box']['content_data'];
+            $parts.presentation_box.content_data = '[range_value]' + $parts.presentation_box.content_data;
         }
 
         if ($in.show_min === 'true') {
-            $parts['range_min'] = {
+            $parts.range_min = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Min',
                 'data': '-'
             };
-            $parts['presentation_box']['content_data'] = '[range_min]' + $parts['presentation_box']['content_data'];
+            $parts.presentation_box.content_data = '[range_min]' + $parts.presentation_box.content_data;
         }
 
         return {
@@ -582,8 +568,6 @@ function infohub_renderform() {
      */
     const internal_Color = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'label': '',
@@ -653,8 +637,6 @@ function infohub_renderform() {
      */
     const internal_Select = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -735,8 +717,6 @@ function infohub_renderform() {
      */
     const internal_Textarea = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'placeholder': '',
@@ -793,7 +773,7 @@ function infohub_renderform() {
         let $data = '[form_element]';
         
         if ($in.show_characters === 'true') {
-            $parts['count_characters'] = {
+            $parts.count_characters = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Characters',
@@ -803,7 +783,7 @@ function infohub_renderform() {
         }
 
         if ($in.show_words === 'true') {
-            $parts['count_words'] = {
+            $parts.count_words = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Words',
@@ -813,7 +793,7 @@ function infohub_renderform() {
         }
 
         if ($in.show_rows === 'true') {
-            $parts['count_rows'] = {
+            $parts.count_rows = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Rows',
@@ -823,7 +803,7 @@ function infohub_renderform() {
         }
 
         if ($in.show_rows === 'true') {
-            $parts['count_paragraphs'] = {
+            $parts.count_paragraphs = {
                 'type': 'common',
                 'subtype': 'label_data',
                 'label': 'Paragraphs',
@@ -832,7 +812,7 @@ function infohub_renderform() {
             $data = $data + '[count_paragraphs]';
         }
         
-        $parts['presentation_box']['content_data'] = $data;
+        $parts.presentation_box.content_data = $data;
 
         return {
             'answer': 'true',
@@ -857,8 +837,6 @@ function infohub_renderform() {
      */
     const internal_Radios = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -924,8 +902,6 @@ function infohub_renderform() {
      */
     const internal_Checkboxes = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             "options": [],
@@ -983,8 +959,6 @@ function infohub_renderform() {
 
     const _Signs = function ($in)
     {
-        "use strict";
-
         const $default = {
             'validate': 'false',
             'require': 'false',
@@ -1032,9 +1006,9 @@ function infohub_renderform() {
 
         let $row = '';
         for (let $key in $data) {
-            const $group = $data[$key]['group'];
+            const $group = $data[$key].group;
             if ($in[$group] === 'true') {
-                $row = $row + '<span id ="{box_id}_' + $key + '" style="color:'+ $data[$key]['color'] +';display:'+ $data[$key]['display'] +'">' + $data[$key]['sign'] + '</span>';
+                $row = $row + '<span id ="{box_id}_' + $key + '" style="color:'+ $data[$key].color + ';display:' + $data[$key].display + '">' + $data[$key].sign + '</span>';
             }
         }
 
@@ -1043,8 +1017,6 @@ function infohub_renderform() {
 
     const _CountText = function ($in)
     {
-        "use strict";
-
         const $default = {
             'text': ''
         };
@@ -1062,18 +1034,16 @@ function infohub_renderform() {
 
     const _WordCount = function ($text)
     {
-        "use strict";
-
         const $insert = " ";
         let $wordCount = 0;
 
         $text = $text.replace(/(\r\n|\n|\r)/gm, $insert);
         let $parts = $text.split(" ");
 
-        for (let $i = 0; $i < $parts.length; $i++)
+        for (let $i = 0; $i < $parts.length; $i = $i + 1)
         {
             if ($parts[$i].length > 0) {
-                $wordCount++;
+                $wordCount = $wordCount + 1;
             }
         }
 
@@ -1089,8 +1059,6 @@ function infohub_renderform() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'type': '',

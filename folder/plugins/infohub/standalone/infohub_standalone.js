@@ -17,11 +17,9 @@
  */
 function infohub_standalone() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     $functions.push("_Version");
     const _Version = function() {
@@ -66,8 +64,6 @@ function infohub_standalone() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'plugin_name': ''
@@ -138,8 +134,6 @@ function infohub_standalone() {
     $functions.push('setup_plugin');
     const setup_plugin = function ($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name': '',
             'step': 'step_is_plugin_started',

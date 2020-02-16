@@ -1,0 +1,57 @@
+{
+    "name": "infohub",
+    "version": "1.0.0",
+    "homepage": "https://www.infohub.se/",
+    "description": "Your private place on the internet",
+    "author": {
+        "name": "Peter Lembke",
+        "email": "info@infohub.se",
+        "url": "https://www.infohub.se/"
+    },
+    "license": "GPLv3",
+    "dependencies": {
+        
+    },
+    "jshintConfig": {
+        "esversion": 6,
+        "evil": true,
+        "devel": true,
+        "plusplus": true,
+        "browser": true,
+        "eqeqeq": true,
+        "undef": true,
+        "unused": false,
+        "strict": "global",
+        "bitwise": true,
+        "curly": true,
+        "maxdepth": 5,
+        "maxparams": 4,
+        "nonbsp": true,
+        "globals": {
+            "_IsSet": false,
+            "_Default": false,
+            "_MicroTime": false,
+            "_Merge": false,
+            "_ByVal": false,
+            "_MethodExists": false,
+            "_TimeStamp": false,
+            "_JsonEncode": false,
+            "_JsonDecode": false,
+            "_GetData": false,
+            "_Pop": false,
+            "_SubCall": false,
+            "_Empty": false,
+            "_Replace": false,
+            "_GetClassName": false,
+            "_Count": false,
+            "$functions": true,
+            "internal_Cmd": false,
+            "internal_Log": false,
+            "sendMessage": false,
+            "_UcWords": false,
+            "_GetDataType": false,
+            "_Delete": false,
+            "_SprintF": false
+        }
+    }
+}

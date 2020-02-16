@@ -52,7 +52,8 @@ class infohub_session extends infohub_base
             'initiator_calculate_sign_code' => 'normal',
             'responder_calculate_sign_code' => 'normal',
             'initiator_verify_sign_code' => 'normal',
-            'responder_verify_sign_code' => 'normal'
+            'responder_verify_sign_code' => 'normal',
+            'responder_check_session_valid' => 'normal'
         );
     }
 
@@ -734,6 +735,59 @@ class infohub_session extends infohub_base
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
             'ok' => $ok
+        );
+    }
+
+    /**
+     * Verify if a session_id is valid. That the user are logged in.
+     * @version 2020-02-12
+     * @since 2020-02-12
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function responder_check_session_valid(array $in = array()): array
+    {
+        $default = array(
+            'session_id' => '',
+            'step' => 'step_get_session_data',
+            'response' => array(
+                'data' => array(),
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'post_exist' => 'false'
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $sessionValid = 'false';
+
+        if ($in['step'] === 'step_get_session_data') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read'
+                ),
+                'data' => array(
+                    'path' => 'infohub_session/session/' . $in['session_id']
+                ),
+                'data_back' => array(
+                    'step' => 'step_get_session_data_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_get_session_data_response') {
+            if ($in['response']['post_exist'] === 'true') {
+                $sessionValid = $in['response']['post_exist'];
+            }
+        }
+
+        return array(
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'session_valid' => $sessionValid
         );
     }
 

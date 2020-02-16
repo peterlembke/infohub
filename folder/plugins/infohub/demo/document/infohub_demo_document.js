@@ -17,11 +17,9 @@
  */
 function infohub_demo_document() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -79,8 +77,6 @@ function infohub_demo_document() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -174,8 +170,6 @@ function infohub_demo_document() {
     $functions.push("click_file_read");
     const click_file_read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report',
@@ -237,8 +231,6 @@ function infohub_demo_document() {
     $functions.push("click_load_example");
     const click_load_example = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',
@@ -310,8 +302,6 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
     $functions.push("click_markdown_to_html");
     const click_markdown_to_html = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',

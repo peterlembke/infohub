@@ -17,11 +17,9 @@
  */
 function infohub_session() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function()
     {
@@ -60,8 +58,6 @@ function infohub_session() {
     $functions.push("initiator_store_session_data");
     const initiator_store_session_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'node': '', // name of the node the initiator use to send data to the responder
             'initiator_user_name': '', // user_{hub_id}
@@ -101,7 +97,6 @@ function infohub_session() {
                     'step': 'step_store_session_data_response'
                 }
             });
-
         }
 
         if ($in.step === 'step_store_session_data_response') {
@@ -129,8 +124,6 @@ function infohub_session() {
     $functions.push("initiator_end_session");
     const initiator_end_session = function ($in)
     {
-        "use strict";
-
         const $default = {
             'node': '', // name of the node to end the session on both sides.
             'response': {
@@ -244,8 +237,6 @@ function infohub_session() {
     $functions.push("initiator_calculate_sign_code");
     const initiator_calculate_sign_code = function ($in)
     {
-        "use strict";
-
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -257,7 +248,9 @@ function infohub_session() {
             },
             'data_back': {
                 'sign_code': '',
-                'sign_code_created_at': ''
+                'sign_code_created_at': '',
+                'session_id': '',
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -265,8 +258,8 @@ function infohub_session() {
         let $signCodeCreatedAt = 0.0;
         let $ok = 'false';
 
-        if ($in.step === 'step_get_session_data') {
-
+        if ($in.step === 'step_get_session_data')
+        {
             return _SubCall({
                 'to': {
                     'node': 'server',
@@ -282,7 +275,6 @@ function infohub_session() {
                     'step': 'step_get_session_data_response'
                 }
             });
-
         }
 
         if ($in.step === 'step_get_session_data_response') {
@@ -291,7 +283,8 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_calculate') {
+        if ($in.step === 'step_calculate')
+        {
             let $data = _GetData({
                 'name': 'response/data',
                 'default': {},
@@ -318,11 +311,12 @@ function infohub_session() {
                     'data_back': {
                         'sign_code': $in.sign_code,
                         'sign_code_created_at': $signCodeCreatedAt,
+                        'session_id': $data.session_id,
+                        'user_name': $data.initiator_user_name,
                         'step': 'step_calculate_response'
                     }
                 });
             }
-
         }
 
         if ($in.step === 'step_calculate_response') {
@@ -348,8 +342,6 @@ function infohub_session() {
     $functions.push("initiator_verify_sign_code");
     const initiator_verify_sign_code = function ($in)
     {
-        "use strict";
-
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -359,7 +351,7 @@ function infohub_session() {
             'response': {
                 'data': {},
                 'answer': 'false',
-                'message': 'Nothin to report',
+                'message': 'Nothing to report',
                 'checksum': ''
             }
         };
@@ -379,8 +371,8 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_get_session_data') {
-
+        if ($in.step === 'step_get_session_data')
+        {
             return _SubCall({
                 'to': {
                     'node': 'server',
@@ -398,7 +390,6 @@ function infohub_session() {
                     'step': 'step_get_session_data_response'
                 }
             });
-
         }
 
         if ($in.step === 'step_get_session_data_response') {
@@ -435,7 +426,6 @@ function infohub_session() {
                     }
                 });
             }
-
         }
 
         if ($in.step === 'step_calculate_response') {
@@ -445,7 +435,6 @@ function infohub_session() {
             if ($in.sign_code === $signCode) {
                 $ok = 'true';
             }
-
         }
 
         return {
@@ -464,43 +453,83 @@ function infohub_session() {
     $functions.push("initiator_check_session_valid");
     const initiator_check_session_valid = function ($in)
     {
-        "use strict";
-
         const $default = {
-            'node': '', // node name
-            'step': 'step_load_session_data',
+            'node': 'server', // node name
+            'step': 'step_get_session_data',
             'response': {
                 'data': {},
                 'answer': 'false',
-                'message': 'Nothin to report',
-                'checksum': ''
+                'message': 'Nothing to report',
+                'session_valid': 'false',
+                'post_exist': 'false'
             }
         };
         $in = _Default($default, $in);
 
-        let $ok = 'false';
+        let $sessionValid = 'false';
+        let $sessionId = '';
 
-        // Load session data.
-        // If session data do not exist then session is NOT valid
-        // Ask the server, infohub_session, responder_check_session_valid
-        // Return the answer
+        if ($in.step === 'step_get_session_data') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read'
+                },
+                'data': {
+                    'path': 'infohub_session/node/' + $in.node
+                },
+                'data_back': {
+                    'node': $in.node,
+                    'step': 'step_get_session_data_response'
+                }
+            });
+        }
 
-        if ($in.step === 'step_load_session_data') {
+        if ($in.step === 'step_get_session_data_response') {
+            $in.step = 'step_end';
+            if ($in.response.post_exist === 'true') {
+                $sessionId = _GetData({
+                    'name': 'response/data/session_id',
+                    'default': '',
+                    'data': $in,
+                });
+                $in.step = 'step_ask_server';
+            }
+        }
+
+        if ($in.step === 'step_ask_server') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_session',
+                    'function': 'responder_check_session_valid'
+                },
+                'data': {
+                    'session_id': $sessionId
+                },
+                'data_back': {
+                    'node': $in.node,
+                    'step': 'step_ask_server_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_ask_server_response') {
+            $sessionValid = $in.response.session_valid;
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $ok
+            'session_valid': $sessionValid
         };
     };
 
     const _CreatedAt = function ($in)
     {
-        "use strict";
-
         const $time = _MicroTime();
         return $time;
-    }
+    };
 }
 //# sourceURL=infohub_session.js

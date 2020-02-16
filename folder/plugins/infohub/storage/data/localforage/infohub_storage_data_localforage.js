@@ -22,6 +22,8 @@
  */
 function infohub_storage_data_localforage() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -57,8 +59,6 @@ function infohub_storage_data_localforage() {
     $functions.push('read');
     const read = function ($in)
     {
-        "use strict";
-
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_localforage',
@@ -125,8 +125,6 @@ function infohub_storage_data_localforage() {
     $functions.push('write');
     const write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_localforage',
@@ -184,8 +182,6 @@ function infohub_storage_data_localforage() {
     $functions.push('read_paths');
     const read_paths = function ($in)
     {
-        "use strict";
-
         const $default = {
             'path': '',
             'callback_function': null

@@ -17,15 +17,9 @@
  */
 function infohub_configlocal_allow() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -56,8 +50,6 @@ function infohub_configlocal_allow() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -105,8 +97,6 @@ function infohub_configlocal_allow() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': ''
@@ -133,8 +123,6 @@ function infohub_configlocal_allow() {
     $functions.push("internal_allow");
     const internal_allow = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': ''
         };
@@ -148,7 +136,6 @@ function infohub_configlocal_allow() {
             },
             'data': {
                 'what': {
-                    // @todo check box, allow iframe (3rd party material) Default = no
                     // @todo check box, allow download of assets. Default = yes
                     // @todo text box, cache lifetime (default 1 week)
                     'titel': {

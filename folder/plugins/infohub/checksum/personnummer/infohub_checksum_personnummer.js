@@ -18,6 +18,8 @@
  */
 function infohub_checksum_personnummer() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_checksum_personnummer() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': ''
         };
@@ -87,8 +87,6 @@ function infohub_checksum_personnummer() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'checksum': ''
@@ -97,9 +95,10 @@ function infohub_checksum_personnummer() {
 
         $in.value = _CleanUpPersonnummer($in.value);
 
-        let $verified = 'false';
         const $result = _PersonnummerVerifyChecksum($in.value);
-        if ($result === $in['checksum']) {
+
+        let $verified = 'false';
+        if ($result === $in.checksum) {
             $verified = 'true';
         }
 
@@ -127,8 +126,6 @@ function infohub_checksum_personnummer() {
      */
     const _PersonnummerCalculateChecksum = function($valueString)
     {
-        "use strict";
-
         const $numbers = $valueString;
         let $sum = 0;
 
@@ -150,8 +147,6 @@ function infohub_checksum_personnummer() {
 
     const _PersonnummerSum = function($valueString)
     {
-        "use strict";
-
         const $numbers = $valueString;
         let $sum = 0;
         for (let $key in $numbers) {
@@ -165,8 +160,6 @@ function infohub_checksum_personnummer() {
 
     const _PersonnummerVerifyChecksum = function($valueString)
     {
-        "use strict";
-
         const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
         const $result = _PersonnummerCalculateChecksum($valueString);
@@ -181,8 +174,6 @@ function infohub_checksum_personnummer() {
 
     const _RemoveAllButNumbers = function($valueString)
     {
-        "use strict";
-
         const $output = $valueString.replace(/[^0-9.]/g, "");
 
         return $output;

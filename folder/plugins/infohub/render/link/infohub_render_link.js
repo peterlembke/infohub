@@ -19,6 +19,8 @@
  */
 function infohub_render_link() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_render_link() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -83,8 +83,6 @@ function infohub_render_link() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -127,9 +125,7 @@ function infohub_render_link() {
      */
     const _GetParameters = function ($in, $fields)
     {
-        "use strict";
-
-        var $useFields = [];
+        let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true')
         {
@@ -172,8 +168,6 @@ function infohub_render_link() {
      */
     const _Display = function ($in)
     {
-        "use strict";
-
         const $default = {
             'display': ''
         };
@@ -201,8 +195,6 @@ function infohub_render_link() {
     $functions.push("create");
     const create = function ($in)
     {
-        "use strict";
-
         let $default = {
             'type': 'link',
             'subtype': 'link', // link, toggle, external, embed
@@ -261,8 +253,6 @@ function infohub_render_link() {
      */
     const internal_Link = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -337,8 +327,6 @@ function infohub_render_link() {
      */
     const internal_Toggle = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -407,8 +395,6 @@ function infohub_render_link() {
      */
     const internal_External = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -465,8 +451,6 @@ function infohub_render_link() {
      */
     const internal_Embed = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen

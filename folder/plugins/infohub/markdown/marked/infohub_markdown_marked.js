@@ -17,6 +17,8 @@
  */
 function infohub_markdown_marked() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -53,8 +55,6 @@ function infohub_markdown_marked() {
     $functions.push("convert"); // Enable this function
     const convert = function ($in)
     {
-        "use strict";
-
         let $html = '';
 
         const $default = {

@@ -19,7 +19,9 @@
  */
 function infohub_render_form() {
 
-    // include "infohub_base.js"
+    "use strict";
+
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -59,8 +61,6 @@ function infohub_render_form() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         let $parts = $text.split('_');
@@ -84,8 +84,6 @@ function infohub_render_form() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         const $default = {
             'id': '',
             'name': '',
@@ -128,8 +126,6 @@ function infohub_render_form() {
      */
     const _GetParameters = function ($in, $fields)
     {
-        "use strict";
-
         let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true')
@@ -181,8 +177,6 @@ function infohub_render_form() {
      */
     const _GetOptions = function ($in)
     {
-        "use strict";
-
         let $options = '', $selected;
 
         const $default = {
@@ -190,7 +184,7 @@ function infohub_render_form() {
         };
         $in = _Default($default, $in);
 
-        for (let $optionCountNumber = 0; $optionCountNumber < $in.options.length; $optionCountNumber++)
+        for (let $optionCountNumber = 0; $optionCountNumber < $in.options.length; $optionCountNumber = $optionCountNumber + 1)
         {
             if (_IsSet($in.options[$optionCountNumber]) === 'false') {
                 continue;
@@ -237,15 +231,13 @@ function infohub_render_form() {
      */
     const _GetDataListOptions = function ($in)
     {
-        "use strict";
-
         let $options = '';
 
         const $default = {
             'label': ''
         };
 
-        for (let $i=0; $i < $in.options.length; $i++)
+        for (let $i=0; $i < $in.options.length; $i = $i + 1)
         {
             if (_IsSet($in.options[$i]) === 'false') {
                 continue;
@@ -272,8 +264,6 @@ function infohub_render_form() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         $in = _ByVal($in);
 
         $in.func = _GetFuncName($in.subtype);
@@ -308,8 +298,6 @@ function infohub_render_form() {
     $functions.push('render_options');
     const render_options = function ($in)
     {
-        "use strict";
-
         const $default = {
             'options': []
         };
@@ -337,8 +325,6 @@ function infohub_render_form() {
      */
     const internal_Button = function ($in)
     {
-        "use strict";
-
         const  $default = {
             'enabled': 'true',
             'alias': '',
@@ -420,8 +406,6 @@ function infohub_render_form() {
      */
     const internal_File = function ($in)
     {
-        "use strict";
-
         const $default = {
             'button_label': 'Submit',
             'enabled': 'true',
@@ -480,9 +464,9 @@ function infohub_render_form() {
         };
 
         if ($in.to_plugin !== '') {
-            $fields['to_node'] = 'to_node';
-            $fields['to_plugin'] = 'to_plugin';
-            $fields['to_function'] = 'to_function';
+            $fields.to_node = 'to_node';
+            $fields.to_plugin = 'to_plugin';
+            $fields.to_function = 'to_function';
         }
 
         let $event = '';
@@ -516,8 +500,6 @@ function infohub_render_form() {
      */
     const internal_Text = function ($in)
     {
-        "use strict";
-
         const $default = {
             'input_type': 'text', // text, color, date, datetime-local, email, month, number, range, search, tel, time, url, week
             'enabled': 'true',
@@ -628,8 +610,6 @@ function infohub_render_form() {
      */
     const internal_Range = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'min_value': '',
@@ -686,9 +666,9 @@ function infohub_render_form() {
         };
 
         if ($in.to_plugin !== '') {
-            $fields['to_node'] = 'to_node';
-            $fields['to_plugin'] = 'to_plugin';
-            $fields['to_function'] = 'to_function';
+            $fields.to_node = 'to_node';
+            $fields.to_plugin = 'to_plugin';
+            $fields.to_function = 'to_function';
         }
 
         let $event = '';
@@ -719,8 +699,6 @@ function infohub_render_form() {
      */
     const internal_Textarea = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'placeholder': '',
@@ -819,8 +797,6 @@ function infohub_render_form() {
      */
     const internal_Select = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'size': '1',
@@ -929,8 +905,6 @@ function infohub_render_form() {
      */
     const internal_Datalist = function ($in)
     {
-        "use strict";
-
         const $default = {
             'options': [],
             'alias': ''
@@ -972,8 +946,6 @@ function infohub_render_form() {
      */
     const internal_Radio = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -1049,8 +1021,6 @@ function infohub_render_form() {
      */
     const internal_Radios = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -1085,7 +1055,7 @@ function infohub_render_form() {
 
         let $html = '';
 
-        for (let $i = 0; $i < $in.options.length; $i++)
+        for (let $i = 0; $i < $in.options.length; $i = $i + 1)
         {
             if ($in.options.hasOwnProperty($i) === false) {
                 continue;
@@ -1141,8 +1111,6 @@ function infohub_render_form() {
      */
     const internal_Checkbox = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1220,8 +1188,6 @@ function infohub_render_form() {
      */
     const internal_Checkboxes = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1255,7 +1221,7 @@ function infohub_render_form() {
 
         let $html = '';
 
-        for (let $i = 0; $i < $in.options.length; $i++)
+        for (let $i = 0; $i < $in.options.length; $i = $i + 1)
         {
             if ($in.options.hasOwnProperty($i) === false) {
                 continue;
@@ -1312,8 +1278,6 @@ function infohub_render_form() {
      */
     const internal_Form = function ($in)
     {
-        "use strict";
-
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1385,8 +1349,6 @@ function infohub_render_form() {
      */
     const internal_Fieldset = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'label': '',
@@ -1431,6 +1393,5 @@ function infohub_render_form() {
             'css_data': $in.css_data
         };
     };
-
 }
 //# sourceURL=infohub_render_form.js

@@ -18,6 +18,8 @@
  */
 function infohub_checksum_md5() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_checksum_md5() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': ''
         };
@@ -86,17 +86,16 @@ function infohub_checksum_md5() {
     $functions.push("verify_checksum");
     const verify_checksum = function($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'checksum': ''
         };
         $in = _Default($default, $in);
 
-        let $verified = 'false';
         const $response = _Md5($in.value);
-        if ($response === $in['checksum']) {
+
+        let $verified = 'false';
+        if ($response === $in.checksum) {
             $verified = 'true';
         }
 

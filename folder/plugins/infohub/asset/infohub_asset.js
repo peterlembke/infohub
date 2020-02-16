@@ -17,22 +17,16 @@
  */
 function infohub_asset() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
-
+    $functions.push("_Version");
     /**
      * Mandatory version information
-     * @returns {{date: string, version: string, checksum: string, class_name: string, note: string, status: string, license_name: string, icon: string, title: string, icon_license: string}}
+     * @returns {{date: string, note: string, license_name: string, checksum: string, version: string, class_name: string, since: string, status: string}}
      * @private
      */
-    $functions.push("_Version");
     const _Version = function() {
         return {
             'date': '2019-10-27',
@@ -93,8 +87,6 @@ function infohub_asset() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'icon', // icon, image, audio, video.
             'subtype': 'svg',
@@ -175,8 +167,6 @@ function infohub_asset() {
     $functions.push("update_all_assets");
     const update_all_assets = function ($in)
     {
-        "use strict";
-
         const $default = {
             'list': {}, // each key is a plugin name. Data is not used and can be anything.
             'step': 'step_multi_message',
@@ -249,8 +239,6 @@ function infohub_asset() {
     $functions.push("update_all_plugin_assets");
     const update_all_plugin_assets = function ($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name': '',
             'step': 'step_get_asset_index_from_storage',
@@ -410,8 +398,6 @@ function infohub_asset() {
     $functions.push("update_specific_assets");
     const update_specific_assets = function ($in)
     {
-        "use strict";
-
         const $default = {
             'list': {},
             'step': 'step_get_assets_from_storage',
@@ -518,7 +504,7 @@ function infohub_asset() {
                 }
                 
                 if (_Count($updateAssets) > 0) {
-                    $in.step = 'step_update_specific_assets'
+                    $in.step = 'step_update_specific_assets';
                 }
             }
         }
@@ -576,7 +562,7 @@ function infohub_asset() {
             $message = $in.response.message;
 
             if ($answer === 'true') {
-                $message = 'All requested assets are updated. The new/changed are saved to Storage'
+                $message = 'All requested assets are updated. The new/changed are saved to Storage';
             }
         }
 
@@ -596,7 +582,6 @@ function infohub_asset() {
     $functions.push("get_plugin_assets");
     const get_plugin_assets = function ($in)
     {
-        "use strict";
         const $default = {
             'list': {},
             'plugin_name': '', // plugin_name can be used by Asset and Launcher
@@ -698,8 +683,6 @@ function infohub_asset() {
     $functions.push("get_asset_and_license");
     const get_asset_and_license = function($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name': '', // Use by infohub_asset, infohub_render
             'asset_name': '',
@@ -769,26 +752,36 @@ function infohub_asset() {
             $keepAsset = 'true';
 
             $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
-            $asset = _GetData({'name': 'response|assets|' + $fileName + '|contents', 'default': '', 'data': $in, 'split': '|' });
+
+            $asset = _GetData({
+                'name': 'response|assets|' + $fileName + '|contents', 'default': '',
+                'data': $in,
+                'split': '|'
+            });
             
             $in.step = 'step_get_license';
             if (_Empty($asset) === 'true') {
                 $message = 'The asset file is empty. You get the default asset instead.';
                 $keepAsset = 'false';
-                $in.step = 'step_default_license'
+                $in.step = 'step_default_license';
             }
         }
 
         if ($in.step === 'step_get_license') 
         {
             $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
-            $assetLicense = _GetData({'name': 'response|assets|' + $fileName + '|contents', 'default': {}, 'data': $in, 'split': '|' });
+
+            $assetLicense = _GetData({
+                'name': 'response|assets|' + $fileName + '|contents', 'default': {},
+                'data': $in,
+                'split': '|'
+            });
             
             $in.step = 'step_keep_assets';
             if (_Empty($assetLicense) === 'true') {
                 $message = 'The license file is empty. You get the default asset instead.';
                 $keepAsset = 'false';
-                $in.step = 'step_default_license'
+                $in.step = 'step_default_license';
             }
         }
         
@@ -846,7 +839,7 @@ function infohub_asset() {
         }
 
         if ($in.step === 'step_default_icon') {
-            $in.step === 'step_end';
+            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_default_image') {
@@ -890,8 +883,6 @@ function infohub_asset() {
      */
     const _GetMimeType = function($extension)
     {
-        "use strict";
-
         const $mime = {
             'svg': 'image/svg+xml',
             'jpeg': 'image/jpeg',

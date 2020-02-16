@@ -17,11 +17,9 @@
  */
 function infohub_tools_testcall() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -77,8 +75,6 @@ function infohub_tools_testcall() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -216,8 +212,6 @@ function infohub_tools_testcall() {
     $functions.push('click_select_template');
     const click_select_template = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -270,8 +264,6 @@ function infohub_tools_testcall() {
     $functions.push('click_button_send');
     const click_button_send = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -361,7 +353,6 @@ function infohub_tools_testcall() {
         };
         $in = _Default($default, $in);
 
-        "use strict";
         let $options = [
             {"type": "option", "value": 'select', "label": 'Select...' }
         ];
@@ -389,8 +380,6 @@ function infohub_tools_testcall() {
     $functions.push('click_select_demo');
     const click_select_demo = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'value': '',

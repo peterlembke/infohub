@@ -17,11 +17,9 @@
  */
 function infohub_tools() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -95,8 +93,6 @@ function infohub_tools() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start'
@@ -249,8 +245,6 @@ function infohub_tools() {
     $functions.push("click_menu");
     const click_menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -294,8 +288,6 @@ function infohub_tools() {
     $functions.push("click");
     const click = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -377,8 +369,6 @@ function infohub_tools() {
     $functions.push("call_server");
     const call_server = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'from_plugin': {'node': '', 'plugin': '', 'function': '' },
@@ -399,7 +389,7 @@ function infohub_tools() {
             return {
                 'answer': 'false',
                 'message': 'The call do not come from a child. I will do nothing.'
-            }
+            };
         }
        
         return $in.response;
@@ -414,8 +404,6 @@ function infohub_tools() {
     $functions.push("get_available_options");
     const get_available_options = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'from_plugin': {

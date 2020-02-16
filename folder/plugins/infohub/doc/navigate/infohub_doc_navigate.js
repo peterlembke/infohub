@@ -17,11 +17,9 @@
  */
 function infohub_doc_navigate() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function () {
         return {
@@ -98,8 +96,6 @@ function infohub_doc_navigate() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -175,8 +171,6 @@ function infohub_doc_navigate() {
     $functions.push("click_refresh");
     const click_refresh = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -245,8 +239,6 @@ function infohub_doc_navigate() {
     $functions.push("click_document_name");
     const click_document_name = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'area': '',
@@ -297,9 +289,8 @@ function infohub_doc_navigate() {
      * @author  Peter Lembke
      */
     $functions.push('view_navigation');
-    const view_navigation = function ($in) {
-        "use strict";
-
+    const view_navigation = function ($in)
+    {
         const $default = {
             'data': {},
             'step': 'step_view',

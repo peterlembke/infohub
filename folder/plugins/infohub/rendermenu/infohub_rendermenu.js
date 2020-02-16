@@ -18,6 +18,8 @@
  */
 function infohub_rendermenu() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -58,8 +60,6 @@ function infohub_rendermenu() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -87,8 +87,6 @@ function infohub_rendermenu() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'alias': '',
@@ -148,8 +146,6 @@ function infohub_rendermenu() {
      */
     const internal_Menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'head_label': '',
             'head_text': '',
@@ -214,10 +210,10 @@ function infohub_rendermenu() {
             $names.push($name);
         }
 
-        $parts['presentation_box']['content_data'] = '[' + $names.join('][') + ']';
+        $parts.presentation_box.content_data = '[' + $names.join('][') + ']';
 
         if (_Empty($in.head_text) === 'false') {
-            $parts['presentation_box']['content_data'] = $in.head_text + $parts['presentation_box']['content_data'];
+            $parts.presentation_box.content_data = $in.head_text + $parts.presentation_box.content_data;
         }
 
         return {
@@ -242,8 +238,6 @@ function infohub_rendermenu() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_id': 0,
             'box_id': '',

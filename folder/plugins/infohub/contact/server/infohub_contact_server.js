@@ -17,15 +17,9 @@
  */
 function infohub_contact_server() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function () {
         return {
@@ -85,7 +79,6 @@ function infohub_contact_server() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -315,8 +308,6 @@ function infohub_contact_server() {
     $functions.push("click_refresh");
     const click_refresh = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_render_options',
@@ -372,8 +363,6 @@ function infohub_contact_server() {
     $functions.push("click_save");
     const click_save = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $nodeData = {};
 
@@ -471,8 +460,6 @@ function infohub_contact_server() {
     $functions.push("click_delete");
     const click_delete = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $node = '';
 
@@ -567,8 +554,6 @@ function infohub_contact_server() {
     $functions.push("click_list");
     const click_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'box_id': '',
@@ -657,8 +642,6 @@ function infohub_contact_server() {
     $functions.push("click_import");
     const click_import = function ($in)
     {
-        "use strict";
-
         let $nodeData = {},
             $ok = 'false';
 
@@ -752,8 +735,6 @@ function infohub_contact_server() {
     $functions.push('click_export');
     const click_export = function ($in)
     {
-        "use strict";
-
         let $nodeData = {},
             $ok = 'false',
             $content = '';
@@ -805,7 +786,7 @@ function infohub_contact_server() {
 
         if ($in.step === 'step_file_write') 
         {
-            const $fileName = $nodeData['node'] + '.json';
+            const $fileName = $nodeData.node + '.json';
 
             return _SubCall({
                 'to': {

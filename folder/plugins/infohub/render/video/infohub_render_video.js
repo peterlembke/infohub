@@ -19,6 +19,8 @@
  */
 function infohub_render_video() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -57,8 +59,6 @@ function infohub_render_video() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -83,8 +83,6 @@ function infohub_render_video() {
      */
     const _GetId = function ($in)
     {
-        "use strict";
-
         let $parameter = [];
 
         const $default = {
@@ -130,8 +128,6 @@ function infohub_render_video() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         if (_IsSet($in.subtype) === 'false') {
             $in.subtype = 'youtube';
         }
@@ -167,8 +163,6 @@ function infohub_render_video() {
      */
     const internal_Youtube = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'video',
             'subtype': 'youtube',
@@ -179,7 +173,7 @@ function infohub_render_video() {
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.youtube.com/embed/' + $in.data + '?html5=1" height="100%" frameborder="0" allowfullscreen></iframe>';
+        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.youtube.com/embed/' + $in.data + '?html5=1" height="100%" allowfullscreen></iframe>';
 
         return {
             'answer': 'true',
@@ -199,8 +193,6 @@ function infohub_render_video() {
      */
     const internal_Youtubelink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
 
         const $default = {
@@ -238,8 +230,6 @@ function infohub_render_video() {
      */
     const internal_Vimeo = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'video',
             'subtype': 'vimeo',
@@ -250,7 +240,7 @@ function infohub_render_video() {
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://player.vimeo.com/video/' + $in.data + '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=d4cfcf" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://player.vimeo.com/video/' + $in.data + '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=d4cfcf" height="100%" allowfullscreen></iframe>';
 
         return {
             'answer': 'true',
@@ -270,8 +260,6 @@ function infohub_render_video() {
      */
     const internal_Vimeolink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
         const $default = {
             'type': 'video',
@@ -308,8 +296,6 @@ function infohub_render_video() {
      */
     const internal_Dailymotion = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'video',
             'subtype': 'dailymotion',
@@ -320,7 +306,7 @@ function infohub_render_video() {
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.dailymotion.com/embed/video/' + $in.data + '" height="100%" frameborder="0" allowfullscreen></iframe>';
+        const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.dailymotion.com/embed/video/' + $in.data + '" height="100%" allowfullscreen></iframe>';
 
         return {
             'answer': 'true',
@@ -340,8 +326,6 @@ function infohub_render_video() {
      */
     const internal_Dailymotionlink = function ($in)
     {
-        "use strict";
-
         let $cssData = {};
 
         const $default = {

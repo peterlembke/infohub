@@ -17,11 +17,9 @@
  */
 function infohub_democall_child() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -53,8 +51,6 @@ function infohub_democall_child() {
     $functions.push('child_func');
     const child_func = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {
@@ -134,8 +130,6 @@ function infohub_democall_child() {
     $functions.push('invalid_call_to_sibling_grandchild');
     const invalid_call_to_sibling_grandchild = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {
@@ -184,8 +178,6 @@ function infohub_democall_child() {
     $functions.push('test_answer_child');
     const test_answer_child = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_call_grandchild'
         };
@@ -223,7 +215,6 @@ function infohub_democall_child() {
     $functions.push('answer_child');
     const answer_child = function ($in)
     {
-        "use strict";
         const $default = {};
         $in = _Default($default, $in);
 

@@ -17,11 +17,9 @@
  */
 function infohub_demo_link() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -76,8 +74,6 @@ function infohub_demo_link() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -206,8 +202,6 @@ function infohub_demo_link() {
     $functions.push("internal_LinkMyEvent");
     const internal_LinkMyEvent = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': ''
         };

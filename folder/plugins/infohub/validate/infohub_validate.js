@@ -18,6 +18,8 @@
 */
 function infohub_validate() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -53,8 +55,6 @@ function infohub_validate() {
     $functions.push('validate_has_data');
     const validate_has_data = function ($in)
     {
-        "use strict";
-
         const $default = {
             'data': null
         };
@@ -84,8 +84,6 @@ function infohub_validate() {
     $functions.push('validate_is_true');
     const validate_is_true = function ($in)
     {
-        "use strict";
-
         const $default = {
             'data': 'false'
         };
@@ -115,8 +113,6 @@ function infohub_validate() {
     $functions.push('validate_is_false');
     const validate_is_false = function ($in)
     {
-        "use strict";
-
         const $default = {
             'data': 'false'
         };
@@ -146,8 +142,6 @@ function infohub_validate() {
     $functions.push('validate_is_integer');
     const validate_is_integer = function ($in)
     {
-        "use strict";
-
         const $default = {
             'data': null
         };

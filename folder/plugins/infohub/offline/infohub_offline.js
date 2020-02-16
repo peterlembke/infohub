@@ -17,6 +17,8 @@
  */
 function infohub_offline() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -81,8 +83,6 @@ function infohub_offline() {
     $functions.push('_GetOnline');
     const _GetOnline = function ()
     {
-        "use strict";
-
         const $online = navigator.onLine ? "true" : "false";
 
         return $online;
@@ -97,8 +97,6 @@ function infohub_offline() {
     $functions.push('_GetStatus');
     const _GetStatus = function ($online)
     {
-        "use strict";
-
         let $status = "unknown";
 
         if ($online === 'false') {
@@ -121,8 +119,6 @@ function infohub_offline() {
     $functions.push('_GetSubscribersMessages');
     const _GetSubscribersMessages = function ($key)
     {
-        "use strict";
-
         let $messages = [];
         const $data = _LoadData();
         const $realKey = $key;
@@ -142,8 +138,6 @@ function infohub_offline() {
     $functions.push('_AddMessages');
     const _AddMessages = function ($key, $realKey, $data, $messages)
     {
-        "use strict";
-
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
@@ -177,8 +171,6 @@ function infohub_offline() {
     $functions.push('_LoadData');
     const _LoadData = function ()
     {
-        "use strict";
-
         let $jsonData = sessionStorage.getItem('infohub_offline');
 
         let $data = JSON.parse($jsonData);
@@ -217,8 +209,6 @@ function infohub_offline() {
     $functions.push('_SaveData');
     const _SaveData = function ($data)
     {
-        "use strict";
-
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -240,8 +230,6 @@ function infohub_offline() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_get_translations'
@@ -412,8 +400,6 @@ function infohub_offline() {
     $functions.push('subscribe');
     const subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
@@ -497,8 +483,6 @@ function infohub_offline() {
     $functions.push('unsubscribe');
     const unsubscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
@@ -530,8 +514,6 @@ function infohub_offline() {
     $functions.push('unsubscribe_all');
     const unsubscribe_all = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': '' }
         };
@@ -554,8 +536,6 @@ function infohub_offline() {
     $functions.push('internal_Subscribe');
     const internal_Subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
@@ -585,8 +565,6 @@ function infohub_offline() {
     $functions.push('internal_Unsubscribe');
     const internal_Unsubscribe = function ($in)
     {
-        "use strict";
-
         let $changed = 'false',
             $message = 'Could not find that key';
 
@@ -608,7 +586,7 @@ function infohub_offline() {
 
                 _SaveData($data);
                 $changed = 'true';
-                $message = 'Removed your key'
+                $message = 'Removed your key';
             }
         }
 
@@ -629,8 +607,6 @@ function infohub_offline() {
     $functions.push('internal_UnsubscribeAll');
     const internal_UnsubscribeAll = function ($in)
     {
-        "use strict";
-
         let $changed = 'false',
             $message = 'Could not find any keys';
 
@@ -673,8 +649,6 @@ function infohub_offline() {
     $functions.push('gui_download_plugins');
     const gui_download_plugins = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {}
@@ -711,8 +685,6 @@ function infohub_offline() {
     $functions.push('gui_download_assets');
     const gui_download_assets = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_get_all_plugin_names_that_has_assets',
             'response': {
@@ -780,8 +752,6 @@ function infohub_offline() {
     $functions.push('gui_download_documentation');
     const gui_download_documentation = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {}
@@ -818,8 +788,6 @@ function infohub_offline() {
     $functions.push('gui_show_subscribers');
     const gui_show_subscribers = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'response': {
@@ -868,8 +836,6 @@ function infohub_offline() {
     $functions.push('update_indicator');
     const update_indicator = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'key': '',
@@ -952,8 +918,6 @@ function infohub_offline() {
     $functions.push('update_service_worker');
     const update_service_worker = function ($in)
     {
-        "use strict";
-
         const $cacheLifeTimeSeconds = 10 * 60.0;
         const $path = 'infohub_offline/service_worker';
 
@@ -1058,16 +1022,21 @@ function infohub_offline() {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
 
-                if ($in.response.valid === 'false') {
+                if ($in.response.valid === 'false')
+                {
                     // The checksum we have is not valid. Lets unregister all service workers and reload the page.
                     // That will cache a new index.php
                     navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                        for(let $i=0; $i < registrations.length; i++) {
+
+                        for(let $i = 0; $i < registrations.length; $i = $i + 1)
+                        {
                             let $registration = registrations[$i];
                             $registration.unregister();
                         }
+
                         $in.step = 'step_reload_page';
-                    })
+                    });
+
                 }
 
                 if ($in.response.valid === 'true') {
@@ -1129,8 +1098,6 @@ function infohub_offline() {
     $functions.push('event_message');
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': '' },
             'event_type': '',
@@ -1151,17 +1118,22 @@ function infohub_offline() {
         $in.online = _GetOnline();
         $in.status = _GetStatus($in.online);
 
-        if ($in.step === 'step_start') {
-            if ($in.event_type === 'online') {
+        if ($in.step === 'step_start')
+        {
+            if ($in.event_type === 'online')
+            {
                 $in.data_back.key = $in.status;
                 const $messagesOut = _GetSubscribersMessages($in.status);
-                if (_Empty($messagesOut) === 'false') {
-                    if (Array.isArray($messagesOut)) {
+
+                if (_Empty($messagesOut) === 'false')
+                {
+                    if (Array.isArray($messagesOut))
+                    {
                         return  {
                             'answer': 'true',
                             'message': 'Here comes a multi message',
                             'messages': $messagesOut
-                        }
+                        };
                     }
                 }
 

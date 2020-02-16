@@ -1,12 +1,3 @@
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser, eval, devel, single */
-    /*jshint esversion: 6 */
-
     let $functions = [], // Array with all functions
         $firstDefault = null; // Used ONLY by the test() function.
 
@@ -52,8 +43,6 @@
     $functions.push('_Default');
     const _Default = function ($default, $in)
     {
-        "use strict";
-
         if ($firstDefault === null) {
             $firstDefault = $default;
         }
@@ -167,7 +156,6 @@
     $functions.push('_Merge');
     const _Merge = function ($object1, $object2)
     {
-        "use strict";
         let $newObject = {};
 
         if (typeof $object1 === 'object') {
@@ -204,8 +192,6 @@
     $functions.push('_Delete');
     const _Delete = function ($object1, $object2)
     {
-        "use strict";
-
         let $newObject = _ByVal($object1);
 
         for (let $key in $object2) {
@@ -228,8 +214,6 @@
     $functions.push('_ByVal');
     const _ByVal = function ($object)
     {
-        "use strict";
-
         if (!($object instanceof Object)) {
             return {};
         }
@@ -247,7 +231,8 @@
      * @private
      */
     $functions.push('_Clone');
-    const _Clone = function (objectToBeCloned) {
+    const _Clone = function (objectToBeCloned)
+    {
         if (!(objectToBeCloned instanceof Object)) {
             return objectToBeCloned;
         }
@@ -269,8 +254,8 @@
         }
 
         // Clone each property.
-        for (let prop in objectToBeCloned) {
-            objectClone[prop] = _Clone(objectToBeCloned[prop]);
+        for (let $property in objectToBeCloned) {
+            objectClone[$property] = _Clone(objectToBeCloned[$property]);
         }
 
         return objectClone;
@@ -311,8 +296,6 @@
     $functions.push('_MethodExists');
     const _MethodExists = function ($functionName)
     {
-        "use strict";
-
         const _ValidName = function ($name) {
             const $myRegExp = /^([a-zA-Z0-9_]+)$/;
             return $myRegExp.test($name);
@@ -350,8 +333,6 @@
     $functions.push('_TimeStamp');
     const _TimeStamp = function ($in)
     {
-        "use strict";
-
         const $date = new Date(),
             yyyy = $date.getFullYear().toString(),
             mm = ('0' + ($date.getMonth() + 1).toString() ).slice(-2), // getMonth() is zero-based
@@ -389,8 +370,6 @@
     $functions.push('_MicroTime');
     const _MicroTime = function ()
     {
-        "use strict";
-
         let $timestamp = (new Date()).getTime() / 1000.0;
 
         if (window.top !== window.self) {
@@ -408,8 +387,6 @@
     $functions.push('_JsonEncode');
     const _JsonEncode = function ($data)
     {
-        "use strict";
-
         // const $space = '\t'; // Pretty print with tab
         const $space = '    '; // Pretty print with space
         const $replacer = null;
@@ -427,8 +404,6 @@
     $functions.push('_JsonDecode');
     const _JsonDecode = function ($row)
     {
-        "use strict";
-
         if (_GetDataType($row) !== 'string') {
             return $row;
         }
@@ -450,8 +425,6 @@
     $functions.push('_EncodeUtf8');
     const _EncodeUtf8 = function ($data)
     {
-        "use strict";
-
         const $row = unescape(encodeURIComponent($data));
 
         return $row;
@@ -465,8 +438,6 @@
     $functions.push('_DecodeUtf8');
     const _DecodeUtf8 = function ($data)
     {
-        "use strict";
-
         const $row = decodeURIComponent(escape($data));
 
         return $row;
@@ -476,14 +447,12 @@
      * Read value from any data collection
      * Name can be 'just_a_name' or 'some/deep/level/data'
      * @param $in
-     * @returns {*}
+     * @returns {{}|*}
      * @private
      */
     $functions.push('_GetData');
     const _GetData = function ($in)
     {
-        "use strict";
-
         const $default = {
             'name': '',
             'default': null,
@@ -518,8 +487,6 @@
     $functions.push('_UcWords');
     const _UcWords = function ($string)
     {
-        "use strict";
-
         $string = $string.replace(/_/g, ' ');
 
         $string = ($string + '')
@@ -542,8 +509,6 @@
     $functions.push('_SprintF');
     const _SprintF = function ($row, $substituteArray)
     {
-        "use strict";
-
         let $answer = '';
         const $parts = $row.split('%s');
         const $numberOfParts = $parts.length;
@@ -571,8 +536,6 @@
     $functions.push('_Pop');
     const _Pop = function ($in)
     {
-        "use strict";
-
         $in = _ByVal($in);
 
         for (let $key in $in)
@@ -597,8 +560,6 @@
     $functions.push('_SubCall');
     const _SubCall = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'SubCall',
             'to': {'node': '', 'plugin': '', 'function': ''},
@@ -622,8 +583,6 @@
     $functions.push('_Count');
     const _Count = function ($object)
     {
-        "use strict";
-
         if (Array.isArray($object)) {
             return $object.length;
         }
@@ -644,8 +603,6 @@
     $functions.push('_Empty');
     const _Empty = function ($object)
     {
-        "use strict";
-
         if (typeof $object === 'undefined' || $object === null) {
             return 'true';
         }
@@ -669,8 +626,6 @@
     $functions.push('_IsSet');
     const _IsSet = function ()
     {
-        "use strict";
-
         const $arguments = arguments;
         let $undefined;
 
@@ -698,8 +653,6 @@
     $functions.push('_Replace');
     const _Replace = function ($find, $replace, $string)
     {
-        "use strict";
-
         if (typeof $string === 'string' && typeof $find === 'string' && typeof $replace === 'string')
         {
             $find = $find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -718,8 +671,6 @@
     $functions.push('_GetCmdFunctionStatus');
     const _GetCmdFunctionStatus = function ($functionName)
     {
-        "use strict";
-
         let $functions = _GetCmdFunctions();
         const $functionsBase = _GetCmdFunctionsBase();
         $functions = _Merge($functionsBase, $functions);
@@ -784,8 +735,6 @@
     $functions.push('_GetClassName');
     const _GetClassName = function ()
     {
-        "use strict";
-
         if (typeof _Version !== 'function') {
             return '';
         }
@@ -808,8 +757,6 @@
     $functions.push('_GetCallerPluginName');
     const _GetCallerPluginName = function ($in)
     {
-        "use strict";
-
         const _GetLastInArray = function ($dataArray) {
             if (Array.isArray($dataArray)) {
                 if ($dataArray.length > 0) {
@@ -1161,8 +1108,6 @@
     $functions.push("version");
     const version = function ($in)
     {
-        "use strict";
-
         const $default = {
                 'date': '',
                 'version': '',
@@ -1209,8 +1154,6 @@
     $functions.push("function_names");
     const function_names = function ($in)
     {
-        "use strict";
-
         const $answer = {
             'answer': 'true',
             'message': 'All function_names in this plugin',
@@ -1361,8 +1304,6 @@
     $functions.push("internal_Log");
     const internal_Log = function ($in)
     {
-        "use strict";
-
         if (!window.console) {
             return {
                 'answer': 'false',
@@ -1482,8 +1423,6 @@
     $functions.push("internal_SubCall");
     const internal_SubCall = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'SubCall',
             'to': {'node': 'client', 'plugin': 'exchange', 'function': 'default'}, // Where to send this message
@@ -1538,8 +1477,6 @@
     $functions.push("internal_ReturnCall");
     const internal_ReturnCall = function ($in)
     {
-        "use strict";
-
         const $default = {
             'func': 'ReturnCall',
             'variables': {},

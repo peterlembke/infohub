@@ -17,11 +17,9 @@
  */
 function infohub_login() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function()
     {
@@ -94,8 +92,6 @@ function infohub_login() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -313,8 +309,6 @@ function infohub_login() {
     $functions.push("click_menu");
     const click_menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -359,8 +353,6 @@ function infohub_login() {
     $functions.push("click");
     const click = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -427,8 +419,6 @@ function infohub_login() {
     $functions.push("call_server");
     const call_server = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},

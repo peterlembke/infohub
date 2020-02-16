@@ -17,6 +17,8 @@
  */
 function infohub_configlocal_font() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     // ***********************************************************
@@ -78,8 +80,6 @@ function infohub_configlocal_font() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_render',
             'subtype': 'menu',
@@ -186,8 +186,6 @@ function infohub_configlocal_font() {
     $functions.push("click_test");
     const click_test = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_set_style',
             'form_data': {},
@@ -275,7 +273,7 @@ function infohub_configlocal_font() {
                 'answer': 'true',
                 'message': 'This is a multi message to set all styles',
                 'messages': $messageArray
-            }
+            };
         }
 
         return {

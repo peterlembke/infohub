@@ -22,6 +22,8 @@
  */
 function infohub_storage_data_idbkeyval() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -57,8 +59,6 @@ function infohub_storage_data_idbkeyval() {
     $functions.push('read');
     const read = function ($in)
     {
-        "use strict";
-
         let $postExist;
 
         const $default = {
@@ -126,8 +126,6 @@ function infohub_storage_data_idbkeyval() {
     $functions.push('write');
     const write = function ($in)
     {
-        "use strict";
-
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_idbkeyval',
@@ -215,8 +213,6 @@ function infohub_storage_data_idbkeyval() {
     $functions.push('read_paths');
     const read_paths = function ($in)
     {
-        "use strict";
-
         let $data = {};
 
         const $default = {

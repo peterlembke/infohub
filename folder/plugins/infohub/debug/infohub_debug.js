@@ -20,11 +20,9 @@
  */
 function infohub_debug() {
 
-    // include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -69,8 +67,6 @@ function infohub_debug() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -122,8 +118,6 @@ function infohub_debug() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_get_translations'
@@ -197,8 +191,6 @@ function infohub_debug() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'alias': '',
@@ -257,8 +249,6 @@ function infohub_debug() {
     $functions.push("clear_plugins"); // Enable this function
     const clear_plugins = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -295,8 +285,6 @@ function infohub_debug() {
     $functions.push("clear_database"); // Enable this function
     const clear_database = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -327,8 +315,6 @@ function infohub_debug() {
     $functions.push("refresh_plugins"); // Enable this function
     const refresh_plugins = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_update_plugin_list'
         };
@@ -379,8 +365,6 @@ function infohub_debug() {
     $functions.push("reload_page"); // Enable this function
     const reload_page = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -415,8 +399,6 @@ function infohub_debug() {
     $functions.push("refresh_plugins_and_reload_page"); // Enable this function
     const refresh_plugins_and_reload_page = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -479,8 +461,6 @@ function infohub_debug() {
     $functions.push("clear_storage_and_reload_page"); // Enable this function
     const clear_storage_and_reload_page = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -516,8 +496,6 @@ function infohub_debug() {
     $functions.push("set_cold_start_and_reload_page"); // Enable this function
     const set_cold_start_and_reload_page = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -553,8 +531,6 @@ function infohub_debug() {
     $functions.push("keyboard_subscribe"); // Enable this function
     const keyboard_subscribe = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };
@@ -620,8 +596,6 @@ function infohub_debug() {
      */
     const internal_DebugButtons = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 

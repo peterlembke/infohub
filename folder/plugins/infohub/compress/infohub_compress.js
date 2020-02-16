@@ -18,6 +18,8 @@
  */
 function infohub_compress() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -178,7 +180,7 @@ function infohub_compress() {
 
             $in.step = 'step_ask_child_plugin';
 
-            const $functionName = 'Uncompress' + _UcWords($in.compression_method);
+            $functionName = 'Uncompress' + _UcWords($in.compression_method);
             if (_MethodExists('internal_' + $functionName) === true) {
                 $in.step = 'step_ask_function';
             }
@@ -186,21 +188,21 @@ function infohub_compress() {
 
         if ($in.step === 'step_ask_child_plugin')
         {
-            $pluginName = 'infohub_compress_' + $in.compression_method;
+            const $pluginName = 'infohub_compress_' + $in.compression_method;
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
                     'function': 'uncompress'
                 },
-            'data': {
-                'compressed_data': $in.compressed_data
-            },
-            'data_back': {
-                'compression_method': $in.compression_method,
-                'compressed_length': $in.data_back.compressed_length,
-                'step': 'step_calculate_uncompressed_data_length'
-            }
+                'data': {
+                    'compressed_data': $in.compressed_data
+                },
+                'data_back': {
+                    'compression_method': $in.compression_method,
+                    'compressed_length': $in.data_back.compressed_length,
+                    'step': 'step_calculate_uncompressed_data_length'
+                }
             });
         }
 
@@ -257,8 +259,6 @@ function infohub_compress() {
     $functions.push('get_available_options');
     const get_available_options = function ($in)
     {
-        "use strict";
-
         const $options = [
             {"type": "option", "value": 'gzip', "label": 'Gzip' },
             {"type": "option", "value": 'lz', "label": 'LZ' }

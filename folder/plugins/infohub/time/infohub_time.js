@@ -17,6 +17,8 @@
  */
 function infohub_time() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     const _Version = function() {
@@ -50,8 +52,6 @@ function infohub_time() {
     $functions.push("time");
     const time = function($in)
     {
-        "use strict";
-
         const $default = {
             'type': 'timestamp'
         };
@@ -97,8 +97,6 @@ function infohub_time() {
      */
     const _Time = function ()
     {
-        "use strict";
-
         let $time = _MicroTime();
         $time = $time.toString().split('.');
 
@@ -116,8 +114,6 @@ function infohub_time() {
     $functions.push('get_available_options');
     const get_available_options = function ($in)
     {
-        "use strict";
-
         const $options = [
             {"type": "option", "value": 'timestamp', "label": 'Normal timestamp', 'selected': 'true' },
             {"type": "option", "value": 'timestamp_c', "label": 'Timestamp with offset' },

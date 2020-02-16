@@ -17,16 +17,10 @@
  */
 function infohub_exchange() {
 
+    "use strict";
+
 // webworker=false
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     $functions.push('_Version');
     const _Version = function() {
@@ -78,8 +72,6 @@ function infohub_exchange() {
     $functions.push('_BoxError');
     const _BoxError = function ($message, $doHtmlToText)
     {
-        "use strict";
-
         if (typeof $doHtmlToText === 'undefined') {
             $doHtmlToText = 'true';
         }
@@ -100,7 +92,7 @@ function infohub_exchange() {
         }
 
         const $messageLength = $message.length;
-        for (let $messageNumber = 0; $messageNumber < $messageLength; $messageNumber++)
+        for (let $messageNumber = 0; $messageNumber < $messageLength; $messageNumber = $messageNumber + 1)
         {
             $message[$messageNumber] = _HtmlToText($message[$messageNumber]);
             $boxError.innerHTML = $message[$messageNumber] + "\n<br>" + $boxError.innerHTML;
@@ -118,8 +110,6 @@ function infohub_exchange() {
     $functions.push('_HtmlToText');
     const _HtmlToText = function ($message)
     {
-        "use strict";
-
         $message = $message.replace(/&/g, '&amp;');
         $message = $message.replace(/</g, '&lt;');
         $message = $message.replace(/>/g, '&gt;');
@@ -142,8 +132,6 @@ function infohub_exchange() {
     $functions.push('_GetCurrentHostname');
     const _GetCurrentHostname = function ()
     {
-        "use strict";
-
         const $hostname = window.location.hostname;
 
         return $hostname;
@@ -166,8 +154,6 @@ function infohub_exchange() {
     $functions.push('main');
     const main = function ($in)
     {
-        "use strict";
-
         const $default = {
             'package': {},
             'answer': 'false',
@@ -188,7 +174,7 @@ function infohub_exchange() {
         let $addedTransferMessage = 'false';
         $MainLoopRunning = 'true'; // Class global
         let $loopCount = 0;
-        let $moreToDo = 'false';
+        let $moreToDo;
 
         do {
             $moreToDo = 'false';
@@ -217,7 +203,7 @@ function infohub_exchange() {
                 }
             }
 
-            $loopCount++;
+            $loopCount = $loopCount + 1;
 
         } while ($moreToDo === 'true' && $loopCount < 400);
 
@@ -267,9 +253,9 @@ function infohub_exchange() {
             }
         });
 
-        $subCall['callstack'] = [];
+        $subCall.callstack = [];
 
-        $subCall['callstack'][0] = {
+        $subCall.callstack[0] = {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_exchange',
@@ -295,8 +281,6 @@ function infohub_exchange() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_send_first_message',
             'parent_box_id': '1',
@@ -410,8 +394,6 @@ function infohub_exchange() {
     $functions.push("event_message");
     const event_message = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_type': '',
             'message': '',
@@ -443,7 +425,7 @@ function infohub_exchange() {
         $in = _Default($default, $in);
 
         let $answer = 'false';
-        let $message = 'There was an error, could not start plugin:' + $in.plugin_name;
+        let $message;
 
         leave: {
             if (_IsSet($Pending[$in.plugin_name]) === false) {
@@ -524,9 +506,10 @@ function infohub_exchange() {
     $functions.push('internal_ToSort');
     const internal_ToSort = function ($in)
     {
-        "use strict";
-
-        const $default = {'func':'ToSort', 'package': {}};
+        const $default = {
+            'func':'ToSort',
+            'package': {}
+        };
         $in = _Default($default,$in);
 
         const $package = $in.package;
@@ -544,7 +527,7 @@ function infohub_exchange() {
             }
 
             // Copy all messages to array Sort if we have any
-            for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber++)
+            for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber = messageNumber +1)
             {
                 if (typeof $package.messages[messageNumber].error_array !== 'undefined') {
                     _BoxError($package.messages[messageNumber].error_array);
@@ -677,7 +660,6 @@ function infohub_exchange() {
             { detail: {'plugin': null, 'package': $package}, bubbles: true, cancelable: true }
         );
         document.dispatchEvent($event);
-
     };
 
     /**
@@ -704,7 +686,7 @@ function infohub_exchange() {
         };
 
         // Set default values in all callstack items
-        for (let $callstackItemNumber = 0; $callstackItemNumber < $in.callstack.length; $callstackItemNumber++)
+        for (let $callstackItemNumber = 0; $callstackItemNumber < $in.callstack.length; $callstackItemNumber = $callstackItemNumber + 1)
         {
             $in.callstack[$callstackItemNumber] = _Default($defaultCallstackItem, $in.callstack[$callstackItemNumber]);
         }
@@ -729,7 +711,6 @@ function infohub_exchange() {
         }
 
         if ($response.ok === 'false') {
-            let $breakPoint = 1;
         }
 
         return {
@@ -844,7 +825,7 @@ function infohub_exchange() {
             const $validNodesArray = ['client', 'server', 'cron', 'callback'];
             if ($validNodesArray.indexOf($in.callstack[0].to.node) === -1) {
                 $ok = 'false';
-                $message = 'I only send back the answer to a node that I know'
+                $message = 'I only send back the answer to a node that I know';
             }
         }
 
@@ -975,8 +956,6 @@ function infohub_exchange() {
     $functions.push('internal_Sort');
     const internal_Sort = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1033,8 +1012,6 @@ function infohub_exchange() {
     $functions.push('internal_ToPending');
     const internal_ToPending = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1085,9 +1062,9 @@ function infohub_exchange() {
                 }
             });
 
-            $subCall['callstack'] = [];
+            $subCall.callstack = [];
 
-            $subCall['callstack'][0] = {
+            $subCall.callstack[0] = {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_exchange',
@@ -1117,8 +1094,6 @@ function infohub_exchange() {
     $functions.push('internal_Stack');
     const internal_Stack = function ($in)
     {
-        "use strict";
-
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1169,7 +1144,7 @@ function infohub_exchange() {
                 });
             };
 
-            const $response = $run.cmd($dataMessage); // callback_function is always used by cmd(). see above.
+            $run.cmd($dataMessage); // callback_function is always used by cmd(). see above.
         }
 
         return {
@@ -1200,7 +1175,7 @@ function infohub_exchange() {
             const $pluginData = JSON.parse($pluginJson);
             $pluginConfig = $pluginData.plugin_config;
             $answer = 'true';
-            $message = 'Here are the config for the plugin'
+            $message = 'Here are the config for the plugin';
         }
 
         return {
@@ -1218,8 +1193,6 @@ function infohub_exchange() {
     $functions.push('internal_StartCore');
     const internal_StartCore = function()
     {
-        "use strict";
-
         const $corePluginNames = [
             'infohub_cache',
             'infohub_exchange',
@@ -1252,7 +1225,7 @@ function infohub_exchange() {
 
         $coreStarted = $out.answer;
         return $out;
-    }
+    };
 
 }
 //# sourceURL=infohub_exchange.js

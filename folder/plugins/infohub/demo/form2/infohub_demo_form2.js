@@ -17,11 +17,9 @@
  */
 function infohub_demo_form2() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -78,8 +76,6 @@ function infohub_demo_form2() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -310,8 +306,6 @@ function infohub_demo_form2() {
     $functions.push("click_form2_buttons");
     const click_form2_buttons = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'type': '',
@@ -389,9 +383,8 @@ function infohub_demo_form2() {
 
                     $message = 'I have no form data';
 
-                    if (_Empty($formData) === 'false') {
-                        $answer = 'true';
-                        $message = 'here are the form data';
+                    if (_Empty($formData) === 'false')
+                    {
                         return _SubCall({
                             'to': {
                                 'node': 'client',
@@ -434,8 +427,6 @@ function infohub_demo_form2() {
     $functions.push("click_submit");
     const click_submit = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start'
         };

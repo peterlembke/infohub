@@ -17,11 +17,9 @@
  */
 function infohub_tools_compress() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -76,8 +74,6 @@ function infohub_tools_compress() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -310,8 +306,6 @@ function infohub_tools_compress() {
     $functions.push('click_handle_node_select');
     const click_handle_node_select = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -359,8 +353,6 @@ function infohub_tools_compress() {
     $functions.push('click_button_compress');
     const click_button_compress = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -460,8 +452,6 @@ function infohub_tools_compress() {
     $functions.push('click_button_uncompress');
     const click_button_uncompress = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'box_id': '',

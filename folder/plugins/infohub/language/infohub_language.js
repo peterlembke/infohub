@@ -17,6 +17,8 @@
  */
 function infohub_language() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     $functions.push('_Version');
@@ -68,8 +70,6 @@ function infohub_language() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'alias': '',
             'original_alias': '',
@@ -159,8 +159,6 @@ function infohub_language() {
     $functions.push('option_list_main_languages');
     const option_list_main_languages = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_update_plugin_assets'
         };
@@ -230,8 +228,6 @@ function infohub_language() {
     $functions.push('option_list_all_languages');
     const option_list_all_languages = function ($in)
     {
-        "use strict";
-
         const $answer = 'true',
             $message = 'Here are the option values';
 
@@ -297,8 +293,6 @@ function infohub_language() {
     $functions.push('get_translations');
     const get_translations = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_update_plugin_assets',
             'response': {

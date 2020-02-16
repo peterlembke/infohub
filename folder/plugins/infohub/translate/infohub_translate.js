@@ -17,11 +17,9 @@
  */
 function infohub_translate() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -110,8 +108,6 @@ function infohub_translate() {
     $functions.push('_MergeData');
     const _MergeData = function ($object1, $object2)
     {
-        "use strict";
-
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
@@ -124,8 +120,6 @@ function infohub_translate() {
     $functions.push('_MergeKeys');
     const _MergeKeys = function ($object1, $object2)
     {
-        "use strict";
-
         for (let $key in $object2)
         {
             if ($object2.hasOwnProperty($key) === false) {
@@ -167,9 +161,8 @@ function infohub_translate() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    const create = function ($in) {
-        "use strict";
-
+    const create = function ($in)
+    {
         const $default = {
             'type': '',
             'alias': '',
@@ -266,8 +259,6 @@ function infohub_translate() {
     $functions.push('setup_gui');
     const setup_gui = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -427,8 +418,6 @@ function infohub_translate() {
     $functions.push("click_menu");
     const click_menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -473,8 +462,6 @@ function infohub_translate() {
     $functions.push("click");
     const click = function ($in)
     {
-        "use strict";
-
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -538,8 +525,6 @@ function infohub_translate() {
     $functions.push("call_server");
     const call_server = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},
@@ -594,8 +579,6 @@ function infohub_translate() {
     $functions.push('get_translate_data');
     const get_translate_data = function ($in)
     {
-        "use strict";
-
         let $parts, $key, $assetKey, $data = {}, $pluginName;
 
         const $default = {
@@ -654,7 +637,7 @@ function infohub_translate() {
             if (_Empty($languageCodesString) === 'false')
             {
                 $parts = $languageCodesString.split(',');
-                for (let $i=0; $i < $parts.length; $i++)
+                for (let $i=0; $i < $parts.length; $i = $i + 1)
                 {
                     $key = $parts[$i].trim().toLowerCase();
                     $languageCodes.push($key); // Preserves the order
@@ -720,7 +703,7 @@ function infohub_translate() {
 
             // Merge together your preferred translations with the least preferred first and your most preferred on top.
             let $merged = {};
-            for (let $i=$languageCodes.length-1; $i >= 0; $i--)
+            for (let $i=$languageCodes.length-1; $i >= 0; $i = $i - 1)
             {
                 const $languageCode = $languageCodes[$i];
                 if (_IsSet($translations[$languageCode]) === 'true') {

@@ -24,12 +24,10 @@
 */
 function infohub_plugin() {
 
+    "use strict";
+
 // webworker=false
 // include "infohub_base.js"
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     $functions.push('_Version');
     const _Version = function() {
@@ -73,8 +71,6 @@ function infohub_plugin() {
     $functions.push('plugin_request');
     const plugin_request = function ($in)
     {
-        "use strict";
-
         const $default = {
             'plugin_name':'',
             'step': 'plugin_request_from_cache',
@@ -440,8 +436,6 @@ function infohub_plugin() {
     $functions.push('plugin_list');
     const plugin_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'false',
             'message': '',
@@ -516,8 +510,6 @@ function infohub_plugin() {
     $functions.push('download_all_plugins');
     const download_all_plugins = function ($in)
     {
-        "use strict";
-
         const $default = {
             'answer': 'false',
             'message': '',
@@ -546,7 +538,7 @@ function infohub_plugin() {
         if ($in.step === 'step_get_all_plugin_names_response')
         {
             $in.plugin_names = _ByVal($in.data);
-            $in.step = 'step_download_some_plugins'
+            $in.step = 'step_download_some_plugins';
         }
 
         if ($in.step === 'step_save_data_to_cache')
@@ -592,7 +584,7 @@ function infohub_plugin() {
                 $pluginName = $response.key;
                 $in.plugin_names = _ByVal($response.object);
                 $missingPluginNames.push($pluginName);
-                $count++;
+                $count = $count + 1;
             }
 
             if (_Count($missingPluginNames) > 0)

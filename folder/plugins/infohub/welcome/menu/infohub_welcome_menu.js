@@ -17,11 +17,9 @@
  */
 function infohub_welcome_menu() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
@@ -52,8 +50,6 @@ function infohub_welcome_menu() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -102,8 +98,6 @@ function infohub_welcome_menu() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -131,8 +125,6 @@ function infohub_welcome_menu() {
     $functions.push("internal_Menu");
     const internal_Menu = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': ''

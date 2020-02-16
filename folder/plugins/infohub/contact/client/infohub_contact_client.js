@@ -17,15 +17,9 @@
  */
 function infohub_contact_client() {
 
+    "use strict";
+
 // include "infohub_base.js"
-
-    // ***********************************************************
-    // * jshint.com options to suppress some warnings
-    // ***********************************************************
-
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
 
     const _Version = function() {
         return {
@@ -66,8 +60,6 @@ function infohub_contact_client() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
         const $parts = $text.split('_');
 
@@ -111,8 +103,7 @@ function infohub_contact_client() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-        var $default = {
+        const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
@@ -346,8 +337,6 @@ function infohub_contact_client() {
     $functions.push("click_refresh");
     const click_refresh = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_render_options',
@@ -419,8 +408,6 @@ function infohub_contact_client() {
     $functions.push("click_new");
     const click_new = function ($in)
     {
-        "use strict";
-
         let $ok = 'false';
 
         const $default = {
@@ -477,8 +464,6 @@ function infohub_contact_client() {
     $functions.push("click_save");
     const click_save = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $nodeData = {};
 
@@ -582,8 +567,6 @@ function infohub_contact_client() {
     $functions.push("click_delete");
     const click_delete = function ($in)
     {
-        "use strict";
-
         let $ok = 'false',
             $userName = '';
 
@@ -681,8 +664,6 @@ function infohub_contact_client() {
     $functions.push("click_list");
     const click_list = function ($in)
     {
-        "use strict";
-
         const $default = {
             'value': '',
             'box_id': '',
@@ -772,8 +753,6 @@ function infohub_contact_client() {
     $functions.push("click_refresh_group");
     const click_refresh_group = function ($in)
     {
-        "use strict";
-
         var $messageArray = [];
 
         const $default = {
@@ -851,8 +830,6 @@ function infohub_contact_client() {
     $functions.push("click_list_group_client");
     const click_list_group_client = function ($in)
     {
-        "use strict";
-
         const $default = {
             'values': [],
             'box_id': '',
@@ -936,8 +913,6 @@ function infohub_contact_client() {
     $functions.push("click_import");
     const click_import = function ($in)
     {
-        "use strict";
-
         let $nodeData = {},
             $ok = 'false';
 
@@ -1028,8 +1003,6 @@ function infohub_contact_client() {
     $functions.push('click_export');
     const click_export = function ($in)
     {
-        "use strict";
-
         let $nodeData = {},
             $ok = 'false',
             $content = '';
@@ -1081,7 +1054,7 @@ function infohub_contact_client() {
 
         if ($in.step === 'step_file_write') 
         {
-            const $fileName = $nodeData['node'] + '.json';
+            const $fileName = $nodeData.node + '.json';
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -1111,9 +1084,6 @@ function infohub_contact_client() {
             'message': $in.message,
             'ok': $ok
         };
-
     };
-
-
 }
 //# sourceURL=infohub_contact_client.js

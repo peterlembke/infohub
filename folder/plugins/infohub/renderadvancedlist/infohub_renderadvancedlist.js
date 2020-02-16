@@ -20,6 +20,8 @@
  */
 function infohub_renderadvancedlist() {
 
+    "use strict";
+
     // include "infohub_base.js"
 
     const _Version = function() {
@@ -59,8 +61,6 @@ function infohub_renderadvancedlist() {
      */
     const _GetFuncName = function($text)
     {
-        "use strict";
-
         let $response = '';
 
         const $parts = $text.split('_');
@@ -89,8 +89,6 @@ function infohub_renderadvancedlist() {
     $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'type': '',
             'step': 'step_start'
@@ -144,8 +142,6 @@ function infohub_renderadvancedlist() {
      */
     const internal_AdvancedList = function ($in)
     {
-        "use strict";
-
         const $default = {
             'option': {},
             'label_expand': '⊕', // https://unicode-table.com/en/2295/
@@ -189,8 +185,6 @@ function infohub_renderadvancedlist() {
      */
     const _StructureData = function ($option, $separator)
     {
-        "use strict";
-
         let $dataOut = {};
 
         for (let $key in $option) {
@@ -200,7 +194,7 @@ function infohub_renderadvancedlist() {
                 let $parts = $level.split($separator);
 
                 if ($parts.length >= 2) {
-                    if ($parts[0] == $parts[1]) {
+                    if ($parts[0] === $parts[1]) {
                         $parts.shift();
                         $level = $parts.join($separator);
                     }
@@ -236,8 +230,6 @@ function infohub_renderadvancedlist() {
      */
     const _LabelData = function ($dataIn, $labelExpand, $labelContract)
     {
-        "use strict";
-
         let $dataOut = _ByVal($dataIn);
 
         let $expand = true;
@@ -278,8 +270,6 @@ function infohub_renderadvancedlist() {
      */
     const _GetWhat = function ($dataIn, $cssData, $labelExpand, $labelContract)
     {
-        "use strict";
-
         let $dataOut = _ByVal($dataIn);
         let $what = {};
 
@@ -355,8 +345,6 @@ function infohub_renderadvancedlist() {
     $functions.push("expand"); // Enable this function
     const expand = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'list_name': '',
@@ -438,6 +426,6 @@ function infohub_renderadvancedlist() {
             'answer': 'true',
             'message': 'Done expanding nodes in the advanced list'
         };
-    }
+    };
 }
 //# sourceURL=infohub_renderadvancedlist.js
