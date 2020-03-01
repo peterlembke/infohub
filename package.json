@@ -51,7 +51,8 @@
             "_UcWords": false,
             "_GetDataType": false,
             "_Delete": false,
-            "_SprintF": false
+            "_SprintF": false,
+            "_Full": false
         }
     }
 }

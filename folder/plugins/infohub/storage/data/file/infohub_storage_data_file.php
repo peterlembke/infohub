@@ -573,7 +573,7 @@ EOD;
         $answer = 'true';
 
         $query = $in['query'];
-        if (strpos(strtolower($in['sql']), 'select') === 0) {
+        if (strtolower(substr($in['sql'], 0,6)) === 'select') {
             $query = 'true';
         }
 

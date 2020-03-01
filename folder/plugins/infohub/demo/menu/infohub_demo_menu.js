@@ -209,6 +209,13 @@ function infohub_demo_menu() {
                                     'button_label': _Translate('Document text'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
+                                },
+                                'timer_demo': {
+                                    'alias': 'timer_demo_link',
+                                    'event_data': 'timer',
+                                    'button_label': _Translate('Timer'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu'
                                 }
                             }
                         }

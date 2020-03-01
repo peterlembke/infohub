@@ -1,0 +1,13 @@
+<svg width="200" height="200"
+     viewPort="0 0 100 100" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <circle id="circle-id-1" style="fill:#FF0000;stroke:#FF0000;" cx="100" cy="100" r="95"/>
+    <circle id="circle-id-2" style="fill:#DD0000;stroke:#DD0000;" cx="100" cy="100" r="85"/>
+    <circle id="circle-id-3" style="fill:#BB0000;stroke:#BB0000;" cx="100" cy="100" r="75"/>
+    <circle id="circle-id-4" style="fill:#990000;stroke:#990000;" cx="100" cy="100" r="65"/>
+    <circle id="circle-id-5" style="fill:#770000;stroke:#770000;" cx="100" cy="100" r="55"/>
+    <circle id="circle-id-6" style="fill:#550000;stroke:#550000;" cx="100" cy="100" r="45"/>
+    <circle id="circle-id-7" style="fill:#330000;stroke:#330000;" cx="100" cy="100" r="35"/>
+    <circle id="circle-id-8" style="fill:#110000;stroke:#110000;" cx="100" cy="100" r="25"/>
+    <circle id="circle-id-9" style="fill:#000000;stroke:#000000;" cx="100" cy="100" r="15"/>
+</svg>

@@ -935,7 +935,7 @@ function infohub_launcher() {
                 'class': 'my_list_title',
                 'tag': 'div',
                 'css_data': {
-                    '.my_list_title': 'max-width: 64px; height: 28px; max-height: 28px; font-size: '+$fontSize+'; text-align: center; padding:1px;'
+                    '.my_list_title': 'max-width: 64px; height: 28px; max-height: 28px; font-size: '+$fontSize+'; text-align: center; padding:0px;'
                 }
             };
 

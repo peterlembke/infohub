@@ -231,11 +231,11 @@ class infohub_plugin_information extends infohub_base
                     }
                 }
             }
-            $space = strpos($row, " ");
+            $space = strpos($row, ' ');
             $phpDocName = strtolower(substr($row, 1, $space - 1)); // Get name without leading @
             $data = substr($row, $space + 1); // Get the data after the parameter name
             if ($phpDocName == 'param') {
-                $data = explode(" ", $data);
+                $data = explode(' ', $data);
                 $data = array_map('trim', $data); // Run the trim function on all rows.
                 if (count($data) > 1) {
                     $parsedRows['param'][$data[1]] = array('type' => $data[0], 'description' => '');

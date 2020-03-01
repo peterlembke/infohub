@@ -586,7 +586,7 @@ class infohub_base
             return $out;
         };
 
-        if ($functionName === 'cmd' or is_int(strpos($functionName, 'internal_')) == true or substr($functionName, 0, 1) === '_') {
+        if ($functionName === 'cmd' or $functionName[0] === '_' or substr($functionName,0,9) === 'internal_') {
             $message = 'function name: ' . $functionName . ', are not allowed to be called';
             $callResponse['message'] = $message;
             goto leave;
@@ -815,13 +815,13 @@ class infohub_base
             'start_time' => $startTime
         ));
 
-        if (count(debug_backtrace()) > 19) {
-            $message = 'You have called a sub function down to the 20th level. This is way to deep. Change your code.';
+        if (method_exists($this, $functionName) === false) {
+            $message = 'function name: ' . $functionName . ', does not exist or are not allowed to be called';
             goto leave;
         }
 
-        if (method_exists($this, $functionName) === false) {
-            $message = 'function name: ' . $functionName . ', does not exist or are not allowed to be called';
+        if (count(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)) > 19) {
+            $message = 'You have called a sub function down to the 20th level. This is way to deep. Change your code.';
             goto leave;
         }
 

@@ -550,15 +550,21 @@ class infohub_file extends infohub_base
             return '';
         }
 
-        $string = strtolower(trim($string));
+        // Create lookup index with allowed characters as keys
+        $allowedCharacters = array_flip(str_split($allowed[$type], 1));
+
         $out = '';
 
-        for ($i=0; $i < strlen($string); $i++) {
-            $character = substr($string, $i, 1);
-            if (strpos($allowed[$type], $character) !== false) {
-                $out = $out . $character;
+        $string = strtolower(trim($string));
+        $stringLength = strlen($string);
+
+        for ($characterPosition=0; $characterPosition < $stringLength; $characterPosition = $characterPosition + 1)
+        {
+            if (isset($allowedCharacters[$string[$characterPosition]]) === true) {
+                $out = $out . $string[$characterPosition];
             }
         }
+
         $out = str_replace('..', '', $out);
 
         return $out;

@@ -73,6 +73,7 @@ function infohub_view() {
             'form_write': 'normal',
             'file_read': 'normal',
             'file_write': 'normal',
+            'set_style': 'normal',
             'event_message': 'normal'
         };
     };
@@ -165,7 +166,7 @@ function infohub_view() {
         let $box = document;
 
         if ($id === '1101_menutitle') {
-            const $a=1;
+            const $a=1; // For debug purposes
         }
 
         if (Number($id) == $id) {
@@ -273,6 +274,66 @@ function infohub_view() {
         }
 
         return $id;
+    };
+
+    /**
+     * Start with a box_id that you already have evaluated trough _GetBoxId
+     * If the id contain a dot then we explode the string and treat each part as a tag name.
+     * Example: 12011_my_list_box_content.svg.circle.0
+     * In the box 12011_my_list_box_content we find the svg tag and the circle tag, that is a list and we want the first one.
+     * @version 2020-03-01
+     * @since 2020-03-01
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, data: number}}
+     * @private
+     */
+    $functions.push('_GetElement');
+    const _GetElement = function ($id)
+    {
+        let $parts = $id.split('.');
+
+        if ($parts.length === 0) {
+            return '';
+        }
+
+        if ($parts.length === 1) {
+            return document.getElementById($id);
+        }
+
+        let $element = document.getElementById($parts[0]);
+
+        if (!$element) {
+            return '';
+        }
+
+        for (let $partNumber in $parts)
+        {
+            if ($parts.hasOwnProperty($partNumber) === false) {
+                continue;
+            }
+
+            if ($partNumber === '0') {
+                continue;
+            }
+
+            const $tag = $parts[$partNumber];
+
+            if (Number($tag) == $tag) {
+                $element = $element[$tag];
+            } else {
+                $element = $element.getElementsByTagName($tag);
+                if ($element && $element.length === 1) {
+                    $element = $element[0];
+                }
+            }
+
+            if (!$element) {
+                return '';
+            }
+        }
+
+        return $element;
     };
 
     /**
@@ -3500,6 +3561,53 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': 'Hope that your telephone have called the number now'
+        };
+    };
+
+    /**
+     * Set a style on any element
+     * @version 2020-03-01
+     * @since 2020-03-01
+     */
+    $functions.push('set_style');
+    const set_style = function ($in)
+    {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'element_path': '', // example: 1233_some_box_id.svg.circle.0
+            'style_name': '',
+            'style_value': ''
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'SetStyle',
+            'box_id': $in.box_id,
+            'element_path': $in.element_path,
+            'style_name': $in.style_name,
+            'style_value': $in.style_value
+        });
+    };
+
+    $functions.push('internal_SetStyle');
+    const internal_SetStyle = function ($in)
+    {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'element_path': '', // example: 1233_some_box_id.svg.circle.0
+            'style_name': '',
+            'style_value': ''
+        };
+        $in = _Default($default, $in);
+
+        let $boxId = _GetBoxId($in.box_id);
+        let $element = _GetElement($boxId + '.' + $in.element_path);
+
+        $element.style[$in.style_name] = $in.style_value;
+
+        return {
+            'answer': 'true',
+            'message': 'have set the style'
         };
     };
 

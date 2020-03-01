@@ -619,6 +619,22 @@
     };
 
     /**
+     * My definition of a variable that has a stored value
+     * @param $object
+     * @returns {*}
+     * @private
+     */
+    $functions.push('_Full');
+    const _Full = function ($object)
+    {
+        if (_Empty($object) === 'true') {
+            return 'false';
+        }
+
+        return 'true';
+    };
+
+    /**
      * Check if a variable is declared.
      * @returns {*}
      * @private

@@ -234,7 +234,7 @@ class infohub_plugin extends infohub_base
                 );
 
                 foreach ($valid as $license) {
-                    if (strpos($in['plugin_code'], $license) >= 0) {
+                    if (strpos($in['plugin_code'], $license) > 0) {
                         $ok = 'true';
                         break;
                     }
