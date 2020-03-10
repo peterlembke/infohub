@@ -1,0 +1,19 @@
+{
+    "publisher_name": "The Noun project",
+    "publisher_url": "https://thenounproject.com",
+    "publisher_note": "Millions of community created icons.",
+    "publisher_video_url": "https://www.youtube.com/user/TheNounProject",
+    "collection_name": "Outline fat Collection",
+    "collection_url": "https://thenounproject.com/mrslkhv/collection/outline-fat/",
+    "collection_note": "",
+    "license_name": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "license_note": "The Attribution License allows users to use the Icon for free through the Services, as long as they attribute it to the author.",
+    "author_name": "Ruslan Mirsalikhov",
+    "author_url": "https://thenounproject.com/mrslkhv/",
+    "author_note": "",
+    "icon_name": "configuration",
+    "icon_url": "https://thenounproject.com/search/?q=configuration&i=1926451",
+    "icon_note": "Classic configuration icon. Bold.",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

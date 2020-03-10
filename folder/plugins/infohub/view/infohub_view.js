@@ -1541,7 +1541,8 @@ function infohub_view() {
             'box_data': '',
             'max_width': 0,
             'variables': {},
-            'mode': 'substitute' // add_first / add_last / substitute
+            'mode': 'substitute', // add_first / add_last / substitute
+            'throw_error_if_box_is_missing': 'true'
         };
         $in = _Default($default, $in);
 
@@ -1551,7 +1552,8 @@ function infohub_view() {
             'box_data': $in.box_data,
             'max_width': $in.max_width,
             'variables': $in.variables,
-            'mode': $in.mode
+            'mode': $in.mode,
+            'throw_error_if_box_is_missing': $in.throw_error_if_box_is_missing
         });
     };
 
@@ -1572,20 +1574,34 @@ function infohub_view() {
             'box_data': '',
             'max_width': 0,
             'variables': {},
-            'mode': 'substitute' // add_first / add_last / substitute
+            'mode': 'substitute', // add_first / add_last / substitute
+            'throw_error_if_box_is_missing': 'true'
         };
         $in = _Default($default, $in);
 
         $in.box_id = _GetBoxId($in.box_id);
 
-        let $answer = 'false', $message, $boxAlias = '', $anchor = '', $box, $boxData = '', $boxMode = '';
+        let $answer = 'false',
+            $message,
+            $boxAlias = '',
+            $anchor = '',
+            $box,
+            $boxData = '',
+            $boxMode = '',
+            $boxFound = 'false';
 
         leave: {
             $box = _GetNode($in.box_id);
             if (!$box) {
                 $message = 'Can not find box with id:' + $in.box_id;
+
+                if ($in.throw_error_if_box_is_missing === 'false') {
+                    $answer = 'true';
+                }
+
                 break leave;
             }
+            $boxFound = 'true';
 
             $boxMode = $box.getAttribute('box_mode');
             if (_Empty($boxMode) === 'false' && $boxMode !== 'data') {
@@ -1643,7 +1659,8 @@ function infohub_view() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
+            'box_found': $boxFound
         };
     };
 
@@ -2078,6 +2095,13 @@ function infohub_view() {
             if ($nodeName === 'select') {
                 $element.innerHTML = $in.text;
                 $message = 'Updated the inner HTML on this object';
+                $updated = 'true';
+                break leave;
+            }
+
+            if ($nodeName === 'textarea') {
+                $element.value = $in.text;
+                $message = 'Updated the value on this textarea';
                 $updated = 'true';
                 break leave;
             }
@@ -3601,13 +3625,22 @@ function infohub_view() {
         $in = _Default($default, $in);
 
         let $boxId = _GetBoxId($in.box_id);
-        let $element = _GetElement($boxId + '.' + $in.element_path);
+        let $id = $boxId + '.' + $in.element_path;
+        if (_Empty($in.element_path) === 'true') {
+            $id = $boxId;
+        }
 
-        $element.style[$in.style_name] = $in.style_value;
+        let $element = _GetElement($id);
+
+        let $message = 'have not set the style. Did not find the element';
+        if ($element) {
+            $element.style[$in.style_name] = $in.style_value;
+            $message = 'Have set the style';
+        }
 
         return {
             'answer': 'true',
-            'message': 'have set the style'
+            'message': $message
         };
     };
 

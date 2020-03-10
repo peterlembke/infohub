@@ -46,7 +46,8 @@ function infohub_debug() {
             'reload_page': 'normal',
             'clear_storage_and_reload_page': 'normal',
             'refresh_plugins_and_reload_page': 'normal',
-            'set_cold_start_and_reload_page': 'normal'
+            'set_cold_start_and_reload_page': 'normal',
+            'event_message': 'normal'
         };
     };
 
@@ -599,44 +600,175 @@ function infohub_debug() {
         const $default = {};
         $in = _Default($default, $in);
 
+        const $cssLink = 'color: rgba(68, 69, 166, 0.89); padding:4px; display:inline-flex; border-width:1 px;';
+        const $cssSvg = 'width: 80px; padding: 4px;';
+
         // Divide the creation in smaller parts
         const $parts = {
-            'reload_page': {
-                'plugin': 'infohub_renderform',
-                'type': 'button',
-                'mode': 'button',
-                'button_label': _Translate('Reload page. shift alt ctrl 1'),
+            'buttons_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[buttons_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': 'max-width: 220px; padding: 4px;'
+                }
+            },
+            'buttons_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'buttons',
+                'plugin_name': 'infohub_debug'
+            },
+            'reload_page_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'reload_page',
+                'show': '[reload_page_icon][reload_page_text]',
                 'event_data': 'reload_page',
                 'to_plugin': 'infohub_debug',
-                'to_function': 'reload_page'
+                'to_function': 'reload_page',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
             },
-            'refresh_plugins': {
-                'plugin': 'infohub_renderform',
-                'type': 'button',
-                'mode': 'button',
-                'button_label': _Translate('Clean out old plugins marked by the server. reload page. shift alt ctrl 2'),
+            'reload_page_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[reload_page_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'reload_page_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '1',
+                'plugin_name': 'infohub_debug'
+            },
+            'reload_page_text': {
+                'type': 'text',
+                'text': _Translate('Reload page. shift alt ctrl 1')
+            },
+            'refresh_page_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'refresh_page',
+                'show': '[refresh_page_icon][refresh_page_text]',
                 'event_data': 'refresh_plugins_and_reload_page',
                 'to_plugin': 'infohub_debug',
-                'to_function': 'refresh_plugins_and_reload_page'
+                'to_function': 'refresh_plugins_and_reload_page',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
             },
-            'clear_plugins': {
-                'plugin': 'infohub_renderform',
-                'type': 'button',
-                'mode': 'button',
-                'button_label': _Translate('Clean out all local plugins, reload page. shift alt ctrl 3'),
+            'refresh_page_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[refresh_page_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'refresh_page_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '2',
+                'plugin_name': 'infohub_debug'
+            },
+            'refresh_page_text': {
+                'type': 'text',
+                'text': _Translate('Clean out old plugins marked by the server. reload page. shift alt ctrl 2')
+            },
+            'clear_plugins_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'refresh_page',
+                'show': '[clear_plugins_icon][clear_plugins_text]',
                 'event_data': 'clear_storage_and_reload_page',
                 'to_plugin': 'infohub_debug',
-                'to_function': 'clear_storage_and_reload_page'
+                'to_function': 'clear_storage_and_reload_page',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
             },
-            'cold_start': {
-                'plugin': 'infohub_renderform',
-                'type': 'button',
-                'mode': 'button',
-                'button_label': _Translate('Clean out all local data, reload page. shift alt ctrl 4'),
+            'clear_plugins_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[clear_plugins_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'clear_plugins_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '3',
+                'plugin_name': 'infohub_debug'
+            },
+            'clear_plugins_text': {
+                'type': 'text',
+                'text': _Translate('Clean out all local plugins, reload page. shift alt ctrl 3')
+            },
+            'cold_start_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'cold_start',
+                'show': '[cold_start_icon][cold_start_text]',
                 'event_data': 'set_cold_start_and_reload_page',
                 'to_plugin': 'infohub_debug',
-                'to_function': 'set_cold_start_and_reload_page'
+                'to_function': 'set_cold_start_and_reload_page',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
+            },
+            'cold_start_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[cold_start_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'cold_start_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '4',
+                'plugin_name': 'infohub_debug'
+            },
+            'cold_start_text': {
+                'type': 'text',
+                'text': _Translate('Clean out all local data, reload page. shift alt ctrl 4')
+            },
+            'instructions_text': {
+                'type': 'text',
+                'text': '[h1]' + _Translate('Instructions') + '[/h1][instructions_text_body]'
+            },
+            'instructions_text_body': {
+                'type': 'text',
+                'text': _Translate('Click on an option or use the keyboard. These keys always works wherever you are in Infohub.')
+            },
+            'information_text': {
+                'type': 'text',
+                'text': '[h1]' + _Translate('Information') + '[/h1][information_text_3][information_text_4]'
+            },
+            'information_text_3': {
+                'type': 'text',
+                'text': _Translate('[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.')
+            },
+            'information_text_4': {
+                'type': 'text',
+                'text': _Translate('[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.')
             }
+
         };
 
         return {
@@ -645,13 +777,49 @@ function infohub_debug() {
             'data': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[reload_page][refresh_plugins][clear_plugins][cold_start]'
+                'text': '[buttons_icon][reload_page_link][refresh_page_link][clear_plugins_link][cold_start_link][instructions_text][information_text]'
             },
             'where': {
                 'mode': 'html'
             }
         };
 
+    };
+
+    /**
+     * Event message comes from links
+     * @version 2020-03-07
+     * @since   2020-03-07
+     * @author  Peter Lembke
+     */
+    $functions.push("event_message");
+    const event_message = function ($in)
+    {
+        const $default = {
+            'event_data': '',
+            'step': 'step_start'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_debug',
+                    'function': $in.event_data
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Handled the event_message'
+        };
     };
 
 }

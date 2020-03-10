@@ -172,6 +172,7 @@ function infohub_rendermenu() {
             'enabled': 'true',
             'alias': '',
             'class': 'button',
+            'button_left_icon': '',
             'button_label': 'Submit',
             'mode': 'button', // submit, button
             'event_data': 'menu button', // Your data

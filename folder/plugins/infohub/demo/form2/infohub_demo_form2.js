@@ -428,7 +428,8 @@ function infohub_demo_form2() {
     const click_submit = function ($in)
     {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
+            'form_data': {}
         };
         $in = _Default($default, $in);
 

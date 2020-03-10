@@ -15,5 +15,6 @@
     "icon_name": "Offline",
     "icon_url": "https://thenounproject.com/BeezkOt/uploads/?i=90580",
     "icon_note": "A WiFi symbol with a ring around and a stop bar over it",
+    "derivative_work": "Colours have been changed compared to the original",
     "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
 }

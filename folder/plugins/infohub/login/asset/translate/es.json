@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Iniciar sesión",
+        "description": "Aquí puede iniciar sesión en el servidor."
+    },
     "data": {
         "infohub_login": {
             "Instructions": "Instrucciones",

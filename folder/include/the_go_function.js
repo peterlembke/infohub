@@ -56,6 +56,8 @@ function go($pluginName, $eventType, $containerId)
 
 function readMoreData($id, $data)
 {
+    "use strict";
+
     if ($id === '') {
         return false;
     }
@@ -87,6 +89,8 @@ function readMoreData($id, $data)
 
 function readProperty($box, $method, $data)
 {
+    "use strict";
+
     if (typeof $box[$method] === 'undefined') {
         return $data;
     }

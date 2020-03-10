@@ -439,7 +439,10 @@ function infohub_render_form() {
                     'padding: 4px 10px;'+
                     'display: inline-block;',
                 '.hidden':
-                    'display: none;'
+                    'display: none;',
+                '.center':
+                    'display: block;'+
+                    'text-align: center;'
             };
         }
 
@@ -477,7 +480,7 @@ function infohub_render_form() {
         }
 
 
-        $in.html = '<label for="{box_id}_' + $in.alias + '" class="file">' + $in.button_label + '</label>';
+        $in.html = '<div class="file"><label for="{box_id}_' + $in.alias + '" class="center">' + $in.button_label + '</label></div>';
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'hidden' });
         $in.html = $in.html + '<input' + $id + _GetParameters($in, $fields) + $event + '>';

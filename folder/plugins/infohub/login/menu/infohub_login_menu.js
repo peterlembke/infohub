@@ -106,6 +106,7 @@ function infohub_login_menu() {
                                 'import': {
                                     'alias': 'import',
                                     'event_data': 'import', // child plugin
+                                    'button_left_icon': '[import_icon]',
                                     'button_label': _Translate('Import contact data'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu'
@@ -127,6 +128,7 @@ function infohub_login_menu() {
                                 'export': {
                                     'alias': 'export',
                                     'event_data': 'export',
+                                    'button_left_icon': '[export_icon]',
                                     'button_label': _Translate('Export contact data'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu'
@@ -146,6 +148,28 @@ function infohub_login_menu() {
                                     'to_function': 'click_menu'
                                 }
                             }
+                        },
+                        'import_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[import_asset]'
+                        },
+                        'import_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'import',
+                            'plugin_name': 'infohub_login'
+                        },
+                        'export_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[export_asset]'
+                        },
+                        'export_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'export',
+                            'plugin_name': 'infohub_login'
                         }
                     },
                     'how': {

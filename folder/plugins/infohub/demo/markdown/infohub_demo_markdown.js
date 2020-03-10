@@ -100,13 +100,26 @@ function infohub_demo_markdown() {
                 'data': {
                     'what': {
                         'my_file_selector': {
-                            'type': 'form',
-                            'subtype': 'file',
-                            'accept': '*',
+                            'plugin': 'infohub_renderform',
+                            'type': 'file',
+                            'button_label': _Translate('Select a Markdown file'),
+                            'button_left_icon': '[my_file_selector_icon]',
+                            'accept': 'application/text,.md', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'markdown|file_read',
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
                             'to_function': 'click'
+                        },
+                        'my_file_selector_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[my_file_selector_asset]'
+                        },
+                        'my_file_selector_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'markdown/select_file',
+                            'plugin_name': 'infohub_demo'
                         },
                         'my_textarea': {
                             'type': 'form',
@@ -125,13 +138,25 @@ function infohub_demo_markdown() {
                             'source_function': 'get_render_option_list'
                         },
                         'my_button': {
-                            'type': 'form',
-                            'subtype': 'button',
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
                             'mode': 'submit',
                             'button_label': _Translate('Markdown to HTML'),
+                            'button_left_icon': '[button_icon]',
                             'event_data': 'markdown|markdown_to_html',
                             'to_plugin': 'infohub_demo',
                             'to_function': 'click'
+                        },
+                        'button_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[button_asset]'
+                        },
+                        'button_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'markdown/icon_html',
+                            'plugin_name': 'infohub_demo'
                         },
                         'my_result_box': {
                             'type': 'common',
@@ -187,7 +212,7 @@ function infohub_demo_markdown() {
                 let $content = $in.files_data[0].content;
                 $content = $content.substr('data:text/markdown;base64,'.length);
                 $content = atob($content);
-                $content = _Replace("\n", "\r\n", $content);
+                // $content = _Replace("\n", "\r\n", $content);
                 
                 return _SubCall({
                     'to': {
@@ -232,10 +257,19 @@ function infohub_demo_markdown() {
     const click_markdown_to_html = function ($in)
     {
         const $default = {
+            'form_data': {
+                my_file_selector: {},
+                my_textarea: {
+                    value: ''
+                },
+                my_selector: {
+                    value: []
+                }
+            },
             'answer': 'true',
             'message': 'Nothing to report',
             'ok': 'false',
-            'step': 'step_read_markdown_type',
+            'step': 'step_render_html',
             'box_id': '',
             'type': '',
             'text': '',
@@ -246,63 +280,14 @@ function infohub_demo_markdown() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_read_markdown_type') 
-        {           
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'form_select_read'
-                },
-                'data': {
-                    'id': $in.box_id + '_my_selector_form_element'
-                },
-                'data_back': {
-                    'step': 'step_read_markdown_type_response',
-                    'box_id': $in.box_id
-                }
+        if ($in.step === 'step_render_html')
+        {
+            const $markdownType = _GetData({
+                'name': 'form_data/my_selector/value/0',
+                'default': '',
+                'data': $in
             });
-        }
 
-        if ($in.step === 'step_read_markdown_type_response') 
-        {
-            if ($in.answer === 'true') {
-                if (_IsSet($in.response.value[0]) === 'true') {
-                    $in.markdown_type = $in.response.value[0];
-                }
-
-                $in.step = 'step_read_markdown_box';
-            }
-        }
-
-        if ($in.step === 'step_read_markdown_box') 
-        {           
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'get_text'
-                },
-                'data': {
-                    'id': $in.box_id + '_my_textarea'
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'markdown_type': $in.markdown_type,
-                    'step': 'step_read_markdown_box_response',
-                }
-            });
-        }
-
-        if ($in.step === 'step_read_markdown_box_response') 
-        {
-            if ($in.answer === 'true') {
-                $in.step = 'step_render_html';
-            }
-        }
-        
-        if ($in.step === 'step_render_html') 
-        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -313,8 +298,8 @@ function infohub_demo_markdown() {
                     'what': {
                         'my_markdown': {
                             'plugin': 'infohub_markdown',
-                            'type': $in.markdown_type,
-                            'text': $in.text
+                            'type': $markdownType,
+                            'text': $in.form_data.my_textarea.value
                         }
                     },
                     'how': {

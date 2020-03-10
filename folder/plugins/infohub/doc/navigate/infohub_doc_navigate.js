@@ -128,10 +128,22 @@ function infohub_doc_navigate() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
+                            'button_left_icon': '[refresh_icon]',
                             'button_label': $buttonLabel,
                             'event_data': 'infohub_doc_navigate|click_refresh',
                             'to_plugin': 'infohub_doc',
                             'to_function': 'event_message'
+                        },
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]'
+                        },
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_doc'
                         },
                         'list': {
                             'type': 'common',

@@ -224,7 +224,8 @@ function infohub_render() {
                 'max_width': 0,
                 'box_id': '',
                 'scroll_to_box_id': 'false',
-                'set_visible': '' // true, false, or empty string
+                'set_visible': '', // true, false, or empty string
+                'throw_error_if_box_is_missing': 'true'
             },
             'what_done': {}, // All rendered from 'what'
             'css_all': {},
@@ -527,7 +528,8 @@ function infohub_render() {
                     'max_width': $in.where.max_width,
                     'variables': {
                         'css_all': $in.css_all
-                    }
+                    },
+                    'throw_error_if_box_is_missing': $in.where.throw_error_if_box_is_missing
                 },
                 'data_back': {
                     'step': 'step_where_response',
@@ -546,8 +548,14 @@ function infohub_render() {
             };
         }
 
-        if ($in.step === 'step_where_response') {
+        if ($in.step === 'step_where_response')
+        {
             $in.step = 'step_set_visible';
+
+            if ($in.response.box_found === 'false') {
+                $in.step = 'step_end';
+            }
+
             if ($in.response.answer === 'false') {
                 $in.step = 'step_end';
             }

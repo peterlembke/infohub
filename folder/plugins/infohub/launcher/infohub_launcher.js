@@ -205,6 +205,7 @@ function infohub_launcher() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Switch list'),
+                            'button_left_icon': '[switch_icon]',
                             'event_data': 'switch_button',
                             'to_plugin': 'infohub_launcher',
                             'to_function': 'switch_button',
@@ -220,6 +221,17 @@ function infohub_launcher() {
                                     'margin: 10px 0px 0px 0px;'+
                                     'padding: 4px 10px;'
                             }
+                        },
+                        'switch_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[switch_asset]'
+                        },
+                        'switch_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'switch',
+                            'plugin_name': 'infohub_launcher'
                         }
                     },
                     'how': {
@@ -352,12 +364,24 @@ function infohub_launcher() {
                             'data': _Translate('Switch list. Refresh. Click icon.')
                         },
                         'button_help': {
-                            'type': 'form',
-                            'subtype': 'button',
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Help'),
+                            'button_left_icon': '[help_icon]',
                             'to_plugin': 'infohub_launcher',
                             'to_function': 'first_contact'
+                        },
+                        'help_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[help_asset]'
+                        },
+                        'help_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'help',
+                            'plugin_name': 'infohub_launcher'
                         }
                     },
                     'how': {
@@ -386,10 +410,12 @@ function infohub_launcher() {
                 'data': {
                     'what': {
                         'button_refresh': {
-                            'type': 'form',
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
                             'subtype': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh'),
+                            'button_label': _Translate('Refresh page'),
+                            'button_left_icon': '[refresh_icon]',
                             'to_plugin': 'infohub_debug',
                             'to_function': 'refresh_plugins_and_reload_page',
                             'css_data': {
@@ -404,6 +430,17 @@ function infohub_launcher() {
                                     'margin: 10px 0px 0px 0px;'+
                                     'padding: 4px 10px;'
                             }
+                        },
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]'
+                        },
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_launcher'
                         }
                     },
                     'how': {
@@ -718,7 +755,7 @@ function infohub_launcher() {
                 },
                 'data': {
                     'plugin_name': 'infohub_launcher',
-                    'asset_name': 'sync'
+                    'asset_name': 'refresh'
                 },
                 'data_back': {
                     'list_name': $listName,
@@ -889,7 +926,7 @@ function infohub_launcher() {
                 'class': 'side',
                 'tag': 'span',
                 'css_data': {
-                    '.side': 'float: left;display: inline-block;resize: none;overflow: auto;box-sizing: border-box; max-size:64px;'
+                    '.side': 'float: left;display: inline-block;resize: none;overflow: auto;box-sizing: border-box;'
                 }
             };
 
@@ -1831,6 +1868,7 @@ function infohub_launcher() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Add to my list'),
+                            'button_left_icon': '[button_add_icon]',
                             'event_data':  $in.list_name + '|' + $in.plugin_name + '|add',
                             'to_plugin': 'infohub_launcher'
                         },
@@ -1839,6 +1877,7 @@ function infohub_launcher() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Remove from my list'),
+                            'button_left_icon': '[button_remove_icon]',
                             'event_data':  $in.list_name + '|' + $in.plugin_name + '|remove',
                             'to_plugin': 'infohub_launcher'
                         },
@@ -1847,9 +1886,43 @@ function infohub_launcher() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Run plugin'),
+                            'button_left_icon': '[button_play_icon]',
                             'event_data':  $in.list_name + '|' + $in.plugin_name + '|run',
                             'to_plugin': 'infohub_launcher'
-                        }
+                        },
+                        'button_add_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[button_add_asset]'
+                        },
+                        'button_add_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'plus-green',
+                            'plugin_name': 'infohub_launcher'
+                        },
+                        'button_remove_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[button_remove_asset]'
+                        },
+                        'button_remove_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'minus-yellow',
+                            'plugin_name': 'infohub_launcher'
+                        },
+                        'button_play_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[button_play_asset]'
+                        },
+                        'button_play_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'play-blue',
+                            'plugin_name': 'infohub_launcher'
+                        },
                     },
                     'how': {
                         'mode': 'one box',

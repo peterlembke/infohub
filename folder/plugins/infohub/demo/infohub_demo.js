@@ -299,6 +299,7 @@ function infohub_demo() {
             'step': 'step_start',
             'type': '',
             'event_type': '',
+            'form_data': {},
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
@@ -339,7 +340,8 @@ function infohub_demo() {
                     'files_data': $in.response.files_data,
                     'box_id': $in.box_id,
                     'type': $in.type,
-                    'event_type': $in.event_type
+                    'event_type': $in.event_type,
+                    'form_data': $in.form_data
                 },
                 'data_back': {
                     'event_data': $in.event_data,

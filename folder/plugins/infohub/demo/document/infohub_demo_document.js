@@ -104,7 +104,7 @@ function infohub_demo_document() {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
                             'button_label': _Translate('Select file'),
-                            'accept': '*.md',
+                            'accept': 'application/text,.md', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'document|file_read',
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
@@ -303,10 +303,15 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
     const click_markdown_to_html = function ($in)
     {
         const $default = {
+            'form_data': {
+                'my_textarea': {
+                    'value': ''
+                }
+            },
             'answer': 'true',
             'message': 'Nothing to report',
             'ok': 'false',
-            'step': 'step_read_markdown_box',
+            'step': 'step_render_html',
             'box_id': '',
             'type': '',
             'text': '',
@@ -316,32 +321,7 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_read_markdown_box')
-        {           
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'get_text'
-                },
-                'data': {
-                    'id': $in.box_id + '_my_textarea'
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_read_markdown_box_response',
-                }
-            });
-        }
-
-        if ($in.step === 'step_read_markdown_box_response') 
-        {
-            if ($in.answer === 'true') {
-                $in.step = 'step_render_html';
-            }
-        }
-        
-        if ($in.step === 'step_render_html') 
+        if ($in.step === 'step_render_html')
         {
             return _SubCall({
                 'to': {
@@ -354,7 +334,7 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
                         'my_document': {
                             'plugin': 'infohub_renderdocument',
                             'type': 'document',
-                            'text': $in.text,
+                            'text': $in.form_data.my_textarea.value,
                             'what': {
                                 'my_icon': {
                                     'type': 'common',

@@ -229,11 +229,12 @@ function infohub_renderform() {
             'to_function': 'event_message',
             'custom_variables': {},
             'css_data': {},
-            'button_icon': ''
+            'button_icon': '',
+            'button_left_icon': ''
         };
         $in = _Default($default, $in);
 
-        const $parts = {
+        let $parts = {
             'button': {
                 'type': 'form',
                 'subtype': 'button',
@@ -249,13 +250,22 @@ function infohub_renderform() {
                 'custom_variables': $in.custom_variables,
                 'css_data': $in.css_data
             },
+            'button_left_icon': {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': $in.button_left_icon,
+                'css_data': {
+                    '.container': 'width:16px; height:16px; display:inline; float:left;'
+                },
+            },
             'button_label': {
                 'type': 'common',
                 'subtype': 'container',
                 'tag': 'span',
                 'data': $in.button_label,
                 'css_data': {
-                    '.container': 'display:inline; float:center; padding-right: 4px;'
+                    '.container': 'display:inline; padding-left: 4px; padding-right: 4px;'
                 },
             },
             'button_icon': {
@@ -268,6 +278,12 @@ function infohub_renderform() {
                 },
             }
         };
+
+        if ($in.button_left_icon === '') {
+            delete $parts.button_left_icon;
+        } else {
+            $parts.button.button_label = '[button_left_icon]' + $parts.button.button_label;
+        }
 
         return {
             'answer': 'true',
@@ -305,13 +321,14 @@ function infohub_renderform() {
             'custom_variables': {},
             'css_data': {},
             'button_icon': '',
+            'button_left_icon': '',
             'multiple': 'false',
             'accept': '', // Unique file type specifiers, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
             'capture': '', // Read the camera as an image. 'user'=front camera, 'environment'=back camera. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
         };
         $in = _Default($default, $in);
 
-        const $parts = {
+        let $parts = {
             'button': {
                 'type': 'form',
                 'subtype': 'file',
@@ -330,13 +347,22 @@ function infohub_renderform() {
                 'accept': $in.accept,
                 'capture': $in.capture
             },
+            'button_left_icon': {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': $in.button_left_icon,
+                'css_data': {
+                    '.container': 'width:16px; height:16px; display:inline; float:left;'
+                },
+            },
             'button_label': {
                 'type': 'common',
                 'subtype': 'container',
                 'tag': 'span',
                 'data': $in.button_label,
                 'css_data': {
-                    '.container': 'display:inline; float:center;'
+                    '.container': 'display:inline; padding-left: 4px; padding-right: 4px;'
                 },
             },
             'button_icon': {
@@ -349,6 +375,12 @@ function infohub_renderform() {
                 },
             }
         };
+
+        if ($in.button_left_icon === '') {
+            delete $parts.button_left_icon;
+        } else {
+            $parts.button.button_label = '[button_left_icon]' + $parts.button.button_label;
+        }
 
         return {
             'answer': 'true',
@@ -1220,12 +1252,12 @@ function infohub_renderform() {
                         },
                         'data': {
                             'what': {
-                                'svg_progress': {
+                                'svg_result': {
                                     'type': 'common',
                                     'subtype': 'svg',
-                                    'data': '[svg_progress_asset]'
+                                    'data': '[svg_result_asset]'
                                 },
-                                'svg_progress_asset': {
+                                'svg_result_asset': {
                                     'plugin': 'infohub_asset',
                                     'type': 'icon',
                                     'subtype': 'svg',
@@ -1235,10 +1267,11 @@ function infohub_renderform() {
                             },
                             'how': {
                                 'mode': 'one box',
-                                'text': '[svg_progress]'
+                                'text': '[svg_result]'
                             },
                             'where': {
-                                'box_id': $in.id + '_icon'
+                                'box_id': $in.id + '_icon',
+                                'throw_error_if_box_is_missing': 'false'
                             }
                         },
                         'data_back': _Merge($in, {'step': 'step_end'})

@@ -9,7 +9,11 @@
     "license_name": "Use for Free, but Please Set a Link to infohub.se",
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "license_note": "You are free to share and adapt the icon. You should link to Infohub.se. I will not bother you if you don't. No other restrictions.",
+    "author_name": "Peter Lembke",
+    "author_url": "https://infohub.se",
+    "author_note": "Not an artist as you can see. Needed some icons and created them with InkScape",
     "icon_name": "Doc",
     "icon_url": "https://infohub.se",
-    "icon_note": "The documentation plugin use this icon. It shows a paper with text on it. Has the infohub badge, style and colours."
+    "icon_note": "The documentation plugin use this icon. It shows a paper with text on it. Has the infohub badge, style and colours.",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
 }

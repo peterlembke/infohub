@@ -9,10 +9,15 @@
     },
     "data": {
         "infohub_debug": {
-            "Reload page. shift alt ctrl 1": "Reload page. shift alt ctrl 1",
-            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Clean out old plugins marked by the server. reload page. shift alt ctrl 2",
-            "Clean out all local plugins, reload page. shift alt ctrl 3": "Clean out all local plugins, reload page. shift alt ctrl 3",
-            "Clean out all local data, reload page. shift alt ctrl 4": "Clean out all local data, reload page. shift alt ctrl 4"
+            "Reload page. shift alt ctrl 1": "Reload page after ban time is up.",
+            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Clean out local plugins the server have a newer version of. Reload page.",
+            "Clean out all local plugins, reload page. shift alt ctrl 3": "Clean out all local plugins, reload page.",
+            "Clean out all local data, reload page. shift alt ctrl 4": "Clean out all local data like icons and translations etc, reload page.",
+            "Instructions": "Instructions",
+            "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.",
+            "Information": "Information",
+            "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.",
+            "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.": "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage."
         }
     }
 }

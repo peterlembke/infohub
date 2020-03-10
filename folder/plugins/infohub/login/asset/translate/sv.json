@@ -7,6 +7,10 @@
         "country": "",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Logga in",
+        "description": "Här kan du logga in på servern."
+    },
     "data": {
         "infohub_login": {
             "Instructions": "Instruktioner",

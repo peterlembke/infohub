@@ -47,6 +47,7 @@ There are no forum yet.
 See the [home page](https://www.infohub.se).
 
 # Plans for InfoHub ![Infohub](folder/favicon.png)
+also see the [CHANGELOG](CHANGELOG.md) for future plans.
 
 ## Done parts
 * PHP Core
@@ -173,7 +174,7 @@ Some examples:
 * Smart home with Telldus live, and view webcam streams.
     Bad because there are already appropriate software for that. Also not so good to have login to these services stored on the Infohub server.
 
-## Beyond PHP and Javascript - "There is another system"
+## Beyond PHP and Javascript - ["There is another system"](https://en.wikipedia.org/wiki/Colossus:_The_Forbin_Project)
 The Infohub Core can be implemented in any language. 
 The PHP/JS cores are template implementations how the systems work. If you implement an Infohub core in another language you might have to modify the systems to suite that platform. The important thing is that as a developer you can recognize the inner workings of the system when you jump between implementations.
 
@@ -196,7 +197,7 @@ You could implement Level 2 so other developers more easily can get started with
 
 You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and login & sessions but do not need a GUI.
 
-Updated 2019-11-03
+Updated 2020-03-10
 
 # Images
 The launcher is where you start plugins.

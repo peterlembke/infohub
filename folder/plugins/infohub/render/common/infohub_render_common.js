@@ -544,15 +544,23 @@ function infohub_render_common() {
         {
             if ($in.data.indexOf('<svg') >= 0) {
                 $in.data = _Replace("\n", '', $in.data);
+
+                // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
+                $in.data = _Replace("(#", '(#{alias}', $in.data);
+                $in.data = _Replace('id="', 'id="{alias}', $in.data);
+                $in.data = _Replace('href="#', 'href="#{alias}', $in.data);
+
+                const $id = '{box_id}_' + $in.alias + '-';
+                $in.data = _Replace("{alias}", $id, $in.data);
             }
 
-            const $id = _GetId({
+            const $parameters = _GetId({
                 'id': $in.alias,
                 'name': $in.alias,
                 'class': $in.class
             });
 
-            $html = '<div ' + $id + '>' + $in.data + '</div>';
+            $html = '<div ' + $parameters + '>' + $in.data + '</div>';
         }
 
         if (_Empty($in.css_data) === 'true' && $in.class === 'svg') {

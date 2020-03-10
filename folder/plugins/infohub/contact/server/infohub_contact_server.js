@@ -129,9 +129,21 @@ function infohub_contact_server() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Refresh'),
+                            'button_left_icon': '[refresh_icon]',
                             'event_data': 'server|refresh',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]'
+                        },
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_contact'
                         },
                         'list_contacts': {
                             'plugin': 'infohub_renderform',
@@ -155,47 +167,107 @@ function infohub_contact_server() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Save'),
+                            'button_left_icon': '[save_icon]',
                             'event_data': 'server|save',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'save_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[save_asset]'
+                        },
+                        'save_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'save_data',
+                            'plugin_name': 'infohub_contact'
                         },
                         'button_delete': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Delete'),
+                            'button_left_icon': '[delete_icon]',
                             'event_data': 'server|delete',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'delete_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[delete_asset]'
+                        },
+                        'delete_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'delete',
+                            'plugin_name': 'infohub_contact'
                         },
                         'button_import': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
                             'button_label': _Translate('Import'),
+                            'button_left_icon': '[import_icon]',
                             'accept': 'application/json,.json', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'server|import',
                             'to_node': 'client',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
                         },
+                        'import_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[import_asset]'
+                        },
+                        'import_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'import',
+                            'plugin_name': 'infohub_contact'
+                        },
                         'button_export': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Export'),
+                            'button_left_icon': '[export_icon]',
                             'event_data': 'server|export',
                             'to_node': 'client',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'export_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[export_asset]'
+                        },
+                        'export_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'export',
+                            'plugin_name': 'infohub_contact'
                         },
                         'button_ping': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Ping server'),
+                            'button_left_icon': '[ping_icon]',
                             'event_data': 'server|ping',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'ping_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[ping_asset]'
+                        },
+                        'ping_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'ping',
+                            'plugin_name': 'infohub_contact'
                         },
                         'container_ping': {
                             'type': 'common',

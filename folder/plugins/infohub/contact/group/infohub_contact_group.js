@@ -126,9 +126,21 @@ function infohub_contact_group() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Refresh groups'),
+                            'button_left_icon': '[refresh_icon]',
                             'event_data': 'group|refresh_group',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]'
+                        },
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_contact'
                         },
                         'list_group': {
                             'plugin': 'infohub_renderform',
@@ -150,27 +162,63 @@ function infohub_contact_group() {
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('New'),
+                            'button_left_icon': '[new_icon]',
                             'event_data': 'group|new_group',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'new_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[new_asset]'
+                        },
+                        'new_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'add_client',
+                            'plugin_name': 'infohub_contact'
                         },
                         'button_save': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Save'),
+                            'button_left_icon': '[save_icon]',
                             'event_data': 'group|save_group',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'save_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[save_asset]'
+                        },
+                        'save_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'save_data',
+                            'plugin_name': 'infohub_contact'
                         },
                         'button_delete': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('Delete'),
+                            'button_left_icon': '[delete_icon]',
                             'event_data': 'group|delete_group',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
+                        },
+                        'delete_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[delete_asset]'
+                        },
+                        'delete_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'delete',
+                            'plugin_name': 'infohub_contact'
                         },
                         'form_group': {
                             'plugin': 'infohub_renderform',

@@ -7,6 +7,10 @@
         "country": "US",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Login",
+        "description": "Here you can login to the server."
+    },
     "data": {
         "infohub_login": {
             "Instructions": "Instructions",
