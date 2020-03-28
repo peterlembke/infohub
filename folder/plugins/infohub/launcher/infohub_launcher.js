@@ -211,7 +211,7 @@ function infohub_launcher() {
                             'to_function': 'switch_button',
                             'css_data': {
                                 '.button':
-                                    'font-size: 20px;'+
+                                    'font-size: 1.5em;'+
                                     'max-width: 320px;'+
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
@@ -420,7 +420,7 @@ function infohub_launcher() {
                             'to_function': 'refresh_plugins_and_reload_page',
                             'css_data': {
                                 '.button':
-                                    'font-size: 20px;'+
+                                    'font-size: 1.5em;'+
                                     'max-width: 320px;'+
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
@@ -955,13 +955,13 @@ function infohub_launcher() {
                 }
             };
 
-            let $fontSize = '12px';
+            let $fontSize = '0.9em';
             const $title = _Replace('_', ' ', $item.title.toString());
             if ($title.length >= 9) {
-                $fontSize = '10px';
+                $fontSize = '0.7em';
             }
             if ($title.indexOf(' ') >= 0) {
-                $fontSize = '10px';
+                $fontSize = '0.7em';
             }
 
             $what[$id + 'title'] = {

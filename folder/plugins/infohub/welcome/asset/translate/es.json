@@ -99,8 +99,31 @@
             "You are important! You can not exist without your body. That makes also your body important! With Body you get practical tips how you can improve your health. You can track your improvements. It is the small decisions you do every day that make a difference in your life.": "¡Eres importante! No puedes existir sin tu cuerpo. ¡Eso también hace que tu cuerpo sea importante! Con Body obtienes consejos prácticos sobre cómo puedes mejorar tu salud. Puedes seguir tus mejoras. Son las pequeñas decisiones que tomas todos los días que marcan la diferencia en tu vida ",
             "Story editor": "Editor de historias",
             "Put together an article with text, images, image texts, links, titles, ingress, bullet lists, code examples. You can then export your story and use it outside of InfoHub or store it in your Tree.": "Arme un artículo con texto, imágenes, textos de imágenes, enlaces, títulos, entradas, listas de viñetas, ejemplos de código. Luego puede exportar su historia y usarla fuera de InfoHub o almacenarla en su Árbol",
-            "Shop": "Tienda",
-            "Shop trough Infohub is smooth and fast because it uses the full capacity of your computer/phone and is kid to your download quota. You have the same features on all shops and they all work the same. The shop benefit of this because more customers can shop att the same time before their server get strained.": "Comprar a través de Infohub es sencillo y rápido porque utiliza toda la capacidad de su computadora / teléfono y es compatible con su cuota de descarga. Tiene las mismas funciones en todas las tiendas y todas funcionan igual. El beneficio de la tienda es esto porque más clientes pueden comprar al mismo tiempo antes de que su servidor se vea afectado "
+            "Things": "Cosas",
+            "Register your larger things: What it is, when and where you bought it, the serial number, warranty and so on.": "Registre sus cosas más grandes: qué es, cuándo y dónde lo compró, el número de serie, la garantía y así.",
+            "Register you cars here and all service you have done to the cars. Or your sneekers collection.": "Registre sus autos aquí y todo el servicio que ha prestado a los autos. O su colección de sneekers",
+            "Usage": "Uso",
+            "Here you can register when you use one of your registered things. It could for example be one of your sneekers while training.": "Aquí puedes registrarte cuando utilizas una de tus cosas registradas. Podría ser, por ejemplo, uno de tus sneekers mientras entrenas",
+            "Planning": "Planificación",
+            "Your projects. You can set up tasks in projects here. Date when things must be done and when they were done.": "Sus proyectos. Puede configurar tareas en proyectos aquí. Fecha en que se deben hacer las cosas y cuándo se hicieron",
+            "Diary": "Diario",
+            "How was your day. Write the text version of your day and use links to your data.": "Cómo estuvo tu día. Escribe la versión de texto de tu día y usa enlaces a tus datos",
+            "Media": "Medios",
+            "Media is images/video/audio - Your catalog with media and its meta data.": "Los medios son imágenes / video / audio: su catálogo con los medios y sus metadatos",
+            "You can see small versions of your images and mark the persons faces and connect them to contacts, places, travels, dates.": "Puede ver versiones pequeñas de sus imágenes y marcar las caras de las personas y conectarlas a contactos, lugares, viajes, fechas",
+            "Contact": "Contacto",
+            "The contact information to your friends. Telephone number, email, Skype, Address, birthday, shoe size or whatever you like to register about your contacts.": "La información de contacto de sus amigos. Número de teléfono, correo electrónico, Skype, dirección, fecha de nacimiento, talla de zapatos o lo que quiera registrar sobre sus contactos",
+            "Budget": "Presupuesto",
+            "Calculate your income and expected expenses in this plugin. You can then see what is reasonable to invest in.": "Calcule sus ingresos y gastos esperados en este complemento. Luego podrá ver en qué es razonable invertir",
+            "Expense": "Gastos",
+            "Register your purchases to keep track where the money goes. Put expences in groups so you see how much your car cost, your hobby, food etc.": "Registre sus compras para realizar un seguimiento de dónde va el dinero. Coloque los gastos en grupos para que vea cuánto cuesta su automóvil, su pasatiempo, comida, etc.",
+            "Perhaps you can cut costs without cutting down on comfort. You need a clear picture of your expences to take the right decisions.": "Quizás pueda reducir costos sin reducir la comodidad. Necesita una imagen clara de sus gastos para tomar las decisiones correctas",
+            "Review": "Revisión",
+            "Write your reviews of films, books, records, TV series, games, subscriptions, magazines. Then you can see what movies you have seen and when you saw them.": "Escriba sus reseñas de películas, libros, discos, series de televisión, juegos, suscripciones, revistas. Luego podrá ver qué películas ha visto y cuándo las vio",
+            "Place": "Lugar",
+            "You can register places you have visited and get a map with dots. You can also link a place to a story, image, training and so on.": "Puede registrar lugares que ha visitado y obtener un mapa con puntos. También puede vincular un lugar a una historia, imagen, capacitación, etc.",
+            "Event": "Evento",
+            "Register events you want to participate in or have participated in. You can link a place, a review etc.": "Registre los eventos en los que desea participar o en los que haya participado. Puede vincular un lugar, una reseña, etc."
         }
     }
 }

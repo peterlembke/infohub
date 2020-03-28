@@ -1,5 +1,7 @@
 # Accessibility
-Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be really good at that. 
+Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be really good at that.
+
+[columns]
 Not everyone has a perfect locomotor system together with sharp eyesight that see all colours.
 
 People with normal sight also benefit from these systems. 
@@ -97,6 +99,8 @@ Mouse is not a target device.
 * No overlays
 * No mouse hover
 * No mouse tooltips
+
+[/columns]
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  

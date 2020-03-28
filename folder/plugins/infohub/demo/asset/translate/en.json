@@ -204,12 +204,6 @@
             "This is a Bing map": "This is a Bing map",
             "Bing is a 3rd party map streaming service. Use it in a presentation box.": "Bing is a 3rd party map streaming service. Use it in a presentation box."
         },
-        "infohub_demo_markdown": {
-            "Write your markdown text here or press the button above to select a local text file.": "Write your markdown text here or press the button above to select a local text file.",
-            "Markdown renderer": "Markdown renderer",
-            "Select what markdown renderer you want to test": "Select what markdown renderer you want to test",
-            "Markdown to HTML": "Markdown to HTML"
-        },
         "infohub_demo_menu": {
             "Demo Collection": "Demo Collection",
             "Text demo": "Text demo",
@@ -223,7 +217,6 @@
             "Tabs list": "Tabs list",
             "Form - simple": "Form - simple",
             "Form - Advanced": "Form - Advanced",
-            "Markdown text": "Markdown text",
             "Document text": "Document text"
         },
         "infohub_demo_text": {

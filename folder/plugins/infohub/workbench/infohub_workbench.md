@@ -1,21 +1,23 @@
 # Infohub Workbench
-Handles the screen setup for your apps  
-
-// @todo Update this document 
+Handles the screen setup for your plugins.
 
 # Introduction
-Infohub Workbench handle what you see on the screen. It sets up the basic graphical user interface.  
-Gives you the possibility to start plugins and switch between started plugins.  
+Infohub Workbench handle what you see on the screen. It sets up the basic graphical user interface. And it starts [infohub_launcher](plugin,infohub_launcher).
+  
+Infohub Workbench gives you the possibility to start your plugins and switch between started plugins.
 
 # Function startup
 The function "startup" has nothing to do with Workbench. The very first message sent by include/start.js send the message to infohub_exchange->startup.
-Then startup reads infohub_exchange.json to determine where the next message should go by looking at the URL domain you used.  
+
+Then startup reads infohub_exchange.json to determine where the next message should go by looking at the URL domain you used.
+  
 So startup really has nothing to do with Workbench. You will usually not use any function called "startup" in your plugins.
 You can read more about the startup procedure at: [Node Client](main,node_client)  
 
 # Function setup_gui
-You can setup your graphical user interface with this function. Workbench has already prepared an area for you. You will get a box_id that you can fill with whatever you like.  
-This box_id is the one and only box_id you get. You need to create the boxes you need within this box_id. I suggest you start by changing box_mode on this box to "side" or "under"  
+You can setup your graphical user interface with this function. Workbench has already prepared an area for you. You will get a box_id that you can fill with whatever you like.
+  
+This box_id is the one and only box_id you get. You need to create the boxes you need within this box_id. I suggest you start by changing box_mode on this box to "side" or "under" so you can create more boxes.  
 
 ```
 if ($in.step === 'step_start')
@@ -86,9 +88,12 @@ To learn more about how to use the boxes I recommend reading: [Infohub_View](plu
 
 # Launcher
 The plugin Infohub_Launcher is auto started by Workbench. Launcher show two lists. One is is "Available plugins", that is a list of plugins that can be started from Workbench. The list come from the server and is the same for every visitor.
+
 You can click an icon and add it to "My list".
 The other list is "My list". That list show all plugins you want in your list. This list is personal and stored in your browser cache.
-You can "Remove" and icon from "My list" and you can "Run" a plugin from "My list".  
+
+You can "Remove" and icon from "My list" and you can "Run" a plugin from "My list".
+  
 Read more about: [Infohub_Launcher](plugin,infohub_launcher)  
 
 # License
@@ -97,4 +102,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Created 2016-04-01 by Peter Lembke  
-Updated 2019-07-12 by Peter Lembke  
+Updated 2020-03-28 by Peter Lembke  

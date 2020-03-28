@@ -92,7 +92,7 @@ function infohub_checksum_crc32() {
 
         let $verified = 'false';
         const $response = _Crc32($in.value);
-        if ($response === $in['checksum']) {
+        if ($response === $in.checksum) {
             $verified = 'true';
         }
 

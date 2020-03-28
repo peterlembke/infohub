@@ -175,7 +175,7 @@ function infohub_doc_navigate() {
     };
 
     /**
-     * When you click the refresh button
+     * When you click the refresh button it gets the document list and view the document names in the navigation tree
      * @version 2019-05-29
      * @since 2019-05-29
      * @author Peter Lembke

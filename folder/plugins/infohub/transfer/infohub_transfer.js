@@ -883,7 +883,7 @@ function infohub_transfer() {
      * A message that is a sub call to the server will leave its callstack
      * and the rest of the message will continue to the server
      *
-     * @version 2019-06-26
+     * @version 2020-03-14
      * @since 2019-06-26
      * @author Peter Lembke
      * @param $message
@@ -910,7 +910,7 @@ function infohub_transfer() {
                 break leave;
             }
 
-            let $hubId = _GetUniqueIdentiferHubId(); // Get unique identifier
+            let $hubId = _GetUniqueIdentiferHubId('callstack'); // Get unique identifier
             $globalCallStack[$hubId] = _ByVal($message.callstack);
 
             $message.callstack = [{
@@ -972,14 +972,18 @@ function infohub_transfer() {
     /**
      * Get a hub id. Unique string
      *
-     * @version 2018-07-28
+     * @version 2020-03-14
      * @since 2018-07-28
      * @author Peter Lembke
      * @return string
      */
-    const _GetUniqueIdentiferHubId = function()
+    const _GetUniqueIdentiferHubId = function($prefix)
     {
-        const $result = _MicroTime() + ':' + Math.random().toString().substring(2);
+        if (_Empty($prefix) === 'false') {
+            $prefix = $prefix + '-';
+        }
+
+        const $result = $prefix + _MicroTime() + ':' + Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654
         // substring(2) remove the 0. and leave 4568548654
 

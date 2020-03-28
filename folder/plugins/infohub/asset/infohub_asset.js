@@ -50,13 +50,19 @@ function infohub_asset() {
     const _GetCmdFunctions = function() {
         return {
             'create': 'normal', // Used by infohub_render to render an asset
-            'update_all_assets': 'normal', // Use by infohub_offline, infohub_asset
-            'update_all_plugin_assets': 'normal', // Use by owner, infohub_asset
-            'update_specific_assets': 'normal', // Use by infoub_launcher, infohub_asset. Update specific assets for several plugins
-            'get_plugin_assets': 'normal', // Use by owner, infohub_asset. Get named assets for a plugin
-            'get_asset_and_license': 'normal' // Use by owner, infohub_asset
+            'setup_gui': 'normal', // Render the graphical user interface
+            'event_message': 'normal', // Will render asset meta data
+            'update_all_assets': 'normal', // Use by infohub_offline and infohub_asset
+            'update_all_plugin_assets': 'normal', // Use by asset owner and by infohub_asset
+            'update_specific_assets': 'normal', // Use by infohub_launcher, infohub_asset. Update specific assets for several plugins
+            'get_plugin_assets': 'normal', // Used by asset owner and by infohub_asset. Get named assets for a plugin
+            'get_asset_and_license': 'normal' // Use by asset owner and by function create to get an asset + license
         };
     };
+
+    let $loadedAsset = {};
+
+    let $classTranslations = {};
 
     /**
      * Get the level 1 plugin name from a plugin name
@@ -75,6 +81,24 @@ function infohub_asset() {
         }
 
         return $pluginName;
+    };
+
+    /**
+     * Translate - Substitute a string for another string using a class local object
+     * @param {type} $string
+     * @returns string
+     */
+    $functions.push('_Translate');
+    const _Translate = function ($string)
+    {
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
+
+        return _GetData({
+            'name': _GetClassName() + '|' + $string,
+            'default': $string, 'data': $classTranslations, 'split': '|'
+        });
     };
 
     /**
@@ -111,9 +135,8 @@ function infohub_asset() {
             $in.step = 'step_end';
         }
 
-        // @todo Why this constraint? Can I remove it?
-        if ($in.from_plugin.plugin !== 'infohub_asset' && $in.from_plugin.plugin !== 'infohub_render' && $in.from_plugin.plugin !== 'infohub_workbench') {
-            $in.response.message = 'Only infohub_asset, infohub_render, infohub_workbench is allowed to call this function.';
+        if ($in.from_plugin.plugin !== 'infohub_render') {
+            $in.response.message = 'Only infohub_render is allowed to call this function.';
             $in.step = 'step_end';
         }
 
@@ -155,6 +178,458 @@ function infohub_asset() {
             'message': $in.response.message,
             'html': $in.html,
             'css_data': $in.css_data
+        };
+    };
+
+    /**
+     * Setup the Asset Graphical User Interface
+     * One refresh button and a result container
+     * @version 2020-03-22
+     * @since   2020-03-22
+     * @author  Peter Lembke
+     */
+    $functions.push('setup_gui');
+    const setup_gui = function ($in)
+    {
+        const $default = {
+            'box_id': '',
+            'event_data': '',
+            'step': 'step_start',
+            'response': {},
+            'data_back': {
+                'to_render': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            let $anyRendered = 'false';
+            let $toRender = {};
+
+            for (let $pluginName in $loadedAsset)
+            {
+                if ($loadedAsset.hasOwnProperty($pluginName) === false) {
+                    continue;
+                }
+
+                if ($loadedAsset[$pluginName].rendered === 'true') {
+                    $anyRendered = 'true';
+                    continue;
+                }
+
+                $toRender[$pluginName] = _ByVal($loadedAsset[$pluginName]);
+            }
+
+            $in.data_back.to_render = _ByVal($toRender);
+
+            $in.step = 'step_box_mode';
+            if ($anyRendered === 'true') {
+                $in.step = 'step_render_all_major';
+            }
+        }
+
+        if ($in.step === 'step_box_mode')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'box_mode'
+                },
+                'data': {
+                    'box_id': $in.box_id,
+                    'box_mode': 'side',
+                    'digits': '2'
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'to_render': $in.data_back.to_render,
+                    'step': 'step_get_translations'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_translations')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_translate',
+                    'function': 'get_translate_data'
+                },
+                'data': {},
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'to_render': $in.data_back.to_render,
+                    'step': 'step_get_translations_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_translations_response') {
+            $classTranslations = _ByVal($in.response.data);
+            $in.step = 'step_render_refresh_button';
+        }
+
+        if ($in.step === 'step_render_refresh_button')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'refresh': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Refresh'),
+                            'event_data': 'refresh',
+                            'to_plugin': 'infohub_asset',
+                            'to_function': 'setup_gui'
+                        }
+                    },
+                    'how': {
+                        'mode': 'separate boxes',
+                        'text': '[refresh]'
+                    },
+                    'where': {
+                        'parent_box_id': 'main.body.infohub_asset',
+                        'max_width': 160,
+                        'scroll_to_box_id': 'true'
+                    }
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'to_render': $in.data_back.to_render,
+                    'step': 'step_render_all_major'
+                }
+            });
+        }
+
+        if ($in.step === 'step_render_all_major')
+        {
+            let $what = {},
+                $oneMajor = {},
+                $textArray = [];
+
+            for (let $pluginName in $in.data_back.to_render) {
+                if ($in.data_back.to_render.hasOwnProperty($pluginName) === false) {
+                    continue;
+                }
+
+                $oneMajor = {
+                    'plugin': 'infohub_rendermajor',
+                    'type': 'presentation_box',
+                    'head_label': $pluginName,
+                    'content_data': 'Assets',
+                    'foot_text': '.'
+                };
+
+                $what[$pluginName] = $oneMajor;
+                $textArray.push($pluginName);
+                $loadedAsset[$pluginName].rendered = 'true';
+            }
+
+            if (_Count($textArray) > 0) {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': $what,
+                        'how': {
+                            'mode': 'separate boxes',
+                            'text': '[' + $textArray.join('][') + ']'
+                        },
+                        'where': {
+                            'parent_box_id': 'main.body.infohub_asset',
+                            'max_width': 640,
+                            'scroll_to_box_id': 'false'
+                        }
+                    },
+                    'data_back': {
+                        'box_id': $in.box_id,
+                        'to_render': $in.data_back.to_render,
+                        'step': 'step_render_assets'
+                    }
+                });
+            }
+        }
+
+        let $messageArray = [];
+
+        if ($in.step === 'step_render_assets')
+        {
+            for (let $pluginName in $in.data_back.to_render)
+            {
+                if ($in.data_back.to_render.hasOwnProperty($pluginName) === false) {
+                    continue;
+                }
+
+                let $textArray = [],
+                    $what = {};
+
+                for (let $assetPath in $in.data_back.to_render[$pluginName])
+                {
+                    if ($in.data_back.to_render[$pluginName].hasOwnProperty($assetPath) === false) {
+                        continue;
+                    }
+
+                    if ($assetPath === 'rendered') {
+                        continue;
+                    }
+
+                    const $data = $in.data_back.to_render[$pluginName][$assetPath];
+                    const $assetName = $data.asset_type + '-' + $data.asset_name;
+                    const $link = 'link_' + $assetName;
+                    const $image = 'image_' + $assetName;
+                    const $asset = 'asset_' + $assetName;
+                    const $eventData = $pluginName + '|' + $assetPath;
+
+                    $what[$link] = {
+                        'type': 'link',
+                        'subtype': 'link',
+                        'alias': 'my_link',
+                        'event_data': $eventData,
+                        'show': '[' + $image + ']',
+                        'to_plugin': 'infohub_asset',
+                        'class': 'my_list_link',
+                        'css_data': {
+                            '.my_list_link': 'display: inline-block;'
+                        }
+                    };
+
+                    $what[$image] = {
+                        'type': 'common',
+                        'subtype': $data.extension,
+                        'alias': 'my_icon',
+                        'data': '[' + $asset + ']',
+                        'class': 'svg',
+                        'css_data': {
+                            '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                        }
+                    };
+
+                    $what[$asset] = {
+                        'plugin': 'infohub_asset',
+                        'type': $data.asset_type,
+                        'asset_name': $data.asset_name,
+                        'plugin_name': $pluginName
+                    };
+
+                    $textArray.push($link);
+                }
+
+                const $text = '[' + $textArray.join('][') + ']';
+
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': $what,
+                        'how': {
+                            'mode': 'one box',
+                            'text': $text
+                        },
+                        'where': {
+                            'box_id': 'main.body.infohub_asset.' + $pluginName + '.[' + $pluginName + '_content]',
+                            'max_width': 640,
+                            'scroll_to_box_id': 'false'
+                        }
+                    },
+                    'data_back': {
+                        'box_id': $in.box_id,
+                        'to_render': $in.data_back.to_render,
+                        'step': 'step_end'
+                    }
+                });
+
+                $messageArray.push($messageOut);
+            }
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'plugin GUI is done',
+            'messages': $messageArray
+        };
+    };
+
+    /**
+     * Render the asset meta data
+     * @version 2020-03-24
+     * @since   2020-03-24
+     * @author  Peter Lembke
+     */
+    $functions.push('event_message');
+    const event_message = function ($in)
+    {
+        const $default = {
+            'box_id': '',
+            'event_data': '',
+            'step': 'step_start',
+            'data_back': {
+                'plugin_name': '',
+                'asset_path': '',
+                'asset_name': '',
+                'asset_extension': ''
+            },
+            'response': {
+                'answer': '',
+                'message': '',
+                'assets': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            let $data = $in.event_data.split('|');
+            const $pluginName = $data[0];
+            const $assetPath = $data[1];
+
+            $data = $assetPath.split('.');
+            const $assetName = $data[0];
+            const $assetExtension = $data[1];
+            const $assetLicense = $assetName + '.json';
+
+            let $assetList = {};
+            $assetList[$assetPath] = '';
+            $assetList[$assetLicense] = '';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_asset',
+                    'function': 'get_plugin_assets'
+                },
+                'data': {
+                    'plugin_name': $pluginName,
+                    'list': $assetList
+                },
+                'data_back': {
+                    'step': 'step_get_assets_response',
+                    'box_id': $in.box_id,
+                    'event_data': $in.event_data,
+                    'plugin_name': $pluginName,
+                    'asset_path': $assetPath,
+                    'asset_name': $assetName,
+                    'asset_extension': $assetExtension
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_assets_response')
+        {
+            let $assetPath = $in.data_back.asset_name + '.json';
+
+            let $data = _GetData({
+                'name': 'response|assets|' + $assetPath + '|contents',
+                'default': {},
+                'data': $in,
+                'split': '|'
+            });
+
+            const $default = {
+                "publisher_name": "",
+                "publisher_url": "",
+                "publisher_note": "",
+                "publisher_video_url": "",
+                "collection_name": "",
+                "collection_url": "",
+                "collection_note": "",
+                "license_name": "",
+                "license_url": "",
+                "license_note": "",
+                "author_name": "",
+                "author_url": "",
+                "author_note": "",
+                "icon_name": "",
+                "icon_url": "",
+                "icon_note": "",
+                "derivative_work": "",
+                "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}. Derivative work: {derivative_work}"
+            };
+
+            $data = _Default($default, $data);
+
+            const $boxId = $in.box_id + '.[' + $in.data_back.plugin_name + '_foot]';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'my_text': {
+                            'type': 'text',
+                            'text': "[icon_name_link] from [collection_name_link] by [author_name_link] from [publisher_name_link]. License: [license_name_link]. Derivative work: [derivative_work]"
+                        },
+                        'icon_name_link': {
+                            'type': 'link',
+                            'subtype': 'external',
+                            'show': _Translate($data.icon_name),
+                            'url': $data.icon_url
+                        },
+                        'collection_name_link': {
+                            'type': 'link',
+                            'subtype': 'external',
+                            'show': _Translate($data.collection_name),
+                            'url': $data.collection_url
+                        },
+                        'author_name_link': {
+                            'type': 'link',
+                            'subtype': 'external',
+                            'show': _Translate($data.author_name),
+                            'url': $data.author_url
+                        },
+                        'publisher_name_link': {
+                            'type': 'link',
+                            'subtype': 'external',
+                            'show': _Translate($data.publisher_name),
+                            'url': $data.publisher_url
+                        },
+                        'license_name_link': {
+                            'type': 'link',
+                            'subtype': 'external',
+                            'show': _Translate($data.license_name),
+                            'url': $data.license_url
+                        },
+                        'derivative_work': {
+                            'type': 'common',
+                            'subtype': 'value',
+                            'data': _Translate($data.derivative_work)
+                        }
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[my_text]'
+                    },
+                    'where': {
+                        'box_id': $boxId,
+                        'max_width': 320
+                    }
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Render asset data done'
         };
     };
 
@@ -575,6 +1050,8 @@ function infohub_asset() {
     /**
      * A client plugin can ask for its assets and have to already know what asset names it wants.
      * ONLY those assets that are named in 'list' will be returned.
+     * list contain keys with empty data. The key is a complete path to the asset starting in the plugin asset folder.
+     * Example { 'icon/export.json': '', 'icon/export.svg': '', 'translate/sv.json': ''}
      * @version 2018-11-10
      * @since 2017-12-23
      * @author Peter Lembke
@@ -675,7 +1152,6 @@ function infohub_asset() {
      * A plugin can ask infohub_asset for one of its assets. It gets the asset data and the asset license.
      * With this function you get images (jpeg, png, gif, svg), audio (oga, mp3), video (ogv, mp4)
      * Used by function "create" to render an asset.
-     * @todo This function will later update the license information in the GUI. But that is for the future.
      * @version 2018-05-12
      * @since 2018-05-12
      * @author Peter Lembke
@@ -684,7 +1160,7 @@ function infohub_asset() {
     const get_asset_and_license = function($in)
     {
         const $default = {
-            'plugin_name': '', // Use by infohub_asset, infohub_render
+            'plugin_name': '', // Use by infohub_asset and by infohub_render
             'asset_name': '',
             'asset_type': 'icon', // image, audio, video, icon
             'extension': 'svg', // jpeg, png, gif, svg, oga, mp3, ogv, mp4, json
@@ -703,20 +1179,21 @@ function infohub_asset() {
         $in = _Default($default, $in);
 
         let $fileName, $asset, $assetLicense;
-        let $keepAsset = 'true';
+        let $keepAsset = 'false';
         let $answer = 'false';
         let $message = 'Nothing to report';
+        let $messageArray = [];
+
+        if ($in.from_plugin.node !== 'client') {
+            $message = 'I only accept calls from client plugins';
+            $in.step = 'step_end';
+        }
 
         let $pluginName = _GetGrandPluginName($in.from_plugin.plugin);
         if ($in.from_plugin.plugin === 'infohub_asset') {
             if (_Empty($in.plugin_name) === 'false') {
                 $pluginName = $in.plugin_name;
             }
-        }
-
-        if ($in.from_plugin.node !== 'client') {
-            $message = 'I only accept calls from client plugins';
-            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_get_plugin_assets')
@@ -754,7 +1231,8 @@ function infohub_asset() {
             $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
 
             $asset = _GetData({
-                'name': 'response|assets|' + $fileName + '|contents', 'default': '',
+                'name': 'response|assets|' + $fileName + '|contents',
+                'default': '',
                 'data': $in,
                 'split': '|'
             });
@@ -844,6 +1322,7 @@ function infohub_asset() {
 
         if ($in.step === 'step_default_image') {
             $asset = 'data:image/svg+xml;base64,' + btoa($asset);
+            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_default_audio') {
@@ -854,6 +1333,7 @@ function infohub_asset() {
                 "asset_note": "This is the default audio that are heard when an asset is missing license information or data.",
                 "asset_date": "2018-05-13"
             });
+            $in.step = 'step_end';
         }
 
         if ($in.step === 'step_default_video') {
@@ -864,15 +1344,38 @@ function infohub_asset() {
                 "asset_note": "This is the default video that are shown when an asset is missing license information or data.",
                 "asset_date": "2018-05-13"
             });
+            $in.step = 'step_end';
+        }
+
+        if ($in.step === 'step_end' && $keepAsset === 'true')
+        {
+
+            if ($in.extension !== 'json' && $in.extension !== 'xml')
+            {
+                if (_IsSet($loadedAsset[$in.plugin_name]) === 'false') {
+                    $loadedAsset[$in.plugin_name] = {
+                        'rendered': 'false'
+                    };
+                }
+
+                const $key = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
+                $loadedAsset[$in.plugin_name][$key] = {
+                    'plugin_name': $in.plugin_name,
+                    'asset_type': $in.asset_type,
+                    'asset_name': $in.asset_name,
+                    'extension': $in.extension
+                };
+            }
         }
 
         return {
             'answer': $answer,
             'message': $message,
             'asset': $asset,
-            'asset_license': $assetLicense
+            'asset_license': $assetLicense,
+            'asset_exist': $keepAsset,
+            'messages': $messageArray
         };
-
     };
 
     /**

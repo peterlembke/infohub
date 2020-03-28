@@ -183,7 +183,7 @@ function infohub_rendermenu() {
             'custom_variables': {}, // You can add more custom variables like the data variable above
             'css_data': {
                 '.button':
-                    'font-size: 16px;'+
+                    'font-size: 1.5em;'+
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 16px;'+

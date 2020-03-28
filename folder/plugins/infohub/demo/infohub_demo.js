@@ -364,7 +364,7 @@ function infohub_demo() {
     };
 
     /**
-     * Simple demo how to use links in a Markdown document
+     * Simple demo how to use links in a Markdown document rendered by infohub_renderdocument
      * @version 2020-01-24
      * @since 2020-01-24
      * @author Peter Lembke

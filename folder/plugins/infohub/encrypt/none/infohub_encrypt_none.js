@@ -81,12 +81,12 @@ function infohub_encrypt_none() {
 
         leave: {
 
-            if (_Empty($in['text']) === 'true') {
+            if (_Empty($in.text) === 'true') {
                 $message = 'Text is empty';
                 break leave;
             }
 
-            if (_Empty($in['password']) === 'true') {
+            if (_Empty($in.password) === 'true') {
                 $message = 'Password is empty';
                 break leave;
             }

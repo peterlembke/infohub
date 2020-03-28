@@ -114,6 +114,14 @@ function infohub_render_map() {
         return $parameter.join(' ');
     };
 
+    /**
+     * Adds an overlay over the iframe so you can scroll past the map and not zoom into it.
+     * Click the padLock to zoom with the wheel.
+     * @param $html
+     * @param $alias
+     * @returns {string}
+     * @private
+     */
     const _AddOverlay = function ($html, $alias)
     {
         const $id = '{box_id}_' + $alias,
@@ -146,6 +154,11 @@ function infohub_render_map() {
     {
         if (_IsSet($in.subtype) === 'false') {
             $in.subtype = 'openstreetmap';
+        }
+
+        // iframes are deprecated as a security breach. Will show a link instead.
+        if ($in.subtype.substr($in.subtype.length-4,4) !== 'link') {
+            $in.subtype = $in.subtype + 'link';
         }
 
         $in.func = _GetFuncName($in.subtype);

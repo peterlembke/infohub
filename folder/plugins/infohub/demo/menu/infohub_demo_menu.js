@@ -196,13 +196,6 @@ function infohub_demo_menu() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
                                 },
-                                'markdown_demo': {
-                                    'alias': 'markdown_demo_link',
-                                    'event_data': 'markdown',
-                                    'button_label': _Translate('Markdown text'),
-                                    'to_plugin': 'infohub_demo',
-                                    'to_function': 'click_menu'
-                                },
                                 'document_demo': {
                                     'alias': 'document_demo_link',
                                     'event_data': 'document',

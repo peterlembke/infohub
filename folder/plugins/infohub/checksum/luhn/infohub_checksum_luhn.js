@@ -62,7 +62,7 @@ function infohub_checksum_luhn() {
         const $default = {'value': '' };
         $in = _Default($default, $in);
 
-        $in['value'] = _RemoveAllButNumbers($in['value']);
+        $in.value = _RemoveAllButNumbers($in.value);
 
         const $result = _LuhnCalculateChecksum($in.value);
 

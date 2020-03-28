@@ -204,12 +204,6 @@
             "This is a Bing map": "Detta är en Bing-karta",
             "Bing is a 3rd party map streaming service. Use it in a presentation box.": "Bing är en tredjeparts karttjänst. Använd den i en presentationsruta."
         },
-        "infohub_demo_markdown": {
-            "Write your markdown text here or press the button above to select a local text file.": "Skriv din markdowntext här eller tryck på knappen ovan för att välja en lokal textfil.",
-            "Markdown renderer": "Markdownrenderare",
-            "Select what markdown renderer you want to test": "Välj vilken markdownrenderare du vill använda",
-            "Markdown to HTML": "Markdown till HTML"
-        },
         "infohub_demo_menu": {
             "Demo Collection": "Demosamling",
             "Text demo": "Textdemo",
@@ -223,7 +217,6 @@
             "Tabs list": "Fliklista",
             "Form - simple": "Formulär - enkel",
             "Form - Advanced": "Formulär - Avancerad",
-            "Markdown text": "Markdowntext",
             "Document text": "Dokumenttext"
         },
         "infohub_demo_text": {

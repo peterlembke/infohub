@@ -1,6 +1,6 @@
 # Infohub Callback
 Turn the url into a message for infohub  
-
+[columns]
 # Introduction
 callback.php and infohub_callback.php are server side files only.  
 The web use urls with parameters, infohub do not. Callback.php is a mediator since it takes the parameters and turn them into a message suitable for infohub. The plugin is named Callback because the idea behind this was that most payment methods do a callback to the server, and they do it their way - with parameters in urls.  
@@ -67,6 +67,7 @@ Why use .htaccess? It slows down Apache and do not work in the web server Nginx.
 The reality is that most web hosts that you can rent uses Apache, and they do not allow you access to the apache settings. Your only option is to use a .htaccess file.  
 If you do have access to the Apache settings then you can transfer the content of the .htaccess file to the central config in Apache.  
 Nginx is built for speed. InfoHub probably work very well in Nginx. One day there will be a complete guide for installing InfoHub on Nginx. Until then you can <a href="https://www.nginx.com/blog/creating-nginx-rewrite-rules/" target="_blank">find a good guide here</a>.  
+[/columns]
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

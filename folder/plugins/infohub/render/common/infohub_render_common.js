@@ -465,7 +465,7 @@ function infohub_render_common() {
             $in.css_data = {
                 'parent' : 'break-inside: avoid;',
                 'fieldset' : 'border: 1px solid #bcdebc; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
-                'fieldset .legend': 'color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 16px; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px;'
+                'fieldset .legend': 'color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.5em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px;'
             };
         }
 
@@ -520,8 +520,9 @@ function infohub_render_common() {
 
     /**
      * Display an SVG image
-     * Make sure your svg sets width="100%" and set height proportionally in percent
-     * Example: if viewBox="0 0 457 60" then set w=100%, h=60/457*100=13%
+     * Make sure your svg sets width="100%" and height="100%" and have a viewBox parameter.
+     * SVG that use (# will interfere with each other. In infohub_render_text.js -> _SvgIdsMoreUnique
+     * we have a solution that make IDs unique.
      * @version 2018-12-30
      * @since   2018-12-30
      * @author  Peter Lembke
@@ -542,18 +543,6 @@ function infohub_render_common() {
 
         if ($in.data !== '')
         {
-            if ($in.data.indexOf('<svg') >= 0) {
-                $in.data = _Replace("\n", '', $in.data);
-
-                // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
-                $in.data = _Replace("(#", '(#{alias}', $in.data);
-                $in.data = _Replace('id="', 'id="{alias}', $in.data);
-                $in.data = _Replace('href="#', 'href="#{alias}', $in.data);
-
-                const $id = '{box_id}_' + $in.alias + '-';
-                $in.data = _Replace("{alias}", $id, $in.data);
-            }
-
             const $parameters = _GetId({
                 'id': $in.alias,
                 'name': $in.alias,

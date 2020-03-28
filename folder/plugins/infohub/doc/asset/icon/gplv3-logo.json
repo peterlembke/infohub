@@ -1,0 +1,20 @@
+{
+    "publisher_name": "gnu.org",
+    "publisher_url": "https://www.gnu.org/",
+    "publisher_note": "",
+    "publisher_video_url": "",
+    "collection_name": "GNU License Logos",
+    "collection_url": "https://freesvg.org/by/OpenClipart",
+    "collection_note": "Official logos. If you are releasing work under the GFDL, or version 3 of the GNU GPL, LGPL, or AGPL, feel free to use these buttons on your site or in your application to advertise the license.",
+    "license_name": "Public domain",
+    "license_url": "http://creativecommons.org/licenses/by-sa/4.0/",
+    "license_note": "These images are in the public domain.",
+    "author_name": "Aryeom Han",
+    "author_url": "https://film.zemarmot.net",
+    "author_note": "",
+    "icon_name": "GPLv3",
+    "icon_url": "https://www.gnu.org/graphics/license-logos.html",
+    "icon_note": "GPLv3 or Later logo made by Aryeom Han for the Free Software Foundation 2019 fundraising.",
+    "derivative_work": "Deleted a lot of objects in the svg that did not give any visible changes. 100Kb -> 20Kb",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

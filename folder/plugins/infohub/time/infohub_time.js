@@ -83,7 +83,7 @@ function infohub_time() {
         return {
             'answer': $answer,
             'message': $message,
-            'type': $in['type'],
+            'type': $in.type,
             'data': $result
         };
     };

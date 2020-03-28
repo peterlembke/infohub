@@ -1,6 +1,7 @@
 # Infohub Template
-Your quick start in InfoHub  
-
+Your quick start in InfoHub
+  
+[columns]
 # Introduction
 Infohub_Template is just a bare bone plugin to InfoHub that you can copy and rename.  
 This gives you a quick start when you create your plugin.  
@@ -14,7 +15,8 @@ The JSON file with {plugin_name}.json are the plugin configuration file. Discour
 
 # The plugin license
 If you write your plugin from scratch then you can use any license you want for your plugin. The template license is GNU GPL v3 or later. If you base your plugin on the template then your plugin will have this license.  
-If you want your plugin to work in a standard InfoHub system then it must be licensed as GNU GPL v3. If you modify the InfoHub core to run other licenses, then you can not call the core InfoHub.  
+If you want your plugin to work in a standard InfoHub system then it must be licensed as GNU GPL v3. If you modify the InfoHub core to run other licenses, then you can not call the core InfoHub.
+![GPLv3](infohub_doc/asset/icon/gplv3-logo.svg)  
 
 # Build your own plugin
 Under the folder "plugins", create your own sub folder for your domain. It can be any low letter name. For this example we use: mydomain  
@@ -28,6 +30,7 @@ You can now write any code you want in your functions. Just make sure you have s
 
 # Documentation
 This documentation file can have many sections. Be thorough when you write documentation.  
+[/columns]
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

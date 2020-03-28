@@ -231,7 +231,8 @@ function infohub_render_text() {
             $next = $start +1;
 
             if (typeof $copy[$part] !== 'undefined') {
-                $in.text = $in.text.replace($find, $copy[$part]);
+                const $textPart = _SvgIdsMoreUnique($part, $copy[$part]);
+                $in.text = $in.text.replace($find, $textPart);
                 continue;
             }
 
@@ -244,6 +245,30 @@ function infohub_render_text() {
         }
 
         return $in.text;
+    };
+
+    /**
+     * Update SVG IDs to be more unique
+     * @version 2020-03-27
+     * @since   2020-03-27
+     * @author  Peter Lembke
+     */
+    const _SvgIdsMoreUnique = function ($alias, $asset)
+    {
+        if ($asset.indexOf('<svg') >= 0)
+        {
+            $asset = _Replace("\n", '', $asset);
+
+            // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
+            $asset = _Replace("(#", '(#{alias}', $asset);
+            $asset = _Replace('id="', 'id="{alias}', $asset);
+            $asset = _Replace('href="#', 'href="#{alias}', $asset);
+
+            const $id = '{box_id}_' + $alias + '-';
+            $asset = _Replace("{alias}", $id, $asset);
+        }
+
+        return $asset;
     };
 
     /**

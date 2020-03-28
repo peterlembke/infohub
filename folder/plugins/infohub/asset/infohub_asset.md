@@ -1,15 +1,22 @@
 # Infohub Asset
-Syncs asset files from the server to the client.  
+Syncs asset files from the server to the client. Provide asset to plugin tht owns it. Provide all assets to infohub_asset, infohub_launcher, infohub_translate.
 
+Can also render an asset.
+
+[columns]
 # Introduction
-Infohub_asset is both a server plugin and a client plugin. Assets are data files that a plugin owns. Like icons, translations, configuration and other data.  
-When you start a plugin from the Workbench, the plugin assets are synced down and stored in the local database. Now the client plugin can ask for specific assets.  
+Infohub_asset is both a server plugin and a client plugin. Assets are data files that a plugin owns. Like icons, translations, configuration and other data.
+
+When you start a plugin from the Workbench, the plugin assets are synced down and stored in the local database. Now the client plugin can ask for its own specific assets.  
 
 # Client side
 Only plugins that can be started from workbench can have assets.  
-When a plugin need one of its asset files it asks infohub_asset for the file data.  
-Infohub Launcher want launcher data from all plugins that have launcher data, and the start icon and icon license.
+When a plugin need one of its asset files it asks infohub_asset for the file data.
+  
+Infohub Launcher want launcher data from all plugins that have launcher data, and the start icon and icon license.  
 Infohub Launcher can ask Infohub Asset for the data despite not being the owner of the assets.  
+
+When a plugin want to use its translation files it asks Infohub Translate to merge together all translation files for the languages the user prefer. Infohub Translate is allowed to contact Infohub Asset to get all the wanted translation assets.
 
 ## create
 Used by infohub_render to render an asset  
@@ -209,13 +216,15 @@ The "asset/{plugin_name}/index" will be updated in Storage by deleting 'a_folder
 ```
     
 # update_specific_assets
-Used by infohub_asset, infoub_launcher to update specific assets in multiple plugins.  
-The list you send to this function is supposed to be accurate. The function will check the local storage for the assets.  
-Missing assets. Assets exist with the wrong checksum. Assets exist with the right checksum.  
-Assets that are correct are removed from the list. They will not be updated.  
+Used by infohub_asset, infoub_launcher to update specific assets in multiple plugins. The list you send to this function is supposed to be accurate. 
+
+The function will check the local storage for the assets. Missing assets. Assets exist with the wrong checksum. Assets exist with the right checksum. Assets that are correct are removed from the list. They will not be updated.
+
 If the final list is empty then return control to the caller.  
-If there are only assets left in the list that has the wrong checksum then send a short tail message to the server and return control to the caller. Answer will be handled when it arrive from the server.  
+If there are only assets left in the list that has the wrong checksum then send a short tail message to the server and return control to the caller. Answer will be handled when it arrive from the server.
+  
 If there are any missing asset in the list then call the server, handle the response and then return control to the caller.  
+
 This is how you call the function:  
     
 ```
@@ -282,6 +291,7 @@ $out = array(
    
 # get_plugin_assets
 Client function where a level 1 client side plugin can ask for any of its assets, including the index.  
+
 In the example below the plugin ask for three files and the index.  
     
 ```
@@ -347,12 +357,42 @@ Can be use by infohub_asset, infohub_launcher to get multiple assets for several
     
 # get_asset and license
 Client function that get one asset. Can be used by the owner of the asset and by infohub_asset.  
-Function get_plugin_assets uses get_asset.  
-    
+Function get_plugin_assets uses get_asset.
+
+# Graphical user interface
+You can start the plugin from Workbench. You will see icons, images etc and their license information.
+
+Button "Refresh" will render one Major box for each plugin name that do not already have a Major box. 
+
+If a plugin name got a Major then a flag is set in the class global
+```
+$loadedAsset[$in.plugin_name]['rendered'] = 'true';
+```
+ 
+Title is the plugin name. Content are the svg/jpeg/png assets.
+Footer show license information when you click on an asset.
+
+## How it works
+setup_gui -> render refresh button 
+Render GUI will render 
+* refresh
+* plugin_list
+* asset_list
+* asset_data
+
+Render the refresh button.
+
+Functions
+- click_refresh -> Render plugin list.
+- click_plugin -> Render asset list.
+- click_asset -> Render asset data-
+
+[/columns]
+
 # License
 This documentation is copyright (C) 2017 Peter Lembke.  
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
 
 Since 2017-12-17 by Peter Lembke  
-Updated 2019-07-11 by Peter Lembke  
+Updated 2020-03-24 by Peter Lembke  

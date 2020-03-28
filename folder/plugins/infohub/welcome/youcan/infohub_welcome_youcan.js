@@ -127,7 +127,7 @@ function infohub_welcome_youcan() {
                 'what': {
                     'welcome_text': {
                         'type': 'text',
-                        'text': "[h1][title][/h1][i][ingress][/i][columns][calendar][tree][body][story][shop][/columns]"
+                        'text': "[h1][title][/h1][i][ingress][/i][columns][calendar][tree][body][story][thing][usage][planning][diary][media][contact][budget][expence][review][place][event][/columns]"
                     },
                     'title': {
                         'type': 'common',
@@ -215,23 +215,216 @@ function infohub_welcome_youcan() {
                         'asset_name': 'youcan/story',
                         'plugin_name': 'infohub_welcome'
                     },
-                    'shop': {
+                    'thing': {
                         'type': 'common',
                         'subtype': 'join',
-                        'title': _Translate('Shop'),
-                        'data0': '[shop_image_data]',
-                        'data1': _Translate('Shop trough Infohub is smooth and fast because it uses the full capacity of your computer/phone and is kid to your download quota. You have the same features on all shops and they all work the same. The shop benefit of this because more customers can shop att the same time before their server get strained.')
+                        'title': _Translate('Things'),
+                        'data0': '[things_image_data]',
+                        'data1': _Translate('Register your larger things: What it is, when and where you bought it, the serial number, warranty and so on.'),
+                        'data2': _Translate('Register you cars here and all service you have done to the cars. Or your sneekers collection.')
                     },
-                    'shop_image_data': {
+                    'things_image_data': {
                         'type': 'common',
                         'subtype': 'image',
-                        'data': '[shop_image_data_asset]'
+                        'data': '[things_image_data_asset]'
                     },
-                    'shop_image_data_asset': {
+                    'things_image_data_asset': {
                         'plugin': 'infohub_asset',
                         'type': 'image',
                         'subtype': 'jpeg',
-                        'asset_name': 'youcan/shop',
+                        'asset_name': 'youcan/things',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'usage': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Usage'),
+                        'data0': '[usage_image_data]',
+                        'data1': _Translate('Here you can register when you use one of your registered things. It could for example be one of your sneekers while training.')
+                    },
+                    'usage_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[usage_image_data_asset]'
+                    },
+                    'usage_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/usage',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'planning': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Planning'),
+                        'data0': '[planning_image_data]',
+                        'data1': _Translate('Your projects. You can set up tasks in projects here. Date when things must be done and when they were done.')
+                    },
+                    'planning_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[planning_image_data_asset]'
+                    },
+                    'planning_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/planning',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'diary': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Diary'),
+                        'data0': '[diary_image_data]',
+                        'data1': _Translate('How was your day. Write the text version of your day and use links to your data.')
+                    },
+                    'diary_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[diary_image_data_asset]'
+                    },
+                    'diary_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/diary',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'media': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Media'),
+                        'data0': '[media_image_data]',
+                        'data1': _Translate('Media is images/video/audio - Your catalog with media and its meta data.'),
+                        'data2': _Translate('You can see small versions of your images and mark the persons faces and connect them to contacts, places, travels, dates.')
+                    },
+                    'media_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[media_image_data_asset]'
+                    },
+                    'media_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/media',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'contact': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Contact'),
+                        'data0': '[contact_image_data]',
+                        'data1': _Translate('The contact information to your friends. Telephone number, email, Skype, Address, birthday, shoe size or whatever you like to register about your contacts.')
+                    },
+                    'contact_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[contact_image_data_asset]'
+                    },
+                    'contact_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/contact',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'budget': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Budget'),
+                        'data0': '[budget_image_data]',
+                        'data1': _Translate('Calculate your income and expected expenses in this plugin. You can then see what is reasonable to invest in.')
+                    },
+                    'budget_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[budget_image_data_asset]'
+                    },
+                    'budget_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/budget',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'expence': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Expense'),
+                        'data0': '[expence_image_data]',
+                        'data1': _Translate('Register your purchases to keep track where the money goes. Put expences in groups so you see how much your car cost, your hobby, food etc.'),
+                        'data2': _Translate('Perhaps you can cut costs without cutting down on comfort. You need a clear picture of your expences to take the right decisions.')
+                    },
+                    'expence_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[expence_image_data_asset]'
+                    },
+                    'expence_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/expence',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'review': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Review'),
+                        'data0': '[review_image_data]',
+                        'data1': _Translate('Write your reviews of films, books, records, TV series, games, subscriptions, magazines. Then you can see what movies you have seen and when you saw them.')
+                    },
+                    'review_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[review_image_data_asset]'
+                    },
+                    'review_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/review',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'place': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Place'),
+                        'data0': '[place_image_data]',
+                        'data1': _Translate('You can register places you have visited and get a map with dots. You can also link a place to a story, image, training and so on.')
+                    },
+                    'place_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[place_image_data_asset]'
+                    },
+                    'place_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/place',
+                        'plugin_name': 'infohub_welcome'
+                    },
+                    'event': {
+                        'type': 'common',
+                        'subtype': 'join',
+                        'title': _Translate('Event'),
+                        'data0': '[event_image_data]',
+                        'data1': _Translate('Register events you want to participate in or have participated in. You can link a place, a review etc.')
+                    },
+                    'event_image_data': {
+                        'type': 'common',
+                        'subtype': 'image',
+                        'data': '[event_image_data_asset]'
+                    },
+                    'event_image_data_asset': {
+                        'plugin': 'infohub_asset',
+                        'type': 'image',
+                        'subtype': 'jpeg',
+                        'asset_name': 'youcan/event',
                         'plugin_name': 'infohub_welcome'
                     }
                 },

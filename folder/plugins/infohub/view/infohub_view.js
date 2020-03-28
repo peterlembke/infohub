@@ -438,7 +438,13 @@ function infohub_view() {
                 break leave;
             }
 
+            if ($maxWidth < 160) {
+                $answer = 160;
+                break leave;
+            }
+
             const $modulus = $maxWidth % 160;
+
             $answer = ($maxWidth - $modulus) + 'px';
         }
 
@@ -931,7 +937,7 @@ function infohub_view() {
     };
 
     /**
-     * Clear the contents of a data box, removes all except the end-box in side/under-boxes.
+     * Insert new boxes before another box and fill each box with data.
      * @version 2017-10-05
      * @since 2015-02-17
      * @author Peter Lembke

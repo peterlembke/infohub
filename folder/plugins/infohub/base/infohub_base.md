@@ -1,6 +1,6 @@
 # Infohub Base
 The class that all plugins extend from.  
-
+[columns]
 # Introduction
 When you create a plugin you start by extending the base class. 
 This is always the case. You do not extend any other class and you do not use any fancy php tricks to implement features from other classes.
@@ -338,6 +338,7 @@ The goal is that the base class looks the same between cores. The same down to t
 An example of a function that is used to bring recognition is `_IsSet`. In PHP the command is isset() and in the Javascript base class you have `_IsSet()`.
   
 Another example is `_Count()`, `_MicroTime()`, `_Empty()`. They are all there so your plugin can be written in both PHP and Javascript without using special language features.  
+[/columns]
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.

@@ -14,7 +14,7 @@ Infohub focus on privacy at all levels. The data you produce are for your eyes o
 # For your special eyes
 For your special eyes you have colour schemas and excellent zoom on all devices.  
 Celebral palsy and different kinds of shakes make it very hard to use a mouse. The target devices are: touch, keyboard and gamepad. Not mouse.  
-Stress is a condition that make you sensitive to information overload. There is no blip and blop in Infohub  
+Stress is a condition that make you sensitive to information overload. There is no blip and blop in Infohub.  
 A full audio feedback is in the planning. Useful for devices without a screen or when you do not use a screen.  
 
 # Your language

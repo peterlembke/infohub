@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/creative-commons-images/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "John Lambeth",
+    "author_url": "https://www.pexels.com/sv-se/@john-lambeth-1182693",
+    "author_note": "",
+    "icon_name": "Expence",
+    "icon_url": "https://www.pexels.com/sv-se/foto/affar-alternativ-applen-bas-2255903/",
+    "icon_note": "assorted-variety-of-fruits-2255903",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

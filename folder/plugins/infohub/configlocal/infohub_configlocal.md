@@ -1,6 +1,7 @@
 # Infohub ConfigLocal
 Handle all configuration that is for your local browser.  
 
+[columns]
 # Introduction
 All the plugin configurations are handled with Infohub Config Global. Your local browser specific settings are handled with Infohub Config Local - this plugin.  
 Here you can set zoom level, select a font, colour schema, preferred languages. You can also set what you allow or not, like 3rd party streaming services in iframes etc.  
@@ -35,6 +36,7 @@ Here you can set your preferred language
 # Autostart
 Here you can change what plugins to auto start in the workbench. You will always get launcher. The default is also to get the config local autostarted.
 Once you have configured your settings you can select to not autostart config local  
+[/columns]
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  

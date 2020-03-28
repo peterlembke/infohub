@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/creative-commons-images/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "fauxels",
+    "author_url": "https://www.pexels.com/sv-se/@fauxels",
+    "author_note": "",
+    "icon_name": "Contact",
+    "icon_url": "https://www.pexels.com/sv-se/foto/hander-manniskor-forbindelse-lycklig-3184423/",
+    "icon_note": "photo-of-people-holding-each-other-s-hands-3184423",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

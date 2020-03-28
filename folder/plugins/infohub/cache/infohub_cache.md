@@ -1,6 +1,6 @@
 # Infohub Cache
 Your browser plugin storage  
-
+[columns]
 # Introduction
 All major browsers have a feature called localStorage. It is a persistent key-value storage. Infohub_cache use this storage to store plugins.  
 When the infohub core in your browser require a plugin then infohub_cache can either give the plugin or conclude that it does not have it.  
@@ -46,6 +46,7 @@ The cache is updated when it gets old. See `infohub_cache.json`:
 If you need to change anything in this file then copy the file to `folder/config/infohub_cache.json` and do your changes. Your file will be used instead of the original file.
 
 The default cache lifetime is 604740 seconds. It is 7 days - 60 seconds. (7 * 24 * 60 * 60 - 60).
+[/columns]
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

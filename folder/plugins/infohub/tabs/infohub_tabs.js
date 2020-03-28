@@ -623,7 +623,7 @@ function infohub_tabs() {
             // If we have a simple list then the list will be converted
             if (_Count($in.tabs) > 0) {
                 if (_IsSet($in.tabs[0]) === 'true') {
-                    if (_IsSet($in.tabs[0]['alias']) === 'true') {
+                    if (_IsSet($in.tabs[0].alias) === 'true') {
                         $in.tabs = _GetTabsRenderData($in.tabs);
                     }
                 }

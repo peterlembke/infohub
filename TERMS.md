@@ -151,3 +151,5 @@ The site owner should also make a statement on how the backups are stored and ha
 Should is not a must.
 
 The user should only use sites that can tell what backup strategy they are following.
+
+__End of document__

@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_asset",
+    "title": "Asset",
+    "description": "Show license information for all used assets",
+    "uses": []
+}

@@ -1,6 +1,7 @@
 # Infohub Contact
 Plugin that manager contact information.  
 
+[columns]
 The contact information is for: 
 
 * Clients login to your server. 
@@ -146,6 +147,8 @@ read form. Call view to create a file.
 
 ### click_import
 Select a file. Populate the form.
+
+[/columns]
 
 ## License
 This documentation is copyright (C) 2018 Peter Lembke.  

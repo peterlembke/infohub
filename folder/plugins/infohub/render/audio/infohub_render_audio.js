@@ -140,6 +140,11 @@ function infohub_render_audio() {
             $in.subtype = 'soundcloud';
         }
 
+        // iframes are deprecated as a security breach. Will show a link instead.
+        if ($in.subtype.substr($in.subtype.length-4,4) !== 'link') {
+            $in.subtype = $in.subtype + 'link';
+        }
+
         $in.func = _GetFuncName($in.subtype);
         let $response = internal_Cmd($in);
 

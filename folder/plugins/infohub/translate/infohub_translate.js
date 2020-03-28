@@ -570,8 +570,8 @@ function infohub_translate() {
     };
 
     /**
-     * Give you the translate data. It is merged together from all the languages you prefer
-     * @todo This function is not started
+     * Gives you the translate data. The data is merged together from all the languages you prefer
+     * This function is called from each plugin that want its translation data.
      * @version 2019-03-18
      * @since   2016-03-18
      * @author  Peter Lembke

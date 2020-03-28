@@ -1,7 +1,8 @@
 # Nobody puts Infohub in a frame
 # Header always append X-Frame-Options SAMEORIGIN
 
-# php_flag opcache.enable Off
+# .htaccess does not work in the docker environment because of ProxyPassMatch.
+# All requests are redirected to the app docker box php-fpm. This .htaccess is then never used.
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
@@ -12,7 +13,7 @@
     RewriteRule test.php - [R=404,L,NC]
     RewriteRule testmenu.php - [R=404,L,NC]
     # RewriteRule phpinfo.php - [R=404,L,NC]
-    RewriteRule callback.php - [R=404,L,NC]
+    # RewriteRule callback.php - [R=404,L,NC]
 
     ## Every existing file, folder and link should be accessible
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -20,14 +21,7 @@
     RewriteCond %{REQUEST_FILENAME} !-l
 
     ### every other url go to callback.php
-    # RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
-
-    # All traffic to https. https://www.freecodecamp.org/news/how-to-redirect-http-to-https-using-htaccess/
-    # RewriteCond %{SERVER_PORT} 80
-    # RewriteRule ^(.*)$ https://www.yourdomain.com/$1 [R,L]
-
-    # Removing the Query String
-    # RewriteRule ^/url /url?
+    RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
 
     # Password. https://www.askapache.com/htaccess/#developing_sites
     # AuthName "Infohub password barrier"
@@ -40,6 +34,3 @@
     # Satisfy Any
 
 </IfModule>
-
-# How can I remove this file?
-# https://www.nginx.com/resources/wiki/start/topics/examples/likeapache-htaccess/

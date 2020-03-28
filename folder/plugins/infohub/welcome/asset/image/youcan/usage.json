@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Pexels",
+    "publisher_url": "https://www.pexels.com",
+    "publisher_note": "Best free stock photos in one place.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Creative Commons Zero (CC0)",
+    "license_url": "https://www.pexels.com/creative-commons-images/",
+    "license_note": "Use all photos for free for commercial and noncommercial purposes. Giving credit to the photographer or Pexels is not required but appreciated. You can edit and adapt the photos as you like.",
+    "author_name": "Alfonso Escalante",
+    "author_url": "https://www.pexels.com/sv-se/@alfonso-escalante-1319242",
+    "author_note": "",
+    "icon_name": "Usage",
+    "icon_url": "https://www.pexels.com/sv-se/foto/strand-hav-sommar-vintage-2607724/",
+    "icon_note": "beach-ocean-summer-vintage-2607724",
+    "attribute": "{icon_note|icon_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}."
+}

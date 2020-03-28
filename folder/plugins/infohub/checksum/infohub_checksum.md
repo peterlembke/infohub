@@ -1,6 +1,7 @@
 # Infohub Checksum
 Different methods to calculate a checksum  
 
+[columns]
 # Introduction
 This plugin and its child plugins give you a set of checksum functions you can use.  
 There are different kind of checksums suitable for different kind of problems. Checksums can be used to find data, compare data, validate data.  
@@ -49,7 +50,8 @@ Checksums are used to verify that the data you get have not been modified. If yo
 There are many great libraries that do many nice things. InfoHub should remain simple, native, independent as far as possible. That is why I do not add libraries to InfoHub.  
 Infohub need one good checksum function that can be implemented in all languages. Right now that need are covered with md5 and possible crc32.  
 Other uses of checksum, like the Luhn and Personnummer that have a specific usage, will be added as child plugins.  
-When encryption are added as a plugin, then there will be need for encryption secure checksums, and those might be added to then checksum plugin, or to the encryption plugin.  
+When encryption are added as a plugin, then there will be need for encryption secure checksums, and those might be added to then checksum plugin, or to the encryption plugin.
+[/columns]
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

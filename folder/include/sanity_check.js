@@ -31,9 +31,9 @@ function sanity_check()
     let $validUrl = $currentUrl + '#';
 
     let $elements = document.getElementsByTagName('img');
-    for(let $i = 0; $i < $elements.length; $i++) {
+    for(let $i = 0; $i < $elements.length; $i = $i + 1) {
         if ($elements[$i].src.substring(0,10) !== 'data:image') {
-            $externalReferences.img++;
+            $externalReferences.img = $externalReferences.img + 1;
             $found = 'true';
         }
     }
@@ -46,9 +46,10 @@ function sanity_check()
             $validUrl = $parts[0];
         }
 
-        for (let $i = 0; $i < $elements.length; $i++)
+        for (let $i = 0; $i < $elements.length; $i = $i + 1)
         {
             if ($elements[$i].href === '') { continue; }
+
             if ($elements[$i].href === 'javascript:void(0)') { continue; }
 
             $url =  $elements[$i].href;
@@ -65,16 +66,16 @@ function sanity_check()
                 if ($elements[$i].target === '_blank') { continue; }
             }
 
-            $externalReferences.a++;
+            $externalReferences.a = $externalReferences.a + 1;
             $found = 'true';
         }
     }
 
     $elements = document.getElementsByTagName('script');
     if ($elements.length > 0) {
-        for (let $i = 0; $i < $elements.length; $i++) {
+        for (let $i = 0; $i < $elements.length; $i = $i + 1) {
             if ($elements[$i].src !== '') {
-                $externalReferences.script++;
+                $externalReferences.script = $externalReferences.script + 1;
                 $found = 'true';
             }
         }
@@ -82,43 +83,18 @@ function sanity_check()
 
     $elements = document.getElementsByTagName('iframe');
     if ($elements.length > 0) {
-        for (let $i = 0; $i < $elements.length; $i++) {
-            $parent = $elements[$i].parentNode;
-            $tagName = $parent.tagName.toLowerCase();
-
-            if ($tagName !== 'div' && $tagName !== 'span') {
-                $externalReferences.iframe++;
-                $found = 'true';
-                continue;
-            }
-
-            $sandbox = $elements[$i].getAttribute('sandbox');
-            if (!$sandbox) { // If sandbox attribute do not exist then it is a failure
-                $externalReferences.iframe++;
-                $found = 'true';
-                continue;
-            }
-
-            /*
-            $id = $parent.getAttribute('id') + '_iframe';
-            if ($id !== $elements[$i].id) {
-                $externalReferences.iframe++;
-                $found = 'true';
-                continue;
-            }
-            */
-
-        }
+        $externalReferences.iframe = $elements.length;
+        $found = 'true';
     }
 
     $elements = document.getElementsByTagName('link');
     if ($elements.length > 0) {
-        for (let $i = 0; $i < $elements.length; $i++) {
+        for (let $i = 0; $i < $elements.length; $i = $i + 1) {
             if ($elements[$i].href !== '') {
                 if ($elements[$i].href.substring(0,5) !== 'data:') {
                     $hrefPart = $elements[$i].href.substring( $elements[$i].href.length -'manifest.json'.length );
                     if ($hrefPart !== 'manifest.json') {
-                        $externalReferences.link++;
+                        $externalReferences.link = $externalReferences.link + 1;
                         $found = 'true';
                     }
                 }
@@ -126,13 +102,15 @@ function sanity_check()
         }
     }
 
-    if ($found === 'true') {
+    if ($found === 'true')
+    {
         for (let $key in $externalReferences) {
             $value = $externalReferences[$key];
             if ($value > 0) {
                 $message = $message + 'Type: ' + $key + ", quantity: " + $value + "\n";
             }
         }
+
         $message = "Sanity check\nFound external references\nInfoHub should not have external references\n" + $message;
         $display = 'block';
     }
@@ -140,6 +118,5 @@ function sanity_check()
     $box = document.getElementById('sanity');
     $box.innerHTML = $message;
     $box.style.display = $display;
-
 }
 //# sourceURL=sanity_check.js

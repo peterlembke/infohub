@@ -373,7 +373,7 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:12px; text-align:center; height:32px;'
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:0.9em; text-align:center; height:32px;'
                             }
                         },
                         'menulink': {
