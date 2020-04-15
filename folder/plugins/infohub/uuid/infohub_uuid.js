@@ -32,7 +32,7 @@ function infohub_uuid() {
             'note': 'Universally Unique IDentifier (UUID)',
             'webpage': 'https://en.wikipedia.org/wiki/Universally_unique_identifier',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

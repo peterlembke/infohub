@@ -41,7 +41,7 @@ class infohub_asset extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Download client side plugin assets to the client',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

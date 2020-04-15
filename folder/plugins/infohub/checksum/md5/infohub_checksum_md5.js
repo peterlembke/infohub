@@ -31,7 +31,7 @@ function infohub_checksum_md5() {
             'class_name': 'infohub_checksum_md5',
             'note': 'MD5 was designed by Ronald Rivest in 1991. Used for normal checksums. Do not use for encryption.',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

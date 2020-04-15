@@ -30,7 +30,7 @@ function infohub_demo_timer() {
             'class_name': 'infohub_demo_timer',
             'note': 'Collection of demos to demonstrate InfoHub Timer',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

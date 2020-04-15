@@ -31,7 +31,7 @@ function infohub_checksum() {
             'class_name': 'infohub_checksum',
             'note': 'Here you can get checksums in many different formats',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
@@ -81,9 +81,18 @@ function infohub_checksum() {
 
             const $pluginName = 'infohub_checksum_' + $in.type;
             return _SubCall({
-                'to': {'node': 'client', 'plugin': $pluginName, 'function': 'calculate_checksum'},
-                'data': {'value': $in.value, 'checksum': $in.checksum },
-                'data_back': {'step': 'response'}
+                'to': {
+                    'node': 'client',
+                    'plugin': $pluginName,
+                    'function': 'calculate_checksum'
+                },
+                'data': {
+                    'value': $in.value,
+                    'checksum': $in.checksum
+                },
+                'data_back': {
+                    'step': 'response'
+                }
             });
 
         }

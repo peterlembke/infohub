@@ -31,7 +31,7 @@ function infohub_workbench() {
             'class_name': 'infohub_workbench',
             'note': 'Handles what you see on screen with an app menu and a separate box for each started app, there the app can show its things.',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Workbench'
         };
     };

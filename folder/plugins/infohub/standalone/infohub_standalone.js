@@ -30,7 +30,7 @@ function infohub_standalone() {
             'class_name': 'infohub_standalone',
             'note': 'Start ONE workbench plugin so you can run it without Workbench. Use with a unique domain URL and set it up in config/infohub_exchange.json',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Stand alone'
         };
     };

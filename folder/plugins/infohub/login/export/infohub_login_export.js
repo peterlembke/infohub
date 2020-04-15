@@ -30,7 +30,7 @@ function infohub_login_export() {
             'class_name': 'infohub_login_export',
             'note': 'Export the contact data you have in the local storage',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

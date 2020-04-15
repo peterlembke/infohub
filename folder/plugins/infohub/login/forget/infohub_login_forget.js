@@ -30,7 +30,7 @@ function infohub_login_forget() {
             'class_name': 'infohub_login_forget',
             'note': 'Forget the contact data that might exist in the storage',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

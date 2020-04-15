@@ -39,7 +39,7 @@ function infohub_plugin() {
             'class_name': 'infohub_plugin',
             'note': 'Used by infohub_exchange to handle plugin requests. Finds the plugin in local storage or requests it from the server, then starts the plugin',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

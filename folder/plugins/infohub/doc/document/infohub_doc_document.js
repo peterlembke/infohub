@@ -30,7 +30,7 @@ function infohub_doc_document() {
             'class_name': 'infohub_doc_document',
             'note': 'Render a document',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Document'
         };
     };

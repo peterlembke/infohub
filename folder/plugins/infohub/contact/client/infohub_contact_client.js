@@ -30,7 +30,7 @@ function infohub_contact_client() {
             'class_name': 'infohub_contact_client',
             'note': 'Render form for manageing client contacts',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

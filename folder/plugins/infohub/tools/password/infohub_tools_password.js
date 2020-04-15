@@ -30,7 +30,7 @@ function infohub_tools_password() {
             'class_name': 'infohub_tools_password',
             'note': 'Render a form for generating passwords in different formats',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

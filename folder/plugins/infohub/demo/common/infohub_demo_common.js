@@ -30,7 +30,7 @@ function infohub_demo_common() {
             'class_name': 'infohub_demo_common',
             'note': 'Collection of demos to demonstrate InfoHub Client Render and View',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

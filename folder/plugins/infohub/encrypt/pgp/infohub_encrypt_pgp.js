@@ -41,7 +41,7 @@ function infohub_encrypt_pgp() {
             'class_name': 'infohub_encrypt_pgp',
             'note': 'You can encrypt/decrypt your data to keep the contents secret',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

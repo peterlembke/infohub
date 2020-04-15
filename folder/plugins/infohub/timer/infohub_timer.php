@@ -34,7 +34,7 @@ class infohub_timer extends infohub_base {
             'checksum' => '{{checksum}}',
             'note' => 'Function that respond after some time',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

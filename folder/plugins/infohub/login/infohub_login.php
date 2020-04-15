@@ -34,7 +34,7 @@ class infohub_login extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Handle incoming login request and challenge. Send login request to another node.',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
 
         );
     }

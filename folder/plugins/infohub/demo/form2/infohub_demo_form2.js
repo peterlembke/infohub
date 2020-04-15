@@ -30,7 +30,7 @@ function infohub_demo_form2() {
             'class_name': 'infohub_demo_form2',
             'note': 'Render a form demo for infohub_demo',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

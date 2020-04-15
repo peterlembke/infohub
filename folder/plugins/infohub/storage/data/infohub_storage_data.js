@@ -37,7 +37,7 @@ function infohub_storage_data() {
             'class_name': 'infohub_storage_data',
             'note': 'Handles the connection information to each storage (database server)',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

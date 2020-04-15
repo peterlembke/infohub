@@ -40,7 +40,7 @@ class infohub_democall_child extends infohub_base
             'checksum' => '{{checksum}}',
             'note'=> 'Examples that show who can send messages to who',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

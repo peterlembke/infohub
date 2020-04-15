@@ -30,7 +30,7 @@ function infohub_doc() {
             'class_name': 'infohub_doc',
             'note': 'Show markdown doc files from the plugins and the doc folder',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Documentation'
         };
     };

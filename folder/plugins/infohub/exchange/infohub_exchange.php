@@ -35,7 +35,7 @@ class infohub_exchange extends infohub_base {
             'class_name' => 'infohub_exchange',
             'note' => 'Handle all messages so they come to the right plugin',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 
@@ -84,8 +84,8 @@ class infohub_exchange extends infohub_base {
 
     /**
      * Get the request from the client and parse it.
-     * example: See index.php for the usage
-     * Used by: index.php
+     * example: See infohub.php for the usage
+     *
      * @version 2013-12-30
      * @since 2012-11-17
      * @author Peter Lembke
@@ -137,7 +137,12 @@ class infohub_exchange extends infohub_base {
         if ($moreToDo === 'true') {
             $in['answer'] = 'false';
             $in['message'] = 'There are more messages to handle but we have already ran 150 loops. Will continue later';
-            $this->internal_Log(array('func' => 'Log', 'level' => 'error', 'message' => $in['message'], 'function_name' => 'main'));
+            $this->internal_Log(array(
+                'func' => 'Log',
+                'level' => 'error',
+                'message' => $in['message'],
+                'function_name' => 'main'
+            ));
         }
 
         return array(
@@ -146,36 +151,53 @@ class infohub_exchange extends infohub_base {
         );
     }
 
-    final protected function _AddTransferMessage() {
-        if (count($this->ToNode) > 0) {
-            $subCall = $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_transfer',
-                    'function' => 'send'
-                ),
-                'data' => array(
-                    'to_node' => $this->ToNode
-                )
-            ));
-            $subCall['from'] = array(
+    /**
+     * This message are added when all othermessages have been processed.
+     * Its purpose is to call infohub:_transfer -> send so that the processed
+     * messages answers can be sent back to the querying node.
+     * @version 2020-04-07
+     * @since 2016-01-31
+     * @author Peter Lembke
+     * @return string
+     */
+    final protected function _AddTransferMessage(): string
+    {
+        if (count($this->ToNode) <= 0) {
+            return 'true'; // Nothing to send. Mission accomplished
+        }
+
+        $subCall = $this->_SubCall(array(
+            'to' => array(
                 'node' => 'server',
+                'plugin' => 'infohub_transfer',
+                'function' => 'send'
+            ),
+            'data' => array(
+                'to_node' => $this->ToNode
+            )
+        ));
+
+        $subCall['from'] = array(
+            'node' => 'server',
+            'plugin' => 'infohub_exchange',
+            'function' => 'main'
+        );
+
+        $subCall['callstack'] = array();
+
+        $subCall['callstack'][0] = array(
+            'to' => array(
+                'node' => 'client',
                 'plugin' => 'infohub_exchange',
                 'function' => 'main'
-            );
-            $subCall['callstack'] = array();
-            $subCall['callstack'][0] = array(
-                'to' => array(
-                    'node' => 'client',
-                    'plugin' => 'infohub_exchange',
-                    'function' => 'main'
-                ),
-                'data_back' => array()
-            );
-            $this->ToNode = array();
-            $this->Sort[] = $subCall;
-        }
-        return 'true';
+            ),
+            'data_back' => array()
+        );
+
+        $this->ToNode = array();
+        $this->Sort[] = $subCall;
+
+        return 'true';// Message added. Mission accomplished
     }
 
     /**

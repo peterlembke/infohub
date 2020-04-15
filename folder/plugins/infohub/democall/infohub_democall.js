@@ -30,7 +30,7 @@ function infohub_democall() {
             'class_name': 'infohub_democall',
             'note': 'Demonstrate what happens if a plugin or function do not exist',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Demo call'
         };
     };

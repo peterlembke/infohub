@@ -30,7 +30,7 @@ function infohub_contact() {
             'class_name': 'infohub_contact',
             'note': 'GUI to manage login contacts between nodes',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Node contacts'
         };
     };

@@ -96,7 +96,7 @@ function infohub_start($progress) {
             return false;
         }
 
-        $failedStarts++;
+        $failedStarts = $failedStarts + 1;
         $failedStarts = $failedStarts.toString();
         localStorage.setItem('cold_start', $failedStarts);
 
@@ -166,6 +166,7 @@ function infohub_start($progress) {
             'infohub_storage_data',
             'infohub_storage_data_idbkeyval',
             'infohub_tabs',
+            'infohub_timer',
             'infohub_transfer',
             'infohub_translate',
             'infohub_view',
@@ -194,7 +195,7 @@ function infohub_start($progress) {
         {
             if ($corePluginNames.hasOwnProperty($pluginNameId))
             {
-                $number++;
+                $number = $number + 1;
                 $part = $number / $numberOfCorePluginNames * 100.0;
                 $progress.whatArea($areaCode, $part, 'Get list with missing plugins');
 
@@ -599,7 +600,7 @@ function infohub_start($progress) {
 
             const $pluginName = $corePluginNames[$pluginKey];
 
-            $number++;
+            $number = $number + 1;
             $partPercent = $number / $numberOfCorePluginNames * 100.0;
             const $text = 'Start the core - plugin: ' + $pluginName;
             $progress.whatArea($areaCode, $partPercent, $text);

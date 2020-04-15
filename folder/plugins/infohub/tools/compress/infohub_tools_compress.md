@@ -41,7 +41,7 @@ Remove the text you wrote. Now click the button "Uncompress" to see if the uncom
 # License
 This documentation is copyright (C) 2019 Peter Lembke.  
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Links, and no Back-Cover Links.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Since 2019-07-07 by Peter Lembke  
 Updated 2019-07-10 by Peter Lembke  

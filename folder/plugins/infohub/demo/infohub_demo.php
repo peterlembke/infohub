@@ -34,7 +34,7 @@ class infohub_demo extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Collection of demos to demonstrate InfoHub Server',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

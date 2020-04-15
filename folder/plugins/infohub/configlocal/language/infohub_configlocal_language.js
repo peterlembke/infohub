@@ -29,7 +29,7 @@ function infohub_configlocal_language() {
             'class_name': 'infohub_configlocal_language',
             'note': 'Here you can set your preferred languages',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

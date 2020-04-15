@@ -30,7 +30,7 @@ function infohub_doc_navigate() {
             'class_name': 'infohub_doc_navigate',
             'note': 'Render navigation and handle click events on the list',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Navigate'
         };
     };

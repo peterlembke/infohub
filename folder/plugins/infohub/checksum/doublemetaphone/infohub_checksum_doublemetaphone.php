@@ -39,7 +39,7 @@ class infohub_checksum_doublemetaphone extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'The Double Metaphone phonetic encoding algorithm is the second generation of this algorithm.',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

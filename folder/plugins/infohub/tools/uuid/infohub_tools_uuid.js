@@ -30,7 +30,7 @@ function infohub_tools_uuid() {
             'class_name': 'infohub_tools_uuid',
             'note': 'Render a form for testing UUID',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

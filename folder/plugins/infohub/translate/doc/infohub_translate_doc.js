@@ -30,7 +30,7 @@ function infohub_translate_doc() {
             'class_name': 'infohub_translate_doc',
             'note': 'Show the documentation for this plugin',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -30,7 +30,7 @@ function infohub_renderdocument() {
             'class_name': 'infohub_document',
             'note': 'Take a markdown, parse some of it and divide into renderable parts',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Document'
         };
     };

@@ -38,7 +38,7 @@ class infohub_session extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Handle sessions. Both incoming and outgoing.',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 
@@ -669,6 +669,8 @@ class infohub_session extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
+        $signCodeValid = 'false';
+
         // Verify sign_code_created_at that it is max 2 seconds old
         // Read the data in path infohub_session/node/{node}
         // Calculate sign_code
@@ -725,7 +727,7 @@ class infohub_session extends infohub_base
                 $signCode = md5($string);
 
                 if ($in['sign_code'] === $signCode) {
-                    $ok = 'true';
+                    $signCodeValid = 'true';
                 }
             }
 
@@ -734,7 +736,7 @@ class infohub_session extends infohub_base
         return array(
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
-            'ok' => $ok
+            'sign_code_valid' => $signCodeValid
         );
     }
 
@@ -781,6 +783,10 @@ class infohub_session extends infohub_base
         if ($in['step'] === 'step_get_session_data_response') {
             if ($in['response']['post_exist'] === 'true') {
                 $sessionValid = $in['response']['post_exist'];
+
+                // @todo Also check that the session has not timed out.
+                // @todo Check that the user_name is right
+
             }
         }
 

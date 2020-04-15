@@ -35,7 +35,7 @@ class infohub_doc extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Documentation system. Simple. Self sufficient.',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

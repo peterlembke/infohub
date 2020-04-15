@@ -30,7 +30,7 @@ function infohub_translate_createfiles() {
             'class_name': 'infohub_translate_createfiles',
             'note': 'Handle the creation of template files that you can translate',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -30,7 +30,7 @@ function infohub_contact_group() {
             'class_name': 'infohub_contact_group',
             'note': 'Render form for manageing groups with rights to level 1 plugins',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

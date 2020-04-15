@@ -31,7 +31,7 @@ function infohub_compress_gzip() {
             'class_name': 'infohub_compress_gzip',
             'note': 'The gzip compression is both fast and compress good. Suitable for storage and for data transfer',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

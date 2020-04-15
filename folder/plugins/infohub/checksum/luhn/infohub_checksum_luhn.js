@@ -31,7 +31,7 @@ function infohub_checksum_luhn() {
             'class_name': 'infohub_checksum_luhn',
             'note': 'The Luhn algorithm from 1954 are used in US and Canadian social security numbers',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

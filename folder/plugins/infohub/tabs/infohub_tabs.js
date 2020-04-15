@@ -33,7 +33,7 @@ function infohub_tabs() {
             'class_name': 'infohub_tabs',
             'note': 'Handles windows so you can build tabs',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

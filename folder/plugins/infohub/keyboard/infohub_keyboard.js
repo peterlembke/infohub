@@ -29,7 +29,7 @@ function infohub_keyboard() {
             'class_name': 'infohub_keyboard',
             'checksum': '{{checksum}}',
             'note': 'When you use the keyboard then an event message come here. You can subscribe to key strokes',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

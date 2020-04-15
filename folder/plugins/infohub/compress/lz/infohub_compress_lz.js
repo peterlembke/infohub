@@ -31,7 +31,7 @@ function infohub_compress_lz() {
             'class_name': 'infohub_compress_lz',
             'note': 'The lz compression is both fast and compress good. Suitable for storage',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -32,7 +32,7 @@ function infohub_render_audio() {
             'class_name': 'infohub_render_audio',
             'note': 'Render HTML for embedding audio from Jamendo, Soundcloud, Spotify.',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

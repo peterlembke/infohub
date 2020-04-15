@@ -31,7 +31,7 @@ function infohub_compress() {
             'class_name': 'infohub_compress',
             'note': 'Compress data. You need less internet capacity and less storage space',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

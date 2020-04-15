@@ -35,7 +35,7 @@ class infohub_translate extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Creates template translation files you can copy to a new name and translate',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

@@ -32,7 +32,7 @@ function infohub_render_form() {
             'class_name': 'infohub_render_form',
             'note': 'Render HTML for form elements like buttons, text, checkbox, radio button, select',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -10,7 +10,7 @@
             'checksum': '{{base_checksum}}',
             'class_name': 'infohub_base',
             'note': 'Parent class in ALL plugins. Manages the traffic in the plugin',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
@@ -1130,7 +1130,7 @@
                 'checksum': '',
                 'class_name': '',
                 'note': '',
-                'license_name': '',
+                'SPDX-License-Identifier': '',
                 'title': '',
                 'icon': '',
                 'status': ''

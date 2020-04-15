@@ -37,7 +37,7 @@ class infohub_contact extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Data so server can login to other nodes',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 
@@ -219,7 +219,7 @@ class infohub_contact extends infohub_base
 
     /**
      * Load node data from Storage
-     * @version 2019-01-16
+     * @version 2020-04-14
      * @since   2019-01-16
      * @author  Peter Lembke
      * @param array $in
@@ -231,7 +231,12 @@ class infohub_contact extends infohub_base
             'type' => 'server', // server or client
             'user_name' => '',
             'step' => 'step_load_node_data',
-            'response' => array()
+            'response' => array(
+                'answer' => 'false',
+                'message' => '',
+                'data' => array(),
+                'post_exist' => 'false'
+            )
         );
         $in = $this->_Default($default, $in);
         

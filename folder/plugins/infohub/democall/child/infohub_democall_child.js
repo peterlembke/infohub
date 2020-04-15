@@ -29,7 +29,7 @@ function infohub_democall_child() {
             'class_name': 'infohub_democall_child',
             'note': 'Example plugin for testing calling rules',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

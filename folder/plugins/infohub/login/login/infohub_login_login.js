@@ -30,7 +30,7 @@ function infohub_login_login() {
             'class_name': 'infohub_login_login',
             'note': 'Login to the server with the imported contact data',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

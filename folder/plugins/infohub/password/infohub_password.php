@@ -35,7 +35,7 @@ class infohub_password extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Generate passwords',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later',
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'source_code' => 'https://github.com/peterlembke/charzam-password-generator',
             'homepage' => 'http://www.charzam.com/2016/12/27/battre-losenord/'
 

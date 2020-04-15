@@ -29,7 +29,7 @@ function infohub_configlocal_debug() {
             'class_name': 'infohub_configlocal_debug',
             'note': 'Here you can set the debug level',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

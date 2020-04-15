@@ -29,7 +29,7 @@ function infohub_contact_server() {
             'class_name': 'infohub_contact_server',
             'note': 'Render a form for manageing your incoming-outgoing connection to other servers',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

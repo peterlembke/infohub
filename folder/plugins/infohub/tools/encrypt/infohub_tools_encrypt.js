@@ -30,7 +30,7 @@ function infohub_tools_encrypt() {
             'class_name': 'infohub_tools_encrypt',
             'note': 'Render a form for generating encrypts',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -30,7 +30,7 @@ function infohub_translate() {
             'class_name': 'infohub_translate',
             'note': 'Handle the translation of startable plugins',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

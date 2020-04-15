@@ -36,7 +36,7 @@ function infohub_launcher() {
             'class_name': 'infohub_launcher',
             'note': 'Plugin with a GUI where you can start other plugins',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Launcher'
         };
     };

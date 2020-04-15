@@ -37,7 +37,7 @@ class infohub_storage_data_mysql extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Support for MySQL and MariaDb',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

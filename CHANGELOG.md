@@ -10,22 +10,25 @@ Since v1.2.10 I have moved all release log details to the [documentation](folder
 ## [Unreleased]
 **Below is the aim for version 1.3.0**
 
-- Exchange check messages - Only allow messages to another node plugin that I have rights to send to. Else return the message.
-- Incoming response package - Check sign code if one exist.
-- Incoming query package - Check sign code if one exist.
+- Full login and rights system.
 
 **Below is the aim for version 1.2.12**
 
 - Client: The documentation viewer will also show LICENSE, TERMS, README, CHANGELOG.
-- Client, Server: Outgoing packages will have session_id, sign_code, sign_code_created_at, user_id
+- Server: [infohub_transfer](plugin,infohub_transfer) verify the request package sign_code if it exist. (HUB-601)
+- Server: Response packages will have client session_id, sign_code, sign_code_created_at if the request package had a valid sign_code (HUB-600)
+- Deprecate callback
+- Deprecate the test system that require jQuery mobile.
+- Update plans and visions in the doc for the plugin test system
+- Plan for a new plugin: infohub_terms
+- 
 
-**Below is the aim for version 1.2.11**
+## [1.2.11] - 2020-04-15
+* [Release notes](folder/doc/release/v1v2v11/release_v1v2v11.md)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.11)
 
-- Client: infohub_audio - Probably based on howler.js to play mp3 sprites. Will be used mainly for accessibility but anyone can ask infohub_audio to play their asset.
-- Client, Server: [infohub_transfer](plugin,infohub_transfer) incoming response package - Refuse the full package if the other node sneak in a query message instead of just response messages.
-- Client: Use the [infohub_timer](plugin,infohub_timer) to handle when to send with [infohub_transfer](plugin,infohub_transfer).
-  Have a step where I add the meta data. And a step where I do the sending.
-
+Main focus in this release was to improve the plugin icons. Introcuce SPDX-License-Identifier. Refactor Infohub Transfer so it can call Infohub Session and get one step closer to v1.3.0. Fix bugs in Infohub Asset. 
+  
 ## [1.2.10] - 2020-03-28
 * [Release notes](folder/doc/release/v1v2v10/release_v1v2v10.md)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.10)

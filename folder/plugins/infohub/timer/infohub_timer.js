@@ -30,7 +30,7 @@ function infohub_timer() {
             'class_name': 'infohub_timer',
             'note': 'The timer respond after some time',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
@@ -73,7 +73,7 @@ function infohub_timer() {
             'message': '',
             'name': $in.name,
             'milliseconds': $in.milliseconds,
-            'ok': false
+            'ok': 'false'
         };
 
         if ($in.from_plugin.node !== 'client') {
@@ -140,7 +140,7 @@ function infohub_timer() {
             'answer': 'true',
             'message': '',
             'name': $in.name,
-            'ok': false
+            'ok': 'false'
         };
 
         if ($in.from_plugin.node !== 'client') {

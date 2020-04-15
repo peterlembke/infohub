@@ -33,7 +33,7 @@ function infohub_debug() {
             'class_name': 'infohub_debug',
             'note': 'Tool for clearing caches and refresh the page when the ban time says ok',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

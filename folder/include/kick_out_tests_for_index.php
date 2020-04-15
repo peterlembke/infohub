@@ -58,8 +58,10 @@ class kickOut
             $this->GetOut('POST count: ' . count($_POST) . ' must be 0');
         }
 
-        if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] != '127.0.0.1' and $_SERVER['SERVER_ADDR'] != '::1') {
-            $this->GetOut("Only a client can start this file.");
+        if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
+            if ($_SERVER['SERVER_ADDR'] != '127.0.0.1' and $_SERVER['SERVER_ADDR'] != '::1') {
+                $this->GetOut("Only a client can start this file.");
+            }
         }
     }
 
@@ -69,9 +71,9 @@ class kickOut
      */
     protected function validCookies(): void
     {
-        $validCookies = array('INFOHUB_SESSION' => '');
+        $validCookies = array();
         if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] === '127.0.0.1') {
-            $validCookies = array('XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => '', 'INFOHUB_SESSION' => '');
+            $validCookies = array('XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => '');
         }
 
         $removeCookies = array_diff_key($_COOKIE, $validCookies);
@@ -113,7 +115,9 @@ class kickOut
         if (isset($_SERVER['HTTP_REFERER']) === true and $_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
             if ($refererFileName !== 'serviceworker.js') {
-                $message = "HTTP_REFERER must be empty or the same as the url. Open this page in a fresh browser. Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
+                $message = "HTTP_REFERER must be empty or the same as the url. '.
+                    'Open this page in a fresh browser. '.
+                    'Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
                 $this->GetOut($message);
             }
         }
@@ -125,7 +129,10 @@ class kickOut
     protected function removeUnknownFilesAndFolders(): void
     {
         $foundFiles = scandir('.');
-        $acceptedFiles = array('.', '..', 'callback.php', 'index.php', 'infohub.php', 'phpinfo.php', 'test.php', 'testmenu.php', 'define_folders.php', '.htaccess', 'fullstop.flag', 'manifest.json', 'infohub.png', 'infohub-512.png', 'serviceworker.js');
+        $acceptedFiles = array('.', '..', 'callback.php', 'index.php', 'infohub.php',
+            'phpinfo.php', 'test.php', 'testmenu.php', 'define_folders.php', '.htaccess',
+            'fullstop.flag', 'manifest.json', 'infohub.png', 'infohub-512.png', 'serviceworker.js'
+        );
         $removeFiles = array_diff($foundFiles, $acceptedFiles);
         if (count($removeFiles) > 0) {
             foreach ($removeFiles as $file) {
@@ -160,7 +167,10 @@ class kickOut
      */
     protected function GetOut(string $message = ''): void
     {
-        $messageOut = '<html><head></head><body><div class="form" id="info"><h1>Information</h1><div id="alert" class="label">' . $message . '</div><br /></div></body></html>';
+        $messageOut = '<html><head></head><body><div class="form" id="info">'.
+            '<h1>Information</h1>'.
+            '<div id="alert" class="label">' . $message . '</div><br />'.
+            '</div></body></html>';
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         echo $messageOut;
         exit();

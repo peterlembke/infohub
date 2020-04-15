@@ -34,7 +34,7 @@ class infohub_checksum extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Here you can get checksums in many different formats',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

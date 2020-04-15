@@ -30,7 +30,7 @@ function infohub_language() {
             'class_name': 'infohub_language',
             'checksum': '{{checksum}}',
             'note': 'Helps you with language codes',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

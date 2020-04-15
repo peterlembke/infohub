@@ -30,7 +30,7 @@ function infohub_tools() {
             'class_name': 'infohub_tools',
             'note': 'Collection of tools that show you what Infohub can do',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Tools collection'
         };
     };

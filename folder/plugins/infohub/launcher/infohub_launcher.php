@@ -41,7 +41,7 @@ class infohub_launcher extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Download client side data that the launcher need to work',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

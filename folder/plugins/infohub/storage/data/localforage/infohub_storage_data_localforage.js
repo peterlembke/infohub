@@ -35,7 +35,7 @@ function infohub_storage_data_localforage() {
             'checksum': '{{checksum}}',
             'note': 'Uses the local storage engine indexedDb trough the library localForage to store key value',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -24,12 +24,13 @@ function infohub_transfer() {
     const _Version = function() {
         return {
             'date': '2015-09-20',
+            'since': '2015-09-20',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_transfer',
             'note': 'Transfer data to other nodes',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
@@ -44,8 +45,6 @@ function infohub_transfer() {
         $globalOnlineTimer = 0, // When server have not answered then $globalOnline is 'false' for 30 seconds
         $globalBannedUntil = _MicroTime() + 1.0, // Seconds since EPOC when the ban time is over
         $globalSendToNode = {}, // All messages that will be sent, key is node name
-        $globalSendAtTimeStamp = 0, // Seconds since EPOC when we can send all pending messages
-        $globalTimer = 0, // A timer that will send the mesages when it is time
         $globalCallStack = {}; // Outgoing subcall messages leave their callstack here and pick it up when coming back. Used in _LeaveCallStack and _PickUpCallStack.
 
     // *****************************************************************************
@@ -86,8 +85,7 @@ function infohub_transfer() {
             return;
         }
 
-        if ($value === 'false')
-        {
+        if ($value === 'false') {
             $globalOnline = 'false';
 
             const $maxWaitTimeMSToSetGlobalOnlineBackToTrue = 30000.0;
@@ -123,7 +121,18 @@ function infohub_transfer() {
             'to_node': {}, // node name as key and an array with messages to that node
             'config': {},
             'from_plugin': {},
-            'step': 'step_start'
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'checksum': '',
+                'sign_code': '',
+                'sign_code_created_at': '',
+                'session_id': ''
+            },
+            'data_back': {
+                'package': {}
+            }
         };
 
         $in = _Default($default, $in);
@@ -132,55 +141,205 @@ function infohub_transfer() {
             'answer': 'true',
             'message': 'Nothing to report',
             'wait_milliseconds': 0,
-            'message_count': 0
+            'message_count': 0,
+            'messages': []
         };
 
-        leave: {
-            const $response = internal_GetWaitMilliseconds({'to_node': $in.to_node });
+        let $messagesArray = [];
 
-            if ($response.message_count === 0) {
-                $out.message = 'I have no messages to send';
-                break leave;
-            }
+        if ($in.step === 'step_start') {
 
+            const $response = internal_GetWaitMilliseconds({
+                'to_node': $in.to_node
+            });
+
+            $out.message = 'I have no messages to send';
             $out.message_count = $response.message_count;
             $out.wait_milliseconds = $response.wait_milliseconds;
+            $in.step = 'step_end';
 
-            internal_AddMessagesToGlobalSendToNode($in);
+            if ($response.message_count > 0) {
 
-            if ($globalSendAtTimeStamp === 0.0) {
-                $globalSendAtTimeStamp = $response.timestamp;
+                internal_AddMessagesToGlobalSendToNode($in);
+
+                // @todo Must honor $globalBannedUntil. That is probably done with an advanced_timer. check that.
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_timer',
+                        'function': 'start_timer'
+                    },
+                    'data': {
+                        'name': 'send',
+                        'milliseconds': $response.wait_milliseconds,
+                        'update': 'lower' // no, yes, lower, higher
+                    },
+                    'data_back': {
+                        'step': 'step_time_to_send_count_messages'
+                    }
+                });
             }
+        }
 
-            if ($response.timestamp < $globalSendAtTimeStamp)
-            {
-                if ($globalTimer !== 0) {
-                    clearTimeout($globalTimer);
+        if ($in.step === 'step_time_to_send_count_messages') {
+            $in.step = 'step_time_to_send_online';
+            if (_Count($globalSendToNode) === 0) {
+                $out.answer = 'true';
+                $out.message = 'I have no messages to send';
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_time_to_send_online') {
+            $in.step = 'step_time_to_send_globalonline';
+            const $isOnline = _IsOnline();
+            if ($isOnline === 'false') {
+                $out.message = 'We are offline, I can not send anything. Your subcalls will be returned to you now.';
+                internal_Cmd({
+                    'func': 'HandleOffline'
+                });
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_time_to_send_globalonline') {
+            $in.step = 'step_time_to_send_now';
+            if ($globalOnline === 'false') {
+                $out.message = 'The server did not answer the last time I tried. I am waiting a while to try again. Your subcalls will be returned to you now.';
+                internal_Cmd({
+                    'func': 'HandleOffline'
+                });
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_time_to_send_now') {
+
+            // Send everything in ToNode as a JSON to each node
+            // @version 2018-09-01
+            // @since 2013-11-21
+            // @author Peter Lembke
+
+            for (let $nodeName in $globalSendToNode) {
+                if ($globalSendToNode.hasOwnProperty($nodeName) === false) {
+                    continue;
                 }
-                $globalTimer = 0;
-                $globalSendAtTimeStamp = $response.timestamp;
-            }
 
-            if ($response.timestamp >= $globalSendAtTimeStamp) {
-                if ($globalTimer !== 0) {
-                    $out.message = 'Messages added to be sent';
-                    break leave;
+                if (_Count($globalSendToNode[$nodeName]) === 0) {
+                    continue;
                 }
+
+                if ($nodeName !== 'server') {
+                    continue;
+                }
+
+                const $messages = _ByVal($globalSendToNode[$nodeName]);
+                delete ($globalSendToNode[$nodeName]);
+
+                let $package = {
+                    'to_node': $nodeName,
+                    'session_id': '',
+                    'sign_code': '',
+                    'sign_code_created_at': '',
+                    'messages_checksum': '',
+                    'messages': $messages
+                };
+
+                $package = _SendingMessagesClean($package);
+                let $messagesJson = JSON.stringify($package.messages); // _JsonEncode($package.messages); // avoid prettify
+                $messagesJson = _Replace('{}', '[]', $messagesJson);
+
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_checksum',
+                        'function': 'calculate_checksum'
+                    },
+                    'data': {
+                        'value': $messagesJson
+                    },
+                    'data_back': {
+                        'step': 'step_checksum_response',
+                        'package': $package
+                    }
+                });
+
+                $messagesArray.push($messageOut);
             }
 
-            $globalTimer = setTimeout(function() {
-                internal_Send($in);
-                $globalTimer = 0;
-            }, $response.wait_milliseconds);
+            $out.messages = $messagesArray;
+            $in.step = 'step_end';
+            // This will send all the messages in messagesArray.
+            // In Client we only send to the server but I
+            // intend to have the same solution in other cores.
+            // We return one message at the time at step_checksum_response
+        }
 
-            $out.message = 'Have started a timer so messages will be sent when it is time';
+        if ($in.step === 'step_checksum_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.data_back.package.messages_checksum = $in.response.checksum;
+                $in.step = 'step_sign_code';
+            }
+        }
+
+        if ($in.step === 'step_sign_code') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'initiator_calculate_sign_code'
+                },
+                'data': {
+                    'node': $in.data_back.package.to_node,
+                    'messages_checksum': $in.data_back.package.messages_checksum
+                },
+                'data_back': {
+                    'step': 'step_sign_code_response',
+                    'package': $in.data_back.package
+                }
+            });
+        }
+
+        if ($in.step === 'step_sign_code_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+
+                $in.data_back.package.sign_code = $in.response.sign_code;
+                $in.data_back.package.sign_code_created_at = $in.response.sign_code_created_at;
+                $in.data_back.package.session_id = $in.response.session_id;
+
+                $in.step = 'step_ajax_call';
+            }
+        }
+
+        if ($in.step === 'step_ajax_call') {
+            const $nodeName = $in.data_back.package.to_node;
+            const $packageJson = _JsonEncode($in.data_back.package);
+
+            internal_Cmd({
+                'func': 'AjaxCall',
+                'package': $packageJson
+            });
+
+            $globalBannedUntil = _MicroTime(true) + 5.0; // (was 1.2) Set a high ban time in seconds. Server will return with the real ban timestamp.
+
+            $out.answer = 'true';
+            $out.message = 'Sent message to node:' + $nodeName + ', with ' + $packageJson.length + ' bytes of data.';
+            internal_Log({
+                'level': 'log',
+                'message': $out.message,
+                'object': $in.data_back.package
+            });
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
             'wait_milliseconds': $out.wait_milliseconds,
-            'message_count': $out.message_count
+            'message_count': $out.message_count,
+            'messages': $out.messages
         };
     };
 
@@ -200,13 +359,16 @@ function infohub_transfer() {
         };
         $in = _Default($default, $in);
 
-        for (let $nodeName in $in.to_node) {
+        for (let $nodeName in $in.to_node)
+        {
             if ($in.to_node.hasOwnProperty($nodeName) === false) {
                 continue;
             }
+
             if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
                 $globalSendToNode[$nodeName] = [];
             }
+
             $globalSendToNode[$nodeName] = _ByVal($globalSendToNode[$nodeName].concat($in.to_node[$nodeName]));
         }
 
@@ -234,7 +396,8 @@ function infohub_transfer() {
         };
         $in = _Default($default,$in);
 
-        if ($in.message !== '') {
+        if ($in.message !== '')
+        {
             internal_Log({
                 'level': 'error',
                 'message': 'Got an error message:' + $in.message,
@@ -288,9 +451,9 @@ function infohub_transfer() {
                 continue;
             }
 
+            $messageCount = $messageCount + $in.to_node[$nodeName].length;
             for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId = $messageId + 1)
             {
-                $messageCount = $messageCount + 1;
                 const $messageData = $in.to_node[$nodeName][$messageId];
 
                 if (_IsSet($messageData.wait) === 'false') {
@@ -328,98 +491,6 @@ function infohub_transfer() {
     };
 
     /**
-     * Send everything in ToNode as a JSON to each node
-     * @version 2018-09-01
-     * @since 2013-11-21
-     * @author Peter Lembke
-     * @param $in
-     * @returns {*}
-     * @uses
-     */
-    $functions.push('internal_Send');
-    const internal_Send = function ($in)
-    {
-        const $default = {};
-        $in = _Default($default, $in);
-
-        let $answer = 'false';
-        let $message = 'Finished with internal_Send';
-        const $isOnline = _IsOnline();
-
-        leave:
-        {
-            if (_Count($globalSendToNode) === 0) {
-                $answer = 'true';
-                $message = 'I have no messages to send';
-                break leave;
-            }
-
-            if ($isOnline === 'false') {
-                $message = 'We are offline, I can not send anything.  Your subcalls will be returned to you now.';
-                internal_Cmd({'func': 'HandleOffline' });
-                break leave;
-            }
-
-            if ($globalOnline === 'false') {
-                $message = 'The server did not answer the last time I tried. I am waiting a while to try again. Your subcalls will be returned to you now.';
-                internal_Cmd({'func': 'HandleOffline' });
-                break leave;
-            }
-
-            for (let $nodeName in $globalSendToNode)
-            {
-                if ($globalSendToNode.hasOwnProperty($nodeName) === false) {
-                    continue;
-                }
-
-                if (_Count($globalSendToNode[$nodeName]) === 0) {
-                    continue;
-                }
-
-                if ($nodeName !== 'server') {
-                    continue;
-                }
-
-                // @todo HUB-560, add session_id, sign_code, sign_code_created_at, user_id
-
-                let $package = {
-                    'to_node': $nodeName,
-                    'session_id': '',
-                    'sign_code': '',
-                    'user_id': '',
-                    'messages': _ByVal($globalSendToNode[$nodeName])
-                };
-
-                delete ($globalSendToNode[$nodeName]);
-
-                $package = _SendingMessagesClean($package);
-                const $packageJson = JSON.stringify($package);
-
-                internal_Cmd({
-                    'func': 'AjaxCall',
-                    'package': $packageJson
-                });
-
-                $message = 'Sent message to node:' + $nodeName + ', with ' + $packageJson.length + ' bytes of data.';
-                internal_Log({
-                    'level': 'log',
-                    'message': $message,
-                    'object': $package
-                });
-            }
-
-            $globalBannedUntil = _MicroTime(true) + 5.0; // (was 1.2) Set a high ban time in seconds. Server will return with the real ban timestamp.
-            $answer = 'true';
-            $message = 'Done sending packages to nodes';
-        }
-
-        return {
-            'answer': $answer,
-            'message': $message
-        };
-    };
-
-    /**
      * We just discovered that the server we want to communicate with do not answer.
      * The package we sent with messages in them must be unpacked and the messages will go back to
      * the $globalSendToNode variable so that internal_HandleOffline can handle them.
@@ -449,17 +520,20 @@ function infohub_transfer() {
 
         leave:
         {
-            if (_Count($messagesArray) === 0) {
+            if (_Count($messagesArray) === 0)
+            {
                 break leave;
             }
 
             const $nodeName = 'server';
 
-            if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
+            if (_IsSet($globalSendToNode[$nodeName]) === 'false')
+            {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1) {
+            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1)
+            {
                 const $message = _PickUpCallStack($messagesArray[$messageNumber]);
                 $globalSendToNode[$nodeName].push($message);
             }
@@ -492,11 +566,13 @@ function infohub_transfer() {
         {
             const $nodeName = 'server';
 
-            if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
+            if (_IsSet($globalSendToNode[$nodeName]) === 'false')
+            {
                 break leave;
             }
 
-            if (_Count($globalSendToNode[$nodeName]) === 0) {
+            if (_Count($globalSendToNode[$nodeName]) === 0)
+            {
                 break leave;
             }
 
@@ -505,7 +581,8 @@ function infohub_transfer() {
 
             for (let $messageNumber in $globalSendToNode[$nodeName])
             {
-                if ($globalSendToNode[$nodeName].hasOwnProperty($messageNumber) === false) {
+                if ($globalSendToNode[$nodeName].hasOwnProperty($messageNumber) === false)
+                {
                     continue;
                 }
 
@@ -513,7 +590,8 @@ function infohub_transfer() {
                 const $lastItem = $messageOut.callstack.pop();
                 const $returnToNode = $lastItem.to.node;
 
-                if ($returnToNode !== 'client') {
+                if ($returnToNode !== 'client')
+                {
                     $messagesToKeepArray.push($messageOut);
                     continue; // This message is a keeper.
                 }
@@ -561,6 +639,7 @@ function infohub_transfer() {
                     detail: {'package': $package, 'message': 'Offline answers'},
                     bubbles: true, cancelable: true
                 });
+
                 document.dispatchEvent($event);
             }
 
@@ -596,11 +675,19 @@ function infohub_transfer() {
         const xmlHttp = new XMLHttpRequest();
         const $maxWaitTimeMS = 4000.0;
 
-        var noResponseTimer = setTimeout(function() {
+        var noResponseTimer = setTimeout(function()
+        {
             xmlHttp.abort();
             _SetGlobalOnline('false');
-            internal_Cmd({'func': 'PutPackageBack', 'package': $in.package });
-            internal_Cmd({'func': 'HandleOffline' });
+
+            internal_Cmd({
+                'func': 'PutPackageBack',
+                'package': $in.package
+            });
+
+            internal_Cmd({
+                'func': 'HandleOffline'
+            });
         }, $maxWaitTimeMS);
 
         const $parameters = 'package=' + encodeURIComponent($in.package);
@@ -608,9 +695,17 @@ function infohub_transfer() {
         const $async = true;
         xmlHttp.open('POST', $url, $async);
 
-        xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState === 4) {
-                if (xmlHttp.status === 200) {
+        xmlHttp.onreadystatechange = function ()
+        {
+            if (xmlHttp.readyState === 4)
+            {
+                if (xmlHttp.status !== 200) {
+                    _SetGlobalOnline('false'); // We should have got a message but it never arrived.
+                    return;
+                }
+
+                if (xmlHttp.status === 200)
+                {
                     const $myTime = _MicroTime(true);
                     let $package = {};
                     let $event;
@@ -622,6 +717,7 @@ function infohub_transfer() {
                         'start_time': $myTime,
                         'depth': 1
                     });
+
                     internal_Log({
                         'message': 'Incoming package',
                         'function_name': '*onreadystatechange',
@@ -631,15 +727,20 @@ function infohub_transfer() {
                     _SetGlobalOnline('true'); // We got a message, we are online
                     clearTimeout(noResponseTimer); // We got a response before the timeout
 
-                    if ($incomingData.substr(0, 7) === 'error: ') {
+                    if ($incomingData.substr(0, 7) === 'error: ')
+                    {
                         _BoxError('Got server ' + $incomingData);
                         return;
                     }
 
-                    if ($incomingData !== '') {
-                        try {
+                    if ($incomingData !== '')
+                    {
+                        try
+                        {
                             $package = JSON.parse($incomingData);
-                        } catch ($err) {
+                        }
+                        catch ($err)
+                        {
 
                             internal_Log({
                                 'level': 'error',
@@ -661,9 +762,12 @@ function infohub_transfer() {
                         'object': $package
                     });
 
-                    if (_IsSet($package.error_array) === 'true') {
-                        if (Array.isArray($package.error_array) === true) {
-                            if ($package.error_array.length > 0) {
+                    if (_IsSet($package.error_array) === 'true')
+                    {
+                        if (Array.isArray($package.error_array) === true)
+                        {
+                            if ($package.error_array.length > 0)
+                            {
                                 _BoxError($package.error_array, 'true');
                             }
                         }
@@ -675,11 +779,13 @@ function infohub_transfer() {
                         'data': $package
                     });
 
-                    if ($dataType === 'exception') {
+                    if ($dataType === 'exception')
+                    {
                         _BoxError($package, 'true');
                     }
 
-                    if (_IsSet($package.ban_seconds) === 'true') {
+                    if (_IsSet($package.ban_seconds) === 'true')
+                    {
                         $globalBannedUntil = $package.ban_seconds + _MicroTime();
                     }
 
@@ -693,13 +799,14 @@ function infohub_transfer() {
                     $package = _ReceivedMessagesCleanAndExpand($package);
 
                     $event = new CustomEvent('infohub_call_main', {
-                        detail: {'package': $package, 'message': 'Incoming ajax message'},
-                        bubbles: true, cancelable: true
+                        detail: {
+                            'package': $package,
+                            'message': 'Incoming ajax message'
+                        },
+                        bubbles: true,
+                        cancelable: true
                     });
                     document.dispatchEvent($event);
-
-                } else {
-                    _SetGlobalOnline('false'); // We should have got a message but it never arrived.
                 }
             }
         };
@@ -737,6 +844,14 @@ function infohub_transfer() {
 
             $oneMessage = _ByVal($package.messages[$key]);
             $oneMessage = _CleanMessage($oneMessage);
+
+            if ($oneMessage.callstack.length > 0) {
+                // HUB-549 - Remove messages that has a call stack
+                $oneMessage = {};
+                delete $package[$key];
+                continue;
+            }
+
             $oneMessage = _PickUpCallStack($oneMessage);
             $oneMessage = _ExpandMessage($oneMessage);
             $package.messages[$key] = _ByVal($oneMessage);
@@ -813,7 +928,8 @@ function infohub_transfer() {
         };
         $message = _Default($default, $message);
 
-        if (_IsSet($message.data.data_back) === 'true') {
+        if (_IsSet($message.data.data_back) === 'true')
+        {
             if (_IsSet($message.data.data_back.data_back) === 'true') {
                 delete $message.data.data_back.data_back;
             }
@@ -952,6 +1068,7 @@ function infohub_transfer() {
             if ($message.to.node !== 'client') {
                 break leave;
             }
+
             let $hubId = $message.to.function;
             if (_IsSet($globalCallStack[$hubId]) === 'false') {
                 break leave;

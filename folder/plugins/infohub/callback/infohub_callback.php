@@ -37,7 +37,7 @@ class infohub_callback extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Handles incoming URL requests with parameters',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

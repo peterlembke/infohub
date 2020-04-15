@@ -33,7 +33,7 @@ function infohub_renderform() {
             'class_name': 'infohub_renderform',
             'note': 'Adds more features to the basic render form elements',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

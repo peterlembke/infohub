@@ -1,0 +1,20 @@
+{
+    "publisher_name": "GNU",
+    "publisher_url": "https://www.gnu.org/graphics/license-logos.html",
+    "publisher_note": "GNU Operating System",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "Free to use",
+    "license_url": "https://www.gnu.org/graphics/license-logos.html",
+    "license_note": "Official GFDL logo. Copyright © 2007, 2008, 2011, 2018 Free Software Foundation, Inc. Available under the GNU Free Documentation License v1.3.",
+    "author_name": "Martin Owens",
+    "author_url": "",
+    "author_note": "",
+    "icon_name": "GNU Free Documentation License",
+    "icon_url": "https://www.gnu.org/graphics/gfdl-logo.svg",
+    "icon_note": "GFDL logo by Martin Owens",
+    "derivative_work": "Button have got a document illustration and a new main colour.",
+    "attribute": "{icon_name|icon_url} {author_name} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

@@ -35,7 +35,7 @@ class infohub_compress extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Compress data. You need less internet capacity and less storage space',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

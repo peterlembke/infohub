@@ -40,7 +40,7 @@ class infohub_plugin extends infohub_base
             'checksum' => '{{checksum}}',
             'note'=> 'Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 
@@ -229,8 +229,8 @@ class infohub_plugin extends infohub_base
             if ($in['plugin_code'] !== '') {
                 $ok = 'false';
                 $valid = array(
-                    "'license_name' => 'GNU GPL 3 or later'",
-                    "'license_name': 'GNU GPL 3 or later'"
+                    "'SPDX-License-Identifier' => 'GPL-3.0-or-later'",
+                    "'SPDX-License-Identifier': 'GPL-3.0-or-later'"
                 );
 
                 foreach ($valid as $license) {

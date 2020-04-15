@@ -30,7 +30,7 @@ function infohub_translate_mergefiles() {
             'class_name': 'infohub_translate_mergefiles',
             'note': 'Handle the merge of the two template files, the original phrases with the translated phrases',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

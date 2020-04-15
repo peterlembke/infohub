@@ -31,7 +31,7 @@ function infohub_checksum_crc32() {
             'class_name': 'infohub_checksum_crc32',
             'note': 'Cyclic redundancy check from 1961 are well suited for detecting burst errors',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

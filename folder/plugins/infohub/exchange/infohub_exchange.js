@@ -31,7 +31,7 @@ function infohub_exchange() {
             'class_name': 'infohub_exchange',
             'note': 'Handle all messages so they come to the right plugin',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

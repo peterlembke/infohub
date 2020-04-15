@@ -30,7 +30,7 @@ function infohub_doc_get() {
             'class_name': 'infohub_doc_get',
             'note': 'Keep data updated locally and get new data from the server.',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Get'
         };
     };

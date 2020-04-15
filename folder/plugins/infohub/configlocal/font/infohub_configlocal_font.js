@@ -38,7 +38,7 @@ function infohub_configlocal_font() {
             'class_name': 'infohub_configlocal_font',
             'note': 'Here you can set the global font parameters',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

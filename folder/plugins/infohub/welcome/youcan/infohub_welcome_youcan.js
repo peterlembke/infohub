@@ -30,7 +30,7 @@ function infohub_welcome_youcan() {
             'class_name': 'infohub_welcome_youcan',
             'note': 'The welcome demo',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

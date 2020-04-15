@@ -32,7 +32,7 @@ function infohub_render_map() {
             'class_name': 'infohub_render_map',
             'note': 'Render HTML for a map from OpenStreetMap, Google Maps, GPSies',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

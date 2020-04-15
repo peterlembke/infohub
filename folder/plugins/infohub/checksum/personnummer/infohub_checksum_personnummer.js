@@ -31,7 +31,7 @@ function infohub_checksum_personnummer() {
             'class_name': 'infohub_checksum_personnummer',
             'note': 'Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -30,7 +30,7 @@ function infohub_welcome() {
             'class_name': 'infohub_welcome',
             'note': 'Configuration editor for your local browser configuration',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Config'
         };
     };

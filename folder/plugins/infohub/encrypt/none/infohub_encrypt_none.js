@@ -41,7 +41,7 @@ function infohub_encrypt_none() {
             'class_name': 'infohub_encrypt_none',
             'note': 'This method does nothing with the data. Useful if you want to introduce encryption but see the result',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

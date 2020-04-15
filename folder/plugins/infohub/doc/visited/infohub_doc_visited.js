@@ -30,7 +30,7 @@ function infohub_doc_visited() {
             'class_name': 'infohub_doc_visited',
             'note': 'Render list with the latest visited documents',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Visited'
         };
     };

@@ -33,7 +33,7 @@ function infohub_renderadvancedlist() {
             'class_name': 'infohub_renderadvancedlist',
             'note': 'Renders an advanced list with expandable levels',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

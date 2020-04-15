@@ -30,7 +30,7 @@ function infohub_time() {
             'class_name': 'infohub_time',
             'note': 'Functions that give you an unpredictable answer',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

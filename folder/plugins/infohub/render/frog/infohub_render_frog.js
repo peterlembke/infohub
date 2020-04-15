@@ -32,7 +32,7 @@ function infohub_render_frog() {
             'class_name': 'infohub_render_frog',
             'note': 'Render HTML for a frog. If you give bad instructions to the renderer then you get a frog.',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

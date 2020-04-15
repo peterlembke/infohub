@@ -23,7 +23,7 @@ class infohub_base
             'class_name' => 'infohub_base',
             'note' => 'Parent class in ALL plugins. Manages the traffic in the plugin',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

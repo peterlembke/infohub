@@ -32,7 +32,7 @@ function infohub_render_table() {
             'class_name': 'infohub_render_table',
             'note': 'Render HTML for a table',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

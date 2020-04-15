@@ -32,7 +32,7 @@ function infohub_render_common() {
             'class_name': 'infohub_render_common',
             'note': 'Render HTML for features like images, iframes, containers, legends, lists etc',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

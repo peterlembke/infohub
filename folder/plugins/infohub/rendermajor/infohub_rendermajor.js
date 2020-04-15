@@ -33,7 +33,7 @@ function infohub_rendermajor() {
             'class_name': 'infohub_rendermajor',
             'note': 'Renders a display box for content by assembling smaller standard parts',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

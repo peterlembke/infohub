@@ -30,7 +30,7 @@ function infohub_demo_frog() {
             'class_name': 'infohub_demo_frog',
             'note': 'Render a frog demo for infohub_demo',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

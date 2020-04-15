@@ -31,7 +31,7 @@ function infohub_rendermenu() {
             'class_name': 'infohub_rendermenu',
             'note': 'Render a list with buttons. That is easier to use than a list with links',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

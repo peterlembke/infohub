@@ -29,7 +29,7 @@ function infohub_cache() {
             'class_name': 'infohub_cache',
             'checksum': '{{checksum}}',
             'note': 'Used by infohub_plugin to store plugins in local storage. Can be used for temporary data that will expire',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

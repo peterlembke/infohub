@@ -41,7 +41,7 @@ class infohub_file extends infohub_base
             'checksum' => '{{checksum}}',
             'note'=> 'Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins.',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

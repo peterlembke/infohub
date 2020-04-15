@@ -30,7 +30,7 @@ function infohub_configlocal_colour() {
             'class_name': 'infohub_configlocal_colour',
             'note': 'Here you can set the colour schema',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

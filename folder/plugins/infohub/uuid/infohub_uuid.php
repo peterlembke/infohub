@@ -36,7 +36,7 @@ class infohub_uuid extends infohub_base {
             'note' => 'Universally unique identifier',
             'webpage' => 'https://en.wikipedia.org/wiki/Universally_unique_identifier',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

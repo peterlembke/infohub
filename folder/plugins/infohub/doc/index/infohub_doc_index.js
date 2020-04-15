@@ -30,7 +30,7 @@ function infohub_doc_index() {
             'class_name': 'infohub_doc_index',
             'note': 'Render index and handle click events on the list',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Index'
         };
     };

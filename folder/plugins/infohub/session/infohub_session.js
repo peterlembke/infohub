@@ -31,7 +31,7 @@ function infohub_session() {
             'class_name': 'infohub_session',
             'note': 'Handle the session with the server',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later',
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Session'
         };
     };
@@ -262,7 +262,7 @@ function infohub_session() {
         {
             return _SubCall({
                 'to': {
-                    'node': 'server',
+                    'node': 'client',
                     'plugin': 'infohub_storage',
                     'function': 'read'
                 },
@@ -309,7 +309,7 @@ function infohub_session() {
                         'value': $string
                     },
                     'data_back': {
-                        'sign_code': $in.sign_code,
+                        'sign_code': $in.data_back.sign_code,
                         'sign_code_created_at': $signCodeCreatedAt,
                         'session_id': $data.session_id,
                         'user_name': $data.initiator_user_name,
@@ -329,7 +329,9 @@ function infohub_session() {
             'message': $in.response.message,
             'ok': $ok,
             'sign_code': $in.data_back.sign_code,
-            'sign_code_created_at': $in.data_back.sign_code_created_at
+            'sign_code_created_at': $in.data_back.sign_code_created_at,
+            'session_id': $in.data_back.session_id,
+            'user_name': $in.data_back.user_name
         };
     };
 
@@ -375,7 +377,7 @@ function infohub_session() {
         {
             return _SubCall({
                 'to': {
-                    'node': 'server',
+                    'node': 'client',
                     'plugin': 'infohub_storage',
                     'function': 'read'
                 },
@@ -454,7 +456,7 @@ function infohub_session() {
     const initiator_check_session_valid = function ($in)
     {
         const $default = {
-            'node': 'server', // node name
+            'node': 'client', // node name
             'step': 'step_get_session_data',
             'response': {
                 'data': {},

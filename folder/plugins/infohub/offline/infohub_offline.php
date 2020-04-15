@@ -34,7 +34,7 @@ class infohub_offline extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Answers with the current checksum for index.php, then the client know if index.php need to be updated',
             'status' => 'normal',
-            'license_name' => 'GNU GPL 3 or later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 

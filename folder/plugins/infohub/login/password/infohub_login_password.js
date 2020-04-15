@@ -32,7 +32,7 @@ function infohub_login_password() {
             'class_name': 'infohub_login_password',
             'note': 'Change local password on the shared_secret',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

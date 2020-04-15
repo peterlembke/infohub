@@ -30,7 +30,7 @@ function infohub_tools_testcall() {
             'class_name': 'infohub_tools_testcall',
             'note': 'Write calls to trigger functions',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

@@ -30,7 +30,7 @@ function infohub_login_contact() {
             'class_name': 'infohub_login_contact',
             'note': 'Store, View, Load the contact from Storage',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

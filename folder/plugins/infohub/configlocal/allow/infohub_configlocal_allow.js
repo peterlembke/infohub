@@ -29,7 +29,7 @@ function infohub_configlocal_allow() {
             'class_name': 'infohub_configlocal_allow',
             'note': 'Here you can set the allow level',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

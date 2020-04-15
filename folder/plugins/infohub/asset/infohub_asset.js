@@ -36,7 +36,7 @@ function infohub_asset() {
             'class_name': 'infohub_asset',
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
@@ -215,7 +215,6 @@ function infohub_asset() {
 
                 if ($loadedAsset[$pluginName].rendered === 'true') {
                     $anyRendered = 'true';
-                    continue;
                 }
 
                 $toRender[$pluginName] = _ByVal($loadedAsset[$pluginName]);
@@ -321,6 +320,10 @@ function infohub_asset() {
                     continue;
                 }
 
+                if ($loadedAsset[$pluginName].rendered === 'true') {
+                    continue; // We already have a major for this plugin
+                }
+
                 $oneMajor = {
                     'plugin': 'infohub_rendermajor',
                     'type': 'presentation_box',
@@ -360,6 +363,8 @@ function infohub_asset() {
                     }
                 });
             }
+
+            $in.step = 'step_render_assets';
         }
 
         let $messageArray = [];
@@ -386,7 +391,9 @@ function infohub_asset() {
                     }
 
                     const $data = $in.data_back.to_render[$pluginName][$assetPath];
-                    const $assetName = $data.asset_type + '-' + $data.asset_name;
+                    let $assetName = $data.asset_type + '-' + $data.asset_name;
+                    $assetName = _Replace('/', '-', $assetName); // backslash do not work in IDs.
+
                     const $link = 'link_' + $assetName;
                     const $image = 'image_' + $assetName;
                     const $asset = 'asset_' + $assetName;

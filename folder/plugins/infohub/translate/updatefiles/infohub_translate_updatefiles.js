@@ -30,7 +30,7 @@ function infohub_translate_updatefiles() {
             'class_name': 'infohub_translate_updatefiles',
             'note': 'Upload an existing language file and you will get the latest phrases',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 

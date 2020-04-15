@@ -30,7 +30,7 @@ function infohub_tools_compress() {
             'class_name': 'infohub_tools_compress',
             'note': 'Render a form for testing compression of data',
             'status': 'normal',
-            'license_name': 'GNU GPL 3 or later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
