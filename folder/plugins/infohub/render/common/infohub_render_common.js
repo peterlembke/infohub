@@ -391,10 +391,13 @@ function infohub_render_common() {
 
     /**
      * Get iframe html
+     * iframes allow other web pages to run on your page. Sandbox is not secure enough.
      * You should NOT use iframes but if you need to then use this function.
+     * The sanity scripts will nag you when they see an iframe.
      * @version 2016-10-16
      * @since   2015-02-15
      * @author  Peter Lembke
+     * @deprecated
      */
     const internal_Iframe = function ($in)
     {

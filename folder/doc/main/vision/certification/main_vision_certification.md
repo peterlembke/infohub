@@ -34,7 +34,6 @@ Here you can explain in detail how the PHP Core works
 - How can you install the PHP Core
 - Describe the kick out tests
 - What are the PHP Core plugins and what are they doing
-- Why does callback exist and how can you use it
 
 # InfoHub - Javascript Browser Core
 Here you can explain in detail how the Javascript Browser Core works  

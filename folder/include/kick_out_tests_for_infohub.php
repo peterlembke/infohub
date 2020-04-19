@@ -28,12 +28,15 @@ class kickOut
     /**
      * Main function that run all tests
      */
-    public function tests(): void
+    public function tests(): array
     {
         $this->quickTests();
         $this->httpRefererTest();
         $this->validCookies();
         $this->removeUnknownFilesAndFolders();
+        $package = $this->checkAndUpdatePackageParameters();
+
+        return $package;
     }
 
     /**
@@ -160,6 +163,66 @@ class kickOut
     }
 
     /**
+     * Basic tests that the package is valid
+     */
+    protected function checkAndUpdatePackageParameters(): array
+    {
+        $package = json_decode($_POST['package'], true);
+
+        if (empty($package)) {
+            $this->GetOut('Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
+        }
+
+        $requiredPropertyNameArray = array('session_id' => 1, 'sign_code' => 1, 'sign_code_created_at' => 1, 'messages_encoded' => 1, 'package_type' => 1);
+
+        foreach ($package as $name => $data) {
+            if (isset($requiredPropertyNameArray[$name]) === true) {
+                continue;
+            }
+            $this->GetOut('Server says: Package parameter not allowed: ' . $name);
+        }
+
+        foreach ($requiredPropertyNameArray as $requiredPropertyName => $dummyValue) {
+            if (isset($package[$requiredPropertyName]) === false) {
+                $this->GetOut('Server says: Package parameter missing: ' . $requiredPropertyName);
+            }
+        }
+
+        if ($package['package_type'] !== '2020') {
+            $this->GetOut('Server says: Expect package_type to be "2020"');
+        }
+        unset($package['package_type']);
+
+        $diff = microtime(true) - (float) $package['sign_code_created_at'];
+        if ($diff < 0.0 or $diff > 2.0) {
+            $this->GetOut('Server says: Package sign_code_created_at is older than 2.0 seconds');
+        }
+
+        $checksum = md5($package['messages_encoded']);
+        $package['messages_checksum'] = $checksum;
+
+        $messagesJson = base64_decode($package['messages_encoded'], $strict = true);
+        $messages = json_decode($messagesJson, true);
+
+        if (empty($messages)) {
+            $messages = array();
+        }
+
+        $messageCount = count($messages);
+        if (empty($messageCount)) {
+            $this->GetOut('Server says: Package messages missing');
+        }
+        if ($messageCount > 100) {
+            $this->GetOut('Server says: Package messages too many');
+        }
+
+        $package['messages'] = $messages;
+        unset($package['messages_encoded']);
+
+        return $package;
+    }
+
+    /**
      * Get the filename in the url
      * @return string
      */
@@ -202,4 +265,4 @@ class kickOut
 
 /** @var kickOut $kick */
 $kick = new kickOut();
-$kick->tests();
+$package = $kick->tests();

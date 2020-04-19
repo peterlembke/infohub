@@ -119,6 +119,13 @@ function infohub_demo_menu() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
                                 },
+                                'svg_demo': {
+                                    'alias': 'svg_demo_link',
+                                    'event_data': 'svg',
+                                    'button_label': _Translate('SVG rendering demo'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu'
+                                },
                                 'frog_demo': {
                                     'alias': 'frog_demo_link',
                                     'event_data': 'frog',

@@ -6,10 +6,19 @@
 Infohub is not about sharing. InfoHub handle your private data on your own or your friends trusted server on the internet or in your private network.
 This is a generic platform where you run your plugins. The long term aim is to create a trustworthy operating system you can use in your web browser.
 
+# License
+* License [GNU GPL v3 or later](LICENSE)
+* License [details](folder/doc/license/license.md)
+
+The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in [TERMS.md](TERMS.md).
+
 # Current status
 Infohub is missing two key components: Login (rights) and the Tree plugin that will store your encrypted personal information.
 
 See below [Apps for personal data](#Apps for personal data) for more information what you will be able to do in Infohub.
+
+# Releases
+Infohub have been developed since 2010-01-01 and have some [releases](CHANGELOG.md). 
 
 # Plugins
 You know you can install programs on the computer, or install apps on the phone, or install add-ons in your browser. Regardless of the name we call them it is just software. In Infohub you can install plugins but it is the same thing. 
@@ -228,3 +237,8 @@ The launcher is where you start plugins.
 ![Documentation](folder/doc/images/doc.png)
 
 That is just some examples of what Infohub can do. ![Infohub](folder/favicon.png)
+
+# License
+This documentation is copyright (C) 2016 Peter Lembke.  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  

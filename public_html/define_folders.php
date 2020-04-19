@@ -7,8 +7,11 @@ define('DS', DIRECTORY_SEPARATOR);
 
 $currentWorkingDirectory = getcwd();
 $lastPosition = strrpos($currentWorkingDirectory, DS);
-$currentWorkingDirectory = substr($currentWorkingDirectory, $start=0, $length=$lastPosition) . DS .'folder';
-define('MAIN', $currentWorkingDirectory);
+// remove public_html to get the root directory
+$rootDirectory = substr($currentWorkingDirectory, $start = 0, $length = $lastPosition);
+
+define('ROOT', $rootDirectory);
+define('MAIN', ROOT . DS . 'folder');
 
 $folders = array(
     'INCLUDES' => MAIN . DS . 'include',

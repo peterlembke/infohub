@@ -219,7 +219,7 @@ function infohub_tools() {
                     },
                     'where': {
                         'box_id': 'main.body.infohub_tools.tools',
-                        'max_width': 640,
+                        'max_width': 100,
                         'scroll_to_box_id': 'true'
                     }
                 },

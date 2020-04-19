@@ -3,7 +3,7 @@ These terms are based on the work made by [tosdr.org](https://tosdr.org/) and th
 
 The Infohub software is licensed under GNU GENERAL PUBLIC LICENSE Version 3. You can modify the software and use it however you want.
 
-The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on the site if you the site owner apply to the terms in this document.
+The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in this document.
 
 Created at: 2020-02-08 by Peter Lembke, Infohub
 Updated at: 2020-02-08 by Peter Lembke, Infohub

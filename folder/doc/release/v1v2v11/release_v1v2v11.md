@@ -10,6 +10,8 @@ I want to release all these small changes now so that the next release will be e
 - Infohub Asset - got a new icon
 - Infohub Doc - added a GFDL license icon
 - Infohub Launcher - Got a new icon 
+- README got links to TERMS and detailed license information
+- Package.json - added tags
 
 ## Changed
 - SPDX-License-Identifier: GFDL-1.3-or-later added to all documentation files.
@@ -20,13 +22,19 @@ I want to release all these small changes now so that the next release will be e
 - folder/include/start.js - added infohub_timer. Refactored all ++
 - infohub_session - Worked on the functions.
 - infohub_transfer - Refactored so the infohub_timer is used.
+- infohub_transfer - internal_Send is now part of Send. 
 - infohub_transfer - Removed global timers.
 - infohub_transfer - Added emerging function "Received".
 - infohub_exchange - Refactored _AddTransferMessage()
-- doc/license/license.md - Wrote about SPDX identifiers. 
+- doc/license/license.md - Wrote about SPDX identifiers.
+- infohub Contact, improved the default array.
+- Exchange.php, added PHPDOC and refactored
+- Kick out and infohub.php got some refactoring
+- Timer, bug fix. Checksum and Transfer got minor refactoring
+- Swedish icon names that are too long are now on two rows
 
 ## Removed
 
 ## Fixed
-- Infohub Asset - GUI Update now adds newly used icons to already rendered plugins.
+- Infohub Asset - GUI Update now renders newly used icons to already rendered plugins.
 - Infohub Asset - GUI now show all icons in the same size. There was a problem with the demo audio/video/map icons.

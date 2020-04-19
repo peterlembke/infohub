@@ -131,6 +131,13 @@ function infohub_tools_menu() {
                                     'to_plugin': 'infohub_tools',
                                     'to_function': 'click_menu'
                                 },
+                                'package': {
+                                    'alias': 'package_link',
+                                    'event_data': 'package',
+                                    'button_label': _Translate('Messages tool'),
+                                    'to_plugin': 'infohub_tools',
+                                    'to_function': 'click_menu'
+                                },
                                 'time': {
                                     'alias': 'time_link',
                                     'event_data': 'time',

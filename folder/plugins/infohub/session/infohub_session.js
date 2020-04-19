@@ -62,7 +62,7 @@ function infohub_session() {
             'node': '', // name of the node the initiator use to send data to the responder
             'initiator_user_name': '', // user_{hub_id}
             'session_id': '', //session_{hub_id}
-            'session_created_at': 0.0, // micro time with 3 decimals
+            'session_created_at': '', // micro time with 3 decimals
             'plugin_names': [], // Allowed plugins
             'left_overs': '', // Left overs from the login. Never exposed outside this plugin
             'step': 'step_store_session_data',
@@ -245,6 +245,7 @@ function infohub_session() {
                 'data': {},
                 'answer': 'false',
                 'message': 'Nothing to report',
+                'checksum': ''
             },
             'data_back': {
                 'sign_code': '',
@@ -255,7 +256,7 @@ function infohub_session() {
         };
         $in = _Default($default, $in);
 
-        let $signCodeCreatedAt = 0.0;
+        let $signCodeCreatedAt = '';
         let $ok = 'false';
 
         if ($in.step === 'step_get_session_data')
@@ -324,6 +325,10 @@ function infohub_session() {
             $ok = 'true';
         }
 
+        if (_Empty($in.data_back.sign_code_created_at) === 'true') {
+            $in.data_back.sign_code_created_at = _CreatedAt();
+        }
+
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
@@ -348,7 +353,7 @@ function infohub_session() {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
             'sign_code': '',
-            'sign_code_created_at': 0.0, // 3 decimals
+            'sign_code_created_at': '', // 3 decimals
             'step': 'step_verify_sign_code_created_at',
             'response': {
                 'data': {},
@@ -367,7 +372,7 @@ function infohub_session() {
         // Verify sign_code
 
         if ($in.step === 'step_verify_sign_code_created_at') {
-            let $data = $in.sign_code_created_at;
+            const $data = _MicroTime() - parseFloat($in.sign_code_created_at);
             if ($data > 0.0 && $data < 2.0) {
                 $in.step = 'step_get_session_data';
             }
@@ -528,10 +533,10 @@ function infohub_session() {
         };
     };
 
-    const _CreatedAt = function ($in)
+    const _CreatedAt = function ()
     {
         const $time = _MicroTime();
-        return $time;
+        return $time.toString();
     };
 }
 //# sourceURL=infohub_session.js

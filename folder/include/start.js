@@ -149,6 +149,8 @@ function infohub_start($progress) {
             'infohub_compress',
             'infohub_compress_gzip',
             'infohub_configlocal',
+            'infohub_configlocal_zoom',
+            'infohub_configlocal_language',
             'infohub_exchange',
             'infohub_keyboard',
             'infohub_launcher',
@@ -242,24 +244,43 @@ function infohub_start($progress) {
     {
         "use strict";
 
-        let $package = {
-            'to_node' : 'server',
-            'messages' : []
-        };
-
         const $message = {
-            'to': {'node': 'server', 'plugin': 'infohub_plugin', 'function': 'plugins_request'},
+            'to': {
+                'node': 'server',
+                'plugin': 'infohub_plugin',
+                'function': 'plugins_request'
+            },
             'callstack': [
                 {
-                    'to': {'node': 'client', 'plugin': 'infohub_start', 'function': 'start'}
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_start',
+                        'function': 'start'
+                    }
                 }
             ],
-            'data': {'missing_plugin_names': $missingPluginNames},
+            'data': {
+                'missing_plugin_names': $missingPluginNames
+            },
             'alias': 'Run plugins_request to get missing core client plugins',
             'wait': 0.0
         };
 
-        $package.messages.push($message);
+        let $messages = [];
+        $messages.push($message);
+
+        const $messagesJson = JSON.stringify($messages); // _JsonEncode($package.messages); // avoid prettify
+        const $messagesEncoded = btoa($messagesJson);
+
+        const $timestamp = (new Date()).getTime() / 1000.0;
+
+        const $package = {
+            'sign_code': '',
+            'sign_code_created_at': $timestamp.toString(),
+            'session_id': '',
+            'messages_encoded' : $messagesEncoded,
+            'package_type': '2020'
+        };
 
         return $package;
     };

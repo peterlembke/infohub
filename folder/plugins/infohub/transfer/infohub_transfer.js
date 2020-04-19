@@ -234,21 +234,20 @@ function infohub_transfer() {
                     continue;
                 }
 
-                const $messages = _ByVal($globalSendToNode[$nodeName]);
+                let $messages = _ByVal($globalSendToNode[$nodeName]);
                 delete ($globalSendToNode[$nodeName]);
+                $messages = _SendingMessagesClean($messages);
+                let $messagesJson = JSON.stringify($messages); // _JsonEncode($package.messages); // avoid prettify
+                const $messagesEncoded = btoa($messagesJson);
 
                 let $package = {
                     'to_node': $nodeName,
                     'session_id': '',
                     'sign_code': '',
                     'sign_code_created_at': '',
-                    'messages_checksum': '',
-                    'messages': $messages
+                    'messages_encoded': $messagesEncoded,
+                    'messages_checksum': ''
                 };
-
-                $package = _SendingMessagesClean($package);
-                let $messagesJson = JSON.stringify($package.messages); // _JsonEncode($package.messages); // avoid prettify
-                $messagesJson = _Replace('{}', '[]', $messagesJson);
 
                 const $messageOut = _SubCall({
                     'to': {
@@ -257,7 +256,7 @@ function infohub_transfer() {
                         'function': 'calculate_checksum'
                     },
                     'data': {
-                        'value': $messagesJson
+                        'value': $messagesEncoded
                     },
                     'data_back': {
                         'step': 'step_checksum_response',
@@ -316,6 +315,11 @@ function infohub_transfer() {
 
         if ($in.step === 'step_ajax_call') {
             const $nodeName = $in.data_back.package.to_node;
+            delete $in.data_back.package.to_node;
+
+            delete $in.data_back.package.messages_checksum;
+            $in.data_back.package.package_type = '2020';
+
             const $packageJson = _JsonEncode($in.data_back.package);
 
             internal_Cmd({
@@ -861,44 +865,38 @@ function infohub_transfer() {
     };
 
     /**
-     * Get a package object with messages
+     * Get an array with messages
      * clean out all unneeded and unexpected parameters
-     * @param $package
+     * @param $messages
      */
-    const _SendingMessagesClean = function ($package)
+    const _SendingMessagesClean = function ($messages)
     {
-        const $default = {
-                'to_node': '',
-                'messages': []
-            };
-        $package = _Default($default, $package);
-
         let $oneMessage;
-        for (let $key in $package.messages)
+        for (let $key in $messages)
         {
-            if ($package.messages.hasOwnProperty($key) === false) {
+            if ($messages.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $oneMessage = _ByVal($package.messages[$key]);
+            $oneMessage = _ByVal($messages[$key]);
             $oneMessage = _CleanMessage($oneMessage);
             $oneMessage = _LeaveCallStack($oneMessage);
 
             if ($oneMessage.to.node === 'server') {
                 if ($oneMessage.to.plugin === 'infohub_dummy') {
                     if ($oneMessage.to.function === 'reload_page') {
-                        $package.messages = [];
+                        $messages = [];
                         location.reload();
                         break; // Break the for loop
                     }
                     if ($oneMessage.to.function === 'clear_storage_and_reload_page') {
-                        $package.messages = [];
+                        $messages = [];
                         localStorage.clear();
                         location.reload();
                         break; // Break the for loop
                     }
                     if ($oneMessage.to.function === 'set_cold_start_and_reload_page') {
-                        $package.messages = [];
+                        $messages = [];
                         localStorage.setItem('cold_start', '3');
                         location.reload();
                         break; // Break the for loop
@@ -906,10 +904,10 @@ function infohub_transfer() {
                 }
             }
 
-            $package.messages[$key] = _ByVal($oneMessage);
+            $messages[$key] = _ByVal($oneMessage);
         }
 
-        return $package;
+        return $messages;
     };
 
     /**

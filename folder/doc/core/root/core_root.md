@@ -19,7 +19,6 @@ The files you can find in the InfoHub root folder public_html.
 - [define_folders.php](main,core_root_definefolders) - Aliases to all used folders
 - [index.php](main,core_root_index) - Starts the core on the client
 - [infohub.php](main,core_root_infohub) - Starts the core on the server
-- [callback.php](main,core_root_callback) - (Server) Reroutes all other calls to this file, it creates a message and sends it to [](main,core_root_infohub)infohub.php
 
 public_html is the web root folder. It can have any name to suite your web hosting company.  
 
@@ -30,7 +29,6 @@ The plugins that build up the bare bone core
 - [Exchange](plugin,infohub_exchange) - Message queuing. This is the main plugin that keeps track of the other plugins.
 - [Transfer](plugin,infohub_transfer) - Client communicate with the server, Server communicate with Client and other servers.
 - [Plugin](plugin,infohub_plugin) - Handles request to start a plugin. It find the plugin and starts it.
-- [Callback](plugin,infohub_callback) - Used by callback.php to design a message and call [infohub.php](main,core_root_infohub)
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

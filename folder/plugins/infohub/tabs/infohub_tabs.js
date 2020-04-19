@@ -246,7 +246,7 @@ function infohub_tabs() {
 
             $in.data_back.head_id = $in.response.index.head;
             $in.data_back.body_id = $in.response.index.body;
-            $in.step = 'step_create_head_tab'
+            $in.step = 'step_create_head_tab';
         }
 
         if ($in.step === 'step_create_head_tab')
@@ -386,7 +386,7 @@ function infohub_tabs() {
 
             $in.data_back.head_id = $in.response.index.head;
             $in.data_back.body_id = $in.response.index.body;
-            $in.step = 'step_remove_tab_head'
+            $in.step = 'step_remove_tab_head';
         }
 
         if ($in.step === 'step_remove_tab_head')

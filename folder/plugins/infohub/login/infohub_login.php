@@ -256,7 +256,7 @@ class infohub_login extends infohub_base
                     'plugin_names' => array()
                 ),
                 'session_id' => '', // session_{hub_id}
-                'session_created_at' => 0.0, // micro time with 3 decimals
+                'session_created_at' => '', // micro time with 3 decimals
                 'logged_in' => 'false'
             ),
             'data_back' => array(

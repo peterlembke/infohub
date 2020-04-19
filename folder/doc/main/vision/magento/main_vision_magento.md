@@ -24,9 +24,6 @@ If you later want to change any of the systems then you change the importer or t
 Infohub read import files and put the data in queues. The queues are imported and the data are sent to the M2 REST API.  
 A new module in M2 provide a REST API for the features that can not be reached trough the normal API, like effective exports from M2 without polling.  
 
-# InfoHub as a 3rd party service to M2
-M2 uses InfoHub as a REST API service that provide something. InfoHub Callback (Just as REST) is used to provide the data that M2 want.  
-
 # Hybrid usage
 If the InfoHub is built in into M2 then you can ask InfoHub things, but you can also let InfoHub render HTML and use that in templates.  
 
@@ -40,4 +37,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2017-07-12 by Peter Lembke  
-Updated 2017-07-12 by Peter Lembke  
+Updated 2020-04-15 by Peter Lembke  

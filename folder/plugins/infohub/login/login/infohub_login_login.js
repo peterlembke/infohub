@@ -178,7 +178,7 @@ function infohub_login_login() {
                 'checksum': '',
                 'initiator_user_name': '', // Your Hub-UUID username from the contact details
                 'session_id': '',
-                'session_created_at': 0.0,
+                'session_created_at': '',
                 'logged_in': 'false',
                 'text': '',
                 'shared_secret_modified': '',
@@ -196,7 +196,7 @@ function infohub_login_login() {
                 'responder_seconds_since_epoc': 0.0,
                 'responder_calculated_id_code': '',
                 'session_id': '',
-                'session_created_at': 0.0,
+                'session_created_at': '',
                 'left_overs_value': '',
                 'left_overs': '',
                 'password': '',

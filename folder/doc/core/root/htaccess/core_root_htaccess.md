@@ -22,7 +22,7 @@ RewriteCond %{REQUEST_FILENAME} !-l
 
 ### every other url go to callback.php
 # RewriteRule .* callback.php [L]
-RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
+# RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
 
 AddType text/cache-manifest .manifest
 ```

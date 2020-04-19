@@ -106,11 +106,11 @@ class infohub_doc extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $docName = $this->_CleanName($in['document_name']);
         $area = $in['area'];
-        $basePath = $this->_GetBasePath($area);
+        $docName = $this->_CleanName($area, $in['document_name']);
 
-        $docFileName = $this->_GetFileName($docName, $in['file_extension'], $basePath);
+        $basePath = $this->_GetBasePath($area);
+        $docFileName = $this->_GetFileName($area, $docName, $in['file_extension'], $basePath);
         $docContents = $this->_GetFileContents($docFileName);
 
         $docContents = $this->_HandleImages($docContents, $docName, $area);
@@ -177,7 +177,7 @@ class infohub_doc extends infohub_base
 
             foreach ($docNames as $docName)
             {
-                $docFileName = $this->_GetFileName($docName, $fileExtension, $basePath);
+                $docFileName = $this->_GetFileName($area, $docName, $fileExtension, $basePath);
                 $docContents = $this->_GetFileContents($docFileName);
                 $label = $this->_GetPartOfString($docContents, $findFirst, $findLast);
 
@@ -190,6 +190,8 @@ class infohub_doc extends infohub_base
                 );
             }
         }
+
+        $dataOut = $this->_AddRootDocuments($dataOut);
 
         $checksum = md5(json_encode($dataOut));
         if ($in['checksum'] === $checksum) {
@@ -210,6 +212,41 @@ class infohub_doc extends infohub_base
                 'checksum_same' => $checksumSame
             )
         );
+    }
+
+    protected function _AddRootDocuments(array $dataOut = array()): array
+    {
+        $dataOut['root']['root'] = array(
+            'doc_name' => 'root',
+            'label' => 'root',
+            'area' => 'root'
+        );
+
+        $dataOut['root']['CHANGELOG'] = array(
+            'doc_name' => 'CHANGELOG',
+            'label' => 'CHANGELOG',
+            'area' => 'root'
+        );
+
+        $dataOut['root']['TERMS'] = array(
+            'doc_name' => 'TERMS',
+            'label' => 'TERMS',
+            'area' => 'root'
+        );
+
+        $dataOut['root']['LICENSE'] = array(
+            'doc_name' => 'LICENSE',
+            'label' => 'LICENSE',
+            'area' => 'root'
+        );
+
+        $dataOut['root']['README'] = array(
+            'doc_name' => 'README',
+            'label' => 'README',
+            'area' => 'root'
+        );
+
+        return $dataOut;
     }
 
     /**
@@ -261,11 +298,16 @@ class infohub_doc extends infohub_base
      * Doc file names follow some rules. Here we make sure the name fulfill those rules
      * Converts string to lower case, removes all characters except a-z and 0-9 and underscore.
      * Checks that there are at least one underscore or else returns an empty string
-     * @param $name
+     * @param string $area
+     * @param string $name
      * @return string
      */
-    final protected function _CleanName(string $name = ''): string
+    final protected function _CleanName(string $area = '', string $name = ''): string
     {
+        if ($area === 'root') {
+            return $name;
+        }
+
         $name = strtolower($name);
 
         // Replace all characters with empty string except a-z 0-9 and underscore _
@@ -282,12 +324,13 @@ class infohub_doc extends infohub_base
 
     /**
      * Constructs a path to a file and returns that path to you.
+     * @param string $area
      * @param string $name | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $extension | md or markdown
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
      */
-    final protected function _GetFileName(string $name = '', string $extension = 'md', string $basePath = ''): string
+    final protected function _GetFileName(string $area = '', string $name = '', string $extension = 'md', string $basePath = ''): string
     {
         $okExtensions = array('md', 'markdown', 'css');
         if (in_array($extension, $okExtensions) === false) {
@@ -296,6 +339,11 @@ class infohub_doc extends infohub_base
 
         $fileNamePath = str_replace('_', DS, $name);
         $path = $basePath . DS . $fileNamePath;
+
+        if ($area === 'root') {
+            $path = $basePath;
+        }
+
         $fullFilePath = $path . DS . $name . '.' . $extension;
 
         return $fullFilePath;
@@ -328,7 +376,8 @@ class infohub_doc extends infohub_base
 
         $validPaths = array(
             'plugin' => PLUGINS,
-            'main' => DOC
+            'main' => DOC,
+            'root' => ROOT,
         );
 
         if (isset($validPaths[$area])) {
@@ -365,6 +414,10 @@ class infohub_doc extends infohub_base
      */
     final protected function _HandleImages(string $text = '', string $docName = '', string $area = ''): string
     {
+        if ($area === 'root') {
+            return $text;
+        }
+
         $imageNamesArray = $this->_GetAllImageNamesByAreaAndDocName($area, $docName);
 
         foreach ($imageNamesArray as $imageName)

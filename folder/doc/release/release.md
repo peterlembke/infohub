@@ -4,8 +4,8 @@ Your guide to what has happened
 # Introduction
 The release documents here are for Infohub releases. You will find information about previous releases, current release and intentions for the next release  
 
-* The current release is: [v1.2.11](main,release_v1v2v11)
-* Previous release was: [v1.2.10](main,release_v1v2v10)
+* The current release is: [v1.2.12](main,release_v1v2v12)
+* Previous release was: [v1.2.11](main,release_v1v2v11)
 
 * Short term plan can be found in the CHANGELOG.md
 * Long term plan can be found in the README.md

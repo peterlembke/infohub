@@ -26,6 +26,21 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  */
 class infohub_exchange extends infohub_base {
 
+    protected $signCodeValid = 'false';
+    public function getSignCodeValid(): string
+    {
+        return $this->signCodeValid;
+    }
+
+    protected $guestValid = 'false';
+    public function getGuestValid(): string
+    {
+        return $this->guestValid;
+    }
+
+    /** @var string Used by responder_verify_sign_code to prevent sending an answer with echo. See infohub.php */
+    protected $sendAnswer = 'true';
+
     final protected function _Version(): array
     {
         return array(
@@ -47,7 +62,8 @@ class infohub_exchange extends infohub_base {
     {
         return array(
             'main' => 'normal',
-            'plugin_started' => 'normal'
+            'plugin_started' => 'normal',
+            'responder_verify_sign_code' => 'normal'
         );
     }
 
@@ -101,6 +117,8 @@ class infohub_exchange extends infohub_base {
         );
         $in = $this->_Default($default, $in);
 
+        $this->sendAnswer = 'true';
+
         $this->internal_Cmd(array(
             'func' => 'ToSort',
             'package' => $in['package']
@@ -125,7 +143,9 @@ class infohub_exchange extends infohub_base {
             }
             if ($moreToDo === 'false' and $addedTransferMessage === 'false') {
                 $moreToDo = 'true';
-                $this->_AddTransferMessage();
+                if ($this->sendAnswer === 'true') {
+                    $this->_AddTransferMessage();
+                }
                 $addedTransferMessage = 'true';
             }
 
@@ -274,6 +294,135 @@ class infohub_exchange extends infohub_base {
             'answer' => $answer,
             'message' => $message
         );
+    }
+
+    /**
+     * We get an incoming package and verify the sign_code
+     * Then set a public class property
+     * @version 2020-04-18
+     * @since 2020-04-13
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function responder_verify_sign_code(array $in = array()): array
+    {
+        $default = array(
+            'package' => array(
+                'messages' => array(),
+                'messages_checksum' => '',
+                'session_id' => '',
+                'sign_code' => '',
+                'sign_code_created_at' => ''
+            ),
+            'answer' => 'false',
+            'message' => '',
+            'step' => 'step_simple_tests',
+            'response' => array(
+                'answer' => 'false',
+                'message' => '',
+                'sign_code_valid' => 'false'
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report',
+            'sign_code_valid' => 'false',
+            'guest_valid' => 'false'
+        );
+
+        if ($in['step'] === 'step_simple_tests') {
+
+            if ($this->_Empty($in['package']['session_id']) === 'true') {
+                $out['message'] = 'session_id is empty';
+                goto leave;
+            }
+
+            if ($this->_Empty($in['package']['sign_code']) === 'true') {
+                $out['message'] = 'sign_code is empty';
+                goto leave;
+            }
+
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'responder_verify_sign_code'
+                ),
+                'data' => array(
+                    'session_id' => $in['package']['session_id'],
+                    'messages_checksum' => $in['package']['messages_checksum'],
+                    'sign_code' => $in['package']['sign_code'],
+                    'sign_code_created_at' => $in['package']['sign_code_created_at']
+                ),
+                'data_back' => array(
+                    'package' => $in['package'],
+                    'step' => 'step_verify_sign_code_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_verify_sign_code_response') {
+
+            if ($in['response']['sign_code_valid'] === 'false') {
+                $out['message'] = $in['response']['message'];
+                goto leave;
+            }
+
+            $out = array(
+                'answer' => 'true',
+                'message' => 'Sign code is valid',
+                'sign_code_valid' => 'true',
+                'guest_valid' => 'false'
+            );
+
+            $this->signCodeValid = 'true';
+            $this->sendAnswer = 'false';
+
+            return $out;
+        }
+
+        leave:
+
+        // sign_code is invalid. Perhaps messages are ok for a guest.
+
+        $allowedPlugins = array(
+            'infohub_plugin' => array('plugins_request' => 1),
+            'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
+            'infohub_session' => array('responder_end_session' => 1),
+            'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
+            'infohub_launcher' => array('get_full_list' => 1)
+        );
+
+        foreach($in['package']['messages'] as $message) {
+            $to = $message['to'];
+            if ($to['node'] !== 'server') {
+                $out['message'] = 'Guest test: to.node must be server';
+                return $out;
+            }
+            if (isset($allowedPlugins[$to['plugin']]) === false) {
+                $out['message'] = 'Guest test: to.plugin not allowed for a guest';
+                return $out;
+            }
+            if (isset($allowedPlugins[$to['plugin']][$to['function']]) === false) {
+                $out['message'] = 'Guest test: to.function not allowed for a guest';
+                return $out;
+            }
+        }
+
+        $out = array(
+            'answer' => 'true',
+            'message' => 'Guest is valid',
+            'sign_code_valid' => 'false',
+            'guest_valid' => 'true'
+        );
+
+        $this->guestValid = 'true';
+        $this->sendAnswer = 'false';
+
+        return $out;
     }
 
     // *****************************************************************************

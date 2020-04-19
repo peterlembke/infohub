@@ -7,7 +7,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 /**
  * @category InfoHub
  * @package InfoHub Transfer
- * @copyright Copyright (c) 2010-2015, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
+ * @copyright Copyright (c) 2012-, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
  * @since 2012-01-01
  * @author Peter Lembke <peter.lembke@infohub.se>
  * @link https://infohub.se/ InfoHub main page
@@ -29,6 +29,7 @@ class infohub_transfer extends infohub_base {
     {
         return array(
             'date' => '2015-09-20',
+            'since' => '2012-01-01',
             'version' => '1.0.0',
             'class_name' => 'infohub_transfer',
             'checksum' => '{{checksum}}',
@@ -42,7 +43,6 @@ class infohub_transfer extends infohub_base {
     {
         return array(
             'send' => 'normal',
-            'receive' => 'normal',
             'download' => 'emerging'
         );
     }
@@ -108,120 +108,6 @@ class infohub_transfer extends infohub_base {
             'answer' => 'true',
             'message' => 'Finished with sending messages'
         );
-    }
-
-    /**
-     * We get an incoming package that we expect would be from a logged in user:
-     * If to_node is not "server" then kick out.
-     * If messages is empty then kick out.
-     * If messages_checksum is wrong then kick out.
-     * if session_id is empty then kick out
-     * If sign_code is empty then kick out.
-     * If sign_code_created_at is empty then kick out.
-     * If sign_code is wrong then kick out.
-     * If you still are here then your package are let in.
-     * More tests will be conducted later.
-     * @version 2020-04-13
-     * @since 2020-04-13
-     * @author Peter Lembke
-     * @param array $in
-     * @return array
-     * @uses
-     */
-    final protected function receive(array $in = array()): array
-    {
-        $default = array(
-            'package' => array(
-                'to_node' => '',
-                'messages' => array(),
-                'messages_checksum' => '',
-                'session_id' => '',
-                'sign_code' => '',
-                'sign_code_created_at' => ''
-            ),
-            'answer' => 'false',
-            'message' => '',
-            'step' => 'step_simple_tests',
-            'response' => array(
-                'answer' => 'false',
-                'message' => '',
-                'sign_code_valid' => 'false'
-            )
-        );
-        $in = $this->_Default($default, $in);
-
-        $out = array(
-            'answer' => 'false',
-            'message' => 'Nothing to report',
-            'package' => array()
-        );
-
-        if ($in['step'] === 'step_simple_tests') {
-            if ($in['package']['to_node'] !== 'server') {
-                $out['message'] = 'I only allow packages that goes to_node server';
-                goto leave;
-            }
-            if ($this->_Empty($in['package']['messages']) === 'true') {
-                $out['message'] = 'There are no messages in the package';
-                goto leave;
-            }
-
-            // Javascript encode empty objects as [], we need to do that too
-            $messagesJson = json_encode($in['package']['messages'], JSON_OBJECT_AS_ARRAY);
-
-            $checksum = md5($messagesJson);
-            if ($in['package']['messages_checksum'] !== $checksum) {
-                $out['message'] = 'The messages_checksum was not correct';
-                goto leave;
-            }
-            $diff = $this->_MicroTime() - (float) $in['package']['sign_code_created_at'];
-            if ($diff > 3.0 or $diff < 0.0) {
-                $out['message'] = 'The sign_code_created_at is too old. Always provide this time stamp';
-                goto leave;
-            }
-            if ($this->_Empty($in['package']['session_id']) === 'true') {
-                $out['message'] = 'session_id is empty';
-                goto leave;
-            }
-            if ($this->_Empty($in['package']['sign_code']) === 'true') {
-                $out['message'] = 'sign_code is empty';
-                goto leave;
-            }
-
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_session',
-                    'function' => 'responder_verify_sign_code'
-                ),
-                'data' => array(
-                    'session_id' => $in['package']['session_id'],
-                    'messages_checksum' => $in['package']['messages_checksum'],
-                    'sign_code' => $in['package']['sign_code'],
-                    'sign_code_created_at' => $in['package']['sign_code_created_at']
-                ),
-                'data_back' => array(
-                    'package' => $in['package'],
-                    'step' => 'step_verify_sign_code_response'
-                )
-            ));
-        }
-
-        if ($in['step'] === 'step_verify_sign_code_response') {
-            if ($in['response']['sign_code_valid'] === 'false') {
-                $out['message'] = 'The sign_code_created_at is too old. Always provide this time stamp';
-                goto leave;
-            }
-
-            $out = array(
-                'answer' => 'true',
-                'message' => 'Sign code is OK',
-                'package' => $in['package']
-            );
-        }
-
-        leave:
-        return $out;
     }
 
     /**

@@ -1,0 +1,239 @@
+[
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_plugin",
+            "function": "plugins_request"
+        },
+        "callstack": [
+            {
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_start",
+                    "function": "start"
+                }
+            }
+        ],
+        "data": {
+            "missing_plugin_names": [
+                "infohub_asset",
+                "infohub_base",
+                "infohub_cache",
+                "infohub_checksum",
+                "infohub_checksum_md5",
+                "infohub_compress",
+                "infohub_compress_gzip",
+                "infohub_configlocal",
+                "infohub_exchange",
+                "infohub_keyboard",
+                "infohub_launcher",
+                "infohub_offline",
+                "infohub_plugin",
+                "infohub_render",
+                "infohub_render_common",
+                "infohub_render_form",
+                "infohub_render_link",
+                "infohub_render_text",
+                "infohub_renderform",
+                "infohub_rendermajor",
+                "infohub_session",
+                "infohub_storage",
+                "infohub_storage_data",
+                "infohub_storage_data_idbkeyval",
+                "infohub_tabs",
+                "infohub_timer",
+                "infohub_transfer",
+                "infohub_translate",
+                "infohub_view",
+                "infohub_workbench"
+            ]
+        },
+        "alias": "Run plugins_request to get missing core client plugins",
+        "wait": 0
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_login",
+            "function": "login_request"
+        },
+        "data": {
+            "initiator_user_name": "user_1587191584.7331:7782824742447055466",
+            "initiator_random_code": "8leRQARI1ojXkq6Q3Oj11ztBzMqavPGRoRw3ClQ1fRNeUYQo8syAIVmxcODFoO3Xw5kXUuc5nLUla4VlHbVLziYSmKQVzs7/DurLDRavh56aXDOXxu8QChKUJm8NmuKesXO1YjztDksDG5r9KMwmKZFfK3HQVbYhMFUWNq5N+7MLQr85GsABOWEuc/JWQP3YLgnuqfqoB4puNpLv/4HnaknHNpvBy04GkbMlTDfyAksnGHw7r/wb4mDdT7SNms8ggBQlzKLq3d0V0VnZoZwrZTt8OyffTlxKc6cULMkSHuYNwfeIIpHjCkVHPkVpnRPwyPQ2vOu6l4F3N3tb/qmzpQ==",
+            "initiator_seconds_since_epoc": 1587227927.266
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_login",
+                    "function": "callstack-1587227927.477:3778768136997932"
+                }
+            }
+        ]
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_login",
+            "function": "login_challenge"
+        },
+        "data": {
+            "initiator_user_name": "user_1587191584.7331:7782824742447055466",
+            "initiator_random_code": "8leRQARI1ojXkq6Q3Oj11ztBzMqavPGRoRw3ClQ1fRNeUYQo8syAIVmxcODFoO3Xw5kXUuc5nLUla4VlHbVLziYSmKQVzs7/DurLDRavh56aXDOXxu8QChKUJm8NmuKesXO1YjztDksDG5r9KMwmKZFfK3HQVbYhMFUWNq5N+7MLQr85GsABOWEuc/JWQP3YLgnuqfqoB4puNpLv/4HnaknHNpvBy04GkbMlTDfyAksnGHw7r/wb4mDdT7SNms8ggBQlzKLq3d0V0VnZoZwrZTt8OyffTlxKc6cULMkSHuYNwfeIIpHjCkVHPkVpnRPwyPQ2vOu6l4F3N3tb/qmzpQ==",
+            "initiator_seconds_since_epoc": 1587227927.266,
+            "initiator_calculated_id_code": "1fd1f8286ba71a01352c8bcf6d6f7a8d"
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_login",
+                    "function": "callstack-1587227928.065:9374816613545613"
+                }
+            }
+        ]
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_session",
+            "function": "responder_end_session"
+        },
+        "data": {
+            "session_id": "session_1587227928.4593:9188324370848460927"
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_session",
+                    "function": "callstack-1587228054.417:5089826644665665"
+                }
+            }
+        ]
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_asset",
+            "function": "update_all_plugin_assets"
+        },
+        "data": {
+            "plugin_name": "infohub_renderform",
+            "asset_checksum_array": {}
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_asset",
+                    "function": "callstack-1587228454.118:1279661721173917"
+                }
+            }
+        ]
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_launcher",
+            "function": "get_full_list"
+        },
+        "data": {
+            "list_checksum": ""
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_launcher",
+                    "function": "callstack-1587228454.118:968293726311968"
+                }
+            }
+        ]
+    },
+    {
+        "to": {
+            "node": "server",
+            "plugin": "infohub_asset",
+            "function": "update_specific_assets"
+        },
+        "data": {
+            "assets_requested": {
+                "infohub_asset/asset/infohub_asset/launcher.json": "",
+                "infohub_asset/asset/infohub_asset/icon/icon.json": "",
+                "infohub_asset/asset/infohub_asset/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_asset/translate/sv.json": "",
+                "infohub_asset/asset/infohub_configlocal/launcher.json": "",
+                "infohub_asset/asset/infohub_configlocal/icon/icon.json": "",
+                "infohub_asset/asset/infohub_configlocal/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_configlocal/translate/sv.json": "",
+                "infohub_asset/asset/infohub_contact/launcher.json": "",
+                "infohub_asset/asset/infohub_contact/icon/icon.json": "",
+                "infohub_asset/asset/infohub_contact/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_contact/translate/sv.json": "",
+                "infohub_asset/asset/infohub_debug/launcher.json": "",
+                "infohub_asset/asset/infohub_debug/icon/icon.json": "",
+                "infohub_asset/asset/infohub_debug/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_debug/translate/sv.json": "",
+                "infohub_asset/asset/infohub_demo/launcher.json": "",
+                "infohub_asset/asset/infohub_demo/icon/icon.json": "",
+                "infohub_asset/asset/infohub_demo/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_demo/translate/sv.json": "",
+                "infohub_asset/asset/infohub_democall/launcher.json": "",
+                "infohub_asset/asset/infohub_democall/icon/icon.json": "",
+                "infohub_asset/asset/infohub_democall/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_democall/translate/sv.json": "",
+                "infohub_asset/asset/infohub_doc/launcher.json": "",
+                "infohub_asset/asset/infohub_doc/icon/icon.json": "",
+                "infohub_asset/asset/infohub_doc/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_doc/translate/sv.json": "",
+                "infohub_asset/asset/infohub_keyboard/launcher.json": "",
+                "infohub_asset/asset/infohub_keyboard/icon/icon.json": "",
+                "infohub_asset/asset/infohub_keyboard/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_keyboard/translate/sv.json": "",
+                "infohub_asset/asset/infohub_login/launcher.json": "",
+                "infohub_asset/asset/infohub_login/icon/icon.json": "",
+                "infohub_asset/asset/infohub_login/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_login/translate/sv.json": "",
+                "infohub_asset/asset/infohub_offline/launcher.json": "",
+                "infohub_asset/asset/infohub_offline/icon/icon.json": "",
+                "infohub_asset/asset/infohub_offline/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_offline/translate/sv.json": "",
+                "infohub_asset/asset/infohub_tools/launcher.json": "",
+                "infohub_asset/asset/infohub_tools/icon/icon.json": "",
+                "infohub_asset/asset/infohub_tools/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_tools/translate/sv.json": "",
+                "infohub_asset/asset/infohub_translate/launcher.json": "",
+                "infohub_asset/asset/infohub_translate/icon/icon.json": "",
+                "infohub_asset/asset/infohub_translate/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_translate/translate/sv.json": "",
+                "infohub_asset/asset/infohub_welcome/launcher.json": "",
+                "infohub_asset/asset/infohub_welcome/icon/icon.json": "",
+                "infohub_asset/asset/infohub_welcome/icon/icon.svg": "",
+                "infohub_asset/asset/infohub_welcome/translate/sv.json": ""
+            }
+        },
+        "callstack": [
+            {
+                "data_back": {},
+                "data_request": [],
+                "to": {
+                    "node": "client",
+                    "plugin": "infohub_asset",
+                    "function": "callstack-1587228455.782:3876957541216379"
+                }
+            }
+        ]
+    }
+]

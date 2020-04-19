@@ -83,7 +83,7 @@ class infohub_session extends infohub_base
             ),
             'data_back' => array(
                 'session_id' => '',
-                'session_created_at' => 0.0
+                'session_created_at' => ''
             )
         );
         $in = $this->_Default($default, $in);
@@ -174,7 +174,7 @@ class infohub_session extends infohub_base
             'node' => '', // name of the node the initiator use to send data to the responder
             'initiator_user_name' => '', // user_{hub_id}
             'session_id' => '', //session_{hub_id}
-            'session_created_at' => 0.0, // micro time with 3 decimals
+            'session_created_at' => '', // micro time with 3 decimals
             'left_overs' => '', // Left overs from the login. Never exposed outside this plugin
             'step' => 'step_store_session_data',
             'response' => array(
@@ -410,7 +410,7 @@ class infohub_session extends infohub_base
         $in = $this->_Default($default, $in);
 
         $signCode = '';
-        $signCodeCreatedAt = 0.0;
+        $signCodeCreatedAt = '';
         $ok = 'false';
 
         if ($in['step'] === 'step_get_session_data') {
@@ -493,7 +493,7 @@ class infohub_session extends infohub_base
         $in = $this->_Default($default, $in);
 
         $signCode = '';
-        $signCodeCreatedAt = 0.0;
+        $signCodeCreatedAt = '';
         $ok = 'false';
 
         if ($in['step'] === 'step_get_session_data') {
@@ -566,7 +566,7 @@ class infohub_session extends infohub_base
             'node' => '', // node name
             'messages_checksum' => '', // md5 checksum of all messages in the package
             'sign_code' => '',
-            'sign_code_created_at' => 0.0, // 3 decimals
+            'sign_code_created_at' => '', // 3 decimals
             'step' => 'step_verify_sign_code_created_at',
             'response' => array(
                 'data' => array(),
@@ -582,8 +582,8 @@ class infohub_session extends infohub_base
         // Verify sign_code
 
         if ($in['step'] === 'step_verify_sign_code_created_at') {
-            $data = $in['sign_code_created_at'];
-            if ($data > 0.0 and $data < 2.0) {
+            $diff = $this->_MicroTime() - (float) $in['sign_code_created_at'];
+            if ($diff > 0.0 and $diff < 2.0) {
                 $in['step'] = 'step_get_session_data';
             }
         }
@@ -647,7 +647,7 @@ class infohub_session extends infohub_base
 
     /**
      * Verify each incoming package by its sign_code
-     * @version 2020-01-11
+     * @version 2020-04-18
      * @since 2020-01-10
      * @author Peter Lembke
      * @param array $in
@@ -659,7 +659,7 @@ class infohub_session extends infohub_base
             'session_id' => '',
             'messages_checksum' => '', // md5 checksum of all messages in the package
             'sign_code' => '',
-            'sign_code_created_at' => 0.0, // 3 decimals
+            'sign_code_created_at' => '', // 3 decimals. Checked in the kickout tests
             'step' => 'step_verify_sign_code_created_at',
             'response' => array(
                 'data' => array(),
@@ -669,21 +669,13 @@ class infohub_session extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $signCodeValid = 'false';
-
-        // Verify sign_code_created_at that it is max 2 seconds old
-        // Read the data in path infohub_session/node/{node}
-        // Calculate sign_code
-        // Verify sign_code
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report',
+            'sign_code_valid' => 'false'
+        );
 
         if ($in['step'] === 'step_verify_sign_code_created_at') {
-            $data = $in['sign_code_created_at'];
-            if ($data > 0.0 and $data < 2.0) {
-                $in['step'] = 'step_get_session_data';
-            }
-        }
-
-        if ($in['step'] === 'step_get_session_data') {
 
             return $this->_SubCall(array(
                 'to' => array(
@@ -695,48 +687,52 @@ class infohub_session extends infohub_base
                     'path' => 'infohub_session/session/' . $in['session_id']
                 ),
                 'data_back' => array(
-                    'node' => $in['node'],
                     'messages_checksum' => $in['messages_checksum'], // md5 checksum of all messages in the package
                     'sign_code' => $in['sign_code'],
                     'sign_code_created_at' => $in['sign_code_created_at'], // 3 decimals
                     'step' => 'step_get_session_data_response'
                 )
             ));
-
         }
 
         if ($in['step'] === 'step_get_session_data_response') {
-            if ($in['response']['answer'] === 'true') {
-                $in['step'] = 'step_calculate';
-            }
-        }
 
-        if ($in['step'] === 'step_calculate') {
+            if ($in['response']['answer'] === 'false') {
+                $out['message'] = $in['response']['answer'];
+                goto leave;
+            }
+
             $data = $this->_GetData(array(
                 'name' => 'response/data',
                 'default' => array(),
                 'data' => $in,
             ));
 
-            if ($this->_Empty($data) === 'false')
-            {
-                $string = $data['session_created_at'] . $in['sign_code_created_at'] .
-                    $data['left_overs'] . $in['messages_checksum'] .
-                    $data['session_id'] . $data['initiator_user_name'];
-
-                $signCode = md5($string);
-
-                if ($in['sign_code'] === $signCode) {
-                    $signCodeValid = 'true';
-                }
+            if ($this->_Empty($data) === 'true') {
+                $out['message'] = 'Session data is empty';
+                goto leave;
             }
 
+            $string = $data['session_created_at'] . $in['sign_code_created_at'] .
+                $data['left_overs'] . $in['messages_checksum'] .
+                $data['session_id'] . $data['initiator_user_name'];
+
+            $signCode = md5($string);
+
+            if ($in['sign_code'] === $signCode) {
+                $out = array(
+                    'answer' => 'true',
+                    'message' => 'Sign code is valid',
+                    'sign_code_valid' => 'true'
+                );
+            }
         }
 
+        leave:
         return array(
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'sign_code_valid' => $signCodeValid
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'sign_code_valid' => $out['sign_code_valid']
         );
     }
 
@@ -798,17 +794,18 @@ class infohub_session extends infohub_base
     }
 
     /**
-     * Gives you a microtime with 3 decimals
-     * @version 2020-01-10
+     * Gives you a microtime with 3 decimals as a string
+     * @version 2020-04-18
      * @since 2020-01-10
      * @author Peter Lembke
-     * @return float
+     * @return string
      */
-    final protected function _CreatedAt(): float
+    final protected function _CreatedAt(): string
     {
         $time = $this->_MicroTime();
         $time = round($time, 3);
-        return $time;
+
+        return (string) $time;
     }
 
 }
