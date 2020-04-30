@@ -259,7 +259,7 @@ function infohub_rendermenu() {
 
         return {
             'answer': 'true',
-            'message': 'Done handling events'
+            'message': 'Done handling events in RenderMenu'
         };
     };
 }

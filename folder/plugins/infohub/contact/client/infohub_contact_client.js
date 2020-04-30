@@ -428,6 +428,21 @@ function infohub_contact_client() {
             let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
+                    'plugin': 'infohub_contact_client',
+                    'function': 'click_refresh_group'
+                },
+                'data': {
+                    'box_id': $in.box_id
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+            $messageArray.push($messageOut);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
                     'plugin': 'infohub_render',
                     'function': 'render_options'
                 },
@@ -440,35 +455,19 @@ function infohub_contact_client() {
                         'type': 'client'
                     }
                 },
+                'messages': $messageArray,
                 'data_back': {
                     'step': 'step_end'
                 }
             });
-            $messageArray.push($messageOut);
 
-            $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_contact_client',
-                    'function': 'click_refresh_group'
-                },
-                'data': {
-                    'box_id': $in.box_id
-                },
-                'data_back': {
-                    'step': 'step_end'
-                }
-            });
-            $messageArray.push($messageOut);
         }
-        
+
         return {
             'answer': 'true',
-            'message': 'Rendered the option list',
-            'messages': $messageArray,
-            'ok': 'true'
+            'message': $in.response.message,
+            'ok': $in.response.ok
         };
-
     };
 
     /**

@@ -28,7 +28,7 @@ function infohub_standalone() {
             'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_standalone',
-            'note': 'Start ONE workbench plugin so you can run it without Workbench. Use with a unique domain URL and set it up in config/infohub_exchange.json',
+            'note': 'Start ONE workbench plugin so you can run it without Workbench. Use with a unique domain URL and set it up in folder/config/infohub_exchange.json',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Stand alone'
@@ -126,7 +126,7 @@ function infohub_standalone() {
     };
 
     /**
-     * Setup a plugin to work in the Workbench
+     * Setup a plugin to work in StandAlone
      * @version 2019-03-11
      * @since   2019-03-11
      * @author  Peter Lembke
@@ -233,7 +233,8 @@ function infohub_standalone() {
                     'function': 'setup_gui'
                 },
                 'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
+                    'box_id': 'main.body.' + $in.plugin_name,
+                    'desktop_environment': 'standalone'
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,

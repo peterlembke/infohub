@@ -371,7 +371,11 @@ function infohub_tools() {
     {
         const $default = {
             'step': 'step_start',
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' },
+            'from_plugin': {
+                'node': '',
+                'plugin': '',
+                'function': ''
+            },
             'send_data': {},
             'response': {}
         };
@@ -391,7 +395,7 @@ function infohub_tools() {
                 'message': 'The call do not come from a child. I will do nothing.'
             };
         }
-       
+
         return $in.response;
     };
 

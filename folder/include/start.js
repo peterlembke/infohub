@@ -68,29 +68,31 @@ function infohub_start($progress) {
         $failedStarts = parseInt($failedStarts);
 
         if ($failedStarts === 1) {
-            $progress.whatArea('start',0, 'Failed start - Clearing local storage and trying again');
+            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and will trying again');
             localStorage.clear();
             localStorage.setItem('cold_start', '2');
             location.reload();
         }
 
         if ($failedStarts === 3) {
-            $progress.whatArea('start',0, 'Failed start - Clearing local storage and database and trying again');
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    for(let registration of registrations) {
-                        registration.unregister();
-                    }
-                });
-            }
+            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and unregistered service workers and will try again');
+            _UnregisterServiceWorkers();
             localStorage.clear();
-            indexedDB.deleteDatabase("localforage");
-            indexedDB.deleteDatabase("keyval-store"); // idbkeyval
             localStorage.setItem('cold_start', '4');
             location.reload();
         }
 
-        if ($failedStarts >= 5) {
+        if ($failedStarts === 5) {
+            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and database, unregistered service workers and will try again');
+            _UnregisterServiceWorkers();
+            localStorage.clear();
+            indexedDB.deleteDatabase("localforage");
+            indexedDB.deleteDatabase("keyval-store"); // idbkeyval
+            localStorage.setItem('cold_start', '6');
+            location.reload();
+        }
+
+        if ($failedStarts >= 7) {
             $progress.whatArea('start',0, 'Failed start - Perhaps you are offline');
             window.alert('I have cleared the localStorage and then the indexedDb and still I can not start Infohub. Are you offline?');
             return false;
@@ -107,13 +109,28 @@ function infohub_start($progress) {
             }
             $failedStarts = parseInt($failedStarts);
 
-            if ($failedStarts > 0 && $failedStarts < 5) {
+            if ($failedStarts > 0 && $failedStarts < 7) {
                 $progress.whatArea('start',0, 'Failed start - Took too long to start - I will reload the page');
                 location.reload();
             }
         }, 10000); // If the cold_start flag is not gone in 10 seconds then I reload the page
 
         return true;
+    };
+
+    /**
+     * Unregister all service workers for this site
+     * @private
+     */
+    const _UnregisterServiceWorkers = function ()
+    {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
     };
 
     /**
@@ -151,6 +168,7 @@ function infohub_start($progress) {
             'infohub_configlocal',
             'infohub_configlocal_zoom',
             'infohub_configlocal_language',
+            'infohub_debug',
             'infohub_exchange',
             'infohub_keyboard',
             'infohub_launcher',
@@ -294,7 +312,7 @@ function infohub_start($progress) {
         "use strict";
 
         let xmlHttp = new XMLHttpRequest();
-        const $parameters = 'package=' + JSON.stringify($package);
+        const $content = JSON.stringify($package);
         const $url = 'infohub.php';
         const $async = true;
 
@@ -342,10 +360,10 @@ function infohub_start($progress) {
             }
         };
 
-        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttp.setRequestHeader("Content-type", "application/json");
         setTimeout(function(){
             $progress.whatArea('call_server',20, 'Call the server - sending');
-            xmlHttp.send($parameters);
+            xmlHttp.send($content);
         }, 1000);
     };
 

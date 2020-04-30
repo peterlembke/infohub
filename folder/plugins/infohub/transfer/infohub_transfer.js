@@ -694,7 +694,8 @@ function infohub_transfer() {
             });
         }, $maxWaitTimeMS);
 
-        const $parameters = 'package=' + encodeURIComponent($in.package);
+        // const $content = encodeURIComponent($in.package);
+        const $content = $in.package;
         const $url = 'infohub.php';
         const $async = true;
         xmlHttp.open('POST', $url, $async);
@@ -815,12 +816,12 @@ function infohub_transfer() {
             }
         };
 
-        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlHttp.send($parameters);
+        xmlHttp.setRequestHeader("Content-type", "application/json");
+        xmlHttp.send($content);
 
         return {
             'answer': 'true',
-            'message': 'Sent message with ' + $parameters.length + ' bytes of data'
+            'message': 'Sent message with ' + $content.length + ' bytes of data'
         };
     };
 

@@ -97,8 +97,13 @@ class infohub_base
             return $default;
         }
 
-        // On this level: Remove all variables that are not in default. Add all variables that are only in default.
-        $answer = array_intersect_key(array_merge($default, $in), $default);
+        if (isset($in[0]) === true) {
+            // This is a traditional array, we just let it pass
+            $answer = $in;
+        } else {
+            // On this level: Remove all variables that are not in default. Add all variables that are only in default.
+            $answer = array_intersect_key(array_merge($default, $in), $default);
+        }
 
         // Check the data types
         foreach ($default as $key => $data) {
@@ -293,6 +298,7 @@ class infohub_base
             'to' => array('node' => '', 'plugin' => '', 'function' => ''),
             'data' => array(),
             'data_back' => array(),
+            'messages' => array(),
             'track' => 'false',
             'wait' => 0.2
         );

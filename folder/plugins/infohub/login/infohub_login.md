@@ -3,6 +3,10 @@ Infohub_Login allow you to login to another node.
 The PHP server version make sure the login is done without revealing secrets.  
 The JS version has the same features as the PHP version and has a graphical user interface (GUI) where you can enter data that will be used in the login.
 
+## First login version
+The first thing you see  when you start Infohub is a version of the login plugin with a reduced interface.
+It is the same plugin rendered with fewer features. You can import a login file, enter a password and login.  
+
 ## Client version
 This is what you see when you start the "Login" plugin in your browser.
 With the [menu](plugin,infohub_login_menu) you can navigate to different features of the plugin.

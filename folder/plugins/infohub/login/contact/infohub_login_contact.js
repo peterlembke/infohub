@@ -78,7 +78,8 @@ function infohub_login_contact() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'plugin_names': []
+            'plugin_names': [],
+            'has_password': 'false'
         };
         $nodeData = _Default($default, $nodeData);
 

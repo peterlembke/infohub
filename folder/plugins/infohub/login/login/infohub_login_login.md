@@ -1,12 +1,14 @@
 # Infohub_Login_Login
 Infohub_Login allow you to login to another node.
 The PHP server version make sure the login is done without revealing secrets.  
-The JS version has the same features as the PHP version and has a graphical user interface (GUI) where you can enter data that will be used in the login.
+The JS version has the same features as the PHP version and has a graphical user interface (GUI) where you can enter data that will be used in the login. 
 
 ## Browser client login to server
 In your browser as soon as start.js has done its work and you got a working Infohub then the only option you have is to login.
 Infohub_Login is the only plugin you have available.
-The server (infohub.php) will not allow you to send anything else than a login request. Everything else will be discarded and you will be banned.
+The server (infohub.php) will not allow you to send anything else than a login request. Everything else will be discarded, and you will be banned.
+
+When you see the plugin in Standalone mode it is much simpler than the full plugin you see in the Workbench. It is optimized to just login. The Workbench version will show you a lot more features.
 
 ## Node login to note in general
 You are only allowed to send messages to a node after you have logged in.
@@ -176,10 +178,13 @@ The value should be used when calculating calculated_id_code
 If the initiator or responder try to use data sniffed from other traffic then it will be in vain. All data are fresh and can not be reused.
 Both parties provide a long random number. The two random numbers are used together in the calculations on both sides.
 
+# desktop_environment
+The login looks different when launched in the standalone environment. It is simpler with less features. Optimized for just logging in.
+
 # License
 This documentation is copyright (C) 2018 Peter Lembke.
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 Created 2018-07-19 by Peter Lembke
-Updated 2019-09-14 by Peter Lembke
+Updated 2020-04-26 by Peter Lembke

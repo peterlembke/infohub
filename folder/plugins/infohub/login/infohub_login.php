@@ -161,11 +161,19 @@ class infohub_login extends infohub_base
 
             $in['step'] = 'step_save_login_request_data';
 
+            $answer = $in['response']['answer'];
             $exist = $in['response']['post_exist'];
-            if ($exist === 'false') {
-                $in['data_back']['message'] = 'Your login_request contain a hub_id that do not exist';
+
+            if ($answer === 'true' && $exist === 'false') {
+                $in['data_back']['message'] = 'Your login_request contain a user name that do not exist';
                 $in['step'] = 'step_end';
             }
+
+            if ($answer === 'false') {
+                $in['data_back']['message'] = $in['response']['message'];
+                $in['step'] = 'step_end';
+            }
+
         }
 
         if ($in['step'] === 'step_save_login_request_data') {
@@ -773,7 +781,7 @@ class infohub_login extends infohub_base
             goto leave;
         }
 
-        if ($randomNumber != (int) $randomNumber) {
+        if (is_numeric($randomNumber) === false) {
             $message = 'The random number in the hub_id must contain only numbers';
             goto leave;
         }

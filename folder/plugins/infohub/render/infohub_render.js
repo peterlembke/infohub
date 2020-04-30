@@ -251,6 +251,7 @@ function infohub_render() {
                 $in.what[ $in.latest_item_name ] = {
                     'type': 'frog'
                 };
+                $in.data_back.frog = 'true';
             }
             else
             {
@@ -278,6 +279,9 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_start') {
+
+            $in.data_back.frog = 'false';
+
             if ($in.where.box_id !== '') {
 
                 if ($in.where.scroll_to_box_id === 'true') {
@@ -301,6 +305,7 @@ function infohub_render() {
                             'where': $in.where,
                             'what_done': $in.what_done,
                             'css_all': $in.css_all,
+                            'frog': $in.data_back.frog,
                             'step': 'step_start_response'
                         }
                     });
@@ -321,6 +326,7 @@ function infohub_render() {
 
                 if (_IsSet($data.type) === 'false') {
                     $data.type = 'frog';
+                    $in.data_back.frog = 'true';
                 }
 
                 if (_IsSet($data.alias) === 'true' && _IsSet($data.original_alias) === 'false') {
@@ -365,7 +371,8 @@ function infohub_render() {
                     'latest_item_name': $data.alias,
                     'latest_plugin_name': $plugin,
                     'step': 'step_call_source_response',
-                    'before_source_call': $data
+                    'before_source_call': $data,
+                    'frog': $in.data_back.frog,
                 }
             });
         }
@@ -406,6 +413,7 @@ function infohub_render() {
                     'css_all': $in.css_all,
                     'latest_item_name': $data.alias,
                     'latest_plugin_name': $plugin,
+                    'frog': $in.data_back.frog,
                     'step': 'step_what_response'
                 }
             });
@@ -432,6 +440,7 @@ function infohub_render() {
                         'what_done': $in.what_done,
                         'css_all': $in.css_all,
                         'latest_item_name': 'text',
+                        'frog': $in.data_back.frog,
                         'step': 'step_where'
                     }
                 });
@@ -486,6 +495,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'step': 'step_where_response',
+                    'frog': $in.data_back.frog,
                     'where': $in.where
                 }
             });
@@ -508,6 +518,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'step': 'step_where_response',
+                    'frog': $in.data_back.frog,
                     'where': $in.where
                 }
             });
@@ -533,6 +544,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'step': 'step_where_response',
+                    'frog': $in.data_back.frog,
                     'where': $in.where
                 }
             });
@@ -543,6 +555,7 @@ function infohub_render() {
             return {
                 'answer': $in.response.answer,
                 'message': $in.response.message,
+                'frog': $in.data_back.frog,
                 'html': $in.html,
                 'css_data': $in.css_all
             };
@@ -574,6 +587,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'step': 'step_set_visible_response',
+                    'frog': $in.data_back.frog,
                     'where': $in.where
                 }
             });
@@ -597,6 +611,7 @@ function infohub_render() {
                     'box_id': $in.where.box_id
                 },
                 'data_back': {
+                    'frog': $in.data_back.frog,
                     'step': 'step_end'
                 }
             });
@@ -604,7 +619,8 @@ function infohub_render() {
 
         return {
             'answer': 'true',
-            'message': 'Done rendering'
+            'message': 'Done rendering',
+            'frog': $in.data_back.frog
         };
 
     };
@@ -902,9 +918,20 @@ function infohub_render() {
             'source_function': '',
             'source_data': {},
             'step': 'step_start',
-            'response': {}
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'options': [],
+                'html': ''
+            }
         };
         $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'Nothing to report',
+            'ok': 'false'
+        };
 
         if ($in.step === 'step_start') { // Get the options from the source
             return _SubCall({
@@ -915,10 +942,19 @@ function infohub_render() {
                 },
                 'data': $in.source_data,
                 'data_back': {
-                    'step': 'step_render_html',
+                    'step': 'step_start_response',
                     'id': $in.id
                 }
             });
+        }
+
+        if ($in.step === 'step_start_response') {
+            $out.message = $in.response.message;
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_render_html';
+            }
         }
 
         if ($in.step === 'step_render_html') { // Turn the options into HTML
@@ -932,10 +968,19 @@ function infohub_render() {
                     'options': $in.response.options
                 },
                 'data_back': {
-                    'step': 'step_view_html',
+                    'step': 'step_render_html_response',
                     'id': $in.id
                 }
             });
+        }
+
+        if ($in.step === 'step_render_html_response') {
+            $out.message = $in.response.message;
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_view_html';
+            }
         }
 
         if ($in.step === 'step_view_html') { // Update the select box
@@ -950,16 +995,27 @@ function infohub_render() {
                     'text': $in.response.html
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_view_html_response',
                     'id': $in.id
                 }
             });
         }
 
+        if ($in.step === 'step_view_html_response') {
+            $out.message = $in.response.message;
+
+            if ($in.response.answer === 'true') {
+                $out.answer = 'true';
+                $out.message = 'Done updating the select box with new options';
+                $out.ok = 'true';
+            }
+        }
+
+
         return {
-            'answer': 'true',
-            'message': 'Done updating the select box with new options',
-            'ok': 'true' // @todo Have the real response in answer, message and ok
+            'answer': $out.answer,
+            'message': $out.message,
+            'ok': $out.ok
         };
     };
 
@@ -1106,7 +1162,7 @@ function infohub_render() {
         if ($in.step === 'step_final_response')
         {
             $answer = 'true';
-            $message = 'Done handling events';
+            $message = 'Done handling events in Render -> submit';
 
             if ($valid === 'false') {
                 $message = 'Form is not valid. I have not submitted';
@@ -1186,7 +1242,7 @@ function infohub_render() {
 
         return {
             'answer': 'true',
-            'message': 'Done handling events'
+            'message': 'Done handling events in Render -> click_and_scroll'
         };
     };
 
@@ -1220,7 +1276,7 @@ function infohub_render() {
         $in = _Merge($default, $in);
 
         let $answer = 'true';
-        let $message = 'Done handling events';
+        let $message = 'Done handling events in Render -> event_message';
 
         if ($in.step === 'step_start')
         {
@@ -1332,11 +1388,11 @@ function infohub_render() {
 
         if ($in.step === 'step_submit_response')
         {
-            $isValid = _GetData({'name': 'valid', 'default': 'false', 'data': $in.response});
+            $message = $in.response.message;
 
+            $isValid = _GetData({'name': 'valid', 'default': 'false', 'data': $in.response});
             if ($isValid === 'false') {
                 $answer = 'false';
-                $message = $in.response.message;
             }
 
             $in.step = 'step_end';

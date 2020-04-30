@@ -99,7 +99,7 @@ function infohub_login_logout() {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
                             'head_label': _Translate('Logout'),
-                            'content_data': '[button_logout][status_message]',
+                            'content_data': '[button_logout][status_message][button_refresh]',
                             'foot_text': _Translate('Here you can logout from the server')
                         },
                         'button_logout': {
@@ -118,6 +118,15 @@ function infohub_login_logout() {
                             'data': 'logout result:',
                             'class': 'container-pretty',
                             'display': 'inline-block'
+                        },
+                        'button_refresh': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Reload after logout'),
+                            'event_data': 'logout|reload',
+                            'to_plugin': 'infohub_debug',
+                            'to_function': 'refresh_plugins_and_reload_page'
                         }
                     },
                     'how': {

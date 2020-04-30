@@ -3604,7 +3604,7 @@ function infohub_view() {
     {
         const $default = {
             'box_id': '', // Normal box_id
-            'element_path': '', // example: 1233_some_box_id.svg.circle.0
+            'element_path': '', // Optional. example: 1233_some_box_id.svg.circle.0
             'style_name': '',
             'style_value': ''
         };

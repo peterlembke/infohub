@@ -469,12 +469,16 @@ function infohub_session() {
                 'message': 'Nothing to report',
                 'session_valid': 'false',
                 'post_exist': 'false'
+            },
+            'data_back': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
 
         let $sessionValid = 'false';
         let $sessionId = '';
+        let $userName = '';
 
         if ($in.step === 'step_get_session_data') {
             return _SubCall({
@@ -501,6 +505,11 @@ function infohub_session() {
                     'default': '',
                     'data': $in,
                 });
+                $userName = _GetData({
+                    'name': 'response/data/initiator_user_name',
+                    'default': '',
+                    'data': $in,
+                });
                 $in.step = 'step_ask_server';
             }
         }
@@ -517,6 +526,7 @@ function infohub_session() {
                 },
                 'data_back': {
                     'node': $in.node,
+                    'user_name': $userName,
                     'step': 'step_ask_server_response'
                 }
             });
@@ -529,7 +539,8 @@ function infohub_session() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'session_valid': $sessionValid
+            'session_valid': $sessionValid,
+            'user_name': $in.data_back.user_name
         };
     };
 

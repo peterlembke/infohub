@@ -14,13 +14,13 @@ Smaller versions can still contain a lot of new things but are not considered a 
 Here are the planned mile stones for Infohub.
 
 # v1.3.0 - Login and sessions
-Contacts, Login and session is done. 
-Now I work on using the session_id, user_id, sign messages, use the allowed plugins list.
+Require login. Sign messages (both directions). Sessions.  
+I have worked on this the last 6 months and released minor versions. When v1.3.0 is released then all that work is done. 
 
-Release: February 2020.
+Release: May 2020.
 
 # v1.4.0 - Developer tools
-Release: May 2020.
+Release: June 2020.
 
 # v1.5.0 - System features
 Release: August 2020.
@@ -34,4 +34,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2016-04-17 by Peter Lembke  
-Updated 2019-09-07 by Peter Lembke  
+Updated 2020-04-29 by Peter Lembke  

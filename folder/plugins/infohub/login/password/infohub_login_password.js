@@ -17,17 +17,15 @@
  */
 function infohub_login_password() {
 
-// include "infohub_base.js"
+    "use strict";
 
-    /*jshint evil:true */
-    /*jshint devel:true */
-    /*jslint browser: true, evil: true, plusplus: true, todo: true */
+// include "infohub_base.js"
 
     const _Version = function() {
         return {
-            'date': '2019-09-12',
+            'date': '2020-04-26',
             'since': '2019-09-02',
-            'version': '1.0.0',
+            'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_login_password',
             'note': 'Change local password on the shared_secret',
@@ -47,19 +45,23 @@ function infohub_login_password() {
 
     let $classTranslations = {};
 
+    $functions.push('_Translate');
     /**
      * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
+     * @param string $string
      * @returns string
      */
-    $functions.push('_Translate');
     const _Translate = function ($string)
     {
-        if (typeof $classTranslations !== 'object') { return $string; }
+        if (typeof $classTranslations !== 'object') {
+            return $string;
+        }
 
         return _GetData({
             'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
+            'default': $string,
+            'data': $classTranslations,
+            'split': '|'
         });
     };
 
@@ -68,17 +70,17 @@ function infohub_login_password() {
     // * Can only be reached trough cmd()
     // ***********************************************************
 
+    $functions.push('create');
     /**
      * Get instructions and create the message to InfoHub View
      * @version 2019-09-03
      * @since   2019-09-03
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: *, message: *}|{}}
      */
-    $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -163,17 +165,17 @@ function infohub_login_password() {
         };
     };
 
+    $functions.push("click_password_change");
     /**
      * You clicked the button to change local_password on your shared_secret
      * @version 2019-09-12
      * @since 2019-09-03
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: *, message: *, ok: (string)}}
      */
-    $functions.push("click_password_change");
     const click_password_change = function ($in)
     {
-        "use strict";
-
         const $default = {
             'box_id': '',
             'step': 'step_get_contact',
@@ -288,6 +290,7 @@ function infohub_login_password() {
                 'data': $in,
             });
 
+            let $hasPassword = 'false';
             if (_Empty($newPassword) === 'false') {
                 let $response = internal_Cmd({
                     'func': 'ModifySharedSecret',
@@ -296,9 +299,11 @@ function infohub_login_password() {
                     'mode': 'scramble'
                 });
                 $sharedSecret = $response.data;
+                $hasPassword = 'true';
             }
 
             $in.data_back.contact.shared_secret = $sharedSecret;
+            $in.data_back.contact.has_password = $hasPassword;
 
             return _SubCall({
                 'to': {
@@ -355,20 +360,19 @@ function infohub_login_password() {
             'message': $in.response.message,
             'ok': $in.response.ok
         };
-
     };
 
+    $functions.push("shared_secret_scramble");
     /**
      * Add the password so we get a shared_secret that we can store
      * @version 2019-09-11
      * @since 2019-09-09
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    $functions.push("shared_secret_scramble");
     const shared_secret_scramble = function ($in)
     {
-        "use strict";
-
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -390,17 +394,17 @@ function infohub_login_password() {
         };
     };
 
+    $functions.push("shared_secret_restore");
     /**
      * Remove the password so we get a shared_secret that we can use
      * @version 2019-09-11
      * @since 2019-09-09
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    $functions.push("shared_secret_restore");
     const shared_secret_restore = function ($in)
     {
-        "use strict";
-
         const $default = {
             'password': '', // in plain text
             'shared_secret': '' // base64 encoded
@@ -429,8 +433,6 @@ function infohub_login_password() {
      */
     const internal_ModifySharedSecret = function ($in)
     {
-        "use strict";
-
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -446,7 +448,7 @@ function infohub_login_password() {
             $passwordCharacterPosition = 0,
             $passwordCharCode = 0;
 
-        for (let $i = 0; $i < $length; $i++)
+        for (let $i = 0; $i < $length; $i = $i + 1)
         {
             $code = $resultUint8Array[$i];
             $passwordCharacterPosition = $i % $passwordLength;
@@ -483,7 +485,7 @@ function infohub_login_password() {
         const $length = $binaryString.length;
         let $binaryIntegerArray = new Uint8Array( $length );
 
-        for (let $i = 0; $i < $length; $i++)
+        for (let $i = 0; $i < $length; $i = $i + 1)
         {
             $binaryIntegerArray[$i] = $binaryString.charCodeAt($i);
         }
@@ -495,7 +497,7 @@ function infohub_login_password() {
      * Convert an array buffer with binary data to a base64 string that can be stored in a database or transferred in a message.
      * https://stackoverflow.com/questions/9267899/arraybuffer-to-base64-encoded-string
      * @param $arrayBuffer
-     * @returns {string}
+     * @returns string
      * @private
      */
     const _ArrayBufferToBase64 = function($arrayBuffer)
@@ -504,7 +506,7 @@ function infohub_login_password() {
         const $binaryIntegerArray = new Uint8Array($arrayBuffer);
         const $length = $binaryIntegerArray.byteLength;
 
-        for (let $i = 0; $i < $length; $i++)
+        for (let $i = 0; $i < $length; $i = $i + 1)
         {
             $stringWithBinaryData = $stringWithBinaryData + String.fromCharCode($binaryIntegerArray[$i]);
         }
@@ -513,6 +515,5 @@ function infohub_login_password() {
 
         return $base64String;
     };
-
 }
 //# sourceURL=infohub_login_password.js

@@ -244,8 +244,12 @@ function infohub_tools_password() {
         const $default = {
             'step': 'step_start',
             'form_data': {},
-            'response': {},
-            'event_data': ''
+            'event_data': '',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'passwords': []
+            }
         };
         $in = _Default($default, $in);
 
@@ -303,7 +307,10 @@ function infohub_tools_password() {
             $formData = {
                 'my_textbox_output': {'value': $password, 'type': 'textarea', 'mode': 'add_left'}
             };
-            $in.step = 'step_display_data';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_display_data';
+            }
         }
 
         if ($in.step === 'step_display_data') {
@@ -324,9 +331,9 @@ function infohub_tools_password() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Finished handle_password',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 }

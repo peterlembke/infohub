@@ -317,27 +317,6 @@ function infohub_contact_group() {
                     'function': 'render_options'
                 },
                 'data': {
-                    'id': $in.box_id + '_list_group_form_element',
-                    'source_node': 'server',
-                    'source_plugin': 'infohub_contact',
-                    'source_function': 'load_group_list',
-                    'source_data': {}
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
-            });
-            
-            $messageArray.push($messageOut);
-
-            $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'render_options'
-                },
-                'data': {
                     'id': $in.box_id + '_list_plugin_form_element',
                     'source_node': 'server',
                     'source_plugin': 'infohub_contact',
@@ -351,15 +330,33 @@ function infohub_contact_group() {
             });
 
             $messageArray.push($messageOut);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'render_options'
+                },
+                'data': {
+                    'id': $in.box_id + '_list_group_form_element',
+                    'source_node': 'server',
+                    'source_plugin': 'infohub_contact',
+                    'source_function': 'load_group_list',
+                    'source_data': {}
+                },
+                'messages': $messageArray,
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end'
+                }
+            });
         }
 
         return {
-            'answer': $in.response.answer,
+            'answer': 'true',
             'message': $in.response.message,
-            'messages': $messageArray,
             'ok': $in.response.ok
         };
-
     };
 
     /**

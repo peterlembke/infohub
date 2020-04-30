@@ -34,13 +34,15 @@ So if you for example run a web server for your web store and your main focus is
 In later versions of Infohub there might be an optional system available that automatically provide source code and documentation for modified plugins. I recommend that you always use GNU GPL v3 or later, even if this optional (not yet existing) system is activated.  
 
 # Other licenses
-Because the way Infohub plugins are constructed, the plugins do not have direct references to other plugins and can therefore be used in projects that are not based on the Infohub system. Each plugin is therefore considered to be a separate program. Each plugin must then have its own license.
+The Infohub plugins do not have direct references to other plugins and can be used in projects that are not based on the Infohub system. Each plugin is considered to be a separate program. Each plugin must then have its own license.
   
 One can claim that child plugins can only operate together with its parent and should then be covered by the parent license. That is not the case because there is only ONE type of plugins. A child plugin can in the right conditions operate without its parent and therefore need its own license.
   
 This means that if you create your own plugin from scratch, a plugin that is not based on any template, then you are free to use any license you want.
   
-On the other hand, if you want to run your plugin in the Infohub.se system, then Infohub will check if your plugin is licensed as "GNU GPL v3 or later", if not then your plugin will not start.  
+On the other hand, if you want to run your plugin in the Infohub.se system, then Infohub will check if your plugin is licensed as "GNU GPL v3 or later", if not then your plugin will not start.
+
+This will change. Bug HUB-680 - Allow plugins to have any license.  
 
 # Make your code available
 If you make changes to someones plugin and you think that the changes could be useful to others, then please do a pull request. You do not have to, but the extra effort will make you an "open software contributor", and that can be beneficial for you in the long run.
@@ -64,4 +66,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Since 2016-11-27 by Peter Lembke  
-Updated 2020-04-12 by Peter Lembke  
+Updated 2020-04-29 by Peter Lembke  

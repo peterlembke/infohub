@@ -211,24 +211,33 @@ Usage: Here is an example.
 ```
 
 # Select
-Creates a select box. You can set it to be a multi select if you want to. You can set the number of rows to display.  
+Creates a select box. You can set it to be a multi select if you want to. You can set the number of rows to display.
 
 ```
 $default = {
+    'enabled': 'true',
     'alias': '',
-    "size": "10",
+    "size": "10", // Number of rows to show
     "multiple": "true",
-    "options": [],
+    "options": [], // See separate default structure
+    'source_node': '',
+    'source_plugin': '', // Plugin that has the options. Called only if the options are empty.
+    'source_function': '',
     'to_node': 'client',
     'to_plugin': 'infohub_renderform',
     'to_function': 'event_message',
     'class': 'select',
     'css_data': {},
-    'label': '',
-    'description': '',
+    'label': '', // Label on the rendermajor
+    'description': '', // Description shown in the rendermajor
     'validator_plugin': '',
     'validator_function': '',
-    'original_alias': ''
+    'original_alias': '',
+    'event_handler': 'infohub_renderform',
+    'event_data': '',
+    'show_error_text': 'true', // Show the message below the select on error
+    'show_success_text': 'false', // Show the message below the select on success
+    'custom_variables': {} // Added to the HTML as parameters
 };
 ```
 
@@ -363,11 +372,43 @@ Usage: Here is an example.
 ```
 
 # Button
-The buttons and submit buttons are not rendered with renderform. Instead you must use infohub_render_form. Not all objects exist in renderform. Only the objects that could use some extensions are in renderform.  
+The buttons and submit buttons are also rendered with renderform.
+```
+const $default = {
+    'enabled': 'true', // You can disable the button so it does not react on click
+    'alias': '',
+    'class': 'button',
+    'button_label': 'Submit',
+    'mode': 'submit', // submit or button
+    'event_data': 'submit',
+    'event_handler': 'infohub_renderform', // Where the events are handled first and then sent to to_plugin
+    'to_node': 'client',
+    'to_plugin': '', // plugin that should have the data after the event_handler have processed the event,
+    'to_function': 'event_message',
+    'custom_variables': {}, // Added to the html element as parameters
+    'css_data': {},
+    'button_icon': '',
+    'button_left_icon': '',
+    'show_error_text': 'true', // Show the message below the select on error
+    'show_success_text': 'false' // Show the message below the select on success
+};
+```
+Usage: Here is an example.  
+```
+'my_submit_button': {
+    'plugin': 'infohub_renderform',
+    'type': 'button',
+    'mode': 'submit',
+    'button_label': _Translate('Get UUID'),
+    'event_data': 'uuid|handle_uuid|get_uuid',
+    'to_plugin': 'infohub_tools',
+    'to_function': 'click'
+},
+```
 
 # Events
 Some of the objects trigger events. Those events come to the module function event_message and are handled there.  
-text, textarea, range, color are objects that have logic in this function.  
+text, textarea, range, color, button, select are objects that have logic in this function.  
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  
@@ -375,4 +416,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Since 2018-05-30 by Peter Lembke  
-Updated 2018-10-12 by Peter Lembke  
+Updated 2020-04-26 by Peter Lembke  

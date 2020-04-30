@@ -18,9 +18,7 @@ $folders = array(
     'PLUGINS' => MAIN . DS . 'plugins',
     'LOG' => MAIN . DS . 'log',
     'DB' => MAIN . DS . 'db',
-    'TEST' => MAIN . DS . 'test',
     'DOC' => MAIN . DS . 'doc',
-    'SESSION' => MAIN . DS . 'session',
     'CONFIG' => MAIN . DS . 'config'
 );
 

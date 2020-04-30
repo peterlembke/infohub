@@ -230,9 +230,16 @@ function infohub_renderform() {
             'custom_variables': {},
             'css_data': {},
             'button_icon': '',
-            'button_left_icon': ''
+            'button_left_icon': '',
+            'show_error_text': 'true',
+            'show_success_text': 'false'
         };
         $in = _Default($default, $in);
+
+        $in.custom_variables = _Merge($in.custom_variables, {
+            'show_error_text': $in.show_error_text,
+            'show_success_text': $in.show_success_text
+        });
 
         let $parts = {
             'button': {
@@ -244,7 +251,7 @@ function infohub_renderform() {
                 'button_label': '[button_icon][button_label]',
                 'mode': $in.mode,
                 'event_data': $in.event_data,
-                'event_handler': 'infohub_renderform',
+                'event_handler': $in.event_handler,
                 'to_plugin': $in.to_plugin,
                 'to_function': $in.to_function,
                 'custom_variables': $in.custom_variables,
@@ -276,6 +283,15 @@ function infohub_renderform() {
                 'css_data': {
                     '.container': 'width:16px; height:16px; display:inline; float:right;'
                 },
+            },
+            'button_result': {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': '',
+                'css_data': {
+                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                },
             }
         };
 
@@ -291,7 +307,7 @@ function infohub_renderform() {
             'data': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[button]'
+                'text': '[button][button_result]'
             },
             'where': {
                 'mode': 'html'
@@ -325,8 +341,15 @@ function infohub_renderform() {
             'multiple': 'false',
             'accept': '', // Unique file type specifiers, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
             'capture': '', // Read the camera as an image. 'user'=front camera, 'environment'=back camera. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
+            'show_error_text': 'true',
+            'show_success_text': 'false'
         };
         $in = _Default($default, $in);
+
+        $in.custom_variables = _Merge($in.custom_variables, {
+            'show_error_text': $in.show_error_text,
+            'show_success_text': $in.show_success_text
+        });
 
         let $parts = {
             'button': {
@@ -373,6 +396,15 @@ function infohub_renderform() {
                 'css_data': {
                     '.container': 'width:16px; height:16px; display:inline; float:right;'
                 },
+            },
+            'button_result': {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': '',
+                'css_data': {
+                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                },
             }
         };
 
@@ -388,7 +420,7 @@ function infohub_renderform() {
             'data': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[button]'
+                'text': '[button][button_result]'
             },
             'where': {
                 'mode': 'html'
@@ -688,10 +720,18 @@ function infohub_renderform() {
             'validator_plugin': '',
             'validator_function': '',
             'original_alias': '',
+            'event_handler': 'infohub_renderform',
             'event_data': '',
+            'show_error_text': 'true',
+            'show_success_text': 'false',
             'custom_variables': {}
         };
         $in = _Default($default, $in);
+
+        $in.custom_variables = _Merge($in.custom_variables, {
+            'show_error_text': $in.show_error_text,
+            'show_success_text': $in.show_success_text
+        });
 
         let $parts = {
             'presentation_box': {
@@ -699,7 +739,7 @@ function infohub_renderform() {
                 'type': 'presentation_box',
                 'head_label': $in.label,
                 'head_text': $in.description,
-                'content_data': '[form_element]',
+                'content_data': '[form_element][select_result]',
                 'original_alias': $in.original_alias
             },
             'form_element': {
@@ -720,9 +760,19 @@ function infohub_renderform() {
                 'class': $in.class,
                 'css_data': $in.css_data,
                 'original_alias': $in.original_alias,
+                'event_handler': 'infohub_renderform',
                 'event_data': $in.event_data,
                 'enabled': $in.enabled,
                 'custom_variables': $in.custom_variables
+            },
+            'select_result': {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': '',
+                'css_data': {
+                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                },
             }
         };
 
@@ -1199,12 +1249,7 @@ function infohub_renderform() {
                             'function': 'event_message' 
                         },
                         'data': _Delete($in, {'step':'' }), // Remove step from $in
-                        'data_back': {
-                            'step': 'step_button_result',
-                            'type': $in.type,
-                            'event_type': $in.event_type,
-                            'id': $in.id
-                        }
+                        'data_back': _Merge($in, {'step': 'step_button_result'})
                     });
                 }
                 
@@ -1217,15 +1262,20 @@ function infohub_renderform() {
                         'data': $in,
                     });
 
+                    let $borderColor = 'red';
+                    let $showButtonResult = 'false';
+                    if ($in.response.answer === 'true' && $ok === 'true') {
+                        if ($in.show_success_text === 'true') {
+                            $showButtonResult = 'true';
+                            $borderColor = 'green';
+                        }
+                    }
+
                     if ($in.response.answer === 'false' || $ok === 'false') {
                         $assetName = 'icons8-cancel';
-                        /* You can handle this in your event function instead
-                        alert(_GetData({
-                            'name': 'response/message',
-                            'default': '',
-                            'data': $in,
-                        }));
-                        */
+                        if ($in.show_error_text === 'true') {
+                            $showButtonResult = 'true';
+                        }
                     }
 
                     let $messageArray = [];
@@ -1241,6 +1291,51 @@ function infohub_renderform() {
                             'set_enabled': 'true'
                         },
                         'data_back': _Merge($in, {'step': 'step_end'})
+                    });
+                    $messageArray.push($messageOut);
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_visible'
+                        },
+                        'data': {
+                            'id': $in.id + '_result',
+                            'set_visible': $showButtonResult
+                        },
+                        'data_back': _Merge($in, {'step': 'step_end'})
+                    });
+                    $messageArray.push($messageOut);
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_style'
+                        },
+                        'data': {
+                            'box_id': $in.id + '_result',
+                            'style_name': 'border-color',
+                            'style_value': $borderColor
+                        },
+                        'data_back': _Merge($in, {'step': 'step_end'})
+                    });
+                    $messageArray.push($messageOut);
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_text'
+                        },
+                        'data': {
+                            'id': $in.id + '_result',
+                            'text': $in.response.message
+                        },
+                        'data_back': {
+                            'data_back': _Merge($in, {'step': 'step_end'})
+                        }
                     });
                     $messageArray.push($messageOut);
 
@@ -1327,7 +1422,97 @@ function infohub_renderform() {
 
         if ($in.type === 'select') {
             if ($in.event_type === 'change') {
-                // window.alert('select change');
+                if ($in.step === 'step_start') {
+                    if (_IsSet($in.multiple) === 'false') {
+                        // We only want to support single select
+                        return _SubCall({
+                            'to': {
+                                'node': 'client',
+                                'plugin': 'infohub_render',
+                                'function': 'event_message'
+                            },
+                            'data': _Delete($in, {'step':'' }), // Remove step from $in
+                            'data_back': _Merge($in, {'step': 'step_select_result'})
+                        });
+                    }
+                }
+
+                if ($in.step === 'step_select_result') {
+
+                    const $ok = _GetData({
+                        'name': 'response/ok',
+                        'default': 'false',
+                        'data': $in,
+                    });
+
+                    let $borderColor = 'red';
+                    let $showButtonResult = 'false';
+                    if ($in.response.answer === 'true' && $ok === 'true') {
+                        if ($in.show_success_text === 'true') {
+                            $showButtonResult = 'true';
+                            $borderColor = 'green';
+                        }
+                    }
+
+                    if ($in.response.answer === 'false' || $ok === 'false') {
+                        if ($in.show_error_text === 'true') {
+                            $showButtonResult = 'true';
+                        }
+                    }
+
+                    let $messageArray = [];
+
+                    let $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_visible'
+                        },
+                        'data': {
+                            'id': $in.box_id + '_' + $in.form_alias + '_select_result',
+                            'set_visible': $showButtonResult
+                        },
+                        'data_back': _Merge($in, {'step': 'step_end'})
+                    });
+                    $messageArray.push($messageOut);
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_style'
+                        },
+                        'data': {
+                            'box_id': $in.box_id + '_' + $in.form_alias + '_select_result',
+                            'style_name': 'border-color',
+                            'style_value': $borderColor
+                        },
+                        'data_back': _Merge($in, {'step': 'step_end'})
+                    });
+                    $messageArray.push($messageOut);
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_view',
+                            'function': 'set_text'
+                        },
+                        'data': {
+                            'id': $in.box_id + '_' + $in.form_alias + '_select_result',
+                            'text': $in.response.message
+                        },
+                        'data_back': {
+                            'data_back': _Merge($in, {'step': 'step_end'})
+                        }
+                    });
+                    $messageArray.push($messageOut);
+
+                    return {
+                        'answer': 'true',
+                        'message': 'Sending some messages',
+                        'messages': $messageArray
+                    };
+                }
             }
         }
 
@@ -1414,7 +1599,7 @@ function infohub_renderform() {
 
         return {
             'answer': 'true',
-            'message': 'Done handling events'
+            'message': 'Done handling events in RenderForm'
         };
     };
 }

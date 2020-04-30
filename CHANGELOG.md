@@ -13,26 +13,15 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 - Full login and rights system.
 
 **Below is the aim for version 1.2.14**
-A bit unclear task right now.
 
-HUB-619 - start.js should check if we have a stored session or else request single page login plugin.
+- Communication. Packages from server formatted the same way as the client packages.
 
-**Below is the aim for version 1.2.13**
-To do from top to bottom:
+# [1.2.13] - 2020-04-30
 
-- HUB-616 - Client: Text and textarea - åäö can not be sent to server
-- HUB-621 - Server: Send user_name to the plugins so they can act
-- HUB-604 - Server: Infohub Session - Get allowed plugins list
-- HUB-620 - Server: Check incoming messages against the session allowed plugins list
-- HUB-622 - Server: plugin_request - guests get reduced list
-- HUB-623 - Server: launcher, get_full_list - Only get plugins you have rights to
-- HUB-605 - Client: Infohub Session - Get allowed plugins list
-- HUB-624 - Client: Check outgoing messages that I am allowed to send to those plugins
-- HUB-625 - Server: Outgoing messages. send messages_encoded
-- HUB-626 - Server: Outgoing messages. Comply to package_type = "2020"
-- HUB-627 - Client: Receive packages with type "2020"
-- HUB-628 - Client: Incoming response. Verify sign_code
+* [Release notes](main,release_v1v2v13)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.13)
 
+Focused on deprecating test system and callback. Doc now read root files. New traffic package type, mime type and encoding. Now renders SVG. Login and sessions got some features so we get one step closer to v1.3.0. Reduced number of calls to the server. Now shows message under button and select. User_name available to plugins. Login now mandatory. Any license allowed.
 
 ## [1.2.12] - 2020-04-19
 

@@ -22,6 +22,11 @@ function infohub_exchange() {
 // webworker=false
 // include "infohub_base.js"
 
+    let $userName = '';
+    const _GetUserName = function() {
+        return $userName;
+    };
+
     $functions.push('_Version');
     const _Version = function() {
         return {
@@ -41,7 +46,8 @@ function infohub_exchange() {
             'main': 'normal',
             'startup': 'normal',
             'event_message': 'normal',
-            'plugin_started': 'normal'
+            'plugin_started': 'normal',
+            'ping': 'normal'
         };
     };
 
@@ -272,9 +278,10 @@ function infohub_exchange() {
 
     /**
      * First function to start
+     * Verify the session data and get the user_name.
      * Get the current domain, then check the plugin settings for that domain,
      * In the settings you have the first message to send to that domain.
-     * @version 2015-02-12
+     * @version 2020-04-25
      * @since 2015-02-12
      * @author Peter Lembke
      */
@@ -282,27 +289,61 @@ function infohub_exchange() {
     const startup = function ($in)
     {
         const $default = {
-            'step': 'step_send_first_message',
+            'step': 'step_get_session_data',
             'parent_box_id': '1',
             'message': '',
             'answer': '',
             'execution_time': 0,
             'all_plugins': {},
             'plugin_index': {},
-            'config': {}
+            'config': {},
+            'response': {}
         };
         $in = _Default($default,$in);
 
-        let $domain = _GetData({
-            'name': 'domain',
-            'default': '',
-            'data': $in.config
-        });
+        if ($in.step === 'step_get_session_data') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'initiator_check_session_valid'
+                },
+                'data': {
+                    'node': 'server'
+                },
+                'data_back': {
+                    'step': 'step_get_session_data_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_session_data_response') {
+            $userName = 'guest';
+            if ($in.response.session_valid === 'true') {
+                $userName = _GetData({
+                    'name': 'response/user_name',
+                    'default': '',
+                    'data': $in,
+                });
+            }
+            $in.step = 'step_send_first_message';
+        }
 
         let $messages = [];
 
         if ($in.step === 'step_send_first_message')
         {
+            let $name = 'domain';
+            if ($userName === 'guest') {
+                $name = 'domain_guest';
+            }
+
+            let $domain = _GetData({
+                'name': $name,
+                'default': '',
+                'data': $in.config
+            });
+
             let $subCall = {};
 
             if (typeof $domain.default !== 'undefined') {
@@ -482,6 +523,27 @@ function infohub_exchange() {
         return {
             'answer': $answer,
             'message': $message
+        };
+    };
+
+    /**
+     * Dummy function ping that return a pong
+     * Useful for getting a pong or for sending messages in a sub call.
+     * @version 2020-04-22
+     * @since 2020-04-22
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    $functions.push("ping");
+    const ping = function($in)
+    {
+        const $default = {};
+        $in = _Default($default, $in);
+
+        return {
+            'answer': 'true',
+            'message': 'pong'
         };
     };
 

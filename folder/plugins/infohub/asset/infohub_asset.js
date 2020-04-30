@@ -412,9 +412,14 @@ function infohub_asset() {
                         }
                     };
 
+                    let $subType = 'svg';
+                    if ($data.extension === 'jpeg') {
+                        $subType = 'image';
+                    }
+
                     $what[$image] = {
                         'type': 'common',
-                        'subtype': $data.extension,
+                        'subtype': $subType,
                         'alias': 'my_icon',
                         'data': '[' + $asset + ']',
                         'class': 'svg',
@@ -426,6 +431,7 @@ function infohub_asset() {
                     $what[$asset] = {
                         'plugin': 'infohub_asset',
                         'type': $data.asset_type,
+                        'subtype': $data.extension,
                         'asset_name': $data.asset_name,
                         'plugin_name': $pluginName
                     };

@@ -199,12 +199,26 @@ function infohub_login_import() {
 
         if ($in.step === 'step_check_if_json')
         {
-            $in.step = 'step_save_data_in_storage';
+            $in.step = 'step_check_host';
 
             $nodeData = $in.files_data[0].content;
 
             if (typeof $nodeData !== 'object') {
                 $in.message = 'This is not a json file';
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_check_host')
+        {
+            $in.step = 'step_save_data_in_storage';
+
+            const $fileHost = $nodeData.domain_address;
+            const $browserHost = location.host;
+
+            if ($fileHost !== $browserHost) {
+                const $message = 'The file host "%s" is not the same as the browser host "%s"';
+                $in.message = _SprintF($message, [$fileHost, $browserHost]);
                 $in.step = 'step_end';
             }
         }

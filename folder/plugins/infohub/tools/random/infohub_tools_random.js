@@ -115,7 +115,7 @@ function infohub_tools_random() {
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[my_select_node][my_textbox_min][my_textbox_max]<br>[my_random_button][my_message][my_textbox_output][my_clear_button]',
+                            'content': '[my_select_node][my_textbox_min][my_textbox_max]<br>[my_random_button][my_textbox_output][my_clear_button]',
                             'label': _Translate('Random format'),
                             'description': _Translate('Select what random format you want to use')
                         },
@@ -161,13 +161,6 @@ function infohub_tools_random() {
                             'event_data': 'random|handle_random|get_current_random',
                             'to_plugin': 'infohub_tools',
                             'to_function': 'click'
-                        },
-                        'my_message': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'div',
-                            'class': 'container-pretty',
-                            'data': _Translate('Message here')
                         },
                         'my_textbox_output': {
                             'type': 'form',
@@ -224,7 +217,7 @@ function infohub_tools_random() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': null
+                'data': 0.0
             },
             'event_data': '',
             'data_back': {},
@@ -240,6 +233,7 @@ function infohub_tools_random() {
                 $formData =  {
                     'my_textbox_output': { 'value': '', 'type': 'textarea' }
                 };
+
                 $in.step = 'step_display_data';
             }
         }
@@ -282,20 +276,14 @@ function infohub_tools_random() {
 
         if ($in.step === 'step_get_random_response')
         {
-            const $data = parseFloat(_GetData({'name': 'response/data', 'default': 0.0, 'data': $in }));
-            const $ok = _GetData({'name': 'response/ok', 'default': 'true', 'data': $in });
-            $in.data_back.ok = $ok;
-            const $responseMessage = _GetData({'name': 'response/message', 'default': '', 'data': $in });
-            $in.data_back.response_message = $responseMessage;
-            
+            const $data = parseFloat($in.response.data);
 
             $formData =  {
                 'my_textbox_output': { 'value': $data, 'type': 'textarea', 'mode': 'add_left' },
             };
             
-            $in.step = 'step_display_data';
-            if ($ok === 'false') {
-                $in.step = 'step_display_message';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_display_data';
             }
         }
 
@@ -311,37 +299,15 @@ function infohub_tools_random() {
                     'form_data': $formData
                 },
                 'data_back': {
-                    'box_id': $in.box_id,
-                    'ok': $in.data_back.ok,
-                    'response_message': $in.data_back.response_message,
-                    'step': 'step_display_message'
-                }
-            });
-        }
-
-        if ($in.step === 'step_display_message') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'set_text'
-                },
-                'data': {
-                    'id': $in.box_id + '_my_message',
-                    'text': $in.data_back.response_message
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'ok': $in.data_back.ok,
                     'step': 'step_end'
                 }
             });
         }
 
         return {
-            'answer': 'true',
-            'message': 'Finished handle_random',
-            'ok': $in.ok
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 }

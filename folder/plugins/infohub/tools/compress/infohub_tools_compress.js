@@ -312,7 +312,12 @@ function infohub_tools_compress() {
             'box_id': '',
             'affect_alias': '',
             'affect_plugin': '',
-            'affect_function': ''
+            'affect_function': '',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -338,9 +343,9 @@ function infohub_tools_compress() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Handled the node select',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 
@@ -357,7 +362,11 @@ function infohub_tools_compress() {
             'step': 'step_start',
             'box_id': '',
             'form_data': {},
-            'response': {}
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'compressed_data': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -409,7 +418,10 @@ function infohub_tools_compress() {
                 'text_compress_output': { 'value': $value },
                 'text_compressed_data': { 'value': $compressedData }
             };
-            $in.step = 'step_display_data';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_display_data';
+            }
         }
 
         if ($in.step === 'step_display_data') {
@@ -429,17 +441,10 @@ function infohub_tools_compress() {
             });
         }
 
-        let $ok = 'true';
-        if ($in.step === 'step_end') {
-            if ($in.response.answer === 'false') {
-                $ok = 'false';
-            }
-        }
-
         return {
-            'answer': 'true',
-            'message': 'Finished click_button_compress',
-            'ok': $ok
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 
@@ -456,7 +461,11 @@ function infohub_tools_compress() {
             'step': 'step_start',
             'box_id': '',
             'form_data': {},
-            'response': {}
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'uncompressed_data': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -507,7 +516,10 @@ function infohub_tools_compress() {
                 'text_uncompress_output': { 'value': $value },
                 'text_uncompressed_data': { 'value': $uncompressedData }
             };
-            $in.step = 'step_display_data';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_display_data';
+            }
         }
 
         if ($in.step === 'step_display_data') {
@@ -527,17 +539,10 @@ function infohub_tools_compress() {
             });
         }
 
-        let $ok = 'true';
-        if ($in.step === 'step_end') {
-            if ($in.response.answer === 'false') {
-                $ok = 'false';
-            }
-        }
-
         return {
-            'answer': 'true',
-            'message': 'Finished click_button_compress',
-            'ok': $ok
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 }

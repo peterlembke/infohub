@@ -137,8 +137,8 @@ function infohub_tools_checksum() {
                             'description': _Translate('Select what checksum method you want to use')
                         },
                         'my_select_node': {
-                            'type': 'form',
-                            'subtype': 'select',
+                            'plugin': 'infohub_renderform',
+                            'type': 'select',
                             "label": _Translate("Node"),
                             "description": _Translate("What node plugin do you want to produce the checksum?"),
                             "size": $size,
@@ -232,7 +232,12 @@ function infohub_tools_checksum() {
             'box_id': '',
             'affect_alias': '',
             'affect_plugin': '',
-            'affect_function': ''
+            'affect_function': '',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -258,9 +263,9 @@ function infohub_tools_checksum() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Handled the node select',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 
@@ -278,7 +283,11 @@ function infohub_tools_checksum() {
         const $default = {
             'step': 'step_start',
             'form_data': {},
-            'response': {}
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'checksum': ''
+            },
         };
         $in = _Default($default, $in);
 
@@ -320,7 +329,10 @@ function infohub_tools_checksum() {
             $formData =  {
                 'my_textbox_output': { 'value': $in.response.checksum }
             };
-            $in.step = 'step_display_data';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_display_data';
+            }
         }
 
         if ($in.step === 'step_display_data') {
@@ -341,9 +353,9 @@ function infohub_tools_checksum() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Finished handle_checksum',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
         };
     };
 }

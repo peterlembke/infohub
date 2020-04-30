@@ -53,32 +53,21 @@ class kickOut
             $this->GetOut('REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . ' must be POST');
         }
 
-        if($_SERVER['QUERY_STRING'] !== '') {
+        if ($_SERVER['QUERY_STRING'] !== '') {
             $this->GetOut('QUERY_STRING must be empty: ' . $_SERVER['QUERY_STRING']);
         }
 
-        if (count($_POST) !== 1) {
-            $this->GetOut('POST count: ' . count($_POST) . ' must be 1');
+        if ($_SERVER['CONTENT_TYPE'] !== 'application/json') {
+            $this->GetOut('CONTENT_TYPE must be application/json: ' . $_SERVER['CONTENT_TYPE']);
+        }
+
+        if (count($_POST) > 0) {
+            $this->GetOut('POST count: ' . count($_POST) . ' must be 0');
         }
 
         if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] != '127.0.0.1' and $_SERVER['SERVER_ADDR'] != '::1') {
             $this->GetOut("Only a client can start this file.");
         }
-
-        if (isset($_POST['package']) === false) {
-            $this->GetOut('POST name must be "package"');
-        }
-
-        $maxPostLength = 1024 * 1024;
-
-        $postLength = ceil(strlen($_POST['package']));
-        if ($postLength > $maxPostLength) {
-            $this->GetOut('Length of POST max ' . abs(floor($maxPostLength / 1024)) . 'Kb, you sent ' . abs(floor($postLength / 1024)) . 'Kb'  );
-        }
-        if (strlen($_POST['package']) < 18) {
-            $this->GetOut('Length of POST minimum 18 bytes');
-        }
-        $_POST['package'] = str_replace('\"', '"', $_POST['package']);
     }
 
     /**
@@ -167,7 +156,19 @@ class kickOut
      */
     protected function checkAndUpdatePackageParameters(): array
     {
-        $package = json_decode($_POST['package'], true);
+        $content = file_get_contents('php://input');
+
+        $maxContentLength = 1024 * 1024;
+
+        $contentLength = ceil(strlen($content));
+        if ($contentLength > $maxContentLength) {
+            $this->GetOut('Length of content max ' . abs(floor($maxContentLength / 1024)) . 'Kb, you sent ' . abs(floor($contentLength / 1024)) . 'Kb'  );
+        }
+        if (strlen($content) < 18) {
+            $this->GetOut('Length of content must be minimum 18 bytes');
+        }
+
+        $package = json_decode($content, true);
 
         if (empty($package)) {
             $this->GetOut('Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
@@ -194,14 +195,15 @@ class kickOut
         unset($package['package_type']);
 
         $diff = microtime(true) - (float) $package['sign_code_created_at'];
-        if ($diff < 0.0 or $diff > 2.0) {
-            $this->GetOut('Server says: Package sign_code_created_at is older than 2.0 seconds');
+        if ($diff < 0.0 or $diff > 4.0) {
+            $this->GetOut('Server says: Package sign_code_created_at is older than 4.0 seconds');
         }
 
         $checksum = md5($package['messages_encoded']);
         $package['messages_checksum'] = $checksum;
 
         $messagesJson = base64_decode($package['messages_encoded'], $strict = true);
+        $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form and you see that this is needed
         $messages = json_decode($messagesJson, true);
 
         if (empty($messages)) {

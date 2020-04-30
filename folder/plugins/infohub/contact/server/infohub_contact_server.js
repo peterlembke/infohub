@@ -392,10 +392,8 @@ function infohub_contact_server() {
         };
         $in = _Default($default, $in);
 
-        let $messageArray = [];
-
         if ($in.step === 'step_render_options') {
-            let $messageOut = _SubCall({
+            return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
@@ -414,14 +412,12 @@ function infohub_contact_server() {
                     'step': 'step_end'
                 }
             });
-            $messageArray.push($messageOut);
         }
         
         return {
-            'answer': 'true',
-            'message': 'Rendered the option list',
-            'messages': $messageArray,
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.ok
         };
 
     };

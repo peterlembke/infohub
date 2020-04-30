@@ -1331,8 +1331,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $encoding = ' accept-charset="UTF-8"';
 
-        $in.html =  '<form' + $id + _GetParameters($in, $fields) + $destination + $event + '>' + $in.content + '</form>';
+        $in.html =  '<form' + $id + $encoding + _GetParameters($in, $fields) + $destination + $event + '>' + $in.content + '</form>';
 
         return {
             'answer': 'true',

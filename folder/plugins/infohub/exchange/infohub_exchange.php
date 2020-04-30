@@ -38,8 +38,17 @@ class infohub_exchange extends infohub_base {
         return $this->guestValid;
     }
 
+    protected $userName = '';
+    protected function _GetUserName(): string
+    {
+        return $this->userName;
+    }
+
     /** @var string Used by responder_verify_sign_code to prevent sending an answer with echo. See infohub.php */
     protected $sendAnswer = 'true';
+
+    /** @var array Contain a lookup array with allowed plugin names for this user */
+    protected $allowedPluginNamesLookupArray = array();
 
     final protected function _Version(): array
     {
@@ -321,7 +330,9 @@ class infohub_exchange extends infohub_base {
             'response' => array(
                 'answer' => 'false',
                 'message' => '',
-                'sign_code_valid' => 'false'
+                'sign_code_valid' => 'false',
+                'initiator_user_name' => '',
+                'plugin_names' => array()
             )
         );
         $in = $this->_Default($default, $in);
@@ -330,21 +341,32 @@ class infohub_exchange extends infohub_base {
             'answer' => 'false',
             'message' => 'Nothing to report',
             'sign_code_valid' => 'false',
-            'guest_valid' => 'false'
+            'guest_valid' => 'false',
+            'initiator_user_name' => ''
         );
+
+        $allowedSteps = array('step_simple_tests', 'step_verify_sign_code_response');
+        if (in_array($in['step'], $allowedSteps) === false) {
+            $out['message'] = 'Step manipulation detected';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_simple_tests') {
 
+            $in['step'] = 'step_verify_sign_code';
+
             if ($this->_Empty($in['package']['session_id']) === 'true') {
                 $out['message'] = 'session_id is empty';
-                goto leave;
+                $in['step'] = 'step_guest';
             }
 
             if ($this->_Empty($in['package']['sign_code']) === 'true') {
                 $out['message'] = 'sign_code is empty';
-                goto leave;
+                $in['step'] = 'step_guest';
             }
+        }
 
+        if ($in['step'] === 'step_verify_sign_code') {
             return $this->_SubCall(array(
                 'to' => array(
                     'node' => 'server',
@@ -366,61 +388,56 @@ class infohub_exchange extends infohub_base {
 
         if ($in['step'] === 'step_verify_sign_code_response') {
 
+            $in['step'] = 'step_valid_sign_code';
+
             if ($in['response']['sign_code_valid'] === 'false') {
                 $out['message'] = $in['response']['message'];
-                goto leave;
+                $in['step'] = 'step_guest';
             }
+        }
+
+        if ($in['step'] === 'step_valid_sign_code') {
+
+            $allowedPlugins = array_fill_keys($in['response']['plugin_names'], $dummyValue = array());
+            $this->allowedPluginNamesLookupArray = $allowedPlugins;
 
             $out = array(
                 'answer' => 'true',
                 'message' => 'Sign code is valid',
                 'sign_code_valid' => 'true',
-                'guest_valid' => 'false'
+                'guest_valid' => 'false',
+                'initiator_user_name' => $in['response']['initiator_user_name']
             );
 
             $this->signCodeValid = 'true';
             $this->sendAnswer = 'false';
-
-            return $out;
+            $this->userName = $out['initiator_user_name'];
         }
 
-        leave:
+        if ($in['step'] === 'step_guest') {
+            // sign_code is invalid. Perhaps messages are ok for a guest.
 
-        // sign_code is invalid. Perhaps messages are ok for a guest.
+            $allowedPlugins = array(
+                'infohub_plugin' => array('plugins_request' => 1),
+                'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
+                'infohub_session' => array('responder_end_session' => 1),
+                'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
+                'infohub_launcher' => array('get_full_list' => 1)
+            );
+            $this->allowedPluginNamesLookupArray = $allowedPlugins;
 
-        $allowedPlugins = array(
-            'infohub_plugin' => array('plugins_request' => 1),
-            'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
-            'infohub_session' => array('responder_end_session' => 1),
-            'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
-            'infohub_launcher' => array('get_full_list' => 1)
-        );
+            $out = array(
+                'answer' => 'true',
+                'message' => 'Guest is valid',
+                'sign_code_valid' => 'false',
+                'guest_valid' => 'true',
+                'initiator_user_name' => 'guest'
+            );
 
-        foreach($in['package']['messages'] as $message) {
-            $to = $message['to'];
-            if ($to['node'] !== 'server') {
-                $out['message'] = 'Guest test: to.node must be server';
-                return $out;
-            }
-            if (isset($allowedPlugins[$to['plugin']]) === false) {
-                $out['message'] = 'Guest test: to.plugin not allowed for a guest';
-                return $out;
-            }
-            if (isset($allowedPlugins[$to['plugin']][$to['function']]) === false) {
-                $out['message'] = 'Guest test: to.function not allowed for a guest';
-                return $out;
-            }
+            $this->guestValid = 'true';
+            $this->sendAnswer = 'false';
+            $this->userName = $out['initiator_user_name'];
         }
-
-        $out = array(
-            'answer' => 'true',
-            'message' => 'Guest is valid',
-            'sign_code_valid' => 'false',
-            'guest_valid' => 'true'
-        );
-
-        $this->guestValid = 'true';
-        $this->sendAnswer = 'false';
 
         return $out;
     }
@@ -489,6 +506,28 @@ class infohub_exchange extends infohub_base {
                 $sort = array(); //
                 $message = 'All messages in a package should come from the same node. The rule is to not allow any pass-trough messages. I will throw away the complete package.';
                 goto leave;
+            }
+
+            if (count($this->allowedPluginNamesLookupArray) > 0) {
+                $pluginName = $message['to']['plugin'];
+                if (isset($this->allowedPluginNamesLookupArray[$pluginName]) === false) {
+                    $errorMessage = 'Plugin not allowed';
+                    $rejectReason[$errorMessage] = 1;
+                    $message['message'] = $errorMessage;
+                    $this->_SendMessageBackMessageFailedTests($message);
+                    continue;
+                }
+
+                if ($this->userName === 'guest') {
+                    $functionName = $message['to']['function'];
+                    if (isset($this->allowedPluginNamesLookupArray[$pluginName][$functionName]) === false) {
+                        $errorMessage = 'Plugin function not allowed';
+                        $rejectReason[$errorMessage] = 1;
+                        $message['message'] = $errorMessage;
+                        $this->_SendMessageBackMessageFailedTests($message);
+                        continue;
+                    }
+                }
             }
 
             $sort[] = $message;
@@ -565,6 +604,7 @@ class infohub_exchange extends infohub_base {
             'variables' => array(
                 'answer' => 'false',
                 'message' => $in['message'],
+                'ok' => 'false',
                 'to' => $in['to']
             ),
             'original_message' => $in
@@ -1001,6 +1041,7 @@ class infohub_exchange extends infohub_base {
             ));
             
             $dataMessage['data']['config'] = $response['config'];
+            $dataMessage['data']['config']['user_name'] = $this->_GetUserName();
 
             $dataMessage['callback_function'] = function($response)
             {

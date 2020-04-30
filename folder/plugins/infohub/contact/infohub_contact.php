@@ -92,8 +92,10 @@ class infohub_contact extends infohub_base
         $message = 'Nothing to report from save_node_data';
         $ok = 'false';
 
-        if ($in['step'] === 'step_check_user_name') {
+        if ($in['step'] === 'step_check_user_name')
+        {
             $in['step'] = 'step_check_shared_secret';
+
             if (empty($in['node_data']['user_name']) === true) {
                 return $this->_SubCall(array(
                     'to' => array(
@@ -236,6 +238,16 @@ class infohub_contact extends infohub_base
                 'message' => '',
                 'data' => array(),
                 'post_exist' => 'false'
+            ),
+            'config' => array(
+                'contact' => array(
+                    'node' => '',
+                    'note' => '',
+                    'domain_address' => '',
+                    'user_name' => '',
+                    'shared_secret' => '',
+                    'plugin_names' => array()
+                )
             )
         );
         $in = $this->_Default($default, $in);
@@ -256,18 +268,33 @@ class infohub_contact extends infohub_base
                     'path' => 'infohub_contact/node_data/' . $in['type'] . '/' . $in['user_name']
                 ),
                 'data_back' => array(
+                    'type' => $in['type'],
+                    'user_name' => $in['user_name'],
+                    'config' => array(),
                     'step' => 'step_load_node_data_response'
                 )
             ));
         }
         
-        if ($in['step'] === 'step_load_node_data_response') {
+        if ($in['step'] === 'step_load_node_data_response')
+        {
             $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
+            $message = $in['response']['message'];
+
             if ($answer === 'true') {
-                $message = 'Finished loading node data';
-                $ok = 'true';
-                $nodeData = $in['response']['data'];
+                if ($in['response']['post_exist'] === 'true') {
+                    $message = 'Finished loading node data';
+                    $ok = 'true';
+                    $nodeData = $in['response']['data'];
+                } else {
+                    if ($in['config']['contact']['user_name'] === $in['user_name']) {
+                        $message = 'Finished loading node data from config';
+                        $ok = 'true';
+                        $nodeData = $in['config']['contact'];
+                        $in['response']['post_exist'] = 'true';
+                    }
+                }
+
             }
         }
 

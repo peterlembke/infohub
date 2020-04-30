@@ -212,10 +212,11 @@ function infohub_translate() {
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_markdown',
+                    'plugin': 'infohub_renderdocument',
                     'function': 'create'
                 },
                 'data': {
+                    'type': 'document',
                     'text': atob($in.response.contents)
                 },
                 'data_back': {

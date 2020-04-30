@@ -218,14 +218,16 @@
             return {};
         }
 
-        return _MiniClone($object); // Evaluating if Clone is better/quicker than JSON conversion.
+        return _MiniClone($object); // _MiniClone is better/quicker than the others
 
-        // return JSON.parse(JSON.stringify($object));
+        // return _Clone($object); // Much faster than json parse. Almost as fast as _MiniClone
+        // return JSON.parse(JSON.stringify($object)); // This is slow
     };
 
     /**
      * Object deep clone
      * https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#Another_way_deep_copy%E2%80%8E
+     * https://github.com/whatwg/html/issues/793
      * @param objectToBeCloned
      * @returns {*}
      * @private
@@ -264,6 +266,7 @@
     /**
      * Object deep clone
      * https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#Another_way_deep_copy%E2%80%8E
+     * https://github.com/whatwg/html/issues/793
      * @param objectToBeCloned
      * @returns {*}
      * @private
@@ -565,6 +568,7 @@
             'to': {'node': '', 'plugin': '', 'function': ''},
             'data': {},
             'data_back': {},
+            'messages': [],
             'track': 'false',
             'wait': 0.2
         };
@@ -1402,7 +1406,15 @@
             if ($toScreen !== '') {
                 $errorBox = window.document.getElementById('error');
                 if ($errorBox !== null) {
-                    $errorBox.innerHTML = $toScreen + '<br>' + $errorBox.innerHTML;
+                    let $currentContents = $errorBox.innerHTML;
+                    if (_Empty($currentContents) === 'true') {
+                        const $link1 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'1\');location.reload();">(== Restart light update plugins ==)</a>';
+                        const $link2 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'3\');location.reload();">(== Restart hard keep data ==)</a>';
+                        const $link3 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'5\');location.reload();">(== Full clean out ==)</a>';
+                        $currentContents = $link1 + $link2 + $link3 + '<br><br>';
+                    }
+
+                    $errorBox.innerHTML = $toScreen + '<br>' + $currentContents;
                 }
             }
 

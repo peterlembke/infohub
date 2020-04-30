@@ -147,7 +147,7 @@ function infohub_doc_get() {
             $in.step = 'step_end';
 
             if ($in.response.answer === 'false') {
-                $in.data_back.data = $in.response.message;
+                $in.data_back.message = $in.response.message;
                 $in.response.ok = 'false';
             }
 
@@ -205,7 +205,21 @@ function infohub_doc_get() {
     {
         const $default = {
             'step': 'step_get_navigation_from_storage',
-            'response': {},
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'ok': 'false',
+                'data': {
+                    'checksum': '',
+                    'checksum_same': '',
+                    'data': {},
+                    'micro_time': 0.0,
+                    'provided_checksum': '',
+                    'time_stamp': ''
+                },
+                'path': '',
+                'post_exist': 'false'
+            },
             'data_back': {
                 'data': {}
             }
@@ -234,7 +248,7 @@ function infohub_doc_get() {
             $in.step = "step_get_navigation_from_server";
             $in.data_back.data.checksum = '';
 
-            if (_Empty($in.response.data) === 'false') {
+            if (_Empty($in.response.data.data) === 'false') {
                 $in.data_back.data = _ByVal($in.response.data);
                 $in.step = 'step_check_if_data_is_old';
             }
@@ -281,9 +295,11 @@ function infohub_doc_get() {
         if ($in.step === "step_get_navigation_from_server_response") 
         {
             $in.step = 'step_end';
-            if ($in.response.data.checksum_same === 'false') {
-                $in.data_back.data = _ByVal($in.response.data);
-                $in.step = 'step_save_data';
+            if ($in.response.answer === 'true') {
+                if ($in.response.data.checksum_same === 'false') {
+                    $in.data_back.data = _ByVal($in.response.data);
+                    $in.step = 'step_save_data';
+                }
             }
         }
 
@@ -319,8 +335,8 @@ function infohub_doc_get() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Here are the full documents list',
+            'answer': $in.response.answer,
+            'message': $in.response.message,
             'data': $data
         };
     };

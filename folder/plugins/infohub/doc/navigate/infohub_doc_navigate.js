@@ -210,9 +210,18 @@ function infohub_doc_navigate() {
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_handle_documents_list'
+                    'step': 'step_start_response'
                 }
             });
+        }
+
+        if ($in.step === 'step_start_response')
+        {
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_handle_documents_list';
+            }
         }
 
         if ($in.step === 'step_handle_documents_list')

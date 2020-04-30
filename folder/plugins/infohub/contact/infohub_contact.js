@@ -85,7 +85,7 @@ function infohub_contact() {
     /**
      * Get the raw data for the markdown doc file.
      * Used by infohub_contact_doc to render the documentation
-     * @version 2019-03-14
+     * @version 2020-04-30
      * @since   2019-03-14
      * @author  Peter Lembke
      */
@@ -134,7 +134,7 @@ function infohub_contact() {
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_markdown',
+                    'plugin': 'infohub_renderdocument',
                     'function': 'create'
                 },
                 'data': {

@@ -100,7 +100,8 @@ function infohub_login() {
                 'message': '',
                 'data': {},
                 'post_exist': 'false'
-            }
+            },
+            'desktop_environment': ''
         };
         $in = _Merge($default, $in);
 
@@ -119,6 +120,7 @@ function infohub_login() {
                 },
                 'data_back': {
                     'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_boxes_insert'
                 }
             });
@@ -140,7 +142,7 @@ function infohub_login() {
                             'box_mode': 'data',
                             'box_alias': 'menu',
                             'max_width': 640,
-                            'box_data': 'The menu will render here'
+                            'box_data': '' // The menu will render here
                         },
                         {
                             'parent_box_id': $in.box_id,
@@ -148,7 +150,7 @@ function infohub_login() {
                             'box_mode': 'data',
                             'box_alias': 'form',
                             'max_width': 640, // 100 will be translated to 100%
-                            'box_data': 'Use the menu'
+                            'box_data': '' // Use the menu
                         },
                         {
                             'parent_box_id': $in.box_id,
@@ -156,12 +158,13 @@ function infohub_login() {
                             'box_mode': 'data',
                             'box_alias': 'contact',
                             'max_width': 640, // 100 will be translated to 100%
-                            'box_data': 'Imported contact data'
+                            'box_data': '' // Imported contact data
                         }
                     ]
                 },
                 'data_back': {
                     'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_get_translations'
                 }
             });
@@ -178,6 +181,7 @@ function infohub_login() {
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_get_translations_response'
                 }
             });
@@ -186,7 +190,12 @@ function infohub_login() {
         if ($in.step === 'step_get_translations_response')
         {
             $classTranslations = _ByVal($in.response.data);
+
             $in.step = 'step_menu';
+
+            if ($in.desktop_environment === 'standalone') {
+                $in.step = 'step_render_login';
+            }
         }
 
         if ($in.step === 'step_menu')
@@ -204,6 +213,7 @@ function infohub_login() {
                 },
                 'data_back': {
                     'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_render_contact'
                 }
             });
@@ -224,6 +234,7 @@ function infohub_login() {
                 },
                 'data_back': {
                     'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_render_contact_response'
                 }
             });
@@ -271,6 +282,7 @@ function infohub_login() {
                     }
                 },
                 'data_back': {
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_end'
                 }
             });
@@ -285,9 +297,11 @@ function infohub_login() {
                     'function': 'click_menu'
                 },
                 'data': {
-                    'event_data': 'login'
+                    'event_data': 'login',
+                    'desktop_environment': $in.desktop_environment
                 },
                 'data_back': {
+                    'desktop_environment': $in.desktop_environment,
                     'step': 'step_end'
                 }
             });
@@ -312,7 +326,12 @@ function infohub_login() {
         const $default = {
             'step': 'step_start',
             'event_data': '',
-            'parent_box_id': ''
+            'parent_box_id': '',
+            'desktop_environment': '',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report'
+            }
         };
         $in = _Default($default, $in);
 
@@ -329,7 +348,8 @@ function infohub_login() {
                 'data': {
                     'subtype': $in.event_data,
                     'parent_box_id': $in.parent_box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
+                    'desktop_environment': $in.desktop_environment
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -338,8 +358,8 @@ function infohub_login() {
         }
 
         return {
-            'answer': 'true',
-            'message': 'Menu click done'
+            'answer': $in.response.answer,
+            'message': $in.response.message
         };
     };
 
@@ -358,6 +378,7 @@ function infohub_login() {
             'value': '', // Selected option in select lists
             'box_id': '',
             'step': 'step_start',
+            'desktop_environment': '',
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
@@ -393,7 +414,8 @@ function infohub_login() {
                     'value': $in.value,
                     'values': $in.response.value,
                     'files_data': $in.response.files_data,
-                    'box_id': $in.box_id
+                    'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment
                 },
                 'data_back': {
                     'event_data': $in.event_data,
@@ -421,7 +443,11 @@ function infohub_login() {
     {
         const $default = {
             'step': 'step_start',
-            'to': {'function': ''},
+            'to': {
+                'node': 'server',
+                'plugin': 'infohub_login',
+                'function': ''
+            },
             'data': {},
             'response': {},
             'from_plugin': {
@@ -447,10 +473,15 @@ function infohub_login() {
                 };
             }
 
+            let $pluginName = 'infohub_login';
+            if ($in.to.plugin === 'infohub_dummy') {
+                $pluginName = 'infohub_dummy';
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'server',
-                    'plugin': 'infohub_login',
+                    'plugin': $pluginName,
                     'function': $in.to.function
                 },
                 'data': $in.data,

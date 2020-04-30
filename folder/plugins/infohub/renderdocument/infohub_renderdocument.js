@@ -27,7 +27,7 @@ function infohub_renderdocument() {
             'since': '2019-08-09',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
-            'class_name': 'infohub_document',
+            'class_name': 'infohub_renderdocument',
             'note': 'Take a markdown, parse some of it and divide into renderable parts',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
@@ -79,7 +79,7 @@ function infohub_renderdocument() {
     const create = function ($in)
     {
         const $default = {
-            'type': '',
+            'type': 'document',
             'alias': '',
             'original_alias': '',
             'text': '',

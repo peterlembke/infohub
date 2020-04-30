@@ -484,7 +484,8 @@ function infohub_workbench() {
                     'function': 'setup_gui'
                 },
                 'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
+                    'box_id': 'main.body.' + $in.plugin_name,
+                    'desktop_environment': 'workbench'
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,

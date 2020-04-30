@@ -672,7 +672,9 @@ class infohub_session extends infohub_base
         $out = array(
             'answer' => 'false',
             'message' => 'Nothing to report',
-            'sign_code_valid' => 'false'
+            'sign_code_valid' => 'false',
+            'initiator_user_name' => '',
+            'plugin_names' => array()
         );
 
         if ($in['step'] === 'step_verify_sign_code_created_at') {
@@ -723,7 +725,9 @@ class infohub_session extends infohub_base
                 $out = array(
                     'answer' => 'true',
                     'message' => 'Sign code is valid',
-                    'sign_code_valid' => 'true'
+                    'sign_code_valid' => 'true',
+                    'initiator_user_name' => $data['initiator_user_name'],
+                    'plugin_names' => $data['plugin_names']
                 );
             }
         }
@@ -732,7 +736,9 @@ class infohub_session extends infohub_base
         return array(
             'answer' => $out['answer'],
             'message' => $out['message'],
-            'sign_code_valid' => $out['sign_code_valid']
+            'sign_code_valid' => $out['sign_code_valid'],
+            'initiator_user_name' => $out['initiator_user_name'],
+            'plugin_names' => $out['plugin_names']
         );
     }
 

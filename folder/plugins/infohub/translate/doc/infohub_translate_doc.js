@@ -182,6 +182,9 @@ function infohub_translate_doc() {
         const $default = {
             'step': 'step_render',
             'response': {
+                'answer': 'false',
+                'message': '',
+                'frog': 'false',
                 'html': ''
             }
         };
@@ -191,10 +194,15 @@ function infohub_translate_doc() {
             return _GetCall('infohub_translate');
         }
 
+        let $ok = 'true';
+        if ($in.response.frog === 'true') {
+            $ok = 'false';
+        }
+
         return {
-            'answer': 'true',
-            'message': 'Showed the main doc',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $ok
         };
     };
 
@@ -210,6 +218,9 @@ function infohub_translate_doc() {
         const $default = {
             'step': 'step_render',
             'response': {
+                'answer': 'false',
+                'message': '',
+                'frog': 'false',
                 'html': ''
             }
         };
@@ -219,10 +230,15 @@ function infohub_translate_doc() {
             return _GetCall('createfiles/infohub_translate_createfiles');
         }
 
+        let $ok = 'true';
+        if ($in.response.frog === 'true') {
+            $ok = 'false';
+        }
+
         return {
-            'answer': 'true',
-            'message': 'Showed the Create files doc',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $ok
         };
     };
 
@@ -238,6 +254,9 @@ function infohub_translate_doc() {
         const $default = {
             'step': 'step_render',
             'response': {
+                'answer': 'false',
+                'message': '',
+                'frog': 'false',
                 'html': ''
             }
         };
@@ -247,10 +266,15 @@ function infohub_translate_doc() {
             return _GetCall('mergefiles/infohub_translate_mergefiles');
         }
 
+        let $ok = 'true';
+        if ($in.response.frog === 'true') {
+            $ok = 'false';
+        }
+
         return {
-            'answer': 'true',
-            'message': 'Showed the Merge files doc',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $ok
         };
     };
 
@@ -266,6 +290,9 @@ function infohub_translate_doc() {
         const $default = {
             'step': 'step_render',
             'response': {
+                'answer': 'false',
+                'message': '',
+                'frog': 'false',
                 'html': ''
             }
         };
@@ -275,10 +302,15 @@ function infohub_translate_doc() {
             return _GetCall('updatefiles/infohub_translate_updatefiles');
         }
 
+        let $ok = 'true';
+        if ($in.response.frog === 'true') {
+            $ok = 'false';
+        }
+
         return {
-            'answer': 'true',
-            'message': 'Showed the Update files doc',
-            'ok': 'true'
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $ok
         };
     };
 
