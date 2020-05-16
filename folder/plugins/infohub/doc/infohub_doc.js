@@ -31,7 +31,8 @@ function infohub_doc() {
             'note': 'Show markdown doc files from the plugins and the doc folder',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Documentation'
+            'title': 'Documentation',
+            'recommended_security_group': 'user'
         };
     };
 

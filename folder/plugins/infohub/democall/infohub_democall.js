@@ -31,7 +31,8 @@ function infohub_democall() {
             'note': 'Demonstrate what happens if a plugin or function do not exist',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Demo call'
+            'title': 'Demo call',
+            'recommended_security_group': 'developer'
         };
     };
 

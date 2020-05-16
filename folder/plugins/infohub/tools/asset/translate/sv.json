@@ -85,10 +85,19 @@
             "Calculate checksum": "Beräkna kontrollsumma",
             "Compress data": "Komprimera data",
             "Encrypt/Decrypt text": "Kryptera / dekryptera text",
+            "Messages tool": "Meddelandeverktyg",
             "Get current time": "Få aktuell tid",
             "Get random numbers": "Få slumpmässiga nummer",
             "Get passwords": "Få lösenord",
             "Run test calls": "Kör testmeddelanden"
+        },
+        "infohub_tools_package": {
+            "View data from messages_encoded": "Se data från messages_encoded",
+            "With this tool you can view data from the package property messages_encoded. See your browser network tab in developer tools.": "Med det här verktyget kan du se data från paketets egenskap messages_encoded. Se din webbläsare i utvecklarpanelen och nätverksfliken.",
+            "messages_encoded": "messages_encoded",
+            "Paste a string from messages_encoded": "Tejpa in en sträng från messages_encoded",
+            "Decode": "Dekoda",
+            "Will show the decoded pretty json": "Kommer att visa en snygg dekodad JSON"
         },
         "infohub_tools_password": {
             "password_length = length of the passwords you want.": "password_length = längden på de lösenord du vill ha.",

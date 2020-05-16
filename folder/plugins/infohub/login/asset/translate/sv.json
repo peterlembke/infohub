@@ -53,6 +53,9 @@
             "Login": "Logga in",
             "Here you can use the contact data you imported and login to the server": "Här kan du använda kontaktdata som du importerade och logga in på servern",
             "Password": "Lösenord",
+            "Reload after login": "Ladda om sidan efter inloggning",
+            "Select file": "Välj fil",
+            "You are already logged in": "Du är redan inloggad",
             "Missing user name": "Saknar användarnamn",
             "Missing random code": "Saknar slumpmässig kod",
             "The answer from the server took too long time. I will abandon the login attempt": "Svaret från servern tog för lång tid. Jag lämnar inloggningsförsöket",
@@ -66,6 +69,7 @@
         "infohub_login_logout": {
             "Logout": "Logga ut",
             "Here you can logout from the server": "Här kan du logga ut från servern",
+            "Reload after logout": "Ladda om sidan efter utloggning",
             "Failed to logout": "Det gick inte att logga ut",
             "Success logging out": "Du är nu utloggad"
         },

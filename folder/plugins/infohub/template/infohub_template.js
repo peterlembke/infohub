@@ -30,7 +30,8 @@ function infohub_template() {
             'class_name': 'infohub_template',
             'note': 'Oneliner with plugin description',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'developer'
         };
     };
 

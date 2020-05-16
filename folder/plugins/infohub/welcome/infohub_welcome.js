@@ -31,7 +31,8 @@ function infohub_welcome() {
             'note': 'Configuration editor for your local browser configuration',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Config'
+            'title': 'Config',
+            'recommended_security_group': 'user'
         };
     };
 

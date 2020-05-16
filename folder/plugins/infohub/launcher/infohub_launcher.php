@@ -41,7 +41,8 @@ class infohub_launcher extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Download client side data that the launcher need to work',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'user'
         );
     }
 
@@ -67,6 +68,9 @@ class infohub_launcher extends infohub_base
             'list_checksum' => '',
             'step' => 'step_get_full_list',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
+            'config' => array(
+                'client_plugin_names' => array()
+            ),
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing to report',
@@ -91,6 +95,9 @@ class infohub_launcher extends infohub_base
                 'data' => array(),
                 'data_back' => array(
                     'list_checksum' => $in['list_checksum'],
+                    'config' => array(
+                        'client_plugin_names' => $in['config']['client_plugin_names']
+                    ),
                     'step' => 'step_get_full_list_response'
                 )
             ));
@@ -111,6 +118,14 @@ class infohub_launcher extends infohub_base
         {
             $list = $in['response']['data'];
             ksort($list);
+
+            // Remove the plugins you do not have rights to use on the client
+            foreach ($list as $pluginName => $dummy) {
+                if (isset($in['config']['client_plugin_names'][$pluginName]) === false) {
+                    unset($list[$pluginName]);
+                }
+            }
+
             $listChecksum = md5(json_encode($list));
 
             $do = 'update';

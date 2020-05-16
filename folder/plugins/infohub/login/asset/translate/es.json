@@ -53,6 +53,9 @@
             "Login": "Iniciar sesión",
             "Here you can use the contact data you imported and login to the server": "Aquí puede usar los datos de contacto que importó e iniciar sesión en el servidor",
             "Password": "Contraseña",
+            "Reload after login": "Recargar después de iniciar sesión",
+            "Select file": "Seleccione Archivo",
+            "You are already logged in": "Ya se ha autentificado",
             "Missing user name": "Falta nombre de usuario",
             "Missing random code": "Falta código aleatorio",
             "The answer from the server took too long time. I will abandon the login attempt": "La respuesta del servidor tomó demasiado tiempo. Abandonaré el intento de inicio de sesión",
@@ -66,6 +69,7 @@
         "infohub_login_logout": {
             "Logout": "Cerrar sesión",
             "Here you can logout from the server": "Aquí puede cerrar sesión desde el servidor",
+            "Reload after logout": "Recargar después de cerrar sesión",
             "Failed to logout": "Error al cerrar sesión",
             "Success logging out": "Cierre de sesión correcto"
         },

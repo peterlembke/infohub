@@ -85,10 +85,19 @@
             "Calculate checksum": "Calcular suma de comprobación",
             "Compress data": "Comprimir datos",
             "Encrypt/Decrypt text": "Cifrar / descifrar texto",
+            "Messages tool": "Herramienta de mensajes",
             "Get current time": "Obtener hora actual",
             "Get random numbers": "Obtener números aleatorios",
             "Get passwords": "Obtener contraseñas",
             "Run test calls": "Ejecutar llamadas de prueba"
+        },
+        "infohub_tools_package": {
+            "View data from messages_encoded": "Ver datos de messages_encoded",
+            "With this tool you can view data from the package property messages_encoded. See your browser network tab in developer tools.": "Con esta herramienta, puede ver los datos de la propiedad del paquete messages_encoded. Consulte la pestaña de red de su navegador en las herramientas para desarrolladores.",
+            "messages_encoded": "messages_encoded",
+            "Paste a string from messages_encoded": "Pegar una cadena de messages_encoded",
+            "Decode": "Descodificar",
+            "Will show the decoded pretty json": "Mostrará la bonita decodificada json"
         },
         "infohub_tools_password": {
             "password_length = length of the passwords you want.": "password_length = longitud de las contraseñas que desea",
@@ -133,7 +142,6 @@
             "Server": "Servidor",
             "Set your minimum integer number": "Establezca su número entero mínimo",
             "Set your maximum integer number": "Establezca su número entero máximo",
-            "Message here": "Mensaje aquí",
             "Will show the random number": "Mostrará el número aleatorio",
             "Clear": "Borrar"
         },

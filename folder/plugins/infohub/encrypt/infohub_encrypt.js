@@ -41,7 +41,8 @@ function infohub_encrypt() {
             'class_name': 'infohub_encrypt',
             'note': 'You can encrypt/decrypt your data to keep the contents secret',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

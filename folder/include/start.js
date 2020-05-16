@@ -344,6 +344,9 @@ function infohub_start($progress) {
                     if ($response !== '' && $response[0] === '{' && $isErrorMessage === 'false') {
                         $response = JSON.parse($response);
 
+                        $response.messages = JSON.parse(atob($response.messages_encoded));
+                        delete ($response.messages_encoded);
+
                         $progress.whatArea('call_server',40, 'Call the server - Valid response, parsing...');
 
                         _HandleServerResponse($response);

@@ -38,7 +38,8 @@ class infohub_session extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Handle sessions. Both incoming and outgoing.',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'guest'
         );
     }
 
@@ -72,7 +73,8 @@ class infohub_session extends infohub_base
         $default = array(
             'initiator_user_name' => '', // user_{hub_id}
             'left_overs' => '', // Left overs from the login. Never exposed outside this plugin.
-            'plugin_names' => array(),
+            'server_plugin_names' => array(),
+            'client_plugin_names' => array(),
             'step' => 'step_create_session_id',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
             'response' => array(
@@ -99,7 +101,8 @@ class infohub_session extends infohub_base
                 'data_back' => array(
                     'initiator_user_name' => $in['initiator_user_name'],
                     'left_overs' => $in['left_overs'],
-                    'plugin_names' => $in['plugin_names'],
+                    'server_plugin_names' => $in['server_plugin_names'],
+                    'client_plugin_names' => $in['client_plugin_names'],
                     'step' => 'step_create_session_id_response'
                 )
             ));
@@ -129,7 +132,8 @@ class infohub_session extends infohub_base
                         'left_overs' => $in['left_overs'],
                         'session_id' => $sessionId,
                         'session_created_at' => $sessionCreatedAt,
-                        'plugin_names' => $in['plugin_names']
+                        'server_plugin_names' => $in['server_plugin_names'],
+                        'client_plugin_names' => $in['client_plugin_names']
                     )
                 ),
                 'data_back' => array(
@@ -472,7 +476,7 @@ class infohub_session extends infohub_base
 
     /**
      * Each outgoing package must be signed to protect from data manipulation
-     * @version 2020-01-11
+     * @version 2020-05-14
      * @since 2020-01-10
      * @author Peter Lembke
      * @param array $in
@@ -483,7 +487,7 @@ class infohub_session extends infohub_base
         $default = array(
             'session_id' => '',
             'messages_checksum' => '', // md5 checksum of all messages in the package
-            'step' => 'step_get_session_data',
+            'step' => 'step_check_in_data',
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -495,6 +499,18 @@ class infohub_session extends infohub_base
         $signCode = '';
         $signCodeCreatedAt = '';
         $ok = 'false';
+
+        if ($in['step'] === 'step_check_in_data') {
+            $in['step'] = 'step_get_session_data';
+            if ($this->_Empty($in['session_id']) === 'true') {
+                $in['response']['message'] = 'Empty session_id. I will not calculate a sign_code';
+                $in['step'] = 'step_end';
+            }
+            if ($this->_Empty($in['messages_checksum']) === 'true') {
+                $in['response']['message'] = 'Empty messages_checksum. I will not calculate a sign_code';
+                $in['step'] = 'step_end';
+            }
+        }
 
         if ($in['step'] === 'step_get_session_data') {
 
@@ -508,7 +524,8 @@ class infohub_session extends infohub_base
                     'path' => 'infohub_session/session/' . $in['session_id']
                 ),
                 'data_back' => array(
-                    'node' => $in['node'],
+                    'session_id' => $in['session_id'],
+                    'messages_checksum' => $in['messages_checksum'],
                     'step' => 'step_get_session_data_response'
                 )
             ));
@@ -540,7 +557,6 @@ class infohub_session extends infohub_base
 
                 $ok = 'true';
             }
-
         }
 
         return array(
@@ -548,7 +564,8 @@ class infohub_session extends infohub_base
             'message' => $in['response']['message'],
             'ok' => $ok,
             'sign_code' => $signCode,
-            'sign_code_created_at' => $signCodeCreatedAt // 3 decimals
+            'sign_code_created_at' => $signCodeCreatedAt, // 3 decimals
+            'session_id' => $in['session_id']
         );
     }
 
@@ -674,7 +691,8 @@ class infohub_session extends infohub_base
             'message' => 'Nothing to report',
             'sign_code_valid' => 'false',
             'initiator_user_name' => '',
-            'plugin_names' => array()
+            'server_plugin_names' => array(),
+            'client_plugin_names' => array()
         );
 
         if ($in['step'] === 'step_verify_sign_code_created_at') {
@@ -715,6 +733,16 @@ class infohub_session extends infohub_base
                 goto leave;
             }
 
+            $default = array(
+                'initiator_user_name' => '',
+                'left_overs' => '',
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array(),
+                'session_created_at' => '',
+                'session_id' => ''
+            );
+            $data = $this->_Default($default, $data);
+
             $string = $data['session_created_at'] . $in['sign_code_created_at'] .
                 $data['left_overs'] . $in['messages_checksum'] .
                 $data['session_id'] . $data['initiator_user_name'];
@@ -727,7 +755,8 @@ class infohub_session extends infohub_base
                     'message' => 'Sign code is valid',
                     'sign_code_valid' => 'true',
                     'initiator_user_name' => $data['initiator_user_name'],
-                    'plugin_names' => $data['plugin_names']
+                    'server_plugin_names' => $data['server_plugin_names'],
+                    'client_plugin_names' => $data['client_plugin_names']
                 );
             }
         }
@@ -738,7 +767,8 @@ class infohub_session extends infohub_base
             'message' => $out['message'],
             'sign_code_valid' => $out['sign_code_valid'],
             'initiator_user_name' => $out['initiator_user_name'],
-            'plugin_names' => $out['plugin_names']
+            'server_plugin_names' => $out['server_plugin_names'],
+            'client_plugin_names' => $out['client_plugin_names']
         );
     }
 

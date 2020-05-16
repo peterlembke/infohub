@@ -53,7 +53,8 @@
             "_GetDataType": false,
             "_Delete": false,
             "_SprintF": false,
-            "_Full": false
+            "_Full": false,
+            "_CreateLookupTable": false
         }
     }
 }

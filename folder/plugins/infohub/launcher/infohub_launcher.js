@@ -37,7 +37,8 @@ function infohub_launcher() {
             'note': 'Plugin with a GUI where you can start other plugins',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Launcher'
+            'title': 'Launcher',
+            'recommended_security_group': 'user'
         };
     };
 
@@ -211,7 +212,7 @@ function infohub_launcher() {
                             'to_function': 'switch_button',
                             'css_data': {
                                 '.button':
-                                    'font-size: 1.5em;'+
+                                    'font-size: 1.0em;'+
                                     'max-width: 320px;'+
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
@@ -420,7 +421,7 @@ function infohub_launcher() {
                             'to_function': 'refresh_plugins_and_reload_page',
                             'css_data': {
                                 '.button':
-                                    'font-size: 1.5em;'+
+                                    'font-size: 1.0em;'+
                                     'max-width: 320px;'+
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
@@ -972,7 +973,7 @@ function infohub_launcher() {
                 'class': 'my_list_title',
                 'tag': 'div',
                 'css_data': {
-                    '.my_list_title': 'max-width: 64px; height: 28px; max-height: 28px; font-size: '+$fontSize+'; text-align: center; padding:0px;'
+                    '.my_list_title': 'max-width: 64px; height: 28px; max-height: 28px; font-size: '+$fontSize+'; text-align: center; padding:0px; word-wrap:break-word;'
                 }
             };
 

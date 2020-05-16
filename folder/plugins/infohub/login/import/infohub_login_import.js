@@ -76,7 +76,9 @@ function infohub_login_import() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'plugin_names': []
+            'server_plugin_names': [],
+            'client_plugin_names': [],
+            'has_password': 'false'
         };
         $nodeData = _Default($default, $nodeData);
 

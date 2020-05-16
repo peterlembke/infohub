@@ -31,7 +31,8 @@ function infohub_rendermenu() {
             'class_name': 'infohub_rendermenu',
             'note': 'Render a list with buttons. That is easier to use than a list with links',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 
@@ -183,7 +184,7 @@ function infohub_rendermenu() {
             'custom_variables': {}, // You can add more custom variables like the data variable above
             'css_data': {
                 '.button':
-                    'font-size: 1.5em;'+
+                    'font-size: 1.0em;'+
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 16px;'+

@@ -25,7 +25,6 @@ All plugins can ask Asset for files that are part of their own plugin, like icon
 # Miss use
 Config data are provided by infohub_exchange to the plugin. No need for the plugin to read the config data.  
 Today two modules read their own config file. That dependency will be removed completely.  
-infohub_callback - to read config data.  
 infohub_storage_data.php - reads the config data. That config will instead be read by infohub_exchange and passed to infohub_storage.  
 infohub_doc.php - Reads doc files, that will be totally handled by infohub_asset and this plugin can be removed.  
 

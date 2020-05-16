@@ -268,6 +268,10 @@ class infohub_base
             $answer = $in['default'];
         }
 
+        if (is_array($in['default']) === true && empty($in['default']) === false) {
+            $answer = $this->_Default($in['default'], $answer);
+        }
+
         return $answer;
     }
 

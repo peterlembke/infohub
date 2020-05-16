@@ -121,7 +121,7 @@ In the below example I have clicked the image, this is the result.
         color: #000;
         border: 1px solid #a6c8a6;
         padding: 2px 13px;
-        font-size: 1.5em;
+        font-size: 1.0em;
         font-weight: bold;
         box-shadow: 0 0 0 0px #ddd;
         margin-left: 20px;

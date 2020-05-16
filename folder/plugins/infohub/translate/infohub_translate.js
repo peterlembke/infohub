@@ -30,7 +30,8 @@ function infohub_translate() {
             'class_name': 'infohub_translate',
             'note': 'Handle the translation of startable plugins',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

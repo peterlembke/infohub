@@ -31,7 +31,8 @@ function infohub_tools() {
             'note': 'Collection of tools that show you what Infohub can do',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Tools collection'
+            'title': 'Tools collection',
+            'recommended_security_group': 'user'
         };
     };
 

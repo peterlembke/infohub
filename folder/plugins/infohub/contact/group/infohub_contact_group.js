@@ -111,7 +111,7 @@ function infohub_contact_group() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_new][button_save][button_delete]',
+                            'data': '[button_new][button_save][button_delete][group_icon]',
                             'class': 'container-small'
                         },
                         'container_form': {
@@ -223,7 +223,7 @@ function infohub_contact_group() {
                         'form_group': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_group_name][text_note][list_plugin]',
+                            'content': '[text_group_name][text_note][list_server_plugin]',
                             'label': _Translate('Rights for one group'),
                             'description': ''
                         },
@@ -249,7 +249,7 @@ function infohub_contact_group() {
                             'show_rows': 'false',
                             'show_paragraphs': 'false'
                         },
-                        'list_plugin': {
+                        'list_server_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("Select server plugins in this group"),
@@ -262,6 +262,20 @@ function infohub_contact_group() {
                                 '.select': 'max-width: 200px;'
                             }
                         },
+                        'group_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[group_asset]',
+                            'css_data': {
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                            }
+                        },
+                        'group_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'group/group',
+                            'plugin_name': 'infohub_contact'
+                        }
                     },
                     'how': {
                         'mode': 'one box',
@@ -317,7 +331,7 @@ function infohub_contact_group() {
                     'function': 'render_options'
                 },
                 'data': {
-                    'id': $in.box_id + '_list_plugin_form_element',
+                    'id': $in.box_id + '_list_server_plugin_form_element',
                     'source_node': 'server',
                     'source_plugin': 'infohub_contact',
                     'source_function': 'load_plugin_list',
@@ -353,7 +367,7 @@ function infohub_contact_group() {
         }
 
         return {
-            'answer': 'true',
+            'answer': $in.response.answer,
             'message': $in.response.message,
             'ok': $in.response.ok
         };
@@ -419,7 +433,7 @@ function infohub_contact_group() {
                     'form_data': {
                         'text_group_name': {'value': $in.response.group_data.name },
                         'text_note': {'value': $in.response.group_data.note },
-                        'list_plugin': {'value': $in.response.group_data.plugin_names },
+                        'list_server_plugin': {'value': $in.response.group_data.server_plugin_names },
                     }
                 },
                 'data_back': {
@@ -430,12 +444,15 @@ function infohub_contact_group() {
 
         if ($in.step === 'step_show_group_data_response') {
             $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.response.ok = $in.response.answer;
+            }
         }
 
         return {
-            'answer': 'true',
-            'message': 'group data shown',
-            'ok': $in.ok
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.ok
         };
     };
 
@@ -470,7 +487,7 @@ function infohub_contact_group() {
                     'form_data': {
                         'text_group_name': {'value': ''},
                         'text_note': {'value': ''},
-                        'list_plugin': {'value': {} }
+                        'list_server_plugin': {'value': {} }
                     }
                 },
                 'data_back': {
@@ -536,7 +553,7 @@ function infohub_contact_group() {
                 $groupData = {
                     'name': $in.response.form_data.text_group_name.value,
                     'note': $in.response.form_data.text_note.value,
-                    'plugin_names': $in.response.form_data.list_plugin.value
+                    'server_plugin_names': $in.response.form_data.list_server_plugin.value
                 };
                 $in.step = 'step_save_group_data';
             }

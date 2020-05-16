@@ -8,7 +8,7 @@
         "file_type": "finished_file"
     },
     "launcher": {
-        "title": "Tangent- bord",
+        "title": "Tangentbord",
         "description": "Du kan se här vilka plugins som prenumererar på globala tangentbordstryckningar. Kan vara intressant om du utvecklar plugins till InfoHub."
     },
     "data": {

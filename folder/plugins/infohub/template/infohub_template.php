@@ -35,7 +35,8 @@ class infohub_template extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Oneliner with the plugin purpose',
             'status' => 'emerging',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'developer'
         );
     }
 

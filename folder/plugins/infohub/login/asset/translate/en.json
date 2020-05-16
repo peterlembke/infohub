@@ -53,6 +53,9 @@
             "Login": "Login",
             "Here you can use the contact data you imported and login to the server": "Here you can use the contact data you imported and login to the server",
             "Password": "Password",
+            "Reload after login": "Reload after login",
+            "Select file": "Select file",
+            "You are already logged in": "You are already logged in",
             "Missing user name": "Missing user name",
             "Missing random code": "Missing random code",
             "The answer from the server took too long time. I will abandon the login attempt": "The answer from the server took too long time. I will abandon the login attempt",
@@ -66,6 +69,7 @@
         "infohub_login_logout": {
             "Logout": "Logout",
             "Here you can logout from the server": "Here you can logout from the server",
+            "Reload after logout": "Reload after logout",
             "Failed to logout": "Failed to logout",
             "Success logging out": "Success logging out"
         },

@@ -27,6 +27,60 @@ function infohub_exchange() {
         return $userName;
     };
 
+    let $sessionId = '';
+    const _GetSessionId = function () {
+        return $sessionId;
+    };
+
+    /** @var array Contain a lookup array with allowed plugin names for this user */
+    let $allowedServerPluginNamesLookupArray = {};
+    const _GetAllowedServerPluginNames = function() {
+        return $allowedServerPluginNamesLookupArray;
+    };
+
+    /** @var array Contain a lookup array with allowed client plugin names for this user */
+    let $allowedClientPluginNamesLookupArray = {};
+    const _GetAllowedClientPluginNames = function() {
+        return $allowedClientPluginNamesLookupArray;
+    };
+
+    /**
+     * Check if you are allowed to use this plugin
+     * @param $nodeName | "client" or "server"
+     * @param $pluginName
+     * @returns {string} | "true" or "false"
+     * @private
+     */
+    const _Allowed = function($nodeName, $pluginName)
+    {
+        let $pluginNameLookup = {};
+        if ($nodeName === 'server') {
+            $pluginNameLookup = _GetAllowedServerPluginNames();
+            if (_Empty($pluginNameLookup) === 'false') {
+                $pluginNameLookup.infohub_dummy = {}; // CTRL+SHIFT+ALT combinations send to this none existing module
+            }
+        }
+        if ($nodeName === 'client') {
+            $pluginNameLookup = _GetAllowedClientPluginNames();
+        }
+
+        if (_Empty($pluginNameLookup) === 'true') {
+            return 'true';
+        }
+
+        let $basePluginName = '';
+        let $parts = $pluginName.split('_');
+        if ($parts.length >= 2) {
+            $basePluginName = $parts[0] + '_' + $parts[1];
+        }
+
+        if (_IsSet($pluginNameLookup[$basePluginName]) === 'true') {
+            return 'true';
+        }
+
+        return 'false';
+    };
+
     $functions.push('_Version');
     const _Version = function() {
         return {
@@ -36,7 +90,8 @@ function infohub_exchange() {
             'class_name': 'infohub_exchange',
             'note': 'Handle all messages so they come to the right plugin',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'core'
         };
     };
 
@@ -47,6 +102,7 @@ function infohub_exchange() {
             'startup': 'normal',
             'event_message': 'normal',
             'plugin_started': 'normal',
+            'initiator_verify_sign_code': 'normal',
             'ping': 'normal'
         };
     };
@@ -306,7 +362,7 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_check_session_valid'
+                    'function': 'initiator_get_session_data'
                 },
                 'data': {
                     'node': 'server'
@@ -318,14 +374,65 @@ function infohub_exchange() {
         }
 
         if ($in.step === 'step_get_session_data_response') {
+
+            const $default = {
+                'user_name': '',
+                'session_id': '',
+                'post_exist': 'false',
+                'server_plugin_names': [],
+                'client_plugin_names': []
+            };
+            $in.response = _Default($default, $in.response);
+
+            $sessionId = $in.response.session_id;
+            $userName = $in.response.user_name;
+            $allowedServerPluginNamesLookupArray = _CreateLookupTable($in.response.server_plugin_names, {});
+            $allowedClientPluginNamesLookupArray = _CreateLookupTable($in.response.client_plugin_names, {});
+
+            $in.step = 'step_check_session_valid';
+        }
+
+        if ($in.step === 'step_check_session_valid') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'initiator_check_session_valid'
+                },
+                'data': {
+                    'node': 'server'
+                },
+                'data_back': {
+                    'step': 'step_check_session_valid_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_check_session_valid_response') {
+
             $userName = 'guest';
             if ($in.response.session_valid === 'true') {
                 $userName = _GetData({
-                    'name': 'response/user_name',
+                    'name': 'response/user_name', // Comes from local storage, not from the server
                     'default': '',
                     'data': $in,
                 });
             }
+
+            const $allowedServerPluginNames = _GetData({
+                'name': 'response/server_plugin_names',
+                'default': [],
+                'data': $in,
+            });
+            $allowedServerPluginNamesLookupArray = _CreateLookupTable($allowedServerPluginNames, {});
+
+            const $allowedClientPluginNames = _GetData({
+                'name': 'response/client_plugin_names',
+                'default': [],
+                'data': $in,
+            });
+            $allowedClientPluginNamesLookupArray = _CreateLookupTable($allowedClientPluginNames, {});
+
             $in.step = 'step_send_first_message';
         }
 
@@ -482,7 +589,7 @@ function infohub_exchange() {
             if ($in.plugin_started !== 'true')
             {
                 // The plugin could not be started. We have some pending messages to handle.
-                $message = 'Could not find plugin on the server';
+                $message = 'Could not get the plugin from the server';
 
                 internal_Log({
                     'function_name': 'plugin_started',
@@ -523,6 +630,151 @@ function infohub_exchange() {
         return {
             'answer': $answer,
             'message': $message
+        };
+    };
+
+    $functions.push('initiator_verify_sign_code');
+    /**
+     * Used by infohub_transfer -> internal_AjaxCall to get the package out of the internal function,
+     * out of the ajax response and into a normal infohub function that can do sub calls.
+     * Calculate $messages_checksum = md5(messages_encoded);
+     * Call client infohub_session -> initiator_verify_sign_code
+     * If package false then throw away
+     * If package true then run some code and give messages to the main loop.
+     * @param $in
+     */
+    const initiator_verify_sign_code = function ($in)
+    {
+        const $default = {
+            'step': 'step_check_incoming_data',
+            'package': {
+                'ban_seconds': 0,
+                'banned_until': 0.0,
+                'messages_encoded': '',
+                'messages': [],
+                'package_type': '',
+                'session_id': '',
+                'sign_code': '',
+                'sign_code_created_at': ''
+            },
+            'config': {
+                'session_id': '',
+                'user_name': ''
+            },
+            'data_back': {},
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'Nothing to report'
+        };
+
+        if ($in.step === 'step_check_incoming_data') {
+
+            $in.step = 'step_messages_checksum';
+
+            if ($in.package.session_id === '' || $in.package.sign_code === '') {
+                $out.message = 'Package session_id or sign_code are empty';
+                $in.step = 'step_end';
+
+                if ($in.config.session_id === '' && $in.config.user_name === 'guest') {
+                    $out.message = 'Package session_id or sign_code are empty but it is OK since we are guest';
+                    $in.step = 'step_ok';
+                }
+            }
+        }
+
+        if ($in.step === 'step_messages_checksum') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_checksum',
+                    'function': 'calculate_checksum'
+                },
+                'data': {
+                    'value': $in.package.messages_encoded
+                },
+                'data_back': {
+                    'step': 'step_messages_checksum_response',
+                    'package': $in.package,
+                    'config': $in.config
+                }
+            });
+        }
+
+        if ($in.step === 'step_messages_checksum_response') {
+
+            $out.message = $in.response.message;
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true') {
+                $in.package.messages_checksum = $in.response.checksum;
+                $in.step = 'step_initiator_verify_sign_code';
+            }
+        }
+
+        if ($in.step === 'step_initiator_verify_sign_code') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'initiator_verify_sign_code'
+                },
+                'data': {
+                    'node': 'server', // node name
+                    'messages_checksum': $in.package.messages_checksum, // md5 checksum of all messages in the package
+                    'sign_code': $in.package.sign_code,
+                    'sign_code_created_at': $in.package.sign_code_created_at, // 3 decimals
+                },
+                'data_back': {
+                    'step': 'step_initiator_verify_sign_code_response',
+                    'package': $in.package,
+                    'config': $in.config
+                }
+            });
+        }
+
+        if ($in.step === 'step_initiator_verify_sign_code_response') {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'ok': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            $out.message = $in.response.message;
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true' && $in.response.ok === 'true') {
+                $in.step = 'step_ok';
+            }
+        }
+
+        if ($in.step === 'step_ok') {
+
+            if ($in.package.package_type === '2020') {
+                delete ($in.package.messages_encoded);
+            }
+
+            let $event = new CustomEvent('infohub_call_main', {
+                detail: {
+                    'package': $in.package,
+                    'message': 'Incoming ajax message'
+                },
+                bubbles: true,
+                cancelable: true
+            });
+            document.dispatchEvent($event);
+
+            $out.answer = 'true';
+            $out.message = 'Done handeling the incoming package';
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message
         };
     };
 
@@ -613,7 +865,7 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SendMessageBackPluginNotFound');
-    const _SendMessageBackPluginNotFound = function($in)
+    const _SendMessageBackPluginNotFound = function($in, $message)
     {
         const $default = {
             'callstack': [],
@@ -626,11 +878,15 @@ function infohub_exchange() {
         };
         $in = _Default($default, $in);
 
+        if (_Empty($message) === 'true') {
+            $message = 'Plugin do not exist';
+        }
+
         const $dataMessage = internal_Cmd({
             'func': 'ReturnCall',
             'variables': {
                 'answer': 'false',
-                'message': 'Plugin do not exist',
+                'message': $message,
                 'to': $in.to
             },
             'original_message': $in
@@ -1030,12 +1286,16 @@ function infohub_exchange() {
             }
 
             const $nodeName = $dataMessage.to.node;
+
+            if (_Allowed($nodeName, $dataMessage.to.plugin) === 'false') {
+                _SendMessageBackPluginNotFound($dataMessage, 'Plugin not allowed');
+                continue;
+            }
+
             if ($nodeName !== 'client') {
                 if (typeof $ToNode[$nodeName] === 'undefined') {
                     $ToNode[$nodeName] = [];
                 }
-
-                // @todo HUB-548, check that the message goes to a plugin I am allowed to send messages to
 
                 $ToNode[$nodeName].push($dataMessage);
                 continue;
@@ -1088,7 +1348,7 @@ function infohub_exchange() {
                 if ($Pending[$pluginName].length === 0) {
                     // We earlier got information that the plugin could not be found.
 
-                    const $message = 'Could not find plugin on the server';
+                    const $message = 'Could not get the plugin from the server';
 
                     internal_Log({
                         'function_name': 'internal_ToPending',
@@ -1192,7 +1452,12 @@ function infohub_exchange() {
                 delete $Plugin[$pluginName];
                 continue;
             }
+
             $dataMessage.data.config = $responseConfig.plugin_config;
+            $dataMessage.data.config.user_name = _GetUserName();
+            $dataMessage.data.config.session_id = _GetSessionId();
+            $dataMessage.data.config.server_plugin_names = _GetAllowedServerPluginNames();
+            $dataMessage.data.config.client_plugin_names = _GetAllowedClientPluginNames();
 
             let $run = $Plugin[$pluginName];
             if ($pluginName === 'infohub_exchange') {

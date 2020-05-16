@@ -30,7 +30,8 @@ function infohub_language() {
             'class_name': 'infohub_language',
             'checksum': '{{checksum}}',
             'note': 'Helps you with language codes',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 
@@ -196,6 +197,10 @@ function infohub_language() {
 
             for (let $key in $rawData)
             {
+                if ($rawData.hasOwnProperty($key) === false) {
+                    continue;
+                }
+
                 if ($key.length > 2) {
                     continue;
                 }

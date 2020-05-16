@@ -78,7 +78,8 @@ function infohub_login_contact() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'plugin_names': [],
+            'server_plugin_names': [],
+            'client_plugin_names': [],
             'has_password': 'false'
         };
         $nodeData = _Default($default, $nodeData);
@@ -133,7 +134,7 @@ function infohub_login_contact() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_plugin]',
+                            'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_server_plugin][list_client_plugin]',
                             'label': _Translate('One contact'),
                             'description': _Translate('This is the data form for one contact')
                         },
@@ -205,11 +206,22 @@ function infohub_login_contact() {
                             'show_characters_left': 'false',
                             'enabled': 'false'
                         },
-                        'list_plugin': {
+                        'list_server_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
-                            "label": _Translate("Allowed plugins"),
-                            "description": _Translate("List with all plugin names you can send messages to on the remote node"),
+                            "label": _Translate("Allowed server plugins"),
+                            "description": _Translate("List with all server plugin names you can send messages to on the remote node"),
+                            'show_characters': 'false',
+                            'show_words': 'false',
+                            'show_rows': 'false',
+                            'show_paragraphs': 'false',
+                            'enabled': 'false'
+                        },
+                        'list_client_plugin': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'textarea',
+                            "label": _Translate("Allowed client plugins"),
+                            "description": _Translate("List with all client plugin names you can download from the server"),
                             'show_characters': 'false',
                             'show_words': 'false',
                             'show_rows': 'false',
@@ -274,7 +286,17 @@ function infohub_login_contact() {
                 'post_exist': 'false'
             },
             'data_back': {
-                'contact': {},
+                'contact': {
+                    'node': '',
+                    'note': '',
+                    'domain_address': '',
+                    'user_name': '',
+                    'shared_secret': '',
+                    'checksum': '',
+                    'has_password': 'false',
+                    'server_plugin_names': [],
+                    'client_plugin_names': []
+                },
                 'checksum': '-',
                 'post_exist': 'false'
             }
@@ -358,7 +380,8 @@ function infohub_login_contact() {
                         'text_user_name': {'value': $in.data_back.contact.user_name },
                         'text_shared_secret': {'value': $in.data_back.contact.shared_secret },
                         'text_checksum': {'value': $in.data_back.checksum },
-                        'list_plugin': {'value': $in.data_back.contact.plugin_names.join("\n") }
+                        'list_server_plugin': {'value': $in.data_back.contact.server_plugin_names.join("\n") },
+                        'list_client_plugin': {'value': $in.data_back.contact.client_plugin_names.join("\n") }
                     }
                 },
                 'data_back': {

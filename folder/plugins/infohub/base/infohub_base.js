@@ -477,6 +477,16 @@
             }
         }
 
+        /*
+        if (_GetDataType($answer) !== _GetDataType($in.default)) {
+            $answer = $in['default'];
+        }
+
+        if (_GetDataType($answer) === 'object') {
+            $answer = _Default($in.default, $answer);
+        }
+        */
+
         return $answer;
     };
 
@@ -682,6 +692,30 @@
 
         return $string;
     };
+
+    /**
+     * Turns an array into a lookup table where the data becomes the key
+     * and the data is set from $value.
+     * @param $array | The array data
+     * @param $value | Value we want as data
+     * @returns {{}}
+     * @private
+     */
+    $functions.push('_CreateLookupTable');
+    const _CreateLookupTable = function ($array, $value)
+    {
+        let $lookup = {};
+        let $data = '';
+        for (let $key in $array) {
+            if ($array.hasOwnProperty($key) === false) {
+                continue;
+            }
+            $data = $array[$key];
+            $lookup[$data] = $value;
+        }
+
+        return $lookup;
+    }
 
     /**
      * Status on Cmd functions: never_existed, emerging, normal, deprecated, retired

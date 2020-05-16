@@ -36,7 +36,8 @@ function infohub_asset() {
             'class_name': 'infohub_asset',
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 
@@ -1023,7 +1024,7 @@ function infohub_asset() {
             }
         }
 
-        // @todo Pull out all data that need to be in the assets indexes
+        // @todo HUB-710, Pull out all data that need to be in the assets indexes
 
         if ($in.step === 'step_save_to_storage')
         {
@@ -1042,7 +1043,7 @@ function infohub_asset() {
             });
         }
 
-        // @todo Load, Update, Save each plugin assets index
+        // @todo HUB-710, Load, Update, Save each plugin assets index
 
         if ($in.step === 'step_save_to_storage_response')
         {
@@ -1191,7 +1192,7 @@ function infohub_asset() {
         };
         $in = _Default($default, $in);
 
-        let $fileName, $asset, $assetLicense;
+        let $asset, $assetLicense;
         let $keepAsset = 'false';
         let $answer = 'false';
         let $message = 'Nothing to report';
@@ -1241,7 +1242,7 @@ function infohub_asset() {
         {
             $keepAsset = 'true';
 
-            $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
+            const $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
 
             $asset = _GetData({
                 'name': 'response|assets|' + $fileName + '|contents',
@@ -1260,7 +1261,7 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_license') 
         {
-            $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
+            const $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
 
             $assetLicense = _GetData({
                 'name': 'response|assets|' + $fileName + '|contents', 'default': {},

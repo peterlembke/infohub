@@ -188,7 +188,7 @@ function infohub_render_text() {
         {
             if ($in.text[$currentAliasDepth].charAt(0) === ' ') {
                 $in.text[$currentAliasDepth] = '<p>' + $in.text[$currentAliasDepth].slice(1) + '</p>';
-                $cssData['p:first-letter'] = 'font-size: 1.5em;';
+                $cssData['p:first-letter'] = 'font-size: 1.0em;';
             }
         }
 

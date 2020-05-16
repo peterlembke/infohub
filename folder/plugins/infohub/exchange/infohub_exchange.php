@@ -44,11 +44,28 @@ class infohub_exchange extends infohub_base {
         return $this->userName;
     }
 
+    protected $sessionId = '';
+    protected function _GetSessionId(): string
+    {
+        return $this->sessionId;
+    }
+
     /** @var string Used by responder_verify_sign_code to prevent sending an answer with echo. See infohub.php */
     protected $sendAnswer = 'true';
 
     /** @var array Contain a lookup array with allowed plugin names for this user */
-    protected $allowedPluginNamesLookupArray = array();
+    protected $allowedServerPluginNamesLookupArray = array();
+    protected function _GetAllowedServerPluginNames(): array
+    {
+        return $this->allowedServerPluginNamesLookupArray;
+    }
+
+    /** @var array Contain a lookup array with allowed client plugin names for this user */
+    protected $allowedClientPluginNamesLookupArray = array();
+    protected function _GetAllowedClientPluginNames(): array
+    {
+        return $this->allowedClientPluginNamesLookupArray;
+    }
 
     final protected function _Version(): array
     {
@@ -59,7 +76,8 @@ class infohub_exchange extends infohub_base {
             'class_name' => 'infohub_exchange',
             'note' => 'Handle all messages so they come to the right plugin',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'core'
         );
     }
 
@@ -332,7 +350,8 @@ class infohub_exchange extends infohub_base {
                 'message' => '',
                 'sign_code_valid' => 'false',
                 'initiator_user_name' => '',
-                'plugin_names' => array()
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array()
             )
         );
         $in = $this->_Default($default, $in);
@@ -398,8 +417,17 @@ class infohub_exchange extends infohub_base {
 
         if ($in['step'] === 'step_valid_sign_code') {
 
-            $allowedPlugins = array_fill_keys($in['response']['plugin_names'], $dummyValue = array());
-            $this->allowedPluginNamesLookupArray = $allowedPlugins;
+            $allowedServerPlugins = array();
+            if (isset($in['response']['server_plugin_names'])) {
+                $allowedServerPlugins = array_fill_keys($in['response']['server_plugin_names'], $dummyValue = array());
+            }
+            $this->allowedServerPluginNamesLookupArray = $allowedServerPlugins;
+
+            $allowedClientPlugins = array();
+            if (isset($in['response']['client_plugin_names'])) {
+                $allowedClientPlugins = array_fill_keys($in['response']['client_plugin_names'], $dummyValue = array());
+            }
+            $this->allowedClientPluginNamesLookupArray = $allowedClientPlugins;
 
             $out = array(
                 'answer' => 'true',
@@ -412,19 +440,55 @@ class infohub_exchange extends infohub_base {
             $this->signCodeValid = 'true';
             $this->sendAnswer = 'false';
             $this->userName = $out['initiator_user_name'];
+            $this->sessionId = $in['package']['session_id'];
         }
 
         if ($in['step'] === 'step_guest') {
             // sign_code is invalid. Perhaps messages are ok for a guest.
 
-            $allowedPlugins = array(
+            $allowedServerPlugins = array(
                 'infohub_plugin' => array('plugins_request' => 1),
                 'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
                 'infohub_session' => array('responder_end_session' => 1),
                 'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
                 'infohub_launcher' => array('get_full_list' => 1)
             );
-            $this->allowedPluginNamesLookupArray = $allowedPlugins;
+            $this->allowedServerPluginNamesLookupArray = $allowedServerPlugins;
+
+            $allowedClientPlugins = array(
+                'infohub_asset' => 1,
+                'infohub_base' => 1,
+                'infohub_cache' => 1,
+                'infohub_checksum' => 1,
+                'infohub_checksum_md5' => 1,
+                'infohub_compress' => 1,
+                'infohub_configlocal' => 1,
+                'infohub_debug' => 1,
+                'infohub_exchange' => 1,
+                'infohub_keyboard' => 1,
+                'infohub_launcher' => 1,
+                'infohub_login' => 1,
+                'infohub_offline' => 1,
+                'infohub_plugin' => 1,
+                'infohub_render' => 1,
+                'infohub_render_common' => 1,
+                'infohub_render_form' => 1,
+                'infohub_render_text' => 1,
+                'infohub_renderform' => 1,
+                'infohub_rendermajor' => 1,
+                'infohub_session' => 1,
+                'infohub_standalone' => 1,
+                'infohub_storage' => 1,
+                'infohub_storage_data' => 1,
+                'infohub_storage_data_idbkeyval' => 1,
+                'infohub_tabs' => 1,
+                'infohub_timer' => 1,
+                'infohub_transfer' => 1,
+                'infohub_translate' => 1,
+                'infohub_view' => 1,
+                'infohub_workbench' => 1
+            );
+            $this->allowedClientPluginNamesLookupArray = $allowedClientPlugins;
 
             $out = array(
                 'answer' => 'true',
@@ -437,6 +501,7 @@ class infohub_exchange extends infohub_base {
             $this->guestValid = 'true';
             $this->sendAnswer = 'false';
             $this->userName = $out['initiator_user_name'];
+            $this->sessionId = '';
         }
 
         return $out;
@@ -508,9 +573,9 @@ class infohub_exchange extends infohub_base {
                 goto leave;
             }
 
-            if (count($this->allowedPluginNamesLookupArray) > 0) {
+            if (count($this->allowedServerPluginNamesLookupArray) > 0) {
                 $pluginName = $message['to']['plugin'];
-                if (isset($this->allowedPluginNamesLookupArray[$pluginName]) === false) {
+                if (isset($this->allowedServerPluginNamesLookupArray[$pluginName]) === false) {
                     $errorMessage = 'Plugin not allowed';
                     $rejectReason[$errorMessage] = 1;
                     $message['message'] = $errorMessage;
@@ -520,7 +585,7 @@ class infohub_exchange extends infohub_base {
 
                 if ($this->userName === 'guest') {
                     $functionName = $message['to']['function'];
-                    if (isset($this->allowedPluginNamesLookupArray[$pluginName][$functionName]) === false) {
+                    if (isset($this->allowedServerPluginNamesLookupArray[$pluginName][$functionName]) === false) {
                         $errorMessage = 'Plugin function not allowed';
                         $rejectReason[$errorMessage] = 1;
                         $message['message'] = $errorMessage;
@@ -1042,6 +1107,9 @@ class infohub_exchange extends infohub_base {
             
             $dataMessage['data']['config'] = $response['config'];
             $dataMessage['data']['config']['user_name'] = $this->_GetUserName();
+            $dataMessage['data']['config']['session_id'] = $this->_GetSessionId();
+            $dataMessage['data']['config']['server_plugin_names'] = $this->_GetAllowedServerPluginNames();
+            $dataMessage['data']['config']['client_plugin_names'] = $this->_GetAllowedClientPluginNames();
 
             $dataMessage['callback_function'] = function($response)
             {

@@ -35,7 +35,8 @@ class infohub_transfer extends infohub_base {
             'checksum' => '{{checksum}}',
             'note' => 'Transfer messages to the client and to other servers on the internet',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'core'
         );
     }
 
@@ -70,28 +71,102 @@ class infohub_transfer extends infohub_base {
     final protected function send(array $in = array()): array
     {
         $default = array(
-            'to_node' => array()
+            'step' => 'step_sign_code',
+            'to_node' => array(),
+            'config' => array(
+                'session_id' => ''
+            ),
+            'data_back' => array(
+                'package' => array()
+            ),
+            'response' => array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'sign_code' => '',
+                'sign_code_created_at' => '',
+                'session_id' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
-        foreach ($in['to_node'] as $nodeName => $messages)
-        {
-            foreach ($messages as $nr => $oneMessage) {
-                $messages[$nr] = $this->_CleanMessage($oneMessage);
+        $out = array(
+            'answer' => 'true',
+            'message' => 'Nothing to report',
+            'wait_milliseconds' => 0,
+            'message_count' => 0,
+            'messages' => []
+        );
+
+        if ($in['step'] === 'step_sign_code') {
+
+            $messagesArray = array();
+
+            foreach ($in['to_node'] as $nodeName => $messages) {
+                foreach ($messages as $nr => $oneMessage) {
+                    $messages[$nr] = $this->_CleanMessage($oneMessage);
+                }
+
+                $messagesJson = json_encode($messages);
+                $messagesEncoded = base64_encode($messagesJson);
+                $messagesChecksum = md5($messagesEncoded);
+
+                $package = array( // to_node and messages must be first or the kick out tests will kick in.
+                    'to_node' => $nodeName,
+                    'messages' => $messages,
+                    'messages_encoded' => $messagesEncoded,
+                    'messages_checksum' => $messagesChecksum,
+                    'package_type' => '2020',
+                    'session_id' => $in['config']['session_id'],
+                    'sign_code' => '',
+                    'sign_code_created_at' => ''
+                );
+
+                $bannedSecondsLeft = 0; // $_SESSION['banned_until'] - microtime(true);
+                $package['ban_seconds'] = $bannedSecondsLeft;
+
+                $package['banned_until'] = microtime(true); // $_SESSION['banned_until'];
+
+                $messageOut = $this->_SubCall(array(
+                    'to' => array(
+                        'node' => 'server',
+                        'plugin' => 'infohub_session',
+                        'function' => 'responder_calculate_sign_code'
+                    ),
+                    'data' => array(
+                        'session_id' => $in['config']['session_id'],
+                        'messages_checksum' => $messagesChecksum, // md5 checksum of all messages in the package
+                    ),
+                    'data_back' => array(
+                        'package' => $package,
+                        'step' => 'step_sign_code_response'
+                    ),
+                ));
+
+                $messagesArray[] = $messageOut;
             }
 
-            $package = array( // to_node and messages must be first or the kick out tests will kick in.
-                'to_node' => $nodeName,
-                'messages' => $messages
-            );
+            $out['messages'] = $messagesArray;
+            $in['step'] = 'step_end';
+        }
 
-            $bannedSecondsLeft = 0; // $_SESSION['banned_until'] - microtime(true);
-            $package['ban_seconds'] = $bannedSecondsLeft;
+        if ($in['step'] === 'step_sign_code_response') {
 
-            $package['banned_until'] = microtime(true); // $_SESSION['banned_until'];
+            $in['data_back']['package']['sign_code'] = $in['response']['sign_code'];
+            $in['data_back']['package']['sign_code_created_at'] = $in['response']['sign_code_created_at'];
+            $in['data_back']['package']['session_id'] = $in['response']['session_id'];
 
-            $packageJson = $this->_JsonEncode($package);
+            $in['step'] = 'step_respond';
+        }
 
+        if ($in['step'] === 'step_respond') {
+
+            $nodeName = $in['data_back']['package']['to_node'];
+            unset($in['data_back']['package']['to_node']);
+
+            unset($in['data_back']['package']['messages_checksum']);
+            unset($in['data_back']['package']['messages']);
+
+            $packageJson = $this->_JsonEncode($in['data_back']['package']);
             if ($packageJson === false) {
                 $packageJson = 'error: Server could not json encode the data.';
             }
@@ -99,14 +174,17 @@ class infohub_transfer extends infohub_base {
             if ($nodeName === 'client') {
                 echo $packageJson;
             }
-            if ($nodeName === 'callback') {
-                echo $packageJson;
-            }
+
+            $out['answer'] = 'true';
+            $out['message'] = 'Sent message to node:' . $nodeName . ', with ' . strlen($packageJson) . ' bytes of data.';
         }
 
         return array(
-            'answer' => 'true',
-            'message' => 'Finished with sending messages'
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'wait_milliseconds' => $out['wait_milliseconds'],
+            'message_count' => $out['message_count'],
+            'messages' => $out['messages']
         );
     }
 

@@ -43,7 +43,8 @@ class infohub_storage extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Store your data. Simple, Stand alone',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'guest'
         );
     }
 

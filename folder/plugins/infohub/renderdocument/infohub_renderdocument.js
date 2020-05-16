@@ -31,7 +31,8 @@ function infohub_renderdocument() {
             'note': 'Take a markdown, parse some of it and divide into renderable parts',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Document'
+            'title': 'Document',
+            'recommended_security_group': 'user'
         };
     };
 

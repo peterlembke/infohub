@@ -34,7 +34,8 @@ function infohub_render() {
             'class_name': 'infohub_render',
             'note': 'Render HTML. You give an array with instructions what to render and you get the HTML back. You can then send that to infohub_view for displaying',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'guest'
         };
     };
 
@@ -1140,6 +1141,19 @@ function infohub_render() {
                     const $standardMessage = ' Event works but to_plugin is set to infohub_render. Set your own to_plugin.';
                     window.alert($message + $standardMessage);
                     $in.step = 'step_end';
+                    break internal_event;
+                }
+
+                if (_Empty($in.to_node) === 'true') {
+                    $message = 'to_node is empty';
+                    break internal_event;
+                }
+                if (_Empty($in.to_plugin) === 'true') {
+                    $message = 'to_plugin is empty';
+                    break internal_event;
+                }
+                if (_Empty($in.to_function) === 'true') {
+                    $message = 'to_function is empty';
                     break internal_event;
                 }
 

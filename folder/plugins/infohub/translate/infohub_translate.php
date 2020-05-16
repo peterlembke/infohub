@@ -35,7 +35,8 @@ class infohub_translate extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Creates template translation files you can copy to a new name and translate',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'admin'
         );
     }
 
@@ -55,7 +56,7 @@ class infohub_translate extends infohub_base
      * @param type $pluginName
      * @return string
      */
-    protected function _GetGrandPluginName($pluginName = ''): string
+    protected function _GetGrandPluginName(string $pluginName = ''): string
     {
         $grandPluginName = $pluginName;
         $parts = explode('_', $pluginName);
@@ -324,7 +325,7 @@ class infohub_translate extends infohub_base
                 'to' => array(
                     'node' => 'server',
                     'plugin' => 'infohub_file',
-                    'function' => 'get_all_level1_server_plugin_names'
+                    'function' => 'get_all_level1_plugin_names'
                 ),
                 'data' => array(),
                 'data_back' => array(

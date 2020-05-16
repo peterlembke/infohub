@@ -35,7 +35,8 @@ function infohub_storage() {
             'class_name': 'infohub_storage',
             'note': 'Store your data. Simple, Stand alone',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'guest'
         };
     };
 

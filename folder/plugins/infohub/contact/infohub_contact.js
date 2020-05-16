@@ -31,7 +31,8 @@ function infohub_contact() {
             'note': 'GUI to manage login contacts between nodes',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Node contacts'
+            'title': 'Node contacts',
+            'recommended_security_group': 'admin'
         };
     };
     

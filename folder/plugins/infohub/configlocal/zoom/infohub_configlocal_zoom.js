@@ -118,7 +118,7 @@ function infohub_configlocal_zoom() {
                             'type': 'form',
                             'content': '[zoom_level_plus][zoom_level_minus][zoom_level_normal]',
                             'label': _Translate('Zoom settings'),
-                            'description': _Translate('Use this zoom if you have no keyboard.  CTRL + or CTRL -')
+                            'description': '[zoom_icon]' + _Translate('Use this zoom if you have no keyboard.  CTRL + or CTRL -')
                         },
                         'zoom_level_plus': {
                             'plugin': 'infohub_renderform',
@@ -146,6 +146,20 @@ function infohub_configlocal_zoom() {
                             'event_data': 'zoom|change|normal',
                             'to_plugin': 'infohub_configlocal',
                             'to_function': 'click'
+                        },
+                        'zoom_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[zoom_asset]',
+                            'css_data': {
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                            }
+                        },
+                        'zoom_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'zoom/magnifyingglass',
+                            'plugin_name': 'infohub_configlocal'
                         }
                     },
                     'how': {

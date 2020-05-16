@@ -36,7 +36,8 @@ class infohub_random extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Functions that give you an unpredictable answer',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'user'
         );
     }
 

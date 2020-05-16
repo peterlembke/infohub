@@ -119,6 +119,7 @@ function infohub_contact_menu() {
                                     'alias': 'group_contact',
                                     'event_data': 'group_contact',
                                     'button_label': _Translate('Group rights'),
+                                    'button_left_icon': '[group_icon]',
                                     'to_plugin': 'infohub_contact',
                                     'to_function': 'click_menu'
                                 },
@@ -126,6 +127,7 @@ function infohub_contact_menu() {
                                     'alias': 'client_contact',
                                     'event_data': 'client_contact',
                                     'button_label': _Translate('Client contact'),
+                                    'button_left_icon': '[client_icon]',
                                     'to_plugin': 'infohub_contact',
                                     'to_function': 'click_menu'
                                 },
@@ -133,10 +135,44 @@ function infohub_contact_menu() {
                                     'alias': 'server_contact',
                                     'event_data': 'server_contact',
                                     'button_label': _Translate('Server contact'),
+                                    'button_left_icon': '[server_icon]',
                                     'to_plugin': 'infohub_contact',
                                     'to_function': 'click_menu'
                                 }
                             }
+                        },
+                        'group_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[group_asset]'
+                        },
+                        'group_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'group/group',
+                            'plugin_name': 'infohub_contact'
+                        },
+                        'client_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[client_asset]'
+                        },
+                        'client_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'client/client',
+                            'plugin_name': 'infohub_contact'
+                        },
+                        'server_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[server_asset]'
+                        },
+                        'server_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'server/db-blue',
+                            'plugin_name': 'infohub_contact'
                         }
                     },
                     'how': {

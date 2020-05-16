@@ -33,7 +33,8 @@ function infohub_renderadvancedlist() {
             'class_name': 'infohub_renderadvancedlist',
             'note': 'Renders an advanced list with expandable levels',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 
@@ -153,7 +154,7 @@ function infohub_renderadvancedlist() {
 
         if (_Empty($in.css_data) === 'true') {
             $in.css_data = {
-                '.list': 'list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;'
+                '.list': 'font-size: 1.0em; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;'
             };
         }
 

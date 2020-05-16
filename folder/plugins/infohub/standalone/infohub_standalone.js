@@ -31,7 +31,8 @@ function infohub_standalone() {
             'note': 'Start ONE workbench plugin so you can run it without Workbench. Use with a unique domain URL and set it up in folder/config/infohub_exchange.json',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Stand alone'
+            'title': 'Stand alone',
+            'recommended_security_group': 'guest'
         };
     };
 

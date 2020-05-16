@@ -101,7 +101,7 @@ function infohub_configlocal_language() {
                             'type': 'form',
                             'content': '[select_language][button_transfer][language][button_save]',
                             'label': _Translate('Language'),
-                            'description': _Translate( 'Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
+                            'description': '[language_icon]' + _Translate( 'Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
                         },
                         'select_language': {
                             'plugin': 'infohub_language',
@@ -135,6 +135,20 @@ function infohub_configlocal_language() {
                             'event_data': 'language|submit',
                             'to_plugin': 'infohub_configlocal',
                             'to_function': 'click'
+                        },
+                        'language_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[language_asset]',
+                            'css_data': {
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                            }
+                        },
+                        'language_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'language/language',
+                            'plugin_name': 'infohub_configlocal'
                         }
                     },
                     'how': {

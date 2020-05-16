@@ -29,7 +29,8 @@ function infohub_cache() {
             'class_name': 'infohub_cache',
             'checksum': '{{checksum}}',
             'note': 'Used by infohub_plugin to store plugins in local storage. Can be used for temporary data that will expire',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'guest'
         };
     };
 

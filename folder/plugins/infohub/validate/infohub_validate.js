@@ -31,7 +31,8 @@ function infohub_validate() {
             'class_name': 'infohub_validate',
             'note': 'Value validators. Used mostly in form validation.',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

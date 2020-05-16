@@ -34,8 +34,8 @@ class infohub_login extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Handle incoming login request and challenge. Send login request to another node.',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'guest'
         );
     }
 
@@ -76,7 +76,8 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'plugin_names' => array()
+                    'server_plugin_names' => array(),
+                    'client_plugin_names' => array()
                 ),
                 'post_exist' => 'false'
             ),
@@ -261,7 +262,8 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'plugin_names' => array()
+                    'server_plugin_names' => array(),
+                    'client_plugin_names' => array()
                 ),
                 'session_id' => '', // session_{hub_id}
                 'session_created_at' => '', // micro time with 3 decimals
@@ -399,8 +401,14 @@ class infohub_login extends infohub_base
         // Register a session with infohub_session
         if ($in['step'] === 'step_register_session') {
 
-            $pluginNames = $this->_GetData(array(
-                'name' => 'data_back/contact/plugin_names',
+            $serverPluginNames = $this->_GetData(array(
+                'name' => 'data_back/contact/server_plugin_names',
+                'default' => [],
+                'data' => $in
+            ));
+
+            $clientPluginNames = $this->_GetData(array(
+                'name' => 'data_back/contact/client_plugin_names',
                 'default' => [],
                 'data' => $in
             ));
@@ -414,7 +422,8 @@ class infohub_login extends infohub_base
                 'data'=> array(
                     'initiator_user_name' => $in['data_back']['initiator_user_name'], // user_{hub_id}
                     'left_overs' => $leftOvers, // Left overs from the login. Never exposed outside this node
-                    'plugin_names' => $pluginNames
+                    'server_plugin_names' => $serverPluginNames,
+                    'client_plugin_names' => $clientPluginNames
                 ),
                 'data_back'=> array(
                     'step'=> 'step_register_session_response',

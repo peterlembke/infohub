@@ -31,7 +31,8 @@ function infohub_demo() {
             'note': 'Collection of demos to demonstrate InfoHub',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Demo collection'
+            'title': 'Demo collection',
+            'recommended_security_group': 'user'
         };
     };
 

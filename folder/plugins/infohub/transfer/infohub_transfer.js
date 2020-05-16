@@ -30,7 +30,8 @@ function infohub_transfer() {
             'class_name': 'infohub_transfer',
             'note': 'Transfer data to other nodes',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'core'
         };
     };
 
@@ -112,6 +113,9 @@ function infohub_transfer() {
     $functions.push('send');
     /**
      * Cmd function that will send the messages to the server when the ban time is up
+     * @version 2018-09-01
+     * @since 2013-11-21
+     * @author Peter Lembke
      * @param {type} $in
      * @returns {{wait_milliseconds: *, answer: *, message: *, message_count: *}}
      */
@@ -215,11 +219,6 @@ function infohub_transfer() {
         }
 
         if ($in.step === 'step_time_to_send_now') {
-
-            // Send everything in ToNode as a JSON to each node
-            // @version 2018-09-01
-            // @since 2013-11-21
-            // @author Peter Lembke
 
             for (let $nodeName in $globalSendToNode) {
                 if ($globalSendToNode.hasOwnProperty($nodeName) === false) {
@@ -363,8 +362,8 @@ function infohub_transfer() {
         };
         $in = _Default($default, $in);
 
-        for (let $nodeName in $in.to_node)
-        {
+        for (let $nodeName in $in.to_node) {
+
             if ($in.to_node.hasOwnProperty($nodeName) === false) {
                 continue;
             }
@@ -449,15 +448,14 @@ function infohub_transfer() {
         let $timestamp = _MicroTime() + 600.0;
         let $messageCount = 0;
 
-        for (let $nodeName in $in.to_node)
-        {
+        for (let $nodeName in $in.to_node) {
             if ($in.to_node.hasOwnProperty($nodeName) === false) {
                 continue;
             }
 
             $messageCount = $messageCount + $in.to_node[$nodeName].length;
-            for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId = $messageId + 1)
-            {
+
+            for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId = $messageId + 1) {
                 const $messageData = $in.to_node[$nodeName][$messageId];
 
                 if (_IsSet($messageData.wait) === 'false') {
@@ -522,22 +520,18 @@ function infohub_transfer() {
             'split': '/'
         });
 
-        leave:
-        {
-            if (_Count($messagesArray) === 0)
-            {
+        leave: {
+            if (_Count($messagesArray) === 0) {
                 break leave;
             }
 
             const $nodeName = 'server';
 
-            if (_IsSet($globalSendToNode[$nodeName]) === 'false')
-            {
+            if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1)
-            {
+            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1) {
                 const $message = _PickUpCallStack($messagesArray[$messageNumber]);
                 $globalSendToNode[$nodeName].push($message);
             }
@@ -566,27 +560,23 @@ function infohub_transfer() {
         const $default = {};
         $in = _Default($default, $in);
 
-        leave:
-        {
+        leave: {
             const $nodeName = 'server';
 
-            if (_IsSet($globalSendToNode[$nodeName]) === 'false')
-            {
+            if (_IsSet($globalSendToNode[$nodeName]) === 'false') {
                 break leave;
             }
 
-            if (_Count($globalSendToNode[$nodeName]) === 0)
-            {
+            if (_Count($globalSendToNode[$nodeName]) === 0) {
                 break leave;
             }
 
             let $messagesToAnswerArray = [];
             let $messagesToKeepArray = [];
 
-            for (let $messageNumber in $globalSendToNode[$nodeName])
-            {
-                if ($globalSendToNode[$nodeName].hasOwnProperty($messageNumber) === false)
-                {
+            for (let $messageNumber in $globalSendToNode[$nodeName]) {
+
+                if ($globalSendToNode[$nodeName].hasOwnProperty($messageNumber) === false) {
                     continue;
                 }
 
@@ -594,8 +584,7 @@ function infohub_transfer() {
                 const $lastItem = $messageOut.callstack.pop();
                 const $returnToNode = $lastItem.to.node;
 
-                if ($returnToNode !== 'client')
-                {
+                if ($returnToNode !== 'client') {
                     $messagesToKeepArray.push($messageOut);
                     continue; // This message is a keeper.
                 }
@@ -627,13 +616,12 @@ function infohub_transfer() {
                 $messagesToAnswerArray.push($returnMessage);
             }
 
-            if ($messagesToKeepArray.length > 0)
-            {
+            if ($messagesToKeepArray.length > 0) {
                 $globalSendToNode[$nodeName] = _ByVal($messagesToKeepArray);
             }
 
-            if ($messagesToAnswerArray.length > 0)
-            {
+            if ($messagesToAnswerArray.length > 0) {
+
                 const $package = {
                     'to_node': 'client',
                     'messages': _ByVal($messagesToAnswerArray)
@@ -646,7 +634,6 @@ function infohub_transfer() {
 
                 document.dispatchEvent($event);
             }
-
         }
 
         return {
@@ -679,8 +666,7 @@ function infohub_transfer() {
         const xmlHttp = new XMLHttpRequest();
         const $maxWaitTimeMS = 4000.0;
 
-        var noResponseTimer = setTimeout(function()
-        {
+        var noResponseTimer = setTimeout(function() {
             xmlHttp.abort();
             _SetGlobalOnline('false');
 
@@ -694,126 +680,133 @@ function infohub_transfer() {
             });
         }, $maxWaitTimeMS);
 
-        // const $content = encodeURIComponent($in.package);
         const $content = $in.package;
         const $url = 'infohub.php';
         const $async = true;
         xmlHttp.open('POST', $url, $async);
 
-        xmlHttp.onreadystatechange = function ()
-        {
-            if (xmlHttp.readyState === 4)
-            {
-                if (xmlHttp.status !== 200) {
-                    _SetGlobalOnline('false'); // We should have got a message but it never arrived.
-                    return;
-                }
+        xmlHttp.onreadystatechange = function () {
 
-                if (xmlHttp.status === 200)
-                {
-                    const $myTime = _MicroTime(true);
-                    let $package = {};
-                    let $event;
-                    let $incomingData = xmlHttp.responseText;
+            if (xmlHttp.readyState !== 4) {
+                return;
+            }
+
+            if (xmlHttp.status !== 200) {
+                _SetGlobalOnline('false'); // We should have got a message but it never arrived.
+                return;
+            }
+
+            const $myTime = _MicroTime(true);
+            let $package = {};
+            let $event;
+            let $incomingData = xmlHttp.responseText;
+
+            internal_Log({
+                'message': 'Incoming ajax message',
+                'function_name': '*onreadystatechange',
+                'start_time': $myTime,
+                'depth': 1
+            });
+
+            internal_Log({
+                'message': 'Incoming package',
+                'function_name': '*onreadystatechange',
+                'object': {'package': $incomingData }
+            });
+
+            _SetGlobalOnline('true'); // We got a message, we are online
+            clearTimeout(noResponseTimer); // We got a response before the timeout
+
+            if ($incomingData.substr(0, 7) === 'error: ') {
+                _BoxError('Got server ' + $incomingData);
+                return;
+            }
+
+            if ($incomingData !== '') {
+                try {
+                    $package = JSON.parse($incomingData);
+                } catch ($err) {
 
                     internal_Log({
-                        'message': 'Incoming ajax message',
-                        'function_name': '*onreadystatechange',
-                        'start_time': $myTime,
-                        'depth': 1
-                    });
-
-                    internal_Log({
-                        'message': 'Incoming package',
+                        'level': 'error',
+                        'message': 'Can not parse JSON. error: "' + $err.message + '"',
                         'function_name': '*onreadystatechange',
                         'object': {'package': $incomingData }
                     });
 
-                    _SetGlobalOnline('true'); // We got a message, we are online
-                    clearTimeout(noResponseTimer); // We got a response before the timeout
+                    _BoxError($incomingData, 'false');
 
-                    if ($incomingData.substr(0, 7) === 'error: ')
-                    {
-                        _BoxError('Got server ' + $incomingData);
-                        return;
-                    }
-
-                    if ($incomingData !== '')
-                    {
-                        try
-                        {
-                            $package = JSON.parse($incomingData);
-                        }
-                        catch ($err)
-                        {
-
-                            internal_Log({
-                                'level': 'error',
-                                'message': 'Can not parse JSON. error: "' + $err.message + '"',
-                                'function_name': '*onreadystatechange',
-                                'object': {'package': $incomingData }
-                            });
-
-                            _BoxError($incomingData, 'false');
-
-                            return;
-                            // $package = {};
-                        }
-                    }
-
-                    internal_Log({
-                        'function_name': '*onreadystatechange',
-                        'message': 'Parsed data',
-                        'object': $package
-                    });
-
-                    if (_IsSet($package.error_array) === 'true')
-                    {
-                        if (Array.isArray($package.error_array) === true)
-                        {
-                            if ($package.error_array.length > 0)
-                            {
-                                _BoxError($package.error_array, 'true');
-                            }
-                        }
-                    }
-
-                    const $dataType = _GetData({
-                        'name': 'type',
-                        'default': '',
-                        'data': $package
-                    });
-
-                    if ($dataType === 'exception')
-                    {
-                        _BoxError($package, 'true');
-                    }
-
-                    if (_IsSet($package.ban_seconds) === 'true')
-                    {
-                        $globalBannedUntil = $package.ban_seconds + _MicroTime();
-                    }
-
-                    internal_Log({
-                        'function_name': '*onreadystatechange',
-                        'message': 'Leaving Incoming ajax message',
-                        'start_time': $myTime,
-                        'depth': -1
-                    });
-
-                    $package = _ReceivedMessagesCleanAndExpand($package);
-
-                    $event = new CustomEvent('infohub_call_main', {
-                        detail: {
-                            'package': $package,
-                            'message': 'Incoming ajax message'
-                        },
-                        bubbles: true,
-                        cancelable: true
-                    });
-                    document.dispatchEvent($event);
+                    return;
                 }
             }
+
+            internal_Log({
+                'function_name': '*onreadystatechange',
+                'message': 'Parsed data',
+                'object': $package
+            });
+
+            if (_IsSet($package.error_array) === 'true') {
+                if (Array.isArray($package.error_array) === true) {
+                    if ($package.error_array.length > 0) {
+                        _BoxError($package.error_array, 'true');
+                    }
+                }
+            }
+
+            const $dataType = _GetData({
+                'name': 'type',
+                'default': '',
+                'data': $package
+            });
+
+            if ($dataType === 'exception') {
+                _BoxError($package, 'true');
+            }
+
+            if (_IsSet($package.ban_seconds) === 'true') {
+                $globalBannedUntil = $package.ban_seconds + _MicroTime();
+            }
+
+            internal_Log({
+                'function_name': '*onreadystatechange',
+                'message': 'Leaving Incoming ajax message',
+                'start_time': $myTime,
+                'depth': -1
+            });
+
+            if ($package.package_type === '2020') {
+                $package.messages = JSON.parse(atob($package.messages_encoded));
+            }
+
+            $package.messages = _ReceivedMessagesCleanAndExpand($package.messages);
+
+            const $message1 = {
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_exchange',
+                    'function': 'initiator_verify_sign_code'
+                },
+                'callstack': [],
+                'data': {
+                    'package': $package
+                }
+            };
+
+            const $package1 = {
+                'to_node': 'client',
+                'messages': [$message1]
+            };
+
+            $event = new CustomEvent('infohub_call_main', {
+                detail: {
+                    'package': $package1,
+                    'message': 'Incoming ajax message'
+                },
+                bubbles: true,
+                cancelable: true
+            });
+            document.dispatchEvent($event);
         };
 
         xmlHttp.setRequestHeader("Content-type", "application/json");
@@ -826,43 +819,37 @@ function infohub_transfer() {
     };
 
     /**
-     * Get a package object with messages
-     * clean out all unneeded and unexpected parameters
-     * expand the message so variables exist in data
-     * @param $package
+     * Get an array with messages
+     * expand the messages so variables exist in data
+     * remove messages that has a call stack
+     * @param $messages
      */
-    const _ReceivedMessagesCleanAndExpand = function ($package)
+    const _ReceivedMessagesCleanAndExpand = function ($messages)
     {
-        const $default = {
-            'to_node': '',
-            'messages': []
-        };
-        $package = _Default($default, $package);
-
         let $oneMessage;
 
-        for (let $key in $package.messages)
-        {
-            if ($package.messages.hasOwnProperty($key) === false) {
+        for (let $key in $messages) {
+
+            if ($messages.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $oneMessage = _ByVal($package.messages[$key]);
+            $oneMessage = _ByVal($messages[$key]);
             $oneMessage = _CleanMessage($oneMessage);
 
             if ($oneMessage.callstack.length > 0) {
-                // HUB-549 - Remove messages that has a call stack
+                // I remove messages that has a call stack (HUB-549)
                 $oneMessage = {};
-                delete $package[$key];
+                delete $messages[$key];
                 continue;
             }
 
             $oneMessage = _PickUpCallStack($oneMessage);
             $oneMessage = _ExpandMessage($oneMessage);
-            $package.messages[$key] = _ByVal($oneMessage);
+            $messages[$key] = _ByVal($oneMessage);
         }
 
-        return $package;
+        return $messages;
     };
 
     /**
@@ -873,8 +860,7 @@ function infohub_transfer() {
     const _SendingMessagesClean = function ($messages)
     {
         let $oneMessage;
-        for (let $key in $messages)
-        {
+        for (let $key in $messages) {
             if ($messages.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -898,7 +884,7 @@ function infohub_transfer() {
                     }
                     if ($oneMessage.to.function === 'set_cold_start_and_reload_page') {
                         $messages = [];
-                        localStorage.setItem('cold_start', '3');
+                        localStorage.setItem('cold_start', '5');
                         location.reload();
                         break; // Break the for loop
                     }
@@ -927,8 +913,8 @@ function infohub_transfer() {
         };
         $message = _Default($default, $message);
 
-        if (_IsSet($message.data.data_back) === 'true')
-        {
+        if (_IsSet($message.data.data_back) === 'true') {
+
             if (_IsSet($message.data.data_back.data_back) === 'true') {
                 delete $message.data.data_back.data_back;
             }
@@ -944,8 +930,8 @@ function infohub_transfer() {
             }
         }
 
-        if (_IsSet($message.data.response) === 'true')
-        {
+        if (_IsSet($message.data.response) === 'true') {
+
             if (_IsSet($message.data.response.data_back) === 'true') {
                 delete $message.data.response.data_back;
             }
@@ -1129,6 +1115,7 @@ function infohub_transfer() {
                 $message = _HtmlToText($message);
             }
             $boxError.innerHTML = $message + "\n<br>" + $boxError.innerHTML;
+
             return;
         }
 

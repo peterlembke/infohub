@@ -45,7 +45,7 @@ You can see in the HTML below how it looks like on then rendered page when we re
         <style scoped="">
             .a120202_my_radios_bread_presentation_box_legend  { break-inside: avoid; }
             .a120202_my_radios_bread_presentation_box_legend fieldset { border: 1px solid #bcdebc; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px; }
-            .a120202_my_radios_bread_presentation_box_legend fieldset .legend { color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.5em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px; }
+            .a120202_my_radios_bread_presentation_box_legend fieldset .legend { color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px; }
         </style>
         <fieldset class="fieldset">
             <legend class="legend">

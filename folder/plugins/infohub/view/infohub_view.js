@@ -31,7 +31,8 @@ function infohub_view() {
             'class_name': 'infohub_view',
             'note': 'The screen handler. Handles boxes on the screen. You can ask for a box and send HTML to that box.',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'guest'
         };
     };
 

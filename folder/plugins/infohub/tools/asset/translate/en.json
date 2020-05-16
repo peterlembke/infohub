@@ -85,10 +85,19 @@
             "Calculate checksum": "Calculate checksum",
             "Compress data": "Compress data",
             "Encrypt/Decrypt text": "Encrypt/Decrypt text",
+            "Messages tool": "Messages tool",
             "Get current time": "Get current time",
             "Get random numbers": "Get random numbers",
             "Get passwords": "Get passwords",
             "Run test calls": "Run test calls"
+        },
+        "infohub_tools_package": {
+            "View data from messages_encoded": "View data from messages_encoded",
+            "With this tool you can view data from the package property messages_encoded. See your browser network tab in developer tools.": "With this tool you can view data from the package property messages_encoded. See your browser network tab in developer tools.",
+            "messages_encoded": "messages_encoded",
+            "Paste a string from messages_encoded": "Paste a string from messages_encoded",
+            "Decode": "Decode",
+            "Will show the decoded pretty json": "Will show the decoded pretty json"
         },
         "infohub_tools_password": {
             "password_length = length of the passwords you want.": "password_length = length of the passwords you want.",
@@ -133,7 +142,6 @@
             "Server": "Server",
             "Set your minimum integer number": "Set your minimum integer number",
             "Set your maximum integer number": "Set your maximum integer number",
-            "Message here": "Message here",
             "Will show the random number": "Will show the random number",
             "Clear": "Clear"
         },

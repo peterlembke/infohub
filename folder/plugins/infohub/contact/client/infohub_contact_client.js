@@ -136,7 +136,7 @@ function infohub_contact_client() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_new][button_save][button_delete][button_import][button_export][list_group]',
+                            'data': '[button_new][button_save][button_delete][button_import][button_export][list_group][client_icon]',
                             'class': 'container-small'
                         },
                         'container_form': {
@@ -309,7 +309,7 @@ function infohub_contact_client() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_plugin]',
+                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_server_plugin][list_client_plugin]',
                             'label': _Translate('One contact'),
                             'description': _Translate('This is the data form for one contact')
                         },
@@ -364,7 +364,7 @@ function infohub_contact_client() {
                             'show_paragraphs': 'false',
                             'enabled': 'false'
                         },
-                        'list_plugin': {
+                        'list_server_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("Allowed plugins"),
@@ -376,7 +376,34 @@ function infohub_contact_client() {
                             'css_data': {
                                 '.select': 'max-width: 200px;'
                             }
-                        }
+                        },
+                        'list_client_plugin': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'select',
+                            "label": _Translate("Allowed client plugins"),
+                            "description": _Translate("List with all client plugin names you can download from the server"),
+                            'event_data': 'client',
+                            "size": "6",
+                            "multiple": "true",
+                            "options": [],
+                            'css_data': {
+                                '.select': 'max-width: 200px;'
+                            }
+                        },
+                        'client_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[client_asset]',
+                            'css_data': {
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                            }
+                        },
+                        'client_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'client/client',
+                            'plugin_name': 'infohub_contact'
+                        },
                     },
                     'how': {
                         'mode': 'one box',
@@ -505,7 +532,8 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': ''},
                         'text_user_name': {'value': ''},
                         'text_shared_secret': {'value': ''},
-                        'list_plugin': {'value': {} }
+                        'list_server_plugin': {'value': {} },
+                        'list_client_plugin': {'value': {} }
                     }
                 },
                 'data_back': {
@@ -577,7 +605,8 @@ function infohub_contact_client() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'plugin_names': $in.response.form_data.list_plugin.value
+                    'server_plugin_names': $in.response.form_data.list_server_plugin.value,
+                    'client_plugin_names': $in.response.form_data.list_client_plugin.value
                 };
                 $in.step = 'step_save_node_data';
             }
@@ -794,7 +823,8 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': $in.response.node_data.domain_address },
                         'text_user_name': {'value': $in.response.node_data.user_name },
                         'text_shared_secret': {'value': $in.response.node_data.shared_secret },
-                        'list_plugin': {'value': $in.response.node_data.plugin_names }
+                        'list_server_plugin': {'value': $in.response.node_data.server_plugin_names },
+                        'list_client_plugin': {'value': $in.response.node_data.client_plugin_names }
                     }
                 },
                 'data_back': {
@@ -867,11 +897,34 @@ function infohub_contact_client() {
                     'function': 'render_options'
                 },
                 'data': {
-                    'id': $in.box_id + '_list_plugin_form_element',
+                    'id': $in.box_id + '_list_server_plugin_form_element',
                     'source_node': 'server',
                     'source_plugin': 'infohub_contact',
                     'source_function': 'load_plugin_list',
                     'source_data': {}
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'render_options'
+                },
+                'data': {
+                    'id': $in.box_id + '_list_client_plugin_form_element',
+                    'source_node': 'server',
+                    'source_plugin': 'infohub_contact',
+                    'source_function': 'load_plugin_list',
+                    'source_data': {
+                        'node': 'client'
+                    }
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -955,7 +1008,7 @@ function infohub_contact_client() {
                 'data': {
                     'id': $in.box_id + '_form_contact_form',
                     'form_data': {
-                        'list_plugin': {'value': $in.response.groups_merged }
+                        'list_server_plugin': {'value': $in.response.groups_merged }
                     }
                 },
                 'data_back': {
@@ -1022,7 +1075,7 @@ function infohub_contact_client() {
                 'domain_address': '',
                 'user_name': '',
                 'shared_secret': '',
-                'plugin_names': []
+                'server_plugin_names': []
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
             
@@ -1040,7 +1093,8 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': $nodeData.domain_address },
                         'text_user_name': {'value': $nodeData.user_name },
                         'text_shared_secret': {'value': $nodeData.shared_secret },
-                        'list_plugin': {'value': $nodeData.plugin_names, 'mode': '' }
+                        'list_server_plugin': {'value': $nodeData.server_plugin_names, 'mode': '' },
+                        'list_client_plugin': {'value': $nodeData.client_plugin_names, 'mode': '' }
                     }
                 },
                 'data_back': {
@@ -1116,7 +1170,8 @@ function infohub_contact_client() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'plugin_names': $in.response.form_data.list_plugin.value
+                    'server_plugin_names': $in.response.form_data.list_server_plugin.value,
+                    'client_plugin_names': $in.response.form_data.list_client_plugin.value
                 };
                 $content = _JsonEncode($nodeData);
                 $in.step = 'step_file_write';

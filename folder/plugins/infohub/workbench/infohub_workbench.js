@@ -32,7 +32,8 @@ function infohub_workbench() {
             'note': 'Handles what you see on screen with an app menu and a separate box for each started app, there the app can show its things.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Workbench'
+            'title': 'Workbench',
+            'recommended_security_group': 'user'
         };
     };
 

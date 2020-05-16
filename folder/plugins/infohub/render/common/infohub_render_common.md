@@ -135,7 +135,7 @@ If you want your own css you can add 'css_data' to the definition above. Below i
 ```
 'css_data': {
     'fieldset' : 'border: 1px solid #bcdebc; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
-    'fieldset .legend': 'color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.5em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px;'
+    'fieldset .legend': 'color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px;'
 }
 ```
 

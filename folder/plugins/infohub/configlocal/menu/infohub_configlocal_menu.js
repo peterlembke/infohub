@@ -114,6 +114,7 @@ function infohub_configlocal_menu() {
                                     'alias': 'zoom_link',
                                     'event_data': 'zoom',
                                     'button_label': _Translate('Zoom level'),
+                                    'button_left_icon': '[zoom_icon]',
                                     'to_plugin': 'infohub_configlocal',
                                     'to_function': 'click_menu'
                                 },
@@ -121,6 +122,7 @@ function infohub_configlocal_menu() {
                                     'alias': 'language_link',
                                     'event_data': 'language',
                                     'button_label': _Translate('Language preferred'),
+                                    'button_left_icon': '[language_icon]',
                                     'to_plugin': 'infohub_configlocal',
                                     'to_function': 'click_menu'
                                 }
@@ -153,6 +155,28 @@ function infohub_configlocal_menu() {
                                 }
                                  */
                             }
+                        },
+                        'zoom_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[zoom_asset]'
+                        },
+                        'zoom_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'zoom/magnifyingglass',
+                            'plugin_name': 'infohub_configlocal'
+                        },
+                        'language_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[language_asset]'
+                        },
+                        'language_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'language/language',
+                            'plugin_name': 'infohub_configlocal'
                         }
                     },
                     'how': {

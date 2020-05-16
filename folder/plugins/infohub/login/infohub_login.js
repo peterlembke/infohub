@@ -32,7 +32,8 @@ function infohub_login() {
             'note': 'Login GUI',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Login'
+            'title': 'Login',
+            'recommended_security_group': 'guest'
         };
     };
 

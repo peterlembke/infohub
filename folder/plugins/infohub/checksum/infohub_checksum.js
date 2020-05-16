@@ -31,7 +31,8 @@ function infohub_checksum() {
             'class_name': 'infohub_checksum',
             'note': 'Here you can get checksums in many different formats',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

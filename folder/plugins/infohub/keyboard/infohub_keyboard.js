@@ -29,7 +29,8 @@ function infohub_keyboard() {
             'class_name': 'infohub_keyboard',
             'checksum': '{{checksum}}',
             'note': 'When you use the keyboard then an event message come here. You can subscribe to key strokes',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

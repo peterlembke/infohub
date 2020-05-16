@@ -41,7 +41,8 @@ class infohub_file extends infohub_base
             'checksum' => '{{checksum}}',
             'note'=> 'Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins.',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'core'
         );
     }
 
@@ -56,7 +57,7 @@ class infohub_file extends infohub_base
             'asset_get_all_assets_for_one_plugin' => 'normal', // infohub_asset
             'asset_get_assets_requested' => 'normal', // infohub_asset
             'plugin_get_all_plugin_names' => 'normal', // infohub_plugin
-            'get_all_level1_server_plugin_names' => 'normal', // infohub_contact
+            'get_all_level1_plugin_names' => 'normal', // infohub_contact & infohub_translate
             'get_plugin_js_files_content' => 'normal' // infohub_translate
         );
     }
@@ -920,7 +921,7 @@ class infohub_file extends infohub_base
     }
     
     /**
-     * Get a list with all level 1 server plugin names
+     * Get a list with all level 1 plugin names
      * Also get some information like the plugin sensitivity. (core, harmless, sensitive, protect)
      * Used by Infohub_Contact among others
      * @version 2019-02-23
@@ -929,10 +930,11 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_all_level1_server_plugin_names(array $in = array()): array
+    final protected function get_all_level1_plugin_names(array $in = array()): array
     {
         $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => '')
+            'from_plugin' => array('node' => '', 'plugin' => ''),
+            'node' => 'server' // server or client
         );
         $in = $this->_Default($default, $in);
 
@@ -940,11 +942,19 @@ class infohub_file extends infohub_base
         $message = 'Nothing to report';
         $data = array();
 
+        $suffix = '.php';
+        if ($in['node'] === 'client') {
+            $suffix = '.js';
+        }
+        $pattern = '*' . $suffix;
+
         $response = $this->internal_Cmd(array(
             'func' => 'GetFolderStructure',
             'path' => PLUGINS,
-            'pattern' => '*.php',
+            'pattern' => $pattern,
         ));
+
+        $suffixLength = strlen($suffix);
 
         foreach ($response['data'] as $path)
         {
@@ -961,7 +971,7 @@ class infohub_file extends infohub_base
                 continue; // We only care about level 1 plugins
             }
             
-            $pluginName = substr($pluginName, 0, -4);
+            $pluginName = substr($pluginName, 0, -$suffixLength);
             $data[$pluginName] = array();
         }
         
@@ -977,7 +987,7 @@ class infohub_file extends infohub_base
             'data' => $data
         );
     }
-    
+
     /**
      * Give a plugin name and you get the source code for all js files indexed on each plugin name.
      * Used ONLY by infohub_translate.php

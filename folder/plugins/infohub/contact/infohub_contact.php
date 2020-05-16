@@ -37,7 +37,8 @@ class infohub_contact extends infohub_base
             'checksum' => '{{checksum}}',
             'note' => 'Data so server can login to other nodes',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'admin'
         );
     }
 
@@ -76,7 +77,8 @@ class infohub_contact extends infohub_base
                 'domain_address' => '', // We login to this destination domain
                 'user_name' => '', // Your identity
                 'shared_secret' => '', // 2Kb random bytes base64 encoded
-                'plugin_names' => array()
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array()
             ),
             'response' => array(
                 'answer' => 'false',
@@ -246,7 +248,8 @@ class infohub_contact extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'plugin_names' => array()
+                    'server_plugin_names' => array(),
+                    'client_plugin_names' => array()
                 )
             )
         );
@@ -291,7 +294,7 @@ class infohub_contact extends infohub_base
                         $message = 'Finished loading node data from config';
                         $ok = 'true';
                         $nodeData = $in['config']['contact'];
-                        $in['response']['post_exist'] = 'true';
+                        $in['response']['post_exist'] = 'true'; // Well we found the post in the config file
                     }
                 }
 
@@ -304,7 +307,8 @@ class infohub_contact extends infohub_base
             'domain_address' => '',
             'user_name' => '',
             'shared_secret' => '',
-            'plugin_names' => array()
+            'server_plugin_names' => array(),
+            'client_plugin_names' => array()
         );
         $nodeData = $this->_Default($default, $nodeData);
         
@@ -374,7 +378,8 @@ class infohub_contact extends infohub_base
                 'note' => '',
                 'domain_address' => '',
                 'user_name' => '',
-                'plugin_names' => array()
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array()
             );
 
             foreach ($nodeList as $node => $data) {
@@ -440,7 +445,7 @@ class infohub_contact extends infohub_base
             'group_data' => array(
                 'name' => '',
                 'note' => '',
-                'plugin_names' => array()
+                'server_plugin_names' => array()
             ),
             'response' => array(
                 'answer' => 'false',
@@ -599,7 +604,7 @@ class infohub_contact extends infohub_base
         $default = array(
             'name' => '',
             'note' => '',
-            'plugin_names' => array()
+            'server_plugin_names' => array()
         );
         $groupData = $this->_Default($default, $groupData);
         
@@ -672,7 +677,7 @@ class infohub_contact extends infohub_base
                 $default = array(
                     'name' => '',
                     'note' => '',
-                    'plugin_names' => array()
+                    'server_plugin_names' => array()
                 );
                 
                 $out = array();
@@ -681,7 +686,7 @@ class infohub_contact extends infohub_base
                     $item = $this->_Default($default, $item);
                     $name = strtolower($item['name']);
                     $groupData[$name] = $item;
-                    $groupsMerged = array_merge($groupsMerged, $item['plugin_names']);
+                    $groupsMerged = array_merge($groupsMerged, $item['server_plugin_names']);
                 }
                 $groupsMerged = array_unique($groupsMerged, SORT_REGULAR);
                 $groupsMerged = array_values($groupsMerged);
@@ -757,7 +762,7 @@ class infohub_contact extends infohub_base
             $default = array(
                 'name' => '',
                 'note' => '',
-                'plugin_names' => array()
+                'server_plugin_names' => array()
             );
 
             foreach ($groupList as $name => $data) {
@@ -788,6 +793,7 @@ class infohub_contact extends infohub_base
     final protected function load_plugin_list(array $in = array()): array
     {
         $default = array(
+            'node' => 'server',
             'step' => 'step_load_plugin_list',
             'response' => array(),
             'data_back' => array()
@@ -804,9 +810,11 @@ class infohub_contact extends infohub_base
                 'to' => array(
                     'node' => 'server',
                     'plugin' => 'infohub_file',
-                    'function' => 'get_all_level1_server_plugin_names'
+                    'function' => 'get_all_level1_plugin_names'
                 ),
-                'data' => array(),
+                'data' => array(
+                    'node' => $in['node']
+                ),
                 'data_back' => array(
                     'step' => 'step_load_plugin_list_response'
                 )
@@ -838,7 +846,7 @@ class infohub_contact extends infohub_base
             'ok' => $ok
         );
     }
-    
+
     /**
      * Get a doc file
      * @version 2019-03-14

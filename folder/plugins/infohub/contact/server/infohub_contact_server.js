@@ -114,7 +114,7 @@ function infohub_contact_server() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_save][button_delete][button_import][button_export][button_ping][container_ping]',
+                            'data': '[button_save][button_delete][button_import][button_export][button_ping][container_ping][server_icon]',
                             'class': 'container-small'
                         },
                         'container_form': {
@@ -348,6 +348,20 @@ function infohub_contact_server() {
                                 '.select': 'max-width: 200px;'
                             }
                         },
+                        'server_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[server_asset]',
+                            'css_data': {
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                            }
+                        },
+                        'server_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'server/db-blue',
+                            'plugin_name': 'infohub_contact'
+                        }
                     },
                     'how': {
                         'mode': 'one box',
@@ -470,7 +484,7 @@ function infohub_contact_server() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'plugin_names': $in.response.form_data.list_plugin.value
+                    'server_plugin_names': $in.response.form_data.list_plugin.value
                 };
                 $in.step = 'step_save_node_data';
             }
@@ -681,7 +695,7 @@ function infohub_contact_server() {
                         'text_domain_address': {'value': $in.response.node_data.domain_address },
                         'text_user_name': {'value': $in.response.node_data.user_name },
                         'text_shared_secret': {'value': $in.response.node_data.shared_secret },
-                        'list_plugin': {'value': $in.response.node_data.plugin_names }
+                        'list_plugin': {'value': $in.response.node_data.server_plugin_names }
                     }
                 },
                 'data_back': {
@@ -749,7 +763,7 @@ function infohub_contact_server() {
                 'domain_address': '',
                 'user_name': '',
                 'shared_secret': '',
-                'plugin_names': []
+                'server_plugin_names': []
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
             
@@ -769,7 +783,7 @@ function infohub_contact_server() {
                         'text_domain_address': {'value': $nodeData.domain_address },
                         'text_user_name': {'value': $nodeData.user_name },
                         'text_shared_secret': {'value': $nodeData.shared_secret },
-                        'list_plugin': {'value': $nodeData.plugin_names, 'mode': $mode }
+                        'list_plugin': {'value': $nodeData.server_plugin_names, 'mode': $mode }
                     }
                 },
                 'data_back': {
@@ -845,7 +859,7 @@ function infohub_contact_server() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'plugin_names': $in.response.form_data.list_plugin.value
+                    'server_plugin_names': $in.response.form_data.list_plugin.value
                 };
                 $content = _JsonEncode($nodeData);
                 $in.step = 'step_file_write';

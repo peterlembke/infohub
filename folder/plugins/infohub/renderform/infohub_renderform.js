@@ -33,14 +33,16 @@ function infohub_renderform() {
             'class_name': 'infohub_renderform',
             'note': 'Adds more features to the basic render form elements',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
         return {
             'create': 'normal', // Form, Text, Range, Color, Select, Textarea, Radios, Checkboxes
-            'event_message': 'normal'
+            'event_message': 'normal',
+            'set_button_icon': 'normal'
         };
     };
 
@@ -1226,7 +1228,8 @@ function infohub_renderform() {
                                 'text': '[svg_progress]'
                             },
                             'where': {
-                                'box_id': $in.id + '_icon'
+                                'box_id': $in.id + '_icon',
+                                'throw_error_if_box_is_missing': 'false'
                             }
                         },
                         'data_back': _Merge($in, {'step': 'step_button_event'})
@@ -1423,17 +1426,27 @@ function infohub_renderform() {
         if ($in.type === 'select') {
             if ($in.event_type === 'change') {
                 if ($in.step === 'step_start') {
-                    if (_IsSet($in.multiple) === 'false') {
-                        // We only want to support single select
-                        return _SubCall({
-                            'to': {
-                                'node': 'client',
-                                'plugin': 'infohub_render',
-                                'function': 'event_message'
-                            },
-                            'data': _Delete($in, {'step':'' }), // Remove step from $in
-                            'data_back': _Merge($in, {'step': 'step_select_result'})
-                        });
+                    if (_IsSet($in.multiple) === 'false') { // We only want to support single select
+                        if (! ($in.to_node === 'client' && $in.to_plugin === 'infohub_renderform' && $in.to_function === 'event_message'))
+                        {
+                            let $data = _Delete($in, {'step':'' });
+                            $data = _Delete($data, {'callback_function': ''});
+
+                            let $dataBack = _Merge($in,{'step': 'step_select_result'});
+                            $dataBack = _Delete($dataBack, {'callback_function': ''});
+
+                            // Infohub_render calls to_node, to_plugin, to_function
+
+                            return _SubCall({
+                                'to': {
+                                    'node': 'client',
+                                    'plugin': 'infohub_render',
+                                    'function': 'event_message'
+                                },
+                                'data': $data,
+                                'data_back': $dataBack
+                            });
+                        }
                     }
                 }
 
@@ -1600,6 +1613,69 @@ function infohub_renderform() {
         return {
             'answer': 'true',
             'message': 'Done handling events in RenderForm'
+        };
+    };
+
+    /**
+     * Set the button icon to either ok or fail.
+     * @param $in
+     * @returns {{answer: string, messages: [], message: string}}
+     */
+    const set_button_icon = function($in)
+    {
+        const $default = {
+            'box_id': '',
+            'ok': 'false',
+            'step': 'step_start'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            let $assetName = 'icons8-cancel';
+            if ($in.ok === 'true') {
+                $assetName = 'icons8-ok';
+            }
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'svg_result': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[svg_result_asset]'
+                        },
+                        'svg_result_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'subtype': 'svg',
+                            'asset_name': $assetName,
+                            'plugin_name': 'infohub_renderform'
+                        },
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[svg_result]'
+                    },
+                    'where': {
+                        'box_id': $in.box_id,
+                        'throw_error_if_box_is_missing': 'false'
+                    }
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Sending some messages'
         };
     };
 }

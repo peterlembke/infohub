@@ -76,7 +76,8 @@ function infohub_login_forget() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'plugin_names': []
+            'server_plugin_names': [],
+            'client_plugin_names': []
         };
         $nodeData = _Default($default, $nodeData);
 

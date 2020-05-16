@@ -37,6 +37,7 @@ function infohub_login_login() {
     const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
+            'set_boxes': 'normal',
             'click_login': 'normal',
             'click_import': 'normal'
         };
@@ -88,6 +89,8 @@ function infohub_login_login() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
+            $classTranslations = $in.translations;
+
             $in.step = 'step_render_for_workbench';
             if ($in.desktop_environment === 'standalone') {
                 $in.step = 'step_render_for_standalone';
@@ -95,7 +98,6 @@ function infohub_login_login() {
         }
 
         if ($in.step === 'step_render_for_workbench') {
-            $classTranslations = $in.translations;
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -176,7 +178,6 @@ function infohub_login_login() {
         }
 
         if ($in.step === 'step_render_for_standalone') {
-            $classTranslations = $in.translations;
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -211,6 +212,7 @@ function infohub_login_login() {
                         'text_password': {
                             'type': 'form',
                             'subtype': 'text',
+                            'input_type': 'password',
                             'placeholder': _Translate('Password')
                         },
                         'button_login': {
@@ -245,6 +247,22 @@ function infohub_login_login() {
                     }
                 },
                 'data_back': {
+                    'step': 'step_render_for_standalone_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_render_for_standalone_response') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login_login',
+                    'function': 'set_boxes'
+                },
+                'data': {
+                    'box_id': 'main.body.infohub_login.form'
+                },
+                'data_back': {
                     'step': 'step_end'
                 }
             });
@@ -253,6 +271,98 @@ function infohub_login_login() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message
+        };
+    };
+
+    /**
+     * Sets file button to red fail or green OK
+     * Sets password visibility
+     * @version 2020-04-30
+     * @since 2020-04-30
+     * @author Peter Lembke
+     */
+    $functions.push("set_boxes");
+    const set_boxes = function ($in)
+    {
+        const $default = {
+            'step': 'step_load_contact',
+            'box_id': '',
+            'data': {},
+            'answer': 'false',
+            'message': '',
+            'post_exist': 'false',
+            'password_visible': 'false'
+        };
+
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_load_contact') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login_contact',
+                    'function': 'storage_read_contact_data'
+                },
+                'data': {},
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_button_icon'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_button_icon') {
+
+            let $buttonIcon = $in.post_exist;
+
+            let $passwordVisible = 'false';
+            if ($in.post_exist === 'true') {
+                if (_IsSet($in.data.has_password) === 'true') {
+                    if ($in.data.has_password === 'true') {
+                        $passwordVisible = 'true';
+                    }
+                }
+            }
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_renderform',
+                    'function': 'set_button_icon'
+                },
+                'data': {
+                    'box_id': $in.box_id + '.[my_file_selector_button_icon]',
+                    'ok': $buttonIcon
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'data': $in.data,
+                    'password_visible': $passwordVisible,
+                    'step': 'step_set_password_visible'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_password_visible') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'set_visible'
+                },
+                'data': {
+                    'id': $in.box_id + '.[text_password]',
+                    'set_visible': $in.password_visible
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message
         };
     };
 
@@ -404,6 +514,12 @@ function infohub_login_login() {
                 $in.step = 'step_shared_secret_restore';
                 if ($in.data_back.password === '') {
                     $in.step = 'step_login_request';
+                }
+                if ($contact.user_name === '') {
+                    $in.response.answer = 'false';
+                    $in.response.message = 'No user file imported';
+                    $in.response.ok = 'false';
+                    $in.step = 'step_end';
                 }
             }
         }
@@ -677,8 +793,14 @@ function infohub_login_login() {
 
         if ($in.step === 'step_initiator_store_session_data')
         {
-            let $pluginNames = _GetData({
-                'name': 'data_back/contact/plugin_names',
+            let $serverPluginNames = _GetData({
+                'name': 'data_back/contact/server_plugin_names',
+                'default': [],
+                'data': $in
+            });
+
+            let $clientPluginNames = _GetData({
+                'name': 'data_back/contact/client_plugin_names',
                 'default': [],
                 'data': $in
             });
@@ -695,7 +817,8 @@ function infohub_login_login() {
                     'session_id': $in.data_back.session_id, //session_{hub_id}
                     'session_created_at': $in.data_back.session_created_at, // micro time with 3 decimals
                     'left_overs': $in.data_back.left_overs, // Left overs from the login. Never exposed outside this plugin
-                    'plugin_names': $pluginNames
+                    'server_plugin_names': $serverPluginNames,
+                    'client_plugin_names': $clientPluginNames
                 },
                 'data_back': {
                     'step': 'step_initiator_store_session_data_response',
@@ -1100,37 +1223,29 @@ function infohub_login_login() {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $in.ok = 'true';
-                $in.step = 'step_show_password';
+                $in.step = 'step_set_boxes';
             }
         }
 
-        if ($in.step === 'step_show_password')
+        if ($in.step === 'step_set_boxes')
         {
-            let $visible = 'true';
-            if (_IsSet($in.node_data.has_password) === 'true') {
-                if ($in.node_data.has_password === 'false') {
-                    $visible = 'false';
-                }
-            }
-
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'set_visible'
+                    'plugin': 'infohub_login_login',
+                    'function': 'set_boxes'
                 },
                 'data': {
-                    'id': $in.box_id + '_text_password',
-                    'set_visible': $visible
+                    'box_id': $in.box_id
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_show_password_response'
+                    'step': 'step_set_boxes_response'
                 }
             });
         }
 
-        if ($in.step === 'step_show_password_response')
+        if ($in.step === 'step_set_boxes_response')
         {
             $in.step = 'step_end';
             if ($in.answer === 'true') {

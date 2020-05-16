@@ -30,7 +30,8 @@ function infohub_timer() {
             'class_name': 'infohub_timer',
             'note': 'The timer respond after some time',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'user'
         };
     };
 

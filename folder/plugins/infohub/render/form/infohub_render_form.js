@@ -344,7 +344,7 @@ function infohub_render_form() {
         if (_Empty($in.css_data) === 'true') {
             $in.css_data = {
                 '.button':
-                    'font-size: 20px;'+
+                    'font-size: 1.0em;'+
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 20px;'+
@@ -428,7 +428,7 @@ function infohub_render_form() {
         if (_Empty($in.css_data) === 'true') {
             $in.css_data = {
                 '.file':
-                    'font-size: 20px;'+
+                    'font-size: 1.0em;'+
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 20px;'+
@@ -504,7 +504,7 @@ function infohub_render_form() {
     const internal_Text = function ($in)
     {
         const $default = {
-            'input_type': 'text', // text, color, date, datetime-local, email, month, number, range, search, tel, time, url, week
+            'input_type': 'text', // text, color, date, datetime-local, email, month, number, range, search, tel, time, url, week, password
             'enabled': 'true',
             'placeholder': '',
             'min_value': '',

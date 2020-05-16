@@ -101,7 +101,7 @@ function infohub_contact_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_client][button_server][button_group]',
+                            'data': '[button_main][button_group][button_client][button_server]',
                             'class': 'container-small'
                         },
                         'container_doc': {

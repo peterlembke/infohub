@@ -12,9 +12,16 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 - Full login and rights system.
 
-**Below is the aim for version 1.2.14**
+**Below is the aim for version 1.2.15**
 
-- Communication. Packages from server formatted the same way as the client packages.
+- Remove all @todo from the code. There are 28 of them.
+
+# [1.2.14] - 2020-05-16
+
+* [Release notes](main,release_v1v2v14)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.14)
+
+Focused on the communication with messages_encoded, login procedure, rights, prepared security group tags, localization to swedish, english, spanish. Regressions fixed. Communication Packages from server are now formatted the same way as the client packages and the sign_code are verified.
 
 # [1.2.13] - 2020-04-30
 

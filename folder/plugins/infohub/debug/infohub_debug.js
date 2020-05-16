@@ -33,7 +33,8 @@ function infohub_debug() {
             'class_name': 'infohub_debug',
             'note': 'Tool for clearing caches and refresh the page when the ban time says ok',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'recommended_security_group': 'developer'
         };
     };
 
@@ -159,7 +160,8 @@ function infohub_debug() {
                     'what': {
                         'debug_buttons': {
                             'plugin': 'infohub_debug',
-                            'type': 'debug_buttons'
+                            'type': 'debug_buttons',
+                            'alias': '1202_debug_buttons-1202'
                         }
                     },
                     'how': {
@@ -172,7 +174,10 @@ function infohub_debug() {
                         'scroll_to_box_id': 'true'
                     }
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end'
+                }
             });
         }
 
@@ -219,7 +224,9 @@ function infohub_debug() {
                     'where': $response.where
                 },
                 'data_back': {
-                    'step': 'step_end'
+                    'alias': $in.alias,
+                    'original_alias': $in.original_alias,
+                    'step': 'step_final'
                 }
             });
         }
@@ -227,8 +234,9 @@ function infohub_debug() {
         if ($in.step === 'step_final') {
             if (_Empty($in.alias) === 'false') {
                 // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
+                const $boxId = '{box_id}';
+                const $find = "'" + $boxId;
+                const $replace = "'" + $boxId + '_' + $in.alias + '-' + $boxId;
                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
             }
         }

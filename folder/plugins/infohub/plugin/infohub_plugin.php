@@ -40,7 +40,8 @@ class infohub_plugin extends infohub_base
             'checksum' => '{{checksum}}',
             'note'=> 'Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'recommended_security_group' => 'core'
         );
     }
 
@@ -163,7 +164,7 @@ class infohub_plugin extends infohub_base
         $default = array(
             'answer' => 'false',
             'message' => '',
-            'step' => 'step_if_client',
+            'step' => 'step_check_rights_list',
             'plugin_node' => '', // Required. Example: client, server
             'plugin_name' => '', // Required. Example: infohub_demo
             'plugin_from' => '',
@@ -174,7 +175,9 @@ class infohub_plugin extends infohub_base
             'plugin_config' => array(),
             'plugin_started' => 'false',
             'config' => array(
-                'user_name' => ''
+                'user_name' => '',
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array(),
             )
         );
         $in = $this->_Default($default, $in);
@@ -182,20 +185,55 @@ class infohub_plugin extends infohub_base
         $answer = 'false';
         $message = '';
 
-        if ($in['step'] === 'step_if_client') {
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from plugin_request',
+            'plugin_node' => '', // Required. Example: client, server
+            'plugin_name' => '', // Required. Example: infohub_demo
+            'plugin_from' => '',
+            'plugin_path' => '',
+            'plugin_code' => '',
+            'plugin_code_size' => 0,
+            'plugin_checksum' => '',
+            'plugin_config' => array(),
+            'plugin_started' => 'false',
+        );
+
+        if ($in['step'] === 'step_check_rights_list')
+        {
             $in['step'] = 'step_plugin_request_from_file';
-            if ($in['plugin_node'] !== 'server') {
-                if ($in['config']['user_name'] === 'guest') {
-                    $pluginAllowed = $this->_GuestPluginAllowed($in['plugin_name']);
-                    if ($pluginAllowed === 'false') {
-                        /* @todo HUB-653, HUB-622
-                        $message = 'This plugin: "%s" is not allowed for guests';
-                        $message = sprintf($message, $in['plugin_name']);
-                        $in['step'] = 'step_end';
-                        goto leave;
-                        */
-                    }
+
+            $listName = $in['plugin_node'] . '_plugin_names';
+            if (isset($in['config'][$listName]) === true) {
+                if (empty($in['config'][$listName]) === false) {
+                    $in['step'] = 'step_check_rights_plugin';
                 }
+            }
+
+        }
+
+        if ($in['step'] === 'step_check_rights_plugin')
+        {
+            $in['step'] = 'step_plugin_request_from_file';
+
+            $pluginAllowed = 'false';
+
+            $pluginName = '';
+            $parts = explode('_',$in['plugin_name']);
+            if ($parts >= 2) {
+                $pluginName = $parts[0] . '_' . $parts[1];
+            }
+
+            $listName = $in['plugin_node'] . '_plugin_names';
+            if (isset($in['config'][$listName][$pluginName])) {
+                $pluginAllowed = 'true';
+            }
+
+            if ($pluginAllowed === 'false') {
+                $message = 'This plugin: "%s" is not allowed for you';
+                $out['message'] = sprintf($message, $in['plugin_name']);
+                $in['step'] = 'step_end';
+                goto leave;
             }
         }
 
@@ -261,7 +299,7 @@ class infohub_plugin extends infohub_base
                 }
 
                 if ($ok === 'false') {
-                    $message = 'You must have an SPDX license identifier in your code. ' . $in['plugin_name']. ' do not have that';
+                    $out['message'] = 'You must have an SPDX license identifier in your code. ' . $in['plugin_name']. ' do not have that';
                     goto leave;
                 }
             }
@@ -319,21 +357,16 @@ class infohub_plugin extends infohub_base
         }
 
         if ($in['step'] === 'step_plugin_started_response') {
-            $answer = $in['answer'];
-            $message = $in['message'];
+            $out = $this->_Default($out, $in);
             goto leave;
         }
 
         if ($in['step'] === 'step_send_plugin_to_node') {
-            return $in; // $todo Avoid having a return here. Expand and move to the end
+            $out = $this->_Default($out, $in);
         }
 
         leave:
-
-        return array(
-            'answer' => $answer,
-            'message' => $message
-        );
+        return $out;
     }
 
     /**}
@@ -926,48 +959,5 @@ class infohub_plugin extends infohub_base
             'message' => $in['message'],
             'data' => $in['data']
         );
-    }
-
-    /**
-     * list with plugin names a guest can ask for
-     * @todo HUB-653, HUB-622
-     * @param string $pluginName
-     * @return string
-     */
-    final protected function _GuestPluginAllowed(string $pluginName = ''): string
-    {
-        $list = array(
-            'infohub_asset' => 1,
-            'infohub_base' => 1,
-            'infohub_cache' => 1,
-            'infohub_checksum' => 1,
-            'infohub_checksum_md5' => 1,
-            'infohub_debug' => 1,
-            'infohub_exchange' => 1,
-            'infohub_keyboard' => 1,
-            'infohub_offline' => 1,
-            'infohub_plugin' => 1,
-            'infohub_render' => 1,
-            'infohub_render_common' => 1,
-            'infohub_render_form' => 1,
-            'infohub_render_text' => 1,
-            'infohub_renderform' => 1,
-            'infohub_rendermajor' => 1,
-            'infohub_session' => 1,
-            'infohub_standalonee' => 1,
-            'infohub_storage' => 1,
-            'infohub_storage_data' => 1,
-            'infohub_storage_data_idbkeyval' => 1,
-            'infohub_timer' => 1,
-            'infohub_transfer' => 1,
-            'infohub_translate' => 1,
-            'infohub_view' => 1
-        );
-
-        if (isset($list[$pluginName])) {
-            return 'true';
-        }
-
-        return 'false';
     }
 }
