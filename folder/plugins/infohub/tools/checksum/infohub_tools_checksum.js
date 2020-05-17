@@ -271,7 +271,7 @@ function infohub_tools_checksum() {
 
     /**
      * Handle checksum
-     * @version 2018-08-04
+     * @version 2020-05-17
      * @since   2018-08-04
      * @author  Peter Lembke
      */
@@ -292,9 +292,24 @@ function infohub_tools_checksum() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'client', 'data': $in });
-            const $method = _GetData({'name': 'form_data/my_select_method/value/0', 'default': 'md5', 'data': $in });
-            const $input = _GetData({'name': 'form_data/my_textbox_input/value', 'default': '', 'data': $in });
+
+            const $node = _GetData({
+                'name': 'form_data/my_select_node/value/0',
+                'default': 'client',
+                'data': $in
+            });
+
+            const $method = _GetData({
+                'name': 'form_data/my_select_method/value/0',
+                'default': 'md5',
+                'data': $in
+            });
+
+            const $input = _GetData({
+                'name': 'form_data/my_textbox_input/value',
+                'default': '',
+                'data': $in
+            });
 
             const $callServer = {
                 'to': {

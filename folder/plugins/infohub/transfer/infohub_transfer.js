@@ -245,6 +245,7 @@ function infohub_transfer() {
                     'sign_code': '',
                     'sign_code_created_at': '',
                     'messages_encoded': $messagesEncoded,
+                    'messages_encoded_length': $messagesEncoded.length,
                     'messages_checksum': ''
                 };
 
@@ -810,7 +811,12 @@ function infohub_transfer() {
         };
 
         xmlHttp.setRequestHeader("Content-type", "application/json");
-        xmlHttp.send($content);
+
+        try {
+            xmlHttp.send($content);
+        } catch (exception) {
+            window.alert('Error sending Ajax');
+        }
 
         return {
             'answer': 'true',

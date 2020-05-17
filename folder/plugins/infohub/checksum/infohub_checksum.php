@@ -162,7 +162,9 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_CalculateMd5(array $in = array()): array
     {
-        $default = array('value' => '');
+        $default = array(
+            'value' => ''
+        );
         $in = $this->_Default($default, $in);
 
         return array(
@@ -184,7 +186,10 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_VerifyMd5(array $in = array()): array
     {
-        $default = array('value' => '', 'checksum' => '');
+        $default = array(
+            'value' => '',
+            'checksum' => ''
+        );
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -211,14 +216,18 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_CalculateCrc32(array $in = array()): array
     {
-        $default = array('value' => '');
+        $default = array(
+            'value' => ''
+        );
         $in = $this->_Default($default, $in);
+
+        $checksum = (string) crc32($in['value']);
 
         return array(
             'answer' => 'true',
             'message' => 'Here are the crc32 checksum',
             'value' => $in['value'],
-            'checksum' => crc32($in['value']),
+            'checksum' => $checksum,
             'verified' => 'false'
         );
     }
@@ -233,7 +242,10 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_VerifyCrc32(array $in = array()): array
     {
-        $default = array('value' => '', 'checksum' => '');
+        $default = array(
+            'value' => '',
+            'checksum' => ''
+        );
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -261,7 +273,9 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_CalculateSoundex(array $in = array()): array
     {
-        $default = array('value' => '');
+        $default = array(
+            'value' => ''
+        );
         $in = $this->_Default($default, $in);
 
         return array(
@@ -283,7 +297,10 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_VerifySoundex(array $in = array()): array
     {
-        $default = array('value' => '', 'checksum' => '');
+        $default = array(
+            'value' => '',
+            'checksum' => ''
+        );
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -311,7 +328,9 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_CalculateMetaphone(array $in = array()): array
     {
-        $default = array('value' => '');
+        $default = array(
+            'value' => ''
+        );
         $in = $this->_Default($default, $in);
 
         return array(
@@ -333,7 +352,10 @@ class infohub_checksum extends infohub_base
      */
     final protected function internal_VerifyMetaphone(array $in = array()): array
     {
-        $default = array('value' => '', 'checksum' => '');
+        $default = array(
+            'value' => '',
+            'checksum' => ''
+        );
         $in = $this->_Default($default, $in);
 
         $verified = 'false';

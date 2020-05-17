@@ -477,7 +477,7 @@
             }
         }
 
-        /*
+        /* @todo Why have I left this? I have that on server infohub_base.php
         if (_GetDataType($answer) !== _GetDataType($in.default)) {
             $answer = $in['default'];
         }

@@ -1,39 +1,37 @@
-# [1.2.15] - 2020-05-
-Focused on 
+# [1.2.15] - 2020-05-17
+Focused on support for large responses. Regression issues. Installation documentation. Configuration files.
 
 * [Release notes](main,release_v1v2v15)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.15)
 
-## Aim
-**Below is the aim for version 1.2.15**
-
-Work away all Todo in the Infohub code.
-
-HUB-653, Investigate what plugins is needed for client Login
-HUB-710, Client: Asset index - update_specific_assets must update index 
-HUB-711, Server: Base, Internal_Log depth -1 does not work some times
-HUB-712, Client: Configlocal_allow, download of assets, cache lifetime
-HUB-713, Client: Configlocal_debug, on/off logging, qvick buttons
-HUB-714, Client: Debug, move code to storage_data
-HUB-715, Client: Doc_get, get_document, provide existing document and do a background update
-HUB-716, Client: Doc_get, get_document, fresh up timestamp on local doc if server says checksum is valid
-HUB-717, Client: Doc_get, get_documents_list, fresh up timestamp on local list if server says checksum is valid
-HUB-718, Client: Doc_visited, show and make it work
-HUB-719, Client: Doc_index, Get the real document name
-HUB-720, Server: Login, See how the client does this in infohub_login_login.js
-HUB-721, Client: Plugin, When logged in I want to increase the limit from 20 to 100
-HUB-722, Server: Session, Also check that the session has not timed out
-HUB-723, Server: Session, Check that the user_name is right
-HUB-724, Client: Storage_data_idbkeyval, Check if the post exist and give an accurate post_exist back
-HUB-725, Client: Transfer, Must honor $globalBannedUntil
-HUB-726, Client: Welcome, Remove dead code in event_message
-
 ## Added
+* Client, Server: package messages_encoded_length added in infohub_transfer js and php
+* Server: Refactored kick_out_tests_for_infohub.php and added messages_encoded_length
+* Server: infohub_exchange calls infohub_plugin directly and now adds config
+* start.js, added messages_encoded_length
+* define_folders.php - added folder `file` for future backup/restore of data
+* HUB-734, Doc added: installation requirements, plugin config
+* HUB-733, Added config-example files with login account, db connection and domain config
 
 ## Changed
+* Client: Refactored infohub_welcome + children
+* Server: infohub_storage.php children and infohub_transfer.php now use _JsonEncode instead of json_encode
+* Server: Minor refactor of infohub_plugin.php
+* HUB-735, Client: infohub_launcher.js changed cache time on full plugin list from 8 sec to 24 hours
+* Infohub_tools launcher.json now include validate and tools_package to reduce the number of server calls
+* HUB-734, Doc changes: installation, core_root_definefolders, main_about, plugin_debug
 
 ## Removed
+* Client: Deprecated infohub_welcome -> workbench.svg 
+* HUB-736, Server: Only check rights on incoming messages
 
 ## Fixed
+* HUB-732, Client: Can not run the Welcome plugin
+    It was the size of the assets. PHP echo could not handle it.
+    I split the string into 64K chings and print them. 
+    Now it works.
+* HUB-738, Server: Checksum crc32 should return string
+    Now it does. I also refactored infohub_checksum_crc32.js and infohub_checksum.php and infohub_tools_checksum.js
+* HUB-739, Client: Doc, can not see the doc index. It was missing rights to infohub_renderadvancedlist
 
 ## Tested

@@ -59,7 +59,9 @@ function infohub_checksum_crc32() {
     $functions.push("calculate_checksum");
     const calculate_checksum = function($in)
     {
-        const $default = {'value': '' };
+        const $default = {
+            'value': ''
+        };
         $in = _Default($default, $in);
 
         const $result = _Crc32($in.value);
@@ -114,7 +116,8 @@ function infohub_checksum_crc32() {
      * all user contributions are licensed under Creative Commons Attribution-Share Alike.
      *
      * I made a minor modification to remove the cache for the CTC table.
-     * @version 2017-02-25
+     * 2020-05-17 Refactored. Used let and const and added $ to variable names
+     * @version 2020-05-17
      * @since   2017-02-25
      * @author  http://stackoverflow.com/users/1775178/alex
      * @param $value
@@ -122,28 +125,30 @@ function infohub_checksum_crc32() {
      */
     const _Crc32 = function($value)
     {
-        const makeCRCTable = function(){
-            var c;
-            var crcTable = [];
-            for(let n =0; n < 256; n++){
-                c = n;
+        const makeCRCTable = function() {
+            let $c;
+            let $crcTable = [];
+
+            for (let $n = 0; $n < 256; $n++){
+                $c = $n;
                 for(let k =0; k < 8; k++){
-                    c = ((c&1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1));
+                    $c = (($c&1) ? (0xEDB88320 ^ ($c >>> 1)) : ($c >>> 1));
                 }
-                crcTable[n] = c;
+                $crcTable[$n] = $c;
             }
-            return crcTable;
+
+            return $crcTable;
         };
 
         const crc32 = function(str) {
-            var crcTable = makeCRCTable();
-            var crc = 0 ^ (-1);
+            const $crcTable = makeCRCTable();
+            let $crc = 0 ^ (-1);
 
-            for (var i = 0; i < str.length; i++ ) {
-                crc = (crc >>> 8) ^ crcTable[(crc ^ str.charCodeAt(i)) & 0xFF];
+            for (var $i = 0; $i < str.length; $i++ ) {
+                $crc = ($crc >>> 8) ^ $crcTable[($crc ^ str.charCodeAt($i)) & 0xFF];
             }
 
-            return (crc ^ (-1)) >>> 0;
+            return ($crc ^ (-1)) >>> 0;
         };
 
         return crc32($value);

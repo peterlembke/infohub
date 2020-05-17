@@ -21,7 +21,7 @@ InfoHub Exchange take care of the messages between the plugins. Messages are sen
 If a message goes to a plugin that is not started then it is put aside and the plugin is requested. When the plugin have started then the messages to that plugin come back in the flow.  
 
 # Logging
-You can enable logging in the general configuration, then the server logs to files and the client logs to the console. The console messages are a great source for finding errors. You do not have to add any logging commands to your code. That is taken care of by the caller functions Cmd() and internal_Cmd().  
+You can enable logging in the plugin configuration, then the server logs to files and the client logs to the console. The console messages are a great source for finding errors. You do not have to add any logging commands to your code. That is taken care of by the caller functions Cmd() and internal_Cmd().  
 
 # Caller functions
 Each plugin have only one public function: Cmd(). The message goes into that function and it calls the right cmd function. You will get an array back from Cmd with the answer. The Cmd function take care of logging, eror handling, measure execution time, check the incoming variables in the array, returns a return-message or a subcall-message.  
@@ -45,7 +45,7 @@ InfoHub would just love to kick you out with your ass first. Every call you make
 An InfoHub plugin get data from an array and give an array back. There are no other sources of input or output. The test system ask the plugin what functions it has and then call each of them. The function use the default values and give back the default answer. The arrays are saved in a test file for each plugin. In a future release I will also save live data to the test system.  
 
 # Multi domain
-One website can have multiple domains and sub domains. You define in the global configuration what start message should be send for each domain. There is a default fallback. You can then get different contents for each domain.  
+One website can have multiple domains and sub domains. You define in a configuration what start message should be send for each domain. There is a default fallback. You can then get different contents for each domain.  
 
 # Universal storage
 You can store anything. Send a message to Storage to read/write. Storage then use use well known SQL server brands to store the data.  

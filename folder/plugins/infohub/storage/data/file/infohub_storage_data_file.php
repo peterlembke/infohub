@@ -164,7 +164,7 @@ class infohub_storage_data_file extends infohub_base
             goto leave;
         }
 
-        $newDataString = json_encode($in['data'], JSON_PRETTY_PRINT);
+        $newDataString = $this->_JsonEncode($in['data']);
         $in['bubble'] = $newDataString;
 
         if ($postExist === 'false') {

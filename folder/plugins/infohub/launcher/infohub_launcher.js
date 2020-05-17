@@ -1294,8 +1294,8 @@ function infohub_launcher() {
                 $localFullListExist = 'true';
             }
 
-            const $hour = 4; // seconds
-            const $timestampWhenOld = $fullList.micro_time + 2 * $hour;
+            const $hour = 3600; // seconds
+            const $timestampWhenOld = $fullList.micro_time + 24 * $hour;
 
             let $localFullListOld = 'false';
             const $currentTime = _MicroTime();
@@ -1320,7 +1320,7 @@ function infohub_launcher() {
                 // We return the existing local list and ask the server for an updated list in the background
 
                 $answer = 'true';
-                $message = 'The local full_list is old but exist. You got it. I will update the list in the background.';
+                $message = 'The local full_list is old but exist. I will update the list in the background.';
                 $updated = 'true';
 
                 const $messageOut = _SubCall({

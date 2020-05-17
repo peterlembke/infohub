@@ -14,12 +14,13 @@ define('ROOT', $rootDirectory);
 define('MAIN', ROOT . DS . 'folder');
 
 $folders = array(
-    'INCLUDES' => MAIN . DS . 'include',
-    'PLUGINS' => MAIN . DS . 'plugins',
-    'LOG' => MAIN . DS . 'log',
-    'DB' => MAIN . DS . 'db',
-    'DOC' => MAIN . DS . 'doc',
-    'CONFIG' => MAIN . DS . 'config'
+    'INCLUDES' => MAIN . DS . 'include', // Files required by infohub.php or index.php
+    'PLUGINS' => MAIN . DS . 'plugins', // All plugins are here
+    'LOG' => MAIN . DS . 'log', // PHP logs and plugin logging
+    'DB' => MAIN . DS . 'db', // SQLite databases are stored here
+    'DOC' => MAIN . DS . 'doc', // All Infohub documentation
+    'CONFIG' => MAIN . DS . 'config', // Config file that override the one in the plugin folder
+    'FILE' => MAIN . DS . 'file' // Files for import/export. Used in the future for backup/restore of data
 );
 
 foreach ($folders as $name => $path) {

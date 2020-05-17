@@ -54,8 +54,7 @@ function infohub_welcome_youcan() {
         let $response = '';
         const $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }

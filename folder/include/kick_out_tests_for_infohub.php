@@ -174,7 +174,14 @@ class kickOut
             $this->GetOut('Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
         }
 
-        $requiredPropertyNameArray = array('session_id' => 1, 'sign_code' => 1, 'sign_code_created_at' => 1, 'messages_encoded' => 1, 'package_type' => 1);
+        $requiredPropertyNameArray = array(
+            'session_id' => 1,
+            'sign_code' => 1,
+            'sign_code_created_at' => 1,
+            'messages_encoded' => 1,
+            'messages_encoded_length' => 1,
+            'package_type' => 1
+        );
 
         foreach ($package as $name => $data) {
             if (isset($requiredPropertyNameArray[$name]) === true) {

@@ -123,7 +123,11 @@ Each plugin can have a configuration file. This is an example from infohub/check
 }
 ```
 
-In this case we log two functions. The logging will be to folder/log/plugin_name.log.  
+In this case we log two functions. The logging will be to folder/log/plugin_name.log.
+
+Copy the configuration file to `folder/config` and modify it there. That will override the original configuration file.
+
+Read more about [configuration files](doc,plugin_config). 
     
 # PHP Server
 You can debug the server with xdebug. PHP is single threaded and do one thing at the time. Just make sure you have xdebug and learn how to use it.

@@ -1049,9 +1049,15 @@ class infohub_exchange extends infohub_base {
                 ),
                 'data' => array(
                     'plugin_name' => $pluginName,
-                    'plugin_node' => $dataMessage['to']['node']
+                    'plugin_node' => $dataMessage['to']['node'],
+                    'config' => array(
+                        'user_name' => $this->_GetUserName(),
+                        'server_plugin_names' => $this->_GetAllowedServerPluginNames(),
+                        'client_plugin_names' => $this->_GetAllowedClientPluginNames()
+                    )
                 ),
             ));
+
             $response = $this->Plugin['infohub_plugin']->cmd($subCall);
             if ($response !== '') {
                 $this->_SortAdd(array(

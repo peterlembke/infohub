@@ -297,6 +297,7 @@ function infohub_start($progress) {
             'sign_code_created_at': $timestamp.toString(),
             'session_id': '',
             'messages_encoded' : $messagesEncoded,
+            'messages_encoded_length': $messagesEncoded.length,
             'package_type': '2020'
         };
 

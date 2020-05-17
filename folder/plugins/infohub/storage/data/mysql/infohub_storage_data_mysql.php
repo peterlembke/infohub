@@ -232,7 +232,7 @@ class infohub_storage_data_mysql extends infohub_base
             goto leave;
         }
 
-        $newDataString = json_encode($in['data'], JSON_PRETTY_PRINT);
+        $newDataString = $this->_JsonEncode($in['data']);
 
         if ($postExist === 'false') {
             $response = $this->internal_Cmd(array(

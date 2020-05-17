@@ -106,7 +106,7 @@ class infohub_transfer extends infohub_base {
                     $messages[$nr] = $this->_CleanMessage($oneMessage);
                 }
 
-                $messagesJson = json_encode($messages);
+                $messagesJson = $this->_JsonEncode($messages);
                 $messagesEncoded = base64_encode($messagesJson);
                 $messagesChecksum = md5($messagesEncoded);
 
@@ -114,6 +114,7 @@ class infohub_transfer extends infohub_base {
                     'to_node' => $nodeName,
                     'messages' => $messages,
                     'messages_encoded' => $messagesEncoded,
+                    'messages_encoded_length' => strlen($messagesEncoded),
                     'messages_checksum' => $messagesChecksum,
                     'package_type' => '2020',
                     'session_id' => $in['config']['session_id'],
@@ -172,7 +173,13 @@ class infohub_transfer extends infohub_base {
             }
 
             if ($nodeName === 'client') {
-                echo $packageJson;
+                $chunks = str_split($packageJson, 64*1024);
+                if (count($chunks) > 1) {
+                    $debug = 1;
+                }
+                foreach ($chunks as $chunk) {
+                    print $chunk;
+                }
             }
 
             $out['answer'] = 'true';

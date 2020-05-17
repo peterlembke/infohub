@@ -164,7 +164,7 @@ class infohub_plugin extends infohub_base
         $default = array(
             'answer' => 'false',
             'message' => '',
-            'step' => 'step_check_rights_list',
+            'step' => 'step_plugin_request_from_file',
             'plugin_node' => '', // Required. Example: client, server
             'plugin_name' => '', // Required. Example: infohub_demo
             'plugin_from' => '',
@@ -173,17 +173,9 @@ class infohub_plugin extends infohub_base
             'plugin_code_size' => 0,
             'plugin_checksum' => '',
             'plugin_config' => array(),
-            'plugin_started' => 'false',
-            'config' => array(
-                'user_name' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array(),
-            )
+            'plugin_started' => 'false'
         );
         $in = $this->_Default($default, $in);
-
-        $answer = 'false';
-        $message = '';
 
         $out = array(
             'answer' => 'false',
@@ -198,44 +190,6 @@ class infohub_plugin extends infohub_base
             'plugin_config' => array(),
             'plugin_started' => 'false',
         );
-
-        if ($in['step'] === 'step_check_rights_list')
-        {
-            $in['step'] = 'step_plugin_request_from_file';
-
-            $listName = $in['plugin_node'] . '_plugin_names';
-            if (isset($in['config'][$listName]) === true) {
-                if (empty($in['config'][$listName]) === false) {
-                    $in['step'] = 'step_check_rights_plugin';
-                }
-            }
-
-        }
-
-        if ($in['step'] === 'step_check_rights_plugin')
-        {
-            $in['step'] = 'step_plugin_request_from_file';
-
-            $pluginAllowed = 'false';
-
-            $pluginName = '';
-            $parts = explode('_',$in['plugin_name']);
-            if ($parts >= 2) {
-                $pluginName = $parts[0] . '_' . $parts[1];
-            }
-
-            $listName = $in['plugin_node'] . '_plugin_names';
-            if (isset($in['config'][$listName][$pluginName])) {
-                $pluginAllowed = 'true';
-            }
-
-            if ($pluginAllowed === 'false') {
-                $message = 'This plugin: "%s" is not allowed for you';
-                $out['message'] = sprintf($message, $in['plugin_name']);
-                $in['step'] = 'step_end';
-                goto leave;
-            }
-        }
 
         if ($in['step'] === 'step_plugin_request_from_file') {
             return $this->_SubCall(array(
@@ -257,25 +211,29 @@ class infohub_plugin extends infohub_base
         }
 
         if ($in['step'] === 'step_plugin_request_from_file_response') {
-            if ($in['answer'] === 'false') {
-                return $this->_SubCall(array(
-                    'to' => array(
-                        'node' => 'server',
-                        'plugin' => 'infohub_plugin',
-                        'function' => 'plugin_request_from_storage'
-                    ),
-                    'data' => array(
-                        'plugin_node' => $in['plugin_node'],
-                        'plugin_name' => $in['plugin_name']
-                    ),
-                    'data_back' => array(
-                        'plugin_node' => $in['plugin_node'],
-                        'plugin_name' => $in['plugin_name'],
-                        'step' => 'step_plugin_request_from_storage_response'
-                    ),
-                ));
+            $in['step'] = 'step_plugin_request_from_storage';
+            if ($in['answer'] === 'true') {
+                $in['step'] = 'step_handle_plugin';
             }
-            $in['step'] = 'step_handle_plugin';
+        }
+
+        if ($in['step'] === 'step_plugin_request_from_storage') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_plugin',
+                    'function' => 'plugin_request_from_storage'
+                ),
+                'data' => array(
+                    'plugin_node' => $in['plugin_node'],
+                    'plugin_name' => $in['plugin_name']
+                ),
+                'data_back' => array(
+                    'plugin_node' => $in['plugin_node'],
+                    'plugin_name' => $in['plugin_name'],
+                    'step' => 'step_plugin_request_from_storage_response'
+                ),
+            ));
         }
 
         if ($in['step'] === 'step_plugin_request_from_storage_response') {

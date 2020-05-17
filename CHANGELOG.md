@@ -12,9 +12,16 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 - Full login and rights system.
 
-**Below is the aim for version 1.2.15**
+**Below is the aim for version 1.2.16**
 
 - Remove all @todo from the code. There are 28 of them.
+
+# [1.2.15] - 2020-05-17
+
+* [Release notes](main,release_v1v2v15)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.15)
+
+Focused on support for large responses. Regression issues. Installation documentation. Configuration files.
 
 # [1.2.14] - 2020-05-16
 

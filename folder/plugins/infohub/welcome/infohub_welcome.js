@@ -203,7 +203,8 @@ function infohub_welcome() {
     $functions.push("startup");
     const startup = function ($in)
     {
-        const $pluginName = 'infohub_welcome', $loadOption = 'welcome';
+        const $pluginName = 'infohub_welcome';
+        const $loadOption = 'welcome';
 
         const $default = {
             'step': 'step_get_menu',
