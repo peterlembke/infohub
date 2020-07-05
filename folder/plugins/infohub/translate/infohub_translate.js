@@ -397,7 +397,8 @@ function infohub_translate() {
                         'box_id': 'main.body.infohub_translate.form',
                         'max_width': 640,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'instructions'
                 },
                 'data_back': {
                     'step': 'step_end'

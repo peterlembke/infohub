@@ -382,10 +382,10 @@ function infohub_session() {
         if ($in.step === 'step_verify_sign_code_created_at') {
             const $data = _MicroTime() - parseFloat($in.sign_code_created_at);
 
-            $out.message = 'sign_code_created_at is too old';
-
             if ($data > 0.0 && $data < 2.0) {
                 $in.step = 'step_get_session_data';
+            } else {
+                $out.message = 'sign_code_created_at is too old';
             }
         }
 

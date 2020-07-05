@@ -129,8 +129,8 @@ class kickOut
     protected function removeUnknownFilesAndFolders(): void
     {
         $foundFiles = scandir('.');
-        $acceptedFiles = array('.', '..', 'callback.php', 'index.php', 'infohub.php',
-            'phpinfo.php', 'test.php', 'testmenu.php', 'define_folders.php', '.htaccess',
+        $acceptedFiles = array('.', '..', 'index.php', 'infohub.php',
+            'phpinfo.php', 'opcache.php', 'data-sample.php', 'define_folders.php', '.htaccess',
             'fullstop.flag', 'manifest.json', 'infohub.png', 'infohub-512.png', 'serviceworker.js'
         );
         $removeFiles = array_diff($foundFiles, $acceptedFiles);

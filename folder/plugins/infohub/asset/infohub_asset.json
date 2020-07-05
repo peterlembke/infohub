@@ -1,6 +1,14 @@
 {
     "client": {
-        "client_cache_lifetime": 604800
+        "download_assets": "true",
+        "allowed_asset_types": {
+            "json": "true",
+            "svg": "true",
+            "jpeg": "true",
+            "png": "true"
+        },
+        "max_asset_size_kb": 150,
+        "index_cache_seconds": 604800
     },
     "server": {}
 }

@@ -29,8 +29,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
 /**
  * Class infohub_storage
- * The storage is a table in a database. A bubble is a post with child posts.
- * The first bubbles name is main and come from the main database, main storage.
+ * All data are stored in tables that holds keys and values.
  */
 class infohub_storage extends infohub_base
 {
@@ -48,16 +47,28 @@ class infohub_storage extends infohub_base
         );
     }
 
+    /**
+     * This is the functions you can reach trough cmd()
+     * @return array|string[]
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
             'read' => 'normal',
             'write' => 'normal',
             'read_many' => 'normal',
-            'write_many' => 'normal'
+            'write_many' => 'normal',
+            'read_pattern' => 'normal',
+            'write_pattern' => 'normal'
         );
     }
 
+    /**
+     * The Storage path is always lower case and has no spaces.
+     * Example: plugin_name/what/ever_you/like
+     * @param string $path
+     * @return string
+     */
     protected function _TrimPath($path = ''): string
     {
         $newPath = strtolower(trim($path));
@@ -76,53 +87,56 @@ class infohub_storage extends infohub_base
     final protected function read(array $in = array()): array
     {
         $default = array(
-            'step' => 'step_start',
             'path' => '',
-            'from_plugin' => array('node' => '', 'plugin' => ''),
-            'calling_plugin' => array('node' => '', 'plugin' => ''),
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'There was an error',
-                'data' => array(),
-                'post_exist' => 'false',
-            )
+            'wanted_data' => array(),
+            'step' => 'step_start',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'calling_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'response' => array()
         );
         $in = $this->_Default($default, $in);
 
+        $out = array(
+            'answer' => 'false',
+            'message' => '',
+            'path' => $in['path'],
+            'data' => array(),
+            'wanted_data' => $in['wanted_data'],
+            'post_exist' => 'false'
+        );
+
         if ($in['from_plugin']['node'] !== 'server') {
-            $in['response']['message'] = 'I only accept messages that origin from this server node';
+            $out['message'] = 'I only accept messages that origin from this server node';
             goto leave;
         }
-        
-        if ($this->_Empty($in['calling_plugin']['node']) === 'false') {
-            if ($in['calling_plugin']['node'] !== 'server') {
-                $in['response']['message'] = 'I only accept messages from this client node';
+
+        if ($in['from_plugin']['plugin'] === 'infohub_storage') {
+            if ($this->_Empty($in['calling_plugin']['plugin']) === 'true') {
+                $out['message'] = 'Infohub Storage must set calling_plugin before calling read';
                 goto leave;
             }
-            if ($this->_Empty($in['calling_plugin']['plugin']) === 'false') {
-                if ($in['from_plugin']['plugin'] === 'infohub_storage') {
-                    $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
-                }
+            if ($in['calling_plugin']['node'] !== 'server') {
+                $out['message'] = 'I only accept messages from this server node';
+                goto leave;
             }
+            $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
         }
 
-        if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
-            if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
-                $in['response']['message'] = 'I only accept paths that start with the calling plugin name';
-                goto leave;
-            }
+        if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
+            $row = 'Your plugin: %s, is not allowed to read this path: %s';
+            $out['message'] = sprintf($row, $in['from_plugin']['plugin'], $in['path']);
+            goto leave;
         }
 
         if ($in['step'] === 'step_start')
         {
             $in['path'] = $this->_TrimPath($in['path']);
-            if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
-                $in['response']['answer'] = 'false';
-                $row = 'Your plugin: %s, is not allowed to read this path: %s';
-                $in['response']['message'] = sprintf($row, $in['from_plugin']['plugin'], $in['path']);
-                $in['response']['data'] = array();
-                goto leave;
-            }
 
             return $this->_SubCall(array(
                 'to' => array(
@@ -135,25 +149,42 @@ class infohub_storage extends infohub_base
                     'calling_plugin' => $in['from_plugin']
                 ),
                 'data_back' => array(
+                    'path' => $in['path'],
+                    'wanted_data' => $in['wanted_data'],
+                    'calling_plugin' => $in['from_plugin'],
                     'step' => 'step_end'
                 )
             ));
         }
 
         if ($in['step'] === 'step_end') {
-            $a=1;
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'data' => array(),
+                'post_exist' => 'false',
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            if ($this->_Empty($in['wanted_data']) === 'false') {
+                $in['response']['data'] = $this->_Default($in['wanted_data'], $in['response']['data']);
+            }
+
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            $out['data'] = $in['response']['data'];
+            $out['post_exist'] = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'function' => 'read',
-            'path' => $in['path'],
-            'data' => $in['response']['data'],
-            'post_exist' => $in['response']['post_exist']
+        return array(
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'path' => $out['path'],
+            'data' => $out['data'],
+            'wanted_data' => $out['wanted_data'],
+            'post_exist' => $out['post_exist']
         );
-        return $response;
     }
 
     /**
@@ -167,48 +198,64 @@ class infohub_storage extends infohub_base
     final protected function write(array $in = array()): array
     {
         $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => ''),
-            'calling_plugin' => array('node' => '', 'plugin' => ''),
-            'step' => 'step_start',
             'path' => '',
             'data' => array(),
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'There was an error',
-                'saved_data' => array(),
-                'post_exist' => 'false',
-            )
+            'mode' => 'overwrite', // Overwrite or merge
+            'step' => 'step_write',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'calling_plugin' => array( // A way to preserve the original from_plugin
+                'node' => '',
+                'plugin' => ''
+            ),
+            'response' => array(),
+            'data_back' => array()
         );
         $in = $this->_Default($default, $in);
-        
+
+        $out = array(
+            'answer' => 'false',
+            'message' => '',
+            'path' => $in['path'],
+            'mode' => $in['mode'],
+            'post_exist' => 'false'
+        );
+
         if ($in['from_plugin']['node'] !== 'server') {
-            $in['response']['message'] = 'I only accept messages that origin from this server node';
+            $out['message'] = 'I only accept messages that origin from this server node';
             goto leave;
         }
 
-        if ($this->_Empty($in['calling_plugin']['node']) === 'false') {
-            if ($in['calling_plugin']['node'] !== 'server') {
-                $in['response']['message'] = 'I only accept messages from this client node';
-                goto leave;
-            }
-            if ($this->_Empty($in['calling_plugin']['plugin']) === 'false') {
-                if ($in['from_plugin']['plugin'] === 'infohub_storage') {
-                    $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
-                }
-            }
-        }
-        
-        if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
-            if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
-                $in['response']['message'] = 'I only accept paths that start with the calling plugin name';
-                goto leave;
-            }
+        if ($in['mode'] !== 'overwrite' && $in['mode'] !== 'merge') {
+            $out['message'] = 'I only accept mode overwrite (default) or merge';
+            goto leave;
         }
 
-        if ($in['step'] === 'step_start')
+        if ($in['from_plugin']['plugin'] === 'infohub_storage') {
+            if ($this->_Empty($in['calling_plugin']['plugin']) === 'true') {
+                $out['message'] = 'Infohub Storage must set calling_plugin before calling read';
+                goto leave;
+            }
+            if ($in['calling_plugin']['node'] !== 'server') {
+                $out['message'] = 'I only accept messages from this server node';
+                goto leave;
+            }
+            $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
+        }
+
+        if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
+            $row = 'Your plugin: %s, is not allowed to read this path: %s';
+            $out['message'] = sprintf($row, $in['from_plugin']['plugin'], $in['path']);
+            goto leave;
+        }
+
+        if ($in['step'] === 'step_write')
         {
             $in['path'] = $this->_TrimPath($in['path']);
             ksort($in['data']);
+
             return $this->_SubCall(array(
                 'to' => array(
                     'node' => 'server',
@@ -218,33 +265,44 @@ class infohub_storage extends infohub_base
                 'data' => array(
                     'path' => $in['path'],
                     'data' => $in['data'],
+                    'mode' => $in['mode'],
                     'calling_plugin' => $in['from_plugin']
                 ),
                 'data_back' => array(
-                    'step' => 'step_end',
-                    'path' => $in['path']
+                    'path' => $in['path'],
+                    'mode' => $in['mode'],
+                    'calling_plugin' => $in['from_plugin'],
+                    'step' => 'step_write_response'
                 )
             ));
         }
 
-        if ($in['step'] === 'step_end') {
-            $a=1;
+        if ($in['step'] === 'step_write_response')
+        {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'post_exist' => 'false',
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            $out['post_exist'] = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'function' => 'write',
-            'path' => $in['path'],
-            'data' => $in['data'],
-            'post_exist' => $in['response']['post_exist']
+        return array(
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'path' => $out['path'],
+            'mode' => $out['mode'],
+            'post_exist' => $out['post_exist']
         );
-        return $response;
     }
 
     /**
-     * General function for reading data from a path
+     * General function for reading data from multiple paths
      * @version 2018-03-14
      * @since   2018-03-14
      * @author  Peter Lembke
@@ -254,9 +312,16 @@ class infohub_storage extends infohub_base
     final protected function read_many(array $in = array()): array
     {
         $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => ''),
-            'step' => 'step_read',
-            'paths' => array(),
+            'paths' => array(), // key = path, data array = wanted_data (default is empty to get all)
+            'step' => 'step_start',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'calling_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
             'response' => array(
                 'answer' => 'false',
                 'message' => 'There was an error',
@@ -275,7 +340,16 @@ class infohub_storage extends infohub_base
             goto leave;
         }
 
-        if ($in['step'] === 'step_read_response') 
+        if ($in['step'] === 'step_start')
+        {
+            if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
+                $in['calling_plugin'] = $in['from_plugin'];
+            }
+
+            $in['step'] = 'step_read';
+        }
+
+        if ($in['step'] === 'step_read_response')
         {
             $path = $in['response']['path'];
             $in['data_back']['items'][$path] = $in['response']['data'];
@@ -288,7 +362,7 @@ class infohub_storage extends infohub_base
             {
                 $pop = $this->_Pop($in['paths']);
                 $pop['key'] = $this->_TrimPath($pop['key']);
-                
+
                 return $this->_SubCall(array(
                     'to' => array(
                         'node' => 'server', 
@@ -297,11 +371,13 @@ class infohub_storage extends infohub_base
                         ),
                     'data' => array(
                         'path' => $pop['key'],
-                        'calling_plugin' => $in['from_plugin']
+                        'wanted_data' => $pop['data'],
+                        'calling_plugin' => $in['calling_plugin']
                     ),
                     'data_back' => array(
                         'paths' => $pop['object'], 
-                        'items' => $in['data_back']['items'], 
+                        'items' => $in['data_back']['items'],
+                        'calling_plugin' => $in['calling_plugin'],
                         'step' => 'step_read_response'
                     )
                 ));
@@ -317,7 +393,7 @@ class infohub_storage extends infohub_base
     }
 
     /**
-     * General function for writing to a path
+     * General function for writing different data to many paths
      * @version 2018-03-14
      * @since   2018-03-14
      * @author  Peter Lembke
@@ -327,35 +403,61 @@ class infohub_storage extends infohub_base
     final protected function write_many(array $in = array()): array
     {
         $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => ''),
-            'step' => 'step_read',
-            'paths' => array(),
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'There was an error',
-                'path' => '',
-                'data' => array(),
-                'post_exist' => 'false',
+            'paths' => array(), // full path is key, data is what you want to store on that path.
+            'mode' => 'overwrite',
+            'step' => 'step_start',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
             ),
+            'calling_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'response' => array(),
             'data_back' => array(
                 'items' => array()
             )
         );
         $in = $this->_Default($default, $in);
 
+        $out = array(
+            'answer' => 'false',
+            'message' => 'message',
+            'items' => array()
+        );
+
         if ($in['from_plugin']['node'] !== 'server') {
-            $in['response']['message'] = 'I only accept messages that origin from this server node';
+            $out['message'] = 'I only accept messages that origin from this server node';
             goto leave;
         }
 
-        if ($in['step'] === 'step_write_response')
+        if ($in['step'] === 'step_start')
         {
-            $path = $in['response']['path'];
-            $in['data_back']['items'][$path] = $in['response']['data'];
-            $in['step'] = 'step_write';
+            if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
+                $in['calling_plugin'] = $in['from_plugin'];
+            }
+
+            $in['step'] = 'step_write_many';
         }
 
-        if ($in['step'] === 'step_write')
+        if ($in['step'] === 'step_write_many_response')
+        {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'path' => '',
+                'mode' => '',
+                'post_exist' => 'false',
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $path = $in['response']['path'];
+            $in['data_back']['items'][$path] = $in['response'];
+            $in['step'] = 'step_write_many';
+        }
+
+        if ($in['step'] === 'step_write_many')
         {
             if (count($in['paths']) > 0)
             {
@@ -371,23 +473,295 @@ class infohub_storage extends infohub_base
                     'data' => array(
                         'path' => $pop['key'], 
                         'data' => $pop['data'],
-                        'calling_plugin' => $in['from_plugin']
+                        'mode' => $in['mode'],
+                        'calling_plugin' => $in['calling_plugin']
                     ),
                     'data_back' => array(
                         'paths' => $pop['object'], 
-                        'items' => $in['data_back']['items'], 
-                        'step' => 'step_read_response'
+                        'items' => $in['data_back']['items'],
+                        'mode' => $in['mode'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'step' => 'step_write_many_response'
                     )
                 ));
             }
+
+            $out = array(
+                'answer' => $in['response']['answer'],
+                'message' => $in['response']['message'],
+                'items' => $in['data_back']['items']
+            );
         }
 
         leave:
         return array(
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'items' => $in['data_back']['items'],
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'items' => $out['items']
         );
     }
 
+    /**
+     * General function for reading data from a path that end with *
+     * @version 2020-06-27
+     * @since   2020-06-26
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function read_pattern(array $in = array()): array
+    {
+        $default = array(
+            'path' => '',
+            'wanted_data' => array(),
+            'step' => 'step_start',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'calling_plugin' => array( // A way to preserve the original from_plugin
+                'node' => '',
+                'plugin' => ''
+            ),
+            'response' => array()
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from server storage read_pattern',
+            'items' => array()
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $in['response']['message'] = 'I only accept messages that origin from this server node';
+            goto leave;
+        }
+
+        if ($in['step'] === 'step_start')
+        {
+            if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
+                $in['calling_plugin'] = $in['from_plugin'];
+            }
+
+            $in['step'] = 'step_read_paths';
+        }
+
+        if ($in['step'] === 'step_read_paths')
+        {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage_data',
+                    'function' => 'read_paths'
+                ),
+                'data' => array(
+                    'path' => $in['path'],
+                    'calling_plugin' => $in['calling_plugin']
+                ),
+                'data_back' => array(
+                    'path' => $in['path'],
+                    'wanted_data' => $in['wanted_data'],
+                    'calling_plugin' => $in['calling_plugin'],
+                    'step' => 'step_read_paths_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_read_paths_response')
+        {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'path' => '',
+                'data' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $in['step'] = 'step_read_many';
+
+            if ($this->_Empty($in['response']['data']) === 'true') {
+                $out = array(
+                    'answer'=> 'true',
+                    'message'=> 'There were no matching paths. Work done.',
+                    'items'=> array()
+                );
+                $in['step'] = 'step_end';
+            }
+
+
+        }
+
+        if ($in['step'] === 'step_read_many')
+        {
+            if ($this->_Empty($in['wanted_data']) === 'false') {
+                foreach ($in['response']['data'] as $key => $value) {
+                    $in['response']['data'][$key] = $in['wanted_data'];
+                }
+            }
+
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read_many'
+                ),
+                'data' => array(
+                    'paths' => $in['response']['data'],
+                    'calling_plugin' => $in['calling_plugin']
+                ),
+                'data_back' => array(
+                    'step' => 'step_read_many_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_read_many_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'items' => array()
+            );
+            $out = $this->_Default($default, $in['response']);
+        }
+
+        leave:
+        return array(
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'items' => $out['items']
+        );
+    }
+
+    /**
+     * General function for writing the same data to a path that ends with *
+     * @version 2020-06-27
+     * @since   2020-06-26
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function write_pattern(array $in = array()): array
+    {
+        $default = array(
+            'path' => '',
+            'data' => array(),
+            'mode' => 'overwrite', // overwrite or merge
+            'step' => 'step_start',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'calling_plugin' => array( // A way to preserve the original from_plugin
+                'node' => '',
+                'plugin' => ''
+            ),
+            'response' => array()
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from server storage write_pattern',
+            'items' => array()
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages that origin from this server node';
+            goto leave;
+        }
+
+        if ($in['step'] === 'step_start')
+        {
+            if ($in['from_plugin']['plugin'] !== 'infohub_storage') {
+                $in['calling_plugin'] = $in['from_plugin'];
+            }
+
+            $in['step'] = 'step_read_paths';
+        }
+
+        if ($in['step'] === 'step_read_paths')
+        {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage_data',
+                    'function' => 'read_paths'
+                ),
+                'data' => array(
+                    'path' => $in['path'],
+                    'calling_plugin' => $in['calling_plugin']
+                ),
+                'data_back' => array(
+                    'path' => $in['path'],
+                    'data' => $in['data'],
+                    'mode' => $in['mode'],
+                    'calling_plugin' => $in['calling_plugin'],
+                    'step' => 'step_read_paths_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_read_paths_response')
+        {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'path' => '',
+                'data' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $in['step'] = 'step_write_many';
+
+            if ($this->_Empty($in['response']['data']) === 'true') {
+                $out = array(
+                    'answer'=> 'true',
+                    'message'=> 'There were no matching paths. Work done.',
+                    'items'=> array()
+                );
+                $in['step'] = 'step_end';
+            }
+        }
+
+        if ($in['step'] === 'step_write_many')
+        {
+            foreach($in['response']['data'] as $key => $value) {
+                $in['response']['data'][$key] = $in['data'];
+            }
+
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'write_many'
+                ),
+                'data' => array(
+                    'paths' => $in['response']['data'],
+                    'mode' => $in['mode'],
+                    'calling_plugin' => $in['calling_plugin']
+                ),
+                'data_back' => array(
+                    'calling_plugin' => $in['calling_plugin'],
+                    'step' => 'step_write_many_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_write_many_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'There was an error',
+                'items' => array()
+            );
+            $out = $this->_Default($default, $in['response']);
+        }
+
+        leave:
+        return array(
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'items' => $out['items']
+        );
+    }
 }

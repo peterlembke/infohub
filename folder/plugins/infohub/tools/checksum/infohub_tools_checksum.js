@@ -204,7 +204,8 @@ function infohub_tools_checksum() {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'checksum'
                 },
                 'data_back': {'step': 'step_end'}
             });
@@ -214,7 +215,6 @@ function infohub_tools_checksum() {
             'answer': $in.response.answer,
             'message': $in.response.message
         };
-
     };
     
     /**

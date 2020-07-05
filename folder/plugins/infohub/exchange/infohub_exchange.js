@@ -648,7 +648,7 @@ function infohub_exchange() {
         const $default = {
             'step': 'step_check_incoming_data',
             'package': {
-                'ban_seconds': 0,
+                'ban_seconds': 0.0,
                 'banned_until': 0.0,
                 'messages_encoded': '',
                 'messages': [],

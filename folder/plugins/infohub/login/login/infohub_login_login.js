@@ -124,7 +124,7 @@ function infohub_login_login() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('Password'),
-                            'description': 'The password you need to decode the shared_secret',
+                            'description': _Translate('The password you need to decode the shared_secret'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
@@ -146,7 +146,7 @@ function infohub_login_login() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': 'login result:',
+                            'data': _Translate('login result') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block'
                         },
@@ -157,8 +157,7 @@ function infohub_login_login() {
                             'button_label': _Translate('Reload after login'),
                             'event_data': 'login|reload',
                             'to_plugin': 'infohub_debug',
-                            'to_function': 'refresh_plugins_and_reload_page'
-
+                            'to_function': 'reload_page'
                         },
                     },
                     'how': {
@@ -169,7 +168,8 @@ function infohub_login_login() {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'login'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -231,7 +231,7 @@ function infohub_login_login() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': 'login result:',
+                            'data': _Translate('login result') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block'
                         }

@@ -3,15 +3,14 @@ Handle all configuration that is for your local browser.
 
 [columns]
 # Introduction
-All the plugin configurations are handled with Infohub Config Global. Your local browser specific settings are handled with Infohub Config Local - this plugin.  
-Here you can set zoom level, select a font, colour schema, preferred languages. You can also set what you allow or not, like 3rd party streaming services in iframes etc.  
+Your local browser specific settings are handled with Infohub Config Local - this plugin.  
+Here you can set zoom level, select a font, colour schema, preferred languages. You can also set what you allow or not.  
 
 # The main menu
 When you start Config Local you will first see a main menu. Here you have some options to select from. Each option will open its settings on the right side.  
 
 # Store config
-The configuration are only stored locally on this device for now.
-Later versions of Config Local might allow you to set configurations that are the same on all your devices.  
+The configuration are stored locally on this device. You can also store the config on the server. 
 
 # Zoom
 Normally when you have a keyboard you can change the zoom level with CTRL and + or -. (CMD + or - on Mac).
@@ -29,13 +28,21 @@ Different eyes need different colours. There is a little set of colours used in 
 You can select the set you want to use and see the result.  
 
 # Language
-Here you can set your preferred language  
+@todo
+Move these settings to infohub_translate.json and have a GUI for them
+Here you can set your preferred languages.
 
-# Allow
-  
-# Autostart
-Here you can change what plugins to auto start in the workbench. You will always get launcher. The default is also to get the config local autostarted.
-Once you have configured your settings you can select to not autostart config local  
+# Assets
+@todo
+Move these settings to infohub_asset.json and have a GUI for them
+* Show assets (default yes)
+* Show missing assets (default: yes)
+* Download of assets (default yes)
+* Specific types: svg (yes), jpeg (yes), png (yes), gif (yes)
+* Max asset size (100Kb)
+* Asset index cache time: 7d
+* Asset cache time: 28d
+
 [/columns]
 
 # License

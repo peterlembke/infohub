@@ -259,6 +259,8 @@ In the base class you have the function `internal_Log`. You can now log things t
   
 The cmd() function and the `internal_Cmd()` function both use `internal_Log` to log what is happening. That means that your logging should focus on specific things in your code, you do not need to log who is calling who.  
 
+Read more about logging in [debug tools](doc,plugin_debug).
+
 # Logging in PHP
 When you use `internal_Log` the data are stored in an array. That array are then passed into the response from cmd() in parameter `log_array`.
 

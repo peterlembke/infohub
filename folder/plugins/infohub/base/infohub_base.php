@@ -154,6 +154,7 @@ class infohub_base
         }
 
         $data = array_merge($default, $in);
+
         return $data;
     }
 
@@ -166,9 +167,12 @@ class infohub_base
     final protected function _TimeStamp(string $in = ''): string
     {
         if ($in === 'c') {
-            return date('c');
+            $date = date('c');
+        } else {
+            $date = date('Y-m-d H:i:s');
         }
-        return date('Y-m-d H:i:s');
+
+        return $date;
     }
 
     /**
@@ -182,6 +186,7 @@ class infohub_base
         $microTime = microtime(true);
         $microSeconds = sprintf("%06d",($microTime - floor($microTime)) * 1000000);
         $date = date('Y-m-d H:i:s', (int)$microTime) . '.' . $microSeconds;
+
         return $date;
     }
 
@@ -200,6 +205,7 @@ class infohub_base
         if (empty($object) === false) {
             return 'false';
         }
+
         return 'true';
     }
 
@@ -208,6 +214,7 @@ class infohub_base
         if (isset($object) === false) {
             return 'false';
         }
+
         return 'true';
     }
 
@@ -220,6 +227,7 @@ class infohub_base
     {
         $options = JSON_PRETTY_PRINT + JSON_PRESERVE_ZERO_FRACTION;
         $row = json_encode($data, $options);
+
         return $row;
     }
 
@@ -234,6 +242,7 @@ class infohub_base
             return array();
         }
         $data = json_decode($row, $asArray = true);
+
         return $data;
     }
 
@@ -287,7 +296,12 @@ class infohub_base
             unset($in[$key]);
             return array('key'=> $key, 'data'=> $data, 'object'=> $in );
         }
-        return array('key'=> '', 'data'=> '', 'object'=> array() );
+
+        return array(
+            'key'=> '',
+            'data'=> '',
+            'object'=> array()
+        );
     }
 
     /**
@@ -307,6 +321,7 @@ class infohub_base
             'wait' => 0.2
         );
         $out = $this->_Default($default, $in);
+
         return $out;
     }
 
@@ -539,7 +554,7 @@ class infohub_base
                 'message'=> 'Leaving cmd()',
                 'function_name'=> $functionName,
                 'start_time'=> $startTime,
-                'depth'=> 0, // @todo should be -1 but multiple messages gives too many -1
+                'depth'=> 0, // @todo Should be -1 but multi message makes it go below 0
                 'execution_time'=> $out['execution_time']
             ));
 
@@ -727,6 +742,7 @@ class infohub_base
             'out' => $callResponse,
             'error_message' => $errorMessage
         );
+
         return $answer;
     }
 
@@ -787,6 +803,7 @@ class infohub_base
             'message' => 'All function names in this plugin',
             'data' => get_class_methods($this)
         );
+
         return $answer;
     }
 

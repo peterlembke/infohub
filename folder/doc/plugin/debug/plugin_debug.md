@@ -1,6 +1,7 @@
 # Debug your plugin
 How to debug a plugin.  
 
+[columns]
 # Introduction
 When things do not work with your plugin then you need to debug. You need template, tools, techniques, training to easily find errors.  
 
@@ -222,6 +223,8 @@ With training and experience you create your own style of programming. Remember 
 **Variable declaration PHP** - PHP have no declaration command. Try to set the variables with any value at the top of the function.
   
 **Use `"use strict";`** in your Javascript functions. Can be used everywhere except in functions that need to do something not allowed by the strict mode.  
+
+[/columns]
 
 # License
 This documentation is copyright (C) 2017 Peter Lembke.  

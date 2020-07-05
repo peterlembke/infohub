@@ -43,6 +43,7 @@ function infohub_render() {
     const _GetCmdFunctions = function() {
         return {
             'create': 'normal',
+            'load_render_cache': 'normal',
             'validate_has_data': 'removed',
             'validate_is_true': 'removed',
             'validate_is_integer': 'removed',
@@ -54,6 +55,10 @@ function infohub_render() {
             'event_message': 'normal'
         };
     };
+
+    /** used for cacheing HTML **/
+    let $renderCache = {};
+    let $renderCacheLoaded = 'false';
 
     // ***********************************************************
     // * The private functions, add your own in your plugin
@@ -235,15 +240,56 @@ function infohub_render() {
             'css_data': {},
             'latest_item_name': '', // Latest item name that have been rendered
             'latest_plugin_name': '',
-            'step': 'step_start',
+            'step': 'step_load_cache',
             'data_back': {},
             'response': {},
             'from_plugin': {
                 'node': '',
                 'plugin': ''
-            }
+            },
+            'config': {
+                'use_render_cache': 'true',
+                'store_render_cache': 'true'
+            },
+            'cache_key': ''
         };
         $in = _Default($default, $in);
+
+        let $cacheKey = '';
+        if ($in.cache_key !== '' && $in.config.use_render_cache === 'true') {
+            $cacheKey = 'infohub_render/cache/' + $in.from_plugin.node + '/' + $in.from_plugin.plugin + '/' + $in.cache_key;
+        }
+
+        let $messages = [];
+
+        if ($in.step === 'step_load_cache') {
+            if ($renderCacheLoaded === 'false' && $in.config.store_render_cache === 'true') {
+                $renderCacheLoaded = 'true';
+                let $dataBack = _ByVal($in);
+                $dataBack.step = 'step_cache';
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'load_render_cache'
+                    },
+                    'data': {},
+                    'data_back': $dataBack
+                });
+            }
+            $in.step = 'step_cache';
+        }
+
+        if ($in.step === 'step_cache') {
+            $in.step = 'step_start';
+            if ($cacheKey !=='' && $in.config.use_render_cache === 'true') {
+                if (_IsSet($renderCache[$cacheKey]) === 'true') {
+                    $data = $renderCache[$cacheKey];
+                    $data.where = $in.where;
+                    $in = $data;
+                }
+            }
+        }
 
         if ($in.step === 'step_what_response')
         {
@@ -307,6 +353,7 @@ function infohub_render() {
                             'what_done': $in.what_done,
                             'css_all': $in.css_all,
                             'frog': $in.data_back.frog,
+                            'cache_key': $in.cache_key,
                             'step': 'step_start_response'
                         }
                     });
@@ -316,6 +363,7 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_start_response') {
+            $in.where.original_box_id = $in.where.box_id;
             $in.where.box_id = $in.response.box_id;
             $in.step = 'step_what';
         }
@@ -374,6 +422,7 @@ function infohub_render() {
                     'step': 'step_call_source_response',
                     'before_source_call': $data,
                     'frog': $in.data_back.frog,
+                    'cache_key': $in.cache_key
                 }
             });
         }
@@ -415,6 +464,7 @@ function infohub_render() {
                     'latest_item_name': $data.alias,
                     'latest_plugin_name': $plugin,
                     'frog': $in.data_back.frog,
+                    'cache_key': $in.cache_key,
                     'step': 'step_what_response'
                 }
             });
@@ -442,6 +492,7 @@ function infohub_render() {
                         'css_all': $in.css_all,
                         'latest_item_name': 'text',
                         'frog': $in.data_back.frog,
+                        'cache_key': $in.cache_key,
                         'step': 'step_where'
                     }
                 });
@@ -461,13 +512,7 @@ function infohub_render() {
                 });
             }
 
-            $in.step = 'boxes_insert'; // Insert all rendered HTML in 'separate boxes'
-            if ($in.how.mode === 'one box') {
-                $in.step = 'box_insert'; // Insert the rendered HTML in 'one box'
-                if (_Empty($in.where.box_id) === 'false') {
-                    $in.step = 'box_update';
-                }
-            }
+            $in.step = 'step_output';
 
             if ($in.where.mode === 'html') {
                 // We now restore our tags after calling the high end renderer
@@ -475,6 +520,37 @@ function infohub_render() {
                 $in.step = 'return_html'; // Just return the HTML to the caller
             }
 
+            if ($cacheKey !== '' && $in.config.use_render_cache === 'true') {
+
+                let $dataBack = _ByVal($in);
+                $renderCache[$cacheKey] = $dataBack;
+
+                if ($in.config.store_render_cache === 'true') {
+                    const $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_storage',
+                            'function': 'write'
+                        },
+                        'data': {
+                            'path': $cacheKey,
+                            'data': $dataBack
+                        },
+                        'data_back': $dataBack
+                    });
+                    $messages.push($messageOut);
+                }
+            }
+        }
+
+        if ($in.step === 'step_output') {
+            $in.step = 'boxes_insert'; // Insert all rendered HTML in 'separate boxes'
+            if ($in.how.mode === 'one box') {
+                $in.step = 'box_insert'; // Insert the rendered HTML in 'one box'
+                if (_Empty($in.where.box_id) === 'false') {
+                    $in.step = 'box_update';
+                }
+            }
         }
 
         if ($in.step === 'box_insert') {
@@ -498,7 +574,8 @@ function infohub_render() {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'where': $in.where
-                }
+                },
+                'messages': $messages
             });
         }
 
@@ -521,7 +598,8 @@ function infohub_render() {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'where': $in.where
-                }
+                },
+                'messages': $messages
             });
         }
 
@@ -547,7 +625,8 @@ function infohub_render() {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'where': $in.where
-                }
+                },
+                'messages': $messages
             });
 
         }
@@ -558,7 +637,8 @@ function infohub_render() {
                 'message': $in.response.message,
                 'frog': $in.data_back.frog,
                 'html': $in.html,
-                'css_data': $in.css_all
+                'css_data': $in.css_all,
+                'messages': $messages
             };
         }
 
@@ -624,6 +704,71 @@ function infohub_render() {
             'frog': $in.data_back.frog
         };
 
+    };
+
+    $functions.push('load_render_cache');
+    /**
+     * Load the rendering cache data from Storage
+     * Loads in the background so other things can be processed
+     * @version 2020-07-04
+     * @since   2020-07-04
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
+     */
+    const load_render_cache = function ($in)
+    {
+        const $default = {
+            'step': 'step_load_render_cache',
+            'data_back': {},
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        let $messages = [];
+
+        if ($in.step === 'step_load_render_cache') {
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read_pattern'
+                },
+                'data': {
+                    'path': 'infohub_render/cache/*'
+                },
+                'data_back': {
+                    'step': 'step_load_render_cache_response'
+                }
+            });
+            $messages.push($messageOut);
+
+            return {
+                'answer': 'true',
+                'message': 'Will load the render cache',
+                'messages': $messages
+            };
+        }
+
+        if ($in.step === 'step_load_render_cache_response') {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'items': {}
+            };
+            $in.response = _Default($default, $in.response);
+
+            $renderCache = _Merge($in.response.items, $renderCache);
+
+            $in.step = 'step_end';
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Will load the render cache',
+            'messages': $messages
+        };
     };
 
 // *****************************************************************************

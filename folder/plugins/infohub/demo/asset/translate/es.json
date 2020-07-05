@@ -1,15 +1,11 @@
 {
     "version": {
-        "date": "2019-10-19 20:49:21",
+        "date": "2020-07-05 13:48:06",
         "plugin": "infohub_demo",
-        "data_checksum": "cfec873bd036ef28360370d532adf88f",
+        "data_checksum": "cbae21bb9378b574b08aeabec3493e84",
         "language": "es",
         "country": "ES",
         "file_type": "finished_file"
-    },
-    "launcher": {
-        "title": "Manifestación",
-        "description": "Demostración que le muestra lo que puede hacer con InfoHub."
     },
     "data": {
         "infohub_demo": {
@@ -17,7 +13,7 @@
             "Use the menu.": "Usar el menú",
             "This link works and goes to infohub_demo -> event_message.": "Este enlace funciona y va a infohub_demo -> event_message",
             "This button works and goes to infohub_demo -> event_message.": "Este botón funciona y va a infohub_demo -> event_message",
-            "This submit button works and goes to infohub_demo -> event_message. This only happens if all data is valid.": "Este botón de envío funciona y va a infohub_demo -> event_message. Esto solo sucede si todos los datos son válidos"
+            "This submit button works and goes to infohub_demo -> event_message. This only happens if all data is valid.": "Este botón de envío funciona y va a infohub_demo -> event_message. Esto solo ocurre si todos los datos son válidos"
         },
         "infohub_demo_advancedlist": {
             "Clothes": "Ropa",
@@ -26,7 +22,7 @@
             "Leg": "Pierna",
             "Jeans": "Jeans",
             "Body": "Cuerpo",
-            "T-Shirt": "camiseta",
+            "T-Shirt": "Camiseta",
             "Jacket": "Chaqueta",
             "Hand": "Mano",
             "Mittens": "Mitones",
@@ -42,35 +38,30 @@
         },
         "infohub_demo_audio": {
             "Welcome to InfoHub Demo Audio": "Bienvenido a InfoHub Demo Audio",
-            "Here are some demos to show you what Infohub can do with embedded Audio. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con audio incrustado. SIEMPRE debe usar un cuadro de presentación para material de terceros porque luego le da al usuario la opción de no hacer clic",
-            "This is a Jamendo audio album": "Este es un álbum de audio Jamendo",
-            "Jamendo is a 3rd party audio streaming service. Use it in a presentation box.": "Jamendo es un servicio de transmisión de audio de terceros. Úselo en un cuadro de presentación",
-            "This is a Jamendo audio track": "Esta es una pista de audio Jamendo",
-            "This is a Soundcloud audio playlist": "Esta es una lista de reproducción de audio Soundcloud",
-            "Soundcloud is a 3rd party audio streaming service. Use it in a presentation box.": "Soundcloud es un servicio de transmisión de audio de terceros. Úselo en un cuadro de presentación",
-            "This is a Soundcloud audio track": "Esta es una pista de audio de Soundcloud",
-            "This is a Spotify audio album": "Este es un álbum de audio de Spotify",
-            "Spotify is a 3rd party audio streaming service. Use it in a presentation box.": "Spotify es un servicio de transmisión de audio de terceros. Úselo en un cuadro de presentación",
-            "This is a Spotify audio track": "Esta es una pista de audio de Spotify"
+            "Here are some demos to show you what Infohub can do with audio.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con audio",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "Infohub Client no utiliza servicios de terceros. Todos los datos deben proceder del servidor",
+            "This is a %s": "Esto es un %s",
+            "%s is a 3rd party audio streaming service.": "%s es un servicio de transmisión de audio de terceros",
+            "In new tab": "En nueva pestaña"
         },
         "infohub_demo_common": {
             "Time": "Tiempo",
             "This is a legend": "Esta es una leyenda",
             "Does not track you": "No te rastrea",
-            "Does not [u]sell[/u] you anything": "No [u] te vende [/ u] nada",
+            "Does not [u]sell[/u] you anything": "No te vende nada",
             "That is why I [:-)] like them": "Por eso me gustan [:-)]",
-            "[h1]Common demo[/h1]": "[h1] Demo común [/ h1]",
-            "[i]Plugin infohub_render_common are used in this demo. You see a combination of what render_common can do. Here is a list what parts you see in the example:[/i]": "[i] Plugin infohub_render_common se utiliza en esta demostración. Verá una combinación de lo que puede hacer render_common. Aquí hay una lista de las partes que ve en el ejemplo: [/ i]",
-            "The first image is in JPEG format 700 pixels wide 30Kb. The second image is in PNG format black&white, 240 pixels wide and 17Kb and then upscaled to 640 pixels wide. You can see several things here:": "La primera imagen está en formato JPEG de 700 píxeles de ancho 30 Kb. La segunda imagen está en formato PNG en blanco y negro, 240 píxeles de ancho y 17 Kb y luego se ha ampliado a 640 píxeles de ancho. Puede ver varias cosas aquí:",
+            "[h1]Common demo[/h1]": "[h1]Demo común[/h1]",
+            "[i]Plugin infohub_render_common are used in this demo. You see a combination of what render_common can do. Here is a list what parts you see in the example:[/i]": "[i]El plugin infohub_render_common se usa en esta demostración. Verá una combinación de lo que puede hacer render_common. Aquí hay una lista de las partes que ve en el ejemplo:[/i]",
+            "The first image is in JPEG format 700 pixels wide 30Kb. The second image is in PNG format black&white, 240 pixels wide and 17Kb and then upscaled to 640 pixels wide. You can see several things here:": "La primera imagen está en formato JPEG de 700 píxeles de ancho, 30 Kb. La segunda imagen está en formato PNG en blanco y negro, 240 píxeles de ancho y 17 Kb y luego se ha ampliado a 640 píxeles de ancho. Puede ver varias cosas aquí:",
             "list - Bullet list like this one": "list - Lista de viñetas como esta",
-            "value - Any value, used here for the time stamp": "valor - Cualquier valor, utilizado aquí para la marca de tiempo",
+            "value - Any value, used here for the time stamp": "valor - Cualquier valor, usado aquí para la marca de tiempo",
             "image - The photo is an image, the duck too": "imagen - La foto es una imagen, el pato también",
-            "legend - a frame with a label. You can put things in it": "leyenda: un marco con una etiqueta. Puedes poner cosas",
+            "legend - a frame with a label. You can put things in it": "leyenda: un marco con una etiqueta. Puedes poner cosas en él",
             "iframe - a box with 3rd party contents. Use with caution": "iframe - una caja con contenido de terceros. Usar con precaución",
             "container - a span, div or p tag that you can put things in": "contenedor - una etiqueta span, div o p en la que puedes poner cosas",
             "Use JPEG for photographs": "Usar JPEG para fotografías",
             "Use PNG for small detailed images where you can not use SVG or JPEG": "Use PNG para imágenes pequeñas y detalladas donde no puede usar SVG o JPEG",
-            "Use a resolution close to the viewed resolution. Do not upscale. Avoid downscaling too much.": "Use una resolución cercana a la resolución vista. No aumente la escala. Evite reducir demasiado la escala"
+            "Use a resolution close to the viewed resolution. Do not upscale. Avoid downscaling too much.": "Utilice una resolución cercana a la resolución vista. No aumente la escala. Evite reducir demasiado la escala"
         },
         "infohub_demo_document": {
             "Select file": "Seleccionar archivo",
@@ -100,18 +91,20 @@
             "Extra": "Extra",
             "Below you can press the button to download a text file with a greeting. Example of downloading files.": "A continuación puede presionar el botón para descargar un archivo de texto con un saludo. Ejemplo de descarga de archivos",
             "Download file": "Descargar archivo",
-            "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button.": "A continuación, puede presionar el botón para obtener un selector de archivos. Seleccione una o más imágenes JPEG. Se leerán y se mostrarán debajo del botón"
+            "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button.": "A continuación puede presionar el botón para obtener un selector de archivos. Seleccione una o más imágenes jpeg. Se leerán y se mostrarán debajo del botón",
+            "Select images": "Seleccionar imágenes"
         },
         "infohub_demo_form2": {
             "Welcome to the InfoHub Demo for more advanced forms": "Bienvenido a la demostración de InfoHub para formularios más avanzados",
             "In this demo you can order a meal at a restaurant. All the form elements are used in this demo.": "En esta demostración, puede pedir una comida en un restaurante. Todos los elementos de formulario se utilizan en esta demostración",
             "Your burger meal": "Su comida de hamburguesas",
-            "Please select the details for your burger meal.": "Seleccione los detalles para su comida de hamburguesa",
+            "Please select the details for your burger meal.": "Seleccione los detalles de su comida de hamburguesa",
             "Order your Meal": "Ordene su comida",
             "Quick burger": "Hamburguesa rápida",
             "Lunch burger": "Hamburguesa de almuerzo",
             "Dinner burger": "Hamburguesa de cena",
             "Alias": "Alias",
+            "Your alias for this burger order, so you can easily reorder at a later time": "Su alias para este pedido de hamburguesas, para que pueda volver a ordenar fácilmente más adelante",
             "Frying the burger": "Freír la hamburguesa",
             "How much du you want us to fry the burger, from lightly touching the pan up to meteorite": "Cuánto quieres que freigamos la hamburguesa, desde tocar ligeramente la sartén hasta el meteorito",
             "Side dish": "Guarnición",
@@ -136,7 +129,7 @@
             "Meal during shopping": "Comida durante la compra",
             "Bread": "Pan",
             "What kind of bread do you want?": "¿Qué tipo de pan quieres?",
-            "Plain bread": "Pan normal",
+            "Plain bread": "Pan simple",
             "Fiber bread": "Pan de fibra",
             "Sesam bread": "pan Sesam",
             "Burger": "Hamburguesa",
@@ -154,36 +147,38 @@
             "Union": "Unión",
             "Pickles": "Encurtidos",
             "Of age": "De edad",
+            "I can only sell to you if you are of age": "Solo puedo venderte si eres mayor de edad",
             "I am 18 years or older": "Tengo 18 años o más",
             "Flower": "Flor",
             "You get a flower on the table. Select a colour and we will do a close match with the flowers we have.": "Obtienes una flor en la mesa. Selecciona un color y haremos una combinación estrecha con las flores que tenemos",
             "nothing special": "nada especial",
             "Only vegetables and spices": "Sólo verduras y especias",
-            "I want to go all in with this dinner. Dion mustard and Romani salad!!": "Quiero ir con esta cena. ¡Ensalada de mostaza y romaní Dion!"
+            "I want to go all in with this dinner. Dion mustard and Romani salad!!": "Quiero ir con esta cena. ¡Ensalada de mostaza y romaní Dion!",
+            "This submit button works and goes to infohub_demo. This only happens if all data is valid.": "Este botón de envío funciona y va a infohub_demo. Esto solo sucede si todos los datos son válidos"
         },
         "infohub_demo_frog": {
             "Instructions": "Instrucciones",
             "Result": "Resultado",
             "When you do a misstake in your rendering code then the frog shows up as a placeholder.": "Cuando cometes un error en el código de representación, la rana aparece como un marcador de posición",
             "Have you seen any frogs?": "¿Has visto ranas?",
-            "I made a frog is a Swedish expression for making a mistake. Jag gjorde en groda. If you render an object with an unknown type or subtype then a frog appear instead.": "Hice una rana es una expresión sueca por cometer un error. Jag gjorde en groda. Si representa un objeto con un tipo o subtipo desconocido, aparecerá una rana",
+            "I made a frog is a Swedish expression for making a mistake. Jag gjorde en groda. If you render an object with an unknown type or subtype then a frog appear instead.": "Hice una rana es una expresión sueca para cometer un error. Jag gjorde en groda. Si representa un objeto con un tipo o subtipo desconocido, aparecerá una rana",
             "Make a frog": "Haz una rana",
             "Correct way": "Forma correcta",
             "Misstake #1 - Wrong type": "Error # 1 - Tipo incorrecto",
             "Misstake #2 - Wrong subtype": "Error # 2 - Subtipo incorrecto",
             "Correct, The frog is rendered by calling the render_frog plugin.": "Correcto, la rana se procesa llamando al complemento render_frog",
             "Mistake #1, The frog were rendered by calling render_common with the none existing subtype fizbaz. That gives a frog and an error message on top.": "Error # 1, la rana se procesó llamando a render_common con el subtipo no existente fizbaz. Eso da una rana y un mensaje de error en la parte superior",
-            "Mistake #2, The frog were rendered by calling the none existing plugin foobar. That gives a frog and an error message on top.": "Error # 2, la rana se procesó llamando al complemento foobar que no existe. Eso da una rana y un mensaje de error en la parte superior"
+            "Mistake #2, The frog were rendered by calling the none existing plugin foobar. That gives a frog and an error message on top.": "Error n. ° 2: la rana se procesó llamando al complemento foobar que no existe. Eso da una rana y un mensaje de error en la parte superior"
         },
         "infohub_demo_link": {
             "Welcome to InfoHub Demo Link": "Bienvenido a InfoHub Demo Link",
-            "Here are some demos to show you what Infohub can do with links.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con los enlaces",
+            "Here are some demos to show you what Infohub can do with links.": "Aquí hay algunas demostraciones para mostrarle qué puede hacer Infohub con los enlaces",
             "A normal event link": "Un enlace de evento normal",
             "Toggle the image show/hide": "Alternar mostrar / ocultar imagen",
             "My external link to the ABC club": "Mi enlace externo al club ABC",
             "Embedded content - Click to substitute this text": "Contenido incrustado - Haga clic para sustituir este texto",
             "The event link": "El enlace del evento",
-            "This is what is rendered when you press the event link. Event links always come to the level 1 plugin in function event_message. From there you can do whatever you want. I wanted to render this.": "Esto es lo que se representa cuando presiona el enlace del evento. Los enlaces del evento siempre llegan al complemento de nivel 1 en la función event_message. Desde allí puede hacer lo que quiera. Quería renderizar esto"
+            "This is what is rendered when you press the event link. Event links always come to the level 1 plugin in function event_message. From there you can do whatever you want. I wanted to render this.": "Esto es lo que se representa cuando presiona el enlace del evento. Los enlaces de eventos siempre llegan al complemento de nivel 1 en la función event_message. Desde allí puede hacer lo que quiera. Quería renderizar esto"
         },
         "infohub_demo_major": {
             "Put a title on it": "Ponle un título",
@@ -196,19 +191,19 @@
         },
         "infohub_demo_map": {
             "Welcome to InfoHub Demo Map": "Bienvenido al mapa de demostración de InfoHub",
-            "Here are some demos to show you what Infohub can do with embedded Map. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con el mapa incrustado. SIEMPRE debe usar un cuadro de presentación para material de terceros porque le da al usuario la opción de no hacer clic",
-            "This is a Openstreet map": "Este es un mapa de Openstreet",
-            "Openstreetmap is a 3rd party map streaming service. Use it in a presentation box.": "Openstreetmap es un servicio de transmisión de mapas de terceros. Úselo en un cuadro de presentación",
-            "This is a Googlemaps": "Esto es un Googlemaps",
-            "Googlemaps is a 3rd party map streaming service. Use it in a presentation box.": "Googlemaps es un servicio de transmisión de mapas de terceros. Úselo en un cuadro de presentación",
-            "This is a Bing map": "Este es un mapa de Bing",
-            "Bing is a 3rd party map streaming service. Use it in a presentation box.": "Bing es un servicio de transmisión de mapas de terceros. Úselo en un cuadro de presentación"
+            "Here are some demos to show you what Infohub can do with maps.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con los mapas",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "El cliente de Infohub no utiliza servicios de terceros. Todos los datos deben proceder del servidor",
+            "This is a %s": "Esto es un %s",
+            "%s is a 3rd party map streaming service.": "%s es un servicio de transmisión de mapas de terceros",
+            "In new tab": "En nueva pestaña"
         },
         "infohub_demo_menu": {
             "Demo Collection": "Colección Demo",
             "Text demo": "Demostración de texto",
             "Common objects demo": "Demostración de objetos comunes",
+            "SVG rendering demo": "demostración de representación SVG",
             "You get a frog": "Obtienes una rana",
+            "Video stream services": "Servicios de transmisión de video",
             "Audio stream services": "Servicios de transmisión de audio",
             "Map services": "Servicios de mapas",
             "Link - different kinds": "Enlace - diferentes tipos",
@@ -217,24 +212,101 @@
             "Tabs list": "Lista de pestañas",
             "Form - simple": "Forma - simple",
             "Form - Advanced": "Formulario - Avanzado",
-            "Document text": "Texto del documento"
+            "Table": "Tabla",
+            "Document text": "Texto del documento",
+            "Timer": "Temporizador",
+            "Storage": "Almacenamiento"
+        },
+        "infohub_demo_storage": {
+            "InfoHub Demo Storage": "Almacenamiento de demostración de InfoHub",
+            "You can test the Storage on the client and server": "Puede probar el almacenamiento en el cliente y el servidor",
+            "Write": "Escribir",
+            "Select options and press button to write": "Seleccione opciones y presione el botón para escribir",
+            "Node": "Nodo",
+            "Client": "Cliente",
+            "Server": "Servidor",
+            "Mode": "Modo",
+            "overwrite": "sobrescribir",
+            "merge": "fusionar",
+            "Path": "Ruta",
+            "/a/test1": "/a/test1",
+            "/b/test2": "/b/test2",
+            "/b/test3": "/b/test3",
+            "/c/test4": "/c/test4",
+            "All four": "Los cuatro",
+            "/b/*": "/b/*",
+            "Data": "Datos",
+            "Adam": "Adam",
+            "Bertil": "Bertil",
+            "Cesar": "Cesar",
+            "Flag true": "Marcar verdadero",
+            "Flag false": "Bandera falsa",
+            "Empty": "Vacío",
+            "Read": "Leer",
+            "Select options and press button to read": "Seleccione opciones y presione el botón para leer",
+            "Wanted data": "Datos buscados",
+            "First name": "Nombre",
+            "Last name": "Apellido",
+            "Here you will see the data we read from Storage": "Aquí verá los datos que leemos del almacenamiento",
+            "Read data": "Leer datos",
+            "The data read from Storage.": "Los datos leídos del almacenamiento"
+        },
+        "infohub_demo_svg": {
+            "Welcome to InfoHub Demo SVG": "Bienvenido a InfoHub Demo SVG",
+            "Here are some demos to show you what Infohub can do with Infohub SVG. If you instead want to use existing SVG files then have a look at infohub render common.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con Infohub SVG. Si en su lugar desea usar archivos SVG existentes, eche un vistazo a infohub render common",
+            "Rectange": "Rectángulo",
+            "A simple rectangle": "Un rectángulo simple",
+            "Circle": "Círculo",
+            "A simple circle": "Un círculo simple",
+            "Shadow": "Sombra",
+            "How to do shadows": "Cómo hacer sombras"
+        },
+        "infohub_demo_table": {
+            "Id": "Id",
+            "View": "Ver",
+            "Name": "Nombre",
+            "Year": "Año",
+            "Score": "Puntuación",
+            "E-mail": "Correo electrónico",
+            "Image": "Imagen",
+            "This is a legend": "Esta es una leyenda",
+            "Clicked row with ID:": "Fila clicada con ID:"
         },
         "infohub_demo_text": {
             "Welcome to InfoHub Demo Text": "Bienvenido al texto de demostración de InfoHub",
             "Plugin infohub_render_text is used in this demo. You can use text to bind together rendered objects.": "El complemento infohub_render_text se usa en esta demostración. Puede usar texto para unir objetos renderizados",
+            "The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.": "El renderizador de texto es el renderizador más importante de todos. Actúa como el pegamento que combina todas las demás piezas renderizadas",
+            "[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]": "[h2]Comandos incorporados[/h2] Puede hacer esto [:-)] [:-(] [(c)] [(r)] [tel] [eur], también puede usar [b]negrita[/b], [i]cursiva[/i], [u]subrayado[/u] o una línea como esta [line][br]",
+            "[h2]Columns[/h2]You can activate columns. Then you automatically get columns that your text can flow in. You can [light]highlight portions of the text like this[/light] ": "[h2]Columnas[/h2] Puede activar columnas. Luego obtendrá automáticamente columnas en las que su texto puede fluir. Puede [light] resaltar partes del texto como esta [/light] ",
+            "and you can include other elements in your text, for example: [my_external_link].": "y puede incluir otros elementos en su texto, por ejemplo: [my_external_link]",
+            "[h2]Zoom level[/h2]You can zoom the view in your browser. When you do that and the space is to narrow for the column, then it reduces the number of columns. You always get a readable view in all zoom levels.": "[h2]Nivel de zoom[/h2] Puede hacer zoom en la vista en su navegador. Cuando lo hace y el espacio es estrecho para la columna, entonces reduce el número de columnas. Siempre se puede leer ver en todos los niveles de zoom ",
+            "[h2]Sections[/h2]You see that the h2 sections do not wrap nice in the columns. There are css commands to fix that in most browsers. I have that on my todo list.": "[h2]Secciones[/h2] Ves que las secciones h2 no se ajustan bien en las columnas. Hay comandos css para arreglar eso en la mayoría de los navegadores. Lo tengo en mi lista de tareas pendientes",
             "My external link to the ABC club": "Mi enlace externo al club ABC"
+        },
+        "infohub_demo_timer": {
+            "Timer demo": "Demo del temporizador",
+            "Press the buttons to change the colours": "Presione los botones para cambiar los colores",
+            "Red": "Rojo",
+            "Green": "Verde",
+            "Blue": "Azul",
+            "Advanced Timer demo": "Demo avanzada del temporizador",
+            "Press the button to start the demo": "Presione el botón para iniciar la demostración",
+            "Advanced timer": "Temporizador avanzado",
+            "The result": "El resultado",
+            "Number": "Número",
+            "wait": "espera",
+            "Simulate sending": "Simular envío"
         },
         "infohub_demo_video": {
             "Welcome to InfoHub Demo Video": "Bienvenido al video de demostración de InfoHub",
-            "Here are some demos to show you what Infohub can do with embedded Video. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con el video incrustado. SIEMPRE debe usar un cuadro de presentación para material de terceros porque luego le da al usuario la opción de no hacer clic",
-            "First we have a Youtube presentation box. [youtube_major] And then we have a Vimeo video [vimeo_major] And here we have a Daily motion video. [dailymotion_major]": "Primero tenemos un cuadro de presentación de Youtube. [Youtube_major] Y luego tenemos un video de Vimeo [vimeo_major] Y aquí tenemos un video de movimiento diario. [Dailymotion_major]",
-            "This is a Youtube video": "Este es un video de Youtube",
-            "Youtube is a 3rd party video streaming service. Use it in a presentation box.": "YouTube es un servicio de transmisión de video de terceros. Úselo en un cuadro de presentación",
-            "In new tab": "En nueva pestaña",
-            "This is a Vimeo video": "Este es un video de Vimeo",
-            "Vimeo is a 3rd party video streaming service. Use it in a presentation box.": "Vimeo es un servicio de transmisión de video de terceros. Úselo en una caja de presentación",
-            "This is a Daily motion video": "Este es un video de movimiento diario",
-            "Daily motion is a 3rd party video streaming service. Use it in a presentation box.": "Daily Motion es un servicio de transmisión de video de terceros. Úselo en un cuadro de presentación"
+            "Here are some demos to show you what Infohub can do with video.": "Aquí hay algunas demostraciones para mostrarle lo que Infohub puede hacer con el video",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "Infohub Client no utiliza servicios de terceros. Todos los datos deben proceder del servidor",
+            "First we have a Youtube presentation box.": "Primero tenemos un cuadro de presentación de Youtube.",
+            "And then we have a Vimeo video": "Y luego tenemos un video de Vimeo",
+            "And here we have a Daily motion video.": "Y aquí tenemos un video de movimiento diario.",
+            "This is a %s": "Esto es un %s",
+            "%s is a 3rd party video streaming service.": "%s es un servicio de transmisión de video de terceros",
+            "In new tab": "En nueva pestaña"
         }
     }
 }

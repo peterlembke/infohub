@@ -180,7 +180,8 @@ function infohub_login_menu() {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'menu'
                 },
                 'data_back': {'step': 'step_end'}
             });

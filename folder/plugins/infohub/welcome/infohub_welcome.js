@@ -40,8 +40,7 @@ function infohub_welcome() {
         return {
             'startup': 'normal',
             'setup_gui': 'normal',
-            'event_message': 'normal',
-            'zoom': 'normal'
+            'click_menu': 'normal'
         };
     };
 
@@ -170,19 +169,36 @@ function infohub_welcome() {
 
         if ($in.step === 'step_menu')
         {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_welcome_welcome',
+                    'function': 'create'
+                },
+                'data': {
+                    'parent_box_id': $in.box_id,
+                    'translations': $classTranslations
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_welcome',
-                    'function': 'startup'
+                    'plugin': 'infohub_welcome_menu',
+                    'function': 'create'
                 },
                 'data': {
-                    'parent_box_id': $in.box_id
+                    'parent_box_id': $in.box_id,
+                    'translations': $classTranslations
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'step': 'step_end'
-                }
+                },
+                'messages': [$messageOut]
             });
         }
 
@@ -194,163 +210,44 @@ function infohub_welcome() {
     };
 
     /**
-     * First function to start
-     * Used by: index.php
-     * @version 2014-08-02
-     * @since 2013-04-12
+     * Handle the menu clicks
+     * @version 2019-03-13
+     * @since 2018-09-26
      * @author Peter Lembke
      */
-    $functions.push("startup");
-    const startup = function ($in)
+    $functions.push("click_menu");
+    const click_menu = function ($in)
     {
-        const $pluginName = 'infohub_welcome';
-        const $loadOption = 'welcome';
-
         const $default = {
-            'step': 'step_get_menu',
-            'parent_box_id': '1',
-            'callback_function': null,
-            'data': {}
+            'step': 'step_start',
+            'event_data': '',
+            'parent_box_id': ''
         };
         $in = _Default($default, $in);
 
-        if ($in.step === "step_get_menu")
+        if ($in.step === 'step_start')
         {
+            const $pluginName = _GetPluginName($in.event_data);
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': $pluginName + '_menu',
+                    'plugin': $pluginName,
                     'function': 'create'
                 },
                 'data': {
-                    'subtype': 'menu',
+                    'subtype': $in.event_data,
                     'parent_box_id': $in.parent_box_id,
                     'translations': $classTranslations
                 },
                 'data_back': {
-                    'subtype': 'menu',
-                    'parent_box_id': $in.parent_box_id,
-                    'step': 'step_get_menu_response'
+                    'step': 'step_end'
                 }
             });
-        }
-
-        if ($in.step === "step_get_menu_response")
-        {
-            if (_Empty($loadOption) === 'false') {
-                $in.data.data_back.step = 'step_get_' + $loadOption;
-            }
-            return _SubCall($in.data);
-        }
-
-        if ($in.step === ("step_get_" + $loadOption))
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': $pluginName + '_' + $loadOption,
-                    'function': 'create'
-                },
-                'data': {
-                    'subtype': $loadOption,
-                    'parent_box_id': $in.parent_box_id,
-                    'translations': $classTranslations
-                },
-                'data_back': {
-                    'subtype': $loadOption,
-                    'parent_box_id': $in.parent_box_id,
-                    'step': 'step_get_' + $loadOption + '_response'
-                }
-            });
-        }
-
-        if ($in.step === ('step_get_' + $loadOption + '_response')) {
-            return _SubCall($in.data);
         }
 
         return {
             'answer': 'true',
-            'message': 'startup is done'
-        };
-
-    };
-
-    /**
-     * The menu send all messages to here.
-     * The forms will have their own event functions in this plugin
-     * @version 2018-09-09
-     * @since   2018-09-09
-     * @author  Peter Lembke
-     */
-    $functions.push('event_message');
-    const event_message = function ($in)
-    {
-        const $default = {
-            'parent_id': '',
-            'box_id': '',
-            'step': 'step_start',
-            'event_data': '',
-            'data': null,
-            'type': '',
-            'event_type': '',
-            'parent_box_id': ''
-        };
-        $in = _Merge($default, $in);
-
-        if ($in.step === 'step_start') {
-
-            if ($in.type === 'button') {
-                if ($in.event_type === 'click') {
-
-                    const $pluginName = _GetPluginName($in.event_data);
-
-                    return _SubCall({
-                        'to': {
-                            'node': 'client',
-                            'plugin': $pluginName,
-                            'function': 'create'
-                        },
-                        'data': {
-                            'subtype': $in.event_data,
-                            'parent_box_id': $in.parent_box_id,
-                            'translations': $classTranslations
-                        },
-                        'data_back': {
-                            'step': 'step_start_response'
-                        }
-                    });
-                }
-            }
-
-            if ($in.type === 'submit') {
-                window.alert('This submit button works and goes to infohub_demo. This only happens if all data is valid.');
-            }
-
-        }
-
-        if ($in.step === 'step_start_response')
-        {
-            // @todo Is this really used?
-            if (Array.isArray($in.data)) {
-                // We have a multi message from the child plugin
-                return  {
-                    'answer': 'true',
-                    'message': 'Here comes a multi message',
-                    'messages': $in.data
-                };
-            } else {
-                // We have a normal message from the child plugin
-                return _SubCall($in.data);
-            }
-        }
-
-        if ($in.step === 'step_end') {
-            return {'answer': 'true', 'message': 'Done handling the event message' };
-        }
-
-        return {
-            'answer': 'false',
-            'message': 'Did not handle the event message'
+            'message': 'Menu click done'
         };
     };
 }

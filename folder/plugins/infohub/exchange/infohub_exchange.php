@@ -38,6 +38,12 @@ class infohub_exchange extends infohub_base {
         return $this->guestValid;
     }
 
+    protected $banned = 'true';
+    public function getBanned(): string
+    {
+        return $this->banned;
+    }
+
     protected $userName = '';
     protected function _GetUserName(): string
     {
@@ -199,8 +205,8 @@ class infohub_exchange extends infohub_base {
     }
 
     /**
-     * This message are added when all othermessages have been processed.
-     * Its purpose is to call infohub:_transfer -> send so that the processed
+     * This message are added when all other messages have been processed.
+     * Its purpose is to call infohub_transfer -> send so that the processed
      * messages answers can be sent back to the querying node.
      * @version 2020-04-07
      * @since 2016-01-31
@@ -326,7 +332,8 @@ class infohub_exchange extends infohub_base {
     /**
      * We get an incoming package and verify the sign_code
      * Then set a public class property
-     * @version 2020-04-18
+     * We also check the session ban time
+     * @version 2020-06-16
      * @since 2020-04-13
      * @author Peter Lembke
      * @param array $in
@@ -345,14 +352,7 @@ class infohub_exchange extends infohub_base {
             'answer' => 'false',
             'message' => '',
             'step' => 'step_simple_tests',
-            'response' => array(
-                'answer' => 'false',
-                'message' => '',
-                'sign_code_valid' => 'false',
-                'initiator_user_name' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array()
-            )
+            'response' => array()
         );
         $in = $this->_Default($default, $in);
 
@@ -361,10 +361,13 @@ class infohub_exchange extends infohub_base {
             'message' => 'Nothing to report',
             'sign_code_valid' => 'false',
             'guest_valid' => 'false',
-            'initiator_user_name' => ''
+            'initiator_user_name' => '',
+            'banned_until' => 0.0,
+            'banned_seconds' => 10.0,
+            'banned' => 'true'
         );
 
-        $allowedSteps = array('step_simple_tests', 'step_verify_sign_code_response');
+        $allowedSteps = array('step_simple_tests', 'step_verify_sign_code_response', 'step_check_banned_until_response');
         if (in_array($in['step'], $allowedSteps) === false) {
             $out['message'] = 'Step manipulation detected';
             $in['step'] = 'step_end';
@@ -407,10 +410,20 @@ class infohub_exchange extends infohub_base {
 
         if ($in['step'] === 'step_verify_sign_code_response') {
 
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'sign_code_valid' => 'false',
+                'initiator_user_name' => '',
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             $in['step'] = 'step_valid_sign_code';
 
             if ($in['response']['sign_code_valid'] === 'false') {
-                $out['message'] = $in['response']['message'];
+                $out['message'] = 'sign_code not valid. ' . $in['response']['message'];
                 $in['step'] = 'step_guest';
             }
         }
@@ -429,18 +442,48 @@ class infohub_exchange extends infohub_base {
             }
             $this->allowedClientPluginNamesLookupArray = $allowedClientPlugins;
 
-            $out = array(
-                'answer' => 'true',
-                'message' => 'Sign code is valid',
-                'sign_code_valid' => 'true',
-                'guest_valid' => 'false',
-                'initiator_user_name' => $in['response']['initiator_user_name']
-            );
-
             $this->signCodeValid = 'true';
             $this->sendAnswer = 'false';
             $this->userName = $out['initiator_user_name'];
             $this->sessionId = $in['package']['session_id'];
+            $this->banned = 'true';
+
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'check_banned_until'
+                ),
+                'data' => array(),
+                'data_back' => array(
+                    'package' => $in['package'],
+                    'step' => 'step_check_banned_until_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_check_banned_until_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'banned_until' => 0.0,
+                'banned_seconds' => 0.0,
+                'banned' => 'true' // If you were banned before you got the standard ban time
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out = array(
+                'answer' => $in['response']['answer'],
+                'message' => 'Sign code is valid. ' . $in['response']['message'],
+                'sign_code_valid' => 'true',
+                'guest_valid' => 'false',
+                'initiator_user_name' => $this->userName,
+                'banned_until' => $in['response']['banned_until'],
+                'banned_seconds' => $in['response']['banned_seconds'],
+                'banned' => $in['response']['banned']
+            );
+
+            $this->banned = $in['response']['banned'];
         }
 
         if ($in['step'] === 'step_guest') {
@@ -449,7 +492,7 @@ class infohub_exchange extends infohub_base {
             $allowedServerPlugins = array(
                 'infohub_plugin' => array('plugins_request' => 1),
                 'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
-                'infohub_session' => array('responder_end_session' => 1),
+                'infohub_session' => array('responder_end_session' => 1, 'responder_check_session_valid' => 1),
                 'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
                 'infohub_launcher' => array('get_full_list' => 1)
             );
@@ -490,18 +533,28 @@ class infohub_exchange extends infohub_base {
             );
             $this->allowedClientPluginNamesLookupArray = $allowedClientPlugins;
 
+            $guestBannedSeconds = 1.0;
+
             $out = array(
                 'answer' => 'true',
                 'message' => 'Guest is valid',
                 'sign_code_valid' => 'false',
                 'guest_valid' => 'true',
-                'initiator_user_name' => 'guest'
+                'initiator_user_name' => 'guest',
+                'banned_until' => $this->_MicroTime() + $guestBannedSeconds,
+                'banned_seconds' => $guestBannedSeconds,
+                'banned' => 'false'
             );
 
             $this->guestValid = 'true';
             $this->sendAnswer = 'false';
             $this->userName = $out['initiator_user_name'];
             $this->sessionId = '';
+            $this->banned = 'false';
+        }
+
+        if ($this->banned === 'true') {
+            $a = 1; // For debug purposes
         }
 
         return $out;
@@ -543,6 +596,11 @@ class infohub_exchange extends infohub_base {
         }
 
         foreach ($in['package']['messages'] as $message) {
+
+            if (isset($message['data']['step']) === true) {
+                unset($message['data']['step']); // Client is not allowed to manipulate the step parameter
+            }
+
             $message['func'] = 'MessageCheck';
             $response = $this->internal_Cmd($message);
 

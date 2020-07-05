@@ -19,13 +19,13 @@
 // See bottom of this plugin for the command that trigger this start class
 function infohub_start($progress) {
 
-    var $globalOnline = 'true', // Indicate if the server have answered or not
+    "use strict";
+
+    let $globalOnline = 'true', // Indicate if the server have answered or not
         $globalOnlineTimer = 0; // When server have not answered then $globalOnline is 'false' for 30 seconds
 
     this.start = function ()
     {
-        "use strict";
-
         $progress.whatArea('start',0, 'START');
 
         if ($globalOnline === 'true') {
@@ -52,6 +52,29 @@ function infohub_start($progress) {
     };
 
     /**
+     * My definition of an empty variable
+     * @param $object
+     * @returns {*}
+     * @private
+     */
+    const _Empty = function ($object)
+    {
+        if (typeof $object === 'undefined' || $object === null) {
+            return 'true';
+        }
+
+        if (typeof $object === 'object' && _Count($object) === 0) {
+            return 'true';
+        }
+
+        if (typeof $object === 'string' && $object === '') {
+            return 'true';
+        }
+
+        return 'false';
+    };
+
+    /**
      * Set/Check the cold_start flag in localStorage
      * Will be removed in the end of this file when the first message have been sent. See end of _SendFirstMessage
      * @param {type} $in
@@ -59,10 +82,8 @@ function infohub_start($progress) {
      */
     const _ColdStart = function ()
     {
-        "use strict";
-
         let $failedStarts = localStorage.getItem('cold_start');
-        if ($failedStarts == null) {
+        if (_Empty($failedStarts) === 'true') {
             $failedStarts = 0;
         }
         $failedStarts = parseInt($failedStarts);
@@ -104,7 +125,7 @@ function infohub_start($progress) {
 
         setTimeout(function() {
             let $failedStarts = localStorage.getItem('cold_start');
-            if ($failedStarts == null) {
+            if (_Empty($failedStarts) === 'true') {
                 $failedStarts = 0;
             }
             $failedStarts = parseInt($failedStarts);
@@ -139,8 +160,6 @@ function infohub_start($progress) {
      */
     const _GetCorePluginNames = function ()
     {
-        "use strict";
-
         return [
             'infohub_cache',
             'infohub_exchange',
@@ -155,8 +174,6 @@ function infohub_start($progress) {
      */
     const _GetNeededPluginNames = function ()
     {
-        "use strict";
-
         return [
             'infohub_asset',
             'infohub_base',
@@ -203,8 +220,6 @@ function infohub_start($progress) {
      */
     const _GetMissingPluginNames = function ($corePluginNames)
     {
-        "use strict";
-
         const $numberOfCorePluginNames = _Count($corePluginNames);
         let $missingCorePluginNames = [];
         let $number = 0;
@@ -239,8 +254,6 @@ function infohub_start($progress) {
      */
     const _Count = function ($object)
     {
-        "use strict";
-
         if (Array.isArray($object)) {
             return $object.length;
         }
@@ -255,13 +268,11 @@ function infohub_start($progress) {
     /**
      * Returns a package with one message requesting missing required plugins from the server node
      * @param $missingPluginNames
-     * @returns {}
+     * @returns {{sign_code: string, session_id: string, messages_encoded_length: number, sign_code_created_at: string, package_type: string, messages_encoded: string}}
      * @private
      */
     const _GetPackage = function ($missingPluginNames)
     {
-        "use strict";
-
         const $message = {
             'to': {
                 'node': 'server',
@@ -307,11 +318,10 @@ function infohub_start($progress) {
     /**
      * AJAX call to the server
      * @param $package
+     * @private
      */
     const _CallServer = function ($package)
     {
-        "use strict";
-
         let xmlHttp = new XMLHttpRequest();
         const $content = JSON.stringify($package);
         const $url = 'infohub.php';
@@ -379,8 +389,6 @@ function infohub_start($progress) {
      */
     const _SetGlobalOnline = function ($value)
     {
-        "use strict";
-
         if ($value !== 'true' && $value !== 'false') {
             return;
         }
@@ -440,11 +448,10 @@ function infohub_start($progress) {
     /**
      * Handles the AJAX response from the server
      * @param $serverResponse
+     * @private
      */
     const _HandleServerResponse = function ($serverResponse)
     {
-        "use strict";
-
         $progress.whatArea('server_response',0, 'Server response - handle the data');
 
         const $response = _GetMessagesFromResponse($serverResponse);
@@ -454,7 +461,7 @@ function infohub_start($progress) {
             return;
         }
 
-        if ($response.items.plugins.length == 0) {
+        if ($response.items.plugins.length === 0) {
             alert('Did not get the missing plugins from the server');
             return;
         }
@@ -472,8 +479,6 @@ function infohub_start($progress) {
      */
     const _GetMessagesFromResponse = function ($response)
     {
-        "use strict";
-
         let $answer = 'false';
         let $message = '';
 
@@ -483,7 +488,7 @@ function infohub_start($progress) {
 
         leave:
         {
-            if ($messages.length == 0) {
+            if ($messages.length === 0) {
                 $message = 'Got no messages back from the server';
                 break leave;
             }
@@ -527,8 +532,6 @@ function infohub_start($progress) {
      */
     const _StorePlugins = function ($plugins)
     {
-        "use strict";
-
         const $areaCode = 'store_plugin';
         const $textPrefix = 'Store prefix - ';
 
@@ -536,7 +539,7 @@ function infohub_start($progress) {
 
         let $index = localStorage.getItem('plugin_index');
 
-        if ($index == null) {
+        if (_Empty($index) === 'true') {
             $index = {};
         } else {
             $index = JSON.parse($index);
@@ -552,7 +555,7 @@ function infohub_start($progress) {
                 continue;
             }
 
-            $number++;
+            $number = $number + 1;
             $partPercent = $number / $numberOfPluginsToStore * 100;
             const $text = $textPrefix + $pluginName + '...';
             $progress.whatArea($areaCode, $partPercent, $text);
@@ -561,7 +564,7 @@ function infohub_start($progress) {
             localStorage.setItem('plugin_' + $pluginName, $pluginJsonData);
 
             $index[$pluginName] = {
-                'checksum': $plugins[$pluginName]['plugin_checksum'],
+                'checksum': $plugins[$pluginName].plugin_checksum,
                 'timestamp_added': _MicroTime()
             };
 
@@ -578,8 +581,6 @@ function infohub_start($progress) {
      */
     const _MicroTime = function ()
     {
-        "use strict";
-
         const $microtime = (new Date()).getTime() / 1000.0;
 
         return $microtime;
@@ -593,8 +594,6 @@ function infohub_start($progress) {
      */
     const _StartCore = function ($corePluginNames)
     {
-        "use strict";
-
         const $response = _StartPlugins($corePluginNames);
 
         if ($response.answer === 'true') {
@@ -614,8 +613,6 @@ function infohub_start($progress) {
      */
     const _StartPlugins = function ($corePluginNames)
     {
-        "use strict";
-
         const $areaCode = 'start_core_plugin';
 
         let $out = {
@@ -732,8 +729,6 @@ function infohub_start($progress) {
      */
     const _SendFirstMessage = function ()
     {
-        "use strict";
-
         $progress.whatArea('send_first_message',0, 'Will send the first message');
 
         const $message = {
@@ -778,7 +773,6 @@ function infohub_start($progress) {
             // The first command in start.js is to check this flag. We have gone so far now that it is time to reset the flag.
 
         }, 0.0);
-
     };
 }
 
@@ -789,6 +783,8 @@ function infohub_start($progress) {
  */
 function infohubCallMainHandler($eventData)
 {
+    "use strict";
+
     const $in = $eventData.detail;
 
     /*
@@ -820,6 +816,6 @@ function infohubCallMainHandler($eventData)
 }
 document.addEventListener("infohub_call_main", infohubCallMainHandler, false);
 
-var $infohub_start = new infohub_start($progress);
+const $infohub_start = new infohub_start($progress); // $progress are declared in another file
 $infohub_start.start();
 //# sourceURL=start.js

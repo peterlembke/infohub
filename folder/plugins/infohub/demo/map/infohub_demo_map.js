@@ -105,14 +105,15 @@ function infohub_demo_map() {
                         },
                         'ingress': {
                             'type': 'common',
-                            'subtype': 'value',
-                            'data': _Translate('Here are some demos to show you what Infohub can do with embedded Map. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.')
+                            'subtype': 'join',
+                            'data0': _Translate('Here are some demos to show you what Infohub can do with maps.'),
+                            'data1': _Translate('Infohub Client do not use 3rd party services. All data must come from the server')
                         },
                         'openstreetmap_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Openstreet map'),
-                            'foot_text': _Translate('Openstreetmap is a 3rd party map streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Openstreet map']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Openstreetmap']),
                             'content_data': '[openstreetmap_icon]',
                             'content_embed': '[openstreetmap_map]',
                             'content_embed_new_tab': '[openstreetmap_map_link]'
@@ -132,19 +133,21 @@ function infohub_demo_map() {
                             'type': 'map',
                             'subtype': 'openstreetmap',
                             'point_latitude': '59.294597',
-                            'point_longitude': '18.156281'
+                            'point_longitude': '18.156281',
+                            'label': _Translate('In new tab')
                         },
                         'openstreetmap_map_link': {
                             'type': 'map',
                             'subtype': 'openstreetmaplink',
                             'point_latitude': '59.294597',
-                            'point_longitude': '18.156281'
+                            'point_longitude': '18.156281',
+                            'label': _Translate('In new tab')
                         },
                         'googlemaps_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Googlemaps'),
-                            'foot_text': _Translate('Googlemaps is a 3rd party map streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Googlemaps']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Googlemaps']),
                             'content_data': '[googlemaps_icon]',
                             'content_embed': '[googlemaps_map]',
                             'content_embed_new_tab': '[googlemaps_map_link]'
@@ -164,19 +167,21 @@ function infohub_demo_map() {
                             'type': 'map',
                             'subtype': 'googlemaps',
                             'point_latitude': '59.294597',
-                            'point_longitude': '18.156281'
+                            'point_longitude': '18.156281',
+                            'label': _Translate('In new tab')
                         },
                         'googlemaps_map_link': {
                             'type': 'map',
                             'subtype': 'googlemapslink',
                             'point_latitude': '59.294597',
-                            'point_longitude': '18.156281'
+                            'point_longitude': '18.156281',
+                            'label': _Translate('In new tab')
                         },
                         'bing_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Bing map'),
-                            'foot_text': _Translate('Bing is a 3rd party map streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Bing map']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Bing map']),
                             'content_data': '[bing_icon]',
                             'content_embed': '[bing_map]',
                             'content_embed_new_tab': '[bing_map_link]'
@@ -198,13 +203,15 @@ function infohub_demo_map() {
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
                             'height': '500',
-                            'width': '500'
+                            'width': '500',
+                            'label': _Translate('In new tab')
                         },
                         'bing_map_link': {
                             'type': 'map',
                             'subtype': 'bingmapslink',
                             'point_latitude': '59.294597',
-                            'point_longitude': '18.156281'
+                            'point_longitude': '18.156281',
+                            'label': _Translate('In new tab')
                         }
                     },
                     'how': {
@@ -215,7 +222,8 @@ function infohub_demo_map() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'map'
                 },
                 'data_back': {'step': 'step_end'}
             });

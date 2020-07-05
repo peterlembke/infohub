@@ -53,6 +53,8 @@
             "Login": "Logga in",
             "Here you can use the contact data you imported and login to the server": "Här kan du använda kontaktdata som du importerade och logga in på servern",
             "Password": "Lösenord",
+            "login result": "inloggningsresultat",
+            "The password you need to decode the shared_secret": "Lösenordet du behöver för att avkoda den delade hemligheten",
             "Reload after login": "Ladda om sidan efter inloggning",
             "Select file": "Välj fil",
             "You are already logged in": "Du är redan inloggad",
@@ -68,7 +70,9 @@
         },
         "infohub_login_logout": {
             "Logout": "Logga ut",
+            "logout result": "Resultat av utloggning",
             "Here you can logout from the server": "Här kan du logga ut från servern",
+            "If successful then the login page shows": "Om det lyckas visas inloggningssidan",
             "Reload after logout": "Ladda om sidan efter utloggning",
             "Failed to logout": "Det gick inte att logga ut",
             "Success logging out": "Du är nu utloggad"
@@ -86,7 +90,9 @@
             "Set password": "Ställ in lösenord",
             "When you set your local password you scramble the shared secret so that it require your password to work": "När du ställer in ditt lokala lösenord kryper du den delade hemligheten så att det kräver att ditt lösenord fungerar",
             "Current password": "Aktuellt lösenord",
+            "Leave blank if you have none": "Lämna tomt om du inte har något",
             "New password": "Nytt lösenord",
+            "Leave blank if you want to remove the password": "Lämna tomt om du vill ta bort lösenordet",
             "Change password": "Ändra lösenord"
         }
     }

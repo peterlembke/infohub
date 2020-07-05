@@ -73,7 +73,7 @@ function infohub_checksum() {
         if ($in.step === 'start_step') {
 
             const $functionName = 'Calculate' + _UcWords($in.type);
-            if (_MethodExists('internal_' + $functionName) === true) {
+            if (_MethodExists('internal_' + $functionName) === 'true') {
                 return internal_Cmd({
                     'func': $functionName,
                     'value': $in.value
@@ -132,7 +132,7 @@ function infohub_checksum() {
         if ($in.step === 'start_step') {
 
             const $functionName = 'Verify' + _UcWords($in.type);
-            if (_MethodExists('internal_' + $functionName) === true) {
+            if (_MethodExists('internal_' + $functionName) === 'true') {
                 return internal_Cmd({
                     'func': $functionName,
                     'value': $in.value,

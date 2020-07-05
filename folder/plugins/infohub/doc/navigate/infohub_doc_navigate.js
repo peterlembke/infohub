@@ -159,7 +159,8 @@ function infohub_doc_navigate() {
                         'box_id': $boxId,
                         'max_width': 0,
                         'scroll_to_box_id': 'false'
-                    }
+                    },
+                    'cache_key': 'navigate'
                 },
                 'data_back': {
                     'step': 'step_end'

@@ -23,9 +23,9 @@ function infohub_demo_audio() {
 
     const _Version = function() {
         return {
-            'date': '2019-03-28',
+            'date': '2020-07-05',
             'since': '2018-04-15',
-            'version': '2.0.0',
+            'version': '2.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_demo_audio',
             'note': 'Render a audio demo for infohub_demo',
@@ -108,14 +108,15 @@ function infohub_demo_audio() {
                         },
                         'ingress': {
                             'type': 'common',
-                            'subtype': 'value',
-                            'data': _Translate('Here are some demos to show you what Infohub can do with embedded Audio. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.')
+                            'subtype': 'join',
+                            'data0': _Translate('Here are some demos to show you what Infohub can do with audio.'),
+                            'data1': _Translate('Infohub Client do not use 3rd party services. All data must come from the server')
                         },
                         'jamendo_album_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Jamendo audio album'),
-                            'foot_text': _Translate('Jamendo is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Jamendo audio album']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Jamendo']),
                             'content_data': '[jamendo_icon]',
                             'content_embed': '[jamendo_album_audio]',
                             'content_embed_new_tab': '[jamendo_album_audio_link]'
@@ -134,19 +135,20 @@ function infohub_demo_audio() {
                         'jamendo_album_audio': {
                             'type': 'audio',
                             'subtype': 'jamendo',
-                            'data': 'album/170617'
+                            'data': 'album/170617',
+                            'label': _Translate('In new tab')
                         },
                         'jamendo_album_audio_link': {
                             'type': 'audio',
                             'subtype': 'jamendolink',
                             'data': 'album/170617',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         },
                         'jamendo_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Jamendo audio track'),
-                            'foot_text': _Translate('Jamendo is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Jamendo audio track']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Jamendo']),
                             'content_data': '[jamendo_icon]',
                             'content_embed': '[jamendo_audio]',
                             'content_embed_new_tab': '[jamendo_audio_link]'
@@ -154,19 +156,20 @@ function infohub_demo_audio() {
                         'jamendo_audio': {
                             'type': 'audio',
                             'subtype': 'jamendo',
-                            'data': 'track/798935'
+                            'data': 'track/798935',
+                            'label': _Translate('In new tab')
                         },
                         'jamendo_audio_link': {
                             'type': 'audio',
                             'subtype': 'jamendolink',
                             'data': 'track/798935',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         },
                         'soundcloud_playlist_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Soundcloud audio playlist'),
-                            'foot_text': _Translate('Soundcloud is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Soundcloud audio playlist']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Soundcloud']),
                             'content_data': '[soundcloud_icon]',
                             'content_embed': '[soundcloud_playlist_audio]',
                             'content_embed_new_tab': '[soundcloud_playlist_audio_link]'
@@ -185,19 +188,20 @@ function infohub_demo_audio() {
                         'soundcloud_playlist_audio': {
                             'type': 'audio',
                             'subtype': 'soundcloud',
-                            'data': 'playlists/192596153'
+                            'data': 'playlists/192596153',
+                            'label': _Translate('In new tab')
                         },
                         'soundcloud_playlist_audio_link': {
                             'type': 'audio',
                             'subtype': 'soundcloudlink',
                             'data': 'playlists/192596153',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         },
                         'soundcloud_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Soundcloud audio track'),
-                            'foot_text': _Translate('Soundcloud is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Soundcloud audio track']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Soundcloud']),
                             'content_data': '[soundcloud_icon]',
                             'content_embed': '[soundcloud_audio]',
                             'content_embed_new_tab': '[soundcloud_audio_link]'
@@ -205,19 +209,20 @@ function infohub_demo_audio() {
                         'soundcloud_audio': {
                             'type': 'audio',
                             'subtype': 'soundcloud',
-                            'data': 'tracks/202060685'
+                            'data': 'tracks/202060685',
+                            'label': _Translate('In new tab')
                         },
                         'soundcloud_audio_link': {
                             'type': 'audio',
                             'subtype': 'soundcloudlink',
                             'data': 'tracks/202060685',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         },
                         'spotify_album_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Spotify audio album'),
-                            'foot_text': _Translate('Spotify is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Spotify audio album']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Spotify']),
                             'content_data': '[spotify_icon]',
                             'content_embed': '[spotify_album_audio]',
                             'content_embed_new_tab': '[spotify_album_audio_link]'
@@ -225,19 +230,20 @@ function infohub_demo_audio() {
                         'spotify_album_audio': {
                             'type': 'audio',
                             'subtype': 'spotify',
-                            'data': 'album/1CuFf5IslmlCno7DAFjrt9'
+                            'data': 'album/1CuFf5IslmlCno7DAFjrt9',
+                            'label': _Translate('In new tab')
                         },
                         'spotify_album_audio_link': {
                             'type': 'audio',
                             'subtype': 'spotifylink',
                             'data': 'album/1CuFf5IslmlCno7DAFjrt9',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         },
                         'spotify_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Spotify audio track'),
-                            'foot_text': _Translate('Spotify is a 3rd party audio streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Spotify audio track']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Spotify']),
                             'content_data': '[spotify_icon]',
                             'content_embed': '[spotify_audio]',
                             'content_embed_new_tab': '[spotify_audio_link]'
@@ -256,13 +262,14 @@ function infohub_demo_audio() {
                         'spotify_audio': {
                             'type': 'audio',
                             'subtype': 'spotify',
-                            'data': 'track/6o56JEMxnUMPmO4qjWnjc9'
+                            'data': 'track/6o56JEMxnUMPmO4qjWnjc9',
+                            'label': _Translate('In new tab')
                         },
                         'spotify_audio_link': {
                             'type': 'audio',
                             'subtype': 'spotifylink',
                             'data': 'track/6o56JEMxnUMPmO4qjWnjc9',
-                            'label': 'In new tab'
+                            'label': _Translate('In new tab')
                         }
                     },
                     'how': {
@@ -273,7 +280,8 @@ function infohub_demo_audio() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'audio'
                 },
                 'data_back': {'step': 'step_end'}
             });

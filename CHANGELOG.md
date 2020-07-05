@@ -9,28 +9,39 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 ## [Unreleased]
 **Below is the aim for version 1.3.0**
+- Infohub_Tree
+This is THE application!!
 
-- Full login and rights system.
+**Below is the aim for version 1.2.18**
+- Bug fixes that are already found but not severe enough to stop 1.2.16.
 
-**Below is the aim for version 1.2.16**
+**Below is the aim for version 1.2.17**
+- SVG Graphics, motion backgrounds, background audio to be used in marketing
+- Marketing Infohub with articles and videos
+- Add some material to the Infohub repo as a release
 
-- Remove all @todo from the code. There are 28 of them.
+## [1.2.16] - 2020-07-05
 
-# [1.2.15] - 2020-05-17
+* [Release notes](main,release_v1v2v16)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.16)
+
+Added a rendering cache. Improved Storage and a demo. Some @todo fixed. Assets cached better. Improved login.  Client transfer with banned_until now works. Translations added. Improved icons. Style added.  
+
+## [1.2.15] - 2020-05-17
 
 * [Release notes](main,release_v1v2v15)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.15)
 
 Focused on support for large responses. Regression issues. Installation documentation. Configuration files.
 
-# [1.2.14] - 2020-05-16
+## [1.2.14] - 2020-05-16
 
 * [Release notes](main,release_v1v2v14)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.14)
 
 Focused on the communication with messages_encoded, login procedure, rights, prepared security group tags, localization to swedish, english, spanish. Regressions fixed. Communication Packages from server are now formatted the same way as the client packages and the sign_code are verified.
 
-# [1.2.13] - 2020-04-30
+## [1.2.13] - 2020-04-30
 
 * [Release notes](main,release_v1v2v13)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.13)

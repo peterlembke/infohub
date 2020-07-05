@@ -544,7 +544,7 @@ function infohub_configlocal() {
 
             for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
                 const $path = 'infohub_configlocal/' + $in.section_names_array[$i];
-                $paths[$path]= 1;
+                $paths[$path]= {}; // Empty object means you want all data
             }
 
             return _SubCall({

@@ -159,7 +159,8 @@ function infohub_configlocal_language() {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'language'
                 },
                 'data_back': {
                     'parent_box_id': $in.parent_box_id,
@@ -453,6 +454,5 @@ function infohub_configlocal_language() {
         };
 
     };
-
 }
 //# sourceURL=infohub_configlocal_language.js

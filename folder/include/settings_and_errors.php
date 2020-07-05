@@ -18,21 +18,6 @@ declare(strict_types=1);
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 
-$mode = 'developer'; // developer or production
-
-$opcacheRestricted = ini_get('opcache.restrict_api');
-if (is_string($opcacheRestricted) === true) {
-    $opcacheRestricted = ! trim(ini_get('opcache.restrict_api')) === '';
-}
-
-if ($mode === 'developer') {
-    if (function_exists('opcache_reset') === true) {
-        if ($opcacheRestricted == false) {
-            // opcache_reset();
-        }
-    }
-}
-
 // ALL ini_set is here
 ini_set('zlib.output_compression','4096');
 ini_set('memory_limit', '16M');
@@ -41,10 +26,6 @@ ini_set('default_socket_timeout', '4'); // seconds
 
 ini_set('post_max_size', '2M');
 ini_set('upload_max_filesize', '2M');
-
-if ($opcacheRestricted == false) {
-    // ini_set('opcache.enable', '1'); // set to '1' when in production
-}
 
 // Set a default time zone. If you exclude this row then you will get an error
 // See: https://www.php.net/manual/en/timezones.php

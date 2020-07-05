@@ -357,7 +357,7 @@ function infohub_workbench() {
                             'alias': 'menuimage',
                             'class': 'svg noselect',
                             'css_data': {
-                                '.svg': 'width:64px; height:64px; padding:2px; max-width:80px;'
+                                '.svg': 'width: 64px; height: 64px; padding: 2px; box-sizing: border-box;'
                             }
                         },
                         'menuiconasset': {
@@ -374,7 +374,7 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:0.9em; text-align:center; height:32px;'
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:0.7em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;'
                             }
                         },
                         'menulink': {
@@ -390,7 +390,7 @@ function infohub_workbench() {
                             'final_function': 'render_long_click_gui',
                             'long_click_event': 'true',
                             'css_data': {
-                                '.yes': 'background-color: #b2de98;'
+                                '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         }
                     },
@@ -400,7 +400,8 @@ function infohub_workbench() {
                     },
                     'where': {
                         'box_id': 'main.head.' + $in.plugin_name
-                    }
+                    },
+                    'cache_key': 'addicon_' + $in.plugin_name
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,

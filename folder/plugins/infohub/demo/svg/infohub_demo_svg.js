@@ -220,7 +220,8 @@ function infohub_demo_svg() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 640,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'svg'
                 },
                 'data_back': {'step': 'step_end'}
             });

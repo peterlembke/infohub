@@ -3,9 +3,27 @@ How to install Infohub on your server
 
 # requirements
 InfoHub require a web server that run a [supported PHP](https://www.php.net/supported-versions.php) and the [latest version](https://browsehappy.com/) of a modern web browser.
-If you use login then you need a supported database server like MariaDb. 
+
+If you use login then you need a supported database server like MariaDb / MySQL / SQlite3 / Redis / PostgreSQL. 
 
 # Installation
+
+## Install a LAMP server
+You find a [guide here for Ubuntu 20.04](https://websiteforstudents.com/how-to-install-the-lamp-stack-on-ubuntu-20-04-18-04/). The guide also works well on Raspberry Pi running Ubuntu. Do not install extra PPAs, just jump to install PHP 7.4.
+
+You can also install these:
+```
+sudo apt-get install php7.4-sqlite3
+sudo apt-get install php7.4-redis
+sudo apt-get install redis-server
+sudo apt-get install php7.4-gnupg
+sudo systemctl restart apache2.service
+```
+
+## Set up the domain names
+Your LAMP server need one or more nice domain names. It is called VHOST. 
+If you can read Swedish then you can follow this guide: [Flera domännamn på samma webserver i Ubuntu](http://www.charzam.com/2017/06/02/1342/flera-domannamn-pa-samma-webserver/) or this one [VHOST på MacOS](http://www.charzam.com/2016/08/07/1240/satta-upp-vhost-pa-osx-apache/)
+Or you can internet search for vhost apache2 and your operating system.
 
 ## Get the code
 - Clone or download the files from Github
@@ -46,4 +64,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2016-04-02 by Peter Lembke  
-Changed 2020-05-17 by Peter Lembke  
+Changed 2020-07-01 by Peter Lembke  

@@ -33,7 +33,6 @@ class kickOut
         $this->quickTests();
         $this->httpRefererTest();
         $this->validCookies();
-        $this->removeUnknownFilesAndFolders();
         $package = $this->checkAndUpdatePackageParameters();
 
         return $package;
@@ -129,29 +128,6 @@ class kickOut
     }
 
     /**
-     * I have a list of what files should be in the public folder. The rest will be deleted here
-     */
-    protected function removeUnknownFilesAndFolders(): void
-    {
-        $foundFiles = scandir('.');
-        $acceptedFiles = array('.', '..', 'callback.php', 'index.php', 'infohub.php', 'phpinfo.php', 'test.php', 'testmenu.php', 'define_folders.php', '.htaccess', 'fullstop.flag', 'manifest.json', 'infohub.png', 'infohub-512.png', 'serviceworker.js');
-        $removeFiles = array_diff($foundFiles, $acceptedFiles);
-        if (count($removeFiles) > 0) {
-            foreach ($removeFiles as $file) {
-                if (is_file($file) === true) {
-                    unlink($file); // Remove files that are not on the accepted list
-                    continue;
-                }
-                if (is_dir($file) === true) {
-                    rmdir($file); // Remove folders that are not on the accepted list
-                    continue;
-                }
-            }
-            $this->GetOut('Found files that are not accepted in the server root folder:' . implode(',', $removeFiles));
-        }
-    }
-
-    /**
      * Basic tests that the package is valid
      */
     protected function checkAndUpdatePackageParameters(): array
@@ -180,7 +156,8 @@ class kickOut
             'sign_code_created_at' => 1,
             'messages_encoded' => 1,
             'messages_encoded_length' => 1,
-            'package_type' => 1
+            'package_type' => 1,
+            'messages' => 2 // for debug purposes. Set in infohub_transfer.json
         );
 
         foreach ($package as $name => $data) {
@@ -192,6 +169,9 @@ class kickOut
 
         foreach ($requiredPropertyNameArray as $requiredPropertyName => $dummyValue) {
             if (isset($package[$requiredPropertyName]) === false) {
+                if ($dummyValue === 2) {
+                    continue; // A property we only use some times for debug purposes
+                }
                 $this->GetOut('Server says: Package parameter missing: ' . $requiredPropertyName);
             }
         }
@@ -258,8 +238,8 @@ class kickOut
             'data' => array(
                 'answer' => 'false',
                 'data' => 0,
-                'banned_until' => 0,
-                'ban_seconds' => 0,
+                'banned_until' => 0.0,
+                'ban_seconds' => 0.0,
                 'message' => $message
             )
         );

@@ -136,7 +136,7 @@ function infohub_demo_menu() {
                                 'video_demo': {
                                     'alias': 'video_demo_link',
                                     'event_data': 'video',
-                                    'button_label': 'Video stream services',
+                                    'button_label': _Translate('Video stream services'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
                                 },
@@ -216,6 +216,13 @@ function infohub_demo_menu() {
                                     'button_label': _Translate('Timer'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu'
+                                },
+                                'storage_demo': {
+                                    'alias': 'storage_demo_link',
+                                    'event_data': 'storage',
+                                    'button_label': _Translate('Storage'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu'
                                 }
                             }
                         }
@@ -228,7 +235,8 @@ function infohub_demo_menu() {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'menu'
                 },
                 'data_back': {
                     'step': 'step_end'

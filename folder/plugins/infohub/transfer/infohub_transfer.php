@@ -74,18 +74,13 @@ class infohub_transfer extends infohub_base {
             'step' => 'step_sign_code',
             'to_node' => array(),
             'config' => array(
-                'session_id' => ''
+                'session_id' => '',
+                'add_clear_text_messages' => 'false' // for debug purposes
             ),
             'data_back' => array(
                 'package' => array()
             ),
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'Nothing to report',
-                'sign_code' => '',
-                'sign_code_created_at' => '',
-                'session_id' => ''
-            )
+            'response' => array()
         );
         $in = $this->_Default($default, $in);
 
@@ -119,27 +114,21 @@ class infohub_transfer extends infohub_base {
                     'package_type' => '2020',
                     'session_id' => $in['config']['session_id'],
                     'sign_code' => '',
-                    'sign_code_created_at' => ''
+                    'sign_code_created_at' => '',
+                    'banned_seconds' => 0.0,
+                    'banned_until' => 0.0
                 );
-
-                $bannedSecondsLeft = 0; // $_SESSION['banned_until'] - microtime(true);
-                $package['ban_seconds'] = $bannedSecondsLeft;
-
-                $package['banned_until'] = microtime(true); // $_SESSION['banned_until'];
 
                 $messageOut = $this->_SubCall(array(
                     'to' => array(
                         'node' => 'server',
                         'plugin' => 'infohub_session',
-                        'function' => 'responder_calculate_sign_code'
+                        'function' => 'get_banned_until'
                     ),
-                    'data' => array(
-                        'session_id' => $in['config']['session_id'],
-                        'messages_checksum' => $messagesChecksum, // md5 checksum of all messages in the package
-                    ),
+                    'data' => array(),
                     'data_back' => array(
                         'package' => $package,
-                        'step' => 'step_sign_code_response'
+                        'step' => 'step_get_banned_until_response'
                     ),
                 ));
 
@@ -150,7 +139,52 @@ class infohub_transfer extends infohub_base {
             $in['step'] = 'step_end';
         }
 
+        if ($in['step'] === 'step_get_banned_until_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'banned_until' => 0.0,
+                'banned_seconds' => 0.0,
+                'banned' => 'true'
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $in['data_back']['package']['banned_seconds'] = $in['response']['banned_seconds'];
+            $in['data_back']['package']['banned_until'] = $in['response']['banned_until'];
+
+            $in['step'] = 'step_sign_code';
+            if ($in['config']['session_id'] === '') {
+                $in['step'] = 'step_respond';
+            }
+        }
+
+        if ($in['step'] === 'step_sign_code') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'responder_calculate_sign_code'
+                ),
+                'data' => array(
+                    'session_id' => $in['config']['session_id'],
+                    'messages_checksum' => $in['data_back']['package']['messages_checksum'], // md5 checksum of all messages in the package
+                ),
+                'data_back' => array(
+                    'package' => $in['data_back']['package'],
+                    'step' => 'step_sign_code_response'
+                ),
+            ));
+        }
+
         if ($in['step'] === 'step_sign_code_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'sign_code' => '',
+                'sign_code_created_at' => '',
+                'session_id' => ''
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
 
             $in['data_back']['package']['sign_code'] = $in['response']['sign_code'];
             $in['data_back']['package']['sign_code_created_at'] = $in['response']['sign_code_created_at'];
@@ -165,7 +199,10 @@ class infohub_transfer extends infohub_base {
             unset($in['data_back']['package']['to_node']);
 
             unset($in['data_back']['package']['messages_checksum']);
-            unset($in['data_back']['package']['messages']);
+
+            if ($in['config']['add_clear_text_messages'] === 'false') {
+                unset($in['data_back']['package']['messages']); // Can be kept for debug purposes
+            }
 
             $packageJson = $this->_JsonEncode($in['data_back']['package']);
             if ($packageJson === false) {
@@ -178,7 +215,7 @@ class infohub_transfer extends infohub_base {
                     $debug = 1;
                 }
                 foreach ($chunks as $chunk) {
-                    print $chunk;
+                    print $chunk; // Print does not support unlimited lengths
                 }
             }
 

@@ -70,7 +70,9 @@ class infohub_asset extends infohub_base
     {
         $default = array(
             'plugin_name' => '', // Provided by caller
-            'asset_checksum_array' => array(), // provided by caller (optional)
+            'asset_checksum_array' => array(), // provided by caller (optional). asset name and its checksum
+            'max_asset_size_kb' => 0, // 0 = any size is ok
+            'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_all_assets',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
             'response' => array(
@@ -121,6 +123,8 @@ class infohub_asset extends infohub_base
                 'data_back' => array(
                     'plugin_name' => $in['plugin_name'],
                     'asset_checksum_array' => $in['asset_checksum_array'],
+                    'max_asset_size_kb' => $in['max_asset_size_kb'],
+                    'allowed_asset_types' => $in['allowed_asset_types'],
                     'step' => 'step_get_all_assets_response'
                 )
             ));
@@ -146,6 +150,19 @@ class infohub_asset extends infohub_base
 
             $assetList = array();
             foreach ($response['data'] as $assetName => $assetData) {
+
+                if (empty($in['allowed_asset_types']) === false) {
+                    if (isset($in['allowed_asset_types'][$assetData['extension']]) === false) {
+                        continue;
+                    }
+                }
+
+                if ($in['max_asset_size_kb'] > 0) {
+                    if ($assetData['file_size'] > $in['max_asset_size_kb'] * 1024) {
+                        continue;
+                    }
+                }
+
                 $assetList[$assetName] = $assetData;
             }
 
@@ -213,8 +230,11 @@ class infohub_asset extends infohub_base
             // Asset below should be updated on the client
             $in['asset_checksum_array'][$assetName] = $in['collected_array'][$assetName];
 
-            $content = $this->_JsonToArray($in['asset_checksum_array'][$assetName]['contents']);
-            $in['asset_checksum_array'][$assetName]['contents'] = $content;
+            $contents = $in['asset_checksum_array'][$assetName]['contents'];
+            if ($in['asset_checksum_array'][$assetName]['extension'] === 'json') {
+                $contents = $this->_JsonDecode($contents);
+            }
+            $in['asset_checksum_array'][$assetName]['contents'] = $contents;
 
             unset($in['collected_array'][$assetName]);
         }
@@ -223,7 +243,9 @@ class infohub_asset extends infohub_base
         foreach ($in['collected_array'] as $assetName => $assetData)
         {
             if (isset($in['asset_checksum_array'][$assetName]) === false) {
-                $assetData['contents'] = $this->_JsonToArray($assetData['contents']);
+                if ($assetData['extension'] === 'json') {
+                    $assetData['contents'] = $this->_JsonDecode($assetData['contents']);
+                }
                 $in['asset_checksum_array'][$assetName] = $assetData;
             }
         }
@@ -235,26 +257,6 @@ class infohub_asset extends infohub_base
             'data' => $in['asset_checksum_array']
         );
         return $response;
-    }
-
-    /**
-     * If the string is json then it is converted to array.
-     * @version 2018-01-13
-     * @since   2018-01-13
-     * @author  Peter Lembke
-     * @param $data
-     * @return string|mixed
-     */
-    final protected function _JsonToArray($data)
-    {
-        if (is_string($data) === false) {
-            return $data;
-        }
-        $data = trim($data);
-        if (substr($data,0,1) === '{' && substr($data,-1,1) === '}') {
-            return json_decode($data, true);
-        }
-        return $data;
     }
 
     /**
@@ -270,6 +272,8 @@ class infohub_asset extends infohub_base
     {
         $default = array(
             'assets_requested' => array(),
+            'max_asset_size_kb' => 0, // 0 = all sizes are ok
+            'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_assets_requested',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
             'response' => array(
@@ -283,7 +287,7 @@ class infohub_asset extends infohub_base
 
         $answer = 'false';
         $message = 'server->infohub_asset->update_specific_assets has nothing to report. Perhaps the step names are wrong in this function';
-        $data = array();
+        $assetsFound = array();
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'I only accept messages from the client node';
@@ -313,6 +317,8 @@ class infohub_asset extends infohub_base
                 ),
                 'data_back' => array(
                     'assets_requested' => $in['assets_requested'],
+                    'max_asset_size_kb' => $in['max_asset_size_kb'],
+                    'allowed_asset_types' => $in['allowed_asset_types'],
                     'step' => 'step_get_assets_requested_response'
                 )
             ));
@@ -322,25 +328,50 @@ class infohub_asset extends infohub_base
         {
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
-            $data = $in['response']['data'];
+            $assetsFound = $in['response']['data'];
+            $assetsRequested = $in['data_back']['assets_requested'];
 
-            foreach ($in['data_back']['assets_requested'] as $path => $checksum) {
-                if (isset($in['response']['data'][$path]['checksum']) === true) {
-                    if ($data[$path]['checksum'] !== $checksum) {
-                        continue; // This is a new asset. Let us keep that in the response
+            foreach ($assetsRequested as $path => $alreadyHaveChecksum) {
+
+                if (isset($assetsFound[$path]['checksum']) === false) {
+                    continue; // The requested asset was not found
+                }
+
+                if ($assetsFound[$path]['checksum'] === $alreadyHaveChecksum) {
+                    // We already have this asset. Remove it from the response
+                    unset($assetsFound[$path]);
+                    continue;
+                }
+
+                if ($in['max_asset_size_kb'] > 0) {
+                    $fileSize = $assetsFound[$path]['file_size'];
+                    if ($fileSize > $in['max_asset_size_kb'] * 1024) {
+                        unset($assetsFound[$path]);
+                        continue;
                     }
-                    // We already have this asset or the asset do not exist. Let us remove it from the response
-                    unset($data[$path]);
+                }
+
+                if (empty($in['allowed_asset_types']) === false) {
+                    $extension = $assetsFound[$path]['extension'];
+                    if (isset($in['allowed_asset_types'][$extension]) === false) {
+                        unset($assetsFound[$path]);
+                        continue;
+                    }
+                }
+
+                // This is a new asset. Let us keep that in the response
+                $extension = $assetsFound[$path]['extension'];
+                if ($extension === 'json') {
+                    $assetsFound[$path]['contents'] = $this->_JsonDecode($assetsFound[$path]['contents']);
                 }
             }
-
         }
         
         leave:
         $response = array(
             'answer' => $answer,
             'message' => $message,
-            'data' => $data
+            'data' => $assetsFound
         );
         return $response;
     }

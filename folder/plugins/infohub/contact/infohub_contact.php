@@ -647,7 +647,7 @@ class infohub_contact extends infohub_base
             foreach ($in['names'] as $name) {
                 $name = strtolower($name);
                 $path = 'infohub_contact/group_data/' . $name;
-                $paths[$path] = 1;
+                $paths[$path] = array(); // Empty array means you want all data
             }
             
             return $this->_SubCall(array(

@@ -259,7 +259,8 @@ function infohub_demo_common() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 640,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'common'
                 },
                 'data_back': {'step': 'step_end'}
             });

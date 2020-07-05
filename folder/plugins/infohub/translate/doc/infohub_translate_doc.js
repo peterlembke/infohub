@@ -156,7 +156,8 @@ function infohub_translate_doc() {
                         'box_id': 'main.body.infohub_translate.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'doc'
                 },
                 'data_back': {
                     'step': 'step_end'

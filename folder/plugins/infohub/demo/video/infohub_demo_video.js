@@ -23,9 +23,9 @@ function infohub_demo_video() {
 
     const _Version = function() {
         return {
-            'date': '2019-03-28',
+            'date': '2020-07-05',
             'since': '2018-04-15',
-            'version': '2.0.0',
+            'version': '2.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_demo_video',
             'note': 'Render a video demo for infohub_demo',
@@ -105,19 +105,25 @@ function infohub_demo_video() {
                         },
                         'ingress': {
                             'type': 'common',
-                            'subtype': 'value',
-                            'data': _Translate('Here are some demos to show you what Infohub can do with embedded Video. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.')
+                            'subtype': 'join',
+                            'data0': _Translate('Here are some demos to show you what Infohub can do with video.'),
+                            'data1': _Translate('Infohub Client do not use 3rd party services. All data must come from the server')
                         },
                         'my_text': {
                             'type': 'common',
-                            'subtype': 'value',
-                            'data': _Translate('First we have a Youtube presentation box. [youtube_major] And then we have a Vimeo video [vimeo_major] And here we have a Daily motion video. [dailymotion_major]')
+                            'subtype': 'join',
+                            'data0': _Translate('First we have a Youtube presentation box.'),
+                            'data1': ' [youtube_major] ',
+                            'data2': _Translate('And then we have a Vimeo video'),
+                            'data3': ' [vimeo_major] ',
+                            'data4': _Translate('And here we have a Daily motion video.'),
+                            'data5': ' [dailymotion_major]'
                         },
                         'youtube_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Youtube video'),
-                            'foot_text': _Translate('Youtube is a 3rd party video streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Youtube video']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party video streaming service.'), ['Youtube']),
                             'content_data': '[youtube_icon]',
                             'content_embed': '[youtube_video]',
                             'content_embed_new_tab': '[youtube_video_link]'
@@ -136,7 +142,8 @@ function infohub_demo_video() {
                         'youtube_video': {
                             'type': 'video',
                             'subtype': 'youtube',
-                            'data': 'uRFe0SkFcxo'
+                            'data': 'uRFe0SkFcxo',
+                            'label': _Translate('In new tab')
                         },
                         'youtube_video_link': {
                             'type': 'video',
@@ -147,8 +154,8 @@ function infohub_demo_video() {
                         'vimeo_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Vimeo video'),
-                            'foot_text': _Translate('Vimeo is a 3rd party video streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Vimeo video']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party video streaming service.'), ['Vimeo']),
                             'content_data': '[vimeo_icon]',
                             'content_embed': '[vimeo_video]',
                             'content_embed_new_tab': '[vimeo_video_link]'
@@ -167,7 +174,8 @@ function infohub_demo_video() {
                         'vimeo_video': {
                             'type': 'video',
                             'subtype': 'vimeo',
-                            'data': '77230649'
+                            'data': '77230649',
+                            'label': _Translate('In new tab')
                         },
                         'vimeo_video_link': {
                             'type': 'video',
@@ -178,8 +186,8 @@ function infohub_demo_video() {
                         'dailymotion_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('This is a Daily motion video'),
-                            'foot_text': _Translate('Daily motion is a 3rd party video streaming service. Use it in a presentation box.'),
+                            'head_label': _SprintF(_Translate('This is a %s'), ['Daily motion video']),
+                            'foot_text': _SprintF(_Translate('%s is a 3rd party video streaming service.'), ['Daily motion']),
                             'content_data': '[dailymotion_icon]',
                             'content_embed': '[dailymotion_video]',
                             'content_embed_new_tab': '[dailymotion_video_link]'
@@ -198,7 +206,8 @@ function infohub_demo_video() {
                         'dailymotion_video': {
                             'type': 'video',
                             'subtype': 'dailymotion',
-                            'data': 'x4iddyo'
+                            'data': 'x4iddyo',
+                            'label': _Translate('In new tab')
                         },
                         'dailymotion_video_link': {
                             'type': 'video',
@@ -215,7 +224,8 @@ function infohub_demo_video() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 480,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'video'
                 },
                 'data_back': {'step': 'step_end'}                
             });

@@ -132,7 +132,8 @@ function infohub_doc_document() {
                         'box_id': $boxId,
                         'max_width': 100, // percent
                         'scroll_to_box_id': 'false'
-                    }
+                    },
+                    'cache_key': 'document'
                 },
                 'data_back': {
                     'step': 'step_end'

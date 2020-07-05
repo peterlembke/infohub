@@ -166,7 +166,8 @@ function infohub_demo_major() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'major'
                 },
                 'data_back': {
                     'step': 'step_end'

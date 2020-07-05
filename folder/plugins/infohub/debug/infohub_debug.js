@@ -172,7 +172,8 @@ function infohub_debug() {
                         'box_id': $in.box_id,
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'debugbuttons'
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -300,7 +301,9 @@ function infohub_debug() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            // @todo place this in storage_data_localforage
+            // This code should logically be placed in storage_data_localforage
+            // but we use this code when we have a problem with Infohub.
+            // Nothing says we have a working infohub that can reach that plugin.
             indexedDB.deleteDatabase("localforage");
             indexedDB.deleteDatabase("keyval-store"); // idbkeyval
         }

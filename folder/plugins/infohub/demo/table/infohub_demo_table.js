@@ -193,7 +193,8 @@ function infohub_demo_table() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100, // means 100% so that the columns show properly
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'table'
                 },
                 'data_back': {'step': 'step_end'}
             });
@@ -212,7 +213,7 @@ function infohub_demo_table() {
     $functions.push('click_row');
     const click_row = function ($in)
     {
-        window.alert('Clicked row with ID: ' + $in.event_data);
+        window.alert(_Translate('Clicked row with ID:') + ' ' + $in.event_data);
 
         return {
             'answer': 'true',

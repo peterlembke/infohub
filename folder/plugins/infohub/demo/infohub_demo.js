@@ -42,6 +42,7 @@ function infohub_demo() {
             'click_menu': 'normal',
             'click': 'normal',
             'click_link': 'normal',
+            'call_server': 'normal',
             'event_message': 'normal'
         };
     };
@@ -224,7 +225,8 @@ function infohub_demo() {
                         'box_id': 'main.body.infohub_demo.demo',
                         'max_width': 640,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'instructions'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -384,6 +386,47 @@ function infohub_demo() {
             'answer': 'true',
             'message': 'Done'
         };
+    };
+
+    /**
+     * Function so the children can call the server
+     * @version 2019-03-31
+     * @since 2019-03-31
+     * @author Peter Lembke
+     */
+    $functions.push("call_server");
+    const call_server = function ($in)
+    {
+        const $plugin = 'infohub_demo_';
+
+        const $default = {
+            'step': 'step_start',
+            'from_plugin': {
+                'node': '',
+                'plugin': '',
+                'function': ''
+            },
+            'send_data': {},
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            if ($in.from_plugin.node === 'client') {
+                if ($in.from_plugin.plugin.substr(0,$plugin.length) === $plugin) {
+                    $in.send_data.data_back.step = 'step_response';
+                    return _SubCall($in.send_data);
+                }
+            }
+
+            return {
+                'answer': 'false',
+                'message': 'The call do not come from a child. I will do nothing.'
+            };
+        }
+
+        return $in.response;
     };
 
     /**

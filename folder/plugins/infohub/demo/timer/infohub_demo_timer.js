@@ -165,7 +165,7 @@ function infohub_demo_timer() {
                         },
                         'advanced_text': {
                             'type': 'text',
-                            'text': 'The result:'
+                            'text': _Translate('The result') + ':'
                         }
                     },
                     'how': {
@@ -179,7 +179,8 @@ function infohub_demo_timer() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'timer'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -436,7 +437,7 @@ function infohub_demo_timer() {
 
             $messageArray.push($messageOut);
 
-            const $text = 'Number:' + $in.data_back.number + ', wait: ' + $wait + '<br>';
+            const $text = _Translate('Number') + ': ' + $in.data_back.number + ', ' + _Translate('wait') + ': ' + $wait + '<br>';
 
             $messageOut = _SubCall({
                 'to': {
@@ -477,7 +478,7 @@ function infohub_demo_timer() {
                 },
                 'data': {
                     'box_id': $in.data_back.box_id + '.[my_presentation_box2_foot]',
-                    'box_data': 'Simulate sending: ' + $now + '<br>',
+                    'box_data': _Translate('Simulate sending') + ': ' + $now + '<br>',
                     'mode': 'add_last'
                 },
                 'data_back': {

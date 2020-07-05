@@ -222,7 +222,8 @@ function infohub_tools() {
                         'box_id': 'main.body.infohub_tools.tools',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'instructions'
                 },
                 'data_back': {
                     'step': 'step_end'

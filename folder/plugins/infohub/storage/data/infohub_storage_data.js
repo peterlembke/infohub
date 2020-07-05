@@ -45,8 +45,10 @@ function infohub_storage_data() {
     const _GetCmdFunctions = function () {
         return {
             'read': 'normal',
+            'read_paths': 'normal',
             'write': 'normal',
-            'write_paths': 'normal'
+            'write_overwrite': 'normal', // Used by write
+            'write_merge': 'normal' // Used by write
         };
     };
 
@@ -67,12 +69,12 @@ function infohub_storage_data() {
     const read = function ($in)
     {
         const $default = {
+            'path': '',
+            'step': 'step_start',
             'calling_plugin': {
                 'node': '',
                 'plugin': ''
             },
-            'step': 'step_start',
-            'path': '',
             'config': {
                 'plugin_name_handler': 'infohub_storage_data_indexeddb', // Name of the storage child plugin that can handle this connection
                 'plugin_name_owner': '', // Level 1 Plugin name that own the data
@@ -104,7 +106,7 @@ function infohub_storage_data() {
                 $answer = 'true';
                 $message = 'Here are the main connection';
                 $in.response.data = _ByVal($in.config);
-                if (_Empty($in.config) === false) {
+                if (_Empty($in.config) === 'false') {
                     $postExist = 'true';
                 }
                 break leave;
@@ -155,34 +157,6 @@ function infohub_storage_data() {
 
             if ($in.step === 'step_read')
             {
-                $in.step = 'step_read_paths';
-                if ($in.path.indexOf('*') === -1) {
-                    $in.step = 'step_read_data';
-                }
-            }
-
-            if ($in.step === 'step_read_paths')
-            {
-                return _SubCall({
-                    'to': {
-                        'node': 'client',
-                        'plugin': $connect.plugin_name_handler,
-                        'function': 'read_paths'
-                    },
-                    'data': {
-                        'connect': $connect,
-                        'path': $in.path
-                    },
-                    'data_back': {
-                        'step': 'step_final',
-                        'path': $in.path,
-                        'calling_plugin': $in.calling_plugin
-                    }
-                });
-            }
-
-            if ($in.step === 'step_read_data')
-            {
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -194,9 +168,9 @@ function infohub_storage_data() {
                         'path': $in.path
                     },
                     'data_back': {
-                        'step': 'step_final',
                         'path': $in.path,
-                        'calling_plugin': $in.calling_plugin
+                        'calling_plugin': $in.calling_plugin,
+                        'step': 'step_final'
                     }
                 });
             }
@@ -221,6 +195,131 @@ function infohub_storage_data() {
     };
 
     /**
+     * Take a path that ends with * and get all existing paths with no data
+     * @param array $in
+     * @return array
+     */
+    $functions.push('read_paths');
+    const read_paths = function ($in)
+    {
+        const $default = {
+            'connect': {},
+            'path': '', // Path that ends with a *
+            'step': 'step_start',
+            'calling_plugin': {
+                'node': '',
+                'plugin': ''
+            },
+            'config': {},
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'Came to step ' + $in.step,
+            'path': $in.path,
+            'data': {}
+        };
+
+        let $connect = _SetConnectionDefault($in.config);
+
+        if (_Empty($connect.plugin_name_owner) === 'true') {
+            $connect.plugin_name_owner = $in.calling_plugin.plugin;
+        }
+
+        if ($in.step === 'step_start')
+        {
+            $in.step = 'step_get_final_connection';
+            if ($in.path.indexOf($connect.plugin_name_owner + '/') === 0) {
+                $in.step = 'step_read_paths';
+            }
+            if ($in.step === 'step_get_final_connection') {
+                if ($connect.used_for === 'all') {
+                    if ($connect.not_used_for === '') {
+                        $in.step = 'step_read_paths';
+                    }
+                }
+            }
+        }
+
+        if ($in.step === 'step_get_final_connection')
+        {
+            const $path = 'infohub_storagemanager/connection/' + $in.calling_plugin.plugin;
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': $connect.plugin_name_handler,
+                    'function': 'read'
+                },
+                'data': {
+                    'connect': $connect,
+                    'path': $path
+                },
+                'data_back': {
+                    'step': 'step_get_final_connection_response',
+                    'path': $in.path,
+                    'calling_plugin': $in.calling_plugin
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_final_connection_response')
+        {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'path': '',
+                'data': {}
+            };
+            $in.response = _Default($default, $in.response);
+
+            $connect = _Default($connect, $in.response.data);
+            $in.step = 'step_read_paths';
+        }
+
+        if ($in.step === 'step_read_paths')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': $connect.plugin_name_handler,
+                    'function': 'read_paths'
+                },
+                'data': {
+                    'connect': $connect,
+                    'path': $in.path
+                },
+                'data_back': {
+                    'connect': $connect,
+                    'path': $in.path,
+                    'step': 'step_read_paths_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_read_paths_response')
+        {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'path': '',
+                'data': {}
+            };
+            $out = _Default($default, $in.response);
+            $in.step = 'step_end';
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message,
+            'path': $out.path,
+            'data': $out.data
+        };
+    };
+
+    /**
      * General function for writing to a path
      * @version 2018-03-28
      * @since   2016-01-30
@@ -234,16 +333,13 @@ function infohub_storage_data() {
         const $default = {
             'path': '',
             'data': {},
+            'mode': '',
+            'step': 'step_start',
             'calling_plugin': {
                 'node': '',
                 'plugin': ''
             },
-            'step': 'step_start',
-            'config': {
-                'plugin_name_handler': 'infohub_storage_data_indexeddb', // Name of the storage child plugin that can handle this connection
-                'plugin_name_owner': '', // Level 1 Plugin name that own the data
-                'db_type': 'indexeddb' // One of the supported strings: psql, mysql, sqlite, redis, file, couchdb
-            },
+            'config': {},
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
@@ -267,8 +363,7 @@ function infohub_storage_data() {
 
             let $connect = _SetConnectionDefault($in.config);
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 if (_Empty($connect.plugin_name_owner) === 'true') {
                     $connect.plugin_name_owner = $in.calling_plugin.plugin;
                 }
@@ -289,8 +384,7 @@ function infohub_storage_data() {
                 }
             }
 
-            if ($in.step === 'step_get_final_connection')
-            {
+            if ($in.step === 'step_get_final_connection') {
                 const $path = 'infohub_storagemanager/connection/' + $in.calling_plugin.plugin;
 
                 return _SubCall({
@@ -307,6 +401,7 @@ function infohub_storage_data() {
                         'step': 'step_get_final_connection_response',
                         'path': $in.path,
                         'data': $in.data,
+                        'mode': $in.mode,
                         'calling_plugin': $in.calling_plugin
                     }
                 });
@@ -317,63 +412,106 @@ function infohub_storage_data() {
                 $in.step = 'step_write';
             }
 
-            if ($in.step === 'step_write')
-            {
-                $in.step = 'step_write_paths';
-                if ($in.path.indexOf('*') === -1) {
-                    $in.step = 'step_write_data';
-                }
-            }
-
-            if ($in.step === 'step_write_paths')
-            {
+            if ($in.step === 'step_write') {
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage_data',
-                        'function': 'write_paths'
+                        'function': 'write_' + $in.mode
                     },
                     'data': {
                         'connect': $connect,
                         'path': $in.path,
-                        'data': $in.data
+                        'data': $in.data,
+                        'mode': $in.mode
                     },
                     'data_back': {
-                        'step': 'step_final',
                         'path': $in.path,
                         'data': $in.data,
-                        'connect': $connect,
-                        'calling_plugin': $in.calling_plugin
+                        'mode': $in.mode,
+                        'calling_plugin': $in.calling_plugin,
+                        'step': 'step_final'
                     }
                 });
             }
 
-            if ($in.step === 'step_write_data')
-            {
-                return _SubCall({
-                    'to': {
-                        'node': 'client',
-                        'plugin': $connect.plugin_name_handler,
-                        'function': 'write'
-                    },
-                    'data': {
-                        'connect': $connect,
-                        'path': $in.path,
-                        'data': $in.data
-                    },
-                    'data_back': {
-                        'step': 'step_final',
-                        'path': $in.path,
-                        'data': $in.data,
-                        'connect': $connect,
-                        'calling_plugin': $in.calling_plugin
-                    }
-                });
+            if ($in.step === 'step_final') {
+                $answer = $in.response.answer;
+                $message = $in.response.message;
+                $postExist = $in.response.post_exist;
             }
+        }
 
+        const $response = {
+            'answer': $answer,
+            'message': $message,
+            'path': $in.path,
+            'data': $in.data,
+            'post_exist': $postExist
+        };
+        return $response;
+    };
+
+    $functions.push('write_overwrite');
+    /**
+     * Overwrite the data in the path
+     * @version 2020-06-24
+     * @since   2020-06-24
+     * @author  Peter Lembke
+     * @param $in
+     * @return array
+     */
+    const write_overwrite = function ($in)
+    {
+        const $default = {
+            'connect': {},
+            'path': '',
+            'data': {},
+            'step': 'step_write_data',
+            'calling_plugin': {
+                'node': '',
+                'plugin': ''
+            },
+            'response': {},
+            'data_back': {}
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'false',
+            $message = 'Nothing to report',
+            $postExist = 'false';
+
+        if ($in.step === 'step_write_data') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': $in.connect.plugin_name_handler,
+                    'function': 'write'
+                },
+                'data': {
+                    'connect': $in.connect,
+                    'path': $in.path,
+                    'data': $in.data
+                },
+                'data_back': {
+                    'path': $in.path,
+                    'data': $in.data,
+                    'calling_plugin': $in.calling_plugin,
+                    'step': 'step_final'
+                }
+            });
         }
 
         if ($in.step === 'step_final') {
+            const $default = {
+                'answer': 'false',
+                'message': 'An error occurred',
+                'path': '',
+                'data': {},
+                'post_exist': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
             $answer =  $in.response.answer;
             $message = $in.response.message;
             $postExist = $in.response.post_exist;
@@ -389,114 +527,119 @@ function infohub_storage_data() {
         return $response;
     };
 
+    $functions.push('write_merge');
     /**
-     * You can write to all matching paths
-     * Used for mass update of data or deletion of posts.
-     * @param array $in
+     * Merge with the data in the path
+     * @version 2020-06-24
+     * @since   2020-06-24
+     * @author  Peter Lembke
+     * @param $in
      * @return array
      */
-    $functions.push('write_paths');
-    const write_paths = function ($in)
+    const write_merge = function ($in)
     {
         const $default = {
             'connect': {},
             'path': '',
             'data': {},
-            'step': 'step_read_paths',
+            'step': 'step_read_data',
+            'calling_plugin': {
+                'node': '',
+                'plugin': ''
+            },
             'response': {},
             'data_back': {
-                'paths': {}
+                'new_data': {}
             }
         };
         $in = _Default($default, $in);
 
-        let $answer = 'false';
-        let $message = 'Came to step ' + $in.step;
+        let $answer = 'false',
+            $message = 'Nothing to report',
+            $postExist = 'false';
 
-        if ($in.step === 'step_read_paths')
-        {
+        if ($in.step === 'step_read_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $in.connect.plugin_name_handler,
-                    'function': 'read_paths'
+                    'function': 'read'
                 },
                 'data': {
                     'connect': $in.connect,
-                    'path': $in.path,
-                    'with_data': 'false'
+                    'path': $in.path
                 },
                 'data_back': {
-                    'connect': $in.connect,
                     'path': $in.path,
-                    'data': $in.data,
-                    'step': 'step_read_paths_response'
+                    'new_data': $in.data,
+                    'connect': $in.connect,
+                    'step': 'step_read_data_response'
                 }
             });
         }
 
-        if ($in.step === 'step_read_paths_response')
-        {
+        if ($in.step === 'step_read_data_response') {
+            const $default = {
+                'answer': '',
+                'message': '',
+                'path': '',
+                'data': {},
+                'post_exist': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            if ($in.response.post_exist === 'true') {
+                $in.data = _Merge($in.response.data, $in.data_back.new_data);
+            }
+
             $in.step = 'step_write_data';
-
-            let $pathArray = {};
-            for (let $key in $in.response.data) {
-                if ($in.response.data.hasOwnProperty($key)) {
-                    $pathArray.push($key);
-                }
-            }
-
-            $in.data_back.paths = $pathArray;
-            if (_Empty($in.data_back.paths) === true)
-            {
-                $answer = 'true';
-                $message = 'There were no matching paths to write to. I am done';
-                $in.step = 'step_end';
-            }
         }
 
-        if ($in.step === 'step_write_data_response')
-        {
-            $in.step = 'step_write_data';
-
-            if (_Empty($in.data_back.paths) === true)
-            {
-                $answer = 'true';
-                $message = 'I have written to all the paths I found';
-                $in.step = 'step_end';
-            }
-        }
-
-        if ($in.step === 'step_write_data')
-        {
-            const $oneFullPath = $in.data_back.paths.pop();
+        if ($in.step === 'step_write_data') {
             return _SubCall({
                 'to': {
-                    'node': 'server',
+                    'node': 'client',
                     'plugin': $in.connect.plugin_name_handler,
                     'function': 'write'
                 },
                 'data': {
                     'connect': $in.connect,
-                    'path': $oneFullPath,
+                    'path': $in.path,
                     'data': $in.data
                 },
                 'data_back': {
-                    'connect': $in.connect,
                     'path': $in.path,
                     'data': $in.data,
-                    'step': 'step_write_data_response',
-                    'paths': $in.data_back.paths
+                    'calling_plugin': $in.calling_plugin,
+                    'connect': $in.connect,
+                    'step': 'step_final'
                 }
             });
         }
 
-        const $out = {
+        if ($in.step === 'step_final') {
+            const $default = {
+                'answer': 'false',
+                'message': 'An error occurred',
+                'path': '',
+                'data': {},
+                'post_exist': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            $answer =  $in.response.answer;
+            $message = $in.response.message;
+            $postExist = $in.response.post_exist;
+        }
+
+        const $response = {
             'answer': $answer,
             'message': $message,
-            'path': $in.path
+            'path': $in.path,
+            'data': $in.data,
+            'post_exist': $postExist
         };
-        return $out;
+        return $response;
     };
 
     /**

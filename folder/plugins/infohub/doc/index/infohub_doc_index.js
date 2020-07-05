@@ -145,7 +145,8 @@ function infohub_doc_index() {
                         'box_id': _GetBoxId('index'),
                         'max_width': 0,
                         'scroll_to_box_id': 'false'
-                    }
+                    },
+                    'cache_key': 'index'
                 },
                 'data_back': {
                     'step': 'step_end'

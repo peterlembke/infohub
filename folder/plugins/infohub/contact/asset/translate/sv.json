@@ -8,7 +8,7 @@
         "file_type": "finished_file"
     },
     "launcher": {
-        "title": "Login kontakter",
+        "title": "Användare",
         "description": "Verktyg för att hantera loginkonton och används enbart av administratören. Hantera inkommande kontakter som vill in i InfoHub servern. Hantera utgående kontakter där InfoHub vill kontakta andra InfoHub."
     },
     "data": {

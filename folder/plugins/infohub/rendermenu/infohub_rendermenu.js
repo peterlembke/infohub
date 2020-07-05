@@ -177,7 +177,7 @@ function infohub_rendermenu() {
             'button_label': 'Submit',
             'mode': 'button', // submit, button
             'event_data': 'menu button', // Your data
-            'event_handler': 'infohub_render', // Normally leave as it is
+            'event_handler': 'infohub_renderform', // Normally leave as it is
             'to_node': 'client',
             'to_plugin': 'infohub_rendermenu',
             'to_function': 'event_message',
@@ -188,11 +188,13 @@ function infohub_rendermenu() {
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 16px;'+
-                    'background-image: linear-gradient(to bottom, white , rgb(202, 239, 202));' +
-                    'border: 1px solid #a6c8a6;'+
                     'margin: 4px 0px 0px 0px;'+
                     'padding: 2px 10px 2px 16px;'+
-                    'text-align: left;'
+                    'text-align: left;'+
+                    'background-color: #bcdebc;'+
+                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                    'border: 0px;'+
+                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
             } // Leave empty to get the default css
         };
 
@@ -249,7 +251,10 @@ function infohub_rendermenu() {
         $in = _Merge($default, $in);
 
         if ($in.step === 'step_end') {
-            return {'answer': 'true', 'message': 'Got a return message' };
+            return {
+                'answer': 'true',
+                'message': 'Got a return message'
+            };
         }
 
         if ($in.type === 'button') {

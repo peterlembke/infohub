@@ -17,6 +17,8 @@
  */
 function infohub_configlocal_zoom() {
 
+    "use strict";
+
 // include "infohub_base.js"
 
     // ***********************************************************
@@ -82,8 +84,6 @@ function infohub_configlocal_zoom() {
     $functions.push('create');
     const create = function ($in)
     {
-        "use strict";
-
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -170,7 +170,8 @@ function infohub_configlocal_zoom() {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'zoom'
                 },
                 'data_back': {'step': 'step_end'}
             });
@@ -193,8 +194,6 @@ function infohub_configlocal_zoom() {
     $functions.push("click_change");
     const click_change = function ($in)
     {
-        "use strict";
-
         const $default = {
             'step': 'step_set_zoom_level',
             'section': '',
@@ -299,8 +298,6 @@ function infohub_configlocal_zoom() {
     $functions.push("apply_config");
     const apply_config = function ($in)
     {
-        "use strict";
-
         const $default = {
             'local_config': {
                 'zoom_level': {
@@ -340,6 +337,5 @@ function infohub_configlocal_zoom() {
         };
 
     };
-
 }
 //# sourceURL=infohub_configlocal_zoom.js

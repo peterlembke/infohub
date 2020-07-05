@@ -56,6 +56,7 @@ function infohub_asset() {
             'update_all_assets': 'normal', // Use by infohub_offline and infohub_asset
             'update_all_plugin_assets': 'normal', // Use by asset owner and by infohub_asset
             'update_specific_assets': 'normal', // Use by infohub_launcher, infohub_asset. Update specific assets for several plugins
+            'update_plugin_asset_index': 'normal', // Used by update_specific_assets to update each plugins asset index
             'get_plugin_assets': 'normal', // Used by asset owner and by infohub_asset. Get named assets for a plugin
             'get_asset_and_license': 'normal' // Use by asset owner and by function create to get an asset + license
         };
@@ -661,13 +662,21 @@ function infohub_asset() {
             'step': 'step_multi_message',
             'from_plugin': {'node': '', 'plugin': ''},
             'response': {},
-            'data_back': {}
+            'data_back': {},
+            'config': { // See config file infohub_asset.json
+                "download_assets": "true"
+            }
         };
         $in = _Default($default, $in);
 
         let $messageArray = [];
         let $answer = 'false';
         let $message = 'Nothing to report';
+
+        if ($in.config.download_assets === 'false') {
+            $message = 'Downloading assets are prevented in infohub_asset.json';
+            $in.step = 'step_end';
+        }
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -731,7 +740,10 @@ function infohub_asset() {
         const $default = {
             'plugin_name': '',
             'step': 'step_get_asset_index_from_storage',
-            'from_plugin': {'node': '', 'plugin': '' },
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            },
             'response': {
                 'answer': '',
                 'message': '',
@@ -741,8 +753,11 @@ function infohub_asset() {
                 'plugin_name': '',
                 'data': {}
             },
-            'config': {
-                'client_cache_lifetime': 0
+            'config': { // See config file infohub_asset.json
+                "download_assets": "true",
+                "allowed_asset_types": {}, // empty = allow all. extension as key and some dummy data.
+                "max_asset_size_kb": 0, // 0 = any size is ok
+                "index_cache_seconds": 604800
             }
         };
         $in = _Default($default, $in);
@@ -752,6 +767,11 @@ function infohub_asset() {
         let $answer = 'false';
         let $message = 'Nothing to report';
         const $assetPath = 'infohub_asset/asset/';
+
+        if ($in.config.download_assets === 'false') {
+            $message = 'Downloading assets are prevented in infohub_asset.json';
+            $in.step = 'step_end';
+        }
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -798,7 +818,7 @@ function infohub_asset() {
 
             if ($in.response.answer === 'true')
             {
-                const $timestampWhenOld = $index.micro_time + $in.config.client_cache_lifetime;
+                const $timestampWhenOld = $index.micro_time + $in.config.index_cache_seconds;
 
                 if ($timestampWhenOld >= _MicroTime() && $index.full_sync_done === 'true') {
                     $message = 'The asset index for this plugin is quite fresh. I will not update it.';
@@ -817,7 +837,9 @@ function infohub_asset() {
                 },
                 'data': {
                     'plugin_name': $pluginName,
-                    'asset_checksum_array': $index.checksums
+                    'asset_checksum_array': $index.checksums,
+                    'max_asset_size_kb': $in.config.max_asset_size_kb,
+                    'allowed_asset_types': $in.config.allowed_asset_types
                 },
                 'data_back': {
                     'plugin_name': $pluginName,
@@ -874,11 +896,12 @@ function infohub_asset() {
     };
 
     /**
-     * Give a list with assets you want update. Can be for any plugins.
-     * The checksum you provide is compared to the stored asset checksum.
-     * Assets that do not exist or have another checksum will be updated.
+     * You give a list with assets you want to update. Can be for any plugins.
+     * The checksum you provide for each asset is compared to the locally stored asset checksum.
+     * Assets that do not exist will be updated by asking the server.
+     * Assets that have another checksum than the one you provided will be updated.
      * This function can only be used by infohub_asset, infohub_launcher
-     * @version 2018-12-02
+     * @version 2020-06-03
      * @since 2018-12-02
      * @author Peter Lembke
      * @param $in
@@ -888,19 +911,29 @@ function infohub_asset() {
     const update_specific_assets = function ($in)
     {
         const $default = {
-            'list': {},
+            'list': {}, // key=plugin name, data array with asset names as key and their checksum as data.
+                        // Set checksum to 'local' to keep the locally stored asset.
             'step': 'step_get_assets_from_storage',
             'from_plugin': {'node': '', 'plugin': '' },
             'response': {},
             'data_back': {
                 'wanted_assets': {}
+            },
+            'config': { // See config file infohub_asset.json
+                "download_assets": "true",
+                "allowed_asset_types": {}, // empty = allow all. extension as key and some dummy data.
+                "max_asset_size_kb": 0 // 0 = any size is ok
             }
         };
         $in = _Default($default, $in);
 
-        let $updateAssets;
         let $answer = 'false';
         let $message = 'Nothing to report';
+
+        if ($in.config.download_assets === 'false') {
+            $message = 'Downloading assets are prevented in infohub_asset.json';
+            $in.step = 'step_end';
+        }
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -915,6 +948,8 @@ function infohub_asset() {
         if ($in.step === 'step_get_assets_from_storage')
         {
             let $wantedAssets = {};
+            let $paths = {};
+
             for (let $pluginName in $in.list)
             {
                 if ($in.list.hasOwnProperty($pluginName) === false) {
@@ -930,6 +965,13 @@ function infohub_asset() {
                     const $path = 'infohub_asset/asset/' + $pluginName + '/' + $assetName;
                     const $checksum = $in.list[$pluginName][$assetName];
                     $wantedAssets[$path] = $checksum;
+                    $paths[$path] = {
+                        asset_name: '',
+                        checksum: '',
+                        extension: '',
+                        is_binary: 'false',
+                        plugin_name: ''
+                    };
                 }
             }
 
@@ -940,10 +982,11 @@ function infohub_asset() {
                     'function': 'read_many'
                 },
                 'data': {
-                    'paths': $wantedAssets
+                    'paths': $paths
                 },
                 'data_back': {
                     'wanted_assets': $wantedAssets,
+                    'config': $in.config,
                     'step': 'step_get_assets_from_storage_response'
                 }
             });
@@ -965,10 +1008,11 @@ function infohub_asset() {
             
             if ($response.answer === 'true')
             {
-                $updateAssets = {};
+                let $updateAssets = {};
                 
                 for (let $path in $wantedAssets)
                 {
+                    // If wanted asset do not exist in local storage then we add it to the list
                     if (_IsSet($localAssets[$path]) === 'false') {
                         $updateAssets[$path] = $wantedAssets[$path];
                         continue;
@@ -982,40 +1026,40 @@ function infohub_asset() {
 
                     if (_Empty($localChecksum) === 'false') {
                         if ($wantedAssets[$path] === 'local') {
-                            // We want the existing local version
+                            // We want to keep the existing local version
                             $wantedAssets[$path] = $localChecksum;
                         }
                     }
 
-                    if ($localChecksum !== $wantedAssets[$path]) {
+                    if ($wantedAssets[$path] !== $localChecksum) {
                         $updateAssets[$path] = $localChecksum;
                     }
                 }
                 
                 if (_Count($updateAssets) > 0) {
-                    $in.step = 'step_update_specific_assets';
+                    return _SubCall({
+                        'to': {
+                            'node': 'server',
+                            'plugin': 'infohub_asset',
+                            'function': 'update_specific_assets'
+                        },
+                        'data': {
+                            'assets_requested': $updateAssets,
+                            'allowed_asset_types': $in.config.allowed_asset_types,
+                            'max_asset_size_kb': $in.config.max_asset_size_kb
+                        },
+                        'data_back': {
+                            'step': 'step_update_specific_assets_response'
+                        }
+                    });
                 }
+
+                $answer = 'true';
+                $message = 'There were no assets to update';
             }
         }
 
-        if ($in.step === 'step_update_specific_assets')
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'server',
-                    'plugin': 'infohub_asset',
-                    'function': 'update_specific_assets'
-                },
-                'data': {
-                    'assets_requested': $updateAssets
-                },
-                'data_back': {
-                    'step': 'step_update_specific_assets_response'
-                }
-            });
-        }
-
-        if ($in.step === 'step_update_specific_assets_response') 
+        if ($in.step === 'step_update_specific_assets_response')
         {
             $in.step = 'step_save_to_storage';
             if ($in.response.answer === 'false') {
@@ -1024,10 +1068,61 @@ function infohub_asset() {
             }
         }
 
-        // @todo HUB-710, Pull out all data that need to be in the assets indexes
-
         if ($in.step === 'step_save_to_storage')
         {
+            const $data = _GetData({
+                'name': 'response/data',
+                'default': {},
+                'data': $in,
+            });
+
+            let $pluginAssetIndex = {};
+            for (let $key in $data) {
+                if ($data.hasOwnProperty($key) === false) {
+                    continue;
+                }
+
+                const $pluginName = $data[$key].plugin_name;
+
+                if (_IsSet($pluginAssetIndex[$pluginName]) === 'false') {
+                    $pluginAssetIndex[$pluginName] = {
+                        'micro_time': $data[$key].micro_time,
+                        'time_stamp': $data[$key].time_stamp,
+                        'checksums': {},
+                        'full_sync_done': 'false'
+                    };
+                }
+
+                const $fullAssetName = $pluginName + '/' + $data[$key].asset_name;
+                $pluginAssetIndex[$pluginName].checksums[$fullAssetName] = $data[$key].checksum;
+            }
+
+            let $messageArrayUpdatePluginAssetIndex = [];
+
+            for (let $pluginName in $pluginAssetIndex) {
+                if ($pluginAssetIndex.hasOwnProperty($pluginName) === false) {
+                    continue;
+                }
+
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_asset',
+                        'function': 'update_plugin_asset_index'
+                    },
+                    'data': {
+                        'plugin_name': $pluginName,
+                        'path': 'infohub_asset/asset/' + $pluginName + '/index',
+                        'index': $pluginAssetIndex[$pluginName]
+                    },
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+
+                $messageArrayUpdatePluginAssetIndex.push($messageOut);
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -1039,11 +1134,10 @@ function infohub_asset() {
                 },
                 'data_back': {
                     'step': 'step_save_to_storage_response'
-                }
+                },
+                'messages': $messageArrayUpdatePluginAssetIndex
             });
         }
-
-        // @todo HUB-710, Load, Update, Save each plugin assets index
 
         if ($in.step === 'step_save_to_storage_response')
         {
@@ -1058,6 +1152,159 @@ function infohub_asset() {
         return {
             'answer': $answer,
             'message': $message
+        };
+    };
+
+    /**
+     * Used by update_specific_assets to update one plugin assets index
+     * When we have the asset in the index it will not be downloaded again unless the server has a newer one
+     * @version 2020-06-04
+     * @since 2020-06-04
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: *, messages: Array}}
+     */
+    $functions.push("update_plugin_asset_index");
+    const update_plugin_asset_index = function ($in) {
+        const $default = {
+            'plugin_name': '',
+            'path': '', // path to the index in the Storage
+            'index': {}, // a full asset index we can store if there are no index in Storage
+            'step': 'step_load_existing_index',
+            'from_plugin': {'node': '', 'plugin': ''},
+            'response': {},
+            'data_back': {}
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'false';
+        let $message = 'Nothing to report';
+
+        if ($in.from_plugin.node !== 'client') {
+            $message = 'I only accept calls from client plugins';
+            $in.step = 'step_end';
+        }
+
+        if ($in.from_plugin.plugin !== 'infohub_asset' && $in.from_plugin.plugin !== 'infohub_launcher') {
+            $message = 'Only infohub_asset, infohub_launcher is allowed to call this function.';
+            $in.step = 'step_end';
+        }
+
+        if ($in.step === 'step_load_existing_index') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read'
+                },
+                'data': {
+                    'path': $in.path
+                },
+                'data_back': {
+                    'plugin_name': $in.plugin_name,
+                    'path': $in.path,
+                    'index': $in.index,
+                    'step': 'step_load_existing_index_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_load_existing_index_response') {
+            let $default = {
+                'answer': 'false',
+                'message': '',
+                'data': {
+                    'micro_time': 0.0,
+                    'time_stamp': '',
+                    'checksums': {},
+                    'full_sync_done': 'false'
+                },
+                'post_exist': 'false',
+                'path': ''
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_store_index';
+            if ($in.response.post_exist === 'true') {
+                $in.step = 'step_merge_index';
+            }
+        }
+
+        if ($in.step === 'step_merge_index') {
+
+            let $currentChecksums = _ByVal($in.response.data.checksums);
+            let $newChecksums = _ByVal($in.index.checksums);
+            let $indexChanged = 'false';
+
+            for (let $assetName in $newChecksums) {
+                if ($newChecksums.hasOwnProperty($assetName) === false) {
+                    continue;
+                }
+
+                if (_IsSet($currentChecksums[$assetName]) === 'false') {
+                    $currentChecksums[$assetName] = $newChecksums[$assetName];
+                    $indexChanged = 'true';
+                    continue;
+                }
+
+                if ($currentChecksums[$assetName] !== $newChecksums[$assetName]) {
+                    $currentChecksums[$assetName] = $newChecksums[$assetName];
+                    $indexChanged = 'true';
+                }
+            }
+
+            if ($indexChanged === 'true') {
+                $in.index = _ByVal($in.response.data);
+                $in.index.checksums = $currentChecksums;
+                $in.step = 'step_store_index';
+            }
+
+            if ($indexChanged === 'false') {
+                $answer = 'true';
+                $message = 'Did not have to change the existing index';
+                $in.step = 'step_end';
+            }
+
+        }
+
+        if ($in.step === 'step_store_index') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write'
+                },
+                'data': {
+                    'path': $in.path,
+                    'data': $in.index
+                },
+                'data_back': {
+                    'plugin_name': $in.plugin_name,
+                    'path': $in.path,
+                    'index': $in.index,
+                    'step': 'step_store_index_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_store_index_response') {
+            let $default = {
+                'answer': 'false',
+                'message': '',
+                'post_exist': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            $message = 'Failed to update the plugin assets index';
+            if ($in.response.post_exist === 'true') {
+                $answer = 'true';
+                $message = 'Success: Updated the plugin assets index';
+            }
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message,
         };
     };
 
@@ -1192,11 +1439,12 @@ function infohub_asset() {
         };
         $in = _Default($default, $in);
 
-        let $asset, $assetLicense;
-        let $keepAsset = 'false';
-        let $answer = 'false';
-        let $message = 'Nothing to report';
-        let $messageArray = [];
+        let $asset = '',
+            $assetLicense = {},
+            $keepAsset = 'false',
+            $answer = 'false',
+            $message = 'Nothing to report',
+            $messageArray = [];
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -1212,8 +1460,9 @@ function infohub_asset() {
 
         if ($in.step === 'step_get_plugin_assets')
         {
-            let $list = {};
-            let $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
+            let $list = {},
+                $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
+
             $list[$fileName] = {};
             $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
             $list[$fileName] = {};
@@ -1324,7 +1573,8 @@ function infohub_asset() {
             if ($in.extension === 'json') {
                 $asset = "{}";
                 $in.step = 'step_end';
-            }        
+            }
+
             if ($in.extension === 'svg') {
                 $in.step = 'step_end';
             }        
@@ -1364,8 +1614,8 @@ function infohub_asset() {
         if ($in.step === 'step_end' && $keepAsset === 'true')
         {
 
-            if ($in.extension !== 'json' && $in.extension !== 'xml')
-            {
+            if ($in.extension !== 'json' && $in.extension !== 'xml') {
+
                 if (_IsSet($loadedAsset[$in.plugin_name]) === 'false') {
                     $loadedAsset[$in.plugin_name] = {
                         'rendered': 'false'

@@ -7,7 +7,7 @@ You do not have to learn a new language. You can work together with other progra
 The core handle all traffic between plugins and nodes (cores) in a loosely coupled manner.  
 
 # Cores
-I have developed a core for PHP ([core-php](main,core_php)), it is in the first release  
+I have developed a core for PHP ([core-php](main,core_php), it is in the first release  
 and I have created one for JavaScript (core-js), it will be in a later release. It runs in the web browser and you can create offline applications.  
 I would like to see cores for other programming languages and systems. I am fond of solutions that can run on several systems, like PHP, Javascript, Ruby, Python, Java.  
 A core in ANSI-C that can be compiled to different systems would also be practical. Or a Swift core. Swift exist for Linux and MacOS. Kotlin is also interesting.  

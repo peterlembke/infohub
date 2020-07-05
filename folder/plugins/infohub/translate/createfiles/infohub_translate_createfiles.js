@@ -244,7 +244,8 @@ function infohub_translate_createfiles() {
                         'box_id': 'main.body.infohub_translate.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 960,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'createfiles'
                 },
                 'data_back': {
                     'step': 'step_end'

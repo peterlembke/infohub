@@ -145,7 +145,8 @@ function infohub_login_forget() {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'forget'
                 },
                 'data_back': {
                     'step': 'step_end'

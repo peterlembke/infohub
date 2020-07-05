@@ -16,9 +16,10 @@
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 // error_handler_and_frame_breakout
+
 var $GLOBALS = {};
 $GLOBALS.infohub_error_message = '';
-$GLOBALS.infohub_minimum_error_level = 'error'; // log or error
+$GLOBALS.infohub_minimum_error_level = 'warn'; // log, info, warn or error
 
 window.onerror = function ($msg, $url, $line)
 {

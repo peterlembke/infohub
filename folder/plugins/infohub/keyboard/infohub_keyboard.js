@@ -335,7 +335,8 @@ function infohub_keyboard() {
                         'box_id': $in.box_id,
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'keyboard'
                 },
                 'data_back': {'step': 'step_subscribe'}
             });

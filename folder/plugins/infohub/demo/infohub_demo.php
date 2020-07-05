@@ -42,6 +42,7 @@ class infohub_demo extends infohub_base
     protected function _GetCmdFunctions(): array
     {
         return array(
+            'storage' => 'normal',
             'demo1' => 'normal',
             'demo2' => 'normal',
             'demo3' => 'normal',
@@ -52,6 +53,68 @@ class infohub_demo extends infohub_base
             'demo_file' => 'normal',
             'demo_test' => 'normal'
         );
+    }
+
+    /**
+     * Calls the child plugin: Storage
+     * @param array $in
+     * @return array
+     */
+    final protected function storage(array $in = array()): array
+    {
+        $default = array(
+            'path' => '', // path to read/write
+            'paths' => array(), // paths to read_many/write_many
+            'data' => array(), // Data to write to the storage
+            'mode' => '', // overwrite, merge
+            'wanted_data' => array(),
+            'command' => '', // See below
+            'response' => array(),
+            'step' => 'step_call_child'
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Could not call child plugin',
+            'items' => array(),
+            'path' => $in['path'],
+            'data' => array(),
+            'mode' => $in['mode'],
+            'wanted_data' => $in['wanted_data'],
+            'post_exist' => 'false'
+        );
+
+        if ($in['step'] === 'step_call_child') {
+
+            $validCommands = ['read', 'read_many', 'write', 'write_many', 'read_pattern', 'write_pattern'];
+
+            if (in_array($in['command'], $validCommands) === true) {
+                return $this->_Subcall(array(
+                    'to' => array(
+                        'node' => 'server',
+                        'plugin' => 'infohub_demo_storage',
+                        'function' => $in['command']
+                    ),
+                    'data' => array(
+                        'path' => $in['path'],
+                        'paths' => $in['paths'],
+                        'data' => $in['data'],
+                        'mode' => $in['mode'],
+                        'wanted_data' => $in['wanted_data'],
+                    ),
+                    'data_back' => array(
+                        'step' => 'step_call_child_response'
+                    )
+                ));
+            }
+        }
+
+        if ($in['step'] === 'step_call_child_response') {
+            $out = $this->_Merge($out,$in['response']);
+        }
+
+        return $out;
     }
 
     // Documentation: http://127.0.0.1/infohub/doc/plugin/name/infohub_demo

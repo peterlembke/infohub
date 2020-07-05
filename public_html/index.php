@@ -54,12 +54,11 @@
     <body style="zoom: 100%;">
         <div id="error" class="error" box_alias="error"></div>
         <div id="sanity" class="sanity" box_alias="sanity"></div>
-        <div id="log" class="log" box_alias="log">
-            <progress id="progress" value="0" max="100" style="width: 100%; height: 32px; border: solid 2px;"></progress>
-            <div id="progress_text"></div>
-        </div>
+        <div id="log" class="log" box_alias="log"></div>
         <div id="1" box_mode="data" class="main" box_alias="main">
-            Loading InfoHub...
+            <h1>Loading InfoHub...</h1>
+            <progress id="progress" value="0" max="100"></progress>
+            <div id="progress_text"></div>
             <noscript>
                 <legend>Information</legend>
                 <br/>

@@ -293,7 +293,8 @@ function infohub_demo_form() {
                             'event_data': 'form|file_read',
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
+                            'button_label': _Translate('Select images'),
                         },
                         'my_file_box': {
                             'type': 'common',
@@ -309,7 +310,8 @@ function infohub_demo_form() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'form'
                 },
                 'data_back': {'step': 'step_end'}
             });

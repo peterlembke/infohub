@@ -37,8 +37,7 @@ function infohub_transfer() {
 
     const _GetCmdFunctions = function() {
         return {
-            'send': 'normal',
-            'ban_seconds': 'normal'
+            'send': 'normal'
         };
     };
 
@@ -46,7 +45,8 @@ function infohub_transfer() {
         $globalOnlineTimer = 0, // When server have not answered then $globalOnline is 'false' for 30 seconds
         $globalBannedUntil = _MicroTime() + 1.0, // Seconds since EPOC when the ban time is over
         $globalSendToNode = {}, // All messages that will be sent, key is node name
-        $globalCallStack = {}; // Outgoing subcall messages leave their callstack here and pick it up when coming back. Used in _LeaveCallStack and _PickUpCallStack.
+        $globalCallStack = {}, // Outgoing subcall messages leave their callstack here and pick it up when coming back. Used in _LeaveCallStack and _PickUpCallStack.
+        $globalWaitingForResponse = 'false'; // True when we wait for a response
 
     // *****************************************************************************
     // * The private functions, add your own in your plugin
@@ -112,8 +112,8 @@ function infohub_transfer() {
 
     $functions.push('send');
     /**
-     * Cmd function that will send the messages to the server when the ban time is up
-     * @version 2018-09-01
+     * Used by infohub_exchange.js to trigger a send of messages to the server when the ban time is up
+     * @version 2020-07-05
      * @since 2013-11-21
      * @author Peter Lembke
      * @param {type} $in
@@ -123,19 +123,14 @@ function infohub_transfer() {
     {
         const $default = {
             'to_node': {}, // node name as key and an array with messages to that node
-            'config': {},
             'from_plugin': {},
             'step': 'step_start',
-            'response': {
-                'answer': 'false',
-                'message': '',
-                'checksum': '',
-                'sign_code': '',
-                'sign_code_created_at': '',
-                'session_id': ''
-            },
+            'response': {},
             'data_back': {
                 'package': {}
+            },
+            'config': {
+                'add_clear_text_messages': 'false'
             }
         };
 
@@ -166,8 +161,6 @@ function infohub_transfer() {
 
                 internal_AddMessagesToGlobalSendToNode($in);
 
-                // @todo Must honor $globalBannedUntil. That is probably done with an advanced_timer. check that.
-
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -180,17 +173,62 @@ function infohub_transfer() {
                         'update': 'lower' // no, yes, lower, higher
                     },
                     'data_back': {
-                        'step': 'step_time_to_send_count_messages'
+                        'step': 'step_time_to_send_now'
                     }
                 });
             }
         }
 
+        if ($in.step === 'step_time_to_send_now') {
+            $in.step = 'step_time_to_send_count_messages';
+
+            let $milliSeconds = 0;
+
+            if ($globalWaitingForResponse === 'true') {
+                $milliSeconds = 1000;
+            }
+
+            const $banLeft = $globalBannedUntil - _MicroTime();
+            if ($banLeft > $milliSeconds) {
+                $milliSeconds = $banLeft;
+            }
+
+            if ($milliSeconds > 0) {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_timer',
+                        'function': 'start_timer'
+                    },
+                    'data': {
+                        'name': 'send',
+                        'milliseconds': $milliSeconds,
+                        'update': 'yes' // no, yes, lower, higher
+                    },
+                    'data_back': {
+                        'step': 'step_time_to_send_now'
+                    }
+                });
+            }
+
+            $globalWaitingForResponse = 'true';
+        }
+
         if ($in.step === 'step_time_to_send_count_messages') {
+
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'milliseconds': 0.0,
+                'name': ''
+            };
+            $in.response = _Default($default, $in.response);
+
             $in.step = 'step_time_to_send_online';
             if (_Count($globalSendToNode) === 0) {
                 $out.answer = 'true';
                 $out.message = 'I have no messages to send';
+                $globalWaitingForResponse = 'false';
                 $in.step = 'step_end';
             }
         }
@@ -203,22 +241,24 @@ function infohub_transfer() {
                 internal_Cmd({
                     'func': 'HandleOffline'
                 });
+                $globalWaitingForResponse = 'false';
                 $in.step = 'step_end';
             }
         }
 
         if ($in.step === 'step_time_to_send_globalonline') {
-            $in.step = 'step_time_to_send_now';
+            $in.step = 'step_time_to_send_packages';
             if ($globalOnline === 'false') {
                 $out.message = 'The server did not answer the last time I tried. I am waiting a while to try again. Your subcalls will be returned to you now.';
                 internal_Cmd({
                     'func': 'HandleOffline'
                 });
+                $globalWaitingForResponse = 'false';
                 $in.step = 'step_end';
             }
         }
 
-        if ($in.step === 'step_time_to_send_now') {
+        if ($in.step === 'step_time_to_send_packages') {
 
             for (let $nodeName in $globalSendToNode) {
                 if ($globalSendToNode.hasOwnProperty($nodeName) === false) {
@@ -234,6 +274,10 @@ function infohub_transfer() {
                 }
 
                 let $messages = _ByVal($globalSendToNode[$nodeName]);
+                if (_Empty($messages) === 'true') {
+                    continue;
+                }
+
                 delete ($globalSendToNode[$nodeName]);
                 $messages = _SendingMessagesClean($messages);
                 let $messagesJson = JSON.stringify($messages); // _JsonEncode($package.messages); // avoid prettify
@@ -248,6 +292,10 @@ function infohub_transfer() {
                     'messages_encoded_length': $messagesEncoded.length,
                     'messages_checksum': ''
                 };
+
+                if ($in.config.add_clear_text_messages === 'true') {
+                    $package.messages = $messages; // For debug purposes
+                }
 
                 const $messageOut = _SubCall({
                     'to': {
@@ -276,6 +324,14 @@ function infohub_transfer() {
         }
 
         if ($in.step === 'step_checksum_response') {
+
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'checksum': ''
+            };
+            $in.response = _Default($default, $in.response);
+
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.data_back.package.messages_checksum = $in.response.checksum;
@@ -302,6 +358,17 @@ function infohub_transfer() {
         }
 
         if ($in.step === 'step_sign_code_response') {
+
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'session_id': '',
+                'sign_code': '',
+                'sign_code_created_at': '',
+                'user_name': ''
+            };
+            $in.response = _Default($default, $in.response);
+
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
 
@@ -326,8 +393,6 @@ function infohub_transfer() {
                 'func': 'AjaxCall',
                 'package': $packageJson
             });
-
-            $globalBannedUntil = _MicroTime(true) + 5.0; // (was 1.2) Set a high ban time in seconds. Server will return with the real ban timestamp.
 
             $out.answer = 'true';
             $out.message = 'Sent message to node:' + $nodeName + ', with ' + $packageJson.length + ' bytes of data.';
@@ -382,46 +447,6 @@ function infohub_transfer() {
         };
     };
 
-    /**
-     * Calculate the timestamp when we no longer are banned
-     * If we send more data to the server before the ban have ended we just end up with a lot more ban time.
-     * @version 2013-11-30
-     * @since 2013-11-30
-     * @author Peter Lembke
-     * @param $in
-     */
-    $functions.push('ban_seconds');
-    const ban_seconds = function ($in)
-    {
-        const $default = {
-            'banned_until': 0.0,
-            'ban_seconds': 10.0,
-            'message': ''
-        };
-        $in = _Default($default,$in);
-
-        if ($in.message !== '')
-        {
-            internal_Log({
-                'level': 'error',
-                'message': 'Got an error message:' + $in.message,
-                'function_name': $in.func
-            });
-        }
-
-        const $bannedUntil = _MicroTime(true) + $in.ban_seconds;
-
-        if ($globalBannedUntil < $bannedUntil) {
-            $globalBannedUntil = $bannedUntil;
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Banned until: ' + parseInt($globalBannedUntil,10),
-            'banned_until': $globalBannedUntil
-        };
-    };
-
     // *****************************************************************************
     // * Internal function that you only can reach from internal_Cmd
     // *****************************************************************************
@@ -446,17 +471,20 @@ function infohub_transfer() {
         };
         $in = _Default($default,$in);
 
-        let $timestamp = _MicroTime() + 600.0;
-        let $messageCount = 0;
+        const $currentTime = _MicroTime();
+        let $timestamp = $currentTime + 600.0;
+        let $totalMessageCount = 0;
+        const $extraWaitMilliSeconds = 50;
 
         for (let $nodeName in $in.to_node) {
             if ($in.to_node.hasOwnProperty($nodeName) === false) {
                 continue;
             }
 
-            $messageCount = $messageCount + $in.to_node[$nodeName].length;
+            const $toNodeMessageCount = $in.to_node[$nodeName].length;
+            $totalMessageCount = $totalMessageCount + $toNodeMessageCount;
 
-            for (let $messageId = 0; $messageId < $in.to_node[$nodeName].length; $messageId = $messageId + 1) {
+            for (let $messageId = 0; $messageId < $toNodeMessageCount; $messageId = $messageId + 1) {
                 const $messageData = $in.to_node[$nodeName][$messageId];
 
                 if (_IsSet($messageData.wait) === 'false') {
@@ -469,27 +497,28 @@ function infohub_transfer() {
             }
         }
 
-        if ($globalBannedUntil === 0.0) {
-            $globalBannedUntil = _MicroTime() + 1.0;
+        if ($globalBannedUntil <= 0.0) {
+            $globalBannedUntil = $currentTime + 1.0;
         }
 
         if ($timestamp < $globalBannedUntil) {
             $timestamp = $globalBannedUntil;
         }
 
-        let $waitMilliseconds = ($timestamp - _MicroTime({})) * 1000.0;
-        if ($waitMilliseconds <= 0.0) {
-            $waitMilliseconds = 0.0;
+        let $waitMilliseconds = 1000 * ($timestamp - $currentTime);
+        $waitMilliseconds = Math.ceil($waitMilliseconds);
+        if ($waitMilliseconds <= 0) {
+            $waitMilliseconds = 0;
         }
 
-        $waitMilliseconds = $waitMilliseconds + 0.05; // I get banned over very small times by the server.
+        $waitMilliseconds = $waitMilliseconds + $extraWaitMilliSeconds; // I get banned over very small times by the server.
 
         return {
             'answer': 'true',
             'message': 'Found out how long we must wait until we can send the messages',
             'wait_milliseconds': $waitMilliseconds,
             'timestamp': $timestamp,
-            'message_count': $messageCount
+            'message_count': $totalMessageCount
         };
     };
 
@@ -667,7 +696,7 @@ function infohub_transfer() {
         const xmlHttp = new XMLHttpRequest();
         const $maxWaitTimeMS = 4000.0;
 
-        var noResponseTimer = setTimeout(function() {
+        const $noResponseTimer = setTimeout(function() {
             xmlHttp.abort();
             _SetGlobalOnline('false');
 
@@ -697,7 +726,7 @@ function infohub_transfer() {
                 return;
             }
 
-            const $myTime = _MicroTime(true);
+            const $currentTime = _MicroTime();
             let $package = {};
             let $event;
             let $incomingData = xmlHttp.responseText;
@@ -705,7 +734,7 @@ function infohub_transfer() {
             internal_Log({
                 'message': 'Incoming ajax message',
                 'function_name': '*onreadystatechange',
-                'start_time': $myTime,
+                'start_time': $currentTime,
                 'depth': 1
             });
 
@@ -716,10 +745,11 @@ function infohub_transfer() {
             });
 
             _SetGlobalOnline('true'); // We got a message, we are online
-            clearTimeout(noResponseTimer); // We got a response before the timeout
+            clearTimeout($noResponseTimer); // We got a response before the timeout
 
             if ($incomingData.substr(0, 7) === 'error: ') {
                 _BoxError('Got server ' + $incomingData);
+                $globalWaitingForResponse = 'false';
                 return;
             }
 
@@ -736,7 +766,7 @@ function infohub_transfer() {
                     });
 
                     _BoxError($incomingData, 'false');
-
+                    $globalWaitingForResponse = 'false';
                     return;
                 }
             }
@@ -765,14 +795,16 @@ function infohub_transfer() {
                 _BoxError($package, 'true');
             }
 
-            if (_IsSet($package.ban_seconds) === 'true') {
-                $globalBannedUntil = $package.ban_seconds + _MicroTime();
+            if (_IsSet($package.banned_seconds) === 'true') {
+                const $newBannedUntil = $package.banned_seconds + _MicroTime();
+                $globalBannedUntil = $newBannedUntil;
             }
+            $globalWaitingForResponse = 'false';
 
             internal_Log({
                 'function_name': '*onreadystatechange',
                 'message': 'Leaving Incoming ajax message',
-                'start_time': $myTime,
+                'start_time': $currentTime,
                 'depth': -1
             });
 
@@ -904,7 +936,7 @@ function infohub_transfer() {
     };
 
     /**
-     * Clean up the outgoing message so it has no duplicate data
+     * Clean up the outgoing or incoming message so it has no duplicate data
      * and no variables that can interfere.
      * @param $message
      * @returns {{}|{answer: string, data: [], message: string}}

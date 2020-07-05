@@ -81,8 +81,6 @@ function progress() {
      */
     const _Count = function ($object)
     {
-        "use strict";
-
         if (Array.isArray($object)) {
             return $object.length;
         }

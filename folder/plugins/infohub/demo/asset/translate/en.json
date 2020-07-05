@@ -1,15 +1,11 @@
 {
     "version": {
-        "date": "2019-10-19 20:49:21",
+        "date": "2020-07-05 13:48:06",
         "plugin": "infohub_demo",
-        "data_checksum": "cfec873bd036ef28360370d532adf88f",
+        "data_checksum": "cbae21bb9378b574b08aeabec3493e84",
         "language": "en",
         "country": "GB",
         "file_type": "finished_file"
-    },
-    "launcher": {
-        "title": "Demo",
-        "description": "Demos that show you what you can do with InfoHub."
     },
     "data": {
         "infohub_demo": {
@@ -42,16 +38,11 @@
         },
         "infohub_demo_audio": {
             "Welcome to InfoHub Demo Audio": "Welcome to InfoHub Demo Audio",
-            "Here are some demos to show you what Infohub can do with embedded Audio. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Here are some demos to show you what Infohub can do with embedded Audio. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.",
-            "This is a Jamendo audio album": "This is a Jamendo audio album",
-            "Jamendo is a 3rd party audio streaming service. Use it in a presentation box.": "Jamendo is a 3rd party audio streaming service. Use it in a presentation box.",
-            "This is a Jamendo audio track": "This is a Jamendo audio track",
-            "This is a Soundcloud audio playlist": "This is a Soundcloud audio playlist",
-            "Soundcloud is a 3rd party audio streaming service. Use it in a presentation box.": "Soundcloud is a 3rd party audio streaming service. Use it in a presentation box.",
-            "This is a Soundcloud audio track": "This is a Soundcloud audio track",
-            "This is a Spotify audio album": "This is a Spotify audio album",
-            "Spotify is a 3rd party audio streaming service. Use it in a presentation box.": "Spotify is a 3rd party audio streaming service. Use it in a presentation box.",
-            "This is a Spotify audio track": "This is a Spotify audio track"
+            "Here are some demos to show you what Infohub can do with audio.": "Here are some demos to show you what Infohub can do with audio.",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "Infohub Client do not use 3rd party services. All data must come from the server",
+            "This is a %s": "This is a %s",
+            "%s is a 3rd party audio streaming service.": "%s is a 3rd party audio streaming service.",
+            "In new tab": "In new tab"
         },
         "infohub_demo_common": {
             "Time": "Time",
@@ -100,7 +91,8 @@
             "Extra": "Extra",
             "Below you can press the button to download a text file with a greeting. Example of downloading files.": "Below you can press the button to download a text file with a greeting. Example of downloading files.",
             "Download file": "Download file",
-            "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button.": "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button."
+            "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button.": "Below you can press the button to get a file selector. Select one or more jpeg images. They will be read and shown under the button.",
+            "Select images": "Select images"
         },
         "infohub_demo_form2": {
             "Welcome to the InfoHub Demo for more advanced forms": "Welcome to the InfoHub Demo for more advanced forms",
@@ -112,6 +104,7 @@
             "Lunch burger": "Lunch burger",
             "Dinner burger": "Dinner burger",
             "Alias": "Alias",
+            "Your alias for this burger order, so you can easily reorder at a later time": "Your alias for this burger order, so you can easily reorder at a later time",
             "Frying the burger": "Frying the burger",
             "How much du you want us to fry the burger, from lightly touching the pan up to meteorite": "How much du you want us to fry the burger, from lightly touching the pan up to meteorite",
             "Side dish": "Side dish",
@@ -154,12 +147,14 @@
             "Union": "Union",
             "Pickles": "Pickles",
             "Of age": "Of age",
+            "I can only sell to you if you are of age": "I can only sell to you if you are of age",
             "I am 18 years or older": "I am 18 years or older",
             "Flower": "Flower",
             "You get a flower on the table. Select a colour and we will do a close match with the flowers we have.": "You get a flower on the table. Select a colour and we will do a close match with the flowers we have.",
             "nothing special": "nothing special",
             "Only vegetables and spices": "Only vegetables and spices",
-            "I want to go all in with this dinner. Dion mustard and Romani salad!!": "I want to go all in with this dinner. Dion mustard and Romani salad!!"
+            "I want to go all in with this dinner. Dion mustard and Romani salad!!": "I want to go all in with this dinner. Dion mustard and Romani salad!!",
+            "This submit button works and goes to infohub_demo. This only happens if all data is valid.": "This submit button works and goes to infohub_demo. This only happens if all data is valid."
         },
         "infohub_demo_frog": {
             "Instructions": "Instructions",
@@ -196,19 +191,19 @@
         },
         "infohub_demo_map": {
             "Welcome to InfoHub Demo Map": "Welcome to InfoHub Demo Map",
-            "Here are some demos to show you what Infohub can do with embedded Map. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Here are some demos to show you what Infohub can do with embedded Map. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.",
-            "This is a Openstreet map": "This is a Openstreet map",
-            "Openstreetmap is a 3rd party map streaming service. Use it in a presentation box.": "Openstreetmap is a 3rd party map streaming service. Use it in a presentation box.",
-            "This is a Googlemaps": "This is a Googlemaps",
-            "Googlemaps is a 3rd party map streaming service. Use it in a presentation box.": "Googlemaps is a 3rd party map streaming service. Use it in a presentation box.",
-            "This is a Bing map": "This is a Bing map",
-            "Bing is a 3rd party map streaming service. Use it in a presentation box.": "Bing is a 3rd party map streaming service. Use it in a presentation box."
+            "Here are some demos to show you what Infohub can do with maps.": "Here are some demos to show you what Infohub can do with maps.",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "Infohub Client do not use 3rd party services. All data must come from the server",
+            "This is a %s": "This is a %s",
+            "%s is a 3rd party map streaming service.": "%s is a 3rd party map streaming service.",
+            "In new tab": "In new tab"
         },
         "infohub_demo_menu": {
             "Demo Collection": "Demo Collection",
             "Text demo": "Text demo",
             "Common objects demo": "Common objects demo",
+            "SVG rendering demo": "SVG rendering demo",
             "You get a frog": "You get a frog",
+            "Video stream services": "Video stream services",
             "Audio stream services": "Audio stream services",
             "Map services": "Map services",
             "Link - different kinds": "Link - different kinds",
@@ -217,24 +212,101 @@
             "Tabs list": "Tabs list",
             "Form - simple": "Form - simple",
             "Form - Advanced": "Form - Advanced",
-            "Document text": "Document text"
+            "Table": "Table",
+            "Document text": "Document text",
+            "Timer": "Timer",
+            "Storage": "Storage"
+        },
+        "infohub_demo_storage": {
+            "InfoHub Demo Storage": "InfoHub Demo Storage",
+            "You can test the Storage on the client and server": "You can test the Storage on the client and server",
+            "Write": "Write",
+            "Select options and press button to write": "Select options and press button to write",
+            "Node": "Node",
+            "Client": "Client",
+            "Server": "Server",
+            "Mode": "Mode",
+            "overwrite": "overwrite",
+            "merge": "merge",
+            "Path": "Path",
+            "/a/test1": "/a/test1",
+            "/b/test2": "/b/test2",
+            "/b/test3": "/b/test3",
+            "/c/test4": "/c/test4",
+            "All four": "All four",
+            "/b/*": "/b/*",
+            "Data": "Data",
+            "Adam": "Adam",
+            "Bertil": "Bertil",
+            "Cesar": "Cesar",
+            "Flag true": "Flag true",
+            "Flag false": "Flag false",
+            "Empty": "Empty",
+            "Read": "Read",
+            "Select options and press button to read": "Select options and press button to read",
+            "Wanted data": "Wanted data",
+            "First name": "First name",
+            "Last name": "Last name",
+            "Here you will see the data we read from Storage": "Here you will see the data we read from Storage",
+            "Read data": "Read data",
+            "The data read from Storage.": "The data read from Storage."
+        },
+        "infohub_demo_svg": {
+            "Welcome to InfoHub Demo SVG": "Welcome to InfoHub Demo SVG",
+            "Here are some demos to show you what Infohub can do with Infohub SVG. If you instead want to use existing SVG files then have a look at infohub render common.": "Here are some demos to show you what Infohub can do with Infohub SVG. If you instead want to use existing SVG files then have a look at infohub render common.",
+            "Rectange": "Rectange",
+            "A simple rectangle": "A simple rectangle",
+            "Circle": "Circle",
+            "A simple circle": "A simple circle",
+            "Shadow": "Shadow",
+            "How to do shadows": "How to do shadows"
+        },
+        "infohub_demo_table": {
+            "Id": "Id",
+            "View": "View",
+            "Name": "Name",
+            "Year": "Year",
+            "Score": "Score",
+            "E-mail": "E-mail",
+            "Image": "Image",
+            "This is a legend": "This is a legend",
+            "Clicked row with ID:": "Clicked row with ID:"
         },
         "infohub_demo_text": {
             "Welcome to InfoHub Demo Text": "Welcome to InfoHub Demo Text",
             "Plugin infohub_render_text is used in this demo. You can use text to bind together rendered objects.": "Plugin infohub_render_text is used in this demo. You can use text to bind together rendered objects.",
+            "The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.": "The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.",
+            "[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]": "[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]",
+            "[h2]Columns[/h2]You can activate columns. Then you automatically get columns that your text can flow in. You can [light]highlight portions of the text like this[/light] ": "[h2]Columns[/h2]You can activate columns. Then you automatically get columns that your text can flow in. You can [light]highlight portions of the text like this[/light] ",
+            "and you can include other elements in your text, for example: [my_external_link].": "and you can include other elements in your text, for example: [my_external_link].",
+            "[h2]Zoom level[/h2]You can zoom the view in your browser. When you do that and the space is to narrow for the column, then it reduces the number of columns. You always get a readable view in all zoom levels.": "[h2]Zoom level[/h2]You can zoom the view in your browser. When you do that and the space is to narrow for the column, then it reduces the number of columns. You always get a readable view in all zoom levels.",
+            "[h2]Sections[/h2]You see that the h2 sections do not wrap nice in the columns. There are css commands to fix that in most browsers. I have that on my todo list.": "[h2]Sections[/h2]You see that the h2 sections do not wrap nice in the columns. There are css commands to fix that in most browsers. I have that on my todo list.",
             "My external link to the ABC club": "My external link to the ABC club"
+        },
+        "infohub_demo_timer": {
+            "Timer demo": "Timer demo",
+            "Press the buttons to change the colours": "Press the buttons to change the colours",
+            "Red": "Red",
+            "Green": "Green",
+            "Blue": "Blue",
+            "Advanced Timer demo": "Advanced Timer demo",
+            "Press the button to start the demo": "Press the button to start the demo",
+            "Advanced timer": "Advanced timer",
+            "The result": "The result",
+            "Number": "Number",
+            "wait": "wait",
+            "Simulate sending": "Simulate sending"
         },
         "infohub_demo_video": {
             "Welcome to InfoHub Demo Video": "Welcome to InfoHub Demo Video",
-            "Here are some demos to show you what Infohub can do with embedded Video. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.": "Here are some demos to show you what Infohub can do with embedded Video. You should ALWAYS use a presentation box for 3rd party material because you then give the user an option not to click.",
-            "First we have a Youtube presentation box. [youtube_major] And then we have a Vimeo video [vimeo_major] And here we have a Daily motion video. [dailymotion_major]": "First we have a Youtube presentation box. [youtube_major] And then we have a Vimeo video [vimeo_major] And here we have a Daily motion video. [dailymotion_major]",
-            "This is a Youtube video": "This is a Youtube video",
-            "Youtube is a 3rd party video streaming service. Use it in a presentation box.": "Youtube is a 3rd party video streaming service. Use it in a presentation box.",
-            "In new tab": "In new tab",
-            "This is a Vimeo video": "This is a Vimeo video",
-            "Vimeo is a 3rd party video streaming service. Use it in a presentation box.": "Vimeo is a 3rd party video streaming service. Use it in a presentation box.",
-            "This is a Daily motion video": "This is a Daily motion video",
-            "Daily motion is a 3rd party video streaming service. Use it in a presentation box.": "Daily motion is a 3rd party video streaming service. Use it in a presentation box."
+            "Here are some demos to show you what Infohub can do with video.": "Here are some demos to show you what Infohub can do with video.",
+            "Infohub Client do not use 3rd party services. All data must come from the server": "Infohub Client do not use 3rd party services. All data must come from the server",
+            "First we have a Youtube presentation box.": "First we have a Youtube presentation box.",
+            "And then we have a Vimeo video": "And then we have a Vimeo video",
+            "And here we have a Daily motion video.": "And here we have a Daily motion video.",
+            "This is a %s": "This is a %s",
+            "%s is a 3rd party video streaming service.": "%s is a 3rd party video streaming service.",
+            "In new tab": "In new tab"
         }
     }
 }

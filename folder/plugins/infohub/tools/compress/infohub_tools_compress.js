@@ -261,7 +261,8 @@ function infohub_tools_compress() {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'compress'
                 },
                 'data_back': {
                     'step': 'step_form_data'

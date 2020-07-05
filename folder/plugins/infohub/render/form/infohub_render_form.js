@@ -349,10 +349,11 @@ function infohub_render_form() {
                     'box-sizing:border-box;'+
                     'border-radius: 20px;'+
                     'background-color: #bcdebc;'+
-                    'background: linear-gradient(#caefca, #ffffff);'+
-                    'border: 1px solid #a6c8a6;'+
+                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                    'border: 0px;'+
                     'margin: 10px 0px 0px 0px;'+
-                    'padding: 4px 10px;'
+                    'padding: 4px 10px;'+
+                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
             };
         }
         
@@ -433,11 +434,12 @@ function infohub_render_form() {
                     'box-sizing:border-box;'+
                     'border-radius: 20px;'+
                     'background-color: #bcdebc;'+
-                    'background: linear-gradient(#caefca, #ffffff);'+
-                    'border: 1px solid #a6c8a6;'+
+                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                    'border: 0px;'+
                     'margin: 10px 0px 0px 0px;'+
                     'padding: 4px 10px;'+
-                    'display: inline-block;',
+                    'display: inline-block;'+
+                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
                 '.hidden':
                     'display: none;',
                 '.center':

@@ -160,7 +160,7 @@ function infohub_demo_form2() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('Alias'),
-                            'description':_Translate( 'Your alias for this burger order, so you can easily reorder at a later time'),
+                            'description': _Translate( 'Your alias for this burger order, so you can easily reorder at a later time'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
@@ -264,7 +264,7 @@ function infohub_demo_form2() {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
                             "label": _Translate("Of age"),
-                            "description":_Translate( "I can only sell to you if you are of age"),
+                            "description": _Translate( "I can only sell to you if you are of age"),
                             "options": [
                                 { "value": "of_age", "label": _Translate("I am 18 years or older"), 'validator_plugin': 'infohub_validate', 'validator_function': 'validate_is_true'}
                             ]
@@ -284,7 +284,8 @@ function infohub_demo_form2() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'form2'
                 },
                 'data_back': {'step': 'step_end'}
             });
@@ -434,7 +435,7 @@ function infohub_demo_form2() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            window.alert('This submit button works and goes to infohub_demo. This only happens if all data is valid.');
+            window.alert(_Translate('This submit button works and goes to infohub_demo. This only happens if all data is valid.'));
         }
 
         return {

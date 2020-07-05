@@ -2,11 +2,11 @@
 You can run Infohub on Raspberry Pi. It has been tested with great success with this setup:
 
 * Raspberry Pi 3
-* Raspbian GNU/Linux 10 (buster)
+* Raspbian GNU/Linux 10 (buster) and with Ubuntu 20.04
 * SD card 16Gb
 * Apache2
-* PHP 7.3
-* MariaDb
+* PHP 7.3 and PHP 7.4
+* MariaDb and Redis
 
 Infohub do not require a fast server since most things happen in the browser. If the database server (MariaDb) is not warmed up then you can notice failure and just try again.
 
@@ -24,6 +24,10 @@ Infohub do not require a fast server since most things happen in the browser. If
 
 # Configure MariaDb
 
+# Configure SQLite3
+
+# Configure Redis
+
 # Configure Infohub
 
 # License
@@ -32,4 +36,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2020-04-29 by Peter Lembke  
-Changed 2020-04-29 by Peter Lembke  
+Changed 2020-07-01 by Peter Lembke  

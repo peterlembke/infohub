@@ -8,7 +8,7 @@
         "file_type": "finished_file"
     },
     "launcher": {
-        "title": "Node contacts",
+        "title": "Users",
         "description": "Handles all node connections. Your server uses this data to connect to other nodes."
     },
     "data": {

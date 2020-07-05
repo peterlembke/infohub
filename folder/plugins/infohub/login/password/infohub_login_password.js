@@ -121,7 +121,7 @@ function infohub_login_password() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('Current password'),
-                            'description': 'Leave blank if you have none',
+                            'description': _Translate('Leave blank if you have none'),
                             'maxlength': '30',
                             'show_characters_left': 'false'
                         },
@@ -129,7 +129,7 @@ function infohub_login_password() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('New password'),
-                            'description': 'Leave blank if you want to remove the password',
+                            'description': _Translate('Leave blank if you want to remove the password'),
                             'maxlength': '30',
                             'show_characters_left': 'false'
                         },
@@ -151,7 +151,8 @@ function infohub_login_password() {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'password'
                 },
                 'data_back': {
                     'step': 'step_end'

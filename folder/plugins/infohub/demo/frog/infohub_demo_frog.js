@@ -161,7 +161,8 @@ function infohub_demo_frog() {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'frog'
                 },
                 'data_back': {'step': 'step_end'}
             });

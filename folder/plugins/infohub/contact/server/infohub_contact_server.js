@@ -371,7 +371,8 @@ function infohub_contact_server() {
                         'box_id': 'main.body.infohub_contact.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'server'
                 },
                 'data_back': {
                     'step': 'step_end'

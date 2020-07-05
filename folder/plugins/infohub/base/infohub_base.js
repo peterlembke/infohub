@@ -290,7 +290,7 @@
     };
 
     /**
-     * Return true if the named method exist in this class
+     * Return 'true' if the named method exist in this class
      * Used by cmd, internal_Cmd
      * @param $functionName
      * @returns {boolean}
@@ -305,26 +305,26 @@
         };
 
         if (typeof $functionName !== 'string') {
-            return false;
+            return 'false';
         }
 
         if ($functions.indexOf($functionName) > -1) {
-            return true;
+            return 'true';
         }
 
         if (_ValidName($functionName) === false) {
-            return false;
+            return 'false';
         }
 
         try {
             if (typeof eval($functionName) === 'function') {
-                return true;
+                return 'true';
             }
         } catch ($err) {
-            return false;
+            return 'false';
         }
 
-        return false;
+        return 'false';
     };
 
     /**
@@ -447,7 +447,8 @@
     };
 
     /**
-     * Read value from any data collection
+     * Read value from any data collection and get a result.
+     * If the data do not exist or are the wrong data type then you get the default value.
      * Name can be 'just_a_name' or 'some/deep/level/data'
      * @param $in
      * @returns {{}|*}
@@ -457,10 +458,10 @@
     const _GetData = function ($in)
     {
         const $default = {
-            'name': '',
-            'default': null,
-            'data': {},
-            'split': '/'
+            'name': '', // example: "response/data/checksum"
+            'default': null, // example: ""
+            'data': {}, // an object with data where you want to pull out a part of it
+            'split': '/' // If name naturally contain / then use pipe | instead
         };
         $in = _Default($default, $in);
 
@@ -618,6 +619,10 @@
     const _Empty = function ($object)
     {
         if (typeof $object === 'undefined' || $object === null) {
+            return 'true';
+        }
+
+        if (Array.isArray($object) === true && $object.length === 0) {
             return 'true';
         }
 
@@ -994,7 +999,6 @@
             }
 
             return $out;
-
         };
 
         leave:
@@ -1017,7 +1021,7 @@
             $response = _GetCallerPluginName($in);
             $in.data.from_plugin = $response.from_plugin;
 
-            if (_MethodExists($functionName) === false) {
+            if (_MethodExists($functionName) === 'false') {
                 $message = 'function name: ' + $functionName + ', does not exist or are not allowed to be called';
                 $callResponse.message = $message;
                 internal_Log({'level': 'error', 'message': $message });
@@ -1259,7 +1263,7 @@
                 'start_time': $startTime
             });
 
-            if (_MethodExists($functionName) === false) {
+            if (_MethodExists($functionName) === 'false') {
                 $message = 'function name: ' + $functionName + ', does not exist or are not allowed to be called';
                 break tests;
             }
@@ -1365,9 +1369,22 @@
             };
         }
 
-        let $message,
-            $toScreen = '',
-            $errorBox;
+        if (_IsSet($GLOBALS.infohub_minimum_error_level) === 'false') {
+            return {
+                'answer': 'true',
+                'message': 'Did NOT write the log message to the console because infohub_minimum_error_level is not set'
+            };
+        }
+
+        const $allowedLevels = ['log', 'info', 'warn', 'error'];
+
+        const $minimumLogLevel = $allowedLevels.indexOf($GLOBALS.infohub_minimum_error_level);
+        if ($minimumLogLevel === -1) {
+            return {
+                'answer': 'true',
+                'message': 'Can not handle infohub_minimum_error_level = ' + $GLOBALS.infohub_minimum_error_level
+            };
+        }
 
         const $default = {
             'time_stamp': _TimeStamp(),
@@ -1383,15 +1400,24 @@
         };
         $in = _Default($default, $in);
 
-        if (_IsSet($GLOBALS.infohub_minimum_error_level) === 'false') {
-            return {'answer': 'true', 'message': 'Did NOT write the log message to the console because infohub_minimum_error_level is not set' };
+        const $logLevel = $allowedLevels.indexOf($in.level);
+        if ($logLevel === -1) {
+            return {
+                'answer': 'true',
+                'message': 'Can not handle level = ' + $in.level
+            };
         }
 
-        if ($in.level !== 'error') {
-            if ($GLOBALS.infohub_minimum_error_level === 'error') {
-                return {'answer': 'true', 'message': 'Did NOT write the log message to the console because the infohub_minimum_error_level only logs errors' };
-            }
+        if ($logLevel < $minimumLogLevel) {
+            return {
+                'answer': 'true',
+                'message': 'Your log message has a too low level'
+            };
         }
+
+        let $message,
+            $toScreen = '',
+            $errorBox;
 
         if ($in.level === 'error' && $in.get_backtrace === 'true') {
             $in.backtrace = new Error().stack.split("\n");
@@ -1410,7 +1436,8 @@
             window.errorIndicator = window.errorIndicator + '*';
         }
 
-        $message = window.errorIndicator + " " + $in.time_stamp + ', ' + $in.node_name + '.' + $in.plugin_name + '.' + $in.function_name + ', ' + $in.message;
+        const $plugin = $in.node_name + '.' + $in.plugin_name + '.' + $in.function_name;
+        $message = window.errorIndicator + " " + $in.time_stamp + ', ' + $plugin + ', ' + $in.message;
 
         if ($in.depth === 1) {
             window.console.groupCollapsed($message);
@@ -1451,7 +1478,6 @@
                     $errorBox.innerHTML = $toScreen + '<br>' + $currentContents;
                 }
             }
-
         }
 
         if ($in.depth === -1) {

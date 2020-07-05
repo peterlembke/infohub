@@ -99,8 +99,9 @@ function infohub_login_logout() {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
                             'head_label': _Translate('Logout'),
-                            'content_data': '[button_logout][status_message][button_refresh]',
-                            'foot_text': _Translate('Here you can logout from the server')
+                            'content_data': '[button_logout][status_message]',
+                            'head_text': _Translate('Here you can logout from the server'),
+                            'foot_text': _Translate('If successful then the login page shows')
                         },
                         'button_logout': {
                             'plugin': 'infohub_renderform',
@@ -115,18 +116,9 @@ function infohub_login_logout() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': 'logout result:',
+                            'data': _Translate('logout result') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block'
-                        },
-                        'button_refresh': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('Reload after logout'),
-                            'event_data': 'logout|reload',
-                            'to_plugin': 'infohub_debug',
-                            'to_function': 'refresh_plugins_and_reload_page'
                         }
                     },
                     'how': {
@@ -137,7 +129,8 @@ function infohub_login_logout() {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'logout'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -199,10 +192,12 @@ function infohub_login_logout() {
         if ($in.step === 'step_logout_response')
         {
             $in.response.message = _Translate('Failed to logout') + ': ' + $in.response.message;
+            $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {
                 $in.response.ok = 'true';
                 $in.response.message = _Translate('Success logging out');
+                $in.step = 'step_refresh';
             }
 
             let $subCall = _SubCall({
@@ -214,6 +209,29 @@ function infohub_login_logout() {
                 'data': {
                     'id': $in.box_id + '.[status_message]',
                     'text': $in.response.message
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+            $messages.push($subCall);
+        }
+
+        if ($in.step === 'step_refresh')
+        {
+            const $subCall = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'call_server'
+                },
+                'data': {
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_dummy',
+                        'function': 'reload_page'
+                    },
+                    'data': {},
                 },
                 'data_back': {
                     'step': 'step_end'

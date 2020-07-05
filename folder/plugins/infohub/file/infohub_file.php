@@ -703,7 +703,7 @@ class infohub_file extends infohub_base
     /**
      * Get ALL assets for ONE plugin
      * Used by infohub_asset
-     * @version 2017-12-23
+     * @version 2020-05-23
      * @since   2017-12-23
      * @author  Peter Lembke
      * @param array $in
@@ -758,7 +758,10 @@ class infohub_file extends infohub_base
                 'extension' => $fileData['path_info']['extension'],
                 'contents' => $fileData['contents'],
                 'checksum' => $fileData['checksum'],
-                'is_binary' => $fileData['is_binary']
+                'is_binary' => $fileData['is_binary'],
+                'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
+                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
+                'file_size' => $fileData['file_size']
             );
 
             $answer = 'true';
@@ -776,7 +779,7 @@ class infohub_file extends infohub_base
     /**
      * You can request specific assets
      * Used by infohub_asset
-     * @version 2018-11-14
+     * @version 2020-05-23
      * @since   2018-11-14
      * @author  Peter Lembke
      * @param array $in
@@ -834,7 +837,10 @@ class infohub_file extends infohub_base
                 'extension' => $fileData['path_info']['extension'],
                 'contents' => $fileData['contents'],
                 'checksum' => $fileData['checksum'],
-                'is_binary' => $fileData['is_binary']
+                'is_binary' => $fileData['is_binary'],
+                'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
+                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
+                'file_size' => $fileData['file_size']
             );
         }
 

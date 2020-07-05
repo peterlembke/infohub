@@ -557,7 +557,7 @@ function infohub_render_common() {
 
         if (_Empty($in.css_data) === 'true' && $in.class === 'svg') {
             $in.css_data = {
-                '.svg': 'width:100%; height:100%; clear:both; display:block; box-sizing:border-box;'
+                '.svg': 'width:100%; height:100%; clear:both; display:block; box-sizing:border-box; margin-top: 1px;'
             };
         }
 

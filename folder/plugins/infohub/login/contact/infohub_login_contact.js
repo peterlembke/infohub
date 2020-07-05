@@ -136,7 +136,8 @@ function infohub_login_contact() {
                             'type': 'form',
                             'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_server_plugin][list_client_plugin]',
                             'label': _Translate('One contact'),
-                            'description': _Translate('This is the data form for one contact')
+                            'description': _Translate('This is the data form for one contact'),
+                            'open': 'false'
                         },
                         'text_node': {
                             'plugin': 'infohub_renderform',
@@ -237,7 +238,8 @@ function infohub_login_contact() {
                         'box_id': 'main.body.infohub_login.contact', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'contact'
                 },
                 'data_back': {
                     'step': 'step_show_data'

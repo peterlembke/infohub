@@ -217,10 +217,11 @@ function infohub_launcher() {
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
                                     'background-color: #bcdebc;'+
-                                    'background: linear-gradient(#caefca, #ffffff);'+
-                                    'border: 1px solid #a6c8a6;'+
+                                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                                    'border: 0px;'+
                                     'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 10px;'
+                                    'padding: 4px 10px;'+
+                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },
                         'switch_icon': {
@@ -241,7 +242,8 @@ function infohub_launcher() {
                     },
                     'where': {
                         'box_id': $in.box_id + '.switch_button'
-                    }
+                    },
+                    'cache_key': 'gui'
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -272,7 +274,8 @@ function infohub_launcher() {
                     },
                     'where': {
                         'box_id': $in.box_id + '.lists.my_list'
-                    }
+                    },
+                    'cache_key': 'mylist'
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -305,7 +308,8 @@ function infohub_launcher() {
                     'where': {
                         'box_id': _GetBoxId() + '.lists.full_list',
                         'set_visible': 'false'
-                    }
+                    },
+                    'cache_key': 'fulllist'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -394,7 +398,8 @@ function infohub_launcher() {
                         'set_visible': 'true',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'instructions'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -426,10 +431,11 @@ function infohub_launcher() {
                                     'box-sizing:border-box;'+
                                     'border-radius: 20px;'+
                                     'background-color: #bcdebc;'+
-                                    'background: linear-gradient(#caefca, #ffffff);'+
-                                    'border: 1px solid #a6c8a6;'+
+                                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                                    'border: 0px;'+
                                     'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 10px;'
+                                    'padding: 4px 10px;'+
+                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },
                         'refresh_icon': {
@@ -451,7 +457,8 @@ function infohub_launcher() {
                     'where': {
                         'box_id': 'main.body.infohub_launcher.refresh',
                         'scroll_to_box_id': 'false'
-                    }
+                    },
+                    'cache_key': 'refreshpage'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -952,11 +959,11 @@ function infohub_launcher() {
                 'alias': $id + 'icon',
                 'class': 'svg',
                 'css_data': {
-                    '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
+                    '.svg': 'width:64px; height:64px; padding:1px;'
                 }
             };
 
-            let $fontSize = '0.9em';
+            let $fontSize = '0.85em';
             const $title = _Replace('_', ' ', $item.title.toString());
             if ($title.length >= 9) {
                 $fontSize = '0.7em';
@@ -973,7 +980,7 @@ function infohub_launcher() {
                 'class': 'my_list_title',
                 'tag': 'div',
                 'css_data': {
-                    '.my_list_title': 'max-width: 64px; height: 28px; max-height: 28px; font-size: '+$fontSize+'; text-align: center; padding:0px; word-wrap:break-word;'
+                    '.my_list_title': 'max-width: 78px; height: 32px; font-size: '+$fontSize+'; text-align: center; padding: 1px; word-wrap:break-word; border-radius: 4px; box-sizing: border-box;'
                 }
             };
 
@@ -991,6 +998,10 @@ function infohub_launcher() {
                     'css_data': {
                         '.my_list_link': 'display: inline-block;'
                     }
+                };
+
+                $what[$id + 'title'].css_data = {
+                    '.my_list_title': 'width: 64px; height: 32px; font-size: '+$fontSize+'; text-align: center; padding:1px; word-wrap:break-word; box-sizing: border-box;'
                 };
             }
         }
@@ -1933,7 +1944,8 @@ function infohub_launcher() {
                         'box_id': 'main.body.infohub_launcher.information',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'plugininfo_' + $in.plugin_name
                 },
                 'data_back': {
                     'plugin': $in.plugin,
@@ -2344,7 +2356,10 @@ function infohub_launcher() {
                                 'type': 'common',
                                 'subtype': 'svg',
                                 'data': '[my_progress_asset]',
-                                'alias': 'progress'
+                                'alias': 'progress',
+                                'css_data': {
+                                    '.svg': 'padding: 0px;'
+                                }
                             },
                             'my_progress_asset': {
                                 'plugin': 'infohub_asset',
@@ -2359,9 +2374,10 @@ function infohub_launcher() {
                         },
                         'where': {
                             'box_id': $id + '_title',
-                            'max_width': 60,
+                            'max_width': 64,
                             'scroll_to_box_id': 'false'
-                        }
+                        },
+                        'cache_key': 'fadingfountain'
                     },
                     'data_back': {
                         'event_data': $in.event_data,

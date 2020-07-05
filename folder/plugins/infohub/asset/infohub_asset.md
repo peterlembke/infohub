@@ -221,7 +221,7 @@ Used by infohub_asset, infoub_launcher to update specific assets in multiple plu
 The function will check the local storage for the assets. Missing assets. Assets exist with the wrong checksum. Assets exist with the right checksum. Assets that are correct are removed from the list. They will not be updated.
 
 If the final list is empty then return control to the caller.  
-If there are only assets left in the list that has the wrong checksum then send a short tail message to the server and return control to the caller. Answer will be handled when it arrive from the server.
+If there are only assets left in the list that has the wrong checksum then send a short tail message to the server and return control to the caller. Answer will be handled when it arrives from the server.
   
 If there are any missing asset in the list then call the server, handle the response and then return control to the caller.  
 
@@ -288,7 +288,14 @@ $out = array(
     )
 );
 ```
-   
+
+Each plugin asset index will be updated with the new data. Function update_plugin_assets_index will be used.
+
+# update_plugin_assets_index
+Used by `update_specific_assets`. Will update existing plugin assets index with the new data. If the index do not exist it will be created. The index are stored in the local Storage.
+
+See assets index below.
+
 # get_plugin_assets
 Client function where a level 1 client side plugin can ask for any of its assets, including the index.  
 
@@ -358,6 +365,51 @@ Can be use by infohub_asset, infohub_launcher to get multiple assets for several
 # get_asset and license
 Client function that get one asset. Can be used by the owner of the asset and by infohub_asset.  
 Function get_plugin_assets uses get_asset.
+
+# assets index
+Each plugin that has assets will also have an index of those assets. The index will keep track of what assets have been downloaded and their checksums. Here is an example of an asset index:
+
+```
+{
+    "micro_time": 1591162757.115438,
+    "time_stamp": "2020-06-03 07:39:17",
+    "checksums": {
+        "infohub_launcher/launcher.json": "272f295e2de4504ff7e4779999e9eb74",
+        "infohub_launcher/icon/fadingfountain.json": "fa154ad8a3675e52dc0d87b3ff065234",
+        "infohub_launcher/icon/fadingfountain.svg": "88ba82c81985285f791e698b8ba86575",
+        "infohub_launcher/icon/fail-red.json": "4ae5f9d5df1823f46a193a8a5772b165",
+        "infohub_launcher/icon/fail-red.svg": "1cb2e2036812978328310f689e01dbf1",
+        "infohub_launcher/icon/help.json": "b3554e7902e9e5b37991d67b21d06854",
+        "infohub_launcher/icon/help.svg": "36ea77fe920c34c5ca280bd995eff9bb",
+        "infohub_launcher/icon/icon.json": "e09bce11b027052629520de84c0aaf42",
+        "infohub_launcher/icon/icon.svg": "f823d6e3b2fb0138e60f397b38d02f33",
+        "infohub_launcher/icon/minus-yellow.json": "4ae5f9d5df1823f46a193a8a5772b165",
+        "infohub_launcher/icon/minus-yellow.svg": "0b18bbb71112dc2a65e6fbbd1652308f",
+        "infohub_launcher/icon/my-launcher.json": "6e5ec00b7974a92c425572ec04bddf4f",
+        "infohub_launcher/icon/my-launcher.svg": "4ac5758f39b2cee5d67207d1cc5475f2",
+        "infohub_launcher/icon/ok-green.json": "4ae5f9d5df1823f46a193a8a5772b165",
+        "infohub_launcher/icon/ok-green.svg": "8511481f354ac76d0689fb2822b7a0e5",
+        "infohub_launcher/icon/pill-button-blue.json": "0db2f9c344e512bac56439ff7361d6b9",
+        "infohub_launcher/icon/play-blue.json": "4ae5f9d5df1823f46a193a8a5772b165",
+        "infohub_launcher/icon/play-blue.svg": "f83869eaa215999ddea09bba6418dde6",
+        "infohub_launcher/icon/plus-green.json": "4ae5f9d5df1823f46a193a8a5772b165",
+        "infohub_launcher/icon/plus-green.svg": "980a55907e6777f5cddd7c94dc9e2b3a",
+        "infohub_launcher/icon/refresh.json": "6ab6f2b7ea06e0930e78c111494fa79d",
+        "infohub_launcher/icon/refresh.svg": "5d1743bacded074da6e2c6dcf84e3111",
+        "infohub_launcher/icon/switch.json": "81ebe71a4121f35c787f3fd60031e3bc",
+        "infohub_launcher/icon/switch.svg": "9ee371a930f920ee4956695d2615f8f3",
+        "infohub_launcher/icon/sync.json": "783ca12e592556327504bf8220394f45",
+        "infohub_launcher/icon/sync.svg": "79a2fb45fb9f27541fa8789370ffb174",
+        "infohub_launcher/translate/en.json": "df33ec66a1d3d6342f4c4aa0c6aae611",
+        "infohub_launcher/translate/es.json": "3cb49ab828b8dce9465579377cbb304b",
+        "infohub_launcher/translate/sv.json": "458c0f3ac9bda83b2651ad028d5e6a5a"
+    },
+    "full_sync_done": "true"
+}
+```
+
+The example is for infohub_launcher. You see when the list was updated. The checksums of all downloaded assets.   
+full_sync_done will be set to true by the server when the server says that we have all asset names.
 
 # Graphical user interface
 You can start the plugin from Workbench. You will see icons, images etc and their license information.

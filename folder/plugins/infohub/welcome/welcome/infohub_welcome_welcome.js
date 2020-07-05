@@ -92,92 +92,84 @@ function infohub_welcome_welcome() {
     $functions.push('create');
     const create = function ($in)
     {
-        $in = _ByVal($in);
-
-        $classTranslations = $in.translations;
-
-        $in.func = _GetFuncName($in.subtype);
-        let $response = internal_Cmd($in);
-
-        return {
-            'answer': $response.answer,
-            'message': $response.message,
-            'data': $response.data
-        };
-    };
-
-    $functions.push("internal_Welcome");
-    const internal_Welcome = function ($in)
-    {
         const $default = {
             'subtype': 'menu',
-            'parent_box_id': ''
+            'parent_box_id': '',
+            'translations': {},
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from welcome_welcome'
+            }
         };
         $in = _Default($default, $in);
 
-        const $data = {
-            'to': {
-                'node': 'client',
-                'plugin': 'infohub_render',
-                'function': 'create'
-            },
-            'data': {
-                'what': {
-                    'welcome_text': {
-                        'type': 'text',
-                        'text': "[logo_icon][h1][title][/h1]\n [i][ingress][/i]\n[columns]\n" +
-                        "" +
-                        "[/columns]\n[i][my_link][/i]"
+        if ($in.step === 'step_start') {
+            $classTranslations = $in.translations;
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'welcome_text': {
+                            'type': 'text',
+                            'text': "[logo_icon][h1][title][/h1]\n [i][ingress][/i]\n[columns]\n" +
+                                "" +
+                                "[/columns]\n[i][my_link][/i]"
+                        },
+                        'logo_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[logo_asset]'
+                        },
+                        'logo_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'infohub-logo-done',
+                            'plugin_name': 'infohub_welcome'
+                        },
+                        'title': {
+                            'type': 'common',
+                            'subtype': 'value',
+                            'data': _Translate('Welcome to your Infohub')
+                        },
+                        'ingress': {
+                            'type': 'common',
+                            'subtype': 'value',
+                            'data': _Translate('We are going to have so much fun.')
+                        },
+                        'my_link': {
+                            'type': 'link',
+                            'subtype': 'link',
+                            'text': 'Infohub',
+                            'data': 'http://www.infohub.se'
+                        }
                     },
-                    'logo_icon': {
-                        'type': 'common',
-                        'subtype': 'svg',
-                        'data': '[logo_asset]'
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[welcome_text]'
                     },
-                    'logo_asset': {
-                        'plugin': 'infohub_asset',
-                        'type': 'icon',
-                        'asset_name': 'infohub-logo-done',
-                        'plugin_name': 'infohub_welcome'
-                    },
-                    'title': {
-                        'type': 'common',
-                        'subtype': 'value',
-                        'data': _Translate('Welcome to your Infohub')
-                    },
-                    'ingress': {
-                        'type': 'common',
-                        'subtype': 'value',
-                        'data': _Translate('We are going to have so much fun.')
-                    },
-                    'my_link': {
-                        'type': 'link',
-                        'subtype': 'link',
-                        'text': 'Infohub',
-                        'data': 'http://www.infohub.se'
+                    'where': {
+                        'box_id': $in.parent_box_id + '.form',
+                        'max_width': 100,
+                        'scroll_to_box_id': 'true'
                     }
+                    // 'cache_key': 'welcome' // No need to cache this
                 },
-                'how': {
-                    'mode': 'one box',
-                    'text': '[welcome_text]'
-                },
-                'where': {
-                    'box_id': $in.parent_box_id + '.form',
-                    'max_width': 100,
-                    'scroll_to_box_id': 'true'
+                'data_back': {
+                    'step': 'step_end'
                 }
-            },
-            'data_back': {
-                'step': 'step_end'
-            }
-        };
+            });
+        }
 
         return {
-            'answer': 'true',
-            'message': 'Here are the render data that will create a welcome text',
-            'data': $data
+            'answer': $in.response.answer,
+            'message': $in.response.message
         };
-
     };
 }
 //# sourceURL=infohub_welcome_welcome.js

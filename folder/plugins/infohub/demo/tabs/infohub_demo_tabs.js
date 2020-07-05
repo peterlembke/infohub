@@ -110,7 +110,8 @@ function infohub_demo_tabs() {
                 },
                 'how': {
                     'text': '[image_example]'
-                }
+                },
+                'cache_key': 'tab7'
             };
 
             const $tabs = [

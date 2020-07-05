@@ -6,18 +6,11 @@ Infohub Transfer handle all traffic.
 If you want to communicate with the outside of your node then Infohub Transfer handle that.   
 Infohub Transfer handle the messages that Infohub Exchange want to send to other nodes.
 
-Infohub Transfer also handle all other communication like connecting to REST & SOAP APIs, downloading resources from the internet and so on.
- 
 ## Client
 Today the Client version of the plugin can do Ajax calls to the server and handle the response from the server. The client will __not communicate with anyone else than the server__. That is a privacy issue.  
 
 ## Server
-Today the Server version can answer the Client request. In the future the server node will also be able to communicate with other server nodes.  
-
-In the future the server node will also add support for using web services that communicate with REST and SOAP.  
-Child plugins can handle REST, SOAP, fetching RSS feeds, fetching HTTP resources from the web, SFTP.
-  
-The important thing to remember is that ALL traffic must go trough Infohub Transfer. We have this one place for communication outside of our node.
+Today the Server version can answer the Client request. In the future the server node will also be able to communicate with other server nodes.
 
 ## Other nodes
 There will be other types of infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to communicate with each other in the same way.
@@ -29,15 +22,28 @@ Server (PHP): For node 'client' it just makes a json package and echo it on scre
   
 When your messages have been sent and the answer comes back, the package are handled and the messages are put in the main loop for sorting.
   
-You will also get back a timestamp when it is OK to contact the node again. That timestamp are stored in $globalBannedUntil.  
+You will also get back a timestamp when it is OK to contact the node again.
 
-### Authentication (login)
+## Authentication (login)
 The client can login to the server and get more rights. The plugin [infohub_login](plugin,infohub_login) handle the login and uses the [infohub_session](plugin,infohub_session) to initiate a session.
 
 ## Sessions
 Session handling. Since Infohub is stateless you do not store session variables, but you do need to know what rights the logged in session have. Not logged in users will only have the right to login if they can ask politely.  
 
-PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies and we can implemt sessions in any communication form. 
+PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies and we can implemt sessions in any communication form.
+
+## banned until
+The responder set banned_seconds and banned_until in the responding package. Also stores the data on the session.
+The initiator get the data and stores it. Then does not contact the node again until the current time is > banned_until.
+
+The client is always the initiator.
+The server is right now always the responder.
+If any other node has a login account then they act as a client and has a session_id.
+
+The server could send messages to other nodes and get data. I have not implemented that support yet so for now the server is always a responder. 
+
+infohub.php checks the banned_until and can refuse access if banned_until > now.
+infohub_transfer will add the configured amount of time to the session banned_until.
 
 ## Leave the callstack behind
 The callstack can reveal many sensitive details if it follows the message to the next node. The callstack is not needed for a subcall to another node.

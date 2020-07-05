@@ -50,11 +50,15 @@ class infohub_session extends infohub_base
             'initiator_store_session_data' => 'normal',
             'initiator_end_session' => 'normal',
             'responder_end_session' => 'normal',
+            'delete_session_data' => 'normal',
             'initiator_calculate_sign_code' => 'normal',
             'responder_calculate_sign_code' => 'normal',
             'initiator_verify_sign_code' => 'normal',
             'responder_verify_sign_code' => 'normal',
-            'responder_check_session_valid' => 'normal'
+            'responder_check_session_valid' => 'normal',
+            'get_banned_until' => 'normal',
+            'set_banned_until' => 'normal',
+            'check_banned_until' => 'normal'
         );
     }
 
@@ -77,15 +81,14 @@ class infohub_session extends infohub_base
             'client_plugin_names' => array(),
             'step' => 'step_create_session_id',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'response' => array(
-                'answer' => 'false',
-                'message' => '',
-                'data' => '', // The uuid is returned as a string
-                'post_exist' => 'false'
-            ),
+            'response' => array(),
             'data_back' => array(
                 'session_id' => '',
-                'session_created_at' => ''
+                'session_created_at' => '',
+                'banned_until' => 0.0
+            ),
+            'config' => array(
+                'ban_time_seconds' => 0.0
             )
         );
         $in = $this->_Default($default, $in);
@@ -103,12 +106,22 @@ class infohub_session extends infohub_base
                     'left_overs' => $in['left_overs'],
                     'server_plugin_names' => $in['server_plugin_names'],
                     'client_plugin_names' => $in['client_plugin_names'],
+                    'config' => $in['config'],
+                    'banned_until' => 0.0,
                     'step' => 'step_create_session_id_response'
                 )
             ));
         }
 
         if ($in['step'] === 'step_create_session_id_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'data' => '', // The uuid is returned as a string
+                'post_exist' => 'false'
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             if ($in['response']['answer'] === 'true') {
                 $in['step'] = 'step_store_session_data';
             }
@@ -118,6 +131,7 @@ class infohub_session extends infohub_base
             $sessionId = self::PREFIX . '_' . $in['response']['data'];
             $sessionCreatedAt = $this->_CreatedAt();
             $path = 'infohub_session/session/' . $sessionId;
+            $bannedUntil = $this->_MicroTime() + $in['config']['ban_time_seconds'];
 
             return $this->_SubCall(array(
                 'to' => array(
@@ -133,7 +147,9 @@ class infohub_session extends infohub_base
                         'session_id' => $sessionId,
                         'session_created_at' => $sessionCreatedAt,
                         'server_plugin_names' => $in['server_plugin_names'],
-                        'client_plugin_names' => $in['client_plugin_names']
+                        'client_plugin_names' => $in['client_plugin_names'],
+                        'banned_until' => $bannedUntil,
+                        'pending_delete' => 'false'
                     )
                 ),
                 'data_back' => array(
@@ -141,12 +157,21 @@ class infohub_session extends infohub_base
                     'left_overs' => $in['left_overs'],
                     'session_id' => $sessionId,
                     'session_created_at' => $sessionCreatedAt,
+                    'banned_until' => $bannedUntil,
                     'step' => 'step_store_session_data_response'
                 )
             ));
         }
 
         if ($in['step'] === 'step_store_session_data_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'data' => array(),
+                'post_exist' => 'false'
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             if ($in['response']['post_exist'] === 'true') {
                 $in['response']['message'] = 'Session created';
             }
@@ -158,7 +183,8 @@ class infohub_session extends infohub_base
             'initiator_user_name' => $in['initiator_user_name'], // user_{hub_id}
             'session_id' => $in['data_back']['session_id'], // session_{hub_id}
             'session_created_at' => $in['data_back']['session_created_at'], // micro time with 3 decimals
-            'logged_in' => $in['response']['post_exist']
+            'logged_in' => $in['response']['post_exist'],
+            'banned_until' => $in['data_back']['banned_until']
         );
     }
 
@@ -166,7 +192,7 @@ class infohub_session extends infohub_base
      * Get session data and store it
      * path = infohub_session/node/{node}
      * Store associated array with initiator_user_name, left_overs, session_id, session_created_at
-     * @version 2020-01-10
+     * @version 2020-06-12
      * @since 2020-01-10
      * @author Peter Lembke
      * @param array $in
@@ -180,6 +206,7 @@ class infohub_session extends infohub_base
             'session_id' => '', //session_{hub_id}
             'session_created_at' => '', // micro time with 3 decimals
             'left_overs' => '', // Left overs from the login. Never exposed outside this plugin
+            'banned_until' => 0.0,
             'step' => 'step_store_session_data',
             'response' => array(
                 'answer' => 'false',
@@ -204,6 +231,7 @@ class infohub_session extends infohub_base
                         'left_overs' => $in['left_overs'],
                         'session_id' => $in['session_id'],
                         'session_created_at' => $in['session_created_at'],
+                        'banned_until' => $in['banned_until']
                     )
                 ),
                 'data_back' => array(
@@ -211,10 +239,10 @@ class infohub_session extends infohub_base
                     'left_overs' => $in['left_overs'],
                     'session_id' => $in['session_id'],
                     'session_created_at' => $in['session_created_at'],
+                    'banned_until' => $in['banned_until'],
                     'step' => 'step_store_session_data_response'
                 )
             ));
-
         }
 
         if ($in['step'] === 'step_store_session_data_response') {
@@ -351,6 +379,59 @@ class infohub_session extends infohub_base
      * @return array
      */
     final protected function responder_end_session(array $in = array()): array
+    {
+        $default = array(
+            'session_id' => '', // session id to end the session on this side.
+            'step' => 'step_set_pending_delete_in_session_data',
+            'response' => array(
+                'answer' => 'false',
+                'message' => ''
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        if ($in['step'] === 'step_set_pending_delete_in_session_data') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'write'
+                ),
+                'data' => array(
+                    'path' => 'infohub_session/session/' . $in['session_id'],
+                    'data' => array(
+                        'pending_delete' => 'true'
+                    ),
+                    'mode' => 'merge'
+                ),
+                'data_back' => array(
+                    'session_id' => $in['session_id'],
+                    'step' => 'step_set_pending_delete_in_session_data_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_set_pending_delete_in_session_data_response') {
+            // not used
+        }
+
+        return array(
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'ok' => $in['response']['answer']
+        );
+    }
+
+    /**
+     * Remove the session data on the responder node
+     * Delete the data in path infohub_session/session/{session_id}
+     * @version 2020-07-02
+     * @since 2020-07-02
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function delete_session_data(array $in = array()): array
     {
         $default = array(
             'session_id' => '', // session id to end the session on this side.
@@ -499,6 +580,8 @@ class infohub_session extends infohub_base
         $signCode = '';
         $signCodeCreatedAt = '';
         $ok = 'false';
+        $sessionId = '';
+        $messages = array();
 
         if ($in['step'] === 'step_check_in_data') {
             $in['step'] = 'step_get_session_data';
@@ -539,11 +622,18 @@ class infohub_session extends infohub_base
         }
 
         if ($in['step'] === 'step_calculate') {
-            $data = $this->_GetData(array(
-                'name' => 'response/data',
-                'default' => array(),
-                'data' => $in,
-            ));
+            $default = array(
+                'banned_until' => 0.0,
+                'client_plugin_names' => array(),
+                'initiator_user_name' => '',
+                'left_overs' => '',
+                'pending_delete' => 'false',
+                'server_plugin_names' => array(),
+                'session_created_at' => '',
+                'session_id' => '',
+            );
+            $in['response']['data'] = $this->_Default($default, $in['response']['data']);
+            $data = $in['response']['data'];
 
             if ($this->_Empty($data) === 'false')
             {
@@ -556,7 +646,30 @@ class infohub_session extends infohub_base
                 $signCode = md5($string);
 
                 $ok = 'true';
+
+                $sessionId = $data['session_id'];
             }
+
+            if ($data['pending_delete'] === 'true') {
+                $in['step'] = 'step_delete_session';
+            }
+        }
+
+        if ($in['step'] === 'step_delete_session') {
+            $messageOut = $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'delete_session_data'
+                ),
+                'data' => array(
+                    'session_id' => $in['session_id']
+                ),
+                'data_back' => array(
+                    'step' => 'step_end'
+                )
+            ));
+            $messages[] = $messageOut;
         }
 
         return array(
@@ -565,7 +678,8 @@ class infohub_session extends infohub_base
             'ok' => $ok,
             'sign_code' => $signCode,
             'sign_code_created_at' => $signCodeCreatedAt, // 3 decimals
-            'session_id' => $in['session_id']
+            'session_id' => $sessionId,
+            'messages' => $messages
         );
     }
 
@@ -722,13 +836,7 @@ class infohub_session extends infohub_base
                 goto leave;
             }
 
-            $data = $this->_GetData(array(
-                'name' => 'response/data',
-                'default' => array(),
-                'data' => $in,
-            ));
-
-            if ($this->_Empty($data) === 'true') {
+            if ($this->_Empty($in['response']['data']) === 'true') {
                 $out['message'] = 'Session data is empty';
                 goto leave;
             }
@@ -739,9 +847,28 @@ class infohub_session extends infohub_base
                 'server_plugin_names' => array(),
                 'client_plugin_names' => array(),
                 'session_created_at' => '',
-                'session_id' => ''
+                'session_id' => '',
+                'pending_delete' => 'false'
             );
-            $data = $this->_Default($default, $data);
+            $in['response']['data'] = $this->_Default($default, $in['response']['data']);
+
+            if ($in['response']['data']['pending_delete'] === 'true') {
+                return $this->_SubCall(array(
+                    'to' => array(
+                        'node' => 'server',
+                        'plugin' => 'infohub_session',
+                        'function' => 'delete_session_data'
+                    ),
+                    'data' => array(
+                        'session_id' => $in['session_id']
+                    ),
+                    'data_back' => array(
+                        'step' => 'step_delete_session_data_response'
+                    )
+                ));
+            }
+
+            $data = $in['response']['data'];
 
             $string = $data['session_created_at'] . $in['sign_code_created_at'] .
                 $data['left_overs'] . $in['messages_checksum'] .
@@ -759,6 +886,12 @@ class infohub_session extends infohub_base
                     'client_plugin_names' => $data['client_plugin_names']
                 );
             }
+        }
+
+        if ($in['step'] === 'step_delete_session_data_response') {
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            $out['sign_code_valid'] = 'false';
         }
 
         leave:
@@ -813,13 +946,32 @@ class infohub_session extends infohub_base
         }
 
         if ($in['step'] === 'step_get_session_data_response') {
+
+            $default = array(
+                'initiator_user_name' => '',
+                'left_overs' => '',
+                'server_plugin_names' => array(),
+                'client_plugin_names' => array(),
+                'session_created_at' => '',
+                'session_id' => '',
+                'pending_delete' => 'false'
+            );
+            $in['response']['data'] = $this->_Default($default, $in['response']['data']);
+
+            $data = $in['response']['data'];
+
+            $sessionValid = 'false';
             if ($in['response']['post_exist'] === 'true') {
-                $sessionValid = $in['response']['post_exist'];
-
-                // @todo Also check that the session has not timed out.
-                // @todo Check that the user_name is right
-
+                $sessionValid = 'true';
             }
+
+            if ($data['pending_delete'] === 'true') {
+                $sessionValid = 'false';
+            }
+
+            // @todo Check that the session has not timed out.
+            // @todo Check that the user_name is right.
+
         }
 
         return array(
@@ -844,4 +996,346 @@ class infohub_session extends infohub_base
         return (string) $time;
     }
 
+    /**
+     * Load the user session and pull out banned_until
+     * Then calculate banned_seconds and banned boolean
+     * @version 2020-06-14
+     * @since 2020-06-12
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function get_banned_until(array $in = array()): array
+    {
+        $default = array(
+            'step' => 'step_get_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
+            'config' => array(
+                'session_id' => ''
+            ),
+            'response' => array(
+                'post_exist' => 'false',
+                'data' => array(
+                    'banned_until' => 0.0
+                )
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'There are no session',
+            'current_time' => $this->_MicroTime(),
+            'banned_until' => 0.0,
+            'banned_seconds' => 0.0,
+            'banned' => 'true'
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from this node';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['config']['session_id'] === '') {
+            $out['message'] = 'There are no active session';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['step'] === 'step_get_session_data') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read'
+                ),
+                'data' => array(
+                    'path' => 'infohub_session/session/' . $in['config']['session_id']
+                ),
+                'data_back' => array(
+                    'step' => 'step_get_session_data_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_get_session_data_response') {
+            if ($in['response']['post_exist'] === 'true') {
+
+                $currentTime = $out['current_time'];
+
+                $out['banned_until'] = $in['response']['data']['banned_until'];
+                if (empty($out['banned_until']) === true) {
+                    $out['banned_until'] = $currentTime;
+                }
+
+                $out['banned_seconds'] = $out['banned_until'] - $currentTime;
+                if ($out['banned_seconds'] < 0.0) {
+                    $out['banned_seconds'] = 0.0;
+                }
+
+                $out['banned'] = 'true';
+                if ($out['banned_seconds'] === 0.0) {
+                    $out['banned'] = 'false';
+                }
+
+                $out['answer'] = 'true';
+                $out['message'] = 'Here are the banned data';
+            }
+        }
+
+        if ($out['answer'] === 'true' && $out['banned'] === 'true') {
+            $a = 1; // For debug purposes
+        }
+
+        return $out;
+    }
+
+    /**
+     * Load the user session and pull out banned_until
+     * Set banned_until by banned_until or by banned_seconds
+     * @version 2020-06-14
+     * @since 2020-06-12
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function set_banned_until(array $in = array()): array
+    {
+        $default = array(
+            'banned_until' => 0.0, // Set this
+            'banned_seconds' => 0.0, // or this
+            'step' => 'step_get_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
+            'config' => array(
+                'session_id' => ''
+            ),
+            'data_back' => array(
+                'banned_until' => 0.0
+            ),
+            'response' => array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'post_exist' => 'false',
+                'data' => array()
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report',
+            'current_time' => $this->_MicroTime(),
+            'banned_until' => 0.0,
+            'banned_seconds' => 0.0,
+            'banned' => 'true'
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from this node';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['step'] === 'step_get_session_data') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read'
+                ),
+                'data' => array(
+                    'path' => 'infohub_session/session/' . $in['config']['session_id']
+                ),
+                'data_back' => array(
+                    'banned_until' => $in['banned_until'],
+                    'banned_seconds' => $in['banned_seconds'],
+                    'step' => 'step_get_session_data_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_get_session_data_response') {
+            if ($in['response']['post_exist'] === 'true') {
+                $in['step'] = 'step_set_session_data';
+            }
+        }
+
+        if ($in['step'] === 'step_set_session_data') {
+
+            $data = $in['response']['data'];
+
+            $now = $out['current_time'];
+            $bannedUntil = $now;
+
+            if ($in['banned_until'] > $now) {
+                $bannedUntil = $in['banned_until'];
+            }
+
+            if ($in['banned_seconds'] > 0.0) {
+                $bannedUntil = $now + $in['banned_seconds'];
+            }
+
+            $data['banned_until'] = $bannedUntil;
+
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'write'
+                ),
+                'data' => array(
+                    'path' => 'infohub_session/session/' . $in['config']['session_id'],
+                    'data' => $data
+                ),
+                'data_back' => array(
+                    'banned_until' => $bannedUntil,
+                    'step' => 'step_set_session_data_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_set_session_data_response') {
+            $out['message'] = 'Failed saving the data to the session';
+            if ($in['response']['answer'] === 'true') {
+
+                $out['banned_until'] = $in['data_back']['banned_until'];
+
+                if (empty($out['banned_until']) === true) {
+                    $out['banned_until'] = $this->_MicroTime();
+                }
+
+                $out['banned_seconds'] = $out['banned_until'] - $this->_MicroTime();
+                if ($out['banned_seconds'] < 0.0) {
+                    $out['banned_seconds'] = 0.0;
+                }
+
+                $out['banned'] = 'true';
+                if ($out['banned_seconds'] === 0.0) {
+                    $out['banned'] = 'false';
+                }
+
+                $out['answer'] = 'true';
+                $out['message'] = 'Here are the banned data';
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Check if we are currently banned. banned = false if banned_until < now
+     * Always adds ban_time_seconds from the config.
+     * Returns the data just like get_banned_until would
+     * @version 2020-06-16
+     * @since 2020-06-12
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function check_banned_until(array $in = array()): array
+    {
+        $default = array(
+            'step' => 'step_get_banned_until',
+            'from_plugin' => array(
+                'node' => ''
+            ),
+            'config' => array(
+                'session_id' => '',
+                'ban_time_seconds' => 0.0
+            ),
+            'response' => array(),
+            'data_back' => array(
+                'banned' => 'true'
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report',
+            'current_time' => $this->_MicroTime(),
+            'banned_until' => 0.0,
+            'banned_seconds' => 0.0,
+            'banned' => 'true'
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from this node';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['step'] === 'step_get_banned_until') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'get_banned_until'
+                ),
+                'data' => array(),
+                'data_back' => array(
+                    'config' => $in['config'],
+                    'step' => 'step_get_banned_until_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_get_banned_until_response') {
+
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'current_time' => 0.0,
+                'banned_until' => 0.0,
+                'banned_seconds' => 0.0,
+                'banned' => 'true'
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out = $in['response'];
+            $in['step'] = 'step_end';
+
+            if ($in['response']['answer'] === 'true') {
+                $in['step'] = 'step_ban_more';
+            }
+        }
+
+        if ($in['step'] === 'step_ban_more') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_session',
+                    'function' => 'set_banned_until'
+                ),
+                'data' => array(
+                    'banned_seconds' => $in['config']['ban_time_seconds']
+                ),
+                'data_back' => array(
+                    'banned' => $in['response']['banned'],
+                    'step' => 'step_ban_more_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_ban_more_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing to report',
+                'current_time' => 0.0,
+                'banned_until' => 0.0,
+                'banned_seconds' => 0.0,
+                'banned' => 'true' // Not used
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $banned = $in['data_back']['banned'];
+            $out = $in['response'];
+            $out['banned'] = $banned;
+
+            $in['step'] = 'step_end';
+        }
+
+        return $out;
+    }
 }

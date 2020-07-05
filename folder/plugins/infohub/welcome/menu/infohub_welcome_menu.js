@@ -90,7 +90,7 @@ function infohub_welcome_menu() {
 
     /**
      * Get instructions and create the message to InfoHub View
-     * @version 2016-10-16
+     * @version 2020-06-17
      * @since   2016-10-16
      * @author  Peter Lembke
      */
@@ -100,86 +100,71 @@ function infohub_welcome_menu() {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
-            'translations': {}
+            'translations': {},
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from infohub_welcome_menu'
+            }
         };
         $in = _Default($default, $in);
 
-        $classTranslations = $in.translations;
-
-        $in.func = _GetFuncName($in.subtype);
-        const $response = internal_Cmd($in);
-
-        return {
-            'answer': $response.answer,
-            'message': $response.message,
-            'data': $response.data
-        };
-    };
-
-    /**
-     * Gives you a menu where you can click on a row to see a demo
-     * @param $in
-     * @returns {*}
-     */
-    $functions.push("internal_Menu");
-    const internal_Menu = function ($in)
-    {
-        const $default = {
-            'subtype': 'menu',
-            'parent_box_id': ''
-        };
-        $in = _Default($default, $in);
-
-        const $data = {
-            'to': {
-                'node': 'client',
-                'plugin': 'infohub_render',
-                'function': 'create'
-            },
-            'data': {
-                'what': {
-                    'my_menu': {
-                        'plugin': 'infohub_rendermenu',
-                        'type': 'menu',
-                        'options': {
-                            'welcome': {
-                                'alias': 'welcome_link',
-                                'event_data': 'welcome',
-                                'button_label': _Translate('Welcome'),
-                                'to_plugin': 'infohub_welcome'
-                            },
-                            'you_can': {
-                                'alias': 'you_can_link',
-                                'event_data': 'youcan',
-                                'button_label': _Translate('You can do all this'),
-                                'to_plugin': 'infohub_welcome'
-                            },
-                            'tech': {
-                                'alias': 'tech_link',
-                                'event_data': 'tech',
-                                'button_label': _Translate('If you like tech'),
-                                'to_plugin': 'infohub_welcome'
+        if ($in.step === 'step_start') {
+            $classTranslations = $in.translations;
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'my_menu': {
+                            'plugin': 'infohub_rendermenu',
+                            'type': 'menu',
+                            'options': {
+                                'welcome': {
+                                    'alias': 'welcome_link',
+                                    'event_data': 'welcome',
+                                    'button_label': _Translate('Welcome'),
+                                    'to_plugin': 'infohub_welcome',
+                                    'to_function': 'click_menu'
+                                },
+                                'you_can': {
+                                    'alias': 'you_can_link',
+                                    'event_data': 'youcan',
+                                    'button_label': _Translate('You can do all this'),
+                                    'to_plugin': 'infohub_welcome',
+                                    'to_function': 'click_menu'
+                                },
+                                'tech': {
+                                    'alias': 'tech_link',
+                                    'event_data': 'tech',
+                                    'button_label': _Translate('If you like tech'),
+                                    'to_plugin': 'infohub_welcome',
+                                    'to_function': 'click_menu'
+                                }
                             }
                         }
-                    }
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[my_menu]'
+                    },
+                    'where': {
+                        'box_id': $in.parent_box_id + '.menu',
+                        'max_width': 320,
+                        'scroll_to_box_id': 'true'
+                    },
+                    'cache_key': 'menu'
                 },
-                'how': {
-                    'mode': 'one box',
-                    'text': '[my_menu]'
-                },
-                'where': {
-                    'box_id': $in.parent_box_id + '.menu',
-                    'max_width': 320,
-                    'scroll_to_box_id': 'true'
-                }
-            },
-            'data_back': {'step': 'step_end'}
-        };
+                'data_back': {'step': 'step_end'}
+            });
+        }
 
         return {
-            'answer': 'true',
-            'message': 'Here are the render data that will create a menu',
-            'data': $data
+            'answer': $in.response.answer,
+            'message': $in.response.message
         };
     };
 }

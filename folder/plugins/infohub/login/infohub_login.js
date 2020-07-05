@@ -280,7 +280,8 @@ function infohub_login() {
                         'box_id': 'main.body.infohub_login.form',
                         'max_width': 640,
                         'scroll_to_box_id': 'true'
-                    }
+                    },
+                    'cache_key': 'instructions'
                 },
                 'data_back': {
                     'desktop_environment': $in.desktop_environment,

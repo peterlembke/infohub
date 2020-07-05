@@ -85,7 +85,7 @@ function infohub_compress() {
             $in.step = 'step_ask_child_plugin';
 
             $functionName = 'Compress' + _UcWords($in.compression_method);
-            if (_MethodExists('internal_' + $functionName) === true) {
+            if (_MethodExists('internal_' + $functionName) === 'true') {
                 $in.step = 'step_ask_function';
             }
         }
@@ -182,7 +182,7 @@ function infohub_compress() {
             $in.step = 'step_ask_child_plugin';
 
             $functionName = 'Uncompress' + _UcWords($in.compression_method);
-            if (_MethodExists('internal_' + $functionName) === true) {
+            if (_MethodExists('internal_' + $functionName) === 'true') {
                 $in.step = 'step_ask_function';
             }
         }

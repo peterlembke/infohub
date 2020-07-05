@@ -53,6 +53,8 @@
             "Login": "Iniciar sesión",
             "Here you can use the contact data you imported and login to the server": "Aquí puede usar los datos de contacto que importó e iniciar sesión en el servidor",
             "Password": "Contraseña",
+            "login result": "resultado de inicio de sesión",
+            "The password you need to decode the shared_secret": "La contraseña que necesitas para decodificar el secreto compartido",
             "Reload after login": "Recargar después de iniciar sesión",
             "Select file": "Seleccione Archivo",
             "You are already logged in": "Ya se ha autentificado",
@@ -68,7 +70,9 @@
         },
         "infohub_login_logout": {
             "Logout": "Cerrar sesión",
+            "logout result": "resultado de cierre de sesión",
             "Here you can logout from the server": "Aquí puede cerrar sesión desde el servidor",
+            "If successful then the login page shows": "Si tiene éxito, la página de inicio de sesión muestra",
             "Reload after logout": "Recargar después de cerrar sesión",
             "Failed to logout": "Error al cerrar sesión",
             "Success logging out": "Cierre de sesión correcto"
@@ -86,7 +90,9 @@
             "Set password": "Establecer contraseña",
             "When you set your local password you scramble the shared secret so that it require your password to work": "Cuando configura su contraseña local, codifica el secreto compartido para que requiera su contraseña para funcionar",
             "Current password": "Contraseña actual",
+            "Leave blank if you have none": "Leave blank if you have none",
             "New password": "Nueva contraseña",
+            "Leave blank if you want to remove the password": "Déjelo en blanco si desea eliminar la contraseña",
             "Change password": "Cambiar contraseña"
         }
     }
