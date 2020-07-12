@@ -80,7 +80,10 @@ class infohub_session extends infohub_base
             'server_plugin_names' => array(),
             'client_plugin_names' => array(),
             'step' => 'step_create_session_id',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
             'response' => array(),
             'data_back' => array(
                 'session_id' => '',
@@ -92,6 +95,16 @@ class infohub_session extends infohub_base
             )
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_login') {
+            $out['message'] = 'I only accept messages from plugin: infohub_login';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from node: server';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_create_session_id') {
             return $this->_SubCall(array(
@@ -208,6 +221,9 @@ class infohub_session extends infohub_base
             'left_overs' => '', // Left overs from the login. Never exposed outside this plugin
             'banned_until' => 0.0,
             'step' => 'step_store_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'response' => array(
                 'answer' => 'false',
                 'message' => ''
@@ -270,6 +286,7 @@ class infohub_session extends infohub_base
     {
         $default = array(
             'node' => '', // name of the node to end the session on both sides.
+            'step' => 'step_get_session_data',
             'response' => array(
                 'data' => array(
                     'initiator_user_name' => '',
@@ -280,7 +297,9 @@ class infohub_session extends infohub_base
                 'answer' => 'false',
                 'message' => 'Nothing to report'
             ),
-            'step' => 'step_get_session_data'
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
@@ -383,9 +402,12 @@ class infohub_session extends infohub_base
         $default = array(
             'session_id' => '', // session id to end the session on this side.
             'step' => 'step_set_pending_delete_in_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'response' => array(
                 'answer' => 'false',
-                'message' => ''
+                'message' => 'Nothing to report from responder_end_session'
             )
         );
         $in = $this->_Default($default, $in);
@@ -436,12 +458,26 @@ class infohub_session extends infohub_base
         $default = array(
             'session_id' => '', // session id to end the session on this side.
             'step' => 'step_delete_session_data',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
             'response' => array(
                 'answer' => 'false',
                 'message' => ''
             )
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_session') {
+            $out['message'] = 'I only accept messages from plugin: infohub_session';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from node: server';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_delete_session_data') {
             return $this->_SubCall(array(
@@ -486,6 +522,9 @@ class infohub_session extends infohub_base
             'node' => '', // node name
             'messages_checksum' => '', // md5 checksum of all messages in the package
             'step' => 'step_get_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -569,6 +608,10 @@ class infohub_session extends infohub_base
             'session_id' => '',
             'messages_checksum' => '', // md5 checksum of all messages in the package
             'step' => 'step_check_in_data',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -582,6 +625,16 @@ class infohub_session extends infohub_base
         $ok = 'false';
         $sessionId = '';
         $messages = array();
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_transfer') {
+            $out['message'] = 'I only accept messages from plugin: infohub_transfer';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from node: server';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_check_in_data') {
             $in['step'] = 'step_get_session_data';
@@ -699,6 +752,9 @@ class infohub_session extends infohub_base
             'sign_code' => '',
             'sign_code_created_at' => '', // 3 decimals
             'step' => 'step_verify_sign_code_created_at',
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -792,6 +848,10 @@ class infohub_session extends infohub_base
             'sign_code' => '',
             'sign_code_created_at' => '', // 3 decimals. Checked in the kickout tests
             'step' => 'step_verify_sign_code_created_at',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -808,6 +868,17 @@ class infohub_session extends infohub_base
             'server_plugin_names' => array(),
             'client_plugin_names' => array()
         );
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_exchange') {
+            $out['message'] = 'I only accept messages from plugin: infohub_exchange';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'I only accept messages from node: server';
+            $in['step'] = 'step_end';
+        }
+
 
         if ($in['step'] === 'step_verify_sign_code_created_at') {
 
@@ -918,6 +989,9 @@ class infohub_session extends infohub_base
         $default = array(
             'session_id' => '',
             'step' => 'step_get_session_data',
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'response' => array(
                 'data' => array(),
                 'answer' => 'false',
@@ -928,6 +1002,11 @@ class infohub_session extends infohub_base
         $in = $this->_Default($default, $in);
 
         $sessionValid = 'false';
+
+        if ($in['from_plugin']['node'] === 'server') {
+            $out['message'] = 'I only accept messages from other nodes';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_get_session_data') {
             return $this->_SubCall(array(

@@ -39,7 +39,8 @@ function infohub_login_login() {
             'create': 'normal',
             'set_boxes': 'normal',
             'click_login': 'normal',
-            'click_import': 'normal'
+            'click_import': 'normal',
+            'click_export': 'normal'
         };
     };
 
@@ -84,7 +85,8 @@ function infohub_login_login() {
                 'answer': 'false',
                 'message': ''
             },
-            'desktop_environment': ''
+            'desktop_environment': '',
+            'download_account': {}
         };
         $in = _Default($default, $in);
 
@@ -178,7 +180,7 @@ function infohub_login_login() {
         }
 
         if ($in.step === 'step_render_for_standalone') {
-            return _SubCall({
+            let $render = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
@@ -196,7 +198,7 @@ function infohub_login_login() {
                         'form_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[my_file_selector][text_password][button_login][status_message]',
+                            'content': '[my_file_selector][text_password][button_login][status_message][button_export]',
                             'label': _Translate('Login')
                         },
                         'my_file_selector': {
@@ -227,6 +229,31 @@ function infohub_login_login() {
                                 'desktop_environment': $in.desktop_environment
                             }
                         },
+                        'button_export': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Download demo account'),
+                            'button_left_icon': '[export_icon]',
+                            'event_data': 'login|export',
+                            'to_node': 'client',
+                            'to_plugin': 'infohub_login',
+                            'to_function': 'click',
+                            'custom_variables': {
+                                'desktop_environment': $in.desktop_environment
+                            }
+                        },
+                        'export_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[export_asset]'
+                        },
+                        'export_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'export',
+                            'plugin_name': 'infohub_login'
+                        },
                         'status_message': {
                             'type': 'common',
                             'subtype': 'container',
@@ -250,6 +277,17 @@ function infohub_login_login() {
                     'step': 'step_render_for_standalone_response'
                 }
             });
+
+            const $url = location.hostname;
+
+            if (_IsSet($in.download_account[$url]) === 'false') {
+                delete $render.data.what.button_export;
+                delete $render.data.what.export_icon;
+                delete $render.data.what.export_asset;
+                $render.data.what.form_password.content = '[my_file_selector][text_password][button_login][status_message]';
+            }
+
+            return $render;
         }
 
         if ($in.step === 'step_render_for_standalone_response') {
@@ -1189,7 +1227,7 @@ function infohub_login_login() {
             $in.step = 'step_save_data_in_storage';
 
             const $fileHost = $nodeData.domain_address;
-            const $browserHost = location.host;
+            const $browserHost = location.hostname;
 
             if ($fileHost !== $browserHost) {
                 const $message = 'The file host "%s" is not the same as the browser host "%s"';
@@ -1260,5 +1298,96 @@ function infohub_login_login() {
         };
     };
 
+    /**
+     * Export the contact data you defined in the infohub_login.json config file
+     * @version 2020-07-07
+     * @since   2020-07-07
+     * @author  Peter Lembke
+     */
+    $functions.push('click_export');
+    const click_export = function ($in)
+    {
+        const $default = {
+            'download_account': {},
+            'step': 'step_get_file_name',
+            'answer': 'false',
+            'message': 'Nothing',
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_get_file_name') {
+            const $url = location.hostname;
+            if (_IsSet($in.download_account[$url]) === 'true') {
+                $in.step = 'step_file_read';
+            }
+        }
+
+        if ($in.step === 'step_file_read') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'call_server'
+                },
+                'data': {
+                    'to': {
+                        'function': 'read_login_file'
+                    },
+                    'data': {},
+                },
+                'data_back': {
+                    'step': 'step_file_read_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_file_read_response')
+        {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'file_name': '',
+                'contents': ''
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.step = 'step_file_write';
+            }
+        }
+
+        if ($in.step === 'step_file_write')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'file_write'
+                },
+                'data': {
+                    'file_name': $in.response.file_name,
+                    'content': $in.response.contents
+                },
+                'data_back': {
+                    'step': 'step_file_write_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_file_write_response') {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.message = 'File exported';
+            }
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message,
+            'ok': $in.answer
+        };
+    };
 }
 //# sourceURL=infohub_login_login.js

@@ -1,0 +1,12 @@
+{
+    "client": {
+        "download_account": {
+            "local.infohub.se": "local.infohub.se.json"
+        }
+    },
+    "server": {
+        "download_account": {
+            "local.infohub.se": "local.infohub.se.json"
+        }
+    }
+}

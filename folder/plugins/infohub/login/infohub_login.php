@@ -44,7 +44,8 @@ class infohub_login extends infohub_base
         return array(
             'login_request' => 'normal', // Incoming login_request
             'login_challenge' => 'normal', // Incoming login_challenge
-            'login' => 'normal' // Login to another node
+            'login' => 'normal', // Login to another node,
+            'read_login_file' => 'normal'
         );
     }
 
@@ -87,9 +88,17 @@ class infohub_login extends infohub_base
                 'login_request_valid' => 'false',
                 'responder_random_code' => '',
                 'responder_seconds_since_epoc' => 0.0
+            ),
+            'from_plugin' => array(
+                'node' => ''
             )
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] === 'server') {
+            $out['message'] = 'Any node except the server are allowed to use function login_request';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_verify_initiator_seconds_since_epoc') {
             // Check that the time mentioned is max 2.0 seconds old
@@ -280,12 +289,20 @@ class infohub_login extends infohub_base
                 'responder_random_code' => '',
                 'responder_seconds_since_epoc' => 0.0,
                 'responder_calculated_id_code' => '', // The code we will answer with if initiator_calculated_id_code is ok
+            ),
+            'from_plugin' => array(
+                'node' => ''
             )
         );
         $in = $this->_Default($default, $in);
 
         $leftOvers = '';
         $messages = array();
+
+        if ($in['from_plugin']['node'] === 'server') {
+            $out['message'] = 'Any node except the server are allowed to use function login_challenge';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_find_login_request') {
             return $this->_SubCall(array(
@@ -485,9 +502,17 @@ class infohub_login extends infohub_base
     {
         $default = array(
             'node' => '',
-            'step' => 'step_get_contact_data'
+            'step' => 'step_get_contact_data',
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $out['message'] = 'Only the server are allowed to use function login';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_get_contact_data')
         {
@@ -517,6 +542,110 @@ class infohub_login extends infohub_base
             'message' => 'Your initiator_calculated_id_code is valid. Here is the session_id we will use in all communication and the first package_password',
             'session_id' => '',
             'package_password' => ''
+        );
+    }
+
+    /**
+     * Read a user login file from file/infohub_login/
+     * @version 2020-07-07
+     * @since   2020-07-07
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function read_login_file(array $in = array()): array
+    {
+        $default = array(
+            'step' => 'step_get_login_file_name',
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
+            ),
+            'config' => array(
+                'download_account' => array(),
+                'user_name' => ''
+            ),
+            'response' => array()
+        );
+        $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only the client are allowed to use function read_login_file';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_login') {
+            $out['message'] = 'Only the client->infohub_login are allowed to use function read_login_file';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['config']['user_name'] !== 'guest') {
+            $out['message'] = 'Only guests are allowed to use function read_login_file';
+            $in['step'] = 'step_end';
+        }
+
+        $out = array(
+            'answer' => '',
+            'message' => '',
+            'contents' => '',
+            'file_name' => ''
+        );
+
+        if ($in['step'] === 'step_get_login_file_name')
+        {
+            $url = $_SERVER['HTTP_HOST'];
+            $fileName = $this->_GetData(array(
+                'name' => 'config/download_account/' . $url,
+                'default' => '',
+                'data' => $in,
+            ));
+
+            if ($this->_Empty($fileName) === 'false') {
+                $in['step'] = 'step_read_login_file';
+            }
+        }
+
+        if ($in['step'] === 'step_read_login_file')
+        {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node'=> 'server',
+                    'plugin'=> 'infohub_file',
+                    'function'=> 'read'
+                ),
+                'data'=> array(
+                    'path' => $fileName
+                ),
+                'data_back'=> array(
+                    'step'=> 'step_read_login_file_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_read_login_file_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'contents' => '',
+                'path_info' => array(
+                    'basename' => ''
+                )
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out = array(
+                'answer' => $in['response']['answer'],
+                'message' => $in['response']['message'],
+                'contents' => $in['response']['contents'],
+                'file_name' => $in['response']['path_info']['basename']
+            );
+        }
+
+        return array(
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'contents' => $out['contents'],
+            'file_name' => $out['file_name']
         );
     }
 
@@ -885,5 +1014,4 @@ class infohub_login extends infohub_base
 
         return $base64Result;
     }
-
 }

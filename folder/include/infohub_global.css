@@ -45,6 +45,21 @@ h1, h2, h3, h4, h5, h6, ul {
                                   supported by Chrome and Opera */
 }
 
+/* https://stackoverflow.com/questions/32921840/change-background-color-of-clicked-option-in-duallistbox */
+select option:hover
+{
+    background: linear-gradient(white, white);
+    background-color: white !important; /* for IE */
+}
+
+select option:focus,
+select option:active,
+select option:checked
+{
+    background: linear-gradient(lightblue, lightblue);
+    background-color: lightblue !important; /* for IE */
+}
+
 /* Progress bar Firefox https://css-tricks.com/html5-progress-element/ */
 progress[value] {
     appearance: none;

@@ -491,7 +491,7 @@ class infohub_exchange extends infohub_base {
 
             $allowedServerPlugins = array(
                 'infohub_plugin' => array('plugins_request' => 1),
-                'infohub_login' => array('login_request' => 1, 'login_challenge' => 1),
+                'infohub_login' => array('login_request' => 1, 'login_challenge' => 1, 'read_login_file' => 1),
                 'infohub_session' => array('responder_end_session' => 1, 'responder_check_session_valid' => 1),
                 'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
                 'infohub_launcher' => array('get_full_list' => 1)
@@ -1235,7 +1235,7 @@ class infohub_exchange extends infohub_base {
         }
         
         $pluginName = trim(strtolower($in['plugin_name']));
-        
+
         $fileName = CONFIG . DS . $pluginName . '.json';
         if (file_exists($fileName) === false) {
             $fileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.json';

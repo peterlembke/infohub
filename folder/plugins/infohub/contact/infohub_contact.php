@@ -47,7 +47,7 @@ class infohub_contact extends infohub_base
         return array(
             'save_node_data' => 'normal',
             'delete_node_data' => 'normal',
-            'load_node_data' => 'normal',
+            'load_node_data' => 'normal', // Also used by infohub_login.php
             'load_node_list' => 'normal',
             'save_group_data' => 'normal',
             'delete_group_data' => 'normal',
@@ -80,22 +80,26 @@ class infohub_contact extends infohub_base
                 'server_plugin_names' => array(),
                 'client_plugin_names' => array()
             ),
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'Nothing',
-                'post_exist' => 'false',
-                'data' => ''
+            'from_plugin' => array(
+                'node' => ''
             ),
+            'response' => array(),
             'step' => 'step_check_user_name'
         );
         $in = $this->_Default($default, $in);
-        
-        $answer = 'false';
-        $message = 'Nothing to report from save_node_data';
-        $ok = 'false';
 
-        if ($in['step'] === 'step_check_user_name')
-        {
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from save_node_data',
+            'ok' => 'false'
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function save_node_data';
+            $in['step'] = 'step_end';
+        }
+
+        if ($in['step'] === 'step_check_user_name') {
             $in['step'] = 'step_check_shared_secret';
 
             if (empty($in['node_data']['user_name']) === true) {
@@ -105,7 +109,7 @@ class infohub_contact extends infohub_base
                         'plugin' => 'infohub_uuid',
                         'function' => 'hub_id'
                     ),
-                    'data' => array(                    ),
+                    'data' => array(),
                     'data_back' => array(
                         'step' => 'step_check_user_name_response',
                         'type' => $in['type'],
@@ -116,6 +120,14 @@ class infohub_contact extends infohub_base
         }
 
         if ($in['step'] === 'step_check_user_name_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing',
+                'post_exist' => 'false',
+                'data' => ''
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             $in['node_data']['user_name'] = self::PREFIX . '_' . $in['response']['data'];
             $in['step'] = 'step_check_shared_secret';
         }
@@ -146,18 +158,25 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_save_node_data_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished saving node data';
-                $ok = 'true';
+
+            $default = array(
+                'answer' => 'false',
+                'message' => 'Nothing'
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished saving node data';
+                $out['ok'] = 'true';
             }
         }
 
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'ok' => $ok
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'ok' => $out['ok']
         );
     }
 
@@ -178,13 +197,23 @@ class infohub_contact extends infohub_base
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing'
+            ),
+            'from_plugin' => array(
+                'node' => ''
             )
         );
         $in = $this->_Default($default, $in);
-       
-        $answer = 'false';
-        $message = 'Nothing to report from delete_node_data';
-        $ok = 'false';
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from delete_node_data',
+            'ok' => 'false'
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function save_node_data';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_delete_node_data') {
             return $this->_SubCall(array(
@@ -205,25 +234,26 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_delete_node_data_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished deleting node data';
-                $ok = 'true';
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished deleting node data';
+                $out['ok'] = 'true';
             }
         }
 
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'ok' => $ok,
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'ok' => $out['ok'],
             'node' => $in['node']
         );
     }
 
     /**
      * Load node data from Storage
-     * @version 2020-04-14
+     * Also used by server->infohub_login
+     * @version 2020-07-07
      * @since   2019-01-16
      * @author  Peter Lembke
      * @param array $in
@@ -251,14 +281,34 @@ class infohub_contact extends infohub_base
                     'server_plugin_names' => array(),
                     'client_plugin_names' => array()
                 )
+            ),
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => ''
             )
         );
         $in = $this->_Default($default, $in);
-        
-        $answer = 'false';
-        $message = 'Nothing to report from load_node_data';
-        $ok = 'false';
-        $nodeData = array();
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from load_node_data',
+            'node_data' => array(),
+            'ok' => 'false',
+            'post_exist' => 'false'
+        );
+
+        $node = $in['from_plugin']['node'];
+        $plugin = $in['from_plugin']['plugin'];
+
+        if ($node !== 'client' && $node !== 'server') {
+            $out['message'] = 'Only node client or node server are allowed to use function load_node_data';
+            $in['step'] = 'step_end';
+        }
+
+        if ($node === 'server' && $plugin !== 'infohub_login') {
+            $out['message'] = 'Only server->infohub_session are allowed to use function load_node_data';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_load_node_data') {
             return $this->_SubCall(array(
@@ -281,23 +331,23 @@ class infohub_contact extends infohub_base
         
         if ($in['step'] === 'step_load_node_data_response')
         {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
 
-            if ($answer === 'true') {
+            if ($out['answer'] === 'true') {
                 if ($in['response']['post_exist'] === 'true') {
-                    $message = 'Finished loading node data';
-                    $ok = 'true';
-                    $nodeData = $in['response']['data'];
+                    $out['message'] = 'Finished loading node data';
+                    $out['ok'] = 'true';
+                    $out['node_data'] = $in['response']['data'];
+                    $out['post_exist'] = 'true';
                 } else {
                     if ($in['config']['contact']['user_name'] === $in['user_name']) {
-                        $message = 'Finished loading node data from config';
-                        $ok = 'true';
-                        $nodeData = $in['config']['contact'];
-                        $in['response']['post_exist'] = 'true'; // Well we found the post in the config file
+                        $out['message'] = 'Finished loading node data from config';
+                        $out['ok'] = 'true';
+                        $out['node_data'] = $in['config']['contact'];
+                        $out['post_exist'] = 'true'; // Well we found the post in the config file
                     }
                 }
-
             }
         }
 
@@ -310,14 +360,14 @@ class infohub_contact extends infohub_base
             'server_plugin_names' => array(),
             'client_plugin_names' => array()
         );
-        $nodeData = $this->_Default($default, $nodeData);
+        $out['node_data'] = $this->_Default($default, $out['node_data']);
         
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'node_data' => $nodeData,
-            'ok' => $ok,
-            'post_exist' => $in['response']['post_exist']
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'node_data' => $out['node_data'],
+            'ok' => $out['ok'],
+            'post_exist' => $out['post_exist']
         );
     }
 
@@ -335,22 +385,33 @@ class infohub_contact extends infohub_base
             'type' => 'server', // server or client
             'step' => 'step_load_node_list',
             'response' => array(),
-            'data_back' => array()
+            'data_back' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
-        $answer = 'false';
-        $message = 'Nothing to report from load_node_data';
-        $ok = 'false';
-        $nodeList = array();
-        $options = array();
-        
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from load_node_list',
+            'ok' => 'false',
+            'node_list' => array(),
+            'options' => array(),
+            'post_exist' => 'false'
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function load_node_list';
+            $in['step'] = 'step_end';
+        }
+
         if ($in['step'] === 'step_load_node_list') {
             return $this->_SubCall(array(
                 'to' => array(
                     'node' => 'server',
                     'plugin' => 'infohub_storage',
-                    'function' => 'read'
+                    'function' => 'read_pattern'
                 ),
                 'data' => array(
                     'path' => 'infohub_contact/node_data/' . $in['type'] . '/*'
@@ -363,11 +424,19 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_load_node_list_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished loading node list';
-                $nodeList = $in['response']['data'];
+
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'items' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished loading node list';
+                $out['node_list'] = $in['response']['items'];
                 $in['step'] = 'step_clean_list';
             }
         }
@@ -382,22 +451,26 @@ class infohub_contact extends infohub_base
                 'client_plugin_names' => array()
             );
 
-            foreach ($nodeList as $node => $data) {
-                $nodeList[$node] = $this->_Default($default, $data);
-                $nodeName = $nodeList[$node]['node'];
-                $userName = $nodeList[$node]['user_name'];
-                $options[] = array("type" => "option", "value" => $userName, "label" => $nodeName);
+            foreach ($out['node_list'] as $node => $data) {
+                $out['node_list'][$node] = $this->_Default($default, $data);
+                $nodeName = $out['node_list'][$node]['node'];
+                $userName = $out['node_list'][$node]['user_name'];
+                $out['options'][] = array(
+                    "type" => "option",
+                    "value" => $userName,
+                    "label" => $nodeName
+                );
             }
-            $ok = 'true';
+            $out['ok'] = 'true';
 
         }
 
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'node_list' => $nodeList,
-            'options' => $options,
-            'ok' => $ok
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'node_list' => $out['node_list'],
+            'options' => $out['options'],
+            'ok' => $out['ok']
         );
     }
     
@@ -453,13 +526,23 @@ class infohub_contact extends infohub_base
                 'post_exist' => 'false',
                 'data' => ''
             ),
+            'from_plugin' => array(
+                'node' => ''
+            ),
             'step' => 'step_save_group_data'
         );
         $in = $this->_Default($default, $in);
-        
-        $answer = 'false';
-        $message = 'Nothing to report from save_group_data';
-        $ok = 'false';
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from save_group_data',
+            'ok' => 'false'
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function load_node_list';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_save_group_data') {
             return $this->_SubCall(array(
@@ -479,18 +562,18 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_save_group_data_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished saving node data';
-                $ok = 'true';
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished saving node data';
+                $out['ok'] = 'true';
             }
         }
 
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'ok' => $ok
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'ok' => $out['ok']
         );
     }
 
@@ -510,13 +593,23 @@ class infohub_contact extends infohub_base
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing'
+            ),
+            'from_plugin' => array(
+                'node' => ''
             )
         );
         $in = $this->_Default($default, $in);
-       
-        $answer = 'false';
-        $message = 'Nothing to report from delete_group_data';
-        $ok = 'false';
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from delete_group_data',
+            'ok' => 'false'
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function delete_group_data';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_delete_group_data') {
             return $this->_SubCall(array(
@@ -537,18 +630,18 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_delete_group_data_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished deleting group data';
-                $ok = 'true';
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished deleting group data';
+                $out['ok'] = 'true';
             }
         }
 
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'ok' => $ok,
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'ok' => $out['ok'],
             'name' => $in['name']
         );
     }
@@ -566,14 +659,24 @@ class infohub_contact extends infohub_base
         $default = array(
             'name' => '',
             'step' => 'step_load_group_data',
-            'response' => array()
+            'response' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
-        
-        $answer = 'false';
-        $message = 'Nothing to report from load_group_data';
-        $ok = 'false';
-        $groupData = array();
+
+        $out = array(
+            'answer' => 'false',
+            'message' => 'Nothing to report from load_group_data',
+            'ok' => 'false',
+            'group_data' => array()
+        );
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $out['message'] = 'Only node client are allowed to use function load_group_data';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_load_group_data') {
             return $this->_SubCall(array(
@@ -592,12 +695,12 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_load_group_data_response') {
-            $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
-            if ($answer === 'true') {
-                $message = 'Finished loading group data';
-                $groupData = $in['response']['data'];
-                $ok = $in['response']['post_exist'];
+            $out['answer'] = $in['response']['answer'];
+            $out['message'] = $in['response']['message'];
+            if ($out['answer'] === 'true') {
+                $out['message'] = 'Finished loading group data';
+                $out['group_data'] = $in['response']['data'];
+                $out['ok'] = $in['response']['post_exist'];
             }
         }
 
@@ -606,13 +709,13 @@ class infohub_contact extends infohub_base
             'note' => '',
             'server_plugin_names' => array()
         );
-        $groupData = $this->_Default($default, $groupData);
+        $out['group_data'] = $this->_Default($default, $out['group_data']);
         
         return array(
-            'answer' => $answer,
-            'message' => $message,
-            'group_data' => $groupData,
-            'ok' => $ok
+            'answer' => $out['answer'],
+            'message' => $out['message'],
+            'group_data' => $out['group_data'],
+            'ok' => $out['ok']
         );
     }
 
@@ -630,10 +733,13 @@ class infohub_contact extends infohub_base
         $default = array(
             'names' => array(),
             'step' => 'step_load_groups_data',
-            'response' => array()
+            'response' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
-        
+
         $answer = 'false';
         $message = 'Nothing to report from load_groups_data';
         $ok = 'false';
@@ -641,6 +747,11 @@ class infohub_contact extends infohub_base
 
         $groupData = array();
         $groupsMerged = array();
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $message = 'Only node client are allowed to use function load_groups_data';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_load_groups_data') {
             
@@ -668,7 +779,7 @@ class infohub_contact extends infohub_base
         
         if ($in['step'] === 'step_load_group_data_response') {
             $answer = $in['response']['answer'];
-            $message = $in['response']['message'];            
+            $message = $in['response']['message'];
             if ($answer === 'true') {
                 $message = 'Finished loading group data';
                 $groupItems = $in['response']['items'];
@@ -679,8 +790,6 @@ class infohub_contact extends infohub_base
                     'note' => '',
                     'server_plugin_names' => array()
                 );
-                
-                $out = array();
                 
                 foreach ($groupItems as $path => $item) {
                     $item = $this->_Default($default, $item);
@@ -715,14 +824,11 @@ class infohub_contact extends infohub_base
     {
         $default = array(
             'step' => 'step_load_group_list',
-            'response' => array(
-                'answer' => 'false',
-                'message' => '',
-                'path' => '',
-                'data' => array(),
-                'post_exist' => 'false'
-            ),
-            'data_back' => array()
+            'response' => array(),
+            'data_back' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
@@ -731,13 +837,18 @@ class infohub_contact extends infohub_base
         $ok = 'false';
         $groupList = array();
         $options = array();
-        
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $message = 'Only node client are allowed to use function load_group_list';
+            $in['step'] = 'step_end';
+        }
+
         if ($in['step'] === 'step_load_group_list') {
             return $this->_SubCall(array(
                 'to' => array(
                     'node' => 'server',
                     'plugin' => 'infohub_storage',
-                    'function' => 'read'
+                    'function' => 'read_pattern'
                 ),
                 'data' => array(
                     'path' => 'infohub_contact/group_data/*'
@@ -749,11 +860,19 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_load_group_list_response') {
+
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'items' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];            
             if ($answer === 'true') {
                 $message = 'Finished loading node list';
-                $groupList = $in['response']['data'];
+                $groupList = $in['response']['items'];
                 $in['step'] = 'step_clean_list';
             }
         }
@@ -770,6 +889,7 @@ class infohub_contact extends infohub_base
                 $groupName = $groupList[$name]['name'];
                 $options[] = array("type" => "option", "value" => $groupName, "label" => $groupName);
             }
+
             $ok = 'true';
         }
 
@@ -796,7 +916,10 @@ class infohub_contact extends infohub_base
             'node' => 'server',
             'step' => 'step_load_plugin_list',
             'response' => array(),
-            'data_back' => array()
+            'data_back' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
@@ -804,7 +927,12 @@ class infohub_contact extends infohub_base
         $message = 'Nothing to report from load_plugin_data';
         $ok = 'false';
         $pluginList = array();
-        
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $message = 'Only node client are allowed to use function load_group_list';
+            $in['step'] = 'step_end';
+        }
+
         if ($in['step'] === 'step_load_plugin_list') {
             return $this->_SubCall(array(
                 'to' => array(
@@ -822,6 +950,14 @@ class infohub_contact extends infohub_base
         }
         
         if ($in['step'] === 'step_load_plugin_list_response') {
+
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'data' => array()
+            );
+            $in['response'] = $this->_Default($default, $in['response']);
+
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];            
             if ($answer === 'true') {
@@ -866,9 +1002,17 @@ class infohub_contact extends infohub_base
                 'contents' => '',
                 'checksum' => ''
             ),
-            'data_back' => array()
+            'data_back' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            )
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $in['response']['message'] = 'Only node client are allowed to use function get_doc_file';
+            $in['step'] = 'step_end';
+        }
 
         if ($in['step'] === 'step_read_doc_file') {
             return $this->_SubCall(array(
@@ -894,5 +1038,4 @@ class infohub_contact extends infohub_base
             'checksum' => $in['response']['checksum']
         );
     }
-    
 }

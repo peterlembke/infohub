@@ -46,6 +46,7 @@ function infohub_session() {
             'initiator_verify_sign_code': 'normal',
             'initiator_check_session_valid': 'normal',
             'initiator_get_session_data': 'normal',
+            'delete_session_data': 'normal',
         };
     };
 
@@ -473,6 +474,7 @@ function infohub_session() {
 
     /**
      * Check if the session is valid
+     * If not valid it will be deleted from the storage
      * Also return user_name and allowed plugin names
      * @version 2020-05-10
      * @since 2020-01-18
@@ -484,29 +486,26 @@ function infohub_session() {
         const $default = {
             'node': 'client', // node name
             'step': 'step_get_session_data',
-            'response': {
-                'data': {
-                    'initiator_user_name': '',
-                    'left_overs': '',
-                    'session_created_at': '',
-                    'session_id': '',
-                    'server_plugin_names': [],
-                    'client_plugin_names': []
-                },
-                'answer': 'false',
-                'message': 'Nothing to report',
-                'session_valid': 'false',
-                'post_exist': 'false'
-            },
+            'response': {},
             'data_back': {
                 'user_name': '',
+                'session_valid': 'false',
+                'session_id': '',
                 'server_plugin_names': [],
                 'client_plugin_names': []
             }
         };
         $in = _Default($default, $in);
 
-        let $sessionValid = 'false';
+        let $out = {
+            'answer': 'false',
+            'message': '',
+            'session_id': '',
+            'session_valid': 'false',
+            'user_name': '',
+            'server_plugin_names': [],
+            'client_plugin_names': []
+        };
 
         if ($in.step === 'step_get_session_data') {
             return _SubCall({
@@ -526,13 +525,40 @@ function infohub_session() {
         }
 
         if ($in.step === 'step_get_session_data_response') {
+
+            const $default = {
+                'answer': '',
+                'message': '',
+                'data': {
+                    'initiator_user_name': '',
+                    'left_overs': '',
+                    'session_created_at': '',
+                    'session_id': '',
+                    'server_plugin_names': [],
+                    'client_plugin_names': []
+                },
+                'post_exist': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            $out = {
+                'answer': $in.response.answer,
+                'message': $in.response.message,
+                'session_id': $in.response.data.session_id,
+                'session_valid': 'false',
+                'user_name': $in.response.data.initiator_user_name,
+                'server_plugin_names': $in.response.data.server_plugin_names,
+                'client_plugin_names': $in.response.data.client_plugin_names
+            };
+
             $in.step = 'step_end';
+
             if ($in.response.post_exist === 'true') {
-                $in.step = 'step_ask_server';
+                $in.step = 'step_ask_server_if_session_is_valid';
             }
         }
 
-        if ($in.step === 'step_ask_server') {
+        if ($in.step === 'step_ask_server_if_session_is_valid') {
             return _SubCall({
                 'to': {
                     'node': 'server',
@@ -540,29 +566,47 @@ function infohub_session() {
                     'function': 'responder_check_session_valid'
                 },
                 'data': {
-                    'session_id': $in.response.data.session_id
+                    'session_id': $out.session_id
                 },
                 'data_back': {
                     'node': $in.node,
-                    'user_name': $in.response.data.initiator_user_name,
-                    'server_plugin_names': $in.response.data.server_plugin_names,
-                    'client_plugin_names': $in.response.data.client_plugin_names,
-                    'step': 'step_ask_server_response'
+                    'user_name': $out.user_name,
+                    'session_valid': $out.session_valid,
+                    'session_id': $out.session_id,
+                    'server_plugin_names': $out.server_plugin_names,
+                    'client_plugin_names': $out.client_plugin_names,
+                    'step': 'step_ask_server_if_session_is_valid_response'
                 }
             });
         }
 
-        if ($in.step === 'step_ask_server_response') {
-            $sessionValid = $in.response.session_valid;
+        if ($in.step === 'step_ask_server_if_session_is_valid_response') {
+
+            const $default = {
+                'answer': '',
+                'message': '',
+                'session_valid': 'false'
+            };
+            $in.response = _Default($default, $in.response);
+
+            $out = {
+                'answer': $in.response.answer,
+                'message': $in.response.message,
+                'session_id': $in.data_back.session_id,
+                'session_valid': $in.response.session_valid,
+                'user_name': $in.data_back.user_name,
+                'server_plugin_names': $in.data_back.server_plugin_names,
+                'client_plugin_names': $in.data_back.client_plugin_names
+            };
         }
 
         return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'session_valid': $sessionValid,
-            'user_name': $in.data_back.user_name,
-            'server_plugin_names': $in.data_back.server_plugin_names,
-            'client_plugin_names': $in.data_back.client_plugin_names
+            'answer': $out.answer,
+            'message': $out.message,
+            'session_valid': $out.session_valid,
+            'user_name': $out.user_name,
+            'server_plugin_names': $out.server_plugin_names,
+            'client_plugin_names': $out.client_plugin_names
         };
     };
 
@@ -630,6 +674,66 @@ function infohub_session() {
     {
         const $time = _MicroTime();
         return $time.toString();
+    };
+
+    /**
+     * Delete session data
+     * Used by infohub_exchange.js to delete the session data
+     * @version 2020-07-07
+     * @since 2020-07-07
+     * @author Peter Lembke
+     */
+    $functions.push("delete_session_data");
+    const delete_session_data = function ($in)
+    {
+        const $default = {
+            'step': 'step_delete_session_data',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report'
+            },
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'false';
+        let $message = '';
+
+        if ($in.from_plugin.node !== 'client' || $in.from_plugin.plugin !== 'infohub_exchange') {
+            $message = 'You are not allowed to call this function';
+            $in.step = 'step_end';
+        }
+
+        if ($in.step === 'step_delete_session_data')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write'
+                },
+                'data': {
+                    'path': 'infohub_session/node/server',
+                    'data': {}
+                },
+                'data_back': {
+                    'step': 'step_delete_session_data_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_delete_session_data_response') {
+            $answer = $in.response.answer;
+            $message = $in.response.message;
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message
+        };
     };
 }
 //# sourceURL=infohub_session.js

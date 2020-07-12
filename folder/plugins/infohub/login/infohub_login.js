@@ -333,6 +333,9 @@ function infohub_login() {
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report'
+            },
+            'config': {
+                'download_account': {}
             }
         };
         $in = _Default($default, $in);
@@ -351,7 +354,8 @@ function infohub_login() {
                     'subtype': $in.event_data,
                     'parent_box_id': $in.parent_box_id,
                     'translations': $classTranslations,
-                    'desktop_environment': $in.desktop_environment
+                    'desktop_environment': $in.desktop_environment,
+                    'download_account': $in.config.download_account
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -387,6 +391,9 @@ function infohub_login() {
                 'ok': 'false',
                 'value': [], // All selected options in select lists
                 'files_data': [] // For the import button
+            },
+            'config': {
+                'download_account': {}
             }
         };
         $in = _Default($default, $in);
@@ -417,7 +424,8 @@ function infohub_login() {
                     'values': $in.response.value,
                     'files_data': $in.response.files_data,
                     'box_id': $in.box_id,
-                    'desktop_environment': $in.desktop_environment
+                    'desktop_environment': $in.desktop_environment,
+                    'download_account': $in.config.download_account
                 },
                 'data_back': {
                     'event_data': $in.event_data,

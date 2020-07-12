@@ -231,7 +231,7 @@ function infohub_storage() {
             }
 
             if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
-                const $row = 'Your plugin: %s, is not allowed to read this path: %s';
+                const $row = 'Your plugin: %s, is not allowed to write to this path: %s';
                 $out.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
                 break leave;
             }

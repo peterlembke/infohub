@@ -708,6 +708,9 @@ function infohub_transfer() {
             internal_Cmd({
                 'func': 'HandleOffline'
             });
+
+            $globalWaitingForResponse = 'false';
+
         }, $maxWaitTimeMS);
 
         const $content = $in.package;

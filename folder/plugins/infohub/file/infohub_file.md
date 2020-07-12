@@ -16,6 +16,7 @@ On Windows systems a path contain backslash. Use slash instead, that works.
 The file plugin is locked to server plugins and to folder: folder/file/{plugin_name} for read and write.  
 In addition to this there are special functions that are locked to one plugin called: infohub_asset  
 The plugin infohub_file is NOT used by infohub_plugin because that plugin is close to the core and need to handle its business on its own without depending on infohub_file.  
+
 ## Data on the client side
 When infohub_asset have synced down the files and stored the data in Storage then other plugins on the client side can ask Asset for data.  
 infohub_doc - can ask infohub_asset for files from folder/doc and folder/plugin/{plugin_name}/asset/doc. Doc wants the doc xml, images, css file, html template.  
@@ -31,6 +32,7 @@ infohub_doc.php - Reads doc files, that will be totally handled by infohub_asset
 # Read from file
 Locked to server plugins.  
 You provide a path. The path is the last part of the path. folder/file/{plugin_name} will be added in the beginning of the path.  
+
 ## Example read
 
 ```

@@ -22,26 +22,26 @@ function infohub_exchange() {
 // webworker=false
 // include "infohub_base.js"
 
-    let $userName = '';
+    let $classUserName = '';
     const _GetUserName = function() {
-        return $userName;
+        return $classUserName;
     };
 
-    let $sessionId = '';
+    let $classSessionId = '';
     const _GetSessionId = function () {
-        return $sessionId;
+        return $classSessionId;
     };
 
     /** @var array Contain a lookup array with allowed plugin names for this user */
-    let $allowedServerPluginNamesLookupArray = {};
+    let $classAllowedServerPluginNamesLookupArray = {};
     const _GetAllowedServerPluginNames = function() {
-        return $allowedServerPluginNamesLookupArray;
+        return $classAllowedServerPluginNamesLookupArray;
     };
 
     /** @var array Contain a lookup array with allowed client plugin names for this user */
-    let $allowedClientPluginNamesLookupArray = {};
+    let $classAllowedClientPluginNamesLookupArray = {};
     const _GetAllowedClientPluginNames = function() {
-        return $allowedClientPluginNamesLookupArray;
+        return $classAllowedClientPluginNamesLookupArray;
     };
 
     /**
@@ -353,7 +353,13 @@ function infohub_exchange() {
             'all_plugins': {},
             'plugin_index': {},
             'config': {},
-            'response': {}
+            'response': {},
+            'data_back': {
+                'session_valid': 'false',
+                'user_name': '',
+                'server_plugin_names': [],
+                'client_plugin_names': []
+            }
         };
         $in = _Default($default,$in);
 
@@ -384,12 +390,15 @@ function infohub_exchange() {
             };
             $in.response = _Default($default, $in.response);
 
-            $sessionId = $in.response.session_id;
-            $userName = $in.response.user_name;
-            $allowedServerPluginNamesLookupArray = _CreateLookupTable($in.response.server_plugin_names, {});
-            $allowedClientPluginNamesLookupArray = _CreateLookupTable($in.response.client_plugin_names, {});
+            $classSessionId = $in.response.session_id;
+            $classUserName = $in.response.user_name;
+            $classAllowedServerPluginNamesLookupArray = _CreateLookupTable($in.response.server_plugin_names, {});
+            $classAllowedClientPluginNamesLookupArray = _CreateLookupTable($in.response.client_plugin_names, {});
 
             $in.step = 'step_check_session_valid';
+            if ($in.response.post_exist === 'false') {
+                $in.step = 'step_prepare_first_message';
+            }
         }
 
         if ($in.step === 'step_check_session_valid') {
@@ -410,28 +419,57 @@ function infohub_exchange() {
 
         if ($in.step === 'step_check_session_valid_response') {
 
-            $userName = 'guest';
-            if ($in.response.session_valid === 'true') {
-                $userName = _GetData({
-                    'name': 'response/user_name', // Comes from local storage, not from the server
-                    'default': '',
-                    'data': $in,
-                });
+            const $default = {
+                'answer': '',
+                'message': '',
+                'session_valid': 'false',
+                'user_name': '',
+                'server_plugin_names': [],
+                'client_plugin_names': []
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.data_back.session_valid = $in.response.session_valid;
+            $in.data_back.user_name = $in.response.user_name;
+            $in.data_back.server_plugin_names = $in.response.server_plugin_names;
+            $in.data_back.client_plugin_names = $in.response.client_plugin_names;
+
+            $in.step = 'step_prepare_first_message';
+            if ($in.data_back.session_valid === 'false') {
+                $in.step = 'step_delete_session';
+            }
+        }
+
+        if ($in.step === 'step_delete_session') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'delete_session_data'
+                },
+                'data': {},
+                'data_back': {
+                    'session_valid': 'false',
+                    'user_name': $in.data_back.user_name,
+                    'server_plugin_names': $in.data_back.server_plugin_names,
+                    'client_plugin_names': $in.data_back.client_plugin_names,
+                    'step': 'step_get_session_data' // We start over from the top with no session data this time
+                }
+            });
+        }
+
+        if ($in.step === 'step_prepare_first_message') {
+
+            $classUserName = 'guest';
+            if ($in.data_back.session_valid === 'true') {
+                $classUserName = $in.data_back.user_name;
             }
 
-            const $allowedServerPluginNames = _GetData({
-                'name': 'response/server_plugin_names',
-                'default': [],
-                'data': $in,
-            });
-            $allowedServerPluginNamesLookupArray = _CreateLookupTable($allowedServerPluginNames, {});
+            const $allowedServerPluginNames = $in.data_back.server_plugin_names;
+            $classAllowedServerPluginNamesLookupArray = _CreateLookupTable($allowedServerPluginNames, {});
 
-            const $allowedClientPluginNames = _GetData({
-                'name': 'response/client_plugin_names',
-                'default': [],
-                'data': $in,
-            });
-            $allowedClientPluginNamesLookupArray = _CreateLookupTable($allowedClientPluginNames, {});
+            const $allowedClientPluginNames = $in.data_back.client_plugin_names;
+            $classAllowedClientPluginNamesLookupArray = _CreateLookupTable($allowedClientPluginNames, {});
 
             $in.step = 'step_send_first_message';
         }
@@ -441,7 +479,7 @@ function infohub_exchange() {
         if ($in.step === 'step_send_first_message')
         {
             let $name = 'domain';
-            if ($userName === 'guest') {
+            if ($classUserName === 'guest') {
                 $name = 'domain_guest';
             }
 
@@ -633,6 +671,40 @@ function infohub_exchange() {
         };
     };
 
+    /**
+     * Check if the incoming data has a message to initiator_check_session_valid
+     * that inform that the session is invalid. Then we go into guest mode.
+     * @param $in
+     * @returns {*}
+     * @private
+     */
+    const _CheckIncomingMessagesIfSessionValid = function ($in) {
+
+        for (let $key in $in.package.messages) {
+            if ($in.package.messages.hasOwnProperty($key) === false) {
+                continue;
+            }
+            const $oneMessage = $in.package.messages[$key];
+            if ($oneMessage.to.node !== 'client') {
+                continue;
+            }
+            if ($oneMessage.to.plugin !== 'infohub_session') {
+                continue;
+            }
+            if ($oneMessage.to.function !== 'initiator_check_session_valid') {
+                continue;
+            }
+            if ($oneMessage.data.session_valid === 'true') {
+                break;
+            }
+            $in.config.session_id = '';
+            $in.config.user_name = 'guest';
+            break;
+        }
+
+        return $in;
+    };
+
     $functions.push('initiator_verify_sign_code');
     /**
      * Used by infohub_transfer -> internal_AjaxCall to get the package out of the internal function,
@@ -678,6 +750,8 @@ function infohub_exchange() {
             if ($in.package.session_id === '' || $in.package.sign_code === '') {
                 $out.message = 'Package session_id or sign_code are empty';
                 $in.step = 'step_end';
+
+                $in = _CheckIncomingMessagesIfSessionValid($in);
 
                 if ($in.config.session_id === '' && $in.config.user_name === 'guest') {
                     $out.message = 'Package session_id or sign_code are empty but it is OK since we are guest';
@@ -769,7 +843,7 @@ function infohub_exchange() {
             document.dispatchEvent($event);
 
             $out.answer = 'true';
-            $out.message = 'Done handeling the incoming package';
+            $out.message = 'Done handling the incoming package';
         }
 
         return {
