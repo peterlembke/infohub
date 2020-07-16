@@ -635,7 +635,7 @@ class infohub_exchange extends infohub_base {
                 $pluginName = $message['to']['plugin'];
                 if (isset($this->allowedServerPluginNamesLookupArray[$pluginName]) === false) {
                     $errorMessage = 'Plugin not allowed';
-                    $rejectReason[$errorMessage] = 1;
+                    $rejectReason[$errorMessage] = $pluginName;
                     $message['message'] = $errorMessage;
                     $this->_SendMessageBackMessageFailedTests($message);
                     continue;
@@ -645,7 +645,7 @@ class infohub_exchange extends infohub_base {
                     $functionName = $message['to']['function'];
                     if (isset($this->allowedServerPluginNamesLookupArray[$pluginName][$functionName]) === false) {
                         $errorMessage = 'Plugin function not allowed';
-                        $rejectReason[$errorMessage] = 1;
+                        $rejectReason[$errorMessage] = $pluginName . ' >> ' . $functionName;
                         $message['message'] = $errorMessage;
                         $this->_SendMessageBackMessageFailedTests($message);
                         continue;

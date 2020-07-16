@@ -37,7 +37,7 @@ function infohub_asset() {
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'recommended_security_group': 'core'
         };
     };
 

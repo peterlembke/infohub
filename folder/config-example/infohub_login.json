@@ -1,12 +1,18 @@
 {
     "client": {
         "download_account": {
-            "local.infohub.se": "local.infohub.se.json"
+            "local.infohub.se": "local.infohub.se.json",
+            "infohub.se": "public-infohub.se.json",
+            "demo.infohub.se": "public-demo.infohub.se.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
         }
     },
     "server": {
         "download_account": {
-            "local.infohub.se": "local.infohub.se.json"
+            "local.infohub.se": "local.infohub.se.json",
+            "infohub.se": "public-infohub.se.json",
+            "demo.infohub.se": "public-demo.infohub.se.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
         }
     }
 }

@@ -33,7 +33,7 @@ function infohub_session() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Session',
-            'recommended_security_group': 'guest'
+            'recommended_security_group': 'core'
         };
     };
 

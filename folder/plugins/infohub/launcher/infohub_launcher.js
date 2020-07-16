@@ -38,7 +38,7 @@ function infohub_launcher() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Launcher',
-            'recommended_security_group': 'user'
+            'recommended_security_group': 'core'
         };
     };
 
@@ -111,9 +111,16 @@ function infohub_launcher() {
     {
         const $default = {
             'box_id': '',
-            'step': 'step_boxes'
+            'step': 'step_boxes',
+            'config': {
+                'show_user': 'true',
+                'show_refresh': 'true'
+            },
+            'response': {}
         };
         $in = _Merge($default, $in);
+
+        let $userRealName = '';
 
         if ($in.step === 'step_boxes') {
             return _SubCall({
@@ -140,7 +147,8 @@ function infohub_launcher() {
                                 'switch_button': 'Switch list',
                                 'lists': 'My list and server list',
                                 'information': 'Information about a plugin',
-                                'refresh': '' // Contains a refresh button so you can restart the webapp
+                                'user': '', // Name of logged in user and a logout button
+                                'refresh': '' // Contains a refresh button so you can restart the webapp on a touch device
                             }
                         },
                         {
@@ -186,6 +194,37 @@ function infohub_launcher() {
 
         if ($in.step === 'step_get_translations_response') {
             $classTranslations = _ByVal($in.response.data);
+            $in.step = 'step_get_user_real_name';
+        }
+
+        if ($in.step === 'step_get_user_real_name') {
+            if ($in.config.show_user === 'true') {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_login',
+                        'function': 'get_user_real_name'
+                    },
+                    'data': {},
+                    'data_back': {
+                        'box_id': $in.box_id,
+                        'step': 'step_get_user_real_name_response'
+                    }
+                });
+            }
+            $in.step = 'step_render';
+        }
+
+        if ($in.step === 'step_get_user_real_name_response') {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'data': ''
+            };
+            $in.response = _Default($default, $in.response);
+
+            $userRealName = $in.response.data;
+
             $in.step = 'step_render';
         }
 
@@ -394,7 +433,7 @@ function infohub_launcher() {
                         'text': '[presentation_box]'
                     },
                     'where': {
-                        'box_id': 'main.body.infohub_launcher.information',
+                        'box_id': _GetBoxId() + '.information',
                         'set_visible': 'true',
                         'max_width': 320,
                         'scroll_to_box_id': 'true'
@@ -407,64 +446,116 @@ function infohub_launcher() {
             });
             $messagesArray.push($messageOut);
 
-            $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create'
-                },
-                'data': {
-                    'what': {
-                        'button_refresh': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'subtype': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('Refresh page'),
-                            'button_left_icon': '[refresh_icon]',
-                            'to_plugin': 'infohub_debug',
-                            'to_function': 'refresh_plugins_and_reload_page',
-                            'css_data': {
-                                '.button':
-                                    'font-size: 1.0em;'+
-                                    'max-width: 320px;'+
-                                    'box-sizing:border-box;'+
-                                    'border-radius: 20px;'+
-                                    'background-color: #bcdebc;'+
-                                    'background: linear-gradient(#caefca, #e1ffcf);'+
-                                    'border: 0px;'+
-                                    'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 10px;'+
-                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
+            if ($in.config.show_refresh === 'true') {
+                $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': {
+                            'button_refresh': {
+                                'plugin': 'infohub_renderform',
+                                'type': 'button',
+                                'subtype': 'button',
+                                'mode': 'button',
+                                'button_label': _Translate('Refresh page'),
+                                'button_left_icon': '[refresh_icon]',
+                                'to_plugin': 'infohub_debug',
+                                'to_function': 'refresh_plugins_and_reload_page',
+                                'css_data': {
+                                    '.button':
+                                        'font-size: 1.0em;'+
+                                        'max-width: 320px;'+
+                                        'box-sizing:border-box;'+
+                                        'border-radius: 20px;'+
+                                        'background-color: #bcdebc;'+
+                                        'background: linear-gradient(#caefca, #e1ffcf);'+
+                                        'border: 0px;'+
+                                        'margin: 10px 0px 0px 0px;'+
+                                        'padding: 4px 10px;'+
+                                        'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
+                                }
+                            },
+                            'refresh_icon': {
+                                'type': 'common',
+                                'subtype': 'svg',
+                                'data': '[refresh_asset]'
+                            },
+                            'refresh_asset': {
+                                'plugin': 'infohub_asset',
+                                'type': 'icon',
+                                'asset_name': 'refresh',
+                                'plugin_name': 'infohub_launcher'
                             }
                         },
-                        'refresh_icon': {
-                            'type': 'common',
-                            'subtype': 'svg',
-                            'data': '[refresh_asset]'
+                        'how': {
+                            'mode': 'one box',
+                            'text': '[button_refresh]'
                         },
-                        'refresh_asset': {
-                            'plugin': 'infohub_asset',
-                            'type': 'icon',
-                            'asset_name': 'refresh',
-                            'plugin_name': 'infohub_launcher'
-                        }
+                        'where': {
+                            'box_id': _GetBoxId() + '.refresh',
+                            'scroll_to_box_id': 'false'
+                        },
+                        'cache_key': 'refreshpage'
                     },
-                    'how': {
-                        'mode': 'one box',
-                        'text': '[button_refresh]'
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+                $messagesArray.push($messageOut);
+            }
+
+            if ($in.config.show_user === 'true') {
+                $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
                     },
-                    'where': {
-                        'box_id': 'main.body.infohub_launcher.refresh',
-                        'scroll_to_box_id': 'false'
+                    'data': {
+                        'what': {
+                            'form_contact': {
+                                'plugin': 'infohub_renderform',
+                                'type': 'form',
+                                'content': '[user_name]<br>[button_logout]',
+                                'label': _Translate('Logged in user'),
+                                'description': '',
+                                'open': 'false'
+                            },
+                            'user_name': {
+                                'type': 'common',
+                                'subtype': 'value',
+                               'data':  _Translate('User name') + ': ' + $userRealName
+                            },
+                            'button_logout': {
+                                'plugin': 'infohub_renderform',
+                                'type': 'button',
+                                'mode': 'button',
+                                'button_label': _Translate('Logout'),
+                                'event_data': 'logout|logout',
+                                'to_plugin': 'infohub_login',
+                                'to_function': 'click'
+                            },
+                        },
+                        'how': {
+                            'mode': 'one box',
+                            'text': '[form_contact]'
+                        },
+                        'where': {
+                            'box_id': _GetBoxId() + '.user',
+                            'scroll_to_box_id': 'false',
+                            'max_width': 320
+                        },
+                        'cache_key': 'user'
                     },
-                    'cache_key': 'refreshpage'
-                },
-                'data_back': {
-                    'step': 'step_end'
-                }
-            });
-            $messagesArray.push($messageOut);
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+                $messagesArray.push($messageOut);
+            }
 
             return {
                 'answer': 'true',
@@ -696,6 +787,9 @@ function infohub_launcher() {
                 'data': {},
                 'asset': '',
                 'asset_license': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -715,7 +809,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/' + $listName
+                    'path': _GetListPath($listName, $in.config.user_name)
                 },
                 'data_back': {
                     'list_name': $listName,
@@ -852,6 +946,9 @@ function infohub_launcher() {
                 'answer': '',
                 'message': '',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -870,7 +967,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/' + $listName
+                    'path': _GetListPath($listName, $in.config.user_name)
                 },
                 'data_back': {
                     'step': 'step_read_local_list_response'
@@ -1204,6 +1301,9 @@ function infohub_launcher() {
                 'answer': 'false',
                 'message': 'No response from the subcall',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -1220,7 +1320,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/' + $in.list_name
+                    'path': _GetListPath($in.list_name, $in.config.user_name)
                 },
                 'data_back': {
                     'list_name': $in.list_name,
@@ -1259,6 +1359,9 @@ function infohub_launcher() {
                 'answer': 'false',
                 'message': '',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -1288,7 +1391,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/full_list'
+                    'path': _GetListPath('full_list', $in.config.user_name)
                 },
                 'data_back': {
                     'step': 'step_get_full_list_from_client_response'
@@ -1405,7 +1508,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/full_list'
+                    'path': _GetListPath('full_list', $in.config.user_name)
                 },
                 'data_back': {
                     'step': 'step_keep_full_list_response',
@@ -1436,7 +1539,7 @@ function infohub_launcher() {
                     'function': 'write'
                 },
                 'data': {
-                    'path': 'infohub_launcher/full_list',
+                    'path': _GetListPath('full_list', $in.config.user_name),
                     'data': $fullList
                 },
                 'data_back': {
@@ -1470,6 +1573,19 @@ function infohub_launcher() {
         };
     };
 
+    $functions.push("_GetListPath");
+    const _GetListPath = function ($type, $userName)
+    {
+        let $path = '';
+        if ($type !== 'my_list' && $type !== 'full_list') {
+            return $path;
+        }
+
+        $path = 'infohub_launcher/' + $type + '/' + $userName;
+
+        return $path;
+    };
+
     /**
      * Adds a plugin to my list
      * @version 2017-12-08
@@ -1479,8 +1595,6 @@ function infohub_launcher() {
     $functions.push("my_list_add");
     var my_list_add = function ($in)
     {
-        let $data, $myList;
-
         const $default = {
             'plugin': '',
             'new_data': {},
@@ -1491,10 +1605,15 @@ function infohub_launcher() {
                 'message': '',
                 'exist': '',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
 
+        let $data;
+        let $myList;
         let $answer = 'false';
         let $message = 'Nothing to report';
         let $done = 'false';
@@ -1565,7 +1684,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/full_list'
+                    'path': _GetListPath('full_list', $in.config.user_name)
                 },
                 'data_back': {
                     'plugin': $in.plugin,
@@ -1595,7 +1714,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/my_list'
+                    'path': _GetListPath('my_list', $in.config.user_name)
                 },
                 'data_back': {
                     'plugin': $in.plugin,
@@ -1636,7 +1755,7 @@ function infohub_launcher() {
                     'function': 'write'
                 },
                 'data': {
-                    'path': 'infohub_launcher/my_list',
+                    'path': _GetListPath('my_list', $in.config.user_name),
                     'data': $myList
                 },
                 'data_back': {
@@ -1692,6 +1811,9 @@ function infohub_launcher() {
                 'message': '',
                 'exist': '',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -1738,7 +1860,7 @@ function infohub_launcher() {
                     'function': 'read'
                 },
                 'data': {
-                    'path': 'infohub_launcher/my_list'
+                    'path': _GetListPath('my_list', $in.config.user_name)
                 },
                 'data_back': {
                     'plugin': $in.plugin,
@@ -1768,7 +1890,7 @@ function infohub_launcher() {
                     'function': 'write'
                 },
                 'data': {
-                    'path': 'infohub_launcher/my_list',
+                    'path': _GetListPath('my_list', $in.config.user_name),
                     'data': $myList
                 },
                 'data_back': {

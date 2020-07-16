@@ -32,7 +32,7 @@ function infohub_doc() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Documentation',
-            'recommended_security_group': 'user'
+            'recommended_security_group': 'core'
         };
     };
 

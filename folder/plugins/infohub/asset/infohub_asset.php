@@ -42,7 +42,7 @@ class infohub_asset extends infohub_base
             'note' => 'Download client side plugin assets to the client',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'recommended_security_group' => 'core'
         );
     }
 

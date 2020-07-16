@@ -24,7 +24,6 @@ declare(strict_types=1);
  */
 class kickOut
 {
-
     /**
      * Main function that run all tests
      */
@@ -189,6 +188,10 @@ class kickOut
         $checksum = md5($package['messages_encoded']);
         $package['messages_checksum'] = $checksum;
 
+        if ($package['messages_encoded'] === 'W10=') { // W10= encoded for []
+            $this->GetOut('Server says: Package messages missing');
+        }
+
         $messagesJson = base64_decode($package['messages_encoded'], $strict = true);
         $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form and you see that this is needed
         $messages = json_decode($messagesJson, true);
@@ -246,8 +249,8 @@ class kickOut
         $package = array('to_node' => 'client', 'messages' => array($messageOut));
         $messageOut = json_encode($package, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
-        echo $messageOut;
-        exit();
+        // echo $messageOut;
+        exit($messageOut);
     }
 
 }

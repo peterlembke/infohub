@@ -1,8 +1,8 @@
 # Infohub Render Common
-Render common objects like containers, iframes, legends, images, lists  
+Render common objects like containers, iframes (deprecated), legends, images, lists  
 
 # Introduction
-Each object this plugin can render is simple and commonly used. Therefore no need to have separate plugins.  
+Each object this plugin can render is simple and commonly used.  
 
 # Container
 The container can be used when you want to wrap something in a div, span or p tag.  

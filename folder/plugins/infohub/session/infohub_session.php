@@ -39,7 +39,7 @@ class infohub_session extends infohub_base
             'note' => 'Handle sessions. Both incoming and outgoing.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'guest'
+            'recommended_security_group' => 'core'
         );
     }
 

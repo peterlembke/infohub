@@ -13,7 +13,7 @@ This is a generic platform where you run your plugins. The long term aim is to c
 The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in [TERMS.md](TERMS.md).
 
 # Current status
-Infohub is missing two key components: Login (rights) and the Tree plugin that will store your encrypted personal information.
+Infohub is complete. I will improve the core Infohub but focus on applications for Infohub. First application will be the Tree.
 
 See below [Apps for personal data](#Apps for personal data) for more information what you will be able to do in Infohub.
 
@@ -52,12 +52,10 @@ Install a LAMP locally on your machine or run a Docker with LAMP.
 Clone this git repository. Surf to your web server.
 
 # Contribution guidelines
-Not yet. I have a lot of InfoHub software that I will polish up and release first.
+Not written yet. It will be pull requests here on Github.
 
 # Who do I talk to?
-There are no forum yet.
-
-See the [home page](https://www.infohub.se).
+There are no forum yet at the [home page](https://www.infohub.se).
 
 # Traditional web page
 You can run the [workbench](https://www.infohub.se) or start a plugin as a [stand alone](https://demo.infohub.se) page.
@@ -79,14 +77,12 @@ also see the [CHANGELOG](CHANGELOG.md) for future plans.
 * doc.infohub.se - Runs only the documentation plugin. To show that Infohub can be used as a "normal" web page with any content. You do not need to run Workbench.
 * JS Offline - Service worker must update cached files - v 1.2.2
 * JS Encryption - Single point encryption - v 1.2.3
-* JS Cron - A cron you can subscribe to and get a message when it is time. Can be used for saving data at intervals 
+* JS Cron - A cron you can subscribe to and get a message when it is time. Can be used for saving data at intervals
+* PHP Login & Sessions - Login without revealing password
+* JS Login & Sessions - Sessions without cookies 
 
 ## Planned parts I am working on
-I am working on this list in this order:
-* infohub_audio + demo - Using Howler to play sound.
-* PHP Login & Sessions - Login without revealing password - v 1.3.0
-* JS Login & Sessions - Sessions without cookies - v 1.3.0
-After I have released v 1.3.0 I will put up a new plan what to work on next on InfoHub. It will probably be the Tree plugin and freshen up the code for automated tests. 
+Right now I focus on marketing Infohub. I will produce marketing material. Some will end up in this repo.
 
 ## Future plans
 InfoHub is your private place on the internet.

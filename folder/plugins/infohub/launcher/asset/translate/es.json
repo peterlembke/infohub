@@ -8,7 +8,7 @@
         "file_type": "finished_file"
     },
     "launcher": {
-        "title": "Iniciador de programa",
+        "title": "Comienzo",
         "description": "Complemento con una GUI que muestra íconos de los complementos disponibles que puede iniciar. Workbench maneja el inicio real."
     },
     "data": {
@@ -26,7 +26,9 @@
             "_AddIcon got an empty item": "_AddIcon tiene un elemento vacío",
             "Add to my list": "Añadir a mi lista",
             "Remove from my list": "Eliminar de mi lista",
-            "Run plugin": "Ejecutar complemento"
+            "Run plugin": "Ejecutar complemento",
+            "Logged in user": "Usuario conectado",
+            "User name": "Nombre de usuario"
         }
     }
 }

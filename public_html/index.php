@@ -70,7 +70,10 @@
             </noscript>
         </div>
         <?php
-            $files = ['progress.js', 'error_handler_and_frame_breakout.js', 'the_go_function.js', 'sanity_check.js', 'start.js', 'install_service_worker.js'];
+            $files = ['progress.js', 'error_handler_and_frame_breakout.js',
+                'the_go_function.js', 'sanity_check.js', 'start.js',
+                'install_service_worker.js'
+            ];
             foreach ($files as $fileName) {
                 $fileContents = file_get_contents(INCLUDES . DS . $fileName);
                 echo "<script>$fileContents</script>";

@@ -342,6 +342,14 @@ function infohub_workbench() {
 
         if ($in.step === 'step_add_icon')
         {
+            let $fontSize = '0.7';
+            if ($in.data_back.title.length < 12) {
+                $fontSize = '0.85';
+            }
+            if ($in.data_back.title.length < 8) {
+                $fontSize = '1';
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -374,7 +382,7 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:0.7em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;'
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;'
                             }
                         },
                         'menulink': {
@@ -385,10 +393,6 @@ function infohub_workbench() {
                             'legend': 'false',
                             'event_data': $in.plugin_name, // Any string you like to send to the event_message function
                             'to_plugin': 'infohub_tabs',
-                            'final_node': 'client',
-                            'final_plugin': 'infohub_workbench',
-                            'final_function': 'render_long_click_gui',
-                            'long_click_event': 'true',
                             'css_data': {
                                 '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }

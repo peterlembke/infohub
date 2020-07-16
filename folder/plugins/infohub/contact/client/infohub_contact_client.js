@@ -1076,7 +1076,8 @@ function infohub_contact_client() {
                 'domain_address': '',
                 'user_name': '',
                 'shared_secret': '',
-                'server_plugin_names': []
+                'server_plugin_names': [],
+                'client_plugin_names': []
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
             

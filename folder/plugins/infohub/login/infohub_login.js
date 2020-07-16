@@ -43,7 +43,9 @@ function infohub_login() {
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
-            'call_server': 'normal'
+            'call_server': 'normal',
+            'get_user_real_name': 'normal',
+            'logout': 'normal'
         };
     };
 
@@ -495,6 +497,124 @@ function infohub_login() {
                     'function': $in.to.function
                 },
                 'data': $in.data,
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return $in.response;
+    };
+
+    /**
+     * The node name on a client login file contain a friendly name.
+     * This function return that name.
+     * @version 2020-07-15
+     * @since 2020-07-15
+     * @author Peter Lembke
+     */
+    $functions.push("get_user_real_name");
+    const get_user_real_name = function ($in)
+    {
+        const $default = {
+            'step': 'step_start',
+            'response': {},
+            'from_plugin': {
+                'node': '',
+                'plugin': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'I could not get the user real name',
+            'user_real_name': ''
+        };
+
+        if ($in.step === 'step_start')
+        {
+            if ($in.from_plugin.node !== 'client') {
+                return {
+                    'answer': 'false',
+                    'message': 'Only plugins from the client node can call this function'
+                };
+            }
+
+            if ($in.from_plugin.plugin !== 'infohub_launcher') {
+                return {
+                    'answer': 'false',
+                    'message': 'Only infohub_launcher can call this function'
+                };
+            }
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login_contact',
+                    'function': 'storage_read_contact_data'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_response')
+        {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'data': {
+                    'node': ''
+                },
+                'post_exist': 'false'
+            };
+
+            $out.message = $in.response.message;
+
+            if ($in.response.post_exist === 'true') {
+                $out.answer = 'true';
+                $out.message = 'Here are the user_real_name';
+                $out.user_real_name = $in.response.data.node;
+            }
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message,
+            'data': $out.user_real_name
+        };
+    };
+
+    /**
+     * Logout that calls the click function
+     * Used by SHIFT + CTRL + ALT + 0
+     * @version 2020-07-16
+     * @since 2020-07-16
+     * @author Peter Lembke
+     */
+    $functions.push("logout");
+    const logout = function ($in)
+    {
+        const $default = {
+            'step': 'step_start',
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'click'
+                },
+                'data': {
+                    'event_data': 'logout|logout'
+                },
                 'data_back': {
                     'step': 'step_end'
                 }

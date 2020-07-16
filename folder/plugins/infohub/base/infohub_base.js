@@ -18,7 +18,8 @@
     const _GetCmdFunctionsBase = function () {
         return {
             'version': 'normal',
-            'function_names': 'normal'
+            'function_names': 'normal',
+            'ping': 'normal'
         };
     };
 
@@ -1219,6 +1220,27 @@
         };
 
         return $answer;
+    };
+
+    /**
+     * Dummy function ping that return a pong
+     * Useful for getting a pong or for sending messages in a sub call.
+     * @version 2020-04-22
+     * @since 2020-04-22
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    $functions.push("ping");
+    const ping = function($in)
+    {
+        const $default = {};
+        $in = _Default($default, $in);
+
+        return {
+            'answer': 'true',
+            'message': 'pong'
+        };
     };
 
     // ***********************************************************

@@ -31,7 +31,7 @@ function infohub_offline() {
             'checksum': '{{checksum}}',
             'note': 'Download features to prepare going offline. Also accept subscriptions to the offline event.',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'recommended_security_group': 'core'
         };
     };
 

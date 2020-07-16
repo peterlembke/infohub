@@ -102,8 +102,7 @@ function infohub_exchange() {
             'startup': 'normal',
             'event_message': 'normal',
             'plugin_started': 'normal',
-            'initiator_verify_sign_code': 'normal',
-            'ping': 'normal'
+            'initiator_verify_sign_code': 'normal'
         };
     };
 
@@ -134,7 +133,7 @@ function infohub_exchange() {
     $functions.push('_BoxError');
     const _BoxError = function ($message, $doHtmlToText)
     {
-        if (typeof $doHtmlToText === 'undefined') {
+        if (_IsSet($doHtmlToText) === 'false') {
             $doHtmlToText = 'true';
         }
 
@@ -491,13 +490,13 @@ function infohub_exchange() {
 
             let $subCall = {};
 
-            if (typeof $domain.default !== 'undefined') {
+            if (_IsSet($domain.default) === 'true') {
                 $subCall = $domain.default;
             }
 
             const $currentHostname = _GetCurrentHostname();
 
-            if (typeof $domain[$currentHostname] !== 'undefined') {
+            if (_IsSet($domain[$currentHostname]) === 'true') {
                 $subCall = $domain[$currentHostname];
             }
 
@@ -852,27 +851,6 @@ function infohub_exchange() {
         };
     };
 
-    /**
-     * Dummy function ping that return a pong
-     * Useful for getting a pong or for sending messages in a sub call.
-     * @version 2020-04-22
-     * @since 2020-04-22
-     * @author Peter Lembke
-     * @param $in
-     * @returns {{answer: string, message: string}}
-     */
-    $functions.push("ping");
-    const ping = function($in)
-    {
-        const $default = {};
-        $in = _Default($default, $in);
-
-        return {
-            'answer': 'true',
-            'message': 'pong'
-        };
-    };
-
     // *****************************************************************************
     // * Internal function that you only can reach from internal_Cmd
     // * Function name are in internal_CamelCase
@@ -908,7 +886,7 @@ function infohub_exchange() {
         };
 
         block: {
-            if (typeof $package.messages === 'undefined' || Array.isArray($package.messages) === false)
+            if (_IsSet($package.messages) === 'false' || Array.isArray($package.messages) === false)
             {
                 $response.message = 'There are no messages in the package to sort';
                 break block;
@@ -917,7 +895,7 @@ function infohub_exchange() {
             // Copy all messages to array Sort if we have any
             for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber = messageNumber +1)
             {
-                if (typeof $package.messages[messageNumber].error_array !== 'undefined') {
+                if (_IsSet($package.messages[messageNumber].error_array) === 'true') {
                     _BoxError($package.messages[messageNumber].error_array);
                     delete $package.messages[messageNumber].error_array;
                 }
@@ -1355,19 +1333,21 @@ function infohub_exchange() {
         {
             const $dataMessage = $Sort.pop(); // Move the last message from the array Sort
 
-            if (typeof $dataMessage.to === 'undefined' || typeof $dataMessage.to.node === 'undefined') {
+            if (_IsSet($dataMessage.to) === 'false' || _IsSet($dataMessage.to.node) === 'false') {
                 continue;
             }
 
             const $nodeName = $dataMessage.to.node;
 
             if (_Allowed($nodeName, $dataMessage.to.plugin) === 'false') {
-                _SendMessageBackPluginNotFound($dataMessage, 'Plugin not allowed');
+                const $message = 'Plugin not allowed. Node:' + $nodeName + ', Plugin:' + $dataMessage.to.plugin;
+                _BoxError($message);
+                _SendMessageBackPluginNotFound($dataMessage, $message);
                 continue;
             }
 
             if ($nodeName !== 'client') {
-                if (typeof $ToNode[$nodeName] === 'undefined') {
+                if (_IsSet($ToNode[$nodeName]) === 'false') {
                     $ToNode[$nodeName] = [];
                 }
 
@@ -1382,7 +1362,7 @@ function infohub_exchange() {
                 continue;
             }
 
-            if (typeof $Plugin[$pluginName] === 'undefined') {
+            if (_IsSet($Plugin[$pluginName]) === 'false') {
                 $ToPending.push($dataMessage);
                 continue;
             }
@@ -1416,7 +1396,7 @@ function infohub_exchange() {
             const $dataMessage = $ToPending.pop();
             const $pluginName = $dataMessage.to.plugin;
 
-            if (typeof $Pending[$pluginName] !== 'undefined' && Array.isArray($Pending[$pluginName]) === true)
+            if (_IsSet($Pending[$pluginName]) === 'true' && Array.isArray($Pending[$pluginName]) === true)
             {
                 // We have got messages to this pending plugin before
                 if ($Pending[$pluginName].length === 0) {
@@ -1579,6 +1559,10 @@ function infohub_exchange() {
             $message = 'Here are the config for the plugin';
         }
 
+        if (_Empty($pluginConfig) === 'true') {
+            $pluginConfig = {};
+        }
+
         return {
             'answer': $answer,
             'message': $message,
@@ -1609,7 +1593,7 @@ function infohub_exchange() {
         while ($corePluginNames.length > 0)
         {
             const $name = $corePluginNames.pop();
-            if (typeof $Plugin[$name] !== "undefined") {
+            if (_IsSet($Plugin[$name]) === 'true') {
                 continue;
             }
 

@@ -1,5 +1,5 @@
-# [1.2.17] - 2020-07-
-Added a rendering cache. Improved Storage and a demo. Some @todo fixed. Assets cached better. Improved login.  Client transfer with banned_until now works. Translations added. Improved icons. Style added.  
+# [1.2.17] - 2020-07-12
+Improved the ban time. Enforced better rights protection on some plugins. Now server can single sided throw away a session. You can prepare a login file for download with a button. Fixed bug in Contact.
 
 * [Release notes](main,release_v1v2v17)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.17)

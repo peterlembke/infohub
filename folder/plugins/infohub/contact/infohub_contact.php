@@ -211,7 +211,7 @@ class infohub_contact extends infohub_base
         );
 
         if ($in['from_plugin']['node'] !== 'client') {
-            $out['message'] = 'Only node client are allowed to use function save_node_data';
+            $out['message'] = 'Only node client are allowed to use function delete_node_data';
             $in['step'] = 'step_end';
         }
 
@@ -227,8 +227,7 @@ class infohub_contact extends infohub_base
                     'data' => ''
                 ),
                 'data_back' => array(
-                    'step' => 'step_delete_node_data_response',
-                    'node' => $in['node']
+                    'step' => 'step_delete_node_data_response'
                 )
             ));
         }
@@ -245,8 +244,7 @@ class infohub_contact extends infohub_base
         return array(
             'answer' => $out['answer'],
             'message' => $out['message'],
-            'ok' => $out['ok'],
-            'node' => $in['node']
+            'ok' => $out['ok']
         );
     }
 

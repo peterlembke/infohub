@@ -13,12 +13,15 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 This is THE application!!
 
 **Below is the aim for version 1.2.19**
-- Bug fixes that are already found but not severe enough to stop 1.2.16.
-
-**Below is the aim for version 1.2.18**
 - SVG Graphics, motion backgrounds, background audio to be used in marketing
 - Marketing Infohub with articles and videos
-- Add some material to the Infohub repo as a release
+- Add some of the material to the Infohub repo as a release
+
+# [1.2.18] - 2020-07-16
+* [Release notes](main,release_v1v2v18)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.18)
+
+Improved: the login/logout procedure. Missing rights shows on screen. Added ping function to the base class. Logged in user shows in launcher with a logout button. Keyboard logout. Lists are now bound to user. Better reject messages. Added public login accounts with base rights. Changed recommended suecurity group on some plugins. Improved JS code. Changed Launcher title sizes to depend on title length. Bug fixes.
 
 # [1.2.17] - 2020-07-12
 

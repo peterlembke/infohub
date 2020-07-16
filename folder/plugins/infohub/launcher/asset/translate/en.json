@@ -26,7 +26,9 @@
             "_AddIcon got an empty item": "_AddIcon got an empty item",
             "Add to my list": "Add to my list",
             "Remove from my list": "Remove from my list",
-            "Run plugin": "Run plugin"
+            "Run plugin": "Run plugin",
+            "Logged in user": "Logged in user",
+            "User name": "User name"
         }
     }
 }

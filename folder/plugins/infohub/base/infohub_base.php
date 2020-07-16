@@ -31,7 +31,8 @@ class infohub_base
     {
         return array(
             'version' => 'normal',
-            'function_names' => 'normal'
+            'function_names' => 'normal',
+            'ping' => 'normal'
         );
     }
 
@@ -802,6 +803,25 @@ class infohub_base
             'answer' => 'true',
             'message' => 'All function names in this plugin',
             'data' => get_class_methods($this)
+        );
+
+        return $answer;
+    }
+
+    /**
+     * Dummy function ping that return a pong
+     * Useful for getting a pong or for sending messages in a sub call.
+     * @version 2020-04-22
+     * @since 2020-04-22
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    final protected function ping(array $in = array()): array
+    {
+        $answer = array(
+            'answer' => 'true',
+            'message' => 'pong'
         );
 
         return $answer;
