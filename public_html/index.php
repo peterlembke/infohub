@@ -43,8 +43,9 @@
             $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
             $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
             $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
+            $infohubSvg = file_get_contents(PLUGINS . '/infohub/welcome/asset/icon/infohub-logo-done.svg');
 
-            $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng);
+            $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng). md5($infohubSvg);
         ?>
         <link rel="stylesheet" type="text/css" id="infohub_global" href="data:text/css;base64,<?php echo $globalCss; ?>">
         <link rel="shortcut icon" id="favicon" href="data:image/png;base64,<?php echo $faviconPng; ?>" />
@@ -56,7 +57,7 @@
         <div id="sanity" class="sanity" box_alias="sanity"></div>
         <div id="log" class="log" box_alias="log"></div>
         <div id="1" box_mode="data" class="main" box_alias="main">
-            <h1>Loading InfoHub...</h1>
+            <div style="width:34%;display: block; margin-left: auto; margin-right: auto;"><?php echo $infohubSvg; ?></div>
             <progress id="progress" value="0" max="100"></progress>
             <div id="progress_text"></div>
             <noscript>

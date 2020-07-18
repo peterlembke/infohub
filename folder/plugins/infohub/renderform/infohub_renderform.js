@@ -162,6 +162,7 @@ function infohub_renderform() {
             'class': 'form',
             'css_data': {},
             'label': '',
+            'label_icon': '',
             'description': '',
             'original_alias': '',
             'event_data': '',
@@ -175,6 +176,7 @@ function infohub_renderform() {
                 'plugin': 'infohub_rendermajor',
                 'type': 'presentation_box',
                 'head_label': $in.label,
+                'head_label_icon': $in.label_icon,
                 'content_data': $in.description + '[form]',
                 'original_alias': $in.original_alias,
                 'open': $in.open,
@@ -206,7 +208,6 @@ function infohub_renderform() {
                 'mode': 'html'
             }
         };
-
     };
     
     /**

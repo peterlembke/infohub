@@ -732,7 +732,11 @@ function infohub_start($progress) {
         $progress.whatArea('send_first_message',0, 'Will send the first message');
 
         const $message = {
-                'to': {'node': 'client', 'plugin': 'infohub_exchange', 'function': 'startup'},
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_exchange',
+                    'function': 'startup'
+                },
                 'callstack': [],
                 'data': {},
                 'alias': 'Run startup',

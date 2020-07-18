@@ -54,8 +54,12 @@ You can have ALT, ALT + SHIFT, CTRL, CTRL + ALT, CTRL + ALT + SHIFT, CTRL + SHIF
 
 # Hard coded subscribers
 Will be removed from the plugin. NO EXCEPTIONS. These have to be in Infohub_Debug instead.  
-shift_alt_ctrl_49 ("1") - Updates the local plugins and refresh the page when the ban time has ended.  
-shift_alt_ctrl_50 ("2") - Removes the local plugins and refresh the page when the ban time has ended.  
+shift_alt_ctrl_49 ("1") - Refresh the page when the ban time has ended.  
+shift_alt_ctrl_49 ("2") - Updates the local plugins and refresh the page when the ban time has ended.  
+shift_alt_ctrl_50 ("3") - Removes the local plugins and refresh the page when the ban time has ended.  
+shift_alt_ctrl_51 ("4") - Removes the local plugins and all data and refresh the page when the ban time has ended.  
+shift_alt_ctrl_57 ("9") - Silently delete all render cache for the logged in user  
+shift_alt_ctrl_48 ("0") - Triggers a logout and refresh  
 The data in the local database are not touched.  
 
 # License
@@ -64,4 +68,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2018-07-11 by Peter Lembke  
-Updated 2018-09-29 by Peter Lembke  
+Updated 2020-07-17 by Peter Lembke  

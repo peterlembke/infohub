@@ -75,7 +75,8 @@
             "Transfer": "Transfer",
             "Language codes": "Language codes",
             "Language codes you prefer. Comma separate them. I prefer: sv,en": "Language codes you prefer. Comma separate them. I prefer: sv,en",
-            "Save": "Save"
+            "Save": "Save",
+            "Clear render cache": "Clear the cache so that your selected language is used"
         },
         "infohub_configlocal_menu": {
             "Configuration - Local on this device": "Configuration - Local on this device",

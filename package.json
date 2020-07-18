@@ -1,15 +1,15 @@
 {
     "name": "infohub",
-    "version": "1.0.0",
-    "homepage": "https://www.infohub.se/",
+    "version": "1.2.19",
+    "homepage": "https://infohub.se",
     "description": "Your private place on the internet",
     "keywords": ["privacy", "private", "infohub", "data", "operating-system", "plugin", "place", "independent"],
     "author": {
         "name": "Peter Lembke",
         "email": "info@infohub.se",
-        "url": "https://www.infohub.se/"
+        "url": "https://infohub.se"
     },
-    "license": "GPLv3",
+    "license": "GPL-3.0-or-later",
     "dependencies": {
         
     },

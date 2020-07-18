@@ -75,7 +75,8 @@
             "Transfer": "Överför",
             "Language codes": "Språkkoder",
             "Language codes you prefer. Comma separate them. I prefer: sv,en": "Språkkoder du föredrar. Kommaseparera dem. Till exempel: sv, en",
-            "Save": "Spara"
+            "Save": "Spara",
+            "Clear render cache": "Rensa cache så ditt valda språk används"
         },
         "infohub_configlocal_menu": {
             "Configuration - Local on this device": "Konfiguration - Lokalt på den här enheten",

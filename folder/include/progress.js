@@ -70,7 +70,7 @@ function progress() {
                 $text = $areaCode;
             }
         }
-        $objText.innerText = $text;
+        // $objText.innerText = $text; // HUB-918
     };
 
     /**

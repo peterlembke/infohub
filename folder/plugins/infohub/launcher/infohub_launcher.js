@@ -112,10 +112,6 @@ function infohub_launcher() {
         const $default = {
             'box_id': '',
             'step': 'step_boxes',
-            'config': {
-                'show_user': 'true',
-                'show_refresh': 'true'
-            },
             'response': {}
         };
         $in = _Merge($default, $in);
@@ -147,8 +143,7 @@ function infohub_launcher() {
                                 'switch_button': 'Switch list',
                                 'lists': 'My list and server list',
                                 'information': 'Information about a plugin',
-                                'user': '', // Name of logged in user and a logout button
-                                'refresh': '' // Contains a refresh button so you can restart the webapp on a touch device
+                                'more': '' // Name of logged in user and a logout button + refresh button for touch devices
                             }
                         },
                         {
@@ -198,21 +193,18 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_get_user_real_name') {
-            if ($in.config.show_user === 'true') {
-                return _SubCall({
-                    'to': {
-                        'node': 'client',
-                        'plugin': 'infohub_login',
-                        'function': 'get_user_real_name'
-                    },
-                    'data': {},
-                    'data_back': {
-                        'box_id': $in.box_id,
-                        'step': 'step_get_user_real_name_response'
-                    }
-                });
-            }
-            $in.step = 'step_render';
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'get_user_real_name'
+                },
+                'data': {},
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_get_user_real_name_response'
+                }
+            });
         }
 
         if ($in.step === 'step_get_user_real_name_response') {
@@ -446,116 +438,99 @@ function infohub_launcher() {
             });
             $messagesArray.push($messageOut);
 
-            if ($in.config.show_refresh === 'true') {
-                $messageOut = _SubCall({
-                    'to': {
-                        'node': 'client',
-                        'plugin': 'infohub_render',
-                        'function': 'create'
-                    },
-                    'data': {
-                        'what': {
-                            'button_refresh': {
-                                'plugin': 'infohub_renderform',
-                                'type': 'button',
-                                'subtype': 'button',
-                                'mode': 'button',
-                                'button_label': _Translate('Refresh page'),
-                                'button_left_icon': '[refresh_icon]',
-                                'to_plugin': 'infohub_debug',
-                                'to_function': 'refresh_plugins_and_reload_page',
-                                'css_data': {
-                                    '.button':
-                                        'font-size: 1.0em;'+
-                                        'max-width: 320px;'+
-                                        'box-sizing:border-box;'+
-                                        'border-radius: 20px;'+
-                                        'background-color: #bcdebc;'+
-                                        'background: linear-gradient(#caefca, #e1ffcf);'+
-                                        'border: 0px;'+
-                                        'margin: 10px 0px 0px 0px;'+
-                                        'padding: 4px 10px;'+
-                                        'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
-                                }
-                            },
-                            'refresh_icon': {
-                                'type': 'common',
-                                'subtype': 'svg',
-                                'data': '[refresh_asset]'
-                            },
-                            'refresh_asset': {
-                                'plugin': 'infohub_asset',
-                                'type': 'icon',
-                                'asset_name': 'refresh',
-                                'plugin_name': 'infohub_launcher'
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'form_contact': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'form',
+                            'content': '[user_name]<br>[button_logout]<br>[button_refresh]',
+                            'label': _Translate('More'),
+                            'label_icon': '[down_icon]',
+                            'description': '',
+                            'open': 'false'
+                        },
+                        'down_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[down_asset]'
+                        },
+                        'down_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'down',
+                            'plugin_name': 'infohub_launcher'
+                        },
+                        'user_name': {
+                            'type': 'common',
+                            'subtype': 'value',
+                            'data':  _Translate('User name') + ': ' + $userRealName
+                        },
+                        'button_logout': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Logout'),
+                            'event_data': 'logout|logout',
+                            'to_plugin': 'infohub_login',
+                            'to_function': 'click'
+                        },
+                        'button_refresh': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'subtype': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Refresh page'),
+                            'button_left_icon': '[refresh_icon]',
+                            'to_plugin': 'infohub_debug',
+                            'to_function': 'refresh_plugins_and_reload_page',
+                            'css_data': {
+                                '.button':
+                                    'font-size: 1.0em;'+
+                                    'width: 100%;'+
+                                    'box-sizing:border-box;'+
+                                    'border-radius: 20px;'+
+                                    'background-color: #bcdebc;'+
+                                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                                    'border: 0px;'+
+                                    'margin: 10px 0px 0px 0px;'+
+                                    'padding: 4px 10px;'+
+                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },
-                        'how': {
-                            'mode': 'one box',
-                            'text': '[button_refresh]'
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]'
                         },
-                        'where': {
-                            'box_id': _GetBoxId() + '.refresh',
-                            'scroll_to_box_id': 'false'
-                        },
-                        'cache_key': 'refreshpage'
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_launcher'
+                        }
                     },
-                    'data_back': {
-                        'step': 'step_end'
-                    }
-                });
-                $messagesArray.push($messageOut);
-            }
-
-            if ($in.config.show_user === 'true') {
-                $messageOut = _SubCall({
-                    'to': {
-                        'node': 'client',
-                        'plugin': 'infohub_render',
-                        'function': 'create'
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[form_contact]'
                     },
-                    'data': {
-                        'what': {
-                            'form_contact': {
-                                'plugin': 'infohub_renderform',
-                                'type': 'form',
-                                'content': '[user_name]<br>[button_logout]',
-                                'label': _Translate('Logged in user'),
-                                'description': '',
-                                'open': 'false'
-                            },
-                            'user_name': {
-                                'type': 'common',
-                                'subtype': 'value',
-                               'data':  _Translate('User name') + ': ' + $userRealName
-                            },
-                            'button_logout': {
-                                'plugin': 'infohub_renderform',
-                                'type': 'button',
-                                'mode': 'button',
-                                'button_label': _Translate('Logout'),
-                                'event_data': 'logout|logout',
-                                'to_plugin': 'infohub_login',
-                                'to_function': 'click'
-                            },
-                        },
-                        'how': {
-                            'mode': 'one box',
-                            'text': '[form_contact]'
-                        },
-                        'where': {
-                            'box_id': _GetBoxId() + '.user',
-                            'scroll_to_box_id': 'false',
-                            'max_width': 320
-                        },
-                        'cache_key': 'user'
+                    'where': {
+                        'box_id': _GetBoxId() + '.more',
+                        'scroll_to_box_id': 'false',
+                        'max_width': 320
                     },
-                    'data_back': {
-                        'step': 'step_end'
-                    }
-                });
-                $messagesArray.push($messageOut);
-            }
+                    'cache_key': 'more'
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+            $messagesArray.push($messageOut);
 
             return {
                 'answer': 'true',

@@ -280,7 +280,6 @@ function infohub_configlocal() {
             'answer': 'true',
             'message': 'startup is done'
         };
-
     };
 
     /**
@@ -302,6 +301,9 @@ function infohub_configlocal() {
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report'
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
@@ -318,7 +320,7 @@ function infohub_configlocal() {
                             'function': 'write'
                         },
                         'data': {
-                            'path': 'infohub_configlocal/' + $in.event_data,
+                            'path': 'infohub_configlocal/' + $in.event_data + '/' + $in.config.user_name,
                             'data': $in.form_data
                         },
                         'data_back': {
@@ -353,8 +355,6 @@ function infohub_configlocal() {
     $functions.push('click_menu');
     const click_menu = function ($in)
     {
-        let $names = [];
-
         const $default = {
             'parent_id': '',
             'box_id': '',
@@ -372,6 +372,8 @@ function infohub_configlocal() {
             }
         };
         $in = _Default($default, $in);
+
+        let $names = [];
 
         if ($in.step === 'step_load_items')
         {
@@ -534,16 +536,21 @@ function infohub_configlocal() {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'items': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
+
+        let $items = {};
 
         if ($in.step === 'step_load_data')
         {
             let $paths = {};
 
             for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
-                const $path = 'infohub_configlocal/' + $in.section_names_array[$i];
+                const $path = 'infohub_configlocal/' + $in.section_names_array[$i] + '/' +$in.config.user_name;
                 $paths[$path]= {}; // Empty object means you want all data
             }
 
@@ -558,12 +565,26 @@ function infohub_configlocal() {
                 },
                 'data_back': {
                     'parent_box_id': $in.parent_box_id,
+                    'section_names_array': $in.section_names_array,
                     'step': 'step_load_data_response'
                 }
             });
         }
 
         if ($in.step === 'step_load_data_response') {
+            for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
+                const $path = 'infohub_configlocal/' + $in.section_names_array[$i] + '/' + $in.config.user_name;
+
+                if (_IsSet($in.response.items[$path]) === 'false') {
+                    continue;
+                }
+
+                const $item = _ByVal($in.response.items[$path]);
+                // Do not try to convert the item value here
+                const $newPath = 'infohub_configlocal/' + $in.section_names_array[$i];
+                $items[$newPath] = $item;
+            }
+            $in.response.items = $items;
         }
 
         return {
@@ -583,8 +604,6 @@ function infohub_configlocal() {
     $functions.push('get_config');
     const get_config = function ($in)
     {
-        let $out = {};
-
         const $default = {
             'section_name': '',
             'step': 'step_load_data',
@@ -593,13 +612,18 @@ function infohub_configlocal() {
                 'message': 'Nothing to report',
                 'path': '',
                 'data': {}
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
 
+        let $out = {};
+
         if ($in.step === 'step_load_data') {
 
-            const $path = 'infohub_configlocal/' + $in.section_name;
+            const $path = 'infohub_configlocal/' + $in.section_name + '/' + $in.config.user_name;
 
             return _SubCall({
                 'to': {
@@ -702,7 +726,7 @@ function infohub_configlocal() {
 
                 $config = _GetData({
                     'name': 'response|items|infohub_configlocal/' + $childName,
-                    'default': '',
+                    'default': {},
                     'data': $in,
                     'split': '|'
                 });
@@ -735,6 +759,5 @@ function infohub_configlocal() {
             'message': 'Done'
         };
     };
-
 }
 //# sourceURL=infohub_configlocal.js

@@ -205,6 +205,11 @@ function infohub_keyboard() {
                     'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'set_cold_start_and_reload_page'}
                 }
             },
+            'shift_alt_ctrl_57': { // 57 = "9"
+                'client|infohub_login': {
+                    'to': {'node': 'client', 'plugin': 'infohub_render', 'function': 'delete_render_cache_for_user_name'}
+                }
+            },
             'shift_alt_ctrl_48': { // 48 = "0"
                 'client|infohub_login': {
                     'to': {'node': 'client', 'plugin': 'infohub_login', 'function': 'logout'}

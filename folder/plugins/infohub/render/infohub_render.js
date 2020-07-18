@@ -52,6 +52,7 @@ function infohub_render() {
             'render_options': 'normal',
             'submit': 'normal',
             'click_and_scroll': 'normal',
+            'delete_render_cache_for_user_name': 'normal',
             'event_message': 'normal'
         };
     };
@@ -249,7 +250,8 @@ function infohub_render() {
             },
             'config': {
                 'use_render_cache': 'true',
-                'store_render_cache': 'true'
+                'store_render_cache': 'true',
+                'user_name': ''
             },
             'cache_key': ''
         };
@@ -257,7 +259,7 @@ function infohub_render() {
 
         let $cacheKey = '';
         if ($in.cache_key !== '' && $in.config.use_render_cache === 'true') {
-            $cacheKey = 'infohub_render/cache/' + $in.from_plugin.node + '/' + $in.from_plugin.plugin + '/' + $in.cache_key;
+            $cacheKey = 'infohub_render/cache/' + $in.config.user_name + '/' + $in.from_plugin.node + '/' + $in.from_plugin.plugin + '/' + $in.cache_key;
         }
 
         let $messages = [];
@@ -721,7 +723,10 @@ function infohub_render() {
         const $default = {
             'step': 'step_load_render_cache',
             'data_back': {},
-            'response': {}
+            'response': {},
+            'config': {
+                'user_name': ''
+            }
         };
         $in = _Default($default, $in);
 
@@ -736,7 +741,7 @@ function infohub_render() {
                     'function': 'read_pattern'
                 },
                 'data': {
-                    'path': 'infohub_render/cache/*'
+                    'path': 'infohub_render/cache/' + $in.config.user_name + '/*'
                 },
                 'data_back': {
                     'step': 'step_load_render_cache_response'
@@ -1402,6 +1407,71 @@ function infohub_render() {
         return {
             'answer': 'true',
             'message': 'Done handling events in Render -> click_and_scroll'
+        };
+    };
+
+    /**
+     * Delete the render cache for a user_name
+     * Useful when you change language and want the cached GUI to have the right language
+     * @version 2020-07-17
+     * @since   2020-07-17
+     * @author  Peter Lembke
+     */
+    $functions.push('delete_render_cache_for_user_name');
+    const delete_render_cache_for_user_name = function ($in)
+    {
+        const $default = {
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'items': {}
+            },
+            'config': {
+                'user_name': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'Could not delete the render cache for the user_name',
+            'items': {}
+        };
+
+        if ($in.step === 'step_start')
+        {
+            const $path = 'infohub_render/cache/' + $in.config.user_name + '/*';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write_pattern'
+                },
+                'data': {
+                    'path': $path,
+                },
+                'data_back': {
+                    'step': 'step_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_response') {
+            if ($in.response.answer === 'true') {
+                $out.answer = 'true';
+                $out.message = 'Have deleted the render cache for the user_name';
+
+                $renderCache = {};
+                $renderCacheLoaded = 'false';
+            }
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message,
+            'items': $out.items
         };
     };
 

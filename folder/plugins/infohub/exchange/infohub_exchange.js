@@ -363,6 +363,9 @@ function infohub_exchange() {
         $in = _Default($default,$in);
 
         if ($in.step === 'step_get_session_data') {
+
+            $progress.whatArea('send_first_message',20, 'Get session data');
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -380,6 +383,8 @@ function infohub_exchange() {
 
         if ($in.step === 'step_get_session_data_response') {
 
+            $progress.whatArea('send_first_message',40, 'Got session data');
+
             const $default = {
                 'user_name': '',
                 'session_id': '',
@@ -394,13 +399,16 @@ function infohub_exchange() {
             $classAllowedServerPluginNamesLookupArray = _CreateLookupTable($in.response.server_plugin_names, {});
             $classAllowedClientPluginNamesLookupArray = _CreateLookupTable($in.response.client_plugin_names, {});
 
-            $in.step = 'step_check_session_valid';
+            $in.step = 'step_check_session_valid'; // HUB-919
             if ($in.response.post_exist === 'false') {
                 $in.step = 'step_prepare_first_message';
             }
         }
 
         if ($in.step === 'step_check_session_valid') {
+
+            $progress.whatArea('send_first_message',50, 'Check session valid');
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -417,6 +425,8 @@ function infohub_exchange() {
         }
 
         if ($in.step === 'step_check_session_valid_response') {
+
+            $progress.whatArea('send_first_message',55, 'Check session valid response');
 
             const $default = {
                 'answer': '',
@@ -440,6 +450,9 @@ function infohub_exchange() {
         }
 
         if ($in.step === 'step_delete_session') {
+
+            $progress.whatArea('send_first_message',60, 'Deleting session');
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -459,6 +472,8 @@ function infohub_exchange() {
 
         if ($in.step === 'step_prepare_first_message') {
 
+            $progress.whatArea('send_first_message',60, 'Preparing first message');
+
             $classUserName = 'guest';
             if ($in.data_back.session_valid === 'true') {
                 $classUserName = $in.data_back.user_name;
@@ -477,6 +492,8 @@ function infohub_exchange() {
 
         if ($in.step === 'step_send_first_message')
         {
+            $progress.whatArea('send_first_message',90, 'Send message depending on domain settings');
+
             let $name = 'domain';
             if ($classUserName === 'guest') {
                 $name = 'domain_guest';
@@ -561,6 +578,8 @@ function infohub_exchange() {
                 }
             });
             $messages.push($messageOut);
+
+            $progress.whatArea('send_first_message',100, 'Now we start');
         }
 
         return {

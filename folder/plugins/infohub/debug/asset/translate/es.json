@@ -13,6 +13,8 @@
             "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Limpia los complementos antiguos marcados por el servidor. Recarga la página. Shift alt ctrl 2",
             "Clean out all local plugins, reload page. shift alt ctrl 3": "Limpia todos los complementos locales, vuelve a cargar la página. Shift alt ctrl 3",
             "Clean out all local data, reload page. shift alt ctrl 4": "Limpia todos los datos locales, vuelve a cargar la página. Shift alt ctrl 4",
+            "Silently delete the render cache for the logged in user": "Eliminar silenciosamente el caché de renderizado para el usuario conectado",
+            "Logs you out and refresh the page": "Cierra la sesión y actualiza la página",
             "Instructions": "Instrucciones",
             "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Haga clic en una opción o use el teclado. Estas teclas siempre funcionan en cualquier lugar de Infohub.",
             "Information": "Información",

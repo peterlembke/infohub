@@ -585,6 +585,16 @@ function infohub_debug() {
                                 'plugin': 'infohub_debug',
                                 'function': 'set_cold_start_and_reload_page'
                             }
+                        },
+                        'shift_alt_ctrl_57': { // 57 = "9"
+                            'client|infohub_login': {
+                                'to': {'node': 'client', 'plugin': 'infohub_render', 'function': 'delete_render_cache_for_user_name'}
+                            }
+                        },
+                        'shift_alt_ctrl_48': { // 48 = "0"
+                            'client|infohub_login': {
+                                'to': {'node': 'client', 'plugin': 'infohub_login', 'function': 'logout'}
+                            }
                         }
                     }
                 },
@@ -778,8 +788,71 @@ function infohub_debug() {
             'information_text_4': {
                 'type': 'text',
                 'text': _Translate('[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.')
-            }
-
+            },
+            'clear_render_cache_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'clear_render_cache',
+                'show': '[clear_render_cache_icon][clear_render_cache_text]',
+                'event_data': '',
+                'to_plugin': 'infohub_render',
+                'to_function': 'delete_render_cache_for_user_name',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
+            },
+            'clear_render_cache_text': {
+                'type': 'text',
+                'text': _Translate('Silently delete the render cache for the logged in user')
+            },
+            'clear_render_cache_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[clear_render_cache_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'clear_render_cache_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '9',
+                'plugin_name': 'infohub_debug'
+            },
+            'logout_link': {
+                'type': 'link',
+                'subtype': 'link',
+                'data': 'clear_render_cache',
+                'show': '[logout_icon][logout_text]',
+                'event_data': '',
+                'to_plugin': 'infohub_login',
+                'to_function': 'logout',
+                'class': 'my-link',
+                'css_data': {
+                    '.my-link': $cssLink
+                }
+            },
+            'logout_text': {
+                'type': 'text',
+                'text': _Translate('Logs you out and refresh the page')
+            },
+            'logout_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[logout_asset]',
+                'class': 'svg',
+                'css_data': {
+                    '.svg': $cssSvg
+                }
+            },
+            'logout_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': '0',
+                'plugin_name': 'infohub_debug'
+            },
         };
 
         return {
@@ -788,7 +861,7 @@ function infohub_debug() {
             'data': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[buttons_icon][reload_page_link][refresh_page_link][clear_plugins_link][cold_start_link][instructions_text][information_text]'
+                'text': '[buttons_icon][reload_page_link][refresh_page_link][clear_plugins_link][cold_start_link][clear_render_cache_link][logout_link][instructions_text][information_text]'
             },
             'where': {
                 'mode': 'html'

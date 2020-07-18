@@ -99,7 +99,7 @@ function infohub_configlocal_language() {
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[select_language][button_transfer][language][button_save]',
+                            'content': '[select_language][button_transfer][language][button_save][button_clear_render_cache]',
                             'label': _Translate('Language'),
                             'description': '[language_icon]' + _Translate( 'Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
                         },
@@ -149,7 +149,16 @@ function infohub_configlocal_language() {
                             'type': 'icon',
                             'asset_name': 'language/language',
                             'plugin_name': 'infohub_configlocal'
-                        }
+                        },
+                        'button_clear_render_cache': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Clear render cache'),
+                            'event_data': '',
+                            'to_plugin': 'infohub_render',
+                            'to_function': 'delete_render_cache_for_user_name'
+                        },
                     },
                     'how': {
                         'mode': 'one box',

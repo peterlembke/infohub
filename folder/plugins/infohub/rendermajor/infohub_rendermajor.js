@@ -164,6 +164,7 @@ function infohub_rendermajor() {
     {
         const $default = {
             'head_label': '',
+            'head_label_icon': '',
             'head_text': '',
             'foot_text': '',
             'content_data': '',
@@ -191,6 +192,18 @@ function infohub_rendermajor() {
                 'subtype': 'container',
                 'data': $in.head_label,
                 'original_alias': $in.original_alias
+            };
+        }
+
+        if ($in.head_label_icon !== '') {
+            $parts.head_label_icon = {
+                'type': 'common',
+                'subtype': 'container',
+                'tag': 'span',
+                'data': $in.head_label_icon,
+                'css_data': {
+                    '.container': 'width:16px; height:16px; display:inline; float:left; padding: 0px 4px 0px 0px;'
+                }
             };
         }
 
@@ -271,6 +284,9 @@ function infohub_rendermajor() {
             let $label = '';
             if ($in.head_label !== '') {
                 $label = '[head_label]';
+            }
+            if ($in.head_label_icon !== '') {
+                $label = '[head_label_icon]' + $label;
             }
 
             $parts.legend = {

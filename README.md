@@ -1,13 +1,13 @@
 ![Infohub Logo](folder/plugins/infohub/welcome/asset/icon/infohub-logo-done.svg)
 # InfoHub
-- See the [home page](https://www.infohub.se) for more information.
+- See the [home page](https://infohub.se) for more information.
 
 # Your private place on the web
 Infohub is not about sharing. InfoHub handle your private data on your own or your friends trusted server on the internet or in your private network.
 This is a generic platform where you run your plugins. The long term aim is to create a trustworthy operating system you can use in your web browser.
 
 # License
-* License [GNU GPL v3 or later](LICENSE)
+* License: GNU [GPL-3.0-or-later](LICENSE.md)
 * License [details](folder/doc/license/license.md)
 
 The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in [TERMS.md](TERMS.md).
@@ -55,10 +55,10 @@ Clone this git repository. Surf to your web server.
 Not written yet. It will be pull requests here on Github.
 
 # Who do I talk to?
-There are no forum yet at the [home page](https://www.infohub.se).
+There are no forum yet at the [home page](https://infohub.se).
 
 # Traditional web page
-You can run the [workbench](https://www.infohub.se) or start a plugin as a [stand alone](https://demo.infohub.se) page.
+You can run the [workbench](https://infohub.se) or start a plugin as a [stand alone](https://demo.infohub.se) page.
 That means you can create a traditional web page with Infohub.
 
 # Plans for InfoHub ![Infohub](folder/favicon.png)
@@ -214,7 +214,7 @@ A Python Core that aim to be a desktop solution might implement all levels.
 
 A Node Core that aim to be a service only need Level 1 and perhaps Level 2. 
 
-Updated 2020-03-12
+Updated 2020-07-18
 
 # Images
 The launcher is where you start plugins.

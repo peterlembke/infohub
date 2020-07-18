@@ -17,6 +17,8 @@
             "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Tar bort lokala plugins som servern har nyare version av. Laddar om sidan.",
             "Clean out all local plugins, reload page. shift alt ctrl 3": "Tar bort alla lokala plugins. Laddar om sidan.",
             "Clean out all local data, reload page. shift alt ctrl 4": "Tar bort all lokal data såsom ikoner, översättningar mm. Laddar om sidan.",
+            "Silently delete the render cache for the logged in user": "Radera tyst renderingscachen för den inloggade användaren",
+            "Logs you out and refresh the page": "Loggar ut dig och uppdaterar sidan",
             "Instructions": "Instruktioner",
             "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Klicka på en av ikonerna ovan eller använd tangentbordet. Dessa knappar fungerar över allt i Infohub.",
             "Information": "Information",
