@@ -12,18 +12,27 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 - Infohub_Tree
 This is THE application!!
 
-**Below is the aim for version 1.2.20**
-- SVG Graphics, motion backgrounds, background audio to be used in marketing
+**Below is the aim for version 1.2.21**
+- Marketing SVG Graphics, motion backgrounds, background audio
 - Marketing Infohub with articles and videos
 - Add some of the material to the Infohub repo as a release
 
+# [1.2.20] - 2020-07-24
+
+* [Release notes](main,release_v1v2v20)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.20)
+
+Files with .txt extension can now act as json files. URL redirect function. Improved error messages and more messages. Tested server debugging tools. Added logos. Public accounts got better rights. tested sites on computer, ipad, iphone. Support slow 3G. Service worker now updates. Vagrant development environment added.
+
 # [1.2.19] - 2020-07-18
+
 * [Release notes](main,release_v1v2v19)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.19)
 
 You can have an icon in the form/presentation box. Different users can have different config. Improved "More" in Launcher. Updated screen shot images. Different render cache for each logged in user. You can clear your render cache. Removed texts during start.
 
 # [1.2.18] - 2020-07-16
+
 * [Release notes](main,release_v1v2v18)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.18)
 

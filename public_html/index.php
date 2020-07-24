@@ -57,7 +57,7 @@
         <div id="sanity" class="sanity" box_alias="sanity"></div>
         <div id="log" class="log" box_alias="log"></div>
         <div id="1" box_mode="data" class="main" box_alias="main">
-            <div style="width:34%;display: block; margin-left: auto; margin-right: auto;"><?php echo $infohubSvg; ?></div>
+            <div style="width:50%;display: block; margin-left: auto; margin-right: auto;"><?php echo $infohubSvg; ?></div>
             <progress id="progress" value="0" max="100"></progress>
             <div id="progress_text"></div>
             <noscript>

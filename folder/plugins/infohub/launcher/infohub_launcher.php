@@ -67,7 +67,11 @@ class infohub_launcher extends infohub_base
         $default = array(
             'list_checksum' => '',
             'step' => 'step_get_full_list',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ),
             'config' => array(
                 'client_plugin_names' => array()
             ),
@@ -120,9 +124,11 @@ class infohub_launcher extends infohub_base
             ksort($list);
 
             // Remove the plugins you do not have rights to use on the client
+            $removedSomePluginsBecauseNoRights = 'false';
             foreach ($list as $pluginName => $dummy) {
                 if (isset($in['config']['client_plugin_names'][$pluginName]) === false) {
                     unset($list[$pluginName]);
+                    $removedSomePluginsBecauseNoRights = 'true';
                 }
             }
 
@@ -140,11 +146,21 @@ class infohub_launcher extends infohub_base
                 'micro_time' => $this->_MicroTime(),
                 'time_stamp' => $this->_TimeStamp(),
                 'list_checksum' => $listChecksum,
-                'list' => $list
+                'list' => $list,
+                'removed_some_plugins_because_no_rights' => $removedSomePluginsBecauseNoRights
             );
 
             $answer = 'true';
             $message = 'Here are the full_list';
+
+            if ($removedSomePluginsBecauseNoRights === 'true') {
+                $message = $message . '. I had to remove some plugins from the list because you do not have all rights.';
+            }
+
+            if (empty($in['config']['client_plugin_names']) === true) {
+                $message = 'You do not have rights to ANY client plugin. An account in the database overrule infohub_contact.json.';
+                $answer = 'false';
+            }
         }
 
         return array(
@@ -152,7 +168,5 @@ class infohub_launcher extends infohub_base
             'message' => $message,
             'data' => $fullList
         );
-
     }
-
 }

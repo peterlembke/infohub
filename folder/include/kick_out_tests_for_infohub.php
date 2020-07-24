@@ -119,11 +119,13 @@ class kickOut
             $this->GetOut('infohub.php can not be called directly');
         }
 
+        /* This test have no practical meaning. I will probably delete it
         if ($_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
             $message = "HTTP_REFERER must be empty or the same as the url. Open this page in a fresh browser. Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
             $this->GetOut($message);
         }
+        */
     }
 
     /**

@@ -16,7 +16,7 @@ define('MAIN', ROOT . DS . 'folder');
 $folders = array(
     'INCLUDES' => MAIN . DS . 'include', // Files required by infohub.php or index.php
     'PLUGINS' => MAIN . DS . 'plugins', // All plugins are here
-    'LOG' => MAIN . DS . 'log', // PHP logs and plugin logging
+    'LOG' => ROOT . DS . 'log', // PHP logs and plugin logging
     'DB' => MAIN . DS . 'db', // SQLite databases are stored here
     'DOC' => MAIN . DS . 'doc', // All Infohub documentation
     'CONFIG' => MAIN . DS . 'config', // Config file that override the one in the plugin folder

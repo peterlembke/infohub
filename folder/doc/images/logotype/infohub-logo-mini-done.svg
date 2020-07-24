@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="49.892857mm"
+   height="49.136902mm"
+   viewBox="0 0 49.892857 49.136902"
+   version="1.1"
+   id="svg53"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="Infohub-logo-mini.svg">
+  <defs
+     id="defs47" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="312.79781"
+     inkscape:cy="83.902172"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata50">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-31.183035,-109.81557)">
+    <ellipse
+       style="fill:#008000;stroke-width:0.26458332"
+       id="path24"
+       cx="56.129463"
+       cy="134.38402"
+       rx="24.946428"
+       ry="24.568451" />
+    <g
+       aria-label="i"
+       transform="matrix(1.2436388,0,0,1.1056452,-104.23231,-209.46363)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'URW Chancery L';-inkscape-font-specification:'URW Chancery L';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="flowRoot10">
+      <path
+         sodipodi:type="inkscape:offset"
+         inkscape:radius="0"
+         inkscape:original="M 130.27539 293.33594 C 130.00873 293.54928 129.68734 293.76187 129.52734 293.92188 C 129.314 294.1352 128.88881 294.45614 128.35547 294.88281 C 128.08881 295.09614 127.71438 295.36164 127.23438 295.68164 C 127.02105 295.84164 126.80904 296.00271 126.5957 296.10938 C 126.96904 297.28271 127.44776 298.13513 128.62109 299.8418 C 130.16776 298.45513 130.27455 298.34956 132.08789 296.96289 C 131.76789 296.32289 131.5012 295.89438 131.39453 295.73438 C 131.07453 295.09438 131.02237 295.04263 130.5957 294.0293 C 130.48904 293.81596 130.38206 293.60261 130.27539 293.33594 z M 128.56836 304.26953 C 127.66169 304.26953 124.51395 306.02956 120.14062 308.96289 L 120.03516 310.45508 C 123.18183 308.74842 123.44773 308.64258 123.92773 308.64258 C 124.35439 308.64258 124.56836 308.96156 124.56836 309.60156 C 124.56836 310.29489 124.40742 311.04203 123.60742 314.08203 C 121.10075 323.41536 121.10156 323.41471 121.10156 324.74805 C 121.10156 326.02805 121.63419 326.88281 122.38086 326.88281 C 123.28753 326.88281 124.72803 326.18834 127.55469 324.375 C 128.56803 323.735 129.58237 323.09567 130.5957 322.40234 C 131.0757 322.13567 131.55455 321.81609 132.08789 321.49609 L 132.30078 320.00195 C 127.23411 322.72195 127.12889 322.77539 126.43555 322.77539 C 125.84889 322.77539 125.47461 322.18792 125.47461 321.28125 C 125.47461 320.74792 125.63508 319.73583 125.95508 318.5625 C 128.67508 307.3625 129.20898 305.2294 129.20898 304.80273 C 129.20898 304.48273 128.94169 304.26953 128.56836 304.26953 z "
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.33333588px;font-family:'URW Chancery L';-inkscape-font-specification:'URW Chancery L'"
+         id="path14"
+         d="m 130.27539,293.33594 c -0.26666,0.21334 -0.58805,0.42593 -0.74805,0.58594 -0.21334,0.21332 -0.63853,0.53426 -1.17187,0.96093 -0.26666,0.21333 -0.64109,0.47883 -1.12109,0.79883 -0.21333,0.16 -0.42534,0.32107 -0.63868,0.42774 0.37334,1.17333 0.85206,2.02575 2.02539,3.73242 1.54667,-1.38667 1.65346,-1.49224 3.4668,-2.87891 -0.32,-0.64 -0.58669,-1.06851 -0.69336,-1.22851 -0.32,-0.64 -0.37216,-0.69175 -0.79883,-1.70508 -0.10666,-0.21334 -0.21364,-0.42669 -0.32031,-0.69336 z m -1.70703,10.93359 c -0.90667,0 -4.05441,1.76003 -8.42774,4.69336 l -0.10546,1.49219 c 3.14667,-1.70666 3.41257,-1.8125 3.89257,-1.8125 0.42666,0 0.64063,0.31898 0.64063,0.95898 0,0.69333 -0.16094,1.44047 -0.96094,4.48047 -2.50667,9.33333 -2.50586,9.33268 -2.50586,10.66602 0,1.28 0.53263,2.13476 1.2793,2.13476 0.90667,0 2.34717,-0.69447 5.17383,-2.50781 1.01334,-0.64 2.02768,-1.27933 3.04101,-1.97266 0.48,-0.26667 0.95885,-0.58625 1.49219,-0.90625 l 0.21289,-1.49414 c -5.06667,2.72 -5.17189,2.77344 -5.86523,2.77344 -0.58666,0 -0.96094,-0.58747 -0.96094,-1.49414 0,-0.53333 0.16047,-1.54542 0.48047,-2.71875 2.72,-11.2 3.2539,-13.3331 3.2539,-13.75977 0,-0.32 -0.26729,-0.5332 -0.64062,-0.5332 z" />
+    </g>
+    <ellipse
+       style="fill:#ff0000;stroke-width:0.26458332"
+       id="path26"
+       cx="65.6036"
+       cy="149.1385"
+       rx="3.7797618"
+       ry="3.5907738" />
+  </g>
+</svg>

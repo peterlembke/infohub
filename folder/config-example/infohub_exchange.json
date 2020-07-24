@@ -6,6 +6,14 @@
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
+            "www.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_exchange",
+                "function": "redirect",
+                "data": {
+                    "new_url": "https://infohub.se"
+                }
+            },
             "private.infohub.se": {
                 "node": "client",
                 "plugin": "infohub_workbench",
@@ -13,11 +21,8 @@
             },
             "infohub.se": {
                 "node": "client",
-                "plugin": "infohub_standalone",
-                "function": "startup",
-                "data": {
-                    "plugin_name": "infohub_blogview"
-                }
+                "plugin": "infohub_workbench",
+                "function": "startup"
             },
             "doc.infohub.se": {
                 "node": "client",
@@ -35,18 +40,20 @@
                     "plugin_name": "infohub_demo"
                 }
             },
-            "private.infohub.local": {
+            "local.infohub.se": {
                 "node": "client",
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
-            "infohub.local": {
+            "vagrant.infohub.local": {
                 "node": "client",
-                "plugin": "infohub_standalone",
-                "function": "startup",
-                "data": {
-                    "plugin_name": "infohub_blogview"
-                }
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "private.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
             },
             "doc.infohub.local": {
                 "node": "client",
@@ -83,20 +90,12 @@
                     "plugin_name": "infohub_login"
                 }
             },
-            "infohub.local": {
+            "www.infohub.se": {
                 "node": "client",
-                "plugin": "infohub_standalone",
-                "function": "startup",
+                "plugin": "infohub_exchange",
+                "function": "redirect",
                 "data": {
-                    "plugin_name": "infohub_login"
-                }
-            },
-            "pi.infohub.se": {
-                "node": "client",
-                "plugin": "infohub_standalone",
-                "function": "startup",
-                "data": {
-                    "plugin_name": "infohub_login"
+                    "new_url": "https://infohub.se"
                 }
             }
         }

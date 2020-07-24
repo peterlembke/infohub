@@ -163,7 +163,6 @@ class infohub_file extends infohub_base
             'checksum' => $checksum,
             'file_size' => $response['file_size']
         );
-
     }
 
     /**
@@ -365,17 +364,34 @@ class infohub_file extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report';
         $data = array();
+        $pattern = '';
+        $fullPath = '';
 
-        $in['path'] = $this->_CleanString($in['path'], 'path');
-        if ($this->_CheckPath($in['path']) === 'false') {
+        $path = $this->_CleanString($in['path'], 'path');
+        if ($in['path'] !== $path) {
+            $message = 'The path have illegal characters';
+            goto leave;
+        }
+
+        if ($this->_CheckPath($path) === 'false') {
             $message = 'Path is not valid';
             goto leave;
         }
-        $in['pattern'] = $this->_CleanString($in['pattern'], 'pattern');
 
-        $pattern = $in['path'] . '/' . $in['pattern'];
+        $pattern = $this->_CleanString($in['pattern'], 'pattern');
+        if ($in['pattern'] !== $pattern) {
+            $message = 'The pattern have illegal characters';
+            goto leave;
+        }
 
-        $data = $this->_RecursiveSearch($pattern);
+        $fullPath = $path . '/' . $pattern;
+
+        $data = $this->_RecursiveSearch($fullPath);
+
+        if ($this->_Empty($data) === 'true') {
+            $message = 'It is not probable that I found nothing in the file system. This is probably a hidden error';
+            goto leave;
+        }
 
         $answer = 'true';
         $message = 'Here are the data';
@@ -384,8 +400,11 @@ class infohub_file extends infohub_base
         return array(
             'answer' => $answer,
             'message' => $message,
-            'path' => $in['path'],
-            'pattern' => $in['pattern'],
+            'original_path' => $in['path'],
+            'path' => $path,
+            'original_pattern' => $in['pattern'],
+            'pattern' => $pattern,
+            'full_path' => $fullPath,
             'data' => $data
         );
     }
@@ -604,6 +623,18 @@ class infohub_file extends infohub_base
     }
 
     /**
+     * I do not want a slash at the end of the path
+     * @param string $path
+     * @return string
+     */
+    final protected function _RemoveEndSlash(string $path = ''): string {
+        if (substr($path, -1,1) === '/') {
+            $path = substr($path, 0, -1);
+        }
+        return $path;
+    }
+
+    /**
      * Get a list with plugin names that has a file called asset/launcher.json
      * The list key is plugin name, the data is the assets launcher.json, icon/icon.svg, icon/icon.json
      * Used only by infohub_launcher
@@ -642,6 +673,7 @@ class infohub_file extends infohub_base
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
+            goto leave;
         }
         
         $wantedAssets = array('launcher.json', 'icon/icon.json', 'icon/icon.svg');
@@ -649,9 +681,11 @@ class infohub_file extends infohub_base
         foreach ($response['data'] as $path)
         {
             $pathInfo = pathinfo($path);
+            $pathInfo['dirname'] = $this->_RemoveEndSlash($pathInfo['dirname']);
+
             $pathCopy = $pathInfo['dirname'];
-            $pathCopy = substr($pathCopy, strlen(PLUGINS)+1);
-            $parts = explode('/', $pathCopy);
+            $pathAfterPlugins = substr($pathCopy, strlen(PLUGINS)+1);
+            $parts = explode('/', $pathAfterPlugins);
 
             if (count($parts) <> 3) {
                 continue;
@@ -679,7 +713,7 @@ class infohub_file extends infohub_base
             {
                 $response = $this->internal_Cmd(array(
                     'func' => 'Read',
-                    'path' => $dirName . '/' . $assetName
+                    'path' => $dirName . DS . $assetName
                 ));
 
                 if ($response['answer'] === 'true') {
@@ -738,6 +772,11 @@ class infohub_file extends infohub_base
             'path' => $assetPath,
             'pattern' => '*',
         ));
+
+        if ($response['answer'] === 'false') {
+            $message = $response['message'];
+            goto leave;
+        }
 
         foreach ($response['data'] as $path)
         {
@@ -891,6 +930,11 @@ class infohub_file extends infohub_base
             'pattern' => '*.js',
         ));
 
+        if ($response['answer'] === 'false') {
+            $message = $response['message'];
+            goto leave;
+        }
+
         foreach ($response['data'] as $path)
         {
             $pathInfo = pathinfo($path);
@@ -959,6 +1003,11 @@ class infohub_file extends infohub_base
             'path' => PLUGINS,
             'pattern' => $pattern,
         ));
+
+        if ($response['answer'] === 'false') {
+            $message = $response['message'];
+            goto leave;
+        }
 
         $suffixLength = strlen($suffix);
 
@@ -1040,6 +1089,11 @@ class infohub_file extends infohub_base
             'path' => $in['path'],
             'pattern' => '*.js',
         ));
+
+        if ($response['answer'] === 'false') {
+            $message = $response['message'];
+            goto leave;
+        }
 
         foreach ($response['data'] as $path)
         {

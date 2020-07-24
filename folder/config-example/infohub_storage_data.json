@@ -20,8 +20,8 @@
         "db_type": "mysql",
         "db_host": "dbserver",
         "db_port": "3306",
-        "db_user": "infohubuser",
-        "db_password": "infohubpassword",
+        "db_user": "root",
+        "db_password": "topsecret",
         "db_name": "local_infohub_se",
         "path": "infohub_storagemanager\/config"
     }

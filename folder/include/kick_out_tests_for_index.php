@@ -112,6 +112,7 @@ class kickOut
             $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace($fileName, '', $_SERVER['REQUEST_URI']);
         }
 
+        /* This test have no practical meaning. I will probably delete it
         if (isset($_SERVER['HTTP_REFERER']) === true and $_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
             if ($refererFileName !== 'serviceworker.js') {
@@ -121,6 +122,7 @@ class kickOut
                 $this->GetOut($message);
             }
         }
+        */
     }
 
     /**

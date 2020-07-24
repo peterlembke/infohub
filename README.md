@@ -1,4 +1,4 @@
-![Infohub Logo](folder/plugins/infohub/welcome/asset/icon/infohub-logo-done.svg)
+![Infohub Logo](folder/doc/images/logotype/infohub-logo-done.svg)
 # InfoHub
 - See the [home page](https://infohub.se) for more information.
 

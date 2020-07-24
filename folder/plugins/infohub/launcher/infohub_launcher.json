@@ -1,8 +1,0 @@
-{
-    "client": {
-        "show_user": "true",
-        "show_refresh": "true"
-    },
-    "server": {
-    }
-}

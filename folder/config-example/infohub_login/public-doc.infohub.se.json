@@ -14,6 +14,7 @@
         "infohub_doc"
     ],
     "client_plugin_names": [
+	    "infohub_asset",
         "infohub_base",
         "infohub_cache",
         "infohub_checksum",

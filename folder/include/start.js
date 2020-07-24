@@ -329,7 +329,7 @@ function infohub_start($progress) {
 
         $progress.whatArea('call_server',10, 'Call the server - will send');
 
-        const $maxWaitTimeMS = 4000.0;
+        const $maxWaitTimeMS = 60000.0;
 
         const noResponseTimer = setTimeout(function() {
             xmlHttp.abort();

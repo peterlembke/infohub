@@ -102,7 +102,8 @@ function infohub_exchange() {
             'startup': 'normal',
             'event_message': 'normal',
             'plugin_started': 'normal',
-            'initiator_verify_sign_code': 'normal'
+            'initiator_verify_sign_code': 'normal',
+            'redirect': 'normal'
         };
     };
 
@@ -1631,5 +1632,26 @@ function infohub_exchange() {
         return $out;
     };
 
+    $functions.push('redirect');
+    /**
+     * Redirect infohub to another url
+     * @param $in
+     * @returns {{new_url: string, answer: string, message: string}}
+     */
+    const redirect = function($in)
+    {
+        const $default = {
+            'new_url': ''
+        };
+        $in = _Default($default,$in);
+
+        window.location.replace($in.new_url);
+
+        return {
+            'answer': 'true',
+            'message': 'Rerouting to another url',
+            'new_url': $in.new_url
+        };
+    };
 }
 //# sourceURL=infohub_exchange.js

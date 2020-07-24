@@ -1598,13 +1598,22 @@ function infohub_render() {
 
         if ($in.step === 'step_file_response')
         {
-            const $find = 'data:application/json;base64,';
+            const $findJson = 'data:application/json;base64,';
+
+            // If .json is unknown to server it adds .txt to file name and encode to text/plain.
+            const $findText = 'data:text/plain;base64,';
 
             for (let $fileNumber = 0; $fileNumber < $in.response.files_data.length; $fileNumber = $fileNumber + 1) {
                 let $content = $in.response.files_data[$fileNumber].content;
                 if (typeof $content === 'string') {
-                    if ($find === $content.substr(0,$find.length)) {
-                        $content = $content.substr($find.length);
+
+                    if ($findText === $content.substr(0,$findText.length)) {
+                        // Remove the text mime type and insert json instead
+                        $content = $findJson + $content.substr($findText.length);
+                    }
+
+                    if ($findJson === $content.substr(0,$findJson.length)) {
+                        $content = $content.substr($findJson.length);
                         $content = atob($content);
                         $content = decodeURIComponent(escape($content));
                         $in.response.files_data[$fileNumber].content = _JsonDecode($content);

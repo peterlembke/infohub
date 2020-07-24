@@ -10,6 +10,9 @@
  * 
  * only minor modifications by Peter Lembke
  */
+
+let $version = '2020-07-21';
+
 self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open('infohub').then(function (cache) {
@@ -27,13 +30,13 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('activate', function (event) {
 
-    var cacheWhitelist = ['infohub'];
+    var cacheAllowlist = ['infohub'];
 
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
                 cacheNames.map(function (cacheName) {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    if (cacheAllowlist.indexOf(cacheName) === -1) {
                         return caches.delete(cacheName);
                     }
                 })
@@ -73,4 +76,5 @@ self.addEventListener('fetch', function (event)
             // return caches.match('/index.php');
         });
     }));
-});//# sourceURL=serviceworker.js
+});
+//# sourceURL=serviceworker.js

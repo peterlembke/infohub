@@ -11,7 +11,8 @@
         "infohub_launcher",
         "infohub_plugin",
         "infohub_file",
-        "infohub_doc"
+        "infohub_doc",
+        "infohub_offline"
     ],
     "client_plugin_names": [
         "infohub_asset",
