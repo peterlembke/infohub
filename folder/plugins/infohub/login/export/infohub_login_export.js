@@ -35,10 +35,12 @@ function infohub_login_export() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_export': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

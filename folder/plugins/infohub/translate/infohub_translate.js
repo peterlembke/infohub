@@ -31,12 +31,12 @@ function infohub_translate() {
             'note': 'Handle the translation of startable plugins',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'admin'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'setup_gui': 'normal',
             'click_menu': 'normal',
@@ -44,6 +44,8 @@ function infohub_translate() {
             'call_server': 'normal',
             'get_translate_data': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $languageCodesDone = 'false';

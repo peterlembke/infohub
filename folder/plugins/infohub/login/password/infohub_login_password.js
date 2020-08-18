@@ -35,12 +35,14 @@ function infohub_login_password() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_password_change': 'normal',
             'shared_secret_scramble': 'normal',
             'shared_secret_restore': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

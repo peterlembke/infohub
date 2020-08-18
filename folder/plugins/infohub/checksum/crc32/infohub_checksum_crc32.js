@@ -38,10 +38,12 @@ function infohub_checksum_crc32() {
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'calculate_checksum': 'emerging',
             'verify_checksum': 'emerging'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

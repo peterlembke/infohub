@@ -23,7 +23,7 @@ function infohub_contact_client() {
 
     const _Version = function() {
         return {
-            'date': '2019-03-13',
+            'date': '2020-08-02',
             'since': '2019-02-16',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
@@ -35,18 +35,18 @@ function infohub_contact_client() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
             'click_new': 'normal',
             'click_save': 'normal',
             'click_delete': 'normal',
             'click_list': 'normal',
-            'click_refresh_group': 'normal',
-            'click_list_group_client': 'normal',
             'click_import': 'normal',
             'click_export': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**
@@ -85,7 +85,9 @@ function infohub_contact_client() {
         if (typeof $classTranslations !== 'object') { return $string; }
         return _GetData({
             'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
+            'default': $string,
+            'data': $classTranslations,
+            'split': '|'
         });
     };
 
@@ -136,7 +138,7 @@ function infohub_contact_client() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_new][button_save][button_delete][button_import][button_export][list_group][client_icon]',
+                            'data': '[button_new][button_save][button_delete][button_import][button_export][client_icon]',
                             'class': 'container-small'
                         },
                         'container_form': {
@@ -291,25 +293,10 @@ function infohub_contact_client() {
                             'asset_name': 'export',
                             'plugin_name': 'infohub_contact'
                         },
-                        'list_group': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'select',
-                            "label": _Translate("Groups"),
-                            "description": _Translate("Pick groups for this client"),
-                            "size": "6",
-                            "multiple": "true",
-                            'event_data': 'client|list_group_client',
-                            'to_plugin': 'infohub_contact',
-                            'to_function': 'click',
-                            "options": [],
-                            'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
-                        },
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_server_plugin][list_client_plugin]',
+                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_role_list]',
                             'label': _Translate('One contact'),
                             'description': _Translate('This is the data form for one contact')
                         },
@@ -364,28 +351,19 @@ function infohub_contact_client() {
                             'show_paragraphs': 'false',
                             'enabled': 'false'
                         },
-                        'list_server_plugin': {
+                        'list_role_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Allowed plugins"),
-                            "description": _Translate("List with all plugin names you can send messages to on this node"),
+                            "label": _Translate("Allowed roles"),
+                            "description": _Translate("List with all user roles you have"),
                             'event_data': 'client',
                             "size": "6",
                             "multiple": "true",
-                            "options": [],
-                            'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
-                        },
-                        'list_client_plugin': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'select',
-                            "label": _Translate("Allowed client plugins"),
-                            "description": _Translate("List with all client plugin names you can download from the server"),
-                            'event_data': 'client',
-                            "size": "6",
-                            "multiple": "true",
-                            "options": [],
+                            "options": [
+                                { "type": "option", "value": "user", "label": _Translate("user") },
+                                { "type": "option", "value": "developer", "label": _Translate("developer") },
+                                { "type": "option", "value": "admin", "label": _Translate("admin") }
+                            ],
                             'css_data': {
                                 '.select': 'max-width: 200px;'
                             }
@@ -453,21 +431,6 @@ function infohub_contact_client() {
 
         if ($in.step === 'step_render_options')
         {
-            let $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_contact_client',
-                    'function': 'click_refresh_group'
-                },
-                'data': {
-                    'box_id': $in.box_id
-                },
-                'data_back': {
-                    'step': 'step_end'
-                }
-            });
-            $messageArray.push($messageOut);
-
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -483,12 +446,10 @@ function infohub_contact_client() {
                         'type': 'client'
                     }
                 },
-                'messages': $messageArray,
                 'data_back': {
                     'step': 'step_end'
                 }
             });
-
         }
 
         return {
@@ -533,8 +494,7 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': ''},
                         'text_user_name': {'value': ''},
                         'text_shared_secret': {'value': ''},
-                        'list_server_plugin': {'value': {} },
-                        'list_client_plugin': {'value': {} }
+                        'list_role_list': {'value': {} }
                     }
                 },
                 'data_back': {
@@ -606,8 +566,7 @@ function infohub_contact_client() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'server_plugin_names': $in.response.form_data.list_server_plugin.value,
-                    'client_plugin_names': $in.response.form_data.list_client_plugin.value
+                    'role_list': $in.response.form_data.list_role_list.value
                 };
                 $in.step = 'step_save_node_data';
             }
@@ -824,8 +783,7 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': $in.response.node_data.domain_address },
                         'text_user_name': {'value': $in.response.node_data.user_name },
                         'text_shared_secret': {'value': $in.response.node_data.shared_secret },
-                        'list_server_plugin': {'value': $in.response.node_data.server_plugin_names },
-                        'list_client_plugin': {'value': $in.response.node_data.client_plugin_names }
+                        'list_role_list': {'value': $in.response.node_data.role_list }
                     }
                 },
                 'data_back': {
@@ -841,190 +799,6 @@ function infohub_contact_client() {
         return {
             'answer': 'true',
             'message': 'Node data shown',
-            'ok': $in.ok
-        };
-    };
-    
-    /**
-     * Refresh the list with group names
-     * Used by both group and client to list group names + level 1 server plugin names
-     * @version 2019-02-23
-     * @since 2019-02-23
-     * @author Peter Lembke
-     */
-    $functions.push("click_refresh_group");
-    const click_refresh_group = function ($in)
-    {
-        var $messageArray = [];
-
-        const $default = {
-            'box_id': '',
-            'step': 'step_render_options',
-            'response': {
-                'answer': 'true',
-                'message': 'Render the options',
-                'ok': 'true'
-            }
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_render_options') 
-        {
-            let $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'render_options'
-                },
-                'data': {
-                    'id': $in.box_id + '_list_group_form_element',
-                    'source_node': 'server',
-                    'source_plugin': 'infohub_contact',
-                    'source_function': 'load_group_list',
-                    'source_data': {}
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
-            });
-            
-            $messageArray.push($messageOut);
-
-            $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'render_options'
-                },
-                'data': {
-                    'id': $in.box_id + '_list_server_plugin_form_element',
-                    'source_node': 'server',
-                    'source_plugin': 'infohub_contact',
-                    'source_function': 'load_plugin_list',
-                    'source_data': {}
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
-            });
-
-            $messageArray.push($messageOut);
-
-            $messageOut = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'render_options'
-                },
-                'data': {
-                    'id': $in.box_id + '_list_client_plugin_form_element',
-                    'source_node': 'server',
-                    'source_plugin': 'infohub_contact',
-                    'source_function': 'load_plugin_list',
-                    'source_data': {
-                        'node': 'client'
-                    }
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
-            });
-
-            $messageArray.push($messageOut);
-        }
-
-        return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'messages': $messageArray,
-            'ok': $in.response.ok
-        };
-    };
-
-    /**
-     * Client has a group list. When you click it you come here.
-     * You can select multiple groups.
-     * The associated groups plugins will be set in the plugin list.
-     * @version 2019-03-02
-     * @since 2019-02-24
-     * @author Peter Lembke
-     */
-    $functions.push("click_list_group_client");
-    const click_list_group_client = function ($in)
-    {
-        const $default = {
-            'values': [],
-            'box_id': '',
-            'step': 'step_load_group_data',
-            'ok': 'false',
-            'response': {
-                'answer': '',
-                'message': '',
-                'group_data': {}, // list with group names and their data
-                'groups_merged': [], // plugin names from all groups in group_data
-                'ok': 'false'
-            }
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_load_group_data') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_contact',
-                    'function': 'call_server'
-                },
-                'data': {
-                    'to': {
-                        'node': 'server',
-                        'plugin': 'infohub_contact',
-                        'function': 'load_groups_data'
-                    },
-                    'data': {
-                        'names': $in.values
-                    }
-                },
-                'data_back': {
-                    'values': $in.values,
-                    'box_id': $in.box_id,
-                    'step': 'step_load_group_data_response'
-                }
-            });
-        }
-
-        if ($in.step === 'step_load_group_data_response') {
-            $in.step = 'step_show_group_data';
-        }
-
-        if ($in.step === 'step_show_group_data') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'form_write'
-                },
-                'data': {
-                    'id': $in.box_id + '_form_contact_form',
-                    'form_data': {
-                        'list_server_plugin': {'value': $in.response.groups_merged }
-                    }
-                },
-                'data_back': {
-                    'step': 'step_show_group_data_response'
-                }
-            });
-        }
-
-        if ($in.step === 'step_show_group_data_response') {
-            $in.step = 'step_end';
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'group data shown',
             'ok': $in.ok
         };
     };
@@ -1076,8 +850,7 @@ function infohub_contact_client() {
                 'domain_address': '',
                 'user_name': '',
                 'shared_secret': '',
-                'server_plugin_names': [],
-                'client_plugin_names': []
+                'role_list': []
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
             
@@ -1095,8 +868,7 @@ function infohub_contact_client() {
                         'text_domain_address': {'value': $nodeData.domain_address },
                         'text_user_name': {'value': $nodeData.user_name },
                         'text_shared_secret': {'value': $nodeData.shared_secret },
-                        'list_server_plugin': {'value': $nodeData.server_plugin_names, 'mode': '' },
-                        'list_client_plugin': {'value': $nodeData.client_plugin_names, 'mode': '' }
+                        'list_role_list': {'value': $nodeData.role_list, 'mode': '' }
                     }
                 },
                 'data_back': {
@@ -1172,8 +944,7 @@ function infohub_contact_client() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'server_plugin_names': $in.response.form_data.list_server_plugin.value,
-                    'client_plugin_names': $in.response.form_data.list_client_plugin.value
+                    'role_list': $in.response.form_data.list_role_list.value
                 };
                 $content = _JsonEncode($nodeData);
                 $in.step = 'step_file_write';

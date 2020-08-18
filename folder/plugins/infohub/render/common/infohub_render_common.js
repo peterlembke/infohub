@@ -37,10 +37,12 @@ function infohub_render_common() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal', // ContainerStart, ContainerStop, Container, Codecontainer, Iframe, Legend, Image, Value, List, LabelData
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

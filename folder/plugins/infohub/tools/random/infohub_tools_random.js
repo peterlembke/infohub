@@ -35,10 +35,12 @@ function infohub_tools_random() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_random': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

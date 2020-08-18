@@ -34,12 +34,12 @@ function infohub_debug() {
             'note': 'Tool for clearing caches and refresh the page when the ban time says ok',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'developer'
+            'user_role': 'developer'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'create': 'normal',
             'clear_plugins': 'normal',
@@ -50,6 +50,8 @@ function infohub_debug() {
             'set_cold_start_and_reload_page': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************
@@ -412,23 +414,13 @@ function infohub_debug() {
     const refresh_plugins_and_reload_page = function ($in)
     {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_update_plugins',
+            'response': {},
+            'data_back': {
+                'plugins_old': []
+            }
         };
         $in = _Default($default, $in);
-
-        if ($in.step === 'step_start') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_plugin',
-                    'function': 'plugin_list'
-                },
-                'data': {},
-                'data_back': {
-                    'step': 'step_update_plugins'
-                }
-            });
-        }
 
         if ($in.step === 'step_update_plugins') {
             return _SubCall({
@@ -439,6 +431,57 @@ function infohub_debug() {
                 },
                 'data': {},
                 'data_back': {
+                    'step': 'step_update_plugins_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_update_plugins_response')
+        {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'plugins_old': []
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+            if ($in.response.plugins_old.length > 0) {
+                $in.step = 'step_delete_render_cache';
+            }
+        }
+
+        if ($in.step === 'step_delete_render_cache') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'delete_render_cache_for_user_name_specific_plugins'
+                },
+                'data': {
+                    'plugins': $in.response.plugins_old
+                },
+                'data_back': {
+                    'plugins_old': $in.response.plugins_old,
+                    'step': 'step_delete_plugins'
+                }
+            });
+        }
+
+        if ($in.step === 'step_delete_plugins')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_cache',
+                    'function': 'remove_data_from_cache_by_prefix_and_keys'
+                },
+                'data': {
+                    'prefix': 'plugin',
+                    'keys': $in.data_back.plugins_old,
+                },
+                'data_back': {
+                    'plugins_old': $in.data_back.plugins_old,
                     'step': 'step_reload_page'
                 }
             });
@@ -474,12 +517,25 @@ function infohub_debug() {
     const clear_storage_and_reload_page = function ($in)
     {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_delete_cache'
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_delete_cache') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'delete_render_cache_for_user_name'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_clear_storage'
+                }
+            });
+        }
+
+        if ($in.step === 'step_clear_storage') {
             return _SubCall({
                 'to': {
                     'node': 'server',

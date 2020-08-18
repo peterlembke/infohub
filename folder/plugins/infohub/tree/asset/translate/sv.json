@@ -1,0 +1,95 @@
+{
+    "version": {
+        "date": "2019-10-19 20:33:44",
+        "plugin": "infohub_tree",
+        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Träd",
+        "description": "Verktyg för att hantera loginkonton och används enbart av administratören. Hantera inkommande kontakter som vill in i InfoHub servern. Hantera utgående kontakter där InfoHub vill kontakta andra InfoHub."
+    },
+    "data": {
+        "infohub_tree": {
+            "Instructions": "Instruktioner",
+            "Use the menu.": "Använd menyn."
+        },
+        "infohub_tree_client": {
+            "Refresh Clients": "Uppdatera klienter",
+            "Client Contacts": "Klientkontakter",
+            "List all client contacts": "Lista med alla klientkontakter som får logga in på din server",
+            "New": "Ny",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Import": "Importera",
+            "Export": "Exportera",
+            "Groups": "Grupper",
+            "Pick groups for this client": "Välj grupper för den här klienten",
+            "One contact": "En kontakt",
+            "This is the data form for one contact": "Denna klient vill logga in på din server",
+            "Node": "Nod",
+            "Your unique name of the client": "Ditt unika namn för klienten",
+            "Note": "Notering",
+            "Any text you want": "Här kan du skriva noteringar om den här klienten. Noteringen kommer med i exporten och syns för klienten.",
+            "Domain address": "Domänadress",
+            "The domain address to your server": "Domänadressen till din server",
+            "User name": "Användarnamn",
+            "You get a Hub-UUID when you save (Leave blank)": "Du får en hub-UUID när du sparar (lämna tomt)",
+            "Shared secret": "Delad hemlighet",
+            "You will get a 2K random string when you save (Leave blank)": "Du får en 2000 tecken lång slumpmässig sträng när du sparar (Lämna tomt)",
+            "Allowed plugins": "Tillåtna plugins",
+            "List with all plugin names you can send messages to on this node": "Lista med alla plugins som klienten kan skicka meddelanden till på din server"
+        },
+        "infohub_tree_doc": {
+            "Documentation will render here": "Dokumentation kommer att visas här",
+            "Main Doc": "Läs mig först",
+            "Client Doc": "Läs om Klient",
+            "Server Doc": "Läs om Server",
+            "Group Doc": "Läs om Grupp"
+        },
+        "infohub_tree_group": {
+            "Refresh groups": "Uppdatera grupper",
+            "Group names": "Gruppnamn",
+            "New": "Ny",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Rights for one group": "Gruppens rättigheter",
+            "Group name": "Gruppnamn",
+            "Your note": "Din anteckning",
+            "Select server plugins in this group": "Tillåtna serverplugins"
+        },
+        "infohub_tree_menu": {
+            "Contact manager": "Kontaktadministratör",
+            "Documentation": "Dokumentation",
+            "Group rights": "Grupprättigheter",
+            "Client contact": "Klientkontakt",
+            "Server contact": "Serverkontakt"
+        },
+        "infohub_tree_server": {
+            "Refresh": "Uppdatera",
+            "Server Contacts": "Serverkontakter",
+            "List all server contacts": "Lista med alla servrar som din server kan skicka meddelanden till.",
+            "Save": "Spara",
+            "Delete": "Radera",
+            "Import": "Importera",
+            "Export": "Exportera",
+            "Ping server": "Ping-server",
+            "One contact": "En kontakt",
+            "This is the data form for one contact.": "Uppgifter som du fått för att din server ska kunna logga in på en annan server.",
+            "Node": "Nod",
+            "Your unique node name": "Ditt unika nodnamn. Du kan då skicka meddelanden till den här noden och de levereras till servern.",
+            "Note": "Notering",
+            "Any text you want": "Noteringen som serverägaren skrev när de skapade ditt loginkonto. Du kan ändra noteringen om du vill.",
+            "Domain address": "Domänadress",
+            "The domain address to the remote server": "Domänadressen till fjärrservern",
+            "User name": "Användarnamn",
+            "Hub-UUID you got from the remote server": "Hub-UUID som du fick från fjärrservern",
+            "Shared secret": "Delad hemlighet",
+            "2K random string you got from the remote server": "2000 tecken lång slumpmässig sträng du fick från fjärrservern",
+            "Allowed plugins": "Tillåtna plugins",
+            "List with all plugin names you can send messages to on this node": "Lista med alla plugins som du kan skicka meddelanden till på den här noden"
+        }
+    }
+}

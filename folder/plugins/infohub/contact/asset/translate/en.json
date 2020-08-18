@@ -25,8 +25,6 @@
             "Delete": "Delete",
             "Import": "Import",
             "Export": "Export",
-            "Groups": "Groups",
-            "Pick groups for this client": "Pick groups for this client",
             "One contact": "One client contact",
             "This is the data form for one contact": "This client want to login to your server",
             "Node": "Node",
@@ -46,24 +44,11 @@
             "Documentation will render here": "Documentation will render here",
             "Main Doc": "Main Doc",
             "Client Doc": "Client Doc",
-            "Server Doc": "Server Doc",
-            "Group Doc": "Group Doc"
-        },
-        "infohub_contact_group": {
-            "Refresh groups": "Refresh groups",
-            "Group names": "Group names",
-            "New": "New",
-            "Save": "Save",
-            "Delete": "Delete",
-            "Rights for one group": "Rights for one group",
-            "Group name": "Group name",
-            "Your note": "Your note",
-            "Select server plugins in this group": "Select server plugins in this group"
+            "Server Doc": "Server Doc"
         },
         "infohub_contact_menu": {
             "Contact manager": "Contact manager",
             "Documentation": "Documentation",
-            "Group rights": "Group rights",
             "Client contact": "Client contact",
             "Server contact": "Server contact"
         },

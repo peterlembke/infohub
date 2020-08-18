@@ -35,10 +35,12 @@ function infohub_tools_password() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_password': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

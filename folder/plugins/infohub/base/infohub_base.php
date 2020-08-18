@@ -20,20 +20,29 @@ class infohub_base
             'date' => '2016-01-26',
             'version' => '1.0.0',
             'checksum' => '{{base_checksum}}',
-            'class_name' => 'infohub_base',
+            'class_name' => get_class($this),
             'note' => 'Parent class in ALL plugins. Manages the traffic in the plugin',
             'status' => 'normal',
-            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'user_role' => ''
         );
     }
 
-    protected final function _GetCmdFunctionsBase(): array
+    /**
+     * @param array $childList
+     * @return string[]
+     */
+    protected final function _GetCmdFunctionsBase(array $childList = array()): array
     {
-        return array(
+        $list = array(
             'version' => 'normal',
             'function_names' => 'normal',
             'ping' => 'normal'
         );
+
+        $newList = array_merge($childList, $list);
+
+        return $newList;
     }
 
     /**
@@ -48,7 +57,9 @@ class infohub_base
             'class_name' => get_class($this),
             'checksum' => '{{checksum}}',
             'note' => 'Please implement this function in your plugin',
-            'status' => 'emerging'
+            'status' => 'emerging',
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later',
+            'user_role' => ''
         );
     }
 
@@ -60,10 +71,7 @@ class infohub_base
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
-            'version' => 'normal',
-            'function_names' => 'normal'
-        );
+        return $this->_GetCmdFunctionsBase();
     }
 
     // *****************************************************************************
@@ -687,6 +695,8 @@ class infohub_base
 
             $this->configLog = array();
 
+            $callResponse['first_default'] = $this->firstDefault;
+
             return $callbackFunction($callResponse);
 
         } else {
@@ -697,54 +707,6 @@ class infohub_base
         }
 
         return array();
-    }
-
-    /**
-     * Only used in the test program for testing purposes only
-     * @version 2015-01-29
-     * @since 2014-09-06
-     * @author Peter Lembke
-     * @param string $functionName | Name of the plugin to call
-     * @param array $in
-     * @return array
-     */
-    final public function test(string $functionName = '', array $in = array()): array
-    {
-        $callResponse = array();
-        $errorMessage = '';
-
-        if (is_string($functionName) === false) {
-            goto leave;
-        }
-        if ($in === 'file') {
-            $in = array();
-        }
-
-        $this->firstDefault = null;
-        $GLOBALS['infohub_error_message'] = '';
-
-        try {
-            $callResponse = $this->{$functionName}($in);
-        } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
-        }
-
-        if (empty($errorMessage) === true) {
-            if (empty($GLOBALS['infohub_error_message']) === false) {
-                $errorMessage = $GLOBALS['infohub_error_message'];
-            }
-        }
-
-        leave:
-
-        $answer = array(
-            'in' => $in,
-            'default' => $this->firstDefault,
-            'out' => $callResponse,
-            'error_message' => $errorMessage
-        );
-
-        return $answer;
     }
 
     // *****************************************************************************
@@ -799,10 +761,52 @@ class infohub_base
      */
     final protected function function_names(array $in = array()): array
     {
+        $default = array(
+            'include_cmd_functions' => 'true',
+            'include_internal_functions' => 'true',
+            'include_direct_functions' => 'true'
+        );
+        $in = $this->_Default($default, $in);
+
+        $allClassMethods = get_class_methods($this);
+        $classMethods = $allClassMethods;
+
+        $includeAll = 'true';
+        if ($in['include_cmd_functions'] === 'false') {
+            $includeAll = 'false';
+        }
+        if ($in['include_internal_functions'] === 'false') {
+            $includeAll = 'false';
+        }
+        if ($in['include_direct_functions'] === 'false') {
+            $includeAll = 'false';
+        }
+
+        if ($includeAll === 'false') {
+            $classMethods = array();
+            foreach ($allClassMethods as $method) {
+                if (substr($method, 0, strlen('internal_')) === 'internal_') {
+                    if ($in['include_internal_functions'] === 'true') {
+                        $classMethods[] = $method;
+                    }
+                    continue;
+                }
+                if (substr($method, 0, strlen('_')) === '_') {
+                    if ($in['include_direct_functions'] === 'true') {
+                        $classMethods[] = $method;
+                    }
+                    continue;
+                }
+                if ($in['include_cmd_functions'] === 'true') {
+                    $classMethods[] = $method;
+                }
+            }
+        }
+
         $answer = array(
             'answer' => 'true',
             'message' => 'All function names in this plugin',
-            'data' => get_class_methods($this)
+            'data' => $classMethods
         );
 
         return $answer;
@@ -880,7 +884,6 @@ class infohub_base
 
         try
         {
-            $this->firstDefault = null;
             $callResponse = $this->{$functionName}($in);
         }
         catch (Exception $err)

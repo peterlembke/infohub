@@ -35,12 +35,14 @@ function infohub_tools_encrypt() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_encrypt': 'normal',
             'click_handle_decrypt': 'normal',
             'click_handle_node_select': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

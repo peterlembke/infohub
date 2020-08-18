@@ -36,12 +36,12 @@ function infohub_storage() {
             'note': 'Store your data. Simple, Stand alone',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'guest'
+            'user_role': ''
         };
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'read': 'normal',
             'write': 'normal',
             'read_many': 'normal',
@@ -49,6 +49,8 @@ function infohub_storage() {
             'read_pattern': 'normal',
             'write_pattern': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************

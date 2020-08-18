@@ -35,11 +35,13 @@ function infohub_demo_timer() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'click_button': 'normal',
             'click_advanced': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

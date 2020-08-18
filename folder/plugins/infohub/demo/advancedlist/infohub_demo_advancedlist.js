@@ -35,10 +35,12 @@ function infohub_demo_advancedlist() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'click_advanced_list': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

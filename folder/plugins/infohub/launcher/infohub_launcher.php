@@ -42,15 +42,17 @@ class infohub_launcher extends infohub_base
             'note' => 'Download client side data that the launcher need to work',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'get_full_list' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

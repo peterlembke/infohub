@@ -2,8 +2,7 @@
 Show the doc files for this plugin
 
 ## Introduction
-The aim is to show the Markdown doc files for this plugin.  
-There are no markdown doc files yet to show.
+Show the Markdown doc files for this plugin.  
 
 ## License
 This documentation is copyright (C) 2019 Peter Lembke.  
@@ -12,4 +11,4 @@ You should have received a copy of the GNU Free Documentation License along with
 
 ## footer
 Since 2019-03-014 by Peter Lembke  
-Updated 2019-03-14 by Peter Lembke
+Updated 2020-07-25 by Peter Lembke

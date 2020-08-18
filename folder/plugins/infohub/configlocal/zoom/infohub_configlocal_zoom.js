@@ -43,11 +43,13 @@ function infohub_configlocal_zoom() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_change': 'normal',
             'apply_config': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

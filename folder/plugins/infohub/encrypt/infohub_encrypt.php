@@ -40,19 +40,21 @@ class infohub_encrypt extends infohub_base
             'note' => 'You can encrypt/decrypt your data keep the contents secret',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'encrypt' => 'normal',
             'decrypt' => 'normal',
             'get_available_options' => 'normal',
             'is_method_valid' => 'normal',
             'create_encryption_key' => ''
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // *****************************************************************************

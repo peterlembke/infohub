@@ -32,18 +32,20 @@ function infohub_contact() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Node contacts',
-            'recommended_security_group': 'admin'
+            'user_role': 'admin'
         };
     };
     
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
             'call_server': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     const _GetPluginName = function($data)

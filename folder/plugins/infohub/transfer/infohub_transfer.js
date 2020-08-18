@@ -31,14 +31,16 @@ function infohub_transfer() {
             'note': 'Transfer data to other nodes',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'send': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $globalOnline = 'true', // Indicate if the server have answered or not

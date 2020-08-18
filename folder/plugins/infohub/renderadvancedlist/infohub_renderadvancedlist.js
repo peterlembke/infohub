@@ -34,15 +34,17 @@ function infohub_renderadvancedlist() {
             'note': 'Renders an advanced list with expandable levels',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'expand': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

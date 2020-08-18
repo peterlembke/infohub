@@ -56,6 +56,12 @@ class infohub_exchange extends infohub_base {
         return $this->sessionId;
     }
 
+    protected $roleListIndexed = array();
+    protected function _GetRoleListIndexed(): array
+    {
+        return $this->roleListIndexed;
+    }
+
     /** @var string Used by responder_verify_sign_code to prevent sending an answer with echo. See infohub.php */
     protected $sendAnswer = 'true';
 
@@ -83,7 +89,7 @@ class infohub_exchange extends infohub_base {
             'note' => 'Handle all messages so they come to the right plugin',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
@@ -93,11 +99,13 @@ class infohub_exchange extends infohub_base {
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'main' => 'normal',
             'plugin_started' => 'normal',
             'responder_verify_sign_code' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     Protected $Sort = array(); // Array with all unsorted messages
@@ -352,7 +360,8 @@ class infohub_exchange extends infohub_base {
             'answer' => 'false',
             'message' => '',
             'step' => 'step_simple_tests',
-            'response' => array()
+            'response' => array(),
+            'data_back' => array()
         );
         $in = $this->_Default($default, $in);
 
@@ -367,7 +376,13 @@ class infohub_exchange extends infohub_base {
             'banned' => 'true'
         );
 
-        $allowedSteps = array('step_simple_tests', 'step_verify_sign_code_response', 'step_check_banned_until_response');
+        $allowedSteps = array(
+            'step_simple_tests',
+            'step_verify_sign_code_response',
+            'step_load_node_role_plugin_name_role_list_response',
+            'step_check_banned_until_response'
+        );
+
         if (in_array($in['step'], $allowedSteps) === false) {
             $out['message'] = 'Step manipulation detected';
             $in['step'] = 'step_end';
@@ -415,12 +430,11 @@ class infohub_exchange extends infohub_base {
                 'message' => '',
                 'sign_code_valid' => 'false',
                 'initiator_user_name' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array()
+                'role_list' => array()
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
-            $in['step'] = 'step_valid_sign_code';
+            $in['step'] = 'step_load_role_list';
 
             if ($in['response']['sign_code_valid'] === 'false') {
                 $out['message'] = 'sign_code not valid. ' . $in['response']['message'];
@@ -428,17 +442,61 @@ class infohub_exchange extends infohub_base {
             }
         }
 
+        if ($in['step'] === 'step_load_role_list') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'load_node_role_plugin_name_role_list'
+                ),
+                'data' => array(),
+                'data_back' => array(
+                    'package' => $in['package'],
+                    'sign_code_valid' => $in['response']['sign_code_valid'],
+                    'initiator_user_name' => $in['response']['initiator_user_name'],
+                    'role_list' => $in['response']['role_list'],
+                    'step' => 'step_load_node_role_plugin_name_role_list_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_load_node_role_plugin_name_role_list_response') {
+            $default = array(
+                'answer' => 'false',
+                'message' => '',
+                'data' => array()
+            );
+            $in['response'] = $this->_Default($default,$in['response']);
+
+            $in['data_back']['node_role_plugin_list'] = $in['response']['data'];
+
+            $in['step'] = 'step_valid_sign_code';
+
+            if ($in['response']['answer'] === 'false') {
+                $out['message'] = $in['response']['answer'];
+                $in['step'] = 'step_end';
+            }
+        }
+
         if ($in['step'] === 'step_valid_sign_code') {
 
             $allowedServerPlugins = array();
-            if (isset($in['response']['server_plugin_names'])) {
-                $allowedServerPlugins = array_fill_keys($in['response']['server_plugin_names'], $dummyValue = array());
+            if (isset($in['data_back']['role_list'])) {
+                $allowedServerPlugins = $this->getPluginList(
+                    'server',
+                    $in['data_back']['role_list'],
+                    $in['data_back']['node_role_plugin_list']
+                );
             }
             $this->allowedServerPluginNamesLookupArray = $allowedServerPlugins;
 
             $allowedClientPlugins = array();
-            if (isset($in['response']['client_plugin_names'])) {
-                $allowedClientPlugins = array_fill_keys($in['response']['client_plugin_names'], $dummyValue = array());
+            if (isset($in['data_back']['role_list'])) {
+                $allowedClientPlugins = $this->getPluginList(
+                    'client',
+                    $in['data_back']['role_list'],
+                    $in['data_back']['node_role_plugin_list']
+                );
             }
             $this->allowedClientPluginNamesLookupArray = $allowedClientPlugins;
 
@@ -447,6 +505,7 @@ class infohub_exchange extends infohub_base {
             $this->userName = $out['initiator_user_name'];
             $this->sessionId = $in['package']['session_id'];
             $this->banned = 'true';
+            $this->roleListIndexed = array_flip($in['data_back']['role_list']);
 
             return $this->_SubCall(array(
                 'to' => array(
@@ -477,7 +536,7 @@ class infohub_exchange extends infohub_base {
                 'message' => 'Sign code is valid. ' . $in['response']['message'],
                 'sign_code_valid' => 'true',
                 'guest_valid' => 'false',
-                'initiator_user_name' => $this->userName,
+                'initiator_user_name' => $this->_GetUserName(),
                 'banned_until' => $in['response']['banned_until'],
                 'banned_seconds' => $in['response']['banned_seconds'],
                 'banned' => $in['response']['banned']
@@ -558,6 +617,42 @@ class infohub_exchange extends infohub_base {
         }
 
         return $out;
+    }
+
+    /**
+     * User role list with allowed roles.
+     * all role list with node array >> role array >> plugin name array > role name string
+     * Return a list with all allowd plugin names for that node.
+     * @param string $node
+     * @param array $userRoleList
+     * @param array $allRoleList
+     * @return array
+     */
+    protected function getPluginList(
+        string $node = '',
+        array $userRoleList = [],
+        array $allRoleList = []
+    ): array
+    {
+        $pluginList = array();
+
+        if (empty($userRoleList) === true) {
+            return array();
+        }
+
+        if (isset($allRoleList[$node]) === false) {
+            return array();
+        }
+
+        foreach ($userRoleList as $role) {
+            if (isset($allRoleList[$node][$role]) === false) {
+                continue;
+            }
+
+            $pluginList = array_merge($pluginList, $allRoleList[$node][$role]);
+        }
+
+        return $pluginList;
     }
 
     // *****************************************************************************
@@ -1110,6 +1205,8 @@ class infohub_exchange extends infohub_base {
                     'plugin_node' => $dataMessage['to']['node'],
                     'config' => array(
                         'user_name' => $this->_GetUserName(),
+                        'session_id' => $this->_GetSessionId(),
+                        'role_list_indexed' => $this->_GetRoleListIndexed(),
                         'server_plugin_names' => $this->_GetAllowedServerPluginNames(),
                         'client_plugin_names' => $this->_GetAllowedClientPluginNames()
                     )
@@ -1172,6 +1269,7 @@ class infohub_exchange extends infohub_base {
             $dataMessage['data']['config'] = $response['config'];
             $dataMessage['data']['config']['user_name'] = $this->_GetUserName();
             $dataMessage['data']['config']['session_id'] = $this->_GetSessionId();
+            $dataMessage['data']['config']['role_list_indexed'] = $this->_GetRoleListIndexed();
             $dataMessage['data']['config']['server_plugin_names'] = $this->_GetAllowedServerPluginNames();
             $dataMessage['data']['config']['client_plugin_names'] = $this->_GetAllowedClientPluginNames();
 

@@ -37,7 +37,7 @@ function infohub_asset() {
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
@@ -49,7 +49,7 @@ function infohub_asset() {
      */
     $functions.push("_GetCmdFunctions");
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal', // Used by infohub_render to render an asset
             'setup_gui': 'normal', // Render the graphical user interface
             'event_message': 'normal', // Will render asset meta data
@@ -60,6 +60,8 @@ function infohub_asset() {
             'get_plugin_assets': 'normal', // Used by asset owner and by infohub_asset. Get named assets for a plugin
             'get_asset_and_license': 'normal' // Use by asset owner and by function create to get an asset + license
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $loadedAsset = {};
@@ -414,8 +416,15 @@ function infohub_asset() {
                         }
                     };
 
+                    const $imageTypes = {
+                        'jpeg': 1,
+                        'jpg': 1,
+                        'gif': 1,
+                        'png': 1
+                    };
+
                     let $subType = 'svg';
-                    if ($data.extension === 'jpeg') {
+                    if (_IsSet($imageTypes[$data.extension]) === 'true') {
                         $subType = 'image';
                     }
 

@@ -36,18 +36,20 @@ class infohub_translate extends infohub_base
             'note' => 'Creates template translation files you can copy to a new name and translate',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'admin'
+            'user_role' => 'admin'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'create_template_file' => 'normal',
             'import_translated_file' => 'normal',
             'update_existing_files_with_additional_data' => 'normal',
             'get_doc_file' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

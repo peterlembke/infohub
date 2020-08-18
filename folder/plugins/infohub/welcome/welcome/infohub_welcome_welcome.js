@@ -34,9 +34,11 @@ function infohub_welcome_welcome() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

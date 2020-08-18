@@ -35,7 +35,7 @@ function infohub_login_contact() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'view_contact': 'normal',
             'storage_read_contact_data': 'normal',
@@ -43,6 +43,8 @@ function infohub_login_contact() {
             'storage_forget_contact_data': 'normal',
             'click_save': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -78,8 +80,7 @@ function infohub_login_contact() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'server_plugin_names': [],
-            'client_plugin_names': [],
+            'role_list': [],
             'has_password': 'false'
         };
         $nodeData = _Default($default, $nodeData);
@@ -134,7 +135,7 @@ function infohub_login_contact() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_server_plugin][list_client_plugin]',
+                            'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_role_list]',
                             'label': _Translate('One contact'),
                             'description': _Translate('This is the data form for one contact'),
                             'open': 'false'
@@ -207,22 +208,11 @@ function infohub_login_contact() {
                             'show_characters_left': 'false',
                             'enabled': 'false'
                         },
-                        'list_server_plugin': {
+                        'list_role_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
                             "label": _Translate("Allowed server plugins"),
                             "description": _Translate("List with all server plugin names you can send messages to on the remote node"),
-                            'show_characters': 'false',
-                            'show_words': 'false',
-                            'show_rows': 'false',
-                            'show_paragraphs': 'false',
-                            'enabled': 'false'
-                        },
-                        'list_client_plugin': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'textarea',
-                            "label": _Translate("Allowed client plugins"),
-                            "description": _Translate("List with all client plugin names you can download from the server"),
                             'show_characters': 'false',
                             'show_words': 'false',
                             'show_rows': 'false',
@@ -296,8 +286,7 @@ function infohub_login_contact() {
                     'shared_secret': '',
                     'checksum': '',
                     'has_password': 'false',
-                    'server_plugin_names': [],
-                    'client_plugin_names': []
+                    'role_list': []
                 },
                 'checksum': '-',
                 'post_exist': 'false'
@@ -382,8 +371,7 @@ function infohub_login_contact() {
                         'text_user_name': {'value': $in.data_back.contact.user_name },
                         'text_shared_secret': {'value': $in.data_back.contact.shared_secret },
                         'text_checksum': {'value': $in.data_back.checksum },
-                        'list_server_plugin': {'value': $in.data_back.contact.server_plugin_names.join("\n") },
-                        'list_client_plugin': {'value': $in.data_back.contact.client_plugin_names.join("\n") }
+                        'list_role_list': {'value': $in.data_back.contact.role_list.join("\n") }
                     }
                 },
                 'data_back': {

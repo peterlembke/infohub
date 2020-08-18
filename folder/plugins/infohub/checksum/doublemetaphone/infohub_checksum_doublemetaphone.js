@@ -36,10 +36,12 @@ function infohub_checksum_doublemetaphone() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

@@ -35,17 +35,19 @@ class infohub_checksum extends infohub_base
             'note' => 'Here you can get checksums in many different formats',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'calculate_checksum' => 'normal',
             'verify_checksum' => 'normal',
             'get_available_options' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************

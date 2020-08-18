@@ -1,0 +1,95 @@
+{
+    "version": {
+        "date": "2019-10-19 20:33:44",
+        "plugin": "infohub_tree",
+        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "language": "en",
+        "country": "GB",
+        "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Tree",
+        "description": "Handles all node connections. Your server uses this data to connect to other nodes."
+    },
+    "data": {
+        "infohub_tree": {
+            "Instructions": "Instructions",
+            "Use the menu.": "Use the menu."
+        },
+        "infohub_tree_client": {
+            "Refresh Clients": "Refresh Clients",
+            "Client Contacts": "Client Contacts",
+            "List all client contacts": "List with all client contacts that are allowed to login to your server",
+            "New": "New",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Import": "Import",
+            "Export": "Export",
+            "Groups": "Groups",
+            "Pick groups for this client": "Pick groups for this client",
+            "One contact": "One client contact",
+            "This is the data form for one contact": "This client want to login to your server",
+            "Node": "Node",
+            "Your unique name of the client": "Your unique name for the client",
+            "Note": "Note",
+            "Any text you want": "Here you can write any notes about the client. The notes follow into the export and are visible to the client.",
+            "Domain address": "Domain address",
+            "The domain address to your server": "The domain address to your server",
+            "User name": "User name",
+            "You get a Hub-UUID when you save (Leave blank)": "You get a Hub-UUID when you save (Leave blank)",
+            "Shared secret": "Shared secret",
+            "You will get a 2K random string when you save (Leave blank)": "You will get a 2000 character random string when you save (Leave blank)",
+            "Allowed plugins": "Allowed plugins",
+            "List with all plugin names you can send messages to on this node": "List with all plugin names you can send messages to on this node"
+        },
+        "infohub_tree_doc": {
+            "Documentation will render here": "Documentation will render here",
+            "Main Doc": "Main Doc",
+            "Client Doc": "Client Doc",
+            "Server Doc": "Server Doc",
+            "Group Doc": "Group Doc"
+        },
+        "infohub_tree_group": {
+            "Refresh groups": "Refresh groups",
+            "Group names": "Group names",
+            "New": "New",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Rights for one group": "Rights for one group",
+            "Group name": "Group name",
+            "Your note": "Your note",
+            "Select server plugins in this group": "Select server plugins in this group"
+        },
+        "infohub_tree_menu": {
+            "Contact manager": "Contact manager",
+            "Documentation": "Documentation",
+            "Group rights": "Group rights",
+            "Client contact": "Client contact",
+            "Server contact": "Server contact"
+        },
+        "infohub_tree_server": {
+            "Refresh": "Refresh",
+            "Server Contacts": "Server Contacts",
+            "List all server contacts": "List with all your server contacts",
+            "Save": "Save",
+            "Delete": "Delete",
+            "Import": "Import",
+            "Export": "Export",
+            "Ping server": "Ping server",
+            "One contact": "One contact",
+            "This is the data form for one contact.": "Contact details you got from the server owner so your server are able to login to this server.",
+            "Node": "Node",
+            "Your unique node name": "Your unique node name. You can then send messages to this node and they will be sent to the server.",
+            "Note": "Note",
+            "Any text you want": "The note the server owner wrote when creating your account. You can change it.",
+            "Domain address": "Domain address",
+            "The domain address to the remote server": "The domain address to the remote server",
+            "User name": "User name",
+            "Hub-UUID you got from the remote server": "Hub-UUID you got from the remote server",
+            "Shared secret": "Shared secret",
+            "2K random string you got from the remote server": "2K random string you got from the remote server",
+            "Allowed plugins": "Allowed plugins",
+            "List with all plugin names you can send messages to on this node": "List with all plugin names you can send messages to on this node"
+        }
+    }
+}

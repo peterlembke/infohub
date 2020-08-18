@@ -23,8 +23,9 @@ function infohub_contact_server() {
 
     const _Version = function () {
         return {
-            'date': '2019-02-16',
-            'version': '1.0.0',
+            'date': '2020-08-02',
+            'since': '2019-02-16',
+            'version': '1.1.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_contact_server',
             'note': 'Render a form for manageing your incoming-outgoing connection to other servers',
@@ -34,7 +35,7 @@ function infohub_contact_server() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
             'click_save': 'normal',
@@ -43,6 +44,8 @@ function infohub_contact_server() {
             'click_import': 'normal',
             'click_export': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};
@@ -279,7 +282,7 @@ function infohub_contact_server() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_plugin]',
+                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_role_list]',
                             'label': _Translate('One contact'),
                             'description': _Translate('This is the data form for one contact.')
                         },
@@ -335,14 +338,18 @@ function infohub_contact_server() {
                             'show_paragraphs': 'false',
                             'enabled': 'false'
                         },
-                        'list_plugin': {
+                        'list_role_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Allowed plugins"),
-                            "description": _Translate("List with all plugin names you can send messages to on this node"),
+                            "label": _Translate("Allowed roles"),
+                            "description": _Translate("List with all roles this account has"),
                             'event_data': 'server',
                             "size": "6",
-                            "options": [],
+                            "options": [
+                                { "type": "option", "value": "user", "label": _Translate("user") },
+                                { "type": "option", "value": "developer", "label": _Translate("developer") },
+                                { "type": "option", "value": "admin", "label": _Translate("admin") }
+                            ],
                             'enabled': 'false',
                             'css_data': {
                                 '.select': 'max-width: 200px;'
@@ -485,7 +492,7 @@ function infohub_contact_server() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'server_plugin_names': $in.response.form_data.list_plugin.value
+                    'role_list': $in.response.form_data.list_role_list.value
                 };
                 $in.step = 'step_save_node_data';
             }
@@ -544,7 +551,7 @@ function infohub_contact_server() {
     const click_delete = function ($in)
     {
         let $ok = 'false',
-            $node = '';
+            $userName = ''; // User names are universal so this works even if a remote server have created the user name
 
         const $default = {
             'box_id': '',
@@ -576,11 +583,11 @@ function infohub_contact_server() {
 
         if ($in.step === 'step_form_read_response') {
             if ($in.answer === 'true') {
-                $node = $in.response.form_data.text_node.value;
+                $userName = $in.response.form_data.text_user_name.value;
                 $in.step = 'step_delete_node_data';
-                if (_Empty($node) === 'true') {
+                if (_Empty($userName) === 'true') {
                     $in.step = 'step_end';
-                    $in.message = 'Node name is empty';
+                    $in.message = 'User name is empty';
                 }
             }
             if ($in.answer === 'false') {
@@ -602,7 +609,7 @@ function infohub_contact_server() {
                         'function': 'delete_node_data'
                     },
                     'data': {
-                        'node': $node,
+                        'user_name': $userName,
                         'type': 'server'
                     }                
                 },
@@ -665,7 +672,7 @@ function infohub_contact_server() {
                         'function': 'load_node_data'
                     },
                     'data': {
-                        'node': $in.value,
+                        'user_name': $in.value,
                         'type': 'server'
                     }
                 },
@@ -682,6 +689,7 @@ function infohub_contact_server() {
         }
 
         if ($in.step === 'step_show_node_data') {
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -696,7 +704,7 @@ function infohub_contact_server() {
                         'text_domain_address': {'value': $in.response.node_data.domain_address },
                         'text_user_name': {'value': $in.response.node_data.user_name },
                         'text_shared_secret': {'value': $in.response.node_data.shared_secret },
-                        'list_plugin': {'value': $in.response.node_data.server_plugin_names }
+                        'list_role_list': {'value': $in.response.node_data.role_list, 'mode': 'clean_and_add' }
                     }
                 },
                 'data_back': {
@@ -764,11 +772,9 @@ function infohub_contact_server() {
                 'domain_address': '',
                 'user_name': '',
                 'shared_secret': '',
-                'server_plugin_names': []
+                'role_list': []
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
-            
-            const $mode = 'clean_and_add';
             
             return _SubCall({
                 'to': {
@@ -784,7 +790,7 @@ function infohub_contact_server() {
                         'text_domain_address': {'value': $nodeData.domain_address },
                         'text_user_name': {'value': $nodeData.user_name },
                         'text_shared_secret': {'value': $nodeData.shared_secret },
-                        'list_plugin': {'value': $nodeData.server_plugin_names, 'mode': $mode }
+                        'list_role_list': {'value': $nodeData.role_list, 'mode': 'clean_and_add' }
                     }
                 },
                 'data_back': {
@@ -860,7 +866,7 @@ function infohub_contact_server() {
                     'domain_address': $in.response.form_data.text_domain_address.value,
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
-                    'server_plugin_names': $in.response.form_data.list_plugin.value
+                    'role_list': $in.response.form_data.list_role_list.value
                 };
                 $content = _JsonEncode($nodeData);
                 $in.step = 'step_file_write';

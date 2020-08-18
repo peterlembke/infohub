@@ -40,19 +40,21 @@ function infohub_plugin() {
             'note': 'Used by infohub_exchange to handle plugin requests. Finds the plugin in local storage or requests it from the server, then starts the plugin',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'plugin_request': 'normal',
             'plugin_start': 'normal',
             'plugin_list': 'normal',
             'download_all_plugins': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************
@@ -441,7 +443,10 @@ function infohub_plugin() {
             'answer': 'false',
             'message': '',
             'data': {},
-            'step': 'step_get_list'
+            'step': 'step_get_list',
+            'data_back': {
+                'server_plugin_list': {}
+            }
         };
         $in = _Default($default, $in);
 
@@ -479,8 +484,7 @@ function infohub_plugin() {
             });
         }
 
-        if ($in.step === 'step_server_response')
-        {
+        if ($in.step === 'step_server_response') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -492,14 +496,36 @@ function infohub_plugin() {
                     'data': $in.data
                 },
                 'data_back': {
+                    'server_plugin_list': $in.data,
                     'step': 'step_cache_response'
                 }
             });
         }
 
+        let $pluginsOld = [];
+
+        if ($in.step === 'step_cache_response') {
+
+            let $items = $in.data_back.server_plugin_list;
+
+            const $hour = 60 * 60; // seconds
+            const $timeOld = _MicroTime() - $hour;
+
+            while (_Count($items) > 0) {
+                const $response = _Pop($items);
+                const $pluginName = $response.key;
+                const $timestampAdded = $response.data.timestamp_added;
+                $items = $response.object;
+                if ($timestampAdded < $timeOld) {
+                    $pluginsOld.push($pluginName);
+                }
+            }
+        }
+
         return {
             'answer': 'true',
-            'message': 'The plugin time stamps have now been updated'
+            'message': 'The plugin time stamps have now been updated',
+            'plugins_old': $pluginsOld
         };
     };
 

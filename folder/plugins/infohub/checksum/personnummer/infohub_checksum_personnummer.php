@@ -41,10 +41,12 @@ class infohub_checksum_personnummer extends infohub_base
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'calculate_checksum' => 'emerging',
             'verify_checksum' => 'emerging'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************

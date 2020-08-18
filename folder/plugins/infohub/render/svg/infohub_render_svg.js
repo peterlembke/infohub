@@ -37,11 +37,12 @@ function infohub_render_svg() {
         };
     };
 
-    const _GetCmdFunctions = function()
-    {
-        return {
+    const _GetCmdFunctions = function() {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

@@ -38,7 +38,7 @@ function infohub_launcher() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Launcher',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
@@ -50,7 +50,7 @@ function infohub_launcher() {
      */
     $functions.push("_GetCmdFunctions");
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'setup_gui': 'normal', // Set up the launcher graphical user interface
             'first_contact': 'normal', // Step by step you are guided how to use infohub
             'switch_button': 'normal', // Switch between my_list and full_list
@@ -66,6 +66,8 @@ function infohub_launcher() {
             'get_launch_list': 'normal', // Use by infoub_launcher, infohub_asset. Give plugin names, calls get_launch_information for each.
             'event_message': 'normal' // Events for all the buttons. Runs the animation when you click to refresh a list.
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     $functions.push("_GetBoxId");
@@ -241,19 +243,7 @@ function infohub_launcher() {
                             'event_data': 'switch_button',
                             'to_plugin': 'infohub_launcher',
                             'to_function': 'switch_button',
-                            'css_data': {
-                                '.button':
-                                    'font-size: 1.0em;'+
-                                    'max-width: 320px;'+
-                                    'box-sizing:border-box;'+
-                                    'border-radius: 20px;'+
-                                    'background-color: #bcdebc;'+
-                                    'background: linear-gradient(#caefca, #e1ffcf);'+
-                                    'border: 0px;'+
-                                    'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 10px;'+
-                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
-                            }
+                            'css_data': {}
                         },
                         'switch_icon': {
                             'type': 'common',
@@ -489,19 +479,7 @@ function infohub_launcher() {
                             'button_left_icon': '[refresh_icon]',
                             'to_plugin': 'infohub_debug',
                             'to_function': 'refresh_plugins_and_reload_page',
-                            'css_data': {
-                                '.button':
-                                    'font-size: 1.0em;'+
-                                    'width: 100%;'+
-                                    'box-sizing:border-box;'+
-                                    'border-radius: 20px;'+
-                                    'background-color: #bcdebc;'+
-                                    'background: linear-gradient(#caefca, #e1ffcf);'+
-                                    'border: 0px;'+
-                                    'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 10px;'+
-                                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
-                            }
+                            'css_data': {}
                         },
                         'refresh_icon': {
                             'type': 'common',
@@ -1020,7 +998,8 @@ function infohub_launcher() {
                 'to_plugin': 'infohub_launcher',
                 'to_function': 'plugin_information',
                 'css_data': {
-                    '.my_list_link': 'display: inline-block;'
+                    '.my_list_link': 'display: inline-block;',
+                    '.my_list_link:hover': 'background: lightgrey; border-radius: 8px;'
                 }
             };
 
@@ -1068,7 +1047,8 @@ function infohub_launcher() {
                     'to_plugin': 'infohub_launcher',
                     'to_function': 'event_message',
                     'css_data': {
-                        '.my_list_link': 'display: inline-block;'
+                        '.my_list_link': 'display: inline-block;',
+                        '.my_list_link:hover': 'background: lightgrey; border-radius: 8px;'
                     }
                 };
 

@@ -31,16 +31,18 @@ function infohub_timer() {
             'note': 'The timer respond after some time',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'start_timer': 'normal',
             'start_timer_advanced': 'normal',
             'stop_timer': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $timer = {};

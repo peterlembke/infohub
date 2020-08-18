@@ -35,13 +35,15 @@ function infohub_tools_testcall() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_select_template': 'normal',
             'click_button_send': 'normal',
             'get_available_options': 'normal',
             'click_select_demo': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -115,7 +117,7 @@ function infohub_tools_testcall() {
                             'type': 'presentation_box',
                             'head_label': _Translate('Click for instructions...'),
                             'content_data': '[i][ingress][/i]',
-                            'open': 'false'
+                            'open': 'true'
                         },
                         'ingress': {
                             'type': 'common',
@@ -154,7 +156,8 @@ function infohub_tools_testcall() {
                             'placeholder': _Translate('The call you want to make'),
                             'class': 'textarea',
                             'css_data': {},
-                            'rows': 12
+                            'rows': 12,
+                            'resize': 'both'
                         },
                         'button_send': {
                             'plugin': 'infohub_renderform',
@@ -172,7 +175,8 @@ function infohub_tools_testcall() {
                             'placeholder': _Translate('Response'),
                             'class': 'textarea',
                             'css_data': {},
-                            'rows': 20
+                            'rows': 20,
+                            'resize': 'both'
                         },
                         'demo': {
                             'type': 'common',

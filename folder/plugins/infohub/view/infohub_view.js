@@ -32,14 +32,14 @@ function infohub_view() {
             'note': 'The screen handler. Handles boxes on the screen. You can ask for a box and send HTML to that box.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'guest'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function ()
     {
-        return {
+        const $list = {
             'init': 'normal',
             'get_box_id': 'normal',
             'scroll_to_box_id': 'normal',
@@ -77,6 +77,8 @@ function infohub_view() {
             'set_style': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************
@@ -3240,8 +3242,10 @@ function infohub_view() {
                         $option.text = $value[$i];
                         $option.value = $value[$i];
                         $box.add($option, null);
-                        $box.options[$box.options.length-1].selected = true;
+                        // $box.options[$box.options.length-1].selected = true;
                     }
+
+                    // $box.options[0].selected = true;
 
                     continue;
                 }

@@ -35,10 +35,12 @@ function infohub_login_forget() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_forget': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -76,8 +78,7 @@ function infohub_login_forget() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'server_plugin_names': [],
-            'client_plugin_names': []
+            'role_list': []
         };
         $nodeData = _Default($default, $nodeData);
 

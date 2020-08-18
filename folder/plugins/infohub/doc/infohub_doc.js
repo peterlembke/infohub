@@ -32,12 +32,12 @@ function infohub_doc() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Documentation',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'setup_gui': 'normal',
             'click_link': 'normal',
@@ -45,6 +45,8 @@ function infohub_doc() {
             'call_server': 'normal',
             'get_all_documents': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

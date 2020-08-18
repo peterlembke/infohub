@@ -36,10 +36,12 @@ function infohub_render_frog() {
         };
     };
 
-    const _GetCmdFunctions = function () {
-        return {
+    const _GetCmdFunctions = function() {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

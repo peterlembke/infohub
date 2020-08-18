@@ -1,0 +1,677 @@
+<!--
+This file was generated using Video Game Keyboard Diagrams by Michael Horvath.
+http://isometricland.net/keyboard/keyboard.php
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+United States License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by-sa/3.0/us/ or send a letter to Creative
+Commons, PO Box 1866, Mountain View, CA 94042, USA.
+-->
+<svg
+	version="1.1"
+	baseProfile="full"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	viewBox="-20 -20 1683 612"
+	width="1683" height="612">
+	<title>Conan Exiles - Video Game Keyboard Diagrams - PC/AT US 104 Key - CIELCh Plain (Light)</title>
+	<desc>Keyboard diagram for Conan Exiles.</desc>
+	<metadata id="license"
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:dc="http://purl.org/dc/elements/1.1/"
+		xmlns:cc="http://creativecommons.org/ns#">
+		<rdf:RDF>
+			<cc:Work rdf:about="">
+				<dc:format>image/svg+xml</dc:format>
+				<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+			<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+			</cc:Work>
+			<cc:License rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+				<cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
+				<cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
+				<cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />
+				<cc:requires rdf:resource="http://creativecommons.org/ns#Attribution" />
+				<cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+				<cc:requires rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+			</cc:License>
+			<rdf:Description about=""
+				dc:title="Conan Exiles - Video Game Keyboard Diagrams - PC/AT US 104 Key - CIELCh Plain (Light)"
+				dc:description="Keyboard hotkey &amp; binding chart for Conan Exiles. (CIELCh Plain (Light))"
+				dc:publisher="Video Game Keyboard Diagrams"
+				dc:date="2018-07-11 20:33:51"
+				dc:format="image/svg+xml"
+				dc:language="en" >
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Michael Horvath</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+	</metadata>
+	<style type="text/css">
+/* <![CDATA[ */
+*	{}
+svg	{font-family:DejaVu Sans Condensed,Sans-Serif;font-size:14px;}
+#bkgrec	{stroke:none;fill:#fff;}
+.keyout	{overflow:visible;}
+.legtxt	{font-size:14px;fill:#000;}
+.keyhgh,.keylow,.keyrgt
+	{font-size:12px;font-weight:bold;}
+.keyrgt	{text-anchor:end;}
+.keyrec	{}
+.capnor	{font-size:12px;font-weight:normal;}
+.capshf,.capctl,.capalt,.capagr,.capxtr
+	{font-size:10px;text-anchor:end;font-weight:normal;}
+/* http://www.easyrgb.com/index.php?X=CALC */
+.capshf	{fill:#077BC7;}	/* CIE-L*ch ( 50, 47,270)	blue	*/
+.capctl	{fill:#028946;}	/* CIE-L*ch ( 50, 55,150)	green	*/
+.capalt	{fill:#ED0631;}	/* CIE-L*ch ( 50, 88, 30)	red	*/
+.capagr	{fill:#D403CB;}	/* CIE-L*ch ( 50, 97,330)	magenta	*/
+.capxtr	{fill:#0B848F;}	/* CIE-L*ch ( 50, 29,210)	cyan	*/
+.bakshf	{fill:none;}
+.bakctl	{fill:none;}
+.bakalt	{fill:none;}
+.bakagr	{fill:none;}
+.bakxtr	{fill:none;}
+.capimg	{}
+/* http://www.easyrgb.com/index.php?X=CALC */
+.recred	{fill:#FC9C93;}	/* CIE-L*ch ( 74, 40, 30) */
+.recyel	{fill:#CEB46C;}	/* CIE-L*ch ( 74, 40, 90) */
+.recgrn	{fill:#7CC690;}	/* CIE-L*ch ( 74, 40,150) */
+.reccyn	{fill:#0CC9D9;}	/* CIE-L*ch ( 74, 40,210) */
+.recblu	{fill:#80B9FF;}	/* CIE-L*ch ( 74, 40,270) */
+.recmag	{fill:#E4A0DB;}	/* CIE-L*ch ( 74, 40,330) */
+.recwht	{fill:#ffffff;stroke:#c0c0c0;}
+.recgry	{fill:#c0c0c0;}
+.recblk	{fill:#404040;}
+.recorg	{fill:#ECA777;}	/* CIE-L*ch ( 74, 40, 60) */
+.recolv	{fill:#A8BF75;}	/* CIE-L*ch ( 74, 40,120) */
+.recbrn	{fill:#685510;}	/* CIE-L*ch ( 37, 40, 90) */
+.recnon	{fill:#c0c0c0;}
+.txtred	{fill:#000000;}	/* CIE-L*ch ( 74, 40, 30) */
+.txtyel	{fill:#000000;}	/* CIE-L*ch ( 74, 40, 90) */
+.txtgrn	{fill:#000000;}	/* CIE-L*ch ( 74, 40,150) */
+.txtcyn	{fill:#000000;}	/* CIE-L*ch ( 74, 40,210) */
+.txtblu	{fill:#000000;}	/* CIE-L*ch ( 74, 40,270) */
+.txtmag	{fill:#000000;}	/* CIE-L*ch ( 74, 40,330) */
+.txtwht	{fill:#000000;}	/* CIE-L*ch (100,  0,  0) */
+.txtgry	{fill:#000000;}	/* CIE-L*ch ( 74,  0,  0) */
+.txtblk	{fill:#ffffff;}	/* CIE-L*ch (  0,  0,  0) */
+.txtorg	{fill:#000000;}	/* CIE-L*ch ( 74, 40, 60) */
+.txtolv	{fill:#000000;}	/* CIE-L*ch ( 74, 40,120) */
+.txtbrn	{fill:#000000;}	/* CIE-L*ch ( 37, 40, 90) */
+.txtnon	{fill:#000000;}
+/*
+Not much support for these in browsers. Will need to recalculate everything if I use them.
+.ideo	{alignment-baseline:ideographic;}
+.hang	{alignment-baseline:hanging;}
+*/
+/* ]]> */
+	</style>
+	<defs>
+		<filter id="filt_1_alt" x="-1" y="-1" width="72" height="72">
+			<feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+			<feGaussianBlur result="blurOut" in="offOut" stdDeviation="1" />
+			<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+		</filter>
+		<filter id="filt_1" width="130%" height="130%">
+			<feGaussianBlur in="SourceAlpha" stdDeviation="1"/> 
+			<feOffset dx="1" dy="1" result="offsetblur"/>
+			<feComponentTransfer>
+				<feFuncA type="linear" slope="0.5"/>
+			</feComponentTransfer>
+			<feMerge> 
+				<feMergeNode/>
+				<feMergeNode in="SourceGraphic"/> 
+			</feMerge>
+		</filter>
+	</defs>
+	<rect id="bkgrec" x="-20" y="-20" width="1683" height="611" fill="none" stroke="none"/>
+	<svg class="keyout" x="1.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">`</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">~</text>
+	</svg>
+	<svg class="keyout" x="73.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">1</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">!</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="145.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">2</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">@</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="217.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">3</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">#</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="289.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">4</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">$</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="361.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">5</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">%</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="433.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">6</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">^</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="505.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">7</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">&amp;</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="577.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtyel txt" x="2.5" y="64.5">8</text>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">*</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-14">Slot</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="64.5" dy="-28">Hotbar</text>
+	</svg>
+	<svg class="keyout" x="649.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">9</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">(</text>
+	</svg>
+	<svg class="keyout" x="721.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">0</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">)</text>
+	</svg>
+	<svg class="keyout" x="793.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">-</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">_</text>
+	</svg>
+	<svg class="keyout" x="865.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">=</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">+</text>
+	</svg>
+	<svg class="keyout" x="937.5" y="109.5" width="141" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="140" height="68"/>
+		<text class="keylow txtgrn txt" x="2.5" y="64.5">Backspace</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="64.5" dy="-14">Walk</text>
+	</svg>
+	<svg class="keyout" x="1.5" y="181.5" width="105" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="104" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Tab</text>
+	</svg>
+	<svg class="keyout" x="109.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recred rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtred txt" x="2.5" y="13.5">Q</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-14">Lock</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-28">Target</text>
+	</svg>
+	<svg class="keyout" x="181.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtgrn txt" x="2.5" y="13.5">W</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-14">Forward</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-28">Move</text>
+	</svg>
+	<svg class="keyout" x="253.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recred rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtred txt" x="2.5" y="13.5">E</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-14">Interact</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-28">Use/</text>
+	</svg>
+	<svg class="keyout" x="325.5" y="181.5" width="69" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtcyn txt" x="2.5" y="13.5">R</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="78.5" dy="-14">Emotes</text>
+	</svg>
+	<svg class="keyout" x="397.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">T</text>
+		<text class="capctl hang" x="65.5" y="13">Chat</text>
+		<text class="capctl hang" x="65.5" y="25">Window</text>
+	</svg>
+	<svg class="keyout" x="469.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">Y</text>
+	</svg>
+	<svg class="keyout" x="541.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">U</text>
+	</svg>
+	<svg class="keyout" x="613.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recred rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtred txt" x="2.5" y="13.5">I</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-14">Inventory</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-28">Block/</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="78.5" dy="-42">Offhand/</text>
+	</svg>
+	<svg class="keyout" x="685.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">O</text>
+	</svg>
+	<svg class="keyout" x="757.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recblu rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtblu txt" x="2.5" y="13.5">P</text>
+		<text class="capnor txtblu txt ideo" x="2.5" y="78.5" dy="-14">Person </text>
+		<text class="capnor txtblu txt ideo" x="2.5" y="78.5" dy="-28">1st / 3rd</text>
+		<text class="capnor txtblu txt ideo" x="2.5" y="78.5" dy="-42">Toggle</text>
+	</svg>
+	<svg class="keyout" x="829.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">[</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">{</text>
+	</svg>
+	<svg class="keyout" x="901.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">]</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">}</text>
+	</svg>
+	<svg class="keyout" x="973.5" y="181.5" width="105" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="104" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">\</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">|</text>
+	</svg>
+	<svg class="keyout" x="1.5" y="253.5" width="123" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="122" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Caps Lock</text>
+	</svg>
+	<svg class="keyout" x="127.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtgrn txt" x="2.5" y="13.5">A</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-14">Left</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-28">Strafe</text>
+	</svg>
+	<svg class="keyout" x="199.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtgrn txt" x="2.5" y="13.5">S</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-14">Backward</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-28">Move</text>
+	</svg>
+	<svg class="keyout" x="271.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtgrn txt" x="2.5" y="13.5">D</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-14">Right</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-28">Strafe</text>
+	</svg>
+	<svg class="keyout" x="343.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recyel rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtyel txt" x="2.5" y="13.5">F</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="78.5" dy="-14">All</text>
+		<text class="capnor txtyel txt ideo" x="2.5" y="78.5" dy="-28">Loot</text>
+	</svg>
+	<svg class="keyout" x="415.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">G</text>
+	</svg>
+	<svg class="keyout" x="487.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">H</text>
+	</svg>
+	<svg class="keyout" x="559.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recmag rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtmag txt" x="2.5" y="13.5">J</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="78.5" dy="-14">Journal</text>
+	</svg>
+	<svg class="keyout" x="631.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">K</text>
+	</svg>
+	<svg class="keyout" x="703.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">L</text>
+	</svg>
+	<svg class="keyout" x="775.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">;</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">:</text>
+	</svg>
+	<svg class="keyout" x="847.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">&#39;</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">&quot;</text>
+	</svg>
+	<svg class="keyout" x="919.5" y="253.5" width="159" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="158" height="68"/>
+		<text class="keylow txtcyn txt" x="2.5" y="64.5">Enter</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="64.5" dy="-14">Global Chat</text>
+	</svg>
+	<svg class="keyout" x="1.5" y="325.5" width="159" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="158" height="68"/>
+		<text class="keylow txtgrn txt" x="2.5" y="64.5">LShift</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="64.5" dy="-14">Sprint</text>
+	</svg>
+	<svg class="keyout" x="163.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">Z</text>
+		<text class="capalt hang" x="65.5" y="13">Toggle</text>
+		<text class="capalt hang" x="65.5" y="25">GUI</text>
+	</svg>
+	<svg class="keyout" x="235.5" y="325.5" width="69" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtcyn txt" x="2.5" y="13.5">X</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="78.5" dy="-14">Stance</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="78.5" dy="-28">Combat</text>
+	</svg>
+	<svg class="keyout" x="307.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtgrn txt" x="2.5" y="13.5">C</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-14">Release</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-28">Dive/</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="78.5" dy="-42">Crouch/</text>
+	</svg>
+	<svg class="keyout" x="379.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recblu rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtblu txt" x="2.5" y="13.5">V</text>
+		<text class="capnor txtblu txt ideo" x="2.5" y="78.5" dy="-14">Camera</text>
+		<text class="capnor txtblu txt ideo" x="2.5" y="78.5" dy="-28">Vanity</text>
+	</svg>
+	<svg class="keyout" x="451.5" y="325.5" width="69" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtcyn txt" x="2.5" y="13.5">B</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="78.5" dy="-14">List</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="78.5" dy="-28">Player</text>
+	</svg>
+	<svg class="keyout" x="523.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">N</text>
+	</svg>
+	<svg class="keyout" x="595.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recmag rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtmag txt" x="2.5" y="13.5">M</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="78.5" dy="-14">Map</text>
+	</svg>
+	<svg class="keyout" x="667.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">,</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">&lt;</text>
+	</svg>
+	<svg class="keyout" x="739.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">.</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">&gt;</text>
+	</svg>
+	<svg class="keyout" x="811.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">/</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">?</text>
+	</svg>
+	<svg class="keyout" x="883.5" y="325.5" width="195" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="194" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">RShift</text>
+	</svg>
+	<svg class="keyout" x="1.5" y="397.5" width="105" height="69">
+		<rect class="keyrec recred rec" x="0.5" y="0.5" rx="4" ry="4" width="104" height="68"/>
+		<text class="keylow txtred txt" x="2.5" y="64.5">LCtrl</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="64.5" dy="-14">Kick</text>
+	</svg>
+	<svg class="keyout" x="199.5" y="397.5" width="87" height="69">
+		<rect class="keyrec recred rec" x="0.5" y="0.5" rx="4" ry="4" width="86" height="68"/>
+		<text class="keylow txtred txt" x="2.5" y="64.5">LAlt</text>
+		<text class="capnor txtred txt ideo" x="2.5" y="64.5" dy="-14">Dodge</text>
+	</svg>
+	<svg class="keyout" x="289.5" y="397.5" width="411" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="410" height="68"/>
+		<text class="keylow txtgrn txt" x="2.5" y="64.5">Space</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="64.5" dy="-14">Jump/Float/Climb</text>
+	</svg>
+	<svg class="keyout" x="703.5" y="397.5" width="87" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="86" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">RAlt</text>
+	</svg>
+	<svg class="keyout" x="973.5" y="397.5" width="105" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="104" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">RCtrl</text>
+	</svg>
+	<svg class="keyout" x="1111.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Insert</text>
+	</svg>
+	<svg class="keyout" x="1111.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Delete</text>
+	</svg>
+	<svg class="keyout" x="1111.5" y="397.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Left</text>
+	</svg>
+	<svg class="keyout" x="1183.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Home</text>
+	</svg>
+	<svg class="keyout" x="1183.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">End</text>
+	</svg>
+	<svg class="keyout" x="1183.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Up</text>
+	</svg>
+	<svg class="keyout" x="1183.5" y="397.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Down</text>
+	</svg>
+	<svg class="keyout" x="1255.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Page Up</text>
+	</svg>
+	<svg class="keyout" x="1255.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Page Dn</text>
+	</svg>
+	<svg class="keyout" x="1255.5" y="397.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Right</text>
+	</svg>
+	<svg class="keyout" x="1357.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recgrn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtgrn txt" x="2.5" y="64.5">NumLk</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="64.5" dy="-14">Run</text>
+		<text class="capnor txtgrn txt ideo" x="2.5" y="64.5" dy="-28">Auto</text>
+	</svg>
+	<svg class="keyout" x="1357.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Home</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">7</text>
+	</svg>
+	<svg class="keyout" x="1357.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Left</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">4</text>
+	</svg>
+	<svg class="keyout" x="1357.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">End</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">1</text>
+	</svg>
+	<svg class="keyout" x="1429.5" y="109.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">/</text>
+	</svg>
+	<svg class="keyout" x="1429.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Up</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">8</text>
+	</svg>
+	<svg class="keyout" x="1429.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">5</text>
+	</svg>
+	<svg class="keyout" x="1429.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Down</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">2</text>
+	</svg>
+	<svg class="keyout" x="1357.5" y="397.5" width="141" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="140" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Ins</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">0</text>
+	</svg>
+	<svg class="keyout" x="1501.5" y="109.5" width="69" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtcyn txt" x="2.5" y="64.5">*</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="64.5" dy="-14">Chat</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="64.5" dy="-28">Vicinity</text>
+	</svg>
+	<svg class="keyout" x="1501.5" y="181.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">PgUp</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">9</text>
+	</svg>
+	<svg class="keyout" x="1501.5" y="253.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Right</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">6</text>
+	</svg>
+	<svg class="keyout" x="1501.5" y="325.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">PgDn</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">3</text>
+	</svg>
+	<svg class="keyout" x="1501.5" y="397.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Del</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">.</text>
+	</svg>
+	<svg class="keyout" x="1573.5" y="109.5" width="69" height="69">
+		<rect class="keyrec reccyn rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtcyn txt" x="2.5" y="64.5">-</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="64.5" dy="-14">Chat</text>
+		<text class="capnor txtcyn txt ideo" x="2.5" y="64.5" dy="-28">Guild</text>
+	</svg>
+	<svg class="keyout" x="1573.5" y="181.5" width="69" height="141">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="140"/>
+		<text class="keylow txtnon txt" x="2.5" y="136.5">+</text>
+	</svg>
+	<svg class="keyout" x="1573.5" y="325.5" width="69" height="141">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="140"/>
+		<text class="keylow txtnon txt" x="2.5" y="136.5">Enter</text>
+	</svg>
+	<svg class="keyout" x="1.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recmag rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtmag txt" x="2.5" y="64.5">Esc</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-14">Menu</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-28">Main</text>
+	</svg>
+	<svg class="keyout" x="157.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F1</text>
+	</svg>
+	<svg class="keyout" x="229.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F2</text>
+	</svg>
+	<svg class="keyout" x="301.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F3</text>
+	</svg>
+	<svg class="keyout" x="373.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F4</text>
+	</svg>
+	<svg class="keyout" x="475.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F5</text>
+	</svg>
+	<svg class="keyout" x="547.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F6</text>
+	</svg>
+	<svg class="keyout" x="619.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F7</text>
+	</svg>
+	<svg class="keyout" x="691.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F8</text>
+	</svg>
+	<svg class="keyout" x="793.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F9</text>
+	</svg>
+	<svg class="keyout" x="865.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">F10</text>
+	</svg>
+	<svg class="keyout" x="937.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recmag rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtmag txt" x="2.5" y="64.5">F11</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-14">screen</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-28">Full-</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-42">Toggle</text>
+	</svg>
+	<svg class="keyout" x="1009.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recmag rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtmag txt" x="2.5" y="64.5">F12</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-14">shot</text>
+		<text class="capnor txtmag txt ideo" x="2.5" y="64.5" dy="-28">Screen-</text>
+	</svg>
+	<svg class="keyout" x="1111.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">PrtScr</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">SysRq</text>
+	</svg>
+	<svg class="keyout" x="1183.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">ScrLk</text>
+	</svg>
+	<svg class="keyout" x="1255.5" y="1.5" width="69" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Pause</text>
+		<text class="keyhgh txtnon txt" x="2.5" y="13.5">Break</text>
+	</svg>
+	<svg class="keyout" x="109.5" y="397.5" width="87" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="86" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">LWin</text>
+	</svg>
+	<svg class="keyout" x="793.5" y="397.5" width="87" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="86" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">RWin</text>
+	</svg>
+	<svg class="keyout" x="883.5" y="397.5" width="87" height="69">
+		<rect class="keyrec recnon rec" x="0.5" y="0.5" rx="4" ry="4" width="86" height="68"/>
+		<text class="keylow txtnon txt" x="2.5" y="64.5">Menu</text>
+	</svg>
+	<svg class="keyout legkey" x="1.5" y="501.5" width="69" height="69">
+		<rect class="keyrec recnon" x="0.5" y="0.5" rx="4" ry="4" width="68" height="68"/>
+		<rect class="bakshf" x="1.0" y="3" width="67" height="12" rx="1" ry="1"></rect>
+		<text class="capshf hang" x="65.5" y="13">Shift</text>
+		<rect class="bakctl" x="1.0" y="15" width="67" height="12" rx="1" ry="1"></rect>
+		<text class="capctl hang" x="65.5" y="25">Ctrl</text>
+		<rect class="bakalt" x="1.0" y="27" width="67" height="12" rx="1" ry="1"></rect>
+		<text class="capalt hang" x="65.5" y="37">Alt</text>
+		<text class="capnor txtnon ideo" x="2.5" y="50.5">Caption</text>
+		<text class="keylow txtnon" x="2.5" y="64.5">Lowcase</text>
+		<text class="keyhgh txtnon" x="2.5" y="13.5">Upcase</text>
+	</svg>
+	<svg class="leg" x="101.5" y="501.5" width="1000" height="300">
+		<rect class="keyrec recred" x="0.5" y="0.5" width="16" height="16"/>
+		<text class="legtxt" x="20.5" y="14.5">Combat/Actions</text>
+		<rect class="keyrec recyel" x="0.5" y="20.5" width="16" height="16"/>
+		<text class="legtxt" x="20.5" y="34.5">Inventory</text>
+		<rect class="keyrec recgrn" x="0.5" y="40.5" width="16" height="16"/>
+		<text class="legtxt" x="20.5" y="54.5">Movement</text>
+		<rect class="keyrec reccyn" x="200.5" y="0.5" width="16" height="16"/>
+		<text class="legtxt" x="220.5" y="14.5">Multiplayer</text>
+		<rect class="keyrec recblu" x="200.5" y="20.5" width="16" height="16"/>
+		<text class="legtxt" x="220.5" y="34.5">Camera</text>
+		<rect class="keyrec recmag" x="200.5" y="40.5" width="16" height="16"/>
+		<text class="legtxt" x="220.5" y="54.5">Game Interface/Menus</text>
+	</svg>
+</svg>

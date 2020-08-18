@@ -275,18 +275,28 @@ Here is an example of a select box
 The text area are for larger texts. renderform give you some extra features like word, character count.  
 
 ```
-$default = {
-    'placeholder': '',
-    'to_node': 'client',
+const $default = {
+    'enabled': 'true', // Visible. If set to enable false you can not write in the textarea
+    'placeholder': '', // Shown in the textarea before you start writing
+    'to_node': 'client', // plugin that should have the data after the event_handler have processed the event
     'to_plugin': 'infohub_renderform',
     'to_function': 'event_message',
-    'class': 'textarea',
-    'css_data': {},
-    'label': '',
-    'description': '',
-    'validator_plugin': '',
-    'validator_function': '',
-    'original_alias': ''
+    'class': 'textarea', // Standard class is textarea.
+    'css_data': {}, // Leave empty to get the standard css
+    'label': '', // Box label - What this textarea is about
+    'description': '', // Box description - More details about this textarea
+    'validator_plugin': '',  // plugin that validate the input and return 'valid' = 'true' or 'false'
+    'validator_function': '', // used by infohub_render -> submit
+    'original_alias': '', // Leave empty. Shown as form_alias in HTML. Has your render name 
+    'show_characters': 'true', // Character count
+    'show_words': 'true', // Word count
+    'show_rows': 'true', // Row count
+    'show_paragraphs': 'true', // Paragraph count
+    'event_data': '', // Any string. Are given to_function onKeyup
+    'custom_variables': $in.custom_variables,
+    'rows': 4, // Number of rows. Can be changed manually with resize
+    'cols': 0, // Number of columns. Can be changed manually with resize
+    'resize': 'vertical', // vertical, both, none, horizontal
 };
 ```
 

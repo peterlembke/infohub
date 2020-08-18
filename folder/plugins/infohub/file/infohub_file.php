@@ -42,13 +42,13 @@ class infohub_file extends infohub_base
             'note'=> 'Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => '' // User can not send messages to this plugin directly
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'read' => 'normal',
             'write' => 'normal',
             'get_folder_structure' => 'normal',
@@ -57,9 +57,13 @@ class infohub_file extends infohub_base
             'asset_get_all_assets_for_one_plugin' => 'normal', // infohub_asset
             'asset_get_assets_requested' => 'normal', // infohub_asset
             'plugin_get_all_plugin_names' => 'normal', // infohub_plugin
-            'get_all_level1_plugin_names' => 'normal', // infohub_contact & infohub_translate
+            'developer_get_all_plugin_data' => 'normal', // Used by developer plugins like Infohub_Trigger
+            'get_all_level1_plugin_names' => 'normal', // infohub_translate
+            'load_node_role_plugin_name_role_list' => 'normal', // infohub_contact
             'get_plugin_js_files_content' => 'normal' // infohub_translate
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************
@@ -69,7 +73,7 @@ class infohub_file extends infohub_base
     /**
      * Read meta data and content from a file
      * You can limit the response data, Use data_request in your subcall.
-     * @version 2017-11-05
+     * @version 2020-08-01
      * @since   2017-11-05
      * @author  Peter Lembke
      * @param array $in
@@ -84,8 +88,13 @@ class infohub_file extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $in['func'] = 'Read';
-        
+        if ($in['from']['node'] !== 'server') {
+            return array(
+                'answer' => 'false',
+                'message' => 'I only accept messages that origin from this server node'
+            );
+        }
+
         if ($in['folder'] === 'file') {
             $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
         }
@@ -94,13 +103,14 @@ class infohub_file extends infohub_base
             $in['path'] = PLUGINS . DS . str_replace('_', DS, $in['from_plugin']['plugin']) . DS . $in['path'];
         }
 
+        $in['func'] = 'Read';
         $response = $this->internal_Cmd($in);
         return $response;
     }
 
     /**
      * Read meta data and content from a file
-     * @version 2017-12-07
+     * @version 2020-08-15
      * @since   2017-11-05
      * @author  Peter Lembke
      * @param array $in
@@ -114,10 +124,12 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $contents = '';
         $checksum = '';
         $isBinary = 'unknown';
+        $userRole = '';
+        $pluginStatus = '';
 
         $response = array(
             'path' => '',
@@ -146,6 +158,9 @@ class infohub_file extends infohub_base
             $contents = base64_encode($contents);
         }
 
+        $node = $this->_GetNodeFromExtension($extension);
+        $userRole = $this->_GetUserRole($node, $contents);
+        $pluginStatus = $this->_GetPluginStatus($node, $contents);
         $checksum = $this->_Hash($contents);
 
         $answer = 'true';
@@ -160,8 +175,10 @@ class infohub_file extends infohub_base
             'file_info' => $response['file_info'],
             'is_binary' => $isBinary,
             'contents' => $contents,
+            'plugin_status' => $pluginStatus,
             'checksum' => $checksum,
-            'file_size' => $response['file_size']
+            'file_size' => $response['file_size'],
+            'user_role' => $userRole,
         );
     }
 
@@ -182,6 +199,13 @@ class infohub_file extends infohub_base
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
         );
         $in = $this->_Default($default, $in);
+
+        if ($in['from']['node'] !== 'server') {
+            return array(
+                'answer' => 'false',
+                'message' => 'I only accept messages that origin from this server node'
+            );
+        }
 
         $in['func'] = 'Write';
         $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
@@ -207,7 +231,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $checksum = '';
         $createdPath = 'false';
         $response = array(
@@ -307,6 +331,13 @@ class infohub_file extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
+        if ($in['from']['node'] !== 'server') {
+            return array(
+                'answer' => 'false',
+                'message' => 'I only accept messages that origin from this server node'
+            );
+        }
+
         $in['func'] = 'GetFolderStructure';
         $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
 
@@ -323,8 +354,18 @@ class infohub_file extends infohub_base
      */
     final protected function index_checksum(array $in = array()): array
     {
-        $default = array();
+        $default = array(
+            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
+        );
         $in = $this->_Default($default, $in);
+
+        if ($in['from']['node'] !== 'server') {
+            return array(
+                'answer' => 'false',
+                'message' => 'I only accept messages that origin from this server node',
+                'checksum' => ''
+            );
+        }
 
         $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
         $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
@@ -332,7 +373,15 @@ class infohub_file extends infohub_base
 
         $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng);
 
-        $files = ['progress.js', 'error_handler_and_frame_breakout.js', 'the_go_function.js', 'sanity_check.js', 'start.js', 'install_service_worker.js'];
+        $files = [
+            'progress.js',
+            'error_handler_and_frame_breakout.js',
+            'the_go_function.js',
+            'sanity_check.js',
+            'start.js',
+            'install_service_worker.js'
+        ];
+
         foreach ($files as $fileName) {
             $fileContents = file_get_contents(INCLUDES . DS . $fileName);
             $checksum = $checksum . md5($fileContents);
@@ -362,7 +411,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
         $pattern = '';
         $fullPath = '';
@@ -426,7 +475,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $fileSize = 0;
 
         $pathInfoDefault = array(
@@ -652,7 +701,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -752,7 +801,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -833,7 +882,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -911,7 +960,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -969,12 +1018,135 @@ class infohub_file extends infohub_base
             'data' => $data
         );
     }
-    
+
     /**
-     * Get a list with all level 1 plugin names
-     * Also get some information like the plugin sensitivity. (core, harmless, sensitive, protect)
+     * Get a list with all plugin names and each plugin details.
+     * You get everything except the file contents.
+     * Used in Infohub_Trigger to display a list with emerging plugins for a node.
+     * @version 2020-08-15
+     * @since   2020-08-15
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function developer_get_all_plugin_data(array $in = array()): array
+    {
+        $default = array(
+            'node' => 'all', // all, client, server
+            'plugin_status' => 'all', // all, emerging, normal, deprecated, removed
+            'user_role' => 'all', // all, user, developer, admin
+            'level' => 'all', // all, 1, 2, 3
+            'from_plugin' => array('node' => '', 'plugin' => ''),
+            'config' => array(
+                'role_list_indexed' => array()
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        $answer = 'false';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
+        $data = array(
+            'server' => array(),
+            'client' => array()
+        );
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $message = 'I only accept messages that origin from the server node';
+            goto leave;
+        }
+
+        if (isset($in['config']['role_list_indexed']['developer']) === false) {
+            $message = 'I only allow developers to use this function because it strains the server';
+            goto leave;
+        }
+
+        $extensions = array('js' => 'client', 'php' => 'server');
+
+        foreach ($extensions as $extension => $node) {
+
+            if ($in['node'] !== 'all') {
+                if ($in['node'] !== $node) {
+                    continue;
+                }
+            }
+
+            $response = $this->internal_Cmd(array(
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => '*.' . $extension,
+            ));
+
+            if ($response['answer'] === 'false') {
+                $message = $response['message'];
+                goto leave;
+            }
+
+            foreach ($response['data'] as $path)
+            {
+                $pathInfo = pathinfo($path);
+                $pluginName = $pathInfo['filename'];
+
+                if (strpos($pluginName, '_') === false) {
+                    continue; // Skip files without _ in the name
+                }
+
+                if (strtolower($pluginName) !== $pluginName) {
+                    continue; // Skip files that contain upper case letters
+                }
+
+                $avoid = array(
+                    'infohub_test_plugin_js' => '',
+                );
+
+                if (isset($avoid[$pluginName])) {
+                    continue;
+                }
+
+                if ($in['level'] !== 'all') {
+                    $parts = explode($pluginName);
+                    if (count($parts) > (int) $in['level']) {
+                        continue; // We skip this plugin since it is in a too deep level
+                    }
+                }
+
+                $pluginInfo = $this->internal_Cmd(array(
+                    'func' => 'Read',
+                    'path' => $path
+                ));
+
+                unset($pluginInfo['contents']);
+
+                if ($in['plugin_status'] !== 'all') {
+                    if ($in['plugin_status'] !== $pluginInfo['plugin_status']) {
+                        continue; // Not the wanted status on this plugin. We skip it
+                    }
+                }
+
+                if ($in['user_role'] !== 'all') {
+                    if ($in['user_role'] !== $pluginInfo['user_role']) {
+                        continue; // Not the wanted user_role on this plugin. We skip it
+                    }
+                }
+
+                $data[$node][$pluginName] = $pluginInfo;
+            }
+        }
+
+        $answer = 'true';
+        $message = 'Here are the list with all plugin names and their info';
+
+        leave:
+        return array(
+            'answer' => $answer,
+            'message' => $message,
+            'data' => $data
+        );
+    }
+
+    /**
+     * Get an array indexed on plugin name. Each item point to an empty array.
      * Used by Infohub_Contact among others
-     * @version 2019-02-23
+     * @version 2020-08-15
      * @since   2019-02-23
      * @author  Peter Lembke
      * @param array $in
@@ -989,8 +1161,13 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $message = 'I only accept messages that origin from this server node';
+            goto leave;
+        }
 
         $suffix = '.php';
         if ($in['node'] === 'client') {
@@ -1044,6 +1221,195 @@ class infohub_file extends infohub_base
     }
 
     /**
+     * Get a list with all level 1 plugin names that has a role (user,developer,admin)
+     * node array -> role name array -> plugin name array -> role name string
+     * Used by infohub_exchange to know what rights a role has when reviewing messages in an incoming package
+     * @version 2020-08-05
+     * @since   2020-08-02
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function load_node_role_plugin_name_role_list(array $in = array()): array
+    {
+        $default = array(
+            'from_plugin' => array('node' => '', 'plugin' => '')
+        );
+        $in = $this->_Default($default, $in);
+
+        $answer = 'false';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
+        $nodeRolePluginNameRoleList = array();
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            $message = 'I only accept messages that origin from this server node';
+            goto leave;
+        }
+
+        $nodeArray = array('client', 'server');
+        foreach ($nodeArray as $node) {
+
+            $nodeRolePluginNameRoleList[$node] = array();
+
+            $suffix = '.php';
+            if ($node === 'client') {
+                $suffix = '.js';
+            }
+
+            $pattern = '*' . $suffix;
+
+            $response = $this->internal_Cmd(array(
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => $pattern,
+            ));
+
+            if ($response['answer'] === 'false') {
+                $message = $response['message'];
+                goto leave;
+            }
+
+            $suffixLength = strlen($suffix);
+
+            $pluginList = array();
+
+            foreach ($response['data'] as $path)
+            {
+                $pluginName = substr($path, strlen(PLUGINS)+1);
+                $parts = explode('/', $pluginName);
+                $pluginName = end($parts);
+
+                if (strtolower($pluginName) !== $pluginName) {
+                    continue; // Skip names that contain upper case letters
+                }
+
+                $parts = explode('_', $pluginName);
+                if (count($parts) !== 2) {
+                    continue; // We only care about level 1 plugins
+                }
+
+                $pluginName = substr($pluginName, 0, -$suffixLength);
+                $pluginList[$pluginName] = $path;
+            }
+
+            foreach ($pluginList as $pluginName => $path) {
+                $fileData = $this->internal_Cmd(array(
+                    'func' => 'Read',
+                    'path' => $path
+                ));
+
+                if (empty($fileData['contents']) === true) {
+                    continue;
+                }
+
+                $role = $this->_GetUserRole($node, $fileData['contents']);
+                if (empty($role) === true) {
+                    continue;
+                }
+
+                if (isset($nodeRolePluginNameRoleList[$node][$role]) === false) {
+                    $nodeRolePluginNameRoleList[$node][$role] = array();
+                }
+
+                $nodeRolePluginNameRoleList[$node][$role][$pluginName] = $role;
+            }
+        }
+
+        $answer = 'true';
+        $message = 'Here are the list with all user roles and their plugin names';
+
+        leave:
+        return array(
+            'answer' => $answer,
+            'message' => $message,
+            'data' => $nodeRolePluginNameRoleList
+        );
+    }
+
+    /**
+     * Five a file extension and get a node name back
+     * @param string $extension
+     * @return string
+     */
+    final protected function _GetNodeFromExtension(string $extension = ''): string
+    {
+        if ($extension === 'js') {
+            return 'client';
+        }
+        if ($extension === 'php') {
+            return 'server';
+        }
+
+        return '';
+    }
+
+    /**
+     * Pulls out the user_role from the source code
+     * @param string $node
+     * @param string $contents
+     * @return string
+     */
+    final protected function _GetUserRole(string $node = '', string $contents = ''): string
+    {
+        $decodedContents = base64_decode($contents);
+
+        $rolePattern = "'user_role' => '";
+        if ($node === 'client') {
+            $rolePattern = "'user_role': '";
+        }
+
+        $rolePatternLength = strlen($rolePattern);
+
+        $findStart = strpos($decodedContents, $rolePattern, 0);
+        if ($findStart === false) {
+            return '';
+        }
+
+        $findEnd = strpos($decodedContents, "'", $findStart + $rolePatternLength);
+        if ($findEnd === false) {
+            return '';
+        }
+
+        $roleLength = $findEnd - $findStart - $rolePatternLength;
+        $role = substr($decodedContents, $findStart + $rolePatternLength, $roleLength);
+
+        return $role;
+    }
+
+    /**
+     * Pulls out the plugin status from the source code
+     * @param string $node
+     * @param string $contents
+     * @return string
+     */
+    final protected function _GetPluginStatus(string $node = '', string $contents = ''): string
+    {
+        $decodedContents = base64_decode($contents);
+
+        $pattern = "'status' => '";
+        if ($node === 'client') {
+            $pattern = "'status': '";
+        }
+
+        $patternLength = strlen($pattern);
+
+        $findStart = strpos($decodedContents, $pattern, 0);
+        if ($findStart === false) {
+            return '';
+        }
+
+        $findEnd = strpos($decodedContents, "'", $findStart + $patternLength);
+        if ($findEnd === false) {
+            return '';
+        }
+
+        $statusLength = $findEnd - $findStart - $patternLength;
+        $status = substr($decodedContents, $findStart + $patternLength, $statusLength);
+
+        return $status;
+    }
+
+    /**
      * Give a plugin name and you get the source code for all js files indexed on each plugin name.
      * Used ONLY by infohub_translate.php
      * @version 2019-03-24
@@ -1061,7 +1427,7 @@ class infohub_file extends infohub_base
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
-        $message = 'Nothing to report';
+        $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array();
 
         if ($in['from_plugin']['node'] !== 'server') {

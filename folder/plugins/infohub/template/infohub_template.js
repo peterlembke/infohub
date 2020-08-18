@@ -1,20 +1,19 @@
 /*	infohub_template.js
+Copyright (C) 2015 __your name__ , __your organisation__
+the program is distributed under the terms of the GNU General Public License
 
-		Copyright (C) 2015 __your name__ , __your organisation__
-		the program is distributed under the terms of the GNU General Public License
+__your program name__ is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-		__your program name__ is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
+__your program name__ is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-		__your program name__ is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-
-		You should have received a copy of the GNU General Public License
-		along with __your program name__.	If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with __your program name__.	If not, see <https://www.gnu.org/licenses/>.
 */
 function infohub_template() {
 
@@ -28,18 +27,20 @@ function infohub_template() {
             'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_template',
-            'note': 'Oneliner with plugin description',
+            'note': 'One line with plugin description',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'developer'
+            'user_role': 'developer'
         };
     };
 
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'my_function': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

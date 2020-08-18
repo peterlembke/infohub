@@ -36,11 +36,13 @@ function infohub_doc_visited() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'click_refresh': 'normal',
             'click_item': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};

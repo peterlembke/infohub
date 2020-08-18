@@ -34,12 +34,12 @@ function infohub_tabs() {
             'note': 'Handles windows so you can build tabs',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'init': 'normal',
             'add': 'normal',
             'remove': 'normal',
@@ -48,6 +48,8 @@ function infohub_tabs() {
             'setup_full_tab_system': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

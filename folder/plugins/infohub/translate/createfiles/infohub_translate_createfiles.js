@@ -35,12 +35,14 @@ function infohub_translate_createfiles() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
             'click_create_files': 'normal',
             'click_download': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $pluginTranslationsMerged = {};

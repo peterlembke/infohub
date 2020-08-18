@@ -13,7 +13,6 @@ Refresh client to see a list of clients. Click a client to see client data in th
  Button "Delete" - Get node name from the form and delete the data with that name
  Button "Import" - Select a json file with data
  Button "Export" - Exkort the form data to a file
- Button "Refresh Group" - Update the group list
 
 ## Save
 You can only modify Node, Note, Allowed plugins. You can not modify Domain address, Username, Shared secret.

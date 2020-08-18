@@ -36,11 +36,13 @@ function infohub_doc_get() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'get_document': 'normal',
             'get_documents_list': 'normal',
             'get_all_documents': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     /**

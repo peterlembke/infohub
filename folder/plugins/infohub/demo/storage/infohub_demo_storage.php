@@ -35,7 +35,7 @@ class infohub_demo_storage extends infohub_base
             'note' => 'Show how to read/write from Storage',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 

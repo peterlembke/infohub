@@ -35,10 +35,12 @@ function infohub_tools_package() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_package': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -141,19 +143,8 @@ function infohub_tools_package() {
                             'input_type': 'text',
                             'placeholder': _Translate('Will show the decoded pretty json'),
                             'class': 'textarea',
-                            'css_data': {
-                                '.textarea':
-                                    'width: 100%;'+
-                                    'box-sizing:border-box;'+
-                                    'margin: 10px 0px 0px 0px;'+
-                                    'padding: 4px 4px 4px 10px;'+
-                                    'border-radius: 20px;'+
-                                    'background-color: rgba(32, 250, 10, 0.04);'+
-                                    'border: 1px solid #bdbdbd;'+
-                                    'resize: both;'+
-                                    'font-size: 16px;'+
-                                    '-webkit-appearance: none;'
-                            },
+                            'resize': 'both',
+                            'css_data': {},
                             'rows': 100
                         }
                     },

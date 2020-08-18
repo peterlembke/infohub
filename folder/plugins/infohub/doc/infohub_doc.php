@@ -36,17 +36,19 @@ class infohub_doc extends infohub_base
             'note' => 'Documentation system. Simple. Self sufficient.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'get_document' => 'normal',
             'get_all_documents' => 'normal',
             'get_documents_list' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

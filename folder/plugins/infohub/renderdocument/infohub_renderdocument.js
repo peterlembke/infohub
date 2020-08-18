@@ -32,15 +32,17 @@ function infohub_renderdocument() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Document',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'create': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

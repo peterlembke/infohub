@@ -10,12 +10,19 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 ## [Unreleased]
 **Below is the aim for version 1.3.0**
 - Infohub_Tree
-This is THE application!!
+This is THE application!! All private data will be handled here.
 
-**Below is the aim for version 1.2.21**
+**Below is the aim for version 1.2.22**
 - Marketing SVG Graphics, motion backgrounds, background audio
 - Marketing Infohub with articles and videos
 - Add some of the material to the Infohub repo as a release
+
+# [1.2.21] - 2020-08-18
+
+* [Release notes](main,release_v1v2v21)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.21)
+
+Security roles instead of lists with plugin names makes it easier to be an admin. Updated the template files for developers. New plugin "infohub Trigger" for developers to trigger their plugin functions during development. Textarea improvements. Purge of render cache for developers. Mouse/VR hover effects everywhere. Security improvements in File and Base. Cleaned up CSS. Improved translations. Exchanged some icons to more glossy ones. 
 
 # [1.2.20] - 2020-07-24
 

@@ -31,13 +31,13 @@ function infohub_offline() {
             'checksum': '{{checksum}}',
             'note': 'Download features to prepare going offline. Also accept subscriptions to the offline event.',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'subscribe': 'normal',
             'unsubscribe': 'normal',
@@ -50,6 +50,8 @@ function infohub_offline() {
             'update_service_worker': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};

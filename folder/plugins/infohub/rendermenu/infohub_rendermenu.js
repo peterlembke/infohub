@@ -32,16 +32,18 @@ function infohub_rendermenu() {
             'note': 'Render a list with buttons. That is easier to use than a list with links',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'create': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************
@@ -94,7 +96,10 @@ function infohub_rendermenu() {
             'original_alias': '',
             'step': 'step_start',
             'html': '',
-            'css_data': {}
+            'css_data': {},
+            'config': {
+                'focus_shadow_colour': 'red'
+            }
         };
         $in = _Merge($default, $in);
 
@@ -152,7 +157,11 @@ function infohub_rendermenu() {
             'head_text': '',
             'foot_text': '',
             'original_alias': '',
-            'options': {}
+            'options': {},
+            'config': {
+                'focus_shadow_colour': 'red',
+                'hover_shadow_colour': 'grey'
+            }
         };
         $in = _Default($default, $in);
 
@@ -172,7 +181,7 @@ function infohub_rendermenu() {
             'type': 'button',
             'enabled': 'true',
             'alias': '',
-            'class': 'button',
+            'class': '',
             'button_left_icon': '',
             'button_label': 'Submit',
             'mode': 'button', // submit, button
@@ -191,10 +200,10 @@ function infohub_rendermenu() {
                     'margin: 4px 0px 0px 0px;'+
                     'padding: 2px 10px 2px 16px;'+
                     'text-align: left;'+
-                    'background-color: #bcdebc;'+
-                    'background: linear-gradient(#caefca, #e1ffcf);'+
-                    'border: 0px;'+
-                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
+                    'border: 0px;',
+                '.button-width':
+                    'width: 100%;',
+
             } // Leave empty to get the default css
         };
 

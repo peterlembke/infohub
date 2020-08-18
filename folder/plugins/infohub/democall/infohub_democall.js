@@ -32,16 +32,18 @@ function infohub_democall() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Demo call',
-            'recommended_security_group': 'developer'
+            'user_role': 'developer'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'startup': 'normal',
             'setup_gui': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     const _GetPluginName = function($data)

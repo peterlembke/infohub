@@ -32,17 +32,19 @@ function infohub_standalone() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Stand alone',
-            'recommended_security_group': 'guest'
+            'user_role': 'user'
         };
     };
 
     $functions.push("_GetCmdFunctions");
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'startup': 'normal',
             'setup_gui': 'normal',
             'setup_plugin': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     $functions.push("_GetBoxId");

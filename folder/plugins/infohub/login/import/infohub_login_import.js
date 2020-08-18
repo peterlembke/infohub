@@ -35,10 +35,12 @@ function infohub_login_import() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_import': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -76,8 +78,7 @@ function infohub_login_import() {
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'server_plugin_names': [],
-            'client_plugin_names': [],
+            'role_list': [],
             'has_password': 'false'
         };
         $nodeData = _Default($default, $nodeData);

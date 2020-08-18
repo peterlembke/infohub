@@ -35,13 +35,15 @@ function infohub_translate_doc() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_main': 'normal',
             'click_createfiles': 'normal',
             'click_mergefiles': 'normal',
             'click_updatefiles': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

@@ -42,16 +42,22 @@ class infohub_asset extends infohub_base
             'note' => 'Download client side plugin assets to the client',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
+    /**
+     * List all CMD functions here so they can be called
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'update_all_plugin_assets' => 'normal',
             'update_specific_assets' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

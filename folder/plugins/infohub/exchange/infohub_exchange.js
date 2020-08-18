@@ -32,55 +32,6 @@ function infohub_exchange() {
         return $classSessionId;
     };
 
-    /** @var array Contain a lookup array with allowed plugin names for this user */
-    let $classAllowedServerPluginNamesLookupArray = {};
-    const _GetAllowedServerPluginNames = function() {
-        return $classAllowedServerPluginNamesLookupArray;
-    };
-
-    /** @var array Contain a lookup array with allowed client plugin names for this user */
-    let $classAllowedClientPluginNamesLookupArray = {};
-    const _GetAllowedClientPluginNames = function() {
-        return $classAllowedClientPluginNamesLookupArray;
-    };
-
-    /**
-     * Check if you are allowed to use this plugin
-     * @param $nodeName | "client" or "server"
-     * @param $pluginName
-     * @returns {string} | "true" or "false"
-     * @private
-     */
-    const _Allowed = function($nodeName, $pluginName)
-    {
-        let $pluginNameLookup = {};
-        if ($nodeName === 'server') {
-            $pluginNameLookup = _GetAllowedServerPluginNames();
-            if (_Empty($pluginNameLookup) === 'false') {
-                $pluginNameLookup.infohub_dummy = {}; // CTRL+SHIFT+ALT combinations send to this none existing module
-            }
-        }
-        if ($nodeName === 'client') {
-            $pluginNameLookup = _GetAllowedClientPluginNames();
-        }
-
-        if (_Empty($pluginNameLookup) === 'true') {
-            return 'true';
-        }
-
-        let $basePluginName = '';
-        let $parts = $pluginName.split('_');
-        if ($parts.length >= 2) {
-            $basePluginName = $parts[0] + '_' + $parts[1];
-        }
-
-        if (_IsSet($pluginNameLookup[$basePluginName]) === 'true') {
-            return 'true';
-        }
-
-        return 'false';
-    };
-
     $functions.push('_Version');
     const _Version = function() {
         return {
@@ -91,13 +42,13 @@ function infohub_exchange() {
             'note': 'Handle all messages so they come to the right plugin',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'main': 'normal',
             'startup': 'normal',
             'event_message': 'normal',
@@ -105,6 +56,8 @@ function infohub_exchange() {
             'initiator_verify_sign_code': 'normal',
             'redirect': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $that = this,// to reference cmd inside of infohub_exchange. Do not do this in other plugins.
@@ -357,8 +310,7 @@ function infohub_exchange() {
             'data_back': {
                 'session_valid': 'false',
                 'user_name': '',
-                'server_plugin_names': [],
-                'client_plugin_names': []
+                'role_list': []
             }
         };
         $in = _Default($default,$in);
@@ -390,15 +342,12 @@ function infohub_exchange() {
                 'user_name': '',
                 'session_id': '',
                 'post_exist': 'false',
-                'server_plugin_names': [],
-                'client_plugin_names': []
+                'role_list': []
             };
             $in.response = _Default($default, $in.response);
 
             $classSessionId = $in.response.session_id;
             $classUserName = $in.response.user_name;
-            $classAllowedServerPluginNamesLookupArray = _CreateLookupTable($in.response.server_plugin_names, {});
-            $classAllowedClientPluginNamesLookupArray = _CreateLookupTable($in.response.client_plugin_names, {});
 
             $in.step = 'step_check_session_valid'; // HUB-919
             if ($in.response.post_exist === 'false') {
@@ -434,15 +383,13 @@ function infohub_exchange() {
                 'message': '',
                 'session_valid': 'false',
                 'user_name': '',
-                'server_plugin_names': [],
-                'client_plugin_names': []
+                'role_list': []
             };
             $in.response = _Default($default, $in.response);
 
             $in.data_back.session_valid = $in.response.session_valid;
             $in.data_back.user_name = $in.response.user_name;
-            $in.data_back.server_plugin_names = $in.response.server_plugin_names;
-            $in.data_back.client_plugin_names = $in.response.client_plugin_names;
+            $in.data_back.role_list = $in.response.role_list;
 
             $in.step = 'step_prepare_first_message';
             if ($in.data_back.session_valid === 'false') {
@@ -464,8 +411,7 @@ function infohub_exchange() {
                 'data_back': {
                     'session_valid': 'false',
                     'user_name': $in.data_back.user_name,
-                    'server_plugin_names': $in.data_back.server_plugin_names,
-                    'client_plugin_names': $in.data_back.client_plugin_names,
+                    'role_list': $in.data_back.role_list,
                     'step': 'step_get_session_data' // We start over from the top with no session data this time
                 }
             });
@@ -479,12 +425,6 @@ function infohub_exchange() {
             if ($in.data_back.session_valid === 'true') {
                 $classUserName = $in.data_back.user_name;
             }
-
-            const $allowedServerPluginNames = $in.data_back.server_plugin_names;
-            $classAllowedServerPluginNamesLookupArray = _CreateLookupTable($allowedServerPluginNames, {});
-
-            const $allowedClientPluginNames = $in.data_back.client_plugin_names;
-            $classAllowedClientPluginNamesLookupArray = _CreateLookupTable($allowedClientPluginNames, {});
 
             $in.step = 'step_send_first_message';
         }
@@ -1359,13 +1299,6 @@ function infohub_exchange() {
 
             const $nodeName = $dataMessage.to.node;
 
-            if (_Allowed($nodeName, $dataMessage.to.plugin) === 'false') {
-                const $message = 'Plugin not allowed. Node:' + $nodeName + ', Plugin:' + $dataMessage.to.plugin;
-                _BoxError($message);
-                _SendMessageBackPluginNotFound($dataMessage, $message);
-                continue;
-            }
-
             if ($nodeName !== 'client') {
                 if (_IsSet($ToNode[$nodeName]) === 'false') {
                     $ToNode[$nodeName] = [];
@@ -1530,8 +1463,6 @@ function infohub_exchange() {
             $dataMessage.data.config = $responseConfig.plugin_config;
             $dataMessage.data.config.user_name = _GetUserName();
             $dataMessage.data.config.session_id = _GetSessionId();
-            $dataMessage.data.config.server_plugin_names = _GetAllowedServerPluginNames();
-            $dataMessage.data.config.client_plugin_names = _GetAllowedClientPluginNames();
 
             let $run = $Plugin[$pluginName];
             if ($pluginName === 'infohub_exchange') {

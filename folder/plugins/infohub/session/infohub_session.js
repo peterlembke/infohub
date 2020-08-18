@@ -33,13 +33,13 @@ function infohub_session() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Session',
-            'recommended_security_group': 'core'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'initiator_store_session_data': 'normal',
             'initiator_end_session': 'normal',
             'initiator_calculate_sign_code': 'normal',
@@ -48,6 +48,8 @@ function infohub_session() {
             'initiator_get_session_data': 'normal',
             'delete_session_data': 'normal',
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**
@@ -66,8 +68,7 @@ function infohub_session() {
             'initiator_user_name': '', // user_{hub_id}
             'session_id': '', //session_{hub_id}
             'session_created_at': '', // micro time with 3 decimals
-            'server_plugin_names': [], // Allowed plugins
-            'client_plugin_names': [], // Allowed plugins
+            'role_list': [], // Allowed roles
             'left_overs': '', // Left overs from the login. Never exposed outside this plugin
             'step': 'step_store_session_data',
             'response': {
@@ -94,8 +95,7 @@ function infohub_session() {
                         'left_overs': $in.left_overs,
                         'session_id': $in.session_id,
                         'session_created_at': $in.session_created_at,
-                        'server_plugin_names': $in.server_plugin_names,
-                        'client_plugin_names': $in.client_plugin_names
+                        'role_list': $in.role_list
                     }
                 },
                 'data_back': {
@@ -491,8 +491,7 @@ function infohub_session() {
                 'user_name': '',
                 'session_valid': 'false',
                 'session_id': '',
-                'server_plugin_names': [],
-                'client_plugin_names': []
+                'role_list': []
             }
         };
         $in = _Default($default, $in);
@@ -503,8 +502,7 @@ function infohub_session() {
             'session_id': '',
             'session_valid': 'false',
             'user_name': '',
-            'server_plugin_names': [],
-            'client_plugin_names': []
+            'role_list': []
         };
 
         if ($in.step === 'step_get_session_data') {
@@ -534,8 +532,7 @@ function infohub_session() {
                     'left_overs': '',
                     'session_created_at': '',
                     'session_id': '',
-                    'server_plugin_names': [],
-                    'client_plugin_names': []
+                    'role_list': []
                 },
                 'post_exist': 'false'
             };
@@ -547,8 +544,7 @@ function infohub_session() {
                 'session_id': $in.response.data.session_id,
                 'session_valid': 'false',
                 'user_name': $in.response.data.initiator_user_name,
-                'server_plugin_names': $in.response.data.server_plugin_names,
-                'client_plugin_names': $in.response.data.client_plugin_names
+                'role_list': $in.response.data.role_list
             };
 
             $in.step = 'step_end';
@@ -573,8 +569,7 @@ function infohub_session() {
                     'user_name': $out.user_name,
                     'session_valid': $out.session_valid,
                     'session_id': $out.session_id,
-                    'server_plugin_names': $out.server_plugin_names,
-                    'client_plugin_names': $out.client_plugin_names,
+                    'role_list': $out.role_list,
                     'step': 'step_ask_server_if_session_is_valid_response'
                 }
             });
@@ -595,8 +590,7 @@ function infohub_session() {
                 'session_id': $in.data_back.session_id,
                 'session_valid': $in.response.session_valid,
                 'user_name': $in.data_back.user_name,
-                'server_plugin_names': $in.data_back.server_plugin_names,
-                'client_plugin_names': $in.data_back.client_plugin_names
+                'role_list': $in.data_back.role_list
             };
         }
 
@@ -605,8 +599,7 @@ function infohub_session() {
             'message': $out.message,
             'session_valid': $out.session_valid,
             'user_name': $out.user_name,
-            'server_plugin_names': $out.server_plugin_names,
-            'client_plugin_names': $out.client_plugin_names
+            'role_list': $out.role_list
         };
     };
 
@@ -629,8 +622,7 @@ function infohub_session() {
                     'initiator_user_name': '',
                     'session_created_at': '',
                     'session_id': '',
-                    'server_plugin_names': [],
-                    'client_plugin_names': []
+                    'role_list': []
                 },
                 'answer': 'false',
                 'message': 'Nothing to report',
@@ -665,8 +657,7 @@ function infohub_session() {
             'post_exist': $in.response.post_exist,
             'user_name': $in.response.data.initiator_user_name,
             'session_id': $in.response.data.session_id,
-            'server_plugin_names': $in.response.data.server_plugin_names,
-            'client_plugin_names': $in.response.data.client_plugin_names
+            'role_list': $in.response.data.role_list
         };
     };
 

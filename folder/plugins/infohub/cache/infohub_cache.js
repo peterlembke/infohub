@@ -30,21 +30,24 @@ function infohub_cache() {
             'checksum': '{{checksum}}',
             'note': 'Used by infohub_plugin to store plugins in local storage. Can be used for temporary data that will expire',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'guest'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'save_data_to_cache': 'normal',
             'load_data_from_cache': 'normal',
             'remove_data_from_cache': 'normal',
             'remove_data_from_cache_by_prefix': 'normal',
+            'remove_data_from_cache_by_prefix_and_keys': 'normal',
             'load_index_from_cache': 'normal',
             'validate_cache': 'normal',
             'update_index_in_cache': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************
@@ -438,6 +441,70 @@ function infohub_cache() {
                         'key': $key
                     });
                 }
+            }
+
+            $out.answer = 'true';
+            $out.message = 'Done removing items from local storage';
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message,
+            'prefix': $in.prefix
+        };
+    };
+
+    /**
+     * Remove all mentioned keys that have the same prefix
+     * @version 2020-08-01
+     * @since   2020-08-01
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    $functions.push('remove_data_from_cache_by_prefix_and_keys');
+    const remove_data_from_cache_by_prefix_and_keys = function ($in)
+    {
+        const $default = {
+            'prefix': '',
+            'keys': []
+        };
+        $in = _Default($default,$in);
+
+        let $out = {
+            'answer': 'false',
+            'message': ''
+        };
+
+        block:
+        {
+            if ($in.prefix === '') {
+                $out.message = 'Please provide a prefix';
+                break block;
+            }
+
+            let $response = internal_Cmd({
+                'func': 'LoadIndex',
+                'prefix': $in.prefix
+            });
+
+            if ($response.answer === 'false') {
+                $out.message = $response.message;
+                break block;
+            }
+
+            for (let $number = 0; $number < $in.keys.length; $number = $number + 1)
+            {
+                const $key = $in.keys[$number];
+                if ($response.index.hasOwnProperty($key) === false) {
+                    continue;
+                }
+
+                internal_Cmd({
+                    'func': 'RemoveDataFromCache',
+                    'prefix': $in.prefix,
+                    'key': $key
+                });
             }
 
             $out.answer = 'true';

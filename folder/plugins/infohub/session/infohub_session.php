@@ -39,13 +39,13 @@ class infohub_session extends infohub_base
             'note' => 'Handle sessions. Both incoming and outgoing.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'responder_start_session' => 'normal',
             'initiator_store_session_data' => 'normal',
             'initiator_end_session' => 'normal',
@@ -60,6 +60,8 @@ class infohub_session extends infohub_base
             'set_banned_until' => 'normal',
             'check_banned_until' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**
@@ -77,8 +79,7 @@ class infohub_session extends infohub_base
         $default = array(
             'initiator_user_name' => '', // user_{hub_id}
             'left_overs' => '', // Left overs from the login. Never exposed outside this plugin.
-            'server_plugin_names' => array(),
-            'client_plugin_names' => array(),
+            'role_list' => array(),
             'step' => 'step_create_session_id',
             'from_plugin' => array(
                 'node' => '',
@@ -117,8 +118,7 @@ class infohub_session extends infohub_base
                 'data_back' => array(
                     'initiator_user_name' => $in['initiator_user_name'],
                     'left_overs' => $in['left_overs'],
-                    'server_plugin_names' => $in['server_plugin_names'],
-                    'client_plugin_names' => $in['client_plugin_names'],
+                    'role_list' => $in['role_list'],
                     'config' => $in['config'],
                     'banned_until' => 0.0,
                     'step' => 'step_create_session_id_response'
@@ -159,8 +159,7 @@ class infohub_session extends infohub_base
                         'left_overs' => $in['left_overs'],
                         'session_id' => $sessionId,
                         'session_created_at' => $sessionCreatedAt,
-                        'server_plugin_names' => $in['server_plugin_names'],
-                        'client_plugin_names' => $in['client_plugin_names'],
+                        'role_list' => $in['role_list'],
                         'banned_until' => $bannedUntil,
                         'pending_delete' => 'false'
                     )
@@ -677,11 +676,10 @@ class infohub_session extends infohub_base
         if ($in['step'] === 'step_calculate') {
             $default = array(
                 'banned_until' => 0.0,
-                'client_plugin_names' => array(),
                 'initiator_user_name' => '',
                 'left_overs' => '',
                 'pending_delete' => 'false',
-                'server_plugin_names' => array(),
+                'role_list' => array(),
                 'session_created_at' => '',
                 'session_id' => '',
             );
@@ -865,8 +863,7 @@ class infohub_session extends infohub_base
             'message' => 'Nothing to report',
             'sign_code_valid' => 'false',
             'initiator_user_name' => '',
-            'server_plugin_names' => array(),
-            'client_plugin_names' => array()
+            'role_list' => array()
         );
 
         if ($in['from_plugin']['plugin'] !== 'infohub_exchange') {
@@ -915,8 +912,7 @@ class infohub_session extends infohub_base
             $default = array(
                 'initiator_user_name' => '',
                 'left_overs' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array(),
+                'role_list' => array(),
                 'session_created_at' => '',
                 'session_id' => '',
                 'pending_delete' => 'false'
@@ -953,8 +949,7 @@ class infohub_session extends infohub_base
                     'message' => 'Sign code is valid',
                     'sign_code_valid' => 'true',
                     'initiator_user_name' => $data['initiator_user_name'],
-                    'server_plugin_names' => $data['server_plugin_names'],
-                    'client_plugin_names' => $data['client_plugin_names']
+                    'role_list' => $data['role_list']
                 );
             }
         }
@@ -971,8 +966,7 @@ class infohub_session extends infohub_base
             'message' => $out['message'],
             'sign_code_valid' => $out['sign_code_valid'],
             'initiator_user_name' => $out['initiator_user_name'],
-            'server_plugin_names' => $out['server_plugin_names'],
-            'client_plugin_names' => $out['client_plugin_names']
+            'role_list' => $out['role_list']
         );
     }
 
@@ -1029,8 +1023,7 @@ class infohub_session extends infohub_base
             $default = array(
                 'initiator_user_name' => '',
                 'left_overs' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array(),
+                'role_list' => array(),
                 'session_created_at' => '',
                 'session_id' => '',
                 'pending_delete' => 'false'

@@ -50,7 +50,10 @@ Infohub is sensitive with the timing. The transfer between the client and the se
 Read more about the issue [here](https://github.com/laravel/homestead/issues/799).
 
 The solution I use can be seen in `vagrant/vagrant.sh`
-If you experience issues with the transfer then this can be the problem. Run the solution manually in the box or restart the box.
+If you experience issues with the transfer then this can be the problem. Run the solution manually in the box or restart the box with:
+```
+vagrant provision
+```
 
 ## xdebug
 This Vagrant setup has an active xdebug installation.

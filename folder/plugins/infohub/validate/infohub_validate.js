@@ -32,17 +32,19 @@ function infohub_validate() {
             'note': 'Value validators. Used mostly in form validation.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'validate_has_data': 'normal',
             'validate_is_true': 'normal',
             'validate_is_false': 'normal',
             'validate_is_integer': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

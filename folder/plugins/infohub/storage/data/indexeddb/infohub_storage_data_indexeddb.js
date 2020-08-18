@@ -41,10 +41,12 @@ function infohub_storage_data_indexeddb() {
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'read': 'normal',
             'write': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

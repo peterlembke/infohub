@@ -1,0 +1,6 @@
+{
+    "plugin": "infohub_trigger",
+    "title": "Trigger",
+    "description": "As a developer you can send messages to your functions.",
+    "uses": []
+}

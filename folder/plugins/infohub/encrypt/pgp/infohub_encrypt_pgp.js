@@ -47,10 +47,12 @@ function infohub_encrypt_pgp() {
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'encrypt': 'normal',
             'decrypt': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************

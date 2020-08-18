@@ -33,15 +33,17 @@ function infohub_random() {
             'note': 'Functions that give you an unpredictable answer',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'random_number': 'normal',
             'random_numbers': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

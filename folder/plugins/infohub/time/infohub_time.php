@@ -35,16 +35,18 @@ class infohub_time extends infohub_base {
             'note' => 'Functions that give you an unpredictable answer',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'time' => 'normal',
             'get_available_options' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

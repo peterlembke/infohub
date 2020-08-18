@@ -35,18 +35,20 @@ class infohub_login extends infohub_base
             'note' => 'Handle incoming login request and challenge. Send login request to another node.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'guest'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'login_request' => 'normal', // Incoming login_request
             'login_challenge' => 'normal', // Incoming login_challenge
             'login' => 'normal', // Login to another node,
             'read_login_file' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************
@@ -77,8 +79,7 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'server_plugin_names' => array(),
-                    'client_plugin_names' => array()
+                    'role_list' => array()
                 ),
                 'post_exist' => 'false'
             ),
@@ -271,8 +272,7 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'server_plugin_names' => array(),
-                    'client_plugin_names' => array()
+                    'role_list' => array()
                 ),
                 'session_id' => '', // session_{hub_id}
                 'session_created_at' => '', // micro time with 3 decimals
@@ -418,14 +418,8 @@ class infohub_login extends infohub_base
         // Register a session with infohub_session
         if ($in['step'] === 'step_register_session') {
 
-            $serverPluginNames = $this->_GetData(array(
-                'name' => 'data_back/contact/server_plugin_names',
-                'default' => [],
-                'data' => $in
-            ));
-
-            $clientPluginNames = $this->_GetData(array(
-                'name' => 'data_back/contact/client_plugin_names',
+            $roleList = $this->_GetData(array(
+                'name' => 'data_back/contact/role_list',
                 'default' => [],
                 'data' => $in
             ));
@@ -439,8 +433,7 @@ class infohub_login extends infohub_base
                 'data'=> array(
                     'initiator_user_name' => $in['data_back']['initiator_user_name'], // user_{hub_id}
                     'left_overs' => $leftOvers, // Left overs from the login. Never exposed outside this node
-                    'server_plugin_names' => $serverPluginNames,
-                    'client_plugin_names' => $clientPluginNames
+                    'role_list' => $roleList
                 ),
                 'data_back'=> array(
                     'step'=> 'step_register_session_response',

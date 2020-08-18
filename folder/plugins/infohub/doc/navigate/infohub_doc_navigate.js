@@ -36,12 +36,14 @@ function infohub_doc_navigate() {
     };
 
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'click_refresh': 'normal',
             'click_document_name': 'normal',
             'view_navigation': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

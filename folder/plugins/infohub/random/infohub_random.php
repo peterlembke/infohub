@@ -37,16 +37,18 @@ class infohub_random extends infohub_base
             'note' => 'Functions that give you an unpredictable answer',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'random_number' => 'normal',
             'random_numbers' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // *****************************************************************************

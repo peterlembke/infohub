@@ -42,10 +42,12 @@ class infohub_checksum_luhn extends infohub_base
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'calculate_checksum' => 'normal',
             'verify_checksum' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************

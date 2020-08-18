@@ -41,11 +41,13 @@ function infohub_storage_data_idbkeyval() {
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'read': 'normal',
             'write': 'normal',
             'read_paths': 'normal' // Get a list of matching paths
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $WriteCache = {};

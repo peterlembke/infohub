@@ -1,0 +1,19 @@
+{
+    "publisher_name": "Infohub.se",
+    "publisher_url": "https://infohub.se",
+    "publisher_note": "Vector graphics made for InfoHub.se",
+    "publisher_video_url": "",
+    "collection_name": "Infohub essentials",
+    "collection_url": "",
+    "collection_note": "Part of the InfoHub SVG Collection",
+    "license_name": "All rights reserved",
+    "license_url": "",
+    "license_note": "The logos belong to Peter Lembke, InfoHub.se and are distributed together with Infohub.se. All other InfoHub icons will have a CC license. See each license file.",
+    "author_name": "Peter Lembke",
+    "author_url": "https://infohub.se",
+    "author_note": "",
+    "icon_name": "infohub-logo-done",
+    "icon_url": "",
+    "icon_note": "The full size logo for Infohub.se. Created by Peter Lembke 2017-10-27 in InkScape on Ubuntu 17.04",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

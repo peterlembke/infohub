@@ -1,13 +1,15 @@
 # Infohub Timer
+This is a Client plugin only.  
 You can get a delayed response from this plugin. You can se a demo of this in [infohub_demo_timer](plugin,infohub_demo_timer).  
 
 ## Features
-The plugin has two functions
+The plugin has three functions
 
 * start_timer
+* start_timer_advanced
 * stop_timer
 
-Only plugins on the same node can start/stop a timer. The restriction is set because a timer takes resources over time.
+Only plugins on the same node can start/stop a timer. The restriction is set because a timer takes up computer resources over time so we must have some control over this function.
 
 You can have several timers active. They are separated by plugin_name and an alias that you set.
 

@@ -35,11 +35,13 @@ function infohub_tools_checksum() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_node_select': 'normal',
             'click_handle_checksum': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

@@ -33,13 +33,13 @@ function infohub_login() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Login',
-            'recommended_security_group': 'guest'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
@@ -47,6 +47,8 @@ function infohub_login() {
             'get_user_real_name': 'normal',
             'logout': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     const _GetPluginName = function($data)

@@ -7,12 +7,16 @@
         "country": "ES",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Depurar",
+        "description": "126/5000\nHerramientas que puede usar para reiniciar Infohub mientras borra ciertos datos. Perfecto cuando necesitas depurar el código del programa."
+    },
     "data": {
         "infohub_debug": {
             "Reload page. shift alt ctrl 1": "Recargar página. Shift alt ctrl 1",
-            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Limpia los complementos antiguos marcados por el servidor. Recarga la página. Shift alt ctrl 2",
-            "Clean out all local plugins, reload page. shift alt ctrl 3": "Limpia todos los complementos locales, vuelve a cargar la página. Shift alt ctrl 3",
-            "Clean out all local data, reload page. shift alt ctrl 4": "Limpia todos los datos locales, vuelve a cargar la página. Shift alt ctrl 4",
+            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Limpie los complementos locales, el servidor tiene una versión más nueva de + su caché de representación. La página de recarga en cualquiera era nueva.",
+            "Clean out all local plugins, reload page. shift alt ctrl 3": "Limpie todos los complementos locales + render caché, vuelva a cargar la página.",
+            "Clean out all local data, reload page. shift alt ctrl 4": "Limpia todos los datos locales, vuelve a cargar la página.",
             "Silently delete the render cache for the logged in user": "Eliminar silenciosamente el caché de renderizado para el usuario conectado",
             "Logs you out and refresh the page": "Cierra la sesión y actualiza la página",
             "Instructions": "Instrucciones",

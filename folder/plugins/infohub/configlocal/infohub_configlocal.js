@@ -32,12 +32,12 @@ function infohub_configlocal() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Config',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'startup': 'normal',
             'submit': 'normal',
@@ -48,6 +48,8 @@ function infohub_configlocal() {
             'get_config': 'normal',
             'apply_config': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     const _GetPluginName = function($data)
@@ -64,6 +66,8 @@ function infohub_configlocal() {
 
     let $classTranslations = {};
 
+    let $classGetConfig = {}; // Cache for reading config data
+
     /**
      * Translate - Substitute a string for another string using a class local object
      * @param {type} $string
@@ -78,7 +82,9 @@ function infohub_configlocal() {
 
         return _GetData({
             'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
+            'default': $string,
+            'data': $classTranslations,
+            'split': '|'
         });
     };
 
@@ -308,36 +314,48 @@ function infohub_configlocal() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_save') {
-            if ($in.from_plugin.node === 'client') {
-                const $pluginName = 'infohub_configlocal_';
-                if ($in.from_plugin.plugin.substr(0, $pluginName.length) === $pluginName)
-                {
-                    return _SubCall({
-                        'to': {
-                            'node': 'client',
-                            'plugin': 'infohub_storage',
-                            'function': 'write'
-                        },
-                        'data': {
-                            'path': 'infohub_configlocal/' + $in.event_data + '/' + $in.config.user_name,
-                            'data': $in.form_data
-                        },
-                        'data_back': {
-                            'step': 'step_save_response'
-                        }
-                    });
-                }
+        let $out = {
+            'answer': 'false',
+            'message': 'an error occurred'
+        };
+
+        leave: {
+            if ($in.from_plugin.node !== 'client') {
+                $out.message = 'I only allow client plugins to use this function';
+                break leave;
             }
 
-            return {
-                'answer': 'false',
-                'message': 'The call do not come from a child. I will do nothing.'
-            };
-        }
+            const $pluginName = 'infohub_configlocal_';
+            if ($in.from_plugin.plugin.substr(0, $pluginName.length) !== $pluginName) {
+                $out.message = 'I only allow child plugins to use this function';
+                break leave;
+            }
 
-        if ($in.step === "step_save_response")
-        {
+            if ($in.step === 'step_save') {
+
+                const $sectionName = $in.event_data;
+                const $path = 'infohub_configlocal/' + $sectionName + '/' + $in.config.user_name;
+
+                $classGetConfig[$path] = $in.form_data;
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_storage',
+                        'function': 'write'
+                    },
+                    'data': {
+                        'path': $path,
+                        'data': $in.form_data
+                    },
+                    'data_back': {
+                        'step': 'step_save_response'
+                    }
+                });
+            }
+
+            if ($in.step === "step_save_response") {
+            }
         }
 
         return {
@@ -550,39 +568,56 @@ function infohub_configlocal() {
             let $paths = {};
 
             for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
-                const $path = 'infohub_configlocal/' + $in.section_names_array[$i] + '/' +$in.config.user_name;
+                const $sectionName = $in.section_names_array[$i];
+                const $path = 'infohub_configlocal/' + $sectionName + '/' +$in.config.user_name;
+
+                if (_IsSet($classGetConfig[$path]) === 'true') {
+                    continue;
+                }
+
                 $paths[$path]= {}; // Empty object means you want all data
             }
 
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_storage',
-                    'function': 'read_many'
-                },
-                'data': {
-                    'paths': $paths,
-                },
-                'data_back': {
-                    'parent_box_id': $in.parent_box_id,
-                    'section_names_array': $in.section_names_array,
-                    'step': 'step_load_data_response'
-                }
-            });
+            $in.step = 'step_load_data_response';
+
+            if (_Count($paths) > 0) {
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_storage',
+                        'function': 'read_many'
+                    },
+                    'data': {
+                        'paths': $paths,
+                    },
+                    'data_back': {
+                        'parent_box_id': $in.parent_box_id,
+                        'section_names_array': $in.section_names_array,
+                        'step': 'step_load_data_response'
+                    }
+                });
+            }
         }
 
         if ($in.step === 'step_load_data_response') {
             for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
-                const $path = 'infohub_configlocal/' + $in.section_names_array[$i] + '/' + $in.config.user_name;
+
+                const $sectionName = $in.section_names_array[$i];
+                const $path = 'infohub_configlocal/' + $sectionName + '/' + $in.config.user_name;
 
                 if (_IsSet($in.response.items[$path]) === 'false') {
-                    continue;
+                    if (_IsSet($classGetConfig[$path]) === 'false') {
+                        continue;
+                    }
+                    $in.response.items[$path] = $classGetConfig[$path];
                 }
 
                 const $item = _ByVal($in.response.items[$path]);
                 // Do not try to convert the item value here
                 const $newPath = 'infohub_configlocal/' + $in.section_names_array[$i];
                 $items[$newPath] = $item;
+
+                $classGetConfig[$path] = $item;
             }
             $in.response.items = $items;
         }
@@ -621,39 +656,52 @@ function infohub_configlocal() {
 
         let $out = {};
 
-        if ($in.step === 'step_load_data') {
+        leave: {
 
             const $path = 'infohub_configlocal/' + $in.section_name + '/' + $in.config.user_name;
 
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_storage',
-                    'function': 'read'
-                },
-                'data': {
-                    'path': $path,
-                },
-                'data_back': {
-                    'step': 'step_load_data_response'
-                }
-            });
-        }
-
-        if ($in.step === 'step_load_data_response')
-        {
-            const $data = _ByVal($in.response.data);
-
-            for (let $key in $data)
-            {
-                const $value = _GetData({
-                    'name': $key + '/value',
-                    'default': '',
-                    'data': $data
-                });
-
-                $out[$key] = $value;
+            if (_IsSet($classGetConfig[$path]) === 'true') {
+                $in.response.data = $classGetConfig[$path];
+                $in.response.answer = 'true';
+                $in.response.message = 'Found the answer in the cache';
+                $in.step = 'step_load_data_response';
             }
+
+            if ($in.step === 'step_load_data') {
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_storage',
+                        'function': 'read'
+                    },
+                    'data': {
+                        'path': $path,
+                    },
+                    'data_back': {
+                        'section_name': $in.section_name,
+                        'step': 'step_load_data_response'
+                    }
+                });
+            }
+
+            if ($in.step === 'step_load_data_response')
+            {
+                const $data = _ByVal($in.response.data);
+
+                for (let $key in $data)
+                {
+                    const $value = _GetData({
+                        'name': $key + '/value',
+                        'default': '',
+                        'data': $data
+                    });
+
+                    $out[$key] = $value;
+                }
+            }
+
+            $classGetConfig[$path] = $in.response.data;
         }
 
         return {

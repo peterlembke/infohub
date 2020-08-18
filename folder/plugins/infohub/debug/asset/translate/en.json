@@ -7,11 +7,15 @@
         "country": "GB",
         "file_type": "finished_file"
     },
+    "launcher": {
+        "title": "Debug",
+        "description": "Tools you can use to restart Infohub while clearing certain data. Perfect when you need to debug program code."
+    },
     "data": {
         "infohub_debug": {
             "Reload page. shift alt ctrl 1": "Reload page after ban time is up.",
-            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Clean out local plugins the server have a newer version of. Reload page.",
-            "Clean out all local plugins, reload page. shift alt ctrl 3": "Clean out all local plugins, reload page.",
+            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Clean out local plugins the server have a newer version of + their render cache. Reload page in anyone was new.",
+            "Clean out all local plugins, reload page. shift alt ctrl 3": "Clean out all local plugins + render cache, reload page.",
             "Clean out all local data, reload page. shift alt ctrl 4": "Clean out all local data like icons and translations etc, reload page.",
             "Silently delete the render cache for the logged in user": "Silently delete the render cache for the logged in user",
             "Logs you out and refresh the page": "Logs you out and refresh the page",

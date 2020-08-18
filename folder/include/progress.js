@@ -24,8 +24,7 @@
 function progress() {
     "use strict";
 
-    let $percent,
-        $objProgress = document.getElementById('progress'),
+    let $objProgress = document.getElementById('progress'),
         $objText = document.getElementById('progress_text');
 
     const $areaCodeNumbers = {
@@ -71,6 +70,8 @@ function progress() {
             }
         }
         // $objText.innerText = $text; // HUB-918
+        const $fullText = $percent.toFixed(0) + ', ' + $areaCode + ', ' + $text;
+        console.info($fullText);
     };
 
     /**
@@ -93,5 +94,5 @@ function progress() {
     };
 
 }
-$progress = new progress();
+const $progress = new progress();
 //# sourceURL=progress.js

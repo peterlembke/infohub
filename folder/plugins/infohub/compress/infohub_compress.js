@@ -32,16 +32,18 @@ function infohub_compress() {
             'note': 'Compress data. You need less internet capacity and less storage space',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'compress': 'normal',
             'uncompress': 'normal',
             'get_available_options': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

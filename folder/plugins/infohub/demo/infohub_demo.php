@@ -35,13 +35,13 @@ class infohub_demo extends infohub_base
             'note' => 'Collection of demos to demonstrate InfoHub Server',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'storage' => 'normal',
             'demo1' => 'normal',
             'demo2' => 'normal',
@@ -53,6 +53,8 @@ class infohub_demo extends infohub_base
             'demo_file' => 'normal',
             'demo_test' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

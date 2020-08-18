@@ -38,15 +38,17 @@ class infohub_password extends infohub_base
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'source_code' => 'https://github.com/peterlembke/charzam-password-generator',
             'homepage' => 'http://www.charzam.com/2016/12/27/battre-losenord/',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'generate' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************

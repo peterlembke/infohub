@@ -41,13 +41,13 @@ class infohub_democall extends infohub_base
             'note'=> 'Examples that show who can send messages to who',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'developer'
+            'user_role' => 'developer'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'run_all_tests' => 'normal',
             'my_test' => 'normal',
             'call_self' => 'normal', // OK
@@ -63,6 +63,8 @@ class infohub_democall extends infohub_base
             'call_child_that_call_sibling' => 'normal', // OK
             'call_child_that_call_siblings_child' => 'normal', // FAIL
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

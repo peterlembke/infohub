@@ -32,16 +32,18 @@ function infohub_checksum() {
             'note': 'Here you can get checksums in many different formats',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal',
             'get_available_options': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

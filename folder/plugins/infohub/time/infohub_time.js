@@ -31,15 +31,17 @@ function infohub_time() {
             'note': 'Functions that give you an unpredictable answer',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'time': 'normal',
             'get_available_options': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

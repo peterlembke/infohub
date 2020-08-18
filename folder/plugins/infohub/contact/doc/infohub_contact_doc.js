@@ -35,13 +35,14 @@ function infohub_contact_doc() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_main': 'normal',
             'click_client': 'normal',
-            'click_server': 'normal',
-            'click_group': 'normal'
+            'click_server': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};
@@ -101,7 +102,7 @@ function infohub_contact_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_group][button_client][button_server]',
+                            'data': '[button_main][button_client][button_server]',
                             'class': 'container-small'
                         },
                         'container_doc': {
@@ -135,15 +136,6 @@ function infohub_contact_doc() {
                             'mode': 'button',
                             'button_label': _Translate('Server Doc'),
                             'event_data': 'doc|server',
-                            'to_plugin': 'infohub_contact',
-                            'to_function': 'click'
-                        },
-                        'button_group': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('Group Doc'),
-                            'event_data': 'doc|group',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click'
                         }
@@ -251,34 +243,6 @@ function infohub_contact_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the server doc',
-            'ok': 'true'
-        };
-    };
-
-    /**
-     * Show the documentation
-     * @version 2019-03-13
-     * @since   2019-03-13
-     * @author  Peter Lembke
-     */
-    $functions.push('click_group');
-    const click_group = function ($in)
-    {
-        const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': ''
-            }
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_render') {
-            return _GetCall('group/infohub_contact_group');
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Showed the group doc',
             'ok': 'true'
         };
     };

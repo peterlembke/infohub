@@ -33,18 +33,20 @@ function infohub_uuid() {
             'webpage': 'https://en.wikipedia.org/wiki/Universally_unique_identifier',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'uuid': 'normal',
             'get_available_options': 'normal',
             'guidv0': 'normal',
             'guidv4': 'normal',
             'hub_id': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
 	/**

@@ -25,8 +25,6 @@
             "Delete": "Radera",
             "Import": "Importera",
             "Export": "Exportera",
-            "Groups": "Grupper",
-            "Pick groups for this client": "Välj grupper för den här klienten",
             "One contact": "En kontakt",
             "This is the data form for one contact": "Denna klient vill logga in på din server",
             "Node": "Nod",
@@ -48,17 +46,6 @@
             "Client Doc": "Läs om Klient",
             "Server Doc": "Läs om Server",
             "Group Doc": "Läs om Grupp"
-        },
-        "infohub_contact_group": {
-            "Refresh groups": "Uppdatera grupper",
-            "Group names": "Gruppnamn",
-            "New": "Ny",
-            "Save": "Spara",
-            "Delete": "Radera",
-            "Rights for one group": "Gruppens rättigheter",
-            "Group name": "Gruppnamn",
-            "Your note": "Din anteckning",
-            "Select server plugins in this group": "Tillåtna serverplugins"
         },
         "infohub_contact_menu": {
             "Contact manager": "Kontaktadministratör",

@@ -41,13 +41,13 @@ class infohub_plugin extends infohub_base
             'note'=> 'Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'plugins_request' => 'normal',
             'plugin_request' => 'normal',
             'plugin_request_from_file' => 'normal',
@@ -56,6 +56,8 @@ class infohub_plugin extends infohub_base
             'plugin_list' => 'normal',
             'get_all_plugin_names' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************
@@ -783,7 +785,7 @@ class infohub_plugin extends infohub_base
         leave:
         return array(
             'answer' => 'true',
-            'message' => 'Here are the list of plugins that you should delete',
+            'message' => 'Here are the list of plugins. Those with an old timestamp_added should be deleted.',
             'data' => $in['plugin_list']
         );
 

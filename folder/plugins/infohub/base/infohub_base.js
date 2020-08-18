@@ -10,17 +10,22 @@
             'checksum': '{{base_checksum}}',
             'class_name': 'infohub_base',
             'note': 'Parent class in ALL plugins. Manages the traffic in the plugin',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'user_role': ''
         };
     };
 
     $functions.push('_GetCmdFunctionsBase');
-    const _GetCmdFunctionsBase = function () {
-        return {
+    const _GetCmdFunctionsBase = function ($childList) {
+        const $list = {
             'version': 'normal',
             'function_names': 'normal',
             'ping': 'normal'
         };
+
+        const $newList = _Merge($childList, $list);
+
+        return $newList;
     };
 
     // ***********************************************************
@@ -1081,6 +1086,8 @@
                 $callResponse.data.i_want_a_short_tail = 'false';
             }
 
+            $callResponse.first_default = $firstDefault;
+
             return callbackFunction($callResponse);
 
         } else {
@@ -1091,63 +1098,6 @@
         }
 
         return {};
-    };
-
-    /**
-     * Only used in the test program for testing purposes only
-     * @param $functionName | Name of the plugin to call
-     * @param $in | IN data object to use in the called function
-     * @returns {*}
-     * @version 2015-01-29
-     * @since 2014-09-06
-     * @author Peter Lembke
-     */
-    this.test = function ($functionName, $in) {
-        // "use strict";
-
-        let $callResponse = {},
-            $errorMessage = '', $runThisRow, $answer;
-
-        leave:
-        {
-            if (typeof $functionName !== 'string') {
-                break leave;
-            }
-            if ($in === 'file') {
-                $in = {};
-            }
-
-            $firstDefault = null;
-            $GLOBALS.infohub_error_message = '';
-
-
-            try {
-                if ($functionName === 'cmd') {
-                    $callResponse = this.cmd($in);
-                } else {
-                    $runThisRow = '$callResponse =' + $functionName + "($in)";
-                    eval($runThisRow);
-                }
-            } catch ($e) {
-                $errorMessage = $e.message;
-            }
-
-            if (_Empty($errorMessage) === 'true') {
-                if (_Empty($GLOBALS.infohub_error_message) === 'false') {
-                    $errorMessage = $GLOBALS.infohub_error_message;
-                }
-            }
-
-        }
-
-        $answer = {
-            'in': $in,
-            'default': $firstDefault,
-            'out': $callResponse,
-            'error_message': $errorMessage
-        };
-
-        return $answer;
     };
 
     // ***********************************************************
@@ -1213,10 +1163,53 @@
     $functions.push("function_names");
     const function_names = function ($in)
     {
+        const $default = {
+            'include_cmd_functions': 'true',
+        'include_internal_functions': 'true',
+        'include_direct_functions': 'true'
+        };
+        $in = _Default($default, $in);
+
+        const $allClassMethods = $functions;
+        let $classMethods = $allClassMethods;
+
+        let $includeAll = 'true';
+        if ($in.include_cmd_functions === 'false') {
+            $includeAll = 'false';
+        }
+        if ($in.include_internal_functions === 'false') {
+            $includeAll = 'false';
+        }
+        if ($in.include_direct_functions === 'false') {
+            $includeAll = 'false';
+        }
+
+        if ($includeAll === 'false') {
+            $classMethods = [];
+            for (let $key in $allClassMethods) {
+                const $method = $allClassMethods[$key];
+                if ($method.substr(0, 'internal_'.length) === 'internal_') {
+                    if ($in.include_internal_functions === 'true') {
+                        $classMethods.push($method);
+                    }
+                    continue;
+                }
+                if ($method.substr(0, '_'.length) === '_') {
+                    if ($in.include_direct_functions === 'true') {
+                        $classMethods.push($method);
+                    }
+                    continue;
+                }
+                if ($in.include_cmd_functions === 'true') {
+                    $classMethods.push($method);
+                }
+            }
+        }
+
         const $answer = {
             'answer': 'true',
-            'message': 'All function_names in this plugin',
-            'data': $functions
+            'message': 'All function names in this plugin',
+            'data': $classMethods
         };
 
         return $answer;
@@ -1298,7 +1291,6 @@
 
             try {
                 const $runThisRow = '$callResponse = ' + $functionName + "($in)";
-                $firstDefault = null;
                 eval($runThisRow);
             } catch ($err) {
                 $errorStack = $err.stack.split("\n");

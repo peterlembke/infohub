@@ -32,19 +32,21 @@ function infohub_tools() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Tools collection',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function ()
     {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
             'call_server': 'normal',
             'get_available_options': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     const _GetPluginName = function ($data)

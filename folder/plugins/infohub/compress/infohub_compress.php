@@ -36,17 +36,19 @@ class infohub_compress extends infohub_base
             'note' => 'Compress data. You need less internet capacity and less storage space',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'compress' => 'normal',
             'uncompress' => 'normal',
             'get_available_options' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // ***********************************************************

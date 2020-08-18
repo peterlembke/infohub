@@ -37,19 +37,21 @@ class infohub_uuid extends infohub_base {
             'webpage' => 'https://en.wikipedia.org/wiki/Universally_unique_identifier',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'user'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'uuid' => 'normal',
             'get_available_options' => 'normal',
             'guidv0' => 'normal',
             'guidv4' => 'normal',
             'hub_id' => 'normal',
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

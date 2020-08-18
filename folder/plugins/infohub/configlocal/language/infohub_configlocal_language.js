@@ -34,12 +34,14 @@ function infohub_configlocal_language() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_transfer': 'normal',
             'click_submit': 'normal',
             'apply_config': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

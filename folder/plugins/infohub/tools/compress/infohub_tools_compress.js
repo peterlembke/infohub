@@ -35,12 +35,14 @@ function infohub_tools_compress() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_handle_node_select': 'normal',
             'click_button_compress': 'normal',
             'click_button_uncompress': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

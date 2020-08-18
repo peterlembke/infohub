@@ -43,10 +43,12 @@ function infohub_configlocal_font() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_test': 'normal',
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};

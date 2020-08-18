@@ -30,13 +30,13 @@ function infohub_keyboard() {
             'checksum': '{{checksum}}',
             'note': 'When you use the keyboard then an event message come here. You can subscribe to key strokes',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'setup_gui': 'normal',
             'subscribe': 'normal',
             'unsubscribe': 'normal',
@@ -48,6 +48,8 @@ function infohub_keyboard() {
             'all_keys_to_gui': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};

@@ -37,9 +37,11 @@ function infohub_render_table() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************
@@ -222,7 +224,9 @@ function infohub_render_table() {
                 '.center': 'text-align: center;',
                 '.right': 'text-align: right;',
                 '.negative': 'color: red;',
-                'tr:nth-child(even)': 'background-color: #f2f2f2;'
+                'tr:nth-child(even)': 'background-color: #c2c2c2;',
+                'tr:hover':
+                    'background-color: #a2a2a2;',
             };
         }
 

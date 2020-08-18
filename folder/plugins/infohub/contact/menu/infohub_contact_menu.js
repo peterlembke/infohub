@@ -23,9 +23,9 @@ function infohub_contact_menu() {
 
     const _Version = function() {
         return {
-            'date': '2019-09-28',
+            'date': '2020-08-02',
             'since': '2019-02-16',
-            'version': '1.0.1',
+            'version': '1.1.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_contact_menu',
             'note': 'Render a menu for infohub_contact',
@@ -35,9 +35,11 @@ function infohub_contact_menu() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -115,14 +117,6 @@ function infohub_contact_menu() {
                                     'to_plugin': 'infohub_contact',
                                     'to_function': 'click_menu'
                                 },
-                                'group': {
-                                    'alias': 'group_contact',
-                                    'event_data': 'group_contact',
-                                    'button_label': _Translate('Group rights'),
-                                    'button_left_icon': '[group_icon]',
-                                    'to_plugin': 'infohub_contact',
-                                    'to_function': 'click_menu'
-                                },
                                 'client': {
                                     'alias': 'client_contact',
                                     'event_data': 'client_contact',
@@ -140,17 +134,6 @@ function infohub_contact_menu() {
                                     'to_function': 'click_menu'
                                 }
                             }
-                        },
-                        'group_icon': {
-                            'type': 'common',
-                            'subtype': 'svg',
-                            'data': '[group_asset]'
-                        },
-                        'group_asset': {
-                            'plugin': 'infohub_asset',
-                            'type': 'icon',
-                            'asset_name': 'group/group',
-                            'plugin_name': 'infohub_contact'
                         },
                         'client_icon': {
                             'type': 'common',

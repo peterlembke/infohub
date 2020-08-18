@@ -35,13 +35,13 @@ function infohub_render() {
             'note': 'Render HTML. You give an array with instructions what to render and you get the HTML back. You can then send that to infohub_view for displaying',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'guest'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'load_render_cache': 'normal',
             'validate_has_data': 'removed',
@@ -53,8 +53,11 @@ function infohub_render() {
             'submit': 'normal',
             'click_and_scroll': 'normal',
             'delete_render_cache_for_user_name': 'normal',
+            'delete_render_cache_for_user_name_specific_plugins': 'normal',
             'event_message': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /** used for cacheing HTML **/
@@ -1473,6 +1476,108 @@ function infohub_render() {
             'message': $out.message,
             'items': $out.items
         };
+    };
+
+    /**
+     * Delete the render cache for a user_name and specific plugin names
+     * Useful when you develop a specific plugin.
+     * @version 2020-08-01
+     * @since   2020-08-01
+     * @author  Peter Lembke
+     */
+    $functions.push('delete_render_cache_for_user_name_specific_plugins');
+    const delete_render_cache_for_user_name_specific_plugins = function ($in)
+    {
+        const $default = {
+            'plugins': [],
+            'step': 'step_purge_render_cache',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'items': {}
+            },
+            'config': {
+                'user_name': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $out = {
+            'answer': 'false',
+            'message': 'Could not delete the render cache for the user_name and plugins'
+        };
+
+        if ($in.step === 'step_purge_render_cache_response')
+        {
+            $in.step = 'step_purge_render_cache';
+
+            if ($in.response.answer === 'false') {
+                $out.message = $in.response.message;
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_purge_render_cache')
+        {
+            if (_Count($in.plugins) > 0) {
+                const $pluginName = $in.plugins.pop();
+                const $path = 'infohub_render/cache/' + $in.config.user_name + '/client/' + $pluginName;
+
+                _RenderCachePurgePattern($path);
+
+                // I can not use short tail messages here since I need to know that
+                // the task is done before I reload the page
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_storage',
+                        'function': 'write_pattern'
+                    },
+                    'data': {
+                        'path': $path + '/*',
+                        'data': {}
+                    },
+                    'data_back': {
+                        'plugins': $in.plugins,
+                        'step': 'step_purge_render_cache_response'
+                    }
+                });
+            }
+
+            $in.step = 'step_response';
+        }
+
+        if ($in.step === 'step_response') {
+            if ($in.response.answer === 'true') {
+                $out.answer = 'true';
+                $out.message = 'Have deleted the render cache for the user_name and plugins';
+            }
+        }
+
+        return {
+            'answer': $out.answer,
+            'message': $out.message
+        };
+    };
+
+    /**
+     * Remove render cache from class variable that match the pattern
+     * @param $in
+     * @returns {{}|{answer: string, message: string}}
+     * @private
+     */
+    const _RenderCachePurgePattern = function ($pattern)
+    {
+        let $newRenderCache = $renderCache;
+        $pattern = $pattern + '/';
+
+        for (let $path in $renderCache) {
+            if ($path.indexOf($pattern) === 0) {
+                delete($newRenderCache[$path]);
+            }
+        }
+        $renderCache = $newRenderCache;
     };
 
     /**

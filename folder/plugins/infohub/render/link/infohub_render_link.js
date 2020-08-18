@@ -37,9 +37,11 @@ function infohub_render_link() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************
@@ -216,7 +218,8 @@ function infohub_render_link() {
             'final_plugin': '', // For example infohub_tabs use this with long click to first show the tab and then send the message further to a renderer that show the long click gui
             'final_function': 'event_message',
             'class': '',
-            'css_data': {}
+            'css_data': {},
+            'config': {}
         };
         $in = _Default($default, $in);
 
@@ -267,12 +270,24 @@ function infohub_render_link() {
             'display': 'inline', // nothing, block or inline
             'custom_variables': {},
             'css_data': {},
-            'class': 'link'
+            'class': 'link',
+            'config': {
+                "css_link": "color: blue;",
+                "css_link_hover": "background: lightgrey;"
+            }
         };
         $in = _Default($default, $in);
 
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {'.link': 'color: rgba(68, 69, 166, 0.89);'};
+        if ($in.class === '') {
+            $in.class = 'link';
+        }
+
+        if ($in.class === 'link') {
+            const $cssDefault = {
+                '.link': $in.config.css_link,
+                '.link:hover': $in.config.css_link_hover
+            };
+            $in.css_data = _Default($cssDefault, $in.css_data);
         }
 
         const $constants = {
@@ -336,16 +351,33 @@ function infohub_render_link() {
             'to_plugin': 'infohub_render',
             'to_function': 'event_message',
             'display': '',
-            'block_type_visible': '' // nothing defaults to "block". You can also have "inline-block"
+            'block_type_visible': '', // nothing defaults to "block". You can also have "inline-block"
+            'class': 'link',
+            'css_data': {},
+            'config': {
+                "css_link": "color: blue;",
+                "css_link_hover": "background: lightgrey;"
+            }
         };
         $in = _Default($default, $in);
+
+        if ($in.class === '') {
+            $in.class = 'link';
+        }
+
+        if ($in.class === 'link') {
+            const $cssDefault = {
+                '.link': $in.config.css_link,
+                '.link:hover': $in.config.css_link_hover
+            };
+            $in.css_data = _Default($cssDefault, $in.css_data);
+        }
 
         const $constants = {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'toggle',
-            'event_type': 'toggle',
-            'class': 'link'
+            'event_type': 'toggle'
         };
         $in = _Merge($in, $constants);
 
@@ -381,9 +413,7 @@ function infohub_render_link() {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': {
-                '.link': 'color: rgba(68, 69, 166, 0.89);'
-            }
+            'css_data': $in.css_data
         };
     };
 
@@ -402,7 +432,13 @@ function infohub_render_link() {
             'url': '',
             'to_plugin': 'infohub_render',
             'to_function': 'event_message',
-            'display': 'inline'
+            'display': 'inline',
+            'class': 'link',
+            'css_data': {},
+            'config': {
+                "css_link": "color: blue;",
+                "css_link_hover": "background: lightgrey;"
+            }
         };
         $in = _Default($default, $in);
 
@@ -410,10 +446,21 @@ function infohub_render_link() {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'external',
-            'event_type': 'external',
-            'class': 'link'
+            'event_type': 'external'
         };
         $in = _Merge($in, $constants);
+
+        if ($in.class === '') {
+            $in.class = 'link';
+        }
+
+        if ($in.class === 'link') {
+            const $cssDefault = {
+                '.link': $in.config.css_link,
+                '.link:hover': $in.config.css_link_hover
+            };
+            $in.css_data = _Default($cssDefault, $in.css_data);
+        }
 
         let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $data = btoa($in.url);
@@ -436,9 +483,7 @@ function infohub_render_link() {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': {
-                '.link': 'color: rgba(68, 69, 166, 0.89);'
-            },
+            'css_data': $in.css_data,
             'display': $in.display
         };
     };
@@ -455,7 +500,13 @@ function infohub_render_link() {
             'alias': '',
             'show': '', // Text to show on screen
             'legend': 'false',
-            'embed': '' // JSON data that later will be BASE64 encoded
+            'embed': '', // JSON data that later will be BASE64 encoded
+            'class': 'link',
+            'css_data': {},
+            'config': {
+                "css_link": "color: blue;",
+                "css_link_hover": "background: lightgrey;"
+            }
         };
         $in = _Default($default, $in);
 
@@ -463,10 +514,21 @@ function infohub_render_link() {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'embed',
-            'event_type': 'embed',
-            'class': 'link'
+            'event_type': 'embed'
         };
         $in = _Merge($in, $constants);
+
+        if ($in.class === '') {
+            $in.class = 'link';
+        }
+
+        if ($in.class === 'link') {
+            const $cssDefault = {
+                '.link': $in.config.css_link,
+                '.link:hover': $in.config.css_link_hover
+            };
+            $in.css_data = _Default($cssDefault, $in.css_data);
+        }
 
         let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $data = '{{*' + $in.embed + '*}}';
@@ -489,9 +551,7 @@ function infohub_render_link() {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': {
-                '.link': 'color: rgba(68, 69, 166, 0.89);'
-            }
+            'css_data': $in.css_data
         };
     };
 }

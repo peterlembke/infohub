@@ -35,13 +35,15 @@ function infohub_login_login() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'set_boxes': 'normal',
             'click_login': 'normal',
             'click_import': 'normal',
             'click_export': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
@@ -831,14 +833,8 @@ function infohub_login_login() {
 
         if ($in.step === 'step_initiator_store_session_data')
         {
-            let $serverPluginNames = _GetData({
-                'name': 'data_back/contact/server_plugin_names',
-                'default': [],
-                'data': $in
-            });
-
-            let $clientPluginNames = _GetData({
-                'name': 'data_back/contact/client_plugin_names',
+            let $roleList = _GetData({
+                'name': 'data_back/contact/role_list',
                 'default': [],
                 'data': $in
             });
@@ -855,8 +851,7 @@ function infohub_login_login() {
                     'session_id': $in.data_back.session_id, //session_{hub_id}
                     'session_created_at': $in.data_back.session_created_at, // micro time with 3 decimals
                     'left_overs': $in.data_back.left_overs, // Left overs from the login. Never exposed outside this plugin
-                    'server_plugin_names': $serverPluginNames,
-                    'client_plugin_names': $clientPluginNames
+                    'role_list': $roleList
                 },
                 'data_back': {
                     'step': 'step_initiator_store_session_data_response',

@@ -49,17 +49,6 @@
             "Server Doc": "Server Doc",
             "Group Doc": "Doc. De grupo"
         },
-        "infohub_contact_group": {
-            "Refresh groups": "Actualizar grupos",
-            "Group names": "Nombres de grupo",
-            "New": "Nuevo",
-            "Save": "Guardar",
-            "Delete": "Eliminar",
-            "Rights for one group": "Derechos para un grupo",
-            "Group name": "Nombre del grupo",
-            "Your note": "Su nota",
-            "Select server plugins in this group": "Seleccionar complementos de servidor en este grupo"
-        },
         "infohub_contact_menu": {
             "Contact manager": "Administrador de contactos",
             "Documentation": "Documentación",

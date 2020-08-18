@@ -35,10 +35,12 @@ function infohub_translate_mergefiles() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'click_merge_files': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     let $pluginTranslationsMerged = {};

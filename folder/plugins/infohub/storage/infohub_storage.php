@@ -43,7 +43,7 @@ class infohub_storage extends infohub_base
             'note' => 'Store your data. Simple, Stand alone',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'guest'
+            'user_role' => ''
         );
     }
 
@@ -53,7 +53,7 @@ class infohub_storage extends infohub_base
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'read' => 'normal',
             'write' => 'normal',
             'read_many' => 'normal',
@@ -61,6 +61,8 @@ class infohub_storage extends infohub_base
             'read_pattern' => 'normal',
             'write_pattern' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

@@ -35,15 +35,17 @@ class infohub_offline extends infohub_base
             'note' => 'Answers with the current checksum for index.php, then the client know if index.php need to be updated',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'index_checksum' => 'normal'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // Documentation: http://127.0.0.1/infohub/doc/plugin/name/infohub_demo

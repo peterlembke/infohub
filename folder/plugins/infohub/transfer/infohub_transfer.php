@@ -36,16 +36,18 @@ class infohub_transfer extends infohub_base {
             'note' => 'Transfer messages to the client and to other servers on the internet',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'recommended_security_group' => 'core'
+            'user_role' => 'user'
         );
     }
 
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        $list = array(
             'send' => 'normal',
             'download' => 'emerging'
         );
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // *****************************************************************************

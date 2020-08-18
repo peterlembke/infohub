@@ -34,15 +34,17 @@ function infohub_rendermajor() {
             'note': 'Renders a display box for content by assembling smaller standard parts',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     const _GetCmdFunctions = function()
     {
-        return {
+        const $list = {
             'create': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************
@@ -286,7 +288,7 @@ function infohub_rendermajor() {
                 $label = '[head_label]';
             }
             if ($in.head_label_icon !== '') {
-                $label = '[head_label_icon]' + $label;
+                $parts.head_label.show = '[head_label_icon]' + $parts.head_label.show;
             }
 
             $parts.legend = {

@@ -34,12 +34,14 @@ function infohub_democall_child() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'child_func': 'normal',
             'invalid_call_to_sibling_grandchild': 'normal',
             'test_answer_child': 'normal',
             'answer_child': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     /**

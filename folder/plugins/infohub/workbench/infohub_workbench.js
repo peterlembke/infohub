@@ -33,17 +33,19 @@ function infohub_workbench() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Workbench',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     $functions.push("_GetCmdFunctions");
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'startup': 'normal',
             'setup_gui': 'normal',
             'setup_plugin': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     $functions.push("_GetBoxId");
@@ -382,7 +384,8 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;'
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;',
+                                '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },
                         'menulink': {
@@ -394,7 +397,8 @@ function infohub_workbench() {
                             'event_data': $in.plugin_name, // Any string you like to send to the event_message function
                             'to_plugin': 'infohub_tabs',
                             'css_data': {
-                                '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
+                                '.link:hover': 'background: lightgrey; border-radius: 8px;',
+                                '.link': 'display: inline-block;'
                             }
                         }
                     },
@@ -410,26 +414,6 @@ function infohub_workbench() {
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_highlight_tab'
-                }
-            });
-        }
-
-        if ($in.step === 'step_highlight_tab')
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_tabs',
-                    'function': 'highlight_tab'
-                },
-                'data': {
-                    'parent_box_id': 'main.head',
-                    'tab_alias': $in.plugin_name
-                },
-                'data_back': {
-                    'plugin_name': $in.plugin_name,
-                    'already_started': $in.data_back.already_started,
                     'step': 'step_hide_siblings'
                 }
             });
@@ -437,29 +421,13 @@ function infohub_workbench() {
 
         if ($in.step === 'step_hide_siblings')
         {
-            let $step = 'step_hide_siblings_to_gui';
+            $in.step = 'step_hide_siblings_to_gui';
 
             if ($in.data_back.already_started === 'true') {
                 $answer = 'true';
                 $message = 'Plugin is already started';
-                $step = 'step_end';
+                $in.step = 'step_end';
             }
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_tabs',
-                    'function': 'siblings_box_view'
-                },
-                'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
-                },
-                'data_back': {
-                    'plugin_name': $in.plugin_name,
-                    'already_started': $in.data_back.already_started,
-                    'step': $step
-                }
-            });
         }
 
         if ($in.step === 'step_hide_siblings_to_gui')
@@ -495,6 +463,27 @@ function infohub_workbench() {
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
+                    'already_started': $in.data_back.already_started,
+                    'step': 'step_highlight_tab'
+                }
+            });
+        }
+
+        if ($in.step === 'step_highlight_tab')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_tabs',
+                    'function': 'highlight_tab'
+                },
+                'data': {
+                    'parent_box_id': 'main.head',
+                    'tab_alias': $in.plugin_name
+                },
+                'data_back': {
+                    'plugin_name': $in.plugin_name,
+                    'already_started': $in.data_back.already_started,
                     'step': 'step_scroll_to_box_id'
                 }
             });
@@ -513,6 +502,7 @@ function infohub_workbench() {
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
+                    'already_started': $in.data_back.already_started,
                     'step': 'step_end'
                 }
             });

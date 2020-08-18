@@ -43,13 +43,15 @@ function infohub_storage_data() {
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function () {
-        return {
+        const $list = {
             'read': 'normal',
             'read_paths': 'normal',
             'write': 'normal',
             'write_overwrite': 'normal', // Used by write
             'write_merge': 'normal' // Used by write
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // *****************************************************************************

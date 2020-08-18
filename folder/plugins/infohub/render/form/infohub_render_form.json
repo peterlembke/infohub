@@ -1,0 +1,7 @@
+{
+    "client": {
+        "focus_shadow_colour": "blue",
+        "hover_shadow_colour": "lightgrey"
+    },
+    "server": {}
+}

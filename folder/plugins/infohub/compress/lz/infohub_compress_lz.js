@@ -36,10 +36,12 @@ function infohub_compress_lz() {
     };
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'compress': 'normal',
             'uncompress': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

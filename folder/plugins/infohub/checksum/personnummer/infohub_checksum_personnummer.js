@@ -38,10 +38,12 @@ function infohub_checksum_personnummer() {
     // https://en.wikipedia.org/wiki/Cyclic_redundancy_check
 
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
 
     // ***********************************************************

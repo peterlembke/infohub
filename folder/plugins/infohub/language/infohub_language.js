@@ -31,18 +31,20 @@ function infohub_language() {
             'checksum': '{{checksum}}',
             'note': 'Helps you with language codes',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'recommended_security_group': 'user'
+            'user_role': 'user'
         };
     };
 
     $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
-        return {
+        const $list = {
             'create': 'normal',
             'option_list_main_languages': 'normal',
             'option_list_all_languages': 'normal',
             'get_translations': 'normal'
         };
+
+        return _GetCmdFunctionsBase($list);
     };
     
     let $classTranslations = {};
