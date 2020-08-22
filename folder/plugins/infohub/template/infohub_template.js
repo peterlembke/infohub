@@ -28,7 +28,7 @@ function infohub_template() {
             'checksum': '{{checksum}}',
             'class_name': 'infohub_template',
             'note': 'One line with plugin description',
-            'status': 'normal',
+            'status': 'emerging',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'developer'
         };

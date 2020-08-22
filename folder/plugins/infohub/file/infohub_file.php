@@ -84,15 +84,27 @@ class infohub_file extends infohub_base
         $default = array(
             'path' => '',
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'folder' => 'file'
+            'folder' => 'file' // plugin or file
         );
         $in = $this->_Default($default, $in);
 
-        if ($in['from']['node'] !== 'server') {
+        if ($in['from_plugin']['node'] !== 'server') {
             return array(
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
             );
+        }
+
+        if ($in['folder'] !== 'file' && $in['folder'] !== 'plugin') {
+            return array('answer' => 'false', 'message' => 'Folder must be file or plugin');
+        }
+
+        if (strpos($in['path'], '..') !== false) {
+            return array('answer' => 'false', 'message' => 'Path can not use ..');
+        }
+
+        if (strpos($in['path'], '~') !== false) {
+            return array('answer' => 'false', 'message' => 'Path can not use ~');
         }
 
         if ($in['folder'] === 'file') {
@@ -105,6 +117,7 @@ class infohub_file extends infohub_base
 
         $in['func'] = 'Read';
         $response = $this->internal_Cmd($in);
+
         return $response;
     }
 
@@ -196,11 +209,23 @@ class infohub_file extends infohub_base
             'path' => '',
             'contents' => '',
             'allow_overwrite' => 'false',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
-        if ($in['from']['node'] !== 'server') {
+        if (strpos($in['path'], '..') !== false) {
+            return array('answer' => 'false', 'message' => 'Path can not use ..');
+        }
+
+        if (strpos($in['path'], '~') !== false) {
+            return array('answer' => 'false', 'message' => 'Path can not use ~');
+        }
+
+        if ($in['from_plugin']['node'] !== 'server') {
             return array(
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
@@ -307,7 +332,7 @@ class infohub_file extends infohub_base
      */
     final protected function _IsBinaryFileExtension(string $extension = ''): string
     {
-        $validNonBinaryExtensions = array('txt','csv','xml','json','svg');
+        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md');
         $isBinaryFileExtension = 'true';
         if (in_array($extension, $validNonBinaryExtensions) === true) {
             $isBinaryFileExtension = 'false';
@@ -327,11 +352,15 @@ class infohub_file extends infohub_base
     {
         $default = array(
             'path' => '',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
+            'from_plugin' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            )
         );
         $in = $this->_Default($default, $in);
 
-        if ($in['from']['node'] !== 'server') {
+        if ($in['from_plugin']['node'] !== 'server') {
             return array(
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
@@ -359,7 +388,7 @@ class infohub_file extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        if ($in['from']['node'] !== 'server') {
+        if ($in['from_plugin']['node'] !== 'server') {
             return array(
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node',

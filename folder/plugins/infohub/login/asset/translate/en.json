@@ -14,7 +14,8 @@
     "data": {
         "infohub_login": {
             "Instructions": "Instructions",
-            "Use the menu.": "Use the menu."
+            "Use the menu.": "Use the menu.",
+            "What is this?": "What is this?"
         },
         "infohub_login_contact": {
             "One contact": "One contact",

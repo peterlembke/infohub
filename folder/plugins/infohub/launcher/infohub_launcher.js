@@ -168,6 +168,7 @@ function infohub_launcher() {
                     ]
                 },
                 'data_back': {
+                    'debug_message': 'step_boxes',
                     'box_id': $in.box_id,
                     'step': 'step_get_translations'
                 }
@@ -183,6 +184,7 @@ function infohub_launcher() {
                 },
                 'data': {},
                 'data_back': {
+                    'debug_message': 'step_get_translations',
                     'box_id': $in.box_id,
                     'step': 'step_get_translations_response'
                 }
@@ -203,6 +205,7 @@ function infohub_launcher() {
                 },
                 'data': {},
                 'data_back': {
+                    'debug_message': 'step_get_user_real_name',
                     'box_id': $in.box_id,
                     'step': 'step_get_user_real_name_response'
                 }
@@ -267,6 +270,7 @@ function infohub_launcher() {
                     'cache_key': 'gui'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> cache_key = gui',
                     'box_id': $in.box_id,
                     'step': 'step_end'
                 }
@@ -299,6 +303,7 @@ function infohub_launcher() {
                     'cache_key': 'mylist'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> cache_key = mylist',
                     'box_id': $in.box_id,
                     'step': 'step_end'
                 }
@@ -333,6 +338,7 @@ function infohub_launcher() {
                     'cache_key': 'fulllist'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> cache_key = fulllist',
                     'step': 'step_end'
                 }
             });
@@ -348,6 +354,7 @@ function infohub_launcher() {
                     'list_name': 'my_list'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> render_list my_list',
                     'step': 'step_end'
                 }
             });
@@ -364,6 +371,7 @@ function infohub_launcher() {
                     'render_icons': 'false'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> render_list full_list',
                     'step': 'step_end'
                 }
             });
@@ -423,6 +431,7 @@ function infohub_launcher() {
                     'cache_key': 'instructions'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> cache_key = instructions',
                     'step': 'step_end'
                 }
             });
@@ -505,6 +514,7 @@ function infohub_launcher() {
                     'cache_key': 'more'
                 },
                 'data_back': {
+                    'debug_message': 'step_render -> cache_key = more',
                     'step': 'step_end'
                 }
             });
@@ -521,7 +531,6 @@ function infohub_launcher() {
             'answer': 'true',
             'message': 'plugin GUI is done'
         };
-
     };
 
     /**
@@ -765,6 +774,7 @@ function infohub_launcher() {
                     'path': _GetListPath($listName, $in.config.user_name)
                 },
                 'data_back': {
+                    'debug_message': 'step_read_local_list',
                     'list_name': $listName,
                     'render_icons': $in.render_icons,
                     'step': 'step_read_local_list_response'
@@ -787,6 +797,7 @@ function infohub_launcher() {
                     'list': $in.response.data
                 },
                 'data_back': {
+                    'debug_message': 'step_populate_launch_list',
                     'list_name': $listName,
                     'render_icons': $in.render_icons,
                     'step': 'step_populate_launch_list_response'
@@ -813,6 +824,7 @@ function infohub_launcher() {
                     'asset_name': 'refresh'
                 },
                 'data_back': {
+                    'debug_message': 'step_get_refresh_icon',
                     'list_name': $listName,
                     'list': $in.response.data,
                     'render_icons': $in.render_icons,
@@ -868,6 +880,7 @@ function infohub_launcher() {
                     }
                 },
                 'data_back': {
+                    'debug_message': 'step_render_list',
                     'list_name': $listName,
                     'render_icons': $in.render_icons,
                     'step': 'step_end'

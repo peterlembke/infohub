@@ -36,7 +36,7 @@ class infohub_translate extends infohub_base
             'note' => 'Creates template translation files you can copy to a new name and translate',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'user_role' => 'admin'
+            'user_role' => 'developer'
         );
     }
 

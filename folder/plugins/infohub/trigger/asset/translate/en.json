@@ -1,0 +1,42 @@
+{
+    "version": {
+        "date": "2020-08-20 12:06:55",
+        "plugin": "infohub_trigger",
+        "data_checksum": "3cda11a92ce065db6cbccaf43dcf84b6",
+        "language": "en",
+        "country": "",
+        "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Trigger",
+        "description": "Helps developers to send messages to the cmd functions in their emerging plugins"
+    },
+    "data": {
+        "infohub_trigger": {
+            "Trigger": "Trigger",
+            "You as a developer can send a message to your emerging plugin.": "You as a developer can send a message to your emerging plugin.",
+            "Refresh data": "Refresh data",
+            "Node": "Node",
+            "Select the node you want to send the message to": "Select the node you want to send the message to",
+            "Client": "Client",
+            "Server": "Server",
+            "Plugin": "Plugin",
+            "Select the plugin you want to send the message to": "Select the plugin you want to send the message to",
+            "Function": "Function",
+            "Select the function you want to send the message to": "Select the function you want to send the message to",
+            "Filter": "Filter",
+            "Select the filter you want to run on the response": "Select the filter you want to run on the response",
+            "Get all": "Get all",
+            "No config": "No config",
+            "Bare bone": "Bare bone",
+            "Default message for the selected function": "Default message for the selected function",
+            "Message": "Message",
+            "This is the message you can send to the selected plugin. The message you see is the default values the function have set.": "This is the message you can send to the selected plugin. The message you see is the default values the function have set.",
+            "Get default message": "Get default message",
+            "Send message": "Send message",
+            "Response from the function": "Response from the function",
+            "Response": "Response",
+            "Here you will see the response from the function.": "Here you will see the response from the function."
+        }
+    }
+}

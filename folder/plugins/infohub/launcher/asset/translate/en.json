@@ -28,7 +28,8 @@
             "Remove from my list": "Remove from my list",
             "Run plugin": "Run plugin",
             "More": "More",
-            "User name": "User name"
+            "User name": "User name",
+            "Logout": "Logout"
         }
     }
 }

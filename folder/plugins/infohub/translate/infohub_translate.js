@@ -31,7 +31,7 @@ function infohub_translate() {
             'note': 'Handle the translation of startable plugins',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'admin'
+            'user_role': 'developer'
         };
     };
 

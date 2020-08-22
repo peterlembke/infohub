@@ -2,11 +2,27 @@
     "client": {
         "download_account": {
             "local.infohub.se": "local.infohub.se.json"
+        },
+        "information": {
+            "enable": "true",
+            "default_language": "en",
+            "available_languages": ["en","sv","es"],
+            "folder": "plugin",
+            "path": "start_page_text",
+            "links": {
+                "Github Source": "https://github.com/peterlembke/infohub",
+                "Github Wiki": "https://github.com/peterlembke/infohub-articles#readme",
+                "LinkedIn Peter": "https://www.linkedin.com/in/peter-lembke-4b607293/",
+                "Support my effort with Paypal": "https://www.paypal.com/paypalme/peterlembke"
+            }
         }
     },
     "server": {
         "download_account": {
             "local.infohub.se": "local.infohub.se.json"
+        },
+        "information": {
+            "available_languages": ["en","sv","es"]
         }
     }
 }

@@ -28,7 +28,7 @@ function mydemo_myplugin() {
             'checksum': '{{checksum}}',
             'class_name': 'infohub_template',
             'note': 'One line with plugin description',
-            'status': 'normal',
+            'status': 'emerging',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'developer'
         };
@@ -37,7 +37,7 @@ function mydemo_myplugin() {
     const _GetCmdFunctions = function()
     {
         const $list = {
-            'my_function': 'normal'
+            'my_function': 'emerging'
         };
 
         return _GetCmdFunctionsBase($list);

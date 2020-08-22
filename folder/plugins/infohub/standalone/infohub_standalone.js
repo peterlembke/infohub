@@ -100,6 +100,21 @@ function infohub_standalone() {
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
+                    'step': 'step_apply_config'
+                }
+            });
+        }
+
+        if ($in.step === 'step_apply_config') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'apply_config'
+                },
+                'data': {},
+                'data_back': {
+                    'plugin_name': $in.plugin_name,
                     'step': 'step_setup_plugin'
                 }
             });

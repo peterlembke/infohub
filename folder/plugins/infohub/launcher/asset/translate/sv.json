@@ -28,7 +28,8 @@
             "Remove from my list": "Ta bort från min lista",
             "Run plugin": "Kör plugin",
             "More": "Mer",
-            "User name": "Användarnamn"
+            "User name": "Användarnamn",
+            "Logout": "Logga ut"
         }
     }
 }

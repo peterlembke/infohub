@@ -523,6 +523,9 @@ class infohub_base
 
             $callResponse = $this->_Merge(array('func' => 'ReturnCall'), $callResponse);
 
+            $out['execution_time'] = $this->_MicroTime() - $startTime;
+            $callResponse = $this->_Merge(array('execution_time' => $out['execution_time']), $callResponse);
+
             if ($callResponse['func'] === 'SubCall') {
                 $subCall = $callResponse;
                 $subCall['original_message'] = $in;
@@ -558,20 +561,23 @@ class infohub_base
                 ));
             }
 
-            $out['execution_time'] = $this->_MicroTime() - $startTime;
+            if (isset($out['data']['execution_time']) === false) {
+                $out['data']['execution_time'] = 0.0;
+            }
+
             $this->internal_Log(array(
                 'message'=> 'Leaving cmd()',
                 'function_name'=> $functionName,
                 'start_time'=> $startTime,
                 'depth'=> 0, // @todo Should be -1 but multi message makes it go below 0
-                'execution_time'=> $out['execution_time']
+                'execution_time'=> $out['data']['execution_time']
             ));
 
             if (isset($status) === 'true') {
                 $out['function_status'] = $status;
 
                 if ($status['value'] === 1) {
-                    $sleep = (int) ($out['execution_time'] * 1000);
+                    $sleep = (int) ($out['data']['execution_time'] * 1000);
                     usleep($sleep); // There is a cost in using emerging and deprecated functions.
                 }
             }
@@ -600,7 +606,7 @@ class infohub_base
                     'message' => 'Temporary debug logging',
                     'level' => 'debug',
                     'function_name' => $functionName,
-                    'execution_time' => $out['execution_time'],
+                    'execution_time' => $out['data']['execution_time'],
                     'object' => array(
                         'in' => $in,
                         'out' => $out

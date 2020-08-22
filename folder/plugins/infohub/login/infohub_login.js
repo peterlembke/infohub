@@ -41,6 +41,7 @@ function infohub_login() {
     {
         const $list = {
             'setup_gui': 'normal',
+            'setup_information': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
             'call_server': 'normal',
@@ -126,6 +127,7 @@ function infohub_login() {
                 'data_back': {
                     'box_id': $in.box_id,
                     'desktop_environment': $in.desktop_environment,
+                    'language': 'en',
                     'step': 'step_boxes_insert'
                 }
             });
@@ -164,15 +166,27 @@ function infohub_login() {
                             'box_alias': 'contact',
                             'max_width': 640, // 100 will be translated to 100%
                             'box_data': '' // Imported contact data
+                        },
+                        {
+                            'parent_box_id': $in.box_id,
+                            'box_position': 'last',
+                            'box_mode': 'data',
+                            'box_alias': 'information',
+                            'max_width': 640, // 100 will be translated to 100%
+                            'box_data': '' // Imported contact data
                         }
                     ]
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'desktop_environment': $in.desktop_environment,
-                    'step': 'step_get_translations'
+                    'step': 'step_boxes_insert_response'
                 }
             });
+        }
+
+        if ($in.step === 'step_boxes_insert_response') {
+            $in.step = 'step_get_translations';
         }
 
         if ($in.step === 'step_get_translations')
@@ -288,6 +302,7 @@ function infohub_login() {
                     'cache_key': 'instructions'
                 },
                 'data_back': {
+                    'box_id': $in.box_id,
                     'desktop_environment': $in.desktop_environment,
                     'step': 'step_end'
                 }
@@ -296,6 +311,22 @@ function infohub_login() {
 
         if ($in.step === 'step_render_login')
         {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'setup_information'
+                },
+                'data': {},
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
+                    'step': 'step_end'
+                }
+            });
+            let $messageArray = [];
+            $messageArray.push($messageOut);
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -307,10 +338,212 @@ function infohub_login() {
                     'desktop_environment': $in.desktop_environment
                 },
                 'data_back': {
+                    'box_id': $in.box_id,
                     'desktop_environment': $in.desktop_environment,
+                    'step': 'step_end'
+                },
+                'messages': $messageArray
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'plugin GUI is done'
+        };
+    };
+
+    /**
+     * Setup the information page
+     * @version 2020-08-20
+     * @since   2020-08-20
+     * @author  Peter Lembke
+     */
+    $functions.push('setup_information');
+    const setup_information = function ($in)
+    {
+        const $default = {
+            'step': 'step_get_language',
+            'response': {
+                'answer': '',
+                'message': '',
+                'data': {},
+                'post_exist': 'false'
+            },
+            'config': {
+                "information": {
+                    "enable": "false",
+                    "default_language": "",
+                    "available_languages": [],
+                    "folder": "plugin",
+                    "path": "start_page_text",
+                    "links": {}
+                }
+            }
+        };
+        $in = _Merge($default, $in);
+
+        if ($in.step === 'step_start') {
+            $in.step = 'step_get_language';
+            if ($in.config.information.enabled !== 'true') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_get_language')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'get_config'
+                },
+                'data': {
+                    'section_name': 'language'
+                },
+                'data_back': {
+                    'step': 'step_get_language_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_language_response')
+        {
+            const $default = {
+                'answer': '',
+                'message': '',
+                'data': {}
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_get_doc_file';
+
+                $in.data_back.language = $in.config.information.default_language;
+
+                const $languageArray = $in.response.data.language.split(',');
+                const $length = $languageArray.length;
+
+                for (let $number = 0; $number < $length; $number = $number + 1) {
+
+                    const $language = $languageArray[$number];
+
+                    if ($language === 'en' || $language === 'sv' || $language === 'es') {
+                        $in.data_back.language = $language;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if ($in.step === 'step_get_doc_file') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_login',
+                    'function': 'get_doc_file'
+                },
+                'data': {
+                    'language': $in.data_back.language,
+                    'path': $in.config.information.path,
+                    'folder': $in.config.information.folder
+                },
+                'data_back': {
+                    'step': 'step_get_doc_file_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_doc_file_response') {
+            const $default = {
+                'answer': '',
+                'message': '',
+                'contents': '',
+                'checksum': ''
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_render_doc_file';
+            }
+        }
+
+        if ($in.step === 'step_render_doc_file') {
+
+            let $data = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create'
+                },
+                'data': {
+                    'what': {
+                        'my_view_box': {
+                            'plugin': 'infohub_rendermajor',
+                            'type': 'presentation_box',
+                            'head_label': _Translate('What is this?'),
+                            'foot_text': '',
+                            'content_data': '[my_document]'
+                        },
+                        'my_document': {
+                            'plugin': 'infohub_renderdocument',
+                            'type': 'document',
+                            'text': $in.response.contents,
+                            'what': {}
+                        }
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[my_view_box]'
+                    },
+                    'where': {
+                        'box_id': 'main.body.infohub_login.information',
+                        'max_width': 640,
+                        'scroll_to_box_id': 'true'
+                    }
+                },
+                'data_back': {
                     'step': 'step_end'
                 }
             });
+
+            let $what = {};
+            let $options = [];
+
+            for (let $label in $in.config.information.links) {
+                let $name = $label.toLowerCase();
+                $name = _Replace(' ', '_', $name);
+
+                $what[$name] = {
+                    'type': 'link',
+                    'subtype': 'external',
+                    'alias': $name,
+                    'data': $name,
+                    'show': _Translate($label),
+                    'url': $in.config.information.links[$label]
+                };
+
+                $options.push({'label': '['+$name+']' });
+            }
+
+            if (_Count($options) > 0) {
+                $what.links = {
+                    'type': 'common',
+                    'subtype': 'list',
+                    'class': 'list',
+                    'option': $options,
+                    'css_data': {
+                        '.list': 'background-color: lightgreen; list-style-type: square;list-style-position: inside;list-style-image: none;'
+                    }
+                };
+
+                $data.data.what = _Merge($what, $data.data.what);
+                $data.data.what.my_view_box.content_data = $data.data.what.my_view_box.content_data + '[links]';
+            }
+
+            return $data;
         }
 
         return {

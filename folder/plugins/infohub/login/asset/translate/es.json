@@ -14,7 +14,8 @@
     "data": {
         "infohub_login": {
             "Instructions": "Instrucciones",
-            "Use the menu.": "Usa el menú"
+            "Use the menu.": "Usa el menú",
+            "What is this?": "¿Que es esto?"
         },
         "infohub_login_contact": {
             "One contact": "Un contacto",
@@ -54,6 +55,7 @@
             "Here you can use the contact data you imported and login to the server": "Aquí puede usar los datos de contacto que importó e iniciar sesión en el servidor",
             "Password": "Contraseña",
             "login result": "resultado de inicio de sesión",
+            "Download demo account": "Descargar cuenta demo",
             "The password you need to decode the shared_secret": "La contraseña que necesitas para decodificar el secreto compartido",
             "Reload after login": "Recargar después de iniciar sesión",
             "Select file": "Seleccione Archivo",

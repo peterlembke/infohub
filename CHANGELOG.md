@@ -12,10 +12,12 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 - Infohub_Tree
 This is THE application!! All private data will be handled here.
 
-**Below is the aim for version 1.2.22**
-- Marketing SVG Graphics, motion backgrounds, background audio
-- Marketing Infohub with articles and videos
-- Add some of the material to the Infohub repo as a release
+# [1.2.22] - 2020-08-22
+
+* [Release notes](main,release_v1v2v22)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.22)
+
+Bugs found from last release. Added info about Infohub on Login page. Fixed rights. Added execution time and debug info. Added translations and translated Infohub Trigger. 
 
 # [1.2.21] - 2020-08-18
 

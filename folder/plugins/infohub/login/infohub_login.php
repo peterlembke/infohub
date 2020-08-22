@@ -45,7 +45,8 @@ class infohub_login extends infohub_base
             'login_request' => 'normal', // Incoming login_request
             'login_challenge' => 'normal', // Incoming login_challenge
             'login' => 'normal', // Login to another node,
-            'read_login_file' => 'normal'
+            'read_login_file' => 'normal',
+            'get_doc_file' => 'normal'
         );
 
         return parent::_GetCmdFunctionsBase($list);
@@ -1006,5 +1007,75 @@ class infohub_login extends infohub_base
         $base64Result = base64_encode($result);
 
         return $base64Result;
+    }
+
+    /**
+     * Get a doc file
+     * @version 2019-03-14
+     * @since   2019-03-14
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    final protected function get_doc_file(array $in = array()): array
+    {
+        $default = array(
+            'language' => 'en',
+            'folder' => 'plugin', // plugin or file
+            'path' => 'start_page_text',
+            'step' => 'step_read_doc_file',
+            'response' => array(
+                'answer' => 'false',
+                'message' => 'Nothing to report from get_doc_file',
+                'contents' => '',
+                'checksum' => ''
+            ),
+            'data_back' => array(),
+            'from_plugin' => array(
+                'node' => ''
+            ),
+            'config' => array(
+                'information' => array(
+                    'available_languages' => array()
+                )
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'client') {
+            $in['response']['message'] = 'Only node client are allowed to use function get_doc_file';
+            $in['step'] = 'step_end';
+        }
+
+        $language = $in['language'];
+        if (in_array($language, $in['config']['information']['available_languages']) === false) {
+            $language = 'en';
+        }
+
+        $path = $in['path'] . '/' . $language . '.md';
+
+        if ($in['step'] === 'step_read_doc_file') {
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'read'
+                ),
+                'data' => array(
+                    'path' => $path,
+                    'folder' => $in['folder']
+                ),
+                'data_back' => array(
+                    'step' => 'step_end'
+                )
+            ));
+        }
+
+        return array(
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'contents' => $in['response']['contents'],
+            'checksum' => $in['response']['checksum']
+        );
     }
 }

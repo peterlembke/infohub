@@ -302,7 +302,7 @@ function infohub_exchange() {
             'parent_box_id': '1',
             'message': '',
             'answer': '',
-            'execution_time': 0,
+            'execution_time': 0.0,
             'all_plugins': {},
             'plugin_index': {},
             'config': {},
@@ -886,7 +886,8 @@ function infohub_exchange() {
             'to': {
                 'node': '', 'plugin': '', 'function': ''
             },
-            'wait': 0.0
+            'wait': 0.0,
+            'execution_time': 0.0
         };
         $in = _Default($default, $in);
 
@@ -925,6 +926,7 @@ function infohub_exchange() {
                 'node': '', 'plugin': '', 'function': ''
             },
             'wait': 0.0,
+            'execution_time': 0.0,
             'message': ''
         };
         $in = _Default($default, $in);
@@ -1005,7 +1007,8 @@ function infohub_exchange() {
             'data': {},
             'data_back': {},
             'to': {'node': '', 'plugin': '', 'function': '' },
-            'wait': 0.0
+            'wait': 0.0,
+            'execution_time': 0.0
         };
         $in = _Default($default, $in);
 
@@ -1234,7 +1237,7 @@ function infohub_exchange() {
 
             if ($back.plugin === 'infohub_workbench') {
                 break leave; // Workbench pings all plugins mentioned in launcher.json "uses" array.
-                // Plugin requests end uo in the same package. Reducing the calls and ban times.
+                // Plugin requests end up in the same package. Reducing the calls and ban times.
                 // Plugins launch faster. Test plugins: Tools, Welcome, Demo, Contact. Much quicker.
             }
 

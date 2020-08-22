@@ -28,7 +28,8 @@
             "Remove from my list": "Eliminar de mi lista",
             "Run plugin": "Ejecutar complemento",
             "More": "Más",
-            "User name": "Nombre de usuario"
+            "User name": "Nombre de usuario",
+            "Logout": "Cerrar sesión"
         }
     }
 }

@@ -550,7 +550,7 @@ class infohub_exchange extends infohub_base {
 
             $allowedServerPlugins = array(
                 'infohub_plugin' => array('plugins_request' => 1),
-                'infohub_login' => array('login_request' => 1, 'login_challenge' => 1, 'read_login_file' => 1),
+                'infohub_login' => array('login_request' => 1, 'login_challenge' => 1, 'read_login_file' => 1, 'get_doc_file' => 1),
                 'infohub_session' => array('responder_end_session' => 1, 'responder_check_session_valid' => 1),
                 'infohub_asset' => array('update_all_plugin_assets' => 1, 'update_specific_assets' => 1),
                 'infohub_launcher' => array('get_full_list' => 1)
@@ -780,7 +780,8 @@ class infohub_exchange extends infohub_base {
             'to' => array(
                 'node' => '', 'plugin' => '', 'function' => ''
             ),
-            'wait' => 0.0
+            'wait' => 0.0,
+            'execution_time' => 0.0
         );
         $in = $this->_Default($default, $in);
 
@@ -813,6 +814,7 @@ class infohub_exchange extends infohub_base {
                 'node' => '', 'plugin' => '', 'function' => ''
             ),
             'wait' => 0.0,
+            'execution_time' => 0.0,
             'message' => ''
         );
         $in = $this->_Default($default, $in);
@@ -872,7 +874,8 @@ class infohub_exchange extends infohub_base {
             'data' => array(),
             'data_back' => array(),
             'to' => array('node' => '', 'plugin' => '', 'function' => '' ),
-            'wait' => 0.0
+            'wait' => 0.0,
+            'execution_time' => 0.0
         );
         $in = $this->_Default($default, $in);
 

@@ -7,6 +7,15 @@ The JS version has the same features as the PHP version and has a graphical user
 The first thing you see  when you start Infohub is a version of the login plugin with a reduced interface.
 It is the same plugin rendered with fewer features. You can import a login file, enter a password and login.  
 
+### Information text
+You can also present an information text what this site is about. See folder `start_page_text`. Here you have en.md, sv.md, es.md markdown text files.
+ 
+ You can copy the folder to `folder/file/infohub_login` and copy the configuration file `infohub_login.json` to `folder/config` and modify the folder to "file". Now you can add more languages.
+ 
+ The best language are picked from the users preferences.
+ 
+ Observe that this feature is not bound to a domain. It is bound to an installation. I might change that in the future.   
+
 ## Client version
 This is what you see when you start the "Login" plugin in your browser.
 With the [menu](plugin,infohub_login_menu) you can navigate to different features of the plugin.

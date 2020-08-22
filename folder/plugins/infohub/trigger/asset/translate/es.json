@@ -1,0 +1,42 @@
+{
+    "version": {
+        "date": "2020-08-20 12:06:55",
+        "plugin": "infohub_trigger",
+        "data_checksum": "3cda11a92ce065db6cbccaf43dcf84b6",
+        "language": "es",
+        "country": "ES",
+        "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Activar",
+        "description": "Con este complemento, como desarrollador, puede enviar mensajes a los complementos que desarrolle"
+    },
+    "data": {
+        "infohub_trigger": {
+            "Trigger": "Activador",
+            "You as a developer can send a message to your emerging plugin.": "Tú, como desarrollador, puedes enviar un mensaje a tu complemento emergente",
+            "Refresh data": "Actualizar datos",
+            "Node": "Nodo",
+            "Select the node you want to send the message to": "Seleccione el nodo al que desea enviar el mensaje",
+            "Client": "Cliente",
+            "Server": "Servidor",
+            "Plugin": "Complemento",
+            "Select the plugin you want to send the message to": "Seleccione el complemento al que desea enviar el mensaje",
+            "Function": "Función",
+            "Select the function you want to send the message to": "Seleccione la función a la que desea enviar el mensaje",
+            "Filter": "Filtro",
+            "Select the filter you want to run on the response": "Seleccione el filtro que desea ejecutar en la respuesta",
+            "Get all": "Obtener todo",
+            "No config": "Sin configuración",
+            "Bare bone": "Mínimo",
+            "Default message for the selected function": "Mensaje predeterminado para la función seleccionada",
+            "Message": "Mensaje",
+            "This is the message you can send to the selected plugin. The message you see is the default values the function have set.": "Este es el mensaje que puede enviar al complemento seleccionado. El mensaje que ve son los valores predeterminados que la función ha establecido",
+            "Get default message": "Obtener mensaje predeterminado",
+            "Send message": "Enviar mensaje",
+            "Response from the function": "Respuesta de la función",
+            "Response": "Respuesta",
+            "Here you will see the response from the function.": "Aquí verá la respuesta de la función"
+        }
+    }
+}

@@ -49,13 +49,19 @@ I refer to these rules every time I am in doubt how to solve something.
 
 # How do I set it up?
 Install a LAMP locally on your machine or run a Docker with LAMP.
-Clone this git repository. Surf to your web server.
+Clone this git repository. Surf to your web server.  
+Read more [here](https://github.com/peterlembke/infohub-articles#readme)
 
 # Contribution guidelines
 Not written yet. It will be pull requests here on Github.
 
+If you want to support my effort with money then I have a [Paypal.Me link](https://www.paypal.com/paypalme/peterlembke). Thank you for your contribution.
+
 # Who do I talk to?
 There are no forum yet at the [home page](https://infohub.se).
+
+# More to read
+On Github you find the [documentation](https://github.com/peterlembke/infohub/tree/master/folder/doc) and [articles](https://github.com/peterlembke/infohub-articles#readme). 
 
 # Traditional web page
 You can run the [workbench](https://infohub.se) or start a plugin as a [stand alone](https://demo.infohub.se) page.

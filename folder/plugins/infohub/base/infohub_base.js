@@ -908,7 +908,12 @@
         };
 
         const $functionName = $in.to.function.toLowerCase();
-        internal_Log({'message': 'Will call: ' + $functionName, 'function_name': 'cmd', 'object': $in, 'depth': 1});
+        internal_Log({
+            'message': 'Will call: ' + $functionName,
+            'function_name': 'cmd',
+            'object': $in,
+            'depth': 1
+        });
 
         const callbackFunction = function($callResponse)
         {
@@ -924,6 +929,9 @@
             });
 
             $callResponse = _Merge({'func': 'ReturnCall'}, $callResponse);
+
+            $out.execution_time = _MicroTime() - $startTime;
+            $callResponse = _Merge({'execution_time': $out.execution_time}, $callResponse);
 
             if ($callResponse.func === 'SubCall') {
                 $subCall = _ByVal($callResponse);
@@ -947,6 +955,10 @@
                 $out = $response.return_call_data;
             }
 
+            if (_IsSet($out.data.execution_time) === 'false') {
+                $out.data.execution_time = 0.0;
+            }
+
             if ($message !== '') {
                 $out.data.message = $message;
                 $callResponse.message = $message;
@@ -960,13 +972,12 @@
                 });
             }
 
-            $out.execution_time = _MicroTime() - $startTime;
             internal_Log({
                 'message': 'Leaving cmd()',
                 'function_name': $functionName,
                 'start_time': $startTime,
                 'depth': -1,
-                'execution_time': $out.execution_time
+                'execution_time': $out.data.execution_time
             });
 
             const sleep = function ($milliseconds) {
@@ -979,7 +990,7 @@
                 $out.function_status = $status;
 
                 if ($status.value === 1) {
-                    sleep($out.execution_time); // There is a cost in using emerging and deprecated functions.
+                    sleep($out.data.execution_time); // There is a cost in using emerging and deprecated functions.
                 }
             }
 

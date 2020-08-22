@@ -1,0 +1,42 @@
+{
+    "version": {
+        "date": "2020-08-20 12:06:55",
+        "plugin": "infohub_trigger",
+        "data_checksum": "3cda11a92ce065db6cbccaf43dcf84b6",
+        "language": "sv",
+        "country": "SE",
+        "file_type": "finished_file"
+    },
+    "launcher": {
+        "title": "Aktivera",
+        "description": "Med denna plugin kan du som utvecklare skicka meddelanden till de plugins du utvecklar"
+    },
+    "data": {
+        "infohub_trigger": {
+            "Trigger": "Trigger",
+            "You as a developer can send a message to your emerging plugin.": "Du som utvecklare kan skicka ett meddelande till ditt nya plugin.",
+            "Refresh data": "Uppdatera data",
+            "Node": "Nod",
+            "Select the node you want to send the message to": "Välj den nod du vill skicka meddelandet till",
+            "Client": "Klient",
+            "Server": "Server",
+            "Plugin": "Plugin",
+            "Select the plugin you want to send the message to": "Välj det plugin du vill skicka meddelandet till",
+            "Function": "Funktion",
+            "Select the function you want to send the message to": "Välj den funktion du vill skicka meddelandet till",
+            "Filter": "Filter",
+            "Select the filter you want to run on the response": "Välj det filter du vill köra på svaret",
+            "Get all": "Få alla",
+            "No config": "Ingen konfigurering",
+            "Bare bone": "Minimalt",
+            "Default message for the selected function": "Standardmeddelande för den valda funktionen",
+            "Message": "Meddelande",
+            "This is the message you can send to the selected plugin. The message you see is the default values the function have set.": "Detta är meddelandet du kan skicka till det valda plugin. Meddelandet du ser är standardvärdena som funktionen har ställt in.",
+            "Get default message": "Få standardmeddelande",
+            "Send message": "Skicka meddelande",
+            "Response from the function": "Svar från funktionen",
+            "Response": "Svar",
+            "Here you will see the response from the function.": "Här ser du svaret från funktionen."
+        }
+    }
+}

@@ -14,7 +14,8 @@
     "data": {
         "infohub_login": {
             "Instructions": "Instruktioner",
-            "Use the menu.": "Använd menyn."
+            "Use the menu.": "Använd menyn.",
+            "What is this?": "Vad är det här?"
         },
         "infohub_login_contact": {
             "One contact": "En kontakt",
@@ -53,7 +54,8 @@
             "Login": "Logga in",
             "Here you can use the contact data you imported and login to the server": "Här kan du använda kontaktdata som du importerade och logga in på servern",
             "Password": "Lösenord",
-            "login result": "inloggningsresultat",
+            "login result": "Inloggningsresultat",
+            "Download demo account": "Ladda ned demo loginfil",
             "The password you need to decode the shared_secret": "Lösenordet du behöver för att avkoda den delade hemligheten",
             "Reload after login": "Ladda om sidan efter inloggning",
             "Select file": "Välj fil",
