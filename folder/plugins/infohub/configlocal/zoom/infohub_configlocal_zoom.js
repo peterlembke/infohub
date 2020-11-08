@@ -111,10 +111,6 @@ function infohub_configlocal_zoom() {
                 },
                 'data': {
                     'what': {
-                        'titel': {
-                            'type': 'text',
-                            'text': '[h1]' + _Translate('Zoom settings') + '[/h1]'
-                        },
                         'zoom_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
@@ -166,11 +162,11 @@ function infohub_configlocal_zoom() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[titel][zoom_form]'
+                        'text': '[zoom_form]'
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
-                        'max_width': 100,
+                        'max_width': 640,
                         'scroll_to_box_id': 'true'
                     },
                     'cache_key': 'zoom'

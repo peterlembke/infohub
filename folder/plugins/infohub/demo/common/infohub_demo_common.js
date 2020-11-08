@@ -36,7 +36,8 @@ function infohub_demo_common() {
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
+            'click_progress': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -212,7 +213,7 @@ function infohub_demo_common() {
                         },
                         'my_intro_text': {
                             'type': 'text',
-                            'text': "[my_h1]\n [my_ingress]\n[my_intro_list][my_image_text][about_images_list]"
+                            'text': "[my_h1]\n [my_ingress]\n[my_intro_list][my_image_text][about_images_list][progress_bar1][progress_bar2][progress_bar3][my_button]"
                         },
                         'my_h1': {
                             'type': 'text',
@@ -248,7 +249,40 @@ function infohub_demo_common() {
                                 {'label': _Translate('Use PNG for small detailed images where you can not use SVG or JPEG') },
                                 {'label': _Translate('Use a resolution close to the viewed resolution. Do not upscale. Avoid downscaling too much.') }
                             ]
-                        }
+                        },
+                        'progress_bar1': {
+                            'type': 'common',
+                            'subtype': 'progress',
+                            'class': 'progress',
+                            'max': 50,
+                            'value': 12
+                        },
+                        'progress_bar2': {
+                            'type': 'common',
+                            'subtype': 'progress',
+                            'class': 'progress',
+                            'max': 50,
+                            'value': 25
+                        },
+                        'progress_bar3': {
+                            'type': 'common',
+                            'subtype': 'progress',
+                            'class': 'progress',
+                            'max': 50,
+                            'value': 50
+                        },
+                        'my_button': {
+                            'type': 'form',
+                            'subtype': 'button',
+                            'mode': 'submit', // This is the submit button in the form
+                            'button_label': _Translate('Affect progress bar'),
+                            'event_data': 'common|progress|affect',
+                            'to_plugin': 'infohub_demo',
+                            'to_function': 'click',
+                            'css_data': {
+                                '.list': 'background-color: green;'
+                            }
+                        },
                     },
                     'how': {
                         'mode': 'one box',
@@ -272,6 +306,111 @@ function infohub_demo_common() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'data': $in.response.data
+        };
+    };
+
+    /**
+     * Click button close to the progress bars to affect them
+     * @version 2020-08-30
+     * @since 2020-08-30
+     * @author Peter Lembke
+     */
+    $functions.push("click_progress");
+    const click_progress = function ($in)
+    {
+        const $default = {
+            'step': 'step_read_first',
+            'box_id': '',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'max': -1,
+                'value': -1,
+                'max_before': -1,
+                'value_before': -1
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_read_first')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress'
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar1'
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_second'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_second')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress'
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar2',
+                    'value': $in.response.value
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_third'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_third')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress'
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar3',
+                    'value': $in.response.value_before
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_first'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_first')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress'
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar1',
+                    'value': $in.response.value_before
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Done affectimg the progress bars',
+            'ok': 'true' // Gives an OK on the button you clicked
         };
     };
 }

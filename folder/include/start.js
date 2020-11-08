@@ -28,13 +28,20 @@ function infohub_start($progress) {
     {
         $progress.whatArea('start',0, 'START');
 
+        if (_LocalStorageExist() === 'false') {
+            const $text = 'localStorage is not available when you have disabled all cookies. Infohub do not use cookies but use localStorage to store plugins for performance and to store number of failed startup attempts so it can automatically correct the issues and start Infohub';
+            $progress.whatArea('start',0, $text);
+            window.alert($text);
+            return;
+        }
+
         if ($globalOnline === 'true') {
             _ColdStart();
         }
 
         $progress.whatArea('start',0, 'Get core plugin names');
         const $neededPluginNames = _GetNeededPluginNames();
-        $progress.whatArea('missing_plugins',0, 'Get list with missing plugins');
+        $progress.whatArea('missing_plugins',0, 'Get missing plugin names');
         const $missingPluginNames = _GetMissingPluginNames($neededPluginNames);
 
         if ($missingPluginNames.length > 0) {
@@ -68,6 +75,29 @@ function infohub_start($progress) {
         }
 
         if (typeof $object === 'string' && $object === '') {
+            return 'true';
+        }
+
+        return 'false';
+    };
+
+    /**
+     * Check if local storage exist in the browser
+     * @version 2015-09-20
+     * @since   2015-04-24
+     * @author  Peter Lembke
+     */
+    const _LocalStorageExist = function ()
+    {
+        let $exist = 'false';
+
+        try {
+            $exist = 'localStorage' in window && window.localStorage !== null;
+        } catch ($err) {
+            return 'false';
+        }
+
+        if ($exist === true) {
             return 'true';
         }
 
@@ -119,6 +149,8 @@ function infohub_start($progress) {
             return false;
         }
 
+        $progress.whatArea('start',0, 'failed starts: ' + $failedStarts);
+
         $failedStarts = $failedStarts + 1;
         $failedStarts = $failedStarts.toString();
         localStorage.setItem('cold_start', $failedStarts);
@@ -164,7 +196,13 @@ function infohub_start($progress) {
             'infohub_cache',
             'infohub_exchange',
             'infohub_plugin',
-            'infohub_transfer'
+            'infohub_transfer',
+            'infohub_session',
+            'infohub_keyboard',
+            'infohub_offline',
+            'infohub_checksum',
+            'infohub_timer'
+
         ];
     };
 
@@ -228,18 +266,20 @@ function infohub_start($progress) {
 
         for (let $pluginNameId in $corePluginNames)
         {
-            if ($corePluginNames.hasOwnProperty($pluginNameId))
-            {
-                $number = $number + 1;
-                $part = $number / $numberOfCorePluginNames * 100.0;
-                $progress.whatArea($areaCode, $part, 'Get list with missing plugins');
+            if ($corePluginNames.hasOwnProperty($pluginNameId) === false) {
+                continue;
+            }
 
-                const $key = 'plugin_' + $corePluginNames[$pluginNameId];
+            $number = $number + 1;
+            $part = $number / $numberOfCorePluginNames * 100.0;
 
-                if ($key in localStorage) {
-                } else {
-                    $missingCorePluginNames.push($corePluginNames[$pluginNameId]);
-                }
+            const $key = 'plugin_' + $corePluginNames[$pluginNameId];
+
+            if ($key in localStorage) {
+                $progress.whatArea($areaCode, $part, 'I have ' + $key);
+            } else {
+                $missingCorePluginNames.push($corePluginNames[$pluginNameId]);
+                $progress.whatArea($areaCode, $part, 'Missing ' + $key);
             }
         }
 

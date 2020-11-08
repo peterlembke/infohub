@@ -5,9 +5,12 @@
             "json": "true",
             "svg": "true",
             "jpeg": "true",
-            "png": "true"
+            "png": "true",
+            "gif": "true",
+            "webp": "true",
+            "avif": "true"
         },
-        "max_asset_size_kb": 150,
+        "max_asset_size_kb": 300,
         "index_cache_seconds": 604800
     },
     "server": {}

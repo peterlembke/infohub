@@ -118,6 +118,41 @@ function infohub_render_form() {
     };
 
     /**
+     * Gives CSS for how to display
+     * Display = "block", "inline", "none" or leave it empty
+     * You can also set display = true, that equals to "block"
+     * You can also set display = false, that equals to "none"
+     * @since 2017-02-20
+     * @param $in
+     * @returns {string}
+     * @private
+     */
+    const _Display = function ($in)
+    {
+        const $default = {
+            'display': ''
+        };
+        $in = _Default($default, $in);
+
+        let $style = '';
+
+        if ($in.display !== '') {
+
+            if ($in.display === 'false') {
+                $in.display = 'none';
+            }
+
+            if ($in.display === 'true') {
+                $in.display = 'block';
+            }
+
+            $style = 'style="display:' + $in.display + '"';
+        }
+
+        return $style;
+    };
+
+    /**
      * Get the rest of the html parameters
      * @version 2018-05-31
      * @since 2018-05-31
@@ -347,7 +382,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -409,8 +445,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $display = _Display($in);
 
-        $in.html = '<button' + $id + _GetParameters($in, $fields) + $destination + $event + '>' + $in.button_label + '</button>';
+        $in.html = '<button' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>' + $in.button_label + '</button>';
 
         return {
             'answer': 'true',
@@ -448,7 +485,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -515,7 +553,9 @@ function infohub_render_form() {
         $in.html = '<div class="file"><label for="{box_id}_' + $in.alias + '" class="center">' + $in.button_label + '</label></div>';
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'hidden' });
-        $in.html = $in.html + '<input' + $id + _GetParameters($in, $fields) + $event + '>';
+        const $display = _Display($in);
+
+        $in.html = $in.html + '<input' + $id + $display + _GetParameters($in, $fields) + $event + '>';
 
         return {
             'answer': 'true',
@@ -561,7 +601,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -632,8 +673,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $display = _Display($in);
 
-        $in.html = '<input' + $id + _GetParameters($in, $fields) + $destination + $event + '>';
+        $in.html = '<input' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>';
 
         return {
             'answer': 'true',
@@ -675,7 +717,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -731,8 +774,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $display = _Display($in);
 
-        $in.html = '<input' + $id + _GetParameters($in, $fields) + $event + '>';
+        $in.html = '<input' + $id + $display + _GetParameters($in, $fields) + $event + '>';
 
         return {
             'answer': 'true',
@@ -773,7 +817,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -836,8 +881,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $display = _Display($in);
 
-        $in.html = '<textarea' + $id + _GetParameters($in, $fields) + $destination + $event + '>'+$in.value+'</textarea>';
+        $in.html = '<textarea' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>'+$in.value+'</textarea>';
 
         return {
             'answer': 'true',
@@ -880,7 +926,8 @@ function infohub_render_form() {
             'config': {
                 'focus_shadow_colour': 'red',
                 'hover_shadow_colour': 'grey'
-            }
+            },
+            'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -934,6 +981,7 @@ function infohub_render_form() {
         };
 
         let $event = '';
+
         if ($in.event_handler !== '') {
             const $idString = ['{box_id}', $in.alias].join('_');
             $event = " onChange=\"go('" + $in.event_handler + "','change','" + $idString + "')\"";
@@ -950,8 +998,9 @@ function infohub_render_form() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $display = _Display($in);
 
-        $in.html = '<select' + $id + _GetParameters($in, $fields) + $destination + $multiple + $event + '>' + $options + '</select>';
+        $in.html = '<select' + $id + $display + _GetParameters($in, $fields) + $destination + $multiple + $event + '>' + $options + '</select>';
 
         return {
             'answer': 'true',

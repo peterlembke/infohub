@@ -1,41 +1,16 @@
-# Release V1 - Core PHP
-The first version ever  
+# [1.x.x] - Series 1
 
-# Introduction
-Core PHP is the bare bone code that is the minimum you need to start writing your own plugins in php.  
+This is the version 1.x.x series of Infohub.
 
-# Files
-infohub.php - the file that receive your request.  
-define_folders.php - make sure you have the right folder structure. Used by infohub.php  
-folder/include/kick_out_tests.php - If your request do not fulfill these rules then you are kicked out. Used by infohub.php  
-folder/include/settings_and_errors.php - Handles exceptions and errors. Used by infohub.php  
+Main focus here is to get:
+* Infohub Core working (v1.0.x)
+* Infohub Suppprt plugins (v1.1.x)
+* Login and sessions. (v1.2.x) 
+* Tree working + support plugins (v1.3.x)
+* 
 
-# Callback
-The callback system was designed to receive callbacks from payment services. But it has also proven to be a good tool for easy input to the infohub system.  
-Callback are included i this release for your convenience when you want to trigger the documentation and the demos.  
-.htaccess - Instruct the Apache web server that all URLs that do not go to infohub.php will end up in callback.php  
-callback.php - this file just start the plugin infohub_callback and echo the response from that plugin.  
-
-# Plugins
-infohub_base - The base class that ALL plugins are extended from.  
-infohub_exchange - Handles messages between plugins.  
-infohub_transfer - Transfers data in and out from this node.  
-infohub_plugin - Loads and starts plugins.  
-infohub_template - Your bare bone plugin that you can copy and make your own plugins from.  
-infohub_callback - Convert url requests into messages that infohub can understand  
-infohub_doc - Documentation viewer. All plugins have a documentation that you can study.  
-infohub_demo - Demo code that you can study.  
-infohub_callback - verifies the message and uses cURL to call infohub.php. Now your data comes into the system the proper way.  
-
-# Demo
-The demo plugin and the documentation will show you how to do common things like creating a plugin, making a subcall within the plugin and making subcalls to other plugins.  
-You will also be able to debug and see what happens in the plugins.  
-
-# License
-This documentation is copyright (C) 2016 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
-
-Updated 2016-03-31 by Peter Lembke  
-
-
+This series will hopefully continue for a long time.
+* Remove bugs in Core and support plugins
+* Easier for developers to create good plugins
+* Improve accessibility so everyone can use Infohub
+* Add Tree-plugins in different domain to increase usability for normal users

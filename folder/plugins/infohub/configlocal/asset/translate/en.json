@@ -67,6 +67,19 @@
             "Test": "Test",
             "Save": "Save"
         },
+        "infohub_configlocal_image": {
+            "What images can you see?": "What images can you see?",
+            "Here you set asset limits and instruct Infohub what images you can see on this browser": "Here you set asset limits and instruct Infohub what images you can see on this browser",
+            "Download assets": "Download assets",
+            "You can prevent all images and sounds to be downloaded. Save download time and quota": "You can prevent all images and sounds to be downloaded. Save download time and quota",
+            "Max asset size": "Max asset size",
+            "Max asset size in Kilobytes you allow to be downloaded. You can limit to save download speed and quota": "Max asset size in Kilobytes you allow to be downloaded. You can limit to save download speed and quota",
+            "Cache time for assets": "Cache time for assets",
+            "Asset is considered fresh until this many days have passed. Then we will contact the server and see if it has been updated": "Asset is considered fresh until this many days have passed. Then we will contact the server and see if it has been updated",
+            "Image types you can see": "Image types you can see",
+            "Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser": "Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser",
+            "Save": "Save"
+        },
         "infohub_configlocal_language": {
             "Language": "Language",
             "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.",
@@ -82,6 +95,7 @@
             "Configuration - Local on this device": "Configuration - Local on this device",
             "Zoom level": "Zoom level",
             "Language preferred": "Language preferred",
+            "Images you see": "Images you see",
             "Colour schema": "Colour schema",
             "Font settings": "Font settings",
             "Allow things": "Allow things",

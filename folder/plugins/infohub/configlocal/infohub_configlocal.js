@@ -383,6 +383,8 @@ function infohub_configlocal() {
             'event_type': '',
             'parent_box_id': '',
             'form_data': {},
+            'plugin_name': '',
+            'call_render_done': 'false',
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
@@ -408,7 +410,9 @@ function infohub_configlocal() {
                 },
                 'data_back': {
                     'event_data': $in.event_data,
+                    'box_id': $in.box_id,
                     'parent_box_id': $in.parent_box_id,
+                    'call_render_done': $in.call_render_done,
                     'step': 'step_load_data_response'
                 }
             });
@@ -436,11 +440,16 @@ function infohub_configlocal() {
                     'function': 'create'
                 },
                 'data': {
+                    'box_id': $in.box_id,
                     'parent_box_id': $in.parent_box_id,
                     'translations': $classTranslations
                 },
                 'data_back': {
+                    'box_id': $in.box_id,
+                    'parent_box_id': $in.parent_box_id,
                     'form_data': $formData,
+                    'plugin_name': $pluginName,
+                    'call_render_done': $in.call_render_done,
                     'step': 'step_set_form_data'
                 }
             });
@@ -459,13 +468,38 @@ function infohub_configlocal() {
                     'form_data': $in.form_data
                 },
                 'data_back': {
+                    'box_id': $in.box_id,
                     'parent_box_id': $in.parent_box_id,
+                    'form_data': $in.form_data,
+                    'plugin_name': $in.plugin_name,
+                    'call_render_done': $in.call_render_done,
                     'step': 'step_set_form_data_response'
                 }
             });
         }
 
         if ($in.step === 'step_set_form_data_response') {
+            if ($in.call_render_done === 'true') {
+                $in.step = 'step_call_render_done'
+            }
+        }
+
+        if ($in.step === 'step_call_render_done') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': $in.plugin_name,
+                    'function': 'render_done'
+                },
+                'data': {
+                    'box_id': $in.box_id,
+                    'parent_box_id': $in.parent_box_id,
+                    'form_data': $in.form_data
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
         }
 
         return {
@@ -733,7 +767,8 @@ function infohub_configlocal() {
 
         const $children = [
             'zoom',
-            'language'
+            'language',
+            'image'
         ];
 
         if ($in.step === 'step_get_config')

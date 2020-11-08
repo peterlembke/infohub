@@ -25,12 +25,12 @@ function infohub_render_common() {
 
     const _Version = function() {
         return {
-            'date': '2017-02-17',
+            'date': '2020-08-30',
             'since': '2015-02-15',
-            'version': '1.1.0',
+            'version': '1.1.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_render_common',
-            'note': 'Render HTML for features like images, iframes, containers, legends, lists etc',
+            'note': 'Render HTML for features like images, iframes, containers, legends, lists, progress etc',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
@@ -713,12 +713,12 @@ function infohub_render_common() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $idLabel = _GetId({'id': $in.alias + '_label', 'name': $in.alias + '_label', 'class': 'label' });
         const $idData = _GetId({'id': $in.alias + '_data', 'name': $in.alias + '_data', 'class': 'data' });
-        const $html = '<span ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></span>';
+        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
 
         if (_Empty($in.css_data) === 'true' && $in.class === 'labeldata') {
             $in.css_data = {
                 'parent': 'display: inline-block',
-                '.labeldata': 'width: 100%; display: inline; box-sizing: border-box; padding: 2px 2px 2px 2px; border: 1px solid #4CAF50;',
+                '.labeldata': 'width: 100%; display: inline; box-sizing: border-box; padding: 2px 2px 2px 2px;', //  border: 1px solid #4CAF50;
                 '.label': 'font-weight: bold; padding: 2px 2px 2px 2px;',
                 '.data': 'padding: 2px 2px 2px 2px;'
             };
@@ -727,6 +727,37 @@ function infohub_render_common() {
         return {
             'answer': 'true',
             'message': 'Label and data',
+            'html': $html,
+            'css_data': $in.css_data
+        };
+    };
+
+    /**
+     * Create HTML for a progress bar
+     * Use infohub_view -> progress to modify the value and max parameters.
+     * @version 2020-08-30
+     * @since   2020-08-30
+     * @author  Peter Lembke
+     */
+    const internal_Progress = function ($in)
+    {
+        const $default = {
+            'alias': '',
+            'class': 'progress',
+            'max': 100,
+            'value': 0,
+            'css_data': {},
+            'display': '' // leave empty or use "block" or "inline" or "none".
+        };
+        $in = _Default($default, $in);
+
+        const $display = _Display($in);
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $html = '<progress ' + $id + ' max="'+$in.max+'" value="'+$in.value+'" ' + $display +'></progress>';
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a progress bar',
             'html': $html,
             'css_data': $in.css_data
         };

@@ -1,5 +1,5 @@
-    let $functions = [], // Array with all functions
-        $firstDefault = null; // Used ONLY by the test() function.
+    let $functions = [], // Array with all function names
+        $firstDefault = null; // Used by cmd() to get the default values for a cmd function
 
     $functions.push('_VersionBase');
     const _VersionBase = function() {
@@ -16,7 +16,7 @@
     };
 
     $functions.push('_GetCmdFunctionsBase');
-    const _GetCmdFunctionsBase = function ($childList) {
+    const _GetCmdFunctionsBase = function ($childList = {}) {
         const $list = {
             'version': 'normal',
             'function_names': 'normal',
@@ -42,12 +42,12 @@
      * @version 2015-01-29
      * @since   2013-09-05
      * @author  Peter Lembke
-     * @param $default
-     * @param $in
-     * @return new object
+     * @param {object} $default - You want $in to have this structure and data types
+     * @param {object} $in - This is the object we want to look like the $default
+     * @return {object} New object
      */
     $functions.push('_Default');
-    const _Default = function ($default, $in)
+    const _Default = function ($default = {}, $in = {})
     {
         if ($firstDefault === null) {
             $firstDefault = $default;
@@ -57,20 +57,23 @@
             $in = {};
         }
 
-        if (typeof $default !== 'object' && typeof $in !== 'object') {
+        const $defaultType = typeof($default);
+        const $inType = typeof($in);
+
+        if ($defaultType !== 'object' && $inType !== 'object') {
             return {};
         }
 
-        if (typeof $default !== 'object' && typeof $in === 'object') {
+        if ($defaultType !== 'object' && $inType === 'object') {
             return _ByVal($in);
         }
 
-        if (typeof $default === 'object' && typeof $in !== 'object') {
+        if ($defaultType === 'object' && $inType !== 'object') {
             return _ByVal($default);
         }
 
         let $callbackFunction = '';
-        if (typeof $in.callback_function === 'function') {
+        if (typeof($in.callback_function) === 'function') {
             $callbackFunction = $in.callback_function;
         }
 
@@ -86,15 +89,15 @@
             }
         }
 
-        let $type;
-
         // Delete keys that are not in the default object
         // If wrong data type then copy the data key value from default
         for (let $key in $answer) {
             if ($answer.hasOwnProperty($key) === false) {
                 continue;
             }
-            if (typeof $default[$key] === 'undefined') {
+
+            const $defaultKeyType = typeof($default[$key]);
+            if ($defaultKeyType === 'undefined') {
                 delete $answer[$key];
                 continue;
             }
@@ -102,24 +105,25 @@
                 $answer[$key] = '';
                 continue;
             }
-            if (typeof $answer[$key] !== typeof $default[$key])
+
+            const $answerKeyType = typeof($answer[$key]);
+            if ($answerKeyType !== $defaultKeyType)
             {
                 if ($default[$key] === null) {
                     continue;
                 }
                 $answer[$key] = $default[$key];
                 if ($default[$key] !== null) {
-                    $type = typeof $answer[$key];
                     internal_Log({
                         'level': 'error',
-                        'message': 'key:"' + $key + '", have wrong data type (' + _GetDataType($in[$key]) + '), instead got default value and data type (' + $type + ')',
+                        'message': 'key:"' + $key + '", have wrong data type (' + _GetDataType($in[$key]) + '), instead got default value and data type (' + $answerKeyType + ')',
                         'function_name': '_Default',
                         'get_backtrace': 'true'
                     });
                 }
                 continue;
             }
-            if (typeof $default[$key] !== 'object') {
+            if ($defaultKeyType !== 'object') {
                 continue;
             }
             if (_Count($default[$key]) === 0) {
@@ -137,30 +141,33 @@
 
     /**
      * Get variable data type name in lower case
-     * Example:
-     * @param obj
-     * @returns {string}
+     * @example
+     * const $type = _GetDataType($myVariable);
+     * @param {object} $object - The object you want to get the type name for
+     * @returns {string} The data type name
      * @private
      */
     $functions.push('_GetDataType');
-    const _GetDataType = function (obj) {
-        return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    const _GetDataType = function ($object) {
+        const $dataType= ({}).toString.call($object).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+
+        return $dataType;
     };
 
     /**
-     * Merge two objects, everything from obj2 goes into obj1.
+     * Merge two objects, everything from object2 goes on top of object1.
      * example: $in = _Merge($default,$in);
      * Starts with $default and adds all keys from $in.
      * Used by you
      * @version 2015-01-17
      * @since   2013-09-05
      * @author  Peter Lembke
-     * @param $object1
-     * @param $object2
-     * @return new object
+     * @param {object} $object1 - First object
+     * @param {object} $object2 - Second object
+     * @return {object} A combined object
      */
     $functions.push('_Merge');
-    const _Merge = function ($object1, $object2)
+    const _Merge = function ($object1 = {}, $object2 = {})
     {
         let $newObject = {};
 
@@ -191,12 +198,12 @@
      * @version 2019-01-05
      * @since   2019-01-05
      * @author  Peter Lembke
-     * @param $object1
-     * @param $object2
-     * @return new object
+     * @param {object} $object1 - Object to delete keys from
+     * @param {object} $object2 - What keys to delete in $object1
+     * @return {object} New object
      */
     $functions.push('_Delete');
-    const _Delete = function ($object1, $object2)
+    const _Delete = function ($object1 = {}, $object2 = {})
     {
         let $newObject = _ByVal($object1);
 
@@ -214,81 +221,40 @@
      * @version 2015-01-17
      * @since   2014-01-03
      * @author  Peter Lembke
-     * @param $object
-     * @return new object
+     * @param {object } $object - The data object you want a copy of
+     * @return {object} New object that is a true copy of the first data object
      */
     $functions.push('_ByVal');
-    const _ByVal = function ($object)
+    const _ByVal = function ($object = {})
     {
         if (!($object instanceof Object)) {
             return {};
         }
 
-        return _MiniClone($object); // _MiniClone is better/quicker than the others
-
-        // return _Clone($object); // Much faster than json parse. Almost as fast as _MiniClone
-        // return JSON.parse(JSON.stringify($object)); // This is slow
+        return _MiniClone($object); // _MiniClone is better/quicker than _Clone and JSON.parse
     };
 
     /**
      * Object deep clone
      * https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#Another_way_deep_copy%E2%80%8E
      * https://github.com/whatwg/html/issues/793
-     * @param objectToBeCloned
-     * @returns {*}
-     * @private
-     */
-    $functions.push('_Clone');
-    const _Clone = function (objectToBeCloned)
-    {
-        if (!(objectToBeCloned instanceof Object)) {
-            return objectToBeCloned;
-        }
-
-        let objectClone;
-
-        // Filter out special objects.
-        let Constructor = objectToBeCloned.constructor;
-        switch (Constructor) {
-            // Implement other special objects here.
-            case RegExp:
-                objectClone = new Constructor(objectToBeCloned);
-                break;
-            case Date:
-                objectClone = new Constructor(objectToBeCloned.getTime());
-                break;
-            default:
-                objectClone = new Constructor();
-        }
-
-        // Clone each property.
-        for (let $property in objectToBeCloned) {
-            objectClone[$property] = _Clone(objectToBeCloned[$property]);
-        }
-
-        return objectClone;
-    };
-
-    /**
-     * Object deep clone
-     * https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#Another_way_deep_copy%E2%80%8E
-     * https://github.com/whatwg/html/issues/793
-     * @param objectToBeCloned
+     * @param {object} $objectToBeCloned - A data object
      * @returns {*}
      * @private
      */
     $functions.push('_MiniClone');
-    const _MiniClone = function (objectToBeCloned)
+    const _MiniClone = function ($objectToBeCloned = {})
     {
-        if (!(objectToBeCloned instanceof Object)) { return objectToBeCloned; }
+        if (($objectToBeCloned instanceof Object) === false) {
+            return $objectToBeCloned;
+        }
 
-        var $property,
-            Constructor = objectToBeCloned.constructor,
+        let Constructor = $objectToBeCloned.constructor,
             objectClone = new Constructor();
 
-        for ($property in objectToBeCloned) {
-            if (objectToBeCloned.hasOwnProperty($property)) {
-                objectClone[$property] = _MiniClone(objectToBeCloned[$property]);
+        for (let $property in $objectToBeCloned) {
+            if ($objectToBeCloned.hasOwnProperty($property)) {
+                objectClone[$property] = _MiniClone($objectToBeCloned[$property]);
             }
         }
 
@@ -298,12 +264,12 @@
     /**
      * Return 'true' if the named method exist in this class
      * Used by cmd, internal_Cmd
-     * @param $functionName
-     * @returns {boolean}
+     * @param {string} $functionName - The name of the function
+     * @returns {string} "true" or "false"
      * @private
      */
     $functions.push('_MethodExists');
-    const _MethodExists = function ($functionName)
+    const _MethodExists = function ($functionName = '')
     {
         const _ValidName = function ($name) {
             const $myRegExp = /^([a-zA-Z0-9_]+)$/;
@@ -336,11 +302,11 @@
     /**
      * Return current time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
      * Give 'c' to also get the time zone offset.
-     * @param $date
-     * @return string
+     * @param {string} $typeOfTimeStamp - Give a 'c' to get the time stamp with time zone
+     * @return {string} Return current time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
      */
     $functions.push('_TimeStamp');
-    const _TimeStamp = function ($in)
+    const _TimeStamp = function ($typeOfTimeStamp = '')
     {
         const $date = new Date(),
             yyyy = $date.getFullYear().toString(),
@@ -352,7 +318,7 @@
 
         let offsetTotal, offsetHours, offsetMinutes, offsetSign = '-', offsetResult = '+01:00', $result;
 
-        if ($in === 'c') {
+        if ($typeOfTimeStamp === 'c') {
             offsetTotal = $date.getTimezoneOffset();
             if (offsetTotal < 0) {
                 offsetSign = '+'; // Yes, -60 will become +01:00
@@ -370,11 +336,10 @@
     };
 
     /**
-     * Return current time since EPOC (1970-01-01 00:00:00),
-     * as seconds and fraction of seconds.
-     * Corresponds to PHP function microtime(true)
-     * @param $date
-     * @return string
+     * Return current number of seconds since EPOC (1970-01-01 00:00:00)
+     * Corresponds to the PHP function microtime(true)
+     * @returns {number} as seconds and fraction of seconds
+     * @private
      */
     $functions.push('_MicroTime');
     const _MicroTime = function ()
@@ -390,66 +355,69 @@
 
     /**
      * Wrapper so it is easier to change the places where json is used.
-     * @param $data
-     * @return string
+     * @param {object} $dataObject - The data object you want a JSON string for
+     * @returns {string} The JSON string
+     * @private
      */
     $functions.push('_JsonEncode');
-    const _JsonEncode = function ($data)
+    const _JsonEncode = function ($dataObject = {})
     {
-        // const $space = '\t'; // Pretty print with tab
         const $space = '    '; // Pretty print with space
         const $replacer = null;
 
-        const $row = JSON.stringify($data, $replacer, $space); // Pretty print
+        const $JSONString = JSON.stringify($dataObject, $replacer, $space); // Pretty print
 
-        return $row;
+        return $JSONString;
     };
 
     /**
      * Wrapper so it is easier to change the places where json is used.
-     * @param $row string
-     * @return string
+     * @param {string} $JsonString - The JSON string
+     * @returns {object} A data object
+     * @private
      */
     $functions.push('_JsonDecode');
-    const _JsonDecode = function ($row)
+    const _JsonDecode = function ($JsonString = '')
     {
-        if (_GetDataType($row) !== 'string') {
-            return $row;
+        if (_GetDataType($JsonString) !== 'string') {
+            return $JsonString; // Keep. Or else you get no icons in Launcher
         }
 
-        if ($row.substring(0, 1) !== '{') {
+        if ($JsonString.substring(0, 1) !== '{') {
             return {};
         }
 
-        const $data = JSON.parse($row);
+        const $dataObject = JSON.parse($JsonString);
 
-        return $data;
+        return $dataObject;
     };
 
     /**
-     * Convert from string to UTF8 string
-     * @param $data
-     * @return string
+     * Convert from escaped string to UTF8 string
+     * @param {string} $escapedString - An escaped string
+     * @returns {string} UTF8 string
+     * @private
      */
     $functions.push('_EncodeUtf8');
-    const _EncodeUtf8 = function ($data)
+    const _EncodeUtf8 = function ($escapedString = '')
     {
-        const $row = unescape(encodeURIComponent($data));
+        const $utf8DataString = unescape(encodeURIComponent($escapedString));
 
-        return $row;
+        return $utf8DataString;
     };
 
     /**
-     * Convert from UTF8 string to string
-     * @param $data
-     * @return string
+     * Convert from UTF8 string to escaped string
+     * @param {string} $utf8DataString - UTF8 data string
+     * @returns {string} Escaped string
+     * @private
      */
     $functions.push('_DecodeUtf8');
-    const _DecodeUtf8 = function ($data)
+    const _DecodeUtf8 = function ($utf8DataString = '')
     {
-        const $row = decodeURIComponent(escape($data));
+        const $escapedString = decodeURIComponent(escape($utf8DataString));
 
-        return $row;
+        return $escapedString;
     };
 
     /**
@@ -461,7 +429,7 @@
      * @private
      */
     $functions.push('_GetData');
-    const _GetData = function ($in)
+    const _GetData = function ($in = {})
     {
         const $default = {
             'name': '', // example: "response/data/checksum"
@@ -471,14 +439,14 @@
         };
         $in = _Default($default, $in);
 
-        const $names = $in.name.split($in.split);
-        const $length = $names.length;
+        const $nameArray = $in.name.split($in.split);
+        const $nameCount = $nameArray.length;
         let $answer = _ByVal($in.data);
 
-        for (let $key = 0; $key < $length; $key++)
+        for (let $nameIndex = 0; $nameIndex < $nameCount; $nameIndex++)
         {
-            if (typeof $answer[$names[$key]] !== 'undefined') {
-                $answer = $answer[$names[$key]];
+            if (typeof $answer[$nameArray[$nameIndex]] !== 'undefined') {
+                $answer = $answer[$nameArray[$nameIndex]];
             } else {
                 return $in.default;
             }
@@ -499,13 +467,14 @@
 
     /**
      * Return first letter in each word in upper case
+     * Note that this is NOT camelCase
      * From: http://locutus.io/php/ucwords/
      * @param $string
      * @returns {string}
      * @private
      */
     $functions.push('_UcWords');
-    const _UcWords = function ($string)
+    const _UcWords = function ($string = '')
     {
         $string = $string.replace(/_/g, ' ');
 
@@ -520,25 +489,37 @@
     };
 
     /**
+     * Return first letter in first word in upper case
+     * @param $string
+     * @returns {string}
+     * @private
+     */
+    $functions.push('_UcFirst');
+    const _UcFirst = function ($string = '')
+    {
+        let $result = $string[0].toUpperCase() + $string.slice(1);
+
+        return $result;
+    };
+
+    /**
      * same as sprintf in PHP. Substitute %s with another string.
-     * @param $row
-     * @param $substituteArray
+     * @param {string} $rowString
+     * @param {array} $substituteArray
      * @returns {string}
      * @private
      */
     $functions.push('_SprintF');
-    const _SprintF = function ($row, $substituteArray)
+    const _SprintF = function ($rowString = '', $substituteArray = [])
     {
         let $answer = '';
-        const $parts = $row.split('%s');
+        const $parts = $rowString.split('%s');
         const $numberOfParts = $parts.length;
 
-        for (let $partNumber = 0; $partNumber < $numberOfParts; $partNumber++)
-        {
+        for (let $partNumber = 0; $partNumber < $numberOfParts; $partNumber++) {
             $answer = $answer + $parts[$partNumber];
 
-            if (typeof $substituteArray[$partNumber] !== 'undefined')
-            {
+            if (typeof $substituteArray[$partNumber] !== 'undefined') {
                 $answer = $answer + $substituteArray[$partNumber];
             }
         }
@@ -549,36 +530,44 @@
     /**
      * Takes the first found key data from the object and gives it to you, removing it from the object.
      * Used in loops when sending one item at the time in a subcall.
-     * @param $in
-     * @returns {*}
+     * @param $myObject
+     * @returns {{data: *, key: string, object: {}}|{data: string, key: string, object: {}}}
      * @private
      */
     $functions.push('_Pop');
-    const _Pop = function ($in)
+    const _Pop = function ($myObject = {})
     {
-        $in = _ByVal($in);
+        $myObject = _ByVal($myObject);
 
-        for (let $key in $in)
-        {
-            if ($in.hasOwnProperty($key) === true)
-            {
-                const $data = $in[$key];
-                delete $in[$key];
-                return {'key': $key, 'data': $data, 'object': $in };
+        for (let $key in $myObject) {
+            if ($myObject.hasOwnProperty($key) === false) {
+                continue;
             }
+
+            const $data = $myObject[$key];
+            delete $myObject[$key];
+            return {
+                'key': $key,
+                'data': $data,
+                'object': $myObject
+            };
         }
 
-        return {'key': '', 'data': '', 'object': {} };
+        return {
+            'key': '',
+            'data': '',
+            'object': {}
+        };
     };
 
     /**
      * Create the subCall array to return to cmd.
-     * @param $in
+     * @param {object} $in
      * @returns {*}
      * @private
      */
     $functions.push('_SubCall');
-    const _SubCall = function ($in)
+    const _SubCall = function ($in = {})
     {
         const $default = {
             'func': 'SubCall',
@@ -618,7 +607,7 @@
     /**
      * My definition of an empty variable
      * @param $object
-     * @returns {*}
+     * @returns {string} "true" or "false"
      * @private
      */
     $functions.push('_Empty');
@@ -646,7 +635,7 @@
     /**
      * My definition of a variable that has a stored value
      * @param $object
-     * @returns {*}
+     * @returns {string} "true" or "false"
      * @private
      */
     $functions.push('_Full');
@@ -661,7 +650,7 @@
 
     /**
      * Check if a variable is declared.
-     * @returns {*}
+     * @returns {string} "true" or "false"
      * @private
      */
     $functions.push('_IsSet');
@@ -685,17 +674,16 @@
      * Substitute all occurrences of a sub string to a substitute string
      * A JS version of PHP str_replace
      * Source: https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript#1144788
-     * @param $string | The string you want to modify
-     * @param $find | The sub string you want to substitute
-     * @param $replace | The new string that will be inserted
-     * @returns {*}
+     * @param {string} $string - The string you want to modify
+     * @param {string} $find - The sub string you want to substitute
+     * @param {string} $replace - The new string that will be inserted
+     * @returns {string}
      * @private
      */
     $functions.push('_Replace');
-    const _Replace = function ($find, $replace, $string)
+    const _Replace = function ($find = '', $replace = '', $string = '')
     {
-        if (typeof $string === 'string' && typeof $find === 'string' && typeof $replace === 'string')
-        {
+        if (typeof $string === 'string' && typeof $find === 'string' && typeof $replace === 'string') {
             $find = $find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
             const $regexp = new RegExp($find, 'g');
             $string = $string.replace($regexp, $replace);
@@ -707,22 +695,22 @@
     /**
      * Turns an array into a lookup table where the data becomes the key
      * and the data is set from $value.
-     * @param $array | The array data
-     * @param $value | Value we want as data
-     * @returns {{}}
+     * @param {array} $array - The array data
+     * @param {int} $value - Value we want as data
+     * @returns {object}
      * @private
      */
     $functions.push('_CreateLookupTable');
-    const _CreateLookupTable = function ($array, $value)
+    const _CreateLookupTable = function ($array = [], $value = 1)
     {
         let $lookup = {};
-        let $data = '';
-        for (let $key in $array) {
-            if ($array.hasOwnProperty($key) === false) {
+        let $dataItem = '';
+        for (let $arrayIndex in $array) {
+            if ($array.hasOwnProperty($arrayIndex) === false) {
                 continue;
             }
-            $data = $array[$key];
-            $lookup[$data] = $value;
+            $dataItem = $array[$arrayIndex];
+            $lookup[$dataItem] = $value;
         }
 
         return $lookup;
@@ -730,11 +718,12 @@
 
     /**
      * Status on Cmd functions: never_existed, emerging, normal, deprecated, retired
-     * @param string $functionName
-     * @return string
+     * @param {string} $functionName - The function name to get status for
+     * @returns {{information: string, value: number, status: string}}
+     * @private
      */
     $functions.push('_GetCmdFunctionStatus');
-    const _GetCmdFunctionStatus = function ($functionName)
+    const _GetCmdFunctionStatus = function ($functionName = '')
     {
         let $functions = _GetCmdFunctions();
         const $functionsBase = _GetCmdFunctionsBase();
@@ -793,14 +782,14 @@
     };
 
     /**
-     * Get the class name in this plugin
-     * @returns {*}
+     * Get the class name for this plugin
+     * @returns {string|*}
      * @private
      */
     $functions.push('_GetClassName');
     const _GetClassName = function ()
     {
-        if (typeof _Version !== 'function') {
+        if (typeof(_Version) !== 'function') {
             return '';
         }
 
@@ -1113,7 +1102,7 @@
 
     // ***********************************************************
     // * Functions you only can reach with cmd(), add more in your class
-    // * Observe function names are lower_case
+    // * Observe function names are lower_case (snake_case)
     // ***********************************************************
 
     /**
@@ -1122,11 +1111,10 @@
      * @version 2015-05-10
      * @since 2011-09-10
      * @author Peter Lembke
-     * @param $in
-     * @returns {boolean}
+     * @returns {{client_info: {browser_name: string, browser_version: string, browser_language: string, user_agent: string}, answer: string, plugin: {}, version_code: *, message: string, base: {}}}
      */
     $functions.push("version");
-    const version = function ($in)
+    const version = function ()
     {
         const $default = {
                 'date': '',
@@ -1169,15 +1157,16 @@
      * @version 2014-01-01
      * @since 2012-04-01
      * @author Peter Lembke
-     * @returns {boolean}
+     * @param {object} $in
+     * @returns {{answer: string, data: [], message: string}}
      */
     $functions.push("function_names");
-    const function_names = function ($in)
+    const function_names = function ($in = {})
     {
         const $default = {
             'include_cmd_functions': 'true',
-        'include_internal_functions': 'true',
-        'include_direct_functions': 'true'
+            'include_internal_functions': 'true',
+            'include_direct_functions': 'true'
         };
         $in = _Default($default, $in);
 
@@ -1219,7 +1208,7 @@
 
         const $answer = {
             'answer': 'true',
-            'message': 'All function names in this plugin',
+            'message': 'Function names in this plugin',
             'data': $classMethods
         };
 
@@ -1232,15 +1221,10 @@
      * @version 2020-04-22
      * @since 2020-04-22
      * @author Peter Lembke
-     * @param $in
      * @returns {{answer: string, message: string}}
      */
     $functions.push("ping");
-    const ping = function($in)
-    {
-        const $default = {};
-        $in = _Default($default, $in);
-
+    const ping = function() {
         return {
             'answer': 'true',
             'message': 'pong'
@@ -1261,11 +1245,11 @@
      * @version 2013-09-15
      * @since   2013-09-15
      * @author  Peter Lembke
-     * @param $in | all incoming variables
+     * @param {object} $in - all incoming variables
      * @return object
      */
     $functions.push("internal_Cmd");
-    const internal_Cmd = function ($in)
+    const internal_Cmd = function ($in = {})
     {
         // "use strict"; // Do not use strict with eval()
 
@@ -1376,7 +1360,7 @@
      * @version 2016-09-01
      * @since 2013-04-25
      * @author Peter Lembke
-     * @param $in
+     * @param {object} $in
      * @return object
      * @uses level | string | log, info, warn, error
      * @uses message | string | Text row to show in the console
@@ -1385,7 +1369,7 @@
      * @uses start_time | integer | important when you create a new group
      */
     $functions.push("internal_Log");
-    const internal_Log = function ($in)
+    const internal_Log = function ($in = {})
     {
         if (!window.console) {
             return {
@@ -1528,13 +1512,13 @@
      * @version 2016-01-06
      * @since   2013-11-21
      * @author  Peter Lembke
-     * @param $in
+     * @param {object} $in
      * @uses data_back | object | Variables with data we want back untouched (OPTIONAL)
      * @uses data_request | array | Array with Data variables we want back (OPTIONAL) If omitted you get what the function give you
      * @return object
      */
     $functions.push("internal_SubCall");
-    const internal_SubCall = function ($in)
+    const internal_SubCall = function ($in = {})
     {
         const $default = {
             'func': 'SubCall',
@@ -1582,13 +1566,13 @@
      * @version 2015-01-18
      * @since   2013-11-22
      * @author  Peter Lembke
-     * @param $in
+     * @param {object} $in
      * @return object
      * @uses data_back | object | Variables with data we want back untouched (OPTIONAL)
      * @uses data_request | array | Array with Data variables we want back (OPTIONAL) If omitted you get what the function give you
      */
     $functions.push("internal_ReturnCall");
-    const internal_ReturnCall = function ($in)
+    const internal_ReturnCall = function ($in = {})
     {
         const $default = {
             'func': 'ReturnCall',

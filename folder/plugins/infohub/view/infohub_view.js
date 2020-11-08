@@ -43,6 +43,7 @@ function infohub_view() {
             'init': 'normal',
             'get_box_id': 'normal',
             'scroll_to_box_id': 'normal',
+            'scroll_to_bottom_box_id': 'normal',
             'box_mode': 'normal',
             'box_delete': 'normal',
             'box_clear': 'normal',
@@ -75,6 +76,7 @@ function infohub_view() {
             'file_read': 'normal',
             'file_write': 'normal',
             'set_style': 'normal',
+            'progress': 'normal',
             'event_message': 'normal'
         };
 
@@ -581,6 +583,52 @@ function infohub_view() {
         };
     };
 
+    /**
+     * Scroll so the lower border on the box id you provide is at the bottom of the page
+     * @version 2020-09-30
+     * @since 2020-09-30
+     * @author Peter Lembke
+     * @param id
+     * @return bool
+     */
+    $functions.push('scroll_to_bottom_box_id');
+    const scroll_to_bottom_box_id = function ($in)
+    {
+        const $default = {
+            'box_id': '1'
+        };
+        $in = _Default($default, $in);
+
+        const $currentScrollY = window.scrollY;
+        const $box = _GetNode($in.box_id);
+        const $domRectangle = $box.getBoundingClientRect();
+        const $boxTopInViewPort = $domRectangle.top;
+        const $boxHeight = $box.offsetHeight;
+        const $viewPortHeight = document.documentElement.clientHeight;
+
+        let $newScrollY = $currentScrollY + $boxTopInViewPort + $boxHeight - $viewPortHeight;
+
+        if ($newScrollY < 0) {
+            $newScrollY = 0;
+        }
+
+        if ($currentScrollY !== $newScrollY) {
+
+            window.scroll({
+                top: $newScrollY,
+                left: 0,
+                behavior: 'smooth'
+            });
+
+            history.replaceState('', document.title, window.location.pathname);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Now show this box_id lower edge to the viewport lower edge, if possible',
+            'id': $in.box_id
+        };
+    };
 
     /**
      * Changes the div “box_mode”. You can change to “data”, “side”, “under”.
@@ -1762,6 +1810,102 @@ function infohub_view() {
     };
 
     /**
+     * Copy content from one box to another.
+     * @version 2012-07-08
+     * @since 2012-07-08
+     * @author Peter Lembke
+     * @param from_box_id
+     * @param to_box_id
+     */
+    $functions.push('data_copy');
+    const data_copy = function ($in)
+    {
+        const $default = {
+            'from_box_id': '1',
+            'to_box_id': '2'
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'DataCopy',
+            'from_box_id': $in.from_box_id,
+            'to_box_id': $in.to_box_id
+        });
+    };
+
+    /**
+     * Copy content from one box to another.
+     * You can only copy data between boxes that have box_mode = “data”
+     * @version 2012-07-08
+     * @since 2012-07-08
+     * @author Peter Lembke
+     * @param from_box_id
+     * @param to_box_id
+     */
+    $functions.push('internal_DataCopy');
+    const internal_DataCopy = function ($in)
+    {
+        const $default = {
+            'func': 'DataCopy',
+            'from_box_id': '1',
+            'to_box_id': '2',
+            'throw_error_if_box_is_missing': 'false'
+        };
+
+        $in = _Default($default, $in);
+
+        let $answer = 'false',
+            $boxFrom,
+            $boxTo,
+            $message = '';
+
+        leave: {
+            $boxFrom = _GetNode($in.from_box_id);
+            if (!$boxFrom) {
+                $message = 'Can not find box with from_box_id=' + $in.from_box_id;
+                if ($in.throw_error_if_box_is_missing === 'false') {
+                    $answer = 'true';
+                }
+                break leave;
+            }
+
+            $boxTo = _GetNode($in.to_box_id);
+            if (!$boxTo) {
+                $message = 'Can not find box with to_box_id=' + $in.to_box_id;
+                if ($in.throw_error_if_box_is_missing === 'false') {
+                    $answer = 'true';
+                }
+                break leave;
+            }
+
+            let $data = {};
+
+            $data = _ReadProperty($boxFrom, 'innerHTML', $data);
+            if (_Empty($data.innerHTML) === 'false') {
+                const $html = _Replace($in.from_box_id, $in.to_box_id, $data.innerHTML);
+                $boxTo.innerHTML = $html;
+            }
+
+            $data = _ReadProperty($boxFrom, 'value', $data);
+            if (_Empty($data.value) === 'false') {
+                $boxTo.value = $data.value;
+            }
+
+            $answer = 'true';
+            $message = 'Copied from box_id:' + $in.from_box_id + ' to box_id:' + $in.to_box_id;
+        }
+
+        if ($answer === 'false') {
+            _Log({'func': $in.func, 'message': $message});
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message
+        };
+    };
+
+    /**
      * Give parent_box_id and where among the children you want your box
      * first, middle, last
      * The hidden stop-box must always be last in list. That is why you only can place a box before.
@@ -2100,6 +2244,13 @@ function infohub_view() {
             }
 
             const $nodeName = $element.nodeName.toLowerCase();
+
+            if ($nodeName === 'span' || $nodeName === 'div' || $nodeName === 'p') {
+                $element.innerHTML = $in.text;
+                $message = 'Updated the inner HTML on this object';
+                $updated = 'true';
+                break leave;
+            }
 
             if ($nodeName === 'select') {
                 $element.innerHTML = $in.text;
@@ -3100,6 +3251,15 @@ function infohub_view() {
         };
     };
 
+    /**
+     * Read a $method name from an element $box
+     * Store the value in a $data object
+     * @param $box
+     * @param $method
+     * @param $data
+     * @returns {*}
+     * @private
+     */
     const _ReadProperty = function ($box, $method, $data)
     {
         if (typeof $box[$method] === 'undefined') {
@@ -3375,32 +3535,6 @@ function infohub_view() {
         return $formDataToUpdate;
     };
 
-
-    const _WriteProperty = function ($box, $method, $data)
-    {
-        if (typeof $box[$method] === 'undefined') {
-            return $data;
-        }
-
-        if (typeof $data[$method] === 'undefined') {
-            return $data;
-        }
-
-        let $value = $data[$method];
-
-        if (typeof $value === 'boolean') {
-            if ($value === true) {
-                $value = 'true';
-            } else {
-                $value = 'false';
-            }
-        }
-
-        $box[$method] = $value;
-
-        return $data;
-    };
-
     const _JsonToObject = function ($in)
     {
         if ($in === '') {
@@ -3492,6 +3626,7 @@ function infohub_view() {
     };
 
     /**
+     * How to create a file and generate a download with javascript in the browser without a server
      * Many functions use this code.
      * Code comes from https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
      * https://ourcodeworld.com/about
@@ -3652,6 +3787,80 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': $message
+        };
+    };
+
+    /**
+     * Set a style on any element
+     * @version 2020-03-01
+     * @since 2020-03-01
+     */
+    $functions.push('progress');
+    const progress = function ($in)
+    {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'max': -1,
+            'value': -1
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'Progress',
+            'box_id': $in.box_id,
+            'max': $in.max,
+            'value': $in.value
+        });
+    };
+
+    $functions.push('internal_Progress');
+    const internal_Progress = function ($in)
+    {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'max': -1,
+            'value': -1
+        };
+        $in = _Default($default, $in);
+
+        let $message = '';
+        let $max = -1;
+        let $value = -1;
+        let $maxBefore = -1;
+        let $valueBefore = -1;
+
+        leave: {
+            let $boxId = _GetBoxId($in.box_id);
+            let $element = _GetElement($boxId);
+
+            if (!$element) {
+                $message = 'Can not find the element in DOM';
+                break leave;
+            }
+
+            $maxBefore = $element.max;
+            $valueBefore = $element.value;
+
+            if ($in.max > -1) {
+                $element.max = $in.max;
+            }
+
+            if ($in.value > -1) {
+                $element.value = $in.value;
+            }
+
+            $max = $element.max;
+            $value = $element.value;
+        }
+
+
+        return {
+            'answer': 'true',
+            'message': $message,
+            'max': $max,
+            'value': $value,
+            'max_before': $maxBefore,
+            'value_before': $valueBefore
         };
     };
 

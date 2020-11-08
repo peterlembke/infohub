@@ -25,7 +25,7 @@ Create an xml file for each image and fill it with information about the image, 
 In your main.xml you can write about the event and then reference to other xml files in the same folder.  
 
 # Open format
-There is a difference between <a href="https://en.wikipedia.org/wiki/Open_format" target_="_blank">open file formats</a> and file formats that are free to use. Please do not use free to use or closed file formats with Infohub. Instead use open file formats.  
+There is a difference between [open file formats](en.wikipedia.org/wiki/Open_format) and file formats that are free to use. Please do not use free to use or closed file formats with Infohub. Instead use open file formats.  
 Being open is not enough, it must also be good and have support in the major web browsers (Chromium, Firefox, Opera). A major web browser must exist on all major operating systems (Linux, OSX, Windows, Android, IOS)  
 
 # Data file types - your data
@@ -76,3 +76,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Since 2017-08-19 by Peter Lembke  
+Updated 2020-10-03 by Peter Lembke  

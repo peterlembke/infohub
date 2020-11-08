@@ -25,6 +25,8 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  */
 class infohub_transfer extends infohub_base {
 
+    const PACKAGE_SIZE_GETTING_LARGE_IN_BYTES = 1024 * 1024;
+
     protected final function _Version(): array
     {
         return array(
@@ -204,6 +206,9 @@ class infohub_transfer extends infohub_base {
 
             if ($in['config']['add_clear_text_messages'] === 'false') {
                 unset($in['data_back']['package']['messages']); // Can be kept for debug purposes
+            }
+            if ($in['data_back']['package']['messages_encoded_length'] > self::PACKAGE_SIZE_GETTING_LARGE_IN_BYTES) {
+                unset($in['data_back']['package']['messages']); // We need to reduce the package size
             }
 
             $packageJson = $this->_JsonEncode($in['data_back']['package']);

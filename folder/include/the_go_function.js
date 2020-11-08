@@ -68,10 +68,18 @@ function readMoreData($id, $data)
         Array.prototype.slice.call($box.attributes).forEach(function(item)
         {
             let $itemName = item.name;
+            let $itemValue = item.value;
+
             if ($itemName === 'step') {
                 $itemName = 'step_value';
             }
-            $data[$itemName] = item.value;
+            if ($itemName === 'multiple') {
+                $itemValue = 'true';
+            }
+            if ($itemName === 'selected') {
+                $itemValue = 'true';
+            }
+            $data[$itemName] = $itemValue;
         });
 
         $data = readProperty($box, 'value', $data);

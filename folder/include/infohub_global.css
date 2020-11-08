@@ -2,12 +2,6 @@ html {
     box-sizing: border-box;
 }
 
-/*
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-*/
-
 body {
     border:0;
     padding:0;
@@ -78,7 +72,7 @@ progress[value]::-moz-progress-bar {
     height: 20px;
     background-color: rgba(0, 255, 0, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px;
 }
 
 /* Progress bar Chrome and derivates */
@@ -89,7 +83,7 @@ progress[value]::-webkit-progress-value {
     height: 20px;
     background-color: rgba(0, 255, 0, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px;
 }
 
 progress[value]::-webkit-progress-bar {

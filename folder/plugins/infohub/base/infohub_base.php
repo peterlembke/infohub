@@ -229,34 +229,44 @@ class infohub_base
 
     /**
      * Wrapper so it is easier to change the places where json is used.
-     * @param $data
+     * @param $dataArray
      * @return string
      */
-    final protected function _JsonEncode(array $data = array()): string
+    final protected function _JsonEncode(array $dataArray = array()): string
     {
         $options = JSON_PRETTY_PRINT + JSON_PRESERVE_ZERO_FRACTION;
-        $row = json_encode($data, $options);
+        $jsonString = json_encode($dataArray, $options);
 
-        return $row;
+        if (empty($jsonString) === true) {
+            $jsonString = '{}';
+        }
+
+        return $jsonString;
     }
 
     /**
      * Wrapper so it is easier to change the places where json is used.
-     * @param $row string
-     * @return string
+     * @param $jsonString string
+     * @return array
      */
-    final protected function _JsonDecode(string $row = ''): array
+    final protected function _JsonDecode(string $jsonString = ''): array
     {
-        if (substr($row, 0, 1) !== '{' && substr($row, 0, 1) !== '[') {
+        if (substr($jsonString, 0, 1) !== '{' && substr($jsonString, 0, 1) !== '[') {
             return array();
         }
-        $data = json_decode($row, $asArray = true);
+
+        $data = json_decode($jsonString, $asArray = true);
+
+        if (empty($data) === true) {
+            return array();
+        }
 
         return $data;
     }
 
     /**
-     * Read value from any data collection
+     * Read a value from any level in an array without having to check if a level exist.
+     * Returns default value if any level do not exist
      * Name can be 'just_a_name' or 'some/deep/level/data'
      * @param $in
      * @return mixed
@@ -303,7 +313,12 @@ class infohub_base
     {
         foreach ($in as $key => $data) {
             unset($in[$key]);
-            return array('key'=> $key, 'data'=> $data, 'object'=> $in );
+
+            return array(
+                'key'=> $key,
+                'data'=> $data,
+                'object'=> $in
+            );
         }
 
         return array(

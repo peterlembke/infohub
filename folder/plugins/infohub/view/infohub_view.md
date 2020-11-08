@@ -65,6 +65,66 @@ return _SubCall({
     }
 });
 ```
+
+# scroll_to_box_id
+Give a box_id and the screen will scroll so that the box upper edge will be at the top of the viewport.
+If the page is not long enough then it scrolls as far as it can.
+```
+return _SubCall({
+    'to': {
+        'node': 'client',
+        'plugin': 'infohub_view',
+        'function': 'scroll_to_box_id'
+    },
+    'data': {
+        'box_id': $in.box_id
+    },
+    'data_back': {
+        'step': 'step_end'
+    }
+});
+```
+You can also add a command in your rendering data so that it scrolls when the rendering is done.
+
+```
+        'where': {
+            'box_id': 'main.body.infohub_launcher.information',
+            'max_width': 320,
+            'scroll_to_box_id': 'true'
+        },
+```
+
+# scroll_to_bottom_box_id
+Give a box_id and the screen will scroll so that the box lower edge will be at the bottom of the viewport.
+If the page is not long enough then it scrolls as far as it can.
+
+Reason I created this function was that iPhone SE 2016 has a small screen and when I clicked on an icon in Launcher I did not see the Run button. (Task HUB-1020).
+
+```
+return _SubCall({
+    'to': {
+        'node': 'client',
+        'plugin': 'infohub_view',
+        'function': 'scroll_to_bottom_box_id'
+    },
+    'data': {
+        'box_id': $in.box_id
+    },
+    'data_back': {
+        'step': 'step_end'
+    }
+});
+```
+You can also add a command in your rendering data so that it scrolls when the rendering is done.
+
+```
+        'where': {
+            'box_id': 'main.body.infohub_launcher.information',
+            'max_width': 320,
+            'scroll_to_bottom_box_id': 'true'
+        },
+```
+You can see an example of this in infohub_launcher.js when the plugin_information is rendered.
     
 # box_mode
 By changing box_mode on a box means that the children will get that class name.

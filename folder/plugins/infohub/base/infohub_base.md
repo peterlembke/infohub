@@ -266,9 +266,9 @@ When you use `internal_Log` the data are stored in an array. That array are then
 
 The data come to Infohub Exchange and are sent to `internal_LogArrayToConsole` and each log entry are sent to `internal_Console`.
 
-In `internal_Console` if your log data is marked as `error` then it is written to `folder/log/log-error.log`.
+In `internal_Console` if your log data is marked as `error` then it is written to `log/log-error.log`.
 
-If the global flag `infohub_minimum_error_level === 'log'` then your log data are also sent to `folder/log/log-all.log`.
+If the global flag `infohub_minimum_error_level === 'log'` then your log data are also sent to `log/log-all.log`.
 
 The `infohub_minimum_error_level` is set in file `folder/include/settings_and_errors.php` and default is "error", you can switch to "log" to get everything. Just be aware that the files fill up fast and execution is slower.
               

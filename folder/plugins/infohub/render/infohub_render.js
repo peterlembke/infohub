@@ -233,7 +233,8 @@ function infohub_render() {
                 'box_alias': 'rendered_data',
                 'max_width': 0,
                 'box_id': '',
-                'scroll_to_box_id': 'false',
+                'scroll_to_box_id': 'false', // Scroll to this box after render
+                'scroll_to_bottom_box_id': 'false', // Put box lower edge to viewport lower edge after render
                 'set_visible': '', // true, false, or empty string
                 'throw_error_if_box_is_missing': 'true'
             },
@@ -287,7 +288,7 @@ function infohub_render() {
 
         if ($in.step === 'step_cache') {
             $in.step = 'step_start';
-            if ($cacheKey !=='' && $in.config.use_render_cache === 'true') {
+            if ($cacheKey !== '' && $in.config.use_render_cache === 'true') {
                 if (_IsSet($renderCache[$cacheKey]) === 'true') {
                     $data = $renderCache[$cacheKey];
                     $data.where = $in.where;
@@ -335,10 +336,6 @@ function infohub_render() {
             $in.data_back.frog = 'false';
 
             if ($in.where.box_id !== '') {
-
-                if ($in.where.scroll_to_box_id === 'true') {
-                    $in.where.set_visible = 'true'; // We can not scroll to a box that is hidden.
-                }
 
                 if (Number($in.where.box_id) != $in.where.box_id) {
                     // We have a box id that is not a number.
@@ -423,7 +420,7 @@ function infohub_render() {
                     'what_done': $in.what_done,
                     'css_all': $in.css_all,
                     'latest_item_name': $data.alias,
-                    'latest_plugin_name': $plugin,
+                    // 'latest_plugin_name': $plugin,
                     'step': 'step_call_source_response',
                     'before_source_call': $data,
                     'frog': $in.data_back.frog,
@@ -661,6 +658,14 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_set_visible') {
+
+            if ($in.where.scroll_to_box_id === 'true') {
+                $in.where.set_visible = 'true'; // We can not scroll to a box that is hidden.
+            }
+            if ($in.where.scroll_to_bottom_box_id === 'true') {
+                $in.where.set_visible = 'true'; // We can not scroll to a box that is hidden.
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -684,6 +689,9 @@ function infohub_render() {
             if ($in.where.scroll_to_box_id === 'true' && $in.where.set_visible === 'true') {
                 $in.step = 'step_scroll_to_box_id';
             }
+            if ($in.where.scroll_to_bottom_box_id === 'true' && $in.where.set_visible === 'true') {
+                $in.step = 'step_scroll_to_bottom_box_id';
+            }
         }
 
         if ($in.step === 'step_scroll_to_box_id') {
@@ -692,6 +700,23 @@ function infohub_render() {
                     'node': 'client',
                     'plugin': 'infohub_view',
                     'function': 'scroll_to_box_id'
+                },
+                'data': {
+                    'box_id': $in.where.box_id
+                },
+                'data_back': {
+                    'frog': $in.data_back.frog,
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        if ($in.step === 'step_scroll_to_bottom_box_id') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'scroll_to_bottom_box_id'
                 },
                 'data': {
                     'box_id': $in.where.box_id
@@ -782,104 +807,6 @@ function infohub_render() {
 // *****************************************************************************
 // * Internal function that you only can reach from internal_Cmd
 // *****************************************************************************
-
-    $functions.push('internal_GetExtraTags');
-    /**
-     * Tags that are commonly used in texts.
-     * @version 2015-04-06
-     * @since   2015-04-06
-     * @author  Peter Lembke
-     * @param $in
-     * @returns {{answer: string, data: {}, message: string}}
-     */
-    const internal_GetExtraTags = function ($in)
-    {
-        const $tags = {
-            ':-)': '☺',
-            ':-(': '☹',
-            '(c)': '©',
-            '(r)': '®',
-            'tel': '☏',
-            'eur': '€',
-            'b': '<b>',
-            '/b': '</b>',
-            'i': '<i>',
-            '/i': '</i>',
-            'u': '<u>',
-            '/u': '</u>',
-            'line': '<hr>',
-            'columns': '<div class="columns">',
-            '/columns': '</div>',
-            'h1': '<h1>',
-            '/h1': '</h1>',
-            'h2': '<h2>',
-            '/h2': '</h2>',
-            'h3': '<h3>',
-            '/h3': '</h3>',
-            'h4': '<h4>',
-            '/h4': '</h4>',
-            'h5': '<h5>',
-            '/h5': '</h5>',
-            'h6': '<h6>',
-            '/h6': '</h6>',
-            'br': '<br>',
-            'strike': '<strike>',
-            '/strike': '</strike>'
-        };
-
-        let $data = {};
-        for (let $key in $tags) {
-            if ($tags.hasOwnProperty($key) === true) {
-                $data[$key] = {
-                    'html': $tags[$key],
-                    'status': 'rendered'
-                };
-            }
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Tags to add',
-            'data': $data
-        };
-    };
-
-    /**
-     * Put together all HTML parts and insert them into eachother.
-     * @param $in
-     * @returns {{answer: string, message: string, html: *}}
-     */
-    $functions.push('internal_AssembleHTML');
-    const internal_AssembleHTML = function ($in)
-    {
-        let $html = $in.main.html;
-
-        while ($html.indexOf('[') > -1)
-        {
-            const $start = $html.indexOf('[');
-            const $stop = $html.indexOf(']', $start);
-            const $part = $html.substring($start + 1, $stop);
-            const $findThis = '[' + $part + ']';
-
-            let $htmlPart = '';
-            if (typeof $in[$part] !== 'undefined') {
-                if (typeof $in[$part] === 'string') {
-                    $htmlPart = $in[$part];
-                }
-                if (typeof $in[$part].html !== 'undefined') {
-                    $htmlPart = $in[$part].html;
-                }
-            }
-
-            $html = $html.split($findThis).join($htmlPart);
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Finished assembling HTML',
-            'html': $html
-        };
-    };
 
     $functions.push('internal_FixBase64Data');
     /**
@@ -1048,7 +975,11 @@ function infohub_render() {
             'answer': 'true',
             'message': 'You did not set your own source for the select so you ended up here',
             'options': [
-                { "type": "option", "value": "test_option", "label": "Test option" }
+                {
+                    "type": "option",
+                    "value": "test_option",
+                    "label": "Test option"
+                }
             ]
         };
     };

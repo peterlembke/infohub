@@ -238,6 +238,9 @@ function infohub_render_text() {
                 continue;
             }
 
+            // @todo HUB-1034 here we will insert colour information
+            // [color/s0/background]
+
             $html = _Exchange($part);
             if ($html !== '') {
                 $in.text = $in.text.replace($find,$html);

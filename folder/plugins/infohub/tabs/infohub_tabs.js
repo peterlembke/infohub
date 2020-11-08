@@ -195,7 +195,7 @@ function infohub_tabs() {
             'message': 'Done initializing the tab boxes',
             'parent_box_id': $in.parent_box_id,
             'head_id': $in.data_back.head_id,
-            'body_id': $in.data_back.box_id,
+            'body_id': $in.data_back.body_id,
             'boxes_created': $boxesCreated
         };
     };
@@ -331,8 +331,8 @@ function infohub_tabs() {
         }
 
         return {
-            'answer': $in.answer,
-            'message': $in.message,
+            'answer': $in.response.answer,
+            'message': $in.response.message,
             'head_id': $in.data_back.head_id,
             'body_id': $in.data_back.body_id,
             'head_tab_id': $in.data_back.head_tab_id,

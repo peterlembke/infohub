@@ -7,6 +7,19 @@ It is a one way flow that will goto the end no matter what, and after that the C
 
 # Client core
 
+## cookies
+
+Local storage is only available to Javascript if you enable cookies. You can disable 3rd party cookies.
+
+You can get more information from this article: [why-using-localStorage-directly-is-a-bad-idea](https://michalzalecki.com/why-using-localStorage-directly-is-a-bad-idea/#typeerror-cannot-read-property-getitem-of-null).
+
+And how to enable cookies is [here](https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&hl=en).
+ 
+So why don't I use an in-memory variable as it is mentioned in the article above? After logging in I store data in indexedDb so that is OK. Then I reload the page.
+Then I need to download the Infohub Core plugins again and see if I am logged in with the data in indexedDb. That would have a major performance impact and would not be good for people with cell phones and slow internet connections.
+
+I might change this in the future but for now I will just test if cookies are enabled in start.js  
+
 ## `_ColdStart`
 Sets a flag "cold_start" in localStorage containing the number of failed starts. In Infohub_launcher after the last thing has rendered the flag is removed.  
 If you need to reload the page before the flag is removed then it is considered a failed start. On the first failed start all the plugins are removed from localStogare.  

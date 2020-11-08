@@ -154,8 +154,13 @@ class infohub_asset extends infohub_base
                 'collected_array' => $collectedArray
             ));
 
+            $sizeIndex = [];
             $assetList = array();
             foreach ($response['data'] as $assetName => $assetData) {
+
+                if (empty($assetData) === true) {
+                    continue;
+                }
 
                 if (empty($in['allowed_asset_types']) === false) {
                     if (isset($in['allowed_asset_types'][$assetData['extension']]) === false) {
@@ -169,15 +174,48 @@ class infohub_asset extends infohub_base
                     }
                 }
 
+                if ($assetData['extension'] !== 'json' && $assetData['extension'] !== 'svg') {
+                    $name = $assetData['asset_name_no_extension'];
+                    $size = $assetData['file_size'];
+
+                    if (isset($sizeIndex[$name]) === true) {
+                        if ($size > $sizeIndex[$name]) {
+                            continue;
+                        }
+                    }
+
+                    $sizeIndex[$name] = $size;
+                }
+
                 $assetList[$assetName] = $assetData;
             }
 
+            $newAssetList = [];
+            foreach ($assetList as $assetName => $assetData) {
+
+                if ($assetData['extension'] === 'json' || $assetData['extension'] === 'svg') {
+                    $newAssetList[$assetName] = $assetData;
+                    continue;
+                }
+
+                $name = $assetData['asset_name_no_extension'];
+                $size = $assetData['file_size'];
+
+                if (isset($sizeIndex[$name]) === false) {
+                    continue;
+                }
+
+                if ($size <= $sizeIndex[$name]) {
+                    $newAssetList[$name] = $assetData; // Store bitmap image without extension
+                }
+            }
+
             $index = array();
-            foreach ($collectedArray as $assetName => $assetData) {
+            foreach ($newAssetList as $assetName => $assetData) {
                 $index[$assetName] = $assetData['checksum'];
             }
 
-            $assetList[$pluginName . '/index'] = array(
+            $newAssetList[$pluginName . '/index'] = array(
                 'micro_time' => $this->_MicroTime(),
                 'time_stamp' => $this->_TimeStamp(),
                 'checksums' => $index,
@@ -185,7 +223,7 @@ class infohub_asset extends infohub_base
             );
 
             unset($index);
-            $in['response']['data'] = $assetList;
+            $in['response']['data'] = $newAssetList;
         }
 
         $answer = $in['response']['answer'];

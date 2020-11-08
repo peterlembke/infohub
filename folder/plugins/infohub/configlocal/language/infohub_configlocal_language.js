@@ -168,7 +168,7 @@ function infohub_configlocal_language() {
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
-                        'max_width': 100,
+                        'max_width': 640,
                         'scroll_to_box_id': 'true'
                     },
                     'cache_key': 'language'

@@ -128,7 +128,13 @@ The below formats work well in all supported browser.
 * ogg/opus - open audio format with the best compression for all usage from low bit rate speech to high bit rate music. Recommended for all audio  
 * ogg/vorbis - open audio format with similar compression as mp3. Use opus.  
 * mp3 - old but common audio format. Use opus.  
-There might be other asset types like video, but we will come to that in a revision of this document.  
+There might be other asset types like video, but we will come to that in a revision of this document.
+
+## More asset types
+More image types have arrived in the browsers.
+* webp - can be used in [these browsers](https://caniuse.com/?search=webp)
+* [avif](https://netflixtechblog.com/avif-for-next-generation-image-coding-b1d75675fe4) - can be used in [these browsers](https://caniuse.com/avif) and be [activated in Firefox](https://geekermag.com/open-avif-files-in-firefox/)
+In the future all images will be avif. It superseed all other image formats.
 
 # Client functions
 

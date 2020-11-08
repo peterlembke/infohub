@@ -41,13 +41,13 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("_GetCmdFunctions");
     /**
      * Mandatory function list of public functions
      * If you do not add your public function here then it can not be used
-     * @returns {}
+     * @returns {object}
      * @private
      */
-    $functions.push("_GetCmdFunctions");
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal', // Used by infohub_render to render an asset
@@ -76,7 +76,7 @@ function infohub_asset() {
      * @private
      */
     $functions.push("_GetGrandPluginName");
-    const _GetGrandPluginName = function($pluginName)
+    const _GetGrandPluginName = function($pluginName = '')
     {
         const $parts = $pluginName.split('_');
 
@@ -93,7 +93,7 @@ function infohub_asset() {
      * @returns string
      */
     $functions.push('_Translate');
-    const _Translate = function ($string)
+    const _Translate = function ($string = '')
     {
         if (typeof $classTranslations !== 'object') {
             return $string;
@@ -113,7 +113,7 @@ function infohub_asset() {
      * @author  Peter Lembke
      */
     $functions.push("create"); // Enable this function
-    const create = function ($in)
+    const create = function ($in = {})
     {
         const $default = {
             'type': 'icon', // icon, image, audio, video.
@@ -191,9 +191,11 @@ function infohub_asset() {
      * @version 2020-03-22
      * @since   2020-03-22
      * @author  Peter Lembke
+     * @param {object} $in
+     * @returns {{}|{answer: string, messages: [], message: string}}
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
+    const setup_gui = function ($in = {})
     {
         const $default = {
             'box_id': '',
@@ -420,7 +422,9 @@ function infohub_asset() {
                         'jpeg': 1,
                         'jpg': 1,
                         'gif': 1,
-                        'png': 1
+                        'png': 1,
+                        'webp': 1,
+                        'avif': 1
                     };
 
                     let $subType = 'svg';
@@ -493,9 +497,11 @@ function infohub_asset() {
      * @version 2020-03-24
      * @since   2020-03-24
      * @author  Peter Lembke
+     * @param {object} $in
+     * @returns {object|{answer: string, message: string}}
      */
     $functions.push('event_message');
-    const event_message = function ($in)
+    const event_message = function ($in = {})
     {
         const $default = {
             'box_id': '',
@@ -519,12 +525,17 @@ function infohub_asset() {
         {
             let $data = $in.event_data.split('|');
             const $pluginName = $data[0];
-            const $assetPath = $data[1];
+            let $assetPath = $data[1];
 
             $data = $assetPath.split('.');
             const $assetName = $data[0];
             const $assetExtension = $data[1];
             const $assetLicense = $assetName + '.json';
+
+            if ($assetExtension !== 'svg') {
+                // Bitmap images are stored without extension
+                $assetPath = $assetName;
+            }
 
             let $assetList = {};
             $assetList[$assetPath] = '';
@@ -662,9 +673,11 @@ function infohub_asset() {
      * @version 2018-10-26
      * @since 2018-10-26
      * @author Peter Lembke
+     * @param {object} $in
+     * @returns {{answer: string, messages: [], message: string}}
      */
     $functions.push("update_all_assets");
-    const update_all_assets = function ($in)
+    const update_all_assets = function ($in = {})
     {
         const $default = {
             'list': {}, // each key is a plugin name. Data is not used and can be anything.
@@ -742,9 +755,11 @@ function infohub_asset() {
      * @version 2017-12-23
      * @since 2017-12-23
      * @author Peter Lembke
+     * @param {object} $in
+     * @returns {{}|{answer: string, messages: [], message: string}}
      */
     $functions.push("update_all_plugin_assets");
-    const update_all_plugin_assets = function ($in)
+    const update_all_plugin_assets = function ($in = {})
     {
         const $default = {
             'plugin_name': '',
@@ -913,11 +928,11 @@ function infohub_asset() {
      * @version 2020-06-03
      * @since 2018-12-02
      * @author Peter Lembke
-     * @param $in
+     * @param {object} $in
      * @returns {{answer: string, message: *, messages: Array}}
      */
     $functions.push("update_specific_assets");
-    const update_specific_assets = function ($in)
+    const update_specific_assets = function ($in = {})
     {
         const $default = {
             'list': {}, // key=plugin name, data array with asset names as key and their checksum as data.
@@ -1170,11 +1185,11 @@ function infohub_asset() {
      * @version 2020-06-04
      * @since 2020-06-04
      * @author Peter Lembke
-     * @param $in
+     * @param {object} $in
      * @returns {{answer: string, message: *, messages: Array}}
      */
     $functions.push("update_plugin_asset_index");
-    const update_plugin_asset_index = function ($in) {
+    const update_plugin_asset_index = function ($in = {}) {
         const $default = {
             'plugin_name': '',
             'path': '', // path to the index in the Storage
@@ -1325,9 +1340,11 @@ function infohub_asset() {
      * @version 2018-11-10
      * @since 2017-12-23
      * @author Peter Lembke
+     * @param {object} $in
+     * @returns {{}|{assets: {}, answer: string, message: string}}
      */
     $functions.push("get_plugin_assets");
-    const get_plugin_assets = function ($in)
+    const get_plugin_assets = function ($in = {})
     {
         const $default = {
             'list': {},
@@ -1425,9 +1442,11 @@ function infohub_asset() {
      * @version 2018-05-12
      * @since 2018-05-12
      * @author Peter Lembke
+     * @param {object} $in
+     * @returns {{}|{answer: string, asset_exist: string, asset_license: {}, messages: [], message: string, asset: string}}
      */
     $functions.push("get_asset_and_license");
-    const get_asset_and_license = function($in)
+    const get_asset_and_license = function($in = {})
     {
         const $default = {
             'plugin_name': '', // Use by infohub_asset and by infohub_render
@@ -1453,7 +1472,8 @@ function infohub_asset() {
             $keepAsset = 'false',
             $answer = 'false',
             $message = 'Nothing to report',
-            $messageArray = [];
+            $messageArray = [],
+            $extension = '';
 
         if ($in.from_plugin.node !== 'client') {
             $message = 'I only accept calls from client plugins';
@@ -1473,7 +1493,12 @@ function infohub_asset() {
                 $fileName = $in.asset_type + '/' + $in.asset_name + '.json';
 
             $list[$fileName] = {};
-            $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
+
+            $fileName = $in.asset_type + '/' + $in.asset_name;
+            if ($in.extension === 'svg') {
+                $fileName = $fileName + '.' + $in.extension;
+            }
+
             $list[$fileName] = {};
 
             return _SubCall({
@@ -1500,7 +1525,10 @@ function infohub_asset() {
         {
             $keepAsset = 'true';
 
-            const $fileName = $in.asset_type + '/' + $in.asset_name + '.' + $in.extension;
+            let $fileName = $in.asset_type + '/' + $in.asset_name;
+            if ($in.extension === 'svg') {
+                $fileName = $fileName + '.' + $in.extension;
+            }
 
             $asset = _GetData({
                 'name': 'response|assets|' + $fileName + '|contents',
@@ -1508,7 +1536,14 @@ function infohub_asset() {
                 'data': $in,
                 'split': '|'
             });
-            
+
+            $extension = _GetData({
+                'name': 'response|assets|' + $fileName + '|extension',
+                'default': '',
+                'data': $in,
+                'split': '|'
+            });
+
             $in.step = 'step_get_license';
             if (_Empty($asset) === 'true') {
                 $message = 'The asset file is empty. You get the default asset instead.';
@@ -1538,7 +1573,7 @@ function infohub_asset() {
         if ($in.step === 'step_keep_assets') 
         {
             if ($in.extension !== 'svg' && $in.extension !== 'json' ) {
-                const $mimeType = _GetMimeType($in.extension);
+                const $mimeType = _GetMimeType($extension);
                 $asset = 'data:' + $mimeType + ';base64,' + $asset;
             }
             
@@ -1653,11 +1688,11 @@ function infohub_asset() {
 
     /**
      * Give a file extension and get a mime type for that file type
-     * @param $extension
-     * @returns {*}
+     * @param {string} $extensionString
+     * @returns {string}
      * @private
      */
-    const _GetMimeType = function($extension)
+    const _GetMimeType = function($extensionString = '')
     {
         const $mime = {
             'svg': 'image/svg+xml',
@@ -1665,14 +1700,16 @@ function infohub_asset() {
             'jpg': 'image/jpeg',
             'png': 'image/png',
             'gif': 'image/gif',
+            'webp': 'image/webp',
+            'avif': 'image/avif',
             'oga': 'audio/ogg', // https://wiki.xiph.org/MIME_Types_and_File_Extensions
             'ogv': 'video/ogg',
             'mp3': 'audio/mpeg3',
             'mp4': 'video/mp4'
         };
 
-        if (_IsSet($mime[$extension]) === 'true') {
-            return $mime[$extension];
+        if (_IsSet($mime[$extensionString]) === 'true') {
+            return $mime[$extensionString];
         }
 
         return '';

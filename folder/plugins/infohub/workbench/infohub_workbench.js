@@ -384,7 +384,7 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 4px; box-sizing: border-box;',
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 0px 0px 8px 8px; box-sizing: border-box;',
                                 '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },

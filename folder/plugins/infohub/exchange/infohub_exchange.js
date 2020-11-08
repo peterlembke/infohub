@@ -1536,7 +1536,12 @@ function infohub_exchange() {
             'infohub_cache',
             'infohub_exchange',
             'infohub_plugin',
-            'infohub_transfer'
+            'infohub_transfer',
+            'infohub_session',
+            'infohub_keyboard',
+            'infohub_offline',
+            'infohub_checksum',
+            'infohub_timer'
         ];
 
         let $out = {

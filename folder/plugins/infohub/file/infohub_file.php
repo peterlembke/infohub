@@ -399,8 +399,9 @@ class infohub_file extends infohub_base
         $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
         $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
         $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
+        $infohubSvg = file_get_contents(PLUGINS . '/infohub/welcome/asset/icon/infohub-logo-done.svg');
 
-        $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng);
+        $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng) . md5($infohubSvg);
 
         $files = [
             'progress.js',
@@ -831,7 +832,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $dataToDeliver = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -856,6 +857,9 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
+        $data = array();
+        $jsonIndex = array();
+
         foreach ($response['data'] as $path)
         {
             if (strpos($path, '.') === false) {
@@ -869,9 +873,13 @@ class infohub_file extends infohub_base
 
             $storedPath = $in['plugin_name'] . '/' . str_replace($assetPath . '/', '', $path);
 
+            $lengthWithoutExtension = strlen($storedPath) - strlen($fileData['path_info']['extension']) -1;
+            $storedPathNoExtension = substr($storedPath, 0,$lengthWithoutExtension);
+
             $data[$storedPath] = array(
                 'plugin_name' => $in['plugin_name'],
                 'asset_name' => $storedPath,
+                'asset_name_no_extension' => $storedPathNoExtension,
                 'extension' => $fileData['path_info']['extension'],
                 'contents' => $fileData['contents'],
                 'checksum' => $fileData['checksum'],
@@ -881,15 +889,26 @@ class infohub_file extends infohub_base
                 'file_size' => $fileData['file_size']
             );
 
-            $answer = 'true';
-            $message = 'Here are the assets you requested';
+            if ($fileData['path_info']['extension'] === 'json') {
+                $jsonIndex[$storedPathNoExtension] = 1;
+            }
         }
+
+        foreach ($data as $assetPath => $assetData) {
+            if (isset($jsonIndex[$assetData['asset_name_no_extension']]) === true) {
+                // Only json files and assets with a json license file are accepted
+                $dataToDeliver[$assetPath] = $assetData;
+            }
+        }
+
+        $answer = 'true';
+        $message = 'Here are the assets you requested';
 
         leave:
         return array(
             'answer' => $answer,
             'message' => $message,
-            'data' => $data
+            'data' => $dataToDeliver
         );
     }
 

@@ -1,0 +1,15 @@
+{
+    "publisher_name": "Infohub",
+    "publisher_url": "https://infohub.se",
+    "publisher_note": "",
+    "publisher_video_url": "",
+    "collection_name": "Infohub Demo",
+    "collection_url": "https://infohub.se",
+    "collection_note": "Collection of SVG icons used in Infohub for the demo plugin",
+    "license_name": "Use for Free, but Please Set a Link to infohub.se",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "license_note": "You are free to share and adapt the icon. You should link to Infohub.se. I will not bother you if you don't. No other restrictions.",
+    "icon_name": "svg-text",
+    "icon_url": "https://infohub.se",
+    "icon_note": "Used in configLocal to represent an SVG image when selecting what images you can see"
+}

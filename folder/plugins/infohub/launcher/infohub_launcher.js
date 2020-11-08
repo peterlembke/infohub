@@ -1561,7 +1561,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push("my_list_add");
-    var my_list_add = function ($in)
+    const my_list_add = function ($in)
     {
         const $default = {
             'plugin': '',
@@ -2033,7 +2033,7 @@ function infohub_launcher() {
                     'where': {
                         'box_id': 'main.body.infohub_launcher.information',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_bottom_box_id': 'true'
                     },
                     'cache_key': 'plugininfo_' + $in.plugin_name
                 },

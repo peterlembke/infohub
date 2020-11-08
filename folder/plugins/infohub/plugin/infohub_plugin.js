@@ -51,7 +51,8 @@ function infohub_plugin() {
             'plugin_request': 'normal',
             'plugin_start': 'normal',
             'plugin_list': 'normal',
-            'download_all_plugins': 'normal'
+            'download_all_plugins': 'normal',
+            'set_plugin_config': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -89,6 +90,8 @@ function infohub_plugin() {
 
         let $answer = 'false';
         let $message = 'There was an error';
+        let $messageArray = [];
+        let $messageOut = {};
 
         if ($in.step === 'plugin_request_from_cache')
         {
@@ -112,36 +115,43 @@ function infohub_plugin() {
 
         if ($in.step === 'plugin_request_from_cache_response')
         {
-            $in.step = 'plugin_request_from_server';
-            if ($in.found === 'true' && $in.old === 'false') {
-                $in = _ByVal($in.data);
-                $in.plugin_from = 'local_cache';
+            if ($in.found === 'false' || $in.old === 'true') {
+                let $missingPluginNames = [];
+                $missingPluginNames.push($in.plugin_name);
+
+                $messageOut = _SubCall({
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_plugin',
+                        'function': 'plugins_request'
+                    },
+                    'data': {
+                        'plugin_node': 'client',
+                        'plugin_name': $in.plugin_name,
+                        'missing_plugin_names': $missingPluginNames
+                    },
+                    'data_back': {
+                        'step': 'plugin_request_from_server_response',
+                        'plugin_name': $in.plugin_name,
+                        'start_plugin': $in.start_plugin
+                    }
+                });
+            }
+
+            if ($in.found === 'false') {
+                return $messageOut;
+            }
+
+            if ($in.found === 'true') {
+
+                if ($in.old === 'true') {
+                    $messageArray.push($messageOut);
+                }
+
+                $in.data.plugin_from = 'local_cache';
+
                 $in.step = 'step_start_plugin';
             }
-        }
-
-        if ($in.step === 'plugin_request_from_server')
-        {
-            let $missingPluginNames = [];
-            $missingPluginNames.push($in.plugin_name);
-
-            return _SubCall({
-                'to': {
-                    'node': 'server',
-                    'plugin': 'infohub_plugin',
-                    'function': 'plugins_request'
-                },
-                'data': {
-                    'plugin_node': 'client',
-                    'plugin_name': $in.plugin_name,
-                    'missing_plugin_names': $missingPluginNames
-                },
-                'data_back': {
-                    'step': 'plugin_request_from_server_response',
-                    'plugin_name': $in.plugin_name,
-                    'start_plugin': $in.start_plugin
-                }
-            });
         }
 
         if ($in.step === 'plugin_request_from_server_response') {
@@ -194,7 +204,8 @@ function infohub_plugin() {
                     'data_back': {
                         'plugin_name': $in.plugin_name,
                         'step': 'step_start_plugin_response'
-                    }
+                    },
+                    'messages': $messageArray
                 });
             }
         }
@@ -353,7 +364,7 @@ function infohub_plugin() {
                     $worker = new Worker(URL.createObjectURL($blob));
                     $worker.onmessage = function($in) { // Move this function to infohub_exchange
                         $message = JSON.parse($in);
-                        var $package = {
+                        let $package = {
                                 'to_node' : 'server',
                                 'messages' : []
                             };
@@ -638,6 +649,107 @@ function infohub_plugin() {
         return {
             'answer': 'true',
             'message': 'Done with storing all plugins'
+        };
+    };
+
+    /**
+     * Give a set of config data.
+     * Function will load the plugin with its config data.
+     * Merge in the new data into the existing keys only
+     * If any existing key got new data then store the config with the plugin
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    $functions.push('set_plugin_config');
+    const set_plugin_config = function ($in)
+    {
+        const $default = {
+            'answer': 'false',
+            'message': '',
+            'plugin_name': '',
+            'plugin_config': {},
+            'step': 'step_get_plugin_from_cache',
+            'data_back': {},
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        let $plugin = {};
+
+        if ($in.step === 'step_get_plugin_from_cache')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_cache',
+                    'function': 'load_data_from_cache'
+                },
+                'data': {
+                    'prefix': 'plugin',
+                    'key': $in.plugin_name
+                },
+                'data_back': {
+                    'plugin_name': $in.plugin_name,
+                    'plugin_config': $in.plugin_config,
+                    'step': 'step_get_plugin_from_cache_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_get_plugin_from_cache_response') {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'data': {
+                    'plugin_checksum': '',
+                    'plugin_code': '',
+                    'plugin_code_size': 0,
+                    'plugin_config': {},
+                    'plugin_from': '',
+                    'plugin_name': '',
+                    'plugin_node': '',
+                    'plugin_path': ''
+                }
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+            $plugin = $in.response.data;
+
+            if (_Full($plugin.plugin_checksum) === 'true') {
+                $plugin.plugin_config = _Default($plugin.plugin_config, $in.plugin_config);
+                $in.step = 'step_save_plugin_to_cache';
+            }
+        }
+
+        if ($in.step === 'step_save_plugin_to_cache')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_cache',
+                    'function': 'save_data_to_cache'
+                },
+                'data': {
+                    'prefix': 'plugin',
+                    'key': $plugin.plugin_name,
+                    'data': $plugin,
+                    'checksum': $plugin.plugin_checksum
+                },
+                'data_back': {
+                    'step': 'step_save_plugin_to_cache_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_save_plugin_to_cache_response')
+        {
+
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Done updating the plugin config for one plugin'
         };
     };
 }

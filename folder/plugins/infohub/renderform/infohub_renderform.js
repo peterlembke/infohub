@@ -1431,7 +1431,7 @@ function infohub_renderform() {
         if ($in.type === 'select') {
             if ($in.event_type === 'change') {
                 if ($in.step === 'step_start') {
-                    if (_IsSet($in.multiple) === 'false') { // We only want to support single select
+                    if (_IsSet($in.multiple) === 'false' || _Empty($in.multiple) === 'true') { // We only want to support single select
                         if (! ($in.to_node === 'client' && $in.to_plugin === 'infohub_renderform' && $in.to_function === 'event_message'))
                         {
                             let $data = _Delete($in, {'step':'' });

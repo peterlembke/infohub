@@ -127,15 +127,26 @@ function infohub_configlocal_menu() {
                                     'button_left_icon': '[language_icon]',
                                     'to_plugin': 'infohub_configlocal',
                                     'to_function': 'click_menu'
-                                }
-                                /*
+                                },
+                                'image': {
+                                    'alias': 'image_link',
+                                    'event_data': 'image',
+                                    'button_label': _Translate('Images you see'),
+                                    'button_left_icon': '[image_icon]',
+                                    'to_plugin': 'infohub_configlocal',
+                                    'to_function': 'click_menu'
+                                },
                                 'colour': {
                                     'alias': 'colour_link',
                                     'event_data': 'colour',
                                     'button_label': _Translate('Colour schema'),
                                     'to_plugin': 'infohub_configlocal',
-                                    'to_function': 'click_menu'
-                                },
+                                    'to_function': 'click_menu',
+                                    'custom_variables': {
+                                        'call_render_done': 'true'
+                                    }
+                                }
+                                /*
                                 'font': {
                                     'alias': 'font_link',
                                     'event_data': 'font',
@@ -178,6 +189,17 @@ function infohub_configlocal_menu() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'language/language',
+                            'plugin_name': 'infohub_configlocal'
+                        },
+                        'image_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[image_asset]'
+                        },
+                        'image_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'classic-config-icon',
                             'plugin_name': 'infohub_configlocal'
                         }
                     },

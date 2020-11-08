@@ -67,6 +67,19 @@
             "Test": "Test",
             "Save": "Spara"
         },
+        "infohub_configlocal_image": {
+            "What images can you see?": "Vilka bilder kan du se?",
+            "Here you set asset limits and instruct Infohub what images you can see on this browser": "Här begränsar du hur stora bilder/ljud som får laddas ned och vilka bildtyper du kan se i just din webbläsare",
+            "Download assets": "Ladda ned bilder/ljud",
+            "You can prevent all images and sounds to be downloaded. Save download time and quota": "Du kan förhindra att alla bilder och ljud laddas ned. Sparar nedladdningstid och din nedladdningspott",
+            "Max asset size": "Maximal storlek på bilden",
+            "Max asset size in Kilobytes you allow to be downloaded. You can limit to save download speed and quota": "Hur stora bilder/ljud i kilobyte tillåter du? Sätt en gräns för att öka nedladdningshastigheten och spara på din surfpott",
+            "Cache time for assets": "Hur länge ska bilden/ljudet anses aktuell",
+            "Asset is considered fresh until this many days have passed. Then we will contact the server and see if it has been updated": "Bilder/ljud anses vara aktuella tills så här många dagar har passerat. Sedan kommer vi att kontakta servern och se om bilden/ljudet fortfarande är aktuellt eller behöver uppdateras",
+            "Image types you can see": "Bildformat som du kan se",
+            "Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser": "Olika webbläsare stödjer olika bildformat. Markera de du kan se och jag låter bli att ladda ned bilder du ändå inte kan se i din webbläsare.",
+            "Save": "Spara"
+        },
         "infohub_configlocal_language": {
             "Language": "Språk",
             "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Här kan du välja ditt föredragna språk. Det används sedan till att översätta all text i alla plugins.",
@@ -82,6 +95,7 @@
             "Configuration - Local on this device": "Konfiguration - Lokalt på den här enheten",
             "Zoom level": "Zoomnivå",
             "Language preferred": "Språk",
+            "Images you see": "Bilder du ser",
             "Colour schema": "Färgschema",
             "Font settings": "Teckensnittinställningar",
             "Allow things": "Tillåt saker",

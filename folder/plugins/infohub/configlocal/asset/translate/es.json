@@ -67,6 +67,19 @@
             "Test": "Prueba",
             "Save": "Guardar"
         },
+        "infohub_configlocal_image": {
+            "What images can you see?": "¿Qué imágenes puedes ver",
+            "Here you set asset limits and instruct Infohub what images you can see on this browser": "Aquí limita el tamaño de las imágenes / sonidos que se pueden descargar y los tipos de imágenes que puede ver en su navegador en particular.",
+            "Download assets": "Descargar elementos",
+            "You can prevent all images and sounds to be downloaded. Save download time and quota": "Puede evitar que se descarguen todas las imágenes y sonidos. Ahorre tiempo de descarga y cuota",
+            "Max asset size": "Tamaño máximo de recurso",
+            "Max asset size in Kilobytes you allow to be downloaded. You can limit to save download speed and quota": "Tamaño máximo de activos en kilobytes que permite descargar. Puede limitar para ahorrar velocidad de descarga y cuota",
+            "Cache time for assets": "Tiempo de caché para activos",
+            "Asset is considered fresh until this many days have passed. Then we will contact the server and see if it has been updated": "El activo se considera nuevo hasta que hayan pasado estos días. Luego, nos comunicaremos con el servidor y veremos si se ha actualizado",
+            "Image types you can see": "Tipos de imágenes que puede ver",
+            "Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser": "Los diferentes navegadores admiten diferentes formatos de imagen. Seleccione los tipos de imágenes que puede ver y evitaré descargar imágenes que no puede ver en este navegador",
+            "Save": "Salvar"
+        },
         "infohub_configlocal_language": {
             "Language": "Idioma",
             "Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.": "Aquí puede seleccionar sus idiomas preferidos. Esto se utiliza para traducir los textos en todos los complementos a lo que prefiera.",
@@ -82,6 +95,7 @@
             "Configuration - Local on this device": "Configuración - Local en este dispositivo",
             "Zoom level": "Nivel de zoom",
             "Language preferred": "Idioma preferido",
+            "Images you see": "Imagenes que ves",
             "Colour schema": "Esquema de color",
             "Font settings": "Configuración de fuente",
             "Allow things": "Permitir cosas",

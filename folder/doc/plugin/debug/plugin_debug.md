@@ -96,7 +96,7 @@ You can set break points in these error handlers if you need to amd see the call
     
 # Logging
 Both JS and PHP has logging. 
-* PHP log to files in `"folder/log"`. 
+* PHP log to files in `"log"`. 
 * JS log to the browser console (Right click the page and select "Inspector").
   
 Observer that **logging takes time and are normally restricted to severe errors.**
@@ -124,7 +124,7 @@ Each plugin can have a configuration file. This is an example from infohub/check
 }
 ```
 
-In this case we log two functions. The logging will be to folder/log/plugin_name.log.
+In this case we log two functions. The logging will be to log/plugin_name.log.
 
 Copy the configuration file to `folder/config` and modify it there. That will override the original configuration file.
 
