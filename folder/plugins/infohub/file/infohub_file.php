@@ -1,37 +1,42 @@
 <?php
+/**
+ * Handle files
+ *
+ * Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins
+ *
+ * @package     Infohub
+ * @subpackage  infohub_file
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*
-    @license
-        Copyright (C) 2017 Peter Lembke , CharZam soft
-        the program is distributed under the terms of the GNU General Public License
-
-        InfoHub is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 3 of the License, or
-        (at your option) any later version.
-
-        InfoHub is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-        GNU General Public License for more details.
-
-        You should have received a copy of the GNU General Public License
-        along with InfoHub.	If not, see <https://www.gnu.org/licenses/>.
-
-    @category InfoHub
-    @package Plugin
-    @copyright Copyright (c) 2017, Peter Lembke, CharZam soft
-    @author Peter Lembke <peter.lembke@infohub.se>
-    @link https://infohub.se/ InfoHub main page
-*/
+/**
+ * Handle files
+ *
+ * Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-02-23
+ * @since       2017-11-01
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_file extends infohub_base
 {
 
-    Protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2019-02-23
+     * @since   2017-11-01
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-02-23',
@@ -46,6 +51,13 @@ class infohub_file extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2019-02-23
+     * @since   2017-11-01
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -79,7 +91,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -129,7 +141,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_Read(array $in = array()): array
+    protected function internal_Read(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -146,8 +158,8 @@ class infohub_file extends infohub_base
 
         $response = array(
             'path' => '',
-            'path_info' => array(),
-            'file_info' => array(),
+            'path_info' => [],
+            'file_info' => [],
             'file_size' => 0
         );
 
@@ -203,7 +215,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -246,7 +258,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_Write(array $in = array()): array
+    protected function internal_Write(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -261,8 +273,8 @@ class infohub_file extends infohub_base
         $createdPath = 'false';
         $response = array(
             'path' => '',
-            'path_info' => array(),
-            'file_info' => array(),
+            'path_info' => [],
+            'file_info' => [],
             'file_size' => 0
         );
         $contentsLength = strlen($in['contents']);
@@ -330,7 +342,7 @@ class infohub_file extends infohub_base
      * @param string $extension
      * @return string | boolean string "true" or "false"
      */
-    final protected function _IsBinaryFileExtension(string $extension = ''): string
+    protected function _IsBinaryFileExtension(string $extension = ''): string
     {
         $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md');
         $isBinaryFileExtension = 'true';
@@ -348,7 +360,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_folder_structure(array $in = array()): array
+    protected function get_folder_structure(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -381,7 +393,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function index_checksum(array $in = array()): array
+    protected function index_checksum(array $in = []): array
     {
         $default = array(
             'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
@@ -432,7 +444,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected  function  internal_GetFolderStructure(array $in = array()): array
+    protected  function  internal_GetFolderStructure(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -442,7 +454,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
         $pattern = '';
         $fullPath = '';
 
@@ -496,7 +508,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function _FileInformation(array $in = array()): array
+    protected function _FileInformation(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -612,7 +624,7 @@ class infohub_file extends infohub_base
      * @param string $path
      * @return string
      */
-    final protected function _CheckPath(string $path = ''): string
+    protected function _CheckPath(string $path = ''): string
     {
         if (strpos($path, MAIN) !== 0) {
             return 'false'; // Path must be somewhere in "folder"
@@ -639,7 +651,7 @@ class infohub_file extends infohub_base
      * @param string $type
      * @return string
      */
-    final protected function _CleanString(string $string = '', string $type = 'path'): string
+    protected function _CleanString(string $string = '', string $type = 'path'): string
     {
         $allowed = array(
             'path' => 'abcdefghijklmnopqrstuvwxyz0123456789_-./',
@@ -677,7 +689,7 @@ class infohub_file extends infohub_base
      * @param string $dataString
      * @return string
      */
-    final protected function _Hash(string $dataString = ''): string
+    protected function _Hash(string $dataString = ''): string
     {
         return (string) md5($dataString);
     }
@@ -692,7 +704,7 @@ class infohub_file extends infohub_base
      * @param int $flags
      * @return array
      */
-    final protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
+    protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
     {
         $files = glob($pattern, $flags);
         foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
@@ -706,7 +718,7 @@ class infohub_file extends infohub_base
      * @param string $path
      * @return string
      */
-    final protected function _RemoveEndSlash(string $path = ''): string {
+    protected function _RemoveEndSlash(string $path = ''): string {
         if (substr($path, -1,1) === '/') {
             $path = substr($path, 0, -1);
         }
@@ -723,7 +735,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function launcher_get_full_list(array $in = array()): array
+    protected function launcher_get_full_list(array $in = []): array
     {
         $default = array(
             'from_plugin' => array('node' => '', 'plugin' => '')
@@ -732,7 +744,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -822,7 +834,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function asset_get_all_assets_for_one_plugin(array $in = array()): array
+    protected function asset_get_all_assets_for_one_plugin(array $in = []): array
     {
         $default = array(
             'plugin_name' => '',
@@ -857,8 +869,8 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $data = array();
-        $jsonIndex = array();
+        $data = [];
+        $jsonIndex = [];
 
         foreach ($response['data'] as $path)
         {
@@ -921,17 +933,17 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function asset_get_assets_requested(array $in = array()): array
+    protected function asset_get_assets_requested(array $in = []): array
     {
         $default = array(
-            'assets_requested' => array(),
+            'assets_requested' => [],
             'from_plugin' => array('node' => '', 'plugin' => '')
         );
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -1000,7 +1012,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function plugin_get_all_plugin_names(array $in = array()): array
+    protected function plugin_get_all_plugin_names(array $in = []): array
     {
         $default = array(
             'from_plugin' => array('node' => '', 'plugin' => '')
@@ -1009,7 +1021,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from the server node';
@@ -1077,7 +1089,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function developer_get_all_plugin_data(array $in = array()): array
+    protected function developer_get_all_plugin_data(array $in = []): array
     {
         $default = array(
             'node' => 'all', // all, client, server
@@ -1086,7 +1098,7 @@ class infohub_file extends infohub_base
             'level' => 'all', // all, 1, 2, 3
             'from_plugin' => array('node' => '', 'plugin' => ''),
             'config' => array(
-                'role_list_indexed' => array()
+                'role_list_indexed' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -1094,8 +1106,8 @@ class infohub_file extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = array(
-            'server' => array(),
-            'client' => array()
+            'server' => [],
+            'client' => []
         );
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -1200,7 +1212,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_all_level1_plugin_names(array $in = array()): array
+    protected function get_all_level1_plugin_names(array $in = []): array
     {
         $default = array(
             'from_plugin' => array('node' => '', 'plugin' => ''),
@@ -1210,7 +1222,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -1252,7 +1264,7 @@ class infohub_file extends infohub_base
             }
             
             $pluginName = substr($pluginName, 0, -$suffixLength);
-            $data[$pluginName] = array();
+            $data[$pluginName] = [];
         }
         
         ksort($data);
@@ -1278,7 +1290,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_node_role_plugin_name_role_list(array $in = array()): array
+    protected function load_node_role_plugin_name_role_list(array $in = []): array
     {
         $default = array(
             'from_plugin' => array('node' => '', 'plugin' => '')
@@ -1287,7 +1299,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $nodeRolePluginNameRoleList = array();
+        $nodeRolePluginNameRoleList = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -1297,7 +1309,7 @@ class infohub_file extends infohub_base
         $nodeArray = array('client', 'server');
         foreach ($nodeArray as $node) {
 
-            $nodeRolePluginNameRoleList[$node] = array();
+            $nodeRolePluginNameRoleList[$node] = [];
 
             $suffix = '.php';
             if ($node === 'client') {
@@ -1319,7 +1331,7 @@ class infohub_file extends infohub_base
 
             $suffixLength = strlen($suffix);
 
-            $pluginList = array();
+            $pluginList = [];
 
             foreach ($response['data'] as $path)
             {
@@ -1356,7 +1368,7 @@ class infohub_file extends infohub_base
                 }
 
                 if (isset($nodeRolePluginNameRoleList[$node][$role]) === false) {
-                    $nodeRolePluginNameRoleList[$node][$role] = array();
+                    $nodeRolePluginNameRoleList[$node][$role] = [];
                 }
 
                 $nodeRolePluginNameRoleList[$node][$role][$pluginName] = $role;
@@ -1379,7 +1391,7 @@ class infohub_file extends infohub_base
      * @param string $extension
      * @return string
      */
-    final protected function _GetNodeFromExtension(string $extension = ''): string
+    protected function _GetNodeFromExtension(string $extension = ''): string
     {
         if ($extension === 'js') {
             return 'client';
@@ -1397,7 +1409,7 @@ class infohub_file extends infohub_base
      * @param string $contents
      * @return string
      */
-    final protected function _GetUserRole(string $node = '', string $contents = ''): string
+    protected function _GetUserRole(string $node = '', string $contents = ''): string
     {
         $decodedContents = base64_decode($contents);
 
@@ -1430,7 +1442,7 @@ class infohub_file extends infohub_base
      * @param string $contents
      * @return string
      */
-    final protected function _GetPluginStatus(string $node = '', string $contents = ''): string
+    protected function _GetPluginStatus(string $node = '', string $contents = ''): string
     {
         $decodedContents = base64_decode($contents);
 
@@ -1466,7 +1478,7 @@ class infohub_file extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_plugin_js_files_content(array $in = array()): array
+    protected function get_plugin_js_files_content(array $in = []): array
     {
         $default = array(
             'plugin_name' => '',
@@ -1476,7 +1488,7 @@ class infohub_file extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array();
+        $data = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';

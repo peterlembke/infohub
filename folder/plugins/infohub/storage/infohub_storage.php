@@ -1,4 +1,15 @@
 <?php
+/**
+ * infohub_storage store data in databases and is part of InfoHub.
+ *
+ * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ * All data are stored in tables that holds keys and values.
+ * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ *
+ * @package     Infohub
+ * @subpackage  infohub_storage
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
@@ -6,37 +17,33 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
 /**
  * infohub_storage store data in databases and is part of InfoHub.
- * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ *
  * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
- * @category InfoHub
- * @package Storage
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2010-04-15
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
- */
-
-/**
- * Class infohub_storage
  * All data are stored in tables that holds keys and values.
+ * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-09-12
+ * @since       2010-04-15
+ * @copyright   Copyright (c) 2020, Peter Lembke, CharZam soft
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/infohub_storage.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_storage extends infohub_base
 {
+    /**
+     * Version information for this plugin
+     * @version 2020-09-12
+     * @since   2010-04-15
+     * @author  Peter Lembke
+     * @return  string[]
+     */
     protected function _Version(): array
     {
         return array(
-            'date' => '2017-07-20',
+            'date' => '2020-09-12',
+            'since' => '2010-04-15',
             'version' => '1.3.0',
             'class_name' => 'infohub_storage',
             'checksum' => '{{checksum}}',
@@ -48,8 +55,11 @@ class infohub_storage extends infohub_base
     }
 
     /**
-     * This is the functions you can reach trough cmd()
-     * @return array|string[]
+     * Public functions in this plugin
+     * @version 2020-09-12
+     * @since   2010-04-15
+     * @author  Peter Lembke
+     * @return mixed
      */
     protected function _GetCmdFunctions(): array
     {
@@ -86,11 +96,11 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'wanted_data' => array(),
+            'wanted_data' => [],
             'step' => 'step_start',
             'from_plugin' => array(
                 'node' => '',
@@ -100,7 +110,7 @@ class infohub_storage extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -108,7 +118,7 @@ class infohub_storage extends infohub_base
             'answer' => 'false',
             'message' => '',
             'path' => $in['path'],
-            'data' => array(),
+            'data' => [],
             'wanted_data' => $in['wanted_data'],
             'post_exist' => 'false'
         );
@@ -163,7 +173,7 @@ class infohub_storage extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => 'There was an error',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false',
             );
             $in['response'] = $this->_Default($default, $in['response']);
@@ -197,11 +207,11 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'mode' => 'overwrite', // Overwrite or merge
             'step' => 'step_write',
             'from_plugin' => array(
@@ -212,8 +222,8 @@ class infohub_storage extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array(),
-            'data_back' => array()
+            'response' => [],
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -311,10 +321,10 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_many(array $in = array()): array
+    protected function read_many(array $in = []): array
     {
         $default = array(
-            'paths' => array(), // key = path, data array = wanted_data (default is empty to get all)
+            'paths' => [], // key = path, data array = wanted_data (default is empty to get all)
             'step' => 'step_start',
             'from_plugin' => array(
                 'node' => '',
@@ -328,11 +338,11 @@ class infohub_storage extends infohub_base
                 'answer' => 'false',
                 'message' => 'There was an error',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             ),
             'data_back' => array(
-                'items' => array()
+                'items' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -402,10 +412,10 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_many(array $in = array()): array
+    protected function write_many(array $in = []): array
     {
         $default = array(
-            'paths' => array(), // full path is key, data is what you want to store on that path.
+            'paths' => [], // full path is key, data is what you want to store on that path.
             'mode' => 'overwrite',
             'step' => 'step_start',
             'from_plugin' => array(
@@ -416,9 +426,9 @@ class infohub_storage extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array(),
+            'response' => [],
             'data_back' => array(
-                'items' => array()
+                'items' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -426,7 +436,7 @@ class infohub_storage extends infohub_base
         $out = array(
             'answer' => 'false',
             'message' => 'message',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -511,11 +521,11 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_pattern(array $in = array()): array
+    protected function read_pattern(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'wanted_data' => array(),
+            'wanted_data' => [],
             'step' => 'step_start',
             'from_plugin' => array(
                 'node' => '',
@@ -525,14 +535,14 @@ class infohub_storage extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Nothing to report from server storage read_pattern',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -576,7 +586,7 @@ class infohub_storage extends infohub_base
                 'answer' => 'false',
                 'message' => 'There was an error',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -586,7 +596,7 @@ class infohub_storage extends infohub_base
                 $out = array(
                     'answer'=> 'true',
                     'message'=> 'There were no matching paths. Work done.',
-                    'items'=> array()
+                    'items'=> []
                 );
                 $in['step'] = 'step_end';
             }
@@ -622,7 +632,7 @@ class infohub_storage extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => 'There was an error',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -643,11 +653,11 @@ class infohub_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_pattern(array $in = array()): array
+    protected function write_pattern(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'mode' => 'overwrite', // overwrite or merge
             'step' => 'step_start',
             'from_plugin' => array(
@@ -658,14 +668,14 @@ class infohub_storage extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Nothing to report from server storage write_pattern',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -710,7 +720,7 @@ class infohub_storage extends infohub_base
                 'answer' => 'false',
                 'message' => 'There was an error',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -720,7 +730,7 @@ class infohub_storage extends infohub_base
                 $out = array(
                     'answer'=> 'true',
                     'message'=> 'There were no matching paths. Work done.',
-                    'items'=> array()
+                    'items'=> []
                 );
                 $in['step'] = 'step_end';
             }
@@ -754,7 +764,7 @@ class infohub_storage extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => 'There was an error',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }

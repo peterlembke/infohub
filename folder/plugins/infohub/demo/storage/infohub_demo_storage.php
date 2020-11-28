@@ -1,34 +1,42 @@
 <?php
+/**
+ * infohub_demo_storage help the client version of this plugin to store data
+ *
+ * @package     Infohub
+ * @subpackage  infohub_demo_storage
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_demo_storage help the client cersion of this plugin to store data
- * @category InfoHub
- * @package demo
- * @copyright Copyright (c) 2020, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_demo_storage help the client version of this plugin to store data
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-06-23
+ * @since       2020-06-23
+ * @copyright   Copyright (c) 2020, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/infohub_storage_data.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_demo_storage extends infohub_base
 {
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     *
+     * @version 2020-06-23
+     * @since   2020-06-23
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2020-06-23',
+            'since' => '2020-06-23',
             'version' => '1.0.0',
             'class_name' => 'infohub_demo_storage',
             'checksum' => '{{checksum}}',
@@ -39,6 +47,14 @@ class infohub_demo_storage extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     *
+     * @version 2020-06-23
+     * @since   2020-06-23
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
@@ -59,13 +75,13 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'wanted_data' => array(),
+            'wanted_data' => [],
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -74,7 +90,7 @@ class infohub_demo_storage extends infohub_base
             'message' => 'Could not read from Storage',
             'post_exist' => 'false',
             'path' => '',
-            'data' => array()
+            'data' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -100,7 +116,7 @@ class infohub_demo_storage extends infohub_base
                 'message' => '',
                 'post_exist' => 'false',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -116,14 +132,14 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'mode' => '', // overwrite or merge
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -132,7 +148,7 @@ class infohub_demo_storage extends infohub_base
             'message' => 'Could not write to Storage',
             'post_exist' => 'false',
             'path' => '',
-            'data' => array()
+            'data' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -159,7 +175,7 @@ class infohub_demo_storage extends infohub_base
                 'message' => '',
                 'post_exist' => 'false',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -175,19 +191,19 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_many(array $in = array()): array
+    protected function read_many(array $in = []): array
     {
         $default = array(
-            'paths' => array(),
+            'paths' => [],
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Could not read_many from Storage',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -210,7 +226,7 @@ class infohub_demo_storage extends infohub_base
             $default = array(
                 'answer' => '',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -226,20 +242,20 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_many(array $in = array()): array
+    protected function write_many(array $in = []): array
     {
         $default = array(
-            'paths' => array(),
+            'paths' => [],
             'mode' => '',
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Could not write_many to Storage',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -263,7 +279,7 @@ class infohub_demo_storage extends infohub_base
             $default = array(
                 'answer' => '',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -279,20 +295,20 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_pattern(array $in = array()): array
+    protected function read_pattern(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'wanted_data' => array(),
+            'wanted_data' => [],
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Could not read_pattern from Storage',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -316,7 +332,7 @@ class infohub_demo_storage extends infohub_base
             $default = array(
                 'answer' => '',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }
@@ -332,21 +348,21 @@ class infohub_demo_storage extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_pattern(array $in = array()): array
+    protected function write_pattern(array $in = []): array
     {
         $default = array(
             'path' => '',
             'mode' => '',
-            'data' => array(),
+            'data' => [],
             'step' => 'step_call_storage',
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
         $out = array(
             'answer' => 'false',
             'message' => 'Could not write_pattern to Storage',
-            'items' => array()
+            'items' => []
         );
 
         if ($in['step'] === 'step_call_storage') {
@@ -371,7 +387,7 @@ class infohub_demo_storage extends infohub_base
             $default = array(
                 'answer' => '',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $out = $this->_Default($default, $in['response']);
         }

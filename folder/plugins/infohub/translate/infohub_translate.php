@@ -1,31 +1,41 @@
 <?php
+/**
+ * Collect strings to translate
+ *
+ * The server part of translate collects strings that should be translated
+ *
+ * @package     Infohub
+ * @subpackage  infohub_plugin
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_translate show what the core can do
- * @category InfoHub
- * @package translate
- * @copyright Copyright (c) 2019, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Collect strings to translate
+ *
+ * The server part of translate collects strings that should be translated
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-03-23
+ * @since       2019-03-23
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/translate/infohub_translate.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_translate extends infohub_base
 {
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2019-03-23
+     * @since   2019-03-23
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-03-23',
@@ -40,6 +50,13 @@ class infohub_translate extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2019-03-23
+     * @since   2019-03-23
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -55,7 +72,7 @@ class infohub_translate extends infohub_base
     /**
      * Give a plugin name, example infohub_contact_menu
      * you get the main parent plugin name back, infohub_contact
-     * @param type $pluginName
+     * @param string $pluginName
      * @return string
      */
     protected function _GetGrandPluginName(string $pluginName = ''): string
@@ -65,6 +82,7 @@ class infohub_translate extends infohub_base
         if (count($parts) > 2) {
             $grandPluginName = $parts[0] . '_' . $parts[1];
         }
+
         return $grandPluginName;
     }
 
@@ -80,7 +98,7 @@ class infohub_translate extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function create_template_file(array $in = array()): array
+    protected function create_template_file(array $in = []): array
     {
         $default = array(
             'plugin_name' => '',
@@ -88,11 +106,11 @@ class infohub_translate extends infohub_base
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing',
-                'data' => array()
+                'data' => []
             ),
             'data_back' => array(
-                'out1' => array(),
-                'out2' => array()
+                'out1' => [],
+                'out2' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -128,14 +146,14 @@ class infohub_translate extends infohub_base
             $find = '_Translate(';
             $findLength = strlen($find);
 
-            $out1 = array();
-            $out2 = array();
+            $out1 = [];
+            $out2 = [];
 
             $number = 0;
 
             foreach ($in['response']['data'] as $pluginName => $code)
             {
-                $out[$pluginName] = array();
+                $out[$pluginName] = [];
                 $offset = 0;
                 $done = false;
                 $codeLength = strlen($code);
@@ -177,10 +195,10 @@ class infohub_translate extends infohub_base
                     if (empty($text) === false) {
 
                         if (isset($out1[$pluginName]) === false) {
-                            $out1[$pluginName] = array();
+                            $out1[$pluginName] = [];
                         }
                         if (isset($out2[$pluginName]) === false) {
-                            $out2[$pluginName] = array();
+                            $out2[$pluginName] = [];
                         }
 
                         $numberString = 'A' . (string) $number;
@@ -219,7 +237,7 @@ class infohub_translate extends infohub_base
                     'country' => '',
                     'file_type' => 'key_file'
                 ),
-                'data' => array()
+                'data' => []
             );
 
             $header['data'] = $in['data_back']['out1'];
@@ -307,20 +325,20 @@ class infohub_translate extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_plugin_list(array $in = array()): array
+    protected function load_plugin_list(array $in = []): array
     {
         $default = array(
             'step' => 'step_load_plugin_list',
-            'response' => array(),
-            'data_back' => array()
+            'response' => [],
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from load_plugin_data';
         $ok = 'false';
-        $pluginList = array();
-        $options = array();
+        $pluginList = [];
+        $options = [];
 
         if ($in['step'] === 'step_load_plugin_list') {
             return $this->_SubCall(array(
@@ -329,7 +347,7 @@ class infohub_translate extends infohub_base
                     'plugin' => 'infohub_file',
                     'function' => 'get_all_level1_plugin_names'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'step' => 'step_load_plugin_list_response'
                 )
@@ -371,7 +389,7 @@ class infohub_translate extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_doc_file(array $in = array()): array
+    protected function get_doc_file(array $in = []): array
     {
         $default = array(
             'file' => 'infohub_translate',
@@ -382,7 +400,7 @@ class infohub_translate extends infohub_base
                 'contents' => '',
                 'checksum' => ''
             ),
-            'data_back' => array()
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 

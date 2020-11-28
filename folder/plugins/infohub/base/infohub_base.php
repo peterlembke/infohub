@@ -1,20 +1,46 @@
 <?php
+/**
+ * Base class for all plugins
+ *
+ * Used by ALL plugins. Handle the messages in and out from the plugin.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_base
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
+/**
+ * Base class for all plugins
+ *
+ * Used by ALL plugins. Handle the messages in and out from the plugin.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2016-01-26
+ * @since       2016-01-26
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/base/infohub_base.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_base
 {
     // ***********************************************************
     // * The only public variables, do not add your own
     // ***********************************************************
 
-    protected $globalLogArray = array(); // Used ONLY by internal_Log() and cmd()
+    protected array $globalLogArray = []; // Used ONLY by internal_Log() and cmd()
     protected $firstDefault = null; // Used ONLY by the test() function.
-    protected $configLog = array(); // What functions to log even if answer = 'true';
+    protected array $configLog = []; // What functions to log even if answer = 'true';
 
-    protected final function _VersionBase(): array
+    /**
+     * Version information for this Base class
+     * @return array
+     */
+    protected function _VersionBase(): array
     {
         return array(
             'date' => '2016-01-26',
@@ -29,10 +55,11 @@ class infohub_base
     }
 
     /**
+     * Adds the Base class public function names to the array
      * @param array $childList
-     * @return string[]
+     * @return array
      */
-    protected final function _GetCmdFunctionsBase(array $childList = array()): array
+    protected function _GetCmdFunctionsBase(array $childList = []): array
     {
         $list = array(
             'version' => 'normal',
@@ -41,6 +68,9 @@ class infohub_base
         );
 
         $newList = array_merge($childList, $list);
+        if (empty($newList) === true) {
+            $newList = [];
+        }
 
         return $newList;
     }
@@ -82,9 +112,11 @@ class infohub_base
 
     /**
      * Makes sure you get all default variables with at least default values, and the right data type.
+     *
      * Used by: EVERY function.
      * The $default variables, You can only use: array, string, integer, float, null
      * The $in variables, You can only use: array, string, integer, float
+     *
      * @example: $in = _Default($default,$in);
      * @version 2016-01-25
      * @since   2013-09-05
@@ -93,7 +125,7 @@ class infohub_base
      * @param $in
      * @return array
      */
-    final protected function _Default(array $default = array(), array $in = array()): array
+    protected function _Default(array $default = [], array $in = []): array
     {
         if (is_null($this->firstDefault) === true) {
             $this->firstDefault = $default;
@@ -146,14 +178,15 @@ class infohub_base
 
     /**
      * Merge two arrays together
+     *
      * @param array $default
      * @param array $in
      * @return array
      */
-    final protected function _Merge(array $default = array(), array $in = array()): array
+    protected function _Merge(array $default = [], array $in = []): array
     {
         if (is_array($default) === false and is_array($in) === false) {
-            return array();
+            return [];
         }
         if (is_array($default) === false and is_array($in) === true) {
             return $in;
@@ -173,7 +206,7 @@ class infohub_base
      * @param string $in
      * @return bool|string
      */
-    final protected function _TimeStamp(string $in = ''): string
+    protected function _TimeStamp(string $in = ''): string
     {
         if ($in === 'c') {
             $date = date('c');
@@ -190,7 +223,7 @@ class infohub_base
      * From: https://stackoverflow.com/questions/169428/php-datetime-microseconds-always-returns-0
      * @return string
      */
-    final protected function _TimeStampMicro(): string
+    protected function _TimeStampMicro(): string
     {
         $microTime = microtime(true);
         $microSeconds = sprintf("%06d",($microTime - floor($microTime)) * 1000000);
@@ -204,12 +237,12 @@ class infohub_base
      * as seconds and fraction of seconds.
      * @return float
      */
-    final protected function _MicroTime(): float
+    protected function _MicroTime(): float
     {
         return microtime(true);
     }
 
-    final protected function _Empty($object): string
+    protected function _Empty($object): string
     {
         if (empty($object) === false) {
             return 'false';
@@ -218,7 +251,7 @@ class infohub_base
         return 'true';
     }
 
-    final protected function _IsSet($object): string
+    protected function _IsSet($object): string
     {
         if (isset($object) === false) {
             return 'false';
@@ -232,7 +265,7 @@ class infohub_base
      * @param $dataArray
      * @return string
      */
-    final protected function _JsonEncode(array $dataArray = array()): string
+    protected function _JsonEncode(array $dataArray = []): string
     {
         $options = JSON_PRETTY_PRINT + JSON_PRESERVE_ZERO_FRACTION;
         $jsonString = json_encode($dataArray, $options);
@@ -249,16 +282,16 @@ class infohub_base
      * @param $jsonString string
      * @return array
      */
-    final protected function _JsonDecode(string $jsonString = ''): array
+    protected function _JsonDecode(string $jsonString = ''): array
     {
         if (substr($jsonString, 0, 1) !== '{' && substr($jsonString, 0, 1) !== '[') {
-            return array();
+            return [];
         }
 
         $data = json_decode($jsonString, $asArray = true);
 
         if (empty($data) === true) {
-            return array();
+            return [];
         }
 
         return $data;
@@ -271,12 +304,12 @@ class infohub_base
      * @param $in
      * @return mixed
      */
-    final protected function _GetData(array $in = array())
+    protected function _GetData(array $in = [])
     {
         $default = array(
             'name' => '',
             'default' => null,
-            'data' => array(),
+            'data' => [],
             'split' => '/'
         );
         $in = $this->_Default($default, $in);
@@ -309,7 +342,7 @@ class infohub_base
      * @param $in
      * @return array
      */
-    final protected function _Pop(array $in = array()): array
+    protected function _Pop(array $in = []): array
     {
         foreach ($in as $key => $data) {
             unset($in[$key]);
@@ -324,7 +357,7 @@ class infohub_base
         return array(
             'key'=> '',
             'data'=> '',
-            'object'=> array()
+            'object'=> []
         );
     }
 
@@ -333,14 +366,14 @@ class infohub_base
      * @param array $in
      * @return array
      */
-    final protected function _SubCall(array $in = array()): array
+    protected function _SubCall(array $in = []): array
     {
         $default = array(
             'func' => 'SubCall',
             'to' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'data' => array(),
-            'data_back' => array(),
-            'messages' => array(),
+            'data' => [],
+            'data_back' => [],
+            'messages' => [],
             'track' => 'false',
             'wait' => 0.2
         );
@@ -427,14 +460,14 @@ class infohub_base
      * @param array $in
      * @return array
      */
-    final function _GetCallerPluginName(array $in = array()): array
+    final function _GetCallerPluginName(array $in = []): array
     {
         $default = array(
-            'callstack' => array()
+            'callstack' => []
         );
         $in = $this->_Default($default, $in);
 
-        $fromPlugin = array();
+        $fromPlugin = [];
 
         $lastInCallStack = end($in['callstack']);
         if (is_array($lastInCallStack) === true) {
@@ -473,11 +506,11 @@ class infohub_base
      * @return array
      * @uses message_to_function | string | The name of the function we want to call
      */
-    final public function cmd(array $in = array()): array
+    final public function cmd(array $in = []): array
     {
         $startTime = $this->_MicroTime();
         $status = null;
-        $this->globalLogArray = array();
+        $this->globalLogArray = [];
 
         $default = array(
             'to' => array(
@@ -485,9 +518,9 @@ class infohub_base
                 'plugin' => '',
                 'function' => ''
             ),
-            'callstack' => array(),
-            'data' => array(),
-            'data_back' => array(),
+            'callstack' => [],
+            'data' => [],
+            'data_back' => [],
             'wait' => 0.2,
             'callback_function' => null
         );
@@ -497,7 +530,7 @@ class infohub_base
         $message = '';
 
         $out = array(
-            'data' => array()
+            'data' => []
         );
 
         $callResponse = array(
@@ -511,7 +544,7 @@ class infohub_base
 
             $this->configLog = $this->_GetData(array(
                 'name' => 'data/config/log',
-                'default' => array(),
+                'default' => [],
                 'data' => $in
             ));
             unset($in['data']['config']['log']);
@@ -527,7 +560,7 @@ class infohub_base
 
             if (is_array($callResponse) === false) {
                 $message = 'Function: ' . $functionName . ', did not return an object as it should. (' . gettype($callResponse) . ')';
-                $callResponse = array();
+                $callResponse = [];
             }
 
             $this->internal_Log(array(
@@ -634,7 +667,7 @@ class infohub_base
             if (isset($in['callback_function'])) {
                 if ($in['callback_function'] instanceof Closure) {
                     $in['callback_function']($out); // Call the callback function
-                    return array();
+                    return [];
                 }
             }
 
@@ -687,7 +720,7 @@ class infohub_base
         {
             $messages = $this->_GetData(array(
                 'name'=> 'messages',
-                'default'=> array(),
+                'default'=> [],
                 'data'=> $callResponse
             ));
 
@@ -714,7 +747,7 @@ class infohub_base
                 $callResponse['data']['i_want_a_short_tail'] = 'false';
             }
 
-            $this->configLog = array();
+            $this->configLog = [];
 
             $callResponse['first_default'] = $this->firstDefault;
 
@@ -727,7 +760,7 @@ class infohub_base
             }
         }
 
-        return array();
+        return [];
     }
 
     // *****************************************************************************
@@ -743,7 +776,7 @@ class infohub_base
      * @param array $in
      * @return array
      */
-    final protected function version(array $in = array()): array
+    protected function version(array $in = []): array
     {
         $default = array(
             'date' => '',
@@ -780,7 +813,7 @@ class infohub_base
      * @param array $in
      * @return array
      */
-    final protected function function_names(array $in = array()): array
+    protected function function_names(array $in = []): array
     {
         $default = array(
             'include_cmd_functions' => 'true',
@@ -804,7 +837,7 @@ class infohub_base
         }
 
         if ($includeAll === 'false') {
-            $classMethods = array();
+            $classMethods = [];
             foreach ($allClassMethods as $method) {
                 if (substr($method, 0, strlen('internal_')) === 'internal_') {
                     if ($in['include_internal_functions'] === 'true') {
@@ -835,14 +868,16 @@ class infohub_base
 
     /**
      * Dummy function ping that return a pong
+     *
      * Useful for getting a pong or for sending messages in a sub call.
+     *
      * @version 2020-04-22
      * @since 2020-04-22
      * @author Peter Lembke
-     * @param $in
-     * @returns {{answer: string, message: string}}
+     * @param array $in
+     * @return string[]
      */
-    final protected function ping(array $in = array()): array
+    protected function ping(array $in = []): array
     {
         $answer = array(
             'answer' => 'true',
@@ -861,7 +896,7 @@ class infohub_base
     // *****************************************************************************
 
     /**
-     * Exectute a private internal_ function in this class
+     * Execute a private internal_ function in this class
      * Will only call function names that start with internal_
      * @version 2015-01-27
      * @since   2013-04-12
@@ -869,14 +904,14 @@ class infohub_base
      * @param $in | all incoming variables
      * @return array
      */
-    final protected function internal_Cmd(array $in = array()): array
+    protected function internal_Cmd(array $in = []): array
     {
         $startTime = $this->_MicroTime();
         $default = array('func' => '');
         $in = array_merge($default, $in);
 
         $message = '';
-        $callResponse = array();
+        $callResponse = [];
         $functionName = 'internal_' . $in['func'];
 
         $this->internal_Log(array(
@@ -990,13 +1025,14 @@ class infohub_base
 
     /**
      * Writes to the log array
+     *
      * @version 2015-09-16
      * @since   2013-05-25
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_Log(array $in = array()): array
+    protected function internal_Log(array $in = []): array
     {
         $default = array(
             'time_stamp' => $this->_TimeStampMicro(),
@@ -1005,7 +1041,7 @@ class infohub_base
             'function_name' => '',
             'message' => '',
             'level' => 'log',
-            'object' => array(),
+            'object' => [],
             'depth' => 0,
             'get_backtrace' => 'false',
             'execution_time' => 0.0
@@ -1018,7 +1054,7 @@ class infohub_base
 
         if ($in['level'] === 'error') {
             if ($in['get_backtrace'] === 'true') {
-                $in['backtrace'] = array();
+                $in['backtrace'] = [];
                 $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
                 foreach ($backtrace as $one)
                 {
@@ -1047,23 +1083,24 @@ class infohub_base
 
     /**
      * Returns a sub call message. Used by cmd(), useless for you.
+     *
      * @version 2015-01-25
      * @since   2013-11-21
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_SubCall(array $in = array()): array
+    protected function internal_SubCall(array $in = []): array
     {
         $default = array(
             'func' => 'SubCall',
             'to' => array('node' => 'server', 'plugin' => 'exchange', 'function' => 'default'), // Where to send this message
-            'data' => array(), // The data you want to be available to the sub-function you call.
-            'data_request' => array(), // Array with variable names you want from the sub-function. Leave blank to get everything.
-            'data_back' => array(), // Return these variables untouched in the returning message. (OPTIONAL)
+            'data' => [], // The data you want to be available to the sub-function you call.
+            'data_request' => [], // Array with variable names you want from the sub-function. Leave blank to get everything.
+            'data_back' => [], // Return these variables untouched in the returning message. (OPTIONAL)
             'wait' => 10.0, // Seconds you can wait before this message really need to be sent.
             'track' => 'false', // 'true' lets Cmd add an array of where this message have been.
-            'original_message' => array() // Original message that came into cmd().
+            'original_message' => [] // Original message that came into cmd().
         );
         $in = $this->_Default($default, $in);
 
@@ -1072,11 +1109,11 @@ class infohub_base
             'data' => $in['data'],
             'data_back' => $in['data_back'],
             'wait' => abs($in['wait']),
-            'callstack' => array()
+            'callstack' => []
         );
 
         if ($in['track'] === 'true') {
-            $out['track'] = array();
+            $out['track'] = [];
         }
 
         if (isset($in['original_message']['callstack']) === true) {
@@ -1097,28 +1134,29 @@ class infohub_base
 
     /**
      * Give you a return call message. Used by cmd(), useless for you.
+     *
      * @version 2013-11-22
      * @since   2013-11-22
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_ReturnCall(array $in = array()): array
+    protected function internal_ReturnCall(array $in = []): array
     {
         $default = array(
             'func' => 'ReturnCall',
-            'variables' => array(), // Outgoing response variables
-            'original_message' => array() // Incoming variables
+            'variables' => [], // Outgoing response variables
+            'original_message' => [] // Incoming variables
         );
         $in = $this->_Default($default, $in);
 
         $defaultMessageFromCallStack = array(
-            'to' => array(), // Node the return message will be sent to
-            'data_back' => array(), // Data we want back untouched
-            'data_request' => array() // Names of specific response variables. If empty then you get the full response.
+            'to' => [], // Node the return message will be sent to
+            'data_back' => [], // Data we want back untouched
+            'data_request' => [] // Names of specific response variables. If empty then you get the full response.
         );
-        $messageFromCallStack = array();
-        $dataSend = array();
+        $messageFromCallStack = [];
+        $dataSend = [];
 
         if (count($in['original_message']['callstack']) > 0) {
             // array_pop() moves the last value of the array to your variable.

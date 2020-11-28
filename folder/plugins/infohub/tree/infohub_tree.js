@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -88,6 +88,7 @@ function infohub_tree() {
     /**
      * Get the raw data for the markdown doc file.
      * Used by infohub_tree_doc to render the documentation
+     * @todo Cache the doc file in local storage and reuse it
      * @version 2020-04-30
      * @since   2019-03-14
      * @author  Peter Lembke
@@ -141,7 +142,7 @@ function infohub_tree() {
                     'function': 'create'
                 },
                 'data': {
-                    'text': atob($in.response.contents)
+                    'text': $in.response.contents
                 },
                 'data_back': {
                     'step': 'step_final',

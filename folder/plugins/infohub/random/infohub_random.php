@@ -1,32 +1,41 @@
 <?php
+/**
+ * Untestable functions that give a different answer on each run
+ *
+ * Functions that give you an unpredictable answer
+ *
+ * @package     Infohub
+ * @subpackage  infohub_plugin
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * @category InfoHub
- * @package InfoHub Random
- * @copyright Copyright (c) 2017, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
- * @since 2017-06-17
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Untestable functions that give a different answer on each run
+ *
+ * Functions that give you an unpredictable answer
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-01-07
+ * @since       2017-06-17
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/plugin/infohub_plugin.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_random extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2019-01-07
+     * @since   2017-06-17
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-01-07',
@@ -41,6 +50,13 @@ class infohub_random extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2019-01-07
+     * @since   2017-06-17
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -71,7 +87,7 @@ class infohub_random extends infohub_base
      * @return array
      * @uses
      */
-    final protected function random_number(array $in = array()): array
+    protected function random_number(array $in = []): array
     {
         $default = array(
             'min' => 0,
@@ -95,7 +111,7 @@ class infohub_random extends infohub_base
      * @return array
      * @uses
      */
-    final protected function internal_RandomNumber(array $in = array()): array
+    protected function internal_RandomNumber(array $in = []): array
     {
         $default = array(
             'min' => 0,
@@ -155,7 +171,7 @@ class infohub_random extends infohub_base
      * @return array
      * @uses
      */
-    final protected function random_numbers(array $in = array()): array
+    protected function random_numbers(array $in = []): array
     {
         $default = array(
             'min' => 0,
@@ -166,7 +182,7 @@ class infohub_random extends infohub_base
 
         $answer = 'true';
         $message = 'Could not generate your random numbers';
-        $result = array();
+        $result = [];
         $ok = 'false';
 
         for ($i = $in['count']; $i > 0; $i--)
@@ -206,7 +222,7 @@ class infohub_random extends infohub_base
      * @param int $max
      * @return int
      */
-    final protected function _Random($min = 0, $max = 0): int
+    protected function _Random($min = 0, $max = 0): int
     {
         $randomNumber = 0;
         try {

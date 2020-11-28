@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -13,7 +13,7 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.
  */
 function infohub_cache() {
 
@@ -30,7 +30,9 @@ function infohub_cache() {
             'checksum': '{{checksum}}',
             'note': 'Used by infohub_plugin to store plugins in local storage. Can be used for temporary data that will expire',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'false',
+            'core_plugin': 'true'
         };
     };
 
@@ -218,6 +220,7 @@ function infohub_cache() {
         }
 
         $out = _Default($defaultOut, $out);
+
         return $out;
     };
 
@@ -678,6 +681,7 @@ function infohub_cache() {
 
         }
         $out = _Default($defaultOut, $out);
+
         return $out;
     };
 
@@ -1040,6 +1044,5 @@ function infohub_cache() {
             'key': $key
         };
     };
-
 }
 //# sourceURL=infohub_cache.js

@@ -1,8 +1,27 @@
 <?PHP
+/**
+ * Folders created here
+ *
+ * @package     Infohub
+ * @subpackage  root
+ */
+
+declare(strict_types=1);
 if (file_exists('fullstop.flag') == true) {
     exit('The site have gone into a full stop.');
 }
 
+/**
+ * Folders created here
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-11-21
+ * @since       2015-11-15
+ * @copyright   Copyright (c) 2015, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/doc/core/root/definefolders/core_root_definefolders.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 define('DS', DIRECTORY_SEPARATOR);
 
 $currentWorkingDirectory = getcwd();

@@ -1,41 +1,47 @@
 <?php
+/**
+ * Start plugins
+ *
+ * Support class for the javascript plugin with the same name that launch plugins in the client workbench
+ * Purpose is to as quickly as possible provide data about plugins that can be launched.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_launcher
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_asset support the client side infohub_asset with assets for a plugin.
- * @category InfoHub
- * @package Launcher
- * @copyright Copyright (c) 2017, Peter Lembke, CharZam soft
- * @since 2017-12-03
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
- */
-
-/**
- * Class infohub_launcher
- * Support class for the javascript plugin with the same name that launch plugins in the client workbench
- * Purpose is to as quickly as possible provide data about plugins that can be launched.
+ * Calculates your checksum
+ *
+ * Calculates checksum for MD5, CRC32, Soundex, Metaphone, Double methaphone, Luhn, Personnummer
+ * You also get an option list with them all
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-11-18
+ * @since       2017-12-03
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/launcher/infohub_launcher.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_launcher extends infohub_base
 {
+    /**
+     * Version information for this plugin
+     * @version 2018-11-18
+     * @since   2017-12-03
+     * @author  Peter Lembke
+     * @return  string[]
+     */
     protected function _Version(): array
     {
         return array(
             'date' => '2018-11-18',
+            'since' => '2017-12-03',
             'version' => '1.0.0',
             'class_name' => 'infohub_launcher',
             'checksum' => '{{checksum}}',
@@ -46,6 +52,13 @@ class infohub_launcher extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-11-18
+     * @since   2017-12-03
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -64,7 +77,7 @@ class infohub_launcher extends infohub_base
      * @param $in
      * @return array
      */
-    final protected function get_full_list(array $in = array()): array
+    protected function get_full_list(array $in = []): array
     {
         $default = array(
             'list_checksum' => '',
@@ -75,20 +88,20 @@ class infohub_launcher extends infohub_base
                 'function' => ''
             ),
             'config' => array(
-                'client_plugin_names' => array()
+                'client_plugin_names' => []
             ),
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing to report',
-                'data' => array()
+                'data' => []
             ),
-            'data_back' => array()
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report';
-        $fullList = array();
+        $fullList = [];
 
         if ($in['step'] === 'step_get_full_list')
         {
@@ -98,7 +111,7 @@ class infohub_launcher extends infohub_base
                     'plugin' => 'infohub_file',
                     'function' => 'launcher_get_full_list'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'list_checksum' => $in['list_checksum'],
                     'config' => array(
@@ -139,7 +152,7 @@ class infohub_launcher extends infohub_base
             $do = 'update';
             if ($listChecksum === $in['list_checksum']) {
                 $do = 'keep';
-                $list = array();
+                $list = [];
             }
 
             $fullList = array(

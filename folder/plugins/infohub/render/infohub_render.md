@@ -126,9 +126,9 @@ In the example above you get a list with a list in it.
 
 # How
 How to render the data in 'what'. You have two parameters: 'mode' and 'text'  
-'mode' have two options. Either 'one_box' or 'separate_boxes'. 'one_box' means that the resulting html will be put in one box by infohub_view. 'separate_boxes' means that each section in 'what' will be put in separate boxes by infohub_view.  
+'mode' have two options. Either 'one_box' or 'separate boxes'. 'one_box' means that the resulting html will be put in one box by infohub_view. 'separate_boxes' means that each section in 'what' will be put in separate boxes by infohub_view.  
 'text' is only used by mode=one_box. It contains a string where there are one or more string parameters. Like this: "[my_menu]". The renderer find section "my_menu" in 'what' and substitute the parameter with the HTML. Then it checks for more parameters [] and find them in 'what' until there are no parameters left.  
-So mode=one_box uses the text parameter as a starting point for the rendering. And mode=separate_boxes render each entry in 'what' as a separate object, but still it checks for parameters in the html and substitute them with code from 'what'.  
+So mode=one_box uses the text parameter as a starting point for the rendering. And mode='separate boxes' render each entry in 'what' as a separate object, but still it checks for parameters in the html and substitute them with code from 'what'.  
 
 # Where
 Here you state where you want the html to show. If the box_alias do not exist then it will be created (if the parent box exist).  

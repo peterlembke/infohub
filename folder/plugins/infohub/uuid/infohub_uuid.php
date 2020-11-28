@@ -1,31 +1,41 @@
 <?php
+/**
+ * Universally unique identifier
+ *
+ * You can get a UUID in different formats
+ *
+ * @package     Infohub
+ * @subpackage  infohub_uuid
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * @category InfoHub
- * @package InfoHub UUID
- * @copyright Copyright (c) 2010-2017, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
- * @since 2017-06-17
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Universally unique identifier
+ *
+ * You can get a UUID in different formats
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-12-07
+ * @since       2017-06-17
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/uuid/infohub_uuid.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
-class infohub_uuid extends infohub_base {
-
-    protected final function _Version(): array
+class infohub_uuid extends infohub_base
+{
+    /**
+     * Version information for this plugin
+     * @version 2019-12-07
+     * @since   2017-06-17
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-12-07',
@@ -41,6 +51,13 @@ class infohub_uuid extends infohub_base {
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2019-12-07
+     * @since   2017-06-17
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -55,13 +72,15 @@ class infohub_uuid extends infohub_base {
     }
 
     /**
-     * @version 2017-06-17
-     * @since 2018-07-29
+     * Gives you a UUID in wanted format
+     *
+     * @version 2018-08-09
+     * @since   2018-08-09
      * @author Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function uuid(array $in = array()): array
+    protected function uuid(array $in = []): array
     {
         $default = array(
             'version' => '100',
@@ -71,8 +90,8 @@ class infohub_uuid extends infohub_base {
 
         $answer = 'true';
         $message = 'Here are the UUIDs you wanted';
-        $UuidIndex = array();
-        $response = array();
+        $UuidIndex = [];
+        $response = [];
         $data = '';
         $out = [];
 
@@ -103,6 +122,7 @@ class infohub_uuid extends infohub_base {
         }
 
         // Convert the indexed array to a simple array. Also copy the first uuid
+        // @todo There are more effective PHP commands for this
 
         $first = '';
         foreach ($UuidIndex as $key => $data) {
@@ -130,7 +150,7 @@ class infohub_uuid extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function get_available_options(array $in = array()): array
+    protected function get_available_options(array $in = []): array
     {
         return array(
             'answer' => 'true',
@@ -148,7 +168,7 @@ class infohub_uuid extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function guidv0(array $in = array()): array
+    protected function guidv0(array $in = []): array
     {
         return array(
             'answer' => 'true',
@@ -166,7 +186,7 @@ class infohub_uuid extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function guidv4(array $in = array()): array
+    protected function guidv4(array $in = []): array
     {
         $answer = 'false';
         $message = 'Can not create a guidv4';
@@ -225,7 +245,7 @@ class infohub_uuid extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function hub_id(array $in = array()): array
+    protected function hub_id(array $in = []): array
     {
         $answer = 'false';
         $message = 'Can not create an infohub_uuid';

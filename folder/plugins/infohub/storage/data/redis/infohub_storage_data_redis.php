@@ -1,4 +1,13 @@
 <?php
+/**
+ * infohub_storage store data in databases and is part of InfoHub.
+ * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ *
+ * @package     Infohub
+ * @subpackage  infohub_demo
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
@@ -7,40 +16,47 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 /**
  * infohub_storage store data in databases and is part of InfoHub.
  * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
- * Support for SQLite3, MySQL, PostgreSQL, Redis, Future support:Oracle, MS SQL
- * @category infohub
- * @package storage_redis
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2016-08-13
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-08-10
+ * @since       2016-08-13
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/redis/infohub_storage_data_redis.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_storage_data_redis extends infohub_base
 {
-    final protected function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2017-08-10
+     * @since   2016-08-13
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2017-08-10',
+            'since' => '2016-08-13',
             'version' => '1.0.0',
             'version_structure' => '2017-08-10',
             'class_name' => 'infohub_storage_data_redis',
             'checksum' => '{{checksum}}',
             'note' => 'Support for Redis as a normal storage. Saves to persistent storage in time intervals. Simple to set up and use',
-            'status' => 'normal'
+            'status' => 'normal',
+            'SPDX-License-Identifier' => 'GPL-3.0-or-later'
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2017-08-10
+     * @since   2016-08-13
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
@@ -56,7 +72,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'connect' => null,
@@ -65,7 +81,7 @@ class infohub_storage_data_redis extends infohub_base
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
-        $data = array();
+        $data = [];
         $answer = 'false';
         $message = 'Nothing to report';
 
@@ -125,12 +141,12 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
-            'connect' => array(),
+            'connect' => [],
             'path' => '',
-            'data' => array()
+            'data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -220,7 +236,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_paths(array $in = array()): array
+    protected function read_paths(array $in = []): array
     {
         $default = array(
             'connect' => null,
@@ -229,7 +245,7 @@ class infohub_storage_data_redis extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $data = array();
+        $data = [];
         $answer = 'false';
         $message = 'Nothing to report';
 
@@ -280,7 +296,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_ConnectionOpen(array $in = array()): array
+    protected function internal_ConnectionOpen(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -330,7 +346,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_PostRead(array $in = array()): array
+    protected function internal_PostRead(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -357,7 +373,7 @@ class infohub_storage_data_redis extends infohub_base
             $out = array(
                 'answer' => 'true',
                 'message' => 'Post read: Did not find any data string on that path',
-                'data' => $this->_JsonEncode(array()),
+                'data' => $this->_JsonEncode([]),
                 'post_exist' => 'false'
             );
             goto leave;
@@ -379,7 +395,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_PostWrite(array $in = array()): array
+    protected function internal_PostWrite(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -417,7 +433,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_PostDelete(array $in = array()): array
+    protected function internal_PostDelete(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -455,7 +471,7 @@ class infohub_storage_data_redis extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_ReadPaths(array $in = array()): array
+    protected function internal_ReadPaths(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -465,7 +481,7 @@ class infohub_storage_data_redis extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $answer = array();
+        $answer = [];
 
         $response = $in['connection']->keys($in['path']);
 
@@ -475,7 +491,7 @@ class infohub_storage_data_redis extends infohub_base
 
         foreach ($response as $path)
         {
-            $dataBack = array();
+            $dataBack = [];
             if ($in['with_data'] === 'true') {
                 $data = $in['connection']->get($path);
                 if ($data) {

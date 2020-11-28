@@ -1,19 +1,15 @@
-/*
- Copyright (C) 2017 Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+/**
+ * Handle assets
+ *
+ * Plugins can ask for their assets here. All assets are synced from the server to the client
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-10-27
+ * @since       2017-12-23
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/asset/infohub_asset.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_asset() {
 
@@ -37,7 +33,9 @@ function infohub_asset() {
             'note': 'Plugins can ask for their assets here. All assets are synced from the server to the client',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -68,6 +66,7 @@ function infohub_asset() {
 
     let $classTranslations = {};
 
+    $functions.push("_GetGrandPluginName");
     /**
      * Get the level 1 plugin name from a plugin name
      * example: infohub_contact_menu gives you infohub_contact
@@ -75,7 +74,6 @@ function infohub_asset() {
      * @returns {string}
      * @private
      */
-    $functions.push("_GetGrandPluginName");
     const _GetGrandPluginName = function($pluginName = '')
     {
         const $parts = $pluginName.split('_');
@@ -87,12 +85,12 @@ function infohub_asset() {
         return $pluginName;
     };
 
+    $functions.push('_Translate');
     /**
      * Translate - Substitute a string for another string using a class local object
      * @param {type} $string
      * @returns string
      */
-    $functions.push('_Translate');
     const _Translate = function ($string = '')
     {
         if (typeof $classTranslations !== 'object') {
@@ -105,6 +103,7 @@ function infohub_asset() {
         });
     };
 
+    $functions.push("create"); // Enable this function
     /**
      * Use this function when you want to render an asset.
      * Example: 'jamendo_asset': {'plugin': 'infohub_asset', 'type': 'icon', 'asset_name': 'audio/jamendo-music-logo', 'plugin_name': 'infohub_demo' },
@@ -112,7 +111,6 @@ function infohub_asset() {
      * @since   2013-04-15
      * @author  Peter Lembke
      */
-    $functions.push("create"); // Enable this function
     const create = function ($in = {})
     {
         const $default = {
@@ -185,6 +183,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push('setup_gui');
     /**
      * Setup the Asset Graphical User Interface
      * One refresh button and a result container
@@ -194,7 +193,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{}|{answer: string, messages: [], message: string}}
      */
-    $functions.push('setup_gui');
     const setup_gui = function ($in = {})
     {
         const $default = {
@@ -492,6 +490,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push('event_message');
     /**
      * Render the asset meta data
      * @version 2020-03-24
@@ -500,7 +499,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {object|{answer: string, message: string}}
      */
-    $functions.push('event_message');
     const event_message = function ($in = {})
     {
         const $default = {
@@ -668,6 +666,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("update_all_assets");
     /**
      * Requests a list of all plugins with assets. Then syncs all assets for each plugin.
      * @version 2018-10-26
@@ -676,7 +675,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{answer: string, messages: [], message: string}}
      */
-    $functions.push("update_all_assets");
     const update_all_assets = function ($in = {})
     {
         const $default = {
@@ -747,6 +745,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("update_all_plugin_assets");
     /**
      * Syncs ALL assets from the server to the client for ONE plugin
      * Checksums make sure only new/changed assets are downloaded to the client
@@ -758,7 +757,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{}|{answer: string, messages: [], message: string}}
      */
-    $functions.push("update_all_plugin_assets");
     const update_all_plugin_assets = function ($in = {})
     {
         const $default = {
@@ -919,6 +917,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("update_specific_assets");
     /**
      * You give a list with assets you want to update. Can be for any plugins.
      * The checksum you provide for each asset is compared to the locally stored asset checksum.
@@ -931,7 +930,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{answer: string, message: *, messages: Array}}
      */
-    $functions.push("update_specific_assets");
     const update_specific_assets = function ($in = {})
     {
         const $default = {
@@ -1179,6 +1177,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("update_plugin_asset_index");
     /**
      * Used by update_specific_assets to update one plugin assets index
      * When we have the asset in the index it will not be downloaded again unless the server has a newer one
@@ -1188,7 +1187,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{answer: string, message: *, messages: Array}}
      */
-    $functions.push("update_plugin_asset_index");
     const update_plugin_asset_index = function ($in = {}) {
         const $default = {
             'plugin_name': '',
@@ -1332,6 +1330,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("get_plugin_assets");
     /**
      * A client plugin can ask for its assets and have to already know what asset names it wants.
      * ONLY those assets that are named in 'list' will be returned.
@@ -1343,7 +1342,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{}|{assets: {}, answer: string, message: string}}
      */
-    $functions.push("get_plugin_assets");
     const get_plugin_assets = function ($in = {})
     {
         const $default = {
@@ -1435,6 +1433,7 @@ function infohub_asset() {
         };
     };
 
+    $functions.push("get_asset_and_license");
     /**
      * A plugin can ask infohub_asset for one of its assets. It gets the asset data and the asset license.
      * With this function you get images (jpeg, png, gif, svg), audio (oga, mp3), video (ogv, mp4)
@@ -1445,7 +1444,6 @@ function infohub_asset() {
      * @param {object} $in
      * @returns {{}|{answer: string, asset_exist: string, asset_license: {}, messages: [], message: string, asset: string}}
      */
-    $functions.push("get_asset_and_license");
     const get_asset_and_license = function($in = {})
     {
         const $default = {
@@ -1714,6 +1712,5 @@ function infohub_asset() {
 
         return '';
     };
-
 }
 //# sourceURL=infohub_asset.js

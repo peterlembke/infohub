@@ -1,7 +1,7 @@
 # Vagrant development environment
 
 Vagrant starts VirtualBox. VirtualBox is a software computer that runs an operating system.
-Here we run Ubuntu 18.04 + the web server Apache 2 + the database MySQL + the language PHP 7.2
+Here we run Ubuntu 20.04 + the web server Apache 2 + the database MySQL + the language PHP 7.4
 
 When you have installed VirtualBox + Vagrant and run vagrant up then you can surf to
 ```

@@ -1,34 +1,47 @@
 <?php
+/**
+ * Calculates your checksum
+ *
+ * Calculates checksum for MD5, CRC32, Soundex, Metaphone, Double methaphone, Luhn, Personnummer
+ * You also get an option list with them all
+ *
+ * @package     Infohub
+ * @subpackage  infohub_checksum
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	infohub_checksum
-
-		Copyright (C) 2016 Peter Lembke , CharZam soft
-		the program is distributed under the terms of the GNU General Public License
-
-		Infohub_Checksum is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-
-		Infohub_Checksum is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-
-		You should have received a copy of the GNU General Public License
-		along with Infohub_Checksum.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Calculates your checksum
+ *
+ * Calculates checksum for MD5, CRC32, Soundex, Metaphone, Double methaphone, Luhn, Personnummer
+ * You also get an option list with them all
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-03-03
+ * @since       2018-03-03
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_checksum extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2018-03-03
+     * @since   2018-03-03
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2018-03-03',
+            'since' => '2018-03-03',
             'version' => '1.0.1',
             'class_name' => 'infohub_checksum',
             'checksum' => '{{checksum}}',
@@ -39,6 +52,13 @@ class infohub_checksum extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-03-03
+     * @since   2018-03-03
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -62,7 +82,7 @@ class infohub_checksum extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function calculate_checksum(array $in = array()): array
+    protected function calculate_checksum(array $in = []): array
     {
         $default = array(
             'type' => 'md5',
@@ -111,7 +131,7 @@ class infohub_checksum extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function verify_checksum(array $in = array()): array
+    protected function verify_checksum(array $in = []): array
     {
         $default = array(
             'type' => 'md5',
@@ -156,13 +176,14 @@ class infohub_checksum extends infohub_base
 
     /**
      * md5 checksum calculation
+     * 
      * @version 2016-04-16
      * @since   2016-04-16
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_CalculateMd5(array $in = array()): array
+    protected function internal_CalculateMd5(array $in = []): array
     {
         $default = array(
             'value' => ''
@@ -179,14 +200,15 @@ class infohub_checksum extends infohub_base
     }
 
     /**
-     * md5 checksum calculation
+     * md5 verify calculation
+     *
      * @version 2016-04-16
      * @since   2016-04-16
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifyMd5(array $in = array()): array
+    protected function internal_VerifyMd5(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -209,14 +231,14 @@ class infohub_checksum extends infohub_base
     }
 
     /**
-     * md5 checksum calculation
+     * crc32 checksum calculation
      * @version 2016-04-16
      * @since   2016-04-16
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_CalculateCrc32(array $in = array()): array
+    protected function internal_CalculateCrc32(array $in = []): array
     {
         $default = array(
             'value' => ''
@@ -235,14 +257,14 @@ class infohub_checksum extends infohub_base
     }
 
     /**
-     * md5 checksum calculation
+     * crc32 verify calculation
      * @version 2016-04-16
      * @since   2016-04-16
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifyCrc32(array $in = array()): array
+    protected function internal_VerifyCrc32(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -273,7 +295,7 @@ class infohub_checksum extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CalculateSoundex(array $in = array()): array
+    protected function internal_CalculateSoundex(array $in = []): array
     {
         $default = array(
             'value' => ''
@@ -290,14 +312,14 @@ class infohub_checksum extends infohub_base
     }
 
     /**
-     * md5 checksum calculation
+     * soundex verify calculation
      * @version 2018-03-03
      * @since   2018-03-03
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifySoundex(array $in = array()): array
+    protected function internal_VerifySoundex(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -328,7 +350,7 @@ class infohub_checksum extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CalculateMetaphone(array $in = array()): array
+    protected function internal_CalculateMetaphone(array $in = []): array
     {
         $default = array(
             'value' => ''
@@ -345,14 +367,14 @@ class infohub_checksum extends infohub_base
     }
 
     /**
-     * metaphone checksum calculation
+     * metaphone verify calculation
      * @version 2018-03-03
      * @since   2018-03-03
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifyMetaphone(array $in = array()): array
+    protected function internal_VerifyMetaphone(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -382,7 +404,7 @@ class infohub_checksum extends infohub_base
      * @param array $in
      * @return array|bool
      */
-    final protected function  get_available_options(array $in = array()): array
+    protected function  get_available_options(array $in = []): array
     {
         $options = array(
             array("type" => "option", "value" => 'crc32', "label" => 'CRC32' ),

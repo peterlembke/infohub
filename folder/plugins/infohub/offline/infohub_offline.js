@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2018- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -31,7 +31,9 @@ function infohub_offline() {
             'checksum': '{{checksum}}',
             'note': 'Download features to prepare going offline. Also accept subscriptions to the offline event.',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'false',
+            'core_plugin': 'true'
         };
     };
 

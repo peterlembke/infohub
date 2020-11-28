@@ -1,88 +1,93 @@
 <?php
+/**
+ * Handle all messages so they come to the right plugin
+ *
+ * @package     Infohub
+ * @subpackage  infohub_exchange
+ */
+
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-    exit; // This file must be included, not called directly
-}
 
 /**
- * infohub_exchange move messages to their destinations.
- * @category InfoHub
- * @package InfoHub Exchange
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
- * @since 2012-01-01
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Handle all messages so they come to the right plugin
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2016-01-28
+ * @since       2012-01-01
+ * @copyright   Copyright (c) 2012, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/exchange/infohub_exchange.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
-class infohub_exchange extends infohub_base {
-
-    protected $signCodeValid = 'false';
+class infohub_exchange extends infohub_base
+{
+    /** @var string $signCodeValid */
+    protected string $signCodeValid = 'false';
     public function getSignCodeValid(): string
     {
         return $this->signCodeValid;
     }
 
-    protected $guestValid = 'false';
+    protected string $guestValid = 'false';
     public function getGuestValid(): string
     {
         return $this->guestValid;
     }
 
-    protected $banned = 'true';
+    protected string $banned = 'true';
     public function getBanned(): string
     {
         return $this->banned;
     }
 
-    protected $userName = '';
+    protected string $userName = '';
     protected function _GetUserName(): string
     {
         return $this->userName;
     }
 
-    protected $sessionId = '';
+    protected string $sessionId = '';
     protected function _GetSessionId(): string
     {
         return $this->sessionId;
     }
 
-    protected $roleListIndexed = array();
+    protected array $roleListIndexed = [];
     protected function _GetRoleListIndexed(): array
     {
         return $this->roleListIndexed;
     }
 
     /** @var string Used by responder_verify_sign_code to prevent sending an answer with echo. See infohub.php */
-    protected $sendAnswer = 'true';
+    protected string $sendAnswer = 'true';
 
     /** @var array Contain a lookup array with allowed plugin names for this user */
-    protected $allowedServerPluginNamesLookupArray = array();
+    protected $allowedServerPluginNamesLookupArray = [];
     protected function _GetAllowedServerPluginNames(): array
     {
         return $this->allowedServerPluginNamesLookupArray;
     }
 
     /** @var array Contain a lookup array with allowed client plugin names for this user */
-    protected $allowedClientPluginNamesLookupArray = array();
+    protected $allowedClientPluginNamesLookupArray = [];
     protected function _GetAllowedClientPluginNames(): array
     {
         return $this->allowedClientPluginNamesLookupArray;
     }
 
-    final protected function _Version(): array
+    /**
+     * Version information for this plugin
+     *
+     * @version 2016-01-28
+     * @since 2012-01-01
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2016-01-28',
+            'since' => '2012-01-01',
             'version' => '1.0.0',
             'checksum' => '{{checksum}}',
             'class_name' => 'infohub_exchange',
@@ -94,8 +99,11 @@ class infohub_exchange extends infohub_base {
     }
 
     /**
-     * Array with cmd functions that exist or have existed in any release
-     * @return array
+     * Public functions in this plugin
+     * @version 2016-01-28
+     * @since 2012-01-01
+     * @author  Peter Lembke
+     * @return mixed
      */
     protected function _GetCmdFunctions(): array
     {
@@ -108,13 +116,15 @@ class infohub_exchange extends infohub_base {
         return parent::_GetCmdFunctionsBase($list);
     }
 
-    Protected $Sort = array(); // Array with all unsorted messages
-    Protected $ToPending = array(); // Array with all messages going to Pending or will be discarded
-    Protected $Pending = array(); // Messages waiting for a plugin to be loaded, $Pending["pluginname"]=array()
-    Protected $Plugin = array('infohub_exchange' => array()); // Object with all started plugins. $Plugin["pluginname"]={}
-    Protected $PluginMissing = array(); // Object with all missing plugins. $PluginMissing['pluginname']={}
-    Protected $Stack = array(); // Array with commands waiting to be executed in a loaded plugin
-    Protected $ToNode = array(); // Array with all messages going to the nodes
+    protected array $Sort = []; // Array with all unsorted messages
+    protected array $ToPending = []; // Array with all messages going to Pending or will be discarded
+    protected array $Pending = []; // Messages waiting for a plugin to be loaded, $Pending["pluginname"]=[]
+    protected array $Plugin = [ // Object with all started plugins. $Plugin["pluginname"]={}
+        'infohub_exchange' => []
+    ];
+    protected array $PluginMissing = []; // Object with all missing plugins. $PluginMissing['pluginname']={}
+    protected array $Stack = []; // Array with commands waiting to be executed in a loaded plugin
+    protected array $ToNode = []; // Array with all messages going to the nodes
 
     /**
      * infohub_exchange constructor.
@@ -149,10 +159,10 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function main(array $in = array())
+    protected function main(array $in = [])
     {
         $default = array(
-            'package' => array(),
+            'package' => [],
             'answer' => 'false',
             'message' => ''
         );
@@ -221,7 +231,7 @@ class infohub_exchange extends infohub_base {
      * @author Peter Lembke
      * @return string
      */
-    final protected function _AddTransferMessage(): string
+    protected function _AddTransferMessage(): string
     {
         if (count($this->ToNode) <= 0) {
             return 'true'; // Nothing to send. Mission accomplished
@@ -244,7 +254,7 @@ class infohub_exchange extends infohub_base {
             'function' => 'main'
         );
 
-        $subCall['callstack'] = array();
+        $subCall['callstack'] = [];
 
         $subCall['callstack'][0] = array(
             'to' => array(
@@ -252,10 +262,10 @@ class infohub_exchange extends infohub_base {
                 'plugin' => 'infohub_exchange',
                 'function' => 'main'
             ),
-            'data_back' => array()
+            'data_back' => []
         );
 
-        $this->ToNode = array();
+        $this->ToNode = [];
         $this->Sort[] = $subCall;
 
         return 'true';// Message added. Mission accomplished
@@ -269,7 +279,7 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function plugin_started(array $in = array())
+    protected function plugin_started(array $in = [])
     {
         $default = array(
             'plugin_name' => '',
@@ -302,13 +312,13 @@ class infohub_exchange extends infohub_base {
                 'object' => array('plugin' => $in['plugin_name'] )
             ));
 
-            $PluginMissing[$in['plugin_name']] = array();
+            $PluginMissing[$in['plugin_name']] = [];
 
             foreach ($this->Pending[$in['plugin_name']] as $key => $dataMessage) {
                 $this->_SendMessageBackPluginNotFound($dataMessage);
             }
 
-            $this->Pending[$in['plugin_name']] = array();
+            $this->Pending[$in['plugin_name']] = [];
 
             goto leave;
         }
@@ -347,11 +357,11 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function responder_verify_sign_code(array $in = array()): array
+    protected function responder_verify_sign_code(array $in = []): array
     {
         $default = array(
             'package' => array(
-                'messages' => array(),
+                'messages' => [],
                 'messages_checksum' => '',
                 'session_id' => '',
                 'sign_code' => '',
@@ -360,8 +370,8 @@ class infohub_exchange extends infohub_base {
             'answer' => 'false',
             'message' => '',
             'step' => 'step_simple_tests',
-            'response' => array(),
-            'data_back' => array()
+            'response' => [],
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -430,7 +440,7 @@ class infohub_exchange extends infohub_base {
                 'message' => '',
                 'sign_code_valid' => 'false',
                 'initiator_user_name' => '',
-                'role_list' => array()
+                'role_list' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -449,7 +459,7 @@ class infohub_exchange extends infohub_base {
                     'plugin' => 'infohub_file',
                     'function' => 'load_node_role_plugin_name_role_list'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'package' => $in['package'],
                     'sign_code_valid' => $in['response']['sign_code_valid'],
@@ -464,7 +474,7 @@ class infohub_exchange extends infohub_base {
             $default = array(
                 'answer' => 'false',
                 'message' => '',
-                'data' => array()
+                'data' => []
             );
             $in['response'] = $this->_Default($default,$in['response']);
 
@@ -480,7 +490,7 @@ class infohub_exchange extends infohub_base {
 
         if ($in['step'] === 'step_valid_sign_code') {
 
-            $allowedServerPlugins = array();
+            $allowedServerPlugins = [];
             if (isset($in['data_back']['role_list'])) {
                 $allowedServerPlugins = $this->getPluginList(
                     'server',
@@ -490,7 +500,7 @@ class infohub_exchange extends infohub_base {
             }
             $this->allowedServerPluginNamesLookupArray = $allowedServerPlugins;
 
-            $allowedClientPlugins = array();
+            $allowedClientPlugins = [];
             if (isset($in['data_back']['role_list'])) {
                 $allowedClientPlugins = $this->getPluginList(
                     'client',
@@ -513,7 +523,7 @@ class infohub_exchange extends infohub_base {
                     'plugin' => 'infohub_session',
                     'function' => 'check_banned_until'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'package' => $in['package'],
                     'step' => 'step_check_banned_until_response'
@@ -634,14 +644,14 @@ class infohub_exchange extends infohub_base {
         array $allRoleList = []
     ): array
     {
-        $pluginList = array();
+        $pluginList = [];
 
         if (empty($userRoleList) === true) {
-            return array();
+            return [];
         }
 
         if (isset($allRoleList[$node]) === false) {
-            return array();
+            return [];
         }
 
         foreach ($userRoleList as $role) {
@@ -670,47 +680,47 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function internal_ToSort(array $in = array()) {
+    protected function internal_ToSort(array $in = []) {
         $default = array(
             'package' => array(
-                'messages' => array()
+                'messages' => []
             )
         );
         $in = $this->_Default($default, $in);
 
-        $sort = array();
+        $sort = [];
         $messageCount = count($in['package']['messages']);
         $answer = 'false';
         $message = '';
         $fromNode = '';
-        $rejectReason = array();
+        $rejectReason = [];
 
         if ($messageCount > 20) {
             $message = 'Come on, more than 20 messages in one package? Forget it, I will throw them all away';
             goto leave;
         }
 
-        foreach ($in['package']['messages'] as $message) {
+        foreach ($in['package']['messages'] as $messageItem) {
 
-            if (isset($message['data']['step']) === true) {
-                unset($message['data']['step']); // Client is not allowed to manipulate the step parameter
+            if (isset($messageItem['data']['step']) === true) {
+                unset($messageItem['data']['step']); // Client is not allowed to manipulate the step parameter
             }
 
-            $message['func'] = 'MessageCheck';
-            $response = $this->internal_Cmd($message);
+            $messageItem['func'] = 'MessageCheck';
+            $response = $this->internal_Cmd($messageItem);
 
             if ($response['answer'] === 'false') {
                 $rejectReason[ $response['message'] ] = 1;
                 continue;
             }
-            $message = $response['data_message'];
+            $messageItem = $response['data_message'];
 
-            if ($message['to']['node'] !== 'server') {
+            if ($messageItem['to']['node'] !== 'server') {
                 $rejectReason['Messages that try to pass trough are thrown away'] = 1;
                 continue;
             }
 
-            $back = $message['callstack'][0];
+            $back = $messageItem['callstack'][0];
 
             if ($back['to']['node'] === 'server') {
                 $rejectReason['Messages that claim to come from here, they lie and are thrown away'] = 1;
@@ -721,34 +731,34 @@ class infohub_exchange extends infohub_base {
                 $fromNode = $back['to']['node'];
             }
             if ($fromNode !== $back['to']['node']) {
-                $sort = array(); //
+                $sort = []; //
                 $message = 'All messages in a package should come from the same node. The rule is to not allow any pass-trough messages. I will throw away the complete package.';
                 goto leave;
             }
 
             if (count($this->allowedServerPluginNamesLookupArray) > 0) {
-                $pluginName = $message['to']['plugin'];
+                $pluginName = $messageItem['to']['plugin'];
                 if (isset($this->allowedServerPluginNamesLookupArray[$pluginName]) === false) {
                     $errorMessage = 'Plugin not allowed';
                     $rejectReason[$errorMessage] = $pluginName;
-                    $message['message'] = $errorMessage;
-                    $this->_SendMessageBackMessageFailedTests($message);
+                    $messageItem['message'] = $errorMessage;
+                    $this->_SendMessageBackMessageFailedTests($messageItem);
                     continue;
                 }
 
                 if ($this->userName === 'guest') {
-                    $functionName = $message['to']['function'];
+                    $functionName = $messageItem['to']['function'];
                     if (isset($this->allowedServerPluginNamesLookupArray[$pluginName][$functionName]) === false) {
                         $errorMessage = 'Plugin function not allowed';
                         $rejectReason[$errorMessage] = $pluginName . ' >> ' . $functionName;
-                        $message['message'] = $errorMessage;
-                        $this->_SendMessageBackMessageFailedTests($message);
+                        $messageItem['message'] = $errorMessage;
+                        $this->_SendMessageBackMessageFailedTests($messageItem);
                         continue;
                     }
                 }
             }
 
-            $sort[] = $message;
+            $sort[] = $messageItem;
         }
 
         $this->Sort = array_merge($this->Sort, $sort);
@@ -772,13 +782,15 @@ class infohub_exchange extends infohub_base {
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
      * @param array $in
      */
-    final protected function _SendMessageBackPluginNotFound(array $in = array()) {
+    protected function _SendMessageBackPluginNotFound(array $in = []) {
         $default = array(
-            'callstack' =>  array(),
-            'data' => array(),
-            'data_back' => array(),
+            'callstack' =>  [],
+            'data' => [],
+            'data_back' => [],
             'to' => array(
-                'node' => '', 'plugin' => '', 'function' => ''
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
             ),
             'wait' => 0.0,
             'execution_time' => 0.0
@@ -805,11 +817,11 @@ class infohub_exchange extends infohub_base {
      * This function send back answers to those messages that has a sender.
      * @param array $in
      */
-    final protected function _SendMessageBackMessageFailedTests(array $in = array()) {
+    protected function _SendMessageBackMessageFailedTests(array $in = []) {
         $default = array(
-            'callstack' =>  array(),
-            'data' => array(),
-            'data_back' => array(),
+            'callstack' =>  [],
+            'data' => [],
+            'data_back' => [],
             'to' => array(
                 'node' => '', 'plugin' => '', 'function' => ''
             ),
@@ -839,10 +851,10 @@ class infohub_exchange extends infohub_base {
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
      * @param array $in
      */
-    final protected function _SortAdd(array $in = array()) {
+    protected function _SortAdd(array $in = []) {
         $default = array(
             'test' => 'true',
-            'message' => array()
+            'message' => []
         );
         $in = $this->_Default($default, $in);
         $dataMessage = $in['message'];
@@ -867,13 +879,17 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function internal_MessageCheck(array $in = array())
+    protected function internal_MessageCheck(array $in = [])
     {
         $default = array(
-            'callstack' => array(),
-            'data' => array(),
-            'data_back' => array(),
-            'to' => array('node' => '', 'plugin' => '', 'function' => '' ),
+            'callstack' => [],
+            'data' => [],
+            'data_back' => [],
+            'to' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ),
             'wait' => 0.0,
             'execution_time' => 0.0
         );
@@ -911,12 +927,16 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function _CheckMessageStructure(array $in = array())
+    protected function _CheckMessageStructure(array $in = [])
     {
         $default = array(
-            'to' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'callstack' => array(),
-            'data' => array()
+            'to' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ),
+            'callstack' => [],
+            'data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -934,7 +954,7 @@ class infohub_exchange extends infohub_base {
 
         $defaultBack = array(
             'to' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'data_back' => array()
+            'data_back' => []
         );
         $in['callstack'][0] = $this->_Default($defaultBack, $in['callstack'][0]);
         $message = $this->_CheckMessageStructureTo($in['callstack'][0]);
@@ -958,7 +978,7 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return string
      */
-    final protected function _CheckMessageStructureTo(array $in = array())
+    protected function _CheckMessageStructureTo(array $in = [])
     {
         foreach ($in['to'] as $name => $data) {
             if (empty($data)) {
@@ -976,7 +996,7 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function _CheckMessageNode(array $in = array())
+    protected function _CheckMessageNode(array $in = [])
     {
         if (empty($in['callstack'])) {
             return array(
@@ -1006,12 +1026,16 @@ class infohub_exchange extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function _CheckMessageCalling(array $in = array())
+    protected function _CheckMessageCalling(array $in = [])
     {
         $default = array(
-            'to' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'callstack' => array(),
-            'data' => array()
+            'to' => array(
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ),
+            'callstack' => [],
+            'data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -1110,8 +1134,8 @@ class infohub_exchange extends infohub_base {
      * @return array
      * @uses
      */
-    final protected function internal_Sort(array $in = array()) {
-        $default = array();
+    protected function internal_Sort(array $in = []) {
+        $default = [];
         $in = $this->_Default($default, $in);
 
         while (count($this->Sort) > 0) {
@@ -1124,7 +1148,7 @@ class infohub_exchange extends infohub_base {
             $nodeName = $dataMessage['to']['node'];
             if ($nodeName !== 'server') {
                 if (isset($this->ToNode[$nodeName]) === false) {
-                    $this->ToNode[$nodeName] = array();
+                    $this->ToNode[$nodeName] = [];
                 }
                 $this->ToNode[$nodeName][] = $dataMessage;
                 continue;
@@ -1153,7 +1177,8 @@ class infohub_exchange extends infohub_base {
 
     /**
      * Messages in array ToPending either go to array Pending or are thrown away
-     * Used by: main
+     *
+     * @used-by main
      * @version 2016-01-28
      * @since 2013-08-18
      * @author Peter Lembke
@@ -1161,8 +1186,8 @@ class infohub_exchange extends infohub_base {
      * @return array
      * @uses
      */
-    final protected function internal_ToPending(array $in = array()) {
-        $default = array();
+    protected function internal_ToPending(array $in = []) {
+        $default = [];
         $in = $this->_Default($default, $in);
 
         while (count($this->ToPending) > 0) {
@@ -1183,7 +1208,7 @@ class infohub_exchange extends infohub_base {
                         'object' => array('plugin' => $pluginName )
                     ));
 
-                    $PluginMissing[$pluginName] = array();
+                    $PluginMissing[$pluginName] = [];
                     $this->_SendMessageBackPluginNotFound($dataMessage);
 
                     continue;
@@ -1194,7 +1219,7 @@ class infohub_exchange extends infohub_base {
             }
 
             // This message are the first to come to this plugin name
-            $this->Pending[$pluginName] = array();
+            $this->Pending[$pluginName] = [];
             $this->Pending[$pluginName][] = $dataMessage;
 
             $subCall = $this->_SubCall(array(
@@ -1233,15 +1258,15 @@ class infohub_exchange extends infohub_base {
     /**
      * Execute all messages in the array:Stack, and move the answer to array:Sort
      * We know that the messages in Stack can be run and that the plugins needed are already started
+     *
      * @version 2015-09-20
      * @since 2013-11-21
      * @author Peter Lembke
      * @param array $in
      * @return array
-     * @uses
      */
-    final protected function internal_Stack(array $in = array()) {
-        $default = array();
+    protected function internal_Stack(array $in = []) {
+        $default = [];
         $in = $this->_Default($default, $in);
 
         while (count($this->Stack) > 0) {
@@ -1255,7 +1280,7 @@ class infohub_exchange extends infohub_base {
                     'function_name'=> 'internal_Stack',
                     'object'=> array('plugin'=> $pluginName )
                 ));
-                $this->PluginMissing[$pluginName] = array();
+                $this->PluginMissing[$pluginName] = [];
                 continue;
             }
 
@@ -1310,14 +1335,16 @@ class infohub_exchange extends infohub_base {
 
     /**
      * Get the data from the config file
+     *
      * The use of configuration files is very mush discouraged. Always place all data in the database.
+     *
      * @version 2018-12-26
      * @since   2018-01-21
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_GetConfigFromFile(array $in = array()): array {
+    protected function internal_GetConfigFromFile(array $in = []): array {
         
         $default = array(
             'plugin_name' => '',
@@ -1328,7 +1355,7 @@ class infohub_exchange extends infohub_base {
         $answer = 'true';
         $foundConfig = 'false';
         $message = '';
-        $config = array();
+        $config = [];
         
         if ($in['node'] !== 'client' && $in['node'] !== 'server') {
             $message = 'The node you want is not allowed in the config file';
@@ -1359,8 +1386,8 @@ class infohub_exchange extends infohub_base {
         }
 
         $default = array(
-            'server' => array(),
-            'client' => array()
+            'server' => [],
+            'client' => []
         );
         $data = $this->_Default($default, $data);
         
@@ -1382,13 +1409,19 @@ class infohub_exchange extends infohub_base {
         );
     }
 
-    final protected function internal_GetErrorArrayFromLogArray(array $in = array()) {
+    /**
+     * Pull out the errors from the log array
+     *
+     * @param array $in
+     * @return array
+     */
+    protected function internal_GetErrorArrayFromLogArray(array $in = []) {
         $default = array(
-            'log_array' => array()
+            'log_array' => []
         );
         $in = $this->_Default($default, $in);
 
-        $errorArray = array();
+        $errorArray = [];
         $length = count($in['log_array']);
         for ($x = 0; $x < $length; $x++) {
             $item = $in['log_array'][$x];
@@ -1404,9 +1437,14 @@ class infohub_exchange extends infohub_base {
         );
     }
 
-    final protected function internal_LogArrayToConsole(array $in = array()) {
+    /**
+     * Show the log array on the console
+     * @param array $in
+     * @return string[]
+     */
+    protected function internal_LogArrayToConsole(array $in = []) {
         $default = array(
-            'log_array' => array()
+            'log_array' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -1424,7 +1462,15 @@ class infohub_exchange extends infohub_base {
         );
     }
 
-    final protected function internal_Console(array $in = array()) {
+    /**
+     * Saves the log to file
+     *
+     * Console is from the javascript version of this file. Have kept the name.
+     *
+     * @param array $in
+     * @return string[]
+     */
+    protected function internal_Console(array $in = []) {
         $default = array(
             'time_stamp' => '',
             'node_name' => '',
@@ -1432,10 +1478,10 @@ class infohub_exchange extends infohub_base {
             'function_name' => '',
             'message' => '',
             'level' => 'log',
-            'object' => array(),
+            'object' => [],
             'depth' => 0,
             'get_backtrace' => 'false',
-            'backtrace' => array(),
+            'backtrace' => [],
             'execution_time' => 0.0,
             'prefix' => ''
         );

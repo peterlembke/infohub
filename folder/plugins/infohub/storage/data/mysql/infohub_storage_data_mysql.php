@@ -1,4 +1,13 @@
 <?php
+/**
+ * infohub_storage store data in databases and is part of InfoHub.
+ * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ *
+ * @package     Infohub
+ * @subpackage  infohub_demo
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
@@ -8,30 +17,29 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * infohub_storage store data in databases and is part of InfoHub.
  * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
  * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
- * @category infohub
- * @package storage_mysql
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2014-12-06
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-08-10
+ * @since       2014-12-06
+ * @copyright   Copyright (c) 2014, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/mysql/infohub_storage_data_mysql.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_storage_data_mysql extends infohub_base
 {
-    final protected function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2017-08-10
+     * @since   2014-12-06
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2017-08-10',
+            'since' => '2014-12-06',
             'version' => '1.0.1',
             'class_name' => 'infohub_storage_data_mysql',
             'checksum' => '{{checksum}}',
@@ -41,11 +49,18 @@ class infohub_storage_data_mysql extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2017-08-10
+     * @since   2014-12-06
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
-            'read' => 'normal',
-            'write' => 'normal',
+            'read' => 'normal', // Read data from a path
+            'write' => 'normal', // Write data to a path
             'read_paths' => 'normal', // Get a list of matching paths
         );
     }
@@ -56,7 +71,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'connect' => array(
@@ -74,7 +89,7 @@ class infohub_storage_data_mysql extends infohub_base
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
-        $data = array();
+        $data = [];
         $answer = 'false';
         $message = 'Nothing to report';
 
@@ -109,7 +124,7 @@ class infohub_storage_data_mysql extends infohub_base
         $answer = 'true';
         $message = 'Post was not found';
         if ($postExist === 'true') {
-            $data = json_decode($response['data'], true);
+            $data = $this->_JsonDecode($response['data']);
             $message = 'Here are the data';
         }
 
@@ -134,7 +149,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
             'connect' => array(
@@ -148,7 +163,7 @@ class infohub_storage_data_mysql extends infohub_base
                 'db_name' => 'infohub', // name of the database
             ),
             'path' => '', // Path to write to
-            'data' => array()
+            'data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -283,7 +298,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_paths(array $in = array()): array
+    protected function read_paths(array $in = []): array
     {
         $default = array(
             'connect' => null,
@@ -292,7 +307,7 @@ class infohub_storage_data_mysql extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $data = array();
+        $data = [];
         $answer = 'false';
         $message = 'Nothing to report';
 
@@ -343,7 +358,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_ConnectionOpen(array $in = array()): array
+    protected function internal_ConnectionOpen(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -410,7 +425,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_DatabaseCreate(array $in = array()): array
+    protected function internal_DatabaseCreate(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -449,7 +464,7 @@ class infohub_storage_data_mysql extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_TableCreate(array $in = array()): array
+    protected function internal_TableCreate(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -490,7 +505,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_PostRead(array $in = array()): array
+    protected function internal_PostRead(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -520,7 +535,7 @@ EOD;
             $postExist = 'true';
         } else {
             $response['message'] ='Did not find any data string on that path';
-            $response['data'] = array();
+            $response['data'] = [];
             $postExist = 'false';
         }
 
@@ -540,7 +555,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_ReadPaths(array $in = array()): array
+    protected function internal_ReadPaths(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -554,7 +569,7 @@ EOD;
 
         $in['path'] = str_replace('*', '%', $in['path']);
 
-        $answer = array();
+        $answer = [];
 
         $in['sql'] = 'select * from {database_name}.{table_name} where path like :path';
         $in['query'] = 'true';
@@ -571,9 +586,9 @@ EOD;
         {
             $path = $data['path'];
 
-            $dataBack = array();
+            $dataBack = [];
             if ($in['with_data'] === 'true') {
-                $dataBack = json_decode($data['bubble'], true);
+                $dataBack = $this->_JsonDecode($data['bubble']);
             }
 
             $answer[$path] = $dataBack;
@@ -596,7 +611,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_PostInsert(array $in = array()): array
+    protected function internal_PostInsert(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -628,7 +643,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_PostUpdate(array $in = array()): array
+    protected function internal_PostUpdate(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -658,7 +673,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_PostDelete(array $in = array()): array
+    protected function internal_PostDelete(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -692,11 +707,12 @@ EOD;
     }
 
     /**
-     * See if it is possible to recover from an sql error
+     * You end up here if a SQL query/execution went wrong.
+     * Now we determine how wrong, if we can recover or not.
      * @param array $response
      * @return array
      */
-    final protected function _HandleSQLError(array $response = array()): array
+    protected function _HandleSQLError(array $response = []): array
     {
         $findArray = array(
             'Base table or view not found'
@@ -707,7 +723,7 @@ EOD;
             if ($found !== false) {
                 $response['answer'] = 'true';
                 $response['message'] = 'Got an SQL error but handled it';
-                $response['data'] = array();
+                $response['data'] = [];
                 goto leave;
             }
         }
@@ -727,7 +743,7 @@ EOD;
      * @param array $in
      * @return array
      */
-    final protected function internal_Execute(array $in = array()): array
+    protected function internal_Execute(array $in = []): array
     {
         $default = array(
             'where' => __CLASS__ . '.' . __FUNCTION__,
@@ -737,7 +753,7 @@ EOD;
         );
         $in = $this->_Merge($default, $in);
 
-        $response = array();
+        $response = [];
         $message = 'Success running SQL';
         $answer = 'true';
 
@@ -783,11 +799,15 @@ EOD;
     }
 
     /**
-     * Substitute all {field_name} in the sql string with the corresponding data.
+     * Looks trough the array and pull out all parameters that could be used in the SQL query.
+     * Then we substitute the parameters in the SQL query.
+     * In the example all parameters with {parameter_name} will be substituted.
+     * The :path is another binding that will be handled by _BindData() separately.
+     * @example delete from {database_name}.{schema_name}.{table_name} where path = :path
      * @param array $in
      * @return string
      */
-    final protected function _SubstituteData(array $in = array()): string
+    protected function _SubstituteData(array $in = []): string
     {
         foreach ($in as $name => $newData) {
             if ($name === 'connection' or $name === 'sql' or $name === 'query') {
@@ -809,7 +829,7 @@ EOD;
      * @param array $in
      * @return mixed
      */
-    final protected function _BindData(array $in = array())
+    protected function _BindData(array $in = [])
     {
         $stmt = $in['connection']->prepare($in['sql']);
         foreach ($in as $name => $data) {
@@ -831,7 +851,7 @@ EOD;
      * @param bool $value
      * @return string
      */
-    final protected function _Boolean(bool $value): string
+    protected function _Boolean(bool $value): string
     {
         return $value ? 'true' : 'false';
     }

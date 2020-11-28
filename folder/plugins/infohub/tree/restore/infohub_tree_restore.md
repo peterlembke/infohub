@@ -1,22 +1,21 @@
 # Infohub Tree Restore
-Restore your personal data from one or many files that are uploaded to your browser and the to the server.
-
-## Introduction
+Restore your personal data from one or many files that are uploaded to your browser Storage. The data are then synced to the server.
 
 ## GUI
 File selector where you can select one or more backup files.
-They show up in la list.
-Button to clear the list.
-Button to import the files.
+They show up in a list.
+Mark the ones you want to Restore
+Button to Clear the list.
+Button to Restore all marked backups in the list.
 Each file will get a result OK/FAIL icon.
-You get a message when the import is done.
+You get a Restore log on screen.
 
-You get a report:
+## Public functions
 
-* Existing paths that were updated.
-* New paths that were added.
-* Failed update
-* Failed add
+* create
+* file_select
+* click_clear
+* click_restore
 
 ## License
 This documentation is copyright (C) 2020 Peter Lembke.  
@@ -25,4 +24,4 @@ You should have received a copy of the GNU Free Documentation License along with
 
 ## footer
 Created 2020-07-25 by Peter Lembke  
-Updated 2020-07-25 by Peter Lembke
+Updated 2020-08-29 by Peter Lembke

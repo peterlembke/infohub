@@ -1,24 +1,18 @@
 <?php
-declare(strict_types=1);
-/*
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+/**
+ * ALL ini_set is here. Time zone is set here. Error and Exception handler is here
+ *
+ * @package     Infohub
+ * @subpackage  infohub_exchange
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-11-26
+ * @since       2010-01-01
+ * @copyright   Copyright (c) 2010, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
-
-// ALL ini_set is here
+declare(strict_types=1);
 ini_set('zlib.output_compression','4096');
 ini_set('memory_limit', '16M');
 ini_set('max_execution_time', '5'); // seconds
@@ -49,6 +43,13 @@ header("Pragma: no-cache");
 $GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
 $GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'log' if you want to debug in general.
 
+/**
+ * Execution errors end up here
+ * @param $code
+ * @param $message
+ * @param $file
+ * @param $line
+ */
 function myErrorHandler($code, $message, $file, $line) {
     $toErrorLog = array(
         'type' => 'error',
@@ -63,6 +64,10 @@ function myErrorHandler($code, $message, $file, $line) {
     echo $jsonMessage;
 }
 
+/**
+ * You end up here on all unhandled PHP exceptions
+ * @param $exception
+ */
 function myExceptionHandler($exception) {
     $toErrorLog = array(
         'type' => 'exception',

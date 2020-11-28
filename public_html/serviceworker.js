@@ -11,7 +11,7 @@
  * only minor modifications by Peter Lembke
  */
 
-let $version = '2020-07-21';
+let $version = '2020-09-12';
 
 self.addEventListener('install', function (event) {
     event.waitUntil(

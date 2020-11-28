@@ -1,40 +1,45 @@
 <?php
+/**
+ * Handle plugins
+ *
+ * Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins
+ *
+ * @package     Infohub
+ * @subpackage  infohub_plugin
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*
-    @license
-		Copyright (C) 2010 Peter Lembke , CharZam soft
-		the program is distributed under the terms of the GNU General Public License
-
-		InfoHub is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-
-		InfoHub is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-
-		You should have received a copy of the GNU General Public License
-		along with InfoHub.	If not, see <https://www.gnu.org/licenses/>.
-
-    @category InfoHub
-    @package Plugin
-    @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
-    @author Peter Lembke <peter.lembke@infohub.se>
-    @link https://infohub.se/ InfoHub main page
-*/
+/**
+ * Handle plugins
+ *
+ * Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2016-01-25
+ * @since       2016-12-27
+ * @copyright   Copyright (c) 2010, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/plugin/infohub_plugin.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_plugin extends infohub_base
 {
-
-    Protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2016-01-25
+     * @since 2013-11-22
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2016-01-25',
+            'since' => '2013-11-22',
             'version' => '1.0.0',
             'class_name' => 'infohub_plugin',
             'checksum' => '{{checksum}}',
@@ -45,6 +50,13 @@ class infohub_plugin extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2016-01-25
+     * @since   2013-11-22
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -69,13 +81,13 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function plugins_request(array $in = array()) {
+    protected function plugins_request(array $in = []) {
         $default = array(
-            'missing_plugin_names' => array(),
+            'missing_plugin_names' => [],
             'answer' => 'false',
             'message' => '',
             'step' => 'step_plugin_request',
-            'plugins' => array(),
+            'plugins' => [],
             'response' => array(
                 'answer' => '',
                 'message' => '',
@@ -86,7 +98,7 @@ class infohub_plugin extends infohub_base
                 'plugin_code' => '',
                 'plugin_code_size' => 0,
                 'plugin_checksum' => '',
-                'plugin_config' => array(),
+                'plugin_config' => [],
                 'plugin_started' => 'false'
             ),
             'data_back' => array(
@@ -161,7 +173,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function plugin_request(array $in = array()): array
+    protected function plugin_request(array $in = []): array
     {
         $default = array(
             'answer' => 'false',
@@ -174,8 +186,13 @@ class infohub_plugin extends infohub_base
             'plugin_code' => '',
             'plugin_code_size' => 0,
             'plugin_checksum' => '',
-            'plugin_config' => array(),
-            'plugin_started' => 'false'
+            'plugin_config' => [],
+            'plugin_started' => 'false',
+            'config' => [
+                'minify_js' => 'false',
+                'server_plugin_names' => [],
+                'client_plugin_names' => []
+            ]
         );
         $in = $this->_Default($default, $in);
 
@@ -189,7 +206,7 @@ class infohub_plugin extends infohub_base
             'plugin_code' => '',
             'plugin_code_size' => 0,
             'plugin_checksum' => '',
-            'plugin_config' => array(),
+            'plugin_config' => [],
             'plugin_started' => 'false',
         );
 
@@ -264,6 +281,10 @@ class infohub_plugin extends infohub_base
                 }
             }
 
+            if ($in['plugin_node'] === 'client' && $in['config']['minify_js'] === 'true') {
+                $in['plugin_code'] = $this->minifyJsCode($in['plugin_code']);
+            }
+
             $in['plugin_code_size'] = strlen($in['plugin_code']);
 
             $in['step'] = 'step_send_plugin_to_node';
@@ -329,17 +350,71 @@ class infohub_plugin extends infohub_base
         return $out;
     }
 
-    /**}
+    /**
+     * Remove all none essential data from a Javascript file to make it smaller
+     * @param string $code
+     * @return string
+     */
+    protected function minifyJsCode(string $code = ''): string
+    {
+        $okRow1 = '// include ';
+        $okRow2 = '//# sourceURL=';
+        $rowArray = explode("\r\n", $code);
+        if (count($rowArray) <= 1) {
+            $rowArray = explode("\n", $code);
+        }
+
+        $deleteMode = false;
+        foreach ($rowArray as $rowNumber => $rowString)
+        {
+            $rowString = trim($rowString);
+
+            if ($rowString === '') {
+                unset($rowArray[$rowNumber]);
+                continue;
+            }
+
+            $rowArray[$rowNumber] = $rowString;
+            $part = substr($rowString, 0 ,2);
+
+            if ($part === '/*') {
+                $deleteMode = true;
+            }
+            if ($part === '*/') {
+                $deleteMode = false;
+            }
+            if ($part === '/*' || $part === '* ' || $part === '*/' || $deleteMode === true) {
+                unset($rowArray[$rowNumber]);
+                if ($deleteMode === true && strpos($rowString, '*/') !== false) {
+                    $deleteMode = false;
+                }
+            }
+            if ($part === '//') {
+                if (substr($rowString,0,strlen($okRow1)) === $okRow1) {
+                    continue;
+                }
+                if (substr($rowString,0,strlen($okRow2)) === $okRow2) {
+                    continue;
+                }
+                unset($rowArray[$rowNumber]);
+                continue;
+            }
+        }
+
+        $result = implode("\r\n", $rowArray);
+
+        return $result;
+    }
+
+    /**
      * Get the plugin code from file if exist
      * @version 2020-04-25
      * @since 2013-08-18
      * @author Peter Lembke
      * @param array $in
      * @return array
-     * @uses string | plugin_node | Node name, alias for a node: server, client, myexternalnode
-     * @uses string | plugin_name | Name of the plugin, example: mynamespacename_mypluginname
      */
-    final protected function plugin_request_from_file(array $in = array()): array
+    protected function plugin_request_from_file(array $in = []): array
     {
         $default = array(
             'plugin_node' => 'server',
@@ -361,7 +436,7 @@ class infohub_plugin extends infohub_base
             'plugin_from' => '',
             'plugin_code' => '',
             'plugin_checksum' => '',
-            'plugin_config' => array()
+            'plugin_config' => []
         );
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -447,7 +522,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_GetConfigFromFile(array $in = array()): array {
+    protected function internal_GetConfigFromFile(array $in = []): array {
         
         $default = array(
             'plugin_name' => '',
@@ -458,7 +533,7 @@ class infohub_plugin extends infohub_base
         $answer = 'true';
         $foundConfig = 'false';
         $message = '';
-        $config = array();
+        $config = [];
         
         if ($in['node'] !== 'client' && $in['node'] !== 'server') {
             $message = 'The node you want is not allowed in the config file';
@@ -489,8 +564,8 @@ class infohub_plugin extends infohub_base
         }
 
         $default = array(
-            'server' => array(),
-            'client' => array()
+            'server' => [],
+            'client' => []
         );
         $data = $this->_Default($default, $data);
         
@@ -521,7 +596,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_GetCssData(array $in = array()): array {
+    protected function internal_GetCssData(array $in = []): array {
         
         $default = array(
             'plugin_name' => ''
@@ -561,17 +636,6 @@ class infohub_plugin extends infohub_base
     }
     
     /**
-     * @param string $pathFile
-     * @param string $extension
-     * @return string
-     */
-    final protected function _ChangeExtensionOnFileName(string $pathFile = '', string $extension = 'json'): string
-    {
-        $newPathFile = substr($pathFile, 0, strpos($pathFile, '.')) . '.' . $extension;
-        return $newPathFile;
-    }
-
-    /**
      * Get the plugin code from Storage if Storage exist and the plugin exist in the Storage
      * @version 2020-04-25
      * @since 2013-08-18
@@ -579,7 +643,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function plugin_request_from_storage(array $in = array()): array
+    protected function plugin_request_from_storage(array $in = []): array
     {
         $default = array(
             'plugin_node' => 'server',
@@ -588,7 +652,7 @@ class infohub_plugin extends infohub_base
             'plugin_from' => 'storage',
             'plugin_code' => '',
             'plugin_checksum' => '',
-            'plugin_config' => array(),
+            'plugin_config' => [],
             'from_plugin' => array(
                 'node' => '',
                 'plugin' => '',
@@ -657,7 +721,7 @@ class infohub_plugin extends infohub_base
      * @return array
      * @uses
      */
-    final protected function plugin_start(array $in = array())
+    protected function plugin_start(array $in = [])
     {
         $default = array(
             'plugin_node' => 'server',
@@ -736,11 +800,13 @@ class infohub_plugin extends infohub_base
 
     /**
      * Purpose is to keep the client plugin list accurate.
+     *
      * You give a list with plugin names and checksums
      * This function update all timestamp_added
      * All plugins that are valid will get the current timestamp
      * All plugins that are invalid will get current timestamp - 1 week.
      * and then send back the list to the client
+     *
      * @version 2017-02-28
      * @since 2017-02-25
      * @author Peter Lembke
@@ -748,10 +814,10 @@ class infohub_plugin extends infohub_base
      * @return array
      * @uses
      */
-    final protected function plugin_list(array $in = array())
+    protected function plugin_list(array $in = [])
     {
         $default = array(
-            'plugin_list' => array()
+            'plugin_list' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -807,7 +873,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    protected final function internal_GetPluginPath(array $in = array()): array
+    protected function internal_GetPluginPath(array $in = []): array
     {
         $default = array(
             'plugin_name' => '',
@@ -841,7 +907,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    protected final function internal_ModifyPluginCode(array $in = array()): array
+    protected function internal_ModifyPluginCode(array $in = []): array
     {
         $default = array(
             'plugin_node' => '',
@@ -876,7 +942,7 @@ class infohub_plugin extends infohub_base
      * @param string $dataString
      * @return string
      */
-    final protected function _Hash(string $dataString = ''): string
+    protected function _Hash(string $dataString = ''): string
     {
         return (string) crc32($dataString);
     }
@@ -890,13 +956,13 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    protected final function get_all_plugin_names(array $in = array()): array
+    protected function get_all_plugin_names(array $in = []): array
     {
         $default = array(
             'step' => 'step_start',
             'answer' => '',
             'message' => '',
-            'data' => array()
+            'data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -907,7 +973,7 @@ class infohub_plugin extends infohub_base
                     'plugin' => 'infohub_file',
                     'function' => 'plugin_get_all_plugin_names'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'step' => 'step_start_response'
                 )

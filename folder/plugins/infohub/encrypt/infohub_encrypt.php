@@ -1,35 +1,45 @@
 <?php
+/**
+ * Encrypt data
+ *
+ * To keep your data secret and pointless to steal you can encrypt your data.
+ * Encryption hide your data in a data mess. Decryption restores your data.
+ * You need to provide a random and long encryption_key
+ *
+ * @package     Infohub
+ * @subpackage  infohub_encrypt
+ */
+
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * Class infohub_encrypt
+ * Encrypt data
+ *
  * To keep your data secret and pointless to steal you can encrypt your data.
  * Encryption hide your data in a data mess. Decryption restores your data.
  * You need to provide a random and long encryption_key
- * @category InfoHub
- * @package Encrypt
- * @copyright Copyright (c) 2016, Peter Lembke, CharZam soft
- * @since 2016-01-30
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-08-05
+ * @since       2016-01-30
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_encrypt extends infohub_base
 {
-    Protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2018-08-05
+     * @since   2016-01-30
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2018-08-05',
@@ -44,6 +54,13 @@ class infohub_encrypt extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-08-05
+     * @since   2016-01-30
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -65,14 +82,14 @@ class infohub_encrypt extends infohub_base
     /**
      * Plain text to encrypted text
      * Encrypt SSL - Encrypts the plain text into encrypted text
-     * https://secure.php.net/manual/en/function.openssl-encrypt.php
+     * @see https://secure.php.net/manual/en/function.openssl-encrypt.php PHP manual OpenSSL
      * @version 2017-06-24
      * @since   2017-06-24
      * @author  Peter Lembke
      * @param array $in
      * @return array|bool
      */
-    final protected function encrypt(array $in = array())
+    protected function encrypt(array $in = [])
     {
         $default = array(
             'plain_text' => '',
@@ -126,20 +143,21 @@ class infohub_encrypt extends infohub_base
             'encrypted_text' => $encryptedText,
             'method' => $in['method']
         );
+
         return $response;
     }
 
     /**
      * Encrypted text to plain text
      * Decrypt SSL - Decrypts an encrypted text into readable text.
-     * https://secure.php.net/manual/en/function.openssl-decrypt.php
+     * @see https://secure.php.net/manual/en/function.openssl-decrypt.php PHP manual Open SSL
      * @version 2017-06-24
      * @since   2017-06-24
      * @author  Peter Lembke and ?
      * @param array $in
      * @return array|bool
      */
-    final protected function decrypt(array $in = array())
+    protected function decrypt(array $in = [])
     {
         $default = array(
             'encrypted_text' => '', // Base 64 encoded cipher text
@@ -212,14 +230,18 @@ class infohub_encrypt extends infohub_base
      * @since   2018-03-15
      * @author  Peter Lembke
      * @param array $in
-     * @return array|bool
+     * @return array
      */
-    final protected function get_available_options(array $in = array())
+    protected function get_available_options(array $in = []): array
     {
         $methods = $this->_GetCipherMethods();
-        $options = array();
+        $options = [];
         foreach ($methods as $method) {
-            $options[] = array("type"=> "option", "value"=> $method, "label"=> $method );
+            $options[] = array(
+                'type'=> 'option',
+                'value'=> $method,
+                'label'=> $method
+            );
         }
 
         return array(
@@ -231,48 +253,50 @@ class infohub_encrypt extends infohub_base
 
     /**
      * Get all cipher methods available except the most weak ones.
-     * https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php
+     *
+     * @see https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php PHP manual OpenSSL
      * @version 2018-03-15
      * @since   2018-03-15
      * @author  From PHP documentation
      * @param array $in
      * @return array
      */
-    final protected function _GetCipherMethods(array $in = array())
+    protected function _GetCipherMethods(array $in = [])
     {
         $ciphers = openssl_get_cipher_methods();
         $ciphersAndAliases = openssl_get_cipher_methods(true);
         $cipherAliases = array_diff($ciphersAndAliases, $ciphers);
 
         //ECB mode should be avoided
-        $ciphers = array_filter( $ciphers, function($n) { return stripos($n,"ecb") === false; } );
+        $ciphers = array_filter( $ciphers, function($n) { return stripos($n,'ecb') === false; } );
 
         //At least as early as Aug 2016, Openssl declared the following weak: RC2, RC4, DES, 3DES, MD5 based
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"des") === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"rc2") === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"rc4") === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"md5") === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'des') === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'rc2') === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'rc4') === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'md5') === false; } );
 
         // Remove short keys 2019-11-19
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"128") === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,"192") === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'128') === false; } );
+        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'192') === false; } );
 
-        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,"des") === false; } );
-        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,"rc2") === false; } );
+        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,'des') === false; } );
+        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,'rc2') === false; } );
 
         return $ciphers;
     }
 
     /**
      * Get list with encryption methods you can use on this server
-     * https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php
+     *
+     * @see https://secure.php.net/manual/en/function.openssl-get-cipher-methods.php PHP manual OpenSSL
      * @version 2018-03-15
      * @since   2018-03-15
      * @author  From PHP documentation
      * @param array $in
      * @return array|bool
      */
-    final protected function is_method_valid(array $in = array())
+    protected function is_method_valid(array $in = [])
     {
         $default = array(
             'method' => 'AES-128-CBC'
@@ -305,7 +329,7 @@ class infohub_encrypt extends infohub_base
      * @param string $encryptionKey | Plain text encryption key
      * @return string | Hashed encryption string
      */
-    final protected function _GetKey($encryptionKey = '') {
+    protected function _GetKey($encryptionKey = '') {
         # the key should be random binary, use scrypt, bcrypt or PBKDF2 to
         # convert a string into a key
         # key is specified using hexadecimal
@@ -317,18 +341,20 @@ class infohub_encrypt extends infohub_base
         // $hashedEncryptionKey = password_hash($encryptionKey, PASSWORD_BCRYPT, array('cost' => 12));
         // $key = pack('H*', $hashedEncryptionKey);
         // $key = $hashedEncryptionKey;
+
         return $encryptionKey;
     }
 
     /**
      * Generates IV
+     *
      * @version 2018-03-15
      * @since   2016-01-30
      * @author  ?
      * @param string $method
      * @return string
      */
-    final protected function _GenerateIv(string $method = 'AES-128-CBC') {
+    protected function _GenerateIv(string $method = 'AES-128-CBC') {
         $ivLength = openssl_cipher_iv_length($method);
         $iv = str_repeat('0', $ivLength);
         $isStrong = false; // Will be set to true by the function if the algorithm used was cryptographically secure
@@ -348,7 +374,7 @@ class infohub_encrypt extends infohub_base
      * @return array
      * @throws Exception
      */
-    final protected function create_encryption_key(array $in = array())
+    protected function create_encryption_key(array $in = [])
     {
         $default = array(
             'length_in_bytes' => 255
@@ -369,5 +395,4 @@ class infohub_encrypt extends infohub_base
             'key' => $data
         );
     }
-
 }

@@ -1,4 +1,14 @@
 <?php
+/**
+ * infohub_asset support the client side infohub_asset with assets for a plugin.
+ *
+ * Support class for the javascript plugin with the same name that launch plugins in the client workbench
+ * Purpose is to as quickly as possible provide data about plugins that can be launched.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_asset
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
@@ -6,36 +16,32 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
 /**
  * infohub_asset support the client side infohub_asset with assets for a plugin.
- * @category InfoHub
- * @package Launcher
- * @copyright Copyright (c) 2017, Peter Lembke, CharZam soft
- * @since 2017-12-03
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
- */
-
-/**
- * Class infohub_asset
+ *
  * Support class for the javascript plugin with the same name that launch plugins in the client workbench
  * Purpose is to as quickly as possible provide data about plugins that can be launched.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-01-22
+ * @since       2017-12-03
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/asset/infohub_asset.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_asset extends infohub_base
 {
+    /**
+     * Version information for this plugin
+     * @version 2018-01-22
+     * @since   2017-12-03
+     * @author  Peter Lembke
+     * @return  string[]
+     */
     protected function _Version(): array
     {
         return array(
             'date' => '2018-01-22',
+            'since' => '2017-12-03',
             'version' => '1.1.0',
             'class_name' => 'infohub_asset',
             'checksum' => '{{checksum}}',
@@ -47,7 +53,10 @@ class infohub_asset extends infohub_base
     }
 
     /**
-     * List all CMD functions here so they can be called
+     * Public functions in this plugin
+     * @version 2018-01-22
+     * @since   2017-12-03
+     * @author  Peter Lembke
      * @return mixed
      */
     protected function _GetCmdFunctions(): array
@@ -72,11 +81,11 @@ class infohub_asset extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function update_all_plugin_assets(array $in = array()): array
+    protected function update_all_plugin_assets(array $in = []): array
     {
         $default = array(
             'plugin_name' => '', // Provided by caller
-            'asset_checksum_array' => array(), // provided by caller (optional). asset name and its checksum
+            'asset_checksum_array' => [], // provided by caller (optional). asset name and its checksum
             'max_asset_size_kb' => 0, // 0 = any size is ok
             'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_all_assets',
@@ -84,9 +93,9 @@ class infohub_asset extends infohub_base
             'response' => array(
                 'answer' => '',
                 'message' => '',
-                'data' => array()
+                'data' => []
             ),
-            'data_back' => array()
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -155,7 +164,7 @@ class infohub_asset extends infohub_base
             ));
 
             $sizeIndex = [];
-            $assetList = array();
+            $assetList = [];
             foreach ($response['data'] as $assetName => $assetData) {
 
                 if (empty($assetData) === true) {
@@ -210,7 +219,7 @@ class infohub_asset extends infohub_base
                 }
             }
 
-            $index = array();
+            $index = [];
             foreach ($newAssetList as $assetName => $assetData) {
                 $index[$assetName] = $assetData['checksum'];
             }
@@ -249,11 +258,11 @@ class infohub_asset extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_ComparePluginData(array $in = array()): array
+    protected function internal_ComparePluginData(array $in = []): array
     {
         $default = array(
-            'asset_checksum_array' => array(),
-            'collected_array' => array(),
+            'asset_checksum_array' => [],
+            'collected_array' => [],
             'step' => 'step_start'
         );
         $in = $this->_Default($default, $in);
@@ -261,7 +270,7 @@ class infohub_asset extends infohub_base
         foreach ($in['asset_checksum_array'] as $assetName => $assetChecksum)
         {
             if (isset($in['collected_array'][$assetName]) === false) {
-                $in['asset_checksum_array'][$assetName] = array();
+                $in['asset_checksum_array'][$assetName] = [];
                 continue; // New asset
             }
 
@@ -312,10 +321,10 @@ class infohub_asset extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function update_specific_assets(array $in = array()): array
+    protected function update_specific_assets(array $in = []): array
     {
         $default = array(
-            'assets_requested' => array(),
+            'assets_requested' => [],
             'max_asset_size_kb' => 0, // 0 = all sizes are ok
             'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_assets_requested',
@@ -323,15 +332,15 @@ class infohub_asset extends infohub_base
             'response' => array(
                 'answer' => '',
                 'message' => '',
-                'data' => array()
+                'data' => []
             ),
-            'data_back' => array()
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'server->infohub_asset->update_specific_assets has nothing to report. Perhaps the step names are wrong in this function';
-        $assetsFound = array();
+        $assetsFound = [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'I only accept messages from the client node';

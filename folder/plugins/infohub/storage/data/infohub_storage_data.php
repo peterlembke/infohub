@@ -1,44 +1,53 @@
 <?php
+/**
+ * Handles connections to databases.
+ *
+ * Reads and then passes the connection data and the request to the right child plugin
+ * that then connects to the database and does the request.
+ * infohub_storage store data in databases and is part of InfoHub.
+ * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
+ * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ *
+ * @package     Infohub
+ * @subpackage  infohub_storage_data
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
+ * Handles connections to databases.
+ *
+ * Reads and then passes the connection data and the request to the right child plugin
+ * that then connects to the database and does the request.
  * infohub_storage store data in databases and is part of InfoHub.
  * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
  * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
- * @category InfoHub
- * @package Storage
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2010-04-15
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
- */
-
-/**
- * Class infohub_storage_data
- * Handles connections to databases.
- * Reads and then passes the connection data and the request to the right child plugin
- * that then connects to the database and does the request.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-03-25
+ * @since       2010-04-15
+ * @copyright   Copyright (c) 2010, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/infohub_storage_data.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_storage_data extends infohub_base
 {
-    Protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2018-03-25
+     * @since   2010-04-15
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2018-03-25',
+            'since' => '2010-04-15',
             'version' => '1.3.3',
             'class_name' => 'infohub_storage_data',
             'checksum' => '{{checksum}}',
@@ -48,6 +57,13 @@ class infohub_storage_data extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-03-25
+     * @since   2010-04-15
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
@@ -72,7 +88,7 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read(array $in = array()): array
+    protected function read(array $in = []): array
     {
         $default = array(
             'path' => '',
@@ -81,11 +97,11 @@ class infohub_storage_data extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'config' => array(),
+            'config' => [],
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing to report',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             )
         );
@@ -197,18 +213,18 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_paths(array $in = array()): array
+    protected function read_paths(array $in = []): array
     {
         $default = array(
-            'connect' => array(),
+            'connect' => [],
             'path' => '', // Path that ends with a *
             'step' => 'step_start',
             'calling_plugin' => array(
                 'node' => '',
                 'plugin' => ''
             ),
-            'config' => array(),
-            'response' => array()
+            'config' => [],
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -216,7 +232,7 @@ class infohub_storage_data extends infohub_base
             'answer' => 'false',
             'message' => 'Came to step ' . $in['step'],
             'path' => $in['path'],
-            'data' => array()
+            'data' => []
         );
 
         $connect = $this->_SetConnectionDefault($in['config']);
@@ -268,7 +284,7 @@ class infohub_storage_data extends infohub_base
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -303,7 +319,7 @@ class infohub_storage_data extends infohub_base
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
-                'data' => array()
+                'data' => []
             );
             $out = $this->_Default($default, $in['response']);
             $in['step'] = 'step_end';
@@ -327,11 +343,11 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write(array $in = array()): array
+    protected function write(array $in = []): array
     {
         $default = array(
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'mode' => '',
             'step' => 'step_start',
             'from_plugin' => array(
@@ -342,12 +358,12 @@ class infohub_storage_data extends infohub_base
                 'node' => '',
                 'plugin' => ''
             ),
-            'config' => array(),
+            'config' => [],
             'response' => array(
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             )
         );
@@ -464,19 +480,19 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_overwrite(array $in = array()): array
+    protected function write_overwrite(array $in = []): array
     {
         $default = array(
-            'connect' => array(),
+            'connect' => [],
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'step' => 'step_write_data',
             'calling_plugin' => array(
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array(),
-            'data_back' => array()
+            'response' => [],
+            'data_back' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -510,7 +526,7 @@ class infohub_storage_data extends infohub_base
                 'answer' => 'false',
                 'message' => 'An error occurred',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             );
             $in['response'] = $this->_Default($default, $in['response']);
@@ -539,20 +555,20 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function write_merge(array $in = array()): array
+    protected function write_merge(array $in = []): array
     {
         $default = array(
-            'connect' => array(),
+            'connect' => [],
             'path' => '',
-            'data' => array(),
+            'data' => [],
             'step' => 'step_read_data',
             'calling_plugin' => array(
                 'node' => '',
                 'plugin' => ''
             ),
-            'response' => array(),
+            'response' => [],
             'data_back' => array(
-                'new_data' => array()
+                'new_data' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -587,7 +603,7 @@ class infohub_storage_data extends infohub_base
                 'answer' => '',
                 'message' => '',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             );
             $in['response'] = $this->_Default($default, $in['response']);
@@ -626,7 +642,7 @@ class infohub_storage_data extends infohub_base
                 'answer' => 'false',
                 'message' => 'An error occurred',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             );
             $in['response'] = $this->_Default($default, $in['response']);
@@ -660,7 +676,7 @@ class infohub_storage_data extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function _SetConnectionDefault(array $in = array()): array
+    protected function _SetConnectionDefault(array $in = []): array
     {
         $default = array(
             'plugin_name_handler' => '', // Name of the storage child plugin that can handle this connection

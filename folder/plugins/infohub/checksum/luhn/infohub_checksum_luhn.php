@@ -1,32 +1,41 @@
 <?php
+/**
+ * Calculates your checksum with Luhn
+ *
+ * The Luhn algorithm from 1954 are used in US and Canadian social security numbers 
+ *
+ * @package     Infohub
+ * @subpackage  infohub_checksum_luhn
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
-infohub_checksum_luhn
-
-    Copyright (C) 2016 Peter Lembke , CharZam soft
-    the program is distributed under the terms of the GNU General Public License
-
-    infohub_checksum_luhn is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    infohub_checksum_luhn is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with infohub_checksum_luhn.	If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Calculates your checksum with Luhn
+ *
+ * The Luhn algorithm from 1954 are used in US and Canadian social security numbers
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-11-09
+ * @since       2016-04-16
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/doublemetaphone/infohub_checksum_doublemetaphone.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_checksum_luhn extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2018-03-03
+     * @since   2016-04-16
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2018-03-03',
@@ -40,6 +49,13 @@ class infohub_checksum_luhn extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-03-03
+     * @since   2016-04-16
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -62,7 +78,7 @@ class infohub_checksum_luhn extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function calculate_checksum(array $in = array()): array
+    protected function calculate_checksum(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -81,7 +97,6 @@ class infohub_checksum_luhn extends infohub_base
             'checksum' => $result,
             'verified' => 'false'
         );
-
     }
 
     /**
@@ -92,7 +107,7 @@ class infohub_checksum_luhn extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function verify_checksum(array $in = array()): array
+    protected function verify_checksum(array $in = []): array
     {
         $default = array(
             'value' => '',
@@ -115,7 +130,6 @@ class infohub_checksum_luhn extends infohub_base
             'checksum' => $in['checksum'],
             'verified' => $verified
         );
-
     }
 
     /**
@@ -124,7 +138,7 @@ class infohub_checksum_luhn extends infohub_base
      * @param string $valueString
      * @return int
      */
-    final protected function _LuhnCalculateChecksum($valueString = ''): string
+    protected function _LuhnCalculateChecksum($valueString = ''): string
     {
         $sum = 0;
         if ($valueString !== '') {
@@ -146,10 +160,11 @@ class infohub_checksum_luhn extends infohub_base
     }
 
     /**
+     * Give a string with digits. The sum of the digits will be returned.
      * @param string $valueString
      * @return int
      */
-    final protected function _LuhnSum($valueString = ''): int
+    protected function _LuhnSum($valueString = ''): int
     {
         $numbers = str_split($valueString, 1);
         $sum = 0;
@@ -160,10 +175,11 @@ class infohub_checksum_luhn extends infohub_base
     }
 
     /**
+     * Give the value. The last digit will be checked if it is valid
      * @param string $valueString
      * @return bool
      */
-    final protected function _LuhnVerifyChecksum($valueString = ''): bool
+    protected function _LuhnVerifyChecksum($valueString = ''): bool
     {
         $checksum = substr($valueString, -1);
         $valueString = substr($valueString, 0 , -1);
@@ -172,6 +188,7 @@ class infohub_checksum_luhn extends infohub_base
         if ($checksum === $resultChecksum) {
             return true;
         }
+
         return false;
     }
 
@@ -180,9 +197,10 @@ class infohub_checksum_luhn extends infohub_base
      * @param string $valueString
      * @return bool
      */
-    final protected function _RemoveAllButNumbers($valueString = ''): string
+    protected function _RemoveAllButNumbers($valueString = ''): string
     {
         $output = preg_replace('/\D/', '', $valueString);
+
         return $output;
     }
     

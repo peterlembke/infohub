@@ -1,4 +1,4 @@
-/*	infohub_compress_lz
+/**	infohub_compress_lz
 
  Copyright (C) 2019 Peter Lembke , CharZam soft
  the program is distributed under the terms of the GNU General Public License

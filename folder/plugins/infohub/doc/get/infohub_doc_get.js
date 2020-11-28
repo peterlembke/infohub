@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -109,6 +109,7 @@ function infohub_doc_get() {
                 $gettingOld = $in.data_back.data.micro_time + $oldSeconds;
 
             $in.step = 'step_end';
+            $in.response.ok = 'true';
 
             if ($now > $gettingOld) {
                 $in.step = 'step_get_document_from_server';

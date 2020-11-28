@@ -1,36 +1,42 @@
 <?php
+/**
+ * Read/Write encrypted data to server Storage
+ *
+ * @package     Infohub
+ * @subpackage  infohub_tree
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_tree show what the core can do
- * @category InfoHub
- * @package contact
- * @copyright Copyright (c) 2019, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Read/Write encrypted data to server Storage
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-08-25
+ * @since       2020-07-25
+ * @copyright   Copyright (c) 2020, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/tree/infohub_tree.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_tree extends infohub_base
 {
     const PREFIX = 'user';
 
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2020-08-25
+     * @since   2020-07-25
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
-            'date' => '2020-07-25',
+            'date' => '2020-08-25',
             'since' => '2020-07-25',
             'version' => '1.0.0',
             'class_name' => 'infohub_tree',
@@ -42,6 +48,13 @@ class infohub_tree extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2020-08-25
+     * @since   2020-07-25
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -51,7 +64,10 @@ class infohub_tree extends infohub_base
             'write_many' => 'normal',
             'read_pattern' => 'normal',
             'write_pattern' => 'normal',
-            'get_doc_file' => 'normal'
+            'get_doc_file' => 'normal',
+            'get_plugin_list' => 'normal',
+            'get_plugin_path_index' => 'normal',
+            'sync_local_data_with_server' => 'normal'
         );
 
         return parent::_GetCmdFunctionsBase($list);
@@ -65,7 +81,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function save_node_data(array $in = array()): array
+    protected function save_node_data(array $in = []): array
     {
         $default = array(
             'type' => 'server', // server or client
@@ -75,13 +91,13 @@ class infohub_tree extends infohub_base
                 'domain_address' => '', // We login to this destination domain
                 'user_name' => '', // Your identity
                 'shared_secret' => '', // 2Kb random bytes base64 encoded
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array()
+                'server_plugin_names' => [],
+                'client_plugin_names' => []
             ),
             'from_plugin' => array(
                 'node' => ''
             ),
-            'response' => array(),
+            'response' => [],
             'step' => 'step_check_user_name'
         );
         $in = $this->_Default($default, $in);
@@ -107,7 +123,7 @@ class infohub_tree extends infohub_base
                         'plugin' => 'infohub_uuid',
                         'function' => 'hub_id'
                     ),
-                    'data' => array(),
+                    'data' => [],
                     'data_back' => array(
                         'step' => 'step_check_user_name_response',
                         'type' => $in['type'],
@@ -186,7 +202,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function delete_node_data(array $in = array()): array
+    protected function delete_node_data(array $in = []): array
     {
         $default = array(
             'type' => 'server', // server or client
@@ -255,7 +271,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_node_data(array $in = array()): array
+    protected function load_node_data(array $in = []): array
     {
         $default = array(
             'type' => 'server', // server or client
@@ -264,7 +280,7 @@ class infohub_tree extends infohub_base
             'response' => array(
                 'answer' => 'false',
                 'message' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false'
             ),
             'config' => array(
@@ -274,8 +290,8 @@ class infohub_tree extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'server_plugin_names' => array(),
-                    'client_plugin_names' => array()
+                    'server_plugin_names' => [],
+                    'client_plugin_names' => []
                 )
             ),
             'from_plugin' => array(
@@ -288,7 +304,7 @@ class infohub_tree extends infohub_base
         $out = array(
             'answer' => 'false',
             'message' => 'Nothing to report from load_node_data',
-            'node_data' => array(),
+            'node_data' => [],
             'ok' => 'false',
             'post_exist' => 'false'
         );
@@ -319,7 +335,7 @@ class infohub_tree extends infohub_base
                 'data_back' => array(
                     'type' => $in['type'],
                     'user_name' => $in['user_name'],
-                    'config' => array(),
+                    'config' => [],
                     'step' => 'step_load_node_data_response'
                 )
             ));
@@ -353,8 +369,8 @@ class infohub_tree extends infohub_base
             'domain_address' => '',
             'user_name' => '',
             'shared_secret' => '',
-            'server_plugin_names' => array(),
-            'client_plugin_names' => array()
+            'server_plugin_names' => [],
+            'client_plugin_names' => []
         );
         $out['node_data'] = $this->_Default($default, $out['node_data']);
         
@@ -375,13 +391,13 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_node_list(array $in = array()): array
+    protected function load_node_list(array $in = []): array
     {
         $default = array(
             'type' => 'server', // server or client
             'step' => 'step_load_node_list',
-            'response' => array(),
-            'data_back' => array(),
+            'response' => [],
+            'data_back' => [],
             'from_plugin' => array(
                 'node' => ''
             )
@@ -392,8 +408,8 @@ class infohub_tree extends infohub_base
             'answer' => 'false',
             'message' => 'Nothing to report from load_node_list',
             'ok' => 'false',
-            'node_list' => array(),
-            'options' => array(),
+            'node_list' => [],
+            'options' => [],
             'post_exist' => 'false'
         );
 
@@ -424,7 +440,7 @@ class infohub_tree extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -443,8 +459,8 @@ class infohub_tree extends infohub_base
                 'note' => '',
                 'domain_address' => '',
                 'user_name' => '',
-                'server_plugin_names' => array(),
-                'client_plugin_names' => array()
+                'server_plugin_names' => [],
+                'client_plugin_names' => []
             );
 
             foreach ($out['node_list'] as $node => $data) {
@@ -478,7 +494,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CreateSharedSecret(array $in = array()): array
+    protected function internal_CreateSharedSecret(array $in = []): array
     {
         $default = array(
             'length' => 2048
@@ -508,13 +524,13 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function save_group_data(array $in = array()): array
+    protected function save_group_data(array $in = []): array
     {
         $default = array(
             'group_data' => array(
                 'name' => '',
                 'note' => '',
-                'server_plugin_names' => array()
+                'server_plugin_names' => []
             ),
             'response' => array(
                 'answer' => 'false',
@@ -581,7 +597,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function delete_group_data(array $in = array()): array
+    protected function delete_group_data(array $in = []): array
     {
         $default = array(
             'name' => '',
@@ -650,12 +666,12 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_group_data(array $in = array()): array
+    protected function load_group_data(array $in = []): array
     {
         $default = array(
             'name' => '',
             'step' => 'step_load_group_data',
-            'response' => array(),
+            'response' => [],
             'from_plugin' => array(
                 'node' => ''
             )
@@ -666,7 +682,7 @@ class infohub_tree extends infohub_base
             'answer' => 'false',
             'message' => 'Nothing to report from load_group_data',
             'ok' => 'false',
-            'group_data' => array()
+            'group_data' => []
         );
 
         if ($in['from_plugin']['node'] !== 'client') {
@@ -703,7 +719,7 @@ class infohub_tree extends infohub_base
         $default = array(
             'name' => '',
             'note' => '',
-            'server_plugin_names' => array()
+            'server_plugin_names' => []
         );
         $out['group_data'] = $this->_Default($default, $out['group_data']);
         
@@ -724,12 +740,12 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_groups_data(array $in = array()): array
+    protected function load_groups_data(array $in = []): array
     {
         $default = array(
-            'names' => array(),
+            'names' => [],
             'step' => 'step_load_groups_data',
-            'response' => array(),
+            'response' => [],
             'from_plugin' => array(
                 'node' => ''
             )
@@ -739,10 +755,10 @@ class infohub_tree extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report from load_groups_data';
         $ok = 'false';
-        $paths = array();
+        $paths = [];
 
-        $groupData = array();
-        $groupsMerged = array();
+        $groupData = [];
+        $groupsMerged = [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'Only node client are allowed to use function load_groups_data';
@@ -754,7 +770,7 @@ class infohub_tree extends infohub_base
             foreach ($in['names'] as $name) {
                 $name = strtolower($name);
                 $path = 'infohub_tree/group_data/' . $name;
-                $paths[$path] = array(); // Empty array means you want all data
+                $paths[$path] = []; // Empty array means you want all data
             }
             
             return $this->_SubCall(array(
@@ -784,7 +800,7 @@ class infohub_tree extends infohub_base
                 $default = array(
                     'name' => '',
                     'note' => '',
-                    'server_plugin_names' => array()
+                    'server_plugin_names' => []
                 );
                 
                 foreach ($groupItems as $path => $item) {
@@ -816,12 +832,12 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_group_list(array $in = array()): array
+    protected function load_group_list(array $in = []): array
     {
         $default = array(
             'step' => 'step_load_group_list',
-            'response' => array(),
-            'data_back' => array(),
+            'response' => [],
+            'data_back' => [],
             'from_plugin' => array(
                 'node' => ''
             )
@@ -831,8 +847,8 @@ class infohub_tree extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report from load_group_data';
         $ok = 'false';
-        $groupList = array();
-        $options = array();
+        $groupList = [];
+        $options = [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'Only node client are allowed to use function load_group_list';
@@ -860,7 +876,7 @@ class infohub_tree extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => '',
-                'items' => array()
+                'items' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -877,7 +893,7 @@ class infohub_tree extends infohub_base
             $default = array(
                 'name' => '',
                 'note' => '',
-                'server_plugin_names' => array()
+                'server_plugin_names' => []
             );
 
             foreach ($groupList as $name => $data) {
@@ -906,13 +922,13 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function load_plugin_list(array $in = array()): array
+    protected function load_plugin_list(array $in = []): array
     {
         $default = array(
             'node' => 'server',
             'step' => 'step_load_plugin_list',
-            'response' => array(),
-            'data_back' => array(),
+            'response' => [],
+            'data_back' => [],
             'from_plugin' => array(
                 'node' => ''
             )
@@ -922,7 +938,7 @@ class infohub_tree extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report from load_plugin_data';
         $ok = 'false';
-        $pluginList = array();
+        $pluginList = [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'Only node client are allowed to use function load_group_list';
@@ -950,7 +966,7 @@ class infohub_tree extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => '',
-                'data' => array()
+                'data' => []
             );
             $in['response'] = $this->_Default($default, $in['response']);
 
@@ -987,7 +1003,7 @@ class infohub_tree extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_doc_file(array $in = array()): array
+    protected function get_doc_file(array $in = []): array
     {
         $default = array(
             'file' => 'infohub_tree',
@@ -998,7 +1014,7 @@ class infohub_tree extends infohub_base
                 'contents' => '',
                 'checksum' => ''
             ),
-            'data_back' => array(),
+            'data_back' => [],
             'from_plugin' => array(
                 'node' => ''
             )

@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -43,7 +43,8 @@ function infohub_tree_doc() {
             'click_backup': 'normal',
             'click_restore': 'normal',
             'click_manage': 'normal',
-            'click_storage': 'normal'
+            'click_storage': 'normal',
+            'click_sync': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -106,7 +107,7 @@ function infohub_tree_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_version][button_encrypt][button_backup][button_restore][button_manage][button_storage]',
+                            'data': '[button_main][button_version][button_encrypt][button_backup][button_restore][button_manage][button_storage][button_sync]',
                             'class': 'container-small'
                         },
                         'container_doc': {
@@ -183,6 +184,16 @@ function infohub_tree_doc() {
                             'button_left_icon': '[grey_icon]',
                             'button_label': _Translate('Storage Doc'),
                             'event_data': 'doc|storage',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click'
+                        },
+                        'button_sync': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_left_icon': '[blue_icon]',
+                            'button_label': _Translate('Sync Doc'),
+                            'event_data': 'doc|sync',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click'
                         },
@@ -435,6 +446,34 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the storage doc',
+            'ok': 'true'
+        };
+    };
+
+    /**
+     * Show the documentation
+     * @version 2020-08-30
+     * @since   2020-08-30
+     * @author  Peter Lembke
+     */
+    $functions.push('click_sync');
+    const click_sync = function ($in)
+    {
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'html': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_render') {
+            return _GetCall('sync/infohub_tree_sync');
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Showed the sync doc',
             'ok': 'true'
         };
     };

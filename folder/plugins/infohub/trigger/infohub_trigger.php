@@ -1,41 +1,47 @@
 <?php
+/**
+ * Dev tool
+ *
+ * Used by developers to send messages to emerging plugins
+ *
+ * @package     Infohub
+ * @subpackage  infohub_trigger
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_contact show what the core can do
- * @category InfoHub
- * @package contact
- * @copyright Copyright (c) 2019, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Dev tool
+ *
+ * Used by developers to send messages to emerging plugins
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-09-12
+ * @since       2020-08-12
+ * @copyright   Copyright (c) 2020, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/trigger/infohub_trigger.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_trigger extends infohub_base
 {
     const PREFIX = 'user';
 
     /**
-     * Data about this plugin. Used by infohub_base
-     * @return array
+     * Version information for this plugin
+     * @version 2020-09-12
+     * @since   2020-08-12
+     * @author  Peter Lembke
+     * @return  string[]
      */
-    protected final function _Version(): array
+    protected function _Version(): array
     {
         return array(
             'date' => '2020-09-12',
-            'since' => '2020-09-12',
+            'since' => '2020-08-12',
             'version' => '1.0.0',
             'class_name' => 'infohub_trigger',
             'checksum' => '{{checksum}}',
@@ -47,8 +53,11 @@ class infohub_trigger extends infohub_base
     }
 
     /**
-     * Get a list with cmd functions. Used by infohub_base
-     * @return array
+     * Public functions in this plugin
+     * @version 2020-09-12
+     * @since   2020-08-12
+     * @author  Peter Lembke
+     * @return mixed
      */
     protected function _GetCmdFunctions(): array
     {
@@ -70,13 +79,13 @@ class infohub_trigger extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_plugin_list(array $in = array()): array
+    protected function get_plugin_list(array $in = []): array
     {
         $default = array(
             'from_plugin' => array(
                 'node' => ''
             ),
-            'response' => array(),
+            'response' => [],
             'step' => 'step_ask_file'
         );
         $in = $this->_Default($default, $in);
@@ -84,7 +93,7 @@ class infohub_trigger extends infohub_base
         $out = array(
             'answer' => 'false',
             'message' => 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__,
-            'data' => array()
+            'data' => []
         );
 
         if ($in['step'] === 'step_ask_file') {
@@ -107,7 +116,7 @@ class infohub_trigger extends infohub_base
             $default = array(
                 'answer' => 'false',
                 'message' => 'Nothing',
-                'data' => array()
+                'data' => []
             );
             $out = $this->_Default($default, $in['response']);
         }

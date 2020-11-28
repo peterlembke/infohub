@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -23,12 +23,12 @@ function infohub_tree_manage() {
 
     const _Version = function() {
         return {
-            'date': '2020-07-25',
+            'date': '2020-08-25',
             'since': '2020-07-25',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_tree_manage',
-            'note': 'View Edit and Delete among your personal data',
+            'note': 'View Edit and Delete among your personal data. You see the data as json',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
@@ -37,11 +37,10 @@ function infohub_tree_manage() {
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_refresh_group': 'normal',
-            'click_list_group': 'normal',
-            'click_new_group': 'normal',
-            'click_save_group': 'normal',
-            'click_delete_group': 'normal'
+            'click_plugin_selected': 'normal',
+            'click_path_selected': 'normal',
+            'click_delete': 'normal',
+            'click_write': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -288,7 +287,7 @@ function infohub_tree_manage() {
                         'max_width': 100,
                         'scroll_to_box_id': 'true'
                     },
-                    'cache_key': 'group'
+                    'cache_key': 'manage'
                 },
                 'data_back': {
                     'step': 'step_end'

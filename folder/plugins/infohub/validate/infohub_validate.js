@@ -1,4 +1,4 @@
-/*	infohub_validate.js
+/**	infohub_validate.js
 
 		Copyright (C) 2018 Peter Lembke , Infohub.se
 		the program is distributed under the terms of the GNU General Public License

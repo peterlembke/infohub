@@ -1,4 +1,4 @@
-/*	infohub_checksum
+/**	infohub_checksum
 
  Copyright (C) 2017 Peter Lembke , CharZam soft
  the program is distributed under the terms of the GNU General Public License
@@ -32,7 +32,9 @@ function infohub_checksum() {
             'note': 'Here you can get checksums in many different formats',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'true'
         };
     };
 

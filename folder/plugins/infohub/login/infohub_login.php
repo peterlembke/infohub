@@ -1,30 +1,41 @@
 <?php
+/**
+ * Handle the login procedure
+ *
+ * Handle incoming login request and challenge. Send login request to another node.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	infohub_login
-    Copyright (C) 2019 Peter Lembke , CharZam soft
-    the program is distributed under the terms of the GNU General Public License
-
-    infohub_login is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    infohub_login is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with infohub_login.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Handle the login procedure
+ *
+ * Handle incoming login request and challenge. Send login request to another node.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-01-12
+ * @since       2019-09-21
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/login/infohub_login.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_login extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2020-01-12
+     * @since   2019-09-21
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2020-01-12',
@@ -39,6 +50,13 @@ class infohub_login extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2020-01-12
+     * @since   2019-09-21
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -64,7 +82,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function login_request(array $in = array()): array
+    protected function login_request(array $in = []): array
     {
         $default = array(
             'initiator_user_name' => '', // Your Hub-UUID username
@@ -80,7 +98,7 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'role_list' => array()
+                    'role_list' => []
                 ),
                 'post_exist' => 'false'
             ),
@@ -253,7 +271,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function login_challenge(array $in = array()): array
+    protected function login_challenge(array $in = []): array
     {
         $default = array(
             'step' => 'step_find_login_request',
@@ -265,7 +283,7 @@ class infohub_login extends infohub_base
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
-                'data' => array(),
+                'data' => [],
                 'post_exist' => 'false',
                 'node_data' => array(
                     'node' => '',
@@ -273,7 +291,7 @@ class infohub_login extends infohub_base
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
-                    'role_list' => array()
+                    'role_list' => []
                 ),
                 'session_id' => '', // session_{hub_id}
                 'session_created_at' => '', // micro time with 3 decimals
@@ -281,7 +299,7 @@ class infohub_login extends infohub_base
             ),
             'data_back' => array(
                 'step' => 'step_find_login_request',
-                'contact' => array(),
+                'contact' => [],
                 'initiator_user_name' => '', // Your Hub-UUID username
                 'initiator_random_code' => '', // Same as in the login_request
                 'initiator_seconds_since_epoc' => 0.0, // Same as in the login_request
@@ -298,7 +316,7 @@ class infohub_login extends infohub_base
         $in = $this->_Default($default, $in);
 
         $leftOvers = '';
-        $messages = array();
+        $messages = [];
 
         if ($in['from_plugin']['node'] === 'server') {
             $out['message'] = 'Any node except the server are allowed to use function login_challenge';
@@ -462,7 +480,7 @@ class infohub_login extends infohub_base
                 ),
                 'data'=> array(
                     'path'=> 'infohub_login/login_request/' . $in['initiator_user_name'],
-                    'data'=> array()
+                    'data'=> []
                 ),
                 'data_back'=> array(
                     'step' => 'step_end_response'
@@ -492,7 +510,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function login(array $in = array()): array
+    protected function login(array $in = []): array
     {
         $default = array(
             'node' => '',
@@ -547,7 +565,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function read_login_file(array $in = array()): array
+    protected function read_login_file(array $in = []): array
     {
         $default = array(
             'step' => 'step_get_login_file_name',
@@ -556,10 +574,10 @@ class infohub_login extends infohub_base
                 'plugin' => ''
             ),
             'config' => array(
-                'download_account' => array(),
+                'download_account' => [],
                 'user_name' => ''
             ),
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -653,7 +671,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CreateRandomCode(array $in = array()): array
+    protected function internal_CreateRandomCode(array $in = []): array
     {
         $default = array(
             'length' => 256
@@ -702,7 +720,7 @@ class infohub_login extends infohub_base
      * @param int $max
      * @return int
      */
-    final protected function _Random($min = 0, $max = 0): int
+    protected function _Random($min = 0, $max = 0): int
     {
         $randomNumber = 0;
         try {
@@ -729,7 +747,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifyRandomCode(array $in = array()): array
+    protected function internal_VerifyRandomCode(array $in = []): array
     {
         $default = array(
             'random_code' => '',
@@ -747,7 +765,7 @@ class infohub_login extends infohub_base
             goto leave;
         }
 
-        $average = array();
+        $average = [];
         $spread = array(2,3,5,7,11,13);
 
         for ($i=0; $i < $length;$i++)
@@ -807,7 +825,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_GetSecondsSinceEpoc(array $in = array()): array
+    protected function internal_GetSecondsSinceEpoc(array $in = []): array
     {
         $secondsSinceEpoc = $this->_MicroTime(); // example 34567.456
 
@@ -828,7 +846,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifySecondsSinceEpoc(array $in = array()): array
+    protected function internal_VerifySecondsSinceEpoc(array $in = []): array
     {
         $default = array(
             'seconds_since_epoc' => 0.0,
@@ -869,7 +887,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_VerifyHubId(array $in = array()): array
+    protected function internal_VerifyHubId(array $in = []): array
     {
         $default = array(
             'hub_id' => ''
@@ -938,7 +956,7 @@ class infohub_login extends infohub_base
      * @param $string2
      * @return string
      */
-    final protected function _MergeBase64Strings($string1, $string2)
+    protected function _MergeBase64Strings($string1, $string2)
     {
         $data1 = base64_decode($string1);
         $data2 = base64_decode($string2);
@@ -967,7 +985,7 @@ class infohub_login extends infohub_base
      * @param $string2
      * @return string
      */
-    final protected function _DeductBase64Strings($string1, $string2)
+    protected function _DeductBase64Strings($string1, $string2)
     {
         $data1 = base64_decode($string1);
         $data2 = base64_decode($string2);
@@ -999,7 +1017,7 @@ class infohub_login extends infohub_base
      * @param $steps
      * @return string
      */
-    final protected function _RotateBase64String($string1, $steps)
+    protected function _RotateBase64String($string1, $steps)
     {
         $data1 = base64_decode($string1);
         $result = substr($data1, $steps +1 ) . substr($data1,0,$steps);
@@ -1017,7 +1035,7 @@ class infohub_login extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function get_doc_file(array $in = array()): array
+    protected function get_doc_file(array $in = []): array
     {
         $default = array(
             'language' => 'en',
@@ -1030,13 +1048,13 @@ class infohub_login extends infohub_base
                 'contents' => '',
                 'checksum' => ''
             ),
-            'data_back' => array(),
+            'data_back' => [],
             'from_plugin' => array(
                 'node' => ''
             ),
             'config' => array(
                 'information' => array(
-                    'available_languages' => array()
+                    'available_languages' => []
                 )
             )
         );

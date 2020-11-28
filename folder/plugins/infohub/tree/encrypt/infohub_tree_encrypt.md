@@ -9,7 +9,13 @@ The encrypted text comes in here. We decrypt with PGP and then decompress with g
 The result are returned.
 
 ## GUI
-You see a file selector where you can select your encryption key file. The data in the file will only be stored in memory in this plugin.
+Button "Import key" where you can select your encryption key file. The data in the file will only be stored in memory in this plugin.
+
+You will see an indicator on the button that show if there is an encryption key in memory or not.
+
+Button "Forget key". Removes all the key from memory. They will also vanish if you refresh the screen.
+
+Button "Create key". Will download a json file with a key in it. Keep it safe. You need to inport the key.
 
 ## Functions
 These functions are only used by infohub_tree_storage
@@ -23,4 +29,4 @@ This documentation is copyright (C) 2020 Peter Lembke.
 
 ## footer
 Created 2020-07-25 by Peter Lembke  
-Updated 2020-07-26 by Peter Lembke
+Updated 2020-09-03 by Peter Lembke

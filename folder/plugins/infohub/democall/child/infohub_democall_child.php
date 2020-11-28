@@ -1,40 +1,42 @@
 <?php
+/**
+ * Examples that show who can send messages to who
+ *
+ * @package     Infohub
+ * @subpackage  infohub_democall_child
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*
-    @license
-    Copyright (C) 2010 Peter Lembke , CharZam soft
-    the program is distributed under the terms of the GNU General Public License
-
-    InfoHub is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    InfoHub is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with InfoHub.	If not, see <https://www.gnu.org/licenses/>.
-
-    @category InfoHub
-    @package Plugin
-    @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
-    @author Peter Lembke <peter.lembke@infohub.se>
-    @link https://infohub.se/ InfoHub main page
-*/
+/**
+ * Examples that show who can send messages to who
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-03-09
+ * @since       2019-03-09
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_democall_child extends infohub_base
 {
-
-    Protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     *
+     * @version 2019-03-09
+     * @since   2019-03-09
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-03-09',
+            'since' => '2019-03-09',
             'version' => '1.0.0',
             'class_name' => 'infohub_democall_child',
             'checksum' => '{{checksum}}',
@@ -44,6 +46,14 @@ class infohub_democall_child extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     *
+     * @version 2019-03-09
+     * @since   2019-03-09
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         return array(
@@ -66,9 +76,9 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function my_test(array $in = array()) 
+    protected function my_test(array $in = [])
     {
-        $default = array();
+        $default = [];
         $in = $this->_Default($default, $in);
 
         return array(
@@ -83,7 +93,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_self(array $in = array()) 
+    protected function call_self(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -122,7 +132,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_child(array $in = array()) 
+    protected function call_child(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -161,7 +171,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_level1_on_same_node(array $in = array()) 
+    protected function call_level1_on_same_node(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -201,7 +211,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_level1_on_other_node(array $in = array()) 
+    protected function call_level1_on_other_node(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -241,7 +251,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_child_that_call_self(array $in = array()) 
+    protected function call_child_that_call_self(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -280,7 +290,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_child_that_call_level1_on_same_node(array $in = array()) 
+    protected function call_child_that_call_level1_on_same_node(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -319,7 +329,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_child_that_call_level1_on_other_node(array $in = array()) 
+    protected function call_child_that_call_level1_on_other_node(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -358,7 +368,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_child_that_call_parent(array $in = array()) 
+    protected function call_child_that_call_parent(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -397,7 +407,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_sibling(array $in = array()) 
+    protected function call_sibling(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -436,7 +446,7 @@ class infohub_democall_child extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function call_siblings_child(array $in = array()) 
+    protected function call_siblings_child(array $in = [])
     {
         $default = array(
             'step' => 'step_start',
@@ -468,5 +478,4 @@ class infohub_democall_child extends infohub_base
             'message' => $in['response']['message']
         );
     }
-    
 }

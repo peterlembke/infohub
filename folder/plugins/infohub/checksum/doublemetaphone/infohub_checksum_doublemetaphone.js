@@ -1,4 +1,4 @@
-/*	infohub_checksum_doublemetaphone
+/**	infohub_checksum_doublemetaphone
 
  Copyright (C) 2017 Peter Lembke , CharZam soft
  the program is distributed under the terms of the GNU General Public License

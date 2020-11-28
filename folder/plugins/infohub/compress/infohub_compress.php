@@ -1,31 +1,41 @@
 <?php
+/**
+ * Compression
+ *
+ * Compress data. You need less internet capacity and less storage space
+ *
+ * @package     Infohub
+ * @subpackage  infohub_compress
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	infohub_compress
-
-Copyright (C) 2019 Peter Lembke , CharZam soft
-the program is distributed under the terms of the GNU General Public License
-
-infohub_compress is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-infohub_compress is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with infohub_compress.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Compression
+ *
+ * Compress data. You need less internet capacity and less storage space
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-03-03
+ * @since       2018-03-03
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_compress extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2019-07-06
+     * @since   2019-07-02
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-07-06',
@@ -40,6 +50,13 @@ class infohub_compress extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2019-07-06
+     * @since   2019-07-02
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -63,7 +80,7 @@ class infohub_compress extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function compress(array $in = array()): array
+    protected function compress(array $in = []): array
     {
         $default = array(
             'compression_method' => 'gzip',
@@ -156,7 +173,7 @@ class infohub_compress extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function uncompress(array $in = array()): array
+    protected function uncompress(array $in = []): array
     {
         $default = array(
             'compression_method' => 'gzip',
@@ -250,7 +267,7 @@ class infohub_compress extends infohub_base
      * @param array $in
      * @return array|bool
      */
-    final protected function  get_available_options(array $in = array()): array
+    protected function  get_available_options(array $in = []): array
     {
         $options = array(
             array("type" => "option", "value" => 'gzip', "label" => 'Gzip' )
@@ -271,7 +288,7 @@ class infohub_compress extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CompressGzip(array $in = array()): array
+    protected function internal_CompressGzip(array $in = []): array
     {
         $default = array('uncompressed_data' => '');
         $in = $this->_Default($default, $in);
@@ -293,7 +310,7 @@ class infohub_compress extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_UncompressGzip(array $in = array()): array
+    protected function internal_UncompressGzip(array $in = []): array
     {
         $default = array(
             'compressed_data' => '' // gzip compressed data encoded with base64.

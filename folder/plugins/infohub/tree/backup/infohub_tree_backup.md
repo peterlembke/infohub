@@ -3,7 +3,13 @@ Backup your personal data to one or many files that are downloaded to your compu
 
 ## Introduction
 You can backup ALL data from the server for ONE plugin.
+
 You can backup a selection of paths from the server for ONE plugin.
+
+## Available data
+infohub_tree_storage keep track of what plugin names it has stored data for and when data was last stored. 
+
+infohub_tree_backup can ask for the plugin list and also give a time to only get plugin names that have changed data since that time. 
 
 ## GUI - backup plugins
 There is a list with plugin names found in the paths, "__Plugin names__". Mark the plugins you want to backup.
@@ -33,9 +39,9 @@ Click on button "__Backup paths__". You will get one file.
 File name: `infohub-backup-infohub_training-partial-{paths md5 checksum}-20200726:140000.backup`
 
 ## Functions
-* backup_full - Backup all data for one plugin
-* backup_partial - Packup some paths for a plugin
 
+* backup_full - Backup all data for one plugin
+* backup_partial - Backup some paths for a plugin
 
 ## License
 This documentation is copyright (C) 2020 Peter Lembke.

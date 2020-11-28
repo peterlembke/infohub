@@ -1,34 +1,45 @@
 <?php
+/**
+ * Handle plugin information
+ *
+ * Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins
+ *
+ * @package     Infohub
+ * @subpackage  infohub_plugin
+ */
+
+declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_plugin_information give you extensive information about any plugin.
- * @category InfoHub
- * @package Plugin
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Handle plugin information
+ *
+ * Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2016-01-25
+ * @since       2016-12-27
+ * @copyright   Copyright (c) 2010, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/plugin/information/infohub_plugin_information.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_plugin_information extends infohub_base
 {
-
+    /**
+     * Version information for this plugin
+     * @version 2016-01-30
+     * @since 2016-01-30
+     * @author  Peter Lembke
+     * @return  string[]
+     */
     protected function _Version(): array
     {
         return array(
             'date' => '2016-01-30',
+            'since' => '2012-08-24',
             'version' => '1.0.0',
             'class_name' => 'infohub_plugin_information',
             'checksum' => '{{checksum}}'
@@ -47,9 +58,10 @@ class infohub_plugin_information extends infohub_base
      * @since   2012-08-24
      * @author  Peter Lembke
      * @param array $in
-     * @return bool|string
+     * @return array
+     * @throws ReflectionException
      */
-    final protected function plugin_data(array $in = array())
+    protected function plugin_data(array $in = [])
     {
         $default = array(
             'class_name' => '',
@@ -74,7 +86,7 @@ class infohub_plugin_information extends infohub_base
             'constants' => $class->getConstants()
         );
 
-        $wantedMethodsArray = array();
+        $wantedMethodsArray = [];
         $wantedMethod = false;
         if ($in['methods'] !== '*') {
             $response = explode(',', $in['methods']);
@@ -94,7 +106,7 @@ class infohub_plugin_information extends infohub_base
             }
 
             /** @var $method ReflectionClass */
-            $methodsArray = array();
+            $methodsArray = [];
             foreach ($method as $methodName => $data) {
                 $methodsArray[$methodName] = $data;
             }
@@ -110,7 +122,7 @@ class infohub_plugin_information extends infohub_base
             }
 
             $parameters = $method->getParameters();
-            $parametersArray = array();
+            $parametersArray = [];
             foreach ($parameters as $parameter) {
                 $parametersArray[] = $parameter->getName();
             }
@@ -125,7 +137,7 @@ class infohub_plugin_information extends infohub_base
             $methodName = $method->getName();
             // Get required variable names from the function
             if ($methodsArray["isFinal"] == true and $methodsArray["isProtected"] == true) {
-                $methodsArray["required_variables"] = array(); // Can not get default variables any more
+                $methodsArray["required_variables"] = []; // Can not get default variables any more
             }
 
             $classData["methods"][$methodName] = $methodsArray;
@@ -146,7 +158,7 @@ class infohub_plugin_information extends infohub_base
      * @param array $in
      * @return bool|string
      */
-    final protected function plugin_data_comment_parse(array $in = array())
+    protected function plugin_data_comment_parse(array $in = [])
     {
         $default = array(
             'comment' => ''
@@ -181,14 +193,14 @@ class infohub_plugin_information extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_CommentParse(array $in = array())
+    protected function internal_CommentParse(array $in = [])
     {
         $default = array(
             'comment' => ''
         );
         $in = $this->_Default($default, $in);
 
-        $parsedRows = array();
+        $parsedRows = [];
 
         // Split comment into rows
         $commentRows = explode("\n", $in['comment']); // Divide text into rows

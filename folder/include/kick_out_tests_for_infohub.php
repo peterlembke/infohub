@@ -1,28 +1,24 @@
 <?php
-declare(strict_types=1);
-/*
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+/**
+ * Kick out tests that will be run in infohub.php
+ *
+ * @package     Infohub
+ * @subpackage  kick_out_tests_for_infohub
  */
+declare(strict_types=1);
 
 /**
- * Kick out tests that will be run in index.php
- * Class kickOut
+ * Kick out tests that will be run in infohub.php
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-04-17
+ * @since       2015-11-15
+ * @copyright   Copyright (c) 2015, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/infohub_storage_data.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
-class kickOut
+class kick_out_tests_for_infohub
 {
     /**
      * Main function that run all tests
@@ -257,6 +253,5 @@ class kickOut
 
 }
 
-/** @var kickOut $kick */
-$kick = new kickOut();
+$kick = new kick_out_tests_for_infohub();
 $package = $kick->tests();

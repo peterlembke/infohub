@@ -1,4 +1,4 @@
-/*	infohub_password
+/**	infohub_password
 
  Copyright (C) 2017 Peter Lembke , CharZam soft
  the program is distributed under the terms of the GNU General Public License

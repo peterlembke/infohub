@@ -1,31 +1,41 @@
 <?php
+/**
+ * Calculates your checksum on a personnummer
+ *
+ * Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit
+ *
+ * @package     Infohub
+ * @subpackage  infohub_checksum_luhn
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	infohub_checksum_personnummer
-
-		Copyright (C) 2016 Peter Lembke , CharZam soft
-		the program is distributed under the terms of the GNU General Public License
-
-		infohub_checksum_personnummer is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-
-		infohub_checksum_personnummer is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-
-		You should have received a copy of the GNU General Public License
-		along with infohub_checksum_personnummer.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Calculates your checksum on a personnummer
+ *
+ * Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-07-29
+ * @since       2016-04-17
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/doublemetaphone/infohub_checksum_doublemetaphone.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_checksum_personnummer extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2018-07-29
+     * @since   2016-04-17
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2018-07-29',
@@ -39,6 +49,13 @@ class infohub_checksum_personnummer extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2018-07-29
+     * @since   2016-04-17
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -61,7 +78,7 @@ class infohub_checksum_personnummer extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function calculate_checksum(array $in = array()): array
+    protected function calculate_checksum(array $in = []): array
     {
         $default = array(
             'value' => '' // Example: 640823–323
@@ -88,7 +105,7 @@ class infohub_checksum_personnummer extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function verify_checksum(array $in = array()): array
+    protected function verify_checksum(array $in = []): array
     {
         $default = array(
             'value' => '' // Example: 640823–3231
@@ -117,7 +134,7 @@ class infohub_checksum_personnummer extends infohub_base
      * @param string $value
      * @return int
      */
-    final protected function _CleanUPPersonnummer(string $value = ''): string
+    protected function _CleanUPPersonnummer(string $value = ''): string
     {
         $output = $this->_RemoveAllButNumbers($value);
         return $output;
@@ -131,7 +148,7 @@ class infohub_checksum_personnummer extends infohub_base
      * @param string $valueString
      * @return string
      */
-    final protected function _PersonnummerCalculateChecksum(string $valueString = ''): string
+    protected function _PersonnummerCalculateChecksum(string $valueString = ''): string
     {
 
         $numbers = str_split($valueString, 1);
@@ -152,25 +169,27 @@ class infohub_checksum_personnummer extends infohub_base
     }
 
     /**
+     * Give a string with digits. The sum of the digits will be returned.
      * @param string $valueString
      * @return int
      */
-    final protected function _PersonnummerSum(string $valueString = ''): int
+    protected function _PersonnummerSum(string $valueString = ''): int
     {
         $numbers = str_split($valueString, 1);
         $sum = 0;
         foreach ($numbers as $number) {
             $sum = $sum + $number;
         }
+
         return $sum;
     }
 
     /**
-     * Give a fill personnummer. The last digit will be checked if it is valid
+     * Give a full personnummer. The last digit will be checked if it is valid
      * @param string $valueString
      * @return bool
      */
-    final protected function _PersonnummerVerifyChecksum(string $valueString = ''): bool
+    protected function _PersonnummerVerifyChecksum(string $valueString = ''): bool
     {
         $checksum = substr($valueString, -1);
         $valueString = substr($valueString, 0 , -1);
@@ -187,7 +206,7 @@ class infohub_checksum_personnummer extends infohub_base
      * @param string $valueString
      * @return bool
      */
-    final protected function _RemoveAllButNumbers($valueString = ''): string
+    protected function _RemoveAllButNumbers($valueString = ''): string
     {
         $output = preg_replace('/\D/', '', $valueString);
         return $output;

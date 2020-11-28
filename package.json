@@ -50,6 +50,7 @@
             "internal_Log": false,
             "sendMessage": false,
             "_UcWords": false,
+            "_UcFirst": false,
             "_GetDataType": false,
             "_Delete": false,
             "_SprintF": false,

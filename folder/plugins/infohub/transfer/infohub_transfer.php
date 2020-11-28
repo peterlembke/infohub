@@ -1,33 +1,45 @@
 <?php
+/**
+ * Transfer data to other nodes
+ *
+ * Handles the login and transfer of data to other nodes.
+ * Checks that the package are signed.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_transfer
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * @category InfoHub
- * @package InfoHub Transfer
- * @copyright Copyright (c) 2012-, Peter Lembke, CharZam soft (CharZam.com / InfoHub.se)
- * @since 2012-01-01
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Transfer data to other nodes
+ *
+ * Handles the login and transfer of data to other nodes.
+ * Checks that the package are signed.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2015-09-20
+ * @since       2012-01-01
+ * @copyright   Copyright (c) 2012, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/transfer/infohub_transfer.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_transfer extends infohub_base {
 
     const PACKAGE_SIZE_GETTING_LARGE_IN_BYTES = 1024 * 1024;
 
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2015-09-20
+     * @since   2012-01-01
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2015-09-20',
@@ -42,6 +54,13 @@ class infohub_transfer extends infohub_base {
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2015-09-20
+     * @since   2012-01-01
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -72,19 +91,19 @@ class infohub_transfer extends infohub_base {
      * @return array
      * @uses
      */
-    final protected function send(array $in = array()): array
+    protected function send(array $in = []): array
     {
         $default = array(
             'step' => 'step_sign_code',
-            'to_node' => array(),
+            'to_node' => [],
             'config' => array(
                 'session_id' => '',
                 'add_clear_text_messages' => 'false' // for debug purposes
             ),
             'data_back' => array(
-                'package' => array()
+                'package' => []
             ),
-            'response' => array()
+            'response' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -98,7 +117,7 @@ class infohub_transfer extends infohub_base {
 
         if ($in['step'] === 'step_sign_code') {
 
-            $messagesArray = array();
+            $messagesArray = [];
 
             foreach ($in['to_node'] as $nodeName => $messages) {
                 foreach ($messages as $nr => $oneMessage) {
@@ -129,7 +148,7 @@ class infohub_transfer extends infohub_base {
                         'plugin' => 'infohub_session',
                         'function' => 'get_banned_until'
                     ),
-                    'data' => array(),
+                    'data' => [],
                     'data_back' => array(
                         'package' => $package,
                         'step' => 'step_get_banned_until_response'
@@ -247,12 +266,12 @@ class infohub_transfer extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function _CleanMessage(array $in = array()): array
+    protected function _CleanMessage(array $in = []): array
     {
         $default = array(
-            'to' => array(),
-            'callstack' => array(),
-            'data' => array(),
+            'to' => [],
+            'callstack' => [],
+            'data' => [],
         );
         $oneMessage = $this->_Default($default, $in);
 
@@ -291,10 +310,11 @@ class infohub_transfer extends infohub_base {
     }
 
     /**
+     * Download file with cUrl
      * @param array $in
      * @return array
      */
-    final protected function download(array $in = array()): array
+    protected function download(array $in = []): array
     {
         return $this->internal_Download($in);
     }
@@ -309,7 +329,7 @@ class infohub_transfer extends infohub_base {
      * @param array $in
      * @return array
      */
-    final protected function internal_Download(array $in = array()): array
+    protected function internal_Download(array $in = []): array
     {
         $default = array(
             'url' => '',
@@ -325,7 +345,7 @@ class infohub_transfer extends infohub_base {
             );
         }
 
-        $cookies = array();
+        $cookies = [];
         if ($in['session_id'] !== '') {
             $cookies[] = 'PHPSESSID=' . $in['session_id'];
         }
@@ -392,7 +412,7 @@ class infohub_transfer extends infohub_base {
      * Get the name of the php file in the url.
      * @return string
      */
-    final protected function _getScriptFileName(): string
+    protected function _getScriptFileName(): string
     {
         $fileNameArray = explode('/', $_SERVER['SCRIPT_NAME']);
         $fileName = end($fileNameArray);
@@ -407,7 +427,7 @@ class infohub_transfer extends infohub_base {
      * @param string $dataString
      * @return string
      */
-    final protected function _Hash(string $dataString = ''): string
+    protected function _Hash(string $dataString = ''): string
     {
         return 'crc32-' . crc32($dataString);
     }

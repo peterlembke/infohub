@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -51,7 +51,8 @@ function infohub_tree_version() {
         'infohub_tree_backup': 'Backup',
         'infohub_tree_restore': 'Restore',
         'infohub_tree_manage': 'Manage',
-        'infohub_tree_storage': 'Storage'
+        'infohub_tree_storage': 'Storage',
+        'infohub_tree_sync': 'Sync'
     };
 
     /**

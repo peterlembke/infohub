@@ -1,31 +1,41 @@
 <?php
+/**
+ * Handle password
+ *
+ * Generate passwords
+ *
+ * @package     Infohub
+ * @subpackage  infohub_password
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	infohub_password
-
-		Copyright (C) 2016 Peter Lembke , CharZam soft
-		the program is distributed under the terms of the GNU General Public License
-
-		infohub_password is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-
-		infohub_password is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-
-		You should have received a copy of the GNU General Public License
-		along with infohub_password.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Handle password
+ *
+ * Generate passwords
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-04-02
+ * @since       2016-12-27
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/password/infohub_password.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class infohub_password extends infohub_base
 {
-
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2017-04-02
+     * @since 2016-12-27
+     * @author  Peter Lembke
+     * @return  string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2017-04-02',
@@ -42,6 +52,13 @@ class infohub_password extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2017-04-02
+     * @since 2016-12-27
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -63,7 +80,7 @@ class infohub_password extends infohub_base
      * @param array $in
      * @return array|bool
      */
-    final protected function generate(array $in = array())
+    protected function generate(array $in = [])
     {
         $default = array(
             'number_of_passwords' => 30, // Number of passwords you want to select from
@@ -78,7 +95,7 @@ class infohub_password extends infohub_base
         }
 
         $message = 'Password generator ' .$lengthText. " characters from group 0-" . $in['max_group_number'] . '.';
-        $passwordArray = array();
+        $passwordArray = [];
 
         for ($i = $in['number_of_passwords']; $i > 0; $i--) {
             $passwordArray[] = $this->_Generate($in['password_length'], $in['max_group_number']);
@@ -97,7 +114,7 @@ class infohub_password extends infohub_base
      * @param int $maxGroupNumber | Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
      * @return string
      */
-    final protected function _Generate(int $length = 0, int $maxGroupNumber = 4): string
+    protected function _Generate(int $length = 0, int $maxGroupNumber = 4): string
     {
         if ($length === 0) {
             $length = $this->_GetRandomLength();
@@ -118,7 +135,7 @@ class infohub_password extends infohub_base
      * A 16 character password is shamelessly small but some like it short.
      * @return mixed
      */
-    final protected function _GetRandomLength() {
+    protected function _GetRandomLength() {
         $length = $this->_Random(16,64);
         return $length;
     }
@@ -132,7 +149,7 @@ class infohub_password extends infohub_base
      * @param int $length
      * @return string
      */
-    final protected function _GetGroupString($length = 64) {
+    protected function _GetGroupString($length = 64) {
         $start = '0000011111222333344';
         $copies = (int) ceil($length / strlen($start));
         $result = str_repeat($start, $copies);
@@ -147,7 +164,7 @@ class infohub_password extends infohub_base
      * @param $maxGroupNumber
      * @return string
      */
-    final protected function _GetRandomGroupCharacter($groupNumber, $maxGroupNumber) {
+    protected function _GetRandomGroupCharacter($groupNumber, $maxGroupNumber) {
         $group = $this->_GetGroupData($groupNumber, $maxGroupNumber);
         $length = strlen($group);
         if ($length <= 0) {
@@ -165,7 +182,7 @@ class infohub_password extends infohub_base
      * @param int $max
      * @return int
      */
-    final protected function _Random($min = 0, $max = 0): int
+    protected function _Random($min = 0, $max = 0): int
     {
         $randomNumber = 0;
         try {
@@ -188,7 +205,7 @@ class infohub_password extends infohub_base
      * @param int $maxGroupNumber | In some cases special characters are not allowed
      * @return mixed
      */
-    final protected function _GetGroupData($groupNumber = 0, $maxGroupNumber = 4) {
+    protected function _GetGroupData($groupNumber = 0, $maxGroupNumber = 4) {
 
         if ($groupNumber < 0) {
             $groupNumber = 0;

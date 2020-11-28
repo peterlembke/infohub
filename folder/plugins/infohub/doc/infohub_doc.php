@@ -1,31 +1,38 @@
 <?php
+/**
+ * Documentation system. Simple. Self sufficient.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_doc
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_doc show what the core can do
- * @category InfoHub
- * @package demo
- * @copyright Copyright (c) 2016, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Documentation system. Simple. Self sufficient.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-05-30
+ * @since       2016-04-02
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_doc extends infohub_base
 {
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2019-05-30',
@@ -40,6 +47,14 @@ class infohub_doc extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -54,6 +69,9 @@ class infohub_doc extends infohub_base
     /**
      * Used by the cmd functions to get the file extension.
      * All other functions must be general and not assume we want to use this extension
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @return string
      */
     protected function _GetFileExtension(): string
@@ -63,13 +81,14 @@ class infohub_doc extends infohub_base
 
     /**
      * Returns the document with embedded images
+     *
      * @version 2017-07-14
      * @since   2017-07-14
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function get_document(array $in = array()): array
+    protected function get_document(array $in = []): array
     {
         $default = array(
             'area' => 'main', // main or plugin
@@ -93,13 +112,14 @@ class infohub_doc extends infohub_base
 
     /**
      * Returns the Markdown documentation text
+     *
      * @version 2017-07-14
      * @since   2017-07-14
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function internal_GetDocument(array $in = array()): array
+    protected function internal_GetDocument(array $in = []): array
     {
         $default = array(
             'area' => 'main', // main or plugin
@@ -146,13 +166,14 @@ class infohub_doc extends infohub_base
 
     /**
      * Get a list with all available documents
+     *
      * @version 2017-09-28
      * @since   2017-09-28
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function get_documents_list(array $in = array()): array
+    protected function get_documents_list(array $in = []): array
     {
         $default = array(
             'checksum' => ''
@@ -172,10 +193,10 @@ class infohub_doc extends infohub_base
         $findFirst = '# ';
         $findLast = "\n";
 
-        $dataOut = array();
+        $dataOut = [];
         foreach ($data as $area => $docNames)
         {
-            $dataOut[$area] = array();
+            $dataOut[$area] = [];
             $basePath = $this->_GetBasePath($area);
 
             foreach ($docNames as $docName)
@@ -198,7 +219,7 @@ class infohub_doc extends infohub_base
 
         $checksum = md5(json_encode($dataOut));
         if ($in['checksum'] === $checksum) {
-            $dataOut = array();
+            $dataOut = [];
             $checksumSame = 'true';
             $message = 'The data you already have is valid. Keep using it';
         }
@@ -217,7 +238,16 @@ class infohub_doc extends infohub_base
         );
     }
 
-    protected function _AddRootDocuments(array $dataOut = array()): array
+    /**
+     * Add links to root documents that normally is not displayed in the doc index
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @param array $dataOut
+     * @return array
+     */
+    protected function _AddRootDocuments(array $dataOut = []): array
     {
         $dataOut['root']['root'] = array(
             'doc_name' => 'root',
@@ -254,18 +284,19 @@ class infohub_doc extends infohub_base
 
     /**
      * Returns all documents in one big array
+     *
      * @version 2018-10-23
      * @since   2018-10-23
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function get_all_documents(array $in = array()): array
+    protected function get_all_documents(array $in = []): array
     {
-        $default = array();
+        $default = [];
         $in = $this->_Default($default, $in);
 
-        $dataOut = array();
+        $dataOut = [];
 
         $fileExtension = $this->_GetFileExtension();
 
@@ -299,13 +330,18 @@ class infohub_doc extends infohub_base
 
     /**
      * Doc file names follow some rules. Here we make sure the name fulfill those rules
+     *
      * Converts string to lower case, removes all characters except a-z and 0-9 and underscore.
      * Checks that there are at least one underscore or else returns an empty string
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $area
      * @param string $name
      * @return string
      */
-    final protected function _CleanName(string $area = '', string $name = ''): string
+    protected function _CleanName(string $area = '', string $name = ''): string
     {
         if ($area === 'root') {
             return $name;
@@ -327,13 +363,17 @@ class infohub_doc extends infohub_base
 
     /**
      * Constructs a path to a file and returns that path to you.
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $area
      * @param string $name | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $extension | md or markdown
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
      */
-    final protected function _GetFileName(string $area = '', string $name = '', string $extension = 'md', string $basePath = ''): string
+    protected function _GetFileName(string $area = '', string $name = '', string $extension = 'md', string $basePath = ''): string
     {
         $okExtensions = array('md', 'markdown', 'css');
         if (in_array($extension, $okExtensions) === false) {
@@ -354,12 +394,16 @@ class infohub_doc extends infohub_base
 
     /**
      * I will construct a path and return that path to you.
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $docName | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $imageName
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
      */
-    final protected function _GetImageFileName(string $docName = '', string $imageName = '', string $basePath = ''): string
+    protected function _GetImageFileName(string $docName = '', string $imageName = '', string $basePath = ''): string
     {
         $docPath = str_replace('_', DS, $docName);
         $path = $basePath . DS . $docPath . DS . 'images' . DS . $imageName;
@@ -369,11 +413,16 @@ class infohub_doc extends infohub_base
 
     /**
      * Get the file path to an area.
+     *
      * Right now two areas are supported: plugin and main.
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $area | main or plugin
      * @return string
      */
-    final protected function _GetBasePath(string $area = 'main'): string
+    protected function _GetBasePath(string $area = 'main'): string
     {
         $basePath = '';
 
@@ -392,10 +441,14 @@ class infohub_doc extends infohub_base
 
     /**
      * Returns the file contents or an empty string.
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $file
      * @return string
      */
-    final protected function _GetFileContents(string $file = ''): string
+    protected function _GetFileContents(string $file = ''): string
     {
         $fileContents = '';
         if (file_exists($file)) {
@@ -407,15 +460,19 @@ class infohub_doc extends infohub_base
 
     /**
      * Parses the ![My image](rendermajor-1.png) directives in the doc text.
+     *
      * When the url do not have any / in it then we embed an image.
-     * uses: _ImageHtml
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @uses _ImageHtml
      * @param string $text
      * @param string $docName
      * @param string $area
-     * @param string $mode
      * @return string
      */
-    final protected function _HandleImages(string $text = '', string $docName = '', string $area = ''): string
+    protected function _HandleImages(string $text = '', string $docName = '', string $area = ''): string
     {
         if ($area === 'root') {
             return $text;
@@ -447,14 +504,17 @@ class infohub_doc extends infohub_base
 
     /**
      * Show an image from the images sub folder.
+     *
      * {{command=image|image_name=my_image.png|label=My text under the image|doc_name=optional_doc_name|area=optional area name}}
      * doc_name and area are optional parameters. If omitted then the document doc_name and area are used.
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param array $in
-     * @param string $docName | defaults to the current document
-     * @param string $area | defaults to the current document area
      * @return string
      */
-    final protected function _ImageBase64Data(array $in = array()): string
+    protected function _ImageBase64Data(array $in = []): string
     {
         $default = array(
             'area' => '',
@@ -480,11 +540,15 @@ class infohub_doc extends infohub_base
 
     /**
      * Get array with all doc names for an area
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $area
-     * @param string $fileExtension | The file ending. my_doc_file.md has extension 'md'
+     * @param string $fileExtension
      * @return array
      */
-    final protected function _GetAllDocNamesByArea(string $area = 'main', string $fileExtension = 'md'): array
+    protected function _GetAllDocNamesByArea(string $area = 'main', string $fileExtension = 'md'): array
     {
         $basePath = $this->_GetBasePath($area);
 
@@ -499,11 +563,15 @@ class infohub_doc extends infohub_base
 
     /**
      * Get array with all image names for a document in an area
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param string $area
      * @param string $docName
      * @return array
      */
-    final protected function _GetAllImageNamesByAreaAndDocName(string $area = 'main', $docName = ''): array
+    protected function _GetAllImageNamesByAreaAndDocName(string $area = 'main', $docName = ''): array
     {
         $basePath = $this->_GetBasePath($area);
         $pluginPath = str_replace('_', DS, $docName);
@@ -513,7 +581,7 @@ class infohub_doc extends infohub_base
         $filesArray = $this->_RecursiveSearch($searchPath);
         sort($filesArray);
 
-        $baseNames = array();
+        $baseNames = [];
         foreach ($filesArray as $filePath) {
             $fileName = pathinfo($filePath, PATHINFO_BASENAME);
             $baseNames[] = $fileName;
@@ -524,12 +592,16 @@ class infohub_doc extends infohub_base
 
     /**
      * Find part of a string between the start and stop strings
-     * @param $string
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @param string $string
      * @param string $findFirst
      * @param string $findLast
      * @return string
      */
-    final protected function _GetPartOfString(string $string = '', string $findFirst = '', string $findLast = ''): string
+    protected function _GetPartOfString(string $string = '', string $findFirst = '', string $findLast = ''): string
     {
         $subString = '';
 
@@ -553,13 +625,17 @@ class infohub_doc extends infohub_base
 
     /**
      * Pull out the actual doc file name on each file path
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      * @param array $fileNamesArray
      * @param string $basePath
      * @return array
      */
-    final protected function _GetAllDocNames(array $fileNamesArray = array(), string $basePath = ''): array
+    protected function _GetAllDocNames(array $fileNamesArray = [], string $basePath = ''): array
     {
-        $docNamesArray = array();
+        $docNamesArray = [];
 
         foreach ($fileNamesArray as $fullFileNameWithPath)
         {
@@ -586,12 +662,16 @@ class infohub_doc extends infohub_base
 
     /**
      * Give a search pattern. Get array with found files and paths.
-     * https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/
+     *
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @see https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/ Recursive
      * @param string $pattern | Example: $basePath . DS . '*.md';
      * @param int $flags
      * @return array
      */
-    final protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
+    protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
     {
         $files = glob($pattern, $flags);
 
@@ -607,5 +687,4 @@ class infohub_doc extends infohub_base
 
         return $files;
     }
-
 }

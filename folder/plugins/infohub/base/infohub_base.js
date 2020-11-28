@@ -11,7 +11,9 @@
             'class_name': 'infohub_base',
             'note': 'Parent class in ALL plugins. Manages the traffic in the plugin',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': ''
+            'user_role': '',
+            'web_worker': 'false',
+            'core_plugin': 'true'
         };
     };
 
@@ -118,7 +120,8 @@
                         'level': 'error',
                         'message': 'key:"' + $key + '", have wrong data type (' + _GetDataType($in[$key]) + '), instead got default value and data type (' + $answerKeyType + ')',
                         'function_name': '_Default',
-                        'get_backtrace': 'true'
+                        'get_backtrace': 'true',
+                        'object': {'in': $in, 'default': $default }
                     });
                 }
                 continue;
@@ -345,10 +348,6 @@
     const _MicroTime = function ()
     {
         let $timestamp = (new Date()).getTime() / 1000.0;
-
-        if (window.top !== window.self) {
-            $timestamp = $timestamp - 10.0;
-        } // If in an iframe, mess up the time and get banned, we do not want to be in an iframe
 
         return $timestamp;
     };
@@ -1125,13 +1124,15 @@
                 'SPDX-License-Identifier': '',
                 'title': '',
                 'icon': '',
-                'status': ''
+                'status': '',
+                'web_worker': 'true',
+                'core_plugin': 'false'
             },
 
             $versionPlugin = _Default($default, _Version()),
             $versionBase = _Default($default, _VersionBase()),
 
-            $navigator = window.navigator,
+            $navigator = window.navigator, // @todo Window is not available in a web worker
 
             $clientInfo = {
                 'browser_name': $navigator.appName,
@@ -1371,7 +1372,7 @@
     $functions.push("internal_Log");
     const internal_Log = function ($in = {})
     {
-        if (!window.console) {
+        if (!window.console) { // @todo Window is not available in a web worker
             return {
                 'answer': 'false',
                 'message': 'Have not written the item to the console because console do not exist'

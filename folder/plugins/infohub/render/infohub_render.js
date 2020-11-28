@@ -222,17 +222,17 @@ function infohub_render() {
         const $default = {
             'what': {},
             'how': {
-                'mode': 'one box',
+                'mode': 'one box', // Insert all rendered HTML in 'one box' or 'separate boxes'
                 'text': '',
                 'css_data': {}
             },
             'where': {
-                'mode': 'view',
+                'mode': 'view', // view = show on screen, html = return the html
                 'parent_box_id': '',
                 'box_position': 'last',
                 'box_alias': 'rendered_data',
                 'max_width': 0,
-                'box_id': '',
+                'box_id': '', // Will be parsed into a box_id. Original will be copied to where.original_box_id.
                 'scroll_to_box_id': 'false', // Scroll to this box after render
                 'scroll_to_bottom_box_id': 'false', // Put box lower edge to viewport lower edge after render
                 'set_visible': '', // true, false, or empty string
@@ -240,6 +240,7 @@ function infohub_render() {
             },
             'what_done': {}, // All rendered from 'what'
             'css_all': {},
+            'alias': '', // Used by high level renderers where.mode = 'html' to make box_id unique
             'html': '', // Latest item that have been rendered to HTML
             'display': '', // inline, block, none, or leave blank
             'css_data': {},
@@ -263,7 +264,11 @@ function infohub_render() {
 
         let $cacheKey = '';
         if ($in.cache_key !== '' && $in.config.use_render_cache === 'true') {
-            $cacheKey = 'infohub_render/cache/' + $in.config.user_name + '/' + $in.from_plugin.node + '/' + $in.from_plugin.plugin + '/' + $in.cache_key;
+            $cacheKey = 'infohub_render/cache'
+                + '/' + $in.config.user_name
+                + '/' + $in.from_plugin.node
+                + '/' + $in.from_plugin.plugin
+                + '/' + $in.cache_key;
         }
 
         let $messages = [];
@@ -287,12 +292,13 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_cache') {
-            $in.step = 'step_start';
+            $in.step = 'step_parse_box_id';
             if ($cacheKey !== '' && $in.config.use_render_cache === 'true') {
                 if (_IsSet($renderCache[$cacheKey]) === 'true') {
                     $data = $renderCache[$cacheKey];
                     $data.where = $in.where;
                     $in = $data;
+                    // Step is now 'step_output' or 'step_return_html'
                 }
             }
         }
@@ -318,20 +324,12 @@ function infohub_render() {
                     });
                 }
 
-                /*
-                 // All IDs become unique by inserting the parent alias in each ID.
-                 const $find = '{box_id}';
-                 const $replace = $find + '_' + $in.latest_item_name;
-                 $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
-                 */
-
                 $in.what_done[ $in.latest_item_name ] = $in.html;
-                // $in.css_all[$in.latest_plugin_name] = $in.css_data;
             }
             $in.step = 'step_what';
         }
 
-        if ($in.step === 'step_start') {
+        if ($in.step === 'step_parse_box_id') {
 
             $in.data_back.frog = 'false';
 
@@ -355,8 +353,9 @@ function infohub_render() {
                             'what_done': $in.what_done,
                             'css_all': $in.css_all,
                             'frog': $in.data_back.frog,
+                            'alias': $in.alias,
                             'cache_key': $in.cache_key,
-                            'step': 'step_start_response'
+                            'step': 'step_parse_box_id_response'
                         }
                     });
                 }
@@ -364,7 +363,7 @@ function infohub_render() {
             $in.step = 'step_what';
         }
 
-        if ($in.step === 'step_start_response') {
+        if ($in.step === 'step_parse_box_id_response') {
             $in.where.original_box_id = $in.where.box_id;
             $in.where.box_id = $in.response.box_id;
             $in.step = 'step_what';
@@ -424,6 +423,7 @@ function infohub_render() {
                     'step': 'step_call_source_response',
                     'before_source_call': $data,
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'cache_key': $in.cache_key
                 }
             });
@@ -466,6 +466,7 @@ function infohub_render() {
                     'latest_item_name': $data.alias,
                     'latest_plugin_name': $plugin,
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'cache_key': $in.cache_key,
                     'step': 'step_what_response'
                 }
@@ -494,6 +495,7 @@ function infohub_render() {
                         'css_all': $in.css_all,
                         'latest_item_name': 'text',
                         'frog': $in.data_back.frog,
+                        'alias': $in.alias,
                         'cache_key': $in.cache_key,
                         'step': 'step_where'
                     }
@@ -519,7 +521,15 @@ function infohub_render() {
             if ($in.where.mode === 'html') {
                 // We now restore our tags after calling the high end renderer
                 $in.html = _Replace('[*', '[', $in.html);
-                $in.step = 'return_html'; // Just return the HTML to the caller
+
+                if (_Empty($in.alias) === 'false') {
+                    // All IDs become unique by inserting the parent alias in each ID.
+                    const $find = '{box_id}';
+                    const $replace = $find + '_' + $in.alias;
+                    $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
+                }
+
+                $in.step = 'step_return_html'; // Just return the HTML to the caller
             }
 
             if ($cacheKey !== '' && $in.config.use_render_cache === 'true') {
@@ -546,16 +556,16 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_output') {
-            $in.step = 'boxes_insert'; // Insert all rendered HTML in 'separate boxes'
+            $in.step = 'step_boxes_insert'; // Insert all rendered HTML in 'separate boxes'
             if ($in.how.mode === 'one box') {
-                $in.step = 'box_insert'; // Insert the rendered HTML in 'one box'
+                $in.step = 'step_box_insert'; // Insert the rendered HTML in 'one box'
                 if (_Empty($in.where.box_id) === 'false') {
                     $in.step = 'box_update';
                 }
             }
         }
 
-        if ($in.step === 'box_insert') {
+        if ($in.step === 'step_box_insert') {
             $response = internal_FixBase64Data({'html': $in.html });
             $in.html = $response.html;
             return _SubCall({
@@ -575,13 +585,14 @@ function infohub_render() {
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'where': $in.where
                 },
                 'messages': $messages
             });
         }
 
-        if ($in.step === 'boxes_insert') {
+        if ($in.step === 'step_boxes_insert') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -599,6 +610,7 @@ function infohub_render() {
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'where': $in.where
                 },
                 'messages': $messages
@@ -626,6 +638,7 @@ function infohub_render() {
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'where': $in.where
                 },
                 'messages': $messages
@@ -633,7 +646,7 @@ function infohub_render() {
 
         }
 
-        if ($in.step === 'return_html') {
+        if ($in.step === 'step_return_html') {
             return {
                 'answer': $in.response.answer,
                 'message': $in.response.message,
@@ -679,6 +692,7 @@ function infohub_render() {
                 'data_back': {
                     'step': 'step_set_visible_response',
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'where': $in.where
                 }
             });
@@ -706,6 +720,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'step': 'step_end'
                 }
             });
@@ -723,6 +738,7 @@ function infohub_render() {
                 },
                 'data_back': {
                     'frog': $in.data_back.frog,
+                    'alias': $in.alias,
                     'step': 'step_end'
                 }
             });

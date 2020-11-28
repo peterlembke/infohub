@@ -1,24 +1,28 @@
 # Infohub Tree Storage
-Handle the storage of the personal data to local Storage and server Storage.
+Handle the storage of the personal data to browser Storage.
 
 ## Introduction
 Is the only plugin that uses infohub_tree_encrypt.
 
-Used by the child plugins in this plugin to read/write data.
+Used by the Tree child plugins to read/write data to browser Storage.
 
-Used by the parent plugin to read/write data.
+Does not handle sync of data top the server. That is a job for infohub_tree_sync.
 
-Uses infohub_tree_sync to trigger a sync of data.
-
-__Storage__  
-Always encrypts the data after if has been received from another module.
-Always decrypts the data before it is returned to another module.
-Internally in the plugin the data stays encrypted.
+__Storage__
+Only stores encrypted data to browser Storage.
+You can get the data encrypted or decrypted.  
 
 ## GUI
 This plugin has no GUI.
 
-## Workings
+## Public functions
+
+    'read': 'normal',
+    'read_many': 'normal',
+    'read_pattern': 'normal',
+    'write': 'normal',
+    'get_plugin_list': 'normal',
+    'get_plugin_path_index': 'normal',
 
 ## Download "path index"
 You first need to download the "path index" for the plugin you want to work with and store it in local Storage.

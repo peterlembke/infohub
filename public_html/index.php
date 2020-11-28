@@ -1,23 +1,26 @@
 <?php
 /**
- * index.php are the first file you read when you arrive to the site.
- * index.php will prepare the client with infohub_exchange.js and leave the control to that class.
- * @category InfoHub
- * @package Infohub
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * First file to run
+ *
+ * @package     Infohub
+ * @subpackage  root
+ */
+
+declare(strict_types=1);
+if (file_exists('fullstop.flag') == true) {
+    exit('The site have gone into a full stop.');
+}
+
+/**
+ * First file to run
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-11-21
+ * @since       2015-11-15
+ * @copyright   Copyright (c) 2010, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/doc/core/root/index/core_root_index.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
     if (basename(__FILE__) !== basename($_SERVER['SCRIPT_FILENAME'])) {
         exit('This file must be executed, not included.');
@@ -45,7 +48,7 @@
             $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
             $infohubSvg = file_get_contents(PLUGINS . '/infohub/welcome/asset/icon/infohub-logo-done.svg');
 
-            $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng). md5($infohubSvg);
+            $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng) . md5($infohubSvg);
         ?>
         <link rel="stylesheet" type="text/css" id="infohub_global" href="data:text/css;base64,<?php echo $globalCss; ?>">
         <link rel="shortcut icon" id="favicon" href="data:image/png;base64,<?php echo $faviconPng; ?>" />

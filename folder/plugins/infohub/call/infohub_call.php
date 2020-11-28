@@ -1,4 +1,11 @@
 <?php
+/**
+ * infohub_call calls a web address and fetches an answer.
+ *
+ * @package     Infohub
+ * @subpackage  infohub_call
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
@@ -6,28 +13,26 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
 /**
  * infohub_call calls a web address and fetches an answer.
- * @category InfoHub
- * @package Call
- * @copyright Copyright (c) 2020, Peter Lembke, CharZam soft
- * @since 2020-10-04
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-10-04
+ * @since       2020-10-04
+ * @copyright   Copyright (c) 2020, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/call/infohub_call.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_call extends infohub_base
 {
 
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     * @version 2020-10-04
+     * @since   2020-10-04
+     * @author  Peter Lembke
+     * @return array
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2020-10-04',
@@ -41,6 +46,13 @@ class infohub_call extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2020-10-04
+     * @since   2020-10-04
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -64,7 +76,7 @@ class infohub_call extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function call(array $in = array()): array
+    protected function call(array $in = []): array
     {
         $requirementsResponse = $this->_AreRequirementsFulfilled();
         if ($requirementsResponse['answer'] === 'false') {
@@ -78,7 +90,7 @@ class infohub_call extends infohub_base
             'port' => 443,      // default SSL port
             'url' => '',        // URL to call
             'mode' => 'post',   // get or post
-            'data' => array(),  // Data to send, Used by GET if post_data is empty
+            'data' => [],  // Data to send, Used by GET if post_data is empty
             'post_data' => '',  // Same data but in a string. Used by POST and GET
             'certificate_pem' => '', // Path to the .pem file, used for SSL
             'certificate_pem_password' => '',
@@ -187,11 +199,11 @@ class infohub_call extends infohub_base
 
     /**
      * Get all parameters used in the call
-     * http://php.net/manual/en/function.curl-setopt.php
+     * @see http://php.net/manual/en/function.curl-setopt.php PHP manual for CURL
      * @param array $in
      * @return array
      */
-    protected function _GetCurlOptArray($in = array())
+    protected function _GetCurlOptArray($in = [])
     {
         $default = array(
             'port' => 443,      // default SSL port
@@ -260,7 +272,7 @@ class infohub_call extends infohub_base
 
     /**
      * Get the verbose curl logging for this call.
-     * @see https://stackoverflow.com/questions/9550319/bad-request-connecting-to-sites-via-curl-on-host-and-system/62453208#62453208
+     * @see https://stackoverflow.com/questions/9550319/bad-request-connecting-to-sites-via-curl-on-host-and-system/62453208#62453208 stackoverflow
      * @param $fileHandle
      * @return string
      */

@@ -1,34 +1,42 @@
 <?php
+/**
+ * Collection of demos to demonstrate InfoHub Server
+ *
+ * @package     Infohub
+ * @subpackage  infohub_demo
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
 /**
- * infohub_demo show what the core can do
- * @category InfoHub
- * @package demo
- * @copyright Copyright (c) 2014, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Collection of demos to demonstrate InfoHub Server
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2016-04-17
+ * @since       2016-04-17
+ * @copyright   Copyright (c) 2016, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_demo extends infohub_base
 {
-    protected final function _Version(): array
+    /**
+     * Version information for this plugin
+     *
+     * @version 2016-04-17
+     * @since   2016-04-17
+     * @author  Peter Lembke
+     * @return string[]
+     */
+    protected function _Version(): array
     {
         return array(
             'date' => '2016-04-17',
+            'since' => '2016-04-17',
             'version' => '1.7.5',
             'class_name' => 'infohub_demo',
             'checksum' => '{{checksum}}',
@@ -39,6 +47,14 @@ class infohub_demo extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     *
+     * @version 2016-04-17
+     * @since   2016-04-17
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -59,19 +75,23 @@ class infohub_demo extends infohub_base
 
     /**
      * Calls the child plugin: Storage
+     *
+     * @version 2016-02-12
+     * @since   2016-01-30
+     * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function storage(array $in = array()): array
+    protected function storage(array $in = []): array
     {
         $default = array(
             'path' => '', // path to read/write
-            'paths' => array(), // paths to read_many/write_many
-            'data' => array(), // Data to write to the storage
+            'paths' => [], // paths to read_many/write_many
+            'data' => [], // Data to write to the storage
             'mode' => '', // overwrite, merge
-            'wanted_data' => array(),
+            'wanted_data' => [],
             'command' => '', // See below
-            'response' => array(),
+            'response' => [],
             'step' => 'step_call_child'
         );
         $in = $this->_Default($default, $in);
@@ -79,9 +99,9 @@ class infohub_demo extends infohub_base
         $out = array(
             'answer' => 'false',
             'message' => 'Could not call child plugin',
-            'items' => array(),
+            'items' => [],
             'path' => $in['path'],
-            'data' => array(),
+            'data' => [],
             'mode' => $in['mode'],
             'wanted_data' => $in['wanted_data'],
             'post_exist' => 'false'
@@ -123,14 +143,15 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo 1 - Return a Camel Case String
-     * http://127.0.0.1/infohub/demo/1
+     *
      * @version 2016-02-12
      * @since   2016-01-30
      * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/1 Demo 1
      * @param array $in
      * @return array
      */
-    final protected function demo1(array $in = array()): array
+    protected function demo1(array $in = []): array
     {
         $default = array('my_variable' => '');
         $in = $this->_Default($default, $in);
@@ -146,13 +167,14 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo 2 - Return an UPPER CASE STRING
+     *
      * @version 2016-01-30
      * @since   2016-01-30
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function demo2(array $in = array()): array
+    protected function demo2(array $in = []): array
     {
         $default = array('my_variable' => '');
         $in = $this->_Default($default, $in);
@@ -168,22 +190,24 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo 3 - Calling functions
+     *
      * Gets version data from plugin "infohub_transfer",
      * Calls internal function "GetOneString" to get a version string,
      * Calls cmd function "demo2" to get the string in upper case.
+     *
      * @version 2016-01-30
      * @since   2016-01-30
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function demo3(array $in = array()): array
+    protected function demo3(array $in = []): array
     {
         $default = array(
             'my_variable' => '',
-            'plugin' => array(),
-            'base' => array(),
-            'server_info' => array(),
+            'plugin' => [],
+            'base' => [],
+            'server_info' => [],
             'version_code' => '',
             'data' => '',
             'step' => 'start'
@@ -194,8 +218,12 @@ class infohub_demo extends infohub_base
 
         if ($in['step'] === 'start') {
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => 'infohub_transfer', 'function' => 'version'),
-                'data' => array(),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_transfer',
+                    'function' => 'version'
+                ),
+                'data' => [],
                 'data_back' => array(
                     'step' => 'version_back',
                     'my_variable' => $in['my_variable']
@@ -211,9 +239,17 @@ class infohub_demo extends infohub_base
             $data = $in['my_variable'] . ': ' . $response['data'];
 
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => 'infohub_demo', 'function' => 'demo2'),
-                'data' => array('my_variable' => $data),
-                'data_back' => array('step' => 'upper_back'),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_demo',
+                    'function' => 'demo2'
+                ),
+                'data' => array(
+                    'my_variable' => $data
+                ),
+                'data_back' => array(
+                    'step' => 'upper_back'
+                ),
             ));
         }
 
@@ -230,10 +266,11 @@ class infohub_demo extends infohub_base
 
     /**
      * Converts the plugin version data into a specially formatted string
+     *
      * @param array $in
      * @return array
      */
-    final protected function internal_GetOneString(array $in = array()): array
+    protected function internal_GetOneString(array $in = []): array
     {
         $default = array(
             'plugin' => array(
@@ -244,7 +281,7 @@ class infohub_demo extends infohub_base
         );
         $in = $this->_Default($default, $in);
 
-        $response = array();
+        $response = [];
         foreach ($in['plugin'] as $name => $data) {
             $response[] = $this->_Reverse($data);
         }
@@ -259,10 +296,11 @@ class infohub_demo extends infohub_base
 
     /**
      * Trims the string and reverses the characters
+     *
      * @param $row
      * @return string
      */
-    final protected function _Reverse($row): string
+    protected function _Reverse($row): string
     {
         $row = trim($row);
         $row = strrev($row);
@@ -271,13 +309,14 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo 4 - Get version data from several plugins
+     *
      * @version 2016-04-06
      * @since   2016-04-06
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function demo4(array $in = array()): array
+    protected function demo4(array $in = []): array
     {
         $default = array(
             'plugin' => array(
@@ -286,7 +325,7 @@ class infohub_demo extends infohub_base
                 'class_name' => ''
             ),
             'plugin_name' => '',
-            'all_data' => array()
+            'all_data' => []
         );
         $in = $this->_Default($default, $in);
 
@@ -297,7 +336,11 @@ class infohub_demo extends infohub_base
         $nextPlugin = $this->_GetNextPlugin($in['plugin_name']);
         if ($nextPlugin !== '') {
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => $nextPlugin, 'function' => 'version'),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => $nextPlugin,
+                    'function' => 'version'
+                ),
                 'data_back' => array(
                     'all_data' => $in['all_data'],
                     'plugin_name' => $nextPlugin
@@ -313,10 +356,15 @@ class infohub_demo extends infohub_base
     }
 
     /**
-     * @param $pluginName
+     * Iterate over a list with plugin names
+     *
+     * @version 2016-04-06
+     * @since   2016-04-06
+     * @author  Peter Lembke
+     * @param string $pluginName
      * @return string
      */
-    final protected function _GetNextPlugin($pluginName): string
+    protected function _GetNextPlugin(string $pluginName = ''): string
     {
         if ($pluginName === '') {
             return 'infohub_exchange';
@@ -329,18 +377,20 @@ class infohub_demo extends infohub_base
         if (isset($plugins[$pluginName])) {
             return $plugins[$pluginName];
         }
+
         return '';
     }
 
     /**
      * Demo 5 - Call a child plugin
+     *
      * @version 2016-04-06
      * @since   2016-04-06
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
-    final protected function demo5(array $in = array()): array
+    protected function demo5(array $in = []): array
     {
         $default = array(
             'step' => 'start_step',
@@ -351,9 +401,17 @@ class infohub_demo extends infohub_base
 
         if ($in['step'] === 'start_step') {
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => 'infohub_demo_child', 'function' => 'hello_you'),
-                'data' => array('my_name' => $in['url_my_name']),
-                'data_back' => array('step' => 'response_step'),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_demo_child',
+                    'function' => 'hello_you'
+                ),
+                'data' => array(
+                    'my_name' => $in['url_my_name']
+                ),
+                'data_back' => array(
+                    'step' => 'response_step'
+                ),
             ));
         }
 
@@ -369,16 +427,17 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo 6 - How to use child plugins
-     * http://127.0.0.1/infohub/demo/6/type/luhn/value/123
-     * http://127.0.0.1/infohub/demo/6/type/md5/value/123
-     * http://127.0.0.1/infohub/demo/6/type/personnummer/value/640823323
+     *
      * @version 2016-04-16
      * @since   2016-04-16
      * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/6/type/luhn/value/123 Luhn
+     * @see http://127.0.0.1/infohub/demo/6/type/md5/value/123 MD5
+     * @see http://127.0.0.1/infohub/demo/6/type/personnummer/value/640823323 Personnummer
      * @param array $in
      * @return array
      */
-    final protected function demo6(array $in = array()): array
+    protected function demo6(array $in = []): array
     {
         $default = array(
             'step' => 'start_step',
@@ -394,9 +453,18 @@ class infohub_demo extends infohub_base
 
         if ($in['step'] === 'start_step') {
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => 'infohub_checksum', 'function' => 'calculate_checksum'),
-                'data' => array('type' => $in['url_type'], 'value' => $in['url_value']),
-                'data_back' => array('step' => 'response_step'),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_checksum',
+                    'function' => 'calculate_checksum'
+                ),
+                'data' => array(
+                    'type' => $in['url_type'],
+                    'value' => $in['url_value']
+                ),
+                'data_back' => array(
+                    'step' => 'response_step'
+                ),
             ));
         }
 
@@ -414,14 +482,15 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo storage - How to use child plugins
-     * http://127.0.0.1/infohub/demo/storage
+     *
      * @version 2016-06-15
      * @since   2016-06-15
      * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/storage Storage
      * @param array $in
      * @return array
      */
-    final protected function demo_storage(array $in = array()): array
+    protected function demo_storage(array $in = []): array
     {
         $default = array(
             'step' => 'step_parent_call_child',
@@ -432,7 +501,7 @@ class infohub_demo extends infohub_base
             'response' => array(
                 'answer' => 'false',
                 'message' => 'An error occurred',
-                'data' => array()
+                'data' => []
             )
         );
         $in = $this->_Default($default, $in);
@@ -450,7 +519,7 @@ class infohub_demo extends infohub_base
                 'data' => array(
                     'path' => $in['url_path'],
                     'post_alias' => $in['url_post_alias'],
-                    'connections' => array(),
+                    'connections' => [],
                     'step' => $in
                 ),
                 'data_back' => array(
@@ -481,14 +550,15 @@ class infohub_demo extends infohub_base
 
     /**
      * Ask Infohub_StorageManager to import some files into the database
-     * http://127.0.0.1/infohub/demo/file
+     *
      * @version 2016-11-27
      * @since   2016-11-27
      * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/file File
      * @param array $in
      * @return array
      */
-    final protected function demo_file(array $in = array()): array
+    protected function demo_file(array $in = []): array
     {
         $default = array(
             'step' => 'start_step',
@@ -504,7 +574,7 @@ class infohub_demo extends infohub_base
                     'plugin' => 'infohub_storagemanager',
                     'function' => 'files_read'
                 ),
-                'data' => array(),
+                'data' => [],
                 'data_back' => array(
                     'step' => 'response_step'
                 )
@@ -523,14 +593,15 @@ class infohub_demo extends infohub_base
 
     /**
      * Demo Test - Test any function
-     * http://127.0.0.1/infohub/demo/test/plugin/infohub_transfer/function/version
+     *
      * @version 2016-04-17
      * @since   2016-04-17
      * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/test/plugin/infohub_transfer/function/version Version
      * @param array $in
      * @return array
      */
-    final protected function demo_test(array $in = array()): array
+    protected function demo_test(array $in = []): array
     {
         $default = array(
             'step' => 'start_step',
@@ -541,9 +612,15 @@ class infohub_demo extends infohub_base
 
         if ($in['step'] === 'start_step') {
             return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => $in['url_plugin'], 'function' => $in['url_function']),
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => $in['url_plugin'],
+                    'function' => $in['url_function']
+                ),
                 'data' => $in,
-                'data_back' => array('step' => 'response_step'),
+                'data_back' => array(
+                    'step' => 'response_step'
+                )
             ));
         }
 

@@ -83,7 +83,7 @@ function infohub_rendermenu() {
 
     /**
      * Get instructions and create the message to InfoHub View
-     * @version 2013-04-15
+     * @version 2020-11-14
      * @since   2013-04-15
      * @author  Peter Lembke
      */
@@ -118,22 +118,13 @@ function infohub_rendermenu() {
                 'data': {
                     'what': $response.data,
                     'how': $response.how,
-                    'where': $response.where
+                    'where': $response.where,
+                    'alias': $in.alias
                 },
                 'data_back': {
-                    'step': 'step_final',
-                    'alias': $in.alias
+                    'step': 'step_end',
                 }
             });
-        }
-
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
-            }
         }
 
         return {

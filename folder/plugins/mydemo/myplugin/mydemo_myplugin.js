@@ -1,4 +1,4 @@
-/*	infohub_template.js
+/**	infohub_template.js
 Copyright (C) 2015 __your name__ , __your organisation__
 the program is distributed under the terms of the GNU General Public License
 

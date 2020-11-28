@@ -1,0 +1,7 @@
+{
+    "client": {
+    },
+    "server": {
+        "minify_js": "true"
+    }
+}

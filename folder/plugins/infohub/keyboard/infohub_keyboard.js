@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2018- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -30,7 +30,9 @@ function infohub_keyboard() {
             'checksum': '{{checksum}}',
             'note': 'When you use the keyboard then an event message come here. You can subscribe to key strokes',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'false',
+            'core_plugin': 'true'
         };
     };
 

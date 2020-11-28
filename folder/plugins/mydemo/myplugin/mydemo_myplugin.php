@@ -1,28 +1,40 @@
 <?php
+/**
+ * Template plugin
+ *
+ * This is the text that describe what the plugin does
+ *
+ * @package     Mydemo
+ * @subpackage  mydemo_myplugin
+ */
+
 declare(strict_types=1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
 
-/*	mydomain_mypluginname.js
-Copyright (C) 2020 Peter Lembke , Charzam soft
-the program is distributed under the terms of the GNU General Public License
-
-mydomain_mypluginname is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-mydomain_mypluginname is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with mydomain_mypluginname.	If not, see <https://www.gnu.org/licenses/>.
-*/
+/**
+ * Template plugin
+ *
+ * This is the text that describe what the plugin does
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-07-31
+ * @since       2020-07-31
+ * @copyright   Copyright (c) 2020, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/mydemo/myplugin/mydemo_myplugin.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 class mydemo_myplugin extends infohub_base
 {
+    /**
+     * Version information for this plugin
+     * @version 2020-07-31
+     * @since   2020-07-31
+     * @author  Peter Lembke
+     * @return  string[]
+     */
     protected final function _Version(): array
     {
         return array(
@@ -38,6 +50,13 @@ class mydemo_myplugin extends infohub_base
         );
     }
 
+    /**
+     * Public functions in this plugin
+     * @version 2020-07-31
+     * @since   2020-07-31
+     * @author  Peter Lembke
+     * @return mixed
+     */
     protected function _GetCmdFunctions(): array
     {
         $list = array(
@@ -60,7 +79,7 @@ class mydemo_myplugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function my_function(array $in = array()): array
+    final protected function my_function(array $in = []): array
     {
         $default = array(
             'some_data' => 'World'
@@ -91,7 +110,7 @@ class mydemo_myplugin extends infohub_base
      * @param array $in
      * @return array
      */
-    final protected function internal_MyFunction(array $in = array()): array
+    final protected function internal_MyFunction(array $in = []): array
     {
         $default = array(
             'some_data' => 'Hello',

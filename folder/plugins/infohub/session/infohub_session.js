@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -33,7 +33,9 @@ function infohub_session() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Session',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'false',
+            'core_plugin': 'true'
         };
     };
 

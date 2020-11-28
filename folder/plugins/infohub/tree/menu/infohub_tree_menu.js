@@ -1,4 +1,4 @@
-/*
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -150,6 +150,14 @@ function infohub_tree_menu() {
                                     'to_plugin': 'infohub_tree',
                                     'to_function': 'click_menu'
                                 },
+                                'sync': {
+                                    'alias': 'sync_tree',
+                                    'event_data': 'sync_tree',
+                                    'button_label': _Translate('Sync'),
+                                    'button_left_icon': '[sync_icon]',
+                                    'to_plugin': 'infohub_tree',
+                                    'to_function': 'click_menu'
+                                },
                                 'manage': {
                                     'alias': 'manage_tree',
                                     'event_data': 'manage_tree',
@@ -213,6 +221,17 @@ function infohub_tree_menu() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'restore/import',
+                            'plugin_name': 'infohub_tree'
+                        },
+                        'sync_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[sync_asset]'
+                        },
+                        'sync_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'sync/sync',
                             'plugin_name': 'infohub_tree'
                         },
                         'manage_icon': {

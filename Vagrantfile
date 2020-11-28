@@ -1,7 +1,8 @@
 Vagrant.configure("2") do |config|
 
-  # I use Ubuntu 18.04 LTS. I have not got Ubuntu 20.04 LTS (ubuntu/focal64) to work.
-  config.vm.box = "ubuntu/bionic64"
+  # I use Ubuntu 18.04 LTS (ubuntu/bionic64).
+  # I have not got Ubuntu 20.04 LTS (ubuntu/focal64) to work.
+  config.vm.box = "ubuntu/focal64"
 
   # Set the static IP Address
   config.vm.network "private_network", ip: "192.168.33.12"
@@ -13,13 +14,13 @@ Vagrant.configure("2") do |config|
 
   # Create the Virtual machine in VirtualBox
   config.vm.provider "virtualbox" do |vb|
-
-  # Customize the amount of memory on the VM
-  vb.memory = "2048"
-  vb.name = "infohub"
-  # Virtualbox clock can drift away from the host clock. This makes the guest to copy the clock from the host
-  vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 4000 ]
-
+      # Showing a GUI is useful for debugging purposes while boot fails
+      vb.gui = true
+      vb.memory = "4096"
+      vb.cpus = 4
+      vb.name = "infohub"
+      # Virtualbox clock can drift away from the host clock. This makes the guest to copy the clock from the host
+      vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 4000 ]
   end
 
   # Run the script: vagrant.sh on the Virtual Machine

@@ -1,7 +1,7 @@
 # Vagrant development environment
 
 Vagrant starts VirtualBox. VirtualBox is a software computer that runs an operating system.
-Here we run Ubuntu 18.04 + the web server Apache 2 + the database MySQL 5.7 + the language PHP 7.2
+Here we run Ubuntu 20.04 + the web server Apache 2 + the database MySQL 5.7 + the language PHP 7.4
 
 When you have installed VirtualBox + Vagrant and run vagrant up then you can surf to
 ```
@@ -42,6 +42,7 @@ vagrant provision - run this if you have changed something in the Vagrantfile or
 vagrant reload - run if you need to restart the box
 vagrant halt - when you want to close down the box
 vagrant ssh - Go into the box. Exit with... exit
+vagrant box update - Downloads the latest version of the box
 
 ## Time issues
 Many users have noted that the clock in the guest operating system can differ quite much compared to the host operating system.
@@ -66,9 +67,7 @@ You also need to map the source paths at menu Files >> Settings >> Languages & F
 ![PHP storm + Xdebug](../folder/doc/images/phpstorm-xdebug.png) 
 
 ## The guest system
-Right now we run Ubuntu 18.04 LTS (ubuntu/bionic64) and that version contain PHP 7.2
-
-I would like to run Ubuntu 20.04 LTS (ubuntu/focal64) because it has PHP 7.4 but I could not get that to work. The box was not accessible. Perhaps that will change in future versions.
+Right now we run Ubuntu 20.04 LTS (ubuntu/focal64) and that version contain PHP 7.4
 
 See all Ubuntu boxes [here](https://app.vagrantup.com/ubuntu).
 
