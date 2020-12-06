@@ -31,7 +31,9 @@ function infohub_time() {
             'note': 'Functions that give you an unpredictable answer',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

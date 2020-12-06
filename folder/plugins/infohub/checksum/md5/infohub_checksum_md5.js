@@ -1,20 +1,13 @@
-/**	infohub_checksum_md5
-
- Copyright (C) 2017 Peter Lembke , CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- Infohub_Checksum_md5 is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- Infohub_Checksum_md5 is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Infohub_Checksum.	If not, see <https://www.gnu.org/licenses/>.
+/**
+ * MD5 Checksums are calculated and verified here
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-02-25
+ * @since       2017-02-25
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/md5/infohub_checksum_md5.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_md5() {
 
@@ -31,7 +24,9 @@ function infohub_checksum_md5() {
             'class_name': 'infohub_checksum_md5',
             'note': 'MD5 was designed by Ronald Rivest in 1991. Used for normal checksums. Do not use for encryption.',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'true'
         };
     };
 

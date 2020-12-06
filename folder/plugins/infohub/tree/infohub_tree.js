@@ -32,7 +32,9 @@ function infohub_tree() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Node contacts',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
     

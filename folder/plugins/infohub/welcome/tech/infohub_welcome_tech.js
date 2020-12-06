@@ -29,7 +29,9 @@ function infohub_welcome_tech() {
             'class_name': 'infohub_welcome_tech',
             'note': 'The welcome demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

@@ -1,20 +1,13 @@
-/**	infohub_checksum_luhn
-
- Copyright (C) 2017 Peter Lembke , CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- Infohub_Checksum_Personnummer is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- Infohub_Checksum_Personnummer is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Infohub_Checksum_Personnummer.	If not, see <https://www.gnu.org/licenses/>.
+/**
+ * Luhn Checksums are calculated and verified here
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-02-25
+ * @since       2017-02-25
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/luhn/infohub_checksum_luhn.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_luhn() {
 
@@ -31,7 +24,9 @@ function infohub_checksum_luhn() {
             'class_name': 'infohub_checksum_luhn',
             'note': 'The Luhn algorithm from 1954 are used in US and Canadian social security numbers',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

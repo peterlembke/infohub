@@ -211,7 +211,8 @@ function infohub_render_table() {
             'height': 0, // Limit the height of the table body in px
             'id_field_name': '', // Name of the field that has the ID number
             'definition': {}, // Define each column here
-            'data': {} // The rows with data that will be in the table
+            'data': {}, // The rows with data that will be in the table
+            'display': '' // none, inline, block, inline-block
         };
         $in = _Default($default, $in);
 

@@ -34,7 +34,9 @@ function infohub_renderform() {
             'note': 'Adds more features to the basic render form elements',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -1554,13 +1556,13 @@ function infohub_renderform() {
 
         if ($in.type === 'radio') {
             if ($in.event_type === 'change') {
-                // window.alert('radio change');
+
             }
         }
 
         if ($in.type === 'checkbox') {
             if ($in.event_type === 'change') {
-                // window.alert('checkbox change');
+
             }
         }
 
@@ -1568,7 +1570,6 @@ function infohub_renderform() {
             if ($in.event_type === 'change') {
                 if ($in.step === 'step_start')
                 {
-                    // window.alert('color change');
                     const $id = $in.box_id + '_' + $in.form_alias + '_color_code_data';
 
                     return _SubCall({

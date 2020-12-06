@@ -32,7 +32,9 @@ function infohub_rendermenu() {
             'note': 'Render a list with buttons. That is easier to use than a list with links',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -250,6 +252,8 @@ function infohub_rendermenu() {
         };
         $in = _Merge($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_end') {
             return {
                 'answer': 'true',
@@ -259,13 +263,31 @@ function infohub_rendermenu() {
 
         if ($in.type === 'button') {
             if ($in.event_type === 'click') {
-                window.alert('This button works but goes to infohub_rendermenu, set your own destination instead.');
+
+                const $text = 'This button works but goes to infohub_rendermenu, set your own destination instead.';
+
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_view',
+                        'function': 'alert'
+                    },
+                    'data': {
+                        'text': $text
+                    },
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+
+                $messageArray.push($messageOut);
             }
         }
 
         return {
             'answer': 'true',
-            'message': 'Done handling events in RenderMenu'
+            'message': 'Done handling events in RenderMenu',
+            'messages': $messageArray
         };
     };
 }

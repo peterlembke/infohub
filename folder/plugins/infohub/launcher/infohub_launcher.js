@@ -38,7 +38,9 @@ function infohub_launcher() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Launcher',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -733,15 +735,14 @@ function infohub_launcher() {
     $functions.push("render_list");
     const render_list = function ($in)
     {
-        let $text = '',
-            $what = {};
-
         const $default = {
             'list_name': '',
             'render_icons': 'true', // Used for server list in the initial startup to avoid render icons before all assets have been downloaded.
-            'step': 'step_read_local_list',
+            'step': 'step_start',
             'data_back': {
-                'list': {}
+                'list': {},
+                'answer': 'false',
+                'message': ''
             },
             'response': {
                 'answer': '',
@@ -756,11 +757,21 @@ function infohub_launcher() {
         };
         $in = _Default($default, $in);
 
+        let $text = '',
+            $what = {};
+
+        let $answer = 'false';
+        let $message = '';
+        let $messageArray = [];
+
         let $listName = $in.list_name;
 
-        if ($listName !== 'my_list' && $listName !== 'full_list') {
-            window.alert('infohub_launcher -> render_list() can not render the list: ' + $listName);
-            $in.step = 'step_end';
+        if ($in.step === 'step_start') {
+            $in.step = 'step_read_local_list';
+            if ($listName !== 'my_list' && $listName !== 'full_list') {
+                $message = 'infohub_launcher -> render_list() can not render the list: ' + $listName;
+                $in.step = 'step_alert';
+            }
         }
 
         if ($in.step === 'step_read_local_list') {
@@ -847,22 +858,48 @@ function infohub_launcher() {
                 'icon_license': $in.response.asset_license
             };
 
-            $what = _AddIcon($what, $listName, $item);
-            let $id =  '[' + $listName + '_' + $item.plugin + '_container]';
+            let $response = internal_AddIcon($what, $listName, $item);
+            $what = $response.what;
+
+            const $id = '[' + $listName + '_' + $item.plugin + '_container]';
             $text = $text + $id;
 
-            if ($in.render_icons === 'true') {
-                for (let $key in $in.data_back.list.list)
-                {
-                    if ($in.data_back.list.list.hasOwnProperty($key) === true) {
-                        $item = _ByVal($in.data_back.list.list[$key]);
-                        $what = _AddIcon($what, $listName, $item);
-                        $id =  '[' + $listName + '_' + $item.plugin + '_container]';
-                        $text = $text + $id;
-                    }
+            $message = $response.message;
+            $in.step = 'step_alert';
+
+            if ($response.answer === 'true') {
+                $in.step = 'step_create_list';
+                if ($in.render_icons === 'true') {
+                    $in.step = 'step_render_icons';
                 }
             }
+        }
 
+        if ($in.step === 'step_render_icons') {
+
+            $in.step = 'step_create_list';
+
+            for (let $key in $in.data_back.list.list) {
+                if ($in.data_back.list.list.hasOwnProperty($key) === true) {
+                    const $item = _ByVal($in.data_back.list.list[$key]);
+
+                    let $response = internal_AddIcon($what, $listName, $item);
+                    if ($response.answer === 'false') {
+                        $message = $response.message;
+                        $in.step = 'step_alert';
+                        break;
+                    }
+
+                    $what = $response.what;
+
+                    const $id = '[' + $listName + '_' + $item.plugin +
+                        '_container]';
+                    $text = $text + $id;
+                }
+            }
+        }
+
+        if ($in.step === 'step_create_list') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -883,14 +920,41 @@ function infohub_launcher() {
                     'debug_message': 'step_render_list',
                     'list_name': $listName,
                     'render_icons': $in.render_icons,
-                    'step': 'step_end'
+                    'step': 'step_create_list_response'
                 }
             });
         }
 
+        if ($in.step === 'step_create_list_response') {
+            $answer = $in.response.answer;
+            $message = $in.response.message;
+            if ($answer === 'false') {
+                $in.step = 'step_alert';
+            }
+        }
+
+        if ($in.step === 'step_alert') {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $message
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
+        }
+
         return {
-            'answer': 'true',
-            'message': 'List rendered'
+            'answer': $answer,
+            'message': $message,
+            'messages': $messageArray
         };
     };
 
@@ -903,11 +967,9 @@ function infohub_launcher() {
     $functions.push("get_option_list");
     const get_option_list = function ($in)
     {
-        let $options = [];
-
         const $default = {
             'list_name': 'full_list',
-            'step': 'step_read_local_list',
+            'step': 'step_start',
             'response': {
                 'answer': '',
                 'message': '',
@@ -919,10 +981,18 @@ function infohub_launcher() {
         };
         $in = _Default($default, $in);
 
+        let $answer = 'false';
+        let $message = '';
+        let $options = [];
+        let $messageArray = [];
+
         const $listName = $in.list_name;
-        if ($listName !== 'my_list' && $listName !== 'full_list') {
-            window.alert('infohub_launcher -> get_option_list() can not give option values for the list: ' + $listName);
-            $in.step = 'step_end';
+        if ($in.step === 'step_start') {
+            $in.step = 'step_read_local_list';
+            if ($listName !== 'my_list' && $listName !== 'full_list') {
+                $message = _Translate('infohub_launcher -> get_option_list() can not give option values for the list') + ': ' + $listName;
+                $in.step = 'step_alert';
+            }
         }
 
         if ($in.step === 'step_read_local_list') {
@@ -950,26 +1020,56 @@ function infohub_launcher() {
                 if ($in.response.data.list.hasOwnProperty($key) === false) {
                     continue;
                 }
-                $options.push({"type": "option", "value": $key, "label": $key });
+                $options.push({
+                    "type": "option",
+                    "value": $key,
+                    "label": $key
+                });
             }
+
+            $answer = 'true';
+            $message = 'Here are the option list';
+            $in.step = 'step_end';
+        }
+
+        if ($in.step === 'step_alert') {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $message
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
         }
 
         return {
-            'answer': 'true',
-            'message': 'Option values created',
-            'options': $options
+            'answer': $answer,
+            'message': $message,
+            'options': $options,
+            'messages': $messageArray
         };
     };
 
     /**
      * Add one icon to the rendered list
-     * @version 2017-12-04
+     * @version 2020-12-01
      * @since 2017-12-04
      * @author Peter Lembke
      */
-    $functions.push("_AddIcon");
-    const _AddIcon = function ($what, $list, $item)
+    $functions.push("internal_AddIcon");
+    const internal_AddIcon = function ($what, $list, $item)
     {
+        let $answer = 'false';
+        let $message = _Translate('There was an error in infohub_launcher -> internal_AddIcon');
+
         leave:
         {
             if (_Empty($what) === 'true') {
@@ -977,12 +1077,12 @@ function infohub_launcher() {
             }
 
             if ($list !== 'my_list' && $list !== 'full_list') {
-                window.alert(_Translate('_AddIcon got an invalid list') + ': ' + $list);
+                $message = _Translate('_AddIcon got an invalid list') + ': ' + $list;
                 break leave;
             }
 
             if (_Empty($item) === 'true') {
-                window.alert(_Translate('_AddIcon got an empty item'));
+                $message = _Translate('_AddIcon got an empty item');
                 break leave;
             }
 
@@ -1069,9 +1169,16 @@ function infohub_launcher() {
                     '.my_list_title': 'width: 64px; height: 32px; font-size: '+$fontSize+'; text-align: center; padding:1px; word-wrap:break-word; box-sizing: border-box;'
                 };
             }
+
+            $answer = 'true';
+            $message = 'Success';
         }
 
-        return $what;
+        return {
+            'answer': $answer,
+            'message': $message,
+            'what': $what
+        };
     };
 
     /**

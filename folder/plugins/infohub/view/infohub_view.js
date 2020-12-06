@@ -32,7 +32,9 @@ function infohub_view() {
             'note': 'The screen handler. Handles boxes on the screen. You can ask for a box and send HTML to that box.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'false',
+            'core_plugin': 'false'
         };
     };
 
@@ -77,6 +79,7 @@ function infohub_view() {
             'file_write': 'normal',
             'set_style': 'normal',
             'progress': 'normal',
+            'alert': 'normal',
             'event_message': 'normal'
         };
 
@@ -456,14 +459,13 @@ function infohub_view() {
         return $answer;
     };
 
+    $functions.push('_GetNode');
     /**
      * Get a reference to a DOM node.
      * @param $id
-     * @param $supressLogging
-     * @returns {HTMLElement|boolean}
+     * @returns {HTMLElement}
      * @private
      */
-    $functions.push('_GetNode');
     const _GetNode = function ($id)
     {
         const $convertedId = _GetBoxId($id);
@@ -3861,6 +3863,43 @@ function infohub_view() {
             'value': $value,
             'max_before': $maxBefore,
             'value_before': $valueBefore
+        };
+    };
+
+    /**
+     * Show an alert message
+     * Replaces all places where window.alert are used today
+     * I can not use window.alert in web workers
+     * @version 2020-12-01
+     * @since 2020-12-01
+     */
+    $functions.push('alert');
+    const alert = function ($in)
+    {
+        const $default = {
+            'text': ''
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'Alert',
+            'text': $in.text
+        });
+    };
+
+    $functions.push('internal_Alert');
+    const internal_Alert = function ($in)
+    {
+        const $default = {
+            'text': ''
+        };
+        $in = _Default($default, $in);
+
+        window.alert($in.text);
+
+        return {
+            'answer': 'true',
+            'message': 'Showed an alert box',
         };
     };
 

@@ -55,10 +55,25 @@ function infohub_democall_sibling() {
     {
         const $default = {
             'alert': '',
+            'step': 'step_start'
         };
         $in = _Default($default, $in);
 
-        alert($in.alert);
+        if ($in.step === 'step_start') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $in.alert
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
 
         return {
             'answer': 'true',
@@ -98,13 +113,26 @@ function infohub_democall_sibling() {
                     'alert': 'infohub_democall_sibling calling infohub_democall_child_grandchild'
                 },
                 'data_back': {
-                    'step': 'step_end'
+                    'step': 'step_alert'
                 }
             });
         }
         
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_sibling is back from the call');
+        if ($in.step === 'step_alert') {
+            const $text = 'infohub_democall_sibling is back from the call';
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
         }
 
         return {
@@ -122,10 +150,27 @@ function infohub_democall_sibling() {
     $functions.push('answer_child');
     const answer_child = function ($in)
     {
-        const $default = {};
+        const $default = {
+            'step': 'step_start'
+        };
         $in = _Default($default, $in);
 
-        alert('Welcome to infohub_democall_sibling -> answer_child');
+        if ($in.step === 'step_start') {
+            const $text = 'Welcome to infohub_democall_sibling -> answer_child';
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
 
         return {
             'answer': 'true',

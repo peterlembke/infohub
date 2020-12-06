@@ -1,20 +1,13 @@
-/**	infohub_checksum_personnummer
-
- Copyright (C) 2017 Peter Lembke , CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- Infohub_Checksum_Personnummer is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- Infohub_Checksum_Personnummer is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Infohub_Checksum_Personnummer.	If not, see <https://www.gnu.org/licenses/>.
+/**
+ * Swedish personnummer (personal number) Checksums are calculated and verified here
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-02-25
+ * @since       2017-02-25
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/personnummer/infohub_checksum_personnummer.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_personnummer() {
 
@@ -31,7 +24,9 @@ function infohub_checksum_personnummer() {
             'class_name': 'infohub_checksum_personnummer',
             'note': 'Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

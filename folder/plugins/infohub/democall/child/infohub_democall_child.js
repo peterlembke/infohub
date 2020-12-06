@@ -65,6 +65,8 @@ function infohub_democall_child() {
         };
         $in = _Default($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
@@ -108,18 +110,36 @@ function infohub_democall_child() {
                     'value': 'hello'
                 },
                 'data_back': {
-                    'step': 'step_end'
+                    'step': 'step_alert'
                 }
             });
         }
 
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_child sent hello to infohub_checksum and got checksum:' + $in.response.checksum);
+        if ($in.step === 'step_alert') {
+
+            const $text = 'infohub_democall_child sent hello to infohub_checksum and got checksum:' + $in.response.checksum;
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
         }
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
+            'messages': $messageArray
         };
     };
     
@@ -145,7 +165,27 @@ function infohub_democall_child() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            alert('infohub_democall_child will try to call a sibling_grandchild');
+            const $text = 'infohub_democall_child will try to call a sibling_grandchild';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_subcall'
+                }
+            });
+        }
+
+        if ($in.step === 'step_subcall')
+        {
+            const $text = 'infohub_democall_child calling infohub_democall_sibling_grandchild';
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -153,16 +193,29 @@ function infohub_democall_child() {
                     'function': 'grandchild_func'
                 },
                 'data': {
-                    'alert': 'infohub_democall_child calling infohub_democall_sibling_grandchild'
+                    'alert': $text
+                },
+                'data_back': {
+                    'step': 'step_alert'
+                }
+            });
+        }
+        
+        if ($in.step === 'step_alert') {
+            const $text = 'infohub_democall_child is back from the call';
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
                 },
                 'data_back': {
                     'step': 'step_end'
                 }
             });
-        }
-        
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_child is back from the call');
         }
 
         return {
@@ -217,10 +270,28 @@ function infohub_democall_child() {
     $functions.push('answer_child');
     const answer_child = function ($in)
     {
-        const $default = {};
+        const $default = {
+            'step': 'step_start'
+        };
         $in = _Default($default, $in);
 
-        alert('Welcome to infohub_democall_child -> answer_child');
+        if ($in.step === 'step_start') {
+            const $text = 'Welcome to infohub_democall_child -> answer_child';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
 
         return {
             'answer': 'true',

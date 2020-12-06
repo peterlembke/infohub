@@ -1,5 +1,6 @@
     let $functions = [], // Array with all function names
-        $firstDefault = null; // Used by cmd() to get the default values for a cmd function
+        $firstDefault = null, // Used by cmd() to get the default values for a cmd function
+        $warnOnce = {}; // Warn about no return statement once in each plugin.function
 
     $functions.push('_VersionBase');
     const _VersionBase = function() {
@@ -11,9 +12,7 @@
             'class_name': 'infohub_base',
             'note': 'Parent class in ALL plugins. Manages the traffic in the plugin',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': '',
-            'web_worker': 'false',
-            'core_plugin': 'true'
+            'user_role': ''
         };
     };
 
@@ -846,6 +845,44 @@
         };
     };
 
+    /**
+     * Creates an alert message
+     * @param $text
+     * @returns {*}
+     * @private
+     */
+    $functions.push('_Alert');
+    const _Alert = function($text = '')
+    {
+        return _SubCall({
+            'to': {
+                'node': 'client',
+                'plugin': 'infohub_view',
+                'function': 'alert'
+            },
+            'data': {
+                'text': $text
+            },
+            'data_back': {
+                'step': 'step_void' // No return message at all
+            }
+        });
+    };
+
+    /**
+     * Get the file extension
+     * @param $fileName
+     * @returns {string}
+     * @private
+     */
+    $functions.push('_GetExtension');
+    const _GetExtension = function($fileName = '')
+    {
+        const $extensionStart = $fileName.lastIndexOf('.') + 1;
+        const $extension = $fileName.substr($extensionStart);
+        return $extension;
+    };
+
     // *****************************************************************************
     // * The only public functions, do not add your own, not even in your plugin
     // *****************************************************************************
@@ -998,6 +1035,16 @@
                 }
             }
 
+            const $step = _GetData({
+                'name': 'data/step',
+                'default': '',
+                'data': $out
+            });
+
+            if ($step === 'step_void') {
+                $out = {};
+            }
+
             if (typeof $in.callback_function === 'function') {
                 $in.callback_function($out); // Call the callback function
                 return {};
@@ -1092,7 +1139,26 @@
         } else {
             if (typeof $callResponse === "undefined") {
                 // If you use the callback then you must return an empty object {}
-                window.alert('Function do not return anything. ' + $in.to.plugin + '.' + $functionName);
+
+                // Sends an alert and avoid sending again within 5 seconds.
+                // Test by commenting out a return call in your function.
+                const $where = $in.to.plugin + '.' + $functionName;
+
+                if (_IsSet($warnOnce[$where]) === 'true') {
+                    const $diff = _MicroTime() - $warnOnce[$where];
+                    if ($diff > 5.0) {
+                        delete $warnOnce[$where];
+                    }
+                }
+
+                if (_IsSet($warnOnce[$where]) === 'false') {
+                    $warnOnce[$where] = _MicroTime();
+                    const $text = 'Function do not return anything. ' + $where;
+                    $callResponse = _Alert($text);
+                    $callResponse.data.i_want_a_short_tail = 'true';
+                    $callResponse.first_default = $firstDefault;
+                    callbackFunction($callResponse);
+                }
             }
         }
 
@@ -1130,25 +1196,13 @@
             },
 
             $versionPlugin = _Default($default, _Version()),
-            $versionBase = _Default($default, _VersionBase()),
-
-            $navigator = window.navigator, // @todo Window is not available in a web worker
-
-            $clientInfo = {
-                'browser_name': $navigator.appName,
-                'browser_version': $navigator.appVersion,
-                'browser_language': $navigator.language,
-                // 'languages_preferred': navigator.languages,
-                // 'language_preferred': navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage),
-                'user_agent': $navigator.userAgent
-            };
+            $versionBase = _Default($default, _VersionBase());
 
         return {
             'answer': 'true',
             'message': 'Here are the data',
             'plugin': $versionPlugin,
             'base': $versionBase,
-            'client_info': $clientInfo,
             'version_code': $versionPlugin.checksum + $versionBase.checksum
         };
     };
@@ -1356,18 +1410,14 @@
 
     /**
      * Write message to console
-     * example: internal_Log({'message': 'I want to log this'});
      * used by: you
+     * Moved from infohub_base and renamed at 2020-12-05 to prepare for web workers
+     * @example: internal_Log({'message': 'I want to log this'});
      * @version 2016-09-01
      * @since 2013-04-25
      * @author Peter Lembke
      * @param {object} $in
      * @return object
-     * @uses level | string | log, info, warn, error
-     * @uses message | string | Text row to show in the console
-     * @uses object | if you want to show this object in the console
-     * @uses depth | integer | 1=create group, 0=log, -1=close group
-     * @uses start_time | integer | important when you create a new group
      */
     $functions.push("internal_Log");
     const internal_Log = function ($in = {})
@@ -1401,10 +1451,10 @@
             'node_name': 'client',
             'plugin_name': _GetClassName(),
             'function_name': '',
-            'message': '',
-            'level': 'log',
-            'object': {},
-            'depth': 0,
+            'message': '', // Text row to show in the console
+            'level': 'log', // log, info, warn, error
+            'object': {}, // if you want to show this object in the console
+            'depth': 0, // 1=create group, 0=log, -1=close group
             'get_backtrace': 'false',
             'execution_time': 0.0
         };

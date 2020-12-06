@@ -393,13 +393,32 @@ function infohub_transfer() {
 
             const $packageJson = _JsonEncode($in.data_back.package);
 
-            internal_Cmd({
+            let $response = internal_Cmd({
                 'func': 'AjaxCall',
                 'package': $packageJson
             });
 
-            $out.answer = 'true';
-            $out.message = 'Sent message to node:' + $nodeName + ', with ' + $packageJson.length + ' bytes of data.';
+            $out.answer = $response.answer;
+            $out.message = $response.message;
+
+            if ($out.answer === 'false') {
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_view',
+                        'function': 'alert'
+                    },
+                    'data': {
+                        'text': $out.message
+                    },
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+
+                $out.messages.push($messageOut);
+            }
+
             internal_Log({
                 'level': 'log',
                 'message': $out.message,
@@ -851,15 +870,20 @@ function infohub_transfer() {
 
         xmlHttp.setRequestHeader("Content-type", "application/json");
 
+        let $answer = 'false'
+        let $message = 'Error sending Ajax in infohub_transfer->internal_AjaxCall';
+
         try {
             xmlHttp.send($content);
+            $answer = 'true';
+            $message = 'Sent message with ' + $content.length + ' bytes of data';
         } catch (exception) {
-            window.alert('Error sending Ajax');
+            $message = $message + ' Error: ' + exception.message;
         }
 
         return {
-            'answer': 'true',
-            'message': 'Sent message with ' + $content.length + ' bytes of data'
+            'answer': $answer,
+            'message': $message
         };
     };
 

@@ -35,7 +35,9 @@ function infohub_render() {
             'note': 'Render HTML. You give an array with instructions what to render and you get the HTML back. You can then send that to infohub_view for displaying',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -1226,7 +1228,7 @@ function infohub_render() {
             $in.step = 'step_send_all_form_data_to_final_destination';
             $valid = $in.response.valid;
             if ($valid === 'false' || $in.response.answer === 'false') {
-                // window.alert('Some form data is invalid');
+                // Some form data is invalid
                 $in.step = 'step_final_response';
             }
         }
@@ -1239,7 +1241,7 @@ function infohub_render() {
                     $answer = 'true';
                     $message = 'Type: ' + $in.type + ', event: ' + $in.event_type + '.';
                     const $standardMessage = ' Event works but to_plugin is set to infohub_render. Set your own to_plugin.';
-                    window.alert($message + $standardMessage);
+                    $messageArray.push(_Alert($message + $standardMessage));
                     $in.step = 'step_end';
                     break internal_event;
                 }
@@ -1558,6 +1560,7 @@ function infohub_render() {
 
         let $answer = 'true';
         let $message = 'Done handling events in Render -> event_message';
+        let $messageArray = [];
 
         if ($in.step === 'step_start')
         {
@@ -1655,21 +1658,35 @@ function infohub_render() {
             // If .json is unknown to server it adds .txt to file name and encode to text/plain.
             const $findText = 'data:text/plain;base64,';
 
+            const $findMarkdown = 'data:text/markdown;base64,';
+
             for (let $fileNumber = 0; $fileNumber < $in.response.files_data.length; $fileNumber = $fileNumber + 1) {
                 let $content = $in.response.files_data[$fileNumber].content;
-                if (typeof $content === 'string') {
+                if (typeof $content !== 'string') {
+                    continue;
+                }
 
+                const $extension = _GetExtension($in.response.files_data[$fileNumber].name);
+
+                if ($extension === 'txt') {
                     if ($findText === $content.substr(0,$findText.length)) {
                         // Remove the text mime type and insert json instead
                         $content = $findJson + $content.substr($findText.length);
                     }
+                }
 
-                    if ($findJson === $content.substr(0,$findJson.length)) {
-                        $content = $content.substr($findJson.length);
-                        $content = atob($content);
-                        $content = decodeURIComponent(escape($content));
-                        $in.response.files_data[$fileNumber].content = _JsonDecode($content);
-                    }
+                if ($findMarkdown === $content.substr(0,$findMarkdown.length)) {
+                    $content = $content.substr($findMarkdown.length);
+                    $content = atob($content);
+                    $content = decodeURIComponent(escape($content));
+                    $in.response.files_data[$fileNumber].content = $content;
+                }
+
+                if ($findJson === $content.substr(0,$findJson.length)) {
+                    $content = $content.substr($findJson.length);
+                    $content = atob($content);
+                    $content = decodeURIComponent(escape($content));
+                    $in.response.files_data[$fileNumber].content = _JsonDecode($content);
                 }
             }
             $in.step = 'step_send_data_to_final_destination';
@@ -1749,7 +1766,7 @@ function infohub_render() {
                 if ($in.to_plugin === 'infohub_render' && $in.to_function === '') {
                     $message = 'Type: ' + $in.type + ', event: ' + $in.event_type + '.';
                     const $standardMessage = ' Event works but to_plugin is set to infohub_render. Set your own to_plugin.';
-                    window.alert($message + $standardMessage);
+                    $messageArray.push(_Alert($message + $standardMessage));
                     $in.step = 'step_end';
                     break internal_event;
                 }
@@ -1799,12 +1816,14 @@ function infohub_render() {
                     break external_link;
                 }
                 if (_Empty($in.data) === 'true') {
-                    window.alert('The link url is empty.');
+                    const $text = 'The link url is empty.';
+                    $messageArray.push(_Alert($text));
                     break external_link;
                 }
                 $data = atob($in.data);
                 if ($data.toLowerCase().substr(0,5) !== 'https') {
-                    window.alert('Please add https to your link. Do not support an unencrypted web.');
+                    const $text = 'Please add https to your link. Do not support an unencrypted web.';
+                    $messageArray.push(_Alert($text));
                     break external_link;
                 }
                 // It depends on the browser settings if this opens a popup or a new tab.
@@ -1816,6 +1835,7 @@ function infohub_render() {
         return {
             'answer': $answer,
             'message': $message,
+            'messages': $messageArray,
             'ok': $in.ok
         };
     };

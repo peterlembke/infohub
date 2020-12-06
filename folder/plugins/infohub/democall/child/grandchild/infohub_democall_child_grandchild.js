@@ -54,14 +54,34 @@ function infohub_democall_child_grandchild() {
     {
         const $default = {
             'alert': '',
+            'step': 'step_start'
         };
         $in = _Default($default, $in);
 
-        alert($in.alert);
+        let $messageArray = [];
+
+        if ($in.step === 'step_start') {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $in.alert
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
+        }
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
+            'messages': $messageArray
         };
     };
 
@@ -86,6 +106,8 @@ function infohub_democall_child_grandchild() {
         };
         $in = _Default($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_call_level1') {
             return _SubCall({
                 'to': {
@@ -103,12 +125,28 @@ function infohub_democall_child_grandchild() {
         }
 
         if ($in.step === 'step_end') {
-            alert('infohub_democall_sibling_grandchild sent hello to infohub_checksum and got checksum:' + $in.response.checksum);
+            const $text = 'infohub_democall_sibling_grandchild sent hello to infohub_checksum and got checksum:' + $in.response.checksum;
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
         }
 
         return {
             'answer': 'true',
-            'message': 'done'
+            'message': 'done',
+            'messages': $messageArray
         };
     };
     
@@ -127,8 +165,28 @@ function infohub_democall_child_grandchild() {
         };
         $in = _Default($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_call_parent') {
-            alert('infohub_democall_child_grandchild will try to call the parent');
+
+            const $text = 'infohub_democall_child_grandchild will try to call the parent';
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -137,18 +195,35 @@ function infohub_democall_child_grandchild() {
                 },
                 'data': {},
                 'data_back': {
+                    'step': 'step_alert'
+                },
+                'messages': $messageArray
+            });
+        }
+
+        if ($in.step === 'step_alert') {
+
+            const $text = 'infohub_democall_child_grandchild got response from a call to a parent. This should be forbidden';
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
                     'step': 'step_end'
                 }
             });
         }
 
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_child_grandchild got response from a call to a parent. This should be forbidden');
-        }
-
         return {
             'answer': 'true',
-            'message': 'done'
+            'message': 'done',
+            'messages': $messageArray
         };
     };
 }

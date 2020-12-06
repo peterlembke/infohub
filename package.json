@@ -1,6 +1,6 @@
 {
     "name": "infohub",
-    "version": "1.2.21",
+    "version": "1.2.25",
     "homepage": "https://infohub.se",
     "description": "Your private place on the internet",
     "keywords": ["privacy", "private", "infohub", "data", "operating-system", "plugin", "place", "independent"],
@@ -56,7 +56,8 @@
             "_SprintF": false,
             "_Full": false,
             "_CreateLookupTable": false,
-            "_GetCmdFunctionsBase": false
+            "_GetCmdFunctionsBase": false,
+            "_Alert": false
         }
     }
 }

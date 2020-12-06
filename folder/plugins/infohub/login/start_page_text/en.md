@@ -10,7 +10,7 @@ Every phone app / web page / computer program try to get as much data from you a
 My name is Peter Lembke. I wanted to access my private data from any of my devices and at the same time know that I keep my data private. That is why I built Infohub 
 
 # Where
-You or a trusted friend download the Infohub core and install it on a private or public web server or a web hotel. Then manually issue login accounts to trusted friends and deliver the login files manually to them. The users can login and use the plugins. The source code is open source so you can review it before use.
+You or a trusted friend download the Infohub core and install it on a private or public web server or a web hotel. Then manually issue login accounts to trusted friends and deliver the login files manually to them. The users can login and use the plugins. The source code is open source, so you can review it before use.
 
 # Missing parts
 Two major parts are missing from Infohub:

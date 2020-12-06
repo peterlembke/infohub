@@ -32,7 +32,9 @@ function infohub_democall() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Demo call',
-            'user_role': 'developer'
+            'user_role': 'developer',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

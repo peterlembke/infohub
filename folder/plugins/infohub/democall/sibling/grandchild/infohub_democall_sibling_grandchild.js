@@ -54,15 +54,35 @@ function infohub_democall_sibling_grandchild() {
     const grandchild_func = function ($in)
     {
         const $default = {
-            'alert': ''
+            'alert': '',
+            'step': 'step_start'
         };
         $in = _Default($default, $in);
 
-        alert($in.alert);
+        let $messageArray = [];
+
+        if ($in.step === 'step_start') {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $in.alert
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
+        }
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
+            'messages': $messageArray
         };
     };
 
@@ -98,13 +118,27 @@ function infohub_democall_sibling_grandchild() {
                     'value': 'hello'
                 },
                 'data_back': {
-                    'step': 'step_end'
+                    'step': 'step_alert'
                 }
             });
         }
 
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_sibling_grandchild sent hello to infohub_checksum and got checksum:' + $in.response.checksum);
+        if ($in.step === 'step_alert') {
+            const $text = 'infohub_democall_sibling_grandchild sent hello to infohub_checksum and got checksum:' + $in.response.checksum;
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
         }
 
         return {
@@ -123,13 +157,31 @@ function infohub_democall_sibling_grandchild() {
     const call_parent = function ($in)
     {
         const $default = {
-            'step': 'step_call_parent',
+            'step': 'step_start',
             'response': {}
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_call_parent') {
-            alert('infohub_democall_sibling_grandchild will try to call the parent');
+        if ($in.step === 'step_start') {
+            const $text = 'infohub_democall_sibling_grandchild will try to call the parent';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_call_parent'
+                }
+            });
+        }
+
+        if ($in.step === 'step_call_parent')
+        {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -138,13 +190,27 @@ function infohub_democall_sibling_grandchild() {
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
+                    'step': 'step_alert'
                 }
             });
         }
 
-        if ($in.step === 'step_end') {
-            alert('infohub_democall_sibling_grandchild got response from a call to a parent. This should be forbidden');
+        if ($in.step === 'step_alert') {
+            const $text = 'infohub_democall_sibling_grandchild got response from a call to a parent. This should be forbidden';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
         }
 
         return {

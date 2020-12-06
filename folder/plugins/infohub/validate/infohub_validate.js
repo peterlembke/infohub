@@ -32,7 +32,9 @@ function infohub_validate() {
             'note': 'Value validators. Used mostly in form validation.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

@@ -32,7 +32,9 @@ function infohub_privacy() {
             'note': 'See what information you reveal in this privacy plugin',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Session'
+            'title': 'Session',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

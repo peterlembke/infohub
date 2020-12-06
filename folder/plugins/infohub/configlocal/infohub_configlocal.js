@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * Configuration editor for your local browser configuration
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-10-12
+ * @since       2018-09-09
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/infohub_configlocal.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_configlocal() {
 
@@ -21,6 +15,7 @@ function infohub_configlocal() {
 
 // include "infohub_base.js"
 
+    $functions.push('_Version');
     const _Version = function() {
         return {
             'date': '2019-10-12',
@@ -32,10 +27,13 @@ function infohub_configlocal() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Config',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
+    $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
         const $list = {
             'setup_gui': 'normal',
@@ -52,6 +50,7 @@ function infohub_configlocal() {
         return _GetCmdFunctionsBase($list);
     };
 
+    $functions.push('_GetPluginName');
     const _GetPluginName = function($data)
     {
         let $pluginType = 'welcome',

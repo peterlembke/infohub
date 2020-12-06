@@ -1,22 +1,22 @@
 /**
- * infohub_debug.js contact the renderers to get HTML and then send it to infohub_view
- * infohub_debug and infohub_view are the only plugions that handle the DOM
- * @category InfoHub
- * @package infohub_debug
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Render debug buttons. Can clean out plugins, databases, caches.
+ *
+ * Subscribes to the debug buttons and react on pressing them.
+ * SHIFT + CTRL + ALT +
+ * 1 - reload_page
+ * 2 - refresh_plugins_and_reload_page
+ * 3 - clear_storage_and_reload_page
+ * 4 - set_cold_start_and_reload_page
+ * 9 - delete_render_cache_for_user_name
+ * 0 - logout
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-09-09
+ * @since       2018-09-09
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/debug/infohub_debug.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_debug() {
 
@@ -34,7 +34,9 @@ function infohub_debug() {
             'note': 'Tool for clearing caches and refresh the page when the ban time says ok',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'developer'
+            'user_role': 'developer',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
@@ -644,12 +646,20 @@ function infohub_debug() {
                         },
                         'shift_alt_ctrl_57': { // 57 = "9"
                             'client|infohub_login': {
-                                'to': {'node': 'client', 'plugin': 'infohub_render', 'function': 'delete_render_cache_for_user_name'}
+                                'to': {
+                                    'node': 'client',
+                                    'plugin': 'infohub_render',
+                                    'function': 'delete_render_cache_for_user_name'
+                                }
                             }
                         },
                         'shift_alt_ctrl_48': { // 48 = "0"
                             'client|infohub_login': {
-                                'to': {'node': 'client', 'plugin': 'infohub_login', 'function': 'logout'}
+                                'to': {
+                                    'node': 'client',
+                                    'plugin': 'infohub_login',
+                                    'function': 'logout'
+                                }
                             }
                         }
                     }

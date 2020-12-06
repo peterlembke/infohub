@@ -386,8 +386,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Code container html',
             'html': $html,
-            'css_data': $in.css_data,
-            'display': $in.display
+            'css_data': $in.css_data
         };
     };
 

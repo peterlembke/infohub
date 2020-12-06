@@ -16,6 +16,17 @@
  You should have received a copy of the GNU General Public License
  along with Infohub_Checksum_Doublemetaphone.	If not, see <https://www.gnu.org/licenses/>.
  */
+/**
+ * doublemetaphone Checksums are calculated and verified here
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2017-02-25
+ * @since       2017-02-25
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/doublemetaphone/infohub_checksum_doublemetaphone.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
+ */
 function infohub_checksum_doublemetaphone() {
 
     "use strict";
@@ -31,7 +42,9 @@ function infohub_checksum_doublemetaphone() {
             'class_name': 'infohub_checksum_doublemetaphone',
             'note': 'The Double Metaphone phonetic encoding algorithm is the second generation of this algorithm.',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

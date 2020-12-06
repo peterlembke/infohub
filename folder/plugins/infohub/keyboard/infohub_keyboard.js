@@ -826,13 +826,32 @@ function infohub_keyboard() {
         };
         $in = _Default($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_start') {
-            window.alert(_Translate('Keyboard Demo popup'));
+            const $text = _Translate('Keyboard Demo popup');
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'alert'
+                },
+                'data': {
+                    'text': $text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+
+            $messageArray.push($messageOut);
         }
 
         return {
             'answer': 'true',
-            'message': 'done'
+            'message': 'done',
+            'messages': $messageArray
         };
     };
 

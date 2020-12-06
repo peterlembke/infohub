@@ -1,20 +1,15 @@
-/**	infohub_compress
-
- Copyright (C) 2019 Peter Lembke , CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- infohub_compress is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- infohub_compress is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with infohub_compress.	If not, see <https://www.gnu.org/licenses/>.
+/**
+ * You can compress/decompress data here
+ *
+ * Supports lz, gzip, none
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-07-07
+ * @since       2019-07-02
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/compress/infohub_compress.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_compress() {
 
@@ -32,7 +27,9 @@ function infohub_compress() {
             'note': 'Compress data. You need less internet capacity and less storage space',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

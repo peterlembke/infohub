@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.
+ * Collection of demos to demonstrate InfoHub
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-03-28
+ * @since       2013-12-25
+ * @copyright   Copyright (c) 2013, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/infohub_demo.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_demo() {
 
@@ -21,6 +15,12 @@ function infohub_demo() {
 
 // include "infohub_base.js"
 
+    $functions.push('_Version');
+    /**
+     * Version information, used by the version function
+     * @returns {{date: string, note: string, 'SPDX-License-Identifier': string, checksum: string, version: string, class_name: string, since: string, status: string}}
+     * @private
+     */
     const _Version = function() {
         return {
             'date': '2019-03-28',
@@ -32,10 +32,18 @@ function infohub_demo() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Demo collection',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 
+    $functions.push('_GetCmdFunctions');
+    /**
+     * List with all public functions you can call
+     * @returns {*}
+     * @private
+     */
     const _GetCmdFunctions = function() {
         const $list = {
             'setup_gui': 'normal',
@@ -49,6 +57,13 @@ function infohub_demo() {
         return _GetCmdFunctionsBase($list);
     };
 
+    $functions.push('_GetPluginName');
+    /**
+     * Give a child name and get the full plugin name for that child
+     * @param $data
+     * @returns {string}
+     * @private
+     */
     const _GetPluginName = function($data)
     {
         let $pluginType = 'welcome',
@@ -382,11 +397,14 @@ function infohub_demo() {
         };
         $in = _Default($default, $in);
 
-        window.alert($in.event_data);
+        let $messageArray = [];
+        const $messageOut = _Alert($in.event_data);
+        $messageArray.push($messageOut);
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
+            'messages': $messageArray
         };
     };
 
@@ -452,26 +470,35 @@ function infohub_demo() {
         };
         $in = _Merge($default, $in);
 
+        let $messageArray = [];
+
         if ($in.step === 'step_start')
         {
             if ($in.type === 'link') {
                 if ($in.event_type === 'click') {
-                    window.alert(_Translate('This link works and goes to infohub_demo -> event_message.'));
+                    const $text = _Translate('This link works and goes to infohub_demo -> event_message.');
+                    const $messageOut = _Alert($text);
+                    $messageArray.push($messageOut);
                 }
             }
 
             if ($in.type === 'button') {
-                window.alert(_Translate('This button works and goes to infohub_demo -> event_message.'));
+                const $text = _Translate('This button works and goes to infohub_demo -> event_message.');
+                const $messageOut = _Alert($text);
+                $messageArray.push($messageOut);
             }
 
             if ($in.type === 'submit') {
-                window.alert(_Translate('This submit button works and goes to infohub_demo -> event_message. This only happens if all data is valid.'));
+                const $text = _Translate('This submit button works and goes to infohub_demo -> event_message. This only happens if all data is valid.');
+                const $messageOut = _Alert($text);
+                $messageArray.push($messageOut);
             }
         }
 
         return {
             'answer': 'true',
-            'message': 'Done handle the event'
+            'message': 'Done handle the event',
+            'messages': $messageArray
         };
     };
 }

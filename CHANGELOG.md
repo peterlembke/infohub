@@ -8,9 +8,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
 ## [Unreleased]
-**Below is the aim for version 1.3.0**
-- Infohub_Tree
-This is THE application!! All private data will be handled here.
+
+Next release will contain auto colour schema where you can pick how dark you want the colours. The schema will recalculate.
+
+# [1.2.25] - 2020-12-06
+
+* [Release notes](main,release_v1_v1v2_v1v2v25)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.25)
+
+New feature: step_void removes return calls for short tail messages. Removed the use of window.alert and window.navigator in the Javascript plugins. Improved PHPDOC in some JS files. Added welcome message in more languages.
+
+# [1.2.24] - 2020-11-28
+
+* [Release notes](main,release_v1_v1v2_v1v2v24)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.24)
+
+This is a code update release with PHPDOC improvements. Added future flags for web_worker and code_plugin. Slimmer renderers to prepare for web workers. Improved PHP code to be more modern. Removed unnecessary files. Started removing the use of window in JS files to prepare for web workers. Bug fixes. Added on the fly minification of JS files + a config setting to disable it.
+
+# [1.2.23] - 2020-11-08
+
+* [Release notes](main,release_v1_v1v2_v1v2v23)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.23)
+
+Support for the excellent AVIF image format. Speed improvements. Bug fixes. Cleaned up code. Prepared for future features.
 
 # [1.2.22] - 2020-08-22
 

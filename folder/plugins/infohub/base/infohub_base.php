@@ -790,17 +790,11 @@ class infohub_base
         $versionPlugin = $this->_Default($default, $this->_Version());
         $versionBase = $this->_Default($default, $this->_VersionBase());
 
-        $serverInfo = array(
-            'php_version' => PHP_VERSION,
-            'server_version' => $_SERVER["SERVER_SOFTWARE"]
-        );
-
         return array(
             'answer' => 'true',
             'message' => 'Here are the data',
             'plugin' => $versionPlugin,
             'base' => $versionBase,
-            'server_info' => $serverInfo,
             'version_code' => md5($versionPlugin['checksum'] . $versionBase['checksum'])
         );
     }

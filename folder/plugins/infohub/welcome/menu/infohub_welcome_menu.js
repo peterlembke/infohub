@@ -29,7 +29,9 @@ function infohub_welcome_menu() {
             'class_name': 'infohub_welcome_menu',
             'note': 'Render a menu for infohub_configlocal',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

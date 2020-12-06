@@ -1,21 +1,21 @@
 /**
- Copyright (C) 2020 Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- Labs/Svg is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- Labs/Svg is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Labs/Svg.  If not, see <https://www.gnu.org/licenses/>.'
-
- * @constructor
+ * Renderer for color pickers. Also calculates color schemas.
+ *
+ * ColorSelector - Create a color selector with a color bar
+ * ColorReader - Creates a color reader that reads the ColorSelector data
+ * LightBarSelector - Renders a light bar that you can click and see your selection
+ * ColorBar - Create a color bar with base colors
+ * HueBar - Create a color bar with a hue range of colors
+ * LightBar - Create a color bar with a base color in different light
+ * ColorBox - Create a color box
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2020-10-31
+ * @since       2020-10-18
+ * @copyright   Copyright (c) 2017, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/color/infohub_color.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_color() {
 
@@ -33,7 +33,9 @@ function infohub_color() {
             'note': 'Handles the infohub color schema',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'user_role': 'user'
+            'user_role': 'user',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
 

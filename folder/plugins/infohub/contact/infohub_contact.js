@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * GUI to manage login contacts between nodes
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2019-03-13
+ * @since       2019-01-16
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/contact/infohub_contact.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_contact() {
 
@@ -21,6 +15,12 @@ function infohub_contact() {
 
 // include "infohub_base.js"
 
+    $functions.push('_Version');
+    /**
+     * Version information, used by the version function
+     * @returns {{date: string, note: string, 'SPDX-License-Identifier': string, checksum: string, version: string, class_name: string, since: string, status: string}}
+     * @private
+     */
     const _Version = function() {
         return {
             'date': '2019-03-13',
@@ -32,10 +32,18 @@ function infohub_contact() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Node contacts',
-            'user_role': 'admin'
+            'user_role': 'admin',
+            'web_worker': 'true',
+            'core_plugin': 'false'
         };
     };
-    
+
+    $functions.push('_GetCmdFunctions');
+    /**
+     * List with all public functions you can call
+     * @returns {*}
+     * @private
+     */
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
@@ -48,6 +56,13 @@ function infohub_contact() {
         return _GetCmdFunctionsBase($list);
     };
 
+    $functions.push('_GetPluginName');
+    /**
+     * Give a child name and get the full plugin name for that child
+     * @param $data
+     * @returns {string}
+     * @private
+     */
     const _GetPluginName = function($data)
     {
         let $pluginType = 'welcome';
