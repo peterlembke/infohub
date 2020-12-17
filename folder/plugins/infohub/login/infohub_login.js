@@ -68,24 +68,6 @@ function infohub_login() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -364,7 +346,7 @@ function infohub_login() {
     const setup_information = function ($in)
     {
         const $default = {
-            'step': 'step_get_language',
+            'step': 'step_start',
             'response': {
                 'answer': '',
                 'message': '',
@@ -386,7 +368,7 @@ function infohub_login() {
 
         if ($in.step === 'step_start') {
             $in.step = 'step_get_language';
-            if ($in.config.information.enabled !== 'true') {
+            if ($in.config.information.enable !== 'true') {
                 $in.step = 'step_end';
             }
         }
@@ -430,8 +412,9 @@ function infohub_login() {
                 for (let $number = 0; $number < $length; $number = $number + 1) {
 
                     const $language = $languageArray[$number];
+                    const $languageFound = $in.config.information.available_languages.indexOf($language) !== -1;
 
-                    if ($language === 'en' || $language === 'sv' || $language === 'es') {
+                    if ($languageFound === true) {
                         $in.data_back.language = $language;
                         break;
                     }

@@ -46,24 +46,6 @@ function infohub_login_forget() {
     let $classTranslations = {};
 
     /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
-    /**
      * These fields is what a contact need
      * @version 2019-09-04
      * @since 2019-09-04

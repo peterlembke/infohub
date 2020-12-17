@@ -42,24 +42,6 @@ function infohub_configlocal_image() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -112,7 +94,7 @@ function infohub_configlocal_image() {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
                             "label": _Translate("Download assets"),
-                            "description": _Translate( "You can prevent all images and sounds to be downloaded. Save download time and quota"),
+                            "description": _Translate("You can prevent all images and sounds to be downloaded. Save download time and quota"),
                             "options": [
                                 { "value": "download_assets", "label": _Translate("Download assets") }
                             ]
@@ -139,7 +121,7 @@ function infohub_configlocal_image() {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
                             "label": _Translate("Image types you can see"),
-                            "description": _Translate( "Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser"),
+                            "description": _Translate("Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser"),
                             "options": [
                                 { "value": "svg", "label": "[image_svg]" },
                                 { "value": "json", "label": "[image_jpeg]" },

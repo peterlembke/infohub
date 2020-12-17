@@ -53,24 +53,6 @@ function infohub_demo_document() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with const
     // * Can only be reached trough cmd()

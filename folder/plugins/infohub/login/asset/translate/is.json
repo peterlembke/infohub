@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "is",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Leiðbeiningar",
+            "USE_THE_MENU._KEY": "Notaðu valmyndina.",
+            "WHAT_IS_THIS?_KEY": "Hvað er þetta?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Einn tengiliður",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Þetta er gagnaform fyrir einn tengilið",
+            "NODE_KEY": "Hnútur",
+            "ANY_TEXT_YOU_WANT_KEY": "Allir textar sem þú vilt",
+            "NOTE_KEY": "Athugið",
+            "SAVE_KEY": "Vista",
+            "DOMAIN_ADDRESS_KEY": "Lén",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Lénið á netþjóninum þínum",
+            "USER_NAME_KEY": "Notandanafn",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Þetta ert þú á þjóninum",
+            "SHARED_SECRET_KEY": "Sameiginlegt leyndarmál",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Þú deilir þessu leyndarmáli við netþjóninn",
+            "CHECKSUM_KEY": "Eftirlitssumma",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Eftirlitssumma lénsfangs + notandanafn + sameiginlegt leyndarmál.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Leyfileg viðbót við netþjóna",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Listi með öllum nöfnum viðbótaþjóna sem þú getur sent skilaboð til á ytri hnútnum"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Flytja út tengilið",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hér geturðu flutt tengiliðagögnin út",
+            "EXPORT_KEY": "Flytja út"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Gleymdu tengilið",
+            "HÉR_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Hér geturðu látið vafrann gleyma tengiliðagögnum. Þú getur alltaf flutt skrána aftur inn.",
+            "FORGET_KEY": "Gleymdu"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Flytja inn",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Flytja inn upplýsingar um tengiliði úr skrá",
+            "SELECT_FILE_KEY": "Veldu skrá"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Innskráning",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hér geturðu notað tengiliðagögnin sem þú fluttir inn og skráð þig inn á netþjóninn",
+            "PASSWORD_KEY": "Lykilorð",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Lykilorðið sem þú þarft til að afkóða sameiginlega_ leyndina",
+            "LOGIN_RESULT_KEY": "innskráningarniðurstaða",
+            "RELOAD_AFTER_LOGIN_KEY": "Endurhlaða eftir innskráningu",
+            "SELECT_FILE_KEY": "Veldu skrá",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Sæktu demo reikning",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Þú ert þegar innskráður",
+            "MISSING_USER_NAME_KEY": "Vantar notandanafn",
+            "MISSING_RANDOM_CODE_KEY": "Vantar af handahófi kóða",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Svarið frá netþjóninum tók of langan tíma. Ég mun yfirgefa innskráningartilraunina",
+            "FAILED_TO_LOGIN_KEY": "Mistókst að skrá þig inn",
+            "SUCCESS_LOGGING_IN_KEY": "Árangur við innskráningu",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Slembikóðinn hefur ekki rétta lengd",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Ólíklegt að heildarmeðaltalið hafi engar aukastafir",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Ólíklegt að meðaltalið sé jafnt heildar meðaltali",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Þessar einföldu próf sýna að random_code er að minnsta kosti ekki flatlína með tölum."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Útskráning",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hér geturðu skráð þig út af netþjóni",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Ef vel tekst til þá sýnir innskráningarsíðan",
+            "LOGOUT_RESULT_KEY": "niðurstaða útskráningar",
+            "FAILED_TO_LOGOUT_KEY": "Mistókst að útskrá",
+            "SUCCESS_LOGGING_OUT_KEY": "Árangur við að skrá þig út"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Valmynd",
+            "IMPORT_CONTACT_DATA_KEY": "Flytja inn tengiliðagögn",
+            "LOGIN_KEY": "Innskráning",
+            "SET_PASSWORD_KEY": "Setja lykilorð",
+            "EXPORT_CONTACT_DATA_KEY": "Flytja út tengiliðagögn",
+            "LOGOUT_KEY": "Útskráning",
+            "FORGET_CONTACT_KEY": "Gleymdu tengilið"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Setja lykilorð",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Þegar þú stillir staðbundna lykilorðið þitt skaltu klofna sameiginlega leyndarmálið svo það krefist þess að lykilorðið þitt virki",
+            "CURRENT_PASSWORD_KEY": "Núverandi lykilorð",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Skildu autt ef þú átt enga",
+            "NEW_PASSWORD_KEY": "Nýtt lykilorð",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Skildu autt ef þú vilt fjarlægja lykilorðið",
+            "CHANGE_PASSWORD_KEY": "Skipta um lykilorð"
+        }
+    }
+}

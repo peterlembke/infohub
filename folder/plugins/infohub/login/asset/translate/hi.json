@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "hi",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "निर्देश",
+            "USE_THE_MENU._KEY": "मेनू का उपयोग करें।",
+            "WHAT_IS_THIS?_KEY": "यह क्या है?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "एक संपर्क",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "यह एक संपर्क के लिए डेटा फ़ॉर्म है",
+            "NODE_KEY": "नोड",
+            "Any_TEXT_YOU_WANT_KEY": "कोई भी पाठ जो आप चाहते हैं",
+            "NOTE_KEY": "नोट",
+            "SAVE_KEY": "सहेजें",
+            "DOMAIN_ADDRESS_KEY": "डोमेन पता",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "आपके सर्वर का डोमेन पता",
+            "USER_NAME_KEY": "उपयोगकर्ता नाम",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "यह आप सर्वर पर हैं",
+            "SHARED_SECRET_KEY": "साझा रहस्य",
+            "You_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "आप सर्वर के साथ इस रहस्य को साझा करते हैं",
+            "CHECKSUM_KEY": "चेकसम",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "डोमेन पते का चेकसम + उपयोगकर्ता नाम + साझा रहस्य।",
+            "ALLOWED_SERVER_PLUGINS_KEY": "अनुमत सर्वर प्लगइन्स",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "उन सभी सर्वर प्लगइन नामों की सूची, जिन्हें आप दूरस्थ नोड पर संदेश भेज सकते हैं"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "निर्यात संपर्क",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "यहां आप संपर्क डेटा निर्यात कर सकते हैं",
+            "EXPORT_KEY": "निर्यात"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "संपर्क भूल जाओ",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN.KEY": "यहां आप ब्राउज़र को संपर्क डेटा भूल सकते हैं। आप हमेशा अपनी फ़ाइल को फिर से आयात कर सकते हैं।",
+            "FORGET_KEY": "भूल जाओ"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "आयात",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "फ़ाइल से संपर्क जानकारी आयात करें",
+            "SELECT_FILE_KEY": "फ़ाइल का चयन करें"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "लॉगिन",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "यहां आप आयात किए गए संपर्क डेटा का उपयोग कर सकते हैं और सर्वर में प्रवेश कर सकते हैं",
+            "PASSWORD_KEY": "पासवर्ड",
+            "The_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "जिस पासवर्ड को आपको साझा करने की जरूरत है, वह है शेयर",
+            "LOGIN_RESULT_KEY": "लॉगिन परिणाम",
+            "RELOAD_AFTER_LOGIN_KEY": "लॉगिन के बाद पुनः लोड करें",
+            "SELECT_FILE_KEY": "फ़ाइल का चयन करें",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "डेमो खाता डाउनलोड करें",
+            "You_ARE_ALREADY_LOGGED_IN_KEY": "आप पहले से ही लॉग इन हैं",
+            "MISSING_USER_NAME_KEY": "उपयोगकर्ता का नाम गुम है",
+            "MISSING_RANDOM_CODE_KEY": "यादृच्छिक कोड गुम",
+            "The_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "सर्वर से उत्तर बहुत लंबा है। मैं लॉगिन प्रयास को छोड़ दूंगा",
+            "FAILED_TO_LOGIN_KEY": "लॉगिन करने में विफल",
+            "SUCCESS_LOGGING_IN_KEY": "सफलता लॉगिंग इन",
+            "The_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "यादृच्छिक कोड की सही लंबाई नहीं है",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "कुल औसत कोई दशमलव नहीं है",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "औसत रूप से औसत कुल के बराबर है",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "ये सरल परीक्षण बताते हैं कि random_code कम से कम संख्याओं का एक समतल नहीं है।"
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "लॉगआउट",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "यहां आप सर्वर से लॉगआउट कर सकते हैं",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "यदि सफल है तो लॉगिन पृष्ठ दिखाता है",
+            "LOGOUT_RESULT_KEY": "लॉगआउट परिणाम",
+            "FAILED_TO_LOGOUT_KEY": "लॉगआउट करने में विफल",
+            "SUCCESS_LOGGING_OUT_KEY": "सफलता लॉगिंग आउट"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "मेनू",
+            "IMPORT_CONTACT_DATA_KEY": "संपर्क डेटा आयात करें",
+            "LOGIN_KEY": "लॉगिन",
+            "SET_PASSWORD_KEY": "पासवर्ड सेट करें",
+            "EXPORT_CONTACT_DATA_KEY": "संपर्क डेटा निर्यात करें",
+            "LOGOUT_KEY": "लॉगआउट",
+            "FORGET_CONTACT_KEY": "संपर्क भूल जाओ"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "पासवर्ड सेट करें",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "जब आप अपना स्थानीय पासवर्ड सेट करते हैं, तो आप इसे साझा करने के लिए गुप्त रूप से साझा करते हैं।",
+            "CURRENT_PASSWORD_KEY": "वर्तमान पासवर्ड",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "खाली छोड़ दें यदि आपके पास कोई नहीं है",
+            "NEW_PASSWORD_KEY": "नया पासवर्ड",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "यदि आप पासवर्ड निकालना चाहते हैं तो खाली छोड़ दें",
+            "CHANGE_PASSWORD_KEY": "पासवर्ड बदलें"
+        }
+    }
+}

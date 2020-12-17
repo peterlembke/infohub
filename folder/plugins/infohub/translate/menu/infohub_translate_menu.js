@@ -44,21 +44,6 @@ function infohub_translate_menu() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') { return $string; }
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -112,24 +97,17 @@ function infohub_translate_menu() {
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'createfiles': {
-                                    'alias': 'createfiles_link',
-                                    'event_data': 'createfiles',
-                                    'button_label': _Translate('Create translation files'),
+                                'createfile': {
+                                    'alias': 'createfile_link',
+                                    'event_data': 'createfile',
+                                    'button_label': _Translate('Create a translation file'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'mergefiles': {
-                                    'alias': 'mergefiles_link',
-                                    'event_data': 'mergefiles',
-                                    'button_label': _Translate('Merge translation files'),
-                                    'to_plugin': 'infohub_translate',
-                                    'to_function': 'click_menu'
-                                },
-                                'updatefiles': {
+                                'updatefile': {
                                     'alias': 'updatefile_link',
-                                    'event_data': 'updatefiles',
-                                    'button_label': _Translate('Update translation files'),
+                                    'event_data': 'updatefile',
+                                    'button_label': _Translate('Update a translation file'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 }

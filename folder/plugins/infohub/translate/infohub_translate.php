@@ -60,10 +60,9 @@ class infohub_translate extends infohub_base
     protected function _GetCmdFunctions(): array
     {
         $list = array(
-            'create_template_file' => 'normal',
-            'import_translated_file' => 'normal',
-            'update_existing_files_with_additional_data' => 'normal',
-            'get_doc_file' => 'normal'
+            'load_plugin_list' => 'normal',
+            'get_doc_file' => 'normal',
+            'create_translation_file' => 'normal'
         );
 
         return parent::_GetCmdFunctionsBase($list);
@@ -84,237 +83,6 @@ class infohub_translate extends infohub_base
         }
 
         return $grandPluginName;
-    }
-
-    /**
-     * Give a plugin name. Function examine the plugin and all children.
-     * Builds a translate/template1.json with all phrases on the left side and a number on the right side
-     * and another file translate/template2.json with numbers on the left side and the phrases on the right side.
-     * You can then copy the template2 data and translate it in Google Translate. Save the result in a new file import.json
-     * Then run import_translated_file
-     * @version 2019-03-24
-     * @since   2019-03-23
-     * @author  Peter Lembke
-     * @param array $in
-     * @return array
-     */
-    protected function create_template_file(array $in = []): array
-    {
-        $default = array(
-            'plugin_name' => '',
-            'step' => 'step_get_plugin_js_files_content',
-            'response' => array(
-                'answer' => 'false',
-                'message' => 'Nothing',
-                'data' => []
-            ),
-            'data_back' => array(
-                'out1' => [],
-                'out2' => []
-            )
-        );
-        $in = $this->_Default($default, $in);
-
-        if ($in['step'] === 'step_get_plugin_js_files_content') {
-            $in['plugin_name'] = $this->_GetGrandPluginName($in['plugin_name']);
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'get_plugin_js_files_content'
-                ),
-                'data' => array(
-                    'plugin_name' => $in['plugin_name']
-                ),
-                'data_back' => array(
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_get_plugin_js_files_content_response'
-                )
-            ));
-        }
-
-        if ($in['step'] === 'step_get_plugin_js_files_content_response')
-        {
-            $in['step'] = 'step_pull_out_text_strings';
-            if ($in['response']['answer'] === 'false') {
-                goto leave;
-            }
-        }
-
-        if ($in['step'] === 'step_pull_out_text_strings')
-        {
-            $find = '_Translate(';
-            $findLength = strlen($find);
-
-            $out1 = [];
-            $out2 = [];
-
-            $number = 0;
-
-            foreach ($in['response']['data'] as $pluginName => $code)
-            {
-                $out[$pluginName] = [];
-                $offset = 0;
-                $done = false;
-                $codeLength = strlen($code);
-
-                while ($done === false)
-                {
-                    if ($offset >= $codeLength) {
-                        $done = 'true';
-                        continue;
-                    }
-
-                    $position = strpos($code, $find, $offset);
-
-                    if ($position === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $blipStart = $position + $findLength;
-                    $blip = substr($code, $blipStart, 1);
-                    if ($blip !== '"' && $blip !== "'") {
-                        $offset = $position + $findLength + 1;
-                        continue;
-                    }
-
-                    $textStart = $position + $findLength +1;
-
-                    $findEnd = $blip . ')';
-                    $textEnd = strpos($code, $findEnd, $textStart);
-
-                    if ($textEnd === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $textLength = $textEnd - $textStart;
-                    $text = substr($code, $textStart, $textLength);
-
-                    if (empty($text) === false) {
-
-                        if (isset($out1[$pluginName]) === false) {
-                            $out1[$pluginName] = [];
-                        }
-                        if (isset($out2[$pluginName]) === false) {
-                            $out2[$pluginName] = [];
-                        }
-
-                        $numberString = 'A' . (string) $number;
-
-                        $out1[$pluginName][$text] = $numberString;
-                        $out2[$pluginName][$numberString] = $text;
-
-                        $number++;
-                    }
-
-                    $offset = $textEnd + 2;
-                }
-            }
-
-            $in['step'] = 'step_end';
-
-            if (empty($out1) === false && empty($out2) === false) {
-                $in['data_back']['out1'] = $out1;
-                $in['data_back']['out2'] = $out2;
-
-                $in['step'] = 'step_create_header';
-            }
-
-        }
-
-        if ($in['step'] === 'step_create_header')
-        {
-            $foundContent = $this->_JsonEncode($in['data_back']['out1']);
-
-            $header = array(
-                'version' => array(
-                    "date" => $this->_TimeStamp(),
-                    "plugin" => $in['plugin_name'],
-                    "data_checksum" => md5($foundContent),
-                    'language' => '',
-                    'country' => '',
-                    'file_type' => 'key_file'
-                ),
-                'data' => []
-            );
-
-            $header['data'] = $in['data_back']['out1'];
-            $in['data_back']['out1'] = $header;
-
-            $header['data'] = $in['data_back']['out2'];
-            $header['version']['file_type'] = 'translate_file';
-            $in['data_back']['out2'] = $header;
-
-            $in['response']['message'] = 'Here are the two files';
-
-            $in['step'] = 'step_end';
-        }
-
-        /*
-        if ($in['step'] === 'step_save_template1')
-        {
-            $path = $in['plugin_name'] . DS . 'template1.json';
-            $contents = $this->_JsonEncode($in['data_back']['out1']);
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'write'
-                ),
-                'data' => array(
-                    'path' => $path,
-                    'contents' => $contents,
-                    'allow_overwrite' => 'true'
-                ),
-                'data_back' => array(
-                    'plugin_name' => $in['plugin_name'],
-                    'out2' => $in['data_back']['out2'],
-                    'step' => 'step_save_template1_response'
-                )
-            ));
-        }
-
-        if ($in['step'] === 'step_save_template1_response') {
-            $in['step'] = 'step_save_template2';
-            if ($in['response']['answer'] === 'false') {
-                goto leave;
-            }
-        }
-
-        if ($in['step'] === 'step_save_template2') {
-            $path = $in['plugin_name'] . DS . 'template2.json';
-            $contents = $this->_JsonEncode($in['data_back']['out2']);
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'write'
-                ),
-                'data' => array(
-                    'path' => $path,
-                    'contents' => $contents,
-                    'allow_overwrite' => 'true'
-                ),
-                'data_back' => array(
-                    'step' => 'step_save_template2_response'
-                )
-            ));
-        }
-
-        if ($in['step'] === 'step_save_template2_response') {
-            $in['step'] = 'step_end';
-        }
-        */
-
-        leave:
-        return array(
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'file1' => $in['data_back']['out1'],
-            'file2' => $in['data_back']['out2'],
-        );
     }
 
     /**
@@ -429,4 +197,198 @@ class infohub_translate extends infohub_base
         );
     }
 
+    /**
+     * Give a plugin name. Function examine the plugin and all children.
+     * Builds a translation json file with all phrases from the plugin and its children.
+     * @version 2020-12-15
+     * @since   2020-12-15
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array
+     */
+    protected function create_translation_file(array $in = []): array
+    {
+        $default = array(
+            'plugin_name' => '',
+            'step' => 'step_get_plugin_js_files_content',
+            'response' => array(
+                'answer' => 'false',
+                'message' => 'Nothing',
+                'data' => []
+            ),
+            'data_back' => array(
+                'out' => []
+            )
+        );
+        $in = $this->_Default($default, $in);
+
+        if ($in['step'] === 'step_get_plugin_js_files_content') {
+            $in['plugin_name'] = $this->_GetGrandPluginName($in['plugin_name']);
+            return $this->_SubCall(array(
+                'to' => array(
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'get_plugin_js_files_content'
+                ),
+                    'data' => array(
+                    'plugin_name' => $in['plugin_name']
+                ),
+                    'data_back' => array(
+                    'plugin_name' => $in['plugin_name'],
+                    'step' => 'step_get_plugin_js_files_content_response'
+                )
+            ));
+        }
+
+        if ($in['step'] === 'step_get_plugin_js_files_content_response')
+        {
+            $in['step'] = 'step_pull_out_text_strings';
+            if ($in['response']['answer'] === 'false') {
+                goto leave;
+            }
+        }
+
+        if ($in['step'] === 'step_pull_out_text_strings')
+        {
+            $find = '_Translate(';
+            $findLength = strlen($find);
+
+            $out = [];
+
+            foreach ($in['response']['data'] as $pluginName => $code)
+            {
+                $out[$pluginName] = [];
+                $offset = 0;
+                $done = false;
+                $codeLength = strlen($code);
+
+                while ($done === false)
+                {
+                    if ($offset >= $codeLength) {
+                        $done = 'true';
+                        continue;
+                    }
+
+                    $position = strpos($code, $find, $offset);
+
+                    if ($position === false) {
+                        $done = true;
+                        continue;
+                    }
+
+                    $blipStart = $position + $findLength;
+                    $blip = substr($code, $blipStart, 1);
+                    if ($blip !== '"' && $blip !== "'") {
+                        $offset = $position + $findLength + 1;
+                        continue;
+                    }
+
+                    $textStart = $position + $findLength +1;
+
+                    $findEnd = $blip . ')';
+                    $textEnd = strpos($code, $findEnd, $textStart);
+
+                    if ($textEnd === false) {
+                        $done = true;
+                        continue;
+                    }
+
+                    $textLength = $textEnd - $textStart;
+                    $text = substr($code, $textStart, $textLength);
+
+                    if (empty($text) === false) {
+                        if (isset($out[$pluginName]) === false) {
+                            $out[$pluginName] = [];
+                        }
+                        $key = $this->textToKey($text);
+                        $out[$pluginName][$key] = $text;
+                    }
+
+                    $offset = $textEnd + 2;
+                }
+            }
+
+            $in['step'] = 'step_end';
+
+            if (empty($out) === false) {
+                $in['data_back']['out'] = $out;
+
+                $in['step'] = 'step_create_header';
+            }
+
+        }
+
+        if ($in['step'] === 'step_create_header')
+        {
+            $foundContent = $this->_JsonEncode($in['data_back']['out']);
+
+            $header = array(
+                'version' => array(
+                    "date" => $this->_TimeStamp(),
+                    "plugin" => $in['plugin_name'],
+                    "data_checksum" => md5($foundContent),
+                    'language' => 'en',
+                    'country' => '',
+                    'file_type' => 'translate_file'
+                ),
+                'data' => []
+            );
+
+            $header['data'] = $in['data_back']['out'];
+            $in['data_back']['out'] = $header;
+
+            $in['response']['message'] = 'Here are the translation file';
+
+            $in['step'] = 'step_end';
+        }
+
+        leave:
+        return array(
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'file' => $in['data_back']['out']
+        );
+    }
+
+    /**
+     * Convert a key to a text
+     * @param string $key
+     * @return string
+     */
+    protected function keyToText(string $key = ''): string
+    {
+        // Remove _KEY suffix if it exist
+        if (substr($key,-4, 4) === '_KEY') {
+            $key = substr($key,0, -4);
+        }
+
+        $text = strtolower($key);
+        $text = str_replace('_', ' ', $text);
+
+        // All new sentences should start with a capital letter
+        $separator = '. ';
+        $partArray = explode($separator, $text);
+        foreach ($partArray as $index => $part) {
+            $part = strtoupper(substr($part, 0, 1)) . substr($part, 1);
+            $partArray[$index] = $part;
+        }
+        $text = implode($separator, $partArray);
+
+        return $text;
+    }
+
+    /**
+     * Convert a text to a key
+     * @param string $text
+     * @return string
+     */
+    protected function textToKey(string $text = ''): string
+    {
+        $key = strtoupper($text);
+        $key = str_replace(' ', '_', $key);
+
+        $key = $key . '_KEY'; // This makes Google translate avoid translating the single word key
+
+        return $key;
+    }
 }

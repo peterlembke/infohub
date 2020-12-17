@@ -407,13 +407,13 @@ class infohub_checksum extends infohub_base
     protected function  get_available_options(array $in = []): array
     {
         $options = array(
-            array("type" => "option", "value" => 'crc32', "label" => 'CRC32' ),
-            array("type" => "option", "value" => 'soundex', "label" => 'Soundex' ),
-            array("type" => "option", "value" => 'metaphone', "label" => 'Metaphone' ),
-            array("type" => "option", "value" => 'doublemetaphone', "label" => 'Double metaphone' ),
-            array("type" => "option", "value" => 'luhn', "label" => 'Luhn' ),
-            array("type" => "option", "value" => 'md5', "label" => 'MD5', 'selected' => 'true' ),
-            array("type" => "option", "value" => 'personnummer', "label" => 'Personnummer' )
+            array("type" => "option", "value" => 'crc32', "label" => 'CRC32'),
+            array("type" => "option", "value" => 'soundex', "label" => 'Soundex'),
+            array("type" => "option", "value" => 'metaphone', "label" => 'Metaphone'),
+            array("type" => "option", "value" => 'doublemetaphone', "label" => 'Double metaphone'),
+            array("type" => "option", "value" => 'luhn', "label" => 'Luhn'),
+            array("type" => "option", "value" => 'md5', "label" => 'MD5', 'selected' => 'true'),
+            array("type" => "option", "value" => 'personnummer', "label" => 'Personnummer')
         );
 
         return array(

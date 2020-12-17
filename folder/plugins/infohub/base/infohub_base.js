@@ -714,6 +714,50 @@
         return $lookup;
     }
 
+    $functions.push('_Translate');
+    /**
+     * Translate - Find a translation in a class global object
+     * If the object is not found then the string is returned
+     * If the substitution string is not found then the string is returned
+     * @param $string
+     * @returns {string}
+     * @private
+     */
+    const _Translate = function ($string)
+    {
+        if (typeof $classTranslations !== 'object') {
+            return $string.toString();
+        }
+
+        if ($string === 'What is this?') {
+            let $a = 1;
+        }
+
+        let $key = $string.toUpperCase();
+        $key = _Replace(' ', '_', $key);
+        $key = $key + '_KEY';
+
+        let $result = _GetData({
+            'name': _GetClassName() + '|' + $key,
+            'default': '',
+            'data': $classTranslations,
+            'split': '|'
+        });
+
+        if (_Empty($result) === 'false') {
+            return $result.toString();
+        }
+
+        $result = _GetData({
+            'name': _GetClassName() + '|' + $string,
+            'default': $string,
+            'data': $classTranslations,
+            'split': '|'
+        });
+
+        return $result.toString();
+    };
+
     /**
      * Status on Cmd functions: never_existed, emerging, normal, deprecated, retired
      * @param {string} $functionName - The function name to get status for

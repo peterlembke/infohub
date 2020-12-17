@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "et",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Juhised",
+            "USE_THE_MENU._KEY": "Kasutage menüüd.",
+            "WHAT_IS_THIS?_KEY": "Mis see on?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Üks kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "See on ühe kontakti andmevorm",
+            "NODE_KEY": "Sõlm",
+            "ANY_TEXT_YOU_WANT_KEY": "Mis tahes tekst, mida soovite",
+            "NOTE_KEY": "Märkus",
+            "SAVE_KEY": "Salvesta",
+            "DOMAIN_ADDRESS_KEY": "Domeeni aadress",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Teie serveri domeeniaadress",
+            "USER_NAME_KEY": "Kasutajanimi",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "See olete teie serveris",
+            "SHARED_SECRET_KEY": "Jagatud saladus",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Jagate seda saladust serveriga",
+            "CHECKSUM_KEY": "Kontrollsumma",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Domeeni aadressi + kasutajanime + jagatud saladuse kontrollsumma.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Lubatud serveri pistikprogrammid",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Loend kõigi serveri pistikprogrammide nimedega, kuhu saate kaugsõlmes sõnumeid saata"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Kontakti eksportimine",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Siin saate kontaktandmeid eksportida",
+            "EXPORT_KEY": "Ekspordi"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Unusta kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Siin saate lasta brauseril kontaktandmed unustada. Saate oma faili alati uuesti importida.",
+            "FORGET_KEY": "Unusta"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Import",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Kontaktandmete importimine failist",
+            "SELECT_FILE_KEY": "Valige fail"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Logi sisse",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Siin saate kasutada imporditud kontaktandmeid ja serverisse sisse logida",
+            "PASSWORD_KEY": "Parool",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Parool, mida vajate jagatud saladuse dekodeerimiseks",
+            "LOGIN_RESULT_KEY": "sisselogimise tulemus",
+            "RELOAD_AFTER_LOGIN_KEY": "Laadige pärast sisselogimist uuesti",
+            "SELECT_FILE_KEY": "Valige fail",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demokonto allalaadimine",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Olete juba sisse loginud",
+            "MISSING_USER_NAME_KEY": "Puudub kasutajanimi",
+            "MISSING_RANDOM_CODE_KEY": "Puudub juhuslik kood",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Serveri vastus võttis liiga kaua aega. Loobun sisselogimiskatsest",
+            "FAILED_TO_LOGIN_KEY": "Sisselogimine ebaõnnestus",
+            "SUCCESS_LOGGING_IN_KEY": "Sisselogimine õnnestus",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Juhusliku koodi pikkus pole õige",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "On ebatõenäoline, et kogu keskmisel pole kümnendkohti",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "On ebatõenäoline, et keskmine võrdub kogu keskmisega",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Need lihtsad testid näitavad, et vähemalt juhuslik_kood ei ole arvude sirge."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Logi välja",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Siin saate serverist välja logida",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Kui see õnnestub, kuvatakse sisselogimisleht",
+            "LOGOUT_RESULT_KEY": "väljalogimise tulemus",
+            "FAILED_TO_LOGOUT_KEY": "Sisselogimine ebaõnnestus",
+            "SUCCESS_LOGGING_OUT_KEY": "Sisselogimisel õnnestus"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menüü",
+            "IMPORT_CONTACT_DATA_KEY": "Kontaktandmete importimine",
+            "LOGIN_KEY": "Logi sisse",
+            "SET_PASSWORD_KEY": "Määra parool",
+            "EXPORT_CONTACT_DATA_KEY": "Kontaktandmete eksportimine",
+            "LOGOUT_KEY": "Logi välja",
+            "FORGET_CONTACT_KEY": "Kontakti unustamine"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Määra parool",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kui määrate oma kohaliku parooli, peate rühmitama jagatud saladust, et see nõuaks",
+            "CURRENT_PASSWORD_KEY": "Praegune parool",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Jätke tühjaks, kui teil pole ühtegi",
+            "NEW_PASSWORD_KEY": "Uus parool",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Jätke tühjaks, kui soovite parooli eemaldada",
+            "CHANGE_PASSWORD_KEY": "Muuda parooli"
+        }
+    }
+}

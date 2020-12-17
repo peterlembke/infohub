@@ -63,24 +63,6 @@ function infohub_welcome() {
     let $classTranslations = {};
 
     /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
-    /**
      * Setup the Config Graphical User Interface
      * @version 2018-09-09
      * @since   2018-09-09

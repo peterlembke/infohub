@@ -525,7 +525,7 @@ function infohub_tabs() {
             {
                 $doItem = {
                     'func': 'ModifyClass',
-                    'id': $in.response.index[$tabAlias] + '_menutitle',
+                    'id': $in.response.index[$tabAlias] + '.[menutitle]',
                     'class': 'yes',
                     'cmd': 'remove'
                 };
@@ -533,7 +533,7 @@ function infohub_tabs() {
                 if ($tabAlias === $in.tab_alias) {
                     $doItem = {
                         'func': 'ModifyClass',
-                        'id': $in.response.index[$tabAlias] + '_menutitle',
+                        'id': $in.response.index[$tabAlias] + '.[menutitle]',
                         'class': 'yes',
                         'cmd': 'add'
                     };

@@ -56,21 +56,6 @@ function infohub_keyboard() {
     
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') { return $string; }
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // *****************************************************************************
     // * The private functions, add your own in your plugin
     // * These functions can be used directly in your functions.

@@ -85,24 +85,6 @@ function infohub_asset() {
         return $pluginName;
     };
 
-    $functions.push('_Translate');
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    const _Translate = function ($string = '')
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     $functions.push("create"); // Enable this function
     /**
      * Use this function when you want to render an asset.
@@ -289,7 +271,7 @@ function infohub_asset() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh'),
+                            'button_label': _Translate('REFRESH'),
                             'event_data': 'refresh',
                             'to_plugin': 'infohub_asset',
                             'to_function': 'setup_gui'
@@ -1570,7 +1552,7 @@ function infohub_asset() {
         
         if ($in.step === 'step_keep_assets') 
         {
-            if ($in.extension !== 'svg' && $in.extension !== 'json' ) {
+            if ($in.extension !== 'svg' && $in.extension !== 'json') {
                 const $mimeType = _GetMimeType($extension);
                 $asset = 'data:' + $mimeType + ';base64,' + $asset;
             }

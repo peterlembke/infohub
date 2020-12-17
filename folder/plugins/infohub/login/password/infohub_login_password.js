@@ -47,26 +47,6 @@ function infohub_login_password() {
 
     let $classTranslations = {};
 
-    $functions.push('_Translate');
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param string $string
-     * @returns string
-     */
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string,
-            'data': $classTranslations,
-            'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()

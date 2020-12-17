@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
-function infohub_translate_mergefiles() {
+function infohub_translate_updatefile() {
 
     "use strict";
 
@@ -23,12 +23,12 @@ function infohub_translate_mergefiles() {
 
     const _Version = function() {
         return {
-            'date': '2019-10-04',
+            'date': '2019-10-05',
             'since': '2019-09-28',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
-            'class_name': 'infohub_translate_mergefiles',
-            'note': 'Handle the merge of the two template files, the original phrases with the translated phrases',
+            'class_name': 'infohub_translate_updatefile',
+            'note': 'Upload an existing language file and you will get the latest phrases',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
@@ -37,7 +37,7 @@ function infohub_translate_mergefiles() {
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_merge_files': 'normal'
+            'click_upload': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -65,24 +65,6 @@ function infohub_translate_mergefiles() {
     };
 
     let $classTranslations = {};
-
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
 
     /**
      * Merge only when there are data in a key
@@ -132,7 +114,6 @@ function infohub_translate_mergefiles() {
         return _ByVal($object1);
     };
 
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -140,8 +121,8 @@ function infohub_translate_mergefiles() {
 
     /**
      * Get instructions and create the message to InfoHub View
-     * @version 2019-03-13
-     * @since   2016-10-16
+     * @version 2019-10-05
+     * @since   2019-10-05
      * @author  Peter Lembke
      */
     $functions.push('create');
@@ -159,8 +140,10 @@ function infohub_translate_mergefiles() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render') {
+        if ($in.step === 'step_render')
+        {
             $classTranslations = $in.translations;
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -169,38 +152,38 @@ function infohub_translate_mergefiles() {
                 },
                 'data': {
                     'what': {
-                        'presentation_box_merge_files': {
+                        'presentation_box_update_file': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Merge files'),
-                            'content_data': '[button_merge_files]',
-                            'foot_text': '[text_import_instructions]'
+                            'head_label': _Translate('Update translation file'),
+                            'content_data': '[my_file_selector]',
+                            'foot_text': '[text_instructions]'
                         },
-                        'button_merge_files': {
+                        'my_file_selector': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
-                            'button_label': _Translate('Merge the two files'),
+                            'button_label': _Translate('Select file'),
                             'accept': '*.json',
-                            'event_data': 'mergefiles|merge_files',
+                            'event_data': 'updatefiles|upload',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
                         },
-                        'text_import_instructions': {
+                        'text_instructions': {
                             'type': 'text',
-                            'text': 'This tool merge the two files and download the complete language file.'
+                            'text': _Translate('If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.')
                         }
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[presentation_box_merge_files]'
+                        'text': '[presentation_box_update_file]'
                     },
                     'where': {
                         'box_id': 'main.body.infohub_translate.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 960,
                         'scroll_to_box_id': 'true'
                     },
-                    'cache_key': 'mergefiles'
+                    'cache_key': 'updatefiles'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -215,13 +198,16 @@ function infohub_translate_mergefiles() {
     };
 
     /**
-     * Merge the two files into one file and download the file.
-     * @version 2019-10-04
-     * @since   2019-10-03
+     * Click the button and select the file to use. Now we come here.
+     * The file are read and we request the latest data from the server.
+     * Then we create a new language file, remove deprecated phrases and add new ones.
+     * The resulting file will be downloaded.
+     * @version 2019-10-05
+     * @since   2019-10-05
      * @author  Peter Lembke
      */
-    $functions.push('click_merge_files');
-    const click_merge_files = function ($in)
+    $functions.push('click_upload');
+    const click_upload = function ($in)
     {
         const $default = {
             'box_id': '',
@@ -232,84 +218,95 @@ function infohub_translate_mergefiles() {
             'files_data': [],
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report',
+                'file1': {}
+            },
+            'data_back': {
+                'answer': 'false',
+                'message': 'Nothing to report',
+                'plugin_name': '',
+                'language_file': {},
+                'key_file': {}
             }
         };
         $in = _Default($default, $in);
 
-        let $file = {};
-
         if ($in.step === 'step_start')
         {
-            $in.step = 'step_get_files';
-            if ($in.files_data.length !== 2) {
-                $in.message = 'You need to select two json files';
+            $in.step = 'step_get_file';
+            if ($in.files_data.length !== 1) {
+                $in.message = 'You need to select one json file';
                 $in.step = 'step_end';
             }
         }
 
-        if ($in.step === 'step_get_files')
+        if ($in.step === 'step_get_file')
         {
-            let $checksums = {};
+            const $fileData = _GetData({
+                'name': 'files_data/0/content',
+                'default': '',
+                'data': $in
+            });
 
-            for (let $i=0; $i<2; $i = $i + 1)
-            {
-                const $fileData = _GetData({
-                    'name': 'files_data/'+$i+'/content',
-                    'default': '',
-                    'data': $in
-                });
+            const $pluginName = _GetData({
+                'name': 'version/plugin',
+                'default': '',
+                'data': $fileData
+            });
 
-                const $type = _GetData({
-                    'name': 'version/file_type',
-                    'default': '',
-                    'data': $fileData
-                });
-
-                if ($type === 'key_file' || $type === 'translate_file') {
-                    $file[$type] = $fileData;
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_translate',
+                    'function': 'call_server'
+                },
+                'data': {
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_translate',
+                        'function': 'create_template_file'
+                    },
+                    'data': {
+                        'plugin_name': $pluginName
+                    }
+                },
+                'data_back': {
+                    'step': 'step_ask_server_response',
+                    'plugin_name': $pluginName,
+                    'language_file': $fileData
                 }
-
-                const $dataChecksum = _GetData({
-                    'name': 'version/data_checksum',
-                    'default': '',
-                    'data': $fileData
-                });
-
-                $checksums[$dataChecksum] = 'true';
-            }
-
-            $in.step = 'step_end';
-            $in.message = 'One of the files did not have a file_type. Make sure they are both valid files.';
-
-            if (_Count($file) === 2 && _Count($checksums) === 1) {
-                $in.message = 'I have the files. Now I will merge them.';
-                $in.step = 'step_merge_files';
-            }
+            });
         }
 
-        if ($in.step === 'step_merge_files')
+        if ($in.step === 'step_ask_server_response')
+        {
+            $in.data_back.answer = $in.response.answer;
+            $in.data_back.message = $in.response.message;
+            $in.data_back.key_file = $in.response.file1;
+
+            if ($in.response.answer === 'true') {
+                $in.data_back.ok = 'true';
+            }
+
+            $in.step = 'step_new_file';
+        }
+
+        if ($in.step === 'step_new_file')
         {
             let $newFile = {};
 
-            for (let $pluginName in $file.key_file.data)
+            for (let $pluginName in $in.data_back.key_file.data)
             {
-                const $translationsArray = $file.key_file.data[$pluginName];
+                const $translationsArray = $in.data_back.key_file.data[$pluginName];
 
                 for (let $text in $translationsArray)
                 {
-                    const $code = $translationsArray[$text];
-
                     const $translation = _GetData({
-                        'name': 'data|' + $pluginName + '|' + $code,
-                        'default': '',
-                        'data': $file.translate_file,
+                        'name': 'data|' + $pluginName + '|' + $text,
+                        'default': $text,
+                        'data': $in.data_back.language_file,
                         'split': '|'
                     });
-
-                    if (_Empty($translation) === 'true') {
-                        continue;
-                    }
 
                     if (_IsSet($newFile[$pluginName]) === 'false') {
                         $newFile[$pluginName] = {};
@@ -318,11 +315,10 @@ function infohub_translate_mergefiles() {
                 }
             }
 
-            $file.key_file.version.file_type = 'finished_file';
-            let $withHeader = $file.key_file;
+            let $withHeader = $in.data_back.language_file;
             $withHeader.data = $newFile;
 
-            const $fileName = $withHeader.version.plugin + '_' + $file.translate_file.version.language;
+            const $fileName = $withHeader.version.plugin + '_' + $withHeader.version.language;
             const $extension = '.json';
 
             return _SubCall({
@@ -355,4 +351,4 @@ function infohub_translate_mergefiles() {
         };
     };
 }
-//# sourceURL=infohub_translate_mergefiles.js
+//# sourceURL=infohub_translate_updatefile.js

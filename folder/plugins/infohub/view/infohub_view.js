@@ -2110,7 +2110,7 @@ function infohub_view() {
             $link.type = 'text/css';
             $link.id = $in.id;
             $link.href = 'data:text/css;base64,' + $in.css_data;
-            document.getElementsByTagName( 'head' )[0].appendChild($link);
+            document.getElementsByTagName('head')[0].appendChild($link);
 
             $message = 'Link is added';
             $addedLink = 'true';
@@ -2182,7 +2182,7 @@ function infohub_view() {
             $message = 'favicon was updated';
 
             if ($linkInserted === 'true') {
-                document.getElementsByTagName( 'head' )[0].appendChild($link);
+                document.getElementsByTagName('head')[0].appendChild($link);
                 $message = 'favicon was added';
             }
 

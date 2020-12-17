@@ -43,21 +43,6 @@ function infohub_configlocal_language() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') { return $string; }
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -100,7 +85,7 @@ function infohub_configlocal_language() {
                             'type': 'form',
                             'content': '[select_language][button_transfer][language][button_save][button_clear_render_cache]',
                             'label': _Translate('Language'),
-                            'description': '[language_icon]' + _Translate( 'Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
+                            'description': '[language_icon]' + _Translate('Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
                         },
                         'select_language': {
                             'plugin': 'infohub_language',
@@ -422,13 +407,16 @@ function infohub_configlocal_language() {
             'response': {
                 'answer': 'true',
                 'message': 'Nothing to report'
+            },
+            'config': {
+                'user_name': ''
             }
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_apply_config')
         {
-            if ($in.local_config.language.value === '') {
+            if ($in.local_config.language.value === '' || $in.config.user_name === 'guest') {
                 const $languageCountry = navigator.language || navigator.userLanguage;
                 let $parts = $languageCountry.split('-');
                 const $language = $parts[0].toLowerCase();

@@ -61,24 +61,6 @@ function infohub_configlocal_debug() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -191,7 +173,7 @@ function infohub_configlocal_debug() {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label':_Translate( 'Size 3'),
+                        'button_label':_Translate('Size 3'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',

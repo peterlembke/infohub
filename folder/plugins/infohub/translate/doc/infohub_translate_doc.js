@@ -38,30 +38,14 @@ function infohub_translate_doc() {
         const $list = {
             'create': 'normal',
             'click_main': 'normal',
-            'click_createfiles': 'normal',
-            'click_mergefiles': 'normal',
-            'click_updatefiles': 'normal'
+            'click_createfile': 'normal',
+            'click_updatefile': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
     let $classTranslations = {};
-
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') { return $string; }
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
 
     // ***********************************************************
     // * your class functions below, only declare with var
@@ -103,7 +87,7 @@ function infohub_translate_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_createfiles][button_mergefiles][button_updatefiles]',
+                            'data': '[button_main][button_createfile][button_updatefile]',
                             'class': 'container-small'
                         },
                         'container_doc': {
@@ -117,35 +101,26 @@ function infohub_translate_doc() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Main Doc'),
+                            'button_label': _Translate('Main Documentation'),
                             'event_data': 'doc|main',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
                         },
-                        'button_createfiles': {
+                        'button_createfile': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Create files Doc'),
-                            'event_data': 'doc|createfiles',
+                            'button_label': _Translate('Create translation file'),
+                            'event_data': 'doc|createfile',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
                         },
-                        'button_mergefiles': {
+                        'button_updatefile': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Merge files Doc'),
-                            'event_data': 'doc|mergefiles',
-                            'to_plugin': 'infohub_translate',
-                            'to_function': 'click'
-                        },
-                        'button_updatefiles': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('Update files Doc'),
-                            'event_data': 'doc|updatefiles',
+                            'button_label': _Translate('Update translation file'),
+                            'event_data': 'doc|updatefile',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
                         }
@@ -215,8 +190,8 @@ function infohub_translate_doc() {
      * @since   2019-03-13
      * @author  Peter Lembke
      */
-    $functions.push('click_createfiles');
-    const click_createfiles = function ($in)
+    $functions.push('click_createfile');
+    const click_createfile = function ($in)
     {
         const $default = {
             'step': 'step_render',
@@ -230,7 +205,7 @@ function infohub_translate_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('createfiles/infohub_translate_createfiles');
+            return _GetCall('createfile/infohub_translate_createfile');
         }
 
         let $ok = 'true';
@@ -251,8 +226,8 @@ function infohub_translate_doc() {
      * @since   2019-03-13
      * @author  Peter Lembke
      */
-    $functions.push('click_mergefiles');
-    const click_mergefiles = function ($in)
+    $functions.push('click_updatefile');
+    const click_updatefile = function ($in)
     {
         const $default = {
             'step': 'step_render',
@@ -266,43 +241,7 @@ function infohub_translate_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('mergefiles/infohub_translate_mergefiles');
-        }
-
-        let $ok = 'true';
-        if ($in.response.frog === 'true') {
-            $ok = 'false';
-        }
-
-        return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'ok': $ok
-        };
-    };
-
-    /**
-     * Show the documentation
-     * @version 2019-03-13
-     * @since   2019-03-13
-     * @author  Peter Lembke
-     */
-    $functions.push('click_updatefiles');
-    const click_updatefiles = function ($in)
-    {
-        const $default = {
-            'step': 'step_render',
-            'response': {
-                'answer': 'false',
-                'message': '',
-                'frog': 'false',
-                'html': ''
-            }
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_render') {
-            return _GetCall('updatefiles/infohub_translate_updatefiles');
+            return _GetCall('updatefile/infohub_translate_updatefile');
         }
 
         let $ok = 'true';

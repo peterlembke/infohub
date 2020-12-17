@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "nb",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instruksjoner",
+            "USE_THE_MENU._KEY": "Bruk menyen.",
+            "WHAT_IS_THIS?_KEY": "Hva er dette?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "En kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dette er dataskjemaet for en kontakt",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Hvilken tekst du vil ha",
+            "NOTE_KEY": "Merk",
+            "SAVE_KEY": "Lagre",
+            "DOMAIN_ADDRESS_KEY": "Domeneadresse",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domeneadressen til serveren din",
+            "USER_NAME_KEY": "Brukernavn",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Dette er du på serveren",
+            "SHARED_SECRET_KEY": "Delt hemmelighet",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Du deler denne hemmeligheten med serveren",
+            "CHECKSUM_KEY": "Sjekksum",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Kontrollsum for domeneadresse + brukernavn + delt hemmelighet.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Tillatte server-plugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste med alle server-plugin-navn du kan sende meldinger til på den eksterne noden"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Eksporter kontakt",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Her kan du eksportere kontaktdataene",
+            "EXPORT_KEY": "Eksporter"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Glem kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Her kan du la nettleseren glemme kontaktdataene. Du kan alltid importere filen din igjen.",
+            "FORGET_KEY": "Glem"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importer",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importer kontaktinformasjonen fra filen",
+            "SELECT_FILE_KEY": "Velg fil"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Pålogging",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Her kan du bruke kontaktdataene du importerte og logge på serveren",
+            "PASSWORD_KEY": "Passord",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Passordet du trenger for å dekode det delte hemmeligheten",
+            "LOGIN_RESULT_KEY": "påloggingsresultat",
+            "RELOAD_AFTER_LOGIN_KEY": "Last på nytt etter pålogging",
+            "SELECT_FILE_KEY": "Velg fil",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Last ned demo-konto",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Du er allerede logget på",
+            "MISSING_USER_NAME_KEY": "Mangler brukernavn",
+            "MISSING_RANDOM_CODE_KEY": "Mangler tilfeldig kode",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Svaret fra serveren tok for lang tid. Jeg vil forlate påloggingsforsøket",
+            "FAILED_TO_LOGIN_KEY": "Kunne ikke logge inn",
+            "SUCCESS_LOGGING_IN_KEY": "Vellykket pålogging",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Den tilfeldige koden har ikke riktig lengde",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Usannsynlig at det totale gjennomsnittet ikke har noen desimaler",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Usannsynlig at gjennomsnittet er lik det totale gjennomsnittet",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Disse enkle testene viser at random_code i det minste ikke er en flat linje med tall."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Logg ut",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Her kan du logge av fra serveren",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Hvis det lykkes, viser påloggingssiden",
+            "LOGOUT_RESULT_KEY": "utloggingsresultat",
+            "FAILED_TO_LOGOUT_KEY": "Kunne ikke logge ut",
+            "SUCCESS_LOGGING_OUT_KEY": "Vellykket avlogging"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Meny",
+            "IMPORT_CONTACT_DATA_KEY": "Importer kontaktdata",
+            "LOGIN_KEY": "Pålogging",
+            "SET_PASSWORD_KEY": "Angi passord",
+            "EXPORT_CONTACT_DATA_KEY": "Eksporter kontaktdata",
+            "LOGOUT_KEY": "Logg ut",
+            "FORGET_CONTACT_KEY": "Glem kontakt"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Angi passord",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Når du setter ditt lokale passord, krypterer du den delte hemmeligheten slik at den krever at passordet ditt skal fungere",
+            "CURRENT_PASSWORD_KEY": "Nåværende passord",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "La stå tomt hvis du ikke har noen",
+            "NEW_PASSWORD_KEY": "Nytt passord",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "La stå tomt hvis du vil fjerne passordet",
+            "CHANGE_PASSWORD_KEY": "Endre passord"
+        }
+    }
+}

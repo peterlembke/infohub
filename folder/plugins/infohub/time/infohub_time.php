@@ -129,11 +129,11 @@ class infohub_time extends infohub_base
     protected function  get_available_options(array $in = []): array
     {
         $options = array(
-            array("type" => "option", "value" => 'timestamp', "label" => 'Normal timestamp', 'selected' => 'true' ),
-            array("type" => "option", "value" => 'timestamp_c', "label" => 'Timestamp with offset' ),
-            array("type" => "option", "value" => 'timestampmicro', "label" => 'timestamp with fractions' ),
-            array("type" => "option", "value" => 'microtime', "label" => 'EPOC and fractions' ),
-            array("type" => "option", "value" => 'time', "label" => 'Seconds since EPOC' )
+            array("type" => "option", "value" => 'timestamp', "label" => 'Normal timestamp', 'selected' => 'true'),
+            array("type" => "option", "value" => 'timestamp_c', "label" => 'Timestamp with offset'),
+            array("type" => "option", "value" => 'timestampmicro', "label" => 'timestamp with fractions'),
+            array("type" => "option", "value" => 'microtime', "label" => 'EPOC and fractions'),
+            array("type" => "option", "value" => 'time', "label" => 'Seconds since EPOC')
         );
 
         return array(

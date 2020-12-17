@@ -270,7 +270,7 @@ class infohub_compress extends infohub_base
     protected function  get_available_options(array $in = []): array
     {
         $options = array(
-            array("type" => "option", "value" => 'gzip', "label" => 'Gzip' )
+            array("type" => "option", "value" => 'gzip', "label" => 'Gzip')
         );
 
         return array(

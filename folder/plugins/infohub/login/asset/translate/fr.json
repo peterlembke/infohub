@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "fr",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Utilisez le menu.",
+            "WHAT_IS_THIS?_KEY": "Qu'est-ce que c'est?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Un contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Ceci est le formulaire de données pour un contact",
+            "NODE_KEY": "Nœud",
+            "ANY_TEXT_YOU_WANT_KEY": "Tout texte que vous voulez",
+            "NOTE_KEY": "Remarque",
+            "SAVE_KEY": "Enregistrer",
+            "DOMAIN_ADDRESS_KEY": "Adresse de domaine",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "L'adresse de domaine de votre serveur",
+            "USER_NAME_KEY": "Nom d'utilisateur",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "C'est vous sur le serveur",
+            "SHARED_SECRET_KEY": "Secret partagé",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Vous partagez ce secret avec le serveur",
+            "CHECKSUM_KEY": "Somme de contrôle",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Somme de contrôle de l'adresse du domaine + nom d'utilisateur + secret partagé.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Plugins serveur autorisés",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste avec tous les noms de plugins de serveur auxquels vous pouvez envoyer des messages sur le nœud distant"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Exporter le contact",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Ici vous pouvez exporter les données de contact",
+            "EXPORT_KEY": "Exporter"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Oublier le contact",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Ici, vous pouvez laisser le navigateur oublier les données de contact. Vous pouvez toujours réimporter votre fichier.",
+            "FORGET_KEY": "Oubliez"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importer",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importer les coordonnées du fichier",
+            "SELECT_FILE_KEY": "Sélectionner un fichier"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Connexion",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Ici, vous pouvez utiliser les données de contact que vous avez importées et vous connecter au serveur",
+            "PASSWORD_KEY": "Mot de passe",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Le mot de passe dont vous avez besoin pour décoder le shared_secret",
+            "LOGIN_RESULT_KEY": "résultat de la connexion",
+            "RELOAD_AFTER_LOGIN_KEY": "Recharger après connexion",
+            "SELECT_FILE_KEY": "Sélectionner un fichier",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Télécharger le compte démo",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Vous êtes déjà connecté",
+            "MISSING_USER_NAME_KEY": "Nom d'utilisateur manquant",
+            "MISSING_RANDOM_CODE_KEY": "Code aléatoire manquant",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "La réponse du serveur a pris trop de temps. J'abandonnerai la tentative de connexion",
+            "FAILED_TO_LOGIN_KEY": "Impossible de se connecter",
+            "SUCCESS_LOGGING_IN_KEY": "Connexion réussie",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Le code aléatoire n'a pas la bonne longueur",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Il est peu probable que la moyenne totale ne contienne pas de décimales",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Il est peu probable que la moyenne soit égale à la moyenne totale",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Ces tests simples montrent que le random_code au moins n'est pas une ligne plate de nombres."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Déconnexion",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Ici, vous pouvez vous déconnecter du serveur",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "En cas de succès, la page de connexion s'affiche",
+            "LOGOUT_RESULT_KEY": "résultat de la déconnexion",
+            "FAILED_TO_LOGOUT_KEY": "Échec de la déconnexion",
+            "SUCCESS_LOGGING_OUT_KEY": "Déconnexion réussie"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menu",
+            "IMPORT_CONTACT_DATA_KEY": "Importer les données de contact",
+            "LOGIN_KEY": "Connexion",
+            "SET_PASSWORD_KEY": "Définir le mot de passe",
+            "EXPORT_CONTACT_DATA_KEY": "Exporter les données de contact",
+            "LOGOUT_KEY": "Déconnexion",
+            "FORGET_CONTACT_KEY": "Oublier le contact"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Définir le mot de passe",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Lorsque vous définissez votre mot de passe local, vous brouillez le secret partagé afin qu'il nécessite votre mot de passe pour fonctionner",
+            "CURRENT_PASSWORD_KEY": "Mot de passe actuel",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Laisser vide si vous n'en avez pas",
+            "NEW_PASSWORD_KEY": "Nouveau mot de passe",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Laisser vide si vous souhaitez supprimer le mot de passe",
+            "CHANGE_PASSWORD_KEY": "Changer le mot de passe"
+        }
+    }
+}

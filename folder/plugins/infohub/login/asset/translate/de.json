@@ -1,0 +1,96 @@
+{
+    "version": {
+        "date": "2020-12-16 18:52:04",
+        "plugin": "infohub_login",
+        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "language": "de",
+        "country": "",
+        "file_type": "key_file"
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Anweisungen",
+            "USE_THE_MENU._KEY": "Verwenden Sie das Menü.",
+            "WHAT_IS_THIS?_KEY": "Was ist das?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Ein Kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dies ist das Datenformular für einen Kontakt",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Beliebiger Text, den Sie wollen",
+            "NOTE_KEY": "Note",
+            "SAVE_KEY": "Speichern",
+            "DOMAIN_ADDRESS_KEY": "Domain-Adresse",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Die Domänenadresse zu Ihrem Server",
+            "USER_NAME_KEY": "Benutzername",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Das bist du auf dem Server",
+            "SHARED_SECRET_KEY": "Geteiltes Geheimnis",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Sie teilen dieses Geheimnis mit dem Server",
+            "CHECKSUM_KEY": "Prüfsumme",
+            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Prüfsumme der Domänenadresse + Benutzername + gemeinsames Geheimnis.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Zulässige Server-Plugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste mit allen Server-Plugin-Namen, an die Sie Nachrichten auf dem Remote-Knoten senden können"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Kontakt exportieren",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hier können Sie die Kontaktdaten exportieren",
+            "EXPORT_KEY": "Exportieren"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Kontakt vergessen",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Hier können Sie den Browser die Kontaktdaten vergessen lassen. Sie können Ihre Datei jederzeit wieder importieren.",
+            "FORGET_KEY": "Vergessen"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importieren",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Kontaktinformationen aus Datei importieren",
+            "SELECT_FILE_KEY": "Datei auswählen"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier können Sie die von Ihnen importierten Kontaktdaten verwenden und sich beim Server anmelden",
+            "PASSWORD_KEY": "Passwort",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Das Passwort, das Sie zum Dekodieren des shared_secret benötigen",
+            "LOGIN_RESULT_KEY": "Anmeldeergebnis",
+            "RELOAD_AFTER_LOGIN_KEY": "Nach dem Anmelden neu laden",
+            "SELECT_FILE_KEY": "Datei auswählen",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-Konto herunterladen",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Sie sind bereits angemeldet",
+            "MISSING_USER_NAME_KEY": "Fehlender Benutzername",
+            "MISSING_RANDOM_CODE_KEY": "Fehlender Zufallscode",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Die Antwort vom Server hat zu lange gedauert. Ich werde den Anmeldeversuch abbrechen",
+            "FAILED_TO_LOGIN_KEY": "Anmeldung fehlgeschlagen",
+            "SUCCESS_LOGGING_IN_KEY": "Erfolgreiche Anmeldung",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Der Zufallscode hat nicht die richtige Länge",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Es ist unwahrscheinlich, dass der Gesamtdurchschnitt keine Dezimalstellen hat",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Es ist unwahrscheinlich, dass der Durchschnitt dem Gesamtdurchschnitt entspricht",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Diese einfachen Tests zeigen, dass der Zufallscode zumindest keine flache Linie von Zahlen ist."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Abmelden",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier können Sie sich vom Server abmelden",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Bei Erfolg wird auf der Anmeldeseite angezeigt",
+            "LOGOUT_RESULT_KEY": "Abmeldeergebnis",
+            "FAILED_TO_LOGOUT_KEY": "Abmeldung fehlgeschlagen",
+            "SUCCESS_LOGGING_OUT_KEY": "Erfolgreiche Abmeldung"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menü",
+            "IMPORT_CONTACT_DATA_KEY": "Kontaktdaten importieren",
+            "LOGIN_KEY": "Login",
+            "SET_PASSWORD_KEY": "Passwort setzen",
+            "EXPORT_CONTACT_DATA_KEY": "Kontaktdaten exportieren",
+            "LOGOUT_KEY": "Abmelden",
+            "FORGET_CONTACT_KEY": "Kontakt vergessen"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Passwort setzen",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wenn Sie Ihr lokales Passwort festlegen, verschlüsseln Sie das gemeinsame Geheimnis, damit Ihr Passwort funktioniert.",
+            "CURRENT_PASSWORD_KEY": "Aktuelles Passwort",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Leer lassen, wenn Sie keine haben",
+            "NEW_PASSWORD_KEY": "Neues Passwort",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Leer lassen, wenn Sie das Passwort entfernen möchten",
+            "CHANGE_PASSWORD_KEY": "Passwort ändern"
+        }
+    }
+}

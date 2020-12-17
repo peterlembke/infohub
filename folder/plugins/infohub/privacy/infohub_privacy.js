@@ -68,24 +68,6 @@ function infohub_privacy() {
 
     let $classTranslations = {};
 
-    $functions.push('_Translate');
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     $functions.push("setup_gui");
     /**
      * Create the GUI for this plugin

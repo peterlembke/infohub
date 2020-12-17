@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
-function infohub_translate_createfiles() {
+function infohub_translate_createfile() {
 
     "use strict";
 
@@ -23,12 +23,12 @@ function infohub_translate_createfiles() {
 
     const _Version = function() {
         return {
-            'date': '2019-10-01',
+            'date': '2020-12-15',
             'since': '2019-09-28',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
-            'class_name': 'infohub_translate_createfiles',
-            'note': 'Handle the creation of template files that you can translate',
+            'class_name': 'infohub_translate_createfile',
+            'note': 'Create translation file from the selected plugin name and its children',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
@@ -38,7 +38,7 @@ function infohub_translate_createfiles() {
         const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
-            'click_create_files': 'normal',
+            'click_create_file': 'normal',
             'click_download': 'normal'
         };
 
@@ -67,24 +67,6 @@ function infohub_translate_createfiles() {
     };
 
     let $classTranslations = {};
-
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
 
     /**
      * Merge only when there are data in a key
@@ -176,21 +158,21 @@ function infohub_translate_createfiles() {
                         'my_presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Create files'),
+                            'head_label': _Translate('Create translation file'),
                             'content_data': '[my_form]',
                             'foot_text': '[text_instructions]'
                         },
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_files][my_container]'
+                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_file][my_container]'
                         },
                         'button_refresh': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh lists'),
-                            'event_data': 'createfiles|refresh',
+                            'button_label': _Translate('Refresh plugin list'),
+                            'event_data': 'createfile|refresh',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
@@ -199,7 +181,7 @@ function infohub_translate_createfiles() {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("Select plugin"),
-                            "description": _Translate("Lists all client plugins that can have translation files. Select a plugin and click Create files."),
+                            "description": _Translate("Lists all client plugins that can have translation files. Select a plugin and click Create file."),
                             "size": "6",
                             "multiple": "false",
                             "options": [],
@@ -214,14 +196,14 @@ function infohub_translate_createfiles() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('Plugin name'),
-                            'description':_Translate( 'You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.')
+                            'description':_Translate('You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.')
                         },
-                        'button_create_files': {
+                        'button_create_file': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Create files'),
-                            'event_data': 'createfiles|create_files',
+                            'button_label': _Translate('Create file'),
+                            'event_data': 'createfile|create_file',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
@@ -235,7 +217,7 @@ function infohub_translate_createfiles() {
                         },
                         'text_instructions': {
                             'type': 'text',
-                            'text': 'You get two files. You can paste the second one to Google translate and then merge them together with the next tool.'
+                            'text': 'You get the english translation file. You can then use that file on online translation services to translate it to other languages.'
                         }
                     },
                     'how': {
@@ -247,7 +229,7 @@ function infohub_translate_createfiles() {
                         'max_width': 960,
                         'scroll_to_box_id': 'true'
                     },
-                    'cache_key': 'createfiles'
+                    'cache_key': 'createfile'
                 },
                 'data_back': {
                     'step': 'step_end'
@@ -261,13 +243,13 @@ function infohub_translate_createfiles() {
         };
     };
 
+    $functions.push("click_refresh");
     /**
      * Refresh the list with plugins
      * @version 2019-04-01
      * @since 2019-04-01
      * @author Peter Lembke
      */
-    $functions.push("click_refresh");
     const click_refresh = function ($in)
     {
         const $default = {
@@ -343,8 +325,8 @@ function infohub_translate_createfiles() {
      * @since   2016-03-24
      * @author  Peter Lembke
      */
-    $functions.push('click_create_files');
-    const click_create_files = function ($in)
+    $functions.push('click_create_file');
+    const click_create_file = function ($in)
     {
         const $default = {
             'box_id': '',
@@ -354,16 +336,14 @@ function infohub_translate_createfiles() {
                 'message': 'Nothing to report',
                 'data': {},
                 'form_data': {},
-                'file1': {},
-                'file2': {}
+                'file': {}
             },
             'data_back': {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'ok': 'false',
                 'plugin_name': '',
-                'file1': {},
-                'file2': {}
+                'file': {}
             }
 
         };
@@ -431,7 +411,7 @@ function infohub_translate_createfiles() {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_translate',
-                        'function': 'create_template_file'
+                        'function': 'create_translation_file'
                     },
                     'data': {
                         'plugin_name': $nodeData.plugin_name
@@ -448,8 +428,7 @@ function infohub_translate_createfiles() {
         {
             $in.data_back.answer = $in.response.answer;
             $in.data_back.message = $in.response.message;
-            $in.data_back.file1 = $in.response.file1;
-            $in.data_back.file2 = $in.response.file2;
+            $in.data_back.file = $in.response.file;
 
             if ($in.response.answer === 'true') {
                 $in.data_back.ok = 'true';
@@ -486,8 +465,7 @@ function infohub_translate_createfiles() {
                     'message': $in.data_back.message,
                     'ok': $in.data_back.ok,
                     'plugin_name': $in.data_back.plugin_name,
-                    'file1': $in.data_back.file1,
-                    'file2': $in.data_back.file2,
+                    'file': $in.data_back.file,
                     'step': 'step_show_message_response'
                 }
             });
@@ -495,10 +473,10 @@ function infohub_translate_createfiles() {
 
         if ($in.step === 'step_show_message_response')
         {
-            $in.step = 'step_file1_write';
+            $in.step = 'step_file_write';
         }
 
-        if ($in.step === 'step_file1_write')
+        if ($in.step === 'step_file_write')
         {
             const $fileName = _GetData({
                 'name': 'data_back/plugin_name',
@@ -506,7 +484,7 @@ function infohub_translate_createfiles() {
                 'data': $in
             });
 
-            const $extension = '-keyfile.json';
+            const $extension = '.json';
 
             return _SubCall({
                 'to': {
@@ -516,51 +494,16 @@ function infohub_translate_createfiles() {
                 },
                 'data': {
                     'file_name': $fileName + $extension,
-                    'content': _JsonEncode($in.data_back.file1)
+                    'content': _JsonEncode($in.data_back.file)
                 },
                 'data_back': {
-                    'step': 'step_file1_write_response',
-                    'plugin_name': $in.data_back.plugin_name,
-                    'file2': $in.data_back.file2
+                    'step': 'step_file_write_response',
+                    'plugin_name': $in.data_back.plugin_name
                 }
             });
         }
 
-        if ($in.step === 'step_file1_write_response') {
-            $in.step = 'step_end';
-            if ($in.response.answer === 'true') {
-                $in.response.message = 'File exported';
-                $in.step = 'step_file2_write';
-            }
-        }
-
-        if ($in.step === 'step_file2_write')
-        {
-            const $fileName = _GetData({
-                'name': 'data_back/plugin_name',
-                'default': 'template',
-                'data': $in
-            });
-
-            const $extension = '-translate.json';
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'file_write'
-                },
-                'data': {
-                    'file_name': $fileName + $extension,
-                    'content': _JsonEncode($in.data_back.file2)
-                },
-                'data_back': {
-                    'step': 'step_file2_write_response'
-                }
-            });
-        }
-
-        if ($in.step === 'step_file2_write_response')
+        if ($in.step === 'step_file_write_response')
         {
             $in.step = 'step_end';
 
@@ -578,4 +521,4 @@ function infohub_translate_createfiles() {
         };
     };
 }
-//# sourceURL=infohub_translate_createfiles.js
+//# sourceURL=infohub_translate_createfile.js

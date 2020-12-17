@@ -52,24 +52,6 @@ function infohub_demo_form2() {
 
     let $classTranslations = {};
 
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
@@ -168,7 +150,7 @@ function infohub_demo_form2() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('Alias'),
-                            'description': _Translate( 'Your alias for this burger order, so you can easily reorder at a later time'),
+                            'description': _Translate('Your alias for this burger order, so you can easily reorder at a later time'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
@@ -272,7 +254,7 @@ function infohub_demo_form2() {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
                             "label": _Translate("Of age"),
-                            "description": _Translate( "I can only sell to you if you are of age"),
+                            "description": _Translate("I can only sell to you if you are of age"),
                             "options": [
                                 { "value": "of_age", "label": _Translate("I am 18 years or older"), 'validator_plugin': 'infohub_validate', 'validator_function': 'validate_is_true'}
                             ]

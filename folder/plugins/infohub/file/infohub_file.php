@@ -308,6 +308,7 @@ class infohub_file extends infohub_base
                 $message = 'File exist. You said I am not allowed to overwrite';
                 goto leave;
             }
+            unlink($in['path']); // Delete the file
         }
 
         $result = file_put_contents($in['path'], $in['contents']);
@@ -344,7 +345,7 @@ class infohub_file extends infohub_base
      */
     protected function _IsBinaryFileExtension(string $extension = ''): string
     {
-        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md');
+        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md','js');
         $isBinaryFileExtension = 'true';
         if (in_array($extension, $validNonBinaryExtensions) === true) {
             $isBinaryFileExtension = 'false';

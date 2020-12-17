@@ -44,24 +44,6 @@ function infohub_privacy_tips() {
 
     let $classTranslations = {};
 
-    $functions.push('_Translate');
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string, 
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };    
-
     // ***********************************************************
     // * your class functions below, only declare with var
     // * Can only be reached trough cmd()
