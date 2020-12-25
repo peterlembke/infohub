@@ -180,9 +180,14 @@ function infohub_doc_get() {
                     'area': $in.area,
                     'document_name': $in.document_name,
                     'data': $in.data_back.data,
-                    'step': 'step_end'
+                    'step': 'step_save_data_response'
                 }
             });
+        }
+
+        if ($in.step === "step_save_data_response")
+        {
+            $in.response.ok = $in.response.answer;
         }
 
         return {

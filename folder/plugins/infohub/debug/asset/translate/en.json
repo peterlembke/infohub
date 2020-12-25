@@ -22,7 +22,7 @@
             "Instructions": "Instructions",
             "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.",
             "Information": "Information",
-            "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.",
+            "[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.",
             "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.": "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage."
         }
     }

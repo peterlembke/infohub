@@ -96,58 +96,68 @@ function infohub_render_text() {
     // * Observe function names are lower_case
     // *****************************************************************************
 
+    $functions.push('create');
     /**
-     * Get instructions and create the message to InfoHub View
-     * @version 2013-04-15
+     * Get instructions and create the html
+     * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push('create');
     const create = function ($in)
     {
-        let $default = {
-            'what_done': {},
-            'text': '',
-            'step': 'start',
-            'class': 'text_article'
+        const $default = {
+            'item_index': {},
+            'config': {}
         };
         $in = _Default($default, $in);
 
-        let $response = {
-            'answer': 'true',
-            'message': 'Nothing to report',
-            'html': '',
-            'css_data': {}
-        };
-
-        leave: {
-            if (_Empty($in.text) === 'true') {
-                $response.message = 'You must have something in "text"';
-                break leave;
+        let $itemIndex = {};
+        for (const $itemName in $in.item_index) {
+            if ($in.item_index.hasOwnProperty($itemName) === false) {
+                continue;
             }
 
-            if (Object.getOwnPropertyNames($in.what_done).length === 0) {
-                $response.message = 'It is OK that there are nothing in what_done';
+            let $data = $in.item_index[$itemName];
+
+            let $defaultItem = {
+                'what_done': {}, // It is OK if there are nothing in what_done
+                'alias': '',
+                'text': '',
+                'class': 'text_article'
+            };
+            $data = _Default($defaultItem, $data);
+            $data.config = $in.config;
+
+            if (_Empty($data.text) === 'true') {
+                $itemIndex[$itemName] = {
+                    'answer': 'true',
+                    'message': 'You must have something in "text"',
+                    'html': '',
+                    'css_data': {}
+                };
+                continue;
             }
 
-            // Send the text and all data to the parser
-            $in.func = 'Text';
-            $response = internal_Cmd($in); // internal_Text
+            $data.func = 'Text';
+            let $response = internal_Cmd($data); // internal_Text
+
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': 'Nothing to report',
+                'html': '',
+                'css_data': {}
+            };
+            $response = _Default($defaultResponse, $response);
+
+            $itemIndex[$itemName] = $response;
         }
 
-        $default = {
-            'answer': 'false',
-            'message': '',
-            'html': '',
-            'css_data': {}
-        };
-        $response = _Default($default, $response);
-
         return {
-            'answer': $response.answer,
-            'message': $response.message,
-            'html': $response.html,
-            'css_data': $response.css_data
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $itemIndex
         };
     };
 

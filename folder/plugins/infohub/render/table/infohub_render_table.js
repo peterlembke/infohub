@@ -146,46 +146,70 @@ function infohub_render_table() {
     // * Observe function names are lower_case
     // *****************************************************************************
 
+    $functions.push('create');
     /**
-     * Create a table
-     * @version 2020-01-01
+     * Get instructions and create the html
+     * @version 2020-12-19
      * @since   2019-12-28
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push("create");
     const create = function ($in)
     {
-        $in = _SetDefaultInValues($in);
-
-        const $constants = {
-            'renderer': 'infohub_render_table',
-            'type': 'table',
-            'event_type': 'click'
+        const $default = {
+            'item_index': {},
+            'config': {}
         };
-        $in = _Merge($in, $constants);
+        $in = _Default($default, $in);
 
-        const $fields = {
-            'type': 'subtype',
-            'renderer': 'renderer',
-            'event_data': 'event_data',
-            'alias': 'alias',
-            'height': 'height'
-        };
+        let $itemIndex = {};
+        for (const $itemName in $in.item_index) {
+            if ($in.item_index.hasOwnProperty($itemName) === false) {
+                continue;
+            }
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $headHtml = _RenderHead($in);
-        const $allRowsHTML = _AllRowsHtml($in);
-        const $footHtml = '<tfoot></tfoot>';
-        let $html = '<table ' + $id + _GetParameters($in, $fields) + '>' + $headHtml + $allRowsHTML + $footHtml + '</table>';
+            let $data = $in.item_index[$itemName];
 
-        $html = '<div style="overflow-x:auto;">' + $html + '</div>';
+            $data = _SetDefaultInValues($data);
+            $data.config = $in.config;
+
+            const $constants = {
+                'renderer': 'infohub_render_table',
+                'type': 'table',
+                'event_type': 'click'
+            };
+            $data = _Merge($data, $constants);
+
+            const $fields = {
+                'type': 'subtype',
+                'renderer': 'renderer',
+                'event_data': 'event_data',
+                'alias': 'alias',
+                'height': 'height'
+            };
+
+            const $id = _GetId({'id': $data.alias, 'name': $data.alias, 'class': $data.class });
+            const $headHtml = _RenderHead($data);
+            const $allRowsHTML = _AllRowsHtml($data);
+            const $footHtml = '<tfoot></tfoot>';
+            let $html = '<table ' + $id + _GetParameters($data, $fields) + '>' + $headHtml + $allRowsHTML + $footHtml + '</table>';
+
+            $html = '<div style="overflow-x:auto;">' + $html + '</div>';
+
+            $itemIndex[$itemName] = {
+                'answer': 'true',
+                'message': 'Here are the table with data',
+                'html': $html,
+                'css_data': $data.css_data,
+                'display': $data.display
+            }
+        }
 
         return {
             'answer': 'true',
-            'message': 'Here are the table with data',
-            'html': $html,
-            'css_data': $in.css_data,
-            'display': $in.display
+            'message': 'Here is what I rendered',
+            'item_index': $itemIndex
         };
     };
 

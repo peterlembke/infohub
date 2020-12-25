@@ -230,27 +230,20 @@ function infohub_render() {
             },
             'where': {
                 'mode': 'view', // view = show on screen, html = return the html
+                'box_id': '', // Will be parsed into a box_id. Original will be copied to where.original_box_id.
+                'original_box_id': '',
                 'parent_box_id': '',
                 'box_position': 'last',
                 'box_alias': 'rendered_data',
                 'max_width': 0,
-                'box_id': '', // Will be parsed into a box_id. Original will be copied to where.original_box_id.
                 'scroll_to_box_id': 'false', // Scroll to this box after render
                 'scroll_to_bottom_box_id': 'false', // Put box lower edge to viewport lower edge after render
                 'set_visible': '', // true, false, or empty string
                 'throw_error_if_box_is_missing': 'true'
             },
-            'what_done': {}, // All rendered from 'what'
-            'css_all': {},
+            'cache_key': '',
             'alias': '', // Used by high level renderers where.mode = 'html' to make box_id unique
-            'html': '', // Latest item that have been rendered to HTML
-            'display': '', // inline, block, none, or leave blank
-            'css_data': {},
-            'latest_item_name': '', // Latest item name that have been rendered
-            'latest_plugin_name': '',
             'step': 'step_load_cache',
-            'data_back': {},
-            'response': {},
             'from_plugin': {
                 'node': '',
                 'plugin': ''
@@ -260,11 +253,24 @@ function infohub_render() {
                 'store_render_cache': 'true',
                 'user_name': ''
             },
-            'cache_key': ''
+            'data_back': {
+                'original_in': {},
+                'need_options': {},
+                'mass_create': {},
+                'latest_popped_item': {},
+                'what_done': {}, // All rendered from 'what'
+                'css_all': {},
+                'display': '', // inline, block, none, or leave blank
+                'css_data': {},
+                'frog': 'false',
+                'step': ''
+            },
+            'response': {}
         };
         $in = _Default($default, $in);
 
         let $cacheKey = '';
+
         if ($in.cache_key !== '' && $in.config.use_render_cache === 'true') {
             $cacheKey = 'infohub_render/cache'
                 + '/' + $in.config.user_name
@@ -278,8 +284,7 @@ function infohub_render() {
         if ($in.step === 'step_load_cache') {
             if ($renderCacheLoaded === 'false' && $in.config.store_render_cache === 'true') {
                 $renderCacheLoaded = 'true';
-                let $dataBack = _ByVal($in);
-                $dataBack.step = 'step_cache';
+                let $originalIn = _ByVal($in);
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -287,9 +292,18 @@ function infohub_render() {
                         'function': 'load_render_cache'
                     },
                     'data': {},
-                    'data_back': $dataBack
+                    'data_back': {
+                        'original_in': $originalIn,
+                        'step': 'step_load_cache_response'
+                    }
                 });
             }
+
+            $in.step = 'step_cache';
+        }
+
+        if ($in.step === 'step_load_cache_response') {
+            $in = _ByVal($in.data_back.original_in);
             $in.step = 'step_cache';
         }
 
@@ -303,32 +317,6 @@ function infohub_render() {
                     // Step is now 'step_output' or 'step_return_html'
                 }
             }
-        }
-
-        if ($in.step === 'step_what_response')
-        {
-            if ($in.response.answer === 'false')
-            {
-                $in.what[ $in.latest_item_name ] = {
-                    'type': 'frog'
-                };
-                $in.data_back.frog = 'true';
-            }
-            else
-            {
-                // Save the HTML and CSS from the latest rendered item
-                if (_Empty($in.css_data) === 'false') {
-                    $in.html = _AddStyle({
-                        'html': $in.html,
-                        'css_data': $in.css_data,
-                        'alias': $in.latest_item_name,
-                        'display': $in.display
-                    });
-                }
-
-                $in.what_done[ $in.latest_item_name ] = $in.html;
-            }
-            $in.step = 'step_what';
         }
 
         if ($in.step === 'step_parse_box_id') {
@@ -352,127 +340,210 @@ function infohub_render() {
                             'what': $in.what,
                             'how': $in.how,
                             'where': $in.where,
-                            'what_done': $in.what_done,
-                            'css_all': $in.css_all,
-                            'frog': $in.data_back.frog,
                             'alias': $in.alias,
                             'cache_key': $in.cache_key,
+                            'frog': $in.data_back.frog,
                             'step': 'step_parse_box_id_response'
                         }
                     });
                 }
             }
-            $in.step = 'step_what';
+
+            $in.step = 'step_prepare_items';
         }
 
         if ($in.step === 'step_parse_box_id_response') {
             $in.where.original_box_id = $in.where.box_id;
             $in.where.box_id = $in.response.box_id;
-            $in.step = 'step_what';
+            $in.step = 'step_prepare_items';
         }
 
-        if ($in.step === 'step_what') {
-            // Pop out an item from the object 'what' and send it for rendering.
-            if (_Count($in.what) > 0) {
-                $data = _PopItem($in.what);
+        if ($in.step === 'step_prepare_items') {
+
+            let $massCreatePluginNameIndexed = {};
+            let $needOptionsItemNameIndexed = {};
+
+            for (const $itemName in $in.what) {
+                if ($in.what.hasOwnProperty($itemName) === false) {
+                    continue;
+                }
+
+                let $data = $in.what[$itemName];
 
                 if (_IsSet($data.type) === 'false') {
                     $data.type = 'frog';
                     $in.data_back.frog = 'true';
                 }
 
-                if (_IsSet($data.alias) === 'true' && _IsSet($data.original_alias) === 'false') {
+                if (_IsSet($data.alias) === 'false') {
+                    $data.alias = $itemName;
+                }
+
+                if (_IsSet($data.original_alias) === 'false') {
                     $data.original_alias = $data.alias;
                 }
 
-                $in.step = 'step_what_render';
-                if (_IsSet($data.options) === 'true' && _Empty($data.options) === 'true') {
-                    $in.step = 'step_call_source';
+                if (_IsSet($data.plugin_name) === 'false') {
+                    $data.plugin_name = $in.from_plugin.plugin;
                 }
 
-            } else {
-                $in.step = 'step_how'; // We have no more items to render, let's continue with the next step.
+                if (typeof  $data.plugin !== 'undefined') {
+                    // We have a high level renderer
+                    // We will modify our tags to prevent naming interference before we call the high level renderer.
+                    for (const $key in $data) {
+                        if ($data.hasOwnProperty($key) === true) {
+                            $data[$key] = _Replace('[', '[*', $data[$key]);
+                        }
+                    }
+                } else {
+                    // We have a low level renderer
+                    $data.plugin = 'infohub_render_' + $data.type;
+                }
+
+                if (_IsSet($massCreatePluginNameIndexed[$data.plugin]) === 'false') {
+                    $massCreatePluginNameIndexed[$data.plugin] = {};
+                }
+
+                $massCreatePluginNameIndexed[$data.plugin][$itemName] = $data;
+
+                const $sourceIsSet = _IsSet($data.source_plugin) === 'true' && $data.source_plugin !== '';
+                const $optionsAreEmpty = _IsSet($data.options) === 'true' && $data.options === [];
+
+                if ($sourceIsSet || $optionsAreEmpty) {
+                    const $default = {
+                        'plugin': $data.plugin,
+                        'item_name': $itemName,
+                        'source_node': 'client',
+                        'source_plugin': 'infohub_render',
+                        'source_function': 'get_test_options'
+                    };
+                    $needOptionsItemNameIndexed[$itemName] = _Default($default, $data);
+                }
+
             }
+
+            // We are done with $in.what. We have mass_create instead
+            $in.data_back.mass_create = $massCreatePluginNameIndexed;
+            $in.data_back.need_options = $needOptionsItemNameIndexed;
+
+            $in.step = 'step_call_source';
+        }
+
+        if ($in.step === 'step_call_source_response') {
+            const $data = _ByVal($in.data_back.latest_popped_item);
+            $in.data_back.mass_create[$data.plugin][$data.item_name].options = _ByVal($in.response.options);
+            $in.step = 'step_call_source';
         }
 
         if ($in.step === 'step_call_source') {
             // We are here because the form element need options but they are empty.
             // There is a source_plugin and source_function that can provide the missing options.
+            if (_Count($in.data_back.need_options) > 0) {
 
-            const $default = {
-                'source_node': 'client',
-                'source_plugin': 'infohub_render',
-                'source_function': 'get_test_options'
-            };
+                const $data = _PopItem($in.data_back.need_options);
 
-            $data = _Merge($default, $data);
-
-            return _SubCall({
-                'to': {
-                    'node': $data.source_node,
-                    'plugin': $data.source_plugin,
-                    'function': $data.source_function
-                },
-                'data': {},
-                'data_back': {
-                    'what': $in.what,
-                    'how': $in.how,
-                    'where': $in.where,
-                    'what_done': $in.what_done,
-                    'css_all': $in.css_all,
-                    'latest_item_name': $data.alias,
-                    // 'latest_plugin_name': $plugin,
-                    'step': 'step_call_source_response',
-                    'before_source_call': $data,
-                    'frog': $in.data_back.frog,
-                    'alias': $in.alias,
-                    'cache_key': $in.cache_key
-                }
-            });
-        }
-
-        if ($in.step === 'step_call_source_response') {
-            $data = _ByVal($in.data_back.before_source_call);
-            $data.options = _ByVal($in.response.options);
-            $in.step = 'step_what_render';
-        }
-
-        if ($in.step === 'step_what_render') {
-            // Plugin that will receive the request
-            $plugin = 'infohub_render_' + $data.type; // child plugin
-            if (typeof  $data.plugin !== 'undefined')
-            {
-                $plugin = $data.plugin; // external plugin
-
-                // We will modify our tags to prevent naming interference before we call the high level renderer.
-                for ($key in $data) {
-                    if ($data.hasOwnProperty($key)) {
-                        $data[$key] = _Replace('[', '[*', $data[$key]);
+                return _SubCall({
+                    'to': {
+                        'node': $data.source_node,
+                        'plugin': $data.source_plugin,
+                        'function': $data.source_function
+                    },
+                    'data': {},
+                    'data_back': {
+                        'how': $in.how,
+                        'where': $in.where,
+                        'alias': $in.alias,
+                        'cache_key': $in.cache_key,
+                        'need_options': $in.data_back.need_options,
+                        'mass_create': $in.data_back.mass_create,
+                        'step': 'step_call_source_response',
+                        'css_all': $in.data_back.css_all,
+                        'latest_popped_item': $data,
+                        'frog': $in.data_back.frog,
                     }
-                }
+                });
             }
 
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': $plugin,
-                    'function': 'create'
-                },
-                'data': $data,
-                'data_back': {
-                    'what': $in.what,
-                    'how': $in.how,
-                    'where': $in.where,
-                    'what_done': $in.what_done,
-                    'css_all': $in.css_all,
-                    'latest_item_name': $data.alias,
-                    'latest_plugin_name': $plugin,
-                    'frog': $in.data_back.frog,
-                    'alias': $in.alias,
-                    'cache_key': $in.cache_key,
-                    'step': 'step_what_response'
+            $in.step = 'step_mass_create';
+        }
+
+        if ($in.step === 'step_mass_create_response')
+        {
+            const $default = {
+                'item_index': {}
+            };
+            $in.response = _Default($default, $in.response);
+
+            for (const $itemName in $in.response.item_index) {
+                if ($in.response.item_index.hasOwnProperty($itemName) === false) {
+                    continue;
                 }
-            });
+
+                let $oneRenderedItem = $in.response.item_index[$itemName];
+                const $default = {
+                    'answer': 'false',
+                    'message': '',
+                    'html': '',
+                    'css_data': {},
+                    'display': ''
+                };
+                $oneRenderedItem = _Default($default, $oneRenderedItem);
+
+                if ($oneRenderedItem.answer === 'true') {
+
+                    if (_Empty($oneRenderedItem.css_data) === 'false') {
+                        $oneRenderedItem.html = _AddStyle({
+                            'html': $oneRenderedItem.html,
+                            'css_data': $oneRenderedItem.css_data,
+                            'alias': $itemName,
+                            'display': $oneRenderedItem.display
+                        });
+                    }
+
+                    $in.data_back.what_done[ $itemName ] = $oneRenderedItem.html;
+
+                } else {
+                    $in.data_back.frog = 'true';
+                }
+
+            }
+
+            $in.step = 'step_mass_create';
+        }
+
+        if ($in.step === 'step_mass_create') {
+
+            if (_Count($in.data_back.mass_create) > 0) {
+
+                const $massCreateOnePlugin = _Pop($in.data_back.mass_create);
+                const $pluginName = $massCreateOnePlugin.key;
+                const $massCreateOnePluginItemIndex = $massCreateOnePlugin.data;
+                $in.data_back.mass_create = $massCreateOnePlugin.object;
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': $pluginName,
+                        'function': 'create'
+                    },
+                    'data': {
+                        'item_index': $massCreateOnePluginItemIndex
+                    },
+                    'data_back': {
+                        'how': $in.how,
+                        'where': $in.where,
+                        'alias': $in.alias,
+                        'cache_key': $in.cache_key,
+                        'what_done': $in.data_back.what_done,
+                        'mass_create': $in.data_back.mass_create,
+                        'css_all': $in.data_back.css_all,
+                        'frog': $in.data_back.frog,
+                        'step': 'step_mass_create_response'
+                    }
+                });
+            }
+
+            $in.step = 'step_how'; // We have no more items to render, let's continue with the next step.
         }
 
         if ($in.step === 'step_how') {
@@ -485,21 +556,23 @@ function infohub_render() {
                         'function': 'create'
                     },
                     'data': {
-                        'what_done': $in.what_done,
-                        'text': $in.how.text,
-                        'class': ''
+                        'item_index': {
+                            'text': {
+                                'what_done': $in.data_back.what_done,
+                                'alias': $in.alias,
+                                'text': $in.how.text,
+                                'class': ''
+                            }
+                        }
                     },
                     'data_back': {
-                        'what': $in.what,
                         'how': $in.how,
                         'where': $in.where,
-                        'what_done': $in.what_done,
-                        'css_all': $in.css_all,
-                        'latest_item_name': 'text',
-                        'frog': $in.data_back.frog,
                         'alias': $in.alias,
                         'cache_key': $in.cache_key,
-                        'step': 'step_where'
+                        'css_all': $in.data_back.css_all,
+                        'frog': $in.data_back.frog,
+                        'step': 'step_how_response'
                     }
                 });
             }
@@ -507,16 +580,37 @@ function infohub_render() {
             $in.step = 'step_where'; // No more rendering, we take what we have
         }
 
-        if ($in.step === 'step_where') {
+        if ($in.step === 'step_how_response') {
+            let $itemDone = _GetData({
+                'name': 'response/item_index/text', // example: "response/data/checksum"
+                'default': '',
+                'data': $in, // an object with data where you want to pull out a part of it
+                'split': '/' // If name naturally contain / then use pipe | instead
+            });
+
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'html': '',
+                'css_data': {},
+                'display': ''
+            };
+            $itemDone = _Default($default, $itemDone);
+            $in.html = $itemDone.html;
 
             if (_Empty($in.how.css_data) === 'false') {
                 $in.html = _AddStyle({
                     'html': $in.html,
                     'css_data': $in.how.css_data,
-                    'alias': $in.latest_item_name,
-                    'display': $in.display
+                    'alias': $in.alias,
+                    'display': $itemDone.display
                 });
             }
+
+            $in.step = 'step_where';
+        }
+
+        if ($in.step === 'step_where') {
 
             $in.step = 'step_output';
 
@@ -550,7 +644,9 @@ function infohub_render() {
                             'path': $cacheKey,
                             'data': $dataBack
                         },
-                        'data_back': $dataBack
+                        'data_back': {
+                            'step': 'step_end'
+                        }
                     });
                     $messages.push($messageOut);
                 }
@@ -558,13 +654,16 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_output') {
+
             $in.step = 'step_boxes_insert'; // Insert all rendered HTML in 'separate boxes'
+
             if ($in.how.mode === 'one box') {
                 $in.step = 'step_box_insert'; // Insert the rendered HTML in 'one box'
                 if (_Empty($in.where.box_id) === 'false') {
                     $in.step = 'box_update';
                 }
             }
+
         }
 
         if ($in.step === 'step_box_insert') {
@@ -582,7 +681,7 @@ function infohub_render() {
                     'box_alias': $in.where.box_alias,
                     'max_width': $in.where.max_width,
                     'box_data': $in.html,
-                    'css_all': $in.css_all
+                    'css_all': $in.data_back.css_all
                 },
                 'data_back': {
                     'step': 'step_where_response',
@@ -606,8 +705,8 @@ function infohub_render() {
                     'box_position': $in.where.box_position,
                     'box_alias': $in.where.box_alias,
                     'max_width': $in.where.max_width,
-                    'boxes_data': $in.what_done,
-                    'css_all': $in.css_all
+                    'boxes_data': $in.data_back.what_done,
+                    'css_all': $in.data_back.css_all
                 },
                 'data_back': {
                     'step': 'step_where_response',
@@ -633,7 +732,7 @@ function infohub_render() {
                     'box_data': $in.html,
                     'max_width': $in.where.max_width,
                     'variables': {
-                        'css_all': $in.css_all
+                        'css_all': $in.data_back.css_all
                     },
                     'throw_error_if_box_is_missing': $in.where.throw_error_if_box_is_missing
                 },
@@ -654,7 +753,7 @@ function infohub_render() {
                 'message': $in.response.message,
                 'frog': $in.data_back.frog,
                 'html': $in.html,
-                'css_data': $in.css_all,
+                'css_data': $in.data_back.css_all,
                 'messages': $messages
             };
         }

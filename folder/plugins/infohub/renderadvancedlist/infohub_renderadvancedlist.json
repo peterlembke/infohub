@@ -1,7 +1,10 @@
 {
-    "icon": {
-        "plugin": "",
-        "expand": "",
-        "contract": ""
-    }
+    "client": {
+        "icon": {
+            "plugin": "",
+            "expand": "",
+            "contract": ""
+        }
+    },
+    "server": {}
 }

@@ -345,7 +345,8 @@ class infohub_file extends infohub_base
      */
     protected function _IsBinaryFileExtension(string $extension = ''): string
     {
-        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md','js');
+        // OBSERVE: Do NOT add PHP and JS files to this list even if they are text files
+        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md');
         $isBinaryFileExtension = 'true';
         if (in_array($extension, $validNonBinaryExtensions) === true) {
             $isBinaryFileExtension = 'false';

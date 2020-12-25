@@ -2,5 +2,12 @@
     "plugin": "infohub_configlocal",
     "title": "Config Local",
     "description": "Configuration you want on this device",
-    "uses": ["infohub_configlocal_menu", "infohub_rendermenu", "infohub_configlocal_language", "infohub_language", "infohub_configlocal_zoom"]
+    "uses": [
+        "infohub_configlocal_menu",
+        "infohub_rendermenu",
+        "infohub_configlocal_language",
+        "infohub_language",
+        "infohub_configlocal_zoom",
+        "infohub_color"
+    ]
 }

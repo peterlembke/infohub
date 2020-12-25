@@ -9,7 +9,7 @@
     },
     "launcher": {
         "title": "Depurar",
-        "description": "126/5000\nHerramientas que puede usar para reiniciar Infohub mientras borra ciertos datos. Perfecto cuando necesitas depurar el código del programa."
+        "description": "Herramientas que puede usar para reiniciar Infohub mientras borra ciertos datos. Perfecto cuando necesitas depurar el código del programa."
     },
     "data": {
         "infohub_debug": {
@@ -22,7 +22,7 @@
             "Instructions": "Instrucciones",
             "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Haga clic en una opción o use el teclado. Estas teclas siempre funcionan en cualquier lugar de Infohub.",
             "Information": "Información",
-            "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#3[/b] también se encuentra en la parte inferior de la pantalla del Iniciador como un botón en caso de que no pueda iniciar la depuración y no tenga un teclado en su dispositivo.",
+            "[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#2+1[/b] también se encuentra en la parte inferior de la pantalla del Iniciador como un botón en caso de que no pueda iniciar la depuración y no tenga un teclado en su dispositivo.",
             "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.": "[b]#4[/b] es la única opción que también elimina íconos y traducciones y configuraciones del almacenamiento local."
         }
     }

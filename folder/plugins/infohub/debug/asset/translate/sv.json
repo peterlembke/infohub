@@ -22,7 +22,7 @@
             "Instructions": "Instruktioner",
             "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Klicka på en av ikonerna ovan eller använd tangentbordet. Dessa knappar fungerar över allt i Infohub.",
             "Information": "Information",
-            "[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#3[/b] finns också längst ned på programstartaren som en knapp ifall du inte kan starta Debug och inte har något tangentbord på din enhet.",
+            "[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#2+1[/b] finns också längst ned på programstartaren som en knapp ifall du inte kan starta Debug och inte har något tangentbord på din enhet.",
             "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.": "[b]#4[/b] är det enda alternativet som också tar bort ikoner, översättningar mm från lokala databasen."
         }
     }

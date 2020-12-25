@@ -9,7 +9,24 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 ## [Unreleased]
 
-Next release will contain auto colour schema where you can pick how dark you want the colours. The schema will recalculate.
+Next release v1.2.28 will contain auto colour schema where you can pick how dark you want the colours. The schema will recalculate.
+
+In v1.2.29 I will store none core JS plugins in Storage instead of local storage to save space in the limited local storage.
+
+# [1.2.27] - 2020-12-25
+
+* [Release notes](main,release_v1_v1v2_v1v2v27)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.27)
+
+Improved rendering speeds by grouping items that will go to the same renderer.
+This change breaks compatability with custom renderers. But since no one is reading this note, no one is using Infohub and certainly no one create their own renderers for Infohub then it does not matter.
+
+# [1.2.26] - 2020-12-17
+
+* [Release notes](main,release_v1_v1v2_v1v2v26)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.26)
+
+This release focus on translations. A simpler system for translations. More translations.
 
 # [1.2.25] - 2020-12-06
 

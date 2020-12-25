@@ -1084,7 +1084,7 @@ function infohub_launcher() {
             $what[$id + 'link'] = {
                 'type': 'link',
                 'subtype': 'link',
-                'alias': 'icon_click',
+                'alias': $id +'link',
                 'event_data': $list +'|' + $pluginName +'|click',
                 'show': '[' + $id + 'icon' + '][' + $id + 'title' + ']',
                 'class': 'my_list_link',
@@ -1133,7 +1133,7 @@ function infohub_launcher() {
                 $what[$id + 'link'] = {
                     'type': 'link',
                     'subtype': 'link',
-                    'alias': 'icon_click',
+                    'alias': $id + 'link',
                     'event_data': $list +'|' + $pluginName +'|refresh',
                     'show': '[' + $id + 'icon' + '][' + $id + 'title' + ']',
                     'class': 'my_list_link',
@@ -1233,7 +1233,23 @@ function infohub_launcher() {
 
             if ($in.response.answer === 'false') {
                 $message = $in.response.message; // Perhaps we are off line and can not get a full_list.
-                $in.step = 'step_render_list'; // We render the empty list so the progress animation get removed
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_view',
+                        'function': 'set_text'
+                    },
+                    'data': {
+                        'id': 'main.body.infohub_launcher.information',
+                        'text': _Translate($message)
+                    },
+                    'data_back': {
+                        'list_name': $in.data_back.list_name,
+                        'list': $in.data_back.list,
+                        'step': 'step_render_list' // We render the empty list so the progress animation get removed
+                    }
+                });
             }
         }
 

@@ -61,82 +61,109 @@ function infohub_language() {
     const create = function ($in)
     {
         const $default = {
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_start',
-            'html': '',
-            'css_data': {},
-            'label': 'Select a language',
-            'description': '',
-            'languages': 'main', // main or all
-            'parent_box_id': '',
-            'response': {
-                'answer': 'false',
-                'message': ''
-            }
+            'item_index': {},
+            'config': {},
+            'data_back': {
+                'item_name': '',
+                'item_index_done': {}
+            },
+            'response': {},
+            'step': 'step_create'
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
+        if ($in.step === 'step_create_response')
         {
-            let $sourceFunction = 'option_list_main_languages';
-            if ($in.languages === 'all') {
-                $sourceFunction = 'option_list_all_languages';
-            }
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create'
-                },
-                'data': {
-                    'what': {
-                        'select_language_code': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'select',
-                            "label": $in.label,
-                            "description": $in.description,
-                            "size": "6",
-                            "multiple": "false",
-                            "options": [],
-                            'source_node': 'client',
-                            'source_plugin': 'infohub_language',
-                            'source_function': $sourceFunction,
-                            'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
-                        }
-                    },
-                    'how': {
-                        'mode': 'one box',
-                        'text': '[select_language_code]'
-                    },
-                    'where': {
-                        'mode': 'html'
-                    }
-                },
-                'data_back': {
-                    'step': 'step_final',
-                    'alias': $in.alias
-                }
-            });
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'html': '',
+                'css_data': {},
+                'display': ''
+            };
+            $in.response = _Default($defaultResponse, $in.response);
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_done[$itemName] = $in.response;
+            $in.step = 'step_create';
         }
 
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
+        if ($in.step === 'step_create')
+        {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                const $defaultItem = {
+                    'alias': '',
+                    'original_alias': '',
+                    'css_data': {},
+                    'label': 'Select a language',
+                    'description': '',
+                    'languages': 'main', // main or all
+                    'type': 'select'
+                };
+                $data = _Default($defaultItem, $data);
+
+                let $sourceFunction = 'option_list_main_languages';
+                if ($data.languages === 'all') {
+                    $sourceFunction = 'option_list_all_languages';
+                }
+
+                if (_Empty($data.css_data) === 'true') {
+                    $data.css_data = {
+                        '.select': 'max-width: 200px;'
+                    };
+                }
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': {
+                            'select_language_code': {
+                                'plugin': 'infohub_renderform',
+                                'type': $data.type,
+                                "label": $data.label,
+                                "description": $data.description,
+                                "size": "6",
+                                "multiple": "false",
+                                "options": [],
+                                'source_node': 'client',
+                                'source_plugin': 'infohub_language',
+                                'source_function': $sourceFunction,
+                                'css_data': $data.css_data
+                            }
+                        },
+                        'how': {
+                            'mode': 'one box',
+                            'text': '[select_language_code]'
+                        },
+                        'where': {
+                            'mode': 'html'
+                        },
+                        'alias': $data.alias,
+                        'css_data': $data.css_data
+                    },
+                    'data_back': {
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_index_done': $in.data_back.item_index_done,
+                        'step': 'step_create_response'
+                    }
+                });
             }
+            $in.step = 'step_end';
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'html': $in.html,
-            'css_data': $in.css_data
+            'item_index': $in.data_back.item_index_done
         };
     };
 

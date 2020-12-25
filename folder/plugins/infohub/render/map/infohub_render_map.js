@@ -145,42 +145,63 @@ function infohub_render_map() {
     // * Observe function names are lower_case
     // *****************************************************************************
 
+    $functions.push('create');
     /**
-     * Get instructions and create the message to InfoHub View
-     * @version 2013-04-15
+     * Get instructions and create the html
+     * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push("create"); // Enable this function
     const create = function ($in)
     {
-        if (_IsSet($in.subtype) === 'false') {
-            $in.subtype = 'openstreetmap';
-        }
-
-        // iframes are deprecated as a security breach. Will show a link instead.
-        if ($in.subtype.substr($in.subtype.length-4,4) !== 'link') {
-            $in.subtype = $in.subtype + 'link';
-        }
-
-        $in.func = _GetFuncName($in.subtype);
-        let $response = internal_Cmd($in);
-
         const $default = {
+            'item_index': {},
+            'config': {}
+        };
+        $in = _Default($default, $in);
+
+        const $defaultResponse = {
             'answer': 'false',
             'message': '',
             'html': '',
             'css_data': {}
         };
-        $response = _Default($default, $response);
+
+        let $itemIndex = {};
+        for (const $itemName in $in.item_index) {
+            if ($in.item_index.hasOwnProperty($itemName) === false) {
+                continue;
+            }
+
+            let $data = $in.item_index[$itemName];
+
+            if (_IsSet($data.subtype) === 'false') {
+                $data.subtype = 'openstreetmap';
+            }
+
+            // iframes are deprecated as a security breach. Will show a link instead.
+            if ($data.subtype.substr($data.subtype.length-4,4) !== 'link') {
+                $data.subtype = $data.subtype + 'link';
+            }
+
+            $data.func = _GetFuncName($data.subtype);
+            let $response = internal_Cmd($data);
+            $data.config = $in.config;
+
+            $response = _Default($defaultResponse, $response);
+
+            $itemIndex[$itemName] = $response;
+        }
 
         return {
-            'answer': $response.answer,
-            'message': $response.message,
-            'html': $response.html,
-            'css_data': $response.css_data
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $itemIndex
         };
     };
+
 
     // *****************************************************************************
     // * Internal function that you only can reach from internal_Cmd

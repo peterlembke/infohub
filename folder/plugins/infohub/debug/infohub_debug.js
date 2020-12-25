@@ -181,54 +181,80 @@ function infohub_debug() {
     const create = function ($in)
     {
         const $default = {
-            'type': '',
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_start',
-            'html': '',
-            'css_data': {}
+            'item_index': {},
+            'config': {},
+            'data_back': {
+                'item_name': '',
+                'item_index_done': {}
+            },
+            'response': {},
+            'step': 'step_create'
         };
-        $in = _Merge($default, $in);
+        $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
-            $in.func = _GetFuncName($in.type);
-            let $response = internal_Cmd($in);
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create'
-                },
-                'data': {
-                    'what': $response.data,
-                    'how': $response.how,
-                    'where': $response.where
-                },
-                'data_back': {
-                    'alias': $in.alias,
-                    'original_alias': $in.original_alias,
-                    'step': 'step_final'
-                }
-            });
+        if ($in.step === 'step_create_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'html': '',
+                'css_data': {},
+                'display': ''
+            };
+            $in.response = _Default($defaultResponse, $in.response);
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_done[$itemName] = $in.response;
+            $in.step = 'step_create';
         }
 
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $boxId = '{box_id}';
-                const $find = "'" + $boxId;
-                const $replace = "'" + $boxId + '_' + $in.alias + '-' + $boxId;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
+        if ($in.step === 'step_create')
+        {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                const $defaultItem = {
+                    'type': '',
+                    'alias': '',
+                    'original_alias': '',
+                    'css_data': {}
+                };
+                $data = _Default($defaultItem, $data);
+
+                $data.func = _GetFuncName($data.type);
+                $data.config = $in.config;
+
+                let $response = internal_Cmd($data);
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': $response.data,
+                        'how': $response.how,
+                        'where': $response.where,
+                        'alias': $data.alias,
+                        'css_data': $response.css_data
+                    },
+                    'data_back': {
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_index_done': $in.data_back.item_index_done,
+                        'step': 'step_create_response'
+                    }
+                });
             }
+            $in.step = 'step_end';
         }
 
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'html': $in.html,
-            'css_data': $in.css_data
+            'item_index': $in.data_back.item_index_done
         };
     };
 
@@ -385,8 +411,11 @@ function infohub_debug() {
     };
 
     /**
-     * Refresh all plugins in cache and reload the page
-     * @version 2018-09-09
+     * Update local plugins and refresh the page.
+     * Ask server for a plugin list with checksums.
+     * Clear plugin cache and render cache for changed plugins.
+     * Reload the page regardless of any changes.
+     * @version 2020-12-25
      * @since   2018-09-09
      * @author  Peter Lembke
      */
@@ -425,7 +454,7 @@ function infohub_debug() {
             };
             $in.response = _Default($default, $in.response);
 
-            $in.step = 'step_end';
+            $in.step = 'step_reload_page';
             if ($in.response.plugins_old.length > 0) {
                 $in.step = 'step_delete_render_cache';
             }
@@ -827,7 +856,7 @@ function infohub_debug() {
             },
             'information_text_3': {
                 'type': 'text',
-                'text': _Translate('[b]#3[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.')
+                'text': _Translate('[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.')
             },
             'information_text_4': {
                 'type': 'text',

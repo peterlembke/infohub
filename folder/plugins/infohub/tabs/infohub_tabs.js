@@ -853,7 +853,6 @@ function infohub_tabs() {
                     'menutitle': {
                         'type': 'common',
                         'subtype': 'container',
-                        'alias': $alias,
                         'class': $alias,
                         'data': $label,
                         'tag': 'div',

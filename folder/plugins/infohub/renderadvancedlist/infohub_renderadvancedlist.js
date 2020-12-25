@@ -85,48 +85,88 @@ function infohub_renderadvancedlist() {
     // * Observe function names are lower_case
     // *****************************************************************************
 
+    $functions.push('create');
     /**
-     * Get instructions and create the message to InfoHub View
-     * @version 2020-11-14
+     * Get instructions and create the html
+     * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push("create"); // Enable this function
     const create = function ($in)
     {
         const $default = {
-            'type': '',
-            'step': 'step_start'
-        };
-        $in = _Merge($default, $in);
-
-        if ($in.step === 'step_start') {
-            $in.func = _GetFuncName($in.type);
-            let $response = internal_Cmd($in);
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create'
-                },
-                'data': {
-                    'what': $response.what,
-                    'how': $response.how,
-                    'where': $response.where,
-                    'alias': $in.alias
-                },
-                'data_back': {
-                    'step': 'step_end'
+            'item_index': {},
+            'config': {
+                "icon": {
+                    "plugin": "",
+                    "expand": "",
+                    "contract": ""
                 }
-            });
+            },
+            'data_back': {
+                'item_name': '',
+                'item_index_done': {}
+            },
+            'response': {},
+            'step': 'step_create'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_create_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'html': '',
+                'css_data': {}
+            };
+            $in.response = _Default($defaultResponse, $in.response);
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_done[$itemName] = $in.response;
+            $in.step = 'step_create';
+        }
+
+        if ($in.step === 'step_create') {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                $data.func = _GetFuncName($data.type);
+                $data.config = $in.config;
+
+                const $response = internal_Cmd($data);
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': $response.what,
+                        'how': $response.how,
+                        'where': $response.where,
+                        'alias': $data.alias,
+                        'css_data': $response.css_data
+                    },
+                    'data_back': {
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_index_done': $in.data_back.item_index_done,
+                        'step': 'step_create_response'
+                    }
+                });
+            }
+            $in.step = 'step_end';
         }
 
         return {
-            'answer': $in.answer,
-            'message': $in.message,
-            'html': $in.html,
-            'css_data': $in.css_data
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $in.data_back.item_index_done
         };
     };
 

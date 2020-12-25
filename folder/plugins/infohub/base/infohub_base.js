@@ -117,7 +117,7 @@
                 if ($default[$key] !== null) {
                     internal_Log({
                         'level': 'error',
-                        'message': 'key:"' + $key + '", have wrong data type (' + _GetDataType($in[$key]) + '), instead got default value and data type (' + $answerKeyType + ')',
+                        'message': 'key:"' + $key + '", have wrong data type: ' + $answerKeyType + ', expected data type: ' + $defaultKeyType,
                         'function_name': '_Default',
                         'get_backtrace': 'true',
                         'object': {'in': $in, 'default': $default }
@@ -478,7 +478,7 @@
 
         $string = ($string + '')
             .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) {
-                return $1.toUpperCase()
+                return $1.toUpperCase();
             });
 
         $string = $string.replace(/ /g, '');
@@ -712,7 +712,7 @@
         }
 
         return $lookup;
-    }
+    };
 
     $functions.push('_Translate');
     /**
@@ -1728,3 +1728,5 @@
             'return_call_data': _ByVal($out)
         };
     };
+
+    // _*_ End of the JS base code

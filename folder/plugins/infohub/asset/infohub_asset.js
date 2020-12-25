@@ -85,32 +85,34 @@ function infohub_asset() {
         return $pluginName;
     };
 
-    $functions.push("create"); // Enable this function
+    $functions.push('create');
     /**
      * Use this function when you want to render an asset.
      * Example: 'jamendo_asset': {'plugin': 'infohub_asset', 'type': 'icon', 'asset_name': 'audio/jamendo-music-logo', 'plugin_name': 'infohub_demo' },
-     * @version 2013-04-15
+     * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in = {})
+    const create = function ($in)
     {
         const $default = {
-            'type': 'icon', // icon, image, audio, video.
-            'subtype': 'svg',
-            'asset_name': '',
             'from_plugin': {'node': '', 'plugin': ''},
-            'alias': '',
-            'box_id': '',
-            'step': 'step_start',
-            'html': '',
-            'css_data': {},
+            'plugin_name': '',
+            'item_index': {},
+            'config': {},
+            'data_back': {
+                'item_name': '',
+                'item_data': {},
+                'item_index_done': {}
+            },
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'asset': ''
             },
-            'plugin_name': ''
+            'step': 'step_create'
         };
         $in = _Default($default, $in);
 
@@ -124,44 +126,76 @@ function infohub_asset() {
             $in.step = 'step_end';
         }
 
-        if ($in.step === 'step_start')
-        {
-            if (_Empty($in.plugin_name) === 'true') {
-                $in.plugin_name = _GetGrandPluginName($in.from_plugin.plugin);
-            }
+        if ($in.step === 'step_create_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'asset': ''
+            };
+            $in.response = _Default($defaultResponse, $in.response);
 
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_asset',
-                    'function': 'get_asset_and_license'
-                },
-                'data': {
-                    'plugin_name': $in.plugin_name,
-                    'asset_name': $in.asset_name,
-                    'asset_type': $in.type,
-                    'extension': $in.subtype
-                },
-                'data_back': {
-                    'plugin_name': $in.plugin_name,
-                    'box_id': $in.box_id,
-                    'step': 'step_final'
-                }
-            });
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_done[$itemName] = {
+                'answer': $in.response.answer,
+                'message': $in.response.message,
+                'html': $in.response.asset,
+                'css_data': $in.data_back.item_data.css_data
+            };
+            $in.step = 'step_create';
         }
 
-        if ($in.step === 'step_final')
-        {
-            if (_IsSet($in.response.asset) === 'true') {
-                $in.html = $in.response.asset;
+        if ($in.step === 'step_create') {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                if (_Empty($data.plugin_name) === 'true') {
+                    $data.plugin_name = _GetGrandPluginName($in.from_plugin.plugin);
+                }
+
+                const $defaultItem = {
+                    'plugin_name': '',
+                    'type': 'icon', // icon, image, audio, video.
+                    'subtype': 'svg',
+                    'asset_name': '',
+                    'alias': '',
+                    'box_id': '',
+                    'html': '',
+                    'css_data': {},
+                };
+                $data = _Default($defaultItem, $data);
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_asset',
+                        'function': 'get_asset_and_license'
+                    },
+                    'data': {
+                        'plugin_name': $data.plugin_name,
+                        'asset_name': $data.asset_name,
+                        'asset_type': $data.type,
+                        'extension': $data.subtype
+                    },
+                    'data_back': {
+                        'box_id': $in.box_id,
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_data': $data,
+                        'item_index_done': $in.data_back.item_index_done,
+                        'step': 'step_create_response'
+                    }
+                });
             }
+            $in.step = 'step_end';
         }
 
         return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'html': $in.html,
-            'css_data': $in.css_data
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $in.data_back.item_index_done
         };
     };
 
@@ -271,7 +305,7 @@ function infohub_asset() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REFRESH'),
+                            'button_label': _Translate('Refresh'),
                             'event_data': 'refresh',
                             'to_plugin': 'infohub_asset',
                             'to_function': 'setup_gui'

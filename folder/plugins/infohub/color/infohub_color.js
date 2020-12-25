@@ -90,46 +90,79 @@ function infohub_color() {
     const create = function ($in)
     {
         const $default = {
-            'type': 'color_bar',
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_start',
-            'html': '',
-            'css_data': {},
-            'data_back': {},
-            'response': {}
+            'item_index': {},
+            'config': {},
+            'data_back': {
+                'item_name': '',
+                'item_index_done': {}
+            },
+            'response': {},
+            'step': 'step_create'
         };
-        $in = _Merge($default, $in);
+        $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
-            $in.func = _GetFuncName($in.type);
-            $in.type = '';
-            const $response = internal_Cmd($in);
+        if ($in.step === 'step_create_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'html': '',
+                'css_data': {},
+                'display': ''
+            };
+            $in.response = _Default($defaultResponse, $in.response);
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_done[$itemName] = $in.response;
+            $in.step = 'step_create';
+        }
 
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create'
-                },
-                'data': {
-                    'what': $response.what,
-                    'how': $response.how,
-                    'where': $response.where,
-                    'alias': $in.alias
-                },
-                'data_back': {
-                    'step': 'step_end'
-                }
-            });
+        if ($in.step === 'step_create') {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                const $defaultItem = {
+                    'type': 'color_bar',
+                    'alias': '',
+                    'original_alias': '',
+                    'css_data': {}
+                };
+                $data = _Merge($defaultItem, $data);
+
+                $data.func = _GetFuncName($data.type);
+                $data.config = $in.config;
+                $data.type = '';
+
+                const $response = internal_Cmd($data);
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': $response.what,
+                        'how': $response.how,
+                        'where': $response.where,
+                        'alias': $data.alias,
+                        'css_data': $response.css_data
+                    },
+                    'data_back': {
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_index_done': $in.data_back.item_index_done,
+                        'step': 'step_create_response'
+                    }
+                });
+            }
         }
 
         return {
-            'answer': $in.answer,
-            'message': $in.message,
-            'html': $in.html,
-            'css_data': $in.css_data
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $in.data_back.item_index_done
         };
     };
 
@@ -469,8 +502,6 @@ function infohub_color() {
             $in.colors = $colors;
         }
 
-        // @todo Too many containers in this colors bar. I need to handle it here to speed it up
-
         let $oneColor = {
             'type': 'common',
             'subtype': 'container',
@@ -482,8 +513,6 @@ function infohub_color() {
                 '.container': ''
             }
         };
-
-        // @todo Too many links in this colors bar. I need to handle it here to speed it up
 
         let $oneEvent = {
             'type': 'link',
@@ -515,6 +544,7 @@ function infohub_color() {
                 continue; // This bar use no links
             }
 
+            $oneEvent.alias = $colorName + '_link';
             $oneEvent.event_data = $in.event_data + '|' + $colorName + '|' + $in.colors[$colorName];
             $oneEvent.show = '['+$colorName+']';
             $parts[$colorName + '_link'] = _ByVal($oneEvent);

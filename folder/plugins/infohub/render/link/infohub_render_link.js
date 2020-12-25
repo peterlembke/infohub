@@ -188,16 +188,27 @@ function infohub_render_link() {
     // * Observe function names are lower_case
     // *****************************************************************************
 
+    $functions.push('create');
     /**
-     * Get instructions and create the message to InfoHub View
-     * @version 2014-11-01
+     * Get instructions and create the html
+     * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push("create");
     const create = function ($in)
     {
-        let $default = {
+        const $default = {
+            'item_index': {},
+            'config': {
+                "css_link": "",
+                "css_link_hover": ""
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $defaultItem = {
             'type': 'link',
             'subtype': 'link', // link, toggle, external, embed
             'alias': '', // Your name on this link. Full name will be {box_id}_{alias}_{subtype}
@@ -218,29 +229,38 @@ function infohub_render_link() {
             'final_plugin': '', // For example infohub_tabs use this with long click to first show the tab and then send the message further to a renderer that show the long click gui
             'final_function': 'event_message',
             'class': '',
-            'css_data': {},
-            'config': {}
+            'css_data': {}
         };
-        $in = _Default($default, $in);
 
-        $in.func = _GetFuncName($in.subtype);
-        let $response = internal_Cmd($in);
-
-        $default = {
+        const $defaultResponse = {
             'answer': 'false',
             'message': '',
             'html': '',
             'css_data': {},
             'display': ''
         };
-        $response = _Default($default, $response);
+
+        let $itemIndex = {};
+        for (const $itemName in $in.item_index) {
+            if ($in.item_index.hasOwnProperty($itemName) === false) {
+                continue;
+            }
+
+            let $data = $in.item_index[$itemName];
+            $data = _Default($defaultItem, $data);
+            $data.config = $in.config;
+
+            $data.func = _GetFuncName($data.subtype);
+            let $response = internal_Cmd($data);
+            $response = _Default($defaultResponse, $response);
+
+            $itemIndex[$itemName] = $response;
+        }
 
         return {
-            'answer': $response.answer,
-            'message': $response.message,
-            'html': $response.html,
-            'css_data': $response.css_data,
-            'display': $response.display
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $itemIndex
         };
     };
 
@@ -287,7 +307,7 @@ function infohub_render_link() {
                 '.link': $in.config.css_link,
                 '.link:hover': $in.config.css_link_hover
             };
-            $in.css_data = _Default($cssDefault, $in.css_data);
+            $in.css_data = _Merge($cssDefault, $in.css_data);
         }
 
         const $constants = {
