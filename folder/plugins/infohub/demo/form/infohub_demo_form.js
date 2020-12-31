@@ -144,10 +144,7 @@ function infohub_demo_form() {
                             'mode': 'submit', // This is the submit button in the form
                             'button_label': _Translate('My button'),
                             'data': 'Some data',
-                            'to_plugin': 'infohub_demo',
-                            'css_data': {
-                                '.list': 'background-color: green;'
-                            }
+                            'to_plugin': 'infohub_demo'
                         },
                         'my_textbox': {
                             'type': 'form',

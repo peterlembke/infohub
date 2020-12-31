@@ -46,8 +46,8 @@ function infohub_color() {
             'click_color_selector': 'normal',
             'click_color_reader': 'normal',
             'click_light_bar_selector': 'normal',
-            'calculate_color_schema': 'normal',
-            'get_color_schema': 'normal'
+            'click_light_bar_reader': 'normal',
+            'calculate_color_lookup': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -466,6 +466,84 @@ function infohub_color() {
         };
     };
 
+    $functions.push('internal_LightBarReader');
+    /**
+     * Creates a light bar reader that reads the LightBarSelector data.
+     * A button that starts the read, a light_bar, hue_degree, color_hex
+     * @version 2020-10-31
+     * @since   2020-10-30
+     * @author  Peter Lembke
+     */
+    const internal_LightBarReader = function ($in) {
+        const $default = {
+            'original_alias': '',
+            'button_label': 'Use',
+            'light_bar_selector_name': '',
+            'custom_variables': {}
+        };
+
+        $in = _Default($default, $in);
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the definition',
+            'what': {
+                'container_all': {
+                    'type': 'common',
+                    'subtype': 'container',
+                    'alias': 'container_all',
+                    'tag': 'div', // span, p, div, pre
+                    'data': '[container_button_read][light_box_container][light_value_container]',
+                    'display': 'block' // leave empty, "block" or "inline" or "none".
+                },
+                'container_button_read': {
+                    'type': 'common',
+                    'subtype': 'container',
+                    'alias': 'container_button_read',
+                    'tag': 'div', // span, p, div, pre
+                    'data': '[button_read]',
+                    'display': 'inline' // leave empty, "block" or "inline" or "none".
+                },
+                'button_read': {
+                    'plugin': 'infohub_renderform',
+                    'type': 'button',
+                    'mode': 'button',
+                    'button_label': $in.button_label,
+                    'event_data': $in.light_bar_selector_name,
+                    'to_plugin': 'infohub_color',
+                    'to_function': 'click_light_bar_reader',
+                    'css_data': {
+                        '.button-width':
+                            'width: 100%;'+
+                            'box-sizing:border-box;'+
+                            'max-width: 160px;'
+                    },
+                    'custom_variables': $in.custom_variables
+                },
+                'light_box_container': {
+                    'type': 'common',
+                    'subtype': 'container',
+                    'data': '',
+                    'display': 'inline'
+                },
+                'light_value_container': {
+                    'type': 'form',
+                    'subtype': 'text',
+                    'input_type': 'text',
+                    'display': 'none',
+                    'original_alias': $in.original_alias
+                }
+            },
+            'how': {
+                'mode': 'one box',
+                'text': '[container_all]'
+            },
+            'where': {
+                'mode': 'html'
+            }
+        };
+    };
+
     /**
      * Create a color bar with base colors. You can click any color and get the hex code
      * @version 2020-10-21
@@ -482,7 +560,8 @@ function infohub_color() {
             'final_node': 'client',
             'final_plugin': 'infohub_color',
             'final_function': 'click_color_selector',
-            'event_data': ''
+            'event_data': '',
+            'css_data': {}
         };
 
         $in = _Default($default, $in);
@@ -536,7 +615,13 @@ function infohub_color() {
                 continue;
             }
 
-            $oneColor.css_data['.container'] = $css + $in.colors[$colorName] + ';';
+            let $containerCss = $css + $in.colors[$colorName] + ';';
+            if (_IsSet($in.css_data['.container']) === 'true') {
+                $containerCss = $containerCss + $in.css_data['.container'];
+            }
+            $oneColor.css_data = {};
+            $oneColor.css_data['.container'] = $containerCss;
+
             $parts[$colorName] = _ByVal($oneColor);
 
             if ($in.event_data === '') {
@@ -552,13 +637,18 @@ function infohub_color() {
             $allNames.push('['+$colorName+'_link]');
         }
 
+        if (_IsSet($in.css_data['.container']) === 'true') {
+            delete $in.css_data['.container'];
+        }
+
         return {
             'answer': 'true',
             'message': 'Here are the parts to build the color bar',
             'what': $parts,
             'how': {
                 'mode': 'one box',
-                'text': $allNames.join('')
+                'text': $allNames.join(''),
+                'css_data': $in.css_data
             },
             'where': {
                 'mode': 'html' // mode HTML is cached where it is used.
@@ -586,7 +676,8 @@ function infohub_color() {
             'final_node': 'client',
             'final_plugin': 'infohub_color',
             'final_function': 'click_color_selector',
-            'event_data': ''
+            'event_data': '',
+            'css_data': {}
         };
 
         $in = _Default($default, $in);
@@ -610,7 +701,8 @@ function infohub_color() {
             'final_node': $in.final_node,
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
-            'event_data': $in.event_data
+            'event_data': $in.event_data,
+            'css_data': $in.css_data
         });
 
         return $response;
@@ -636,7 +728,8 @@ function infohub_color() {
             'final_node': 'client',
             'final_plugin': 'infohub_color',
             'final_function': '',
-            'event_data': '' // Add some data here if you want a clickable light bar
+            'event_data': '', // Add some data here if you want a clickable light bar
+            'css_data': {}
         };
 
         $in = _Default($default, $in);
@@ -659,7 +752,8 @@ function infohub_color() {
             'final_node': $in.final_node,
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
-            'event_data': $in.event_data
+            'event_data': $in.event_data,
+            'css_data': $in.css_data
         });
 
         return $response;
@@ -679,17 +773,28 @@ function infohub_color() {
             'height': 30,
             'color_name': 'background',
             'color': '',
+            'hue_degree': 270,
+            'saturation_percent': 100,
+            'light_percent': 50,
             'final_node': 'client',
             'final_plugin': 'infohub_color',
             'final_function': '',
-            'event_data': ''
+            'event_data': '',
+            'css_data': {}
         };
-
         $in = _Default($default, $in);
 
-        let $colors = {};
+        let $color = $in.color;
 
-        $color[ $in.color_name ] = $color;
+        if ($color === '') {
+            const $saturation = $in.saturation_percent / 100.0; // percent. 0 = no color. 1.0 = maximum color
+            const $lightValue = $in.light_percent / 100.0; // percent.
+            const $colorRgb = _HslToRgb($in.hue_degree, $saturation, $lightValue);
+            $color = _RgbToHex($colorRgb);
+        }
+
+        let $colors = {};
+        $colors[ $in.color_name ] = $color;
 
         const $response = internal_ColorBar({
             'width': $in.width,
@@ -698,7 +803,8 @@ function infohub_color() {
             'final_node': $in.final_node,
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
-            'event_data': $in.event_data
+            'event_data': $in.event_data,
+            'css_data': $in.css_data
         });
 
         return $response;
@@ -758,7 +864,10 @@ function infohub_color() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[light_bar]'
+                        'text': '[light_bar]',
+                        'css_data': {
+                            ' ': 'display: inline-block; max-width: 100%; border: 5px ridge; margin-left: 16px;'
+                        }
                     },
                     'where': {
                         'box_id': $elementId + 'light_bar_container',
@@ -932,7 +1041,10 @@ function infohub_color() {
                             'type': 'color_bar',
                             'colors': [$hexColor],
                             'width': 30,
-                            'height': 30
+                            'height': 30,
+                            'css_data': {
+                                '.container': 'border: 5px ridge; margin-left: 16px;'
+                            }
                         }
                     },
                     'how': {
@@ -977,182 +1089,113 @@ function infohub_color() {
         };
     };
 
-    $functions.push('calculate_color_schema');
-    const calculate_color_schema = function ($in) {
+    $functions.push('click_light_bar_reader');
+    /**
+     * You pressed the light bar reader button.
+     * I will pull out the selected light bar data from the selector
+     * and show the data here
+     * @param $in
+     * @returns {{answer: string, message: string}|*}
+     */
+    const click_light_bar_reader = function ($in) {
         const $default = {
+            'event_data': '',
+            'box_id': '',
+            'id': '',
             'config': {
-                'group_number': 'true',
-                'primary_colors_array': []
             },
             'step': 'step_start',
             'data_back': {
-                'color_schema': {}
+            },
+            'response': {
+                'answer': 'false',
+                'message': 'An error occurred in click_light_bar_selector'
             }
         };
         $in = _Default($default, $in);
 
-        let $out = {
-            'answer': 'false',
-            'message': 'An error occurred in calculate_color_schema',
-            'color_schema': {}
-        };
-
+        let $messagesArray = [];
+        let $message = {};
 
         if ($in.step === 'step_start') {
-            const $baseShade = _GetBaseShade($in.config.group_number);
-            let $oneGroup = _CalculateOneGroup($baseShade);
-            const $allColorSeries = _CalculateAllColorSeries($in.config.primary_colors_array);
-            const $finalColorArray = _BuildFinalColorArray($oneGroup, $allColorSeries);
+
+            const $fromElementId = $in.box_id + '_' + $in.event_data + '_';
+            const $lengthToSaveOnParent = $in.id.length - 'button_read_button'.length;
+            const $parentId = $in.id.substr(0,$lengthToSaveOnParent);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update'
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'DataCopy',
+                            'from_box_id': $fromElementId + 'light_box_container',
+                            'to_box_id': $parentId + 'light_box_container'
+                        },
+                        {
+                            'func': 'DataCopy',
+                            'from_box_id': $fromElementId + 'light_value_container',
+                            'to_box_id': $parentId + 'light_value_container'
+                        }
+                    ]
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+        }
+
+        return  {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'messages': $messagesArray
+        };
+    };
+
+    $functions.push('calculate_color_lookup');
+    /**
+     * Give object with original color hex values. Each item data has hsl values.
+     * @param $in
+     * @returns {{color_lookup: {}, answer: string, color_schema: {}, message: string}}
+     */
+    const calculate_color_lookup = function ($in) {
+        const $default = {
+            'color_data': {},
+            'step': 'step_start',
+        };
+        $in = _Default($default, $in);
+
+        const $defaultItem = {
+            'hue_degree': 0.0,
+            'saturation': 0.5,
+            'lightness': 0.0
+        };
+
+        let $colorLookup = {};
+
+        for (let $originalColor in $in.color_data) {
+            if ($in.color_data.hasOwnProperty($originalColor) === false) {
+                continue;
+            }
+            let $item = $in.color_data[$originalColor];
+            $item = _Default($defaultItem, $item);
+
+            const $rgbArray = _HslToRgb($item.hue_degree, $item.saturation, $item.lightness / 100.0);
+            const $newColor = _RgbToHex($rgbArray);
+
+            $colorLookup[$originalColor] = $newColor;
         }
 
         return {
-            'answer': $out.answer,
-            'message': $out.message,
-            'color_schema': $out.color_schema
+            'answer': 'true',
+            'message': 'Here are the color schema and the color lookup',
+            'color_lookup': $colorLookup
         };
     };
-
-    $functions.push("_GetBaseShade");
-    /**
-     * g0 = 1, g1 = 3, g2 = 5, g3 = 7, g4 = 9
-     * @param $groupNumber
-     * @returns {number}
-     * @private
-     */
-    const _GetBaseShade = function($groupNumber = 0)
-    {
-        const $baseShade = 1 + 2 * $groupNumber;
-        return $baseShade;
-    };
-
-    $functions.push("_CalculateOneGroup");
-    /**
-     * Calculate what colours should be
-     * @version 2020-10-18
-     * @since   2020-10-18
-     * @author  Peter Lembke
-     * @private
-     */
-    const _CalculateOneGroup = function($baseShade = 5)
-    {
-        // c0 = dark colour but not black
-        // c5 = base colour
-        // c10 = light colour but not white
-
-        const $background = $baseShade;
-        const $back = $background + 4;
-        const $front = $back + 4;
-
-        let $oneGroup = {
-            'background': $background,
-            'back': $back,
-            'front': $front,
-            'back-hover': $back + 1,
-            'front-hover': $front + 1,
-            'back-focus': $back + 2,
-            'front-focus': $front + 2,
-            'back-disabled': $back + 3,
-            'front-disabled': $front + 3,
-            'border': $back + 2,
-            'shadow': $back + 3
-        };
-
-        for (let $itemName in $oneGroup) {
-            if ($oneGroup.hasOwnProperty($itemName) === false) {
-                continue;
-            }
-
-            let $value = $oneGroup[$itemName];
-            if ($value <= 10) {
-                continue;
-            }
-
-            $value = $value % 10; // % = the modulus operator
-            $oneGroup[$itemName] = $value;
-        }
-
-        return $oneGroup;
-    };
-
-    $functions.push("_CalculateAllSeries");
-    /**
-     * Give an array with all baseColors and you get shade series for each base color
-     * @param $primaryColorsArray
-     * @returns {[]}
-     * @private
-     */
-    const _CalculateAllColorSeries = function($primaryColorsArray = [])
-    {
-        let $allColorSeries = [];
-        for (let $number = 0; $number < $primaryColorsArray.length; $number = $number + 1) {
-            $allColorSeries[$number] = _CalculateOneSeries($primaryColorsArray[$number]);
-        }
-
-        return $allColorSeries;
-    };
-
-    $functions.push("_CalculateOneSeries");
-    /**
-     * You give a base color and get an object back with shades c0 - c10.
-     * c5 is the base color, c0-c4 are darker, c6-c10 are lighter.
-     * c0 is dark but not black
-     * c10 is light but not white
-     * Example: #A0B321
-     * @returns {string}
-     * @private
-     */
-    const _CalculateOneSeries = function($baseColor = '')
-    {
-        const $rgbArray = _HexToRgb($baseColor);
-        const $hslArray = _RgbToHsl($rgbArray);
-
-        let $oneSeries = {};
-        const $step = 90/10;
-
-        for (let $number = 0; $number < 11; $number = $number + 1) {
-            let $value = $hslArray;
-            $value[2] = 5 + $number * $step; // Luminance from 5 to 95
-            const $newRgbArray = _HslToRgb($value);
-            const $newColor = _RgbToHex($rgbArray);
-            const $key = 'c' + $number.toString();
-            $oneSeries[$key] = $newColor;
-        }
-
-        return $oneSeries;
-    };
-
-    $functions.push("_BuildFinalColorArray");
-    /**
-     * You get an object with s0 to s3 (if you have four base colors).
-     * Each key has an object identical with oneGroup where each key
-     * got the shade number swapped to a hex color from allColorSeries
-     * @param $oneGroup | all group items and what color shade they should have
-     * @param $allColorSeries | color shaded for each base color
-     * @private
-     */
-    const _BuildFinalColorArray = function($oneGroup = {}, $allColorSeries = [])
-    {
-        let $finalColorObject = {};
-
-        for (let $seriesNumber = 0; $seriesNumber < $allColorSeries.length; $seriesNumber = $seriesNumber + 1) {
-
-            let $colorGroup = {};
-            for (let $itemName in $oneGroup) {
-                if ($oneGroup.hasOwnProperty($itemName) === false) {
-                    continue;
-                }
-                const $shadeNumber = $oneGroup[$itemName];
-                const $colorCode = $allColorSeries[$seriesNumber][$shadeNumber];
-                $colorGroup[$itemName] = $colorCode;
-            }
-
-            const $seriesName = 's' + $seriesNumber.toString();
-            $finalColorObject[$seriesName] = $colorGroup;
-        }
-
-        return $finalColorObject;
-    };
-
 
     $functions.push("_RgbToHex");
     /**

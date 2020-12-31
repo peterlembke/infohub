@@ -273,7 +273,7 @@
             "Clicked row with ID:": "Klicka på rad med ID:"
         },
         "infohub_demo_text": {
-            "Welcome to InfoHub Demo Text": "Välkommen till InfoHub-demotekst",
+            "Welcome to InfoHub Demo Text": "Välkommen till InfoHub-demotext",
             "Plugin infohub_render_text is used in this demo. You can use text to bind together rendered objects.": "Plugin infohub_render_text används i den här demonstrationen. Du kan använda text för att binda samman renderade objekt.",
             "The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.": "Textavgivaren är den viktigaste återgivaren av dem alla. Den fungerar som limet som kombinerar alla andra återgivna bitar.",
             "[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]": "[h2]Inbyggda kommandon[/h2] Du kan göra detta [:-)] [:-(] [(c)] [(r)] [tel] [eur], du kan också använda [b]fet[/b], [i]kursiv[/i], [u]understrykning[/u] eller en rad som den här [line][br] ",

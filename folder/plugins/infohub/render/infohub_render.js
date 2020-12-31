@@ -56,15 +56,18 @@ function infohub_render() {
             'click_and_scroll': 'normal',
             'delete_render_cache_for_user_name': 'normal',
             'delete_render_cache_for_user_name_specific_plugins': 'normal',
+            'set_color_schema': 'normal',
             'event_message': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
-    /** used for cacheing HTML **/
     let $renderCache = {};
     let $renderCacheLoaded = 'false';
+
+    let $colorSchema = {};
+    let $colorLookup = {};
 
     // ***********************************************************
     // * The private functions, add your own in your plugin
@@ -613,6 +616,8 @@ function infohub_render() {
         if ($in.step === 'step_where') {
 
             $in.step = 'step_output';
+
+            $in.html = _SubstituteColours($in.html);
 
             if ($in.where.mode === 'html') {
                 // We now restore our tags after calling the high end renderer
@@ -1386,6 +1391,10 @@ function infohub_render() {
                 $answer = 'false';
                 $message = $in.response.message;
             }
+            if ($in.response.answer === 'true') {
+                $answer = 'true';
+                $message = $in.response.message;
+            }
         }
 
         return {
@@ -1626,6 +1635,149 @@ function infohub_render() {
             }
         }
         $renderCache = $newRenderCache;
+    };
+
+    $functions.push('set_color_schema');
+    /**
+     * Set the color schema that will be used to set all colors on the rendered HTML
+     * @version 2020-12-27
+     * @since   2020-12-27
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    const set_color_schema = function ($in)
+    {
+        const $default = {
+            'color_schema': {},
+            'color_lookup': {},
+            'step': 'step_store_colour_data'
+        };
+        $in = _Default($default, $in);
+
+        let $messageArray = [];
+
+        if ($in.step === 'step_store_colour_data') {
+
+            $colorSchema = _ByVal($in.color_schema);
+            $colorLookup = _ByVal($in.color_lookup);
+
+            if (_IsSet($colorSchema['layer-0-background']) === 'true') {
+                $in.step = 'step_set_colour_schema';
+            }
+        }
+
+        if ($in.step === 'step_set_colour_schema') {
+
+            const $headersRule = _SubstituteColours('color: #1b350a;');
+            const $lightRule = _SubstituteColours('background-color: #6d8df7;');
+            const $sanityRule = _SubstituteColours('color: #0b1f00; border-color: #6d8df7; background-color: #ff0000;');
+
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update'
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'SetStyle',
+                            'style_name': 'backgroundColor',
+                            'style_value': _GetColour('layer-0-background')
+                        },
+                        {
+                            'func': 'SetStyle',
+                            'style_name': 'color',
+                            'style_value': _GetColour('layer-2-normal-text')
+                        },
+                        {
+                            'func': 'SetStyleRule',
+                            'sheet_id': 'infohub_global',
+                            'selector': 'h1, h2, h3, h4, h5, h6, ul',
+                            'rule': $headersRule
+                        },
+                        {
+                            'func': 'SetStyleRule',
+                            'sheet_id': 'infohub_global',
+                            'selector': '.light',
+                            'rule': $lightRule
+                        },
+                        {
+                            'func': 'SetStyleRule',
+                            'sheet_id': 'infohub_global',
+                            'selector': '.sanity',
+                            'rule': $sanityRule
+                        }
+                    ]
+                },
+                'data_back': {
+                    'step': 'step_end'
+                }
+            });
+            $messageArray.push($messageOut);
+        }
+
+
+        return {
+            'answer': 'true',
+            'message': 'Have set the color schema',
+            'messages': $messageArray
+        }
+    };
+
+    $functions.push('_GetColour');
+    /**
+     * Get a colour from its name
+     * @version 2020-12-30
+     * @since   2020-12-30
+     * @author  Peter Lembke
+     * @param $name
+     * @returns {string|*}
+     * @private
+     */
+    const _GetColour = function ($name = '')
+    {
+        if (_IsSet($colorSchema[$name]) === 'false') {
+            return '#000000'
+        }
+
+        let $originalColour = $colorSchema[$name];
+        if (_IsSet($colorLookup[$originalColour]) === 'false') {
+            return '#000000'
+        }
+
+        const $newColour = $colorLookup[$originalColour];
+
+        return $newColour;
+    };
+
+    $functions.push('_SubstituteColours');
+    /**
+     * Substitute the colours in the html to the schema colours
+     * @version 2020-12-29
+     * @since   2020-12-29
+     * @author  Peter Lembke
+     * @param $html
+     * @returns {string}
+     * @private
+     */
+    const _SubstituteColours = function ($html = '')
+    {
+        if ($html.indexOf('#') === -1) {
+            return $html;
+        }
+
+        for (let $findColour in $colorLookup) {
+            if ($colorLookup.hasOwnProperty($findColour) === false) {
+                continue;
+            }
+            const $newColour = $colorLookup[$findColour];
+
+            $html = _Replace($findColour, $newColour, $html);
+        }
+
+        return $html;
     };
 
     /**

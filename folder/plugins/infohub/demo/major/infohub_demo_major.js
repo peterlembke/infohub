@@ -147,10 +147,7 @@ function infohub_demo_major() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box1][my_presentation_box2][my_presentation_box3]',
-                        'css_data': {
-                            '.light': 'background-color: green; display: inline-block;'
-                        }
+                        'text': '[my_presentation_box1][my_presentation_box2][my_presentation_box3]'
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',

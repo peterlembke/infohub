@@ -170,10 +170,7 @@ function infohub_contact_client() {
                             'event_data': 'client|list',
                             'to_plugin': 'infohub_contact',
                             'to_function': 'click',
-                            "options": [],
-                            'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                            "options": []
                         },
                         'button_new': {
                             'plugin': 'infohub_renderform',
@@ -352,10 +349,7 @@ function infohub_contact_client() {
                                 { "type": "option", "value": "user", "label": _Translate("user") },
                                 { "type": "option", "value": "developer", "label": _Translate("developer") },
                                 { "type": "option", "value": "admin", "label": _Translate("admin") }
-                            ],
-                            'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                            ]
                         },
                         'client_icon': {
                             'type': 'common',

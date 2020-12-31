@@ -92,13 +92,10 @@ function infohub_demo_common() {
                             'type': 'common',
                             'subtype': 'container',
                             'alias': 'duckduckgo_container',
-                            'class': 'container',
+                            'class': 'container-pretty',
                             'tag': 'div', // span, p, div
                             'data': _Translate('Time') + ':[light][time][/light][a_legend]',
-                            'visible': 'true',
-                            'css_data': {
-                                '.container': 'background-color: #b2de98; padding: 4px 4px 4px 4px; border: 4px solid #bdbdbd;'
-                            }
+                            'visible': 'true'
                         },
                         'a_legend': {
                             'type': 'common',
@@ -113,11 +110,7 @@ function infohub_demo_common() {
                             'subtype': 'iframe',
                             'alias': 'duckduckgo',
                             'height': '40px',
-                            'class': 'iframe',
-                            'data': 'https://duckduckgo.com/search.html?site=abc.se&prefill=Search ABC.se&kn=1',
-                            'css_data': {
-                                '.iframe': 'border: 2px solid #444444;'
-                            }
+                            'data': 'https://duckduckgo.com/search.html?site=abc.se&prefill=Search ABC.se&kn=1'
                         },
                         'light': {
                             'type': 'common',
@@ -133,15 +126,11 @@ function infohub_demo_common() {
                         'my_list': {
                             'type': 'common',
                             'subtype': 'list',
-                            'class': 'list',
                             'option': [
                                 {'label': _Translate('Does not track you') },
                                 {'label': _Translate('Does not [u]sell[/u] you anything') },
                                 {'label': _Translate('That is why I [:-)] like them') }
-                            ],
-                            'css_data': {
-                                '.list': 'background-color: green; list-style-type: square;list-style-position: inside;list-style-image: none;'
-                            }
+                            ]
                         },
                         'my_icon': {
                             'type': 'common',
@@ -269,18 +258,12 @@ function infohub_demo_common() {
                             'button_label': _Translate('Affect progress bar'),
                             'event_data': 'common|progress|affect',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click',
-                            'css_data': {
-                                '.list': 'background-color: green;'
-                            }
+                            'to_function': 'click'
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_intro_text][my_container][image_example][image_example2][svg_example]',
-                        'css_data': {
-                            '.light': 'background-color: green; display: inline-block;'
-                        }
+                        'text': '[my_intro_text][my_container][image_example][image_example2][svg_example]'
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',

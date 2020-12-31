@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+/*jshint forin: false */
+
     let $functions = [], // Array with all function names
         $firstDefault = null, // Used by cmd() to get the default values for a cmd function
         $warnOnce = {}; // Warn about no return statement once in each plugin.function

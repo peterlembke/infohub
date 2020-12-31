@@ -1092,7 +1092,7 @@ function infohub_launcher() {
                 'to_function': 'plugin_information',
                 'css_data': {
                     '.my_list_link': 'display: inline-block;',
-                    '.my_list_link:hover': 'background: lightgrey; border-radius: 8px;'
+                    '.my_list_link:hover': 'background: #6d8df7; border-radius: 8px;'
                 }
             };
 
@@ -1141,7 +1141,7 @@ function infohub_launcher() {
                     'to_function': 'event_message',
                     'css_data': {
                         '.my_list_link': 'display: inline-block;',
-                        '.my_list_link:hover': 'background: lightgrey; border-radius: 8px;'
+                        '.my_list_link:hover': 'background: #6d8df7; border-radius: 8px;'
                     }
                 };
 

@@ -847,7 +847,7 @@ function infohub_tabs() {
                         'event_data': $alias, // Any string you like to send to the event_message function
                         'to_plugin': 'infohub_tabs',
                         'css_data': {
-                            '.yes': 'background-color: #b2de98;'
+                            '.yes': 'background-color: #6d8df7;'
                         }
                     },
                     'menutitle': {

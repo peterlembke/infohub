@@ -160,10 +160,7 @@ function infohub_demo_timer() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box1][my_presentation_box2]',
-                        'css_data': {
-                            '.light': 'background-color: green; display: inline-block;'
-                        }
+                        'text': '[my_presentation_box1][my_presentation_box2]'
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',

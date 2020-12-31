@@ -326,7 +326,7 @@ function infohub_renderform() {
                 'tag': 'span',
                 'data': '',
                 'css_data': {
-                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                    '.container': 'border-style: dotted; border-color: #6d8df7; display:none;'
                 },
             }
         };
@@ -439,7 +439,7 @@ function infohub_renderform() {
                 'tag': 'span',
                 'data': '',
                 'css_data': {
-                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                    '.container': 'border-style: dotted;border-color: #7df76d; display:none;' // Normal colour
                 },
             }
         };
@@ -577,15 +577,6 @@ function infohub_renderform() {
                 'custom_variables': {}
             };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.range':
-                    'width: 100%;'+
-                    'margin: 10px 0px 0px 0px;'+
-                    'padding: 0px 0px 0px 0px;'
-            };
-        }
 
         let $parts = {
             'presentation_box': {
@@ -807,7 +798,7 @@ function infohub_renderform() {
                 'tag': 'span',
                 'data': '',
                 'css_data': {
-                    '.container': 'border-style: dotted;border-color: green; display:none;'
+                    '.container': 'border-style: dotted;border-color: #7df76d; display:none;' // normal colour
                 },
             }
         };
@@ -1077,6 +1068,15 @@ function infohub_renderform() {
         };
     };
 
+    /**
+     * Thought was to show a sign how the form validation went.
+     * But signs do not have even support over all the browsers
+     * Signs look different in different browsers. I have used svg instead.
+     * @deprecated
+     * @param $in
+     * @returns {string}
+     * @private
+     */
     const _Signs = function ($in)
     {
         const $default = {
@@ -1088,38 +1088,38 @@ function infohub_renderform() {
 
         const $data = {
             'valid': {
-                'sign': '&#x2714;&#xFE0E;', // &#xFE0E; forces the previous character to be text instead of an emoj (Firefox)
+                'sign': '&#x2714;&#xFE0E;', // &#xFE0E; forces the previous character to be text instead of an emoji (Firefox)
                 'group': 'validate',
                 'note': 'Checkmark',
-                'color': 'green',
+                'color': '#7df76d', // Normal colour
                 'display': 'none'
             },
             'invalid': {
                 'sign': '&#x274c;&#xFE0E;',
                 'group': 'validate',
                 'note': 'Cross',
-                'color': 'red',
+                'color': '#ff0000', // Warning colour
                 'display': 'inline-block'
             },
             'required': {
                 'sign': '&#x2757;&#xFE0E;',
                 'group': 'require',
                 'note': 'Exclamation mark',
-                'color': 'yellow',
+                'color': '#6d8df7', // Was yellow, now it is the highlight colour
                 'display': 'inline-block'
             },
             'unchanged': {
                 'sign': '&#x1f4a1;&#xFE0E;',
                 'group': 'changed',
                 'note': 'Lightbulb',
-                'color': 'grey',
+                'color': '#0b1f00', // Was grey. Now text colour
                 'display': 'inline-block'
             },
             'changed': {
                 'sign': '&#x1f4a1;&#xFE0E;',
                 'group': 'changed',
-                'note': 'Lightbulb',
-                'color': 'blue',
+                'note': '#1b350a',
+                'color': 'blue', // Was blue. Now title text colour
                 'display': 'none'
             }
         };
@@ -1301,12 +1301,12 @@ function infohub_renderform() {
                         'data': $in,
                     });
 
-                    let $borderColor = 'red';
+                    let $borderColor = '#ff0000'; // Warning
                     let $showButtonResult = 'false';
                     if ($in.response.answer === 'true' && $ok === 'true') {
                         if ($in.show_success_text === 'true') {
                             $showButtonResult = 'true';
-                            $borderColor = 'green';
+                            $borderColor = '#7df76d'; // normal/success
                         }
                     }
 
@@ -1494,12 +1494,12 @@ function infohub_renderform() {
                         'data': $in,
                     });
 
-                    let $borderColor = 'red';
+                    let $borderColor = '#ff0000'; // warning
                     let $showButtonResult = 'false';
                     if ($in.response.answer === 'true' && $ok === 'true') {
                         if ($in.show_success_text === 'true') {
                             $showButtonResult = 'true';
-                            $borderColor = 'green';
+                            $borderColor = '#7df76d'; // normal/success
                         }
                     }
 

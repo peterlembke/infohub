@@ -137,7 +137,7 @@ function infohub_demo_text() {
                         'mode': 'one box',
                         'text': '[my_text]',
                         'css_data': {
-                            '.light': 'background-color: yellow; display: inline-block;'
+                            '.light': 'background-color: #6d8df7; display: inline-block;'
                         }
                     },
                     'where': {

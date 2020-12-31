@@ -242,16 +242,17 @@ function infohub_render_table() {
 
         if (_Empty($in.css_data) === 'true') {
             $in.css_data = {
-                'table': 'text-align: left; border-style: solid; border-width: 1px;',
-                'th': 'color: black; background-image: linear-gradient(to bottom, white , rgb(202, 239, 202));border: 1px solid #a6c8a6;',
-                'th, td': 'padding: 4px; ',
+                'table': 'text-align: left; border: 1px solid #7df76d;',
+                'th': 'color: #1b350a; background-image: linear-gradient(to bottom, #7df76d , #6d8df7);',
+                'th, td': 'padding: 4px; border: 1px solid #7df76d;',
+                'td': 'color: #0b1f00;',
                 '.left': 'text-align: left;',
                 '.center': 'text-align: center;',
                 '.right': 'text-align: right;',
-                '.negative': 'color: red;',
-                'tr:nth-child(even)': 'background-color: #c2c2c2;',
+                '.negative': 'color: #ff0000;',
+                // 'tr:nth-child(even)': 'background-color: #c2c2c2;',
                 'tr:hover':
-                    'background-color: #a2a2a2;',
+                    'background-color: #6d8df7;',
             };
         }
 

@@ -33,6 +33,7 @@ function infohub_configlocal_colour() {
             'create': 'normal',
             'render_done': 'normal',
             'click_submit': 'normal',
+            'click_clear_render_cache': 'normal',
             'apply_config': 'normal'
         };
 
@@ -53,8 +54,7 @@ function infohub_configlocal_colour() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -68,8 +68,7 @@ function infohub_configlocal_colour() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_form')
-        {
+        if ($in.step === 'step_render_form') {
             $classTranslations = _ByVal($in.translations);
 
             return _SubCall({
@@ -87,9 +86,10 @@ function infohub_configlocal_colour() {
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[color_selector][base_color_0][base_color_1][base_color_2][base_color_3][base_color_4][dark_mode][submit]',
+                            'content': '[color_selector][base_color_0][base_color_1][base_color_2][base_color_3][base_color_4][base_color_5][light_picker][layer_0][layer_1][layer_2][submit][clear_render_cache]',
                             'label': _Translate('Colour schema'),
-                            'description': _Translate('Here you can modify the colour schema.')
+                            'description': _Translate(
+                                'Here you can modify the colour schema.')
                         },
                         'color_selector': {
                             'plugin': 'infohub_color',
@@ -122,14 +122,38 @@ function infohub_configlocal_colour() {
                         'base_color_4': {
                             'plugin': 'infohub_color',
                             'type': 'color_reader',
-                            'button_label': _Translate('Layer 2: Button text'),
+                            'button_label': _Translate('Layer 2: Normal text'),
                             'color_selector_name': 'color_selector'
                         },
-                        'dark_mode': {
+                        'base_color_5': {
+                            'plugin': 'infohub_color',
+                            'type': 'color_reader',
+                            'button_label': _Translate('Layer 2: Title text'),
+                            'color_selector_name': 'color_selector'
+                        },
+                        'light_picker': {
                             'plugin': 'infohub_color',
                             'type': 'light_bar_selector',
-                            'label': 'Dark mode',
-                            'description': 'Pick how dark background you want'
+                            'label': 'How dark layer',
+                            'description': 'Pick how dark layer you want'
+                        },
+                        'layer_0': {
+                            'plugin': 'infohub_color',
+                            'type': 'light_bar_reader',
+                            'button_label': _Translate('Layer 0'),
+                            'light_bar_selector_name': 'light_picker'
+                        },
+                        'layer_1': {
+                            'plugin': 'infohub_color',
+                            'type': 'light_bar_reader',
+                            'button_label': _Translate('Layer 1'),
+                            'light_bar_selector_name': 'light_picker'
+                        },
+                        'layer_2': {
+                            'plugin': 'infohub_color',
+                            'type': 'light_bar_reader',
+                            'button_label': _Translate('Layer 2'),
+                            'light_bar_selector_name': 'light_picker'
                         },
                         'submit': {
                             'plugin': 'infohub_renderform',
@@ -138,7 +162,18 @@ function infohub_configlocal_colour() {
                             'button_label': _Translate('Save your settings'),
                             'event_data': 'colour|submit',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'click'
+                            'to_function': 'click',
+                            'show_success_text': 'true'
+                        },
+                        'clear_render_cache': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Clear render cache'),
+                            'event_data': 'colour|clear_render_cache',
+                            'to_plugin': 'infohub_configlocal',
+                            'to_function': 'click',
+                            'show_success_text': 'true'
                         }
                     },
                     'how': {
@@ -170,14 +205,17 @@ function infohub_configlocal_colour() {
      * @author  Peter Lembke
      */
     $functions.push('render_done');
-    const render_done = function ($in)
-    {
+    const render_done = function($in) {
         const $default = {
             'subtype': 'menu',
             'box_id': '',
             'parent_box_id': '',
             'translations': {},
-            'form_data': {},
+            'form_data': {
+                'form_data': {},
+                'color_schema': {},
+                'color_lookup': {}
+            },
             'step': 'step_render_light_bars',
             'response': {
                 'answer': '',
@@ -190,22 +228,25 @@ function infohub_configlocal_colour() {
         let $messageArray = [];
         let $messageOut = {};
 
-        if ($in.step === 'step_render_light_bars')
-        {
-            for (let $number = 0; $number <= 4; $number++) {
+        if ($in.step === 'step_render_light_bars') {
+
+            let $massUpdate = [];
+
+            for (let $number = 0; $number <= 5; $number++) {
 
                 const $hueDegree = _GetData({
                     'name': 'form_data/base_color_' + $number.toString() + '/value',
                     'default': '?',
-                    'data': $in,
-                })
+                    'data': $in.form_data,
+                });
 
                 if ($hueDegree === '?') {
                     continue;
                 }
 
                 const $hueDegreeNumber = parseInt($hueDegree);
-                const $where = 'main.body.infohub_configlocal.form.[base_color_' + $number + '_light_bar_container]';
+                let $where = 'main.body.infohub_configlocal.form.[base_color_' +
+                    $number + '_light_bar_container]';
 
                 $messageOut = _SubCall({
                     'to': {
@@ -227,7 +268,10 @@ function infohub_configlocal_colour() {
                         },
                         'how': {
                             'mode': 'one box',
-                            'text': '[light_bar]'
+                            'text': '[light_bar]',
+                            'css_data': {
+                                ' ': 'display: inline-block; max-width: 100%; border: 5px ridge; margin-left: 16px;'
+                            }
                         },
                         'where': {
                             'box_id': $where,
@@ -236,12 +280,107 @@ function infohub_configlocal_colour() {
                         },
                         'cache_key': 'light_bar_' + $hueDegree
                     },
-                    'data_back': {'step': 'step_end'}
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+
+                $messageArray.push($messageOut);
+
+                $where = 'main.body.infohub_configlocal.form.[base_color_' +
+                    $number + '_hue_degree_container]';
+
+                $massUpdate.push({
+                    'func': 'SetText',
+                    'id': $where,
+                    'text': $hueDegree
+                });
+            }
+
+            for (let $number = 0; $number <= 2; $number++) {
+
+                const $numberString = $number.toString();
+
+                const $lightPercent = _GetData({
+                    'name': 'form_data/layer_' + $numberString + '/value',
+                    'default': '?',
+                    'data': $in.form_data,
+                });
+
+                if ($lightPercent === '?') {
+                    continue;
+                }
+                const $lightPercentNumber = parseInt($lightPercent);
+
+                let $where = 'main.body.infohub_configlocal.form.[layer_' +
+                    $numberString + '_light_box_container]';
+
+                $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'create'
+                    },
+                    'data': {
+                        'what': {
+                            'light_bar': {
+                                'plugin': 'infohub_color',
+                                'type': 'color_box',
+                                'hue_degree': 0,
+                                'saturation_percent': 0,
+                                'light_percent': $lightPercentNumber,
+                                'width': 30,
+                                'height': 30,
+                                'css_data': {
+                                    '.container': 'border: 5px ridge; margin-left: 16px;'
+                                }
+                            }
+                        },
+                        'how': {
+                            'mode': 'one box',
+                            'text': '[light_bar]'
+                        },
+                        'where': {
+                            'box_id': $where,
+                            'max_width': 100,
+                            'scroll_to_box_id': 'false'
+                        },
+                        'cache_key': 'render_done-layer_' + $numberString
+                    },
+                    'data_back': {
+                        'step': 'step_end'
+                    }
+                });
+
+                $messageArray.push($messageOut);
+
+                $where = 'main.body.infohub_configlocal.form.[layer_' +
+                    $number + '_light_value_container]';
+
+                $massUpdate.push({
+                    'func': 'SetText',
+                    'id': $where,
+                    'text': $lightPercent
+                });
+            }
+
+            if (_Count($massUpdate) > 0) {
+                $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_view',
+                        'function': 'mass_update'
+                    },
+                    'data': {
+                        'do': $massUpdate
+                    },
+                    'data_back': {
+                        'step': 'step_end'
+                    }
                 });
 
                 $messageArray.push($messageOut);
             }
-
         }
 
         return {
@@ -255,48 +394,29 @@ function infohub_configlocal_colour() {
      * Save the config
      * I can not let the button directly call "submit" in the parent because the event would
      * have come from infohub_render and the function should only accept calls from the children.
-     * @todo Write the logic in this function. It is taken from the image plugin
      * @version 2019-10-28
      * @since 2019-10-28
      * @author Peter Lembke
      */
     $functions.push("click_submit");
-    const click_submit = function ($in)
-    {
+    const click_submit = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
             'answer': '',
             'message': '',
-            'response': {
-                'form_data': {
-                    'base_color_0': {
-                        'value': ''
-                    },
-                    'base_color_1': {
-                        'value': ''
-                    },
-                    'base_color_2': {
-                        'value': ''
-                    },
-                    'base_color_3': {
-                        'value': ''
-                    },
-                    'base_color_4': {
-                        'value': ''
-                    },
-                    'dark_mode': {
-                        'value': ''
-                    }
-                }
+            'response': {},
+            'data_back': {
+                'form_data': {},
+                'color_schema': {},
+                'color_lookup': {}
             }
         };
         $in = _Default($default, $in);
 
         let $ok = 'false';
 
-        if ($in.step === 'step_form_read')
-        {
+        if ($in.step === 'step_form_read') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -313,16 +433,101 @@ function infohub_configlocal_colour() {
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
+
             if ($in.answer === 'true') {
-                $in.step = 'step_save_config';
+
+                $in.data_back = _Default(_GetDefaultColorData(), $in.response);
+
+                let $hasAllData = 'true';
+                for (let $key in $in.data_back.form_data) {
+                    if ($in.data_back.form_data.hasOwnProperty($key) === false) {
+                        continue;
+                    }
+                    if ($in.data_back.form_data[$key].value === '') {
+                        $hasAllData = 'false';
+                        break;
+                    }
+                }
+
+                if ($hasAllData === 'true') {
+                    $in.step = 'step_calculate_color_lookup';
+                } else {
+                    $in.message = _Translate('You need to do a selection with all buttons');
+                }
             }
         }
 
-        if ($in.step === 'step_save_config')
-        {
+        if ($in.step === 'step_calculate_color_lookup') {
+
+            const $saturation = 0.5;
+
+            let $colorData = {
+                '#f76d6d': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_0.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_0.value)
+                },
+                '#7df76d': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_1.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_1.value)
+                },
+                '#6d8df7': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_2.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_1.value)
+                },
+                '#ff0000': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_3.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_1.value)
+                },
+                '#0b1f00': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_4.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_2.value)
+                },
+                '#1b350a': {
+                    'hue_degree': parseFloat($in.data_back.form_data.base_color_5.value),
+                    'saturation': $saturation,
+                    'lightness': parseFloat($in.data_back.form_data.layer_2.value)
+                }
+            };
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_color',
+                    'function': 'calculate_color_lookup'
+                },
+                'data': {
+                    'color_data': $colorData
+                },
+                'data_back': {
+                    'form_data': $in.data_back.form_data,
+                    'color_schema': $in.data_back.color_schema,
+                    'step': 'step_calculate_color_lookup_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_calculate_color_lookup_response') {
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'color_lookup': {}
+            }
+
+            $in.response = _Default($default, $in.response);
+
+            $in.data_back.color_lookup = $in.response.color_lookup;
+
+            $in.step = 'step_save_config';
+        }
+
+        if ($in.step === 'step_save_config') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -332,24 +537,9 @@ function infohub_configlocal_colour() {
                 'data': {
                     'event_data': 'colour',
                     'form_data': {
-                        'base_color_0': {
-                            'value': $in.response.form_data.base_color_0.value
-                        },
-                        'base_color_1': {
-                            'value': $in.response.form_data.base_color_1.value
-                        },
-                        'base_color_2': {
-                            'value': $in.response.form_data.base_color_2.value
-                        },
-                        'base_color_3': {
-                            'value': $in.response.form_data.base_color_3.value
-                        },
-                        'base_color_4': {
-                            'value': $in.response.form_data.base_color_4.value
-                        },
-                        'dark_mode': {
-                            'value': $in.response.form_data.dark_mode.value
-                        }
+                        'form_data': $in.data_back.form_data,
+                        'color_schema': $in.data_back.color_schema,
+                        'color_lookup': $in.data_back.color_lookup
                     }
                 },
                 'data_back': {
@@ -358,11 +548,11 @@ function infohub_configlocal_colour() {
             });
         }
 
-        if ($in.step === 'step_save_config_response')
-        {
+        if ($in.step === 'step_save_config_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $ok = 'true';
+                $in.message = _Translate('I saved your selections. I now recommend that you clear the render cache');
             }
         }
 
@@ -373,114 +563,130 @@ function infohub_configlocal_colour() {
         };
     };
 
+    $functions.push("click_clear_render_cache");
     /**
-     * Apply the image config on the stored plugin
-     * Will get local_config. Now we will ask for help to store that config on the plugin config in localStorage.
-     * @todo Write the logic in this function. It is taken from the image plugin
-     * @version 2020-09-24
-     * @since 2019-10-19
+     * Click to clear the render cache and ask infohub_render to forget the
+     * current list with colours.
+     * @version 2020-12-27
+     * @since 2020-12-27
      * @author Peter Lembke
      */
-    $functions.push("apply_config");
-    const apply_config = function ($in)
-    {
+    const click_clear_render_cache = function($in) {
         const $default = {
-            'local_config': {
-                'download_assets.download_assets': {
-                    'value': 'false'
-                },
-                'max_asset_size_kb': {
-                    'value': ''
-                },
-                'index_cache_days': {
-                    'value': ''
-                },
-                'allowed_asset_types.avif': {
-                    'value': 'false'
-                },
-                'allowed_asset_types.gif': {
-                    'value': 'false'
-                },
-                'allowed_asset_types.json': {
-                    'value': 'false'
-                },
-                'allowed_asset_types.png': {
-                    'value': 'false'
-                },
-                'allowed_asset_types.svg': {
-                    'value': 'false'
-                },
-                'allowed_asset_types.webp': {
-                    'value': 'false'
-                }
-            },
-            'step': 'step_check_config',
+            'step': 'step_send_messages',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report from click_apply_config'
             }
         };
         $in = _Default($default, $in);
 
-        let $out = {
-            'answer': 'false',
-            'message': 'Nothing to report'
-        };
-
-        if ($in.step === 'step_check_config')
-        {
-            $in.step = 'step_apply_config';
-
-            if (_Empty($in.local_config.max_asset_size_kb.value) === 'true') {
-                $in.step = 'step_end';
-                $out.message = 'We have no config to apply. Exiting';
-            }
-        }
-
-        if ($in.step === 'step_apply_config')
-        {
-            const $secondsInADay = 24*60*60;
-            const $newPluginConfig = {
-                'allowed_asset_types': {
-                    'avif': $in.local_config['allowed_asset_types.avif'].value,
-                    'gif': $in.local_config['allowed_asset_types.gif'].value,
-                    'json': $in.local_config['allowed_asset_types.json'].value,
-                    'png': $in.local_config['allowed_asset_types.png'].value,
-                    'svg': $in.local_config['allowed_asset_types.svg'].value,
-                    'webp': $in.local_config['allowed_asset_types.webp'].value
-                },
-                'download_assets': $in.local_config['download_assets.download_assets'].value,
-                'index_cache_seconds': parseInt($in.local_config.index_cache_days.value) * $secondsInADay,
-                'max_asset_size_kb': parseInt($in.local_config.max_asset_size_kb.value)
-            };
-
+        if ($in.step === 'step_send_messages') {
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_plugin',
-                    'function': 'set_plugin_config'
+                    'plugin': 'infohub_render',
+                    'function': 'delete_render_cache_for_user_name'
                 },
-                'data': {
-                    'plugin_name': 'infohub_asset',
-                    'plugin_config': $newPluginConfig
-                },
+                'data': {},
                 'data_back': {
-                    'step': 'step_apply_config_response'
+                    'step': 'step_send_messages_response'
                 }
             });
         }
 
-        if ($in.step === 'step_apply_config_response') {
-            $out.answer = $in.response.answer;
-            $out.message = $in.response.message;
+        let $ok = 'false';
+
+        if ($in.step === 'step_send_messages_response') {
+            if ($in.response.answer === 'true') {
+                $ok = 'true';
+                $in.response.message = _Translate('Done clearing cache');
+            }
         }
 
         return {
-            'answer': $out.answer,
-            'message': $out.message
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $ok
         };
-
     };
 
+    $functions.push("apply_config");
+    /**
+     * Read the config and then send it to infohub_render -> set_color_schema
+     * @version 2020-12-27
+     * @since 2020-12-27
+     * @author Peter Lembke
+     */
+    const apply_config = function($in) {
+        const $default = {
+            'local_config': _GetDefaultColorData(),
+            'step': 'step_set_color_schema',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from configlocal_colour -> apply_config'
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_set_color_schema') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'set_color_schema'
+                },
+                'data': $in.local_config,
+                'data_back': {
+                    'step': 'step_set_color_schema_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_set_color_schema_response') {
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message
+        };
+    };
+
+    /**
+     * Return the default data that we save on submit
+     * @returns {}
+     * @private
+     */
+    const _GetDefaultColorData = function() {
+        return {
+            'color_schema': {
+                'layer-0-background': '#f76d6d',
+                'layer-1-normal': '#7df76d',
+                'layer-1-highlight': '#6d8df7',
+                'layer-1-warning': '#ff0000',
+                'layer-2-normal-text': '#0b1f00',
+                'layer-2-title-text': '#1b350a',
+            },
+            'color_lookup': {
+                "#f76d6d":"#260d0d",
+                "#7df76d":"#82482b",
+                "#6d8df7":"#82572b",
+                "#ff0000":"#822b3a",
+                "#0b1f00":"#deb29c",
+                "#1b350a":"#dec89c"
+            },
+            'form_data': {
+                'base_color_0': {'value': ''},
+                'base_color_1': {'value': ''},
+                'base_color_2': {'value': ''},
+                'base_color_3': {'value': ''},
+                'base_color_4': {'value': ''},
+                'base_color_5': {'value': ''},
+                'layer_0': {'value': ''},
+                'layer_1': {'value': ''},
+                'layer_2': {'value': ''}
+            }
+        };
+    };
 }
 //# sourceURL=infohub_configlocal_colour.js

@@ -330,9 +330,9 @@ class infohub_encrypt extends infohub_base
      * @return string | Hashed encryption string
      */
     protected function _GetKey($encryptionKey = '') {
-        # the key should be random binary, use scrypt, bcrypt or PBKDF2 to
-        # convert a string into a key
-        # key is specified using hexadecimal
+        // the key should be random binary, use scrypt, bcrypt or PBKDF2 to
+        // convert a string into a key
+        // key is specified using hexadecimal
 
         if (empty($encryptionKey)) {
             return false;

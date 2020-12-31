@@ -79,6 +79,7 @@ function infohub_view() {
             'file_write': 'normal',
             'set_style': 'normal',
             'progress': 'normal',
+            'set_style_rule': 'normal',
             'alert': 'normal',
             'event_message': 'normal'
         };
@@ -302,7 +303,11 @@ function infohub_view() {
         let $parts = $id.split('.');
 
         if ($parts.length === 0) {
-            return '';
+            return document.body;
+        }
+
+        if ($parts.length === 1 && $parts[0] === '') {
+            return document.body;
         }
 
         if ($parts.length === 1) {
@@ -479,18 +484,16 @@ function infohub_view() {
     // * your class functions below, only declare with var
     // ***********************************************************
 
+    $functions.push('init');
     /**
-     * Get box id from a series of aliases.
-     * Example: main.body.infohub_doc.index
+     * Sets the infohub_view css file that handle the box system
+     * Called by infohub_workbench -> startup
      * @version 2017-12-02
      * @since 2017-12-02
      * @author Peter Lembke
-     * @param box_id
-     * @param digits
-     * @param box_mode
-     * @return bool
+     * @param $in
+     * @returns {{answer: string, message: string}}
      */
-    $functions.push('init');
     const init = function ($in)
     {
         const $default = {};
@@ -505,7 +508,7 @@ function infohub_view() {
 
         return {
             'answer': 'true',
-            'message': 'Here are the box_id'
+            'message': 'Done initializing infohub_view'
         };
     };
 
@@ -3780,7 +3783,7 @@ function infohub_view() {
 
         let $element = _GetElement($id);
 
-        let $message = 'have not set the style. Did not find the element';
+        let $message = 'Have not set the style. Did not find the element';
         if ($element) {
             $element.style[$in.style_name] = $in.style_value;
             $message = 'Have set the style';
@@ -3864,6 +3867,63 @@ function infohub_view() {
             'max_before': $maxBefore,
             'value_before': $valueBefore
         };
+    };
+
+    /**
+     * Set a style rule in an existing style sheet
+     * Modifies the css style sheet
+     * @param $in
+     * @returns {{answer: *, message: *}}
+     */
+    const set_style_rule = function ($in)
+    {
+        const $default = {
+            'sheet_id': '',
+            'selector': '',
+            'rule': ''
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'SetStyleRule',
+            'sheet_id': $in.sheet_id,
+            'selector': $in.selector,
+            'rule': $in.rule
+        });
+    }
+
+    $functions.push('internal_SetStyleRule');
+    const internal_SetStyleRule = function ($in)
+    {
+        const $default = {
+            'sheet_id': '',
+            'selector': '',
+            'rule': ''
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'false';
+        let $message = '';
+
+        const $querySelector = 'link#' + $in.sheet_id;
+        let $styleSheet = document.querySelector($querySelector);
+
+        leave: {
+            if ( ! $styleSheet) {
+                $message = 'Could not find the style sheet with id ' + $in.style_id;
+                break leave;
+            }
+
+            let $sheet = $styleSheet.sheet;
+            $sheet.insertRule($in.selector + '{ ' + $in.rule + '}', $sheet.cssRules.length)
+            $answer = 'true';
+            $message = 'Rule is inserted';
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message
+        }
     };
 
     /**

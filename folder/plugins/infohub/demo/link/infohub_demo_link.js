@@ -104,16 +104,12 @@ function infohub_demo_link() {
                         'my_list': {
                             'type': 'common',
                             'subtype': 'list',
-                            'class': 'list',
                             'option': [
                                 {'label': '[my_event_link]' },
                                 {'label': '[my_toggle_link]' },
                                 {'label': '[my_external_link]' },
                                 {'label': '[my_embed_link]' }
-                            ],
-                            'css_data': {
-                                '.list': 'background-color: green; list-style-type: square;list-style-position: inside;list-style-image: none;'
-                            }
+                            ]
                         },
                         'my_event_link': {
                             'type': 'link',

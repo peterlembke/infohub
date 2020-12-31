@@ -229,7 +229,7 @@ function infohub_render_common() {
             // 'css_data': {}
             // You can not use css_data because it wraps around the html,
             // and this is only a start tag without an end tag.
-            // Set the css on an outer container instead.
+            // Set the css on an internal_Container instead.
         };
         $in = _Default($default, $in);
 
@@ -322,7 +322,7 @@ function infohub_render_common() {
         if (_Empty($in.css_data) === 'true') {
             if ($in.class === 'container-pretty') {
                 $in.css_data = {
-                    '.container-pretty' : 'border:1px solid #bcdebc; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;'
+                    '.container-pretty' : 'border:1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;'
                 };
             }
             if ($in.class === 'container-small') {
@@ -421,7 +421,7 @@ function infohub_render_common() {
         const $default = {
             'alias': '',
             'height': '350px',
-            'class': 'container',
+            'class': 'iframe',
             'data': '', // Url to the external data
             'css_data': {}
         };
@@ -441,6 +441,12 @@ function infohub_render_common() {
             $id
         ];
         const $html = '<iframe ' + $parameters.join(' ') + '></iframe>';
+
+        if (_Empty($in.css_data) === 'true') {
+            $in.css_data = {
+                '.iframe': 'border: 2px solid #ff0000; box-sizing:border-box;'
+            }
+        }
 
         return {
             'answer': 'true',
@@ -484,8 +490,8 @@ function infohub_render_common() {
         if (_Empty($in.css_data) === 'true' && $in.class === 'fieldset') {
             $in.css_data = {
                 'parent' : 'break-inside: avoid;',
-                'fieldset' : 'border: 1px solid #bcdebc; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
-                'fieldset .legend': 'color: #000; border: 1px solid #a6c8a6; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #ddd; margin-left: 20px; border-radius: 20px;'
+                'fieldset' : 'border: 1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
+                'fieldset .legend': 'color: #0b1f00; border: 1px solid #7df76d; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #7df76d; margin-left: 20px; border-radius: 20px;'
             };
         }
 
@@ -698,6 +704,12 @@ function infohub_render_common() {
         const $display = _Display($in);
         $in.html = '<ul ' + $id + ' ' + $display + '>' + $in.html + '</ul>';
 
+        if (_Empty($in.css_data) === 'true' && $in.class === 'list') {
+            $in.css_data = {
+                '.list': 'list-style-type: square; list-style-position: inside; list-style-image: none;'
+            };
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a list',
@@ -769,6 +781,33 @@ function infohub_render_common() {
         const $display = _Display($in);
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<progress ' + $id + ' max="'+$in.max+'" value="'+$in.value+'" ' + $display +'></progress>';
+
+        if ($in.class === 'progress' && _Empty($in.css_data) === 'true') {
+            $in.css_data = {
+                'progress[value]':
+                    'appearance: none; border: none; width: 66%; display: block; ' +
+                    'margin-left: auto; margin-right: auto;'+
+                    'height: 20px; ' +
+                    'background-color: #7df76d; ' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25) inset; ' +
+                    'border-radius: 10px;',
+                'progress[value]::-moz-progress-bar':
+                    'appearance: none; border: none; width: 100%; height: 20px; ' +
+                    'background-color: #6d8df7; ' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset; ' +
+                    'border-radius: 10px;',
+                'progress[value]::-webkit-progress-value':
+                    'appearance: none; border: none; width: 100%; height: 20px; ' +
+                    'background-color: #6d8df7; ' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset; ' +
+                    'border-radius: 10px;',
+                'progress[value]::-webkit-progress-bar':
+                    'appearance: none; border: none; width: 100%; height: 20px; ' +
+                    'background-color: #7df76d; ' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset; ' +
+                    'border-radius: 10px;'
+            }
+        }
 
         return {
             'answer': 'true',

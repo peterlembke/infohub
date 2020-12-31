@@ -111,12 +111,6 @@ function infohub_language() {
                     $sourceFunction = 'option_list_all_languages';
                 }
 
-                if (_Empty($data.css_data) === 'true') {
-                    $data.css_data = {
-                        '.select': 'max-width: 200px;'
-                    };
-                }
-
                 return _SubCall({
                     'to': {
                         'node': 'client',

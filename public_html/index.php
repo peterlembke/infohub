@@ -35,7 +35,7 @@ if (file_exists('fullstop.flag') == true) {
     <head>
         <meta charset="UTF-8">
         <meta name="robots" content="noindex,nofollow,noarchive,nocache,nosnippet,notranslate" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="description" content="Run InfoHub on your server or your friends server so you can store your private data and keep them away from every one else. Away from social networks and away from sharing." />
         <meta name="keywords" content="InfoHub" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

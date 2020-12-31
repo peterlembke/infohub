@@ -51,6 +51,31 @@ function infohub_render_frog() {
     // ***********************************************************
 
     /**
+     * Internal functions must start with a capital letter
+     * Used by renderers to get a proper function name
+     * @version 2016-10-16
+     * @since   2016-10-16
+     * @author  Peter Lembke
+     * @param $text
+     * @return string
+     */
+    const _GetFuncName = function($text)
+    {
+        let $response = '';
+
+        const $parts = $text.split('_');
+
+        for (let $key in $parts) {
+            if ($parts.hasOwnProperty($key) === false) {
+                continue;
+            }
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+        }
+
+        return $response;
+    };
+
+    /**
      * Get the html parameters: id, name, class
      * @version 2017-02-24
      * @since 2017-02-22

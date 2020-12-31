@@ -386,8 +386,8 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:'+$fontSize+'em; text-align:center; height:32px; border-radius: 0px 0px 8px 8px; box-sizing: border-box;',
-                                '.yes': 'background-color: #e1ffcf; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:' + $fontSize + 'em; text-align:center; height:32px; border-radius: 0px 0px 8px 8px; box-sizing: border-box;',
+                                '.yes': 'background-color: #6d8df7; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
                             }
                         },
                         'menulink': {
@@ -399,7 +399,7 @@ function infohub_workbench() {
                             'event_data': $in.plugin_name, // Any string you like to send to the event_message function
                             'to_plugin': 'infohub_tabs',
                             'css_data': {
-                                '.link:hover': 'background: lightgrey; border-radius: 8px;',
+                                '.link:hover': 'background: #6d8df7; border-radius: 8px;',
                                 '.link': 'display: inline-block;'
                             }
                         }

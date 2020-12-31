@@ -747,7 +747,8 @@ function infohub_configlocal() {
         const $children = [
             'zoom',
             'language',
-            'image'
+            'image',
+            'colour'
         ];
 
         if ($in.step === 'step_get_config')

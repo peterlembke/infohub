@@ -341,7 +341,7 @@ function infohub_renderdocument() {
                 'css_data': {
                     '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
                     '.text_document': 'font: Times;',
-                    '.light': 'background-color: yellow; display: inline-block;'
+                    '.light': 'background-color: #6d8df7; display: inline-block;'
                 }
             },
             'where': {

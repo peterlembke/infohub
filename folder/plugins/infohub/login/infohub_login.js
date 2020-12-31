@@ -517,11 +517,7 @@ function infohub_login() {
                 $what.links = {
                     'type': 'common',
                     'subtype': 'list',
-                    'class': 'list',
-                    'option': $options,
-                    'css_data': {
-                        '.list': 'background-color: lightgreen; list-style-type: square;list-style-position: inside;list-style-image: none;'
-                    }
+                    'option': $options
                 };
 
                 $data.data.what = _Merge($what, $data.data.what);

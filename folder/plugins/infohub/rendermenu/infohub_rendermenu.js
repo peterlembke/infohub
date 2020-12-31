@@ -96,10 +96,7 @@ function infohub_rendermenu() {
     {
         const $default = {
             'item_index': {},
-            'config': {
-                "focus_shadow_colour": "",
-                "hover_shadow_colour": ""
-            },
+            'config': {},
             'data_back': {
                 'item_name': '',
                 'item_index_done': {}
@@ -136,9 +133,7 @@ function infohub_rendermenu() {
                     'original_alias': '',
                     'html': '',
                     'css_data': {},
-                    'config': {
-                        'focus_shadow_colour': 'red'
-                    }
+                    'config': {}
                 };
                 $data = _Merge($defaultItem, $data);
 
@@ -193,10 +188,7 @@ function infohub_rendermenu() {
             'foot_text': '',
             'original_alias': '',
             'options': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            }
+            'config': {}
         };
         $in = _Default($default, $in);
 

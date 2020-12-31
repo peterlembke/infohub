@@ -9,9 +9,14 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 ## [Unreleased]
 
-Next release v1.2.28 will contain auto colour schema where you can pick how dark you want the colours. The schema will recalculate.
+In v1.2.29 I will store none core JS plugins in Storage instead of local storage to save space in the limited local storage. Cache improvements for faster refresh. Improve css merging. Might add colour schema presets.
 
-In v1.2.29 I will store none core JS plugins in Storage instead of local storage to save space in the limited local storage.
+# [1.2.28] - 2020-12-31
+
+* [Release notes](main,release_v1_v1v2_v1v2v28)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.28)
+
+Colour schema configuration. Mocca chocolate default colour schema.
 
 # [1.2.27] - 2020-12-25
 

@@ -305,10 +305,7 @@ function infohub_render_form() {
     {
         const $default = {
             'item_index': {},
-            'config': {
-                "focus_shadow_colour": "",
-                "hover_shadow_colour": ""
-            }
+            'config': {}
         };
         $in = _Default($default, $in);
 
@@ -394,19 +391,16 @@ function infohub_render_form() {
             'to_function': 'event_message',
             'custom_variables': {},
             'css_data': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
         if ($in.class === '') {
-            $in.class = 'button button-width button-colour';
+            $in.class = 'button button-width button-colour button-text-colour';
         }
 
-        if ($in.class === 'button button-width button-colour') {
+        if ($in.class === 'button button-width button-colour button-text-colour') {
             const $cssDefault = {
                 '.button':
                     'font-size: 1.0em;'+
@@ -418,14 +412,18 @@ function infohub_render_form() {
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'max-width: 320px;',
+                '.button-text-colour':
+                    'color: #0b1f00;',
+                '.button-text-colour:hover':
+                    'color: #1b350a;',
                 '.button-colour':
-                    'background-color: #bcdebc;'+
-                    'background: linear-gradient(#caefca, #e1ffcf);' +
+                    'background-color: #7df76d;'+
+                    'background: linear-gradient(#7df76d, #6d8df7);' +
                     'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
                 '.button-colour:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.button-colour:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
             };
             $in.css_data = _Default($cssDefault, $in.css_data);
         }
@@ -497,10 +495,7 @@ function infohub_render_form() {
             'css_data': {},
             'original_alias': '',
             'custom_variables': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
@@ -512,8 +507,8 @@ function infohub_render_form() {
                     'width: 100%;'+
                     'box-sizing:border-box;'+
                     'border-radius: 20px;'+
-                    'background-color: #bcdebc;'+
-                    'background: linear-gradient(#caefca, #e1ffcf);'+
+                    'background-color: #7df76d;'+
+                    'background: linear-gradient(#7df76d, #6d8df7);'+
                     'border: 0px;'+
                     'margin: 10px 0px 0px 0px;'+
                     'padding: 4px 10px;'+
@@ -525,9 +520,9 @@ function infohub_render_form() {
                     'display: block;'+
                     'text-align: center;',
                 '.file:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.file:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
             };
         }
 
@@ -613,10 +608,7 @@ function infohub_render_form() {
             'original_alias': '',
             'event_data': '',
             'custom_variables': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
@@ -629,14 +621,15 @@ function infohub_render_form() {
                     'margin: 10px 0px 0px 0px;'+
                     'padding: 4px 4px 4px 10px;'+
                     'border-radius: 20px;'+
-                    'background-color: rgba(32, 250, 10, 0.04);'+
-                    'border: 1px solid #bdbdbd;'+
+                    'background-color: #f76d6d;'+
+                    'border: 1px solid #7df76d;'+
                     'font-size: 16px;'+
+                    'color: #0b1f00;'+
                     '-webkit-appearance: none;',
                 '.text:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.text:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
             };
         }
 
@@ -729,24 +722,41 @@ function infohub_render_form() {
             'original_alias': '',
             'event_data': '',
             'custom_variables': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
-        if (_Empty($in.css_data) === 'true') {
+        if ($in.class === 'range' && _Empty($in.css_data) === 'true') {
             $in.css_data = {
                 '.range':
-                    'width: 100%;'+
-                    'margin: 10px 0px 0px 0px;'+
+                    'background-color: #f76d6d;' +
+                    'width: 100%;' +
+                    'margin: 10px 0px 0px 0px;' +
                     'padding: 0px 0px 0px 0px;',
                 '.range:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.range:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                // input Range, https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+                'input[type=range]::-webkit-slider-thumb':
+                    '-webkit-appearance: none; border: 0px; height: 36px; width: 16px; border-radius: 10px;' +
+                    'background: #ff0000; cursor: pointer;' +
+                    'margin-top: -4px;' + /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
+                'input[type=range]::-moz-range-thumb': // All the same stuff for Firefox
+                    '-moz-appearance: none;' +
+                    'border: 0px; height: 16px; width: 16px; border-radius: 10px;' +
+                    'background: #ff0000; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
+                'input[type=range]::-webkit-slider-runnable-track':
+                    'width: 100%; height: 10px; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
+                    'background: #7df76d; border-radius: 4px; border: 0px;',
+                'input[type=range]::-moz-range-track':
+                    'width: 100%; height: 10px; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
+                    'background: #7df76d; border-radius: 4px; border: 0px;'
             };
         }
 
@@ -829,10 +839,7 @@ function infohub_render_form() {
             'rows': 4,
             'cols': 0,
             'value': '',
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
@@ -845,15 +852,16 @@ function infohub_render_form() {
                     'margin: 10px 0px 0px 0px;'+
                     'padding: 4px 4px 4px 10px;'+
                     'border-radius: 20px;'+
-                    'background-color: rgba(32, 250, 10, 0.04);'+
-                    'border: 1px solid #bdbdbd;'+
+                    'background-color: #f76d6d;'+
+                    'border: 1px solid #7df76d;'+
                     'resize: ' + $in.resize + ';'+
                     'font-size: 16px;'+
+                    'color: #0b1f00;'+
                     '-webkit-appearance: none;',
                 '.textarea:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.textarea:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
             };
         }
 
@@ -938,10 +946,7 @@ function infohub_render_form() {
             'original_alias': '',
             'custom_variables': {},
             'event_data': '',
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            },
+            'config': {},
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
@@ -956,9 +961,11 @@ function infohub_render_form() {
                     'margin: 4px 0px 4px 0px;'+
                     'padding: 6px 4px 0px 4px;'+
                     'border-radius: 20px 0px 0px 20px;'+
-                    'border: 1px solid #0F0F0F;'+
+                    'border: 1px solid #7df76d;'+
                     'font-size: 16px;'+
-                    'background-image: linear-gradient(to right, white , rgb(202, 239, 202));',
+                    'color: #0b1f00;' +
+                    'background: #f76d6d',
+                    // 'background-image: linear-gradient(to right, white , rgb(202, 239, 202));',
                 '.select option':
                     'margin: 0px 0px 0px 4px;'+
                     'padding: 1px 0px 1px 0px;',
@@ -966,9 +973,15 @@ function infohub_render_form() {
                     'margin: 0px 0px 0px 4px;'+
                     'padding: 1px 0px 1px 0px;',
                 '.select:focus':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.focus_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 '.select:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';'
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.select option:hover':
+                    'background: linear-gradient(#6d8df7, #6d8df7);'+
+                    'background-color: #6d8df7 !important;', /* for IE */
+                '.select option:focus, .select option:active, .select option:checked':
+                    'background: linear-gradient(#7df76d, #7df76d);'+
+                    'background-color: #7df76d !important;' /* for IE */
             };
         }
 
@@ -1167,10 +1180,7 @@ function infohub_render_form() {
             'original_alias': '',
             'event_data': '',
             'custom_variables': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            }
+            'config': {}
         };
         $in = _Default($default, $in);
 
@@ -1178,10 +1188,10 @@ function infohub_render_form() {
             $in.css_data = {
                 '.radio': 'display: inline-block;',
                 '.radio:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 'label': 'display: inline-block;',
                 'label:hover':
-                    'background: ' + $in.config.hover_shadow_colour + ';',
+                    'background: #6d8df7;',
                 'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
             };
         }
@@ -1341,10 +1351,7 @@ function infohub_render_form() {
             'original_alias': '',
             'event_data': '',
             'custom_variables': {},
-            'config': {
-                'focus_shadow_colour': 'red',
-                'hover_shadow_colour': 'grey'
-            }
+            'config': {}
         };
         $in = _Default($default, $in);
 
@@ -1352,11 +1359,11 @@ function infohub_render_form() {
             $in.css_data = {
                 '.checkbox': 'display: inline-block;',
                 '.checkbox:hover':
-                    'box-shadow: 0 0 0 2pt ' + $in.config.hover_shadow_colour + ';',
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
                 'label':
                     'display: inline-block;',
                 'label:hover':
-                    'background: ' + $in.config.hover_shadow_colour + ';',
+                    'background: #6d8df7;',
                 'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
             };
         }
