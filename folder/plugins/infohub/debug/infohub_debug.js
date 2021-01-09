@@ -50,6 +50,7 @@ function infohub_debug() {
             'clear_storage_and_reload_page': 'normal',
             'refresh_plugins_and_reload_page': 'normal',
             'set_cold_start_and_reload_page': 'normal',
+            'delete_render_cache_for_user_name_and_reload_page': 'normal',
             'event_message': 'normal'
         };
 
@@ -596,6 +597,71 @@ function infohub_debug() {
         return {
             'answer': 'true',
             'message': 'Have set cold_start = 2 in localStorage. When the ban time is over then infohub_transfer will reload the page'
+        };
+    };
+
+    /**
+     *
+     * @version 2021-01-04
+     * @since   2021-01-04
+     * @author  Peter Lembke
+     */
+    $functions.push("delete_render_cache_for_user_name_and_reload_page"); // Enable this function
+    const delete_render_cache_for_user_name_and_reload_page = function ($in)
+    {
+        const $default = {
+            'response': {
+                'answer': 'false',
+                'message': ''
+            },
+            'step': 'step_delete_render_cache_for_user_name'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_delete_render_cache_for_user_name') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'delete_render_cache_for_user_name'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_delete_render_cache_for_user_name_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_delete_render_cache_for_user_name_response') {
+            if ($in.response.answer === 'true') {
+                $in.response.message = _Translate('Done clearing cache');
+                $in.step = 'step_reload_page';
+            }
+        }
+
+        if ($in.step === 'step_reload_page') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_dummy',
+                    'function': 'reload_page'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_reload_page_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_reload_page_response') {
+            if ($in.response.answer === 'true') {
+                $in.response.message = _Translate('Done refreshing page');
+            }
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message
         };
     };
 

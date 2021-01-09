@@ -225,7 +225,7 @@ function infohub_render_common() {
         const $default = {
             'alias': '',
             'class': 'container',
-            'tag': 'div' // span, p, div
+            'tag': 'div', // span, p, div
             // 'css_data': {}
             // You can not use css_data because it wraps around the html,
             // and this is only a start tag without an end tag.
@@ -264,6 +264,10 @@ function infohub_render_common() {
     {
         const $default = {
                 'tag': 'div' // span, p, div
+            // 'css_data': {}
+            // You can not use css_data because it wraps around the html,
+            // and this is only a start tag without an end tag.
+            // Set the css on an internal_Container instead.
             };
         $in = _Default($default, $in);
 
@@ -319,34 +323,38 @@ function infohub_render_common() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<' + $in.tag + ' ' + $id + ' ' + $display +'>' + $in.data + '</' + $in.tag + '>';
 
-        if (_Empty($in.css_data) === 'true') {
-            if ($in.class === 'container-pretty') {
-                $in.css_data = {
-                    '.container-pretty' : 'border:1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;'
-                };
-            }
-            if ($in.class === 'container-small') {
-                $in.css_data = {
-                    '.container-small': 'display:inline-block;vertical-align:top;max-width:320px;'
-                };
-            }
-            if ($in.class === 'container-medium') {
-                $in.css_data = {
-                    '.container-medium': 'display:inline-block;vertical-align:top;max-width:640px;'
-                };
-            }
-            if ($in.class === 'container-large') {
-                $in.css_data = {
-                    '.container-large': 'display:inline-block;vertical-align:top;max-width:960px;'
-                };
-            }
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'container-pretty') {
+            $cssData = {
+                '.container-pretty' : 'border:1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+        if ($in.class === 'container-small') {
+            $cssData = {
+                '.container-small': 'display:inline-block;vertical-align:top;max-width:320px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+        if ($in.class === 'container-medium') {
+            $cssData = {
+                '.container-medium': 'display:inline-block;vertical-align:top;max-width:640px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+        if ($in.class === 'container-large') {
+            $cssData = {
+                '.container-large': 'display:inline-block;vertical-align:top;max-width:960px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Container html',
             'html': $html,
-            'css_data': $in.css_data,
+            'css_data': $cssData,
             'display': $in.display
         };
     };
@@ -384,25 +392,29 @@ function infohub_render_common() {
             $html = '<'+$in.tag+' class="'+ $in.class +'">' + $html + '</'+$in.tag+'>';
         }
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'code-example') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'code-example') {
+            $cssData = {
                 '.code-example' : 'display: inline-grid;',
                 'pre': 'background-color: rgba(220, 220, 220, 0.9);border:1px solid rgba(0, 0, 0, 0.5);padding: 3px;margin: 1px;margin-top: 3px;overflow-x:scroll;font-family: monospace;box-sizing:border-box'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'code-inline') {
-            $in.css_data = {
+        if ($in.class === 'code-inline') {
+            $cssData = {
                 '.code-inline' : 'display: inline-grid;',
                 'pre': 'background-color: rgba(220, 220, 220, 0.9);border:1px solid rgba(0, 0, 0, 0.5);padding: 0px;margin: 0 2px 0 2px; padding: 0 2px 0 2px; font-family: monospace;box-sizing:border-box'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Code container html',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -442,17 +454,20 @@ function infohub_render_common() {
         ];
         const $html = '<iframe ' + $parameters.join(' ') + '></iframe>';
 
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'iframe') {
+            $cssData = {
                 '.iframe': 'border: 2px solid #ff0000; box-sizing:border-box;'
-            }
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'iframe html',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -487,19 +502,22 @@ function infohub_render_common() {
         $id = _GetId({'class': $in.class });
         $html = '<fieldset ' + $id + '>' + $html + '</fieldset>';
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'fieldset') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'fieldset') {
+            $cssData = {
                 'parent' : 'break-inside: avoid;',
                 'fieldset' : 'border: 1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
                 'fieldset .legend': 'color: #0b1f00; border: 1px solid #7df76d; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #7df76d; margin-left: 20px; border-radius: 20px;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -530,17 +548,20 @@ function infohub_render_common() {
             $html = '<img ' + $id + ' src="' + $in.data + '">';
         }
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'image') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'image') {
+            $cssData = {
                 '.image': 'border-radius: 15px 15px 15px 15px; width: 100%; clear: both; display: block; box-sizing: border-box;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -578,17 +599,20 @@ function infohub_render_common() {
             $html = '<div ' + $parameters + '>' + $in.data + '</div>';
         }
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'svg') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'svg') {
+            $cssData = {
                 '.svg': 'width:100%; height:100%; clear:both; display:block; box-sizing:border-box; margin-top: 1px;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -704,17 +728,20 @@ function infohub_render_common() {
         const $display = _Display($in);
         $in.html = '<ul ' + $id + ' ' + $display + '>' + $in.html + '</ul>';
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'list') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'list') {
+            $cssData = {
                 '.list': 'list-style-type: square; list-style-position: inside; list-style-image: none;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Rendered html for a list',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -742,20 +769,23 @@ function infohub_render_common() {
         const $idData = _GetId({'id': $in.alias + '_data', 'name': $in.alias + '_data', 'class': 'data' });
         const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'labeldata') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'labeldata') {
+            $cssData = {
                 'parent': 'display: inline-block',
                 '.labeldata': 'width: 100%; display: inline; box-sizing: border-box; padding: 2px 2px 2px 2px;', //  border: 1px solid #4CAF50;
                 '.label': 'font-weight: bold; padding: 2px 2px 2px 2px;',
                 '.data': 'padding: 2px 2px 2px 2px;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Label and data',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -782,8 +812,10 @@ function infohub_render_common() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<progress ' + $id + ' max="'+$in.max+'" value="'+$in.value+'" ' + $display +'></progress>';
 
-        if ($in.class === 'progress' && _Empty($in.css_data) === 'true') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'progress') {
+            $cssData = {
                 'progress[value]':
                     'appearance: none; border: none; width: 66%; display: block; ' +
                     'margin-left: auto; margin-right: auto;'+
@@ -807,13 +839,14 @@ function infohub_render_common() {
                     'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset; ' +
                     'border-radius: 10px;'
             }
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
             'answer': 'true',
             'message': 'Rendered html for a progress bar',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 }

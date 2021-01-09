@@ -378,7 +378,7 @@ function infohub_render_form() {
      */
     const internal_Button = function ($in)
     {
-        const  $default = {
+        const $default = {
             'enabled': 'true',
             'alias': '',
             'class': '',
@@ -395,38 +395,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if ($in.class === '') {
-            $in.class = 'button button-width button-colour button-text-colour';
-        }
-
-        if ($in.class === 'button button-width button-colour button-text-colour') {
-            const $cssDefault = {
-                '.button':
-                    'font-size: 1.0em;'+
-                    'border-radius: 20px;'+
-                    'border: 0px;'+
-                    'margin: 10px 0px 0px 0px;'+
-                    'padding: 4px 10px;',
-                '.button-width':
-                    'width: 100%;'+
-                    'box-sizing:border-box;'+
-                    'max-width: 320px;',
-                '.button-text-colour':
-                    'color: #0b1f00;',
-                '.button-text-colour:hover':
-                    'color: #1b350a;',
-                '.button-colour':
-                    'background-color: #7df76d;'+
-                    'background: linear-gradient(#7df76d, #6d8df7);' +
-                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
-                '.button-colour:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.button-colour:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;'
-            };
-            $in.css_data = _Default($cssDefault, $in.css_data);
-        }
 
         const $constants = {
             'type': 'form',
@@ -447,6 +415,12 @@ function infohub_render_form() {
         let $event = '';
         let $destination = '';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === '') {
+            $in.class = 'button button-width button-colour button-text-colour';
+        }
+
         if ($in.event_handler !== '') {
             const $idString = ['{box_id}', $in.alias].join('_');
             $event = " onClick=\"go('" + $in.event_handler + "','click','" + $idString + "')\"";
@@ -462,11 +436,39 @@ function infohub_render_form() {
 
         $in.html = '<button' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>' + $in.button_label + '</button>';
 
+        if ($in.class === 'button button-width button-colour button-text-colour') {
+            $cssData = {
+                '.button':
+                    'font-size: 1.0em;'+
+                    'border-radius: 20px;'+
+                    'border: 0px;'+
+                    'margin: 10px 0px 0px 0px;'+
+                    'padding: 4px 10px;',
+                '.button-width':
+                    'width: 100%;'+
+                    'box-sizing:border-box;'+
+                    'max-width: 320px;',
+                '.button-text-colour':
+                    'color: #0b1f00;',
+                '.button-text-colour:hover':
+                    'color: #1b350a;',
+                '.button-colour':
+                    'background-color: #7df76d;'+
+                    // 'background: linear-gradient(#7df76d, #6d8df7);' +
+                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
+                '.button-colour:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.button-colour:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form button',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -499,32 +501,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.file':
-                    'font-size: 1.0em;'+
-                    'width: 100%;'+
-                    'box-sizing:border-box;'+
-                    'border-radius: 20px;'+
-                    'background-color: #7df76d;'+
-                    'background: linear-gradient(#7df76d, #6d8df7);'+
-                    'border: 0px;'+
-                    'margin: 10px 0px 0px 0px;'+
-                    'padding: 4px 10px;'+
-                    'display: inline-block;'+
-                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
-                '.hidden':
-                    'display: none;',
-                '.center':
-                    'display: block;'+
-                    'text-align: center;',
-                '.file:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.file:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;'
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -567,11 +543,41 @@ function infohub_render_form() {
 
         $in.html = $in.html + '<input' + $id + $display + _GetParameters($in, $fields) + $event + '>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'file') {
+            $cssData = {
+                '.file':
+                    'font-size: 1.0em;'+
+                    'width: 100%;'+
+                    'box-sizing:border-box;'+
+                    'border-radius: 20px;'+
+                    'background-color: #7df76d;'+
+                    // 'background: linear-gradient(#7df76d, #6d8df7);'+
+                    'border: 0px;'+
+                    'margin: 10px 0px 0px 0px;'+
+                    'padding: 4px 10px;'+
+                    'display: inline-block;'+
+                    'max-width: 320px;'+
+                    'box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
+                '.hidden':
+                    'display: none;',
+                '.center':
+                    'display: block;'+
+                    'text-align: center;',
+                '.file:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.file:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form ' + $in.input_type,
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -612,26 +618,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.text':
-                    'width: 100%;'+
-                    'box-sizing:border-box;'+
-                    'margin: 10px 0px 0px 0px;'+
-                    'padding: 4px 4px 4px 10px;'+
-                    'border-radius: 20px;'+
-                    'background-color: #f76d6d;'+
-                    'border: 1px solid #7df76d;'+
-                    'font-size: 16px;'+
-                    'color: #0b1f00;'+
-                    '-webkit-appearance: none;',
-                '.text:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.text:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;'
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -685,11 +671,34 @@ function infohub_render_form() {
 
         $in.html = '<input' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'text') {
+            $cssData = {
+                '.text':
+                    'width: 100%;'+
+                    'box-sizing:border-box;'+
+                    'margin: 10px 0px 0px 0px;'+
+                    'padding: 4px 4px 4px 10px;'+
+                    'border-radius: 20px;'+
+                    'background-color: #f76d6d;'+
+                    'border: 1px solid #7df76d;'+
+                    'font-size: 16px;'+
+                    'color: #0b1f00;'+
+                    '-webkit-appearance: none;',
+                '.text:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.text:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form ' + $in.input_type,
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -726,39 +735,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if ($in.class === 'range' && _Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.range':
-                    'background-color: #f76d6d;' +
-                    'width: 100%;' +
-                    'margin: 10px 0px 0px 0px;' +
-                    'padding: 0px 0px 0px 0px;',
-                '.range:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.range:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                // input Range, https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
-                'input[type=range]::-webkit-slider-thumb':
-                    '-webkit-appearance: none; border: 0px; height: 36px; width: 16px; border-radius: 10px;' +
-                    'background: #ff0000; cursor: pointer;' +
-                    'margin-top: -4px;' + /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
-                'input[type=range]::-moz-range-thumb': // All the same stuff for Firefox
-                    '-moz-appearance: none;' +
-                    'border: 0px; height: 16px; width: 16px; border-radius: 10px;' +
-                    'background: #ff0000; cursor: pointer;' +
-                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
-                'input[type=range]::-webkit-slider-runnable-track':
-                    'width: 100%; height: 10px; cursor: pointer;' +
-                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
-                    'background: #7df76d; border-radius: 4px; border: 0px;',
-                'input[type=range]::-moz-range-track':
-                    'width: 100%; height: 10px; cursor: pointer;' +
-                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
-                    'background: #7df76d; border-radius: 4px; border: 0px;'
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -803,11 +779,47 @@ function infohub_render_form() {
 
         $in.html = '<input' + $id + $display + _GetParameters($in, $fields) + $event + '>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'range') {
+            $cssData = {
+                '.range':
+                    'background-color: #f76d6d;' +
+                    'width: 100%;' +
+                    'margin: 10px 0px 0px 0px;' +
+                    'padding: 0px 0px 0px 0px;',
+                '.range:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.range:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                // input Range, https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+                'input[type=range]::-webkit-slider-thumb':
+                    '-webkit-appearance: none; border: 0px; height: 36px; width: 16px; border-radius: 10px;' +
+                    'background: #ff0000; cursor: pointer;' +
+                    'margin-top: -4px;' + /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
+                'input[type=range]::-moz-range-thumb': // All the same stuff for Firefox
+                    '-moz-appearance: none;' +
+                    'border: 0px; height: 16px; width: 16px; border-radius: 10px;' +
+                    'background: #ff0000; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;',
+                'input[type=range]::-webkit-slider-runnable-track':
+                    'width: 100%; height: 10px; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
+                    'background: #7df76d; border-radius: 4px; border: 0px;',
+                'input[type=range]::-moz-range-track':
+                    'width: 100%; height: 10px; cursor: pointer;' +
+                    'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset;' +
+                    'background: #7df76d; border-radius: 4px; border: 0px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form ' + $in.input_type,
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -843,27 +855,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.textarea':
-                    'width: 100%;'+
-                    'box-sizing:border-box;'+
-                    'margin: 10px 0px 0px 0px;'+
-                    'padding: 4px 4px 4px 10px;'+
-                    'border-radius: 20px;'+
-                    'background-color: #f76d6d;'+
-                    'border: 1px solid #7df76d;'+
-                    'resize: ' + $in.resize + ';'+
-                    'font-size: 16px;'+
-                    'color: #0b1f00;'+
-                    '-webkit-appearance: none;',
-                '.textarea:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.textarea:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;'
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -908,11 +899,35 @@ function infohub_render_form() {
 
         $in.html = '<textarea' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>'+$in.value+'</textarea>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'textarea') {
+            $cssData = {
+                '.textarea':
+                    'width: 100%;'+
+                    'box-sizing:border-box;'+
+                    'margin: 10px 0px 0px 0px;'+
+                    'padding: 4px 4px 4px 10px;'+
+                    'border-radius: 20px;'+
+                    'background-color: #f76d6d;'+
+                    'border: 1px solid #7df76d;'+
+                    'resize: ' + $in.resize + ';'+
+                    'font-size: 16px;'+
+                    'color: #0b1f00;'+
+                    '-webkit-appearance: none;',
+                '.textarea:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.textarea:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form ' + $in.input_type,
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -950,40 +965,6 @@ function infohub_render_form() {
             'display': '' // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                'parent': 'overflow-x:auto;',
-                '.select':
-                    'width: 100%;'+
-                    'box-sizing: border-box;'+
-                    'vertical-align: top;'+
-                    'margin: 4px 0px 4px 0px;'+
-                    'padding: 6px 4px 0px 4px;'+
-                    'border-radius: 20px 0px 0px 20px;'+
-                    'border: 1px solid #7df76d;'+
-                    'font-size: 16px;'+
-                    'color: #0b1f00;' +
-                    'background: #f76d6d',
-                    // 'background-image: linear-gradient(to right, white , rgb(202, 239, 202));',
-                '.select option':
-                    'margin: 0px 0px 0px 4px;'+
-                    'padding: 1px 0px 1px 0px;',
-               '.select optgroup':
-                    'margin: 0px 0px 0px 4px;'+
-                    'padding: 1px 0px 1px 0px;',
-                '.select:focus':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.select:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                '.select option:hover':
-                    'background: linear-gradient(#6d8df7, #6d8df7);'+
-                    'background-color: #6d8df7 !important;', /* for IE */
-                '.select option:focus, .select option:active, .select option:checked':
-                    'background: linear-gradient(#7df76d, #7df76d);'+
-                    'background-color: #7df76d !important;' /* for IE */
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -1030,11 +1011,48 @@ function infohub_render_form() {
 
         $in.html = '<select' + $id + $display + _GetParameters($in, $fields) + $destination + $multiple + $event + '>' + $options + '</select>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'select') {
+            $cssData = {
+                'parent': 'overflow-x:auto;',
+                '.select':
+                    'width: 100%;'+
+                    'box-sizing: border-box;'+
+                    'vertical-align: top;'+
+                    'margin: 4px 0px 4px 0px;'+
+                    'padding: 6px 4px 0px 4px;'+
+                    'border-radius: 20px 0px 0px 20px;'+
+                    'border: 1px solid #7df76d;'+
+                    'font-size: 16px;'+
+                    'color: #0b1f00;' +
+                    'background: #f76d6d;',
+                    // 'background-image: linear-gradient(to right, white , rgb(202, 239, 202));',
+                '.select option':
+                    'margin: 0px 0px 0px 4px;'+
+                    'padding: 1px 0px 1px 0px;',
+                '.select optgroup':
+                    'margin: 0px 0px 0px 4px;'+
+                    'padding: 1px 0px 1px 0px;',
+                '.select:focus':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.select:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                '.select option:hover':
+                    // 'background: linear-gradient(#6d8df7, #6d8df7);'+
+                    'background-color: #6d8df7 !important;', /* for IE */
+                '.select option:focus, .select option:active, .select option:checked':
+                    // 'background: linear-gradient(#7df76d, #7df76d);'+
+                    'background-color: #7df76d !important;' /* for IE */
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form select',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1149,11 +1167,19 @@ function infohub_render_form() {
 
         $in.html =  '<span><input' + $id + _GetParameters($in, $fields) + $destination + $event + $checked + '><label for="{box_id}_' + $in.alias + '">' + $in.label + '</label></span>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'radio') {
+            $cssData = {
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for one radio element',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1183,18 +1209,6 @@ function infohub_render_form() {
             'config': {}
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.radio': 'display: inline-block;',
-                '.radio:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                'label': 'display: inline-block;',
-                'label:hover':
-                    'background: #6d8df7;',
-                'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -1244,11 +1258,26 @@ function infohub_render_form() {
 
         }
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'radio') {
+            $cssData = {
+                '.radio': 'display: inline-block;',
+                '.radio:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                'label': 'display: inline-block;',
+                'label:hover':
+                    'background: #6d8df7;',
+                'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a group of radio element',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1321,11 +1350,19 @@ function infohub_render_form() {
 
         $in.html =  '<span><input' + $id + _GetParameters($in, $fields) + $destination + $event + $checked + '><label for="{box_id}_' + $in.alias + '">' + $in.label + '</label></span>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'checkbox') {
+            $cssData = {
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for one checkbox',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1354,19 +1391,6 @@ function infohub_render_form() {
             'config': {}
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.checkbox': 'display: inline-block;',
-                '.checkbox:hover':
-                    'box-shadow: 0 0 0 2pt #6d8df7;',
-                'label':
-                    'display: inline-block;',
-                'label:hover':
-                    'background: #6d8df7;',
-                'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -1417,11 +1441,27 @@ function infohub_render_form() {
 
         }
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'checkbox') {
+            $cssData = {
+                '.checkbox': 'display: inline-block;',
+                '.checkbox:hover':
+                    'box-shadow: 0 0 0 2pt #6d8df7;',
+                'label':
+                    'display: inline-block;',
+                'label:hover':
+                    'background: #6d8df7;',
+                'span': 'display:inline-block;' // inline-block = ordered in a row. block = ordered in column
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a group of checkboxes',
             'html': $html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1448,12 +1488,6 @@ function infohub_render_form() {
             'custom_variables': {}
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.form': ''
-            };
-        }
 
         const $constants = {
             'type': 'form',
@@ -1488,11 +1522,20 @@ function infohub_render_form() {
 
         $in.html =  '<form' + $id + $encoding + _GetParameters($in, $fields) + $destination + $event + '>' + $in.content + '</form>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'form') {
+            $cssData = {
+                '.form': ''
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a form',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -1517,12 +1560,6 @@ function infohub_render_form() {
         };
         $in = _Default($default, $in);
 
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
-                '.fieldset': ''
-            };
-        }
-
         const $constants = {
             'type': 'form',
             'subtype': 'fieldset',
@@ -1543,11 +1580,20 @@ function infohub_render_form() {
 
         $in.html = '<fieldset' + $id + _GetParameters($in, $fields) + '><legend>' + $in.label + '</legend>' + $in.content + '</fieldset>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'fieldset') {
+            $cssData = {
+                '.fieldset': ''
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a fieldset',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 }

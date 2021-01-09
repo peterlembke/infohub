@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "340"
+        },
+        "base_color_1": {
+            "value": "120"
+        },
+        "base_color_2": {
+            "value": "20"
+        },
+        "base_color_3": {
+            "value": "0"
+        },
+        "base_color_4": {
+            "value": "340"
+        },
+        "base_color_5": {
+            "value": "40"
+        },
+        "layer_0": {
+            "value": "90"
+        },
+        "layer_1": {
+            "value": "50"
+        },
+        "layer_2": {
+            "value": "10"
+        },
+        "name": {
+            "value": "Sushi"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#f2d9e1",
+        "#7df76d": "#40bf40",
+        "#6d8df7": "#bf6a40",
+        "#ff0000": "#bf4040",
+        "#0b1f00": "#260d15",
+        "#1b350a": "#261e0d"
+    }
+}

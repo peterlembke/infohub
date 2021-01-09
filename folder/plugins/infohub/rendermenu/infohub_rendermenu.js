@@ -132,6 +132,7 @@ function infohub_rendermenu() {
                     'alias': '',
                     'original_alias': '',
                     'html': '',
+                    // 'class': '', // Let the child handle the class
                     'css_data': {},
                     'config': {}
                 };
@@ -188,7 +189,8 @@ function infohub_rendermenu() {
             'foot_text': '',
             'original_alias': '',
             'options': {},
-            'config': {}
+            'config': {},
+            'class': 'menu'
         };
         $in = _Default($default, $in);
 
@@ -208,7 +210,7 @@ function infohub_rendermenu() {
             'type': 'button',
             'enabled': 'true',
             'alias': '',
-            'class': '',
+            'class': '', // Leave empty for buttons to get the default css
             'button_left_icon': '',
             'button_label': 'Submit',
             'mode': 'button', // submit, button
@@ -229,9 +231,8 @@ function infohub_rendermenu() {
                     'text-align: left;'+
                     'border: 0px;',
                 '.button-width':
-                    'width: 100%;',
-
-            } // Leave empty to get the default css
+                    'width: 100%;'
+            }
         };
 
         let $names = [];

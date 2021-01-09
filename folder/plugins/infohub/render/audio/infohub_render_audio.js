@@ -204,7 +204,8 @@ function infohub_render_audio() {
             'subtype': 'jamendo',
             'alias': '',
             'class': 'audio',
-            'data': 'album/152029' // You can have a track or an album. track/1273394
+            'data': 'album/152029', // You can have a track or an album. track/1273394
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
@@ -212,13 +213,20 @@ function infohub_render_audio() {
         const $sandbox = _GetSandbox();
         const $html = '<iframe ' + $id + ' width="100%" height="370" scrolling="no" frameborder="no" src="https://widgets.jamendo.com/v3/'+ $in.data + '" '+$sandbox+'></iframe>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'audio') {
+            $cssData = {
+                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Jamendo audio',
             'html': $html,
-            'css_data': {
-                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -236,19 +244,30 @@ function infohub_render_audio() {
             'alias': '',
             'class': 'right',
             'data': 'album/152029', // You can have a track or an album. track/1273394
-            'label': 'New tab'
+            'label': 'New tab',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<div ' + $id + '><a href="https://www.jamendo.com/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
+        const $html = '<div ' + $id + '><a href="https://www.jamendo.com/' + $in.data + '" class="'+$in.class+'" target="_blank">' + $in.label + '</a></div>';
 
-        let $cssData = {};
+        let $cssData = $in.css_data;
 
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -272,7 +291,8 @@ function infohub_render_audio() {
             'subtype': 'soundcloud',
             'alias': '',
             'class': 'audio',
-            'data': 'tracks/fNDXaRQlaOE' // playlists/192596153
+            'data': 'tracks/fNDXaRQlaOE', // playlists/192596153
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
@@ -280,13 +300,20 @@ function infohub_render_audio() {
         const $sandbox = _GetSandbox();
         const $html = '<iframe ' + $id + ' width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/'+ $in.data + '&amp;color=0066cc&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true&amp;show_user=true&amp;visual=true" '+$sandbox+'></iframe>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'audio') {
+            $cssData = {
+                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Soundcloud audio',
             'html': $html,
-            'css_data': {
-                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -299,25 +326,36 @@ function infohub_render_audio() {
      */
     const internal_Soundcloudlink = function ($in)
     {
-        let $cssData = {};
-
         const $default = {
             'type': 'audio',
             'subtype': 'soundcloudlink',
             'alias': '',
             'class': 'right',
             'data': 'chloehowl/paper-heart-clip', // Note that data is different from the embedded content
-            'label': 'New tab'
+            'label': 'New tab',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<div ' + $id + '><a href="https://soundcloud.com/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
+        const $html = '<div ' + $id + '><a href="https://soundcloud.com/' + $in.data + '" class="'+$in.class+'" target="_blank">' + $in.label + '</a></div>';
+
+        let $cssData = $in.css_data;
 
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -341,7 +379,8 @@ function infohub_render_audio() {
             'subtype': 'spotify',
             'alias': '',
             'class': 'audio',
-            'data': 'track/6o56JEMxnUMPmO4qjWnjc9'
+            'data': 'track/6o56JEMxnUMPmO4qjWnjc9',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
@@ -352,13 +391,20 @@ function infohub_render_audio() {
         // <iframe src="https://open.spotify.com/embed/track/6o56JEMxnUMPmO4qjWnjc9" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
         // <iframe src="https://open.spotify.com/embed/album/1CuFf5IslmlCno7DAFjrt9" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'audio') {
+            $cssData = {
+                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;',
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Spotify audio',
             'html': $html,
-            'css_data': {
-                '.audio': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;',
-            }
+            'css_data': $cssData
         };
     };
 
@@ -370,25 +416,36 @@ function infohub_render_audio() {
      */
     const internal_Spotifylink = function ($in)
     {
-        let $cssData = {};
-
         const $default = {
             'type': 'audio',
             'subtype': 'spotifylink',
             'alias': '',
             'class': 'right',
             'data': '88296877',
-            'label': 'New tab'
+            'label': 'New tab',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<div ' + $id + '><a href="https://open.spotify.com/track/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
+        const $html = '<div ' + $id + '><a href="https://open.spotify.com/track/' + $in.data + '" class="'+$in.class+'" target="_blank">' + $in.label + '</a></div>';
+
+        let $cssData = $in.css_data;
 
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {

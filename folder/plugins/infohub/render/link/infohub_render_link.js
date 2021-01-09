@@ -291,14 +291,6 @@ function infohub_render_link() {
         };
         $in = _Default($default, $in);
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'link') {
-            const $cssDefault = {
-                '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
-            };
-            $in.css_data = _Default($cssDefault, $in.css_data);
-        }
-
         const $constants = {
             'renderer': 'infohub_render_link',
             'type': 'link',
@@ -332,11 +324,21 @@ function infohub_render_link() {
 
         $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination + $finalDestination + $event + '>' + $in.show + '</a>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': $in.css_data,
+            'css_data': $cssData,
             'display': $in.display
         };
     };
@@ -365,14 +367,6 @@ function infohub_render_link() {
             'css_data': {}
         };
         $in = _Default($default, $in);
-
-        if (_Empty($in.css_data) === 'true' && $in.class === 'link') {
-            const $cssDefault = {
-                '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
-            };
-            $in.css_data = _Default($cssDefault, $in.css_data);
-        }
 
         const $constants = {
             'renderer': 'infohub_render_link',
@@ -410,11 +404,21 @@ function infohub_render_link() {
 
         $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 
@@ -447,14 +451,6 @@ function infohub_render_link() {
         };
         $in = _Merge($in, $constants);
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'link') {
-            const $cssDefault = {
-                '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
-            };
-            $in.css_data = _Default($cssDefault, $in.css_data);
-        }
-
         let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $data = btoa($in.url);
 
@@ -472,11 +468,21 @@ function infohub_render_link() {
 
         $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': $in.css_data,
+            'css_data': $cssData,
             'display': $in.display
         };
     };
@@ -507,14 +513,6 @@ function infohub_render_link() {
         };
         $in = _Merge($in, $constants);
 
-        if (_Empty($in.css_data) === 'true' && $in.class === 'link') {
-            const $cssDefault = {
-                '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
-            };
-            $in.css_data = _Default($cssDefault, $in.css_data);
-        }
-
         let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $data = '{{*' + $in.embed + '*}}';
 
@@ -532,11 +530,21 @@ function infohub_render_link() {
 
         $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': $in.css_data
+            'css_data': $cssData
         };
     };
 }

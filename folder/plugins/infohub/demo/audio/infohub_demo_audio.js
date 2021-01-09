@@ -126,7 +126,10 @@ function infohub_demo_audio() {
                             'type': 'audio',
                             'subtype': 'jamendo',
                             'data': 'album/170617',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('In new tab'),
+                            'css_data': {
+                                '.right': 'font-size: 1.5em;', // You can add your own css to the default css
+                            }
                         },
                         'jamendo_album_audio_link': {
                             'type': 'audio',

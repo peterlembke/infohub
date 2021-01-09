@@ -123,6 +123,7 @@ function infohub_renderdocument() {
                     'original_alias': '',
                     'text': '',
                     'html': '',
+                    // 'class': '', // Let the child handle the class
                     'css_data': {}
                 };
                 $data = _Merge($defaultItem, $data);
@@ -230,6 +231,8 @@ function infohub_renderdocument() {
     {
         const $default = {
             'text': '',
+            'class': 'document',
+            'css_data': {},
             'what': {},
             'step': 'step_start',
             'response': {
@@ -331,6 +334,17 @@ function infohub_renderdocument() {
 
         }
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'document') {
+            $cssData = {
+                '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
+                '.text_document': 'font: Times;',
+                '.light': 'background-color: #6d8df7; display: inline-block;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Here are the document divided into segments',
@@ -338,11 +352,7 @@ function infohub_renderdocument() {
             'how': {
                 'mode': 'one box',
                 'text': '[document]',
-                'css_data': {
-                    '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
-                    '.text_document': 'font: Times;',
-                    '.light': 'background-color: #6d8df7; display: inline-block;'
-                }
+                'css_data': $cssData
             },
             'where': {
                 'mode': 'html'

@@ -9,7 +9,14 @@ I have moved all release log details to the [documentation](folder/doc/release/r
 
 ## [Unreleased]
 
-In v1.2.29 I will store none core JS plugins in Storage instead of local storage to save space in the limited local storage. Cache improvements for faster refresh. Improve css merging. Might add colour schema presets.
+In v1.2.30 I will update the Vagrant installation to use xdebug 3.x
+
+# [1.2.29] - 2021-01-09
+
+* [Release notes](main,release_v1_v1v2_v1v2v29)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.29)
+
+Colour schema configuration updated. You can now name, download, upload, apply colour schemas. You can now preview the colour schema. Created some colour schemas you can use. Your Css is now added at the end of the existing css if you use the same class name.
 
 # [1.2.28] - 2020-12-31
 

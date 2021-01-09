@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "10"
+        },
+        "base_color_1": {
+            "value": "120"
+        },
+        "base_color_2": {
+            "value": "100"
+        },
+        "base_color_3": {
+            "value": "0"
+        },
+        "base_color_4": {
+            "value": "40"
+        },
+        "base_color_5": {
+            "value": "60"
+        },
+        "layer_0": {
+            "value": "10"
+        },
+        "layer_1": {
+            "value": "34"
+        },
+        "layer_2": {
+            "value": "82"
+        },
+        "name": {
+            "value": "Forest floor"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#26110d",
+        "#7df76d": "#2b822b",
+        "#6d8df7": "#48822b",
+        "#ff0000": "#822b2b",
+        "#0b1f00": "#e8d9ba",
+        "#1b350a": "#e8e8ba"
+    }
+}

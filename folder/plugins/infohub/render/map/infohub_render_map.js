@@ -223,7 +223,8 @@ function infohub_render_map() {
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
             'zoom': '12',
-            'marker': 'true'
+            'marker': 'true',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
@@ -243,17 +244,24 @@ function infohub_render_map() {
         $p = $p.long1 + '%2C' + $p.lat1 + '%2C' + $p.long2 + '%2C' + $p.lat2;
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        let $html = '<iframe sandbox="allow-scripts" ' + $id + ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + $p + '&amp;layer=mapnik' + $marker + '" style="border: 1px solid black"></iframe>';
+        let $html = '<iframe sandbox="allow-scripts" ' + $id + ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + $p + '&amp;layer=mapnik' + $marker + '" style="border: 1px solid #ff0000"></iframe>';
 
         $html = _AddOverlay($html, $in.alias);
+
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'map') {
+            $cssData = {
+                '.map_overlay iframe': 'pointer-events: none;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
 
         return {
             'answer': 'true',
             'message': 'Rendered html for an Openstreetmap map',
             'html': $html,
-            'css_data': {
-                '.map_overlay iframe': 'pointer-events: none;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -265,13 +273,12 @@ function infohub_render_map() {
      */
     const internal_Openstreetmaplink = function ($in)
     {
-        let $cssData = {};
-
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmaplink',
             'alias': '',
             'class': 'right',
+            'css_data': {},
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
             'label': 'New tab'
@@ -282,10 +289,22 @@ function infohub_render_map() {
 
         const $html = '<div ' + $id + '><a href="https://www.openstreetmap.org/?mlat=' + $in.point_latitude + '&amp;mlon=' + $in.point_longitude + '#map=7/' + $in.point_latitude + '/' + $in.point_longitude + '" target="_blank">' + $in.label + '</a></div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -311,6 +330,7 @@ function infohub_render_map() {
             'subtype': 'googlemaps',
             'alias': '',
             'class': 'map',
+            'css_data': {},
             'data': '',
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
@@ -331,13 +351,20 @@ function infohub_render_map() {
 
         $html = _AddOverlay($html, $in.alias);
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'map') {
+            $cssData = {
+                '.map_overlay iframe': 'pointer-events: none;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Google maps',
             'html': $html,
-            'css_data': {
-                '.map_overlay iframe': 'pointer-events: none;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -361,8 +388,7 @@ function infohub_render_map() {
         };
         $in = _Default($default, $in);
 
-        let $html = '',
-            $cssData = {};
+        let $html = '';
 
         if ($in.data === '') {
             $html = '<a href="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;source=embed" target="_blank">' + $in.label + '</a>';
@@ -373,10 +399,22 @@ function infohub_render_map() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         $html = '<div ' + $id + '>' + $html + '</div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -436,13 +474,20 @@ function infohub_render_map() {
 
         $html = _AddOverlay($html, $in.alias);
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'map') {
+            $cssData = {
+                '.map_overlay iframe': 'pointer-events: none;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Bing map',
             'html': $html,
-            'css_data': {
-                '.map_overlay iframe': 'pointer-events: none;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -466,16 +511,27 @@ function infohub_render_map() {
         };
         $in = _Default($default, $in);
 
-        let $cssData = {};
         let $html = '<a href="https://www.bing.com/maps?cp=' + $in.point_latitude + '~' + $in.point_longitude + '&sty=r&lvl=16&FORM=MBEDLD" target="_blank">' + $in.label + '</a>';
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         $html = '<div ' + $id + '>' + $html + '</div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {

@@ -118,14 +118,14 @@ sudo echo '127.0.0.1 dbserver' >> /etc/hosts
 echo "Install Infohub - Copy files to config"
 mkdir -p /var/www/folder/config/
 chmod 777 -R /var/www/folder/config/
-sudo cp /var/www/folder/config-example/*.json /var/www/folder/config/
+sudo cp /var/www/folder/config_example/*.json /var/www/folder/config/
 
 echo "Install Infohub - Set up folders"
 mkdir -p /var/www/folder/file/
 chmod 777 -R /var/www/folder/file/
 mkdir -p /var/www/folder/file/infohub_login/
 chmod 777 -R /var/www/folder/file/infohub_login/
-sudo cp /var/www/folder/config-example/infohub_login/*.json /var/www/folder/file/
+sudo cp /var/www/folder/config_example/infohub_login/*.json /var/www/folder/file/
 
 echo "Restart Apache2"
 service apache2 restart

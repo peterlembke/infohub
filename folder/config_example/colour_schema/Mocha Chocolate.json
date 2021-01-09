@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "0"
+        },
+        "base_color_1": {
+            "value": "20"
+        },
+        "base_color_2": {
+            "value": "30"
+        },
+        "base_color_3": {
+            "value": "350"
+        },
+        "base_color_4": {
+            "value": "20"
+        },
+        "base_color_5": {
+            "value": "40"
+        },
+        "layer_0": {
+            "value": "10"
+        },
+        "layer_1": {
+            "value": "33.9"
+        },
+        "layer_2": {
+            "value": "66"
+        },
+        "name": {
+            "value": "Mocha Chocolate"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#260d0d",
+        "#7df76d": "#82482b",
+        "#6d8df7": "#82562b",
+        "#ff0000": "#822b3a",
+        "#0b1f00": "#d49a7d",
+        "#1b350a": "#d4b77d"
+    }
+}

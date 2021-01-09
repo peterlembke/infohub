@@ -116,6 +116,7 @@ function infohub_configlocal_menu() {
                                     'alias': 'colour_link',
                                     'event_data': 'colour',
                                     'button_label': _Translate('Colour schema'),
+                                    'button_left_icon': '[colour_icon]',
                                     'to_plugin': 'infohub_configlocal',
                                     'to_function': 'click_menu',
                                     'custom_variables': {
@@ -176,6 +177,17 @@ function infohub_configlocal_menu() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'classic-config-icon',
+                            'plugin_name': 'infohub_configlocal'
+                        },
+                        'colour_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[colour_asset]'
+                        },
+                        'colour_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'colour/colour-star',
                             'plugin_name': 'infohub_configlocal'
                         }
                     },

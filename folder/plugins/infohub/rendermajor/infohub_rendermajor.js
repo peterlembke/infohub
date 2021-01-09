@@ -135,6 +135,7 @@ function infohub_rendermajor() {
                     'type': '',
                     'alias': '',
                     'original_alias': '',
+                    // 'class': '', // Let the child handle the class
                     'css_data': {}
                 };
                 $data = _Merge($defaultItem, $data);

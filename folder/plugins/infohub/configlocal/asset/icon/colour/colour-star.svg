@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns1="http://sozi.baierouge.fr" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2" viewBox="0 0 720 720" version="1.1" inkscape:version="0.91 r13725">
+  <g id="layer1" transform="translate(0 -332.36)">
+    <path id="path2836" style="fill:#ff0000" d="m362.81 377.36-90.914 157.5 90.914 157.5 90.941-157.5-90.941-157.5z"/>
+    <path id="path2841" style="fill:#ffff00" d="m635.61 534.86-181.86 0.016197-90.942 157.48 181.87 0.0075822 90.928-157.51z"/>
+    <path id="path2843" style="fill:#00ff00" d="m635.61 849.86-90.942-157.48-181.86-0.016197 90.928 157.51 181.87-0.0075822z"/>
+    <path id="path2845" style="fill:#00ffff" d="m362.81 1007.4 90.92-157.54-90.92-157.5-90.94 157.5 90.94 157.54z"/>
+    <path id="path2847" style="fill:#0000ff" d="m90.014 849.88 181.86-0.016197 90.942-157.48-181.87-0.0075822-90.928 157.51z"/>
+    <path id="path2849" style="fill:#ff00ff" d="m90 534.89 90.942 157.48 181.86 0.016197-90.928-157.51-181.87 0.0075822z"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>6 color diamond hexagram</dc:title>
+        <dc:date>2011-05-13T16:49:36</dc:date>
+        <dc:description>6 color diamond hexagram</dc:description>
+        <dc:source>https://openclipart.org/detail/138559/6-color-diamond-hexagram-by-10binary</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>10binary</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>6</rdf:li>
+            <rdf:li>color</rdf:li>
+            <rdf:li>diamond</rdf:li>
+            <rdf:li>hexagram</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

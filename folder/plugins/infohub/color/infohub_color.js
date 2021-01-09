@@ -615,7 +615,11 @@ function infohub_color() {
                 continue;
             }
 
-            let $containerCss = $css + $in.colors[$colorName] + ';';
+            const $rgbColourArray = _HexToRgb($in.colors[$colorName]);
+            const $rgbTag = 'rgb(%s,%s,%s)'
+            const $finalRgbTag = _SprintF($rgbTag, $rgbColourArray);
+
+            let $containerCss = $css + $finalRgbTag + ';';
             if (_IsSet($in.css_data['.container']) === 'true') {
                 $containerCss = $containerCss + $in.css_data['.container'];
             }

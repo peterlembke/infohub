@@ -57,6 +57,7 @@ function infohub_render() {
             'delete_render_cache_for_user_name': 'normal',
             'delete_render_cache_for_user_name_specific_plugins': 'normal',
             'set_color_schema': 'normal',
+            'get_color_schema': 'normal',
             'event_message': 'normal'
         };
 
@@ -1725,6 +1726,29 @@ function infohub_render() {
             'messages': $messageArray
         }
     };
+
+    $functions.push('get_color_schema');
+    /**
+     * Get the current color schema that render is using when rendering HTML
+     * @version 2021-01-07
+     * @since   2021-01-07
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}}
+     */
+    const get_color_schema = function ($in) {
+        const $default = {};
+        $in = _Default($default, $in);
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the color schema',
+            'data': {
+                'color_schema': $colorSchema,
+                'color_lookup': $colorLookup
+            }
+        };
+    }
 
     $functions.push('_GetColour');
     /**

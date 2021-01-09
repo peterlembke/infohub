@@ -182,20 +182,25 @@ function infohub_renderadvancedlist() {
             'option': {},
             'label_expand': '⊕', // https://unicode-table.com/en/2295/
             'label_contract': '⊖', // https://unicode-table.com/en/2296/
+            'class': 'list',
             'css_data': {},
             'separator': '_'
         };
         $in = _Default($default, $in);
 
-        if (_Empty($in.css_data) === 'true') {
-            $in.css_data = {
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'list') {
+            $cssData = {
                 '.list': 'font-size: 1.0em; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
+
 
         const $data = _StructureData($in.option, $in.separator);
         const $dataOut = _LabelData($data, $in.label_expand, $in.label_contract);
-        const $what = _GetWhat($dataOut, $in.css_data, $in.label_expand, $in.label_contract);
+        const $what = _GetWhat($dataOut, $cssData, $in.label_expand, $in.label_contract);
 
         return {
             'answer': 'true',

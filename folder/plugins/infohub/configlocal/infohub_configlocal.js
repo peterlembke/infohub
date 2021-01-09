@@ -133,6 +133,14 @@ function infohub_configlocal() {
                             'box_alias': 'form',
                             'max_width': 100, // 100 will be translated to 100%
                             'box_data': _Translate('Use the menu')
+                        },
+                        {
+                            'parent_box_id': $in.box_id,
+                            'box_position': 'last',
+                            'box_mode': 'data',
+                            'box_alias': 'preview',
+                            'max_width': 100, // 100 will be translated to 100%
+                            'box_data': ''
                         }
                     ]
                 },
@@ -392,12 +400,12 @@ function infohub_configlocal() {
                     'box_id': $in.box_id,
                     'parent_box_id': $in.parent_box_id,
                     'call_render_done': $in.call_render_done,
-                    'step': 'step_load_data_response'
+                    'step': 'step_load_items_response'
                 }
             });
         }
 
-        if ($in.step === 'step_load_data_response') {
+        if ($in.step === 'step_load_items_response') {
             $in.step = 'step_render';
         }
 
@@ -421,7 +429,8 @@ function infohub_configlocal() {
                 'data': {
                     'box_id': $in.box_id,
                     'parent_box_id': $in.parent_box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
+                    'form_data': $formData
                 },
                 'data_back': {
                     'box_id': $in.box_id,
@@ -574,26 +583,26 @@ function infohub_configlocal() {
         };
         $in = _Default($default, $in);
 
-        let $items = {};
+        let $itemCollection = {};
 
         if ($in.step === 'step_load_data')
         {
-            let $paths = {};
+            let $pathCollection = {};
 
-            for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
-                const $sectionName = $in.section_names_array[$i];
+            for (let $sectionNumber = 0; $sectionNumber < $in.section_names_array.length; $sectionNumber = $sectionNumber + 1) {
+                const $sectionName = $in.section_names_array[$sectionNumber];
                 const $path = 'infohub_configlocal/' + $sectionName + '/' +$in.config.user_name;
 
                 if (_IsSet($classGetConfig[$path]) === 'true') {
                     continue;
                 }
 
-                $paths[$path]= {}; // Empty object means you want all data
+                $pathCollection[$path]= {}; // Empty object means you want all data
             }
 
             $in.step = 'step_load_data_response';
 
-            if (_Count($paths) > 0) {
+            if (_Count($pathCollection) > 0) {
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -601,7 +610,7 @@ function infohub_configlocal() {
                         'function': 'read_many'
                     },
                     'data': {
-                        'paths': $paths,
+                        'paths': $pathCollection,
                     },
                     'data_back': {
                         'parent_box_id': $in.parent_box_id,
@@ -612,10 +621,11 @@ function infohub_configlocal() {
             }
         }
 
-        if ($in.step === 'step_load_data_response') {
-            for (let $i=0; $i < $in.section_names_array.length; $i = $i + 1) {
-
-                const $sectionName = $in.section_names_array[$i];
+        if ($in.step === 'step_load_data_response')
+        {
+            for (let $sectionNumber = 0; $sectionNumber < $in.section_names_array.length; $sectionNumber = $sectionNumber + 1)
+            {
+                const $sectionName = $in.section_names_array[$sectionNumber];
                 const $path = 'infohub_configlocal/' + $sectionName + '/' + $in.config.user_name;
 
                 if (_IsSet($in.response.items[$path]) === 'false') {
@@ -627,12 +637,13 @@ function infohub_configlocal() {
 
                 const $item = _ByVal($in.response.items[$path]);
                 // Do not try to convert the item value here
-                const $newPath = 'infohub_configlocal/' + $in.section_names_array[$i];
-                $items[$newPath] = $item;
+                const $newPath = 'infohub_configlocal/' + $in.section_names_array[$sectionNumber];
+                $itemCollection[$newPath] = $item;
 
                 $classGetConfig[$path] = $item;
             }
-            $in.response.items = $items;
+
+            $in.response.items = $itemCollection;
         }
 
         return {
@@ -654,7 +665,7 @@ function infohub_configlocal() {
     {
         const $default = {
             'section_name': '',
-            'step': 'step_load_data',
+            'step': 'step_start',
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
@@ -667,17 +678,19 @@ function infohub_configlocal() {
         };
         $in = _Default($default, $in);
 
-        let $out = {};
-
         leave: {
 
             const $path = 'infohub_configlocal/' + $in.section_name + '/' + $in.config.user_name;
 
-            if (_IsSet($classGetConfig[$path]) === 'true') {
-                $in.response.data = $classGetConfig[$path];
-                $in.response.answer = 'true';
-                $in.response.message = 'Found the answer in the cache';
-                $in.step = 'step_load_data_response';
+            if ($in.step === 'step_start') {
+                if (_IsSet($classGetConfig[$path]) === 'true') {
+                    $in.response.data = $classGetConfig[$path];
+                    $in.response.answer = 'true';
+                    $in.response.message = 'Found the answer in the cache';
+                    $in.step = 'step_convert';
+                } else {
+                    $in.step = 'step_load_data';
+                }
             }
 
             if ($in.step === 'step_load_data') {
@@ -700,27 +713,38 @@ function infohub_configlocal() {
 
             if ($in.step === 'step_load_data_response')
             {
-                const $data = _ByVal($in.response.data);
+                $classGetConfig[$path] = _ByVal($in.response.data);
+                $in.step = 'step_convert';
+            }
+
+            if ($in.step === 'step_convert')
+            {
+                let $data = _ByVal($in.response.data);
 
                 for (let $key in $data)
                 {
+                    if ($data.hasOwnProperty($key) === false) {
+                        continue;
+                    }
+
                     const $value = _GetData({
                         'name': $key + '/value',
                         'default': '',
                         'data': $data
                     });
 
-                    $out[$key] = $value;
+                    $data[$key] = $value;
                 }
+
+                $in.response.data = _ByVal($data);
             }
 
-            $classGetConfig[$path] = $in.response.data;
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $out
+            'data': $in.response.data
         };
     };
 

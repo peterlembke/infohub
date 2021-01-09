@@ -89,7 +89,10 @@ function infohub_demo_text() {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n[full_text]"
+                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n[full_text]",
+                            'css_data': {
+                                'p:first-letter': 'color: #FFFFFF; font-size: 2em;'
+                            }
                         },
                         'titel': {
                             'type': 'common',
@@ -135,10 +138,7 @@ function infohub_demo_text() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text]',
-                        'css_data': {
-                            '.light': 'background-color: #6d8df7; display: inline-block;'
-                        }
+                        'text': '[my_text]'
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',

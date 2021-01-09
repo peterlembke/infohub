@@ -350,7 +350,7 @@ function infohub_launcher() {
                 },
                 'data': {
                     'list_name': 'full_list',
-                    'render_icons': 'false'
+                    'render_icons': 'true'
                 },
                 'data_back': {
                     'debug_message': 'step_render -> render_list full_list',

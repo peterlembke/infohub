@@ -8,6 +8,7 @@
         "infohub_configlocal_language",
         "infohub_language",
         "infohub_configlocal_zoom",
+        "infohub_configlocal_colour",
         "infohub_color"
     ]
 }

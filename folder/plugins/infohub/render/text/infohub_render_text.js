@@ -125,7 +125,8 @@ function infohub_render_text() {
                 'what_done': {}, // It is OK if there are nothing in what_done
                 'alias': '',
                 'text': '',
-                'class': 'text_article'
+                'class': 'text_article',
+                'css_data': {}
             };
             $data = _Default($defaultItem, $data);
             $data.config = $in.config;
@@ -178,11 +179,10 @@ function infohub_render_text() {
             'what_done': {},
             'alias': '',
             'text': '',
-            'class': 'text_article'
+            'class': 'text_article',
+            'css_data': {},
         };
         $in = _Default($default, $in);
-
-        let $cssData = {};
 
         $in.text = _CheckParts($in);
         if ($in.text.indexOf('[') > -1) {
@@ -195,12 +195,23 @@ function infohub_render_text() {
         // And now we divide the text into rows
         $in.text = $in.text.split("\n");
 
+        let $cssData = $in.css_data;
+
+        let $pCssAdded = 'false';
+
         // Each row get a <p> and a </p>
-        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth < $aliasDepth; $currentAliasDepth = $currentAliasDepth + 1)
+        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth < $aliasDepth; $currentAliasDepth++)
         {
             if ($in.text[$currentAliasDepth].charAt(0) === ' ') {
                 $in.text[$currentAliasDepth] = '<p>' + $in.text[$currentAliasDepth].slice(1) + '</p>';
-                $cssData['p:first-letter'] = 'font-size: 1.0em;';
+
+                if ($pCssAdded === 'false') {
+                    const $baseCss = {
+                        'p:first-letter': 'font-size: 1.0em;'
+                    }
+                    $cssData = _MergeStringData($baseCss, $cssData);
+                    $pCssAdded = 'true';
+                }
             }
         }
 
@@ -212,8 +223,11 @@ function infohub_render_text() {
         }
 
         if ($in.class === 'text_article') {
-            $cssData['.text_columns'] = 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;';
-            $cssData['.text_article'] = 'font: 14px/24px Times; margin: 3px 3px 3px 3px;';
+            const $baseCss = {
+                '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
+                '.text_article': 'font: 14px/24px Times; margin: 3px 3px 3px 3px;'
+            };
+            $cssData = _MergeStringData($baseCss, $cssData);
         }
 
         return {

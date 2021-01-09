@@ -261,7 +261,9 @@ function infohub_configlocal_language() {
         if ($in.step === 'step_update_text')
         {
             const $formData = {
-                'language': {'value': $newTextWithLanguageCodes }
+                'language': {
+                    'value': $newTextWithLanguageCodes
+                }
             };
 
             return _SubCall({

@@ -195,6 +195,7 @@ function infohub_render_video() {
             'subtype': 'youtube',
             'alias': '',
             'class': 'video',
+            'css_data': {},
             'data': 'fNDXaRQlaOE'
         };
         $in = _Default($default, $in);
@@ -202,13 +203,20 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.youtube.com/embed/' + $in.data + '?html5=1" height="100%" allowfullscreen></iframe>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'video') {
+            $cssData = {
+                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Youtube video',
             'html': $html,
-            'css_data': {
-                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -220,8 +228,6 @@ function infohub_render_video() {
      */
     const internal_Youtubelink = function ($in)
     {
-        let $cssData = {};
-
         const $default = {
             'type': 'video',
             'subtype': 'youtube',
@@ -235,10 +241,22 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<div ' + $id + '><a href="https://www.youtube.com/watch?v=' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -262,6 +280,7 @@ function infohub_render_video() {
             'subtype': 'vimeo',
             'alias': 'video',
             'class': 'video',
+            'css_data': {},
             'data': '88296877'
         };
         $in = _Default($default, $in);
@@ -269,13 +288,20 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://player.vimeo.com/video/' + $in.data + '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=d4cfcf" height="100%" allowfullscreen></iframe>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'video') {
+            $cssData = {
+                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Vimeo video',
             'html': $html,
-            'css_data': {
-                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box; border-radius: 15px 15px 15px 15px;'
-            }
+            'css_data': $cssData
         };
     };
 
@@ -287,7 +313,6 @@ function infohub_render_video() {
      */
     const internal_Vimeolink = function ($in)
     {
-        let $cssData = {};
         const $default = {
             'type': 'video',
             'subtype': 'vimeolink',
@@ -301,10 +326,22 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<div ' + $id + '><a href="https://vimeo.com/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {
@@ -328,6 +365,7 @@ function infohub_render_video() {
             'subtype': 'dailymotion',
             'alias': 'video',
             'class': 'video',
+            'css_data': {},
             'data': 'x6hpzzl'
         };
         $in = _Default($default, $in);
@@ -335,13 +373,20 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<iframe sandbox="allow-scripts allow-same-origin" ' + $id + ' src="https://www.dailymotion.com/embed/video/' + $in.data + '" height="100%" allowfullscreen></iframe>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'video') {
+            $cssData = {
+                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box;' // Border radius do not work with daily motion.
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a Daily motion video',
             'html': $html,
-            'css_data': {
-                '.video': 'width: 100%; clear: both; display: inline-block; box-sizing: border-box;' // Border radius do not work with daily motion.
-            }
+            'css_data': $cssData
         };
     };
 
@@ -353,8 +398,6 @@ function infohub_render_video() {
      */
     const internal_Dailymotionlink = function ($in)
     {
-        let $cssData = {};
-
         const $default = {
             'type': 'video',
             'subtype': 'dailymotionlink',
@@ -368,10 +411,22 @@ function infohub_render_video() {
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
         const $html = '<div ' + $id + '><a href="https://www.dailymotion.com/video/' + $in.data + '" target="_blank">' + $in.label + '</a></div>';
 
+        let $cssData = $in.css_data;
+
         if ($in.class === 'right') {
             $cssData = {
-                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px;'
+                '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
+                '.right:hover': 'background: #6d8df7;'
             };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         return {

@@ -137,6 +137,7 @@ function infohub_renderform() {
                     'alias': '',
                     'original_alias': '',
                     'html': '',
+                    // 'class': '', // Let the child handle the class
                     'css_data': {},
                     'answer': '',
                     'message': ''
@@ -465,7 +466,7 @@ function infohub_renderform() {
     };
 
     /**
-     * Basic form
+     * Render a text input box in a presentation box
      * @version 2018-06-06
      * @since   2018-06-06
      * @author  Peter Lembke
@@ -550,7 +551,7 @@ function infohub_renderform() {
     };
 
     /**
-     * Basic form
+     * Render a range in a presentation box
      * @version 2018-06-25
      * @since   2018-06-22
      * @author  Peter Lembke

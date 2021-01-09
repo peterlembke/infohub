@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "210"
+        },
+        "base_color_1": {
+            "value": "110"
+        },
+        "base_color_2": {
+            "value": "60"
+        },
+        "base_color_3": {
+            "value": "0"
+        },
+        "base_color_4": {
+            "value": "110"
+        },
+        "base_color_5": {
+            "value": "90"
+        },
+        "layer_0": {
+            "value": "66"
+        },
+        "layer_1": {
+            "value": "50"
+        },
+        "layer_2": {
+            "value": "10"
+        },
+        "name": {
+            "value": "Summer beach"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#7da8d4",
+        "#7df76d": "#55bf40",
+        "#6d8df7": "#bfbf40",
+        "#ff0000": "#bf4040",
+        "#0b1f00": "#11260d",
+        "#1b350a": "#1a260d"
+    }
+}

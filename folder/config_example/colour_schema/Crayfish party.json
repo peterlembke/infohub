@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "10"
+        },
+        "base_color_1": {
+            "value": "120"
+        },
+        "base_color_2": {
+            "value": "80"
+        },
+        "base_color_3": {
+            "value": "0"
+        },
+        "base_color_4": {
+            "value": "240"
+        },
+        "base_color_5": {
+            "value": "210"
+        },
+        "layer_0": {
+            "value": "42"
+        },
+        "layer_1": {
+            "value": "34"
+        },
+        "layer_2": {
+            "value": "10"
+        },
+        "name": {
+            "value": "Crayfish party"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#a14736",
+        "#7df76d": "#2b822b",
+        "#6d8df7": "#65822b",
+        "#ff0000": "#822b2b",
+        "#0b1f00": "#0d0d26",
+        "#1b350a": "#0d1a26"
+    }
+}

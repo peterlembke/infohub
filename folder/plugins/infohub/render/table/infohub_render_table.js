@@ -197,11 +197,19 @@ function infohub_render_table() {
 
             $html = '<div style="overflow-x:auto;">' + $html + '</div>';
 
+            let $cssData = $data.css_data;
+
+            if ($in.class === 'table') {
+                $cssData = {
+                };
+                $cssData = _MergeStringData($cssData, $data.css_data);
+            }
+
             $itemIndex[$itemName] = {
                 'answer': 'true',
                 'message': 'Here are the table with data',
                 'html': $html,
-                'css_data': $data.css_data,
+                'css_data': $cssData,
                 'display': $data.display
             }
         }
@@ -243,7 +251,9 @@ function infohub_render_table() {
         if (_Empty($in.css_data) === 'true') {
             $in.css_data = {
                 'table': 'text-align: left; border: 1px solid #7df76d;',
-                'th': 'color: #1b350a; background-image: linear-gradient(to bottom, #7df76d , #6d8df7);',
+                'th':
+                    // 'background-image: linear-gradient(to bottom, #7df76d , #6d8df7);'+
+                    'color: #1b350a;',
                 'th, td': 'padding: 4px; border: 1px solid #7df76d;',
                 'td': 'color: #0b1f00;',
                 '.left': 'text-align: left;',

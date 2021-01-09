@@ -181,7 +181,8 @@ function infohub_render_frog() {
     {
         const $default = {
             'alias': '',
-            'class': 'frog_image'
+            'class': 'frog_image',
+            'css_data': {}
         };
         $in = _Default($default, $in);
 
@@ -193,15 +194,21 @@ function infohub_render_frog() {
         $id = _GetId({'id': $in.alias, 'name': $in.alias });
         $html = '<div ' + $id + '>' + $html + '</div>';
 
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'frog_image') {
+            $cssData = {
+                '.frog_image': 'border-style: solid; border-width: 5px; border-color: red;'
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
         return {
             'answer': 'true',
             'message': 'Rendered html for a frog. Have fun.',
             'html': $html,
-            'css_data': {
-                '.frog_image': 'border-style: solid; border-width: 5px; border-color: red;'
-            }
+            'css_data': $cssData
         };
     };
-
 }
 //# sourceURL=infohub_render_frog.js

@@ -81,6 +81,7 @@ function infohub_view() {
             'progress': 'normal',
             'set_style_rule': 'normal',
             'alert': 'normal',
+            'replace_in_html': 'normal',
             'event_message': 'normal'
         };
 
@@ -3960,6 +3961,63 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': 'Showed an alert box',
+        };
+    };
+
+    /**
+     * Exchange pieces of the html with new pieces
+     * Can be used to substitute colours.
+     * Be aware that form values will be lost
+     * @version 2021-01-06
+     * @since 2021-01-06
+     */
+    $functions.push('replace_in_html');
+    const replace_in_html = function ($in)
+    {
+        const $default = {
+            'id': '',
+            'replace': {}
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'ReplaceInHtml',
+            'id': $in.id,
+            'replace': $in.replace
+        });
+    };
+
+    $functions.push('internal_ReplaceInHtml');
+    const internal_ReplaceInHtml = function ($in)
+    {
+        const $default = {
+            'id': '',
+            'replace': {}
+        };
+        $in = _Default($default, $in);
+
+        let $response = internal_GetHtml({
+            'id': $in.id
+        });
+
+        let $html = $response.html;
+
+        for (let $currentData in $in.replace) {
+            if ($in.replace.hasOwnProperty($currentData) === false) {
+                continue;
+            }
+            const $newData = $in.replace[$currentData];
+            $html = _Replace($currentData, $newData, $html);
+        }
+
+        $response = internal_SetText({
+            'id': $in.id,
+            'text': $html
+        });
+
+        return {
+            'answer': $response.answer,
+            'message': $response.message
         };
     };
 

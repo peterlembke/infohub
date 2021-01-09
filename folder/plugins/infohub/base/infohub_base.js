@@ -161,8 +161,8 @@
 
     /**
      * Merge two objects, everything from object2 goes on top of object1.
-     * example: $in = _Merge($default,$in);
-     * Starts with $default and adds all keys from $in.
+     * example: $in = _Merge($object1,$object2);
+     * Starts with $object1 and adds all keys from $object2.
      * Used by you
      * @version 2015-01-17
      * @since   2013-09-05
@@ -188,6 +188,48 @@
             for (let $key in $object2) {
                 if ($object2.hasOwnProperty($key)) {
                     $newObject[$key] = $object2[$key];
+                }
+            }
+        }
+
+        return _ByVal($newObject);
+    };
+
+    /**
+     * Merge two objects strings, everything new from object2 or object1 are added to new object.
+     * Every string that exist in both objects are glued together with object 1 firsts and object 2 second.
+     * Then the string are added to new object.
+     * example: $in = _MergeStringData($object1,$object2);
+     * Starts with $object1 and adds all keys from $object2.
+     * Used by you
+     * @version 2021-01-01
+     * @since   2021-01-01
+     * @author  Peter Lembke
+     * @param {object} $object1 - First object
+     * @param {object} $object2 - Second object
+     * @return {object} A combined object
+     */
+    $functions.push('_MergeStringData');
+    const _MergeStringData = function ($object1 = {}, $object2 = {})
+    {
+        let $newObject = {};
+
+        if (typeof $object1 === 'object') {
+            for (let $key in $object1) {
+                if ($object1.hasOwnProperty($key)) {
+                    $newObject[$key] = $object1[$key];
+                }
+            }
+        }
+
+        if (typeof $object2 === 'object') {
+            for (let $key in $object2) {
+                if ($object2.hasOwnProperty($key)) {
+                    let $stringValue = $object2[$key];
+                    if (_IsSet($object1[$key]) === 'true') {
+                        $stringValue = $object1[$key] + $object2[$key];
+                    }
+                    $newObject[$key] = $stringValue;
                 }
             }
         }
