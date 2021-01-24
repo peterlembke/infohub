@@ -347,12 +347,6 @@ function infohub_login() {
     {
         const $default = {
             'step': 'step_start',
-            'response': {
-                'answer': '',
-                'message': '',
-                'data': {},
-                'post_exist': 'false'
-            },
             'config': {
                 "information": {
                     "enable": "false",
@@ -362,9 +356,11 @@ function infohub_login() {
                     "path": "start_page_text",
                     "links": {}
                 }
-            }
+            },
+            'response': {},
+            'data_back': {}
         };
-        $in = _Merge($default, $in);
+        $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
             $in.step = 'step_get_language';
@@ -395,7 +391,9 @@ function infohub_login() {
             const $default = {
                 'answer': '',
                 'message': '',
-                'data': {}
+                'data': {
+                    'language': ''
+                }
             };
             $in.response = _Default($default, $in.response);
 
@@ -497,7 +495,8 @@ function infohub_login() {
             let $what = {};
             let $options = [];
 
-            for (let $label in $in.config.information.links) {
+            for (let $label in $in.config.information.links)
+            {
                 let $name = $label.toLowerCase();
                 $name = _Replace(' ', '_', $name);
 

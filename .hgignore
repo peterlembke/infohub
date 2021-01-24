@@ -11,3 +11,5 @@ nbproject/*
 ubuntu-bionic-18.04-cloudimg-console.log
 html/
 log/
+*test-php.json
+phpdoc

@@ -3911,12 +3911,19 @@ function infohub_view() {
 
         leave: {
             if ( ! $styleSheet) {
-                $message = 'Could not find the style sheet with id ' + $in.style_id;
+                $message = 'Could not find the style sheet with id ' + $in.sheet_id;
                 break leave;
             }
 
             let $sheet = $styleSheet.sheet;
-            $sheet.insertRule($in.selector + '{ ' + $in.rule + '}', $sheet.cssRules.length)
+            const $rule = $in.selector + '{ ' + $in.rule + '}';
+
+            let $index = 0;
+            if (_IsSet($sheet.cssRules) === 'true') {
+                $index = $sheet.cssRules.length;
+            }
+
+            $sheet.insertRule($rule, $index)
             $answer = 'true';
             $message = 'Rule is inserted';
         }

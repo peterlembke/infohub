@@ -122,13 +122,12 @@ Things I will implement.
 
 ### Accessibility
 Things I will implement.
-* Colour - Colour schema that suit you best.
 * Audio - Audio feedback when loading, saving, end of line and so on. This is a big and important area. Implementing in steps.
 * Image - Set how image colours should be transformed to suite your eyes.
 * Font - Select the font type you prefer from the browser built in fonts.
 * Keyboard navigation - tab index, short cut keys.
 
-I am very excited that Chrome will have have a new feature in version 82 that can emulate visual deficiencies so we can get a feel of what is wrong with the web pages. Everyone benefit from better visibility on the web pages. 
+I am very excited that Chrome will have a new feature in version 82 that can emulate visual deficiencies so we can get a feel of what is wrong with the web pages. Everyone benefit from better visibility on the web pages. 
 
 ### Apps for personal data
 Things I will implement.
@@ -220,7 +219,7 @@ A Python Core that aim to be a desktop solution might implement all levels.
 
 A Node Core that aim to be a service only need Level 1 and perhaps Level 2. 
 
-Updated 2020-07-18
+Updated 2021-01-09
 
 # Images
 The launcher is where you start plugins.

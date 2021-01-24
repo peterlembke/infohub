@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
-## [Unreleased]
+# [1.2.30] - 2021-01-24
 
-In v1.2.30 I will update the Vagrant installation to use xdebug 3.x
+* [Release notes](main,release_v1_v1v2_v1v2v30)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.30)
+
+Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
 
 # [1.2.29] - 2021-01-09
 

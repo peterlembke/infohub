@@ -1,7 +1,6 @@
 Vagrant.configure("2") do |config|
 
-  # I use Ubuntu 18.04 LTS (ubuntu/bionic64).
-  # I have not got Ubuntu 20.04 LTS (ubuntu/focal64) to work.
+  # Ubuntu 20.04 LTS (ubuntu/focal64)
   config.vm.box = "ubuntu/focal64"
 
   # Set the static IP Address

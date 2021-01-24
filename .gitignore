@@ -7,7 +7,7 @@ folder/file/*
 /nbproject/private/
 nbproject/*
 .vagrant/
-ubuntu-bionic-18.04-cloudimg-console.log
 html/
 log/
 *test-php.json
+phpdoc
