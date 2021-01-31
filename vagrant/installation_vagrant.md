@@ -37,12 +37,14 @@ CTRL + O, CTRL + X
 ## use vagrant
 In the terminal you change folder to where you have downloaded the infohub source.
 
-vagrant up - sets up the vagrant box / starts the vagrant box
-vagrant provision - run this if you have changed something in the Vagrantfile or vagrant/vagrant.sh
-vagrant reload - run if you need to restart the box
-vagrant halt - when you want to close down the box
-vagrant ssh - Go into the box. Exit with... exit
-vagrant box update - Downloads the latest version of the box
+* vagrant up - sets up the vagrant box / starts the vagrant box
+* vagrant provision - run this if you have changed something in the Vagrantfile or vagrant/vagrant.sh
+* vagrant reload - run if you need to restart the box
+* vagrant halt - when you want to close down the box
+* vagrant ssh - Go into the box. Exit with... exit
+* vagrant box update - Downloads the latest version of the box
+
+All CLI commands are found [here](https://www.vagrantup.com/docs/cli).  
 
 ## Time issues
 Many users have noted that the clock in the guest operating system can differ quite much compared to the host operating system.

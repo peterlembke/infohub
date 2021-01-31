@@ -1,6 +1,6 @@
 # [1.2.30] - 2021-01-24
 
-Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
+Focus on updating the development environment with vagrant.
 
 * [Release notes](main,release_v1_v1v2_v1v2v30)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.30)

@@ -139,14 +139,6 @@ function infohub_tree_menu() {
                                     'button_left_icon': '[sync_icon]',
                                     'to_plugin': 'infohub_tree',
                                     'to_function': 'click_menu'
-                                },
-                                'manage': {
-                                    'alias': 'manage_tree',
-                                    'event_data': 'manage_tree',
-                                    'button_label': _Translate('Manage'),
-                                    'button_left_icon': '[manage_icon]',
-                                    'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
                                 }
                             }
                         },
@@ -214,17 +206,6 @@ function infohub_tree_menu() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'sync/sync',
-                            'plugin_name': 'infohub_tree'
-                        },
-                        'manage_icon': {
-                            'type': 'common',
-                            'subtype': 'svg',
-                            'data': '[manage_asset]'
-                        },
-                        'manage_asset': {
-                            'plugin': 'infohub_asset',
-                            'type': 'icon',
-                            'asset_name': 'icon',
                             'plugin_name': 'infohub_tree'
                         }
                     },

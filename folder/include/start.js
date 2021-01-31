@@ -26,6 +26,8 @@ function infohub_start($progress) {
 
     this.start = function ()
     {
+        _SetBackground();
+
         $progress.whatArea('start',0, 'START');
 
         if (_LocalStorageExist() === 'false') {
@@ -817,6 +819,34 @@ function infohub_start($progress) {
             // The first command in start.js is to check this flag. We have gone so far now that it is time to reset the flag.
 
         }, 0.0);
+    };
+
+    /**
+     * Set the background and text color depending on browser setting.
+     * @private
+     */
+    const _SetBackground = function() {
+        let $backgroundColor = 'white';
+        let $color = 'black';
+
+        if (_IsDarkModeEnabled() === true) {
+            $backgroundColor = 'black';
+            $color = 'white';
+        }
+        document.body.style['backgroundColor'] = $backgroundColor;
+        document.body.style['color'] = $backgroundColor;
+    }
+
+    /**
+     * Detects if dark mode is enabled or not
+     * I will just test. This must be moved to infohub_view later
+     * @returns {boolean}
+     * @private
+     */
+    const _IsDarkModeEnabled = function() {
+        const $result = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        return $result;
     };
 }
 

@@ -42,7 +42,6 @@ function infohub_tree_doc() {
             'click_encrypt': 'normal',
             'click_backup': 'normal',
             'click_restore': 'normal',
-            'click_manage': 'normal',
             'click_storage': 'normal',
             'click_sync': 'normal'
         };
@@ -92,7 +91,7 @@ function infohub_tree_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_version][button_encrypt][button_backup][button_restore][button_manage][button_storage][button_sync]',
+                            'data': '[button_main][button_version][button_encrypt][button_backup][button_restore][button_storage][button_sync]',
                             'class': 'container-small'
                         },
                         'container_doc': {
@@ -152,17 +151,7 @@ function infohub_tree_doc() {
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click'
                         },
-                        'button_manage': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_left_icon': '[grey_icon]',
-                            'button_label': _Translate('Manage Doc'),
-                            'event_data': 'doc|manage',
-                            'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
-                        },
-                        'button_storage': {
+                       'button_storage': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
@@ -375,34 +364,6 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the restore doc',
-            'ok': 'true'
-        };
-    };
-
-    /**
-     * Show the documentation
-     * @version 2020-07-26
-     * @since   2019-03-13
-     * @author  Peter Lembke
-     */
-    $functions.push('click_manage');
-    const click_manage = function ($in)
-    {
-        const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': ''
-            }
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_render') {
-            return _GetCall('manage/infohub_tree_manage');
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Showed the manage doc',
             'ok': 'true'
         };
     };

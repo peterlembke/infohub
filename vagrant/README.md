@@ -3,7 +3,7 @@
 Vagrant starts VirtualBox. VirtualBox is a software computer that runs an operating system.
 Here we run Ubuntu 20.04 + the web server Apache 2 + the database MySQL + the language PHP 7.4
 
-When you have installed VirtualBox + Vagrant and run vagrant up then you can surf to
+When you have installed VirtualBox + Vagrant and run `vagrant up` and then you can surf to
 ```
 http://vagrant.infohub.local/phpinfo.php
 and
@@ -11,6 +11,22 @@ http://vagrant.infohub.local
 ```
 
 Read how you do all that in [installation vagrant](installation_vagrant.md).
+
+## More to read
+You can see all commands [here](https://www.vagrantup.com/docs/cli).
+
+## Auto complete
+
+You can install auto complete
+``` 
+vagrant autocomplete install --bash --zsh
+```
+
+## Update scripts
+If you update the scripts and want to activate them then you write
+``` 
+vagrant provision
+```
 
 # License
 This documentation is copyright (C) 2020 Peter Lembke.  

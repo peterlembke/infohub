@@ -50,7 +50,6 @@ function infohub_tree_version() {
         'infohub_tree_encrypt': 'Encrypt',
         'infohub_tree_backup': 'Backup',
         'infohub_tree_restore': 'Restore',
-        'infohub_tree_manage': 'Manage',
         'infohub_tree_storage': 'Storage',
         'infohub_tree_sync': 'Sync'
     };

@@ -15,7 +15,7 @@ Used only by Storage
 Load/save data to local Storage and server Storage.  
 Uses __Encrypt__ before save and after load.  
 
-Used by __manage__, __restore__, __backup__, and by the parent __infohub_tree__.
+Used by __restore__, __backup__, and by the parent __infohub_tree__.
 
 ## Backup
 Here you can select all or part of your data and download it in files to your computer.

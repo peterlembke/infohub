@@ -1149,13 +1149,20 @@ function infohub_configlocal_colour() {
     const apply_config = function($in) {
         const $default = {
             'local_config': _GetDefaultColorData(),
-            'step': 'step_set_color_schema',
+            'step': 'step_check_color_schema',
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report from configlocal_colour -> apply_config'
             }
         };
         $in = _Default($default, $in);
+
+        if ($in.step === 'step_check_color_schema') {
+
+
+
+            $in.step = 'step_set_color_schema';
+        }
 
         if ($in.step === 'step_set_color_schema') {
             return _SubCall({
@@ -1186,7 +1193,8 @@ function infohub_configlocal_colour() {
      * @private
      */
     const _GetDefaultColorData = function() {
-        return {
+
+        const $dark = {
             'color_schema': {
                 'layer-0-background': '#f76d6d',
                 'layer-1-normal': '#7df76d',
@@ -1216,6 +1224,55 @@ function infohub_configlocal_colour() {
                 'name': {'value': 'Mocha Chocolate'},
             }
         };
+
+        const $light = {
+            "color_schema": {
+                "layer-0-background": "#f76d6d",
+                "layer-1-normal": "#7df76d",
+                "layer-1-highlight": "#6d8df7",
+                "layer-1-warning": "#ff0000",
+                "layer-2-normal-text": "#0b1f00",
+                "layer-2-title-text": "#1b350a"
+            },
+            "color_lookup": {
+                "#f76d6d": "#d9f2f2",
+                "#7df76d": "#bae8e8",
+                "#6d8df7": "#babae8",
+                "#ff0000": "#e8baba",
+                "#0b1f00": "#11260d",
+                "#1b350a": "#1a260d"
+            },
+            "form_data": {
+                "base_color_0": {"value": "180"},
+                "base_color_1": {"value": "180"},
+                "base_color_2": {"value": "240"},
+                "base_color_3": {"value": "0"},
+                "base_color_4": {"value": "110"},
+                "base_color_5": {"value": "90"},
+                "layer_0": {"value": "90"                },
+                "layer_1": {"value": "82"},
+                "layer_2": {"value": "10"},
+                "name": {"value": "Winter"}
+            }
+        };
+
+        if (_IsDarkModeEnabled() === true) {
+            return $dark;
+        }
+
+        return $light;
     };
+
+    /**
+     * Detects if dark mode is enabled or not
+     * I will just test. This must be moved to infohub_view later
+     * @returns {boolean}
+     * @private
+     */
+    const _IsDarkModeEnabled = function() {
+        const $result = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        return $result;
+    }
 }
 //# sourceURL=infohub_configlocal_colour.js
