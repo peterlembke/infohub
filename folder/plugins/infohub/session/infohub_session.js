@@ -17,12 +17,11 @@
  */
 function infohub_session() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function()
-    {
+    const _Version = function() {
         return {
             'date': '2020-01-12',
             'since': '2020-01-10',
@@ -35,12 +34,11 @@ function infohub_session() {
             'title': 'Session',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
-    const _GetCmdFunctions = function()
-    {
+    const _GetCmdFunctions = function() {
         const $list = {
             'initiator_store_session_data': 'normal',
             'initiator_end_session': 'normal',
@@ -62,9 +60,8 @@ function infohub_session() {
      * @since 2020-01-12
      * @author Peter Lembke
      */
-    $functions.push("initiator_store_session_data");
-    const initiator_store_session_data = function ($in)
-    {
+    $functions.push('initiator_store_session_data');
+    const initiator_store_session_data = function($in) {
         const $default = {
             'node': '', // name of the node the initiator use to send data to the responder
             'initiator_user_name': '', // user_{hub_id}
@@ -76,8 +73,8 @@ function infohub_session() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'ok': 'false'
-            }
+                'ok': 'false',
+            },
         };
         $in = _Default($default, $in);
 
@@ -88,7 +85,7 @@ function infohub_session() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
                     'path': $path,
@@ -97,12 +94,12 @@ function infohub_session() {
                         'left_overs': $in.left_overs,
                         'session_id': $in.session_id,
                         'session_created_at': $in.session_created_at,
-                        'role_list': $in.role_list
-                    }
+                        'role_list': $in.role_list,
+                    },
                 },
                 'data_back': {
-                    'step': 'step_store_session_data_response'
-                }
+                    'step': 'step_store_session_data_response',
+                },
             });
         }
 
@@ -116,7 +113,7 @@ function infohub_session() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -128,9 +125,8 @@ function infohub_session() {
      * @since 2020-01-12
      * @author Peter Lembke
      */
-    $functions.push("initiator_end_session");
-    const initiator_end_session = function ($in)
-    {
+    $functions.push('initiator_end_session');
+    const initiator_end_session = function($in) {
         const $default = {
             'node': '', // name of the node to end the session on both sides.
             'response': {
@@ -141,38 +137,36 @@ function infohub_session() {
                     'session_created_at': '',
                 },
                 'answer': 'false',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report',
             },
-            'step': 'step_get_session_data'
+            'step': 'step_get_session_data',
         };
         $in = _Default($default, $in);
 
         let $sessionId = '';
 
-        if ($in.step === 'step_get_session_data')
-        {
+        if ($in.step === 'step_get_session_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_session/node/' + $in.node
+                    'path': 'infohub_session/node/' + $in.node,
                 },
                 'data_back': {
                     'node': $in.node,
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_session_data_response')
-        {
+        if ($in.step === 'step_get_session_data_response') {
             $sessionId = _GetData({
                 'name': 'response/data/session_id',
                 'default': '',
-                'data': $in
+                'data': $in,
             });
 
             if (_Empty($sessionId) === 'false') {
@@ -180,47 +174,44 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_responder_end_session')
-        {
+        if ($in.step === 'step_responder_end_session') {
             return _SubCall({
                 'to': {
                     'node': $in.node,
                     'plugin': 'infohub_session',
-                    'function': 'responder_end_session'
+                    'function': 'responder_end_session',
                 },
                 'data': {
-                    'session_id': $sessionId
+                    'session_id': $sessionId,
                 },
                 'data_back': {
                     'node': $in.node,
-                    'step': 'step_responder_end_session_response'
-                }
+                    'step': 'step_responder_end_session_response',
+                },
             });
         }
 
-        if ($in.step === 'step_responder_end_session_response')
-        {
+        if ($in.step === 'step_responder_end_session_response') {
             if ($in.response.answer === 'true') {
                 $in.step = 'step_delete_session_data';
             }
         }
 
-        if ($in.step === 'step_delete_session_data')
-        {
+        if ($in.step === 'step_delete_session_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
                     'path': 'infohub_session/node/' + $in.node,
-                    'data': {}
+                    'data': {},
                 },
                 'data_back': {
                     'node': $in.node,
-                    'step': 'step_delete_session_data_response'
-                }
+                    'step': 'step_delete_session_data_response',
+                },
             });
         }
 
@@ -231,7 +222,7 @@ function infohub_session() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -241,9 +232,8 @@ function infohub_session() {
      * @since 2020-01-12
      * @author Peter Lembke
      */
-    $functions.push("initiator_calculate_sign_code");
-    const initiator_calculate_sign_code = function ($in)
-    {
+    $functions.push('initiator_calculate_sign_code');
+    const initiator_calculate_sign_code = function($in) {
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -252,36 +242,35 @@ function infohub_session() {
                 'data': {},
                 'answer': 'false',
                 'message': 'Nothing to report',
-                'checksum': ''
+                'checksum': '',
             },
             'data_back': {
                 'sign_code': '',
                 'sign_code_created_at': '',
                 'session_id': '',
-                'user_name': ''
-            }
+                'user_name': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $signCodeCreatedAt = '';
         let $ok = 'false';
 
-        if ($in.step === 'step_get_session_data')
-        {
+        if ($in.step === 'step_get_session_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_session/node/' + $in.node
+                    'path': 'infohub_session/node/' + $in.node,
                 },
                 'data_back': {
                     'node': $in.node,
                     'messages_checksum': $in.messages_checksum, // md5 checksum of all messages in the package
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
@@ -291,16 +280,14 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_calculate')
-        {
+        if ($in.step === 'step_calculate') {
             let $data = _GetData({
                 'name': 'response/data',
                 'default': {},
                 'data': $in,
             });
 
-            if (_Empty($data) === 'false')
-            {
+            if (_Empty($data) === 'false') {
                 $signCodeCreatedAt = _CreatedAt();
 
                 let $string = $data.session_created_at + $signCodeCreatedAt +
@@ -311,18 +298,18 @@ function infohub_session() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_checksum',
-                        'function': 'calculate_checksum'
+                        'function': 'calculate_checksum',
                     },
                     'data': {
-                        'value': $string
+                        'value': $string,
                     },
                     'data_back': {
                         'sign_code': $in.data_back.sign_code,
                         'sign_code_created_at': $signCodeCreatedAt,
                         'session_id': $data.session_id,
                         'user_name': $data.initiator_user_name,
-                        'step': 'step_calculate_response'
-                    }
+                        'step': 'step_calculate_response',
+                    },
                 });
             }
         }
@@ -343,7 +330,7 @@ function infohub_session() {
             'sign_code': $in.data_back.sign_code,
             'sign_code_created_at': $in.data_back.sign_code_created_at,
             'session_id': $in.data_back.session_id,
-            'user_name': $in.data_back.user_name
+            'user_name': $in.data_back.user_name,
         };
     };
 
@@ -353,9 +340,8 @@ function infohub_session() {
      * @since 2020-01-12
      * @author Peter Lembke
      */
-    $functions.push("initiator_verify_sign_code");
-    const initiator_verify_sign_code = function ($in)
-    {
+    $functions.push('initiator_verify_sign_code');
+    const initiator_verify_sign_code = function($in) {
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -366,15 +352,15 @@ function infohub_session() {
                 'data': {},
                 'answer': 'false',
                 'message': 'Nothing to report',
-                'checksum': ''
-            }
+                'checksum': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': '',
-            'ok': 'false'
+            'ok': 'false',
         };
 
         // Verify sign_code_created_at that it is max 2 seconds old
@@ -392,24 +378,23 @@ function infohub_session() {
             }
         }
 
-        if ($in.step === 'step_get_session_data')
-        {
+        if ($in.step === 'step_get_session_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_session/node/' + $in.node
+                    'path': 'infohub_session/node/' + $in.node,
                 },
                 'data_back': {
                     'node': $in.node,
                     'messages_checksum': $in.messages_checksum, // md5 checksum of all messages in the package
                     'sign_code': $in.sign_code,
                     'sign_code_created_at': $in.sign_code_created_at, // 3 decimals
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
@@ -431,9 +416,9 @@ function infohub_session() {
 
             $out.message = 'Data is empty. Can not calculate any sign_code';
 
-            if (_Empty($data) === 'false')
-            {
-                let $string = $data.session_created_at + $in.sign_code_created_at +
+            if (_Empty($data) === 'false') {
+                let $string = $data.session_created_at +
+                    $in.sign_code_created_at +
                     $data.left_overs + $in.messages_checksum +
                     $data.session_id + $data.initiator_user_name;
 
@@ -441,15 +426,15 @@ function infohub_session() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_checksum',
-                        'function': 'calculate_checksum'
+                        'function': 'calculate_checksum',
                     },
                     'data': {
-                        'value': $string
+                        'value': $string,
                     },
                     'data_back': {
                         'sign_code': $in.sign_code,
-                        'step': 'step_calculate_response'
-                    }
+                        'step': 'step_calculate_response',
+                    },
                 });
             }
         }
@@ -470,7 +455,7 @@ function infohub_session() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.ok
+            'ok': $out.ok,
         };
     };
 
@@ -482,9 +467,8 @@ function infohub_session() {
      * @since 2020-01-18
      * @author Peter Lembke
      */
-    $functions.push("initiator_check_session_valid");
-    const initiator_check_session_valid = function ($in)
-    {
+    $functions.push('initiator_check_session_valid');
+    const initiator_check_session_valid = function($in) {
         const $default = {
             'node': 'client', // node name
             'step': 'step_get_session_data',
@@ -493,8 +477,8 @@ function infohub_session() {
                 'user_name': '',
                 'session_valid': 'false',
                 'session_id': '',
-                'role_list': []
-            }
+                'role_list': [],
+            },
         };
         $in = _Default($default, $in);
 
@@ -504,7 +488,7 @@ function infohub_session() {
             'session_id': '',
             'session_valid': 'false',
             'user_name': '',
-            'role_list': []
+            'role_list': [],
         };
 
         if ($in.step === 'step_get_session_data') {
@@ -512,15 +496,15 @@ function infohub_session() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_session/node/' + $in.node
+                    'path': 'infohub_session/node/' + $in.node,
                 },
                 'data_back': {
                     'node': $in.node,
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
@@ -534,9 +518,9 @@ function infohub_session() {
                     'left_overs': '',
                     'session_created_at': '',
                     'session_id': '',
-                    'role_list': []
+                    'role_list': [],
                 },
-                'post_exist': 'false'
+                'post_exist': 'false',
             };
             $in.response = _Default($default, $in.response);
 
@@ -546,7 +530,7 @@ function infohub_session() {
                 'session_id': $in.response.data.session_id,
                 'session_valid': 'false',
                 'user_name': $in.response.data.initiator_user_name,
-                'role_list': $in.response.data.role_list
+                'role_list': $in.response.data.role_list,
             };
 
             $in.step = 'step_end';
@@ -561,10 +545,10 @@ function infohub_session() {
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_session',
-                    'function': 'responder_check_session_valid'
+                    'function': 'responder_check_session_valid',
                 },
                 'data': {
-                    'session_id': $out.session_id
+                    'session_id': $out.session_id,
                 },
                 'data_back': {
                     'node': $in.node,
@@ -572,8 +556,8 @@ function infohub_session() {
                     'session_valid': $out.session_valid,
                     'session_id': $out.session_id,
                     'role_list': $out.role_list,
-                    'step': 'step_ask_server_if_session_is_valid_response'
-                }
+                    'step': 'step_ask_server_if_session_is_valid_response',
+                },
             });
         }
 
@@ -582,7 +566,7 @@ function infohub_session() {
             const $default = {
                 'answer': '',
                 'message': '',
-                'session_valid': 'false'
+                'session_valid': 'false',
             };
             $in.response = _Default($default, $in.response);
 
@@ -592,7 +576,7 @@ function infohub_session() {
                 'session_id': $in.data_back.session_id,
                 'session_valid': $in.response.session_valid,
                 'user_name': $in.data_back.user_name,
-                'role_list': $in.data_back.role_list
+                'role_list': $in.data_back.role_list,
             };
         }
 
@@ -601,7 +585,7 @@ function infohub_session() {
             'message': $out.message,
             'session_valid': $out.session_valid,
             'user_name': $out.user_name,
-            'role_list': $out.role_list
+            'role_list': $out.role_list,
         };
     };
 
@@ -613,9 +597,8 @@ function infohub_session() {
      * @since 2020-05-16
      * @author Peter Lembke
      */
-    $functions.push("initiator_get_session_data");
-    const initiator_get_session_data = function ($in)
-    {
+    $functions.push('initiator_get_session_data');
+    const initiator_get_session_data = function($in) {
         const $default = {
             'node': 'client', // node name
             'step': 'step_get_session_data',
@@ -624,12 +607,12 @@ function infohub_session() {
                     'initiator_user_name': '',
                     'session_created_at': '',
                     'session_id': '',
-                    'role_list': []
+                    'role_list': [],
                 },
                 'answer': 'false',
                 'message': 'Nothing to report',
-                'post_exist': 'false'
-            }
+                'post_exist': 'false',
+            },
         };
         $in = _Default($default, $in);
 
@@ -638,15 +621,15 @@ function infohub_session() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_session/node/' + $in.node
+                    'path': 'infohub_session/node/' + $in.node,
                 },
                 'data_back': {
                     'node': $in.node,
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
@@ -659,12 +642,11 @@ function infohub_session() {
             'post_exist': $in.response.post_exist,
             'user_name': $in.response.data.initiator_user_name,
             'session_id': $in.response.data.session_id,
-            'role_list': $in.response.data.role_list
+            'role_list': $in.response.data.role_list,
         };
     };
 
-    const _CreatedAt = function ()
-    {
+    const _CreatedAt = function() {
         const $time = _MicroTime();
         return $time.toString();
     };
@@ -676,45 +658,44 @@ function infohub_session() {
      * @since 2020-07-07
      * @author Peter Lembke
      */
-    $functions.push("delete_session_data");
-    const delete_session_data = function ($in)
-    {
+    $functions.push('delete_session_data');
+    const delete_session_data = function($in) {
         const $default = {
             'step': 'step_delete_session_data',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report',
             },
             'from_plugin': {
                 'node': '',
-                'plugin': ''
-            }
+                'plugin': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $answer = 'false';
         let $message = '';
 
-        if ($in.from_plugin.node !== 'client' || $in.from_plugin.plugin !== 'infohub_exchange') {
+        if ($in.from_plugin.node !== 'client' || $in.from_plugin.plugin !==
+            'infohub_exchange') {
             $message = 'You are not allowed to call this function';
             $in.step = 'step_end';
         }
 
-        if ($in.step === 'step_delete_session_data')
-        {
+        if ($in.step === 'step_delete_session_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
                     'path': 'infohub_session/node/server',
-                    'data': {}
+                    'data': {},
                 },
                 'data_back': {
-                    'step': 'step_delete_session_data_response'
-                }
+                    'step': 'step_delete_session_data_response',
+                },
             });
         }
 
@@ -725,8 +706,9 @@ function infohub_session() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 }
+
 //# sourceURL=infohub_session.js

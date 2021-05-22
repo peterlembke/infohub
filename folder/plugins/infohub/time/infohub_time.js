@@ -1,23 +1,23 @@
 /**
-    Copyright (C) 2018 Peter Lembke , CharZam soft
-    the program is distributed under the terms of the GNU General Public License
+ Copyright (C) 2018 Peter Lembke , CharZam soft
+ the program is distributed under the terms of the GNU General Public License
 
-    Infohub_Time is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ Infohub_Time is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    Infohub_Time is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
+ Infohub_Time is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Infohub_Time.	If not, see <https://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with Infohub_Time.    If not, see <https://www.gnu.org/licenses/>.
  */
 function infohub_time() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -33,14 +33,14 @@ function infohub_time() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'time': 'normal',
-            'get_available_options': 'normal'
+            'get_available_options': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -54,11 +54,10 @@ function infohub_time() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("time");
-    const time = function($in)
-    {
+    $functions.push('time');
+    const time = function($in) {
         const $default = {
-            'type': 'timestamp'
+            'type': 'timestamp',
         };
         $in = _Default($default, $in);
 
@@ -89,7 +88,7 @@ function infohub_time() {
             'answer': $answer,
             'message': $message,
             'type': $in.type,
-            'data': $result
+            'data': $result,
         };
     };
 
@@ -100,8 +99,7 @@ function infohub_time() {
      * @author  Peter Lembke
      * @return array|bool
      */
-    const _Time = function ()
-    {
+    const _Time = function() {
         let $time = _MicroTime();
         $time = $time.toString().split('.');
 
@@ -117,20 +115,33 @@ function infohub_time() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function ($in)
-    {
+    const get_available_options = function($in) {
         const $options = [
-            {"type": "option", "value": 'timestamp', "label": 'Normal timestamp', 'selected': 'true' },
-            {"type": "option", "value": 'timestamp_c', "label": 'Timestamp with offset' },
-            {"type": "option", "value": 'microtime', "label": 'EPOC with fractions' },
-            {"type": "option", "value": 'time', "label": 'Seconds since EPOC' }
+            {
+                'type': 'option',
+                'value': 'timestamp',
+                'label': 'Normal timestamp',
+                'selected': 'true',
+            },
+            {
+                'type': 'option',
+                'value': 'timestamp_c',
+                'label': 'Timestamp with offset',
+            },
+            {
+                'type': 'option',
+                'value': 'microtime',
+                'label': 'EPOC with fractions',
+            },
+            {'type': 'option', 'value': 'time', 'label': 'Seconds since EPOC'},
         ];
 
         return {
             'answer': 'true',
             'message': 'List of valid time methods.',
-            'options': $options
+            'options': $options,
         };
     };
 }
+
 //# sourceURL=infohub_time.js

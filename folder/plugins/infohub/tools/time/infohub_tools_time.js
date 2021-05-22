@@ -17,7 +17,7 @@
  */
 function infohub_tools_time() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tools_time() {
             'class_name': 'infohub_tools_time',
             'note': 'Render a form for generating times in different formats',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -38,7 +38,7 @@ function infohub_tools_time() {
         const $list = {
             'create': 'normal',
             'click_handle_time': 'normal',
-            'click_handle_node_select': 'normal'
+            'click_handle_node_select': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,8 +58,7 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -67,56 +66,55 @@ function infohub_tools_time() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_encrypt'
-            }
+                'message': 'Nothing to report from tools_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
         const $size = '1';
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Current time in different formats')
+                            'data': _Translate('CURRENT_TIME_IN_DIFFERENT_FORMATS')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('<p>With this tool you can get the current time in different formats.</p><p>Observe that the server PHP plugin must know about your time zone. See the documentation for Infohub_Time how to change that.</p>')
+                            'data': _Translate('<P>WITH_THIS_TOOL_YOU_CAN_GET_THE_CURRENT_TIME_IN_DIFFERENT_FORMATS.</P><P>OBSERVE_THAT_THE_SERVER_PHP_PLUGIN_MUST_KNOW_ABOUT_YOUR_TIME_ZONE._SEE_THE_DOCUMENTATION_FOR_INFOHUB_TIME_HOW_TO_CHANGE_THAT.</P>')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_select_node][my_select_time_format]<br>[my_time_button][my_textbox_output][my_clear_button]',
-                            'label': _Translate('Time format'),
-                            'description': _Translate('Select what time format you want to use')
+                            'label': _Translate('TIME_FORMAT'),
+                            'description': _Translate('SELECT_WHAT_TIME_FORMAT_YOU_WANT_TO_USE')
                         },
                         'my_select_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Node"),
-                            "description": _Translate("What node plugin do you want to produce the checksum?"),
+                            "label": _Translate("NODE"),
+                            "description": _Translate("WHAT_NODE_PLUGIN_DO_YOU_WANT_TO_PRODUCE_THE_CHECKSUM?"),
                             "size": $size,
                             "multiple": "false",
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ],
                             'event_data': 'time|handle_node_select',
                             'to_plugin': 'infohub_tools',
@@ -124,66 +122,66 @@ function infohub_tools_time() {
                             'custom_variables': {
                                 'affect_alias': 'my_select_time_format',
                                 'affect_plugin': 'infohub_time',
-                                'affect_function': 'get_available_options'
-                            }
+                                'affect_function': 'get_available_options',
+                            },
                         },
                         'my_select_time_format': {
                             'type': 'form',
                             'subtype': 'select',
-                            "label": _Translate("Time format"),
-                            "description": _Translate("What time format do you want?"),
+                            "label": _Translate("TIME_FORMAT"),
+                            "description": _Translate("WHAT_TIME_FORMAT_DO_YOU_WANT?"),
                             "size": $size,
                             "multiple": "false",
                             "options": [],
                             'source_node': 'client',
                             'source_plugin': 'infohub_time',
-                            'source_function': 'get_available_options'
+                            'source_function': 'get_available_options',
                         },
                         'my_time_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Get the time'),
+                            'button_label': _Translate('GET_THE_TIME'),
                             'event_data': 'time|handle_time|get_current_time',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_textbox_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the time in the right format'),
+                            'placeholder': _Translate('WILL_SHOW_THE_TIME_IN_THE_RIGHT_FORMAT'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'my_clear_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Clear'),
+                            'button_label': _Translate('CLEAR'),
                             'event_data': 'time|handle_time|clear_my_textbox_output',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text][my_form]'
+                        'text': '[my_text][my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'time'
+                    'cache_key': 'time',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -194,17 +192,16 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_time');
-    const click_handle_time = function ($in)
-    {
+    const click_handle_time = function($in) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': null
+                'data': null,
             },
-            'event_data': ''
+            'event_data': '',
         };
         $in = _Default($default, $in);
 
@@ -213,8 +210,8 @@ function infohub_tools_time() {
         if ($in.step === 'step_start') {
             $in.step = 'step_get_time';
             if ($in.event_data === 'clear_my_textbox_output') {
-                $formData =  {
-                    'my_textbox_output': { 'value': '', 'type': 'textarea' }
+                $formData = {
+                    'my_textbox_output': {'value': '', 'type': 'textarea'},
                 };
                 $in.step = 'step_display_data';
             }
@@ -222,39 +219,51 @@ function infohub_tools_time() {
 
         if ($in.step === 'step_get_time') {
 
-            const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'server', 'data': $in });
-            const $timeFormat = _GetData({'name': 'form_data/my_select_time_format/value/0', 'default': 'timestamp', 'data': $in });
+            const $node = _GetData({
+                'name': 'form_data/my_select_node/value/0',
+                'default': 'server',
+                'data': $in,
+            });
+            const $timeFormat = _GetData({
+                'name': 'form_data/my_select_time_format/value/0',
+                'default': 'timestamp',
+                'data': $in,
+            });
 
             const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_time',
-                    'function': 'time'
+                    'function': 'time',
                 },
                 'data': {
-                    'type': $timeFormat
+                    'type': $timeFormat,
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tools',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_get_time_response'
-                }
+                    'step': 'step_get_time_response',
+                },
             });
         }
 
         if ($in.step === 'step_get_time_response') {
-            $formData =  {
-                'my_textbox_output': { 'value': $in.response.data, 'type': 'textarea', 'mode': 'add_left' }
+            $formData = {
+                'my_textbox_output': {
+                    'value': $in.response.data,
+                    'type': 'textarea',
+                    'mode': 'add_left',
+                },
             };
 
             if ($in.response.answer === 'true') {
@@ -267,22 +276,22 @@ function infohub_tools_time() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -293,8 +302,7 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function ($in)
-    {
+    const click_handle_node_select = function($in) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -305,37 +313,37 @@ function infohub_tools_time() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': ''
-            }
+                'data': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
                     'id': $in.box_id + '_' + $in.affect_alias,
                     'source_node': $in.value,
                     'source_plugin': $in.affect_plugin,
-                    'source_function': $in.affect_function
+                    'source_function': $in.affect_function,
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'value': $in.value
-                }
+                    'value': $in.value,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 }
+
 //# sourceURL=infohub_tools_time.js

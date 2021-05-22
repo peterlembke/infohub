@@ -30,14 +30,14 @@ class mydemo_myplugin extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2020-07-31
+     * @return  string[]
      * @since   2020-07-31
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2020-07-31
      */
     protected final function _Version(): array
     {
-        return array(
+        return [
             'date' => '2020-07-31',
             'since' => '2020-07-31',
             'version' => '1.0.0',
@@ -47,21 +47,21 @@ class mydemo_myplugin extends infohub_base
             'status' => 'emerging',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'developer'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2020-07-31
+     * @return mixed
      * @since   2020-07-31
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-07-31
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'my_function' => 'emerging'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -73,58 +73,60 @@ class mydemo_myplugin extends infohub_base
     /**
      * Example of class public function, always lower_case_names
      * Second row, more detailed description
-     * @version 2020-07-31
-     * @since   2020-07-31
-     * @author  Your name
      * @param array $in
      * @return array
+     * @author  Your name
+     * @version 2020-07-31
+     * @since   2020-07-31
      */
     final protected function my_function(array $in = []): array
     {
-        $default = array(
+        $default = [
             'some_data' => 'World'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $response = $this->internal_Cmd([
-            'func' => 'MyFunction',
-            'some_data' => 'Hello ' . $in['some_data'],
-            'say' => 'I say'
-        ]);
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'MyFunction',
+                'some_data' => 'Hello ' . $in['some_data'],
+                'say' => 'I say'
+            ]
+        );
 
         $data = $response['data'];
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Got the data',
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Example of class internal function, always internal_CamelCase names
      * Second row, more detailed description
-     * @version 2020-07-25
-     * @since   2012-01-01
-     * @author  Your name
      * @param array $in
      * @return array
+     * @author  Your name
+     * @version 2020-07-25
+     * @since   2012-01-01
      */
     final protected function internal_MyFunction(array $in = []): array
     {
-        $default = array(
+        $default = [
             'some_data' => 'Hello',
             'say' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = $in['say'] . ': ' . $in['some_data'] . '!';
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the data',
             'data' => $data
-        );
+        ];
     }
 }
 

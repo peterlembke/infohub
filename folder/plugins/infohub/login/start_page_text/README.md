@@ -29,5 +29,6 @@ Remember that it is [language code](https://www.loc.gov/standards/iso639-2/php/c
 |sv  |Swedish|Sweden|
 
 ## Browser language
+
 You can set the language you want in the localConfig plugin.  
 The default language is what your web browser has.

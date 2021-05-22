@@ -27,38 +27,38 @@ class infohub_democall_sibling_grandchild extends infohub_base
     /**
      * Version information for this plugin
      *
-     * @version 2019-03-09
+     * @return string[]
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2019-03-09
      */
-    Protected function _Version(): array
+    protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-03-09',
             'since' => '2019-03-09',
             'version' => '1.0.0',
             'class_name' => 'infohub_democall_sibling_grandchild',
             'checksum' => '{{checksum}}',
-            'note'=> 'Examples that show who can send messages to who',
+            'note' => 'Examples that show who can send messages to who',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
      *
-     * @version 2019-03-09
+     * @return mixed
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-03-09
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'my_test' => 'normal'
-        );
+        ];
     }
 
     /**
@@ -71,10 +71,10 @@ class infohub_democall_sibling_grandchild extends infohub_base
         $default = [];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'You reached my_test in plugin ' . $this->_GetClassName()
-        );
+        ];
     }
-    
+
 }

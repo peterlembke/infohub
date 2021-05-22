@@ -20,7 +20,7 @@
  */
 function infohub_render_svg() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -33,13 +33,13 @@ function infohub_render_svg() {
             'class_name': 'infohub_render_svg',
             'note': 'Renders SVG tags',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -60,19 +60,18 @@ function infohub_render_svg() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -86,12 +85,11 @@ function infohub_render_svg() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -129,8 +127,7 @@ function infohub_render_svg() {
      * @returns {string}
      * @private
      */
-    const _GetParameters = function ($parameters)
-    {
+    const _GetParameters = function($parameters) {
         let $parametersOK = [];
 
         for (let $parameterName in $parameters) {
@@ -146,17 +143,18 @@ function infohub_render_svg() {
                 continue;
             }
 
-            $parameterName = $parameterName.trim().toLowerCase()
-                .replace('<','')
-                .replace('>','')
-                .replace(' ','')
+            $parameterName = $parameterName.trim().
+                toLowerCase().
+                replace('<', '').
+                replace('>', '').
+                replace(' ', '')
             ;
 
-            $data = $data.trim()
-                .replace('<','')
-                .replace('>','')
-                .replace('\'', '')
-                .replace('"', '')
+            $data = $data.trim().
+                replace('<', '').
+                replace('>', '').
+                replace('\'', '').
+                replace('"', '')
             ;
 
             const $parameter = $parameterName + '="' + $data + '"';
@@ -174,8 +172,7 @@ function infohub_render_svg() {
      * @returns {string}
      * @private
      */
-    const _CheckTagValid = function ($tag)
-    {
+    const _CheckTagValid = function($tag) {
         const $tagName = $tag.trim();
 
         const $validTags = {
@@ -192,7 +189,7 @@ function infohub_render_svg() {
             'feGaussianBlur': 1,
             'feBlend': 1,
             'linearGradient': 1,
-            'stop': 1
+            'stop': 1,
         };
 
         let $valid = 'false';
@@ -208,18 +205,17 @@ function infohub_render_svg() {
      * @version 2020-04-19
      * @since 2020-04-19
      * @link
-     * @param $tag
+        * @param $tag
      * @returns {string}
      * @private
      */
-    const _CheckContentTagValid = function ($tag)
-    {
+    const _CheckContentTagValid = function($tag) {
         const $tagName = $tag.trim().toLowerCase();
 
         const $validTags = {
             'g': 1,
             'defs': 1,
-            'filter': 1
+            'filter': 1,
         };
 
         let $valid = 'false';
@@ -244,11 +240,10 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -257,7 +252,7 @@ function infohub_render_svg() {
             'message': '',
             'html': '',
             'css_data': {},
-            'display': ''
+            'display': '',
         };
 
         let $itemIndex = {};
@@ -279,7 +274,7 @@ function infohub_render_svg() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
 
@@ -291,14 +286,13 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgStart = function ($in)
-    {
+    const internal_SvgStart = function($in) {
         const $default = {
             'tag': 'svg',
             'alias': '',
             'class': 'svg',
             'width': 100.0,
-            'height': 100.0
+            'height': 100.0,
             // 'css_data': {}
             // You can not use css_data because it wraps around the html,
             // and this is only a start tag without an end tag.
@@ -309,25 +303,26 @@ function infohub_render_svg() {
         let $out = {
             'answer': 'false',
             'message': 'tag not valid',
-            'html': ''
+            'html': '',
         };
 
         const $valid = _CheckTagValid($in.tag);
         if ($valid === 'true') {
-            const $id = ' ' + _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = ' ' + _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
             const $parameters = ' width="100%" height="100%"' +
                 ' viewBox="0 0 ' + $in.width + ' ' + $in.height + '"';
             $out = {
                 'answer': 'true',
                 'message': 'Here are the HTML',
-                'html': '<' + $in.tag + $id + $parameters + '>'
+                'html': '<' + $in.tag + $id + $parameters + '>',
             };
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'html': $out.html
+            'html': $out.html,
         };
     };
 
@@ -339,8 +334,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgStop = function ($in)
-    {
+    const internal_SvgStop = function($in) {
         const $default = {
             'tag': 'svg',
         };
@@ -349,7 +343,7 @@ function infohub_render_svg() {
         let $out = {
             'answer': 'false',
             'message': 'tag not valid',
-            'html': ''
+            'html': '',
         };
 
         const $valid = _CheckTagValid($in.tag);
@@ -357,14 +351,14 @@ function infohub_render_svg() {
             $out = {
                 'answer': 'true',
                 'message': 'Here are the HTML',
-                'html': '</' + $in.tag + '>'
+                'html': '</' + $in.tag + '>',
             };
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'html': $out.html
+            'html': $out.html,
         };
     };
 
@@ -377,38 +371,38 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgSingleTag = function ($in)
-    {
+    const internal_SvgSingleTag = function($in) {
         const $default = {
             'alias': '',
             'tag': 'rect',
             'class': 'rectangle',
             'css_data': {},
-            'parameters': {}
+            'parameters': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'tag not valid',
-            'html': ''
+            'html': '',
         };
 
         const $tagValid = _CheckTagValid($in.tag);
         if ($tagValid === 'true') {
-            const $id = ' ' + _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = ' ' + _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
             const $parameters = ' ' + _GetParameters($in.parameters);
             $out = {
                 'answer': 'true',
                 'message': 'Here are the HTML',
-                'html': '<' +$in.tag + $id + $parameters + ' />'
+                'html': '<' + $in.tag + $id + $parameters + ' />',
             };
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'html': $out.html
+            'html': $out.html,
         };
     };
 
@@ -421,40 +415,42 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgContentTag = function ($in)
-    {
+    const internal_SvgContentTag = function($in) {
         const $default = {
             'alias': '',
             'tag': 'g',
             'content': '',
             'class': 'rectangle',
             'css_data': {},
-            'parameters': {}
+            'parameters': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'tag not valid',
-            'html': ''
+            'html': '',
         };
 
         const $tagValid = _CheckContentTagValid($in.tag);
         if ($tagValid === 'true') {
-            const $id = ' ' + _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = ' ' + _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
             const $parameters = ' ' + _GetParameters($in.parameters);
             $out = {
                 'answer': 'true',
                 'message': 'Here are the HTML',
-                'html': '<' +$in.tag + $id + $parameters + '>' + $in.content + '</' + $in.tag + '>'
+                'html': '<' + $in.tag + $id + $parameters + '>' + $in.content +
+                    '</' + $in.tag + '>',
             };
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'html': $out.html
+            'html': $out.html,
         };
     };
 }
+
 //# sourceURL=infohub_render_svg.js

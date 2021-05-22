@@ -30,14 +30,14 @@ class infohub_translate extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2019-03-23
+     * @return  string[]
      * @since   2019-03-23
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2019-03-23
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-03-23',
             'since' => '2019-03-23',
             'version' => '1.0.0',
@@ -47,23 +47,23 @@ class infohub_translate extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'developer'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-03-23
+     * @return mixed
      * @since   2019-03-23
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-03-23
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'load_plugin_list' => 'normal',
             'get_doc_file' => 'normal',
             'create_translation_file' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -87,19 +87,19 @@ class infohub_translate extends infohub_base
 
     /**
      * Load plugin list from infohub_file
-     * @version 2019-02-23
-     * @since   2019-02-23
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-02-23
+     * @since   2019-02-23
      */
     protected function load_plugin_list(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_load_plugin_list',
             'response' => [],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -109,17 +109,19 @@ class infohub_translate extends infohub_base
         $options = [];
 
         if ($in['step'] === 'step_load_plugin_list') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'get_all_level1_plugin_names'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'step' => 'step_load_plugin_list_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'get_all_level1_plugin_names'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'step' => 'step_load_plugin_list_response'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_load_plugin_list_response') {
@@ -134,136 +136,135 @@ class infohub_translate extends infohub_base
 
         if ($in['step'] === 'step_option_list') {
             foreach ($pluginList as $name => $data) {
-                $options[] = array("type" => "option", "value" => $name, "label" => $name);
+                $options[] = ["type" => "option", "value" => $name, "label" => $name];
             }
             $ok = 'true';
-
         }
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'plugin_list' => $pluginList,
             'options' => $options,
             'ok' => $ok
-        );
+        ];
     }
 
     /**
      * Get a doc file
-     * @version 2019-03-14
-     * @since   2019-03-14
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-03-14
+     * @since   2019-03-14
      */
     protected function get_doc_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'file' => 'infohub_translate',
             'step' => 'step_read_doc_file',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report from get_doc_file',
                 'contents' => '',
                 'checksum' => ''
-            ),
+            ],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'step_read_doc_file') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'path' => $in['file'] . '.md',
-                    'folder' => 'plugin'
-                ),
-                'data_back' => array(
-                    'step' => 'step_end'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'path' => $in['file'] . '.md',
+                        'folder' => 'plugin'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end'
+                    ]
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
             'contents' => $in['response']['contents'],
             'checksum' => $in['response']['checksum']
-        );
+        ];
     }
 
     /**
      * Give a plugin name. Function examine the plugin and all children.
      * Builds a translation json file with all phrases from the plugin and its children.
-     * @version 2020-12-15
-     * @since   2020-12-15
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-12-15
+     * @since   2020-12-15
      */
     protected function create_translation_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name' => '',
             'step' => 'step_get_plugin_js_files_content',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing',
                 'data' => []
-            ),
-            'data_back' => array(
+            ],
+            'data_back' => [
                 'out' => []
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'step_get_plugin_js_files_content') {
             $in['plugin_name'] = $this->_GetGrandPluginName($in['plugin_name']);
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'get_plugin_js_files_content'
-                ),
-                    'data' => array(
-                    'plugin_name' => $in['plugin_name']
-                ),
-                    'data_back' => array(
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_get_plugin_js_files_content_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'get_plugin_js_files_content'
+                    ],
+                    'data' => [
+                        'plugin_name' => $in['plugin_name']
+                    ],
+                    'data_back' => [
+                        'plugin_name' => $in['plugin_name'],
+                        'step' => 'step_get_plugin_js_files_content_response'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_plugin_js_files_content_response')
-        {
+        if ($in['step'] === 'step_get_plugin_js_files_content_response') {
             $in['step'] = 'step_pull_out_text_strings';
             if ($in['response']['answer'] === 'false') {
                 goto leave;
             }
         }
 
-        if ($in['step'] === 'step_pull_out_text_strings')
-        {
+        if ($in['step'] === 'step_pull_out_text_strings') {
             $find = '_Translate(';
             $findLength = strlen($find);
 
             $out = [];
 
-            foreach ($in['response']['data'] as $pluginName => $code)
-            {
+            foreach ($in['response']['data'] as $pluginName => $code) {
                 $out[$pluginName] = [];
                 $offset = 0;
                 $done = false;
                 $codeLength = strlen($code);
 
-                while ($done === false)
-                {
+                while ($done === false) {
                     if ($offset >= $codeLength) {
                         $done = 'true';
                         continue;
@@ -283,7 +284,7 @@ class infohub_translate extends infohub_base
                         continue;
                     }
 
-                    $textStart = $position + $findLength +1;
+                    $textStart = $position + $findLength + 1;
 
                     $findEnd = $blip . ')';
                     $textEnd = strpos($code, $findEnd, $textStart);
@@ -315,24 +316,22 @@ class infohub_translate extends infohub_base
 
                 $in['step'] = 'step_create_header';
             }
-
         }
 
-        if ($in['step'] === 'step_create_header')
-        {
+        if ($in['step'] === 'step_create_header') {
             $foundContent = $this->_JsonEncode($in['data_back']['out']);
 
-            $header = array(
-                'version' => array(
+            $header = [
+                'version' => [
                     "date" => $this->_TimeStamp(),
                     "plugin" => $in['plugin_name'],
                     "data_checksum" => md5($foundContent),
                     'language' => 'en',
                     'country' => '',
                     'file_type' => 'translate_file'
-                ),
+                ],
                 'data' => []
-            );
+            ];
 
             $header['data'] = $in['data_back']['out'];
             $in['data_back']['out'] = $header;
@@ -343,11 +342,11 @@ class infohub_translate extends infohub_base
         }
 
         leave:
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
             'file' => $in['data_back']['out']
-        );
+        ];
     }
 
     /**
@@ -358,8 +357,8 @@ class infohub_translate extends infohub_base
     protected function keyToText(string $key = ''): string
     {
         // Remove _KEY suffix if it exist
-        if (substr($key,-4, 4) === '_KEY') {
-            $key = substr($key,0, -4);
+        if (substr($key, -4, 4) === '_KEY') {
+            $key = substr($key, 0, -4);
         }
 
         $text = strtolower($key);

@@ -34,14 +34,14 @@ class infohub_encrypt extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-08-05
+     * @return string[]
      * @since   2016-01-30
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2018-08-05
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-08-05',
             'since' => '2016-01-30',
             'version' => '1.0.0',
@@ -51,25 +51,25 @@ class infohub_encrypt extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-08-05
+     * @return mixed
      * @since   2016-01-30
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-08-05
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'encrypt' => 'normal',
             'decrypt' => 'normal',
             'get_available_options' => 'normal',
             'is_method_valid' => 'normal',
             'create_encryption_key' => ''
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -91,11 +91,11 @@ class infohub_encrypt extends infohub_base
      */
     protected function encrypt(array $in = [])
     {
-        $default = array(
+        $default = [
             'plain_text' => '',
             'encryption_key' => 'infohub2010',
             'method' => 'AES-128-CBC'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -125,7 +125,7 @@ class infohub_encrypt extends infohub_base
             goto leave;
         }
 
-        $cipherText = openssl_encrypt($in['plain_text'],  $in['method'], $key, OPENSSL_RAW_DATA, $iv);
+        $cipherText = openssl_encrypt($in['plain_text'], $in['method'], $key, OPENSSL_RAW_DATA, $iv);
         if (empty($cipherText)) {
             $message = 'The cipher text could not be generated';
             goto leave;
@@ -137,12 +137,12 @@ class infohub_encrypt extends infohub_base
         $message = 'Here are the encrypted text';
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'encrypted_text' => $encryptedText,
             'method' => $in['method']
-        );
+        ];
 
         return $response;
     }
@@ -159,11 +159,11 @@ class infohub_encrypt extends infohub_base
      */
     protected function decrypt(array $in = [])
     {
-        $default = array(
+        $default = [
             'encrypted_text' => '', // Base 64 encoded cipher text
             'encryption_key' => 'infohub2010',
             'method' => 'AES-128-CBC'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -205,7 +205,7 @@ class infohub_encrypt extends infohub_base
             goto leave;
         }
 
-        $plainTextDecrypted  = openssl_decrypt($cipherText, $in['method'], $key, OPENSSL_RAW_DATA, $iv);
+        $plainTextDecrypted = openssl_decrypt($cipherText, $in['method'], $key, OPENSSL_RAW_DATA, $iv);
         if ($plainTextDecrypted === false) {
             $message = 'Could not decrypt the encrypted data';
             goto leave;
@@ -216,39 +216,39 @@ class infohub_encrypt extends infohub_base
         $message = 'Here are the plain text';
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'plain_text' => $plainTextDecrypted
-        );
+        ];
         return $response;
     }
 
     /**
      * Get list with encryption methods you can use on this server
-     * @version 2018-03-15
-     * @since   2018-03-15
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-15
+     * @since   2018-03-15
      */
     protected function get_available_options(array $in = []): array
     {
         $methods = $this->_GetCipherMethods();
         $options = [];
         foreach ($methods as $method) {
-            $options[] = array(
-                'type'=> 'option',
-                'value'=> $method,
-                'label'=> $method
-            );
+            $options[] = [
+                'type' => 'option',
+                'value' => $method,
+                'label' => $method
+            ];
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'List of valid encoding methods. I have removed the weak ones',
             'options' => $options
-        );
+        ];
     }
 
     /**
@@ -268,20 +268,65 @@ class infohub_encrypt extends infohub_base
         $cipherAliases = array_diff($ciphersAndAliases, $ciphers);
 
         //ECB mode should be avoided
-        $ciphers = array_filter( $ciphers, function($n) { return stripos($n,'ecb') === false; } );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($n) {
+                return stripos($n, 'ecb') === false;
+            }
+        );
 
         //At least as early as Aug 2016, Openssl declared the following weak: RC2, RC4, DES, 3DES, MD5 based
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'des') === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'rc2') === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'rc4') === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'md5') === false; } );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, 'des') === false;
+            }
+        );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, 'rc2') === false;
+            }
+        );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, 'rc4') === false;
+            }
+        );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, 'md5') === false;
+            }
+        );
 
         // Remove short keys 2019-11-19
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'128') === false; } );
-        $ciphers = array_filter( $ciphers, function($c) { return stripos($c,'192') === false; } );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, '128') === false;
+            }
+        );
+        $ciphers = array_filter(
+            $ciphers,
+            function ($c) {
+                return stripos($c, '192') === false;
+            }
+        );
 
-        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,'des') === false; } );
-        $cipherAliases = array_filter($cipherAliases,function($c) { return stripos($c,'rc2') === false; } );
+        $cipherAliases = array_filter(
+            $cipherAliases,
+            function ($c) {
+                return stripos($c, 'des') === false;
+            }
+        );
+        $cipherAliases = array_filter(
+            $cipherAliases,
+            function ($c) {
+                return stripos($c, 'rc2') === false;
+            }
+        );
 
         return $ciphers;
     }
@@ -298,9 +343,9 @@ class infohub_encrypt extends infohub_base
      */
     protected function is_method_valid(array $in = [])
     {
-        $default = array(
+        $default = [
             'method' => 'AES-128-CBC'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $ciphers = $this->_GetCipherMethods();
@@ -313,23 +358,24 @@ class infohub_encrypt extends infohub_base
             $message = 'This encryption method is valid';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
             'cipher' => $in['method'],
             'valid' => $valid
-        );
+        ];
     }
 
     /**
      * Read the encryption string from the configuration.
-     * @version 2018-03-15
-     * @since   2016-01-30
-     * @author  ?
      * @param string $encryptionKey | Plain text encryption key
      * @return string | Hashed encryption string
+     * @author  ?
+     * @version 2018-03-15
+     * @since   2016-01-30
      */
-    protected function _GetKey($encryptionKey = '') {
+    protected function _GetKey($encryptionKey = '')
+    {
         // the key should be random binary, use scrypt, bcrypt or PBKDF2 to
         // convert a string into a key
         // key is specified using hexadecimal
@@ -348,13 +394,14 @@ class infohub_encrypt extends infohub_base
     /**
      * Generates IV
      *
-     * @version 2018-03-15
-     * @since   2016-01-30
-     * @author  ?
      * @param string $method
      * @return string
+     * @author  ?
+     * @version 2018-03-15
+     * @since   2016-01-30
      */
-    protected function _GenerateIv(string $method = 'AES-128-CBC') {
+    protected function _GenerateIv(string $method = 'AES-128-CBC')
+    {
         $ivLength = openssl_cipher_iv_length($method);
         $iv = str_repeat('0', $ivLength);
         $isStrong = false; // Will be set to true by the function if the algorithm used was cryptographically secure
@@ -376,23 +423,24 @@ class infohub_encrypt extends infohub_base
      */
     protected function create_encryption_key(array $in = [])
     {
-        $default = array(
+        $default = [
             'length_in_bytes' => 255
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = '';
         if (function_exists('random_bytes')) {
             $data = random_bytes($in['length_in_bytes']); // PHP >= 7
-        }
-        else if (function_exists('openssl_random_pseudo_bytes')) {
-            $data = openssl_random_pseudo_bytes($in['length_in_bytes']); // PHP < 7
+        } else {
+            if (function_exists('openssl_random_pseudo_bytes')) {
+                $data = openssl_random_pseudo_bytes($in['length_in_bytes']); // PHP < 7
+            }
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the random key',
             'key' => $data
-        );
+        ];
     }
 }

@@ -11,7 +11,7 @@
  */
 function infohub_checksum_luhn() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -26,7 +26,7 @@ function infohub_checksum_luhn() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -35,7 +35,7 @@ function infohub_checksum_luhn() {
     const _GetCmdFunctions = function() {
         const $list = {
             'calculate_checksum': 'normal',
-            'verify_checksum': 'normal'
+            'verify_checksum': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -53,10 +53,9 @@ function infohub_checksum_luhn() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("calculate_checksum");
-    const calculate_checksum = function($in)
-    {
-        const $default = {'value': '' };
+    $functions.push('calculate_checksum');
+    const calculate_checksum = function($in) {
+        const $default = {'value': ''};
         $in = _Default($default, $in);
 
         $in.value = _RemoveAllButNumbers($in.value);
@@ -68,7 +67,7 @@ function infohub_checksum_luhn() {
             'message': 'Here are the checksum',
             'value': $in.value,
             'checksum': $result.toString(),
-            'verified': 'false'
+            'verified': 'false',
         };
     };
 
@@ -80,12 +79,11 @@ function infohub_checksum_luhn() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("verify_checksum");
-    const verify_checksum = function($in)
-    {
+    $functions.push('verify_checksum');
+    const verify_checksum = function($in) {
         const $default = {
             'value': '',
-            'checksum': ''
+            'checksum': '',
         };
         $in = _Default($default, $in);
 
@@ -102,7 +100,7 @@ function infohub_checksum_luhn() {
             'message': 'Here are the result of the checksum verification',
             'value': $in.value,
             'checksum': $in.checksum,
-            'verified': $verified
+            'verified': $verified,
         };
     };
 
@@ -113,8 +111,7 @@ function infohub_checksum_luhn() {
      * @returns {string}
      * @private
      */
-    const _LuhnCalculateChecksum = function($valueString)
-    {
+    const _LuhnCalculateChecksum = function($valueString) {
         let $sum = 0;
         if ($valueString !== '') {
             const $numbers = $valueString;
@@ -135,8 +132,7 @@ function infohub_checksum_luhn() {
         return $result;
     };
 
-    const _LuhnSum = function($valueString)
-    {
+    const _LuhnSum = function($valueString) {
         const $numbers = $valueString;
         let $sum = 0;
         for (let $key in $numbers) {
@@ -146,8 +142,7 @@ function infohub_checksum_luhn() {
         return $sum;
     };
 
-    const _LuhnVerifyChecksum = function($valueString)
-    {
+    const _LuhnVerifyChecksum = function($valueString) {
         const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
         const $result = _LuhnCalculateChecksum($valueString);
@@ -160,11 +155,11 @@ function infohub_checksum_luhn() {
         return false;
     };
 
-    const _RemoveAllButNumbers = function($valueString)
-    {
-        const $output = $valueString.replace(/[^0-9.]/g, "");
+    const _RemoveAllButNumbers = function($valueString) {
+        const $output = $valueString.replace(/[^0-9.]/g, '');
 
         return $output;
     };
 }
+
 //# sourceURL=infohub_checksum_luhn.js

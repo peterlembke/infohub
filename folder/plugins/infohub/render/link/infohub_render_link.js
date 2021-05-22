@@ -19,7 +19,7 @@
  */
 function infohub_render_link() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -32,13 +32,13 @@ function infohub_render_link() {
             'class_name': 'infohub_render_link',
             'note': 'Render HTML for a link',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,8 +59,7 @@ function infohub_render_link() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -69,7 +68,8 @@ function infohub_render_link() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -83,14 +83,13 @@ function infohub_render_link() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         let $parameter = [];
 
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -125,12 +124,10 @@ function infohub_render_link() {
      * @returns {string}
      * @private
      */
-    const _GetParameters = function ($in, $fields)
-    {
+    const _GetParameters = function($in, $fields) {
         let $useFields = [];
 
-        if (_IsSet($in.custom_variables) === 'true')
-        {
+        if (_IsSet($in.custom_variables) === 'true') {
             $in = _Merge($in, $in.custom_variables);
 
             for (let $keyOut in $in.custom_variables) {
@@ -157,7 +154,7 @@ function infohub_render_link() {
             $disabled = ' disabled';
         }
 
-        return  ' ' +  $useFields.join(' ') + $disabled;
+        return ' ' + $useFields.join(' ') + $disabled;
     };
 
     /**
@@ -168,10 +165,9 @@ function infohub_render_link() {
      * @returns {string}
      * @private
      */
-    const _Display = function ($in)
-    {
+    const _Display = function($in) {
         const $default = {
-            'display': ''
+            'display': '',
         };
         $in = _Default($default, $in);
 
@@ -197,11 +193,10 @@ function infohub_render_link() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -218,7 +213,7 @@ function infohub_render_link() {
             'embed': '', // What content to show when you have a link with embedded content.
             'display': '',
             'block_type_visible': '', // nothing defaults to "block". You can also have "inline-block"
-            'from_plugin': {'node':'', 'plugin': '', 'function': '' },
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
             'to_node': 'client',
             'to_plugin': 'infohub_render',
             'to_function': 'event_message',
@@ -226,7 +221,7 @@ function infohub_render_link() {
             'final_plugin': '', // For example infohub_tabs use this with long click to first show the tab and then send the message further to a renderer that show the long click gui
             'final_function': 'event_message',
             'class': 'link',
-            'css_data': {}
+            'css_data': {},
         };
 
         const $defaultResponse = {
@@ -234,7 +229,7 @@ function infohub_render_link() {
             'message': '',
             'html': '',
             'css_data': {},
-            'display': ''
+            'display': '',
         };
 
         let $itemIndex = {};
@@ -257,7 +252,7 @@ function infohub_render_link() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
 
@@ -271,8 +266,7 @@ function infohub_render_link() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_Link = function ($in)
-    {
+    const internal_Link = function($in) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -287,7 +281,7 @@ function infohub_render_link() {
             'display': 'inline', // nothing, block or inline
             'custom_variables': {},
             'css_data': {},
-            'class': 'link'
+            'class': 'link',
         };
         $in = _Default($default, $in);
 
@@ -295,7 +289,7 @@ function infohub_render_link() {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'link',
-            'event_type': 'click'
+            'event_type': 'click',
         };
         $in = _Merge($in, $constants);
 
@@ -303,33 +297,40 @@ function infohub_render_link() {
             'type': 'subtype',
             'renderer': 'renderer',
             'event_data': 'event_data',
-            'alias': 'alias'
+            'alias': 'alias',
         };
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = " onClick=\"go('" + $in.to_plugin + "','" + $in.event_type + "','" + $idString + "')\"";
+        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' +
+            $in.event_type + '\',\'' + $idString + '\')"';
 
-        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        let $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         if ($in.legend === 'true') {
-            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'legend' });
+            $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' + $in.to_plugin + '" to_function="' + $in.to_function + '"';
+        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' +
+            $in.to_plugin + '" to_function="' + $in.to_function + '"';
 
         let $finalDestination = '';
         if ($in.final_plugin !== '') {
-            $finalDestination = ' final_node="' + $in.final_node + '" final_plugin="' + $in.final_plugin + '" final_function="' + $in.final_function + '"';
+            $finalDestination = ' final_node="' + $in.final_node +
+                '" final_plugin="' + $in.final_plugin + '" final_function="' +
+                $in.final_function + '"';
         }
 
-        $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination + $finalDestination + $event + '>' + $in.show + '</a>';
+        $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination +
+            $finalDestination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -339,7 +340,7 @@ function infohub_render_link() {
             'message': 'Rendered html for a link',
             'html': $in.html,
             'css_data': $cssData,
-            'display': $in.display
+            'display': $in.display,
         };
     };
 
@@ -351,8 +352,7 @@ function infohub_render_link() {
      * @since   2016-10-29
      * @author  Peter Lembke
      */
-    const internal_Toggle = function ($in)
-    {
+    const internal_Toggle = function($in) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -364,7 +364,7 @@ function infohub_render_link() {
             'display': '',
             'block_type_visible': '', // nothing defaults to "block". You can also have "inline-block"
             'class': 'link',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
@@ -372,16 +372,18 @@ function infohub_render_link() {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'toggle',
-            'event_type': 'toggle'
+            'event_type': 'toggle',
         };
         $in = _Merge($in, $constants);
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $toggleIdString = ' toggle_id="' + ['{box_id}', $in.toggle_alias].join('_') + '"';
+        const $toggleIdString = ' toggle_id="' +
+            ['{box_id}', $in.toggle_alias].join('_') + '"';
 
         let $otherIdString = '';
         if (_Empty($in.other_alias) === 'false') {
-            $otherIdString = ' other_id="' + ['{box_id}', $in.other_alias].join('_') + '"';
+            $otherIdString = ' other_id="' +
+                ['{box_id}', $in.other_alias].join('_') + '"';
         }
 
         let $blockType = '';
@@ -389,91 +391,34 @@ function infohub_render_link() {
             $blockType = ' block_type="' + $in.block_type_visible + '"';
         }
 
-        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        let $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = ' ' + _Display($in);
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" alias="' + $in.alias + '"' + $toggleIdString + $otherIdString + $display + $blockType;
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
+            '" type="' + $in.subtype + '" alias="' + $in.alias + '"' +
+            $toggleIdString + $otherIdString + $display + $blockType;
 
         const $destination = ' to_node="client" to_plugin="infohub_view" to_function="toggle"';
 
-        const $event = " onClick=\"go('infohub_view', 'toggle', '" + $idString + "')\"";
+        const $event = ' onClick="go(\'infohub_view\', \'toggle\', \'' +
+            $idString +
+            '\')"';
 
         if ($in.legend === 'true') {
-            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'link_legend' });
+            $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
+            '</a>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
-            };
-            $cssData = _MergeStringData($cssData, $in.css_data);
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Rendered html for a link',
-            'html': $in.html,
-            'css_data': $cssData
-        };
-    };
-
-    /**
-     * Create HTML for an external link that will open in a new tab
-     * @version 2016-10-29
-     * @since   2016-10-29
-     * @author  Peter Lembke
-     */
-    const internal_External = function ($in)
-    {
-        const $default = {
-            'alias': '',
-            'show': '', // Text to show on screen
-            'legend': 'false',
-            'url': '',
-            'to_plugin': 'infohub_render',
-            'to_function': 'event_message',
-            'display': 'inline',
-            'class': 'link',
-            'css_data': {}
-        };
-        $in = _Default($default, $in);
-
-        const $constants = {
-            'renderer': 'infohub_render_link',
-            'type': 'link',
-            'subtype': 'external',
-            'event_type': 'external'
-        };
-        $in = _Merge($in, $constants);
-
-        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $data = btoa($in.url);
-
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" data="' + $data + '" alias="' + $in.alias + '"';
-
-        const $destination = '';
-
-        const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = " onClick=\"go('" + $in.to_plugin + "','" + $in.event_type + "','" + $idString + "')\"";
-
-        if ($in.legend === 'true') {
-            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'link_legend' });
-            $in.show = '<p ' + $id + '>' + $in.show + '</p>';
-        }
-
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
-
-        let $cssData = $in.css_data;
-
-        if ($in.class === 'link') {
-            $cssData = {
-                '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -483,7 +428,76 @@ function infohub_render_link() {
             'message': 'Rendered html for a link',
             'html': $in.html,
             'css_data': $cssData,
-            'display': $in.display
+        };
+    };
+
+    /**
+     * Create HTML for an external link that will open in a new tab
+     * @version 2016-10-29
+     * @since   2016-10-29
+     * @author  Peter Lembke
+     */
+    const internal_External = function($in) {
+        const $default = {
+            'alias': '',
+            'show': '', // Text to show on screen
+            'legend': 'false',
+            'url': '',
+            'to_plugin': 'infohub_render',
+            'to_function': 'event_message',
+            'display': 'inline',
+            'class': 'link',
+            'css_data': {},
+        };
+        $in = _Default($default, $in);
+
+        const $constants = {
+            'renderer': 'infohub_render_link',
+            'type': 'link',
+            'subtype': 'external',
+            'event_type': 'external',
+        };
+        $in = _Merge($in, $constants);
+
+        let $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $data = btoa($in.url);
+
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
+            '" type="' + $in.subtype + '" data="' + $data + '" alias="' +
+            $in.alias + '"';
+
+        const $destination = '';
+
+        const $idString = ['{box_id}', $in.alias].join('_');
+        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' +
+            $in.event_type + '\',\'' + $idString + '\')"';
+
+        if ($in.legend === 'true') {
+            $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
+            $in.show = '<p ' + $id + '>' + $in.show + '</p>';
+        }
+
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
+            '</a>';
+
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;',
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a link',
+            'html': $in.html,
+            'css_data': $cssData,
+            'display': $in.display,
         };
     };
 
@@ -493,15 +507,14 @@ function infohub_render_link() {
      * @since   2016-10-29
      * @author  Peter Lembke
      */
-    const internal_Embed = function ($in)
-    {
+    const internal_Embed = function($in) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
             'legend': 'false',
             'embed': '', // JSON data that later will be BASE64 encoded
             'class': 'link',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
@@ -509,33 +522,39 @@ function infohub_render_link() {
             'renderer': 'infohub_render_link',
             'type': 'link',
             'subtype': 'embed',
-            'event_type': 'embed'
+            'event_type': 'embed',
         };
         $in = _Merge($in, $constants);
 
-        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        let $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $data = '{{*' + $in.embed + '*}}';
 
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" data="' + $data + '" alias="' + $in.alias + '"';
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
+            '" type="' + $in.subtype + '" data="' + $data + '" alias="' +
+            $in.alias + '"';
 
         const $destination = '';
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = " onClick=\"go('infohub_view','" + $in.event_type + "','" + $idString + "')\"";
+        const $event = ' onClick="go(\'infohub_view\',\'' + $in.event_type +
+            '\',\'' + $idString + '\')"';
 
         if ($in.legend === 'true') {
-            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'legend' });
+            $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
+            '</a>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -544,8 +563,9 @@ function infohub_render_link() {
             'answer': 'true',
             'message': 'Rendered html for a link',
             'html': $in.html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 }
+
 //# sourceURL=infohub_render_link.js

@@ -30,14 +30,14 @@ class infohub_checksum_personnummer extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-07-29
+     * @return string[]
      * @since   2016-04-17
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2018-07-29
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-07-29',
             'since' => '2016-04-17',
             'version' => '1.0.0',
@@ -46,22 +46,22 @@ class infohub_checksum_personnummer extends infohub_base
             'note' => 'Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-07-29
+     * @return mixed
      * @since   2016-04-17
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-07-29
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'calculate_checksum' => 'emerging',
             'verify_checksum' => 'emerging'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -72,47 +72,47 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Main checksum calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function calculate_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '' // Example: 640823–323
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $in['value'] = $this->_CleanUPPersonnummer($in['value']);
+        $in['value'] = $this->_CleanUpPersonnummer($in['value']);
         $result = $this->_PersonnummerCalculateChecksum($in['value']);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the checksum',
             'value' => $in['value'],
             'checksum' => $result,
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * Main checksum verification
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function verify_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '' // Example: 640823–3231
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $in['value'] = $this->_CleanUPPersonnummer($in['value']);
+        $in['value'] = $this->_CleanUpPersonnummer($in['value']);
 
         $verified = 'false';
         $result = $this->_PersonnummerVerifyChecksum($in['value']);
@@ -120,13 +120,13 @@ class infohub_checksum_personnummer extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the result of the checksum verification',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
@@ -134,9 +134,10 @@ class infohub_checksum_personnummer extends infohub_base
      * @param string $value
      * @return int
      */
-    protected function _CleanUPPersonnummer(string $value = ''): string
+    protected function _CleanUpPersonnummer(string $value = ''): string
     {
         $output = $this->_RemoveAllButNumbers($value);
+
         return $output;
     }
 
@@ -150,19 +151,18 @@ class infohub_checksum_personnummer extends infohub_base
      */
     protected function _PersonnummerCalculateChecksum(string $valueString = ''): string
     {
-
         $numbers = str_split($valueString, 1);
         $sum = 0;
         foreach ($numbers as $index => $number) {
             if ($index % 2 === 0) {
-                $number = (string) (2 * $number);
+                $number = (string)(2 * $number);
                 $number = $this->_PersonnummerSum($number);
             }
             $sum = $sum + $number;
         }
 
-        $checksumDigit = (string) ($sum * 9);
-        $checksumDigit = substr($checksumDigit, -1);
+        $checksumDigit = (string)($sum * 9);
+        $checksumDigit = substr($checksumDigit, $offset = -1);
         $result = $valueString . $checksumDigit;
 
         return $result;
@@ -192,23 +192,27 @@ class infohub_checksum_personnummer extends infohub_base
     protected function _PersonnummerVerifyChecksum(string $valueString = ''): bool
     {
         $checksum = substr($valueString, -1);
-        $valueString = substr($valueString, 0 , -1);
+        $valueString = substr($valueString, 0, -1);
         $result = $this->_PersonnummerCalculateChecksum($valueString);
         $resultChecksum = substr($result, -1);
         if ($checksum === $resultChecksum) {
             return true;
         }
+
         return false;
     }
 
-        /**
+    /**
      * Remove all characters from the string that is not 0-9
      * @param string $valueString
-     * @return bool
+     * @return string
      */
     protected function _RemoveAllButNumbers($valueString = ''): string
     {
-        $output = preg_replace('/\D/', '', $valueString);
+        $pattern = '/\D/';
+        $replacement = '';
+        $output = preg_replace($pattern, $replacement, $valueString);
+
         return $output;
     }
 }

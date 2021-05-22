@@ -2,5 +2,20 @@
     "plugin": "infohub_login",
     "title": "Login",
     "description": "Handles your login to the server",
-    "uses": ["infohub_login_menu", "infohub_rendermenu", "infohub_login_password", "infohub_login_export", "infohub_login_import", "infohub_login_logout", "infohub_login_login", "infohub_login_contact", "infohub_login_forget", "infohub_checksum", "infohub_checksum_md5","infohub_checksum_crc32", "infohub_validate"]
+    "keywords": "login,access,enter,sign,logout,encrypt",
+    "uses": [
+        "infohub_login_menu",
+        "infohub_rendermenu",
+        "infohub_login_password",
+        "infohub_login_export",
+        "infohub_login_import",
+        "infohub_login_logout",
+        "infohub_login_login",
+        "infohub_login_contact",
+        "infohub_login_forget",
+        "infohub_checksum",
+        "infohub_checksum_md5",
+        "infohub_checksum_crc32",
+        "infohub_validate"
+    ]
 }

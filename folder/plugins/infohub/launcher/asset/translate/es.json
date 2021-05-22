@@ -29,7 +29,8 @@
             "Run plugin": "Ejecutar complemento",
             "More": "Más",
             "User name": "Nombre de usuario",
-            "Logout": "Cerrar sesión"
+            "Logout": "Cerrar sesión",
+            "Run in new window": "Ejecutar en una nueva ventana"
         }
     }
 }

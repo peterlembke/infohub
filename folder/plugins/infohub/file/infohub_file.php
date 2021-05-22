@@ -31,36 +31,36 @@ class infohub_file extends infohub_base
 
     /**
      * Version information for this plugin
-     * @version 2019-02-23
+     * @return string[]
      * @since   2017-11-01
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2019-02-23
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-02-23',
             'since' => '2017-11-01',
             'version' => '1.0.1',
             'class_name' => 'infohub_file',
             'checksum' => '{{checksum}}',
-            'note'=> 'Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins.',
+            'note' => 'Used by plugins that want to read/write files. Custom usage have custom functions for specific plugins.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => '' // User can not send messages to this plugin directly
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-02-23
+     * @return mixed
      * @since   2017-11-01
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-02-23
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'read' => 'normal',
             'write' => 'normal',
             'get_folder_structure' => 'normal',
@@ -73,7 +73,7 @@ class infohub_file extends infohub_base
             'get_all_level1_plugin_names' => 'normal', // infohub_translate
             'load_node_role_plugin_name_role_list' => 'normal', // infohub_contact
             'get_plugin_js_files_content' => 'normal' // infohub_translate
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -85,44 +85,44 @@ class infohub_file extends infohub_base
     /**
      * Read meta data and content from a file
      * You can limit the response data, Use data_request in your subcall.
-     * @version 2020-08-01
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-01
+     * @since   2017-11-05
      */
     protected function read(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
             'folder' => 'file' // plugin or file
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'server') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
-            );
+            ];
         }
 
         if ($in['folder'] !== 'file' && $in['folder'] !== 'plugin') {
-            return array('answer' => 'false', 'message' => 'Folder must be file or plugin');
+            return ['answer' => 'false', 'message' => 'Folder must be file or plugin'];
         }
 
         if (strpos($in['path'], '..') !== false) {
-            return array('answer' => 'false', 'message' => 'Path can not use ..');
+            return ['answer' => 'false', 'message' => 'Path can not use ..'];
         }
 
         if (strpos($in['path'], '~') !== false) {
-            return array('answer' => 'false', 'message' => 'Path can not use ~');
+            return ['answer' => 'false', 'message' => 'Path can not use ~'];
         }
 
         if ($in['folder'] === 'file') {
             $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
         }
-        
+
         if ($in['folder'] === 'plugin') {
             $in['path'] = PLUGINS . DS . str_replace('_', DS, $in['from_plugin']['plugin']) . DS . $in['path'];
         }
@@ -135,17 +135,17 @@ class infohub_file extends infohub_base
 
     /**
      * Read meta data and content from a file
-     * @version 2020-08-15
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-15
+     * @since   2017-11-05
      */
     protected function internal_Read(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -156,12 +156,12 @@ class infohub_file extends infohub_base
         $userRole = '';
         $pluginStatus = '';
 
-        $response = array(
+        $response = [
             'path' => '',
             'path_info' => [],
             'file_info' => [],
             'file_size' => 0
-        );
+        ];
 
         $response = $this->_FileInformation($in);
         if ($response['answer'] === 'false') {
@@ -192,7 +192,7 @@ class infohub_file extends infohub_base
         $message = 'Here are the file contents';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'path' => $response['path'],
@@ -204,44 +204,44 @@ class infohub_file extends infohub_base
             'checksum' => $checksum,
             'file_size' => $response['file_size'],
             'user_role' => $userRole,
-        );
+        ];
     }
 
     /**
      * Write data to a file
-     * @version 2018-05-12
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-05-12
+     * @since   2017-11-05
      */
     protected function write(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
             'contents' => '',
             'allow_overwrite' => 'false',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if (strpos($in['path'], '..') !== false) {
-            return array('answer' => 'false', 'message' => 'Path can not use ..');
+            return ['answer' => 'false', 'message' => 'Path can not use ..'];
         }
 
         if (strpos($in['path'], '~') !== false) {
-            return array('answer' => 'false', 'message' => 'Path can not use ~');
+            return ['answer' => 'false', 'message' => 'Path can not use ~'];
         }
 
         if ($in['from_plugin']['node'] !== 'server') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
-            );
+            ];
         }
 
         $in['func'] = 'Write';
@@ -252,31 +252,31 @@ class infohub_file extends infohub_base
 
     /**
      * Write data to a file
-     * @version 2017-12-07
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-12-07
+     * @since   2017-11-05
      */
     protected function internal_Write(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
             'contents' => '',
             'allow_overwrite' => 'false',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $checksum = '';
         $createdPath = 'false';
-        $response = array(
+        $response = [
             'path' => '',
             'path_info' => [],
             'file_info' => [],
             'file_size' => 0
-        );
+        ];
         $contentsLength = strlen($in['contents']);
 
         $response = $this->_FileInformation($in);
@@ -322,7 +322,7 @@ class infohub_file extends infohub_base
         $message = 'File is written';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'path' => $response['path'],
@@ -331,22 +331,21 @@ class infohub_file extends infohub_base
             'file_info' => $response['file_info'],
             'checksum' => $checksum,
             'file_size' => $response['file_size']
-        );
-
+        ];
     }
 
     /**
      * Determine if an extension indicate a binary file ("true"), or a text file ("false")
-     * @version 2018-05-12
-     * @since   2018-05-12
-     * @author  Peter Lembke
      * @param string $extension
      * @return string | boolean string "true" or "false"
+     * @author  Peter Lembke
+     * @version 2018-05-12
+     * @since   2018-05-12
      */
     protected function _IsBinaryFileExtension(string $extension = ''): string
     {
         // OBSERVE: Do NOT add PHP and JS files to this list even if they are text files
-        $validNonBinaryExtensions = array('txt','csv','xml','json','svg','md');
+        $validNonBinaryExtensions = ['txt', 'csv', 'xml', 'json', 'svg', 'md'];
         $isBinaryFileExtension = 'true';
         if (in_array($extension, $validNonBinaryExtensions) === true) {
             $isBinaryFileExtension = 'false';
@@ -356,29 +355,29 @@ class infohub_file extends infohub_base
 
     /**
      * Get an array with all file paths and file names that match the pattern, also recursively.
-     * @version 2017-12-10
-     * @since   2017-12-10
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-12-10
+     * @since   2017-12-10
      */
     protected function get_folder_structure(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'server') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node'
-            );
+            ];
         }
 
         $in['func'] = 'GetFolderStructure';
@@ -389,25 +388,25 @@ class infohub_file extends infohub_base
 
     /**
      * Calculate the checksum the same way as in index.php
-     * @version 2019-11-13
-     * @since   2019-11-13
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-11-13
+     * @since   2019-11-13
      */
     protected function index_checksum(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => '')
-        );
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'server') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'I only accept messages that origin from this server node',
                 'checksum' => ''
-            );
+            ];
         }
 
         $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
@@ -431,27 +430,27 @@ class infohub_file extends infohub_base
             $checksum = $checksum . md5($fileContents);
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the checksum',
             'checksum' => md5($checksum)
-        );
+        ];
     }
 
     /**
      * Get an array with all file paths and file names that match the pattern, also recursively.
-     * @version 2017-12-07
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-12-07
+     * @since   2017-11-05
      */
-    protected  function  internal_GetFolderStructure(array $in = []): array
+    protected function internal_GetFolderStructure(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
             'pattern' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -490,7 +489,7 @@ class infohub_file extends infohub_base
         $message = 'Here are the data';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'original_path' => $in['path'],
@@ -499,45 +498,45 @@ class infohub_file extends infohub_base
             'pattern' => $pattern,
             'full_path' => $fullPath,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get information about a file
-     * @version 2017-11-05
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-11-05
+     * @since   2017-11-05
      */
     protected function _FileInformation(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $fileSize = 0;
 
-        $pathInfoDefault = array(
+        $pathInfoDefault = [
             'dirname' => '',
             'basename' => '',
             'filename' => '',
             'extension' => ''
-        );
+        ];
         $pathInfo = $pathInfoDefault;
 
-        $fileInfoDefault = array(
+        $fileInfoDefault = [
             'folder_exist' => '',
             'is_dir' => '',
             'is_file' => '',
             'is_link' => '',
             'file_exist' => '',
             'is_readable' => ''
-        );
+        ];
         $fileInfo = $fileInfoDefault;
 
         $in['path'] = $this->_CleanString($in['path'], 'path');
@@ -548,14 +547,14 @@ class infohub_file extends infohub_base
 
         $pathInfo = pathinfo($in['path']);
 
-        $fileInfo = array(
-            'folder_exist' => is_dir($pathInfo['dirname']) ? 'true': 'false',
-            'is_dir' => is_dir($in['path']) ? 'true': 'false',
-            'is_file' => is_file($in['path']) ? 'true': 'false',
-            'is_link' => is_link($in['path']) ? 'true': 'false',
-            'file_exist' => file_exists($in['path']) ? 'true': 'false',
-            'is_readable' => is_readable($in['path']) ? 'true': 'false'
-        );
+        $fileInfo = [
+            'folder_exist' => is_dir($pathInfo['dirname']) ? 'true' : 'false',
+            'is_dir' => is_dir($in['path']) ? 'true' : 'false',
+            'is_file' => is_file($in['path']) ? 'true' : 'false',
+            'is_link' => is_link($in['path']) ? 'true' : 'false',
+            'file_exist' => file_exists($in['path']) ? 'true' : 'false',
+            'is_readable' => is_readable($in['path']) ? 'true' : 'false'
+        ];
 
         if ($fileInfo['folder_exist'] === 'false') {
             $message = 'Folder do not exist';
@@ -608,23 +607,23 @@ class infohub_file extends infohub_base
         $pathInfo = $this->_Default($pathInfoDefault, $pathInfo);
         $fileInfo = $this->_Default($fileInfoDefault, $fileInfo);
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'path_info' => $pathInfo,
             'file_info' => $fileInfo,
             'file_size' => $fileSize
-        );
+        ];
     }
 
     /**
      * Check the path that it is correct
-     * @version 2017-11-05
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param string $path
      * @return string
+     * @author  Peter Lembke
+     * @version 2017-11-05
+     * @since   2017-11-05
      */
     protected function _CheckPath(string $path = ''): string
     {
@@ -634,8 +633,7 @@ class infohub_file extends infohub_base
 
         $parts = explode('/', $path);
 
-        foreach ($parts as $nr => $data)
-        {
+        foreach ($parts as $nr => $data) {
             if ($data === '..') {
                 return 'false';
             }
@@ -646,19 +644,19 @@ class infohub_file extends infohub_base
 
     /**
      * Keep allowed characters in the string
-     * @version 2017-12-07
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param string $string
      * @param string $type
      * @return string
+     * @version 2017-12-07
+     * @since   2017-11-05
+     * @author  Peter Lembke
      */
     protected function _CleanString(string $string = '', string $type = 'path'): string
     {
-        $allowed = array(
+        $allowed = [
             'path' => 'abcdefghijklmnopqrstuvwxyz0123456789_-./',
             'pattern' => 'abcdefghijklmnopqrstuvwxyz0123456789_-.*'
-        );
+        ];
         if (isset($allowed[$type]) === false) {
             return '';
         }
@@ -671,8 +669,7 @@ class infohub_file extends infohub_base
         $string = strtolower(trim($string));
         $stringLength = strlen($string);
 
-        for ($characterPosition=0; $characterPosition < $stringLength; $characterPosition = $characterPosition + 1)
-        {
+        for ($characterPosition = 0; $characterPosition < $stringLength; $characterPosition = $characterPosition + 1) {
             if (isset($allowedCharacters[$string[$characterPosition]]) === true) {
                 $out = $out . $string[$characterPosition];
             }
@@ -685,32 +682,32 @@ class infohub_file extends infohub_base
 
     /**
      * Give a data string, get a checksum value as a string
-     * @version 2017-11-05
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param string $dataString
      * @return string
+     * @author  Peter Lembke
+     * @version 2017-11-05
+     * @since   2017-11-05
      */
     protected function _Hash(string $dataString = ''): string
     {
-        return (string) md5($dataString);
+        return (string)md5($dataString);
     }
 
     /**
      * Give a path and pattern. Get an array with all paths and file names recursively.
      * https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/
-     * @version 2017-11-05
-     * @since   2017-11-05
-     * @author  Peter Lembke
      * @param string $pattern
      * @param int $flags
      * @return array
+     * @version 2017-11-05
+     * @since   2017-11-05
+     * @author  Peter Lembke
      */
     protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
     {
         $files = glob($pattern, $flags);
-        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
-            $files = array_merge($files, $this->_RecursiveSearch($dir.'/'.basename($pattern), $flags));
+        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
+            $files = array_merge($files, $this->_RecursiveSearch($dir . '/' . basename($pattern), $flags));
         }
         return $files;
     }
@@ -720,8 +717,9 @@ class infohub_file extends infohub_base
      * @param string $path
      * @return string
      */
-    protected function _RemoveEndSlash(string $path = ''): string {
-        if (substr($path, -1,1) === '/') {
+    protected function _RemoveEndSlash(string $path = ''): string
+    {
+        if (substr($path, -1, 1) === '/') {
             $path = substr($path, 0, -1);
         }
         return $path;
@@ -731,17 +729,17 @@ class infohub_file extends infohub_base
      * Get a list with plugin names that has a file called asset/launcher.json
      * The list key is plugin name, the data is the assets launcher.json, icon/icon.svg, icon/icon.json
      * Used only by infohub_launcher
-     * @version 2018-12-07
-     * @since   2017-12-07
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-12-07
+     * @since   2017-12-07
      */
     protected function launcher_get_full_list(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -758,26 +756,27 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetFolderStructure',
-            'path' => PLUGINS,
-            'pattern' => 'launcher.json',
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => 'launcher.json',
+            ]
+        );
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
-        
-        $wantedAssets = array('launcher.json', 'icon/icon.json', 'icon/icon.svg');
 
-        foreach ($response['data'] as $path)
-        {
+        $wantedAssets = ['launcher.json', 'icon/icon.json', 'icon/icon.svg'];
+
+        foreach ($response['data'] as $path) {
             $pathInfo = pathinfo($path);
             $pathInfo['dirname'] = $this->_RemoveEndSlash($pathInfo['dirname']);
 
             $pathCopy = $pathInfo['dirname'];
-            $pathAfterPlugins = substr($pathCopy, strlen(PLUGINS)+1);
+            $pathAfterPlugins = substr($pathCopy, strlen(PLUGINS) + 1);
             $parts = explode('/', $pathAfterPlugins);
 
             if (count($parts) <> 3) {
@@ -791,10 +790,10 @@ class infohub_file extends infohub_base
 
             $pluginName = $parts[0] . '_' . $parts[1];
 
-            $avoid = array(
+            $avoid = [
                 'infohub_workbench' => '',
                 'infohub_launcher' => ''
-            );
+            ];
 
             if (isset($avoid[$pluginName])) {
                 continue;
@@ -802,46 +801,46 @@ class infohub_file extends infohub_base
 
             $dirName = $pathInfo['dirname'];
 
-            foreach ($wantedAssets as $assetName)
-            {
-                $response = $this->internal_Cmd(array(
-                    'func' => 'Read',
-                    'path' => $dirName . DS . $assetName
-                ));
+            foreach ($wantedAssets as $assetName) {
+                $response = $this->internal_Cmd(
+                    [
+                        'func' => 'Read',
+                        'path' => $dirName . DS . $assetName
+                    ]
+                );
 
                 if ($response['answer'] === 'true') {
                     $data[$pluginName][$assetName] = $response['checksum'];
                 }
             }
-
         }
-        
+
         $answer = 'true';
         $message = 'Here are the list of plugin names that can be started in Workbench';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get ALL assets for ONE plugin
      * Used by infohub_asset
-     * @version 2020-05-23
-     * @since   2017-12-23
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-05-23
+     * @since   2017-12-23
      */
     protected function asset_get_all_assets_for_one_plugin(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name' => '',
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -860,11 +859,13 @@ class infohub_file extends infohub_base
 
         $assetPath = PLUGINS . '/' . str_replace('_', '/', $in['plugin_name']) . '/asset';
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetFolderStructure',
-            'path' => $assetPath,
-            'pattern' => '*',
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetFolderStructure',
+                'path' => $assetPath,
+                'pattern' => '*',
+            ]
+        );
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -874,23 +875,24 @@ class infohub_file extends infohub_base
         $data = [];
         $jsonIndex = [];
 
-        foreach ($response['data'] as $path)
-        {
+        foreach ($response['data'] as $path) {
             if (strpos($path, '.') === false) {
                 continue; // Path did not have a . in the name, meaning it is not a file and therefore not interesting.
             }
 
-            $fileData = $this->internal_Cmd(array(
-                'func' => 'Read',
-                'path' => $path
-            ));
+            $fileData = $this->internal_Cmd(
+                [
+                    'func' => 'Read',
+                    'path' => $path
+                ]
+            );
 
             $storedPath = $in['plugin_name'] . '/' . str_replace($assetPath . '/', '', $path);
 
-            $lengthWithoutExtension = strlen($storedPath) - strlen($fileData['path_info']['extension']) -1;
-            $storedPathNoExtension = substr($storedPath, 0,$lengthWithoutExtension);
+            $lengthWithoutExtension = strlen($storedPath) - strlen($fileData['path_info']['extension']) - 1;
+            $storedPathNoExtension = substr($storedPath, 0, $lengthWithoutExtension);
 
-            $data[$storedPath] = array(
+            $data[$storedPath] = [
                 'plugin_name' => $in['plugin_name'],
                 'asset_name' => $storedPath,
                 'asset_name_no_extension' => $storedPathNoExtension,
@@ -901,7 +903,7 @@ class infohub_file extends infohub_base
                 'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
                 'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
                 'file_size' => $fileData['file_size']
-            );
+            ];
 
             if ($fileData['path_info']['extension'] === 'json') {
                 $jsonIndex[$storedPathNoExtension] = 1;
@@ -919,28 +921,28 @@ class infohub_file extends infohub_base
         $message = 'Here are the assets you requested';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $dataToDeliver
-        );
+        ];
     }
 
     /**
      * You can request specific assets
      * Used by infohub_asset
-     * @version 2020-05-23
-     * @since   2018-11-14
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-05-23
+     * @since   2018-11-14
      */
     protected function asset_get_assets_requested(array $in = []): array
     {
-        $default = array(
+        $default = [
             'assets_requested' => [],
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -957,31 +959,32 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        foreach ($in['assets_requested'] as $path => $dummy)
-        {
+        foreach ($in['assets_requested'] as $path => $dummy) {
             $prefix = 'infohub_asset/asset/';
             $path = substr($path, strlen($prefix));
-            
+
             $pluginEnd = strpos($path, '/');
             $pluginName = substr($path, 0, $pluginEnd);
-            
+
             $remove = $pluginName . '/';
             $path = substr($path, strlen($remove));
-            
+
             $assetName = $path;
-            
+
             $assetPath = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . 'asset';
 
             $filePath = $assetPath . DS . $assetName;
 
-            $fileData = $this->internal_Cmd(array(
-                'func' => 'Read',
-                'path' => $filePath
-            ));
+            $fileData = $this->internal_Cmd(
+                [
+                    'func' => 'Read',
+                    'path' => $filePath
+                ]
+            );
 
             $storedPath = $prefix . $pluginName . '/' . $assetName;
 
-            $data[$storedPath] = array(
+            $data[$storedPath] = [
                 'plugin_name' => $pluginName,
                 'asset_name' => $assetName,
                 'extension' => $fileData['path_info']['extension'],
@@ -991,34 +994,34 @@ class infohub_file extends infohub_base
                 'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
                 'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
                 'file_size' => $fileData['file_size']
-            );
+            ];
         }
 
         $answer = 'true';
         $message = 'Here are the assets you requested';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get a list with all javascript plugin names
      * Used by infohub_plugin
-     * @version 2018-10-26
-     * @since   2018-10-26
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-10-26
+     * @since   2018-10-26
      */
     protected function plugin_get_all_plugin_names(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -1035,19 +1038,20 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetFolderStructure',
-            'path' => PLUGINS,
-            'pattern' => '*.js',
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => '*.js',
+            ]
+        );
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
 
-        foreach ($response['data'] as $path)
-        {
+        foreach ($response['data'] as $path) {
             $pathInfo = pathinfo($path);
             $pluginName = $pathInfo['filename'];
 
@@ -1059,9 +1063,9 @@ class infohub_file extends infohub_base
                 continue; // Skip js files that contain upper case letters
             }
 
-            $avoid = array(
+            $avoid = [
                 'infohub_test_plugin_js' => '',
-            );
+            ];
 
             if (isset($avoid[$pluginName])) {
                 continue;
@@ -1074,43 +1078,43 @@ class infohub_file extends infohub_base
         $message = 'Here are the list with all plugin names';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get a list with all plugin names and each plugin details.
      * You get everything except the file contents.
      * Used in Infohub_Trigger to display a list with emerging plugins for a node.
-     * @version 2020-08-15
-     * @since   2020-08-15
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-15
+     * @since   2020-08-15
      */
     protected function developer_get_all_plugin_data(array $in = []): array
     {
-        $default = array(
+        $default = [
             'node' => 'all', // all, client, server
             'plugin_status' => 'all', // all, emerging, normal, deprecated, removed
             'user_role' => 'all', // all, user, developer, admin
             'level' => 'all', // all, 1, 2, 3
-            'from_plugin' => array('node' => '', 'plugin' => ''),
-            'config' => array(
+            'from_plugin' => ['node' => '', 'plugin' => ''],
+            'config' => [
                 'role_list_indexed' => []
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = array(
+        $data = [
             'server' => [],
             'client' => []
-        );
+        ];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from the server node';
@@ -1122,29 +1126,29 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $extensions = array('js' => 'client', 'php' => 'server');
+        $extensions = ['js' => 'client', 'php' => 'server'];
 
         foreach ($extensions as $extension => $node) {
-
             if ($in['node'] !== 'all') {
                 if ($in['node'] !== $node) {
                     continue;
                 }
             }
 
-            $response = $this->internal_Cmd(array(
-                'func' => 'GetFolderStructure',
-                'path' => PLUGINS,
-                'pattern' => '*.' . $extension,
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'GetFolderStructure',
+                    'path' => PLUGINS,
+                    'pattern' => '*.' . $extension,
+                ]
+            );
 
             if ($response['answer'] === 'false') {
                 $message = $response['message'];
                 goto leave;
             }
 
-            foreach ($response['data'] as $path)
-            {
+            foreach ($response['data'] as $path) {
                 $pathInfo = pathinfo($path);
                 $pluginName = $pathInfo['filename'];
 
@@ -1156,9 +1160,9 @@ class infohub_file extends infohub_base
                     continue; // Skip files that contain upper case letters
                 }
 
-                $avoid = array(
+                $avoid = [
                     'infohub_test_plugin_js' => '',
-                );
+                ];
 
                 if (isset($avoid[$pluginName])) {
                     continue;
@@ -1166,15 +1170,17 @@ class infohub_file extends infohub_base
 
                 if ($in['level'] !== 'all') {
                     $parts = explode($pluginName);
-                    if (count($parts) > (int) $in['level']) {
+                    if (count($parts) > (int)$in['level']) {
                         continue; // We skip this plugin since it is in a too deep level
                     }
                 }
 
-                $pluginInfo = $this->internal_Cmd(array(
-                    'func' => 'Read',
-                    'path' => $path
-                ));
+                $pluginInfo = $this->internal_Cmd(
+                    [
+                        'func' => 'Read',
+                        'path' => $path
+                    ]
+                );
 
                 unset($pluginInfo['contents']);
 
@@ -1198,28 +1204,28 @@ class infohub_file extends infohub_base
         $message = 'Here are the list with all plugin names and their info';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get an array indexed on plugin name. Each item point to an empty array.
      * Used by Infohub_Contact among others
-     * @version 2020-08-15
-     * @since   2019-02-23
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-15
+     * @since   2019-02-23
      */
     protected function get_all_level1_plugin_names(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => ''),
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => ''],
             'node' => 'server' // server or client
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -1237,11 +1243,13 @@ class infohub_file extends infohub_base
         }
         $pattern = '*' . $suffix;
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetFolderStructure',
-            'path' => PLUGINS,
-            'pattern' => $pattern,
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => $pattern,
+            ]
+        );
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -1250,12 +1258,11 @@ class infohub_file extends infohub_base
 
         $suffixLength = strlen($suffix);
 
-        foreach ($response['data'] as $path)
-        {
-            $pluginName = substr($path, strlen(PLUGINS)+1);
+        foreach ($response['data'] as $path) {
+            $pluginName = substr($path, strlen(PLUGINS) + 1);
             $parts = explode('/', $pluginName);
             $pluginName = end($parts);
-            
+
             if (strtolower($pluginName) !== $pluginName) {
                 continue; // Skip names that contain upper case letters
             }
@@ -1264,39 +1271,39 @@ class infohub_file extends infohub_base
             if (count($parts) !== 2) {
                 continue; // We only care about level 1 plugins
             }
-            
+
             $pluginName = substr($pluginName, 0, -$suffixLength);
             $data[$pluginName] = [];
         }
-        
+
         ksort($data);
 
         $answer = 'true';
         $message = 'Here are the list with all plugin names';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Get a list with all level 1 plugin names that has a role (user,developer,admin)
      * node array -> role name array -> plugin name array -> role name string
      * Used by infohub_exchange to know what rights a role has when reviewing messages in an incoming package
-     * @version 2020-08-05
-     * @since   2020-08-02
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-05
+     * @since   2020-08-02
      */
     protected function load_node_role_plugin_name_role_list(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -1308,9 +1315,8 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $nodeArray = array('client', 'server');
+        $nodeArray = ['client', 'server'];
         foreach ($nodeArray as $node) {
-
             $nodeRolePluginNameRoleList[$node] = [];
 
             $suffix = '.php';
@@ -1320,11 +1326,13 @@ class infohub_file extends infohub_base
 
             $pattern = '*' . $suffix;
 
-            $response = $this->internal_Cmd(array(
-                'func' => 'GetFolderStructure',
-                'path' => PLUGINS,
-                'pattern' => $pattern,
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'GetFolderStructure',
+                    'path' => PLUGINS,
+                    'pattern' => $pattern,
+                ]
+            );
 
             if ($response['answer'] === 'false') {
                 $message = $response['message'];
@@ -1335,9 +1343,8 @@ class infohub_file extends infohub_base
 
             $pluginList = [];
 
-            foreach ($response['data'] as $path)
-            {
-                $pluginName = substr($path, strlen(PLUGINS)+1);
+            foreach ($response['data'] as $path) {
+                $pluginName = substr($path, strlen(PLUGINS) + 1);
                 $parts = explode('/', $pluginName);
                 $pluginName = end($parts);
 
@@ -1355,10 +1362,12 @@ class infohub_file extends infohub_base
             }
 
             foreach ($pluginList as $pluginName => $path) {
-                $fileData = $this->internal_Cmd(array(
-                    'func' => 'Read',
-                    'path' => $path
-                ));
+                $fileData = $this->internal_Cmd(
+                    [
+                        'func' => 'Read',
+                        'path' => $path
+                    ]
+                );
 
                 if (empty($fileData['contents']) === true) {
                     continue;
@@ -1381,11 +1390,11 @@ class infohub_file extends infohub_base
         $message = 'Here are the list with all user roles and their plugin names';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $nodeRolePluginNameRoleList
-        );
+        ];
     }
 
     /**
@@ -1474,18 +1483,18 @@ class infohub_file extends infohub_base
     /**
      * Give a plugin name and you get the source code for all js files indexed on each plugin name.
      * Used ONLY by infohub_translate.php
-     * @version 2019-03-24
-     * @since   2019-03-24
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-03-24
+     * @since   2019-03-24
      */
     protected function get_plugin_js_files_content(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name' => '',
-            'from_plugin' => array('node' => '', 'plugin' => '')
-        );
+            'from_plugin' => ['node' => '', 'plugin' => '']
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -1501,9 +1510,9 @@ class infohub_file extends infohub_base
             $message = 'I only accept messages that origin from plugin infohub_translate';
             goto leave;
         }
-        
+
         $in['path'] = PLUGINS . DS . str_replace('_', DS, $in['plugin_name']);
-        
+
         /*
         $folder = $in['path'] . DS . 'asset' . DS . 'translate';
         if (is_dir($folder) === false) {
@@ -1511,20 +1520,21 @@ class infohub_file extends infohub_base
             goto leave;
         }
         */
-        
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetFolderStructure',
-            'path' => $in['path'],
-            'pattern' => '*.js',
-        ));
+
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetFolderStructure',
+                'path' => $in['path'],
+                'pattern' => '*.js',
+            ]
+        );
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
 
-        foreach ($response['data'] as $path)
-        {
+        foreach ($response['data'] as $path) {
             $pathInfo = pathinfo($path);
             $pluginName = $pathInfo['filename'];
 
@@ -1536,31 +1546,31 @@ class infohub_file extends infohub_base
                 continue; // Skip names that contain upper case letters
             }
 
-            $avoid = array(
+            $avoid = [
                 'infohub_test_plugin_js' => '',
-            );
+            ];
 
             if (isset($avoid[$pluginName])) {
                 continue;
             }
-            
+
             $data[$pluginName] = file_get_contents($path);
-            
+
             if (strpos($data[$pluginName], '_Translate(') === false) {
                 unset($data[$pluginName]); // This file do not contain anything to translate, skip it.
             }
         }
-        
+
         ksort($data);
 
         $answer = 'true';
         $message = 'Here are all javascript code for one plugin name';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $data
-        );
+        ];
     }
 }

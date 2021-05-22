@@ -1,4 +1,5 @@
 /**
+/**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
 
@@ -17,7 +18,7 @@
  */
 function infohub_tree_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,13 +31,13 @@ function infohub_tree_menu() {
             'class_name': 'infohub_tree_menu',
             'note': 'Render a menu for infohub_tree',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,8 +57,7 @@ function infohub_tree_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -65,27 +65,26 @@ function infohub_tree_menu() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render')
-        {
+        if ($in.step === 'step_render') {
             $classTranslations = _ByVal($in.translations);
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Tree manager')
+                            'data': _Translate('TREE_MANAGER')
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
@@ -95,139 +94,140 @@ function infohub_tree_menu() {
                                 'doc': {
                                     'alias': 'doc_tree',
                                     'event_data': 'doc_tree',
-                                    'button_label': _Translate('Documentation'),
+                                    'button_label': _Translate('DOCUMENTATION'),
                                     'button_left_icon': '[doc_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'version': {
                                     'alias': 'version_tree',
                                     'event_data': 'version_tree',
-                                    'button_label': _Translate('Version'),
+                                    'button_label': _Translate('VERSION'),
                                     'button_left_icon': '[version_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'encrypt': {
                                     'alias': 'encrypt_tree',
                                     'event_data': 'encrypt_tree',
-                                    'button_label': _Translate('Encryption'),
+                                    'button_label': _Translate('ENCRYPTION'),
                                     'button_left_icon': '[encrypt_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'backup': {
                                     'alias': 'backup_tree',
                                     'event_data': 'backup_tree',
-                                    'button_label': _Translate('Backup'),
+                                    'button_label': _Translate('BACKUP'),
                                     'button_left_icon': '[backup_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'restore': {
                                     'alias': 'restore_tree',
                                     'event_data': 'restore_tree',
-                                    'button_label': _Translate('Restore'),
+                                    'button_label': _Translate('RESTORE'),
                                     'button_left_icon': '[restore_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'sync': {
                                     'alias': 'sync_tree',
                                     'event_data': 'sync_tree',
-                                    'button_label': _Translate('Sync'),
+                                    'button_label': _Translate('SYNC'),
                                     'button_left_icon': '[sync_icon]',
                                     'to_plugin': 'infohub_tree',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 }
                             }
                         },
                         'doc_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[doc_asset]'
+                            'data': '[doc_asset]',
                         },
                         'doc_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'doc/doc-yellow',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'version_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[version_asset]'
+                            'data': '[version_asset]',
                         },
                         'version_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'version/version',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'encrypt_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[encrypt_asset]'
+                            'data': '[encrypt_asset]',
                         },
                         'encrypt_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'encrypt/encrypt',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'backup_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[backup_asset]'
+                            'data': '[backup_asset]',
                         },
                         'backup_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'backup/export',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'restore_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[restore_asset]'
+                            'data': '[restore_asset]',
                         },
                         'restore_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'restore/import',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'sync_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[sync_asset]'
+                            'data': '[sync_asset]',
                         },
                         'sync_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'sync/sync',
-                            'plugin_name': 'infohub_tree'
-                        }
+                            'plugin_name': 'infohub_tree',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'menu'
+                    'cache_key': 'menu',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_tree_menu.js

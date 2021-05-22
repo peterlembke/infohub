@@ -17,11 +17,11 @@
  */
 function infohub_renderdocument() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2019-08-09',
             'since': '2019-08-09',
@@ -34,14 +34,14 @@ function infohub_renderdocument() {
             'title': 'Document',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,19 +56,18 @@ function infohub_renderdocument() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -83,17 +82,16 @@ function infohub_renderdocument() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
             'config': {},
             'data_back': {
                 'item_name': '',
-                'item_index_done': {}
+                'item_index_done': {},
             },
             'response': {},
-            'step': 'step_create'
+            'step': 'step_create',
         };
         $in = _Default($default, $in);
 
@@ -102,7 +100,7 @@ function infohub_renderdocument() {
                 'answer': 'false',
                 'message': '',
                 'html': '',
-                'css_data': {}
+                'css_data': {},
             };
             $in.response = _Default($defaultResponse, $in.response);
             const $itemName = $in.data_back.item_name;
@@ -124,7 +122,7 @@ function infohub_renderdocument() {
                     'text': '',
                     'html': '',
                     // 'class': '', // Let the child handle the class
-                    'css_data': {}
+                    'css_data': {},
                 };
                 $data = _Merge($defaultItem, $data);
 
@@ -138,21 +136,21 @@ function infohub_renderdocument() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'what': $response.what,
                         'how': $response.how,
                         'where': $response.where,
                         'alias': $data.alias,
-                        'css_data': $response.css_data
+                        'css_data': $response.css_data,
                     },
                     'data_back': {
                         'item_index': $in.item_index,
                         'item_name': $itemName,
                         'item_index_done': $in.data_back.item_index_done,
-                        'step': 'step_create_response'
-                    }
+                        'step': 'step_create_response',
+                    },
                 });
             }
             $in.step = 'step_end';
@@ -161,7 +159,7 @@ function infohub_renderdocument() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -171,9 +169,8 @@ function infohub_renderdocument() {
      * @since   2013-08-17
      * @author  Peter Lembke
      */
-    $functions.push("event_message"); // Enable this function
-    const event_message = function ($in)
-    {
+    $functions.push('event_message'); // Enable this function
+    const event_message = function($in) {
         const $default = {
             'final_node': 'client',
             'final_plugin': '',
@@ -190,33 +187,32 @@ function infohub_renderdocument() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_renderdocument -> event_message'
-            }
+                'message': 'Nothing to report from infohub_renderdocument -> event_message',
+            },
         };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': $in.final_node,
                     'plugin': $in.final_plugin,
-                    'function': $in.final_function
+                    'function': $in.final_function,
                 },
                 'data': {
                     'event_type': $in.event_type,
                     'event_data': $in.event_data,
-                    'innerHTML': $in.innerHTML
+                    'innerHTML': $in.innerHTML,
                 },
                 'data_back': {
-                    'step': 'step_final'
-                }
+                    'step': 'step_final',
+                },
             });
         }
 
         return {
             'answer': $in.answer,
-            'message': $in.message
+            'message': $in.message,
         };
     };
 
@@ -227,8 +223,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Document');
-    const internal_Document = function ($in)
-    {
+    const internal_Document = function($in) {
         const $default = {
             'text': '',
             'class': 'document',
@@ -238,8 +233,8 @@ function infohub_renderdocument() {
             'response': {
                 'answer': '',
                 'message': '',
-                'data': {}
-            }
+                'data': {},
+            },
         };
 
         $in = _Default($default, $in);
@@ -247,13 +242,12 @@ function infohub_renderdocument() {
         let $text = $in.text;
         let $what = $in.what;
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $text = _Replace('[*', '[', $text);
 
             let $response = internal_ParseCodeSegment({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -261,7 +255,7 @@ function infohub_renderdocument() {
 
             $response = internal_ParseInlineCodeSegment({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -269,7 +263,7 @@ function infohub_renderdocument() {
 
             $response = internal_HandleImages({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -277,7 +271,7 @@ function infohub_renderdocument() {
 
             $response = internal_HandleLinks({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -285,7 +279,7 @@ function infohub_renderdocument() {
 
             $response = internal_HandleHeaders({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -293,7 +287,7 @@ function infohub_renderdocument() {
 
             $response = internal_HandleStyle({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
@@ -301,14 +295,14 @@ function infohub_renderdocument() {
 
             $response = internal_HandleLists({
                 'text': $text,
-                'what': $what
+                'what': $what,
             });
 
             $text = $response.text;
             $what = $response.what;
 
             $response = internal_HandleNewline({
-                'text': $text
+                'text': $text,
             });
 
             $text = $response.text;
@@ -316,20 +310,20 @@ function infohub_renderdocument() {
             $what.document = {
                 'type': 'text',
                 'text': $text,
-                'class': 'text_document'
+                'class': 'text_document',
             };
 
             $what.light = {
                 'type': 'common',
                 'subtype': 'containerStart',
                 'class': 'light',
-                'tag': 'span'
+                'tag': 'span',
             };
 
             $what['/light'] = {
                 'type': 'common',
                 'subtype': 'containerStop',
-                'tag': 'span'
+                'tag': 'span',
             };
 
         }
@@ -340,7 +334,7 @@ function infohub_renderdocument() {
             $cssData = {
                 '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
                 '.text_document': 'font: Times;',
-                '.light': 'background-color: #6d8df7; display: inline-block;'
+                '.light': 'background-color: #6d8df7; display: inline-block;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -352,11 +346,11 @@ function infohub_renderdocument() {
             'how': {
                 'mode': 'one box',
                 'text': '[document]',
-                'css_data': $cssData
+                'css_data': $cssData,
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
 
         };
 
@@ -369,26 +363,23 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseCodeSegment');
-    const internal_ParseCodeSegment = function ($in)
-    {
+    const internal_ParseCodeSegment = function($in) {
         const $default = {
             'text': '',
             'what': {},
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
         let $text = '';
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             // Code can start with ``` and end with ```
             let $segments = $in.text.split('```');
             let $segment = '';
             let $tag = '';
 
-            for (let $i = 0; $i < $segments.length; $i = $i + 1)
-            {
+            for (let $i = 0; $i < $segments.length; $i = $i + 1) {
                 $segment = $segments[$i];
 
                 if (_Empty($segment) === 'true') {
@@ -407,7 +398,7 @@ function infohub_renderdocument() {
                 $in.what[$tag] = {
                     'type': 'common',
                     'subtype': 'codecontainer',
-                    'data': $segment
+                    'data': $segment,
                 };
 
                 $text = $text + '[' + $tag + ']';
@@ -421,7 +412,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'All code segments are now rendered separately',
             'text': $text,
-            'what': $in.what
+            'what': $in.what,
         };
 
     };
@@ -433,26 +424,23 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseInlineCodeSegment');
-    const internal_ParseInlineCodeSegment = function ($in)
-    {
+    const internal_ParseInlineCodeSegment = function($in) {
         const $default = {
             'text': '',
             'what': {},
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
         let $text = '';
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             // Code can start with ` and end with `
             let $segments = $in.text.split('`');
             let $segment = '';
             let $tag = '';
 
-            for (let $i = 0; $i < $segments.length; $i = $i + 1)
-            {
+            for (let $i = 0; $i < $segments.length; $i = $i + 1) {
                 $segment = $segments[$i];
 
                 if (_Empty($segment) === 'true') {
@@ -473,7 +461,7 @@ function infohub_renderdocument() {
                     'subtype': 'codecontainer',
                     'data': $segment,
                     'tag': '', // Makes it inline
-                    'class': 'code-inline'
+                    'class': 'code-inline',
                 };
 
                 $text = $text + '[' + $tag + ']';
@@ -484,7 +472,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'All inline code segments are now rendered separately',
             'text': $text,
-            'what': $in.what
+            'what': $in.what,
         };
 
     };
@@ -496,8 +484,7 @@ function infohub_renderdocument() {
      * @since   2019-08-18
      * @author  Peter Lembke
      */
-    const _SetSafeCodeCharacters = function ($text)
-    {
+    const _SetSafeCodeCharacters = function($text) {
         $text = _Replace('<', '&#60;', $text);
         $text = _Replace('>', '&#62;', $text);
         $text = _Replace('[', '&#91;', $text);
@@ -514,11 +501,10 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleImages');
-    const internal_HandleImages = function ($in)
-    {
+    const internal_HandleImages = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
@@ -533,8 +519,7 @@ function infohub_renderdocument() {
 
         const $notFound = -1;
 
-        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
-        {
+        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
 
             $second = $in.text.indexOf('](', $second);
@@ -546,13 +531,14 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $label = $in.text.substr($first +2, $second - 2 - $first - 2);
+            const $label = $in.text.substr($first + 2,
+                $second - 2 - $first - 2);
 
             if (_Empty($label) === 'true') {
                 continue;
             }
 
-            if ($label.indexOf("\n") !== $notFound) {
+            if ($label.indexOf('\n') !== $notFound) {
                 continue;
             }
 
@@ -571,7 +557,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            if ($url.indexOf("\n") !== $notFound) {
+            if ($url.indexOf('\n') !== $notFound) {
                 continue;
             }
 
@@ -579,11 +565,11 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            if ($url.toLowerCase().substr(0,4) === 'http')
-            {
+            if ($url.toLowerCase().substr(0, 4) === 'http') {
                 const $fullToFind = '![' + $label + '](' + $url + ')';
                 const $replaceWith = '';
-                $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
+                $modifiedText = $modifiedText.replace($fullToFind,
+                    $replaceWith);
                 $second = $second + 2;
                 continue;
             }
@@ -593,8 +579,7 @@ function infohub_renderdocument() {
 
             leave: {
 
-                if ($url.substr(0, 11) === 'data:image/')
-                {
+                if ($url.substr(0, 11) === 'data:image/') {
                     let $subtype = 'image'; // Render an image (jpeg/png) or an svg
                     if ($url.substr(12, 3) === 'svg') {
                         $subtype = 'svg';
@@ -603,21 +588,19 @@ function infohub_renderdocument() {
                     $what[$tag] = {
                         'type': 'common',
                         'subtype': $subtype,
-                        'data': $url
+                        'data': $url,
                     };
 
                     break leave;
                 }
 
-                if ($url.indexOf('/') === $notFound)
-                {
+                if ($url.indexOf('/') === $notFound) {
                     // ![label](my_image)
                     $tag = $url;
                     break leave;
                 }
 
-                if ($url.indexOf('/') !== $notFound)
-                {
+                if ($url.indexOf('/') !== $notFound) {
                     // example: infohub_demo/asset/icon/common/duckduckgo-v107.svg
                     const $urlParts = $url.split('/');
 
@@ -638,7 +621,7 @@ function infohub_renderdocument() {
                     $what[$tag] = {
                         'type': 'common',
                         'subtype': $subtype,
-                        'data': '[' + $tag + '_asset]'
+                        'data': '[' + $tag + '_asset]',
                     };
 
                     $what[$tag + '_asset'] = {
@@ -646,14 +629,13 @@ function infohub_renderdocument() {
                         'type': $imageOrIcon,
                         'subtype': $assetExtension,
                         'asset_name': $assetName,
-                        'plugin_name': $pluginName
+                        'plugin_name': $pluginName,
                     };
 
                     break leave;
                 }
 
             }
-
 
             const $fullToFind = '![' + $label + '](' + $url + ')';
             const $replaceWith = '[' + $tag + ']';
@@ -666,7 +648,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'Handled all images',
             'text': $modifiedText,
-            'what': $what
+            'what': $what,
         };
 
     };
@@ -678,11 +660,10 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLinks');
-    const internal_HandleLinks = function ($in)
-    {
+    const internal_HandleLinks = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
@@ -697,8 +678,7 @@ function infohub_renderdocument() {
             $what = $in.what,
             $leave = 40;
 
-        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0)
-        {
+        while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
 
             $second = $in.text.indexOf('](', $second);
@@ -710,13 +690,14 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $label = $in.text.substr($first +1, $second - 2 - $first - 1);
+            const $label = $in.text.substr($first + 1,
+                $second - 2 - $first - 1);
 
             if (_Empty($label) === 'true') {
                 continue;
             }
 
-            if ($label.indexOf("\n") !== $notFound) {
+            if ($label.indexOf('\n') !== $notFound) {
                 continue;
             }
 
@@ -735,7 +716,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            if ($url.indexOf("\n") !== $notFound) {
+            if ($url.indexOf('\n') !== $notFound) {
                 continue;
             }
 
@@ -751,8 +732,7 @@ function infohub_renderdocument() {
                 $type = 'external';
             }
 
-            if ($type === 'event')
-            {
+            if ($type === 'event') {
                 const $urlParts = $url.split('|');
 
                 $what[$tag] = {
@@ -767,7 +747,7 @@ function infohub_renderdocument() {
                     'final_node': 'client',
                     'final_plugin': $urlParts[0],
                     'final_function': $urlParts[1],
-                    'class': 'link'
+                    'class': 'link',
                 };
             }
 
@@ -777,7 +757,7 @@ function infohub_renderdocument() {
                     'subtype': 'external',
                     'alias': $tag,
                     'show': $label,
-                    'url': $url
+                    'url': $url,
                 };
             }
 
@@ -792,7 +772,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'Handled all links',
             'text': $modifiedText,
-            'what': $what
+            'what': $what,
         };
     };
 
@@ -803,11 +783,10 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleHeaders');
-    const internal_HandleHeaders = function ($in)
-    {
+    const internal_HandleHeaders = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
@@ -815,22 +794,21 @@ function infohub_renderdocument() {
 
         const $notFound = -1;
 
-        for (let $i = 4; $i > 0; $i = $i - 1)
-        {
-            const $find = "#".repeat($i) + ' ';
+        for (let $i = 4; $i > 0; $i = $i - 1) {
+            const $find = '#'.repeat($i) + ' ';
 
             let $first = 0,
                 $second = 0,
                 $leave = 40;
 
-            while ($in.text.indexOf($find, $second) !== $notFound && $leave > 0)
-            {
+            while ($in.text.indexOf($find, $second) !== $notFound && $leave >
+            0) {
                 $leave = $leave - 1;
 
                 $first = $in.text.indexOf($find, $second);
                 $first = $first + $find.length;
 
-                $second = $in.text.indexOf("\n", $first);
+                $second = $in.text.indexOf('\n', $first);
                 if ($second === $notFound) {
                     $second = $first + $find.length;
                     continue;
@@ -842,8 +820,9 @@ function infohub_renderdocument() {
                 $id = _Replace(' ', '-', $id);
                 $id = ' id="' + $id + '"';
 
-                const $findThis = $find + $command + "\n"; // Yes we will find and remove the newline at the end of the line
-                const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' + $i + '>';
+                const $findThis = $find + $command + '\n'; // Yes we will find and remove the newline at the end of the line
+                const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' +
+                    $i + '>';
                 $modifiedText = $modifiedText.replace($findThis, $replaceWith);
             }
 
@@ -853,7 +832,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'Handled all headers',
             'text': $modifiedText,
-            'what': $in.what
+            'what': $in.what,
         };
     };
 
@@ -864,11 +843,10 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleStyle');
-    const internal_HandleStyle = function ($in)
-    {
+    const internal_HandleStyle = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
@@ -878,42 +856,42 @@ function infohub_renderdocument() {
             'text': $text,
             'find': '**',
             'start_tag': '[b]',
-            'end_tag': '[/b]'
+            'end_tag': '[/b]',
         });
 
         $text = _FindStyle({
             'text': $text,
             'find': '__',
             'start_tag': '[u]',
-            'end_tag': '[/u]'
+            'end_tag': '[/u]',
         });
 
         $text = _FindStyle({
             'text': $text,
             'find': '//',
             'start_tag': '[i]',
-            'end_tag': '[/i]'
+            'end_tag': '[/i]',
         });
 
         $text = _FindStyle({
             'text': $text,
             'find': '~~',
             'start_tag': '[strike]',
-            'end_tag': '[/strike]'
+            'end_tag': '[/strike]',
         });
 
         $text = _FindStyle({
             'text': $text,
             'find': '^^',
             'start_tag': '[light]',
-            'end_tag': '[/light]'
+            'end_tag': '[/light]',
         });
 
         return {
             'answer': 'true',
             'message': 'Handled all styles in the text',
             'text': $text,
-            'what': $in.what
+            'what': $in.what,
         };
     };
 
@@ -923,13 +901,12 @@ function infohub_renderdocument() {
      * @returns {string}
      * @private
      */
-    const _FindStyle = function ($in)
-    {
+    const _FindStyle = function($in) {
         const $default = {
             'text': '',
             'find': '**',
             'start_tag': '[b]',
-            'end_tag': '[/b]'
+            'end_tag': '[/b]',
         };
         $in = _Default($default, $in);
 
@@ -937,11 +914,10 @@ function infohub_renderdocument() {
         let $parts = $in.text.split($in.find);
         let $length = $parts.length;
 
-        for (let $i = 0; $i < $length; $i = $i + 1)
-        {
+        for (let $i = 0; $i < $length; $i = $i + 1) {
             $modifiedText = $modifiedText + $parts[$i];
 
-            if ($i === $length-1) {
+            if ($i === $length - 1) {
                 continue; // We want no extra tag at the end of the text
             }
 
@@ -956,7 +932,6 @@ function infohub_renderdocument() {
         return $modifiedText;
     };
 
-
     /**
      * Find all lists and render them separately
      * @version 2019-08-17
@@ -964,11 +939,10 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLists');
-    const internal_HandleLists = function ($in)
-    {
+    const internal_HandleLists = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
@@ -978,13 +952,13 @@ function infohub_renderdocument() {
             $i = 0,
             $leave = 40;
 
-        const $findFirst = "\n* ",
-            $findLast = "\n\n",
+        const $findFirst = '\n* ',
+            $findLast = '\n\n',
             $tagPrefix = 'list_',
             $notFound = -1;
 
-        while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave > 0)
-        {
+        while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave >
+        0) {
             $leave = $leave - 1;
 
             $first = $in.text.indexOf($findFirst, $second);
@@ -1000,17 +974,16 @@ function infohub_renderdocument() {
             const $tag = $tagPrefix + $i;
 
             const $command = $in.text.substr($first, $second - $first);
-            const $findThis = "\n* " + $command + "\n";
+            const $findThis = '\n* ' + $command + '\n';
             const $replaceWith = '[' + $tag + ']';
             $modifiedText = $modifiedText.replace($findThis, $replaceWith); // Yes we remove the newlines surrounding the list
 
-            const $listLabels = $command.split("\n* ");
+            const $listLabels = $command.split('\n* ');
 
             let $option = [];
-            for (let $nr = 0; $nr < $listLabels.length; $nr = $nr + 1)
-            {
+            for (let $nr = 0; $nr < $listLabels.length; $nr = $nr + 1) {
                 $option.push({
-                    'label': $listLabels[$nr]
+                    'label': $listLabels[$nr],
                 });
             }
 
@@ -1018,7 +991,7 @@ function infohub_renderdocument() {
                 'type': 'common',
                 'subtype': 'list',
                 'class': 'list',
-                'option': $option
+                'option': $option,
             };
 
         }
@@ -1027,7 +1000,7 @@ function infohub_renderdocument() {
             'answer': 'true',
             'message': 'Handled all lists',
             'text': $modifiedText,
-            'what': $in.what
+            'what': $in.what,
         };
     };
 
@@ -1038,21 +1011,21 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleNewline');
-    const internal_HandleNewline = function ($in)
-    {
+    const internal_HandleNewline = function($in) {
         const $default = {
             'text': '',
-            'what': {}
+            'what': {},
         };
         $in = _Default($default, $in);
 
-        $in.text = _Replace("\n", '<br>', $in.text);
+        $in.text = _Replace('\n', '<br>', $in.text);
 
         return {
             'answer': 'true',
             'message': 'Handled all newline',
-            'text': $in.text
+            'text': $in.text,
         };
     };
 }
+
 //# sourceURL=infohub_renderdocument.js

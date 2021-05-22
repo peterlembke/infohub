@@ -17,7 +17,7 @@
  */
 function infohub_tools_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,13 +30,13 @@ function infohub_tools_menu() {
             'class_name': 'infohub_tools_menu',
             'note': 'Render a menu for infohub_tools',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,8 +56,7 @@ function infohub_tools_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -65,8 +64,8 @@ function infohub_tools_menu() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_encrypt'
-            }                
+                'message': 'Nothing to report from tools_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
@@ -76,14 +75,14 @@ function infohub_tools_menu() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': 'Demo Collection'
+                            'data': 'Demo Collection',
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
@@ -93,88 +92,89 @@ function infohub_tools_menu() {
                                 'uuid': {
                                     'alias': 'uuid_link',
                                     'event_data': 'uuid',
-                                    'button_label': _Translate('Get a unique identifier UUID'),
+                                    'button_label': _Translate('GET_A_UNIQUE_IDENTIFIER_UUID'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'checksum': {
                                     'alias': 'checksum_link',
                                     'event_data': 'checksum',
-                                    'button_label': _Translate('Calculate checksum'),
+                                    'button_label': _Translate('CALCULATE_CHECKSUM'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'compress': {
                                     'alias': 'compress_link',
                                     'event_data': 'compress',
-                                    'button_label': _Translate('Compress data'),
+                                    'button_label': _Translate('COMPRESS_DATA'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'encrypt': {
                                     'alias': 'encrypt_link',
                                     'event_data': 'encrypt',
-                                    'button_label': _Translate('Encrypt/Decrypt text'),
+                                    'button_label': _Translate('ENCRYPT/DECRYPT_TEXT'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'package': {
                                     'alias': 'package_link',
                                     'event_data': 'package',
-                                    'button_label': _Translate('Messages tool'),
+                                    'button_label': _Translate('MESSAGES_TOOL'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'time': {
                                     'alias': 'time_link',
                                     'event_data': 'time',
-                                    'button_label': _Translate('Get current time'),
+                                    'button_label': _Translate('GET_CURRENT_TIME'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'random': {
                                     'alias': 'random_link',
                                     'event_data': 'random',
-                                    'button_label': _Translate('Get random numbers'),
+                                    'button_label': _Translate('GET_RANDOM_NUMBERS'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'password': {
                                     'alias': 'password_link',
                                     'event_data': 'password',
-                                    'button_label': _Translate('Get passwords'),
+                                    'button_label': _Translate('GET_PASSWORDS'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'testcall': {
                                     'alias': 'testcall_link',
                                     'event_data': 'testcall',
-                                    'button_label': _Translate('Run test calls'),
+                                    'button_label': _Translate('RUN_TEST_CALLS'),
                                     'to_plugin': 'infohub_tools',
-                                    'to_function': 'click_menu'
-                                }
-                            }
-                        }
+                                    'to_function': 'click_menu',
+                                },
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'menu'
+                    'cache_key': 'menu',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_tools_menu.js

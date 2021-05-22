@@ -30,7 +30,7 @@ include_once 'define_folders.php';
 include_once INCLUDES . DS . 'settings_and_errors.php';
 include_once INCLUDES . DS . 'kick_out_tests_for_infohub.php'; // we get $package
 
-$corePlugins = array('infohub_base', 'infohub_exchange', 'infohub_plugin', 'infohub_transfer');
+$corePlugins = ['infohub_base', 'infohub_exchange', 'infohub_plugin', 'infohub_transfer'];
 foreach ($corePlugins as $pluginName) {
     $path = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.php';
     if (file_exists($path) === true) {
@@ -42,52 +42,52 @@ foreach ($corePlugins as $pluginName) {
 
 $infoHubExchange = new infohub_exchange($corePlugins);
 
-$myPackage = array(
-    'messages' => array(
-        array(
-            'to' => array(
+$myPackage = [
+    'messages' => [
+        [
+            'to' => [
                 'node' => 'server',
                 'plugin' => 'infohub_exchange',
                 'function' => 'responder_verify_sign_code'
-            ),
-            'data' => array(
+            ],
+            'data' => [
                 'package' => $package
-            ),
-            'callstack' => array(
-                array(
-                    'data_back' => array(),
-                    'data_request' => array(),
-                    'to' => array(
+            ],
+            'callstack' => [
+                [
+                    'data_back' => [],
+                    'data_request' => [],
+                    'to' => [
                         'node' => 'client',
                         'plugin' => 'infohub_exchange',
                         'function' => 'event_message'
-                    )
-                )
-            )
-        )
-    )
-);
+                    ]
+                ]
+            ]
+        ]
+    ]
+];
 
-$in = array(
-    'to' => array(
+$in = [
+    'to' => [
         'node' => 'server',
         'plugin' => 'infohub_exchange',
         'function' => 'main'
-    ),
-    'callstack' => array(
-        array(
-            'to' => array(
+    ],
+    'callstack' => [
+        [
+            'to' => [
                 'node' => 'client',
                 'plugin' => 'infohub_exchange',
                 'function' => 'event_message'
-            ),
-            'data_back' => array()
-        )
-    ),
-    'data' => array(
+            ],
+            'data_back' => []
+        ]
+    ],
+    'data' => [
         'package' => $myPackage
-    )
-);
+    ]
+];
 $response = $infoHubExchange->cmd($in);
 
 $signCodeValid = $infoHubExchange->getSignCodeValid();
@@ -102,26 +102,26 @@ if ($banned === 'true') {
     $kick->GetOut('You already had ban time when you called the server again');
 }
 
-$in = array(
-    'to' => array(
+$in = [
+    'to' => [
         'node' => 'server',
         'plugin' => 'infohub_exchange',
         'function' => 'main'
-    ),
-    'callstack' => array(
-        array(
-            'to' => array(
+    ],
+    'callstack' => [
+        [
+            'to' => [
                 'node' => 'client',
                 'plugin' => 'infohub_exchange',
                 'function' => 'event_message'
-            ),
-            'data_back' => array()
-        )
-    ),
-    'data' => array(
+            ],
+            'data_back' => []
+        ]
+    ],
+    'data' => [
         'package' => $package
-    )
-);
+    ]
+];
 $response = $infoHubExchange->cmd($in);
 
 if (isset($response['answer']) and $response['answer'] === 'false') {

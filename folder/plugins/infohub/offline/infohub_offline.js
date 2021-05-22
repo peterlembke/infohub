@@ -17,7 +17,7 @@
  */
 function infohub_offline() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -33,7 +33,7 @@ function infohub_offline() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
@@ -50,12 +50,12 @@ function infohub_offline() {
             'gui_show_subscribers': 'normal',
             'update_indicator': 'normal',
             'update_service_worker': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     let $classTranslations = {};
 
     // *****************************************************************************
@@ -71,9 +71,8 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetOnline');
-    const _GetOnline = function ()
-    {
-        const $online = navigator.onLine ? "true" : "false";
+    const _GetOnline = function() {
+        const $online = navigator.onLine ? 'true' : 'false';
 
         return $online;
     };
@@ -85,9 +84,8 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetStatus');
-    const _GetStatus = function ($online)
-    {
-        let $status = "unknown";
+    const _GetStatus = function($online) {
+        let $status = 'unknown';
 
         if ($online === 'false') {
             $status = 'offline';
@@ -107,13 +105,12 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetSubscribersMessages');
-    const _GetSubscribersMessages = function ($key)
-    {
+    const _GetSubscribersMessages = function($key) {
         let $messages = [];
         const $data = _LoadData();
         const $realKey = $key;
 
-        $messages = _AddMessages($key, $realKey, $data,$messages);
+        $messages = _AddMessages($key, $realKey, $data, $messages);
         $messages = _AddMessages('all', $realKey, $data, $messages);
 
         return $messages;
@@ -126,14 +123,12 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_AddMessages');
-    const _AddMessages = function ($key, $realKey, $data, $messages)
-    {
+    const _AddMessages = function($key, $realKey, $data, $messages) {
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
 
-        for (let $from in $data[$key])
-        {
+        for (let $from in $data[$key]) {
             if ($data[$key].hasOwnProperty($from) === false) {
                 continue;
             }
@@ -142,7 +137,7 @@ function infohub_offline() {
             $message = _SubCall($message); // Make sure the message contain all that is needed for a sub call.
             $message.data_back = {
                 'step': 'step_end',
-                'key': $key
+                'key': $key,
             };
             $message.data.key = $realKey;
 
@@ -159,8 +154,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_LoadData');
-    const _LoadData = function ()
-    {
+    const _LoadData = function() {
         let $jsonData = sessionStorage.getItem('infohub_offline');
 
         let $data = JSON.parse($jsonData);
@@ -197,8 +191,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_SaveData');
-    const _SaveData = function ($data)
-    {
+    const _SaveData = function($data) {
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -218,143 +211,141 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
-            'step': 'step_get_translations'
+            'step': 'step_get_translations',
         };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_get_translations')
-        {
+        if ($in.step === 'step_get_translations') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_translate',
-                    'function': 'get_translate_data'
+                    'function': 'get_translate_data',
                 },
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations_response'
-                }
+                    'step': 'step_get_translations_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_translations_response')
-        {
+        if ($in.step === 'step_get_translations_response') {
             $classTranslations = _ByVal($in.response.data);
             $in.step = 'step_start';
         }
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Offline tools'),
+                            'head_label': _Translate('OFFLINE_TOOLS'),
                             'content_data': '[my_form]',
-                            'foot_text': _Translate('Tools to see if you are online/offline. See what plugins are subscribing to that event. Buttons to download and store data to prepare for offline usage.')
+                            'foot_text': _Translate('TOOLS_TO_SEE_IF_YOU_ARE_ONLINE/OFFLINE._SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE.')
                         },
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[my_indicator][button_download_plugins][button_download_assets][button_download_documentation][button_show_subscribers][my_container]'
+                            'content': '[my_indicator][button_download_plugins][button_download_assets][button_download_documentation][button_show_subscribers][my_container]',
                         },
                         'my_indicator': {
                             'type': 'common',
-                            'subtype': 'container'
+                            'subtype': 'container',
                         },
                         'button_download_plugins': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Download plugins'),
+                            'button_label': _Translate('DOWNLOAD_PLUGINS'),
                             'event_data': 'offline',
                             'to_plugin': 'infohub_offline',
-                            'to_function': 'gui_download_plugins'
+                            'to_function': 'gui_download_plugins',
                         },
                         'button_download_assets': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Download assets'),
+                            'button_label': _Translate('DOWNLOAD_ASSETS'),
                             'event_data': 'offline',
                             'to_plugin': 'infohub_offline',
-                            'to_function': 'gui_download_assets'
+                            'to_function': 'gui_download_assets',
                         },
                         'button_download_documentation': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Download documentation'),
+                            'button_label': _Translate('DOWNLOAD_DOCUMENTATION'),
                             'event_data': 'offline',
                             'to_plugin': 'infohub_offline',
-                            'to_function': 'gui_download_documentation'
+                            'to_function': 'gui_download_documentation',
                         },
                         'button_show_subscribers': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Show subscribers'),
+                            'button_label': _Translate('SHOW_SUBSCRIBERS'),
                             'event_data': 'offline',
                             'to_plugin': 'infohub_offline',
-                            'to_function': 'gui_show_subscribers'
+                            'to_function': 'gui_show_subscribers',
                         },
                         'my_container': {
                             'type': 'common',
-                            'subtype': 'codecontainer'
-                        }
+                            'subtype': 'codecontainer',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box]'
+                        'text': '[my_presentation_box]',
                     },
                     'where': {
                         'box_id': $in.box_id,
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'offline'
+                    'cache_key': 'offline',
                 },
                 'data_back': {
-                    'step': 'step_subscribe'
-                }
+                    'step': 'step_subscribe',
+                },
             });
         }
 
-        if ($in.step === 'step_subscribe')
-        {
+        if ($in.step === 'step_subscribe') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_offline',
-                    'function': 'subscribe'
+                    'function': 'subscribe',
                 },
                 'data': {
                     'subscriptions': {
                         'all': {
-                            'to': {'node': 'client', 'plugin': 'infohub_offline', 'function': 'update_indicator'}
-                        }
-                    }
+                            'to': {
+                                'node': 'client',
+                                'plugin': 'infohub_offline',
+                                'function': 'update_indicator',
+                            },
+                        },
+                    },
                 },
                 'data_back': {
-                    'step': 'step_update_indicator'
-                }
+                    'step': 'step_update_indicator',
+                },
             });
         }
 
-        if ($in.step === 'step_update_indicator')
-        {
+        if ($in.step === 'step_update_indicator') {
             const $online = _GetOnline();
             const $status = _GetStatus($online);
 
@@ -362,20 +353,20 @@ function infohub_offline() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_offline',
-                    'function': 'update_indicator'
+                    'function': 'update_indicator',
                 },
                 'data': {
-                    'key': $status
+                    'key': $status,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'plugin GUI is done'
+            'message': 'plugin GUI is done',
         };
     };
 
@@ -389,11 +380,10 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    const subscribe = function ($in)
-    {
+    const subscribe = function($in) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
@@ -406,8 +396,8 @@ function infohub_offline() {
         let $key = '';
 
         let $messageOutDefault = {
-            'to': {'node': '', 'plugin': '', 'function': '' },
-            'data': {}
+            'to': {'node': '', 'plugin': '', 'function': ''},
+            'data': {},
         };
 
         leave: {
@@ -416,7 +406,8 @@ function infohub_offline() {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault,
+                    $in.subscriptions[$key]);
 
                 if ($messageOut.to.node !== $in.from_plugin.node) {
                     $answer = 'false';
@@ -436,13 +427,14 @@ function infohub_offline() {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault,
+                    $in.subscriptions[$key]);
 
                 const $response = internal_Cmd({
                     'func': 'Subscribe',
                     'from': $from,
                     'key': $key,
-                    'message': $messageOut
+                    'message': $messageOut,
                 });
 
                 if ($response.answer === 'false') {
@@ -458,7 +450,7 @@ function infohub_offline() {
             'message': $message,
             'key': $key,
             'from': $from,
-            'message_out': $messageOut
+            'message_out': $messageOut,
         };
     };
 
@@ -472,11 +464,10 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    const unsubscribe = function ($in)
-    {
+    const unsubscribe = function($in) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
@@ -484,13 +475,14 @@ function infohub_offline() {
 
         for (let $key in $in.subscriptions) {
             if ($in.subscriptions.hasOwnProperty($key) === true) {
-                const $response = internal_Cmd({'func': 'Unsubscribe', 'from': $from, 'key': $key});
+                const $response = internal_Cmd(
+                    {'func': 'Unsubscribe', 'from': $from, 'key': $key});
             }
         }
 
         return {
             'answer': 'true',
-            'message': 'Done with unsubscribing'
+            'message': 'Done with unsubscribing',
         };
     };
 
@@ -503,10 +495,9 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    const unsubscribe_all = function ($in)
-    {
+    const unsubscribe_all = function($in) {
         const $default = {
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
@@ -514,7 +505,7 @@ function infohub_offline() {
 
         return internal_Cmd({
             'func': 'UnsubscribeAll',
-            'from': $from
+            'from': $from,
         });
     };
 
@@ -525,12 +516,11 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    const internal_Subscribe = function ($in)
-    {
+    const internal_Subscribe = function($in) {
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
-            'message': {} // The message you want to send when key combination is pressed
+            'message': {}, // The message you want to send when key combination is pressed
         };
         $in = _Default($default, $in);
 
@@ -543,7 +533,7 @@ function infohub_offline() {
 
         return {
             'answer': 'true',
-            'message': 'Done storing subscription'
+            'message': 'Done storing subscription',
         };
     };
 
@@ -554,14 +544,13 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    const internal_Unsubscribe = function ($in)
-    {
+    const internal_Unsubscribe = function($in) {
         let $changed = 'false',
             $message = 'Could not find that key';
 
         const $default = {
             'from': '',
-            'key': ''
+            'key': '',
         };
         $in = _Default($default, $in);
 
@@ -585,7 +574,7 @@ function infohub_offline() {
             'answer': 'true',
             'message': $message,
             'key': $in.key,
-            'changed': $changed
+            'changed': $changed,
         };
     };
 
@@ -596,13 +585,12 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    const internal_UnsubscribeAll = function ($in)
-    {
+    const internal_UnsubscribeAll = function($in) {
         let $changed = 'false',
             $message = 'Could not find any keys';
 
         const $default = {
-            'from': ''
+            'from': '',
         };
         $in = _Default($default, $in);
 
@@ -627,7 +615,7 @@ function infohub_offline() {
         return {
             'answer': 'true',
             'message': $message,
-            'changed': $changed
+            'changed': $changed,
         };
     };
 
@@ -638,32 +626,30 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_plugins');
-    const gui_download_plugins = function ($in)
-    {
+    const gui_download_plugins = function($in) {
         const $default = {
             'step': 'step_start',
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_plugin',
-                    'function': 'download_all_plugins'
+                    'function': 'download_all_plugins',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -674,30 +660,28 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_assets');
-    const gui_download_assets = function ($in)
-    {
+    const gui_download_assets = function($in) {
         const $default = {
             'step': 'step_get_all_plugin_names_that_has_assets',
             'response': {
                 'answer': 'false',
                 'message': 'No response from subcall',
-                'data': {}
-            }
+                'data': {},
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_get_all_plugin_names_that_has_assets')
-        {
+        if ($in.step === 'step_get_all_plugin_names_that_has_assets') {
             return _SubCall({
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_file',
-                    'function': 'get_all_plugin_names_that_has_assets'
+                    'function': 'get_all_plugin_names_that_has_assets',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_get_full_list_response'
-                }
+                    'step': 'step_get_full_list_response',
+                },
             });
         }
 
@@ -707,30 +691,30 @@ function infohub_offline() {
             $list = $in.response.data;
             $in.step = 'step_update_all_assets';
         }
-        
+
         if ($in.step === 'step_update_all_assets') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_asset',
-                    'function': 'update_all_assets'
+                    'function': 'update_all_assets',
                 },
                 'data': {
-                    'list': $list
+                    'list': $list,
                 },
                 'data_back': {
-                    'step': 'step_update_all_assets_response'
-                }
+                    'step': 'step_update_all_assets_response',
+                },
             });
         }
 
         if ($in.step === 'step_update_all_assets_response') {
-            
+
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -741,32 +725,30 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_documentation');
-    const gui_download_documentation = function ($in)
-    {
+    const gui_download_documentation = function($in) {
         const $default = {
             'step': 'step_start',
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
-                    'function': 'get_all_documents'
+                    'function': 'get_all_documents',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -777,14 +759,13 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    const gui_show_subscribers = function ($in)
-    {
+    const gui_show_subscribers = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
                 'answer': '',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -796,23 +777,23 @@ function infohub_offline() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': 'main.body.infohub_offline.[my_container]',
-                    'text': JSON.stringify($data, null, 2)
+                    'text': JSON.stringify($data, null, 2),
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'key': $in.key
-                }
+                    'key': $in.key,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.key
+            'key': $in.key,
         };
     };
 
@@ -825,26 +806,24 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_indicator');
-    const update_indicator = function ($in)
-    {
+    const update_indicator = function($in) {
         const $default = {
             'step': 'step_start',
             'key': '',
             'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'Done'
-            }
+                'message': 'Done',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -855,45 +834,45 @@ function infohub_offline() {
                             'alias': 'my_indicator',
                             'class': 'svg',
                             'css_data': {
-                                '.svg': 'width:60px;height:60px;padding:4px;'
-                            }
+                                '.svg': 'width:60px;height:60px;padding:4px;',
+                            },
                         },
                         'my_indicator_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': $in.key,
-                            'plugin_name': 'infohub_offline'
+                            'plugin_name': 'infohub_offline',
                         },
                         'my_text': {
                             'type': 'common',
                             'subtype': 'label_data',
-                            'label': _Translate('Status'),
+                            'label': _Translate('STATUS'),
                             'data': $in.key
                         }
                     },
                     'how': {
                         'mode': 'one box',
                         'text': '[my_indicator][my_text]',
-                        'css_data': {}
+                        'css_data': {},
                     },
                     'where': {
                         'box_id': 'main.body.infohub_offline.[my_indicator]',
                         'max_width': 640,
-                        'scroll_to_box_id': 'false'
-                    }
+                        'scroll_to_box_id': 'false',
+                    },
 
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'key': $in.key
-                }
+                    'key': $in.key,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.key
+            'key': $in.key,
         };
     };
 
@@ -907,8 +886,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_service_worker');
-    const update_service_worker = function ($in)
-    {
+    const update_service_worker = function($in) {
         const $cacheLifeTimeSeconds = 10 * 60.0;
         const $path = 'infohub_offline/service_worker';
 
@@ -916,9 +894,7 @@ function infohub_offline() {
             'step': 'step_load_data',
             'answer': 'true',
             'message': 'Nothing to report',
-            'data_back': {
-
-            },
+            'data_back': {},
             'response': {
                 'answer': 'false',
                 'message': 'Done',
@@ -927,9 +903,9 @@ function infohub_offline() {
                 'data': {
                     'time_epoc': 0.0,
                     'time_stamp': '',
-                    'checksum': ''
-                }
-            }
+                    'checksum': '',
+                },
+            },
         };
         $in = _Default($default, $in);
 
@@ -960,19 +936,18 @@ function infohub_offline() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
                     'path': $path,
                 },
                 'data_back': {
-                    'step': 'step_load_data_response'
-                }
+                    'step': 'step_load_data_response',
+                },
             });
         }
 
-        if ($in.step === 'step_load_data_response')
-        {
+        if ($in.step === 'step_load_data_response') {
             $in.message = 'Could not read from Storage';
 
             if ($in.answer === 'true') {
@@ -991,42 +966,40 @@ function infohub_offline() {
             }
         }
 
-        if ($in.step === 'step_server')
-        {
+        if ($in.step === 'step_server') {
             return _SubCall({
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_offline',
-                    'function': 'index_checksum'
+                    'function': 'index_checksum',
                 },
                 'data': {
-                    'rendered_checksum': $localRenderedChecksum
+                    'rendered_checksum': $localRenderedChecksum,
                 },
                 'data_back': {
-                    'step': 'step_server_response'
-                }
+                    'step': 'step_server_response',
+                },
             });
         }
 
-        if ($in.step === 'step_server_response')
-        {
+        if ($in.step === 'step_server_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
 
-                if ($in.response.valid === 'false')
-                {
+                if ($in.response.valid === 'false') {
                     // The checksum we have is not valid. Lets unregister all service workers and reload the page.
                     // That will cache a new index.php
-                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    navigator.serviceWorker.getRegistrations().
+                        then(function(registrations) {
 
-                        for(let $i = 0; $i < registrations.length; $i = $i + 1)
-                        {
-                            let $registration = registrations[$i];
-                            $registration.unregister();
-                        }
+                            for (let $i = 0; $i <
+                            registrations.length; $i = $i + 1) {
+                                let $registration = registrations[$i];
+                                $registration.unregister();
+                            }
 
-                        $in.step = 'step_reload_page';
-                    });
+                            $in.step = 'step_reload_page';
+                        });
 
                 }
 
@@ -1036,20 +1009,20 @@ function infohub_offline() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_storage',
-                            'function': 'write'
+                            'function': 'write',
                         },
                         'data': {
                             'path': $path,
                             'data': {
                                 'time_epoc': _MicroTime(),
                                 'time_stamp': _TimeStamp(),
-                                'checksum': $localRenderedChecksum
-                            }
+                                'checksum': $localRenderedChecksum,
+                            },
                         },
                         'data_back': {
                             'message': 'Cache is still valid',
-                            'step': 'step_write_response'
-                        }
+                            'step': 'step_write_response',
+                        },
                     });
                 }
             }
@@ -1065,18 +1038,18 @@ function infohub_offline() {
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_dummy',
-                    'function': 'reload_page'
+                    'function': 'reload_page',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.answer,
-            'message': $in.message
+            'message': $in.message,
         };
     };
 
@@ -1087,19 +1060,18 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function ($in)
-    {
+    const event_message = function($in) {
         const $default = {
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' },
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
             'event_type': '',
             'step': 'step_start',
             'data_back': {
-                'key': ''
+                'key': '',
             },
             'response': {
                 'answer': '',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -1109,21 +1081,17 @@ function infohub_offline() {
         $in.online = _GetOnline();
         $in.status = _GetStatus($in.online);
 
-        if ($in.step === 'step_start')
-        {
-            if ($in.event_type === 'online')
-            {
+        if ($in.step === 'step_start') {
+            if ($in.event_type === 'online') {
                 $in.data_back.key = $in.status;
                 const $messagesOut = _GetSubscribersMessages($in.status);
 
-                if (_Empty($messagesOut) === 'false')
-                {
-                    if (Array.isArray($messagesOut))
-                    {
-                        return  {
+                if (_Empty($messagesOut) === 'false') {
+                    if (Array.isArray($messagesOut)) {
+                        return {
                             'answer': 'true',
                             'message': 'Here comes a multi message',
-                            'messages': $messagesOut
+                            'messages': $messagesOut,
                         };
                     }
                 }
@@ -1141,7 +1109,7 @@ function infohub_offline() {
         return {
             'answer': $answer,
             'message': $message,
-            'key': $in.data_back.key
+            'key': $in.data_back.key,
         };
     };
 
@@ -1149,10 +1117,11 @@ function infohub_offline() {
 
 // See folder/include/the_go_function.js
 function updateOnlineStatus(event) {
-    sendMessage('infohub_offline', {'event_type': 'online' });
+    sendMessage('infohub_offline', {'event_type': 'online'});
     // You can subscribe to these messages, see the documentation
 }
-window.addEventListener('online',  updateOnlineStatus);
+
+window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
 
 //# sourceURL=infohub_offline.js

@@ -11,7 +11,7 @@
  */
 function infohub_demo_storage() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_storage() {
             'class_name': 'infohub_demo_storage',
             'note': 'Show all features in Storage on client and server',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -43,7 +43,7 @@ function infohub_demo_storage() {
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_button': 'normal'
+            'click_button': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -63,21 +63,19 @@ function infohub_demo_storage() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_form2'
-            }
+                'message': 'Nothing to report from infohub_demo_form2',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             const $size = '1';
@@ -86,187 +84,187 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'intro_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('InfoHub Demo Storage')
+                            'data': _Translate('INFOHUB_DEMO_STORAGE')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('You can test the Storage on the client and server')
+                            'data': _Translate('YOU_CAN_TEST_THE_STORAGE_ON_THE_CLIENT_AND_SERVER')
                         },
                         'write_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[write_node][write_mode][write_path][write_data][write_button]',
-                            'label': _Translate('Write'),
-                            'description': _Translate('Select options and press button to write')
+                            'label': _Translate('WRITE'),
+                            'description': _Translate('SELECT_OPTIONS_AND_PRESS_BUTTON_TO_WRITE')
                         },
                         'write_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Node"),
+                            "label": _Translate("NODE"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ]
                         },
                         'write_mode': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Mode"),
+                            "label": _Translate("MODE"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "overwrite", "label": _Translate("overwrite"), 'selected': 'true' },
-                                { "type": "option", "value": "merge", "label": _Translate("merge") }
+                                { "type": "option", "value": "overwrite", "label": _Translate("OVERWRITE"), 'selected': 'true' },
+                                { "type": "option", "value": "merge", "label": _Translate("MERGE") }
                             ]
                         },
                         'write_path': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Path"),
+                            "label": _Translate("PATH"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "/a/test1", "label": _Translate("/a/test1"), 'selected': 'true' },
-                                { "type": "option", "value": "/b/test2", "label": _Translate("/b/test2") },
-                                { "type": "option", "value": "/b/test3", "label": _Translate("/b/test3") },
-                                { "type": "option", "value": "/c/test4", "label": _Translate("/c/test4") },
-                                { "type": "option", "value": "all_four", "label": _Translate("All four") },
-                                { "type": "option", "value": "/b/*", "label": _Translate("/b/*") }
+                                { "type": "option", "value": "/a/test1", "label": _Translate("/A/TEST1"), 'selected': 'true' },
+                                { "type": "option", "value": "/b/test2", "label": _Translate("/B/TEST2") },
+                                { "type": "option", "value": "/b/test3", "label": _Translate("/B/TEST3") },
+                                { "type": "option", "value": "/c/test4", "label": _Translate("/C/TEST4") },
+                                { "type": "option", "value": "all_four", "label": _Translate("ALL_FOUR") },
+                                { "type": "option", "value": "/b/*", "label": _Translate("/B/*") }
                             ]
                         },
                         'write_data': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Data"),
+                            "label": _Translate("DATA"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "adam", "label": _Translate("Adam"), 'selected': 'true' },
-                                { "type": "option", "value": "bertil", "label": _Translate("Bertil") },
-                                { "type": "option", "value": "cesar", "label": _Translate("Cesar") },
-                                { "type": "option", "value": "flag_true", "label": _Translate("Flag true") },
-                                { "type": "option", "value": "flag_false", "label": _Translate("Flag false") },
-                                { "type": "option", "value": "empty", "label": _Translate("Empty") }
+                                { "type": "option", "value": "adam", "label": _Translate("ADAM"), 'selected': 'true' },
+                                { "type": "option", "value": "bertil", "label": _Translate("BERTIL") },
+                                { "type": "option", "value": "cesar", "label": _Translate("CESAR") },
+                                { "type": "option", "value": "flag_true", "label": _Translate("FLAG_TRUE") },
+                                { "type": "option", "value": "flag_false", "label": _Translate("FLAG_FALSE") },
+                                { "type": "option", "value": "empty", "label": _Translate("EMPTY") }
                             ]
                         },
                         'write_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Write'),
+                            'button_label': _Translate('WRITE'),
                             'event_data': 'storage|button|write',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'read_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[read_node][read_path][read_wanted_data][read_button][read_data]',
-                            'label': _Translate('Read'),
-                            'description': _Translate('Select options and press button to read')
+                            'label': _Translate('READ'),
+                            'description': _Translate('SELECT_OPTIONS_AND_PRESS_BUTTON_TO_READ')
                         },
                         'read_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Node"),
+                            "label": _Translate("NODE"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ]
                         },
                         'read_path': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Path"),
+                            "label": _Translate("PATH"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "/a/test1", "label": _Translate("/a/test1"), 'selected': 'true' },
-                                { "type": "option", "value": "/b/test2", "label": _Translate("/b/test2") },
-                                { "type": "option", "value": "/b/test3", "label": _Translate("/b/test3") },
-                                { "type": "option", "value": "/c/test4", "label": _Translate("/c/test4") },
-                                { "type": "option", "value": "all_four", "label": _Translate("All four") },
-                                { "type": "option", "value": "/b/*", "label": _Translate("/b/*") }
+                                { "type": "option", "value": "/a/test1", "label": _Translate("/A/TEST1"), 'selected': 'true' },
+                                { "type": "option", "value": "/b/test2", "label": _Translate("/B/TEST2") },
+                                { "type": "option", "value": "/b/test3", "label": _Translate("/B/TEST3") },
+                                { "type": "option", "value": "/c/test4", "label": _Translate("/C/TEST4") },
+                                { "type": "option", "value": "all_four", "label": _Translate("ALL_FOUR") },
+                                { "type": "option", "value": "/b/*", "label": _Translate("/B/*") }
                             ]
                         },
                         'read_wanted_data': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Wanted data"),
+                            "label": _Translate("WANTED_DATA"),
                             "size": $size,
                             "multiple": "false",
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "empty", "label": _Translate("Empty"), 'selected': 'true' },
-                                { "type": "option", "value": "first_name", "label": _Translate("First name") },
-                                { "type": "option", "value": "last_name", "label": _Translate("Last name") }
+                                { "type": "option", "value": "empty", "label": _Translate("EMPTY"), 'selected': 'true' },
+                                { "type": "option", "value": "first_name", "label": _Translate("FIRST_NAME") },
+                                { "type": "option", "value": "last_name", "label": _Translate("LAST_NAME") }
                             ]
                         },
                         'read_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Read'),
+                            'button_label': _Translate('READ'),
                             'event_data': 'storage|button|read',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'read_data': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
-                            'placeholder': _Translate('Here you will see the data we read from Storage'),
-                            "label": _Translate("Read data"),
-                            "description": _Translate("The data read from Storage.")
+                            'placeholder': _Translate('HERE_YOU_WILL_SEE_THE_DATA_WE_READ_FROM_STORAGE'),
+                            "label": _Translate("READ_DATA"),
+                            "description": _Translate("THE_DATA_READ_FROM_STORAGE.")
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[intro_text][write_form][read_form]'
+                        'text': '[intro_text][write_form][read_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'storage'
+                    'cache_key': 'storage',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -276,9 +274,8 @@ function infohub_demo_storage() {
      * @since 2020-06-19
      * @author Peter Lembke
      */
-    $functions.push("click_button");
-    const click_button = function ($in)
-    {
+    $functions.push('click_button');
+    const click_button = function($in) {
         const $default = {
             'box_id': '',
             'type': '',
@@ -286,7 +283,7 @@ function infohub_demo_storage() {
             'event_data': '',
             'form_data': {},
             'step': 'step_start',
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -299,42 +296,58 @@ function infohub_demo_storage() {
         if ($in.step === 'step_start') {
 
             const $path = {
-                "/a/test1": "infohub_demo_storage/storage/a/test1",
-                "/b/test2": "infohub_demo_storage/storage/b/test2",
-                "/b/test3":"infohub_demo_storage/storage/b/test3",
-                "/c/test4": "infohub_demo_storage/storage/c/test4",
-                "all_four": "all_four",
-                "/b/*": "infohub_demo_storage/storage/b/*"
+                '/a/test1': 'infohub_demo_storage/storage/a/test1',
+                '/b/test2': 'infohub_demo_storage/storage/b/test2',
+                '/b/test3': 'infohub_demo_storage/storage/b/test3',
+                '/c/test4': 'infohub_demo_storage/storage/c/test4',
+                'all_four': 'all_four',
+                '/b/*': 'infohub_demo_storage/storage/b/*',
             };
 
             const $data = {
-                'adam': { 'first': 'Adam', 'last': 'Andersson' },
-                'bertil': { 'first': 'Bertil', 'last': 'Bengtsson' },
-                'cesar': { 'first': 'Cesar', 'last': 'Carlsson' },
-                'flag_true': { 'flag': 'true' },
-                'flag_false': { 'flag': 'false' },
-                'empty': {}
+                'adam': {'first': 'Adam', 'last': 'Andersson'},
+                'bertil': {'first': 'Bertil', 'last': 'Bengtsson'},
+                'cesar': {'first': 'Cesar', 'last': 'Carlsson'},
+                'flag_true': {'flag': 'true'},
+                'flag_false': {'flag': 'false'},
+                'empty': {},
             };
 
             const $allFour = {
-                "infohub_demo_storage/storage/a/test1": {},
-                "infohub_demo_storage/storage/b/test2": {},
-                "infohub_demo_storage/storage/b/test3": {},
-                "infohub_demo_storage/storage/c/test4": {}
+                'infohub_demo_storage/storage/a/test1': {},
+                'infohub_demo_storage/storage/b/test2': {},
+                'infohub_demo_storage/storage/b/test3': {},
+                'infohub_demo_storage/storage/c/test4': {},
             };
 
             const $wantedData = {
-                "empty": {},
-                "first_name": { 'first': '' },
-                "last_name": { 'last': '' }
+                'empty': {},
+                'first_name': {'first': ''},
+                'last_name': {'last': ''},
             };
 
             if ($in.event_data === 'write') {
                 $formDataValue = {
-                    'node': _GetData({'name': 'form_data/write_node/value/0', 'default': '', 'data': $in }),
-                    'mode': _GetData({'name': 'form_data/write_mode/value/0', 'default': '', 'data': $in }),
-                    'path': _GetData({'name': 'form_data/write_path/value/0', 'default': '', 'data': $in }),
-                    'data': _GetData({'name': 'form_data/write_data/value/0', 'default': '', 'data': $in })
+                    'node': _GetData({
+                        'name': 'form_data/write_node/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
+                    'mode': _GetData({
+                        'name': 'form_data/write_mode/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
+                    'path': _GetData({
+                        'name': 'form_data/write_path/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
+                    'data': _GetData({
+                        'name': 'form_data/write_data/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
                 };
 
                 $formDataValue.path = $path[$formDataValue.path];
@@ -364,9 +377,21 @@ function infohub_demo_storage() {
 
             if ($in.event_data === 'read') {
                 $formDataValue = {
-                    'node': _GetData({'name': 'form_data/read_node/value/0', 'default': '', 'data': $in }),
-                    'path': _GetData({'name': 'form_data/read_path/value/0', 'default': '', 'data': $in }),
-                    'wanted_data': _GetData({'name': 'form_data/read_wanted_data/value/0', 'default': '', 'data': $in })
+                    'node': _GetData({
+                        'name': 'form_data/read_node/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
+                    'path': _GetData({
+                        'name': 'form_data/read_path/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
+                    'wanted_data': _GetData({
+                        'name': 'form_data/read_wanted_data/value/0',
+                        'default': '',
+                        'data': $in,
+                    }),
                 };
 
                 $formDataValue.path = $path[$formDataValue.path];
@@ -401,29 +426,29 @@ function infohub_demo_storage() {
                 'to': {
                     'node': $formDataValue.node,
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'data': $formDataValue.data,
                     'mode': $formDataValue.mode,
-                    'command': 'write'
+                    'command': 'write',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_write_response'
-                }
+                    'step': 'step_write_response',
+                },
             });
         }
 
@@ -432,23 +457,23 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'data': $formDataValue.data,
-                    'mode': $formDataValue.mode
+                    'mode': $formDataValue.mode,
                 },
                 'data_back': {
-                    'step': 'step_write_response'
-                }
+                    'step': 'step_write_response',
+                },
             });
         }
 
         if ($in.step === 'step_write_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
@@ -458,28 +483,28 @@ function infohub_demo_storage() {
                 'to': {
                     'node': $formDataValue.node,
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'paths': $formDataValue.path,
                     'mode': $formDataValue.mode,
-                    'command': 'write_many'
+                    'command': 'write_many',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_write_many_response'
-                }
+                    'step': 'step_write_many_response',
+                },
             });
         }
 
@@ -488,22 +513,22 @@ function infohub_demo_storage() {
                 'to': {
                     'node': $formDataValue.node,
                     'plugin': 'infohub_storage',
-                    'function': 'write_many'
+                    'function': 'write_many',
                 },
                 'data': {
                     'paths': $formDataValue.path,
-                    'mode': $formDataValue.mode
+                    'mode': $formDataValue.mode,
                 },
                 'data_back': {
-                    'step': 'step_write_many_response'
-                }
+                    'step': 'step_write_many_response',
+                },
             });
         }
 
         if ($in.step === 'step_write_many_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
@@ -513,29 +538,29 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'mode': $formDataValue.mode,
                     'data': $formDataValue.data,
-                    'command': 'write_pattern'
+                    'command': 'write_pattern',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_read_many_response'
-                }
+                    'step': 'step_read_many_response',
+                },
             });
         }
 
@@ -544,23 +569,23 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write_pattern'
+                    'function': 'write_pattern',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'mode': $formDataValue.mode,
-                    'data': $formDataValue.data
+                    'data': $formDataValue.data,
                 },
                 'data_back': {
-                    'step': 'step_read_pattern_response'
-                }
+                    'step': 'step_read_pattern_response',
+                },
             });
         }
 
         if ($in.step === 'step_write_pattern_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
@@ -570,28 +595,28 @@ function infohub_demo_storage() {
                 'to': {
                     'node': $formDataValue.node,
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'wanted_data': $formDataValue.wanted_data,
-                    'command': 'read'
+                    'command': 'read',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_read_response'
-                }
+                    'step': 'step_read_response',
+                },
             });
         }
 
@@ -600,22 +625,22 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
                     'path': $formDataValue.path,
-                    'wanted_data': $formDataValue.wanted_data
+                    'wanted_data': $formDataValue.wanted_data,
                 },
                 'data_back': {
-                    'step': 'step_read_response'
-                }
+                    'step': 'step_read_response',
+                },
             });
         }
 
         if ($in.step === 'step_read_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
@@ -625,28 +650,28 @@ function infohub_demo_storage() {
                 'to': {
                     'node': $formDataValue.node,
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'paths': $formDataValue.path,
                     'wanted_data': $formDataValue.wanted_data,
-                    'command': 'read_many'
+                    'command': 'read_many',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_read_many_response'
-                }
+                    'step': 'step_read_many_response',
+                },
             });
         }
 
@@ -655,22 +680,22 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read_many'
+                    'function': 'read_many',
                 },
                 'data': {
                     'paths': $formDataValue.path,
-                    'wanted_data': $formDataValue.wanted_data
+                    'wanted_data': $formDataValue.wanted_data,
                 },
                 'data_back': {
-                    'step': 'step_read_many_response'
-                }
+                    'step': 'step_read_many_response',
+                },
             });
         }
 
         if ($in.step === 'step_read_many_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
@@ -680,28 +705,28 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_demo',
-                    'function': 'storage'
+                    'function': 'storage',
                 },
                 'data': {
                     'path': $formDataValue.path,
                     'wanted_data': $formDataValue.wanted_data,
-                    'command': 'read_pattern'
+                    'command': 'read_pattern',
                 },
-                'data_back': {}
+                'data_back': {},
             });
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_read_many_response'
-                }
+                    'step': 'step_read_many_response',
+                },
             });
         }
 
@@ -710,42 +735,41 @@ function infohub_demo_storage() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read_pattern'
+                    'function': 'read_pattern',
                 },
                 'data': {
                     'path': $formDataValue.path,
-                    'wanted_data': $formDataValue.wanted_data
+                    'wanted_data': $formDataValue.wanted_data,
                 },
                 'data_back': {
-                    'step': 'step_read_pattern_response'
-                }
+                    'step': 'step_read_pattern_response',
+                },
             });
         }
 
         if ($in.step === 'step_read_pattern_response') {
             const $myData = _JsonEncode($in.response);
             $formData = {
-                'read_data': { 'value': $myData }
+                'read_data': {'value': $myData},
             };
             $in.step = 'step_form_write';
         }
 
         if ($in.step === 'step_form_write') {
-            if (_Empty($formData) === 'false')
-            {
+            if (_Empty($formData) === 'false') {
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'form_write'
+                        'function': 'form_write',
                     },
                     'data': {
                         'id': 'main.body.infohub_demo.demo',
-                        'form_data': $formData
+                        'form_data': $formData,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
             }
         }
@@ -753,7 +777,7 @@ function infohub_demo_storage() {
         if ($in.step === 'step_end') {
             const $default = {
                 'answer': 'false',
-                'message': ''
+                'message': '',
             };
             $in.response = _Default($default, $in.response);
 
@@ -765,8 +789,9 @@ function infohub_demo_storage() {
         return {
             'answer': $answer,
             'message': $message,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 }
+
 //# sourceURL=infohub_demo_storage.js

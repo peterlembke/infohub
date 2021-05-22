@@ -11,7 +11,7 @@
  */
 function infohub_configlocal_debug() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -24,13 +24,13 @@ function infohub_configlocal_debug() {
             'class_name': 'infohub_configlocal_debug',
             'note': 'Here you can set the debug level',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -45,8 +45,7 @@ function infohub_configlocal_debug() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         const $parts = $text.split('_');
         let $response = '';
 
@@ -54,7 +53,8 @@ function infohub_configlocal_debug() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
         return $response;
     };
@@ -73,12 +73,11 @@ function infohub_configlocal_debug() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
-            'translations': {}
+            'translations': {},
         };
         $in = _Default($default, $in);
 
@@ -89,7 +88,7 @@ function infohub_configlocal_debug() {
         return {
             'answer': $response.answer,
             'message': $response.message,
-            'data': $response.data
+            'data': $response.data,
         };
     };
 
@@ -98,11 +97,10 @@ function infohub_configlocal_debug() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("internal_debug");
-    const internal_debug = function ($in)
-    {
+    $functions.push('internal_debug');
+    const internal_debug = function($in) {
         const $default = {
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Default($default, $in);
 
@@ -110,13 +108,13 @@ function infohub_configlocal_debug() {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
-                'function': 'create'
+                'function': 'create',
             },
             'data': {
                 'what': {
                     'titel': {
                         'type': 'text',
-                        'text': '[h1]'+_Translate('debug level')+'[/h1]'
+                        'text': '[h1]'+_Translate('DEBUG_LEVEL')+'[/h1]'
                     },
                     // @todo checkbox enable quick buttons in launcher
                     // @todo checkbox enable logging
@@ -125,107 +123,108 @@ function infohub_configlocal_debug() {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Make things larger.'),
+                        'button_label': _Translate('MAKE_THINGS_LARGER.'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'multiplier': '1.2'
-                        }
+                            'multiplier': '1.2',
+                        },
                     },
                     'button_text_smaller': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Make things smaller'),
+                        'button_label': _Translate('MAKE_THINGS_SMALLER'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'multiplier': '0.8'
-                        }
+                            'multiplier': '0.8',
+                        },
                     },
                     'button_text_normal': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Normal size (Size 1)'),
+                        'button_label': _Translate('NORMAL_SIZE_(SIZE_1)'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'debug_level': '1.0'
-                        }
+                            'debug_level': '1.0',
+                        },
                     },
                     'button_text_2': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Size 2'),
+                        'button_label': _Translate('SIZE_2'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'debug_level': '2.0'
-                        }
+                            'debug_level': '2.0',
+                        },
                     },
                     'button_text_3': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label':_Translate('Size 3'),
+                        'button_label':_Translate('SIZE_3'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'debug_level': '3.0'
-                        }
+                            'debug_level': '3.0',
+                        },
                     },
                     'button_text_4': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Size 4'),
+                        'button_label': _Translate('SIZE_4'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'debug_level': '4.0'
-                        }
+                            'debug_level': '4.0',
+                        },
                     },
                     'button_text_max': {
                         'type': 'form',
                         'subtype': 'button',
                         'mode': 'button',
-                        'button_label': _Translate('Max size (Size 5)'),
+                        'button_label': _Translate('MAX_SIZE_(SIZE_5)'),
                         'data': 'debug_level',
                         'to_plugin': 'infohub_view',
                         'to_function': 'debug_level',
                         'custom_variables': {
-                            'debug_level': '5.0'
-                        }
-                    }
+                            'debug_level': '5.0',
+                        },
+                    },
                 },
                 'how': {
                     'mode': 'one box',
-                    'text': '[titel][button_text_larger][button_text_smaller][button_text_normal][button_text_2][button_text_3][button_text_4][button_text_max]'
+                    'text': '[titel][button_text_larger][button_text_smaller][button_text_normal][button_text_2][button_text_3][button_text_4][button_text_max]',
                 },
                 'where': {
                     'box_id': $in.parent_box_id + '.form',
                     'max_width': 100,
-                    'scroll_to_box_id': 'true'
-                }
+                    'scroll_to_box_id': 'true',
+                },
             },
-            'data_back': {'step': 'step_end'}
+            'data_back': {'step': 'step_end'},
         };
 
         return {
             'answer': 'true',
             'message': 'Here are the render data',
-            'data': $data
+            'data': $data,
         };
 
     };
 
 }
+
 //# sourceURL=infohub_configlocal_debug.js

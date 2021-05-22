@@ -31,14 +31,14 @@ class infohub_checksum_doublemetaphone extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-03-03
+     * @return string[]
      * @since   2018-03-03
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2018-03-03
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-11-09',
             'since' => '2018-03-03',
             'version' => '1.0.0',
@@ -47,22 +47,22 @@ class infohub_checksum_doublemetaphone extends infohub_base
             'note' => 'The Double Metaphone phonetic encoding algorithm is the second generation of this algorithm.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-03-03
+     * @return mixed
      * @since   2018-03-03
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-03-03
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'calculate_checksum' => 'emerging',
             'verify_checksum' => 'emerging'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -73,49 +73,48 @@ class infohub_checksum_doublemetaphone extends infohub_base
 
     /**
      * Main checksum calculation
-     * 
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
+     *
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function calculate_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $back = new DoubleMetaphone($in['value']);
         $result = $back->primary . ' ' . $back->secondary;
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the checksum',
             'value' => $in['value'],
             'checksum' => $result,
             'verified' => 'false'
-        );
-
+        ];
     }
 
     /**
      * Main checksum verification
-     * 
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
+     *
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function verify_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $back = new DoubleMetaphone($in['value']);
@@ -126,12 +125,12 @@ class infohub_checksum_doublemetaphone extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the result of the checksum verification',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 }

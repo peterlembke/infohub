@@ -30,36 +30,36 @@ class infohub_plugin extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2016-01-25
+     * @return  string[]
      * @since 2013-11-22
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2016-01-25
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2016-01-25',
             'since' => '2013-11-22',
             'version' => '1.0.0',
             'class_name' => 'infohub_plugin',
             'checksum' => '{{checksum}}',
-            'note'=> 'Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins',
+            'note' => 'Used by infohub_exchange to handle plugin request. Finds the plugin as file or in Storage. Starts PHP plugins. Delivers JS plugins',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2016-01-25
+     * @return mixed
      * @since   2013-11-22
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2016-01-25
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'plugins_request' => 'normal',
             'plugin_request' => 'normal',
             'plugin_request_from_file' => 'normal',
@@ -67,7 +67,7 @@ class infohub_plugin extends infohub_base
             'plugin_start' => 'normal',
             'plugin_list' => 'normal',
             'get_all_plugin_names' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -81,14 +81,15 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function plugins_request(array $in = []) {
-        $default = array(
+    protected function plugins_request(array $in = [])
+    {
+        $default = [
             'missing_plugin_names' => [],
             'answer' => 'false',
             'message' => '',
             'step' => 'step_plugin_request',
             'plugins' => [],
-            'response' => array(
+            'response' => [
                 'answer' => '',
                 'message' => '',
                 'plugin_node' => '',
@@ -100,20 +101,18 @@ class infohub_plugin extends infohub_base
                 'plugin_checksum' => '',
                 'plugin_config' => [],
                 'plugin_started' => 'false'
-            ),
-            'data_back' => array(
+            ],
+            'data_back' => [
                 'plugin_node' => '',
                 'plugin_name' => '',
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'step_plugin_request_response') {
-
-            if ($in['response']['answer'] === 'true')
-            {
+            if ($in['response']['answer'] === 'true') {
                 $pluginName = $in['response']['plugin_name'];
-                $in['plugins'][$pluginName] = array(
+                $in['plugins'][$pluginName] = [
                     'plugin_node' => $in['response']['plugin_node'],
                     'plugin_name' => $in['response']['plugin_name'],
                     'plugin_from' => $in['response']['plugin_from'],
@@ -122,44 +121,44 @@ class infohub_plugin extends infohub_base
                     'plugin_code_size' => $in['response']['plugin_code_size'],
                     'plugin_checksum' => $in['response']['plugin_checksum'],
                     'plugin_config' => $in['response']['plugin_config']
-                );
+                ];
             }
 
             $in['step'] = 'step_plugin_request';
         }
 
         if ($in['step'] === 'step_plugin_request') {
-            if (count($in['missing_plugin_names']) > 0)
-            {
-                $pluginName = (string) array_pop($in['missing_plugin_names']);
+            if (count($in['missing_plugin_names']) > 0) {
+                $pluginName = (string)array_pop($in['missing_plugin_names']);
 
-                return $this->_SubCall(array(
-                    'to' => array(
-                        'node' => 'server',
-                        'plugin' => 'infohub_plugin',
-                        'function' => 'plugin_request'
-                    ),
-                    'data' => array(
-                        'plugin_node' => 'client',
-                        'plugin_name' => $pluginName
-                    ),
-                    'data_back' => array(
-                        'step' => 'step_plugin_request_response',
-                        'plugins' => $in['plugins'],
-                        'plugin_node' => 'client',
-                        'plugin_name' => $pluginName,
-                        'missing_plugin_names' => $in['missing_plugin_names']
-                    ),
-                ));
+                return $this->_SubCall(
+                    [
+                        'to' => [
+                            'node' => 'server',
+                            'plugin' => 'infohub_plugin',
+                            'function' => 'plugin_request'
+                        ],
+                        'data' => [
+                            'plugin_node' => 'client',
+                            'plugin_name' => $pluginName
+                        ],
+                        'data_back' => [
+                            'step' => 'step_plugin_request_response',
+                            'plugins' => $in['plugins'],
+                            'plugin_node' => 'client',
+                            'plugin_name' => $pluginName,
+                            'missing_plugin_names' => $in['missing_plugin_names']
+                        ],
+                    ]
+                );
             }
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message'],
             'plugins' => $in['plugins']
-        );
-
+        ];
     }
 
     /**
@@ -167,15 +166,15 @@ class infohub_plugin extends infohub_base
      * Client plugins - code are returned
      * Server plugins - are started, no code are returned
      * Used by: client infohub_exchange
-     * @version 2016-01-30
-     * @since 2013-11-22
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2016-01-30
+     * @since 2013-11-22
      */
     protected function plugin_request(array $in = []): array
     {
-        $default = array(
+        $default = [
             'answer' => 'false',
             'message' => '',
             'step' => 'step_plugin_request_from_file',
@@ -193,10 +192,10 @@ class infohub_plugin extends infohub_base
                 'server_plugin_names' => [],
                 'client_plugin_names' => []
             ]
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'false',
             'message' => 'Nothing to report from plugin_request',
             'plugin_node' => '', // Required. Example: client, server
@@ -208,25 +207,27 @@ class infohub_plugin extends infohub_base
             'plugin_checksum' => '',
             'plugin_config' => [],
             'plugin_started' => 'false',
-        );
+        ];
 
         if ($in['step'] === 'step_plugin_request_from_file') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_plugin',
-                    'function' => 'plugin_request_from_file'
-                ),
-                'data' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name']
-                ),
-                'data_back' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_plugin_request_from_file_response'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_plugin',
+                        'function' => 'plugin_request_from_file'
+                    ],
+                    'data' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name']
+                    ],
+                    'data_back' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'step' => 'step_plugin_request_from_file_response'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'step_plugin_request_from_file_response') {
@@ -237,22 +238,24 @@ class infohub_plugin extends infohub_base
         }
 
         if ($in['step'] === 'step_plugin_request_from_storage') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_plugin',
-                    'function' => 'plugin_request_from_storage'
-                ),
-                'data' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name']
-                ),
-                'data_back' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_plugin_request_from_storage_response'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_plugin',
+                        'function' => 'plugin_request_from_storage'
+                    ],
+                    'data' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name']
+                    ],
+                    'data_back' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'step' => 'step_plugin_request_from_storage_response'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'step_plugin_request_from_storage_response') {
@@ -260,13 +263,12 @@ class infohub_plugin extends infohub_base
         }
 
         if ($in['step'] === 'step_handle_plugin') {
-
             if ($in['plugin_code'] !== '') {
                 $ok = 'false';
-                $requiredText = array(
+                $requiredText = [
                     "'SPDX-License-Identifier' => '",
                     "'SPDX-License-Identifier': '"
-                );
+                ];
 
                 foreach ($requiredText as $licenseIdentifier) {
                     if (strpos($in['plugin_code'], $licenseIdentifier) > 0) {
@@ -276,7 +278,7 @@ class infohub_plugin extends infohub_base
                 }
 
                 if ($ok === 'false') {
-                    $out['message'] = 'You must have an SPDX license identifier in your code. ' . $in['plugin_name']. ' do not have that';
+                    $out['message'] = 'You must have an SPDX license identifier in your code. ' . $in['plugin_name'] . ' do not have that';
                     goto leave;
                 }
             }
@@ -294,47 +296,51 @@ class infohub_plugin extends infohub_base
         }
 
         if ($in['step'] === 'step_plugin_start') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_plugin',
-                    'function' => 'plugin_start'
-                ),
-                'data' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'plugin_code' => $in['plugin_code'],
-                    'plugin_from' => $in['plugin_from'],
-                    'plugin_path' => $in['plugin_path'],
-                    'plugin_checksum' => $in['plugin_checksum'],
-                    'plugin_config' => $in['plugin_config']
-                ),
-                'data_back' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_plugin_start_response'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_plugin',
+                        'function' => 'plugin_start'
+                    ],
+                    'data' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'plugin_code' => $in['plugin_code'],
+                        'plugin_from' => $in['plugin_from'],
+                        'plugin_path' => $in['plugin_path'],
+                        'plugin_checksum' => $in['plugin_checksum'],
+                        'plugin_config' => $in['plugin_config']
+                    ],
+                    'data_back' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'step' => 'step_plugin_start_response'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'step_plugin_start_response') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_exchange',
-                    'function' => 'plugin_started'
-                ),
-                'data' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'plugin_started' => $in['plugin_started']
-                ),
-                'data_back' => array(
-                    'plugin_node' => $in['plugin_node'],
-                    'plugin_name' => $in['plugin_name'],
-                    'step' => 'step_plugin_started_response'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_exchange',
+                        'function' => 'plugin_started'
+                    ],
+                    'data' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'plugin_started' => $in['plugin_started']
+                    ],
+                    'data_back' => [
+                        'plugin_node' => $in['plugin_node'],
+                        'plugin_name' => $in['plugin_name'],
+                        'step' => 'step_plugin_started_response'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'step_plugin_started_response') {
@@ -365,8 +371,7 @@ class infohub_plugin extends infohub_base
         }
 
         $deleteMode = false;
-        foreach ($rowArray as $rowNumber => $rowString)
-        {
+        foreach ($rowArray as $rowNumber => $rowString) {
             $rowString = trim($rowString);
 
             if ($rowString === '') {
@@ -375,7 +380,7 @@ class infohub_plugin extends infohub_base
             }
 
             $rowArray[$rowNumber] = $rowString;
-            $part = substr($rowString, 0 ,2);
+            $part = substr($rowString, 0, 2);
 
             if ($part === '/*') {
                 $deleteMode = true;
@@ -390,10 +395,10 @@ class infohub_plugin extends infohub_base
                 }
             }
             if ($part === '//') {
-                if (substr($rowString,0,strlen($okRow1)) === $okRow1) {
+                if (substr($rowString, 0, strlen($okRow1)) === $okRow1) {
                     continue;
                 }
-                if (substr($rowString,0,strlen($okRow2)) === $okRow2) {
+                if (substr($rowString, 0, strlen($okRow2)) === $okRow2) {
                     continue;
                 }
                 unset($rowArray[$rowNumber]);
@@ -408,26 +413,26 @@ class infohub_plugin extends infohub_base
 
     /**
      * Get the plugin code from file if exist
-     * @version 2020-04-25
-     * @since 2013-08-18
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2020-04-25
+     * @since 2013-08-18
      */
     protected function plugin_request_from_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_node' => 'server',
             'plugin_name' => 'infohub_login',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'false',
             'message' => '',
             'plugin_node' => $in['plugin_node'],
@@ -437,7 +442,7 @@ class infohub_plugin extends infohub_base
             'plugin_code' => '',
             'plugin_checksum' => '',
             'plugin_config' => []
-        );
+        ];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $out['message'] = 'Only node: server can call this function';
@@ -449,11 +454,13 @@ class infohub_plugin extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetPluginPath',
-            'plugin_name' => $in['plugin_name'],
-            'plugin_node' => $in['plugin_node']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetPluginPath',
+                'plugin_name' => $in['plugin_name'],
+                'plugin_node' => $in['plugin_node']
+            ]
+        );
         $out['plugin_path'] = $response['plugin_path'];
 
         if (file_exists($out['plugin_path']) === false) {
@@ -469,22 +476,25 @@ class infohub_plugin extends infohub_base
 
         $out['plugin_from'] = 'file';
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ModifyPluginCode',
-            'plugin_node' => $in['plugin_node'],
-            'plugin_code' => $pluginCode
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ModifyPluginCode',
+                'plugin_node' => $in['plugin_node'],
+                'plugin_code' => $pluginCode
+            ]
+        );
         $out['plugin_code'] = $response['plugin_code'];
         $out['plugin_checksum'] = $response['plugin_checksum'];
 
         if (empty($out['plugin_code']) === false) {
+            $configResponse = $this->internal_Cmd(
+                [
+                    'func' => 'GetConfigFromFile',
+                    'plugin_name' => $in['plugin_name'],
+                    'node' => $in['plugin_node']
+                ]
+            );
 
-            $configResponse = $this->internal_Cmd(array(
-                'func' => 'GetConfigFromFile',
-                'plugin_name' => $in['plugin_name'],
-                'node' => $in['plugin_node']
-            ));
-            
             if ($configResponse['answer'] === 'true') {
                 $out['plugin_config'] = $configResponse['config'];
             }
@@ -493,15 +503,17 @@ class infohub_plugin extends infohub_base
             $found = strpos($out['plugin_code'], $search);
             if ($found !== false) {
                 $replaceWith = '';
-                $cssResponse = $this->internal_Cmd(array(
-                    'func' => 'GetCssData',
-                    'plugin_name' => $in['plugin_name']
-                ));
-            
+                $cssResponse = $this->internal_Cmd(
+                    [
+                        'func' => 'GetCssData',
+                        'plugin_name' => $in['plugin_name']
+                    ]
+                );
+
                 if ($cssResponse['answer'] === 'true') {
                     $replaceWith = $cssResponse['css_data'];
-                }               
-                
+                }
+
                 $out['plugin_code'] = str_replace($search, $replaceWith, $out['plugin_code']);
             }
 
@@ -516,30 +528,30 @@ class infohub_plugin extends infohub_base
     /**
      * Get the data from the config file
      * The use of configuration files is very mush discouraged. Always place all data in the database.
-     * @version 2018-12-26
-     * @since   2018-01-21
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-12-26
+     * @since   2018-01-21
      */
-    protected function internal_GetConfigFromFile(array $in = []): array {
-        
-        $default = array(
+    protected function internal_GetConfigFromFile(array $in = []): array
+    {
+        $default = [
             'plugin_name' => '',
             'node' => 'client'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'true';
         $foundConfig = 'false';
         $message = '';
         $config = [];
-        
+
         if ($in['node'] !== 'client' && $in['node'] !== 'server') {
             $message = 'The node you want is not allowed in the config file';
             goto leave;
         }
-        
+
         $pluginName = trim(strtolower($in['plugin_name']));
 
         $fileName = CONFIG . DS . $pluginName . '.json';
@@ -563,12 +575,12 @@ class infohub_plugin extends infohub_base
             goto leave;
         }
 
-        $default = array(
+        $default = [
             'server' => [],
             'client' => []
-        );
+        ];
         $data = $this->_Default($default, $data);
-        
+
         $node = $in['node'];
         $config = $data[$node];
         $answer = 'true';
@@ -576,7 +588,7 @@ class infohub_plugin extends infohub_base
         $foundConfig = 'true';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'found_config' => $foundConfig,
@@ -584,29 +596,29 @@ class infohub_plugin extends infohub_base
             'plugin_name' => $in['plugin_name'],
             'node' => $in['node'],
             'file_name' => $fileName
-        );
+        ];
     }
 
     /**
      * Get the data from the css file if it exist
      * The use of css files is discouraged
-     * @version 2018-12-26
-     * @since   2018-12-26
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-12-26
+     * @since   2018-12-26
      */
-    protected function internal_GetCssData(array $in = []): array {
-        
-        $default = array(
+    protected function internal_GetCssData(array $in = []): array
+    {
+        $default = [
             'plugin_name' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = '';
         $answer = 'false';
         $message = '';
-        
+
         $pluginName = trim(strtolower($in['plugin_name']));
         $fileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.css';
 
@@ -626,26 +638,26 @@ class infohub_plugin extends infohub_base
         $message = 'Here are the css data';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'plugin_name' => $in['plugin_name'],
             'file_name' => $fileName,
             'css_data' => $data
-        );
+        ];
     }
-    
+
     /**
      * Get the plugin code from Storage if Storage exist and the plugin exist in the Storage
-     * @version 2020-04-25
-     * @since 2013-08-18
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2020-04-25
+     * @since 2013-08-18
      */
     protected function plugin_request_from_storage(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_node' => 'server',
             'plugin_name' => 'infohub_login',
             'step' => 'step_ask_storage',
@@ -653,18 +665,21 @@ class infohub_plugin extends infohub_base
             'plugin_code' => '',
             'plugin_checksum' => '',
             'plugin_config' => [],
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array_merge($in, array(
-            'answer' => 'false',
-            'message' => 'Did not find the plugin in Storage'
-        ));
+        $out = array_merge(
+            $in,
+            [
+                'answer' => 'false',
+                'message' => 'Did not find the plugin in Storage'
+            ]
+        );
 
         if ($in['from_plugin']['node'] !== 'server') {
             $out['message'] = 'Only node: server can call this function';
@@ -679,27 +694,31 @@ class infohub_plugin extends infohub_base
         if ($in['step'] === 'step_ask_storage') {
             $pluginNode = $in['plugin_node'];
             $pluginName = $in['plugin_name'];
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_storage',
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'path' => "infohub_plugin/$pluginNode/$pluginName"
-                ),
-                'data_back' => array(
-                    'step' => 'step_ask_storage_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storage',
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'path' => "infohub_plugin/$pluginNode/$pluginName"
+                    ],
+                    'data_back' => [
+                        'step' => 'step_ask_storage_response'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_ask_storage_response') {
-            $response = $this->internal_Cmd(array(
-                'func' => 'ModifyPluginCode',
-                'plugin_node' => $in['plugin_node'],
-                'plugin_code' => $in['plugin_code']
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'ModifyPluginCode',
+                    'plugin_node' => $in['plugin_node'],
+                    'plugin_code' => $in['plugin_code']
+                ]
+            );
             $out['plugin_code'] = $response['plugin_code'];
             $out['plugin_checksum'] = $response['plugin_checksum'];
             if (empty($out['plugin_code']) === false) {
@@ -714,28 +733,28 @@ class infohub_plugin extends infohub_base
 
     /**
      * Start a server plugin
-     * @version 2016-01-30
-     * @since 2013-11-21
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2016-01-30
+     * @since 2013-11-21
      * @uses
      */
     protected function plugin_start(array $in = [])
     {
-        $default = array(
+        $default = [
             'plugin_node' => 'server',
             'plugin_name' => 'infohub_login',
             'plugin_from' => '',
             'plugin_path' => '',
             'plugin_code' => '',
             'step' => 'plugin_start',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -770,7 +789,8 @@ class infohub_plugin extends infohub_base
             try {
                 eval($in['plugin_code']);
             } catch (Exception $err) {
-                $message = 'Can not evaluate the plugin class:' . $in['plugin_name'] . ', error:"' . $err->getMessage() . '"';
+                $message = 'Can not evaluate the plugin class:' . $in['plugin_name'] . ', error:"' . $err->getMessage(
+                    ) . '"';
                 goto leave;
             }
         }
@@ -785,7 +805,7 @@ class infohub_plugin extends infohub_base
         $pluginStarted = 'true';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'plugin_node' => $in['plugin_node'],
@@ -794,8 +814,7 @@ class infohub_plugin extends infohub_base
             'plugin_path' => $in['plugin_path'],
             'plugin_code' => $in['plugin_code'],
             'plugin_started' => $pluginStarted
-        );
-
+        ];
     }
 
     /**
@@ -807,31 +826,32 @@ class infohub_plugin extends infohub_base
      * All plugins that are invalid will get current timestamp - 1 week.
      * and then send back the list to the client
      *
-     * @version 2017-02-28
-     * @since 2017-02-25
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2017-02-28
+     * @since 2017-02-25
      * @uses
      */
     protected function plugin_list(array $in = [])
     {
-        $default = array(
+        $default = [
             'plugin_list' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $week = 7 * 24 * 60 * 60; // Seconds
         $valid = $this->_MicroTime(); // Current timestamp since EPOC
         $invalid = $valid - $week;
 
-        foreach ($in['plugin_list'] as $pluginName => $data)
-        {
-            $response = $this->internal_Cmd(array(
-                'func' => 'GetPluginPath',
-                'plugin_name' => $pluginName,
-                'plugin_node' => 'client'
-            ));
+        foreach ($in['plugin_list'] as $pluginName => $data) {
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'GetPluginPath',
+                    'plugin_name' => $pluginName,
+                    'plugin_node' => 'client'
+                ]
+            );
             $pluginPath = $response['plugin_path'];
 
             if (file_exists($pluginPath) === true) {
@@ -849,12 +869,11 @@ class infohub_plugin extends infohub_base
         }
 
         leave:
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the list of plugins. Those with an old timestamp_added should be deleted.',
             'data' => $in['plugin_list']
-        );
-
+        ];
     }
 
     // *****************************************************************************
@@ -866,53 +885,53 @@ class infohub_plugin extends infohub_base
 
     /**
      * Give a plugin name and a node, get the full path to the plugin file
-     * @example "infohub_base" & "client" gives you "{web root}/infohub/folder/plugins/infohub/base/infohub_base.js"
-     * @version 2016-01-30
-     * @since 2016-01-25
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @since 2016-01-25
+     * @author Peter Lembke
+     * @example "infohub_base" & "client" gives you "{web root}/infohub/folder/plugins/infohub/base/infohub_base.js"
+     * @version 2016-01-30
      */
     protected function internal_GetPluginPath(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name' => '',
             'plugin_node' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $folders = explode('_', $in['plugin_name']);
         $pluginPath = PLUGINS . DS . implode(DS, $folders);
 
-        $extension = array(
+        $extension = [
             'server' => '.php',
             'client' => '.js'
-        );
+        ];
 
-        $fileName = $in['plugin_name'] . $extension[ $in['plugin_node'] ];
+        $fileName = $in['plugin_name'] . $extension[$in['plugin_node']];
         $fullPath = strtolower($pluginPath . DS . $fileName);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the full path to the plugin',
             'plugin_path' => $fullPath
-        );
+        ];
     }
 
     /**
      * Trim the plugin code and add checksum to the code
-     * @version 2016-01-30
-     * @since 2016-01-30
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2016-01-30
+     * @since 2016-01-30
      */
     protected function internal_ModifyPluginCode(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_node' => '',
             'plugin_code' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $pluginCode = trim($in['plugin_code']);
@@ -928,13 +947,13 @@ class infohub_plugin extends infohub_base
             }
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the trimmed plugin code',
             'plugin_code' => $pluginCode,
             'plugin_checksum' => $pluginChecksum,
             'plugin_node' => $in['plugin_node']
-        );
+        ];
     }
 
     /**
@@ -944,46 +963,48 @@ class infohub_plugin extends infohub_base
      */
     protected function _Hash(string $dataString = ''): string
     {
-        return (string) crc32($dataString);
+        return (string)crc32($dataString);
     }
 
     /**
      * Download all plugin names
      * Used by the client version of infohub_plugin when downloading all plugins
-     * @version 2018-10-26
-     * @since 2018-10-26
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2018-10-26
+     * @since 2018-10-26
      */
     protected function get_all_plugin_names(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
             'answer' => '',
             'message' => '',
             'data' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'step_start') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'plugin_get_all_plugin_names'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'step' => 'step_start_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'plugin_get_all_plugin_names'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'step' => 'step_start_response'
+                    ]
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message'],
             'data' => $in['data']
-        );
+        ];
     }
 }

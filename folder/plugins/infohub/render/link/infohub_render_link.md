@@ -1,14 +1,18 @@
 # Infohub Render Link
-Render different kind of links on the screen  
+
+Render different kind of links on the screen
 
 # Introduction
+
 You can render different kind of links. The user cam click on a link to make something happen.  
 A triggered link produces a message that goes into the normal message queues.  
-You can create different types: link, toggle, external, embed  
+You can create different types: link, toggle, external, embed
 
 # type: link
-Creates an event link that will send a message. It will be sent to the same node (Node: client), to the plugin you state in to_plugin, to function: event_message.  
-In the example below the message will goto plugin infohub_demo. The link will get a unique ID but also an alias.  
+
+Creates an event link that will send a message. It will be sent to the same node (Node: client), to the plugin you state
+in to_plugin, to function: event_message.  
+In the example below the message will goto plugin infohub_demo. The link will get a unique ID but also an alias.
 
 ```
 'demo_head': {
@@ -21,7 +25,7 @@ In the example below the message will goto plugin infohub_demo. The link will ge
 }
 ```
 
-The HTML look like this  
+The HTML look like this
 
 ```
 <div name="demo_head" class="a1201_demo_head" style="display: inline;">
@@ -38,8 +42,10 @@ The HTML look like this
 ```
 
 When you click the link you trigger the go() function.  
-The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_demo' is what plugin should have this message. eventType is a string. boxId is the ID of the "a"-tag.  
-go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_demo. The message look like this:  
+The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_demo' is what plugin should have
+this message. eventType is a string. boxId is the ID of the "a"-tag.  
+go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_demo. The message
+look like this:
 
 ```
 {
@@ -68,11 +74,12 @@ go() pull out every piece of information from the "a" tag and send the message t
 }
 ```
 
-Now it is up to the plugin infohub_demo in its event_message function to handle this message.  
+Now it is up to the plugin infohub_demo in its event_message function to handle this message.
 
 # type: toggle
+
 Toggle visibility for the item alias you set in 'data'. The item alias must exist in the same box as the link.  
-You create a toggle link like this:  
+You create a toggle link like this:
 
 ```
 {
@@ -84,7 +91,7 @@ You create a toggle link like this:
 ```
 
 The toggle_alias is to the item you want to toggle. Must be within the same box as the link.  
-The HTML look like this  
+The HTML look like this
 
 ```
 <a id="1202_my_presentation_box_head" name="head" class="link"
@@ -99,10 +106,14 @@ The HTML look like this
 ```
 
 When you click the link you trigger the go() function.  
-The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_view' is what plugin should have this message. eventType is a string. boxId is the ID of the "a"-tag.  
-As you can see the boxId point to another object that I have omitted in this example. It is that object that will be toggled visible/invisible.  
-The data tag have some base64 encoded data. Decoded it is {"toggle_id":"{box_id}_content"}. That data is actually not used. Later versions will probably remove it.  
-go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_view. The message look like this:  
+The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_view' is what plugin should have
+this message. eventType is a string. boxId is the ID of the "a"-tag.  
+As you can see the boxId point to another object that I have omitted in this example. It is that object that will be
+toggled visible/invisible.  
+The data tag have some base64 encoded data. Decoded it is {"toggle_id":"{box_id}_content"}. That data is actually not
+used. Later versions will probably remove it.  
+go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_view. The message
+look like this:
 
 ```
 {
@@ -124,11 +135,12 @@ go() pull out every piece of information from the "a" tag and send the message t
 }
 ```
 
-Infohub View get the event_message, read the box_id and check if it is visible or not. Then sets the other state. Done.  
+Infohub View get the event_message, read the box_id and check if it is visible or not. Then sets the other state. Done.
 
 # type: external
+
 Creates an external link that will open in a new tab.   
-You create an external link like this:  
+You create an external link like this:
 
 ```
 'istanbul_marathon': {
@@ -139,7 +151,7 @@ You create an external link like this:
 },
 ```
 
-The HTML look like this  
+The HTML look like this
 
 ```
 <div name="istanbul_marathon" class="a1202_istanbul_marathon" style="display: inline;">
@@ -160,8 +172,10 @@ The HTML look like this
 Take special notice of the display: inline used on the div box. That makes the link a part of the text it is in.  
 The url have been base64 encoded into data.  
 When you click the link you trigger the go() function.  
-The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_render' is what plugin should have this message. eventType is a string. boxId is the ID of the "a"-tag.  
-go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_render. The message look like this:  
+The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_render' is what plugin should have
+this message. eventType is a string. boxId is the ID of the "a"-tag.  
+go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_render. The
+message look like this:
 
 ```
 {
@@ -187,11 +201,14 @@ go() pull out every piece of information from the "a" tag and send the message t
 }
 ```
 
-When infohub_render get the event message it check the type=external, decode the data and open a new tab/windows with the url.  
+When infohub_render get the event message it check the type=external, decode the data and open a new tab/windows with
+the url.
 
 # type: embed
-Creates an embedded link that will show embedded html. You add normal HTML in $htmlToEmbed. It will be base64 encoded later so the HTML is not active.  
-You can see a usage example of this in plugin: infohub_rendermajor.  
+
+Creates an embedded link that will show embedded html. You add normal HTML in $htmlToEmbed. It will be base64 encoded
+later so the HTML is not active.  
+You can see a usage example of this in plugin: infohub_rendermajor.
 
 ```
 {
@@ -202,7 +219,7 @@ You can see a usage example of this in plugin: infohub_rendermajor.
 };
 ```
 
-The code generated look something like this  
+The code generated look something like this
 
 ```
 <a id="1203_my_presentation_box_content_data_link"
@@ -226,8 +243,10 @@ The code generated look something like this
 ```
 
 When you click the link you trigger the go() function.  
-The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_view' is what plugin should have this message. eventType is a string. boxId is the ID of the "a"-tag.  
-go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_view. The message look like this:  
+The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_view' is what plugin should have
+this message. eventType is a string. boxId is the ID of the "a"-tag.  
+go() pull out every piece of information from the "a" tag and send the message to the plugin: infohub_view. The message
+look like this:
 
 ```
 {
@@ -253,13 +272,20 @@ go() pull out every piece of information from the "a" tag and send the message t
 }
 ```
 
-Why are this mesage sent to infohub_view? Because this action is generic and InfoHub View is the owner of the screen manipulations. No other plugin is allowed to do this on the screen.  
-View decode the base64 data. Pulls out the main box id (in this case 1202) and insert that number in the embedded html. Then substitute the existing HTML in the "a" tag. The div-tag with "my_image" is now gone and we instead have a Google map here.  
+Why are this mesage sent to infohub_view? Because this action is generic and InfoHub View is the owner of the screen
+manipulations. No other plugin is allowed to do this on the screen.  
+View decode the base64 data. Pulls out the main box id (in this case 1202) and insert that number in the embedded html.
+Then substitute the existing HTML in the "a" tag. The div-tag with "my_image" is now gone and we instead have a Google
+map here.
 
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2017-02-11 by Peter Lembke  
 Updated 2017-09-23 by Peter Lembke  

@@ -17,7 +17,7 @@
  */
 function infohub_login_export() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,14 +30,14 @@ function infohub_login_export() {
             'class_name': 'infohub_login_export',
             'note': 'Export the contact data you have in the local storage',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_export': 'normal'
+            'click_export': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -57,8 +57,7 @@ function infohub_login_export() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -66,8 +65,8 @@ function infohub_login_export() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -77,47 +76,47 @@ function infohub_login_export() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'container_export': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Export contact'),
-                            'foot_text': _Translate('Here you can export the contact data'),
+                            'head_label': _Translate('EXPORT_CONTACT'),
+                            'foot_text': _Translate('HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA'),
                             'content_data': '[button_export]'
                         },
                         'button_export': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Export'),
+                            'button_label': _Translate('EXPORT'),
                             'event_data': 'export|export',
                             'to_plugin': 'infohub_login',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_export]'
+                        'text': '[container_export]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'export'
+                    'cache_key': 'export',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -127,9 +126,8 @@ function infohub_login_export() {
      * @since 2019-09-08
      * @author Peter Lembke
      */
-    $functions.push("click_export");
-    const click_export = function ($in)
-    {
+    $functions.push('click_export');
+    const click_export = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_read_contact',
@@ -137,36 +135,33 @@ function infohub_login_export() {
                 'answer': 'true',
                 'message': 'Done',
                 'data': {},
-                'ok': 'true'
-            }
+                'ok': 'true',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_read_contact')
-        {
+        if ($in.step === 'step_read_contact') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'storage_read_contact_data'
+                    'function': 'storage_read_contact_data',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_read_contact_response'
-                }
+                    'step': 'step_read_contact_response',
+                },
             });
         }
 
-        if ($in.step === 'step_read_contact_response')
-        {
+        if ($in.step === 'step_read_contact_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.step = 'step_export_data_to_file';
             }
         }
 
-        if ($in.step === 'step_export_data_to_file')
-        {
+        if ($in.step === 'step_export_data_to_file') {
             const $fileContentJson = _JsonEncode($in.response.data);
             const $fileName = 'contact.json';
 
@@ -174,15 +169,15 @@ function infohub_login_export() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'file_write'
+                    'function': 'file_write',
                 },
                 'data': {
                     'file_name': $fileName,
-                    'content': $fileContentJson
+                    'content': $fileContentJson,
                 },
                 'data_back': {
-                    'step': 'step_export_data_to_file_response'
-                }
+                    'step': 'step_export_data_to_file_response',
+                },
             });
         }
 
@@ -197,8 +192,9 @@ function infohub_login_export() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 }
+
 //# sourceURL=infohub_login_export.js

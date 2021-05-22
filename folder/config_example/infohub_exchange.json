@@ -40,12 +40,17 @@
                     "plugin_name": "infohub_demo"
                 }
             },
+            "vagrant.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
             "local.infohub.se": {
                 "node": "client",
                 "plugin": "infohub_workbench",
                 "function": "startup"
             },
-            "vagrant.infohub.local": {
+            "infohub.local": {
                 "node": "client",
                 "plugin": "infohub_workbench",
                 "function": "startup"

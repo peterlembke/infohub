@@ -11,7 +11,7 @@
  */
 function infohub_demo_audio() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_audio() {
             'class_name': 'infohub_demo_audio',
             'note': 'Render a audio demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -42,7 +42,7 @@ function infohub_demo_audio() {
      */
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,229 +62,228 @@ function infohub_demo_audio() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_audio'
-            }
+                'message': 'Nothing to report from infohub_demo_audio',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n[jamendo_album_major][jamendo_major][soundcloud_playlist_major][soundcloud_major][spotify_album_major][spotify_major]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n[jamendo_album_major][jamendo_major][soundcloud_playlist_major][soundcloud_major][spotify_album_major][spotify_major]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Welcome to InfoHub Demo Audio')
+                            'data': _Translate('WELCOME_TO_INFOHUB_DEMO_AUDIO')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'join',
-                            'data0': _Translate('Here are some demos to show you what Infohub can do with audio.'),
-                            'data1': _Translate('Infohub Client do not use 3rd party services. All data must come from the server')
+                            'data0': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_AUDIO.'),
+                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES._ALL_DATA_MUST_COME_FROM_THE_SERVER')
                         },
                         'jamendo_album_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Jamendo audio album']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Jamendo']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Jamendo audio album']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Jamendo']),
                             'content_data': '[jamendo_icon]',
                             'content_embed': '[jamendo_album_audio]',
-                            'content_embed_new_tab': '[jamendo_album_audio_link]'
+                            'content_embed_new_tab': '[jamendo_album_audio_link]',
                         },
                         'jamendo_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[jamendo_asset]'
+                            'data': '[jamendo_asset]',
                         },
                         'jamendo_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'audio/jamendo-music-logo',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'jamendo_album_audio': {
                             'type': 'audio',
                             'subtype': 'jamendo',
                             'data': 'album/170617',
-                            'label': _Translate('In new tab'),
+                            'label': _Translate('IN_NEW_TAB')
                             'css_data': {
                                 '.right': 'font-size: 1.5em;', // You can add your own css to the default css
-                            }
+                            },
                         },
                         'jamendo_album_audio_link': {
                             'type': 'audio',
                             'subtype': 'jamendolink',
                             'data': 'album/170617',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'jamendo_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Jamendo audio track']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Jamendo']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Jamendo audio track']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Jamendo']),
                             'content_data': '[jamendo_icon]',
                             'content_embed': '[jamendo_audio]',
-                            'content_embed_new_tab': '[jamendo_audio_link]'
+                            'content_embed_new_tab': '[jamendo_audio_link]',
                         },
                         'jamendo_audio': {
                             'type': 'audio',
                             'subtype': 'jamendo',
                             'data': 'track/798935',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'jamendo_audio_link': {
                             'type': 'audio',
                             'subtype': 'jamendolink',
                             'data': 'track/798935',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'soundcloud_playlist_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Soundcloud audio playlist']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Soundcloud']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Soundcloud audio playlist']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Soundcloud']),
                             'content_data': '[soundcloud_icon]',
                             'content_embed': '[soundcloud_playlist_audio]',
-                            'content_embed_new_tab': '[soundcloud_playlist_audio_link]'
+                            'content_embed_new_tab': '[soundcloud_playlist_audio_link]',
                         },
                         'soundcloud_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[soundcloud_asset]'
+                            'data': '[soundcloud_asset]',
                         },
                         'soundcloud_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'audio/icons8-soundcloud',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'soundcloud_playlist_audio': {
                             'type': 'audio',
                             'subtype': 'soundcloud',
                             'data': 'playlists/192596153',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'soundcloud_playlist_audio_link': {
                             'type': 'audio',
                             'subtype': 'soundcloudlink',
                             'data': 'playlists/192596153',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'soundcloud_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Soundcloud audio track']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Soundcloud']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Soundcloud audio track']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Soundcloud']),
                             'content_data': '[soundcloud_icon]',
                             'content_embed': '[soundcloud_audio]',
-                            'content_embed_new_tab': '[soundcloud_audio_link]'
+                            'content_embed_new_tab': '[soundcloud_audio_link]',
                         },
                         'soundcloud_audio': {
                             'type': 'audio',
                             'subtype': 'soundcloud',
                             'data': 'tracks/202060685',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'soundcloud_audio_link': {
                             'type': 'audio',
                             'subtype': 'soundcloudlink',
                             'data': 'tracks/202060685',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'spotify_album_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Spotify audio album']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Spotify']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Spotify audio album']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Spotify']),
                             'content_data': '[spotify_icon]',
                             'content_embed': '[spotify_album_audio]',
-                            'content_embed_new_tab': '[spotify_album_audio_link]'
+                            'content_embed_new_tab': '[spotify_album_audio_link]',
                         },
                         'spotify_album_audio': {
                             'type': 'audio',
                             'subtype': 'spotify',
                             'data': 'album/1CuFf5IslmlCno7DAFjrt9',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'spotify_album_audio_link': {
                             'type': 'audio',
                             'subtype': 'spotifylink',
                             'data': 'album/1CuFf5IslmlCno7DAFjrt9',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'spotify_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Spotify audio track']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party audio streaming service.'), ['Spotify']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Spotify audio track']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE.'), ['Spotify']),
                             'content_data': '[spotify_icon]',
                             'content_embed': '[spotify_audio]',
-                            'content_embed_new_tab': '[spotify_audio_link]'
+                            'content_embed_new_tab': '[spotify_audio_link]',
                         },
                         'spotify_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[spotify_asset]'
+                            'data': '[spotify_asset]',
                         },
                         'spotify_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'audio/icons8-spotify',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'spotify_audio': {
                             'type': 'audio',
                             'subtype': 'spotify',
                             'data': 'track/6o56JEMxnUMPmO4qjWnjc9',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'spotify_audio_link': {
                             'type': 'audio',
                             'subtype': 'spotifylink',
                             'data': 'track/6o56JEMxnUMPmO4qjWnjc9',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         }
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text]'
+                        'text': '[my_text]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'audio'
+                    'cache_key': 'audio',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 }
+
 //# sourceURL=infohub_demo_audio.js

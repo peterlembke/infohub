@@ -17,13 +17,13 @@
  */
 function infohub_view() {
 
-    "use strict";
+    'use strict';
 
 // webworker=false
 // include "infohub_base.js"
 
     $functions.push('_Version');
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2018-04-15',
             'version': '1.0.3',
@@ -34,13 +34,12 @@ function infohub_view() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     $functions.push('_GetCmdFunctions');
-    const _GetCmdFunctions = function ()
-    {
+    const _GetCmdFunctions = function() {
         const $list = {
             'init': 'normal',
             'get_box_id': 'normal',
@@ -102,17 +101,16 @@ function infohub_view() {
      * @param $name
      */
     $functions.push('_Log');
-    const _Log = function ($in)
-    {
+    const _Log = function($in) {
         const $default = {
             'func': '_Log',
-            'message': ''
+            'message': '',
         };
         $in = _Default($default, $in);
 
         internal_Log({
             'level': 'error',
-            'message': $in.message, 'function_name': '_Log'
+            'message': $in.message, 'function_name': '_Log',
         });
 
         let $element = _GetNode('log');
@@ -122,7 +120,8 @@ function infohub_view() {
         }
 
         const $timeStamp = new Date().toISOString();
-        $element.innerHTML = $timeStamp + ' : ' + $in.func + ':' + $in.message + '<br>' + $element.innerHTML;
+        $element.innerHTML = $timeStamp + ' : ' + $in.func + ':' + $in.message +
+            '<br>' + $element.innerHTML;
     };
 
     /**
@@ -134,20 +133,20 @@ function infohub_view() {
      * @private
      */
     $functions.push('_BoxData');
-    const _BoxData = function ($in)
-    {
+    const _BoxData = function($in) {
         const $default = {
             'box_data': '',
-            'variables': {}
+            'variables': {},
         };
         $in = _Default($default, $in);
 
-        for (let $variableName in $in.variables)
-        {
+        for (let $variableName in $in.variables) {
             if ($in.variables.hasOwnProperty($variableName) === true) {
                 if ($variableName !== 'box_data') {
                     let $variableData = $in.variables[$variableName];
-                    $in.box_data = $in.box_data.replace(new RegExp('{' + $variableName + '}', 'gi'), $variableData);
+                    $in.box_data = $in.box_data.replace(
+                        new RegExp('{' + $variableName + '}', 'gi'),
+                        $variableData);
                     // gi = Global (all occurrences in the string), Ignore case.
                 }
             }
@@ -171,12 +170,11 @@ function infohub_view() {
      * @private
      */
     $functions.push('_GetBoxId');
-    const _GetBoxId = function ($id)
-    {
+    const _GetBoxId = function($id) {
         let $box = document;
 
         if ($id === '1101_menutitle') {
-            const $a=1; // For debug purposes
+            const $a = 1; // For debug purposes
         }
 
         if (Number($id) == $id) {
@@ -185,20 +183,18 @@ function infohub_view() {
 
         let $parts = $id.split('.');
 
-        for (let $partNumber in $parts)
-        {
+        for (let $partNumber in $parts) {
             if ($parts.hasOwnProperty($partNumber) === false) {
                 continue;
             }
 
             const $boxAlias = $parts[$partNumber];
 
-            if ($boxAlias.substr(0,1) === '[') {
+            if ($boxAlias.substr(0, 1) === '[') {
                 continue;
             }
 
-            if ($boxAlias === 'parent')
-            {
+            if ($boxAlias === 'parent') {
                 $box = $box.parentNode;
 
                 // If we have 123_my_textbox.parent, then we want 123.
@@ -241,8 +237,7 @@ function infohub_view() {
             }
 
             let $selected = null;
-            for (let $listItemNumber in $boxList)
-            {
+            for (let $listItemNumber in $boxList) {
                 if ($boxList.hasOwnProperty($listItemNumber) === false) {
                     continue;
                 }
@@ -275,8 +270,8 @@ function infohub_view() {
             $id = $box.getAttribute('id');
         }
 
-        const $partNumber = $parts.length -1;
-        if ($parts[$partNumber].substr(0,1) === '[') {
+        const $partNumber = $parts.length - 1;
+        if ($parts[$partNumber].substr(0, 1) === '[') {
             let $innerId = $parts[$partNumber];
             $innerId = $innerId.replace('[', '');
             $innerId = $innerId.replace(']', '');
@@ -299,8 +294,7 @@ function infohub_view() {
      * @private
      */
     $functions.push('_GetElement');
-    const _GetElement = function ($id)
-    {
+    const _GetElement = function($id) {
         let $parts = $id.split('.');
 
         if ($parts.length === 0) {
@@ -321,8 +315,7 @@ function infohub_view() {
             return '';
         }
 
-        for (let $partNumber in $parts)
-        {
+        for (let $partNumber in $parts) {
             if ($parts.hasOwnProperty($partNumber) === false) {
                 continue;
             }
@@ -357,16 +350,16 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('_GetBeforeBoxId');
-    const _GetBeforeBoxId = function ($in)
-    {
+    const _GetBeforeBoxId = function($in) {
         const $default = {
             'func': '_GetBeforeBoxId',
             'parent_box_id': '',
-            'box_position': 'first' // first, last, middle
+            'box_position': 'first', // first, last, middle
         };
         $in = _Merge($default, $in);
 
-        let $box, $children, $list = [], $nr, $message = '', $answer = 'false', $beforeBoxId;
+        let $box, $children, $list = [], $nr, $message = '', $answer = 'false',
+            $beforeBoxId;
 
         leave: {
             $box = _GetNode($in.parent_box_id);
@@ -424,7 +417,7 @@ function infohub_view() {
         return {
             'answer': $answer,
             'message': $message,
-            'before_box_id': $beforeBoxId
+            'before_box_id': $beforeBoxId,
         };
     };
 
@@ -437,8 +430,7 @@ function infohub_view() {
      * @private
      */
     $functions.push('_GetMaxWidth');
-    const _GetMaxWidth = function ($maxWidth)
-    {
+    const _GetMaxWidth = function($maxWidth) {
         let $answer = 'none';
 
         leave:
@@ -472,8 +464,7 @@ function infohub_view() {
      * @returns {HTMLElement}
      * @private
      */
-    const _GetNode = function ($id)
-    {
+    const _GetNode = function($id) {
         const $convertedId = _GetBoxId($id);
 
         const $node = document.getElementById($convertedId);
@@ -495,8 +486,7 @@ function infohub_view() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const init = function ($in)
-    {
+    const init = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -504,12 +494,12 @@ function infohub_view() {
         internal_Cmd({
             'func': 'Css',
             'id': 'infohub_view',
-            'css_data': _CssData()
+            'css_data': _CssData(),
         });
 
         return {
             'answer': 'true',
-            'message': 'Done initializing infohub_view'
+            'message': 'Done initializing infohub_view',
         };
     };
 
@@ -525,10 +515,9 @@ function infohub_view() {
      * @return bool
      */
     $functions.push('get_box_id');
-    const get_box_id = function ($in)
-    {
+    const get_box_id = function($in) {
         const $default = {
-            'box_id': '1'
+            'box_id': '1',
         };
         $in = _Default($default, $in);
 
@@ -537,7 +526,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': 'Here are the box_id',
-            'box_id': $in.box_id
+            'box_id': $in.box_id,
         };
     };
 
@@ -550,10 +539,9 @@ function infohub_view() {
      * @return bool
      */
     $functions.push('scroll_to_box_id');
-    const scroll_to_box_id = function ($in)
-    {
+    const scroll_to_box_id = function($in) {
         const $default = {
-            'box_id': '1'
+            'box_id': '1',
         };
         $in = _Default($default, $in);
 
@@ -575,17 +563,17 @@ function infohub_view() {
             window.scroll({
                 top: $newScrollY,
                 left: 0,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
 
             // document.location.hash = ''; // Leaves a # in the url. Instead use:
-            history.replaceState('', document.title, window.location.pathname);
+            history.replaceState('', document.title, window.location.pathname + window.location.search);
         }
 
         return {
             'answer': 'true',
             'message': 'Scrolled to this box_id',
-            'id': $in.box_id
+            'id': $in.box_id,
         };
     };
 
@@ -598,10 +586,9 @@ function infohub_view() {
      * @return bool
      */
     $functions.push('scroll_to_bottom_box_id');
-    const scroll_to_bottom_box_id = function ($in)
-    {
+    const scroll_to_bottom_box_id = function($in) {
         const $default = {
-            'box_id': '1'
+            'box_id': '1',
         };
         $in = _Default($default, $in);
 
@@ -612,7 +599,8 @@ function infohub_view() {
         const $boxHeight = $box.offsetHeight;
         const $viewPortHeight = document.documentElement.clientHeight;
 
-        let $newScrollY = $currentScrollY + $boxTopInViewPort + $boxHeight - $viewPortHeight;
+        let $newScrollY = $currentScrollY + $boxTopInViewPort + $boxHeight -
+            $viewPortHeight;
 
         if ($newScrollY < 0) {
             $newScrollY = 0;
@@ -623,16 +611,16 @@ function infohub_view() {
             window.scroll({
                 top: $newScrollY,
                 left: 0,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
 
-            history.replaceState('', document.title, window.location.pathname);
+            history.replaceState('', document.title, window.location.pathname + window.location.search);
         }
 
         return {
             'answer': 'true',
             'message': 'Now show this box_id lower edge to the viewport lower edge, if possible',
-            'id': $in.box_id
+            'id': $in.box_id,
         };
     };
 
@@ -647,12 +635,11 @@ function infohub_view() {
      * @return bool
      */
     $functions.push('box_mode');
-    const box_mode = function ($in)
-    {
+    const box_mode = function($in) {
         const $default = {
             'box_id': '1',
             'box_mode': 'under', // 'under', 'side'
-            'digits': '1'
+            'digits': '1',
         };
         $in = _Default($default, $in);
 
@@ -660,13 +647,12 @@ function infohub_view() {
             'func': 'BoxMode',
             'box_id': $in.box_id,
             'box_mode': $in.box_mode,
-            'digits': $in.digits
+            'digits': $in.digits,
         });
     };
 
     $functions.push('internal_BoxMode');
-    const internal_BoxMode = function ($in)
-    {
+    const internal_BoxMode = function($in) {
         let $message = '';
         let $done = 'false';
 
@@ -675,7 +661,7 @@ function infohub_view() {
             'box_id': '1',
             'box_mode': 'under', // 'under', 'side'
             'digits': '1',
-            'max_width': 0
+            'max_width': 0,
         };
         $in = _Default($default, $in);
 
@@ -689,12 +675,12 @@ function infohub_view() {
             const $oldMode = $box.getAttribute('box_mode');
 
             if ($oldMode === $in.box_mode) {
-                $message = 'You can not change box_mode to the same value. box_id:' + $in.box_id + ' mode:' + $in.box_mode;
+                $message = 'You can not change box_mode to the same value. box_id:' +
+                    $in.box_id + ' mode:' + $in.box_mode;
                 break leave;
             }
 
-            if ($in.box_mode === 'data')
-            {
+            if ($in.box_mode === 'data') {
                 $box.setAttribute('box_mode', 'data');
                 $box.innerHTML = '';
 
@@ -728,7 +714,8 @@ function infohub_view() {
                 $box.setAttribute('max_id', $maxId);
                 const $row = '<div id="' + $topId + '" class="end">end</div>';
                 $box.innerHTML = $row;
-                $message = 'Changed box mode from "data" to "' + $in.box_mode + '"';
+                $message = 'Changed box mode from "data" to "' + $in.box_mode +
+                    '"';
                 $done = 'true';
                 break leave;
             }
@@ -746,7 +733,8 @@ function infohub_view() {
                 }
             }
 
-            $message = 'Changed box mode from "' + $oldMode + '" to "' + $in.box_mode + '"';
+            $message = 'Changed box mode from "' + $oldMode + '" to "' +
+                $in.box_mode + '"';
             $done = 'true';
         }
 
@@ -760,7 +748,7 @@ function infohub_view() {
             'done': $done,
             'box_id': $in.box_id,
             'box_mode': $in.box_mode,
-            'digits': $in.digits
+            'digits': $in.digits,
         };
     };
 
@@ -772,16 +760,15 @@ function infohub_view() {
      * @param box_id
      */
     $functions.push('box_delete');
-    const box_delete = function ($in)
-    {
+    const box_delete = function($in) {
         const $default = {
-            'box_id': '1'
+            'box_id': '1',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'BoxDelete',
-            'box_id': $in.box_id
+            'box_id': $in.box_id,
         });
     };
 
@@ -794,14 +781,13 @@ function infohub_view() {
      * @returns {*}
      */
     $functions.push('internal_BoxDelete');
-    const internal_BoxDelete = function ($in)
-    {
+    const internal_BoxDelete = function($in) {
         let $message,
             $done = 'false';
 
         const $default = {
             'func': 'BoxDelete',
-            'box_id': '1'
+            'box_id': '1',
         };
         $in = _Default($default, $in);
 
@@ -828,7 +814,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': $message,
-            'done': $done
+            'done': $done,
         };
     };
 
@@ -840,16 +826,15 @@ function infohub_view() {
      * @param box_id
      */
     $functions.push('box_clear');
-    const box_clear = function ($in)
-    {
+    const box_clear = function($in) {
         const $default = {
-            'box_id': ''
+            'box_id': '',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'BoxClear',
-            'box_id': $in.box_id
+            'box_id': $in.box_id,
         });
     };
 
@@ -866,13 +851,12 @@ function infohub_view() {
      * @returns {*}
      */
     $functions.push('internal_BoxClear');
-    const internal_BoxClear = function ($in)
-    {
+    const internal_BoxClear = function($in) {
         let $message = '',
             $answer = 'false';
 
         const $default = {
-            'box_id': ''
+            'box_id': '',
         };
         $in = _Default($default, $in);
 
@@ -897,12 +881,14 @@ function infohub_view() {
             if ($in.box_mode === 'data') {
                 $box.innerHTML = '';
                 $answer = 'true';
-                $message = 'Successfully cleared the data box with id:' + $in.box_id + ', box_alias:' + $in.box_alias;
+                $message = 'Successfully cleared the data box with id:' +
+                    $in.box_id + ', box_alias:' + $in.box_alias;
                 break leave;
             }
 
             if ($in.box_mode !== 'side' && $in.box_mode !== 'under') {
-                $message = 'This box_id:' + $in.box_id + ', box_alias:' + $in.box_alias + ', are missing box_mode. Can not continue.';
+                $message = 'This box_id:' + $in.box_id + ', box_alias:' +
+                    $in.box_alias + ', are missing box_mode. Can not continue.';
                 break leave;
             }
 
@@ -915,12 +901,13 @@ function infohub_view() {
             }
 
             $answer = 'true';
-            $message = 'Removed all child boxes from box_id:' + $in.box_id + ', box_alias:' + $in.box_alias;
+            $message = 'Removed all child boxes from box_id:' + $in.box_id +
+                ', box_alias:' + $in.box_alias;
         }
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -931,8 +918,7 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('box_insert');
-    const box_insert = function ($in)
-    {
+    const box_insert = function($in) {
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -941,14 +927,14 @@ function infohub_view() {
             'box_data': '', // The data you want in your box
             'box_alias': 'a_new_box', // The alias you want on your new box
             'max_width': 0, // The maximum width on a box with mode=data
-            'css_all': {} // 'plugin_name': 'css-data'
+            'css_all': {}, // 'plugin_name': 'css-data'
         };
         $in = _Default($default, $in);
 
         if (_Empty($in.css_all) === 'false') {
             internal_Cmd({
                 'func': 'CssAll',
-                'css_all': $in.css_all
+                'css_all': $in.css_all,
             });
         }
 
@@ -960,7 +946,7 @@ function infohub_view() {
             'box_mode': $in.box_mode,
             'box_data': $in.box_data,
             'box_alias': $in.box_alias,
-            'max_width': $in.max_width
+            'max_width': $in.max_width,
         });
     };
 
@@ -973,8 +959,7 @@ function infohub_view() {
      * @param box_data
      */
     $functions.push('boxes_insert');
-    const boxes_insert = function ($in)
-    {
+    const boxes_insert = function($in) {
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -982,7 +967,7 @@ function infohub_view() {
             'box_mode': 'data',
             'boxes_data': {}, // An object with data for each box
             'max_width': 0, // The maximum width on a box with mode=data
-            'css_all': {}
+            'css_all': {},
         };
         $in = _Default($default, $in);
 
@@ -1002,8 +987,7 @@ function infohub_view() {
      * @returns {*}
      */
     $functions.push('internal_BoxesInsert');
-    const internal_BoxesInsert = function ($in)
-    {
+    const internal_BoxesInsert = function($in) {
         const $default = {
             'parent_box_id': '', // Parent box id.
             'before_box_id': '', // Where to place your new box (optional)
@@ -1011,20 +995,19 @@ function infohub_view() {
             'box_mode': 'data',
             'boxes_data': {}, // An object with data for each box
             'max_width': 0, // The maximum width on a box with mode=data
-            'css_all': {}
+            'css_all': {},
         };
         $in = _Default($default, $in);
 
         internal_Cmd({
             'func': 'CssAll',
-            'css_all': $in.css_all
+            'css_all': $in.css_all,
         });
         $in.css_all = {};
 
         let $response = {};
 
-        for (let $key in $in.boxes_data)
-        {
+        for (let $key in $in.boxes_data) {
             if ($in.boxes_data.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -1039,7 +1022,7 @@ function infohub_view() {
                 'box_mode': $in.box_mode,
                 'box_data': $in.box_data,
                 'box_alias': $key,
-                'max_width': $in.max_width
+                'max_width': $in.max_width,
             });
 
             if ($response.answer === 'false') {
@@ -1050,7 +1033,6 @@ function infohub_view() {
         return $response;
     };
 
-
     /**
      * Insert new boxes, fully detailed boxes
      * @version 2018-04-15
@@ -1059,17 +1041,16 @@ function infohub_view() {
      * @param $in
      */
     $functions.push('boxes_insert_detailed');
-    const boxes_insert_detailed = function ($in)
-    {
+    const boxes_insert_detailed = function($in) {
         const $default = {
             'items': [],
-            'css_all': {}
+            'css_all': {},
         };
         $in = _Default($default, $in);
 
         internal_Cmd({
             'func': 'CssAll',
-            'css_all': $in.css_all
+            'css_all': $in.css_all,
         });
         $in.css_all = {};
 
@@ -1080,15 +1061,14 @@ function infohub_view() {
             'box_mode': 'data',
             'box_data': '',
             'box_alias': '',
-            'max_width': 0
+            'max_width': 0,
         };
 
         const $itemsCount = $in.items.length;
 
         let $response;
 
-        for (let $i=0; $i < $itemsCount; $i = $i + 1)
-        {
+        for (let $i = 0; $i < $itemsCount; $i = $i + 1) {
             const $item = _Default($itemDefault, $in.items[$i]);
 
             $response = internal_Cmd({
@@ -1099,7 +1079,7 @@ function infohub_view() {
                 'box_mode': $item.box_mode,
                 'box_data': $item.box_data,
                 'box_alias': $item.box_alias,
-                'max_width': $item.max_width
+                'max_width': $item.max_width,
             });
 
             if ($response.answer === 'false') {
@@ -1118,15 +1098,13 @@ function infohub_view() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_CssAll');
-    const internal_CssAll = function ($in)
-    {
+    const internal_CssAll = function($in) {
         const $default = {
-            'css_all': {}
+            'css_all': {},
         };
         $in = _Default($default, $in);
 
-        for (let $key in $in.css_all)
-        {
+        for (let $key in $in.css_all) {
             if ($in.css_all.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -1134,13 +1112,13 @@ function infohub_view() {
             internal_Cmd({
                 'func': 'Css',
                 'id': $key,
-                'css_data': $in.css_all[$key]
+                'css_data': $in.css_all[$key],
             });
 
         }
         return {
             'answer': 'true',
-            'message': 'Added all CSS data'
+            'message': 'Added all CSS data',
         };
     };
 
@@ -1150,8 +1128,7 @@ function infohub_view() {
      * @returns {*}
      */
     $functions.push('internal_BoxInsert');
-    const internal_BoxInsert = function ($in)
-    {
+    const internal_BoxInsert = function($in) {
         let $default = {
             'func': 'BoxInsert',
             'parent_box_id': '', // Parent box id.
@@ -1162,7 +1139,7 @@ function infohub_view() {
             'box_alias': 'a_new_box', // The alias you want on your new box
             'max_width': 0, // The maximum width on a box with mode=data
             'digits': '2',
-            'variables': {} // Variables to insert into box_data
+            'variables': {}, // Variables to insert into box_data
         };
         $in = _Default($default, $in);
 
@@ -1178,12 +1155,11 @@ function infohub_view() {
 
         leave: {
             // Do we have the before box id ?
-            if ($in.before_box_id === '')
-            {
+            if ($in.before_box_id === '') {
                 $response = internal_Cmd({
                     'func': 'GetBeforeBoxId',
                     'parent_box_id': $in.parent_box_id,
-                    'box_position': $in.box_position
+                    'box_position': $in.box_position,
                 });
                 if ($response.answer === 'false') {
                     $message = $response.message;
@@ -1194,7 +1170,8 @@ function infohub_view() {
 
             let $parent = _GetNode($in.parent_box_id);
             if (!$parent) {
-                $message = 'parent_box_id="' + $in.parent_box_id + '" was not found in DOM';
+                $message = 'parent_box_id="' + $in.parent_box_id +
+                    '" was not found in DOM';
                 break leave;
             }
 
@@ -1217,7 +1194,8 @@ function infohub_view() {
                 break leave;
             }
 
-            const $parentTopId = parseInt($parent.getAttribute('top_id'), 10) + 1;
+            const $parentTopId = parseInt($parent.getAttribute('top_id'), 10) +
+                1;
             const $parentMaxId = parseInt($parent.getAttribute('max_id'), 10);
             if ($parentTopId > $parentMaxId) {
                 $message = 'Parent box do not accept more child boxes';
@@ -1236,7 +1214,8 @@ function infohub_view() {
 
             const $beforeBox = _GetNode($in.before_box_id);
             if (!$beforeBox) {
-                $message = 'Could not find beforeBox with ID:' + $in.before_box_id;
+                $message = 'Could not find beforeBox with ID:' +
+                    $in.before_box_id;
                 break leave;
             }
             $list.insertBefore($newItem, $beforeBox);
@@ -1252,18 +1231,16 @@ function infohub_view() {
                     'func': 'BoxMode',
                     'box_id': $parentTopId.toString(),
                     'box_mode': $in.box_mode,
-                    'digits': $in.digits
+                    'digits': $in.digits,
                 });
             }
 
-            if ($in.box_mode === 'data')
-            {
+            if ($in.box_mode === 'data') {
                 if ($in.max_width > 0) {
                     $newItem.style.maxWidth = _GetMaxWidth($in.max_width);
                 }
 
-                if ($in.box_data !== '')
-                {
+                if ($in.box_data !== '') {
                     let $anchor = '';
 
                     // If this is a data box and we have data then store the data in the new box
@@ -1276,11 +1253,10 @@ function infohub_view() {
 
                     $newItem.innerHTML = $anchor + _BoxData({
                         'box_data': $in.box_data,
-                        'variables': $in.variables
+                        'variables': $in.variables,
                     });
                 }
             }
-
 
             // Store the new box_id back to the parent and return it
             $parent.setAttribute('top_id', $parentTopId.toString());
@@ -1297,7 +1273,7 @@ function infohub_view() {
         return {
             'answer': $answer,
             'message': $message,
-            'box_id': $in.box_id
+            'box_id': $in.box_id,
         };
     };
 
@@ -1311,18 +1287,17 @@ function infohub_view() {
      * @param box_view
      */
     $functions.push('box_view');
-    const box_view = function ($in)
-    {
+    const box_view = function($in) {
         const $default = {
             'box_id': '1',
-            'box_view': '1'
+            'box_view': '1',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'BoxView',
             'box_id': $in.box_id,
-            'box_view': $in.box_view
+            'box_view': $in.box_view,
         });
     };
 
@@ -1336,11 +1311,10 @@ function infohub_view() {
      * @param box_view
      */
     $functions.push('internal_BoxView');
-    const internal_BoxView = function ($in)
-    {
+    const internal_BoxView = function($in) {
         const $default = {
             'box_id': '0',
-            'box_view': '1'
+            'box_view': '1',
         };
         $in = _Default($default, $in);
 
@@ -1377,7 +1351,7 @@ function infohub_view() {
             'answer': $answer,
             'message': $message,
             'box_id': $in.box_id,
-            'box_view': $in.box_view
+            'box_view': $in.box_view,
         };
     };
 
@@ -1392,12 +1366,11 @@ function infohub_view() {
      * @param siblings_box_view "1"=visible or "0"=hidden, Nothing = opposite to box_view
      */
     $functions.push('siblings_box_view');
-    const siblings_box_view = function ($in)
-    {
+    const siblings_box_view = function($in) {
         const $default = {
             'box_id': '1', // Can be the box_id or the full friendly name box id
             'box_view': '1', // 0 = hide, 1= show
-            'siblings_box_view': '' // All the siblings to box_id can be set to 0 or 1 or nothing.
+            'siblings_box_view': '', // All the siblings to box_id can be set to 0 or 1 or nothing.
         };
         $in = _Default($default, $in);
 
@@ -1405,7 +1378,7 @@ function infohub_view() {
             'func': 'SiblingsBoxView',
             'box_id': $in.box_id,
             'box_view': $in.box_view,
-            'siblings_box_view': $in.siblings_box_view
+            'siblings_box_view': $in.siblings_box_view,
         });
 
     };
@@ -1420,13 +1393,12 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('internal_SiblingsBoxView');
-    const internal_SiblingsBoxView = function ($in)
-    {
+    const internal_SiblingsBoxView = function($in) {
         const $default = {
             'func': 'SiblingsBoxView',
             'box_id': '1',
             'box_view': '1',
-            'siblings_box_view': ''
+            'siblings_box_view': '',
         };
         $in = _Default($default, $in);
 
@@ -1460,15 +1432,14 @@ function infohub_view() {
 
             $response = internal_Cmd({
                 'func': 'BoxList',
-                'box_id': $in.parent_box_id
+                'box_id': $in.parent_box_id,
             });
             if ($response.answer === 'false') {
                 $message = $response.message;
                 break leave;
             }
 
-            for ($alias in $response.index)
-            {
+            for ($alias in $response.index) {
                 if ($response.index.hasOwnProperty($alias) === false) {
                     continue;
                 }
@@ -1482,7 +1453,7 @@ function infohub_view() {
                 internal_Cmd({
                     'func': 'BoxView',
                     'box_id': $boxId,
-                    'box_view': $boxView
+                    'box_view': $boxView,
                 });
             }
 
@@ -1495,7 +1466,7 @@ function infohub_view() {
             'message': $message,
             'box_view': $in.box_view,
             'siblings_box_view': $in.siblings_box_view,
-            'parent_box_id': $in.parent_box_id
+            'parent_box_id': $in.parent_box_id,
         };
     };
 
@@ -1509,16 +1480,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('box_list');
-    const box_list = function ($in)
-    {
+    const box_list = function($in) {
         const $default = {
-            'box_id': '0'
+            'box_id': '0',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'BoxList',
-            'box_id': $in.box_id
+            'box_id': $in.box_id,
         });
     };
 
@@ -1532,15 +1502,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('internal_BoxList');
-    const internal_BoxList = function ($in)
-    {
+    const internal_BoxList = function($in) {
         const $default = {
             'func': 'BoxList',
-            'box_id': '0'
+            'box_id': '0',
         };
         $in = _Default($default, $in);
 
-        let $answer = 'false', $message = '', $boxMode, $box, $alias, $index = {};
+        let $answer = 'false', $message = '', $boxMode, $box, $alias,
+            $index = {};
 
         leave: {
 
@@ -1583,7 +1553,7 @@ function infohub_view() {
             'answer': $answer,
             'message': $message,
             'box_id': $in.box_id,
-            'index': $index
+            'index': $index,
         };
     };
 
@@ -1597,15 +1567,14 @@ function infohub_view() {
      * @param box_data
      */
     $functions.push('box_data');
-    const box_data = function ($in)
-    {
+    const box_data = function($in) {
         const $default = {
             'box_id': '0',
             'box_data': '',
             'max_width': 0,
             'variables': {},
             'mode': 'substitute', // add_first / add_last / substitute
-            'throw_error_if_box_is_missing': 'true'
+            'throw_error_if_box_is_missing': 'true',
         };
         $in = _Default($default, $in);
 
@@ -1616,7 +1585,7 @@ function infohub_view() {
             'max_width': $in.max_width,
             'variables': $in.variables,
             'mode': $in.mode,
-            'throw_error_if_box_is_missing': $in.throw_error_if_box_is_missing
+            'throw_error_if_box_is_missing': $in.throw_error_if_box_is_missing,
         });
     };
 
@@ -1630,15 +1599,14 @@ function infohub_view() {
      * @param box_data
      */
     $functions.push('internal_BoxData');
-    const internal_BoxData = function ($in)
-    {
+    const internal_BoxData = function($in) {
         const $default = {
             'box_id': '0',
             'box_data': '',
             'max_width': 0,
             'variables': {},
             'mode': 'substitute', // add_first / add_last / substitute
-            'throw_error_if_box_is_missing': 'true'
+            'throw_error_if_box_is_missing': 'true',
         };
         $in = _Default($default, $in);
 
@@ -1672,7 +1640,7 @@ function infohub_view() {
                 internal_Cmd({
                     'func': 'BoxMode',
                     'box_id': $in.box_id,
-                    'box_mode': 'data'
+                    'box_mode': 'data',
                 });
 
                 // $message = 'Only div box in box_mode="data" can store data';
@@ -1696,7 +1664,7 @@ function infohub_view() {
 
             $boxData = _BoxData({
                 'box_data': $in.box_data,
-                'variables': $in.variables
+                'variables': $in.variables,
             });
 
             if ($in.mode === 'substitute') {
@@ -1723,7 +1691,7 @@ function infohub_view() {
         return {
             'answer': $answer,
             'message': $message,
-            'box_found': $boxFound
+            'box_found': $boxFound,
         };
     };
 
@@ -1737,18 +1705,17 @@ function infohub_view() {
      * @param to_box_id
      */
     $functions.push('box_copy');
-    const box_copy = function ($in)
-    {
+    const box_copy = function($in) {
         const $default = {
             'from_box_id': '1',
-            'to_box_id': '2'
+            'to_box_id': '2',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'BoxCopy',
             'from_box_id': $in.from_box_id,
-            'to_box_id': $in.to_box_id
+            'to_box_id': $in.to_box_id,
         });
     };
 
@@ -1762,12 +1729,11 @@ function infohub_view() {
      * @param to_box_id
      */
     $functions.push('internal_BoxCopy');
-    const internal_BoxCopy = function ($in)
-    {
+    const internal_BoxCopy = function($in) {
         const $default = {
             'func': 'BoxCopy',
             'from_box_id': '1',
-            'to_box_id': '2'
+            'to_box_id': '2',
         };
         $in = _Default($default, $in);
 
@@ -1779,7 +1745,8 @@ function infohub_view() {
         leave: {
             $boxFrom = _GetNode($in.from_box_id);
             if (!$boxFrom) {
-                $message = 'Can not find box with from_box_id=' + $in.from_box_id;
+                $message = 'Can not find box with from_box_id=' +
+                    $in.from_box_id;
                 break leave;
             }
 
@@ -1802,7 +1769,8 @@ function infohub_view() {
             $boxTo.innerHTML = $boxFrom.innerHTML;
 
             $answer = 'true';
-            $message = 'Copied from box_id:' + $in.from_box_id + ' to box_id:' + $in.to_box_id;
+            $message = 'Copied from box_id:' + $in.from_box_id + ' to box_id:' +
+                $in.to_box_id;
         }
 
         if ($answer === 'false') {
@@ -1811,7 +1779,7 @@ function infohub_view() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -1824,18 +1792,17 @@ function infohub_view() {
      * @param to_box_id
      */
     $functions.push('data_copy');
-    const data_copy = function ($in)
-    {
+    const data_copy = function($in) {
         const $default = {
             'from_box_id': '1',
-            'to_box_id': '2'
+            'to_box_id': '2',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'DataCopy',
             'from_box_id': $in.from_box_id,
-            'to_box_id': $in.to_box_id
+            'to_box_id': $in.to_box_id,
         });
     };
 
@@ -1849,13 +1816,12 @@ function infohub_view() {
      * @param to_box_id
      */
     $functions.push('internal_DataCopy');
-    const internal_DataCopy = function ($in)
-    {
+    const internal_DataCopy = function($in) {
         const $default = {
             'func': 'DataCopy',
             'from_box_id': '1',
             'to_box_id': '2',
-            'throw_error_if_box_is_missing': 'false'
+            'throw_error_if_box_is_missing': 'false',
         };
 
         $in = _Default($default, $in);
@@ -1868,7 +1834,8 @@ function infohub_view() {
         leave: {
             $boxFrom = _GetNode($in.from_box_id);
             if (!$boxFrom) {
-                $message = 'Can not find box with from_box_id=' + $in.from_box_id;
+                $message = 'Can not find box with from_box_id=' +
+                    $in.from_box_id;
                 if ($in.throw_error_if_box_is_missing === 'false') {
                     $answer = 'true';
                 }
@@ -1888,7 +1855,8 @@ function infohub_view() {
 
             $data = _ReadProperty($boxFrom, 'innerHTML', $data);
             if (_Empty($data.innerHTML) === 'false') {
-                const $html = _Replace($in.from_box_id, $in.to_box_id, $data.innerHTML);
+                const $html = _Replace($in.from_box_id, $in.to_box_id,
+                    $data.innerHTML);
                 $boxTo.innerHTML = $html;
             }
 
@@ -1898,7 +1866,8 @@ function infohub_view() {
             }
 
             $answer = 'true';
-            $message = 'Copied from box_id:' + $in.from_box_id + ' to box_id:' + $in.to_box_id;
+            $message = 'Copied from box_id:' + $in.from_box_id + ' to box_id:' +
+                $in.to_box_id;
         }
 
         if ($answer === 'false') {
@@ -1907,7 +1876,7 @@ function infohub_view() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -1922,12 +1891,11 @@ function infohub_view() {
      * @param $in
      */
     $functions.push('internal_GetBeforeBoxId');
-    const internal_GetBeforeBoxId = function ($in)
-    {
+    const internal_GetBeforeBoxId = function($in) {
         const $default = {
             'func': 'GetBeforeBoxId',
             'parent_box_id': '',
-            'box_position': 'first'
+            'box_position': 'first',
         };
         $in = _Default($default, $in);
 
@@ -1970,7 +1938,7 @@ function infohub_view() {
         return {
             'answer': $answer,
             'message': $message,
-            'before_box_id': $beforeBoxId
+            'before_box_id': $beforeBoxId,
         };
     };
 
@@ -1981,12 +1949,11 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('modify_class');
-    const modify_class = function ($in)
-    {
+    const modify_class = function($in) {
         const $default = {
             'id': '', // ID of the box
             'class': 'yes', // The class name
-            'cmd': 'add' // 'add' or 'remove' or 'switch' between add/remove
+            'cmd': 'add', // 'add' or 'remove' or 'switch' between add/remove
         };
         $in = _Default($default, $in);
 
@@ -1994,7 +1961,7 @@ function infohub_view() {
             'func': 'ModifyClass',
             'id': $in.id,
             'class': $in.class,
-            'cmd': $in.cmd
+            'cmd': $in.cmd,
         });
     };
 
@@ -2006,12 +1973,11 @@ function infohub_view() {
      * @param $in
      */
     $functions.push('internal_ModifyClass');
-    const internal_ModifyClass = function ($in)
-    {
+    const internal_ModifyClass = function($in) {
         const $default = {
             'id': '', // ID of the object to modify
             'class': 'yes', // The class name
-            'cmd': 'add' // 'add' or 'remove' or 'switch'
+            'cmd': 'add', // 'add' or 'remove' or 'switch'
         };
         $in = _Default($default, $in);
 
@@ -2031,7 +1997,8 @@ function infohub_view() {
                 $message = 'added';
                 if ($index > -1) {
                     $answer = 'true';
-                    $message = 'Class "' + $in.class + '" was already ' + $message;
+                    $message = 'Class "' + $in.class + '" was already ' +
+                        $message;
                     break leave;
                 }
                 $names.push($in.class);
@@ -2041,7 +2008,8 @@ function infohub_view() {
                 $message = 'removed';
                 if ($index === -1) {
                     $answer = 'true';
-                    $message = 'Class "' + $in.class + '" was already ' + $message;
+                    $message = 'Class "' + $in.class + '" was already ' +
+                        $message;
                     break leave;
                 }
                 $names.splice($index, 1);
@@ -2067,35 +2035,34 @@ function infohub_view() {
             'message': $message,
             'id': $in.id,
             'class': $in.class,
-            'cmd': $in.cmd
+            'cmd': $in.cmd,
         };
     };
 
     /**
-     * Adds a link tag in the page head,
-     * The link contain all CSS needed for the plugin mentioned in 'id'
+     * Adds a style tag in the page head,
+     * The style contain all CSS needed for the plugin mentioned in 'id'
      * Used by: CssAll
      * @since 2017-10-05
      * @param $in
      */
     $functions.push('internal_Css');
-    const internal_Css = function ($in)
-    {
+    const internal_Css = function($in) {
         const $default = {
             'id': '', // plugin name: example infohub_render_video
-            'css_data': '' // The css data encoded as base64 text
+            'css_data': '', // The css data encoded as base64 text
         };
         $in = _Default($default, $in);
 
         let $message,
-            $addedLink = 'false';
+            $addedStyle = 'false';
 
         leave: {
-            let $linkElements = document.getElementsByTagName("link");
-            let $link = $linkElements.namedItem($in.id);
+            let $styleElements = document.getElementsByTagName('style');
+            let $style = $styleElements.namedItem($in.id);
 
-            if ($link !== null) {
-                $message = 'There already exist a link with that id';
+            if ($style !== null) {
+                $message = 'There already exist a style with that id';
                 break leave;
             }
 
@@ -2109,21 +2076,23 @@ function infohub_view() {
                 break leave;
             }
 
-            $link = document.createElement('link');
-            $link.rel = 'stylesheet';
-            $link.type = 'text/css';
-            $link.id = $in.id;
-            $link.href = 'data:text/css;base64,' + $in.css_data;
-            document.getElementsByTagName('head')[0].appendChild($link);
+            $style = document.createElement('style');
+            $style.id = $in.id;
+            $style.type = 'text/css';
+            let $cssPlainData = atob($in.css_data);
+            $style.appendChild(document.createTextNode($cssPlainData));
+            let $head = document.getElementsByTagName('head')[0];
+            $head.appendChild($style);
 
-            $message = 'Link is added';
-            $addedLink = 'true';
+            $message = 'Style is added';
+            $addedStyle = 'true';
         }
 
         return {
             'answer': 'true',
             'message': $message,
-            'added_link': $addedLink
+            'added_link': $addedStyle,
+            'added_style': $addedStyle
         };
     };
 
@@ -2135,16 +2104,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('set_favicon');
-    const set_favicon = function ($in)
-    {
+    const set_favicon = function($in) {
         const $default = {
-            'image_data': '' // The PNG image data encoded as base64 text
+            'image_data': '', // The PNG image data encoded as base64 text
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'SetFavicon',
-            'image_data': $in.image_data
+            'image_data': $in.image_data,
         });
     };
 
@@ -2154,10 +2122,9 @@ function infohub_view() {
      * @param $in
      */
     $functions.push('internal_SetFavicon');
-    const internal_SetFavicon = function ($in)
-    {
+    const internal_SetFavicon = function($in) {
         const $default = {
-            'image_data': '' // The image data encoded as base64 text
+            'image_data': '', // The image data encoded as base64 text
         };
         $in = _Default($default, $in);
 
@@ -2171,7 +2138,7 @@ function infohub_view() {
                 break leave;
             }
 
-            let $linkElements = document.getElementsByTagName("link");
+            let $linkElements = document.getElementsByTagName('link');
             let $link = $linkElements.namedItem('favicon');
             if ($link === null) {
                 $link = document.createElement('link');
@@ -2197,7 +2164,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'link_inserted': $linkInserted,
-            'favicon_set': $faviconSet
+            'favicon_set': $faviconSet,
         };
     };
 
@@ -2208,18 +2175,17 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('set_text');
-    const set_text = function ($in)
-    {
+    const set_text = function($in) {
         const $default = {
             'id': '', // Id for an object
-            'text': '' // Text you want to insert into the object
+            'text': '', // Text you want to insert into the object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'SetText',
             'id': $in.id,
-            'text': $in.text
+            'text': $in.text,
         });
     };
 
@@ -2230,11 +2196,10 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_SetText');
-    const internal_SetText = function ($in)
-    {
+    const internal_SetText = function($in) {
         const $default = {
             'id': '', // Id for an object
-            'text': '' // Text you want to insert into the object
+            'text': '', // Text you want to insert into the object
         };
         $in = _Default($default, $in);
 
@@ -2251,7 +2216,8 @@ function infohub_view() {
 
             const $nodeName = $element.nodeName.toLowerCase();
 
-            if ($nodeName === 'span' || $nodeName === 'div' || $nodeName === 'p') {
+            if ($nodeName === 'span' || $nodeName === 'div' || $nodeName ===
+                'p') {
                 $element.innerHTML = $in.text;
                 $message = 'Updated the inner HTML on this object';
                 $updated = 'true';
@@ -2297,7 +2263,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'type': $type,
-            'updated': $updated
+            'updated': $updated,
         };
     };
 
@@ -2308,16 +2274,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('get_text');
-    const get_text = function ($in)
-    {
+    const get_text = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'GetText',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -2327,10 +2292,9 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_GetText');
-    const internal_GetText = function ($in)
-    {
+    const internal_GetText = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
@@ -2347,7 +2311,8 @@ function infohub_view() {
 
             const $nodeName = $element.nodeName.toLowerCase();
 
-            if (($nodeName !== 'input' && $nodeName !== 'textarea') || typeof $element.type === 'undefined') {
+            if (($nodeName !== 'input' && $nodeName !== 'textarea') ||
+                typeof $element.type === 'undefined') {
                 $text = $element.innerText;
                 $message = 'Got the HTML from this object';
                 break leave;
@@ -2365,7 +2330,7 @@ function infohub_view() {
             $useValue = ['textarea'];
             if ($useValue.indexOf($type) >= 0) {
                 $text = $element.innerHTML;
-                $text = _Replace('<br>', "\n", $text);
+                $text = _Replace('<br>', '\n', $text);
                 $message = 'Got the value from this input object';
                 break leave;
             }
@@ -2378,7 +2343,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'type': $type,
-            'text': $text
+            'text': $text,
         };
     };
 
@@ -2389,16 +2354,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('get_html');
-    const get_html = function ($in)
-    {
+    const get_html = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'GetHtml',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -2408,10 +2372,9 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_GetHtml');
-    const internal_GetHtml = function ($in)
-    {
+    const internal_GetHtml = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
 
         $in = _Default($default, $in);
@@ -2435,7 +2398,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': $message,
-            'html': $html
+            'html': $html,
         };
     };
 
@@ -2446,12 +2409,11 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('zoom_level');
-    const zoom_level = function ($in)
-    {
+    const zoom_level = function($in) {
         const $default = {
             'current_zoom_level': 0,
             'zoom_level': 0,
-            'multiplier': 0.0
+            'multiplier': 0.0,
         };
         $in = _Default($default, $in);
 
@@ -2459,7 +2421,7 @@ function infohub_view() {
             'func': 'ZoomLevel',
             'current_zoom_level': $in.current_zoom_level,
             'zoom_level': $in.zoom_level,
-            'multiplier': $in.multiplier
+            'multiplier': $in.multiplier,
         });
     };
 
@@ -2472,15 +2434,14 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_ZoomLevel');
-    const internal_ZoomLevel = function ($in)
-    {
+    const internal_ZoomLevel = function($in) {
         let $zoomLevel = 100, // Percent
             $currentZoomLevel = 100;
 
         const $default = {
             'current_zoom_level': 0, // Use when you know the current zoom level
             'zoom_level': 0, // Use when you want to set a pre defined zoom level
-            'multiplier': 0.0 // Use when you want to increase (1.1) or decrease (0.9) the current zoom level
+            'multiplier': 0.0, // Use when you want to increase (1.1) or decrease (0.9) the current zoom level
         };
         $in = _Default($default, $in);
 
@@ -2497,7 +2458,7 @@ function infohub_view() {
             $zoomLevel = $currentZoomLevel * $in.multiplier;
         }
 
-        if ($in.zoom_level > 0 ) {
+        if ($in.zoom_level > 0) {
             $zoomLevel = $in.zoom_level;
         }
 
@@ -2511,7 +2472,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': 'Document zoom level is set',
-            'new_zoom_level': $zoomLevel
+            'new_zoom_level': $zoomLevel,
         };
     };
 
@@ -2522,13 +2483,12 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('style');
-    const style = function ($in)
-    {
+    const style = function($in) {
         const $default = {
             'entity': 'body',
             'data': '',
             'value': '',
-            'suffix': ''
+            'suffix': '',
         };
         $in = _Default($default, $in);
 
@@ -2537,7 +2497,7 @@ function infohub_view() {
             'entity': $in.entity,
             'data': $in.data,
             'value': $in.value,
-            'suffix': $in.suffix
+            'suffix': $in.suffix,
         });
     };
 
@@ -2550,13 +2510,12 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_Style');
-    const internal_Style = function ($in)
-    {
+    const internal_Style = function($in) {
         const $default = {
             'entity': '',
             'data': '',
             'value': '',
-            'suffix': ''
+            'suffix': '',
         };
         $in = _Default($default, $in);
 
@@ -2564,7 +2523,7 @@ function infohub_view() {
 
         return {
             'answer': 'true',
-            'message': 'Entity style set'
+            'message': 'Entity style set',
         };
     };
 
@@ -2575,16 +2534,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('is_visible');
-    const is_visible = function ($in)
-    {
+    const is_visible = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'IsVisible',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -2595,10 +2553,9 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_IsVisible');
-    const internal_IsVisible = function ($in)
-    {
+    const internal_IsVisible = function($in) {
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
@@ -2625,7 +2582,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'id': $in.id,
-            'visible': $visible
+            'visible': $visible,
         };
     };
 
@@ -2636,18 +2593,17 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('set_visible');
-    const set_visible = function ($in)
-    {
+    const set_visible = function($in) {
         const $default = {
             'id': '', // Id for an object
-            'set_visible': '' // 'true', 'false', 'switch', empty string
+            'set_visible': '', // 'true', 'false', 'switch', empty string
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'SetVisible',
             'id': $in.id,
-            'set_visible': $in.set_visible
+            'set_visible': $in.set_visible,
         });
     };
 
@@ -2659,12 +2615,11 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_SetVisible');
-    const internal_SetVisible = function ($in)
-    {
+    const internal_SetVisible = function($in) {
         const $default = {
             'id': '',
             'set_visible': '', // 'true', 'false', 'switch'
-            'block_type_visible': 'block' // block, inline-block, flex, inline-flex or leave blank
+            'block_type_visible': 'block', // block, inline-block, flex, inline-flex or leave blank
         };
         $in = _Default($default, $in);
 
@@ -2681,8 +2636,7 @@ function infohub_view() {
                 $in.block_type_visible = 'inline-block'; // See infohub_view.css
             }
 
-            if ($in.set_visible === 'switch')
-            {
+            if ($in.set_visible === 'switch') {
                 $data = 'none';
                 $message = 'Object is now hidden';
                 $isVisible = 'false';
@@ -2728,7 +2682,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'id': $in.id,
-            'is_visible': $isVisible
+            'is_visible': $isVisible,
         };
     };
 
@@ -2739,16 +2693,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('is_enabled');
-    const is_enabled = function ($in)
-    {
+    const is_enabled = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'IsEnabled',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -2758,10 +2711,9 @@ function infohub_view() {
      * @returns {*}
      */
     $functions.push('internal_IsEnabled');
-    const internal_IsEnabled = function ($in)
-    {
+    const internal_IsEnabled = function($in) {
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
@@ -2787,7 +2739,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'id': $in.id,
-            'is_enabled': $enabled
+            'is_enabled': $enabled,
         };
     };
 
@@ -2798,18 +2750,17 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('set_enabled');
-    const set_enabled = function ($in)
-    {
+    const set_enabled = function($in) {
         const $default = {
             'id': '', // Id for an object
-            'set_enabled': 'true' // 'true', 'false', 'switch'
+            'set_enabled': 'true', // 'true', 'false', 'switch'
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'SetEnabled',
             'id': $in.id,
-            'set_enabled': $in.set_enabled
+            'set_enabled': $in.set_enabled,
         });
     };
 
@@ -2821,11 +2772,10 @@ function infohub_view() {
      * @returns {boolean}
      */
     $functions.push('internal_SetEnabled');
-    const internal_SetEnabled = function ($in)
-    {
+    const internal_SetEnabled = function($in) {
         const $default = {
             'id': '',
-            'set_enabled': 'true' // 'true', 'false', 'switch'
+            'set_enabled': 'true', // 'true', 'false', 'switch'
         };
         $in = _Default($default, $in);
 
@@ -2839,8 +2789,7 @@ function infohub_view() {
                 break leave;
             }
 
-            if ($in.set_enabled === 'switch')
-            {
+            if ($in.set_enabled === 'switch') {
                 let $setDisabled = true;
                 $message = 'Object is now disabled';
                 $isEnabled = 'false';
@@ -2878,7 +2827,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'id': $in.id,
-            'is_enabled': $isEnabled
+            'is_enabled': $isEnabled,
         };
     };
 
@@ -2890,17 +2839,16 @@ function infohub_view() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const toggle = function ($in)
-    {
+    const toggle = function($in) {
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'SetVisible',
             'id': $in.id,
-            'set_visible': 'switch'
+            'set_visible': 'switch',
         });
 
     };
@@ -2910,23 +2858,22 @@ function infohub_view() {
      * @param $in
      */
     $functions.push('mass_update');
-    const mass_update = function ($in)
-    {
+    const mass_update = function($in) {
         const $default = {
-            'do': []
+            'do': [],
         };
         $in = _Default($default, $in);
 
         let $responses = [];
 
-        for (let $key=0; $key < $in.do.length; $key = $key + 1) {
+        for (let $key = 0; $key < $in.do.length; $key = $key + 1) {
             $responses[$key] = internal_Cmd($in.do[$key]);
         }
 
         return {
             'answer': 'true',
             'message': 'Done with mass update',
-            'responses': $responses
+            'responses': $responses,
         };
 
     };
@@ -2938,16 +2885,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('id_exist');
-    const id_exist = function ($in)
-    {
+    const id_exist = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'IdExist',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -2957,10 +2903,9 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_IdExist');
-    const internal_IdExist = function ($in)
-    {
+    const internal_IdExist = function($in) {
         const $default = {
-            'id': '' // Id for an object
+            'id': '', // Id for an object
         };
         $in = _Default($default, $in);
 
@@ -2982,7 +2927,7 @@ function infohub_view() {
         return {
             'answer': 'true',
             'message': $message,
-            'exist': $exist
+            'exist': $exist,
         };
     };
 
@@ -2993,18 +2938,17 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('mark_object');
-    const mark_object = function ($in)
-    {
+    const mark_object = function($in) {
         const $default = {
             'id': '', // Id for an object
-            'mark': 'true' // 'true', 'false', 'switch'
+            'mark': 'true', // 'true', 'false', 'switch'
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'MarkObject',
             'id': $in.id,
-            'mark': $in.mark
+            'mark': $in.mark,
         });
     };
 
@@ -3014,17 +2958,16 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_MarkObject');
-    const internal_MarkObject = function ($in)
-    {
+    const internal_MarkObject = function($in) {
         const $default = {
             'id': '',
             'mark': 'true', // 'true', 'false', 'switch'
             'mark_true': {
-                'box_shadow': '0px 0px 0px 5px rgba(255,0,0,1)'
+                'box_shadow': '0px 0px 0px 5px rgba(255,0,0,1)',
             },
             'mark_false': {
-                'box_shadow': '0px 0px 0px 2px rgba(0,255,0,1)'
-            }
+                'box_shadow': '0px 0px 0px 2px rgba(0,255,0,1)',
+            },
         };
         $in = _Default($default, $in);
 
@@ -3075,7 +3018,7 @@ function infohub_view() {
             'answer': 'true',
             'message': $message,
             'id': $in.id,
-            'is_marked': $isMarked
+            'is_marked': $isMarked,
         };
     };
 
@@ -3086,10 +3029,9 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('form_select_read');
-    const form_select_read = function ($in)
-    {
+    const form_select_read = function($in) {
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
@@ -3115,8 +3057,7 @@ function infohub_view() {
                 break leave;
             }
 
-            for (let $i = 0; $i < $element.options.length; $i = $i + 1)
-            {
+            for (let $i = 0; $i < $element.options.length; $i = $i + 1) {
                 if ($element.options[$i].selected) {
                     $value.push($element.options[$i].value);
                 }
@@ -3131,7 +3072,7 @@ function infohub_view() {
             'message': $message,
             'exist': $exist,
             'value': $value,
-            'id': $in.id
+            'id': $in.id,
         };
     };
 
@@ -3142,16 +3083,15 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('form_read');
-    const form_read = function ($in)
-    {
+    const form_read = function($in) {
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'FormRead',
-            'id': $in.id
+            'id': $in.id,
         });
     };
 
@@ -3161,15 +3101,14 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_FormRead');
-    const internal_FormRead = function ($in)
-    {
+    const internal_FormRead = function($in) {
         let $answer = 'true',
             $exist = 'true',
             $message = '',
             $formData = {};
 
         const $default = {
-            'id': ''
+            'id': '',
         };
         $in = _Default($default, $in);
 
@@ -3185,38 +3124,40 @@ function infohub_view() {
             const $selector = '[renderer=\'infohub_render_form\']';
             let $elementList = $element.querySelectorAll($selector);
 
-            for (let $listItemNumber in $elementList)
-            {
-                if ($elementList.hasOwnProperty($listItemNumber) === false ) {
+            for (let $listItemNumber in $elementList) {
+                if ($elementList.hasOwnProperty($listItemNumber) === false) {
                     continue;
                 }
 
                 let $box = $elementList[$listItemNumber];
 
-                if ($box.tagName === 'FORM' || $box.tagName === 'BUTTON' || $box.tagName === 'DATALIST') {
+                if ($box.tagName === 'FORM' || $box.tagName === 'BUTTON' ||
+                    $box.tagName === 'DATALIST') {
                     continue;
                 }
 
                 let $data = {};
 
-                Array.prototype.slice.call($box.attributes).forEach(function(item) {
-                    let $itemName = item.name;
-                    if ($itemName === 'step') { $itemName = 'step_value'; }
-                    $data[$itemName] = item.value;
-                });
+                Array.prototype.slice.call($box.attributes).
+                    forEach(function(item) {
+                        let $itemName = item.name;
+                        if ($itemName === 'step') { $itemName = 'step_value'; }
+                        $data[$itemName] = item.value;
+                    });
 
                 $data = _ReadProperty($box, 'value', $data);
                 $data = _ReadProperty($box, 'innerHTML', $data);
 
-                if (_GetData({'name': 'form_alias', 'default': '', 'data': $data}) === '') {
+                if (_GetData(
+                    {'name': 'form_alias', 'default': '', 'data': $data}) ===
+                    '') {
                     continue;
                 }
 
                 let $alias = $data.form_alias;
                 let $type = $data.type;
 
-                if ($type === 'radio' || $type === 'checkbox')
-                {
+                if ($type === 'radio' || $type === 'checkbox') {
                     const $value = $data.value;
                     let $checkBoxData = 'false';
                     if ($box.checked === true) {
@@ -3253,7 +3194,7 @@ function infohub_view() {
             'answer': $answer,
             'message': $message,
             'exist': $exist,
-            'form_data': $formData
+            'form_data': $formData,
         };
     };
 
@@ -3266,8 +3207,7 @@ function infohub_view() {
      * @returns {*}
      * @private
      */
-    const _ReadProperty = function ($box, $method, $data)
-    {
+    const _ReadProperty = function($box, $method, $data) {
         if (typeof $box[$method] === 'undefined') {
             return $data;
         }
@@ -3294,18 +3234,17 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('form_write');
-    const form_write = function ($in)
-    {
+    const form_write = function($in) {
         const $default = {
             'id': '',
-            'form_data': {}
+            'form_data': {},
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'FormWrite',
             'id': $in.id,
-            'form_data': $in.form_data
+            'form_data': $in.form_data,
         });
     };
 
@@ -3315,27 +3254,26 @@ function infohub_view() {
      * @returns {string}
      */
     $functions.push('internal_FormWrite');
-    const internal_FormWrite = function ($in)
-    {
+    const internal_FormWrite = function($in) {
         const $default = {
             'id': '',
-            'form_data': {}
+            'form_data': {},
         };
         $in = _Default($default, $in);
 
         const $response = internal_Cmd({
             'func': 'FormRead',
-            'id': $in.id
+            'id': $in.id,
         });
 
         const $currentFormData = _ByVal($response.form_data);
         const $newFormData = _ByVal($in.form_data);
 
         // Create a new object with all data in one level to be updated in DOM.
-        const $formDataToUpdate = _GetFormDataToUpdate($currentFormData, $newFormData);
+        const $formDataToUpdate = _GetFormDataToUpdate($currentFormData,
+            $newFormData);
 
-        for (let $keyName in $formDataToUpdate)
-        {
+        for (let $keyName in $formDataToUpdate) {
             if ($formDataToUpdate.hasOwnProperty($keyName) === false) {
                 continue;
             }
@@ -3351,12 +3289,11 @@ function infohub_view() {
 
             if ($type === 'color') {
                 if (_Empty($value) === 'true') {
-                    $value = "#000000";
+                    $value = '#000000';
                 }
             }
 
-            if ($type === 'text' || $type === 'color' || $type === 'range')
-            {
+            if ($type === 'text' || $type === 'color' || $type === 'range') {
                 if ($type === 'text' && $mode === 'add_right') {
                     $value = $box.value + ' ' + $value.toString();
                 }
@@ -3370,8 +3307,7 @@ function infohub_view() {
                 continue;
             }
 
-            if ($type === 'textarea')
-            {
+            if ($type === 'textarea') {
                 if ($mode === 'add_right') {
                     $value = $box.value + ' ' + $value.toString();
                 }
@@ -3384,8 +3320,7 @@ function infohub_view() {
                 continue;
             }
 
-            if ($type === 'radio' || $type === 'checkbox')
-            {
+            if ($type === 'radio' || $type === 'checkbox') {
                 if ($value === 'true') {
                     $box.checked = true;
                     _Go($box, 'onchange');
@@ -3396,15 +3331,12 @@ function infohub_view() {
                 continue;
             }
 
-            if ($type === 'select')
-            {
-                if ($mode === 'clean_and_add')
-                {
+            if ($type === 'select') {
+                if ($mode === 'clean_and_add') {
                     $box.options.length = 0;
 
-                    for (let $i=0; $i < $value.length; $i = $i + 1)
-                    {
-                        let $option = document.createElement("option");
+                    for (let $i = 0; $i < $value.length; $i = $i + 1) {
+                        let $option = document.createElement('option');
                         $option.text = $value[$i];
                         $option.value = $value[$i];
                         $box.add($option, null);
@@ -3417,7 +3349,7 @@ function infohub_view() {
                 }
 
                 let $selectIndex = {};
-                for (let $i=0; $i < $value.length; $i = $i + 1) {
+                for (let $i = 0; $i < $value.length; $i = $i + 1) {
                     $selectIndex[$value[$i]] = 1;
                 }
 
@@ -3426,7 +3358,8 @@ function infohub_view() {
                 }
 
                 for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
-                    if (_IsSet($selectIndex[$box.options[$i].value]) === 'true') {
+                    if (_IsSet($selectIndex[$box.options[$i].value]) ===
+                        'true') {
                         $box.options[$i].selected = true;
                     }
                 }
@@ -3440,7 +3373,7 @@ function infohub_view() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -3451,8 +3384,7 @@ function infohub_view() {
      * @param $property
      * @private
      */
-    const _Go = function ($box, $property)
-    {
+    const _Go = function($box, $property) {
         if (_IsSet($box[$property]) === 'false') {
             return;
         }
@@ -3477,8 +3409,7 @@ function infohub_view() {
      * @param $newFormData | Object The new values. The structure matches $currentFormData
      * @private
      */
-    const _GetFormDataToUpdate = function ($currentFormData, $newFormData)
-    {
+    const _GetFormDataToUpdate = function($currentFormData, $newFormData) {
         let $formDataToUpdate = {},
             $current;
 
@@ -3486,7 +3417,7 @@ function infohub_view() {
             'id': '',
             'type': '',
             'form_alias': '',
-            'mode': 'update'
+            'mode': 'update',
         };
 
         for (let $key in $newFormData) {
@@ -3501,13 +3432,14 @@ function infohub_view() {
 
             $current = _Default($default, $currentFormData[$key]);
 
-            if ($current.type !== '' && _IsSet($newFormData[$key].value) === 'true') {
+            if ($current.type !== '' && _IsSet($newFormData[$key].value) ===
+                'true') {
                 $formDataToUpdate[$key] = {
                     'id': $current.id,
                     'type': $current.type,
                     'value': $newFormData[$key].value,
                     'form_alias': $current.form_alias,
-                    'mode': $newFormData[$key].mode
+                    'mode': $newFormData[$key].mode,
                 };
                 continue;
             }
@@ -3522,18 +3454,23 @@ function infohub_view() {
                     continue;
                 }
 
-                if (_GetData({'name': $key+'/'+$checkBoxKey+'/value', 'default': '', 'data': $newFormData }) === '') {
+                if (_GetData({
+                    'name': $key + '/' + $checkBoxKey + '/value',
+                    'default': '',
+                    'data': $newFormData,
+                }) === '') {
                     continue;
                 }
 
-                $current[$checkBoxKey] = _Default($default, $current[$checkBoxKey]);
+                $current[$checkBoxKey] = _Default($default,
+                    $current[$checkBoxKey]);
 
                 $formDataToUpdate[$key + '.' + $checkBoxKey] = {
                     'id': $current[$checkBoxKey].id,
                     'type': $current[$checkBoxKey].type,
                     'value': $newFormData[$key][$checkBoxKey].value,
                     'form_alias': $current[$checkBoxKey].form_alias,
-                    'mode': $newFormData[$key][$checkBoxKey].mode
+                    'mode': $newFormData[$key][$checkBoxKey].mode,
                 };
             }
         }
@@ -3541,8 +3478,7 @@ function infohub_view() {
         return $formDataToUpdate;
     };
 
-    const _JsonToObject = function ($in)
-    {
+    const _JsonToObject = function($in) {
         if ($in === '') {
             return {};
         }
@@ -3554,8 +3490,7 @@ function infohub_view() {
         return $in;
     };
 
-    const _SetBoxIdInString = function ($id, $data)
-    {
+    const _SetBoxIdInString = function($id, $data) {
         const $boxId = _GetBoxId($id);
         $data = $data.replace(new RegExp('{box_id}', 'gi'), $boxId);
         // gi = Global (all occurrences in the string), Ignore case.
@@ -3570,12 +3505,11 @@ function infohub_view() {
      * @author Peter Lembke
      */
     $functions.push('file_read');
-    const file_read = function ($in)
-    {
+    const file_read = function($in) {
         const $default = {
             'id': '',
             'read_binary': 'false',
-            'callback_function': null
+            'callback_function': null,
         };
         $in = _Default($default, $in);
 
@@ -3589,18 +3523,18 @@ function infohub_view() {
                 'name': $box.files[$i].name,
                 'size': $box.files[$i].size,
                 'type': $box.files[$i].type,
-                'last_modified_seconds_since_epoc': $box.files[$i].lastModified / 1000.0,
+                'last_modified_seconds_since_epoc': $box.files[$i].lastModified /
+                    1000.0,
                 'last_modified_date': $box.files[$i].lastModifiedDate,
-                'content': ''
+                'content': '',
             };
         }
 
         let $filesLeft = $box.files.length;
         let $reader = new FileReader();
 
-        $reader.onload = function(event)
-        {
-            $filesData[$filesLeft-1].content = event.target.result;
+        $reader.onload = function(event) {
+            $filesData[$filesLeft - 1].content = event.target.result;
             $filesLeft = $filesLeft - 1;
 
             if ($filesLeft === 0) {
@@ -3608,15 +3542,16 @@ function infohub_view() {
                 $in.callback_function({
                     'answer': 'true',
                     'message': 'Here are the files data',
-                    'files_data': $filesData
+                    'files_data': $filesData,
                 });
             }
         };
 
         $timer = setInterval(readNextBlob, 200);
+
         function readNextBlob() {
             if ($reader.readyState !== $reader.LOADING && $filesLeft > 0) {
-                const $blob = $box.files[$filesLeft-1];
+                const $blob = $box.files[$filesLeft - 1];
                 if ($in.read_as_binary === 'true') {
                     $reader.readAsBinaryString($blob);
                 } else {
@@ -3641,8 +3576,7 @@ function infohub_view() {
      * @author Carlos Delgado
      */
     $functions.push('_ATag');
-    const _ATag = function ($in)
-    {
+    const _ATag = function($in) {
         let element = document.createElement('a');
 
         for (let $attributeName in $in) {
@@ -3659,7 +3593,7 @@ function infohub_view() {
 
         return {
             'answer': 'true',
-            'message': 'Done adding the a tag and clicking on it'
+            'message': 'Done adding the a tag and clicking on it',
         };
     };
 
@@ -3672,22 +3606,22 @@ function infohub_view() {
      * @author Carlos Delgado
      */
     $functions.push('file_write');
-    const file_write = function ($in)
-    {
+    const file_write = function($in) {
         const $default = {
             'file_name': '',
-            'content': ''
+            'content': '',
         };
         $in = _Default($default, $in);
 
         _ATag({
-            'href': 'data:text/plain;charset=utf-8,' + encodeURIComponent($in.content),
-            'download': $in.file_name
+            'href': 'data:text/plain;charset=utf-8,' +
+                encodeURIComponent($in.content),
+            'download': $in.file_name,
         });
 
         return {
             'answer': 'true',
-            'message': 'Hope that you got the file downloaded now'
+            'message': 'Hope that you got the file downloaded now',
         };
     };
 
@@ -3698,21 +3632,21 @@ function infohub_view() {
      * @since 2019-01-29
      */
     $functions.push('sms_send');
-    const sms_send = function ($in)
-    {
+    const sms_send = function($in) {
         const $default = {
             'number': '',
-            'content': ''
+            'content': '',
         };
         $in = _Default($default, $in);
 
         _ATag({
-            'hreg': 'sms:' + $in.number + '?body=' + encodeURIComponent($in.content)
+            'hreg': 'sms:' + $in.number + '?body=' +
+                encodeURIComponent($in.content),
         });
 
         return {
             'answer': 'true',
-            'message': 'Hope that your telephone have sent the SMS now'
+            'message': 'Hope that your telephone have sent the SMS now',
         };
     };
 
@@ -3723,20 +3657,19 @@ function infohub_view() {
      * @since 2019-01-29
      */
     $functions.push('call_number');
-    const call_number = function ($in)
-    {
+    const call_number = function($in) {
         const $default = {
-            'number': ''
+            'number': '',
         };
         $in = _Default($default, $in);
 
         _ATag({
-            'hreg': 'tel:' + $in.number
+            'hreg': 'tel:' + $in.number,
         });
 
         return {
             'answer': 'true',
-            'message': 'Hope that your telephone have called the number now'
+            'message': 'Hope that your telephone have called the number now',
         };
     };
 
@@ -3746,13 +3679,12 @@ function infohub_view() {
      * @since 2020-03-01
      */
     $functions.push('set_style');
-    const set_style = function ($in)
-    {
+    const set_style = function($in) {
         const $default = {
             'box_id': '', // Normal box_id
             'element_path': '', // Optional. example: 1233_some_box_id.svg.circle.0
             'style_name': '',
-            'style_value': ''
+            'style_value': '',
         };
         $in = _Default($default, $in);
 
@@ -3761,18 +3693,17 @@ function infohub_view() {
             'box_id': $in.box_id,
             'element_path': $in.element_path,
             'style_name': $in.style_name,
-            'style_value': $in.style_value
+            'style_value': $in.style_value,
         });
     };
 
     $functions.push('internal_SetStyle');
-    const internal_SetStyle = function ($in)
-    {
+    const internal_SetStyle = function($in) {
         const $default = {
             'box_id': '', // Normal box_id
             'element_path': '', // example: 1233_some_box_id.svg.circle.0
             'style_name': '',
-            'style_value': ''
+            'style_value': '',
         };
         $in = _Default($default, $in);
 
@@ -3792,7 +3723,7 @@ function infohub_view() {
 
         return {
             'answer': 'true',
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -3802,12 +3733,11 @@ function infohub_view() {
      * @since 2020-03-01
      */
     $functions.push('progress');
-    const progress = function ($in)
-    {
+    const progress = function($in) {
         const $default = {
             'box_id': '', // Normal box_id
             'max': -1,
-            'value': -1
+            'value': -1,
         };
         $in = _Default($default, $in);
 
@@ -3815,17 +3745,16 @@ function infohub_view() {
             'func': 'Progress',
             'box_id': $in.box_id,
             'max': $in.max,
-            'value': $in.value
+            'value': $in.value,
         });
     };
 
     $functions.push('internal_Progress');
-    const internal_Progress = function ($in)
-    {
+    const internal_Progress = function($in) {
         const $default = {
             'box_id': '', // Normal box_id
             'max': -1,
-            'value': -1
+            'value': -1,
         };
         $in = _Default($default, $in);
 
@@ -3859,14 +3788,13 @@ function infohub_view() {
             $value = $element.value;
         }
 
-
         return {
             'answer': 'true',
             'message': $message,
             'max': $max,
             'value': $value,
             'max_before': $maxBefore,
-            'value_before': $valueBefore
+            'value_before': $valueBefore,
         };
     };
 
@@ -3876,12 +3804,12 @@ function infohub_view() {
      * @param $in
      * @returns {{answer: *, message: *}}
      */
-    const set_style_rule = function ($in)
-    {
+    $functions.push('set_style_rule');
+    const set_style_rule = function($in) {
         const $default = {
             'sheet_id': '',
             'selector': '',
-            'rule': ''
+            'rule': '',
         };
         $in = _Default($default, $in);
 
@@ -3889,28 +3817,27 @@ function infohub_view() {
             'func': 'SetStyleRule',
             'sheet_id': $in.sheet_id,
             'selector': $in.selector,
-            'rule': $in.rule
+            'rule': $in.rule,
         });
-    }
+    };
 
     $functions.push('internal_SetStyleRule');
-    const internal_SetStyleRule = function ($in)
-    {
+    const internal_SetStyleRule = function($in) {
         const $default = {
             'sheet_id': '',
             'selector': '',
-            'rule': ''
+            'rule': '',
         };
         $in = _Default($default, $in);
 
         let $answer = 'false';
         let $message = '';
 
-        const $querySelector = 'link#' + $in.sheet_id;
+        const $querySelector = 'style#' + $in.sheet_id;
         let $styleSheet = document.querySelector($querySelector);
 
         leave: {
-            if ( ! $styleSheet) {
+            if (!$styleSheet) {
                 $message = 'Could not find the style sheet with id ' + $in.sheet_id;
                 break leave;
             }
@@ -3923,15 +3850,15 @@ function infohub_view() {
                 $index = $sheet.cssRules.length;
             }
 
-            $sheet.insertRule($rule, $index)
+            $sheet.insertRule($rule, $index);
             $answer = 'true';
             $message = 'Rule is inserted';
         }
 
         return {
             'answer': $answer,
-            'message': $message
-        }
+            'message': $message,
+        };
     };
 
     /**
@@ -3942,24 +3869,22 @@ function infohub_view() {
      * @since 2020-12-01
      */
     $functions.push('alert');
-    const alert = function ($in)
-    {
+    const alert = function($in) {
         const $default = {
-            'text': ''
+            'text': '',
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'Alert',
-            'text': $in.text
+            'text': $in.text,
         });
     };
 
     $functions.push('internal_Alert');
-    const internal_Alert = function ($in)
-    {
+    const internal_Alert = function($in) {
         const $default = {
-            'text': ''
+            'text': '',
         };
         $in = _Default($default, $in);
 
@@ -3979,32 +3904,30 @@ function infohub_view() {
      * @since 2021-01-06
      */
     $functions.push('replace_in_html');
-    const replace_in_html = function ($in)
-    {
+    const replace_in_html = function($in) {
         const $default = {
             'id': '',
-            'replace': {}
+            'replace': {},
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'ReplaceInHtml',
             'id': $in.id,
-            'replace': $in.replace
+            'replace': $in.replace,
         });
     };
 
     $functions.push('internal_ReplaceInHtml');
-    const internal_ReplaceInHtml = function ($in)
-    {
+    const internal_ReplaceInHtml = function($in) {
         const $default = {
             'id': '',
-            'replace': {}
+            'replace': {},
         };
         $in = _Default($default, $in);
 
         let $response = internal_GetHtml({
-            'id': $in.id
+            'id': $in.id,
         });
 
         let $html = $response.html;
@@ -4019,12 +3942,12 @@ function infohub_view() {
 
         $response = internal_SetText({
             'id': $in.id,
-            'text': $html
+            'text': $html,
         });
 
         return {
             'answer': $response.answer,
-            'message': $response.message
+            'message': $response.message,
         };
     };
 
@@ -4037,14 +3960,13 @@ function infohub_view() {
      * @since   2013-12-25
      * @author  Peter Lembke
      */
-    $functions.push("event_message"); // Enable this function
-    const event_message = function ($in)
-    {
+    $functions.push('event_message'); // Enable this function
+    const event_message = function($in) {
         const $default = {
             'parent_id': 0,
             'box_id': '',
             'step': 'start',
-            'data': ''
+            'data': '',
         };
         $in = _Merge($default, $in);
 
@@ -4057,7 +3979,7 @@ function infohub_view() {
         if ($in.step === 'step_end') {
             return {
                 'answer': 'true',
-                'message': 'Got a return message'
+                'message': 'Got a return message',
             };
         }
 
@@ -4065,7 +3987,7 @@ function infohub_view() {
             if ($in.event_type === 'click') {
                 $answer = {
                     'answer': 'true',
-                    'send': 'true'
+                    'send': 'true',
                 };
             }
         }
@@ -4080,12 +4002,11 @@ function infohub_view() {
             }
         }
 
-        if ($in.event_type === 'toggle' || $in.event_type === 'switch')
-        {
+        if ($in.event_type === 'toggle' || $in.event_type === 'switch') {
             $response = internal_Cmd({
                 'func': 'SetVisible',
                 'id': $in.toggle_id,
-                'set_visible': 'switch'
+                'set_visible': 'switch',
             });
 
             if (_IsSet($in.other_id) === 'true') {
@@ -4102,14 +4023,14 @@ function infohub_view() {
                         'func': 'SetVisible',
                         'id': $in.other_id,
                         'set_visible': 'switch',
-                        'block_type_visible': $blockTypeVisible
+                        'block_type_visible': $blockTypeVisible,
                     });
 
                     internal_Cmd({
                         'func': 'SetVisible',
                         'id': $in.id,
                         'set_visible': 'switch',
-                        'block_type_visible': $blockTypeVisible
+                        'block_type_visible': $blockTypeVisible,
                     });
 
                 }
@@ -4117,32 +4038,34 @@ function infohub_view() {
         }
 
         if (typeof $answer === 'object') {
-            if ($answer.answer === 'true' && typeof $answer.send === 'string' && $answer.send === 'true') {
+            if ($answer.answer === 'true' && typeof $answer.send === 'string' &&
+                $answer.send === 'true') {
                 return _SubCall({
                     'to': {
                         'node': $in.to_node,
                         'plugin': $in.to_plugin,
-                        'function': $in.to_function
+                        'function': $in.to_function,
                     },
                     'data': {
                         'parent_id': $in.parent_id,
                         'box_id': $in.box_id,
                         'step': 'event_message',
                         'data': $in.data,
-                        'renderer': $in.renderer ,
-                        'alias': $in.alias
+                        'renderer': $in.renderer,
+                        'alias': $in.alias,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
             }
         }
 
         return {
             'answer': 'false',
-            'message': 'Did not send any event message'
+            'message': 'Did not send any event message',
         };
     };
 }
+
 //# sourceURL=infohub_view.js

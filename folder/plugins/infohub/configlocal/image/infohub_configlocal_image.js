@@ -11,7 +11,7 @@
  */
 function infohub_configlocal_image() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -25,7 +25,7 @@ function infohub_configlocal_image() {
             'class_name': 'infohub_configlocal_image',
             'note': 'Here you select what images you can see. Then we can provide the best images for you',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -34,7 +34,7 @@ function infohub_configlocal_image() {
         const $list = {
             'create': 'normal',
             'click_submit': 'normal',
-            'apply_config': 'normal'
+            'apply_config': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -54,8 +54,7 @@ function infohub_configlocal_image() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -64,13 +63,12 @@ function infohub_configlocal_image() {
             'response': {
                 'answer': '',
                 'message': '',
-                'data': {}
-            }
+                'data': {},
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_form')
-        {
+        if ($in.step === 'step_render_form') {
             $classTranslations = _ByVal($in.translations);
 
             const $cssImageSize = 'width:64px; height:64px; padding:1px; max-width:64px;';
@@ -79,7 +77,7 @@ function infohub_configlocal_image() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -87,16 +85,16 @@ function infohub_configlocal_image() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[download_assets][max_asset_size_kb][index_cache_days][allowed_asset_types][button_save]',
-                            'label': _Translate('What images can you see?'),
-                            'description': '[image_asset_license]' + _Translate('Here you set asset limits and instruct Infohub what images you can see on this browser')
+                            'label': _Translate('WHAT_IMAGES_CAN_YOU_SEE?'),
+                            'description': '[image_asset_license]' + _Translate('HERE_YOU_SET_ASSET_LIMITS_AND_INSTRUCT_INFOHUB_WHAT_IMAGES_YOU_CAN_SEE_ON_THIS_BROWSER')
                         },
                         'download_assets': {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
-                            "label": _Translate("Download assets"),
-                            "description": _Translate("You can prevent all images and sounds to be downloaded. Save download time and quota"),
+                            "label": _Translate("DOWNLOAD_ASSETS"),
+                            "description": _Translate("YOU_CAN_PREVENT_ALL_IMAGES_AND_SOUNDS_TO_BE_DOWNLOADED._SAVE_DOWNLOAD_TIME_AND_QUOTA"),
                             "options": [
-                                { "value": "download_assets", "label": _Translate("Download assets") }
+                                { "value": "download_assets", "label": _Translate("DOWNLOAD_ASSETS") }
                             ]
                         },
                         'max_asset_size_kb': {
@@ -105,8 +103,8 @@ function infohub_configlocal_image() {
                             'min_value': '0',
                             'max_value': '1000',
                             'step_value': '100',
-                            'label': _Translate('Max asset size'),
-                            'description': _Translate('Max asset size in Kilobytes you allow to be downloaded. You can limit to save download speed and quota')
+                            'label': _Translate('MAX_ASSET_SIZE'),
+                            'description': _Translate('MAX_ASSET_SIZE_IN_KILOBYTES_YOU_ALLOW_TO_BE_DOWNLOADED._YOU_CAN_LIMIT_TO_SAVE_DOWNLOAD_SPEED_AND_QUOTA')
                         },
                         'index_cache_days': {
                             'plugin': 'infohub_renderform',
@@ -114,14 +112,14 @@ function infohub_configlocal_image() {
                             'min_value': '1',
                             'max_value': '365',
                             'step_value': '3',
-                            'label': _Translate('Cache time for assets'),
-                            'description': _Translate('Asset is considered fresh until this many days have passed. Then we will contact the server and see if it has been updated')
+                            'label': _Translate('CACHE_TIME_FOR_ASSETS'),
+                            'description': _Translate('ASSET_IS_CONSIDERED_FRESH_UNTIL_THIS_MANY_DAYS_HAVE_PASSED._THEN_WE_WILL_CONTACT_THE_SERVER_AND_SEE_IF_IT_HAS_BEEN_UPDATED')
                         },
                         'allowed_asset_types': {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
-                            "label": _Translate("Image types you can see"),
-                            "description": _Translate("Different browsers support different image formats. Select the image types you can see and I will avoid downloading images you can't see on this browser"),
+                            "label": _Translate("IMAGE_TYPES_YOU_CAN_SEE"),
+                            "description": _Translate("DIFFERENT_BROWSERS_SUPPORT_DIFFERENT_IMAGE_FORMATS._SELECT_THE_IMAGE_TYPES_YOU_CAN_SEE_AND_I_WILL_AVOID_DOWNLOADING_IMAGES_YOU_CAN'T_SEE_ON_THIS_BROWSER"),
                             "options": [
                                 { "value": "svg", "label": "[image_svg]" },
                                 { "value": "json", "label": "[image_jpeg]" },
@@ -137,14 +135,14 @@ function infohub_configlocal_image() {
                             'data': '[asset_svg]',
                             'class': 'icon',
                             'css_data': {
-                                '.icon': $cssImageSize
-                            }
+                                '.icon': $cssImageSize,
+                            },
                         },
                         'asset_svg': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'image/svg-text',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_jpeg': {
                             'type': 'common',
@@ -152,15 +150,15 @@ function infohub_configlocal_image() {
                             'data': '[asset_jpeg]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_jpeg': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'jpeg',
                             'asset_name': 'image/con00004-jpeg',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_png': {
                             'type': 'common',
@@ -168,15 +166,15 @@ function infohub_configlocal_image() {
                             'data': '[asset_png]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_png': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'png',
                             'asset_name': 'image/con00004-png',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_gif': {
                             'type': 'common',
@@ -184,15 +182,15 @@ function infohub_configlocal_image() {
                             'data': '[asset_gif]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_gif': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'gif',
                             'asset_name': 'image/con00004-gif',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_webp': {
                             'type': 'common',
@@ -200,15 +198,15 @@ function infohub_configlocal_image() {
                             'data': '[asset_webp]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_webp': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'webp',
                             'asset_name': 'image/con00004-webp',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_avif': {
                             'type': 'common',
@@ -216,15 +214,15 @@ function infohub_configlocal_image() {
                             'data': '[asset_avif]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_avif': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'avif',
                             'asset_name': 'image/con00004-avif',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'image_asset_license': {
                             'type': 'common',
@@ -232,45 +230,45 @@ function infohub_configlocal_image() {
                             'data': '[asset_license]',
                             'class': 'image',
                             'css_data': {
-                                '.image': $cssImageSize
-                            }
+                                '.image': $cssImageSize,
+                            },
                         },
                         'asset_license': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'subtype': 'svg',
                             'asset_name': 'image/asset-license',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'button_save': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Save'),
+                            'button_label': _Translate('SAVE'),
                             'event_data': 'image|submit|normal',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[image_form]'
+                        'text': '[image_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 640,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'image'
+                    'cache_key': 'image',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': {}
+            'data': {},
         };
     };
 
@@ -282,9 +280,8 @@ function infohub_configlocal_image() {
      * @since 2019-10-28
      * @author Peter Lembke
      */
-    $functions.push("click_submit");
-    const click_submit = function ($in)
-    {
+    $functions.push('click_submit');
+    const click_submit = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -293,113 +290,109 @@ function infohub_configlocal_image() {
             'response': {
                 'form_data': {
                     'download_assets.download_assets': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'max_asset_size_kb': {
-                        'value': '0'
+                        'value': '0',
                     },
                     'index_cache_days': {
-                        'value': '0'
+                        'value': '0',
                     },
                     'allowed_asset_types.avif': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'allowed_asset_types.gif': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'allowed_asset_types.json': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'allowed_asset_types.png': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'allowed_asset_types.svg': {
-                        'value': 'false'
+                        'value': 'false',
                     },
                     'allowed_asset_types.webp': {
-                        'value': 'false'
-                    }
-                }
-            }
+                        'value': 'false',
+                    },
+                },
+            },
         };
         $in = _Default($default, $in);
 
         let $ok = 'false';
 
-        if ($in.step === 'step_form_read')
-        {
+        if ($in.step === 'step_form_read') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '.[image_form_form]'
+                    'id': $in.box_id + '.[image_form_form]',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_form_read_response'
-                }
+                    'step': 'step_form_read_response',
+                },
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $in.step = 'step_save_config';
             }
         }
 
-        if ($in.step === 'step_save_config')
-        {
+        if ($in.step === 'step_save_config') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_configlocal',
-                    'function': 'submit'
+                    'function': 'submit',
                 },
                 'data': {
                     'event_data': 'image',
                     'form_data': {
                         'download_assets.download_assets': {
-                            'value': $in.response.form_data['download_assets.download_assets'].value
+                            'value': $in.response.form_data['download_assets.download_assets'].value,
                         },
                         'max_asset_size_kb': {
-                            'value': $in.response.form_data.max_asset_size_kb.value
+                            'value': $in.response.form_data.max_asset_size_kb.value,
                         },
                         'index_cache_days': {
-                            'value': $in.response.form_data.index_cache_days.value
+                            'value': $in.response.form_data.index_cache_days.value,
                         },
                         'allowed_asset_types.avif': {
-                            'value': $in.response.form_data['allowed_asset_types.avif'].value
+                            'value': $in.response.form_data['allowed_asset_types.avif'].value,
                         },
                         'allowed_asset_types.gif': {
-                            'value': $in.response.form_data['allowed_asset_types.gif'].value
+                            'value': $in.response.form_data['allowed_asset_types.gif'].value,
                         },
                         'allowed_asset_types.json': {
-                            'value': $in.response.form_data['allowed_asset_types.json'].value
+                            'value': $in.response.form_data['allowed_asset_types.json'].value,
                         },
                         'allowed_asset_types.png': {
-                            'value': $in.response.form_data['allowed_asset_types.png'].value
+                            'value': $in.response.form_data['allowed_asset_types.png'].value,
                         },
                         'allowed_asset_types.svg': {
-                            'value': $in.response.form_data['allowed_asset_types.svg'].value
+                            'value': $in.response.form_data['allowed_asset_types.svg'].value,
                         },
                         'allowed_asset_types.webp': {
-                            'value': $in.response.form_data['allowed_asset_types.webp'].value
-                        }
-                    }
+                            'value': $in.response.form_data['allowed_asset_types.webp'].value,
+                        },
+                    },
                 },
                 'data_back': {
-                    'step': 'step_save_config_response'
-                }
+                    'step': 'step_save_config_response',
+                },
             });
         }
 
-        if ($in.step === 'step_save_config_response')
-        {
+        if ($in.step === 'step_save_config_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $ok = 'true';
@@ -409,7 +402,7 @@ function infohub_configlocal_image() {
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -420,54 +413,52 @@ function infohub_configlocal_image() {
      * @since 2019-10-19
      * @author Peter Lembke
      */
-    $functions.push("apply_config");
-    const apply_config = function ($in)
-    {
+    $functions.push('apply_config');
+    const apply_config = function($in) {
         const $default = {
             'local_config': {
                 'download_assets.download_assets': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'max_asset_size_kb': {
-                    'value': ''
+                    'value': '',
                 },
                 'index_cache_days': {
-                    'value': ''
+                    'value': '',
                 },
                 'allowed_asset_types.avif': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'allowed_asset_types.gif': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'allowed_asset_types.json': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'allowed_asset_types.png': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'allowed_asset_types.svg': {
-                    'value': 'false'
+                    'value': 'false',
                 },
                 'allowed_asset_types.webp': {
-                    'value': 'false'
-                }
+                    'value': 'false',
+                },
             },
             'step': 'step_check_config',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
-            }
+                'message': 'Nothing to report',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report'
+            'message': 'Nothing to report',
         };
 
-        if ($in.step === 'step_check_config')
-        {
+        if ($in.step === 'step_check_config') {
             $in.step = 'step_apply_config';
 
             if (_Empty($in.local_config.max_asset_size_kb.value) === 'true') {
@@ -476,9 +467,8 @@ function infohub_configlocal_image() {
             }
         }
 
-        if ($in.step === 'step_apply_config')
-        {
-            const $secondsInADay = 24*60*60;
+        if ($in.step === 'step_apply_config') {
+            const $secondsInADay = 24 * 60 * 60;
             const $newPluginConfig = {
                 'allowed_asset_types': {
                     'avif': $in.local_config['allowed_asset_types.avif'].value,
@@ -486,26 +476,28 @@ function infohub_configlocal_image() {
                     'json': $in.local_config['allowed_asset_types.json'].value,
                     'png': $in.local_config['allowed_asset_types.png'].value,
                     'svg': $in.local_config['allowed_asset_types.svg'].value,
-                    'webp': $in.local_config['allowed_asset_types.webp'].value
+                    'webp': $in.local_config['allowed_asset_types.webp'].value,
                 },
                 'download_assets': $in.local_config['download_assets.download_assets'].value,
-                'index_cache_seconds': parseInt($in.local_config.index_cache_days.value) * $secondsInADay,
-                'max_asset_size_kb': parseInt($in.local_config.max_asset_size_kb.value)
+                'index_cache_seconds': parseInt(
+                    $in.local_config.index_cache_days.value) * $secondsInADay,
+                'max_asset_size_kb': parseInt(
+                    $in.local_config.max_asset_size_kb.value),
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_plugin',
-                    'function': 'set_plugin_config'
+                    'function': 'set_plugin_config',
                 },
                 'data': {
                     'plugin_name': 'infohub_asset',
-                    'plugin_config': $newPluginConfig
+                    'plugin_config': $newPluginConfig,
                 },
                 'data_back': {
-                    'step': 'step_apply_config_response'
-                }
+                    'step': 'step_apply_config_response',
+                },
             });
         }
 
@@ -516,9 +508,10 @@ function infohub_configlocal_image() {
 
         return {
             'answer': $out.answer,
-            'message': $out.message
+            'message': $out.message,
         };
 
     };
 }
+
 //# sourceURL=infohub_configlocal_image.js

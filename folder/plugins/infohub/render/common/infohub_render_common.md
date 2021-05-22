@@ -1,11 +1,14 @@
 # Infohub Render Common
-Render common objects like containers, iframes (deprecated), legends, images, lists  
+
+Render common objects like containers, iframes (deprecated), legends, images, lists
 
 # Introduction
-Each object this plugin can render is simple and commonly used.  
+
+Each object this plugin can render is simple and commonly used.
 
 # Container
-The container can be used when you want to wrap something in a div, span or p tag.  
+
+The container can be used when you want to wrap something in a div, span or p tag.
 
 ```
 <div name="my_container" class="a1202_my_container">
@@ -18,7 +21,8 @@ The container can be used when you want to wrap something in a div, span or p ta
 ```
 
 # Container start stop
-You can wrap text with a div, p or span tag. You can add a class name. See this complete example below.  
+
+You can wrap text with a div, p or span tag. You can add a class name. See this complete example below.
 
 ```
 return {
@@ -61,18 +65,24 @@ return {
 ```
 
 Here we have defined a start tag with a class, and an end tag. You then use these tags when you render a text.  
-Why are the CSS code in "how" and not in "light"? The renderer for contanierStart is creating a span-tag. If we were wrapping CSS to that tag then an end tag would be inserted by the browser to complete the start tag.  
+Why are the CSS code in "how" and not in "light"? The renderer for contanierStart is creating a span-tag. If we were
+wrapping CSS to that tag then an end tag would be inserted by the browser to complete the start tag.
 
 # iframe
-Do not use iframes!! Do not use 3rd party services in iframes. Spare the browser from all this and let it get all data from the server instead. iframes prevent your app from working offline.  
-Ok, nice said, not so easy done when you want to show a google map or a youtube video. Yes, those cases have their own renderers. Please use infohub_render_video and infohub_render_map.  
+
+Do not use iframes!! Do not use 3rd party services in iframes. Spare the browser from all this and let it get all data
+from the server instead. iframes prevent your app from working offline.  
+Ok, nice said, not so easy done when you want to show a google map or a youtube video. Yes, those cases have their own
+renderers. Please use infohub_render_video and infohub_render_map.  
 And even then it is not polite to just show an iframe. Embed the iframe by using infohub_rendermajor.  
-So the usage for this function is other cases that not yet have its own renderer. And you still should (have to) embed the iframe in a rendermajor.  
-In this example I will show you how to add a DuckDuckGo search box. You can see how the iframe can be defined <a href="https://duckduckgo.com/search_box">here</a>.  
+So the usage for this function is other cases that not yet have its own renderer. And you still should (have to) embed
+the iframe in a rendermajor.  
+In this example I will show you how to add a DuckDuckGo search box. You can see how the iframe can be
+defined <a href="https://duckduckgo.com/search_box">here</a>.
 
 <iframe src="https://duckduckgo.com/search.html?width=200&site=abc.se&prefill=Search ABC.se" style="overflow:hidden;margin:0;padding:0;width:258px;height:40px;" frameborder="0"></iframe>
 
-After some testing with parameters I came up with this:  
+After some testing with parameters I came up with this:
 
 ```
 return {
@@ -109,14 +119,15 @@ return {
 ```
 
 kn=1 means that I want the search results to show in a new browser page/tab.  
-The result of this code is:  
+The result of this code is:
 
 ![My image](duckduckgo.png)
 
-The same result could easily be achieved by using the form plugin and ask the server for search results.  
+The same result could easily be achieved by using the form plugin and ask the server for search results.
 
 # Legend
-Legends are used when you want to box something with a nice frame and a good looking title.  
+
+Legends are used when you want to box something with a nice frame and a good looking title.
 
 ```
 'a_legend': {
@@ -130,7 +141,8 @@ Legends are used when you want to box something with a nice frame and a good loo
 ```
 
 I have not added any "css_data" because you get a good looking hard coded set of data if you leave "css_data" blank.  
-If you want your own css you can add 'css_data' to the definition above. Below is the hard coded css you get if you omit 'css_data'.  
+If you want your own css you can add 'css_data' to the definition above. Below is the hard coded css you get if you
+omit 'css_data'.
 
 ```
 'css_data': {
@@ -140,9 +152,13 @@ If you want your own css you can add 'css_data' to the definition above. Below i
 ```
 
 # Image
-The image data is usually coming from infohub_asset. You can either use infohub_asset as in the example below, or you can embed the image yourself.  
-If you embed your own image then the image must be base64 encoded. You can find services online that encode images to base64 text. Use png, jpeg or svg. They have the largest browser support.  
-One of many pages that can convert an image to base64 is <a href="https://www.base64-image.de/" target="_BLANK">https://www.base64-image.de/</a>  
+
+The image data is usually coming from infohub_asset. You can either use infohub_asset as in the example below, or you
+can embed the image yourself.  
+If you embed your own image then the image must be base64 encoded. You can find services online that encode images to
+base64 text. Use png, jpeg or svg. They have the largest browser support.  
+One of many pages that can convert an image to base64
+is <a href="https://www.base64-image.de/" target="_BLANK">https://www.base64-image.de/</a>
 
 ```
 'my_image': {
@@ -164,7 +180,9 @@ One of many pages that can convert an image to base64 is <a href="https://www.ba
 ```
 
 # List
-Lists are for listing things under each other. You can also use lists for layout. In this example we just create a traditional list.  
+
+Lists are for listing things under each other. You can also use lists for layout. In this example we just create a
+traditional list.
 
 ```
 'my_list': {
@@ -182,13 +200,15 @@ Lists are for listing things under each other. You can also use lists for layout
 },
 ```
 
-You can reference other objects in the labels.  
+You can reference other objects in the labels.
 
 # The big example
-Here are an example that will show all features from the common plugin. Needless to say I am a backend developer and not a frontend developer.  
+
+Here are an example that will show all features from the common plugin. Needless to say I am a backend developer and not
+a frontend developer.  
 I want the result to look exactly like this:  
 ![My image](commonexample.png)
-To achieve this small wonder we need to construct a message.  
+To achieve this small wonder we need to construct a message.
 
 ```
 return {
@@ -289,26 +309,42 @@ return {
 ```
 
 # Message structure
-As usual we send the message to the renderer. In data we have the usual what (to render), how (to render it), where (to put the result).  
- _Where_ : As usual, where InfoHub View will create a box for this contents. In this case last in box with alias: "body".  
- _How_ : One box. Note that you can write anyting in "text" and that `[my_container]` is a reference to one of the items in "what". You can reference more items in "what" if you want to.  
-And we also have "css_data" in "how". That is CSS you want to use within this box. Normally you put the CSS in each object but in this case we use "containerStart" that does not support css_data. More about that later.  
- _What_ : Read about what below. In "how" I reference `[my_container]`. That is your starting point.  
-    
+
+As usual we send the message to the renderer. In data we have the usual what (to render), how (to render it), where (to
+put the result).  
+_Where_ : As usual, where InfoHub View will create a box for this contents. In this case last in box with alias: "body"
+.  
+_How_ : One box. Note that you can write anyting in "text" and that `[my_container]` is a reference to one of the items
+in "what". You can reference more items in "what" if you want to.  
+And we also have "css_data" in "how". That is CSS you want to use within this box. Normally you put the CSS in each
+object but in this case we use "containerStart" that does not support css_data. More about that later.  
+_What_ : Read about what below. In "how" I reference `[my_container]`. That is your starting point.
+
 # What to render
-You will notice that you can reference any defined object from anywhere. Just make sure you do not reference an object to itself creating an infinite loop.  
- _my_container_ : is a div-tag container that contain this: `'Time:[light][time][/light][a_legend]'`. It has its own CSS to give a grey border with a light green background.  
- _light_ : is a 'containerStart' span box with class "light". Since this is just the start tag then you can not wrap a CSS div box around it. That would give bad HTML. Instead the CSS have to be defined in the "how" section.  
- _time_ : This is a value that will be inserted as it is. In this case we call a function to get the value and we call the _TimeStamp() function.  
- _/light_ : the end span tag for "light".  
- _a_legend_ : is a fieldset with a legend title. It contains `'[my_iframe][my_image][my_list]'`. The CSS for the class names are not in the example. It should be.  
- _my_iframe_ : The DuckDuckGo service is referenced here.  
- _my_image_ : A logo from DuckDuckGo.  
- _my_list_ : A list with items. Note that you can use references in the texts. If you want the time here too then just write `[time]`.  
-    
+
+You will notice that you can reference any defined object from anywhere. Just make sure you do not reference an object
+to itself creating an infinite loop.  
+_my_container_ : is a div-tag container that contain this: `'Time:[light][time][/light][a_legend]'`. It has its own CSS
+to give a grey border with a light green background.  
+_light_ : is a 'containerStart' span box with class "light". Since this is just the start tag then you can not wrap a
+CSS div box around it. That would give bad HTML. Instead the CSS have to be defined in the "how" section.  
+_time_ : This is a value that will be inserted as it is. In this case we call a function to get the value and we call
+the _TimeStamp() function.  
+_/light_ : the end span tag for "light".  
+_a_legend_ : is a fieldset with a legend title. It contains `'[my_iframe][my_image][my_list]'`. The CSS for the class
+names are not in the example. It should be.  
+_my_iframe_ : The DuckDuckGo service is referenced here.  
+_my_image_ : A logo from DuckDuckGo.  
+_my_list_ : A list with items. Note that you can use references in the texts. If you want the time here too then just
+write `[time]`.
+
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-09-22 by Peter Lembke  

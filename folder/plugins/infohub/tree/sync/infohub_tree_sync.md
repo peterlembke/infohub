@@ -1,67 +1,76 @@
 # Infohub Tree Sync
-Sync data between the browser Storage and the server Storage. If in doubt then the GUI will ask the human what version to keep.
+
+Sync data between the browser local Storage and the server Storage. If in doubt then the GUI will ask the human what
+version to keep.
 
 ## Information
-Infohub_Tree_Storage keep an index for each plugin with path, old checksum, new checksum, status.
 
-status = new, changed, deleted, synced
+Infohub_Tree_Storage keep a path_index in browser local Storage for each plugin.   
+The index contain:
+path, current_checksum, server_checksum, updated_at, synced_at, delete
 
-The server has the same kind of index for each plugin, for each user.
+The local Sync can ask the local Tree Storage and the server Tree for one of these plugin path indexes.  
+Local Sync can then take a decision on each path.
 
-The Sync can ask the client and the server for one or more of these indexes.  
-Sync can then take a decision.
+* Keep - Client and Server already have the same checksum - we skip this item.
+* Upload - The path is missing on the server
+* Upload - The server_checksum match, the local_checksum is different.
+* Delete - The server_checksum match, locally marked for deletion.
+* Conflict - The server_checksum do not match, the local_checksum is different. A human need to help out here.
+* Conflict - The server_checksum do not match, locally marked for deletion. A human need to help out here.
+* Download - The local server_checksum = local_checksum (data have never changed locally), server has a different
+  checksum
 
-* Keep - Client and Server already have the same data - we skip this item.
-* Upload - The client has a newer version based on the server version. Or it is missing on the server.
-* Download - The server has a newer version based on the client version. Or it is missing on the client.
-* Conflict - The versions are not based on each other. A human need to help out here.
-
-Sync add the decision to three lists: upload, download, conflict.
-
-Button to run the list "upload" and then delete the handled items list.   
-Button to run the list "download" and then delete the handled items on list.  
-
-You need to fix the list "conflict" trough the GUI yourself. When you fix an item it is removed from the list.
+We can also ask Sync to download missing paths.
 
 ## GUI
+
 This plugin has a GUI.
 
-* Button "Sync" - start a sync with the Server.
-* sync decision progress bar - value = how many plugins have been handled. max = number of Tree plugins.
+* Button "Review" - start a review of what need to be done. Walk trough the list of plugin index Show a progress bar
+  value = how many plugin index have been handled. max = number of plugin index that we will handle. Walk trough all the
+  plugin index lists and make action lists what to do before starting the sync.
 
-* Area with list items count
-    * Number of items on the upload list
-    * Number of items on the download list
-    * Number of items on the conflict list
+* Show items count based on all plugin indexes Number of items to: keep, upload, delete, conflict, download, missing
+  Click on an action title to see the list of paths. Click on a path to see the data if available.
 
-* Button "Upload" - handles the upload list
-* Upload progress bar - max = number of items on the upload list when starting. value = number of items handled.
+If you view a conflict list you will see both the local and the server version of the data and you can pick one of them.
 
-* Button "Download" - handles the download list
-* Download progress bar - max = number of items on the download list when starting. value = number of items handled.
+- If you click to keep the server version then it is immediately overwriting the local version.
+- If you click to keep the local version then it is immediately overwriting the server version.
 
-* Button "Refresh conflict list" - Updates the list with all paths that are in conflict
-* conflict_list - Shows max 20 conflicting paths
-
-* Show Local copy - form rendered by the plugin that handle that tyupe of data
-* Button "Keep local copy"
-
-* Show Server copy - form rendered by the plugin that handle that tyupe of data
-* Button "Keep server copy"
+* Button "Upload" - handles the upload list and shows a progress bar.
+* Button "Delete" - handles the delete list and shows a progress bar.
+* Button "Download" - handles the download list and shows a progress bar.
+* Button "Download missing" - handles the download missing list and shows a progress bar.
 
 ## Public functions
 
-* click_sync
-* click_refresh_conflict_list
-* click_conflict_list
-* click_keep_local_copy
-* click_keep_server_copy
+* click_review
+* click_action_title
+* click_path
+* click_sync_upload
+* click_sync_delete
+* click_sync_download
+* click_sync_delete_missing
+* click_keep_this_version
+
+## Private functions
+
+* getServerPluginIndex($pluginName)
+* getLocalPluginIndex($pluginName)
+* review($localPluginIndex, $serverPluginIndex)
+* sync($pluginName, $syncType, $syncDataArray)
 
 ## License
-This documentation is copyright (C) 2020 Peter Lembke.
- Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
- You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
+
+This documentation is copyright (C) 2020 Peter Lembke. Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free
+Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You should have received
+a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ## footer
+
 Created 2020-07-25 by Peter Lembke  
-Updated 2020-08-30 by Peter Lembke
+Updated 2021-02-14 by Peter Lembke

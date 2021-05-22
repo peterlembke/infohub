@@ -19,7 +19,7 @@
  */
 function infohub_render_table() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -32,13 +32,13 @@ function infohub_render_table() {
             'class_name': 'infohub_render_table',
             'note': 'Render HTML for a table',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,14 +58,13 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         let $parameter = [];
 
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -100,16 +99,13 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _GetParameters = function ($in, $fields)
-    {
+    const _GetParameters = function($in, $fields) {
         let $useFields = [];
 
-        if (_IsSet($in.custom_variables) === 'true')
-        {
+        if (_IsSet($in.custom_variables) === 'true') {
             $in = _Merge($in, $in.custom_variables);
 
-            for (let $keyOut in $in.custom_variables)
-            {
+            for (let $keyOut in $in.custom_variables) {
                 if ($in.custom_variables.hasOwnProperty($keyOut) === false) {
                     continue;
                 }
@@ -121,8 +117,7 @@ function infohub_render_table() {
             delete $in.custom_variables;
         }
 
-        for (let $keyOut in $fields)
-        {
+        for (let $keyOut in $fields) {
             if ($fields.hasOwnProperty($keyOut)) {
                 let $keyIn = $fields[$keyOut];
                 let $data = $in[$keyIn];
@@ -138,7 +133,7 @@ function infohub_render_table() {
             $disabled = ' disabled';
         }
 
-        return  ' ' +  $useFields.join(' ') + $disabled;
+        return ' ' + $useFields.join(' ') + $disabled;
     };
 
     // *****************************************************************************
@@ -155,11 +150,10 @@ function infohub_render_table() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -177,7 +171,7 @@ function infohub_render_table() {
             const $constants = {
                 'renderer': 'infohub_render_table',
                 'type': 'table',
-                'event_type': 'click'
+                'event_type': 'click',
             };
             $data = _Merge($data, $constants);
 
@@ -186,22 +180,23 @@ function infohub_render_table() {
                 'renderer': 'renderer',
                 'event_data': 'event_data',
                 'alias': 'alias',
-                'height': 'height'
+                'height': 'height',
             };
 
-            const $id = _GetId({'id': $data.alias, 'name': $data.alias, 'class': $data.class });
+            const $id = _GetId(
+                {'id': $data.alias, 'name': $data.alias, 'class': $data.class});
             const $headHtml = _RenderHead($data);
             const $allRowsHTML = _AllRowsHtml($data);
             const $footHtml = '<tfoot></tfoot>';
-            let $html = '<table ' + $id + _GetParameters($data, $fields) + '>' + $headHtml + $allRowsHTML + $footHtml + '</table>';
+            let $html = '<table ' + $id + _GetParameters($data, $fields) + '>' +
+                $headHtml + $allRowsHTML + $footHtml + '</table>';
 
             $html = '<div style="overflow-x:auto;">' + $html + '</div>';
 
             let $cssData = $data.css_data;
 
             if ($in.class === 'table') {
-                $cssData = {
-                };
+                $cssData = {};
                 $cssData = _MergeStringData($cssData, $data.css_data);
             }
 
@@ -210,14 +205,14 @@ function infohub_render_table() {
                 'message': 'Here are the table with data',
                 'html': $html,
                 'css_data': $cssData,
-                'display': $data.display
-            }
+                'display': $data.display,
+            };
         }
 
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
 
@@ -227,12 +222,11 @@ function infohub_render_table() {
      * @returns {{}|{answer: string, data: [], message: string}}
      * @private
      */
-    const _SetDefaultInValues = function($in)
-    {
+    const _SetDefaultInValues = function($in) {
         let $default = {
             'type': 'table',
             'alias': '', // Your name on this table. Full name will be {box_id}_{alias}
-            'from_plugin': {'node':'', 'plugin': '', 'function': '' },
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
             'event_handler': 'infohub_render',
             'event_data': '',
             'to_node': 'client',
@@ -244,7 +238,7 @@ function infohub_render_table() {
             'id_field_name': '', // Name of the field that has the ID number
             'definition': {}, // Define each column here
             'data': {}, // The rows with data that will be in the table
-            'display': '' // none, inline, block, inline-block
+            'display': '', // none, inline, block, inline-block
         };
         $in = _Default($default, $in);
 
@@ -252,7 +246,7 @@ function infohub_render_table() {
             $in.css_data = {
                 'table': 'text-align: left; border: 1px solid #7df76d;',
                 'th':
-                    // 'background-image: linear-gradient(to bottom, #7df76d , #6d8df7);'+
+                // 'background-image: linear-gradient(to bottom, #7df76d , #6d8df7);'+
                     'color: #1b350a;',
                 'th, td': 'padding: 4px; border: 1px solid #7df76d;',
                 'td': 'color: #0b1f00;',
@@ -275,7 +269,7 @@ function infohub_render_table() {
             'default': null, // Any type of value
             'show': 'true', // Show this column
             'mark_negative': 'false', // Add class 'negative' to negative numbers
-            'view_button': 'false' // Render a view button that send a message what id you clicked.
+            'view_button': 'false', // Render a view button that send a message what id you clicked.
         };
 
         // definition - set default values
@@ -285,7 +279,8 @@ function infohub_render_table() {
                 continue;
             }
 
-            $in.definition[$key] = _Default($defaultDefinition, $in.definition[$key]);
+            $in.definition[$key] = _Default($defaultDefinition,
+                $in.definition[$key]);
             const $name = $in.definition[$key].name;
             $defaultData[$name] = $in.definition[$key].default;
         }
@@ -305,15 +300,14 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _AllRowsHtml = function ($in)
-    {
+    const _AllRowsHtml = function($in) {
         const $idFieldName = $in.id_field_name;
-        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' + $in.to_plugin + '" to_function="' + $in.to_function + '"';
+        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' +
+            $in.to_plugin + '" to_function="' + $in.to_function + '"';
 
         let $rowArray = [];
 
-        for (let $i = 0; $i < $in.data.length; $i = $i + 1)
-        {
+        for (let $i = 0; $i < $in.data.length; $i = $i + 1) {
             const $item = $in.data[$i];
 
             let $id = '';
@@ -364,16 +358,19 @@ function infohub_render_table() {
                     $name = ' name="' + $in.definition[$fieldName].name + '"';
                 }
 
-                if ($in.definition[$fieldName].view_button === 'true')
-                {
-                    const $event = " onClick=\"go('" + $in.event_handler + "','click','" + $rowId + "')\"";
-                    $value =  '<button type="button"' + $event + '>View</button>';
+                if ($in.definition[$fieldName].view_button === 'true') {
+                    const $event = ' onClick="go(\'' + $in.event_handler +
+                        '\',\'click\',\'' + $rowId + '\')"';
+                    $value = '<button type="button"' + $event +
+                        '>View</button>';
                 }
 
                 const $cellName = $in.definition[$fieldName].name;
-                const $cellId = ['{box_id}', $in.alias, $id, $cellName].join('_');
+                const $cellId = ['{box_id}', $in.alias, $id, $cellName].join(
+                    '_');
                 const $cellIdString = ' id="' + $cellId + '"';
-                const $html = '<td' + $cellIdString + $class + $name + '>' + $value + '</td>';
+                const $html = '<td' + $cellIdString + $class + $name + '>' +
+                    $value + '</td>';
                 $valueArray.push($html);
             }
 
@@ -384,7 +381,8 @@ function infohub_render_table() {
                 $eventData = ' event_data="' + $in.event_data + '|' + $id + '"';
             }
 
-            const $rowHtml = '<tr' + $rowIdString + $destination + $eventData + '>' + $fieldsHTML + '</tr>';
+            const $rowHtml = '<tr' + $rowIdString + $destination + $eventData +
+                '>' + $fieldsHTML + '</tr>';
 
             $rowArray.push($rowHtml);
         }
@@ -398,11 +396,9 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _RenderHead = function($in)
-    {
+    const _RenderHead = function($in) {
         let $labelArray = [];
-        for (let $fieldName in $in.definition)
-        {
+        for (let $fieldName in $in.definition) {
             if ($in.definition.hasOwnProperty($fieldName) === false) {
                 continue;
             }
@@ -427,22 +423,26 @@ function infohub_render_table() {
             let $style = '';
             let $styleArray = [];
             if ($in.definition[$fieldName].min_width > 0) {
-                const $data = 'min-width:' + $in.definition[$fieldName].min_width + 'px;';
+                const $data = 'min-width:' +
+                    $in.definition[$fieldName].min_width + 'px;';
                 $styleArray.push($data);
             }
             if ($in.definition[$fieldName].max_width > 0) {
-                const $data = 'max-width:' + $in.definition[$fieldName].max_width + 'px;';
+                const $data = 'max-width:' +
+                    $in.definition[$fieldName].max_width + 'px;';
                 $styleArray.push($data);
             }
             if ($styleArray.length > 0) {
-                $style = ' style="'+ $styleArray.join('') +'"';
+                $style = ' style="' + $styleArray.join('') + '"';
             }
 
-            const $html = '<th' + $class + $name + $style +'>' + $label + '</th>';
+            const $html = '<th' + $class + $name + $style + '>' + $label +
+                '</th>';
             $labelArray.push($html);
         }
 
         return '<thead><tr>' + $labelArray.join('') + '</tr></thead>';
     };
 }
+
 //# sourceURL=infohub_render_table.js

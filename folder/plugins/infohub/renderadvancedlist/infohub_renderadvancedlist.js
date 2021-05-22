@@ -20,7 +20,7 @@
  */
 function infohub_renderadvancedlist() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -36,14 +36,14 @@ function infohub_renderadvancedlist() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'expand': 'normal'
+            'expand': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -64,8 +64,7 @@ function infohub_renderadvancedlist() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -74,7 +73,8 @@ function infohub_renderadvancedlist() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -94,23 +94,22 @@ function infohub_renderadvancedlist() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
             'config': {
-                "icon": {
-                    "plugin": "",
-                    "expand": "",
-                    "contract": ""
-                }
+                'icon': {
+                    'plugin': '',
+                    'expand': '',
+                    'contract': '',
+                },
             },
             'data_back': {
                 'item_name': '',
-                'item_index_done': {}
+                'item_index_done': {},
             },
             'response': {},
-            'step': 'step_create'
+            'step': 'step_create',
         };
         $in = _Default($default, $in);
 
@@ -119,7 +118,7 @@ function infohub_renderadvancedlist() {
                 'answer': 'false',
                 'message': '',
                 'html': '',
-                'css_data': {}
+                'css_data': {},
             };
             $in.response = _Default($defaultResponse, $in.response);
             const $itemName = $in.data_back.item_name;
@@ -143,21 +142,21 @@ function infohub_renderadvancedlist() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'what': $response.what,
                         'how': $response.how,
                         'where': $response.where,
                         'alias': $data.alias,
-                        'css_data': $response.css_data
+                        'css_data': $response.css_data,
                     },
                     'data_back': {
                         'item_index': $in.item_index,
                         'item_name': $itemName,
                         'item_index_done': $in.data_back.item_index_done,
-                        'step': 'step_create_response'
-                    }
+                        'step': 'step_create_response',
+                    },
                 });
             }
             $in.step = 'step_end';
@@ -166,7 +165,7 @@ function infohub_renderadvancedlist() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -176,15 +175,14 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const internal_AdvancedList = function ($in)
-    {
+    const internal_AdvancedList = function($in) {
         const $default = {
             'option': {},
             'label_expand': '⊕', // https://unicode-table.com/en/2295/
             'label_contract': '⊖', // https://unicode-table.com/en/2296/
             'class': 'list',
             'css_data': {},
-            'separator': '_'
+            'separator': '_',
         };
         $in = _Default($default, $in);
 
@@ -192,15 +190,16 @@ function infohub_renderadvancedlist() {
 
         if ($in.class === 'list') {
             $cssData = {
-                '.list': 'font-size: 1.0em; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;'
+                '.list': 'font-size: 1.0em; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
-
         const $data = _StructureData($in.option, $in.separator);
-        const $dataOut = _LabelData($data, $in.label_expand, $in.label_contract);
-        const $what = _GetWhat($dataOut, $cssData, $in.label_expand, $in.label_contract);
+        const $dataOut = _LabelData($data, $in.label_expand,
+            $in.label_contract);
+        const $what = _GetWhat($dataOut, $cssData, $in.label_expand,
+            $in.label_contract);
 
         return {
             'answer': 'true',
@@ -208,11 +207,11 @@ function infohub_renderadvancedlist() {
             'what': $what,
             'how': {
                 'mode': 'one box',
-                'text': '[childlist_rootlevel]'
+                'text': '[childlist_rootlevel]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -224,13 +223,11 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const _StructureData = function ($option, $separator)
-    {
+    const _StructureData = function($option, $separator) {
         let $dataOut = {};
 
         for (let $key in $option) {
-            if ($option.hasOwnProperty($key))
-            {
+            if ($option.hasOwnProperty($key)) {
                 let $level = $option[$key].level;
                 let $parts = $level.split($separator);
 
@@ -248,7 +245,7 @@ function infohub_renderadvancedlist() {
                     $parent = 'rootlevel';
                 }
 
-                if (typeof $dataOut[$parent] === "undefined") {
+                if (typeof $dataOut[$parent] === 'undefined') {
                     $dataOut[$parent] = {};
                 }
 
@@ -269,8 +266,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const _LabelData = function ($dataIn, $labelExpand, $labelContract)
-    {
+    const _LabelData = function($dataIn, $labelExpand, $labelContract) {
         let $dataOut = _ByVal($dataIn);
 
         let $expand = true;
@@ -287,12 +283,15 @@ function infohub_renderadvancedlist() {
             for (let $level in $dataOut[$parent]) {
                 if (_IsSet($dataOut[$level]) === 'true') {
                     if ($expand === true) {
-                        $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[toggle_' + $level + ']';
+                        $dataOut[$parent][$level] = $dataOut[$parent][$level] +
+                            '[toggle_' + $level + ']';
                     }
                     if ($contract === true) {
-                        $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[toggle2_' + $level + ']';
+                        $dataOut[$parent][$level] = $dataOut[$parent][$level] +
+                            '[toggle2_' + $level + ']';
                     }
-                    $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[childlist_' + $level + ']';
+                    $dataOut[$parent][$level] = $dataOut[$parent][$level] +
+                        '[childlist_' + $level + ']';
                 }
             }
         }
@@ -309,13 +308,11 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const _GetWhat = function ($dataIn, $cssData, $labelExpand, $labelContract)
-    {
+    const _GetWhat = function($dataIn, $cssData, $labelExpand, $labelContract) {
         let $dataOut = _ByVal($dataIn);
         let $what = {};
 
-        for (let $level in $dataOut)
-        {
+        for (let $level in $dataOut) {
             const $toggleId = 'toggle_' + $level;
             const $toggleId2 = 'toggle2_' + $level;
             const $childId = 'childlist_' + $level;
@@ -327,7 +324,7 @@ function infohub_renderadvancedlist() {
                     'show': $labelExpand,
                     'toggle_alias': $childId,
                     'other_alias': $toggleId2,
-                    'block_type_visible': 'inline-block'
+                    'block_type_visible': 'inline-block',
                 };
             }
 
@@ -339,7 +336,7 @@ function infohub_renderadvancedlist() {
                     'toggle_alias': $childId,
                     'other_alias': $toggleId,
                     'display': 'none',
-                    'block_type_visible': 'inline-block'
+                    'block_type_visible': 'inline-block',
                 };
             }
 
@@ -357,15 +354,14 @@ function infohub_renderadvancedlist() {
                 'subtype': 'list',
                 'option': [],
                 'css_data': $cssData,
-                'display': $display
+                'display': $display,
             };
 
             // This is the children being added to the childlist
-            for (let $childItemKey in $dataOut[$level])
-            {
+            for (let $childItemKey in $dataOut[$level]) {
                 const $row = {
-                    'label' : $dataOut[$level][$childItemKey],
-                    'id': $childItemKey
+                    'label': $dataOut[$level][$childItemKey],
+                    'id': $childItemKey,
                 };
 
                 $what[$childId].option.push($row);
@@ -383,16 +379,15 @@ function infohub_renderadvancedlist() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("expand"); // Enable this function
-    const expand = function ($in)
-    {
+    $functions.push('expand'); // Enable this function
+    const expand = function($in) {
         const $default = {
             'box_id': '',
             'list_name': '',
             'list_path': '',
             'step': 'step_get_box_id',
             'data_back': {},
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -401,48 +396,49 @@ function infohub_renderadvancedlist() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'get_box_id'
+                    'function': 'get_box_id',
                 },
                 'data': {
-                    'box_id': $in.box_id
+                    'box_id': $in.box_id,
                 },
                 'data_back': {
                     'list_name': $in.list_name,
                     'list_path': $in.list_path,
-                    'step': 'step_get_box_id_response'
-                }
+                    'step': 'step_get_box_id_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_box_id_response')
-        {
+        if ($in.step === 'step_get_box_id_response') {
             let $parts = $in.list_path.split('_'),
                 $ids = [],
                 $id = '';
 
-            while (_Count($parts) > 0)
-            {
-                $id = $in.box_id + '_' + $in.data_back.list_name + '_childlist_' + $parts.join('_');
-                $ids.push({
-                    'func': 'SetVisible',
-                    'id': $id,
-                    'set_visible': 'true'
-                });
-
-                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle_' + $parts.join('_');
-                $ids.push({
-                    'func': 'SetVisible',
-                    'id': $id,
-                    'set_visible': 'false',
-                    'block_type_visible': 'inline-block'
-                });
-
-                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle2_' + $parts.join('_');
+            while (_Count($parts) > 0) {
+                $id = $in.box_id + '_' + $in.data_back.list_name +
+                    '_childlist_' + $parts.join('_');
                 $ids.push({
                     'func': 'SetVisible',
                     'id': $id,
                     'set_visible': 'true',
-                    'block_type_visible': 'inline-block'
+                });
+
+                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle_' +
+                    $parts.join('_');
+                $ids.push({
+                    'func': 'SetVisible',
+                    'id': $id,
+                    'set_visible': 'false',
+                    'block_type_visible': 'inline-block',
+                });
+
+                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle2_' +
+                    $parts.join('_');
+                $ids.push({
+                    'func': 'SetVisible',
+                    'id': $id,
+                    'set_visible': 'true',
+                    'block_type_visible': 'inline-block',
                 });
 
                 $parts.pop();
@@ -452,21 +448,22 @@ function infohub_renderadvancedlist() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'mass_update'
+                    'function': 'mass_update',
                 },
                 'data': {
-                    'do': $ids
+                    'do': $ids,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Done expanding nodes in the advanced list'
+            'message': 'Done expanding nodes in the advanced list',
         };
     };
 }
+
 //# sourceURL=infohub_renderadvancedlist.js

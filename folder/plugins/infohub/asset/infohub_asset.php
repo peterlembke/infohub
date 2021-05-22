@@ -32,14 +32,14 @@ class infohub_asset extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-01-22
+     * @return  string[]
      * @since   2017-12-03
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2018-01-22
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-01-22',
             'since' => '2017-12-03',
             'version' => '1.1.0',
@@ -49,22 +49,22 @@ class infohub_asset extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-01-22
+     * @return mixed
      * @since   2017-12-03
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-01-22
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'update_all_plugin_assets' => 'normal',
             'update_specific_assets' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -75,28 +75,28 @@ class infohub_asset extends infohub_base
      * Asset names that have its checksum mean that your data is accurate.
      * Asset names that have no checksum mean that your data should be deleted.
      * Asset names that have something in content should be updated/added on the client.
-     * @version 2018-11-14
-     * @since   2017-12-23
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-11-14
+     * @since   2017-12-23
      */
     protected function update_all_plugin_assets(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name' => '', // Provided by caller
             'asset_checksum_array' => [], // provided by caller (optional). asset name and its checksum
             'max_asset_size_kb' => 0, // 0 = any size is ok
             'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_all_assets',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'response' => array(
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'response' => [
                 'answer' => '',
                 'message' => '',
                 'data' => []
-            ),
+            ],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -124,49 +124,49 @@ class infohub_asset extends infohub_base
             goto leave;
         }
 
-        if ($in['step'] === 'step_get_all_assets')
-        {
-            return $this->_Subcall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'asset_get_all_assets_for_one_plugin'
-                ),
-                'data' => array(
-                    'plugin_name' => $in['plugin_name']
-                ),
-                'data_back' => array(
-                    'plugin_name' => $in['plugin_name'],
-                    'asset_checksum_array' => $in['asset_checksum_array'],
-                    'max_asset_size_kb' => $in['max_asset_size_kb'],
-                    'allowed_asset_types' => $in['allowed_asset_types'],
-                    'step' => 'step_get_all_assets_response'
-                )
-            ));
+        if ($in['step'] === 'step_get_all_assets') {
+            return $this->_Subcall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'asset_get_all_assets_for_one_plugin'
+                    ],
+                    'data' => [
+                        'plugin_name' => $in['plugin_name']
+                    ],
+                    'data_back' => [
+                        'plugin_name' => $in['plugin_name'],
+                        'asset_checksum_array' => $in['asset_checksum_array'],
+                        'max_asset_size_kb' => $in['max_asset_size_kb'],
+                        'allowed_asset_types' => $in['allowed_asset_types'],
+                        'step' => 'step_get_all_assets_response'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_all_assets_response')
-        {
+        if ($in['step'] === 'step_get_all_assets_response') {
             $in['step'] = 'step_compare_asset_checksums';
             if ($in['response']['answer'] === 'false') {
                 $in['step'] = 'step_end';
             }
         }
 
-        if ($in['step'] === 'step_compare_asset_checksums')
-        {
+        if ($in['step'] === 'step_compare_asset_checksums') {
             $collectedArray = $in['response']['data'];
 
-            $response = $this->internal_Cmd(array(
-                'func' => 'ComparePluginData',
-                'asset_checksum_array' => $in['asset_checksum_array'],
-                'collected_array' => $collectedArray
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'ComparePluginData',
+                    'asset_checksum_array' => $in['asset_checksum_array'],
+                    'collected_array' => $collectedArray
+                ]
+            );
 
             $sizeIndex = [];
             $assetList = [];
             foreach ($response['data'] as $assetName => $assetData) {
-
                 if (empty($assetData) === true) {
                     continue;
                 }
@@ -201,7 +201,6 @@ class infohub_asset extends infohub_base
 
             $newAssetList = [];
             foreach ($assetList as $assetName => $assetData) {
-
                 if ($assetData['extension'] === 'json' || $assetData['extension'] === 'svg') {
                     $newAssetList[$assetName] = $assetData;
                     continue;
@@ -224,12 +223,12 @@ class infohub_asset extends infohub_base
                 $index[$assetName] = $assetData['checksum'];
             }
 
-            $newAssetList[$pluginName . '/index'] = array(
+            $newAssetList[$pluginName . '/index'] = [
                 'micro_time' => $this->_MicroTime(),
                 'time_stamp' => $this->_TimeStamp(),
                 'checksums' => $index,
                 'full_sync_done' => 'true'
-            );
+            ];
 
             unset($index);
             $in['response']['data'] = $newAssetList;
@@ -240,35 +239,34 @@ class infohub_asset extends infohub_base
         $data = $in['response']['data'];
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'data' => $data,
             'plugin_name' => $in['plugin_name']
-        );
+        ];
         return $response;
     }
 
     /**
      * Compare the asset list we got from the client with the assets we have collected on the server
      * Some are new to the client, some are OK on the client, some should be updated on the client.
-     * @version 2017-12-03
-     * @since   2017-12-03
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-12-03
+     * @since   2017-12-03
      */
     protected function internal_ComparePluginData(array $in = []): array
     {
-        $default = array(
+        $default = [
             'asset_checksum_array' => [],
             'collected_array' => [],
             'step' => 'step_start'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        foreach ($in['asset_checksum_array'] as $assetName => $assetChecksum)
-        {
+        foreach ($in['asset_checksum_array'] as $assetName => $assetChecksum) {
             if (isset($in['collected_array'][$assetName]) === false) {
                 $in['asset_checksum_array'][$assetName] = [];
                 continue; // New asset
@@ -293,8 +291,7 @@ class infohub_asset extends infohub_base
         }
 
         // Get data for new assets
-        foreach ($in['collected_array'] as $assetName => $assetData)
-        {
+        foreach ($in['collected_array'] as $assetName => $assetData) {
             if (isset($in['asset_checksum_array'][$assetName]) === false) {
                 if ($assetData['extension'] === 'json') {
                     $assetData['contents'] = $this->_JsonDecode($assetData['contents']);
@@ -304,38 +301,38 @@ class infohub_asset extends infohub_base
         }
 
         leave:
-        $response = array(
+        $response = [
             'answer' => 'true',
             'message' => 'Done comparing plugin data',
             'data' => $in['asset_checksum_array']
-        );
+        ];
         return $response;
     }
 
     /**
      * Get a list from infohub_asset with plugin names and sub list with asset names.
      * All assets on the list should be updated. No need to verify checksums.
-     * @version 2018-12-22
-     * @since   2018-12-02
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-12-22
+     * @since   2018-12-02
      */
     protected function update_specific_assets(array $in = []): array
     {
-        $default = array(
+        $default = [
             'assets_requested' => [],
             'max_asset_size_kb' => 0, // 0 = all sizes are ok
             'allowed_asset_types' => [], // Leave empty for all asset types
             'step' => 'step_get_assets_requested',
-            'from_plugin' => array('node' => '', 'plugin' => '', 'function' => ''),
-            'response' => array(
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'response' => [
                 'answer' => '',
                 'message' => '',
                 'data' => []
-            ),
+            ],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -357,35 +354,34 @@ class infohub_asset extends infohub_base
             goto leave;
         }
 
-        if ($in['step'] === 'step_get_assets_requested')
-        {
-            return $this->_Subcall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'asset_get_assets_requested'
-                ),
-                'data' => array(
-                    'assets_requested' => $in['assets_requested']
-                ),
-                'data_back' => array(
-                    'assets_requested' => $in['assets_requested'],
-                    'max_asset_size_kb' => $in['max_asset_size_kb'],
-                    'allowed_asset_types' => $in['allowed_asset_types'],
-                    'step' => 'step_get_assets_requested_response'
-                )
-            ));
+        if ($in['step'] === 'step_get_assets_requested') {
+            return $this->_Subcall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'asset_get_assets_requested'
+                    ],
+                    'data' => [
+                        'assets_requested' => $in['assets_requested']
+                    ],
+                    'data_back' => [
+                        'assets_requested' => $in['assets_requested'],
+                        'max_asset_size_kb' => $in['max_asset_size_kb'],
+                        'allowed_asset_types' => $in['allowed_asset_types'],
+                        'step' => 'step_get_assets_requested_response'
+                    ]
+                ]
+            );
         }
-        
-        if ($in['step'] === 'step_get_assets_requested_response')
-        {
+
+        if ($in['step'] === 'step_get_assets_requested_response') {
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $assetsFound = $in['response']['data'];
             $assetsRequested = $in['data_back']['assets_requested'];
 
             foreach ($assetsRequested as $path => $alreadyHaveChecksum) {
-
                 if (isset($assetsFound[$path]['checksum']) === false) {
                     continue; // The requested asset was not found
                 }
@@ -419,13 +415,13 @@ class infohub_asset extends infohub_base
                 }
             }
         }
-        
+
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'data' => $assetsFound
-        );
+        ];
         return $response;
     }
 

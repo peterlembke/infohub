@@ -17,11 +17,11 @@
  */
 function infohub_workbench() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    $functions.push("_Version");
+    $functions.push('_Version');
     const _Version = function() {
         return {
             'date': '2017-03-08',
@@ -35,22 +35,22 @@ function infohub_workbench() {
             'title': 'Workbench',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    $functions.push("_GetCmdFunctions");
+    $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
         const $list = {
             'startup': 'normal',
             'setup_gui': 'normal',
-            'setup_plugin': 'normal'
+            'setup_plugin': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
-    $functions.push("_GetBoxId");
+    $functions.push('_GetBoxId');
     const _GetBoxId = function() {
         return 'main.body.' + _GetClassName();
     };
@@ -62,11 +62,10 @@ function infohub_workbench() {
      * @since 2017-03-08
      * @author Peter Lembke
      */
-    $functions.push("startup");
-    const startup = function ($in)
-    {
+    $functions.push('startup');
+    const startup = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -75,12 +74,12 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'init'
+                    'function': 'init',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_tabs'
-                }
+                    'step': 'step_tabs',
+                },
             });
         }
 
@@ -89,14 +88,14 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'init'
+                    'function': 'init',
                 },
                 'data': {
-                    'parent_box_id': 'main'
+                    'parent_box_id': 'main',
                 },
                 'data_back': {
-                    'step': 'step_setup_plugin_launcher'
-                }
+                    'step': 'step_setup_plugin_launcher',
+                },
             });
         }
 
@@ -105,14 +104,14 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_workbench',
-                    'function': 'setup_plugin'
+                    'function': 'setup_plugin',
                 },
                 'data': {
-                    'plugin_name': 'infohub_launcher'
+                    'plugin_name': 'infohub_launcher',
                 },
                 'data_back': {
-                    'step': 'step_apply_config'
-                }
+                    'step': 'step_apply_config',
+                },
             });
         }
 
@@ -121,18 +120,18 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_configlocal',
-                    'function': 'apply_config'
+                    'function': 'apply_config',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Done with setting up the workbench'
+            'message': 'Done with setting up the workbench',
         };
 
     };
@@ -144,13 +143,12 @@ function infohub_workbench() {
      * @author  Peter Lembke
      */
     $functions.push('setup_plugin');
-    const setup_plugin = function ($in)
-    {
+    const setup_plugin = function($in) {
         const $default = {
             'plugin_name': '',
             'step': 'step_is_plugin_started',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
@@ -164,26 +162,24 @@ function infohub_workbench() {
         // Render the info box and place it in the head_tab_box_id
         // Call node=client, plugin=$in.plugin_name, function=setup_gui, box_id={{body_tab_box_id}}
 
-        if ($in.step === 'step_is_plugin_started')
-        {
+        if ($in.step === 'step_is_plugin_started') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'id_exist'
+                    'function': 'id_exist',
                 },
                 'data': {
-                    'id': 'main.head.' + $in.plugin_name
+                    'id': 'main.head.' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_is_plugin_started_response'
-                }
+                    'step': 'step_is_plugin_started_response',
+                },
             });
         }
 
-        if ($in.step === 'step_is_plugin_started_response')
-        {
+        if ($in.step === 'step_is_plugin_started_response') {
             if ($in.response.exist === 'true') {
                 $in.data_back.already_started = 'true';
                 $in.step = 'step_highlight_tab';
@@ -193,22 +189,21 @@ function infohub_workbench() {
             }
         }
 
-        if ($in.step === 'step_get_launch_information')
-        {
+        if ($in.step === 'step_get_launch_information') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_launcher',
-                    'function': 'get_launch_information'
+                    'function': 'get_launch_information',
                 },
                 'data': {
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_get_launch_information_response'
-                }
+                    'step': 'step_get_launch_information_response',
+                },
             });
         }
 
@@ -220,14 +215,13 @@ function infohub_workbench() {
             }
         }
 
-        if ($in.step === 'step_ping_plugins')
-        {
+        if ($in.step === 'step_ping_plugins') {
             // Read launcher.json field "uses" array for plugin names our plugin uses
             let $uses = _GetData({
                 'name': 'response/data/uses',
                 'default': [],
                 'data': $in,
-                'split': '/'
+                'split': '/',
             });
 
             // Add the plugin we want to start to the array
@@ -239,18 +233,17 @@ function infohub_workbench() {
             let $messagesArray = [];
             let $messageOut = {};
 
-            for (let $nr = 0; $nr < $uses.length; $nr = $nr + 1)
-            {
+            for (let $nr = 0; $nr < $uses.length; $nr = $nr + 1) {
                 $messageOut = _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': $uses[$nr],
-                        'function': 'version'
+                        'function': 'version',
                     },
                     'data': {},
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
                 $messagesArray.push($messageOut);
             }
@@ -259,47 +252,45 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_asset',
-                    'function': 'update_all_plugin_assets'
+                    'function': 'update_all_plugin_assets',
                 },
                 'data': {
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_get_launch_information_again'
-                }
+                    'step': 'step_get_launch_information_again',
+                },
             });
             $messagesArray.push($messageOut);
 
             return {
                 'answer': 'true',
                 'message': 'Sending a message to each plugin that are used by the plugin we want to start. That will do a plugin request from the server if the plugin is missing',
-                'messages': $messagesArray
+                'messages': $messagesArray,
             };
         }
 
-        if ($in.step === 'step_get_launch_information_again')
-        {
+        if ($in.step === 'step_get_launch_information_again') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_launcher',
-                    'function': 'get_launch_information'
+                    'function': 'get_launch_information',
                 },
                 'data': {
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_get_launch_information_again_response'
-                }
+                    'step': 'step_get_launch_information_again_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_launch_information_again_response')
-        {
+        if ($in.step === 'step_get_launch_information_again_response') {
             $in.step = 'step_add_tab';
 
             if ($in.response.answer === 'false') {
@@ -315,22 +306,21 @@ function infohub_workbench() {
                     'note': $in.response.data.note,
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_add_tab'
+                    'step': 'step_add_tab',
                 };
             }
         }
 
-        if ($in.step === 'step_add_tab')
-        {
+        if ($in.step === 'step_add_tab') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'add'
+                    'function': 'add',
                 },
                 'data': {
                     'parent_box_id': 'main',
-                    'tab_alias': $in.plugin_name
+                    'tab_alias': $in.plugin_name,
                 },
                 'data_back': {
                     'title': $in.data_back.title,
@@ -339,13 +329,12 @@ function infohub_workbench() {
                     'note': $in.data_back.note,
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_add_icon'
-                }
+                    'step': 'step_add_icon',
+                },
             });
         }
 
-        if ($in.step === 'step_add_icon')
-        {
+        if ($in.step === 'step_add_icon') {
             let $fontSize = '0.7';
             if ($in.data_back.title.length < 12) {
                 $fontSize = '0.85';
@@ -358,7 +347,7 @@ function infohub_workbench() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -369,14 +358,14 @@ function infohub_workbench() {
                             'alias': 'menuimage',
                             'class': 'svg noselect',
                             'css_data': {
-                                '.svg': 'width: 64px; height: 64px; padding: 2px; box-sizing: border-box;'
-                            }
+                                '.svg': 'width: 64px; height: 64px; padding: 2px; box-sizing: border-box;',
+                            },
                         },
                         'menuiconasset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'icon',
-                            'plugin_name': $in.plugin_name
+                            'plugin_name': $in.plugin_name,
                         },
                         'menutitle': {
                             'type': 'common',
@@ -386,9 +375,11 @@ function infohub_workbench() {
                             'data': $in.data_back.title,
                             'tag': 'div',
                             'css_data': {
-                                '.menutitle': 'max-width:78px; padding:1px; font-size:' + $fontSize + 'em; text-align:center; height:32px; border-radius: 0px 0px 8px 8px; box-sizing: border-box;',
-                                '.yes': 'background-color: #6d8df7; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;'
-                            }
+                                '.menutitle': 'max-width:78px; padding:1px; font-size:' +
+                                    $fontSize +
+                                    'em; text-align:center; height:32px; border-radius: 0px 0px 8px 8px; box-sizing: border-box;',
+                                '.yes': 'background-color: #6d8df7; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25) inset;',
+                            },
                         },
                         'menulink': {
                             'type': 'link',
@@ -400,29 +391,28 @@ function infohub_workbench() {
                             'to_plugin': 'infohub_tabs',
                             'css_data': {
                                 '.link:hover': 'background: #6d8df7; border-radius: 8px;',
-                                '.link': 'display: inline-block;'
-                            }
-                        }
+                                '.link': 'display: inline-block;',
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[menulink]'
+                        'text': '[menulink]',
                     },
                     'where': {
-                        'box_id': 'main.head.' + $in.plugin_name
+                        'box_id': 'main.head.' + $in.plugin_name,
                     },
-                    'cache_key': 'addicon_' + $in.plugin_name
+                    'cache_key': 'addicon_' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_hide_siblings'
-                }
+                    'step': 'step_hide_siblings',
+                },
             });
         }
 
-        if ($in.step === 'step_hide_siblings')
-        {
+        if ($in.step === 'step_hide_siblings') {
             $in.step = 'step_hide_siblings_to_gui';
 
             if ($in.data_back.already_started === 'true') {
@@ -432,94 +422,90 @@ function infohub_workbench() {
             }
         }
 
-        if ($in.step === 'step_hide_siblings_to_gui')
-        {
+        if ($in.step === 'step_hide_siblings_to_gui') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'siblings_box_view'
+                    'function': 'siblings_box_view',
                 },
                 'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
+                    'box_id': 'main.body.' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_setup_gui'
-                }
+                    'step': 'step_setup_gui',
+                },
             });
         }
 
-        if ($in.step === 'step_setup_gui')
-        {
+        if ($in.step === 'step_setup_gui') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $in.plugin_name,
-                    'function': 'setup_gui'
+                    'function': 'setup_gui',
                 },
                 'data': {
                     'box_id': 'main.body.' + $in.plugin_name,
-                    'desktop_environment': 'workbench'
+                    'desktop_environment': 'workbench',
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_highlight_tab'
-                }
+                    'step': 'step_highlight_tab',
+                },
             });
         }
 
-        if ($in.step === 'step_highlight_tab')
-        {
+        if ($in.step === 'step_highlight_tab') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'highlight_tab'
+                    'function': 'highlight_tab',
                 },
                 'data': {
                     'parent_box_id': 'main.head',
-                    'tab_alias': $in.plugin_name
+                    'tab_alias': $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_scroll_to_box_id'
-                }
+                    'step': 'step_scroll_to_box_id',
+                },
             });
         }
 
-        if ($in.step === 'step_scroll_to_box_id')
-        {
+        if ($in.step === 'step_scroll_to_box_id') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'scroll_to_box_id'
+                    'function': 'scroll_to_box_id',
                 },
                 'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
+                    'box_id': 'main.body.' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
-        if ($in.step === 'step_scroll_to_box_id_response')
-        {
+        if ($in.step === 'step_scroll_to_box_id_response') {
             $answer = 'true';
             $message = 'Plugin is now set up';
         }
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 }
+
 //# sourceURL=infohub_workbench.js

@@ -1,117 +1,117 @@
 {
-  "to_node": "client",
-  "ban_seconds": 0.8841350078582764,
-  "banned_until": 1560065505.271408,
-  "messages": [
-    {
-      "to": {
-        "node": "client",
-        "plugin": "infohub_launcher",
-        "function": "update_full_list"
-      },
-      "callstack": [
+    "to_node": "client",
+    "ban_seconds": 0.8841350078582764,
+    "banned_until": 1560065505.271408,
+    "messages": [
         {
-          "to": {
-            "node": "client",
-            "plugin": "infohub_launcher",
-            "function": "event_message"
-          },
-          "data_back": {
-            "step": "step_end"
-          }
-        },
-        {
-          "to": {
-            "node": "client",
-            "plugin": "infohub_launcher",
-            "function": "refresh_list"
-          },
-          "data_back": {
-            "list_name": "full_list",
-            "step": "step_update_full_list_response"
-          },
-          "data_request": []
-        }
-      ],
-      "data": {
-        "data_back": {
-          "step": "step_get_full_list_response"
-        },
-        "response": {
-          "func": "ReturnCall",
-          "answer": "true",
-          "message": "Here are the full_list",
-          "data": {
-            "name": "full_list",
-            "do": "update",
-            "micro_time": 1560065504.383653,
-            "time_stamp": "2019-06-09 09:31:44",
-            "list_checksum": "06116e36ba5d9136ed5ab217146b8c90",
-            "list": {
-              "infohub_configlocal": {
-                "launcher.json": "d241719f7af5f9a48b2237bc24382310",
-                "icon\/icon.json": "2f2e85f8ec3bbfbe92437e193bdcd5a0",
-                "icon\/icon.svg": "b77ea680840cedc5fc5a744788db9905"
-              },
-              "infohub_contact": {
-                "launcher.json": "ac06479aa0c31f370e658925e04f46cd",
-                "icon\/icon.json": "141849f251412673628ae01ee94eb020",
-                "icon\/icon.svg": "918503379fd346ad83cd835fcb2ad4bc"
-              },
-              "infohub_debug": {
-                "launcher.json": "c3631dfc38137e1eb0da8c79e8c1756a",
-                "icon\/icon.json": "440dc7b2d49dd858a3bb99d276aa4f1a",
-                "icon\/icon.svg": "c17cc3a982328e8e780add9c820674f5"
-              },
-              "infohub_demo": {
-                "launcher.json": "1ada2e32a12147f4738ec7bf9d9be8af",
-                "icon\/icon.json": "27a55241891f9a1d5fc06d1ffb531a0c",
-                "icon\/icon.svg": "5c901bcb78ffe8215bfe76d465bef8fc"
-              },
-              "infohub_democall": {
-                "launcher.json": "19094210920e7d751dbe16d159a546a8",
-                "icon\/icon.json": "acc4067ea4c4f1842300eda854816182",
-                "icon\/icon.svg": "de95bff897fb35251690e915f3f9160a"
-              },
-              "infohub_doc": {
-                "launcher.json": "725eed292171c3b742b2961cbda601ae",
-                "icon\/icon.json": "44448e06df2559a87413837ab14cb71a",
-                "icon\/icon.svg": "609ff33d2285db41ab192ddbbc6f941e"
-              },
-              "infohub_doc-old": {
-                "launcher.json": "725eed292171c3b742b2961cbda601ae",
-                "icon\/icon.json": "44448e06df2559a87413837ab14cb71a",
-                "icon\/icon.svg": "609ff33d2285db41ab192ddbbc6f941e"
-              },
-              "infohub_keyboard": {
-                "launcher.json": "eb9921143c4155d83a0682aa9b049ea3",
-                "icon\/icon.json": "143b8ca6f60288900a24d74033faefb2",
-                "icon\/icon.svg": "bc2d4b0f220183674b569ea4c1b5e01d"
-              },
-              "infohub_offline": {
-                "launcher.json": "f441fa9d75dd4dc7f39ca843f2e734bd",
-                "icon\/icon.json": "e57e95aa9d35eb50c504fa37795dda1b",
-                "icon\/icon.svg": "7bf9086358c17bf2c684275c76b59556"
-              },
-              "infohub_tools": {
-                "launcher.json": "6c881c27993ce22840520bc0779449a2",
-                "icon\/icon.json": "5728757ab280ca3319c5fc82f430b73d",
-                "icon\/icon.svg": "81e6b4343f306f172bc76a53f5d45a38"
-              },
-              "infohub_translate": {
-                "launcher.json": "580377b4ae5886e4a04e85566a52902d",
-                "icon\/icon.json": "20eca66833a37f01af6f6b30ae2d3272",
-                "icon\/icon.svg": "87f7f594eeb61ae3cc52e77ca096c5f8"
-              },
-              "infohub_welcome": {
-                "launcher.json": "d5d855dac272e24ffacd77cd1a11deca",
-                "icon\/icon.json": "9b3f58ad6b33c41b1c4a1c243e203f4c",
-                "icon\/icon.svg": "2e40d27ed2d196f2a83155e0899dce24"
-              }
+            "to": {
+                "node": "client",
+                "plugin": "infohub_launcher",
+                "function": "update_full_list"
+            },
+            "callstack": [
+                {
+                    "to": {
+                        "node": "client",
+                        "plugin": "infohub_launcher",
+                        "function": "event_message"
+                    },
+                    "data_back": {
+                        "step": "step_end"
+                    }
+                },
+                {
+                    "to": {
+                        "node": "client",
+                        "plugin": "infohub_launcher",
+                        "function": "refresh_list"
+                    },
+                    "data_back": {
+                        "list_name": "full_list",
+                        "step": "step_update_full_list_response"
+                    },
+                    "data_request": []
+                }
+            ],
+            "data": {
+                "data_back": {
+                    "step": "step_get_full_list_response"
+                },
+                "response": {
+                    "func": "ReturnCall",
+                    "answer": "true",
+                    "message": "Here are the full_list",
+                    "data": {
+                        "name": "full_list",
+                        "do": "update",
+                        "micro_time": 1560065504.383653,
+                        "time_stamp": "2019-06-09 09:31:44",
+                        "list_checksum": "06116e36ba5d9136ed5ab217146b8c90",
+                        "list": {
+                            "infohub_configlocal": {
+                                "launcher.json": "d241719f7af5f9a48b2237bc24382310",
+                                "icon\/icon.json": "2f2e85f8ec3bbfbe92437e193bdcd5a0",
+                                "icon\/icon.svg": "b77ea680840cedc5fc5a744788db9905"
+                            },
+                            "infohub_contact": {
+                                "launcher.json": "ac06479aa0c31f370e658925e04f46cd",
+                                "icon\/icon.json": "141849f251412673628ae01ee94eb020",
+                                "icon\/icon.svg": "918503379fd346ad83cd835fcb2ad4bc"
+                            },
+                            "infohub_debug": {
+                                "launcher.json": "c3631dfc38137e1eb0da8c79e8c1756a",
+                                "icon\/icon.json": "440dc7b2d49dd858a3bb99d276aa4f1a",
+                                "icon\/icon.svg": "c17cc3a982328e8e780add9c820674f5"
+                            },
+                            "infohub_demo": {
+                                "launcher.json": "1ada2e32a12147f4738ec7bf9d9be8af",
+                                "icon\/icon.json": "27a55241891f9a1d5fc06d1ffb531a0c",
+                                "icon\/icon.svg": "5c901bcb78ffe8215bfe76d465bef8fc"
+                            },
+                            "infohub_democall": {
+                                "launcher.json": "19094210920e7d751dbe16d159a546a8",
+                                "icon\/icon.json": "acc4067ea4c4f1842300eda854816182",
+                                "icon\/icon.svg": "de95bff897fb35251690e915f3f9160a"
+                            },
+                            "infohub_doc": {
+                                "launcher.json": "725eed292171c3b742b2961cbda601ae",
+                                "icon\/icon.json": "44448e06df2559a87413837ab14cb71a",
+                                "icon\/icon.svg": "609ff33d2285db41ab192ddbbc6f941e"
+                            },
+                            "infohub_doc-old": {
+                                "launcher.json": "725eed292171c3b742b2961cbda601ae",
+                                "icon\/icon.json": "44448e06df2559a87413837ab14cb71a",
+                                "icon\/icon.svg": "609ff33d2285db41ab192ddbbc6f941e"
+                            },
+                            "infohub_keyboard": {
+                                "launcher.json": "eb9921143c4155d83a0682aa9b049ea3",
+                                "icon\/icon.json": "143b8ca6f60288900a24d74033faefb2",
+                                "icon\/icon.svg": "bc2d4b0f220183674b569ea4c1b5e01d"
+                            },
+                            "infohub_offline": {
+                                "launcher.json": "f441fa9d75dd4dc7f39ca843f2e734bd",
+                                "icon\/icon.json": "e57e95aa9d35eb50c504fa37795dda1b",
+                                "icon\/icon.svg": "7bf9086358c17bf2c684275c76b59556"
+                            },
+                            "infohub_tools": {
+                                "launcher.json": "6c881c27993ce22840520bc0779449a2",
+                                "icon\/icon.json": "5728757ab280ca3319c5fc82f430b73d",
+                                "icon\/icon.svg": "81e6b4343f306f172bc76a53f5d45a38"
+                            },
+                            "infohub_translate": {
+                                "launcher.json": "580377b4ae5886e4a04e85566a52902d",
+                                "icon\/icon.json": "20eca66833a37f01af6f6b30ae2d3272",
+                                "icon\/icon.svg": "87f7f594eeb61ae3cc52e77ca096c5f8"
+                            },
+                            "infohub_welcome": {
+                                "launcher.json": "d5d855dac272e24ffacd77cd1a11deca",
+                                "icon\/icon.json": "9b3f58ad6b33c41b1c4a1c243e203f4c",
+                                "icon\/icon.svg": "2e40d27ed2d196f2a83155e0899dce24"
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  ]
+    ]
 }

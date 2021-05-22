@@ -16,43 +16,51 @@
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 // sanity_check
-window.setInterval("sanity_check()", 5000);
+window.setInterval('sanity_check()', 5000);
 
-function sanity_check()
-{
-    "use strict";
+function sanity_check() {
+    'use strict';
 
     let $value, $parent, $tagName, $url, $id, $box,
-        $externalReferences = {'img': 0, 'a': 0, 'script': 0, 'iframe': 0, 'link': 0 },
+        $externalReferences = {
+            'img': 0,
+            'a': 0,
+            'script': 0,
+            'iframe': 0,
+            'link': 0,
+        },
         $found = 'false', $parts, $sandbox,
-        $message = "", $display = 'none', $hrefPart;
+        $message = '', $display = 'none', $hrefPart;
 
     let $currentUrl = document.location.href;
     let $validUrl = $currentUrl + '#';
+    let $baseUrl = '', $query = '';
+    $parts = $currentUrl.split('#');
+    if (typeof $parts[0] !== 'undefined') {
+        $validUrl = $parts[0];
+        $baseUrl = $validUrl;
+        $parts = $validUrl.split('?');
+        if (typeof $parts[0] !== 'undefined') {
+            $baseUrl = $parts[0];
+        }
+    }
 
     let $elements = document.getElementsByTagName('img');
-    for(let $i = 0; $i < $elements.length; $i = $i + 1) {
-        if ($elements[$i].src.substring(0,10) !== 'data:image') {
+    for (let $i = 0; $i < $elements.length; $i = $i + 1) {
+        if ($elements[$i].src.substring(0, 10) !== 'data:image') {
             $externalReferences.img = $externalReferences.img + 1;
             $found = 'true';
         }
     }
 
     $elements = document.getElementsByTagName('a');
-    if ($elements.length > 0)
-    {
-        $parts = $currentUrl.split('#');
-        if (typeof $parts[0] !== 'undefined') {
-            $validUrl = $parts[0];
-        }
-
-        for (let $i = 0; $i < $elements.length; $i = $i + 1)
-        {
+    if ($elements.length > 0) {
+        for (let $i = 0; $i < $elements.length; $i = $i + 1) {
             if ($elements[$i].href === '') { continue; }
 
             if ($elements[$i].href === 'javascript:void(0)') { continue; }
 
-            $url =  $elements[$i].href;
+            $url = $elements[$i].href;
             if ($url === '#') { continue; }
             if ($url === $currentUrl) { continue; }
             if ($url === $validUrl) { continue; }
@@ -62,7 +70,7 @@ function sanity_check()
                 if ($validUrl === $parts[0]) { continue; }
             }
 
-            if ($url.substr(0,4) === 'http') {
+            if ($url.substr(0, 4) === 'http') {
                 if ($elements[$i].target === '_blank') { continue; }
             }
 
@@ -91,9 +99,9 @@ function sanity_check()
     if ($elements.length > 0) {
         for (let $i = 0; $i < $elements.length; $i = $i + 1) {
             if ($elements[$i].href !== '') {
-                if ($elements[$i].href.substring(0,5) !== 'data:') {
-                    $hrefPart = $elements[$i].href.substring( $elements[$i].href.length -'manifest.json'.length );
-                    if ($hrefPart !== 'manifest.json') {
+                if ($elements[$i].href.substring(0, 5) !== 'data:') {
+                    const $foundValidUrl = $elements[$i].href.substring(0,$baseUrl.length) === $baseUrl;
+                    if ($foundValidUrl === false) {
                         $externalReferences.link = $externalReferences.link + 1;
                         $found = 'true';
                     }
@@ -102,21 +110,23 @@ function sanity_check()
         }
     }
 
-    if ($found === 'true')
-    {
+    if ($found === 'true') {
         for (let $key in $externalReferences) {
             $value = $externalReferences[$key];
             if ($value > 0) {
-                $message = $message + 'Type: ' + $key + ", quantity: " + $value + "\n";
+                $message = $message + 'Type: ' + $key + ', quantity: ' +
+                    $value + '\n';
             }
         }
 
-        $message = "Sanity check\nFound external references\nInfoHub should not have external references\n" + $message;
+        $message = 'Sanity check\nFound external references\nInfoHub should not have external references\n' +
+            $message;
         $display = 'block';
     }
-    
+
     $box = document.getElementById('sanity');
     $box.innerHTML = $message;
     $box.style.display = $display;
 }
+
 //# sourceURL=sanity_check.js

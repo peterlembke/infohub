@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Kick out tests that will be run in infohub.php
  *
@@ -70,9 +71,9 @@ class kick_out_tests_for_infohub
      */
     protected function validCookies(): void
     {
-        $validCookies = array('INFOHUB_SESSION' => '');
+        $validCookies = ['INFOHUB_SESSION' => ''];
         if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] === '127.0.0.1') {
-            $validCookies = array('XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => '', 'INFOHUB_SESSION' => '');
+            $validCookies = ['XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => '', 'INFOHUB_SESSION' => ''];
         }
 
         $removeCookies = array_diff_key($_COOKIE, $validCookies);
@@ -108,13 +109,16 @@ class kick_out_tests_for_infohub
         $url = '';
         if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['REQUEST_URI'])) {
             $fileName = $this->getFileName();
-            $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace($fileName, '', $_SERVER['REQUEST_URI']);
+            $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace(
+                    $fileName,
+                    '',
+                    $_SERVER['REQUEST_URI']
+                );
         }
 
         if (isset($_SERVER['HTTP_REFERER']) === false) {
             $this->GetOut('infohub.php can not be called directly');
         }
-
         /* This test have no practical meaning. I will probably delete it
         if ($_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
@@ -135,7 +139,11 @@ class kick_out_tests_for_infohub
 
         $contentLength = ceil(strlen($content));
         if ($contentLength > $maxContentLength) {
-            $this->GetOut('Length of content max ' . abs(floor($maxContentLength / 1024)) . 'Kb, you sent ' . abs(floor($contentLength / 1024)) . 'Kb'  );
+            $this->GetOut(
+                'Length of content max ' . abs(floor($maxContentLength / 1024)) . 'Kb, you sent ' . abs(
+                    floor($contentLength / 1024)
+                ) . 'Kb'
+            );
         }
         if (strlen($content) < 18) {
             $this->GetOut('Length of content must be minimum 18 bytes');
@@ -144,10 +152,12 @@ class kick_out_tests_for_infohub
         $package = json_decode($content, true);
 
         if (empty($package)) {
-            $this->GetOut('Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent');
+            $this->GetOut(
+                'Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent'
+            );
         }
 
-        $requiredPropertyNameArray = array(
+        $requiredPropertyNameArray = [
             'session_id' => 1,
             'sign_code' => 1,
             'sign_code_created_at' => 1,
@@ -155,7 +165,7 @@ class kick_out_tests_for_infohub
             'messages_encoded_length' => 1,
             'package_type' => 1,
             'messages' => 2 // for debug purposes. Set in infohub_transfer.json
-        );
+        ];
 
         foreach ($package as $name => $data) {
             if (isset($requiredPropertyNameArray[$name]) === true) {
@@ -178,7 +188,7 @@ class kick_out_tests_for_infohub
         }
         unset($package['package_type']);
 
-        $diff = microtime(true) - (float) $package['sign_code_created_at'];
+        $diff = microtime(true) - (float)$package['sign_code_created_at'];
         if ($diff < 0.0 or $diff > 4.0) {
             $this->GetOut('Server says: Package sign_code_created_at is older than 4.0 seconds');
         }
@@ -195,7 +205,7 @@ class kick_out_tests_for_infohub
         $messages = json_decode($messagesJson, true);
 
         if (empty($messages)) {
-            $messages = array();
+            $messages = [];
         }
 
         $messageCount = count($messages);
@@ -230,21 +240,21 @@ class kick_out_tests_for_infohub
      */
     public function GetOut(string $message = ''): void
     {
-        $messageOut = array(
-            'to' => array(
+        $messageOut = [
+            'to' => [
                 'node' => 'client',
                 'plugin' => 'infohub_transfer',
                 'function' => 'ban_seconds'
-            ),
-            'data' => array(
+            ],
+            'data' => [
                 'answer' => 'false',
                 'data' => 0,
                 'banned_until' => 0.0,
                 'ban_seconds' => 0.0,
                 'message' => $message
-            )
-        );
-        $package = array('to_node' => 'client', 'messages' => array($messageOut));
+            ]
+        ];
+        $package = ['to_node' => 'client', 'messages' => [$messageOut]];
         $messageOut = json_encode($package, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         // echo $messageOut;

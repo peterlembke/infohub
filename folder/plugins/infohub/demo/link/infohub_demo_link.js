@@ -11,7 +11,7 @@
  */
 function infohub_demo_link() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_link() {
             'class_name': 'infohub_demo_link',
             'note': 'Render a link demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -42,7 +42,7 @@ function infohub_demo_link() {
      */
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,122 +62,120 @@ function infohub_demo_link() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_link'
-            }
+                'message': 'Nothing to report from infohub_demo_link',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n [my_list][my_toggle_box]"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n [my_list][my_toggle_box]',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Welcome to InfoHub Demo Link')
+                            'data': _Translate('WELCOME_TO_INFOHUB_DEMO_LINK')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Here are some demos to show you what Infohub can do with links.')
+                            'data': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_LINKS.')
                         },
                         'my_list': {
                             'type': 'common',
                             'subtype': 'list',
                             'option': [
-                                {'label': '[my_event_link]' },
-                                {'label': '[my_toggle_link]' },
-                                {'label': '[my_external_link]' },
-                                {'label': '[my_embed_link]' }
-                            ]
+                                {'label': '[my_event_link]'},
+                                {'label': '[my_toggle_link]'},
+                                {'label': '[my_external_link]'},
+                                {'label': '[my_embed_link]'},
+                            ],
                         },
                         'my_event_link': {
                             'type': 'link',
                             'subtype': 'link',
                             'alias': 'demo_link',
                             'data': 'link_my_event',
-                            'show': _Translate('A normal event link'),
+                            'show': _Translate('A_NORMAL_EVENT_LINK'),
                             'to_plugin': 'infohub_demo',
-                            'class': 'link'
+                            'class': 'link',
                         },
                         'my_toggle_link': {
                             'type': 'link',
                             'subtype': 'toggle',
-                            'show': _Translate('Toggle the image show/hide'),
+                            'show': _Translate('TOGGLE_THE_IMAGE_SHOW/HIDE'),
                             'toggle_alias': 'my_toggle_box'
                         },
                         'my_toggle_box': {
                             'type': 'common',
                             'subtype': 'container',
                             'alias': 'my_toggle_box',
-                            'data': '[my_icon]'
+                            'data': '[my_icon]',
                         },
                         'my_external_link': {
                             'type': 'link',
                             'subtype': 'external',
                             'alias': 'my_external_link',
                             'data': 'my_external_link',
-                            'show': _Translate('My external link to the ABC club'),
+                            'show': _Translate('MY_EXTERNAL_LINK_TO_THE_ABC_CLUB'),
                             'url': 'https://www.abc.se'
                         },
                         'my_embed_link': {
                             'type': 'link',
                             'subtype': 'embed',
-                            'show': _Translate('Embedded content - Click to substitute this text'),
+                            'show': _Translate('EMBEDDED_CONTENT_-_CLICK_TO_SUBSTITUTE_THIS_TEXT'),
                             'embed': '[my_icon]'
                         },
                         'my_icon': {
                             'type': 'common',
                             'subtype': 'svg',
                             'alias': 'my_icon',
-                            'data': '[my_icon_asset]'
+                            'data': '[my_icon_asset]',
                         },
                         'my_icon_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'link/infohub-logo-mini-done',
-                            'plugin_name': 'infohub_demo'
-                        }
+                            'plugin_name': 'infohub_demo',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text]'
+                        'text': '[my_text]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'link'
+                    'cache_key': 'link',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -186,11 +184,10 @@ function infohub_demo_link() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("internal_LinkMyEvent");
-    const internal_LinkMyEvent = function ($in)
-    {
+    $functions.push('internal_LinkMyEvent');
+    const internal_LinkMyEvent = function($in) {
         const $default = {
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Default($default, $in);
 
@@ -198,42 +195,43 @@ function infohub_demo_link() {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
-                'function': 'create'
+                'function': 'create',
             },
             'data': {
                 'what': {
                     'my_text': {
                         'type': 'text',
-                        'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                        'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                     },
                     'titel': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('The event link')
+                        'data': _Translate('THE_EVENT_LINK')
                     },
                     'ingress': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('This is what is rendered when you press the event link. Event links always come to the level 1 plugin in function event_message. From there you can do whatever you want. I wanted to render this.')
+                        'data': _Translate('THIS_IS_WHAT_IS_RENDERED_WHEN_YOU_PRESS_THE_EVENT_LINK._EVENT_LINKS_ALWAYS_COME_TO_THE_LEVEL_1_PLUGIN_IN_FUNCTION_EVENT_MESSAGE._FROM_THERE_YOU_CAN_DO_WHATEVER_YOU_WANT._I_WANTED_TO_RENDER_THIS.')
                     }
                 },
                 'how': {
                     'mode': 'one box',
-                    'text': '[my_text]'
+                    'text': '[my_text]',
                 },
                 'where': {
                     'box_id': $in.parent_box_id + '.demo',
-                    'max_width': 320
-                }
+                    'max_width': 320,
+                },
             },
-            'data_back': {'step': 'step_end'}
+            'data_back': {'step': 'step_end'},
         };
 
         return {
             'answer': 'true',
             'message': 'Here are the render data',
-            'data': $data
+            'data': $data,
         };
     };
 }
+
 //# sourceURL=infohub_demo_link.js

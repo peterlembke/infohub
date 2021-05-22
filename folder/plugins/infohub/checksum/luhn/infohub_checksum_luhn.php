@@ -2,7 +2,7 @@
 /**
  * Calculates your checksum with Luhn
  *
- * The Luhn algorithm from 1954 are used in US and Canadian social security numbers 
+ * The Luhn algorithm from 1954 are used in US and Canadian social security numbers
  *
  * @package     Infohub
  * @subpackage  infohub_checksum_luhn
@@ -30,14 +30,14 @@ class infohub_checksum_luhn extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-03-03
+     * @return string[]
      * @since   2016-04-16
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2018-03-03
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-03-03',
             'since' => '2016-04-16',
             'version' => '1.0.0',
@@ -46,22 +46,22 @@ class infohub_checksum_luhn extends infohub_base
             'note' => 'The Luhn algorithm from 1954 are used in US and Canadian social security numbers',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-03-03
+     * @return mixed
      * @since   2016-04-16
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-03-03
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'calculate_checksum' => 'normal',
             'verify_checksum' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -72,71 +72,74 @@ class infohub_checksum_luhn extends infohub_base
 
     /**
      * Main checksum calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function calculate_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['value'] = $this->_RemoveAllButNumbers($in['value']);
 
         $result = $this->_LuhnCalculateChecksum($in['value']);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the checksum',
             'value' => $in['value'],
             'checksum' => $result,
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * Main checksum verification
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
+     *
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function verify_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['value'] = $this->_RemoveAllButNumbers($in['value']);
-        
+
         $verified = 'false';
         $result = $this->_LuhnVerifyChecksum($in['value']);
         if ($result === true) {
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the result of the checksum verification',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
+     * Calculate the Luhn checksum
+     *
      * https://en.wikipedia.org/wiki/Luhn_algorithm
      * http://rosettacode.org/wiki/Luhn_test_of_credit_card_numbers
      * @param string $valueString
-     * @return int
+     * @return string
      */
     protected function _LuhnCalculateChecksum($valueString = ''): string
     {
@@ -145,14 +148,14 @@ class infohub_checksum_luhn extends infohub_base
             $numbers = str_split($valueString, 1);
             foreach ($numbers as $index => $number) {
                 if ($index % 2 === 1) {
-                    $number = (string) (2 * $number);
+                    $number = (string)(2 * $number);
                     $number = $this->_LuhnSum($number);
                 }
-                $sum = $sum + (int) $number;
+                $sum = $sum + (int)$number;
             }
         }
 
-        $checksumDigit = (string) ($sum * 9);
+        $checksumDigit = (string)($sum * 9);
         $checksumDigit = substr($checksumDigit, -1);
         $result = $valueString . $checksumDigit;
 
@@ -182,7 +185,7 @@ class infohub_checksum_luhn extends infohub_base
     protected function _LuhnVerifyChecksum($valueString = ''): bool
     {
         $checksum = substr($valueString, -1);
-        $valueString = substr($valueString, 0 , -1);
+        $valueString = substr($valueString, 0, -1);
         $result = $this->_LuhnCalculateChecksum($valueString);
         $resultChecksum = substr($result, -1);
         if ($checksum === $resultChecksum) {
@@ -195,13 +198,15 @@ class infohub_checksum_luhn extends infohub_base
     /**
      * Remove all characters from the string that is not 0-9
      * @param string $valueString
-     * @return bool
+     * @return string
      */
     protected function _RemoveAllButNumbers($valueString = ''): string
     {
-        $output = preg_replace('/\D/', '', $valueString);
+        $pattern = '/\D/';
+        $replacement = '';
+        $output = preg_replace($pattern, $replacement, $valueString);
 
         return $output;
     }
-    
+
 }

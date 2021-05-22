@@ -26,14 +26,14 @@ class infohub_time extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2020-08-17
+     * @return  string[]
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2020-08-17
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2020-08-17',
             'since' => '2017-06-17',
             'version' => '1.0.0',
@@ -43,22 +43,22 @@ class infohub_time extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2020-08-17
+     * @return mixed
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-08-17
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'time' => 'normal',
             'get_available_options' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -70,16 +70,16 @@ class infohub_time extends infohub_base
      * If you want a true testable plugin then you need to avid fetching unpredictable values directly,
      * instead you can call this function and get a value back to your function.
      *
-     * @version     2020-08-17
-     * @since       2017-06-17
      * @param array $in
      * @return array
+     * @version     2020-08-17
+     * @since       2017-06-17
      */
     protected function time(array $in = []): array
     {
-        $default = array(
+        $default = [
             'type' => 'timestamp'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'true';
@@ -109,38 +109,38 @@ class infohub_time extends infohub_base
         }
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'type' => $in['type'],
             'data' => $result
-        );
+        ];
     }
 
     /**
      * Get list with time methods you can use
      *
-     * @version 2018-08-11
-     * @since   2018-08-11
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-08-11
+     * @since   2018-08-11
      */
-    protected function  get_available_options(array $in = []): array
+    protected function get_available_options(array $in = []): array
     {
-        $options = array(
-            array("type" => "option", "value" => 'timestamp', "label" => 'Normal timestamp', 'selected' => 'true'),
-            array("type" => "option", "value" => 'timestamp_c', "label" => 'Timestamp with offset'),
-            array("type" => "option", "value" => 'timestampmicro', "label" => 'timestamp with fractions'),
-            array("type" => "option", "value" => 'microtime', "label" => 'EPOC and fractions'),
-            array("type" => "option", "value" => 'time', "label" => 'Seconds since EPOC')
-        );
+        $options = [
+            ["type" => "option", "value" => 'timestamp', "label" => 'Normal timestamp', 'selected' => 'true'],
+            ["type" => "option", "value" => 'timestamp_c', "label" => 'Timestamp with offset'],
+            ["type" => "option", "value" => 'timestampmicro', "label" => 'timestamp with fractions'],
+            ["type" => "option", "value" => 'microtime', "label" => 'EPOC and fractions'],
+            ["type" => "option", "value" => 'time', "label" => 'Seconds since EPOC']
+        ];
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'List of valid checksum methods.',
             'options' => $options
-        );
+        ];
     }
 
 }

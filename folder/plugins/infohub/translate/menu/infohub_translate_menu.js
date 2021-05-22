@@ -17,7 +17,7 @@
  */
 function infohub_translate_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,13 +30,13 @@ function infohub_translate_menu() {
             'class_name': 'infohub_translate_menu',
             'note': 'Render a menu for infohub_translate',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,8 +56,7 @@ function infohub_translate_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -65,8 +64,8 @@ function infohub_translate_menu() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from translate_encrypt'
-            }                
+                'message': 'Nothing to report from translate_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
@@ -76,14 +75,14 @@ function infohub_translate_menu() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Translation tool')
+                            'data': _Translate('TRANSLATION_TOOL')
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
@@ -93,47 +92,47 @@ function infohub_translate_menu() {
                                 'doc': {
                                     'alias': 'doc_link',
                                     'event_data': 'doc',
-                                    'button_label': _Translate('Documentation'),
+                                    'button_label': _Translate('DOCUMENTATION'),
+                                    'to_plugin': 'infohub_translate',
+                                    'to_function': 'click_menu'
+                                },
+                                'updateplugin': {
+                                    'alias': 'updateplugin_link',
+                                    'event_data': 'updateplugin',
+                                    'button_label': _Translate('CONVERT_TO_KEYS_IN_A_PLUGIN'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
                                 'createfile': {
                                     'alias': 'createfile_link',
                                     'event_data': 'createfile',
-                                    'button_label': _Translate('Create a translation file'),
+                                    'button_label': _Translate('CREATE_A_TRANSLATION_FILE'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'updatefile': {
-                                    'alias': 'updatefile_link',
-                                    'event_data': 'updatefile',
-                                    'button_label': _Translate('Update a translation file'),
-                                    'to_plugin': 'infohub_translate',
-                                    'to_function': 'click_menu'
-                                }
-                            }
-                        }
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'menu'
+                    'cache_key': 'menu',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }

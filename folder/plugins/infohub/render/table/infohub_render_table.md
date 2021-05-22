@@ -1,10 +1,13 @@
 # Infohub Render Table
+
 You can render a table with columns and rows.
 
 ## Demo
+
 You can see a [demo](plugin,infohub_demo_table).
 
 ## Usage
+
 ```
 return _SubCall({
     'to': {
@@ -115,6 +118,7 @@ return _SubCall({
 ```
 
 ## Definition
+
 Give a definition for each column how it should appear.
 
 * name - The HTML name of the element
@@ -127,27 +131,35 @@ Give a definition for each column how it should appear.
 * view_button - render a view button instead of the value. Default is "false".
 
 ## Data
-And also provide the data to show. The table will be rendered with all data. It will not be updated in any way. Each time anything should be changed then the table must be rendered in full. That is the fastest way to just insert a pre built HTML.
+
+And also provide the data to show. The table will be rendered with all data. It will not be updated in any way. Each
+time anything should be changed then the table must be rendered in full. That is the fastest way to just insert a pre
+built HTML.
 
 ## Rendered table
-Renders the header `<thead>`, `<tbody>` and an empty [`<tfoot>`](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_table_tfoot).
 
-The head contain all column titles.
-The body has all rows.
-HTML makes it possible to have more than one body. I render only one .
-The foot is empty. No rows.
+Renders the header `<thead>`, `<tbody>` and an
+empty [`<tfoot>`](https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_table_tfoot).
+
+The head contain all column titles. The body has all rows. HTML makes it possible to have more than one body. I render
+only one . The foot is empty. No rows.
 
 The data in "definition" has the default values for each row. All data are validated.
 
 # Todo
+
 * Side scroll if too wide
 * Set max height on the table body
 * up/down scroll if table body is too high
 
 # License
+
 This documentation is copyright (C) 2019 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2019-12-28 by Peter Lembke  
 Updated 2020-01-01 by Peter Lembke  

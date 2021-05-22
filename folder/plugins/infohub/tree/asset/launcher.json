@@ -2,6 +2,7 @@
     "plugin": "infohub_tree",
     "title": "Tree",
     "description": "Handles your personal data.",
+    "keywords": "you,privacy,encrypted,secret,private,hub,information,client",
     "uses": [
         "infohub_tree_menu",
         "infohub_rendermenu",

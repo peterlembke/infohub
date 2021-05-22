@@ -84,13 +84,13 @@ class DoubleMetaphone
             $this->original,
             0,
             2,
-            array(
+            [
                 'GN',
                 'KN',
                 'PN',
                 'WR',
                 'PS'
-            )
+            ]
         )) {
             $this->current++;
         }
@@ -148,9 +148,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current - 1,
                             3,
-                            array(
+                            [
                                 "ACH"
-                            )
+                            ]
                         ) && ((substr($this->original, $this->current + 2, 1) != 'I') && ((substr(
                                         $this->original,
                                         $this->current + 2,
@@ -159,10 +159,10 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current - 2,
                                     6,
-                                    array(
+                                    [
                                         "BACHER",
                                         "MACHER"
-                                    )
+                                    ]
                                 )))) {
                         $this->primary .= 'K';
                         $this->secondary .= 'K';
@@ -175,9 +175,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             6,
-                            array(
+                            [
                                 "CAESAR"
-                            )
+                            ]
                         )) {
                         $this->primary .= 'S';
                         $this->secondary .= 'S';
@@ -190,9 +190,9 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         4,
-                        array(
+                        [
                             "CHIA"
-                        )
+                        ]
                     )) {
                         $this->primary .= 'K';
                         $this->secondary .= 'K';
@@ -204,18 +204,18 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "CH"
-                        )
+                        ]
                     )) {
                         // find 'michael'
                         if (($this->current > 0) && $this->StringAt(
                                 $this->original,
                                 $this->current,
                                 4,
-                                array(
+                                [
                                     "CHAE"
-                                )
+                                ]
                             )) {
                             $this->primary .= 'K';
                             $this->secondary .= 'X';
@@ -228,27 +228,27 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current + 1,
                                     5,
-                                    array(
+                                    [
                                         "HARAC",
                                         "HARIS"
-                                    )
+                                    ]
                                 ) || $this->StringAt(
                                     $this->original,
                                     $this->current + 1,
                                     3,
-                                    array(
+                                    [
                                         "HOR",
                                         "HYM",
                                         "HIA",
                                         "HEM"
-                                    )
+                                    ]
                                 )) && !$this->StringAt(
                                 $this->original,
                                 0,
                                 5,
-                                array(
+                                [
                                     "CHORE"
-                                )
+                                ]
                             )) {
                             $this->primary .= 'K';
                             $this->secondary .= 'K';
@@ -261,53 +261,53 @@ class DoubleMetaphone
                                     $this->original,
                                     0,
                                     4,
-                                    array(
+                                    [
                                         "VAN ",
                                         "VON "
-                                    )
+                                    ]
                                 ) || $this->StringAt(
                                     $this->original,
                                     0,
                                     3,
-                                    array(
+                                    [
                                         "SCH"
-                                    )
+                                    ]
                                 )) ||
                             // 'architect' but not 'arch', orchestra', 'orchid'
                             $this->StringAt(
                                 $this->original,
                                 $this->current - 2,
                                 6,
-                                array(
+                                [
                                     "ORCHES",
                                     "ARCHIT",
                                     "ORCHID"
-                                )
+                                ]
                             ) || $this->StringAt(
                                 $this->original,
                                 $this->current + 2,
                                 1,
-                                array(
+                                [
                                     "T",
                                     "S"
-                                )
+                                ]
                             ) || (($this->StringAt(
                                         $this->original,
                                         $this->current - 1,
                                         1,
-                                        array(
+                                        [
                                             "A",
                                             "O",
                                             "U",
                                             "E"
-                                        )
+                                        ]
                                     ) || ($this->current == 0)) &&
                                 // e.g. 'wachtler', 'weschsler', but not 'tichner'
                                 $this->StringAt(
                                     $this->original,
                                     $this->current + 2,
                                     1,
-                                    array(
+                                    [
                                         "L",
                                         "R",
                                         "N",
@@ -318,7 +318,7 @@ class DoubleMetaphone
                                         "V",
                                         "W",
                                         " "
-                                    )
+                                    ]
                                 ))) {
                             $this->primary .= 'K';
                             $this->secondary .= 'K';
@@ -328,9 +328,9 @@ class DoubleMetaphone
                                     $this->original,
                                     0,
                                     2,
-                                    array(
+                                    [
                                         "MC"
-                                    )
+                                    ]
                                 )) {
                                     // e.g. 'McHugh'
                                     $this->primary .= 'K';
@@ -353,16 +353,16 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             2,
-                            array(
+                            [
                                 "CZ"
-                            )
+                            ]
                         ) && !$this->StringAt(
                             $this->original,
                             $this->current - 2,
                             4,
-                            array(
+                            [
                                 "WICZ"
-                            )
+                            ]
                         )) {
                         $this->primary .= 'S';
                         $this->secondary .= 'X';
@@ -375,9 +375,9 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         3,
-                        array(
+                        [
                             "CIA"
-                        )
+                        ]
                     )) {
                         $this->primary .= 'X';
                         $this->secondary .= 'X';
@@ -390,27 +390,27 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             2,
-                            array(
+                            [
                                 "CC"
-                            )
+                            ]
                         ) && !(($this->current == 1) && (substr($this->original, 0, 1) == 'M'))) {
                         // 'bellocchio' but not 'bacchus'
                         if ($this->StringAt(
                                 $this->original,
                                 $this->current + 2,
                                 1,
-                                array(
+                                [
                                     "I",
                                     "E",
                                     "H"
-                                )
+                                ]
                             ) && !$this->StringAt(
                                 $this->original,
                                 $this->current + 2,
                                 2,
-                                array(
+                                [
                                     "HU"
-                                )
+                                ]
                             )) {
                             // 'accident', 'accede', 'succeed'
                             if ((($this->current == 1) && (substr(
@@ -421,10 +421,10 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current - 1,
                                     5,
-                                    array(
+                                    [
                                         "UCCEE",
                                         "UCCES"
-                                    )
+                                    ]
                                 )) {
                                 $this->primary .= "KS";
                                 $this->secondary .= "KS";
@@ -448,11 +448,11 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "CK",
                             "CG",
                             "CQ"
-                        )
+                        ]
                     )) {
                         $this->primary .= "K";
                         $this->secondary .= "K";
@@ -464,22 +464,22 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "CI",
                             "CE",
                             "CY"
-                        )
+                        ]
                     )) {
                         // italian vs. english
                         if ($this->StringAt(
                             $this->original,
                             $this->current,
                             3,
-                            array(
+                            [
                                 "CIO",
                                 "CIE",
                                 "CIA"
-                            )
+                            ]
                         )) {
                             $this->primary .= "S";
                             $this->secondary .= "X";
@@ -500,11 +500,11 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         2,
-                        array(
+                        [
                             " C",
                             " Q",
                             " G"
-                        )
+                        ]
                     )) {
                         $this->current += 3;
                     } else {
@@ -512,19 +512,19 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 1,
                                 1,
-                                array(
+                                [
                                     "C",
                                     "K",
                                     "Q"
-                                )
+                                ]
                             ) && !$this->StringAt(
                                 $this->original,
                                 $this->current + 1,
                                 2,
-                                array(
+                                [
                                     "CE",
                                     "CI"
-                                )
+                                ]
                             )) {
                             $this->current += 2;
                         } else {
@@ -538,19 +538,19 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "DG"
-                        )
+                        ]
                     )) {
                         if ($this->StringAt(
                             $this->original,
                             $this->current + 2,
                             1,
-                            array(
+                            [
                                 "I",
                                 "E",
                                 "Y"
-                            )
+                            ]
                         )) {
                             // e.g. 'edge'
                             $this->primary .= "J";
@@ -570,10 +570,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "DT",
                             "DD"
-                        )
+                        ]
                     )) {
                         $this->primary .= "T";
                         $this->secondary .= "T";
@@ -626,32 +626,32 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current - 2,
                                     1,
-                                    array(
+                                    [
                                         "B",
                                         "H",
                                         "D"
-                                    )
+                                    ]
                                 )) ||
                             // e.g. 'bough'
                             (($this->current > 2) && $this->StringAt(
                                     $this->original,
                                     $this->current - 3,
                                     1,
-                                    array(
+                                    [
                                         "B",
                                         "H",
                                         "D"
-                                    )
+                                    ]
                                 )) ||
                             // e.g. 'broughton'
                             (($this->current > 3) && $this->StringAt(
                                     $this->original,
                                     $this->current - 4,
                                     1,
-                                    array(
+                                    [
                                         "B",
                                         "H"
-                                    )
+                                    ]
                                 ))) {
                             $this->current += 2;
                             break;
@@ -665,13 +665,13 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current - 3,
                                     1,
-                                    array(
+                                    [
                                         "C",
                                         "G",
                                         "L",
                                         "R",
                                         "T"
-                                    )
+                                    ]
                                 )) {
                                 $this->primary .= "F";
                                 $this->secondary .= "F";
@@ -696,9 +696,9 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current + 2,
                                     2,
-                                    array(
+                                    [
                                         "EY"
-                                    )
+                                    ]
                                 ) && (substr($this->original, $this->current + 1) != "Y") && !$this->SlavoGermanic(
                                     $this->original
                                 )) {
@@ -718,9 +718,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current + 1,
                             2,
-                            array(
+                            [
                                 "LI"
-                            )
+                            ]
                         ) && !$this->SlavoGermanic($this->original)) {
                         $this->primary .= "KL";
                         $this->secondary .= "L";
@@ -737,7 +737,7 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 1,
                                 2,
-                                array(
+                                [
                                     "ES",
                                     "EP",
                                     "EB",
@@ -749,7 +749,7 @@ class DoubleMetaphone
                                     "IE",
                                     "EI",
                                     "ER"
-                                )
+                                ]
                             ))) {
                         $this->primary .= "K";
                         $this->secondary .= "J";
@@ -762,34 +762,34 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 1,
                                 2,
-                                array(
+                                [
                                     "ER"
-                                )
+                                ]
                             ) || (substr($this->original, $this->current + 1, 1) == 'Y')) && !$this->StringAt(
                             $this->original,
                             0,
                             6,
-                            array(
+                            [
                                 "DANGER",
                                 "RANGER",
                                 "MANGER"
-                            )
+                            ]
                         ) && !$this->StringAt(
                             $this->original,
                             $this->current - 1,
                             1,
-                            array(
+                            [
                                 "E",
                                 "I"
-                            )
+                            ]
                         ) && !$this->StringAt(
                             $this->original,
                             $this->current - 1,
                             3,
-                            array(
+                            [
                                 "RGY",
                                 "OGY"
-                            )
+                            ]
                         )) {
                         $this->primary .= "K";
                         $this->secondary .= "J";
@@ -802,43 +802,43 @@ class DoubleMetaphone
                             $this->original,
                             $this->current + 1,
                             1,
-                            array(
+                            [
                                 "E",
                                 "I",
                                 "Y"
-                            )
+                            ]
                         ) || $this->StringAt(
                             $this->original,
                             $this->current - 1,
                             4,
-                            array(
+                            [
                                 "AGGI",
                                 "OGGI"
-                            )
+                            ]
                         )) {
                         // obvious germanic
                         if (($this->StringAt(
                                     $this->original,
                                     0,
                                     4,
-                                    array(
+                                    [
                                         "VAN ",
                                         "VON "
-                                    )
+                                    ]
                                 ) || $this->StringAt(
                                     $this->original,
                                     0,
                                     3,
-                                    array(
+                                    [
                                         "SCH"
-                                    )
+                                    ]
                                 )) || $this->StringAt(
                                 $this->original,
                                 $this->current + 1,
                                 2,
-                                array(
+                                [
                                     "ET"
-                                )
+                                ]
                             )) {
                             $this->primary .= "K";
                             $this->secondary .= "K";
@@ -848,9 +848,9 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 1,
                                 4,
-                                array(
+                                [
                                     "IER "
-                                )
+                                ]
                             )) {
                                 $this->primary .= "J";
                                 $this->secondary .= "J";
@@ -893,16 +893,16 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             4,
-                            array(
+                            [
                                 "JOSE"
-                            )
+                            ]
                         ) || $this->StringAt(
                             $this->original,
                             0,
                             4,
-                            array(
+                            [
                                 "SAN "
-                            )
+                            ]
                         )) {
                         if ((($this->current == 0) && (substr(
                                         $this->original,
@@ -912,9 +912,9 @@ class DoubleMetaphone
                                 $this->original,
                                 0,
                                 4,
-                                array(
+                                [
                                     "SAN "
-                                )
+                                ]
                             )) {
                             $this->primary .= 'H';
                             $this->secondary .= 'H';
@@ -930,9 +930,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             4,
-                            array(
+                            [
                                 "JOSE"
-                            )
+                            ]
                         )) {
                         $this->primary .= 'J'; // Yankelovich/Jankelowicz
                         $this->secondary .= 'A';
@@ -956,7 +956,7 @@ class DoubleMetaphone
                                         $this->original,
                                         $this->current + 1,
                                         1,
-                                        array(
+                                        [
                                             "L",
                                             "T",
                                             "K",
@@ -965,16 +965,16 @@ class DoubleMetaphone
                                             "M",
                                             "B",
                                             "Z"
-                                        )
+                                        ]
                                     ) && !$this->StringAt(
                                         $this->original,
                                         $this->current - 1,
                                         1,
-                                        array(
+                                        [
                                             "S",
                                             "K",
                                             "L"
-                                        )
+                                        ]
                                     )) {
                                     $this->primary .= "J";
                                     $this->secondary .= "J";
@@ -1007,34 +1007,34 @@ class DoubleMetaphone
                                     $this->original,
                                     $this->current - 1,
                                     4,
-                                    array(
+                                    [
                                         "ILLO",
                                         "ILLA",
                                         "ALLE"
-                                    )
+                                    ]
                                 )) || (($this->StringAt(
                                         $this->original,
                                         $this->last - 1,
                                         2,
-                                        array(
+                                        [
                                             "AS",
                                             "OS"
-                                        )
+                                        ]
                                     ) || $this->StringAt(
                                         $this->original,
                                         $this->last,
                                         1,
-                                        array(
+                                        [
                                             "A",
                                             "O"
-                                        )
+                                        ]
                                     )) && $this->StringAt(
                                     $this->original,
                                     $this->current - 1,
                                     4,
-                                    array(
+                                    [
                                         "ALLE"
-                                    )
+                                    ]
                                 ))) {
                             $this->primary .= "L";
                             $this->secondary .= "";
@@ -1054,16 +1054,16 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current - 1,
                                 3,
-                                array(
+                                [
                                     "UMB"
-                                )
+                                ]
                             ) && ((($this->current + 1) == $this->last) || $this->StringAt(
                                     $this->original,
                                     $this->current + 2,
                                     2,
-                                    array(
+                                    [
                                         "ER"
-                                    )
+                                    ]
                                 ))) ||
                         // 'dumb', 'thumb'
                         (substr($this->original, $this->current + 1, 1) == 'M')) {
@@ -1104,10 +1104,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         1,
-                        array(
+                        [
                             "P",
                             "B"
-                        )
+                        ]
                     )) {
                         $this->current += 2;
                     } else {
@@ -1133,17 +1133,17 @@ class DoubleMetaphone
                             $this->original,
                             $this->current - 2,
                             2,
-                            array(
+                            [
                                 "IE"
-                            )
+                            ]
                         ) && !$this->StringAt(
                             $this->original,
                             $this->current - 4,
                             2,
-                            array(
+                            [
                                 "ME",
                                 "MA"
-                            )
+                            ]
                         )) {
                         $this->primary .= "";
                         $this->secondary .= "R";
@@ -1164,10 +1164,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current - 1,
                         3,
-                        array(
+                        [
                             "ISL",
                             "YSL"
-                        )
+                        ]
                     )) {
                         $this->current += 1;
                         break;
@@ -1178,9 +1178,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             5,
-                            array(
+                            [
                                 "SUGAR"
-                            )
+                            ]
                         )) {
                         $this->primary .= "X";
                         $this->secondary .= "S";
@@ -1192,21 +1192,21 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "SH"
-                        )
+                        ]
                     )) {
                         // germanic
                         if ($this->StringAt(
                             $this->original,
                             $this->current + 1,
                             4,
-                            array(
+                            [
                                 "HEIM",
                                 "HOEK",
                                 "HOLM",
                                 "HOLZ"
-                            )
+                            ]
                         )) {
                             $this->primary .= "S";
                             $this->secondary .= "S";
@@ -1223,17 +1223,17 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             3,
-                            array(
+                            [
                                 "SIO",
                                 "SIA"
-                            )
+                            ]
                         ) || $this->StringAt(
                             $this->original,
                             $this->current,
                             4,
-                            array(
+                            [
                                 "SIAN"
-                            )
+                            ]
                         )) {
                         if (!$this->SlavoGermanic($this->original)) {
                             $this->primary .= "S";
@@ -1252,19 +1252,19 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 1,
                                 1,
-                                array(
+                                [
                                     "M",
                                     "N",
                                     "L",
                                     "W"
-                                )
+                                ]
                             )) || $this->StringAt(
                             $this->original,
                             $this->current + 1,
                             1,
-                            array(
+                            [
                                 "Z"
-                            )
+                            ]
                         )) {
                         $this->primary .= "S";
                         $this->secondary .= "X";
@@ -1272,9 +1272,9 @@ class DoubleMetaphone
                             $this->original,
                             $this->current + 1,
                             1,
-                            array(
+                            [
                                 "Z"
-                            )
+                            ]
                         )) {
                             $this->current += 2;
                         } else {
@@ -1287,9 +1287,9 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "SC"
-                        )
+                        ]
                     )) {
                         // Schlesinger's rule
                         if (substr($this->original, $this->current + 2, 1) == 'H') {
@@ -1298,24 +1298,24 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current + 3,
                                 2,
-                                array(
+                                [
                                     "OO",
                                     "ER",
                                     "EN",
                                     "UY",
                                     "ED",
                                     "EM"
-                                )
+                                ]
                             )) {
                                 // 'schermerhorn', 'schenker'
                                 if ($this->StringAt(
                                     $this->original,
                                     $this->current + 3,
                                     2,
-                                    array(
+                                    [
                                         "ER",
                                         "EN"
-                                    )
+                                    ]
                                 )) {
                                     $this->primary .= "X";
                                     $this->secondary .= "SK";
@@ -1346,11 +1346,11 @@ class DoubleMetaphone
                             $this->original,
                             $this->current + 2,
                             1,
-                            array(
+                            [
                                 "I",
                                 "E",
                                 "Y"
-                            )
+                            ]
                         )) {
                             $this->primary .= "S";
                             $this->secondary .= "S";
@@ -1370,10 +1370,10 @@ class DoubleMetaphone
                             $this->original,
                             $this->current - 2,
                             2,
-                            array(
+                            [
                                 "AI",
                                 "OI"
-                            )
+                            ]
                         )) {
                         $this->primary .= "";
                         $this->secondary .= "S";
@@ -1386,10 +1386,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         1,
-                        array(
+                        [
                             "S",
                             "Z"
-                        )
+                        ]
                     )) {
                         $this->current += 2;
                     } else {
@@ -1402,9 +1402,9 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         4,
-                        array(
+                        [
                             "TION"
-                        )
+                        ]
                     )) {
                         $this->primary .= "X";
                         $this->secondary .= "X";
@@ -1416,10 +1416,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         3,
-                        array(
+                        [
                             "TIA",
                             "TCH"
-                        )
+                        ]
                     )) {
                         $this->primary .= "X";
                         $this->secondary .= "X";
@@ -1431,41 +1431,41 @@ class DoubleMetaphone
                             $this->original,
                             $this->current,
                             2,
-                            array(
+                            [
                                 "TH"
-                            )
+                            ]
                         ) || $this->StringAt(
                             $this->original,
                             $this->current,
                             3,
-                            array(
+                            [
                                 "TTH"
-                            )
+                            ]
                         )) {
                         // special case 'thomas', 'thames' or germanic
                         if ($this->StringAt(
                                 $this->original,
                                 $this->current + 2,
                                 2,
-                                array(
+                                [
                                     "OM",
                                     "AM"
-                                )
+                                ]
                             ) || $this->StringAt(
                                 $this->original,
                                 0,
                                 4,
-                                array(
+                                [
                                     "VAN ",
                                     "VON "
-                                )
+                                ]
                             ) || $this->StringAt(
                                 $this->original,
                                 0,
                                 3,
-                                array(
+                                [
                                     "SCH"
-                                )
+                                ]
                             )) {
                             $this->primary .= "T";
                             $this->secondary .= "T";
@@ -1481,10 +1481,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         1,
-                        array(
+                        [
                             "T",
                             "D"
-                        )
+                        ]
                     )) {
                         $this->current += 2;
                     } else {
@@ -1510,9 +1510,9 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         2,
-                        array(
+                        [
                             "WR"
-                        )
+                        ]
                     )) {
                         $this->primary .= "R";
                         $this->secondary .= "R";
@@ -1527,9 +1527,9 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current,
                                 2,
-                                array(
+                                [
                                     "WH"
-                                )
+                                ]
                             ))) {
                         // Wasserman should match Vasserman
                         if ($this->IsVowel($this->original, $this->current + 1)) {
@@ -1550,19 +1550,19 @@ class DoubleMetaphone
                             $this->original,
                             $this->current - 1,
                             5,
-                            array(
+                            [
                                 "EWSKI",
                                 "EWSKY",
                                 "OWSKI",
                                 "OWSKY"
-                            )
+                            ]
                         ) || $this->StringAt(
                             $this->original,
                             0,
                             3,
-                            array(
+                            [
                                 "SCH"
-                            )
+                            ]
                         )) {
                         $this->primary .= "";
                         $this->secondary .= "F";
@@ -1575,10 +1575,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current,
                         4,
-                        array(
+                        [
                             "WICZ",
                             "WITZ"
-                        )
+                        ]
                     )) {
                         $this->primary .= "TS";
                         $this->secondary .= "FX";
@@ -1596,18 +1596,18 @@ class DoubleMetaphone
                                 $this->original,
                                 $this->current - 3,
                                 3,
-                                array(
+                                [
                                     "IAU",
                                     "EAU"
-                                )
+                                ]
                             ) || $this->StringAt(
                                 $this->original,
                                 $this->current - 2,
                                 2,
-                                array(
+                                [
                                     "AU",
                                     "OU"
-                                )
+                                ]
                             )))) {
                         $this->primary .= "KS";
                         $this->secondary .= "KS";
@@ -1617,10 +1617,10 @@ class DoubleMetaphone
                         $this->original,
                         $this->current + 1,
                         1,
-                        array(
+                        [
                             "C",
                             "X"
-                        )
+                        ]
                     )) {
                         $this->current += 2;
                     } else {
@@ -1639,11 +1639,11 @@ class DoubleMetaphone
                             $this->original,
                             $this->current + 1,
                             2,
-                            array(
+                            [
                                 "ZO",
                                 "ZI",
                                 "ZA"
-                            )
+                            ]
                         ) || ($this->SlavoGermanic($this->original) && (($this->current > 0) && substr(
                                     $this->original,
                                     $this->current - 1,

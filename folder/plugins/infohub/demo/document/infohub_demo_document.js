@@ -11,7 +11,7 @@
  */
 function infohub_demo_document() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_document() {
             'class_name': 'infohub_demo_document',
             'note': 'Render a document demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -45,7 +45,7 @@ function infohub_demo_document() {
             'create': 'normal',
             'click_file_read': 'normal',
             'click_load_example': 'normal',
-            'click_markdown_to_html': 'normal'
+            'click_markdown_to_html': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -65,82 +65,80 @@ function infohub_demo_document() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_document'
-            }
+                'message': 'Nothing to report from infohub_demo_document',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_file_selector': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
-                            'button_label': _Translate('Select file'),
+                            'button_label': _Translate('SELECT_FILE'),
                             'accept': 'application/text,.md', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'document|file_read',
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'example_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Load example'),
+                            'button_label': _Translate('LOAD_EXAMPLE'),
                             'event_data': 'document|load_example',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_textarea': {
                             'type': 'form',
                             'subtype': 'textarea',
-                            'placeholder': _Translate('Write your markdown text here or press the button above to select a local text file.')
+                            'placeholder': _Translate('WRITE_YOUR_MARKDOWN_TEXT_HERE_OR_PRESS_THE_BUTTON_ABOVE_TO_SELECT_A_LOCAL_TEXT_FILE.')
                         },
                         'my_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Markdown to HTML'),
+                            'button_label': _Translate('MARKDOWN_TO_HTML'),
                             'event_data': 'document|markdown_to_html',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_result_box': {
                             'type': 'common',
                             'subtype': 'container',
-                            'tag': 'div'
+                            'tag': 'div',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_file_selector][example_button][my_textarea][my_button][my_result_box]'
+                        'text': '[my_file_selector][example_button][my_textarea][my_button][my_result_box]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'document'
+                    'cache_key': 'document',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
 
         }
@@ -148,7 +146,7 @@ function infohub_demo_document() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -158,27 +156,25 @@ function infohub_demo_document() {
      * @since 2019-02-03
      * @author Peter Lembke
      */
-    $functions.push("click_file_read");
-    const click_file_read = function ($in)
-    {
+    $functions.push('click_file_read');
+    const click_file_read = function($in) {
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report',
             'ok': 'false',
             'step': 'step_start',
             'box_id': '',
-            'files_data': []
+            'files_data': [],
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {           
-            if ($in.files_data.length >= 1) 
-            {
+        if ($in.step === 'step_start') {
+            if ($in.files_data.length >= 1) {
                 let $content = $in.files_data[0].content;
 
                 const $findMarkdown = 'data:text/markdown;base64,';
-                if ($findMarkdown === $content.substr(0,$findMarkdown.length)) {
+                if ($findMarkdown ===
+                    $content.substr(0, $findMarkdown.length)) {
                     $content = $content.substr($findMarkdown.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
@@ -189,21 +185,21 @@ function infohub_demo_document() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'set_text'
+                        'function': 'set_text',
                     },
                     'data': {
                         'id': $in.box_id + '_my_textarea',
-                        'text': $content
+                        'text': $content,
                     },
                     'data_back': {
-                        'step': 'step_box_data_response'
-                    }
+                        'step': 'step_box_data_response',
+                    },
                 });
             }
 
             $in.message = 'You have not selected a file';
         }
-        
+
         if ($in.step === 'step_box_data_response') {
             if ($in.answer === 'true') {
                 $in.ok = 'true';
@@ -214,7 +210,7 @@ function infohub_demo_document() {
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 
@@ -224,21 +220,19 @@ function infohub_demo_document() {
      * @since 2019-02-03
      * @author Peter Lembke
      */
-    $functions.push("click_load_example");
-    const click_load_example = function ($in)
-    {
+    $functions.push('click_load_example');
+    const click_load_example = function($in) {
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',
             'ok': 'false',
             'step': 'step_start',
             'box_id': '',
-            'files_data': []
+            'files_data': [],
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             const $content = ` 
 # Main title
 Small example how Markdown can be used.
@@ -263,15 +257,15 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.box_id + '_my_textarea',
-                    'text': $content
+                    'text': $content,
                 },
                 'data_back': {
-                    'step': 'step_box_data_response'
-                }
+                    'step': 'step_box_data_response',
+                },
             });
         }
 
@@ -285,7 +279,7 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 
@@ -295,14 +289,13 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
      * @since 2019-02-03
      * @author Peter Lembke
      */
-    $functions.push("click_markdown_to_html");
-    const click_markdown_to_html = function ($in)
-    {
+    $functions.push('click_markdown_to_html');
+    const click_markdown_to_html = function($in) {
         const $default = {
             'form_data': {
                 'my_textarea': {
-                    'value': ''
-                }
+                    'value': '',
+                },
             },
             'answer': 'true',
             'message': 'Nothing to report',
@@ -312,18 +305,17 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
             'type': '',
             'text': '',
             'response': {
-                'value': []
-            }
+                'value': [],
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_html')
-        {
+        if ($in.step === 'step_render_html') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -336,39 +328,39 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
                                     'type': 'common',
                                     'subtype': 'svg',
                                     'alias': 'my_icon',
-                                    'data': '[my_icon_asset]'
+                                    'data': '[my_icon_asset]',
                                 },
                                 'my_icon_asset': {
                                     'plugin': 'infohub_asset',
                                     'type': 'icon',
                                     'subtype': 'svg',
                                     'asset_name': 'link/infohub-logo-mini-done',
-                                    'plugin_name': 'infohub_demo'
+                                    'plugin_name': 'infohub_demo',
                                 },
                                 'time': {
                                     'type': 'common',
                                     'subtype': 'value',
-                                    'data': _TimeStamp()
-                                }
-                            }
-                        }
+                                    'data': _TimeStamp(),
+                                },
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_document]'
+                        'text': '[my_document]',
                     },
                     'where': {
                         'box_id': $in.box_id + '_my_result_box',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
                 'data_back': {
-                    'step': 'step_render_html_response'
-                }
+                    'step': 'step_render_html_response',
+                },
             });
         }
-        
+
         if ($in.step === 'step_render_html_response') {
             if ($in.answer === 'true') {
                 $in.ok = 'true';
@@ -379,8 +371,9 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 }
+
 //# sourceURL=infohub_demo_document.js

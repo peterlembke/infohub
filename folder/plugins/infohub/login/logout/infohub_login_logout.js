@@ -17,7 +17,7 @@
  */
 function infohub_login_logout() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,14 +30,14 @@ function infohub_login_logout() {
             'class_name': 'infohub_login_logout',
             'note': 'Logout from the server',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_logout': 'normal'
+            'click_logout': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -57,8 +57,7 @@ function infohub_login_logout() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -66,8 +65,8 @@ function infohub_login_logout() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -77,56 +76,56 @@ function infohub_login_logout() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'container_logout': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Logout'),
+                            'head_label': _Translate('LOGOUT'),
                             'content_data': '[button_logout][status_message]',
-                            'head_text': _Translate('Here you can logout from the server'),
-                            'foot_text': _Translate('If successful then the login page shows')
+                            'head_text': _Translate('HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER'),
+                            'foot_text': _Translate('IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS')
                         },
                         'button_logout': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Logout'),
+                            'button_label': _Translate('LOGOUT'),
                             'event_data': 'logout|logout',
                             'to_plugin': 'infohub_login',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'status_message': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': _Translate('logout result') + ':',
+                            'data': _Translate('LOGOUT_RESULT') + ':',
                             'class': 'container-pretty',
-                            'display': 'inline-block'
-                        }
+                            'display': 'inline-block',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_logout]'
+                        'text': '[container_logout]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'logout'
+                    'cache_key': 'logout',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -136,53 +135,51 @@ function infohub_login_logout() {
      * @since 2019-09-03
      * @author Peter Lembke
      */
-    $functions.push("click_logout");
-    const click_logout = function ($in)
-    {
+    $functions.push('click_logout');
+    const click_logout = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_logout',
             'response': {
                 'answer': 'true',
                 'message': 'Done',
-                'ok': 'true'
+                'ok': 'true',
             },
             'data_back': {
                 'answer': 'true',
                 'message': 'Done',
-                'ok': 'true'
-            }
+                'ok': 'true',
+            },
         };
         $in = _Default($default, $in);
 
         let $messages = [];
 
-        if ($in.step === 'step_logout')
-        {
+        if ($in.step === 'step_logout') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_end_session'
+                    'function': 'initiator_end_session',
                 },
                 'data': {
-                    'node': 'server'
+                    'node': 'server',
                 },
                 'data_back': {
                     'step': 'step_logout_response',
-                    'box_id': $in.box_id
-                }
+                    'box_id': $in.box_id,
+                },
             });
         }
 
         if ($in.step === 'step_logout_response')
         {
-            $in.response.message = _Translate('Failed to logout') + ': ' + $in.response.message;
+            $in.response.message = _Translate('FAILED_TO_LOGOUT') + ': ' + $in.response.message;
             $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {
                 $in.response.ok = 'true';
-                $in.response.message = _Translate('Success logging out');
+                $in.response.message = _Translate('SUCCESS_LOGGING_OUT');
                 $in.step = 'step_refresh';
             }
 
@@ -190,38 +187,37 @@ function infohub_login_logout() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.box_id + '.[status_message]',
-                    'text': $in.response.message
+                    'text': $in.response.message,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($subCall);
         }
 
-        if ($in.step === 'step_refresh')
-        {
+        if ($in.step === 'step_refresh') {
             const $subCall = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_dummy',
-                        'function': 'reload_page'
+                        'function': 'reload_page',
                     },
                     'data': {},
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($subCall);
         }
@@ -230,10 +226,11 @@ function infohub_login_logout() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'messages': $messages,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
 
     };
 
 }
+
 //# sourceURL=infohub_login_logout.js

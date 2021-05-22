@@ -19,7 +19,7 @@
  */
 function infohub_random() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -35,14 +35,15 @@ function infohub_random() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'random_number': 'normal',
-            'random_numbers': 'normal'
+            'random_numbers': 'normal',
+            'random_byte_string': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,19 +57,18 @@ function infohub_random() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("random_number");
-    const random_number = function($in)
-    {
+    $functions.push('random_number');
+    const random_number = function($in) {
         const $default = {
             'min': 0,
-            'max': 0
+            'max': 0,
         };
         $in = _Default($default, $in);
 
         return internal_Cmd({
             'func': 'RandomNumber',
             'min': $in.min,
-            'max': $in.max
+            'max': $in.max,
         });
     };
 
@@ -80,12 +80,11 @@ function infohub_random() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("internal_RandomNumber");
-    const internal_RandomNumber = function($in)
-    {
+    $functions.push('internal_RandomNumber');
+    const internal_RandomNumber = function($in) {
         const $default = {
             'min': 0,
-            'max': 0
+            'max': 0,
         };
         $in = _Default($default, $in);
 
@@ -105,15 +104,17 @@ function infohub_random() {
                 break leave;
             }
 
-            if ($in.max > Number.MAX_SAFE_INTEGER || $in.min > Number.MAX_SAFE_INTEGER) {
-                $message = 'max can not be larger than Number.MAX_SAFE_INTEGER, it is ' + Number.MAX_SAFE_INTEGER;
+            if ($in.max > Number.MAX_SAFE_INTEGER || $in.min >
+                Number.MAX_SAFE_INTEGER) {
+                $message = 'max can not be larger than Number.MAX_SAFE_INTEGER, it is ' +
+                    Number.MAX_SAFE_INTEGER;
                 break leave;
             }
 
             try {
                 $result = $in.min + Math.random() * ($in.max - $in.min);
                 $result = parseInt($result);
-            } catch(err) {
+            } catch (err) {
                 $answer = 'false';
                 $message = err.message;
                 break leave;
@@ -130,7 +131,7 @@ function infohub_random() {
             'ok': $ok,
             'min': $in.min,
             'max': $in.max,
-            'data': $result
+            'data': $result,
         };
     };
 
@@ -143,13 +144,12 @@ function infohub_random() {
      * @return array
      * @uses
      */
-    $functions.push("random_numbers");
-    const random_numbers = function($in)
-    {
+    $functions.push('random_numbers');
+    const random_numbers = function($in) {
         const $default = {
             'min': 0,
             'max': 0,
-            'count': 10
+            'count': 10,
         };
         $in = _Default($default, $in);
 
@@ -160,12 +160,14 @@ function infohub_random() {
 
         leave: {
 
-            for (let $randomCountNumber = $in.count; $randomCountNumber > 0; $randomCountNumber = $randomCountNumber - 1)
-            {
+            for (let $randomCountNumber = $in.count;
+                $randomCountNumber > 0;
+                $randomCountNumber = $randomCountNumber - 1
+            ) {
                 let $response = internal_Cmd({
                     'func': 'RandomNumber',
                     'min': $in.min,
-                    'max': $in.max
+                    'max': $in.max,
                 });
 
                 if ($response.answer === 'false' || $response.ok === 'false') {
@@ -187,8 +189,64 @@ function infohub_random() {
             'ok': $ok,
             'min': $in.min,
             'max': $in.max,
-            'data': $result
+            'data': $result,
         };
     };
+
+    /**
+     * Gives you a base64 encoded string made of random bytes
+     * @version 2021-04-03
+     * @since 2021-04-03
+     * @author Peter Lembke
+     * @param array $in
+     * @return array
+     * @uses
+     */
+    $functions.push('random_byte_string');
+    const random_byte_string = function($in) {
+        const $default = {
+            'count': 10,
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'true',
+            $message = 'Could not generate your byte string',
+            $result = '',
+            $resultBase64 = '';
+
+        leave: {
+
+            for (let $randomCountNumber = $in.count;
+                $randomCountNumber > 0;
+                $randomCountNumber = $randomCountNumber - 1
+            ) {
+                let $response = internal_Cmd({
+                    'func': 'RandomNumber',
+                    'min': 0,
+                    'max': 255,
+                });
+
+                if ($response.answer === 'false' || $response.ok === 'false') {
+                    $message = $response.message;
+                    break leave;
+                }
+
+                $result = $result + String.fromCharCode($response.data);
+            }
+
+            $resultBase64 = btoa($result);
+
+            $answer = 'true';
+            $message = 'Here are your random byte string in base64 encoded format';
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message,
+            'data': $resultBase64,
+        };
+    };
+
 }
+
 //# sourceURL=infohub_random.js

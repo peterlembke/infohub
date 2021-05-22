@@ -1,9 +1,12 @@
 # Infohub RenderMajor
-Render a content box with a top title, footer text, content with optional embedded content.  
+
+Render a content box with a top title, footer text, content with optional embedded content.
 
 [columns]
+
 # Introduction
-The major box is a box you can use to show content. It has a lot of optional features:  
+
+The major box is a box you can use to show content. It has a lot of optional features:
 
 - head_label - An optional title.
 - content_data - The content area where your stuff is
@@ -11,10 +14,12 @@ The major box is a box you can use to show content. It has a lot of optional fea
 - If you have a title you can show/hide the content_data
 - You decide if the content should show/hide from start with "open" = "true" or "false".
 - content_embed, (optional) The content_data is clickable and the embedded content show instead.
-- content_embed_new_tab, (optional) You can add a link in the footer. You can show the video at Youtube.com in a new tab.
+- content_embed_new_tab, (optional) You can add a link in the footer. You can show the video at Youtube.com in a new
+  tab.
 
 # How to use
-This is an example how you can use the rendermajor.  
+
+This is an example how you can use the rendermajor.
 
 ```
 return _SubCall({
@@ -72,40 +77,63 @@ return _SubCall({
 ```
 
 # head_label
-The head_label can be empty, a text or anything you can render.
-If you have anything in head_label then it will be clickable and you can show/hide the content_data area. The foot_text is not affected.
+
+The head_label can be empty, a text or anything you can render. If you have anything in head_label then it will be
+clickable and you can show/hide the content_data area. The foot_text is not affected.
 ![Click the head label to show/hide the content_data area](major-image.png)
-![The content_data is now hidden](major-content-data-folded.png)  
+![The content_data is now hidden](major-content-data-folded.png)
 
 # content_data
-The content data can be empty, a text or anything you can render. In the initial example above the content_data is an image 'my_image'.  
-You put the image in your plugin folder in folder "asset". You give it a license json file. Then in your plugin you ask infohub_asset for the image. In the example above I inserted the base64 image directly, you can do that for testing purposes but use asset as the proper solution.  
+
+The content data can be empty, a text or anything you can render. In the initial example above the content_data is an
+image 'my_image'.  
+You put the image in your plugin folder in folder "asset". You give it a license json file. Then in your plugin you ask
+infohub_asset for the image. In the example above I inserted the base64 image directly, you can do that for testing
+purposes but use asset as the proper solution.
 
 # content_embed
-The content_embed can be empty, a text or anything you can render. If you use content_embed then your content_data area will be clickable. If you click then the content_data will be overwritten with the data from content_embed.  
-content_embed can be anything you can render. The rendered data will be BASE64 encoded and inserted in the rendermajor box. When you click the content_data an event will decode the content_embed and overwrite content_data.  
-This is useful if you want to give the user an option to say no to use for example an iframe with a youtube video in it.  
+
+The content_embed can be empty, a text or anything you can render. If you use content_embed then your content_data area
+will be clickable. If you click then the content_data will be overwritten with the data from content_embed.  
+content_embed can be anything you can render. The rendered data will be BASE64 encoded and inserted in the rendermajor
+box. When you click the content_data an event will decode the content_embed and overwrite content_data.  
+This is useful if you want to give the user an option to say no to use for example an iframe with a youtube video in
+it.  
 Once you click you can not undo.
 ![The image is clickable](major-embed.png)
 ![After clicking you see the embedded content](major-embed-show.png)
 
 # content_embed_new_tab
-The content_embed_new_tab can be empty, a text or anything you can render. The thought is that you render a link in this area to external contents.  
-The purpose of the link is to provide external information about the content. It can also be a way to show a youtube video at youtube so those that do not want to use 3rd party embedded services have a choice to press the link instead.  
-In the images you see the link label "New tab", you decide what to show here because you set the label when you render the link.  
+
+The content_embed_new_tab can be empty, a text or anything you can render. The thought is that you render a link in this
+area to external contents.  
+The purpose of the link is to provide external information about the content. It can also be a way to show a youtube
+video at youtube so those that do not want to use 3rd party embedded services have a choice to press the link instead.  
+In the images you see the link label "New tab", you decide what to show here because you set the label when you render
+the link.
 
 # External services
-Infohub do not endorse the use of 3rd party services directly. That means you should not link to 3rd party scripts, images, iframe links etc. Reason is performance, security, privacy, bandwidth, stability.  
-The reality is that most people do not think about privacy, they want to see the youtube video instead. As a middle way you can offer that video embedded in a major box with an option to click a link to see the video at youtube instead.  
-Use the renderers for youtube, vimeo, spotify and so on - they all use a restricted iframe renderer and only give the rights needed by the 3rd party to work.  
-But optional is always to not use 3rd party at all. In the future there will be an individual setting "allow embedded 3rd party content", default to "false". That setting will be used in the renderers to avoid rendering unwanted material that compromise security and privacy.  
+
+Infohub do not endorse the use of 3rd party services directly. That means you should not link to 3rd party scripts,
+images, iframe links etc. Reason is performance, security, privacy, bandwidth, stability.  
+The reality is that most people do not think about privacy, they want to see the youtube video instead. As a middle way
+you can offer that video embedded in a major box with an option to click a link to see the video at youtube instead.  
+Use the renderers for youtube, vimeo, spotify and so on - they all use a restricted iframe renderer and only give the
+rights needed by the 3rd party to work.  
+But optional is always to not use 3rd party at all. In the future there will be an individual setting "allow embedded
+3rd party content", default to "false". That setting will be used in the renderers to avoid rendering unwanted material
+that compromise security and privacy.
 
 # show
-If you use a head_label then it is clickable and you can show/hide the content_data. You can also say if the content_data should start visible och hidden with the "open" option. See the example above. You set to "true" or "false".  
+
+If you use a head_label then it is clickable and you can show/hide the content_data. You can also say if the
+content_data should start visible och hidden with the "open" option. See the example above. You set to "true" or "false"
+.
 
 # HTML generated
-The above example will generate some HTML. If you click the image then the embedded base64 encoded html will take its place and show the iframe.
-In the below example I have clicked the image, this is the result.  
+
+The above example will generate some HTML. If you click the image then the embedded base64 encoded html will take its
+place and show the iframe. In the below example I have clicked the image, this is the result.
 
 ```
 <span name="legend" class="a120420102_nike_video_presentation_legend">
@@ -190,11 +218,17 @@ In the below example I have clicked the image, this is the result.
     </fieldset>
 </span>
 ```
+
 [/columns]
+
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-09-23 by Peter Lembke  
 Updated 2018-04-11 by Peter Lembke  

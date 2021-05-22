@@ -85,10 +85,11 @@ also see the [CHANGELOG](CHANGELOG.md) for future plans.
 * JS Encryption - Single point encryption - v 1.2.3
 * JS Cron - A cron you can subscribe to and get a message when it is time. Can be used for saving data at intervals
 * PHP Login & Sessions - Login without revealing password
-* JS Login & Sessions - Sessions without cookies 
+* JS Login & Sessions - Sessions without cookies
+* Introduction articles written in English and Swedish.
 
 ## Planned parts I am working on
-Right now I focus on marketing Infohub. I will produce marketing material. Some will end up in this repo.
+The Tree plugin. The Login procedure. Running any plugin stand alone.
 
 ## Future plans
 InfoHub is your private place on the internet.
@@ -117,17 +118,20 @@ Things I will implement.
 ### System features
 Things I will implement.
 * JS Web workers - So I can encapsulate plugins from reaching each other
+* JS Darkhold - Split a task on many web workers. Collect the web worker answers and return one answer.   
 * PHP Cron - A cron you can subscribe to and get a message when it is time. Can be used to take backups, clean out expired data
+* JS Cron - A cron you can subscribe to and get a message when it is time. Can be used to save data to the server. Get updated data from the server in the background.
 * Subscribe to messages - An intercept system for messages so plugins can be extended, modified, substituted. 
 
 ### Accessibility
 Things I will implement.
 * Audio - Audio feedback when loading, saving, end of line and so on. This is a big and important area. Implementing in steps.
 * Image - Set how image colours should be transformed to suite your eyes.
+  This is now implemented in the colour schema.
 * Font - Select the font type you prefer from the browser built in fonts.
 * Keyboard navigation - tab index, short cut keys.
 
-I am very excited that Chrome will have a new feature in version 82 that can emulate visual deficiencies so we can get a feel of what is wrong with the web pages. Everyone benefit from better visibility on the web pages. 
+Everyone benefits from better visibility on the web pages. 
 
 ### Apps for personal data
 Things I will implement.

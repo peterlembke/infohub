@@ -11,7 +11,7 @@
  */
 function infohub_demo_map() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_map() {
             'class_name': 'infohub_demo_map',
             'note': 'Render a map demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -42,7 +42,7 @@ function infohub_demo_map() {
      */
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,133 +62,131 @@ function infohub_demo_map() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_map'
-            }
+                'message': 'Nothing to report from infohub_demo_map',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n[openstreetmap_major][googlemaps_major][bing_major]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n[openstreetmap_major][googlemaps_major][bing_major]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Welcome to InfoHub Demo Map')
+                            'data': _Translate('WELCOME_TO_INFOHUB_DEMO_MAP')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'join',
-                            'data0': _Translate('Here are some demos to show you what Infohub can do with maps.'),
-                            'data1': _Translate('Infohub Client do not use 3rd party services. All data must come from the server')
+                            'data0': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_MAPS.'),
+                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES._ALL_DATA_MUST_COME_FROM_THE_SERVER')
                         },
                         'openstreetmap_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Openstreet map']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Openstreetmap']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Openstreet map']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_MAP_STREAMING_SERVICE.'), ['Openstreetmap']),
                             'content_data': '[openstreetmap_icon]',
                             'content_embed': '[openstreetmap_map]',
-                            'content_embed_new_tab': '[openstreetmap_map_link]'
+                            'content_embed_new_tab': '[openstreetmap_map_link]',
                         },
                         'openstreetmap_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[openstreetmap_asset]'
+                            'data': '[openstreetmap_asset]',
                         },
                         'openstreetmap_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'map/openstreetmap',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'openstreetmap_map': {
                             'type': 'map',
                             'subtype': 'openstreetmap',
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'openstreetmap_map_link': {
                             'type': 'map',
                             'subtype': 'openstreetmaplink',
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'googlemaps_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Googlemaps']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Googlemaps']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Googlemaps']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_MAP_STREAMING_SERVICE.'), ['Googlemaps']),
                             'content_data': '[googlemaps_icon]',
                             'content_embed': '[googlemaps_map]',
-                            'content_embed_new_tab': '[googlemaps_map_link]'
+                            'content_embed_new_tab': '[googlemaps_map_link]',
                         },
                         'googlemaps_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[googlemaps_asset]'
+                            'data': '[googlemaps_asset]',
                         },
                         'googlemaps_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'map/icons8-google-maps',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'googlemaps_map': {
                             'type': 'map',
                             'subtype': 'googlemaps',
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'googlemaps_map_link': {
                             'type': 'map',
                             'subtype': 'googlemapslink',
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'bing_major': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _SprintF(_Translate('This is a %s'), ['Bing map']),
-                            'foot_text': _SprintF(_Translate('%s is a 3rd party map streaming service.'), ['Bing map']),
+                            'head_label': _SprintF(_Translate('THIS_IS_A_%S'), ['Bing map']),
+                            'foot_text': _SprintF(_Translate('%S_IS_A_3RD_PARTY_MAP_STREAMING_SERVICE.'), ['Bing map']),
                             'content_data': '[bing_icon]',
                             'content_embed': '[bing_map]',
-                            'content_embed_new_tab': '[bing_map_link]'
+                            'content_embed_new_tab': '[bing_map_link]',
                         },
                         'bing_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[bing_asset]'
+                            'data': '[bing_asset]',
                         },
                         'bing_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'map/icons8-bing',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'bing_map': {
                             'type': 'map',
@@ -197,36 +195,37 @@ function infohub_demo_map() {
                             'point_longitude': '18.156281',
                             'height': '500',
                             'width': '500',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         },
                         'bing_map_link': {
                             'type': 'map',
                             'subtype': 'bingmapslink',
                             'point_latitude': '59.294597',
                             'point_longitude': '18.156281',
-                            'label': _Translate('In new tab')
+                            'label': _Translate('IN_NEW_TAB')
                         }
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text]'
+                        'text': '[my_text]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'map'
+                    'cache_key': 'map',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 }
+
 //# sourceURL=infohub_demo_map.js

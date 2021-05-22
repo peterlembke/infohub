@@ -1,18 +1,21 @@
 # Infohub RenderAdvancedList
-Renders an advanced list.  
+
+Renders an advanced list.
 
 # Introduction
-With Infohub_AdvancedList you can show an advanced list with expandable nodes. The features are:  
+
+With Infohub_AdvancedList you can show an advanced list with expandable nodes. The features are:
 
 - HTML list with optional indents (lists in lists)
 - Each node can be default expanded or contracted
 - Unicode characters (default) or optional SVG images for the expand/contract buttons
 
 # How to use
+
 In this example you get a presentation box with a head label and in the contents of the box you have an advanced list.
-The expand and contract buttons are custom icons. If you omit them you get standard unicode characters instead.
-The options in the list are in the $option variable.
-          
+The expand and contract buttons are custom icons. If you omit them you get standard unicode characters instead. The
+options in the list are in the $option variable.
+
 ```
 'to': {
     'node': 'client',
@@ -69,7 +72,9 @@ The options in the list are in the $option variable.
 ```
 
 # The options variable
-The option variable is an array (normal numbered) with stored objects. Each object has "label" = "Some text", "level" = "some_level_depth". For example:  
+
+The option variable is an array (normal numbered) with stored objects. Each object has "label" = "Some text", "level"
+= "some_level_depth". For example:
 
 ```
 $option.push({
@@ -78,12 +83,14 @@ $option.push({
 });
 ```
 
-Note in the "how" section that the example mention a "separator". It is that separator that chop up the "level" into nodes that are then put together as lists in lists.  
+Note in the "how" section that the example mention a "separator". It is that separator that chop up the "level" into
+nodes that are then put together as lists in lists.
 
 # HTML in the label
+
 If you want the items in the list to be clickable then you can see how that is done in infohub_doc.  
 This is a real example from the rendering of the navigator list in Infohub Doc:  
-Observe that the "label" is not a proper string. All " need to be \" inside the string.  
+Observe that the "label" is not a proper string. All " need to be \" inside the string.
 
 ```
 {
@@ -93,12 +100,19 @@ Observe that the "label" is not a proper string. All " need to be \" inside the 
 ```
 
 # Event messages
-There are event messages but they goto infohub_advancedlist when you expand/contract a level. If you use HTML links in the labels then you probably also want an event_message function to handle them. Once again you can check infohub_doc how this is done.  
+
+There are event messages but they goto infohub_advancedlist when you expand/contract a level. If you use HTML links in
+the labels then you probably also want an event_message function to handle them. Once again you can check infohub_doc
+how this is done.
 
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-12-11 by Peter Lembke  
 Updated 2018-04-10 by Peter Lembke  

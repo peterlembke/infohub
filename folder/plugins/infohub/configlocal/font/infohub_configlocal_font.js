@@ -11,7 +11,7 @@
  */
 function infohub_configlocal_font() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -25,7 +25,7 @@ function infohub_configlocal_font() {
             'class_name': 'infohub_configlocal_font',
             'note': 'Here you can set the global font parameters',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -53,8 +53,7 @@ function infohub_configlocal_font() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'step': 'step_render',
             'subtype': 'menu',
@@ -62,8 +61,8 @@ function infohub_configlocal_font() {
             'parent_box_id': '',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
-            }
+                'message': 'Nothing to report',
+            },
         };
         $in = _Default($default, $in);
 
@@ -73,7 +72,7 @@ function infohub_configlocal_font() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -81,8 +80,8 @@ function infohub_configlocal_font() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[font_weight][font_size][letter_spacing][button_test][button_save]',
-                            'label': _Translate('Global font settings'),
-                            'description': _Translate('Here you can fine tune how all text should be displayed')
+                            'label': _Translate('GLOBAL_FONT_SETTINGS'),
+                            'description': _Translate('HERE_YOU_CAN_FINE_TUNE_HOW_ALL_TEXT_SHOULD_BE_DISPLAYED')
                         },
                         'font_weight': {
                             'plugin': 'infohub_renderform',
@@ -90,8 +89,8 @@ function infohub_configlocal_font() {
                             'min_value': '0',
                             'max_value': '1000',
                             'step_value': '100',
-                            'label': _Translate('Font weight'),
-                            'description': _Translate('How bold do you want the text. Default 400')
+                            'label': _Translate('FONT_WEIGHT'),
+                            'description': _Translate('HOW_BOLD_DO_YOU_WANT_THE_TEXT._DEFAULT_400')
                         },
                         'font_size': {
                             'plugin': 'infohub_renderform',
@@ -99,8 +98,8 @@ function infohub_configlocal_font() {
                             'min_value': '8',
                             'max_value': '200',
                             'step_value': '1',
-                            'label': _Translate('Font size'),
-                            'description': _Translate('How large letters do you want. Default 16px')
+                            'label': _Translate('FONT_SIZE'),
+                            'description': _Translate('HOW_LARGE_LETTERS_DO_YOU_WANT._DEFAULT_16PX')
                         },
                         'letter_spacing': {
                             'plugin': 'infohub_renderform',
@@ -108,46 +107,46 @@ function infohub_configlocal_font() {
                             'min_value': '-2',
                             'max_value': '10',
                             'step_value': '0.2',
-                            'label': _Translate('Letter spacing'),
-                            'description': _Translate('The space between the letters. Default 0px')
+                            'label': _Translate('LETTER_SPACING'),
+                            'description': _Translate('THE_SPACE_BETWEEN_THE_LETTERS._DEFAULT_0PX')
                         },
                         'button_test': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Test'),
+                            'button_label': _Translate('TEST'),
                             'event_data': 'font',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'click_test'
+                            'to_function': 'click_test',
                         },
                         'button_save': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Save'),
+                            'button_label': _Translate('SAVE'),
                             'event_data': 'font',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'submit'
-                        }
+                            'to_function': 'submit',
+                        },
 
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[font_form]'
+                        'text': '[font_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
-                'data_back': {'step': 'step_end'}
-            });            
+                'data_back': {'step': 'step_end'},
+            });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -158,55 +157,53 @@ function infohub_configlocal_font() {
      * @since 2019-03-11
      * @author Peter Lembke
      */
-    $functions.push("click_test");
-    const click_test = function ($in)
-    {
+    $functions.push('click_test');
+    const click_test = function($in) {
         const $default = {
             'step': 'step_set_style',
             'form_data': {},
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
-            }
+                'message': 'Nothing to report',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === "step_set_style")
-        {
+        if ($in.step === 'step_set_style') {
             let $messageArray = [];
 
             const $fontWeight = _GetData({
                 'name': 'form_data/font_weight/value',
                 'default': '400',
-                'data': $in
+                'data': $in,
             });
 
             const $fontSize = _GetData({
                 'name': 'form_data/font_size/value',
                 'default': '16',
-                'data': $in
+                'data': $in,
             });
 
             const $letterSpacing = _GetData({
                 'name': 'form_data/letter_spacing/value',
                 'default': '0',
-                'data': $in
+                'data': $in,
             });
-            
+
             let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'style'
+                    'function': 'style',
                 },
                 'data': {
                     'data': 'fontWeight',
                     'value': $fontWeight,
-                    'suffix': ''
+                    'suffix': '',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messageArray.push($messageOut);
 
@@ -214,16 +211,16 @@ function infohub_configlocal_font() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'style'
+                    'function': 'style',
                 },
                 'data': {
                     'data': 'fontSize',
                     'value': $fontSize,
-                    'suffix': 'px'
+                    'suffix': 'px',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messageArray.push($messageOut);
 
@@ -231,32 +228,33 @@ function infohub_configlocal_font() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'style'
+                    'function': 'style',
                 },
                 'data': {
                     'data': 'letterSpacing',
                     'value': $letterSpacing,
-                    'suffix': 'px'
+                    'suffix': 'px',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messageArray.push($messageOut);
 
             return {
                 'answer': 'true',
                 'message': 'This is a multi message to set all styles',
-                'messages': $messageArray
+                'messages': $messageArray,
             };
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
 
 }
+
 //# sourceURL=infohub_configlocal_font.js

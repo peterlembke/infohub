@@ -11,7 +11,7 @@
  */
 function infohub_demo_tabs() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -21,7 +21,7 @@ function infohub_demo_tabs() {
      * @returns {{date: string, note: string, 'SPDX-License-Identifier': string, checksum: string, version: string, class_name: string, since: string, status: string}}
      * @private
      */
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2019-03-28',
             'since': '2018-05-15',
@@ -30,7 +30,7 @@ function infohub_demo_tabs() {
             'class_name': 'infohub_demo_tabs',
             'note': 'Collection of demos to demonstrate InfoHub Client Render and View',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -40,9 +40,9 @@ function infohub_demo_tabs() {
      * @returns {*}
      * @private
      */
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,58 +62,56 @@ function infohub_demo_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report',
             },
             'data_back': {
-                'box_id': ''
-            }
+                'box_id': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             const $exampleContent = {
                 'what': {
                     'image_example': {
                         'type': 'common',
                         'subtype': 'image',
                         'data': '[image_example_asset]',
-                        'class': 'image'
+                        'class': 'image',
                     },
                     'image_example_asset': {
                         'plugin': 'infohub_asset',
                         'type': 'image',
                         'subtype': 'jpeg',
                         'asset_name': 'common/con00004',
-                        'plugin_name': 'infohub_demo'
-                    }
+                        'plugin_name': 'infohub_demo',
+                    },
                 },
                 'how': {
-                    'text': '[image_example]'
+                    'text': '[image_example]',
                 },
-                'cache_key': 'tab7'
+                'cache_key': 'tab7',
             };
 
             const $tabs = [
-                {'alias': 'gui', 'label': 'Tab 1' }, // alias must be a single word here.
-                {'alias': 'doc', 'label': 'Tab 2' },
-                {'alias': 'config', 'label': 'Tab 3' },
-                {'alias': 'version', 'label': 'Tab 4' },
-                {'alias': 'license', 'label': 'Tab 5' },
-                {'alias': 'test', 'label': 'Tab 6' },
-                {'alias': 'stat', 'label': 'Tab 7', 'content': $exampleContent },
-                {'alias': 'translation', 'label': 'Tab 8' },
-                {'alias': 'close', 'label': 'Tab 9' }
+                {'alias': 'gui', 'label': 'Tab 1'}, // alias must be a single word here.
+                {'alias': 'doc', 'label': 'Tab 2'},
+                {'alias': 'config', 'label': 'Tab 3'},
+                {'alias': 'version', 'label': 'Tab 4'},
+                {'alias': 'license', 'label': 'Tab 5'},
+                {'alias': 'test', 'label': 'Tab 6'},
+                {'alias': 'stat', 'label': 'Tab 7', 'content': $exampleContent},
+                {'alias': 'translation', 'label': 'Tab 8'},
+                {'alias': 'close', 'label': 'Tab 9'},
             ];
 
             const $boxId = $in.parent_box_id + '.demo';
@@ -122,34 +120,34 @@ function infohub_demo_tabs() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'setup_full_tab_system'
+                    'function': 'setup_full_tab_system',
                 },
                 'data': {
                     'parent_box_id': $boxId,
                     'tabs': $tabs,
-                    'highlight_tab_alias': 'stat'
+                    'highlight_tab_alias': 'stat',
                 },
                 'data_back': {
                     'step': 'step_scroll',
                     'box_id': $boxId,
-                }
+                },
             });
         }
-        
+
         if ($in.step === 'step_scroll') {
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'scroll_to_box_id'
+                    'function': 'scroll_to_box_id',
                 },
                 'data': {
-                    'box_id': $in.data_back.box_id
+                    'box_id': $in.data_back.box_id,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
@@ -159,4 +157,5 @@ function infohub_demo_tabs() {
         };
     };
 }
+
 //# sourceURL=infohub_demo_tabs.js

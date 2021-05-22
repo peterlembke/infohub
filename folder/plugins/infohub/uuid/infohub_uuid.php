@@ -30,14 +30,14 @@ class infohub_uuid extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2019-12-07
+     * @return  string[]
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2019-12-07
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-12-07',
             'since' => '2017-06-17',
             'version' => '1.1.1',
@@ -48,25 +48,25 @@ class infohub_uuid extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-12-07
+     * @return mixed
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-12-07
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'uuid' => 'normal',
             'get_available_options' => 'normal',
             'guidv0' => 'normal',
             'guidv4' => 'normal',
             'hub_id' => 'normal',
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -74,18 +74,18 @@ class infohub_uuid extends infohub_base
     /**
      * Gives you a UUID in wanted format
      *
-     * @version 2018-08-09
-     * @since   2018-08-09
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2018-08-09
+     * @since   2018-08-09
      */
     protected function uuid(array $in = []): array
     {
-        $default = array(
+        $default = [
             'version' => '100',
             'count' => 1
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'true';
@@ -95,8 +95,7 @@ class infohub_uuid extends infohub_base
         $data = '';
         $out = [];
 
-        for ($i = $in['count']; $i > 0; $i--)
-        {
+        for ($i = $in['count']; $i > 0; $i--) {
             switch ($in['version']) {
                 case '0':
                     $response = $this->guidv0();
@@ -118,7 +117,6 @@ class infohub_uuid extends infohub_base
                 $message = $response['message'];
                 break;
             }
-
         }
 
         // Convert the indexed array to a simple array. Also copy the first uuid
@@ -132,35 +130,35 @@ class infohub_uuid extends infohub_base
             }
         }
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $first,
             'array' => $out,
             'version' => $in['version'],
             'count' => $in['count']
-        );
+        ];
     }
 
     /**
      * Get a list with all options
-     * @version 2018-08-09
-     * @since   2018-08-09
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-08-09
+     * @since   2018-08-09
      */
     protected function get_available_options(array $in = []): array
     {
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'All UUID versions',
-            'options' => array(
-                [ "type" => "option", "value" => "0", "label" => "Server UUID v0" ],
-                [ "type" => "option", "value" => "4", "label" => "Server UUID v4" ],
-                [ "type" => "option", "value" => "100", "label" => "Server Hub Id", 'selected' => 'true' ]
-            )
-        );
+            'options' => [
+                ["type" => "option", "value" => "0", "label" => "Server UUID v0"],
+                ["type" => "option", "value" => "4", "label" => "Server UUID v4"],
+                ["type" => "option", "value" => "100", "label" => "Server Hub Id", 'selected' => 'true']
+            ]
+        ];
     }
 
     /**
@@ -170,21 +168,21 @@ class infohub_uuid extends infohub_base
      */
     protected function guidv0(array $in = []): array
     {
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the guidv0',
             'data' => '00000000-0000-0000-0000-000000000000'
-        );
+        ];
     }
 
     /**
      * UUID version 4
      * guidv4 is a standardized way of getting a uinque identifier string.
-     * @version 2019-12-07
-     * @since 2017-06-17
-     * @author https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
      * @param array $in
      * @return array
+     * @author https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
+     * @version 2019-12-07
+     * @since 2017-06-17
      */
     protected function guidv4(array $in = []): array
     {
@@ -193,8 +191,7 @@ class infohub_uuid extends infohub_base
         $result = '';
 
         try {
-            if (function_exists('com_create_guid') === true)
-            {
+            if (function_exists('com_create_guid') === true) {
                 $result = trim(com_create_guid(), '{}'); // Remove surrounding brackets
                 $answer = 'true';
                 $message = 'Here are the guidv4, created with com_create_guid';
@@ -205,10 +202,12 @@ class infohub_uuid extends infohub_base
 
             if (function_exists('random_bytes')) {
                 $data = random_bytes(16); // PHP >= 7
-            } else if (function_exists('openssl_random_pseudo_bytes')) {
-                $data = openssl_random_pseudo_bytes(16); // PHP < 7
             } else {
-                goto leave;
+                if (function_exists('openssl_random_pseudo_bytes')) {
+                    $data = openssl_random_pseudo_bytes(16); // PHP < 7
+                } else {
+                    goto leave;
+                }
             }
 
             if (strlen($data) !== 16) {
@@ -222,15 +221,14 @@ class infohub_uuid extends infohub_base
             $answer = 'true';
             $message = 'Here are the guidv4';
         } catch (Exception $e) {
-
         }
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $result
-        );
+        ];
     }
 
     /**
@@ -239,11 +237,11 @@ class infohub_uuid extends infohub_base
      * First the time since EPOC with decimals.
      * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.
      * Benefits are the simplicity. Also gives information when the id was created.
-     * @version 2019-12-07
-     * @since 2018-07-28
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2019-12-07
+     * @since 2018-07-28
      */
     protected function hub_id(array $in = []): array
     {
@@ -255,10 +253,12 @@ class infohub_uuid extends infohub_base
             $randomNumber = '';
             if (function_exists('random_int')) {
                 $randomNumber = random_int(0, PHP_INT_MAX); // PHP >= 7
-            } else if (function_exists('mt_rand')) {
-                $randomNumber = mt_rand(0, PHP_INT_MAX); // PHP < 7
             } else {
-                goto leave;
+                if (function_exists('mt_rand')) {
+                    $randomNumber = mt_rand(0, PHP_INT_MAX); // PHP < 7
+                } else {
+                    goto leave;
+                }
             }
 
             $result = $this->_MicroTime() . ':' . $randomNumber;
@@ -266,14 +266,13 @@ class infohub_uuid extends infohub_base
             $answer = 'true';
             $message = 'Here are the hub_id';
         } catch (Exception $e) {
-
         }
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $result
-        );
+        ];
     }
 }

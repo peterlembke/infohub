@@ -17,11 +17,11 @@
  */
 function infohub_standalone() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    $functions.push("_Version");
+    $functions.push('_Version');
     const _Version = function() {
         return {
             'date': '2019-03-11',
@@ -34,22 +34,22 @@ function infohub_standalone() {
             'title': 'Stand alone',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    $functions.push("_GetCmdFunctions");
+    $functions.push('_GetCmdFunctions');
     const _GetCmdFunctions = function() {
         const $list = {
             'startup': 'normal',
             'setup_gui': 'normal',
-            'setup_plugin': 'normal'
+            'setup_plugin': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
-    $functions.push("_GetBoxId");
+    $functions.push('_GetBoxId');
     const _GetBoxId = function() {
         return 'main.body.' + _GetClassName();
     };
@@ -66,12 +66,11 @@ function infohub_standalone() {
      * @since 2019-03-11
      * @author Peter Lembke
      */
-    $functions.push("startup");
-    const startup = function ($in)
-    {
+    $functions.push('startup');
+    const startup = function($in) {
         const $default = {
             'step': 'step_start',
-            'plugin_name': ''
+            'plugin_name': '',
         };
         $in = _Default($default, $in);
 
@@ -80,13 +79,13 @@ function infohub_standalone() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'init'
+                    'function': 'init',
                 },
                 'data': {},
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_setup_boxes'
-                }
+                    'step': 'step_setup_boxes',
+                },
             });
         }
 
@@ -95,15 +94,15 @@ function infohub_standalone() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'init'
+                    'function': 'init',
                 },
                 'data': {
-                    'parent_box_id': 'main'
+                    'parent_box_id': 'main',
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_apply_config'
-                }
+                    'step': 'step_apply_config',
+                },
             });
         }
 
@@ -112,13 +111,13 @@ function infohub_standalone() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_configlocal',
-                    'function': 'apply_config'
+                    'function': 'apply_config',
                 },
                 'data': {},
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_setup_plugin'
-                }
+                    'step': 'step_setup_plugin',
+                },
             });
         }
 
@@ -127,20 +126,20 @@ function infohub_standalone() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_standalone',
-                    'function': 'setup_plugin'
+                    'function': 'setup_plugin',
                 },
                 'data': {
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $in.plugin_name,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Done with setting up the standalone'
+            'message': 'Done with setting up the standalone',
         };
 
     };
@@ -152,13 +151,12 @@ function infohub_standalone() {
      * @author  Peter Lembke
      */
     $functions.push('setup_plugin');
-    const setup_plugin = function ($in)
-    {
+    const setup_plugin = function($in) {
         const $default = {
             'plugin_name': '',
             'step': 'step_is_plugin_started',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
@@ -172,26 +170,24 @@ function infohub_standalone() {
         // Render the info box and place it in the head_tab_box_id
         // Call node=client, plugin=$in.plugin_name, function=setup_gui, box_id={{body_tab_box_id}}
 
-        if ($in.step === 'step_is_plugin_started')
-        {
+        if ($in.step === 'step_is_plugin_started') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'id_exist'
+                    'function': 'id_exist',
                 },
                 'data': {
-                    'id': 'main.head.' + $in.plugin_name
+                    'id': 'main.head.' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_is_plugin_started_response'
-                }
+                    'step': 'step_is_plugin_started_response',
+                },
             });
         }
 
-        if ($in.step === 'step_is_plugin_started_response')
-        {
+        if ($in.step === 'step_is_plugin_started_response') {
             if ($in.response.exist === 'true') {
                 $in.data_back.already_started = 'true';
                 $in.step = 'step_update_plugin_assets';
@@ -201,36 +197,34 @@ function infohub_standalone() {
             }
         }
 
-        if ($in.step === 'step_update_plugin_assets')
-        {
+        if ($in.step === 'step_update_plugin_assets') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_asset',
-                    'function': 'update_all_plugin_assets'
+                    'function': 'update_all_plugin_assets',
                 },
                 'data': {
-                    'plugin_name': $in.plugin_name
+                    'plugin_name': $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_add_tab'
-                }
+                    'step': 'step_add_tab',
+                },
             });
         }
 
-        if ($in.step === 'step_add_tab')
-        {
+        if ($in.step === 'step_add_tab') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tabs',
-                    'function': 'add'
+                    'function': 'add',
                 },
                 'data': {
                     'parent_box_id': 'main',
-                    'tab_alias': $in.plugin_name
+                    'tab_alias': $in.plugin_name,
                 },
                 'data_back': {
                     'title': '',
@@ -239,58 +233,56 @@ function infohub_standalone() {
                     'note': '',
                     'plugin_name': $in.plugin_name,
                     'already_started': $in.data_back.already_started,
-                    'step': 'step_setup_gui'
-                }
+                    'step': 'step_setup_gui',
+                },
             });
         }
 
-        if ($in.step === 'step_setup_gui')
-        {
+        if ($in.step === 'step_setup_gui') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $in.plugin_name,
-                    'function': 'setup_gui'
+                    'function': 'setup_gui',
                 },
                 'data': {
                     'box_id': 'main.body.' + $in.plugin_name,
-                    'desktop_environment': 'standalone'
+                    'desktop_environment': 'standalone',
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_scroll_to_box_id'
-                }
+                    'step': 'step_scroll_to_box_id',
+                },
             });
         }
 
-        if ($in.step === 'step_scroll_to_box_id')
-        {
+        if ($in.step === 'step_scroll_to_box_id') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'scroll_to_box_id'
+                    'function': 'scroll_to_box_id',
                 },
                 'data': {
-                    'box_id': 'main.body.' + $in.plugin_name
+                    'box_id': 'main.body.' + $in.plugin_name,
                 },
                 'data_back': {
                     'plugin_name': $in.plugin_name,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
-        if ($in.step === 'step_scroll_to_box_id_response')
-        {
+        if ($in.step === 'step_scroll_to_box_id_response') {
             $answer = 'true';
             $message = 'Plugin is now set up';
         }
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 }
+
 //# sourceURL=infohub_standalone.js

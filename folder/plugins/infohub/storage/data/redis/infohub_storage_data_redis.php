@@ -30,14 +30,14 @@ class infohub_storage_data_redis extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2017-08-10
+     * @return  string[]
      * @since   2016-08-13
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2017-08-10
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2017-08-10',
             'since' => '2016-08-13',
             'version' => '1.0.0',
@@ -47,23 +47,23 @@ class infohub_storage_data_redis extends infohub_base
             'note' => 'Support for Redis as a normal storage. Saves to persistent storage in time intervals. Simple to set up and use',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2017-08-10
+     * @return mixed
      * @since   2016-08-13
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2017-08-10
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'read' => 'normal',
             'write' => 'normal',
             'read_paths' => 'normal', // Get a list of matching paths
-        );
+        ];
     }
 
     /**
@@ -74,10 +74,10 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function read(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => null,
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
@@ -90,23 +90,27 @@ class infohub_storage_data_redis extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $in['connection'] = $response['connection'];
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostRead',
-            'connection' => $in['connection'],
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostRead',
+                'connection' => $in['connection'],
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -121,13 +125,13 @@ class infohub_storage_data_redis extends infohub_base
         }
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $data,
             'post_exist' => $postExist
-        );
+        ];
         return $out;
     }
 
@@ -143,11 +147,11 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function write(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => [],
             'path' => '',
             'data' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
@@ -159,21 +163,25 @@ class infohub_storage_data_redis extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $connection = $response['connection'];
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostRead',
-            'connection' => $connection,
-            'path' => $in['path']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostRead',
+                'connection' => $connection,
+                'path' => $in['path']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -181,15 +189,15 @@ class infohub_storage_data_redis extends infohub_base
         $currentlyStoredDataString = $response['data'];
         $postExist = $response['post_exist'];
 
-        if (empty($in['data']) === true)
-        {
-            if ($postExist === 'true')
-            {
-                $response = $this->internal_Cmd(array(
-                    'func' => 'PostDelete',
-                    'connection' => $connection,
-                    'path' => $in['path']
-                ));
+        if (empty($in['data']) === true) {
+            if ($postExist === 'true') {
+                $response = $this->internal_Cmd(
+                    [
+                        'func' => 'PostDelete',
+                        'connection' => $connection,
+                        'path' => $in['path']
+                    ]
+                );
                 $answer = $response['answer'];
                 $message = $response['message'];
                 goto leave;
@@ -210,23 +218,25 @@ class infohub_storage_data_redis extends infohub_base
             }
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostWrite',
-            'connection' => $connection,
-            'path' => $in['path'],
-            'bubble' => $newDataString
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostWrite',
+                'connection' => $connection,
+                'path' => $in['path'],
+                'bubble' => $newDataString
+            ]
+        );
         $answer = $response['answer'];
         $message = $response['message'];
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $out;
     }
 
@@ -238,11 +248,11 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function read_paths(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => null,
             'path' => '',
             'with_data' => 'true'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = [];
@@ -254,24 +264,28 @@ class infohub_storage_data_redis extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $in['connection'] = $response['connection'];
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ReadPaths',
-            'connection' => $in['connection'],
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path'],
-            'with_data' => $in['with_data']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ReadPaths',
+                'connection' => $in['connection'],
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path'],
+                'with_data' => $in['with_data']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -282,12 +296,12 @@ class infohub_storage_data_redis extends infohub_base
         $message = 'Here are the paths';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $data
-        );
+        ];
         return $out;
     }
 
@@ -298,9 +312,9 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function internal_ConnectionOpen(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
-            'connect' => array(
+            'connect' => [
                 'plugin_name_handler' => 'infohub_storage_data_redis',
                 'plugin_name_owner' => '',
                 'db_type' => 'redis',
@@ -309,8 +323,8 @@ class infohub_storage_data_redis extends infohub_base
                 'db_user' => '',
                 'db_password' => '',
                 'db_name' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -333,11 +347,11 @@ class infohub_storage_data_redis extends infohub_base
         $message = 'Here are the Redis server connection';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'connection' => $connection
-        );
+        ];
         return $out;
     }
 
@@ -348,11 +362,11 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function internal_PostRead(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = null;
@@ -360,31 +374,31 @@ class infohub_storage_data_redis extends infohub_base
         try {
             $data = $in['connection']->get($in['path']);
         } catch (Exception $e) {
-            $out = array(
+            $out = [
                 'answer' => 'false',
                 'message' => 'Error reading Redis: ' . $e->getMessage(),
                 'data' => null,
                 'post_exist' => 'false'
-            );
+            ];
             goto leave;
         }
 
         if (is_null($data) || empty($data)) {
-            $out = array(
+            $out = [
                 'answer' => 'true',
                 'message' => 'Post read: Did not find any data string on that path',
                 'data' => $this->_JsonEncode([]),
                 'post_exist' => 'false'
-            );
+            ];
             goto leave;
         }
 
-        $out = array(
+        $out = [
             'answer' => 'true',
             'message' => 'Post read: Here are the data string',
             'data' => $data,
             'post_exist' => 'true'
-        );
+        ];
 
         leave:
         return $out;
@@ -397,32 +411,32 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function internal_PostWrite(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'path' => '',
             'bubble' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'true',
             'message' => 'PostWrite, Wrote the data to Redis'
-        );
+        ];
 
         try {
             $response = $in['connection']->set($in['path'], $in['bubble']);
             if ($response === false) {
-                $out = array(
+                $out = [
                     'answer' => 'false',
                     'message' => 'PostWrite, Failed to write the data to Redis'
-                );
+                ];
             }
         } catch (Exception $e) {
-            $out = array(
+            $out = [
                 'answer' => 'false',
                 'message' => 'PostWrite, got exception: ' . $e->getMessage()
-            );
+            ];
         }
 
         return $out;
@@ -435,31 +449,31 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function internal_PostDelete(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'true',
             'message' => 'Post delete: Deleted the post'
-        );
+        ];
 
         try {
             $response = $in['connection']->del($in['path']);
             if ($response === false) {
-                $out = array(
+                $out = [
                     'answer' => 'false',
                     'message' => 'PostDelete, Failed to delete the data in Redis'
-                );
+                ];
             }
         } catch (Exception $e) {
-            $out = array(
+            $out = [
                 'answer' => 'false',
                 'message' => 'Post delete: Could not delete the post'
-            );
+            ];
         }
 
         return $out;
@@ -473,12 +487,12 @@ class infohub_storage_data_redis extends infohub_base
      */
     protected function internal_ReadPaths(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'path' => '',
             'with_data' => 'true'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = [];
@@ -489,8 +503,7 @@ class infohub_storage_data_redis extends infohub_base
             goto leave;
         }
 
-        foreach ($response as $path)
-        {
+        foreach ($response as $path) {
             $dataBack = [];
             if ($in['with_data'] === 'true') {
                 $data = $in['connection']->get($path);
@@ -506,11 +519,11 @@ class infohub_storage_data_redis extends infohub_base
         $response['message'] = 'Here are the paths that I found';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $response['answer'],
             'message' => $response['message'],
             'data' => $answer
-        );
+        ];
         return $out;
     }
 

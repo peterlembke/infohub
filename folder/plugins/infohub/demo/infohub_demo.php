@@ -27,14 +27,14 @@ class infohub_demo extends infohub_base
     /**
      * Version information for this plugin
      *
-     * @version 2016-04-17
+     * @return string[]
      * @since   2016-04-17
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2016-04-17
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2016-04-17',
             'since' => '2016-04-17',
             'version' => '1.7.5',
@@ -44,20 +44,20 @@ class infohub_demo extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
      *
-     * @version 2016-04-17
+     * @return mixed
      * @since   2016-04-17
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2016-04-17
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'storage' => 'normal',
             'demo1' => 'normal',
             'demo2' => 'normal',
@@ -68,7 +68,7 @@ class infohub_demo extends infohub_base
             'demo_storage' => 'normal',
             'demo_file' => 'normal',
             'demo_test' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -76,15 +76,15 @@ class infohub_demo extends infohub_base
     /**
      * Calls the child plugin: Storage
      *
-     * @version 2016-02-12
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-02-12
+     * @since   2016-01-30
      */
     protected function storage(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '', // path to read/write
             'paths' => [], // paths to read_many/write_many
             'data' => [], // Data to write to the storage
@@ -93,10 +93,10 @@ class infohub_demo extends infohub_base
             'command' => '', // See below
             'response' => [],
             'step' => 'step_call_child'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'false',
             'message' => 'Could not call child plugin',
             'items' => [],
@@ -105,35 +105,36 @@ class infohub_demo extends infohub_base
             'mode' => $in['mode'],
             'wanted_data' => $in['wanted_data'],
             'post_exist' => 'false'
-        );
+        ];
 
         if ($in['step'] === 'step_call_child') {
-
             $validCommands = ['read', 'read_many', 'write', 'write_many', 'read_pattern', 'write_pattern'];
 
             if (in_array($in['command'], $validCommands) === true) {
-                return $this->_Subcall(array(
-                    'to' => array(
-                        'node' => 'server',
-                        'plugin' => 'infohub_demo_storage',
-                        'function' => $in['command']
-                    ),
-                    'data' => array(
-                        'path' => $in['path'],
-                        'paths' => $in['paths'],
-                        'data' => $in['data'],
-                        'mode' => $in['mode'],
-                        'wanted_data' => $in['wanted_data'],
-                    ),
-                    'data_back' => array(
-                        'step' => 'step_call_child_response'
-                    )
-                ));
+                return $this->_Subcall(
+                    [
+                        'to' => [
+                            'node' => 'server',
+                            'plugin' => 'infohub_demo_storage',
+                            'function' => $in['command']
+                        ],
+                        'data' => [
+                            'path' => $in['path'],
+                            'paths' => $in['paths'],
+                            'data' => $in['data'],
+                            'mode' => $in['mode'],
+                            'wanted_data' => $in['wanted_data'],
+                        ],
+                        'data_back' => [
+                            'step' => 'step_call_child_response'
+                        ]
+                    ]
+                );
             }
         }
 
         if ($in['step'] === 'step_call_child_response') {
-            $out = $this->_Merge($out,$in['response']);
+            $out = $this->_Merge($out, $in['response']);
         }
 
         return $out;
@@ -144,48 +145,48 @@ class infohub_demo extends infohub_base
     /**
      * Demo 1 - Return a Camel Case String
      *
-     * @version 2016-02-12
-     * @since   2016-01-30
-     * @author  Peter Lembke
-     * @see http://127.0.0.1/infohub/demo/1 Demo 1
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/1 Demo 1
+     * @version 2016-02-12
+     * @since   2016-01-30
      */
     protected function demo1(array $in = []): array
     {
-        $default = array('my_variable' => '');
+        $default = ['my_variable' => ''];
         $in = $this->_Default($default, $in);
 
         $data = ucwords($in['my_variable']);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished doing camel case',
             'data' => $data
-        );
+        ];
     }
 
     /**
      * Demo 2 - Return an UPPER CASE STRING
      *
-     * @version 2016-01-30
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-01-30
+     * @since   2016-01-30
      */
     protected function demo2(array $in = []): array
     {
-        $default = array('my_variable' => '');
+        $default = ['my_variable' => ''];
         $in = $this->_Default($default, $in);
 
         $data = strtoupper($in['my_variable']);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished doing UPPER case',
             'data' => $data
-        );
+        ];
     }
 
     /**
@@ -195,15 +196,15 @@ class infohub_demo extends infohub_base
      * Calls internal function "GetOneString" to get a version string,
      * Calls cmd function "demo2" to get the string in upper case.
      *
-     * @version 2016-01-30
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-01-30
+     * @since   2016-01-30
      */
     protected function demo3(array $in = []): array
     {
-        $default = array(
+        $default = [
             'my_variable' => '',
             'plugin' => [],
             'base' => [],
@@ -211,57 +212,63 @@ class infohub_demo extends infohub_base
             'version_code' => '',
             'data' => '',
             'step' => 'start'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = '';
 
         if ($in['step'] === 'start') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_transfer',
-                    'function' => 'version'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'step' => 'version_back',
-                    'my_variable' => $in['my_variable']
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_transfer',
+                        'function' => 'version'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'step' => 'version_back',
+                        'my_variable' => $in['my_variable']
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'version_back') {
-            $response = $this->internal_Cmd(array(
-                'func' => 'GetOneString',
-                'plugin' => $in['plugin']
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'GetOneString',
+                    'plugin' => $in['plugin']
+                ]
+            );
             $data = $in['my_variable'] . ': ' . $response['data'];
 
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_demo',
-                    'function' => 'demo2'
-                ),
-                'data' => array(
-                    'my_variable' => $data
-                ),
-                'data_back' => array(
-                    'step' => 'upper_back'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_demo',
+                        'function' => 'demo2'
+                    ],
+                    'data' => [
+                        'my_variable' => $data
+                    ],
+                    'data_back' => [
+                        'step' => 'upper_back'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'upper_back') {
             $data = $in['data'];
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished doing a plugin version string in UPPER CASE',
             'data' => $data
-        );
+        ];
     }
 
     /**
@@ -272,13 +279,13 @@ class infohub_demo extends infohub_base
      */
     protected function internal_GetOneString(array $in = []): array
     {
-        $default = array(
-            'plugin' => array(
+        $default = [
+            'plugin' => [
                 'date' => '',
                 'version' => '',
                 'class_name' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $response = [];
@@ -287,11 +294,11 @@ class infohub_demo extends infohub_base
         }
         $data = implode(' {abc} ', $response);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the plugin string',
             'data' => $data
-        );
+        ];
     }
 
     /**
@@ -310,23 +317,23 @@ class infohub_demo extends infohub_base
     /**
      * Demo 4 - Get version data from several plugins
      *
-     * @version 2016-04-06
-     * @since   2016-04-06
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-06
+     * @since   2016-04-06
      */
     protected function demo4(array $in = []): array
     {
-        $default = array(
-            'plugin' => array(
+        $default = [
+            'plugin' => [
                 'date' => '',
                 'version' => '',
                 'class_name' => ''
-            ),
+            ],
             'plugin_name' => '',
             'all_data' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if (empty($in['plugin']['class_name']) === false) {
@@ -335,45 +342,47 @@ class infohub_demo extends infohub_base
 
         $nextPlugin = $this->_GetNextPlugin($in['plugin_name']);
         if ($nextPlugin !== '') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $nextPlugin,
-                    'function' => 'version'
-                ),
-                'data_back' => array(
-                    'all_data' => $in['all_data'],
-                    'plugin_name' => $nextPlugin
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $nextPlugin,
+                        'function' => 'version'
+                    ],
+                    'data_back' => [
+                        'all_data' => $in['all_data'],
+                        'plugin_name' => $nextPlugin
+                    ],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished getting all version data from selected plugins',
             'data' => $in['all_data']
-        );
+        ];
     }
 
     /**
      * Iterate over a list with plugin names
      *
-     * @version 2016-04-06
-     * @since   2016-04-06
-     * @author  Peter Lembke
      * @param string $pluginName
      * @return string
+     * @author  Peter Lembke
+     * @version 2016-04-06
+     * @since   2016-04-06
      */
     protected function _GetNextPlugin(string $pluginName = ''): string
     {
         if ($pluginName === '') {
             return 'infohub_exchange';
         }
-        $plugins = array(
+        $plugins = [
             'infohub_exchange' => 'infohub_transfer',
             'infohub_transfer' => 'infohub_doc',
             'infohub_doc' => ''
-        );
+        ];
         if (isset($plugins[$pluginName])) {
             return $plugins[$pluginName];
         }
@@ -384,62 +393,64 @@ class infohub_demo extends infohub_base
     /**
      * Demo 5 - Call a child plugin
      *
-     * @version 2016-04-06
-     * @since   2016-04-06
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-06
+     * @since   2016-04-06
      */
     protected function demo5(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'start_step',
             'url_my_name' => '',
             'data' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'start_step') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_demo_child',
-                    'function' => 'hello_you'
-                ),
-                'data' => array(
-                    'my_name' => $in['url_my_name']
-                ),
-                'data_back' => array(
-                    'step' => 'response_step'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_demo_child',
+                        'function' => 'hello_you'
+                    ],
+                    'data' => [
+                        'my_name' => $in['url_my_name']
+                    ],
+                    'data_back' => [
+                        'step' => 'response_step'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'response_step') {
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished calling a child function',
             'data' => $in['data']
-        );
+        ];
     }
 
     /**
      * Demo 6 - How to use child plugins
      *
-     * @version 2016-04-16
-     * @since   2016-04-16
+     * @param array $in
+     * @return array
      * @author  Peter Lembke
      * @see http://127.0.0.1/infohub/demo/6/type/luhn/value/123 Luhn
      * @see http://127.0.0.1/infohub/demo/6/type/md5/value/123 MD5
      * @see http://127.0.0.1/infohub/demo/6/type/personnummer/value/640823323 Personnummer
-     * @param array $in
-     * @return array
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function demo6(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'start_step',
             'url_type' => 'md5',
             'url_value' => '123',
@@ -448,87 +459,90 @@ class infohub_demo extends infohub_base
             'value' => '',
             'checksum' => '',
             'verified' => 'false'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'start_step') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_checksum',
-                    'function' => 'calculate_checksum'
-                ),
-                'data' => array(
-                    'type' => $in['url_type'],
-                    'value' => $in['url_value']
-                ),
-                'data_back' => array(
-                    'step' => 'response_step'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_checksum',
+                        'function' => 'calculate_checksum'
+                    ],
+                    'data' => [
+                        'type' => $in['url_type'],
+                        'value' => $in['url_value']
+                    ],
+                    'data_back' => [
+                        'step' => 'response_step'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'response_step') {
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Finished calling checksum',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $in['verified']
-        );
+        ];
     }
 
     /**
      * Demo storage - How to use child plugins
      *
-     * @version 2016-06-15
-     * @since   2016-06-15
-     * @author  Peter Lembke
-     * @see http://127.0.0.1/infohub/demo/storage Storage
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/storage Storage
+     * @version 2016-06-15
+     * @since   2016-06-15
      */
     protected function demo_storage(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_parent_call_child',
             'child_step' => '',
             'url_function' => 'html', // read, write, html, setup
             'url_path' => '',
             'url_post_alias' => 'a', // a-g
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'An error occurred',
                 'data' => []
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $in['url_path'] = str_replace('.', '/', $in['url_path']);
 
-        if ($in['step'] === 'step_parent_call_child')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_demo_storage',
-                    'function' => $in['url_function']
-                ),
-                'data' => array(
-                    'path' => $in['url_path'],
-                    'post_alias' => $in['url_post_alias'],
-                    'connections' => [],
-                    'step' => $in
-                ),
-                'data_back' => array(
-                    'step' => 'step_parent_call_storage',
-                    'url_function' => $in['url_function'],
-                    'url_path' => $in['url_path'],
-                    'url_post_alias' => $in['url_post_alias']
-                )
-            ));
+        if ($in['step'] === 'step_parent_call_child') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_demo_storage',
+                        'function' => $in['url_function']
+                    ],
+                    'data' => [
+                        'path' => $in['url_path'],
+                        'post_alias' => $in['url_post_alias'],
+                        'connections' => [],
+                        'step' => $in
+                    ],
+                    'data_back' => [
+                        'step' => 'step_parent_call_storage',
+                        'url_function' => $in['url_function'],
+                        'url_path' => $in['url_path'],
+                        'url_post_alias' => $in['url_post_alias']
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_parent_call_storage') {
@@ -536,92 +550,96 @@ class infohub_demo extends infohub_base
         }
 
         if ($in['step'] === 'step_parent_end') {
-            $a=1;
+            $a = 1;
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message'],
             'function' => $in['function'],
             'path' => $in['path'],
             'data' => $in['data']
-        );
+        ];
     }
 
     /**
      * Ask Infohub_StorageManager to import some files into the database
      *
-     * @version 2016-11-27
-     * @since   2016-11-27
-     * @author  Peter Lembke
-     * @see http://127.0.0.1/infohub/demo/file File
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/file File
+     * @version 2016-11-27
+     * @since   2016-11-27
      */
     protected function demo_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'start_step',
             'answer' => 'false',
             'message' => 'An error occurred'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'start_step') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_storagemanager',
-                    'function' => 'files_read'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'step' => 'response_step'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storagemanager',
+                        'function' => 'files_read'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'step' => 'response_step'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'response_step') {
-            $a=1;
+            $a = 1;
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message']
-        );
+        ];
     }
 
     /**
      * Demo Test - Test any function
      *
-     * @version 2016-04-17
-     * @since   2016-04-17
-     * @author  Peter Lembke
-     * @see http://127.0.0.1/infohub/demo/test/plugin/infohub_transfer/function/version Version
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @see http://127.0.0.1/infohub/demo/test/plugin/infohub_transfer/function/version Version
+     * @version 2016-04-17
+     * @since   2016-04-17
      */
     protected function demo_test(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'start_step',
             'url_plugin' => '',
             'url_function' => ''
-        );
+        ];
         $in = array_merge($default, $in);
 
         if ($in['step'] === 'start_step') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $in['url_plugin'],
-                    'function' => $in['url_function']
-                ),
-                'data' => $in,
-                'data_back' => array(
-                    'step' => 'response_step'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $in['url_plugin'],
+                        'function' => $in['url_function']
+                    ],
+                    'data' => $in,
+                    'data_back' => [
+                        'step' => 'response_step'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'response_step') {

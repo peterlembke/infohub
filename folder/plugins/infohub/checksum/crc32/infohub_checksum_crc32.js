@@ -11,7 +11,7 @@
  */
 function infohub_checksum_crc32() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -26,7 +26,7 @@ function infohub_checksum_crc32() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -35,7 +35,7 @@ function infohub_checksum_crc32() {
     const _GetCmdFunctions = function() {
         const $list = {
             'calculate_checksum': 'emerging',
-            'verify_checksum': 'emerging'
+            'verify_checksum': 'emerging',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -53,11 +53,10 @@ function infohub_checksum_crc32() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("calculate_checksum");
-    const calculate_checksum = function($in)
-    {
+    $functions.push('calculate_checksum');
+    const calculate_checksum = function($in) {
         const $default = {
-            'value': ''
+            'value': '',
         };
         $in = _Default($default, $in);
 
@@ -68,7 +67,7 @@ function infohub_checksum_crc32() {
             'message': 'Here are the checksum',
             'value': $in.value,
             'checksum': $result.toString(),
-            'verified': 'false'
+            'verified': 'false',
         };
     };
 
@@ -80,12 +79,11 @@ function infohub_checksum_crc32() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("verify_checksum");
-    const verify_checksum = function($in)
-    {
+    $functions.push('verify_checksum');
+    const verify_checksum = function($in) {
         const $default = {
             'value': '',
-            'checksum': ''
+            'checksum': '',
         };
         $in = _Default($default, $in);
 
@@ -100,7 +98,7 @@ function infohub_checksum_crc32() {
             'message': 'Here are the result of the checksum verification',
             'value': $in.value,
             'checksum': $in.checksum,
-            'verified': $verified
+            'verified': $verified,
         };
     };
 
@@ -120,16 +118,15 @@ function infohub_checksum_crc32() {
      * @param $value
      * @private
      */
-    const _Crc32 = function($value)
-    {
+    const _Crc32 = function($value) {
         const makeCRCTable = function() {
             let $c;
             let $crcTable = [];
 
-            for (let $n = 0; $n < 256; $n++){
+            for (let $n = 0; $n < 256; $n++) {
                 $c = $n;
-                for(let k =0; k < 8; k++){
-                    $c = (($c&1) ? (0xEDB88320 ^ ($c >>> 1)) : ($c >>> 1));
+                for (let k = 0; k < 8; k++) {
+                    $c = (($c & 1) ? (0xEDB88320 ^ ($c >>> 1)) : ($c >>> 1));
                 }
                 $crcTable[$n] = $c;
             }
@@ -141,8 +138,9 @@ function infohub_checksum_crc32() {
             const $crcTable = makeCRCTable();
             let $crc = 0 ^ (-1);
 
-            for (var $i = 0; $i < str.length; $i++ ) {
-                $crc = ($crc >>> 8) ^ $crcTable[($crc ^ str.charCodeAt($i)) & 0xFF];
+            for (var $i = 0; $i < str.length; $i++) {
+                $crc = ($crc >>> 8) ^
+                    $crcTable[($crc ^ str.charCodeAt($i)) & 0xFF];
             }
 
             return ($crc ^ (-1)) >>> 0;
@@ -152,4 +150,5 @@ function infohub_checksum_crc32() {
     };
 
 }
+
 //# sourceURL=infohub_checksum_crc32.js

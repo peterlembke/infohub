@@ -20,7 +20,7 @@
  */
 function infohub_rendermajor() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -36,14 +36,13 @@ function infohub_rendermajor() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    const _GetCmdFunctions = function()
-    {
+    const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -64,19 +63,18 @@ function infohub_rendermajor() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -96,17 +94,16 @@ function infohub_rendermajor() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
             'config': {},
             'data_back': {
                 'item_name': '',
-                'item_index_done': {}
+                'item_index_done': {},
             },
             'response': {},
-            'step': 'step_create'
+            'step': 'step_create',
         };
         $in = _Default($default, $in);
 
@@ -116,7 +113,7 @@ function infohub_rendermajor() {
                 'message': '',
                 'html': '',
                 'css_data': {},
-                'display': ''
+                'display': '',
             };
             $in.response = _Default($defaultResponse, $in.response);
             const $itemName = $in.data_back.item_name;
@@ -136,7 +133,7 @@ function infohub_rendermajor() {
                     'alias': '',
                     'original_alias': '',
                     // 'class': '', // Let the child handle the class
-                    'css_data': {}
+                    'css_data': {},
                 };
                 $data = _Merge($defaultItem, $data);
 
@@ -149,21 +146,21 @@ function infohub_rendermajor() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'what': $response.what,
                         'how': $response.how,
                         'where': $response.where,
                         'alias': $data.alias,
-                        'css_data': $response.css_data
+                        'css_data': $response.css_data,
                     },
                     'data_back': {
                         'item_index': $in.item_index,
                         'item_name': $itemName,
                         'item_index_done': $in.data_back.item_index_done,
-                        'step': 'step_create_response'
-                    }
+                        'step': 'step_create_response',
+                    },
                 });
             }
             $in.step = 'step_end';
@@ -172,7 +169,7 @@ function infohub_rendermajor() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -182,8 +179,7 @@ function infohub_rendermajor() {
      * @since   2016-10-26
      * @author  Peter Lembke
      */
-    const internal_PresentationBox = function ($in)
-    {
+    const internal_PresentationBox = function($in) {
         const $default = {
             'head_label': '',
             'head_label_icon': '',
@@ -194,27 +190,26 @@ function infohub_rendermajor() {
             'content_embed_new_tab': '',
             'open': 'true',
             'original_alias': '',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
         // Divide the creation in smaller parts
         let $parts = {};
 
-        if ($in.head_label !== '')
-        {
+        if ($in.head_label !== '') {
             $parts.head_label = {
                 'type': 'link',
                 'subtype': 'toggle',
                 'show': '[head_label_data]',
                 'toggle_alias': 'content',
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
             $parts.head_label_data = {
                 'type': 'common',
                 'subtype': 'container',
                 'data': $in.head_label,
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
         }
 
@@ -225,8 +220,8 @@ function infohub_rendermajor() {
                 'tag': 'span',
                 'data': $in.head_label_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:left; padding: 0px 4px 0px 0px;'
-                }
+                    '.container': 'width:16px; height:16px; display:inline; float:left; padding: 0px 4px 0px 0px;',
+                },
             };
         }
 
@@ -240,7 +235,7 @@ function infohub_rendermajor() {
                 'subtype': 'container',
                 'data': $in.head_text,
                 'class': 'head',
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
         }
 
@@ -250,7 +245,7 @@ function infohub_rendermajor() {
                 'subtype': 'container',
                 'data': $in.foot_text,
                 'class': 'foot',
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
         }
 
@@ -261,24 +256,22 @@ function infohub_rendermajor() {
                 'data': '[content_data]',
                 'display': $in.open,
                 'class': 'content',
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
 
-            if (_Empty($in.content_embed) === 'true')
-            {
+            if (_Empty($in.content_embed) === 'true') {
                 $parts.content_data = {
                     'type': 'common',
                     'subtype': 'value',
                     'data': $in.content_data,
-                    'original_alias': $in.original_alias
+                    'original_alias': $in.original_alias,
                 };
-            }
-            else {
+            } else {
                 $parts.content_data = {
                     'type': 'common',
                     'subtype': 'value',
                     'data': '[content_data_link]',
-                    'original_alias': $in.original_alias
+                    'original_alias': $in.original_alias,
                 };
 
                 $parts.content_data_link = {
@@ -286,7 +279,7 @@ function infohub_rendermajor() {
                     'subtype': 'embed',
                     'show': $in.content_data,
                     'embed': $in.content_embed,
-                    'original_alias': $in.original_alias
+                    'original_alias': $in.original_alias,
                 };
             }
         }
@@ -309,7 +302,8 @@ function infohub_rendermajor() {
                 $label = '[head_label]';
             }
             if ($in.head_label_icon !== '') {
-                $parts.head_label.show = '[head_label_icon]' + $parts.head_label.show;
+                $parts.head_label.show = '[head_label_icon]' +
+                    $parts.head_label.show;
             }
 
             $parts.legend = {
@@ -317,7 +311,7 @@ function infohub_rendermajor() {
                 'subtype': 'legend',
                 'label': $label,
                 'data': $legendData,
-                'original_alias': $in.original_alias
+                'original_alias': $in.original_alias,
             };
         }
 
@@ -339,13 +333,14 @@ function infohub_rendermajor() {
             'what': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[legend]'
+                'text': '[legend]',
             },
             'where': {
-                'mode': 'html'
+                'mode': 'html',
             },
-            'css_data': $in.css_data
+            'css_data': $in.css_data,
         };
     };
 }
+
 //# sourceURL=infohub_rendermajor.js

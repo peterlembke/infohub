@@ -30,14 +30,14 @@ class infohub_password extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2017-04-02
+     * @return  string[]
      * @since 2016-12-27
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2017-04-02
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2017-04-02',
             'since' => '2016-12-27',
             'version' => '1.0.0',
@@ -49,21 +49,21 @@ class infohub_password extends infohub_base
             'source_code' => 'https://github.com/peterlembke/charzam-password-generator',
             'homepage' => 'http://www.charzam.com/2016/12/27/battre-losenord/',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2017-04-02
+     * @return mixed
      * @since 2016-12-27
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2017-04-02
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'generate' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -74,38 +74,38 @@ class infohub_password extends infohub_base
 
     /**
      * Generate an array with new passwords
-     * @version 2017-04-02
-     * @since   2016-12-27
-     * @author  Peter Lembke
      * @param array $in
      * @return array|bool
+     * @author  Peter Lembke
+     * @version 2017-04-02
+     * @since   2016-12-27
      */
     protected function generate(array $in = [])
     {
-        $default = array(
+        $default = [
             'number_of_passwords' => 30, // Number of passwords you want to select from
             'password_length' => 0, // wanted password length, give 0 for a random length 16-64 characters
             'max_group_number' => 4 // Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $lengthText = '16-64';
         if ($in['password_length'] > 0) {
-            $lengthText = (string) $in['password_length'];
+            $lengthText = (string)$in['password_length'];
         }
 
-        $message = 'Password generator ' .$lengthText. " characters from group 0-" . $in['max_group_number'] . '.';
+        $message = 'Password generator ' . $lengthText . " characters from group 0-" . $in['max_group_number'] . '.';
         $passwordArray = [];
 
         for ($i = $in['number_of_passwords']; $i > 0; $i--) {
             $passwordArray[] = $this->_Generate($in['password_length'], $in['max_group_number']);
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
             'passwords' => $passwordArray
-        );
+        ];
     }
 
     /**
@@ -135,8 +135,9 @@ class infohub_password extends infohub_base
      * A 16 character password is shamelessly small but some like it short.
      * @return mixed
      */
-    protected function _GetRandomLength() {
-        $length = $this->_Random(16,64);
+    protected function _GetRandomLength()
+    {
+        $length = $this->_Random(16, 64);
         return $length;
     }
 
@@ -149,9 +150,10 @@ class infohub_password extends infohub_base
      * @param int $length
      * @return string
      */
-    protected function _GetGroupString($length = 64) {
+    protected function _GetGroupString($length = 64)
+    {
         $start = '0000011111222333344';
-        $copies = (int) ceil($length / strlen($start));
+        $copies = (int)ceil($length / strlen($start));
         $result = str_repeat($start, $copies);
         $result = str_shuffle($result);
         $result = substr($result, 0, $length);
@@ -164,14 +166,15 @@ class infohub_password extends infohub_base
      * @param $maxGroupNumber
      * @return string
      */
-    protected function _GetRandomGroupCharacter($groupNumber, $maxGroupNumber) {
+    protected function _GetRandomGroupCharacter($groupNumber, $maxGroupNumber)
+    {
         $group = $this->_GetGroupData($groupNumber, $maxGroupNumber);
         $length = strlen($group);
         if ($length <= 0) {
             return '';
         }
 
-        $position = $this->_Random(0, $length-1);
+        $position = $this->_Random(0, $length - 1);
         $character = substr($group, $position, 1);
         return $character;
     }
@@ -189,7 +192,7 @@ class infohub_password extends infohub_base
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
             } else {
-                $randomNumber = mt_rand($min,$max); // PHP 5 and later
+                $randomNumber = mt_rand($min, $max); // PHP 5 and later
             }
         } catch (Exception $e) {
             $randomNumber = 0; // Not ideal
@@ -205,8 +208,8 @@ class infohub_password extends infohub_base
      * @param int $maxGroupNumber | In some cases special characters are not allowed
      * @return mixed
      */
-    protected function _GetGroupData($groupNumber = 0, $maxGroupNumber = 4) {
-
+    protected function _GetGroupData($groupNumber = 0, $maxGroupNumber = 4)
+    {
         if ($groupNumber < 0) {
             $groupNumber = 0;
         }
@@ -215,13 +218,13 @@ class infohub_password extends infohub_base
             $groupNumber = $maxGroupNumber;
         }
 
-        $data = array(
+        $data = [
             0 => 'abcdefghijklmnopqrstuvwxyz',
             1 => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             2 => '0123456789',
             3 => '!#%&()=?+-*:;,._',
             4 => ' ',
-        );
+        ];
 
         return $data[$groupNumber];
     }

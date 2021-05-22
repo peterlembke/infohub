@@ -1,11 +1,16 @@
 # Infohub Render Frog
-Fallback render plugin that render a frog where you make a mistake  
+
+Fallback render plugin that render a frog where you make a mistake
 
 # Introduction
-To make a frog is a swedish expression for speaking first and thinking afterwards. In InfoHub you can render things on the screen. If you make a mistake and have the wrong syntax then an image of a grog are shown instead. It is this plugin that are the fallback in those cases.  
+
+To make a frog is a swedish expression for speaking first and thinking afterwards. In InfoHub you can render things on
+the screen. If you make a mistake and have the wrong syntax then an image of a grog are shown instead. It is this plugin
+that are the fallback in those cases.
 
 # Demo
-The [Infohub Demo Frog](plugin,infohub_demo_frog) show you in detail how this works.  
+
+The [Infohub Demo Frog](plugin,infohub_demo_frog) show you in detail how this works.
 
 ```
 $data = {
@@ -65,8 +70,12 @@ $data = {
 ```
 
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-02-11 by Peter Lembke  

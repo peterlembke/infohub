@@ -17,7 +17,7 @@
  */
 function infohub_translate_createfile() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_translate_createfile() {
             'class_name': 'infohub_translate_createfile',
             'note': 'Create translation file from the selected plugin name and its children',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -39,7 +39,7 @@ function infohub_translate_createfile() {
             'create': 'normal',
             'click_refresh': 'normal',
             'click_create_file': 'normal',
-            'click_download': 'normal'
+            'click_download': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -54,9 +54,8 @@ function infohub_translate_createfile() {
      * @returns {string}
      * @private
      */
-    $functions.push("_GetGrandPluginName");
-    const _GetGrandPluginName = function($pluginName)
-    {
+    $functions.push('_GetGrandPluginName');
+    const _GetGrandPluginName = function($pluginName) {
         const $parts = $pluginName.split('_');
 
         if (_Count($parts) > 2) {
@@ -74,8 +73,7 @@ function infohub_translate_createfile() {
      * @returns string
      */
     $functions.push('_MergeData');
-    const _MergeData = function ($object1, $object2)
-    {
+    const _MergeData = function($object1, $object2) {
         if (typeof $object1 === 'object') {
             if (typeof $object2 === 'object') {
                 $object1 = _ByVal(_MergeKeys($object1, $object2));
@@ -86,10 +84,8 @@ function infohub_translate_createfile() {
     };
 
     $functions.push('_MergeKeys');
-    const _MergeKeys = function ($object1, $object2)
-    {
-        for (let $key in $object2)
-        {
+    const _MergeKeys = function($object1, $object2) {
+        for (let $key in $object2) {
             if ($object2.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -100,10 +96,8 @@ function infohub_translate_createfile() {
                 }
             }
 
-            if (typeof $object2[$key] === 'object')
-            {
-                if (_Count($object2[$key]) > 0)
-                {
+            if (typeof $object2[$key] === 'object') {
+                if (_Count($object2[$key]) > 0) {
                     if (_IsSet($object1[$key]) === 'false') {
                         $object1[$key] = {};
                     }
@@ -115,7 +109,6 @@ function infohub_translate_createfile() {
 
         return _ByVal($object1);
     };
-
 
     // ***********************************************************
     // * your class functions below, only declare with var
@@ -129,8 +122,7 @@ function infohub_translate_createfile() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -138,50 +130,49 @@ function infohub_translate_createfile() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render')
-        {
+        if ($in.step === 'step_render') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Create translation file'),
+                            'head_label': _Translate('CREATE_TRANSLATION_FILE'),
                             'content_data': '[my_form]',
-                            'foot_text': '[text_instructions]'
+                            'foot_text': '[text_instructions]',
                         },
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_file][my_container]'
+                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_file][my_container]',
                         },
                         'button_refresh': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh plugin list'),
+                            'button_label': _Translate('REFRESH_PLUGIN_LIST'),
                             'event_data': 'createfile|refresh',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'select_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Select plugin"),
-                            "description": _Translate("Lists all client plugins that can have translation files. Select a plugin and click Create file."),
+                            "label": _Translate("SELECT_PLUGIN"),
+                            "description": _Translate("LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._SELECT_A_PLUGIN_AND_CLICK_CREATE_FILE."),
                             "size": "6",
                             "multiple": "false",
                             "options": [],
@@ -189,129 +180,126 @@ function infohub_translate_createfile() {
                             'source_plugin': 'infohub_launcher',
                             'source_function': 'get_option_list',
                             'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                         'missing_plugin_name': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
-                            'label': _Translate('Plugin name'),
-                            'description':_Translate('You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.')
+                            'label': _Translate('PLUGIN_NAME'),
+                            'description':_Translate('YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST.')
                         },
                         'button_create_file': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Create file'),
+                            'button_label': _Translate('CREATE_FILE'),
                             'event_data': 'createfile|create_file',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_container': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '-',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'text_instructions': {
                             'type': 'text',
-                            'text': 'You get the english translation file. You can then use that file on online translation services to translate it to other languages.'
-                        }
+                            'text': 'You get the english translation file. You can then use that file on online translation services to translate it to other languages.',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box]'
+                        'text': '[my_presentation_box]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_translate.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 960,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'createfile'
+                    'cache_key': 'createfile',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
-    $functions.push("click_refresh");
+    $functions.push('click_refresh');
     /**
      * Refresh the list with plugins
      * @version 2019-04-01
      * @since 2019-04-01
      * @author Peter Lembke
      */
-    const click_refresh = function ($in)
-    {
+    const click_refresh = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_render_plugin_options',
             'response': {
                 'answer': 'true',
                 'message': 'Render the options',
-                'ok': 'true'
-            }
+                'ok': 'true',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_plugin_options')
-        {
+        if ($in.step === 'step_render_plugin_options') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
                     'id': $in.box_id + '_select_plugin_form_element',
                     'source_node': 'client',
                     'source_plugin': 'infohub_launcher',
                     'source_function': 'get_option_list',
-                    'source_data': {}
+                    'source_data': {},
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_render_language_options'
-                }
+                    'step': 'step_render_language_options',
+                },
             });
 
         }
 
-        if ($in.step === 'step_render_language_options')
-        {
+        if ($in.step === 'step_render_language_options') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
                     'id': $in.box_id + '_select_language_code_form_element',
                     'source_node': 'client',
                     'source_plugin': 'infohub_language',
                     'source_function': 'option_list_main_languages',
-                    'source_data': {}
+                    'source_data': {},
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
         }
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
@@ -326,8 +314,7 @@ function infohub_translate_createfile() {
      * @author  Peter Lembke
      */
     $functions.push('click_create_file');
-    const click_create_file = function ($in)
-    {
+    const click_create_file = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -336,15 +323,15 @@ function infohub_translate_createfile() {
                 'message': 'Nothing to report',
                 'data': {},
                 'form_data': {},
-                'file': {}
+                'file': {},
             },
             'data_back': {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'ok': 'false',
                 'plugin_name': '',
-                'file': {}
-            }
+                'file': {},
+            },
 
         };
         $in = _Default($default, $in);
@@ -356,34 +343,32 @@ function infohub_translate_createfile() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '_my_form'
+                    'id': $in.box_id + '_my_form',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_form_read_response'
-                }
+                    'step': 'step_form_read_response',
+                },
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
 
-            if ($in.response.answer === 'true')
-            {
+            if ($in.response.answer === 'true') {
                 const $pluginNameSelected = _GetData({
                     'name': 'response/form_data/select_plugin/value/0',
                     'default': '',
-                    'data': $in
+                    'data': $in,
                 });
 
                 const $pluginNameText = _GetData({
                     'name': 'response/form_data/missing_plugin_name/value',
                     'default': '',
-                    'data': $in
+                    'data': $in,
                 });
 
                 let $pluginName = $pluginNameSelected;
@@ -392,40 +377,38 @@ function infohub_translate_createfile() {
                 }
 
                 $nodeData = {
-                    'plugin_name': $pluginName
+                    'plugin_name': $pluginName,
                 };
 
                 $in.step = 'step_ask_server';
             }
         }
 
-        if ($in.step === 'step_ask_server')
-        {
+        if ($in.step === 'step_ask_server') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_translate',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_translate',
-                        'function': 'create_translation_file'
+                        'function': 'create_translation_file',
                     },
                     'data': {
-                        'plugin_name': $nodeData.plugin_name
-                    }
+                        'plugin_name': $nodeData.plugin_name,
+                    },
                 },
                 'data_back': {
                     'step': 'step_ask_server_response',
-                    'plugin_name': $nodeData.plugin_name
-                }
+                    'plugin_name': $nodeData.plugin_name,
+                },
             });
         }
 
-        if ($in.step === 'step_ask_server_response')
-        {
+        if ($in.step === 'step_ask_server_response') {
             $in.data_back.answer = $in.response.answer;
             $in.data_back.message = $in.response.message;
             $in.data_back.file = $in.response.file;
@@ -437,12 +420,11 @@ function infohub_translate_createfile() {
             $in.step = 'step_show_message';
         }
 
-        if ($in.step === 'step_show_message')
-        {
+        if ($in.step === 'step_show_message') {
             const $pluginName = _GetData({
                 'name': 'data_back/plugin_name',
                 'default': '',
-                'data': $in
+                'data': $in,
             });
 
             let $showMessage = $in.data_back.message;
@@ -454,11 +436,11 @@ function infohub_translate_createfile() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': 'main.body.infohub_translate.form.[my_container]',
-                    'text': $showMessage
+                    'text': $showMessage,
                 },
                 'data_back': {
                     'answer': $in.data_back.answer,
@@ -466,22 +448,20 @@ function infohub_translate_createfile() {
                     'ok': $in.data_back.ok,
                     'plugin_name': $in.data_back.plugin_name,
                     'file': $in.data_back.file,
-                    'step': 'step_show_message_response'
-                }
+                    'step': 'step_show_message_response',
+                },
             });
         }
 
-        if ($in.step === 'step_show_message_response')
-        {
+        if ($in.step === 'step_show_message_response') {
             $in.step = 'step_file_write';
         }
 
-        if ($in.step === 'step_file_write')
-        {
+        if ($in.step === 'step_file_write') {
             const $fileName = _GetData({
                 'name': 'data_back/plugin_name',
                 'default': 'template',
-                'data': $in
+                'data': $in,
             });
 
             const $extension = '.json';
@@ -490,21 +470,20 @@ function infohub_translate_createfile() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'file_write'
+                    'function': 'file_write',
                 },
                 'data': {
                     'file_name': $fileName + $extension,
-                    'content': _JsonEncode($in.data_back.file)
+                    'content': _JsonEncode($in.data_back.file),
                 },
                 'data_back': {
                     'step': 'step_file_write_response',
-                    'plugin_name': $in.data_back.plugin_name
-                }
+                    'plugin_name': $in.data_back.plugin_name,
+                },
             });
         }
 
-        if ($in.step === 'step_file_write_response')
-        {
+        if ($in.step === 'step_file_write_response') {
             $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {
@@ -517,8 +496,9 @@ function infohub_translate_createfile() {
         return {
             'answer': $in.data_back.answer,
             'message': $in.data_back.message,
-            'ok': $in.data_back.ok
+            'ok': $in.data_back.ok,
         };
     };
 }
+
 //# sourceURL=infohub_translate_createfile.js

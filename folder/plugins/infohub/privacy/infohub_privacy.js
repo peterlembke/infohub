@@ -17,12 +17,11 @@
  */
 function infohub_privacy() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function()
-    {
+    const _Version = function() {
         return {
             'date': '2020-05-01',
             'since': '2020-05-01',
@@ -34,12 +33,11 @@ function infohub_privacy() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'title': 'Session',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    const _GetCmdFunctions = function()
-    {
+    const _GetCmdFunctions = function() {
         return {
             'setup_gui': 'normal',
             'click_menu': 'normal',
@@ -53,11 +51,10 @@ function infohub_privacy() {
      * @returns {string}
      * @private
      */
-    const _GetPluginName = function ($data)
-    {
+    const _GetPluginName = function($data) {
         let $pluginType = 'tips';
 
-        let $tmp = $data.split("_");
+        let $tmp = $data.split('_');
 
         if (_IsSet($tmp[0]) === 'true') {
             $pluginType = $tmp[0];
@@ -68,7 +65,7 @@ function infohub_privacy() {
 
     let $classTranslations = {};
 
-    $functions.push("setup_gui");
+    $functions.push('setup_gui');
     /**
      * Create the GUI for this plugin
      * @version 2020-05-01
@@ -77,11 +74,10 @@ function infohub_privacy() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Merge($default, $in);
 
@@ -90,17 +86,17 @@ function infohub_privacy() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'box_mode'
+                    'function': 'box_mode',
                 },
                 'data': {
                     'box_id': $in.box_id,
                     'box_mode': 'side',
-                    'digits': '2'
+                    'digits': '2',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_boxes_insert'
-                }
+                    'step': 'step_boxes_insert',
+                },
             });
         }
 
@@ -109,7 +105,7 @@ function infohub_privacy() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'boxes_insert_detailed'
+                    'function': 'boxes_insert_detailed',
                 },
                 'data': {
                     'items': [
@@ -119,7 +115,7 @@ function infohub_privacy() {
                             'box_mode': 'data',
                             'box_alias': 'menu',
                             'max_width': 640,
-                            'box_data': 'The menu will render here'
+                            'box_data': 'The menu will render here',
                         },
                         {
                             'parent_box_id': $in.box_id,
@@ -127,14 +123,14 @@ function infohub_privacy() {
                             'box_mode': 'data',
                             'box_alias': 'tools',
                             'max_width': 100, // 100 will be translated to 100%
-                            'box_data': 'Use the menu'
-                        }
-                    ]
+                            'box_data': 'Use the menu',
+                        },
+                    ],
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations'
-                }
+                    'step': 'step_get_translations',
+                },
             });
         }
 
@@ -143,13 +139,13 @@ function infohub_privacy() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_translate',
-                    'function': 'get_translate_data'
+                    'function': 'get_translate_data',
                 },
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations_response'
-                }
+                    'step': 'step_get_translations_response',
+                },
             });
         }
 
@@ -158,22 +154,21 @@ function infohub_privacy() {
             $in.step = 'step_menu';
         }
 
-        if ($in.step === 'step_menu')
-        {
+        if ($in.step === 'step_menu') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_privacy_menu',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'parent_box_id': $in.box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_render_instructions'
-                }
+                    'step': 'step_render_instructions',
+                },
             });
         }
 
@@ -182,7 +177,7 @@ function infohub_privacy() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -191,80 +186,78 @@ function infohub_privacy() {
                             'type': 'presentation_box',
                             'head_label': _Translate('Instructions'),
                             'head_text': '',
-                            'content_data': '[description]'
+                            'content_data': '[description]',
                         },
                         'description': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Use the menu.')
-                        }
+                            'data': _Translate('Use the menu.'),
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[presentation_box]'
+                        'text': '[presentation_box]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_privacy.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
-    $functions.push("click_menu");
+    $functions.push('click_menu');
     /**
      * Handle the menu clicks
      * @version 2019-03-13
      * @since 2018-09-26
      * @author Peter Lembke
      */
-    const click_menu = function ($in)
-    {
+    const click_menu = function($in) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             const $pluginName = _GetPluginName($in.event_data);
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'subtype': $in.event_data,
                     'parent_box_id': $in.parent_box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Menu click done'
+            'message': 'Menu click done',
         };
     };
 
-    $functions.push("click");
+    $functions.push('click');
     /**
      * All clicks except the menu goes here and are distributed
      * to the right child and the right click function.
@@ -272,8 +265,7 @@ function infohub_privacy() {
      * @since 2019-03-13
      * @author Peter Lembke
      */
-    const click = function ($in)
-    {
+    const click = function($in) {
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -291,8 +283,8 @@ function infohub_privacy() {
                 'message': 'There was an error',
                 'ok': 'false',
                 'value': [], // All selected options in select lists
-                'files_data': [] // For the import button
-            }
+                'files_data': [], // For the import button
+            },
         };
         $in = _Default($default, $in);
 
@@ -316,7 +308,7 @@ function infohub_privacy() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_privacy_' + $childName,
-                    'function': 'click_' + $clickName
+                    'function': 'click_' + $clickName,
                 },
                 'data': {
                     'event_data': $eventData,
@@ -330,20 +322,21 @@ function infohub_privacy() {
                     'affect_alias': $in.affect_alias,
                     'affect_plugin': $in.affect_plugin,
                     'affect_function': $in.affect_function,
-                    'form_data': $in.form_data
+                    'form_data': $in.form_data,
                 },
                 'data_back': {
                     'event_data': $in.event_data,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 }
+
 //# sourceURL=infohub_privacy.js

@@ -11,7 +11,7 @@
  */
 function infohub_demo_common() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_common() {
             'class_name': 'infohub_demo_common',
             'note': 'Collection of demos to demonstrate InfoHub Client Render and View',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -43,7 +43,7 @@ function infohub_demo_common() {
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_progress': 'normal'
+            'click_progress': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -63,28 +63,26 @@ function infohub_demo_common() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in) 
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_common'
-            }
+                'message': 'Nothing to report from infohub_demo_common',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -94,43 +92,43 @@ function infohub_demo_common() {
                             'alias': 'duckduckgo_container',
                             'class': 'container-pretty',
                             'tag': 'div', // span, p, div
-                            'data': _Translate('Time') + ':[light][time][/light][a_legend]',
-                            'visible': 'true'
+                            'data': _Translate('TIME') + ':[light][time][/light][a_legend]',
+                            'visible': 'true',
                         },
                         'a_legend': {
                             'type': 'common',
                             'subtype': 'legend',
                             'alias': 'a_legend',
-                            'label': _Translate('This is a legend'),
+                            'label': _Translate('THIS_IS_A_LEGEND'),
                             'data': '[my_iframe][my_icon][my_list]',
-                            'class': 'fieldset'
+                            'class': 'fieldset',
                         },
                         'my_iframe': {
                             'type': 'common',
                             'subtype': 'iframe',
                             'alias': 'duckduckgo',
                             'height': '40px',
-                            'data': 'https://duckduckgo.com/search.html?site=abc.se&prefill=Search ABC.se&kn=1'
+                            'data': 'https://duckduckgo.com/search.html?site=abc.se&prefill=Search ABC.se&kn=1',
                         },
                         'light': {
                             'type': 'common',
                             'subtype': 'containerStart',
                             'class': 'light',
-                            'tag': 'span'
+                            'tag': 'span',
                         },
                         '/light': {
                             'type': 'common',
                             'subtype': 'containerStop',
-                            'tag': 'span'
+                            'tag': 'span',
                         },
                         'my_list': {
                             'type': 'common',
                             'subtype': 'list',
                             'option': [
-                                {'label': _Translate('Does not track you') },
-                                {'label': _Translate('Does not [u]sell[/u] you anything') },
-                                {'label': _Translate('That is why I [:-)] like them') }
-                            ]
+                                {'label': _Translate('DOES_NOT_TRACK_YOU') },
+                                {'label': _Translate('DOES_NOT_[U]SELL[/U]_YOU_ANYTHING') },
+                                {'label': _Translate('THAT_IS_WHY_I_[:-)]_LIKE_THEM') }
+                            ],
                         },
                         'my_icon': {
                             'type': 'common',
@@ -139,85 +137,85 @@ function infohub_demo_common() {
                             'alias': 'my_icon',
                             'class': 'svg',
                             'css_data': {
-                                '.svg': 'width:60px;height:60px;float:left;padding: 4px;'
-                            }
+                                '.svg': 'width:60px;height:60px;float:left;padding: 4px;',
+                            },
                         },
                         'my_icon_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'common/duckduckgo-v107',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'time': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _TimeStamp()
+                            'data': _TimeStamp(),
                         },
                         'image_example': {
                             'type': 'common',
                             'subtype': 'image',
                             'data': '[image_example_asset]',
-                            'class': 'image'
+                            'class': 'image',
                         },
                         'image_example_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'jpeg',
                             'asset_name': 'common/con00004',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'image_example2': {
                             'type': 'common',
                             'subtype': 'image',
                             'data': '[image_example_asset2]',
-                            'class': 'image'
+                            'class': 'image',
                         },
                         'image_example_asset2': {
                             'plugin': 'infohub_asset',
                             'type': 'image',
                             'subtype': 'png',
                             'asset_name': 'common/con00004',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'svg_example': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[svg_example_asset]'
+                            'data': '[svg_example_asset]',
                         },
                         'svg_example_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'subtype': 'svg',
                             'asset_name': 'common/duckduckgo-v107',
-                            'plugin_name': 'infohub_demo'
+                            'plugin_name': 'infohub_demo',
                         },
                         'my_intro_text': {
                             'type': 'text',
-                            'text': "[my_h1]\n [my_ingress]\n[my_intro_list][my_image_text][about_images_list][progress_bar1][progress_bar2][progress_bar3][my_button]"
+                            'text': '[my_h1]\n [my_ingress]\n[my_intro_list][my_image_text][about_images_list][progress_bar1][progress_bar2][progress_bar3][my_button]',
                         },
                         'my_h1': {
                             'type': 'text',
-                            'text': _Translate("[h1]Common demo[/h1]")
+                            'text': _Translate("[H1]COMMON_DEMO[/H1]")
                         },
                         'my_ingress': {
                             'type': 'text',
-                            'text': _Translate("[i]Plugin infohub_render_common are used in this demo. You see a combination of what render_common can do. Here is a list what parts you see in the example:[/i]")
+                            'text': _Translate("[I]PLUGIN_INFOHUB_RENDER_COMMON_ARE_USED_IN_THIS_DEMO._YOU_SEE_A_COMBINATION_OF_WHAT_RENDER_COMMON_CAN_DO._HERE_IS_A_LIST_WHAT_PARTS_YOU_SEE_IN_THE_EXAMPLE:[/I]")
                         },
                         'my_image_text': {
                             'type': 'text',
-                            'text': _Translate("The first image is in JPEG format 700 pixels wide 30Kb. The second image is in PNG format black&white, 240 pixels wide and 17Kb and then upscaled to 640 pixels wide. You can see several things here:")
+                            'text': _Translate("THE_FIRST_IMAGE_IS_IN_JPEG_FORMAT_700_PIXELS_WIDE_30KB._THE_SECOND_IMAGE_IS_IN_PNG_FORMAT_BLACK&WHITE,_240_PIXELS_WIDE_AND_17KB_AND_THEN_UPSCALED_TO_640_PIXELS_WIDE._YOU_CAN_SEE_SEVERAL_THINGS_HERE:")
                         },
                         'my_intro_list': {
                             'type': 'common',
                             'subtype': 'list',
                             'class': 'list',
                             'option': [
-                                {'label': _Translate('list - Bullet list like this one') },
-                                {'label': _Translate('value - Any value, used here for the time stamp') },
-                                {'label': _Translate('image - The photo is an image, the duck too') },
-                                {'label': _Translate('legend - a frame with a label. You can put things in it') },
-                                {'label': _Translate('iframe - a box with 3rd party contents. Use with caution') },
-                                {'label': _Translate('container - a span, div or p tag that you can put things in') }
+                                {'label': _Translate('LIST_-_BULLET_LIST_LIKE_THIS_ONE') },
+                                {'label': _Translate('VALUE_-_ANY_VALUE,_USED_HERE_FOR_THE_TIME_STAMP') },
+                                {'label': _Translate('IMAGE_-_THE_PHOTO_IS_AN_IMAGE,_THE_DUCK_TOO') },
+                                {'label': _Translate('LEGEND_-_A_FRAME_WITH_A_LABEL._YOU_CAN_PUT_THINGS_IN_IT') },
+                                {'label': _Translate('IFRAME_-_A_BOX_WITH_3RD_PARTY_CONTENTS._USE_WITH_CAUTION') },
+                                {'label': _Translate('CONTAINER_-_A_SPAN,_DIV_OR_P_TAG_THAT_YOU_CAN_PUT_THINGS_IN') }
                             ]
                         },
                         'about_images_list': {
@@ -225,9 +223,9 @@ function infohub_demo_common() {
                             'subtype': 'list',
                             'class': 'list',
                             'option': [
-                                {'label': _Translate('Use JPEG for photographs') },
-                                {'label': _Translate('Use PNG for small detailed images where you can not use SVG or JPEG') },
-                                {'label': _Translate('Use a resolution close to the viewed resolution. Do not upscale. Avoid downscaling too much.') }
+                                {'label': _Translate('USE_JPEG_FOR_PHOTOGRAPHS') },
+                                {'label': _Translate('USE_PNG_FOR_SMALL_DETAILED_IMAGES_WHERE_YOU_CAN_NOT_USE_SVG_OR_JPEG') },
+                                {'label': _Translate('USE_A_RESOLUTION_CLOSE_TO_THE_VIEWED_RESOLUTION._DO_NOT_UPSCALE._AVOID_DOWNSCALING_TOO_MUCH.') }
                             ]
                         },
                         'progress_bar1': {
@@ -235,51 +233,51 @@ function infohub_demo_common() {
                             'subtype': 'progress',
                             'class': 'progress',
                             'max': 50,
-                            'value': 12
+                            'value': 12,
                         },
                         'progress_bar2': {
                             'type': 'common',
                             'subtype': 'progress',
                             'class': 'progress',
                             'max': 50,
-                            'value': 25
+                            'value': 25,
                         },
                         'progress_bar3': {
                             'type': 'common',
                             'subtype': 'progress',
                             'class': 'progress',
                             'max': 50,
-                            'value': 50
+                            'value': 50,
                         },
                         'my_button': {
                             'type': 'form',
                             'subtype': 'button',
                             'mode': 'submit', // This is the submit button in the form
-                            'button_label': _Translate('Affect progress bar'),
+                            'button_label': _Translate('AFFECT_PROGRESS_BAR'),
                             'event_data': 'common|progress|affect',
                             'to_plugin': 'infohub_demo',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_intro_text][my_container][image_example][image_example2][svg_example]'
+                        'text': '[my_intro_text][my_container][image_example][image_example2][svg_example]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 640,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'common'
+                    'cache_key': 'common',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -289,9 +287,8 @@ function infohub_demo_common() {
      * @since 2020-08-30
      * @author Peter Lembke
      */
-    $functions.push("click_progress");
-    const click_progress = function ($in)
-    {
+    $functions.push('click_progress');
+    const click_progress = function($in) {
         const $default = {
             'step': 'step_read_first',
             'box_id': '',
@@ -301,91 +298,88 @@ function infohub_demo_common() {
                 'max': -1,
                 'value': -1,
                 'max_before': -1,
-                'value_before': -1
-            }
+                'value_before': -1,
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_read_first')
-        {
+        if ($in.step === 'step_read_first') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'progress'
-                },
-                'data': {
-                    'box_id': $in.box_id + '_progress_bar1'
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_set_second'
-                }
-            });
-        }
-
-        if ($in.step === 'step_set_second')
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'progress'
-                },
-                'data': {
-                    'box_id': $in.box_id + '_progress_bar2',
-                    'value': $in.response.value
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_set_third'
-                }
-            });
-        }
-
-        if ($in.step === 'step_set_third')
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'progress'
-                },
-                'data': {
-                    'box_id': $in.box_id + '_progress_bar3',
-                    'value': $in.response.value_before
-                },
-                'data_back': {
-                    'box_id': $in.box_id,
-                    'step': 'step_set_first'
-                }
-            });
-        }
-
-        if ($in.step === 'step_set_first')
-        {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'progress'
+                    'function': 'progress',
                 },
                 'data': {
                     'box_id': $in.box_id + '_progress_bar1',
-                    'value': $in.response.value_before
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_end'
-                }
+                    'step': 'step_set_second',
+                },
+            });
+        }
+
+        if ($in.step === 'step_set_second') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress',
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar2',
+                    'value': $in.response.value,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_third',
+                },
+            });
+        }
+
+        if ($in.step === 'step_set_third') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress',
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar3',
+                    'value': $in.response.value_before,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_set_first',
+                },
+            });
+        }
+
+        if ($in.step === 'step_set_first') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'progress',
+                },
+                'data': {
+                    'box_id': $in.box_id + '_progress_bar1',
+                    'value': $in.response.value_before,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
             'message': 'Done affectimg the progress bars',
-            'ok': 'true' // Gives an OK on the button you clicked
+            'ok': 'true', // Gives an OK on the button you clicked
         };
     };
 }
+
 //# sourceURL=infohub_demo_common.js

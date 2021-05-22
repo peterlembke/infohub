@@ -17,7 +17,9 @@
  */
 function infohub_tree_encrypt() {
 
-    "use strict";
+    'use strict';
+
+    const $KEY = 'infohub_tree_encrypt/key';
 
 // include "infohub_base.js"
 
@@ -30,7 +32,7 @@ function infohub_tree_encrypt() {
             'class_name': 'infohub_tree_encrypt',
             'note': 'Makes sure no one else can read your personal data',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -40,8 +42,9 @@ function infohub_tree_encrypt() {
             'click_import_key_data': 'normal',
             'click_forget_key_data': 'normal',
             'click_create_key_data': 'normal',
+            'create_secret': 'normal',
             'encrypt': 'normal',
-            'decrypt': 'normal'
+            'decrypt': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,8 +59,7 @@ function infohub_tree_encrypt() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -65,7 +67,8 @@ function infohub_tree_encrypt() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
         return $response;
     };
@@ -86,8 +89,7 @@ function infohub_tree_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -95,8 +97,8 @@ function infohub_tree_encrypt() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -106,7 +108,7 @@ function infohub_tree_encrypt() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -115,93 +117,93 @@ function infohub_tree_encrypt() {
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[button_import_key][button_forget_key][button_create_key]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'button_import_key': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
-                            'button_label': _Translate('Import key file'),
+                            'button_label': _Translate('IMPORT_KEY_FILE'),
                             'button_left_icon': '[import_icon]',
                             'accept': 'application/json,.json', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'encrypt|import_key_data',
                             'to_node': 'client',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'import_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[import_asset]'
+                            'data': '[import_asset]',
                         },
                         'import_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'encrypt/import',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'button_forget_key': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Forget key in memory'),
+                            'button_label': _Translate('FORGET_KEY_FROM_MEMORY_AND_STORAGE'),
                             'button_left_icon': '[delete_icon]',
                             'event_data': 'encrypt|forget_key_data',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'delete_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[delete_asset]'
+                            'data': '[delete_asset]',
                         },
                         'delete_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'encrypt/delete',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'button_create_key': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Create key file'),
+                            'button_label': _Translate('CREATE_KEY_FILE'),
                             'button_left_icon': '[create_icon]',
                             'event_data': 'encrypt|create_key_data',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'create_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[create_asset]'
+                            'data': '[create_asset]',
                         },
                         'create_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'encrypt/ping',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         }
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_encrypt]'
+                        'text': '[container_encrypt]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_tree.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'encrypt'
+                    'cache_key': 'encrypt',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -212,50 +214,83 @@ function infohub_tree_encrypt() {
      * @since 2020-08-23
      * @author Peter Lembke
      */
-    $functions.push("click_import_key_data");
-    const click_import_key_data = function ($in)
-    {
+    $functions.push('click_import_key_data');
+    const click_import_key_data = function($in) {
         const $default = {
             'step': 'step_file_read_response',
             'answer': '',
             'message': '',
-            'files_data': []
+            'files_data': [],
         };
         $in = _Default($default, $in);
 
         let $keyData = {},
             $ok = 'false';
 
-        if ($in.step === 'step_file_read_response')
-        {
+        if ($in.step === 'step_file_read_response') {
             $in.step = 'step_check_if_json';
             if ($in.files_data.length !== 1) {
                 $in.message = 'One file must be selected';
                 $in.step = 'step_end';
             }
         }
-        
-        if ($in.step === 'step_check_if_json') 
-        {
+
+        if ($in.step === 'step_check_if_json') {
             $keyData = $in.files_data[0].content;
             $in.step = 'step_store_data';
             if (typeof $keyData !== 'object') {
                 $in.message = 'This is not a json file';
                 $in.step = 'step_end';
             }
+
+            const $privateObject = {
+                "system": '',
+                "url": "",
+                "user_name": '',
+                "created_at": '',
+                "note": "",
+                "has_password": "false",
+                "private_secret": ''
+            };
+            $keyData = _Default($privateObject, $keyData);
+
+            if ($keyData['system'] !== 'Infohub') {
+                $in.message = 'This is not a valid Infohub file';
+                $in.step = 'step_end';
+            }
         }
-            
+
         if ($in.step === 'step_store_data') {
+
             $classGlobalKeyData = $keyData;
-            $in.answer = 'true';
-            $in.message = 'File imported';
-            $ok = 'true';
+
+            return _SubCall({
+                to: {
+                    node: 'client',
+                    plugin: 'infohub_storage',
+                    function: 'write'
+                },
+                data: {
+                    'path': $KEY,
+                    'data': $keyData
+                },
+                data_back: {
+                    step: 'step_store_data_response'
+                }
+            })
+        }
+
+        if ($in.step === 'step_store_data_response') {
+            if ($in.answer === 'true') {
+                $in.message = 'File imported';
+                $ok = 'true';
+            };
         }
 
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -265,18 +300,47 @@ function infohub_tree_encrypt() {
      * @since 2020-08-23
      * @author Peter Lembke
      */
-    $functions.push("click_forget_key_data");
-    const click_forget_key_data = function ($in)
-    {
-        const $default = {};
+    $functions.push('click_forget_key_data');
+    const click_forget_key_data = function($in) {
+        const $default = {
+            'answer': 'false',
+            'message': 'Nothing to report from infohub_tree_encrypt -> click_forget_key_data',
+            'step': 'step_forget'
+        };
         $in = _Default($default, $in);
 
-        $classGlobalKeyData = {};
+        let $ok = 'false';
+
+        if ($in.step === 'step_forget') {
+            $classGlobalKeyData = {};
+
+            return _SubCall({
+                to: {
+                    node: 'client',
+                    plugin: 'infohub_storage',
+                    function: 'write'
+                },
+                data: {
+                    'path': $KEY,
+                    'data': []
+                },
+                data_back: {
+                    step: 'step_forget_response'
+                }
+            })
+        }
+
+        if ($in.step === 'step_forget_response') {
+            if ($in.answer === 'true') {
+                $in.message = 'Key data is now forgotten';
+                $ok = 'true';
+            };
+        }
 
         return {
-            'answer': 'true',
-            'message': 'Key data is now forgotten',
-            'ok': 'true'
+            'answer': $in.answer,
+            'message': $in.message,
+            'ok': $ok,
         };
     };
 
@@ -286,18 +350,144 @@ function infohub_tree_encrypt() {
      * @since 2020-09-03
      * @author Peter Lembke
      */
-    $functions.push("click_create_key_data");
-    const click_create_key_data = function ($in)
-    {
-        const $default = {};
+    $functions.push('click_create_key_data');
+    const click_create_key_data = function($in) {
+        const $default = {
+            'config': {
+                'user_name': ''
+            },
+            'step': 'step_create_secret',
+            'answer': 'false',
+            'message': '',
+            'response': {}
+        };
         $in = _Default($default, $in);
 
-        $classGlobalKeyData = {};
+        let $privateSecret = '';
+
+        if ($in.step === 'step_create_secret')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_tree_encrypt',
+                    'function': 'create_secret'
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_create_secret_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_create_secret_response')
+        {
+            const $default = {
+                'answer': '',
+                'message': '',
+                'private_secret': ''
+            };
+            $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_file_write';
+                $privateSecret = $in.response.private_secret;
+            }
+            if ($privateSecret === '') {
+                $in.message = 'Could not create the private secret';
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_file_write') {
+            const $privateObject = {
+                "system": "Infohub",
+                "url": "https://github.com/peterlembke/infohub",
+                "user_name": $in.config.user_name,
+                "created_at": _TimeStamp(),
+                "note": "Private encryption key for the Tree plugin to encrypt/decrypt your data before they are sent to the server",
+                "has_password": "false",
+                "private_secret": $privateSecret
+            };
+
+            const $privateJson = _JsonEncode($privateObject);
+            const $fileName = 'private_secret.json';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'file_write',
+                },
+                'data': {
+                    'file_name': $fileName,
+                    'content': $privateJson,
+                },
+                'data_back': {
+                    'step': 'step_file_write_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_file_write_response') {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.message = 'File exported';
+            }
+        }
 
         return {
-            'answer': 'true',
-            'message': 'File downloaded',
-            'ok': 'true'
+            'answer': $in.answer,
+            'message': $in.message,
+            'ok': $in.answer
+        };
+    };
+
+    /**
+     * Create private secret
+     * The private secret is your encryption key for all your private data
+     * The secret is only used by Tree to encrypt/decrypt your Tree data in your
+     * browser.
+     * @version 2021-04-03
+     * @since 2021-04-03
+     * @author Peter Lembke
+     */
+    $functions.push('create_secret');
+    const create_secret = function($in) {
+        const $default = {
+            'step': 'step_create_secret',
+            'response': {
+                'answer': '',
+                'message': 'Nothing to report from ' + _GetClassName() + ' -> create_secret',
+                'data': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        const $secretLength = 2048;
+
+        if ($in.step === 'step_create_secret')
+        {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_random',
+                    'function': 'random_byte_string'
+                },
+                'data': {
+                    'count': $secretLength,
+                },
+                'data_back': {
+                    'step': 'step_create_secret_response'
+                }
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'private_secret': $in.response.data
         };
     };
 
@@ -308,20 +498,20 @@ function infohub_tree_encrypt() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("encrypt");
-    const encrypt = function ($in)
-    {
+    $functions.push('encrypt');
+    const encrypt = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -333,7 +523,7 @@ function infohub_tree_encrypt() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -344,20 +534,20 @@ function infohub_tree_encrypt() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("decrypt");
-    const decrypt = function ($in)
-    {
+    $functions.push('decrypt');
+    const decrypt = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -369,9 +559,10 @@ function infohub_tree_encrypt() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
 }
+
 //# sourceURL=infohub_tree_encrypt.js

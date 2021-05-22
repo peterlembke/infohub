@@ -1,24 +1,24 @@
-/**	infohub_validate.js
+/**    infohub_validate.js
 
-		Copyright (C) 2018 Peter Lembke , Infohub.se
-		the program is distributed under the terms of the GNU General Public License
+ Copyright (C) 2018 Peter Lembke , Infohub.se
+ the program is distributed under the terms of the GNU General Public License
 
-		infohub_validate.js is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
+ infohub_validate.js is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-		infohub_validate.js is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
+ infohub_validate.js is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
 
-		You should have received a copy of the GNU General Public License
-		along with infohub_validate.js.	If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU General Public License
+ along with infohub_validate.js.    If not, see <https://www.gnu.org/licenses/>.
+ */
 function infohub_validate() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -34,7 +34,7 @@ function infohub_validate() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -43,7 +43,7 @@ function infohub_validate() {
             'validate_has_data': 'normal',
             'validate_is_true': 'normal',
             'validate_is_false': 'normal',
-            'validate_is_integer': 'normal'
+            'validate_is_integer': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,10 +58,9 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_has_data');
-    const validate_has_data = function ($in)
-    {
+    const validate_has_data = function($in) {
         const $default = {
-            'data': null
+            'data': null,
         };
         $in = _Default($default, $in);
 
@@ -74,7 +73,7 @@ function infohub_validate() {
         return {
             'answer': 'true',
             'message': 'The data is now validated. Here is the answer',
-            'valid': $valid
+            'valid': $valid,
         };
     };
 
@@ -87,10 +86,9 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_true');
-    const validate_is_true = function ($in)
-    {
+    const validate_is_true = function($in) {
         const $default = {
-            'data': 'false'
+            'data': 'false',
         };
         $in = _Default($default, $in);
 
@@ -103,7 +101,7 @@ function infohub_validate() {
         return {
             'answer': 'true',
             'message': 'The data is now validated. Here is the answer',
-            'valid': $valid
+            'valid': $valid,
         };
     };
 
@@ -116,10 +114,9 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_false');
-    const validate_is_false = function ($in)
-    {
+    const validate_is_false = function($in) {
         const $default = {
-            'data': 'false'
+            'data': 'false',
         };
         $in = _Default($default, $in);
 
@@ -132,7 +129,7 @@ function infohub_validate() {
         return {
             'answer': 'true',
             'message': 'The data is now validated. Here is the answer',
-            'valid': $valid
+            'valid': $valid,
         };
     };
 
@@ -145,10 +142,9 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_integer');
-    const validate_is_integer = function ($in)
-    {
+    const validate_is_integer = function($in) {
         const $default = {
-            'data': null
+            'data': null,
         };
         $in = _Default($default, $in);
 
@@ -161,8 +157,9 @@ function infohub_validate() {
         return {
             'answer': 'true',
             'message': 'The data is now validated. Here is the answer',
-            'valid': $valid
+            'valid': $valid,
         };
     };
 }
+
 //# sourceURL=infohub_validate.js

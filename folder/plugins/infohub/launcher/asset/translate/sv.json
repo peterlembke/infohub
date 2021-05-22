@@ -29,7 +29,8 @@
             "Run plugin": "Kör plugin",
             "More": "Mer",
             "User name": "Användarnamn",
-            "Logout": "Logga ut"
+            "Logout": "Logga ut",
+            "Run in new window": "Kör i nytt fönster"
         }
     }
 }

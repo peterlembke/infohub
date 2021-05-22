@@ -7,12 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.0] - 2021-05-22
+
+* [Release notes](main,release_v1_v1v3_v1v3v0)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.0)
+
+Infohub Tree got new features but is not finished. All code is auto refactored. opcache prefilled. All plugins can now be run standalone as their own applications. This is a large service release with things I want to get out on the sites. It was so long ago since the last release and today is my 50th birthday.
+
+# [1.2.31] - 2021-01-24
+
+* [Release notes](main,release_v1_v1v2_v1v2v31)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.31)
+
+Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
+
 # [1.2.30] - 2021-01-24
 
 * [Release notes](main,release_v1_v1v2_v1v2v30)
 * [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.30)
 
-Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
+Focus on updating the development environment with vagrant.
 
 # [1.2.29] - 2021-01-09
 

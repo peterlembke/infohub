@@ -20,7 +20,7 @@
  */
 function infohub_render() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -37,7 +37,7 @@ function infohub_render() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -58,7 +58,7 @@ function infohub_render() {
             'delete_render_cache_for_user_name_specific_plugins': 'normal',
             'set_color_schema': 'normal',
             'get_color_schema': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -85,14 +85,13 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetId');
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         let $parameter = [];
 
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -127,10 +126,9 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetDisplay');
-    const _GetDisplay = function ($in)
-    {
+    const _GetDisplay = function($in) {
         const $default = {
-            'display': ''
+            'display': '',
         };
         $in = _Default($default, $in);
 
@@ -152,12 +150,11 @@ function infohub_render() {
      * @private
      */
     $functions.push('_PopItem');
-    const _PopItem = function($obj)
-    {
+    const _PopItem = function($obj) {
         let $first;
 
         for (let $key in $obj) {
-            if ($obj.hasOwnProperty($key) && typeof($key) !== 'function') {
+            if ($obj.hasOwnProperty($key) && typeof ($key) !== 'function') {
                 $first = $obj[$key];
                 $first.alias = $key;
                 delete $obj[$key];
@@ -175,13 +172,12 @@ function infohub_render() {
      * @returns {string}
      * @private
      */
-    const _AddStyle = function($in)
-    {
+    const _AddStyle = function($in) {
         const $default = {
             'html': '',
             'css_data': {},
             'alias': '',
-            'display': '' // style="display: inline;" or or nothing
+            'display': '', // style="display: inline;" or or nothing
         };
         $in = _Default($default, $in);
 
@@ -194,12 +190,13 @@ function infohub_render() {
                 if ($key === 'parent') {
                     $keyCode = '';
                 }
-                $style = $style + '.' + $prefix + ' ' + $keyCode + ' { ' + $in.css_data[$key] + " } \n\r";
+                $style = $style + '.' + $prefix + ' ' + $keyCode + ' { ' +
+                    $in.css_data[$key] + ' } \n\r';
             }
         }
         $style = '<style scoped>' + $style + '</style>';
 
-        let $id = _GetId({'name': $in.alias, 'class': $prefix });
+        let $id = _GetId({'name': $in.alias, 'class': $prefix});
         $id = $id + _GetDisplay({'display': $in.display});
         $in.html = '<span ' + $id + '>' + $style + $in.html + '</span>';
 
@@ -221,8 +218,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         let $data, $key, $response, $plugin;
 
         const $default = {
@@ -230,7 +226,7 @@ function infohub_render() {
             'how': {
                 'mode': 'one box', // Insert all rendered HTML in 'one box' or 'separate boxes'
                 'text': '',
-                'css_data': {}
+                'css_data': {},
             },
             'where': {
                 'mode': 'view', // view = show on screen, html = return the html
@@ -243,19 +239,19 @@ function infohub_render() {
                 'scroll_to_box_id': 'false', // Scroll to this box after render
                 'scroll_to_bottom_box_id': 'false', // Put box lower edge to viewport lower edge after render
                 'set_visible': '', // true, false, or empty string
-                'throw_error_if_box_is_missing': 'true'
+                'throw_error_if_box_is_missing': 'true',
             },
             'cache_key': '',
             'alias': '', // Used by high level renderers where.mode = 'html' to make box_id unique
             'step': 'step_load_cache',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'config': {
                 'use_render_cache': 'true',
                 'store_render_cache': 'true',
-                'user_name': ''
+                'user_name': '',
             },
             'data_back': {
                 'original_in': {},
@@ -267,9 +263,9 @@ function infohub_render() {
                 'display': '', // inline, block, none, or leave blank
                 'css_data': {},
                 'frog': 'false',
-                'step': ''
+                'step': '',
             },
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -286,20 +282,21 @@ function infohub_render() {
         let $messages = [];
 
         if ($in.step === 'step_load_cache') {
-            if ($renderCacheLoaded === 'false' && $in.config.store_render_cache === 'true') {
+            if ($renderCacheLoaded === 'false' &&
+                $in.config.store_render_cache === 'true') {
                 $renderCacheLoaded = 'true';
                 let $originalIn = _ByVal($in);
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'load_render_cache'
+                        'function': 'load_render_cache',
                     },
                     'data': {},
                     'data_back': {
                         'original_in': $originalIn,
-                        'step': 'step_load_cache_response'
-                    }
+                        'step': 'step_load_cache_response',
+                    },
                 });
             }
 
@@ -335,10 +332,10 @@ function infohub_render() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_view',
-                            'function': 'get_box_id'
+                            'function': 'get_box_id',
                         },
                         'data': {
-                            'box_id': $in.where.box_id
+                            'box_id': $in.where.box_id,
                         },
                         'data_back': {
                             'what': $in.what,
@@ -347,8 +344,8 @@ function infohub_render() {
                             'alias': $in.alias,
                             'cache_key': $in.cache_key,
                             'frog': $in.data_back.frog,
-                            'step': 'step_parse_box_id_response'
-                        }
+                            'step': 'step_parse_box_id_response',
+                        },
                     });
                 }
             }
@@ -391,7 +388,7 @@ function infohub_render() {
                     $data.plugin_name = $in.from_plugin.plugin;
                 }
 
-                if (typeof  $data.plugin !== 'undefined') {
+                if (typeof $data.plugin !== 'undefined') {
                     // We have a high level renderer
                     // We will modify our tags to prevent naming interference before we call the high level renderer.
                     for (const $key in $data) {
@@ -404,14 +401,17 @@ function infohub_render() {
                     $data.plugin = 'infohub_render_' + $data.type;
                 }
 
-                if (_IsSet($massCreatePluginNameIndexed[$data.plugin]) === 'false') {
+                if (_IsSet($massCreatePluginNameIndexed[$data.plugin]) ===
+                    'false') {
                     $massCreatePluginNameIndexed[$data.plugin] = {};
                 }
 
                 $massCreatePluginNameIndexed[$data.plugin][$itemName] = $data;
 
-                const $sourceIsSet = _IsSet($data.source_plugin) === 'true' && $data.source_plugin !== '';
-                const $optionsAreEmpty = _IsSet($data.options) === 'true' && $data.options === [];
+                const $sourceIsSet = _IsSet($data.source_plugin) === 'true' &&
+                    $data.source_plugin !== '';
+                const $optionsAreEmpty = _IsSet($data.options) === 'true' &&
+                    $data.options === [];
 
                 if ($sourceIsSet || $optionsAreEmpty) {
                     const $default = {
@@ -419,9 +419,10 @@ function infohub_render() {
                         'item_name': $itemName,
                         'source_node': 'client',
                         'source_plugin': 'infohub_render',
-                        'source_function': 'get_test_options'
+                        'source_function': 'get_test_options',
                     };
-                    $needOptionsItemNameIndexed[$itemName] = _Default($default, $data);
+                    $needOptionsItemNameIndexed[$itemName] = _Default($default,
+                        $data);
                 }
 
             }
@@ -435,7 +436,8 @@ function infohub_render() {
 
         if ($in.step === 'step_call_source_response') {
             const $data = _ByVal($in.data_back.latest_popped_item);
-            $in.data_back.mass_create[$data.plugin][$data.item_name].options = _ByVal($in.response.options);
+            $in.data_back.mass_create[$data.plugin][$data.item_name].options = _ByVal(
+                $in.response.options);
             $in.step = 'step_call_source';
         }
 
@@ -450,7 +452,7 @@ function infohub_render() {
                     'to': {
                         'node': $data.source_node,
                         'plugin': $data.source_plugin,
-                        'function': $data.source_function
+                        'function': $data.source_function,
                     },
                     'data': {},
                     'data_back': {
@@ -464,22 +466,22 @@ function infohub_render() {
                         'css_all': $in.data_back.css_all,
                         'latest_popped_item': $data,
                         'frog': $in.data_back.frog,
-                    }
+                    },
                 });
             }
 
             $in.step = 'step_mass_create';
         }
 
-        if ($in.step === 'step_mass_create_response')
-        {
+        if ($in.step === 'step_mass_create_response') {
             const $default = {
-                'item_index': {}
+                'item_index': {},
             };
             $in.response = _Default($default, $in.response);
 
             for (const $itemName in $in.response.item_index) {
-                if ($in.response.item_index.hasOwnProperty($itemName) === false) {
+                if ($in.response.item_index.hasOwnProperty($itemName) ===
+                    false) {
                     continue;
                 }
 
@@ -489,7 +491,7 @@ function infohub_render() {
                     'message': '',
                     'html': '',
                     'css_data': {},
-                    'display': ''
+                    'display': '',
                 };
                 $oneRenderedItem = _Default($default, $oneRenderedItem);
 
@@ -500,11 +502,11 @@ function infohub_render() {
                             'html': $oneRenderedItem.html,
                             'css_data': $oneRenderedItem.css_data,
                             'alias': $itemName,
-                            'display': $oneRenderedItem.display
+                            'display': $oneRenderedItem.display,
                         });
                     }
 
-                    $in.data_back.what_done[ $itemName ] = $oneRenderedItem.html;
+                    $in.data_back.what_done[$itemName] = $oneRenderedItem.html;
 
                 } else {
                     $in.data_back.frog = 'true';
@@ -528,10 +530,10 @@ function infohub_render() {
                     'to': {
                         'node': 'client',
                         'plugin': $pluginName,
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
-                        'item_index': $massCreateOnePluginItemIndex
+                        'item_index': $massCreateOnePluginItemIndex,
                     },
                     'data_back': {
                         'how': $in.how,
@@ -542,8 +544,8 @@ function infohub_render() {
                         'mass_create': $in.data_back.mass_create,
                         'css_all': $in.data_back.css_all,
                         'frog': $in.data_back.frog,
-                        'step': 'step_mass_create_response'
-                    }
+                        'step': 'step_mass_create_response',
+                    },
                 });
             }
 
@@ -557,7 +559,7 @@ function infohub_render() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render_text',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'item_index': {
@@ -565,9 +567,9 @@ function infohub_render() {
                                 'what_done': $in.data_back.what_done,
                                 'alias': $in.alias,
                                 'text': $in.how.text,
-                                'class': ''
-                            }
-                        }
+                                'class': '',
+                            },
+                        },
                     },
                     'data_back': {
                         'how': $in.how,
@@ -576,8 +578,8 @@ function infohub_render() {
                         'cache_key': $in.cache_key,
                         'css_all': $in.data_back.css_all,
                         'frog': $in.data_back.frog,
-                        'step': 'step_how_response'
-                    }
+                        'step': 'step_how_response',
+                    },
                 });
             }
 
@@ -589,7 +591,7 @@ function infohub_render() {
                 'name': 'response/item_index/text', // example: "response/data/checksum"
                 'default': '',
                 'data': $in, // an object with data where you want to pull out a part of it
-                'split': '/' // If name naturally contain / then use pipe | instead
+                'split': '/', // If name naturally contain / then use pipe | instead
             });
 
             const $default = {
@@ -597,7 +599,7 @@ function infohub_render() {
                 'message': '',
                 'html': '',
                 'css_data': {},
-                'display': ''
+                'display': '',
             };
             $itemDone = _Default($default, $itemDone);
             $in.html = $itemDone.html;
@@ -607,7 +609,7 @@ function infohub_render() {
                     'html': $in.html,
                     'css_data': $in.how.css_data,
                     'alias': $in.alias,
-                    'display': $itemDone.display
+                    'display': $itemDone.display,
                 });
             }
 
@@ -628,7 +630,8 @@ function infohub_render() {
                     // All IDs become unique by inserting the parent alias in each ID.
                     const $find = '{box_id}';
                     const $replace = $find + '_' + $in.alias;
-                    $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
+                    $in.html = $in.html.replace(new RegExp($find, 'g'),
+                        $replace);
                 }
 
                 $in.step = 'step_return_html'; // Just return the HTML to the caller
@@ -644,15 +647,15 @@ function infohub_render() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_storage',
-                            'function': 'write'
+                            'function': 'write',
                         },
                         'data': {
                             'path': $cacheKey,
-                            'data': $dataBack
+                            'data': $dataBack,
                         },
                         'data_back': {
-                            'step': 'step_end'
-                        }
+                            'step': 'step_end',
+                        },
                     });
                     $messages.push($messageOut);
                 }
@@ -673,13 +676,13 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_box_insert') {
-            $response = internal_FixBase64Data({'html': $in.html });
+            $response = internal_FixBase64Data({'html': $in.html});
             $in.html = $response.html;
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'box_insert'
+                    'function': 'box_insert',
                 },
                 'data': {
                     'parent_box_id': $in.where.parent_box_id,
@@ -687,15 +690,15 @@ function infohub_render() {
                     'box_alias': $in.where.box_alias,
                     'max_width': $in.where.max_width,
                     'box_data': $in.html,
-                    'css_all': $in.data_back.css_all
+                    'css_all': $in.data_back.css_all,
                 },
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'where': $in.where
+                    'where': $in.where,
                 },
-                'messages': $messages
+                'messages': $messages,
             });
         }
 
@@ -704,7 +707,7 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'boxes_insert'
+                    'function': 'boxes_insert',
                 },
                 'data': {
                     'parent_box_id': $in.where.parent_box_id,
@@ -712,43 +715,43 @@ function infohub_render() {
                     'box_alias': $in.where.box_alias,
                     'max_width': $in.where.max_width,
                     'boxes_data': $in.data_back.what_done,
-                    'css_all': $in.data_back.css_all
+                    'css_all': $in.data_back.css_all,
                 },
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'where': $in.where
+                    'where': $in.where,
                 },
-                'messages': $messages
+                'messages': $messages,
             });
         }
 
         if ($in.step === 'box_update') {
-            $response = internal_FixBase64Data({'html': $in.html });
+            $response = internal_FixBase64Data({'html': $in.html});
             $in.html = $response.html;
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'box_data'
+                    'function': 'box_data',
                 },
                 'data': {
                     'box_id': $in.where.box_id,
                     'box_data': $in.html,
                     'max_width': $in.where.max_width,
                     'variables': {
-                        'css_all': $in.data_back.css_all
+                        'css_all': $in.data_back.css_all,
                     },
-                    'throw_error_if_box_is_missing': $in.where.throw_error_if_box_is_missing
+                    'throw_error_if_box_is_missing': $in.where.throw_error_if_box_is_missing,
                 },
                 'data_back': {
                     'step': 'step_where_response',
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'where': $in.where
+                    'where': $in.where,
                 },
-                'messages': $messages
+                'messages': $messages,
             });
 
         }
@@ -760,12 +763,11 @@ function infohub_render() {
                 'frog': $in.data_back.frog,
                 'html': $in.html,
                 'css_data': $in.data_back.css_all,
-                'messages': $messages
+                'messages': $messages,
             };
         }
 
-        if ($in.step === 'step_where_response')
-        {
+        if ($in.step === 'step_where_response') {
             $in.step = 'step_set_visible';
 
             if ($in.response.box_found === 'false') {
@@ -790,27 +792,29 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_visible'
+                    'function': 'set_visible',
                 },
                 'data': {
                     'id': $in.where.box_id,
-                    'set_visible': $in.where.set_visible
+                    'set_visible': $in.where.set_visible,
                 },
                 'data_back': {
                     'step': 'step_set_visible_response',
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'where': $in.where
-                }
+                    'where': $in.where,
+                },
             });
         }
 
         if ($in.step === 'step_set_visible_response') {
             $in.step = 'step_end';
-            if ($in.where.scroll_to_box_id === 'true' && $in.where.set_visible === 'true') {
+            if ($in.where.scroll_to_box_id === 'true' &&
+                $in.where.set_visible === 'true') {
                 $in.step = 'step_scroll_to_box_id';
             }
-            if ($in.where.scroll_to_bottom_box_id === 'true' && $in.where.set_visible === 'true') {
+            if ($in.where.scroll_to_bottom_box_id === 'true' &&
+                $in.where.set_visible === 'true') {
                 $in.step = 'step_scroll_to_bottom_box_id';
             }
         }
@@ -820,16 +824,16 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'scroll_to_box_id'
+                    'function': 'scroll_to_box_id',
                 },
                 'data': {
-                    'box_id': $in.where.box_id
+                    'box_id': $in.where.box_id,
                 },
                 'data_back': {
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
@@ -838,23 +842,23 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'scroll_to_bottom_box_id'
+                    'function': 'scroll_to_bottom_box_id',
                 },
                 'data': {
-                    'box_id': $in.where.box_id
+                    'box_id': $in.where.box_id,
                 },
                 'data_back': {
                     'frog': $in.data_back.frog,
                     'alias': $in.alias,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
             'message': 'Done rendering',
-            'frog': $in.data_back.frog
+            'frog': $in.data_back.frog,
         };
 
     };
@@ -869,15 +873,14 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
      */
-    const load_render_cache = function ($in)
-    {
+    const load_render_cache = function($in) {
         const $default = {
             'step': 'step_load_render_cache',
             'data_back': {},
             'response': {},
             'config': {
-                'user_name': ''
-            }
+                'user_name': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -889,21 +892,22 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read_pattern'
+                    'function': 'read_pattern',
                 },
                 'data': {
-                    'path': 'infohub_render/cache/' + $in.config.user_name + '/*'
+                    'path': 'infohub_render/cache/' + $in.config.user_name +
+                        '/*',
                 },
                 'data_back': {
-                    'step': 'step_load_render_cache_response'
-                }
+                    'step': 'step_load_render_cache_response',
+                },
             });
             $messages.push($messageOut);
 
             return {
                 'answer': 'true',
                 'message': 'Will load the render cache',
-                'messages': $messages
+                'messages': $messages,
             };
         }
 
@@ -911,7 +915,7 @@ function infohub_render() {
             const $default = {
                 'answer': 'false',
                 'message': '',
-                'items': {}
+                'items': {},
             };
             $in.response = _Default($default, $in.response);
 
@@ -923,7 +927,7 @@ function infohub_render() {
         return {
             'answer': 'true',
             'message': 'Will load the render cache',
-            'messages': $messages
+            'messages': $messages,
         };
     };
 
@@ -937,10 +941,9 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, html: *, sections_count: *, message: string}}
      */
-    const internal_FixBase64Data = function ($in)
-    {
+    const internal_FixBase64Data = function($in) {
         const $default = {
-            'html': ''
+            'html': '',
         };
         $in = _Default($default, $in);
 
@@ -948,8 +951,7 @@ function infohub_render() {
             $sectionsCount = 0;
 
         // Convert a section of the code to BASE64
-        while ($html.indexOf('{{*') > -1)
-        {
+        while ($html.indexOf('{{*') > -1) {
             const $start = $html.indexOf('{{*') + 3;
             const $stop = $html.indexOf('*}}', $start);
             const $part = $html.substring($start, $stop);
@@ -963,7 +965,7 @@ function infohub_render() {
             'answer': 'true',
             'message': 'Finished fixing BASE64 coding on sections of the code',
             'html': $html,
-            'sections_count': $sectionsCount
+            'sections_count': $sectionsCount,
         };
     };
 
@@ -973,8 +975,7 @@ function infohub_render() {
      * @returns {*}
      */
     $functions.push('validate_form_data');
-    const validate_form_data = function ($in)
-    {
+    const validate_form_data = function($in) {
         const $default = {
             'step': 'step_loop',
             'form_data': {},
@@ -984,13 +985,12 @@ function infohub_render() {
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report',
-                'valid': 'false'
-            }
+                'valid': 'false',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_validator_response')
-        {
+        if ($in.step === 'step_validator_response') {
             $in.step = 'step_loop';
 
             if ($in.response.valid === 'false') {
@@ -1004,8 +1004,7 @@ function infohub_render() {
 
         }
 
-        if ($in.step === 'step_mark')
-        {
+        if ($in.step === 'step_mark') {
             $in.step = 'step_loop';
             const $isValid = $in.response.valid;
 
@@ -1014,13 +1013,13 @@ function infohub_render() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'mark_object'
+                        'function': 'mark_object',
                     },
                     'data': {
                         'id': $in.validated_item.id,
-                        'mark': 'true'
+                        'mark': 'true',
                     },
-                    'data_back': $in
+                    'data_back': $in,
                 });
             }
 
@@ -1029,21 +1028,19 @@ function infohub_render() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'mark_object'
+                        'function': 'mark_object',
                     },
                     'data': {
                         'id': $in.validated_item.id,
-                        'mark': 'false'
+                        'mark': 'false',
                     },
-                    'data_back': $in
+                    'data_back': $in,
                 });
             }
         }
 
-        if ($in.step === 'step_loop')
-        {
-            while (_Count($in.form_data) > 0)
-            {
+        if ($in.step === 'step_loop') {
+            while (_Count($in.form_data) > 0) {
                 let $item = _PopItem($in.form_data);
                 if (_Empty($item) === 'true') {
                     break;
@@ -1051,27 +1048,27 @@ function infohub_render() {
 
                 $item = _Merge({
                     'validator_plugin': '',
-                    'validator_function': ''
+                    'validator_function': '',
                 }, $item);
 
-                if ($item.validator_plugin !== '' && $item.validator_function !=='')
-                {
+                if ($item.validator_plugin !== '' &&
+                    $item.validator_function !== '') {
                     return _SubCall({
                         'to': {
                             'node': 'client',
                             'plugin': $item.validator_plugin,
-                            'function': $item.validator_function
+                            'function': $item.validator_function,
                         },
                         'data': {
-                            'data': $item.value
+                            'data': $item.value,
                         },
                         'data_back': {
                             'step': 'step_validator_response',
                             'validated_item': $item,
                             'form_data': $in.form_data,
                             'valid_form': $in.valid_form,
-                            'highlight_validated_form_element': $in.highlight_validated_form_element
-                        }
+                            'highlight_validated_form_element': $in.highlight_validated_form_element,
+                        },
                     });
                 }
             }
@@ -1080,7 +1077,7 @@ function infohub_render() {
         return {
             'answer': 'true',
             'message': 'Finished validating the form data',
-            'valid': $in.valid_form
+            'valid': $in.valid_form,
         };
     };
 
@@ -1092,18 +1089,17 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
      */
-    const get_test_options = function ($in)
-    {
+    const get_test_options = function($in) {
         return {
             'answer': 'true',
             'message': 'You did not set your own source for the select so you ended up here',
             'options': [
                 {
-                    "type": "option",
-                    "value": "test_option",
-                    "label": "Test option"
-                }
-            ]
+                    'type': 'option',
+                    'value': 'test_option',
+                    'label': 'Test option',
+                },
+            ],
         };
     };
 
@@ -1117,8 +1113,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('render_options');
-    const render_options = function ($in)
-    {
+    const render_options = function($in) {
         const $default = {
             'id': '',
             'source_node': '',
@@ -1130,15 +1125,15 @@ function infohub_render() {
                 'answer': 'false',
                 'message': '',
                 'options': [],
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'Nothing to report',
-            'ok': 'false'
+            'ok': 'false',
         };
 
         if ($in.step === 'step_start') { // Get the options from the source
@@ -1146,13 +1141,13 @@ function infohub_render() {
                 'to': {
                     'node': $in.source_node,
                     'plugin': $in.source_plugin,
-                    'function': $in.source_function
+                    'function': $in.source_function,
                 },
                 'data': $in.source_data,
                 'data_back': {
                     'step': 'step_start_response',
-                    'id': $in.id
-                }
+                    'id': $in.id,
+                },
             });
         }
 
@@ -1170,15 +1165,15 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render_form',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
-                    'options': $in.response.options
+                    'options': $in.response.options,
                 },
                 'data_back': {
                     'step': 'step_render_html_response',
-                    'id': $in.id
-                }
+                    'id': $in.id,
+                },
             });
         }
 
@@ -1196,16 +1191,16 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.id,
-                    'text': $in.response.html
+                    'text': $in.response.html,
                 },
                 'data_back': {
                     'step': 'step_view_html_response',
-                    'id': $in.id
-                }
+                    'id': $in.id,
+                },
             });
         }
 
@@ -1219,11 +1214,10 @@ function infohub_render() {
             }
         }
 
-
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.ok
+            'ok': $out.ok,
         };
     };
 
@@ -1235,8 +1229,7 @@ function infohub_render() {
      * @param $in
      * @returns {{valid: *, answer: string, message: string, ok: *}|*}
      */
-    const submit = function ($in)
-    {
+    const submit = function($in) {
         const $default = {
             'parent_id': 0,
             'box_id': '',
@@ -1252,7 +1245,7 @@ function infohub_render() {
             'validator_function': '',
             'data_back': {},
             'response': {},
-            'ok': 'true'
+            'ok': 'true',
         };
         $in = _Merge($default, $in);
 
@@ -1264,8 +1257,7 @@ function infohub_render() {
             'data': $in.data_back,
         });
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             if ($in.type === 'button' && $in.mode === 'submit') {
                 $in.step = 'step_form_read';
             }
@@ -1276,10 +1268,10 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id
+                    'id': $in.box_id,
                 },
                 'data_back': {
                     'parent_id': $in.parent_id,
@@ -1291,8 +1283,8 @@ function infohub_render() {
                     'to_node': $in.to_node,
                     'to_plugin': $in.to_plugin,
                     'to_function': $in.to_function,
-                    'step': 'step_form_read_response'
-                }
+                    'step': 'step_form_read_response',
+                },
             });
         }
 
@@ -1300,17 +1292,16 @@ function infohub_render() {
             $in.step = 'step_validate_form_data';
         }
 
-        if ($in.step === 'step_validate_form_data')
-        {
+        if ($in.step === 'step_validate_form_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'validate_form_data'
+                    'function': 'validate_form_data',
                 },
                 'data': {
                     'form_data': $in.form_data,
-                    'highlight_validated_form_element': 'true'
+                    'highlight_validated_form_element': 'true',
                 },
                 'data_back': {
                     'type': 'submit',
@@ -1323,13 +1314,12 @@ function infohub_render() {
                     'to_plugin': $in.to_plugin,
                     'to_function': $in.to_function,
                     'form_data': $in.response.form_data,
-                    'step': 'step_validate_form_data_response'
-                }
+                    'step': 'step_validate_form_data_response',
+                },
             });
         }
 
-        if ($in.step === 'step_validate_form_data_response')
-        {
+        if ($in.step === 'step_validate_form_data_response') {
             $in.step = 'step_send_all_form_data_to_final_destination';
             $valid = $in.response.valid;
             if ($valid === 'false' || $in.response.answer === 'false') {
@@ -1338,13 +1328,13 @@ function infohub_render() {
             }
         }
 
-        if ($in.step === 'step_send_all_form_data_to_final_destination')
-        {
+        if ($in.step === 'step_send_all_form_data_to_final_destination') {
             internal_event: {
 
                 if ($in.to_plugin === 'infohub_render') {
                     $answer = 'true';
-                    $message = 'Type: ' + $in.type + ', event: ' + $in.event_type + '.';
+                    $message = 'Type: ' + $in.type + ', event: ' +
+                        $in.event_type + '.';
                     const $standardMessage = ' Event works but to_plugin is set to infohub_render. Set your own to_plugin.';
                     $messageArray.push(_Alert($message + $standardMessage));
                     $in.step = 'step_end';
@@ -1369,19 +1359,18 @@ function infohub_render() {
                     'to': {
                         'node': $in.to_node,
                         'plugin': $in.to_plugin,
-                        'function': $in.to_function
+                        'function': $in.to_function,
                     },
                     'data': $in, // Always define exactly what to send, do not do like I have done here.
                     'data_back': {
                         'valid': $valid,
-                        'step': 'step_final_response'
-                    }
+                        'step': 'step_final_response',
+                    },
                 });
             }
         }
 
-        if ($in.step === 'step_final_response')
-        {
+        if ($in.step === 'step_final_response') {
             $answer = 'true';
             $message = 'Done handling events in Render -> submit';
 
@@ -1402,7 +1391,7 @@ function infohub_render() {
             'answer': $answer,
             'message': $message,
             'valid': $valid,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
 
     };
@@ -1415,8 +1404,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('click_and_scroll');
-    const click_and_scroll = function ($in)
-    {
+    const click_and_scroll = function($in) {
         const $default = {
             'id': '',
             'box_id': '',
@@ -1425,49 +1413,47 @@ function infohub_render() {
             'final_function': '',
             'step': 'step_start',
             'response': {},
-            'custom_variables': {}
+            'custom_variables': {},
         };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': $in.final_node,
                     'plugin': $in.final_plugin,
-                    'function': $in.final_function
+                    'function': $in.final_function,
                 },
                 'data': $in, // Always define exactly what to send, do not do like I have done here.
                 'data_back': {
                     'id': $in.id,
                     'box_id': $in.box_id,
-                    'step': 'step_scroll_to_box_id'
-                }
+                    'step': 'step_scroll_to_box_id',
+                },
             });
         }
 
-        if ($in.step === 'step_scroll_to_box_id')
-        {
+        if ($in.step === 'step_scroll_to_box_id') {
             if (_Empty($in.id) === 'false') {
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'scroll_to_box_id'
+                        'function': 'scroll_to_box_id',
                     },
                     'data': {
-                        'box_id': $in.id
+                        'box_id': $in.id,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
             }
         }
 
         return {
             'answer': 'true',
-            'message': 'Done handling events in Render -> click_and_scroll'
+            'message': 'Done handling events in Render -> click_and_scroll',
         };
     };
 
@@ -1479,43 +1465,41 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('delete_render_cache_for_user_name');
-    const delete_render_cache_for_user_name = function ($in)
-    {
+    const delete_render_cache_for_user_name = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
                 'message': '',
-                'items': {}
+                'items': {},
             },
             'config': {
-                'user_name': ''
-            }
+                'user_name': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'Could not delete the render cache for the user_name',
-            'items': {}
+            'items': {},
         };
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             const $path = 'infohub_render/cache/' + $in.config.user_name + '/*';
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write_pattern'
+                    'function': 'write_pattern',
                 },
                 'data': {
                     'path': $path,
                 },
                 'data_back': {
-                    'step': 'step_response'
-                }
+                    'step': 'step_response',
+                },
             });
         }
 
@@ -1532,7 +1516,7 @@ function infohub_render() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'items': $out.items
+            'items': $out.items,
         };
     };
 
@@ -1544,29 +1528,27 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('delete_render_cache_for_user_name_specific_plugins');
-    const delete_render_cache_for_user_name_specific_plugins = function ($in)
-    {
+    const delete_render_cache_for_user_name_specific_plugins = function($in) {
         const $default = {
             'plugins': [],
             'step': 'step_purge_render_cache',
             'response': {
                 'answer': 'false',
                 'message': '',
-                'items': {}
+                'items': {},
             },
             'config': {
-                'user_name': ''
-            }
+                'user_name': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Could not delete the render cache for the user_name and plugins'
+            'message': 'Could not delete the render cache for the user_name and plugins',
         };
 
-        if ($in.step === 'step_purge_render_cache_response')
-        {
+        if ($in.step === 'step_purge_render_cache_response') {
             $in.step = 'step_purge_render_cache';
 
             if ($in.response.answer === 'false') {
@@ -1575,11 +1557,11 @@ function infohub_render() {
             }
         }
 
-        if ($in.step === 'step_purge_render_cache')
-        {
+        if ($in.step === 'step_purge_render_cache') {
             if (_Count($in.plugins) > 0) {
                 const $pluginName = $in.plugins.pop();
-                const $path = 'infohub_render/cache/' + $in.config.user_name + '/client/' + $pluginName;
+                const $path = 'infohub_render/cache/' + $in.config.user_name +
+                    '/client/' + $pluginName;
 
                 _RenderCachePurgePattern($path);
 
@@ -1590,16 +1572,16 @@ function infohub_render() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage',
-                        'function': 'write_pattern'
+                        'function': 'write_pattern',
                     },
                     'data': {
                         'path': $path + '/*',
-                        'data': {}
+                        'data': {},
                     },
                     'data_back': {
                         'plugins': $in.plugins,
-                        'step': 'step_purge_render_cache_response'
-                    }
+                        'step': 'step_purge_render_cache_response',
+                    },
                 });
             }
 
@@ -1615,7 +1597,7 @@ function infohub_render() {
 
         return {
             'answer': $out.answer,
-            'message': $out.message
+            'message': $out.message,
         };
     };
 
@@ -1625,14 +1607,13 @@ function infohub_render() {
      * @returns {{}|{answer: string, message: string}}
      * @private
      */
-    const _RenderCachePurgePattern = function ($pattern)
-    {
+    const _RenderCachePurgePattern = function($pattern) {
         let $newRenderCache = $renderCache;
         $pattern = $pattern + '/';
 
         for (let $path in $renderCache) {
             if ($path.indexOf($pattern) === 0) {
-                delete($newRenderCache[$path]);
+                delete ($newRenderCache[$path]);
             }
         }
         $renderCache = $newRenderCache;
@@ -1647,12 +1628,11 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const set_color_schema = function ($in)
-    {
+    const set_color_schema = function($in) {
         const $default = {
             'color_schema': {},
             'color_lookup': {},
-            'step': 'step_store_colour_data'
+            'step': 'step_store_colour_data',
         };
         $in = _Default($default, $in);
 
@@ -1672,59 +1652,59 @@ function infohub_render() {
 
             const $headersRule = _SubstituteColours('color: #1b350a;');
             const $lightRule = _SubstituteColours('background-color: #6d8df7;');
-            const $sanityRule = _SubstituteColours('color: #0b1f00; border-color: #6d8df7; background-color: #ff0000;');
+            const $sanityRule = _SubstituteColours(
+                'color: #0b1f00; border-color: #6d8df7; background-color: #ff0000;');
 
             const $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'mass_update'
+                    'function': 'mass_update',
                 },
                 'data': {
                     'do': [
                         {
                             'func': 'SetStyle',
                             'style_name': 'backgroundColor',
-                            'style_value': _GetColour('layer-0-background')
+                            'style_value': _GetColour('layer-0-background'),
                         },
                         {
                             'func': 'SetStyle',
                             'style_name': 'color',
-                            'style_value': _GetColour('layer-2-normal-text')
+                            'style_value': _GetColour('layer-2-normal-text'),
                         },
                         {
                             'func': 'SetStyleRule',
                             'sheet_id': 'infohub_global',
                             'selector': 'h1, h2, h3, h4, h5, h6, ul',
-                            'rule': $headersRule
+                            'rule': $headersRule,
                         },
                         {
                             'func': 'SetStyleRule',
                             'sheet_id': 'infohub_global',
                             'selector': '.light',
-                            'rule': $lightRule
+                            'rule': $lightRule,
                         },
                         {
                             'func': 'SetStyleRule',
                             'sheet_id': 'infohub_global',
                             'selector': '.sanity',
-                            'rule': $sanityRule
-                        }
-                    ]
+                            'rule': $sanityRule,
+                        },
+                    ],
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messageArray.push($messageOut);
         }
 
-
         return {
             'answer': 'true',
             'message': 'Have set the color schema',
-            'messages': $messageArray
-        }
+            'messages': $messageArray,
+        };
     };
 
     $functions.push('get_color_schema');
@@ -1736,7 +1716,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const get_color_schema = function ($in) {
+    const get_color_schema = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1745,10 +1725,10 @@ function infohub_render() {
             'message': 'Here are the color schema',
             'data': {
                 'color_schema': $colorSchema,
-                'color_lookup': $colorLookup
-            }
+                'color_lookup': $colorLookup,
+            },
         };
-    }
+    };
 
     $functions.push('_GetColour');
     /**
@@ -1760,15 +1740,14 @@ function infohub_render() {
      * @returns {string|*}
      * @private
      */
-    const _GetColour = function ($name = '')
-    {
+    const _GetColour = function($name = '') {
         if (_IsSet($colorSchema[$name]) === 'false') {
-            return '#000000'
+            return '#000000';
         }
 
         let $originalColour = $colorSchema[$name];
         if (_IsSet($colorLookup[$originalColour]) === 'false') {
-            return '#000000'
+            return '#000000';
         }
 
         const $newColour = $colorLookup[$originalColour];
@@ -1786,8 +1765,7 @@ function infohub_render() {
      * @returns {string}
      * @private
      */
-    const _SubstituteColours = function ($html = '')
-    {
+    const _SubstituteColours = function($html = '') {
         if ($html.indexOf('#') === -1) {
             return $html;
         }
@@ -1810,8 +1788,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function ($in)
-    {
+    const event_message = function($in) {
         let $data, $isValid;
 
         const $default = {
@@ -1829,7 +1806,7 @@ function infohub_render() {
             'validator_function': '',
             'data_back': {},
             'response': {},
-            'ok': 'true'
+            'ok': 'true',
         };
         $in = _Merge($default, $in);
 
@@ -1837,12 +1814,11 @@ function infohub_render() {
         let $message = 'Done handling events in Render -> event_message';
         let $messageArray = [];
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $in.step = 'step_send_data_to_final_destination';
 
             $data = _ByVal($in);
-            delete($data.step);
+            delete ($data.step);
 
             if ($in.validator_plugin !== '' && $in.validator_function !== '') {
                 $in.step = 'step_validate';
@@ -1852,28 +1828,27 @@ function infohub_render() {
                 $in.step = 'step_external_link';
             }
 
-            if ($in.type === 'button' && $in.event_type === 'click' && $in.mode === 'submit')
-            {
+            if ($in.type === 'button' && $in.event_type === 'click' &&
+                $in.mode === 'submit') {
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'submit'
+                        'function': 'submit',
                     },
                     'data': $data,
                     'data_back': {
-                        'step': 'step_submit_response'
-                    }
+                        'step': 'step_submit_response',
+                    },
                 });
             }
 
-            if ($in.type === 'file')
-            {
+            if ($in.type === 'file') {
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'file_read'
+                        'function': 'file_read',
                     },
                     'data': $data, // $in.id is the important data
                     'data_back': _Merge($data, {
@@ -1881,8 +1856,8 @@ function infohub_render() {
                         'to_node': $in.to_node,
                         'to_plugin': $in.to_plugin,
                         'to_function': $in.to_function,
-                        'step': 'step_file_response'
-                    })
+                        'step': 'step_file_response',
+                    }),
                 });
             }
 
@@ -1896,38 +1871,36 @@ function infohub_render() {
                     'to_node': $in.to_node,
                     'to_plugin': $in.to_plugin,
                     'to_function': $in.to_function,
-                    'step': 'step_select_read_multiple_response'
+                    'step': 'step_select_read_multiple_response',
                 };
                 $dataBack = _Merge($data, $dataBack);
-                delete($dataBack.response);
-                delete($dataBack.callback_function);
-                delete($dataBack.data_back);
-                delete($dataBack.innerHTML);
-                delete($dataBack.from_plugin);
-                delete($dataBack.config);
+                delete ($dataBack.response);
+                delete ($dataBack.callback_function);
+                delete ($dataBack.data_back);
+                delete ($dataBack.innerHTML);
+                delete ($dataBack.from_plugin);
+                delete ($dataBack.config);
 
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'form_select_read'
+                        'function': 'form_select_read',
                     },
                     'data': {
-                        'id': $in.id
+                        'id': $in.id,
                     },
-                    'data_back': $dataBack
+                    'data_back': $dataBack,
                 });
             }
 
         }
 
-        if ($in.step === 'step_select_read_multiple_response')
-        {
+        if ($in.step === 'step_select_read_multiple_response') {
             $in.step = 'step_send_data_to_final_destination';
         }
 
-        if ($in.step === 'step_file_response')
-        {
+        if ($in.step === 'step_file_response') {
             const $findJson = 'data:application/json;base64,';
 
             // If .json is unknown to server it adds .txt to file name and encode to text/plain.
@@ -1935,44 +1908,48 @@ function infohub_render() {
 
             const $findMarkdown = 'data:text/markdown;base64,';
 
-            for (let $fileNumber = 0; $fileNumber < $in.response.files_data.length; $fileNumber = $fileNumber + 1) {
+            for (let $fileNumber = 0; $fileNumber <
+            $in.response.files_data.length; $fileNumber = $fileNumber + 1) {
                 let $content = $in.response.files_data[$fileNumber].content;
                 if (typeof $content !== 'string') {
                     continue;
                 }
 
-                const $extension = _GetExtension($in.response.files_data[$fileNumber].name);
+                const $extension = _GetExtension(
+                    $in.response.files_data[$fileNumber].name);
 
                 if ($extension === 'txt') {
-                    if ($findText === $content.substr(0,$findText.length)) {
+                    if ($findText === $content.substr(0, $findText.length)) {
                         // Remove the text mime type and insert json instead
-                        $content = $findJson + $content.substr($findText.length);
+                        $content = $findJson +
+                            $content.substr($findText.length);
                     }
                 }
 
-                if ($findMarkdown === $content.substr(0,$findMarkdown.length)) {
+                if ($findMarkdown ===
+                    $content.substr(0, $findMarkdown.length)) {
                     $content = $content.substr($findMarkdown.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
                     $in.response.files_data[$fileNumber].content = $content;
                 }
 
-                if ($findJson === $content.substr(0,$findJson.length)) {
+                if ($findJson === $content.substr(0, $findJson.length)) {
                     $content = $content.substr($findJson.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
-                    $in.response.files_data[$fileNumber].content = _JsonDecode($content);
+                    $in.response.files_data[$fileNumber].content = _JsonDecode(
+                        $content);
                 }
             }
             $in.step = 'step_send_data_to_final_destination';
         }
 
-
-        if ($in.step === 'step_submit_response')
-        {
+        if ($in.step === 'step_submit_response') {
             $message = $in.response.message;
 
-            $isValid = _GetData({'name': 'valid', 'default': 'false', 'data': $in.response});
+            $isValid = _GetData(
+                {'name': 'valid', 'default': 'false', 'data': $in.response});
             if ($isValid === 'false') {
                 $answer = 'false';
             }
@@ -1985,17 +1962,16 @@ function infohub_render() {
                 'to': {
                     'node': 'client',
                     'plugin': $in.validator_plugin,
-                    'function': $in.validator_function
+                    'function': $in.validator_function,
                 },
                 'data': {
-                    'data': $in.value
+                    'data': $in.value,
                 },
-                'data_back': _Merge($in, {'step': 'step_validate_response'})
+                'data_back': _Merge($in, {'step': 'step_validate_response'}),
             });
         }
 
-        if ($in.step === 'step_validate_response')
-        {
+        if ($in.step === 'step_validate_response') {
             $in.step = 'step_send_data_to_final_destination';
             if ($in.response.answer === 'true') {
 
@@ -2006,13 +1982,13 @@ function infohub_render() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_view',
-                            'function': 'mark_object'
+                            'function': 'mark_object',
                         },
                         'data': {
                             'id': $in.id,
-                            'mark': 'true'
+                            'mark': 'true',
                         },
-                        'data_back': $in
+                        'data_back': $in,
                     });
                 }
 
@@ -2021,25 +1997,26 @@ function infohub_render() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_view',
-                            'function': 'mark_object'
+                            'function': 'mark_object',
                         },
                         'data': {
                             'id': $in.id,
-                            'mark': 'false'
+                            'mark': 'false',
                         },
-                        'data_back': $in
+                        'data_back': $in,
                     });
                 }
 
             }
         }
 
-        if ($in.step === 'step_send_data_to_final_destination')
-        {
+        if ($in.step === 'step_send_data_to_final_destination') {
             internal_event: {
 
-                if ($in.to_plugin === 'infohub_render' && $in.to_function === '') {
-                    $message = 'Type: ' + $in.type + ', event: ' + $in.event_type + '.';
+                if ($in.to_plugin === 'infohub_render' && $in.to_function ===
+                    '') {
+                    $message = 'Type: ' + $in.type + ', event: ' +
+                        $in.event_type + '.';
                     const $standardMessage = ' Event works but to_plugin is set to infohub_render. Set your own to_plugin.';
                     $messageArray.push(_Alert($message + $standardMessage));
                     $in.step = 'step_end';
@@ -2051,18 +2028,17 @@ function infohub_render() {
                     'to': {
                         'node': $in.to_node,
                         'plugin': $in.to_plugin,
-                        'function': $in.to_function
+                        'function': $in.to_function,
                     },
                     'data': $in, // Always define exactly what to send, do not do like I have done here.
                     'data_back': {
-                        'step': 'step_send_data_to_final_destination_response'
-                    }
+                        'step': 'step_send_data_to_final_destination_response',
+                    },
                 });
             }
         }
 
-        if ($in.step === 'step_send_data_to_final_destination_response')
-        {
+        if ($in.step === 'step_send_data_to_final_destination_response') {
             $answer = _GetData({
                 'name': 'response/answer',
                 'default': $answer,
@@ -2081,8 +2057,7 @@ function infohub_render() {
             $in.step = 'step_end';
         }
 
-        if ($in.step === 'step_external_link')
-        {
+        if ($in.step === 'step_external_link') {
             external_link: {
                 if ($in.type !== 'external') {
                     break external_link;
@@ -2096,7 +2071,7 @@ function infohub_render() {
                     break external_link;
                 }
                 $data = atob($in.data);
-                if ($data.toLowerCase().substr(0,5) !== 'https') {
+                if ($data.toLowerCase().substr(0, 5) !== 'https') {
                     const $text = 'Please add https to your link. Do not support an unencrypted web.';
                     $messageArray.push(_Alert($text));
                     break external_link;
@@ -2111,8 +2086,9 @@ function infohub_render() {
             'answer': $answer,
             'message': $message,
             'messages': $messageArray,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 }
+
 //# sourceURL=infohub_render.js

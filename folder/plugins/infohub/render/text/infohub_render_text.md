@@ -1,13 +1,17 @@
 # Infohub Render Text
-With render text you can put together different parts into one HTML.  
+
+With render text you can put together different parts into one HTML.
 
 # Introduction
-Plugin that render a text. All text rows get paragraph tags. If you provide a class name or use the default one ("text_article") then the text are wrapped with a div tag that have a unique id.
-Om class name is "text_article" (default) then you will also get the default CSS so the text looks and acts like a text article with columns.  
-The columns will be as many as needed to fill the page left to right. On a phone you get one column automatically.  
+
+Plugin that render a text. All text rows get paragraph tags. If you provide a class name or use the default one ("
+text_article") then the text are wrapped with a div tag that have a unique id. Om class name is "text_article" (default)
+then you will also get the default CSS so the text looks and acts like a text article with columns.  
+The columns will be as many as needed to fill the page left to right. On a phone you get one column automatically.
 
 # Usage
-You can see how the render text are used in the Infohub Demo. Here is a short example:  
+
+You can see how the render text are used in the Infohub Demo. Here is a short example:
 
 ```
 $data = {
@@ -50,7 +54,8 @@ $data = {
 ```
 
 # Special characters
-You can easily show special characters by adding these codes into your text.  
+
+You can easily show special characters by adding these codes into your text.
 
 ```
     [:-)] gives ☺
@@ -78,12 +83,19 @@ You can easily show special characters by adding these codes into your text.
 ```
 
 # Add other elements
-As you can see in the example above you can have other rendered parts inserted into the text. The example have "titel" and "ingress". These two will be rendered to HTML before they reach the text plugin, and they will be inserted into the text.  
+
+As you can see in the example above you can have other rendered parts inserted into the text. The example have "titel"
+and "ingress". These two will be rendered to HTML before they reach the text plugin, and they will be inserted into the
+text.
 
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-02-11 by Peter Lembke  
 Updated 2018-10-12 by Peter Lembke  

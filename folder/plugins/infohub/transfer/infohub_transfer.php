@@ -28,20 +28,21 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/transfer/infohub_transfer.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
-class infohub_transfer extends infohub_base {
+class infohub_transfer extends infohub_base
+{
 
     const PACKAGE_SIZE_GETTING_LARGE_IN_BYTES = 1024 * 1024;
 
     /**
      * Version information for this plugin
-     * @version 2015-09-20
+     * @return  string[]
      * @since   2012-01-01
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2015-09-20
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2015-09-20',
             'since' => '2012-01-01',
             'version' => '1.0.0',
@@ -51,22 +52,22 @@ class infohub_transfer extends infohub_base {
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2015-09-20
+     * @return mixed
      * @since   2012-01-01
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2015-09-20
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'send' => 'normal',
             'download' => 'emerging'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -84,39 +85,38 @@ class infohub_transfer extends infohub_base {
 
     /**
      * Send everything in to_node as a JSON to each node
-     * @version 2013-11-21
-     * @since 2013-11-21
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2013-11-21
+     * @since 2013-11-21
      * @uses
      */
     protected function send(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_sign_code',
             'to_node' => [],
-            'config' => array(
+            'config' => [
                 'session_id' => '',
                 'add_clear_text_messages' => 'false' // for debug purposes
-            ),
-            'data_back' => array(
+            ],
+            'data_back' => [
                 'package' => []
-            ),
+            ],
             'response' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'true',
             'message' => 'Nothing to report',
             'wait_milliseconds' => 0,
             'message_count' => 0,
             'messages' => []
-        );
+        ];
 
         if ($in['step'] === 'step_sign_code') {
-
             $messagesArray = [];
 
             foreach ($in['to_node'] as $nodeName => $messages) {
@@ -128,7 +128,7 @@ class infohub_transfer extends infohub_base {
                 $messagesEncoded = base64_encode($messagesJson);
                 $messagesChecksum = md5($messagesEncoded);
 
-                $package = array( // to_node and messages must be first or the kick out tests will kick in.
+                $package = [ // to_node and messages must be first or the kick out tests will kick in.
                     'to_node' => $nodeName,
                     'messages' => $messages,
                     'messages_encoded' => $messagesEncoded,
@@ -140,20 +140,22 @@ class infohub_transfer extends infohub_base {
                     'sign_code_created_at' => '',
                     'banned_seconds' => 0.0,
                     'banned_until' => 0.0
-                );
+                ];
 
-                $messageOut = $this->_SubCall(array(
-                    'to' => array(
-                        'node' => 'server',
-                        'plugin' => 'infohub_session',
-                        'function' => 'get_banned_until'
-                    ),
-                    'data' => [],
-                    'data_back' => array(
-                        'package' => $package,
-                        'step' => 'step_get_banned_until_response'
-                    ),
-                ));
+                $messageOut = $this->_SubCall(
+                    [
+                        'to' => [
+                            'node' => 'server',
+                            'plugin' => 'infohub_session',
+                            'function' => 'get_banned_until'
+                        ],
+                        'data' => [],
+                        'data_back' => [
+                            'package' => $package,
+                            'step' => 'step_get_banned_until_response'
+                        ],
+                    ]
+                );
 
                 $messagesArray[] = $messageOut;
             }
@@ -163,13 +165,13 @@ class infohub_transfer extends infohub_base {
         }
 
         if ($in['step'] === 'step_get_banned_until_response') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => '',
                 'banned_until' => 0.0,
                 'banned_seconds' => 0.0,
                 'banned' => 'true'
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
             $in['data_back']['package']['banned_seconds'] = $in['response']['banned_seconds'];
@@ -182,31 +184,34 @@ class infohub_transfer extends infohub_base {
         }
 
         if ($in['step'] === 'step_sign_code') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_session',
-                    'function' => 'responder_calculate_sign_code'
-                ),
-                'data' => array(
-                    'session_id' => $in['config']['session_id'],
-                    'messages_checksum' => $in['data_back']['package']['messages_checksum'], // md5 checksum of all messages in the package
-                ),
-                'data_back' => array(
-                    'package' => $in['data_back']['package'],
-                    'step' => 'step_sign_code_response'
-                ),
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_session',
+                        'function' => 'responder_calculate_sign_code'
+                    ],
+                    'data' => [
+                        'session_id' => $in['config']['session_id'],
+                        'messages_checksum' => $in['data_back']['package']['messages_checksum'],
+                        // md5 checksum of all messages in the package
+                    ],
+                    'data_back' => [
+                        'package' => $in['data_back']['package'],
+                        'step' => 'step_sign_code_response'
+                    ],
+                ]
+            );
         }
 
         if ($in['step'] === 'step_sign_code_response') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'sign_code' => '',
                 'sign_code_created_at' => '',
                 'session_id' => ''
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
             $in['data_back']['package']['sign_code'] = $in['response']['sign_code'];
@@ -217,7 +222,6 @@ class infohub_transfer extends infohub_base {
         }
 
         if ($in['step'] === 'step_respond') {
-
             $nodeName = $in['data_back']['package']['to_node'];
             unset($in['data_back']['package']['to_node']);
 
@@ -236,7 +240,7 @@ class infohub_transfer extends infohub_base {
             }
 
             if ($nodeName === 'client') {
-                $chunks = str_split($packageJson, 64*1024);
+                $chunks = str_split($packageJson, 64 * 1024);
                 if (count($chunks) > 1) {
                     $debug = 1;
                 }
@@ -246,37 +250,38 @@ class infohub_transfer extends infohub_base {
             }
 
             $out['answer'] = 'true';
-            $out['message'] = 'Sent message to node:' . $nodeName . ', with ' . strlen($packageJson) . ' bytes of data.';
+            $out['message'] = 'Sent message to node:' . $nodeName . ', with ' . strlen(
+                    $packageJson
+                ) . ' bytes of data.';
         }
 
-        return array(
+        return [
             'answer' => $out['answer'],
             'message' => $out['message'],
             'wait_milliseconds' => $out['wait_milliseconds'],
             'message_count' => $out['message_count'],
             'messages' => $out['messages']
-        );
+        ];
     }
 
     /**
      * Remove unneeded data from the message to make it smaller before sending
-     * @version 2018-03-30
-     * @since 2018-03-30
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2018-03-30
+     * @since 2018-03-30
      */
     protected function _CleanMessage(array $in = []): array
     {
-        $default = array(
+        $default = [
             'to' => [],
             'callstack' => [],
             'data' => [],
-        );
+        ];
         $oneMessage = $this->_Default($default, $in);
 
-        if (isset($oneMessage['data']['data_back']))
-        {
+        if (isset($oneMessage['data']['data_back'])) {
             if (isset($oneMessage['data']['data_back']['data_back'])) {
                 unset($oneMessage['data']['data_back']['data_back']);
             }
@@ -288,8 +293,7 @@ class infohub_transfer extends infohub_base {
             }
         }
 
-        if (isset($oneMessage['data']['response']))
-        {
+        if (isset($oneMessage['data']['response'])) {
             if (isset($oneMessage['data']['response']['data_back'])) {
                 unset($oneMessage['data']['response']['data_back']);
             }
@@ -323,26 +327,26 @@ class infohub_transfer extends infohub_base {
      * Download file with cUrl
      * https://www.jonasjohn.de/snippets/php/curl-example.htm
      * Deprecated: http://www.smooka.com/blog/2009/07/24/maintaining-php-session-when-using-curl/
-     * @since 2013-05-30
-     * @version 2016-02-12
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @since 2013-05-30
+     * @version 2016-02-12
      */
     protected function internal_Download(array $in = []): array
     {
-        $default = array(
+        $default = [
             'url' => '',
             'session_id' => '',
             'post_data' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if (!function_exists('curl_init')) {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'cURL is not installed on the server, can not continue'
-            );
+            ];
         }
 
         $cookies = [];
@@ -363,10 +367,14 @@ class infohub_transfer extends infohub_base {
         $refererUrl = '';
         $scriptFileName = $this->_getScriptFileName();
         if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['REQUEST_URI'])) {
-            $refererUrl = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace($scriptFileName, '', $_SERVER['SCRIPT_NAME']);
+            $refererUrl = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace(
+                    $scriptFileName,
+                    '',
+                    $_SERVER['SCRIPT_NAME']
+                );
         }
 
-        $curlOptArray = array(
+        $curlOptArray = [
             CURLOPT_URL => $in['url'],
             CURLOPT_COOKIE => $cookieString,
             CURLOPT_REFERER => $refererUrl,
@@ -377,7 +385,7 @@ class infohub_transfer extends infohub_base {
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => 'package=' . $in['post_data'],
             CURLOPT_STDERR => $fileHandle,
-        );
+        ];
 
         $curlHandle = curl_init();
         curl_setopt_array($curlHandle, $curlOptArray);
@@ -399,13 +407,13 @@ class infohub_transfer extends infohub_base {
             $message = 'Got an error back:' . $curlError . PHP_EOL;
         }
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $incomingData,
             'http_code' => $httpCode,
             'url' => $in['url']
-        );
+        ];
     }
 
     /**

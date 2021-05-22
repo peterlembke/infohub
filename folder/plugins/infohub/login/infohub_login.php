@@ -30,14 +30,14 @@ class infohub_login extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2020-01-12
+     * @return  string[]
      * @since   2019-09-21
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2020-01-12
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2020-01-12',
             'since' => '2019-09-21',
             'version' => '1.0.0',
@@ -47,25 +47,25 @@ class infohub_login extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2020-01-12
+     * @return mixed
      * @since   2019-09-21
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-01-12
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'login_request' => 'normal', // Incoming login_request
             'login_challenge' => 'normal', // Incoming login_challenge
             'login' => 'normal', // Login to another node,
             'read_login_file' => 'normal',
             'get_doc_file' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -76,43 +76,43 @@ class infohub_login extends infohub_base
 
     /**
      * Get a login_request from another node, send back a login_request_response
-     * @version 2019-09-21
-     * @since   2019-09-21
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-09-21
+     * @since   2019-09-21
      */
     protected function login_request(array $in = []): array
     {
-        $default = array(
+        $default = [
             'initiator_user_name' => '', // Your Hub-UUID username
             'initiator_random_code' => '', // BASE64 string with 256 bytes of random binary data
             'initiator_seconds_since_epoc' => 0.0,
             'step' => 'step_verify_initiator_seconds_since_epoc',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => '',
-                'node_data' => array(
+                'node_data' => [
                     'node' => '',
                     'note' => '',
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
                     'role_list' => []
-                ),
+                ],
                 'post_exist' => 'false'
-            ),
-            'data_back' => array(
+            ],
+            'data_back' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'login_request_valid' => 'false',
                 'responder_random_code' => '',
                 'responder_seconds_since_epoc' => 0.0
-            ),
-            'from_plugin' => array(
+            ],
+            'from_plugin' => [
                 'node' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] === 'server') {
@@ -122,11 +122,13 @@ class infohub_login extends infohub_base
 
         if ($in['step'] === 'step_verify_initiator_seconds_since_epoc') {
             // Check that the time mentioned is max 2.0 seconds old
-            $response = $this->internal_Cmd(array(
-                'func' => 'VerifySecondsSinceEpoc',
-                'seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
-                'max_seconds_old' => 2.0
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'VerifySecondsSinceEpoc',
+                    'seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
+                    'max_seconds_old' => 2.0
+                ]
+            );
 
             $in['step'] = 'step_verify_random_code';
 
@@ -138,11 +140,13 @@ class infohub_login extends infohub_base
 
         if ($in['step'] === 'step_verify_random_code') {
             // Check that the random code is plausible
-            $response = $this->internal_Cmd(array(
-                'func' => 'VerifyRandomCode',
-                'random_code' => $in['initiator_random_code'],
-                'length' => 256
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'VerifyRandomCode',
+                    'random_code' => $in['initiator_random_code'],
+                    'length' => 256
+                ]
+            );
 
             $in['step'] = 'step_verify_initiator_user_name';
 
@@ -154,10 +158,12 @@ class infohub_login extends infohub_base
 
         if ($in['step'] === 'step_verify_initiator_user_name') {
             // Check that the user name is plausible
-            $response = $this->internal_Cmd(array(
-                'func' => 'VerifyHubId',
-                'hub_id' => $in['initiator_user_name']
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'VerifyHubId',
+                    'hub_id' => $in['initiator_user_name']
+                ]
+            );
 
             $in['step'] = 'step_find_initiator_user_name';
 
@@ -168,27 +174,30 @@ class infohub_login extends infohub_base
         }
 
         if ($in['step'] === 'step_find_initiator_user_name') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_contact',
-                    'function'=> 'load_node_data'
-                ),
-                'data'=> array(
-                    'user_name'=> $in['initiator_user_name'],
-                    'type'=> 'client'
-                ),
-                'data_back'=> array(
-                    'initiator_user_name' => $in['initiator_user_name'], // Your Hub-UUID username
-                    'initiator_random_code' => $in['initiator_random_code'], // BASE64 string with 256 bytes of random binary data
-                    'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
-                    'step'=> 'step_find_initiator_user_name_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_contact',
+                        'function' => 'load_node_data'
+                    ],
+                    'data' => [
+                        'user_name' => $in['initiator_user_name'],
+                        'type' => 'client'
+                    ],
+                    'data_back' => [
+                        'initiator_user_name' => $in['initiator_user_name'],
+                        // Your Hub-UUID username
+                        'initiator_random_code' => $in['initiator_random_code'],
+                        // BASE64 string with 256 bytes of random binary data
+                        'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
+                        'step' => 'step_find_initiator_user_name_response'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_find_initiator_user_name_response') {
-
             $in['step'] = 'step_save_login_request_data';
 
             $answer = $in['response']['answer'];
@@ -203,44 +212,52 @@ class infohub_login extends infohub_base
                 $in['data_back']['message'] = $in['response']['message'];
                 $in['step'] = 'step_end';
             }
-
         }
 
         if ($in['step'] === 'step_save_login_request_data') {
-            $response = $this->internal_Cmd(array(
-                'func' => 'CreateRandomCode',
-                'length' => 256
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'CreateRandomCode',
+                    'length' => 256
+                ]
+            );
 
-            $data = array(
-                'initiator_user_name' => $in['initiator_user_name'], // Your Hub-UUID username
-                'initiator_random_code' => $in['initiator_random_code'], // BASE64 string with 256 bytes of random binary data
+            $data = [
+                'initiator_user_name' => $in['initiator_user_name'],
+                // Your Hub-UUID username
+                'initiator_random_code' => $in['initiator_random_code'],
+                // BASE64 string with 256 bytes of random binary data
                 'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
                 'login_request_valid' => 'true',
                 'responder_random_code' => $response['random_code'],
-                'responder_seconds_since_epoc' => round($this->_MicroTime(), 3) // PHP has 5 decimals. Javascript handle 3 decimals
+                'responder_seconds_since_epoc' => round($this->_MicroTime(), 3)
+                // PHP has 5 decimals. Javascript handle 3 decimals
+            ];
+
+            $dataBack = array_merge(
+                $data,
+                [
+                    'step' => 'step_save_login_request_data_response'
+                ]
             );
 
-            $dataBack = array_merge($data, array(
-                'step'=> 'step_save_login_request_data_response'
-            ));
-
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_storage',
-                    'function'=> 'write'
-                ),
-                'data'=> array(
-                    'path'=> 'infohub_login/login_request/' . $in['initiator_user_name'],
-                    'data'=> $data
-                ),
-                'data_back'=> $dataBack
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storage',
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'path' => 'infohub_login/login_request/' . $in['initiator_user_name'],
+                        'data' => $data
+                    ],
+                    'data_back' => $dataBack
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_save_login_request_data_response')
-        {
+        if ($in['step'] === 'step_save_login_request_data_response') {
             $in['step'] = 'step_end';
 
             $in['data_back']['answer'] = $in['response']['answer'];
@@ -251,68 +268,73 @@ class infohub_login extends infohub_base
             }
         }
 
-        return array(
+        return [
             'answer' => $in['data_back']['answer'],
             'message' => $in['data_back']['message'],
-            'data' => array(
+            'data' => [
                 'login_request_valid' => $in['data_back']['login_request_valid'],
                 'responder_random_code' => $in['data_back']['responder_random_code'],
                 'responder_seconds_since_epoc' => $in['data_back']['responder_seconds_since_epoc']
-            )
-        );
+            ]
+        ];
     }
 
     /**
      * Get a login_challenge from another node, send back a login_challenge_response
      * The other node must give a correct initiator_calculated_id_code
-     * @version 2020-01-07
-     * @since   2019-09-21
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-01-07
+     * @since   2019-09-21
      */
     protected function login_challenge(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_find_login_request',
             'initiator_user_name' => '', // Your Hub-UUID username
             'initiator_random_code' => '', // Same as in the login_request
             'initiator_seconds_since_epoc' => 0.0, // Same as in the login_request
             'initiator_calculated_id_code' => '', // The code you have calculated. (New)
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
                 'data' => [],
                 'post_exist' => 'false',
-                'node_data' => array(
+                'node_data' => [
                     'node' => '',
                     'note' => '',
                     'domain_address' => '',
                     'user_name' => '',
                     'shared_secret' => '',
                     'role_list' => []
-                ),
+                ],
                 'session_id' => '', // session_{hub_id}
                 'session_created_at' => '', // micro time with 3 decimals
                 'logged_in' => 'false'
-            ),
-            'data_back' => array(
+            ],
+            'data_back' => [
                 'step' => 'step_find_login_request',
                 'contact' => [],
-                'initiator_user_name' => '', // Your Hub-UUID username
-                'initiator_random_code' => '', // Same as in the login_request
-                'initiator_seconds_since_epoc' => 0.0, // Same as in the login_request
-                'initiator_calculated_id_code' => '', // The calculated code
+                'initiator_user_name' => '',
+                // Your Hub-UUID username
+                'initiator_random_code' => '',
+                // Same as in the login_request
+                'initiator_seconds_since_epoc' => 0.0,
+                // Same as in the login_request
+                'initiator_calculated_id_code' => '',
+                // The calculated code
                 'login_request_valid' => 'true',
                 'responder_random_code' => '',
                 'responder_seconds_since_epoc' => 0.0,
-                'responder_calculated_id_code' => '', // The code we will answer with if initiator_calculated_id_code is ok
-            ),
-            'from_plugin' => array(
+                'responder_calculated_id_code' => '',
+                // The code we will answer with if initiator_calculated_id_code is ok
+            ],
+            'from_plugin' => [
                 'node' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $leftOvers = '';
@@ -324,28 +346,33 @@ class infohub_login extends infohub_base
         }
 
         if ($in['step'] === 'step_find_login_request') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_storage',
-                    'function'=> 'read'
-                ),
-                'data'=> array(
-                    'path'=> 'infohub_login/login_request/' . $in['initiator_user_name']
-                ),
-                'data_back'=> array(
-                    'step' => 'step_find_login_request_response',
-                    'initiator_user_name' => $in['initiator_user_name'], // Your Hub-UUID username
-                    'initiator_random_code' => $in['initiator_random_code'], // Same as in the login_request
-                    'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'], // Same as in the login_request
-                    'initiator_calculated_id_code' => $in['initiator_calculated_id_code'], // The code you have calculated. (New)
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storage',
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'path' => 'infohub_login/login_request/' . $in['initiator_user_name']
+                    ],
+                    'data_back' => [
+                        'step' => 'step_find_login_request_response',
+                        'initiator_user_name' => $in['initiator_user_name'],
+                        // Your Hub-UUID username
+                        'initiator_random_code' => $in['initiator_random_code'],
+                        // Same as in the login_request
+                        'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
+                        // Same as in the login_request
+                        'initiator_calculated_id_code' => $in['initiator_calculated_id_code'],
+                        // The code you have calculated. (New)
+                    ]
+                ]
+            );
         }
 
         // Verify that it is the same initiator_random_code and initiator_seconds_since_epoc
-        if ($in['step'] === 'step_find_login_request_response')
-        {
+        if ($in['step'] === 'step_find_login_request_response') {
             $in['step'] = 'step_end';
 
             if ($in['response']['answer'] === 'true' && $in['response']['post_exist'] === 'true') {
@@ -360,30 +387,33 @@ class infohub_login extends infohub_base
         }
 
         if ($in['step'] === 'step_find_initiator_user_name') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_contact',
-                    'function'=> 'load_node_data'
-                ),
-                'data'=> array(
-                    'user_name'=> $in['initiator_user_name'],
-                    'type'=> 'client'
-                ),
-                'data_back'=> array(
-                    'step'=> 'step_find_initiator_user_name_response',
-                    'initiator_user_name' => $in['initiator_user_name'], // Your Hub-UUID username
-                    'initiator_random_code' => $in['initiator_random_code'], // BASE64 string with 256 bytes of random binary data
-                    'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
-                    'initiator_calculated_id_code' => $in['initiator_calculated_id_code'],
-                    'responder_random_code' => $in['data_back']['responder_random_code'],
-                    'responder_seconds_since_epoc' => $in['data_back']['responder_seconds_since_epoc']
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_contact',
+                        'function' => 'load_node_data'
+                    ],
+                    'data' => [
+                        'user_name' => $in['initiator_user_name'],
+                        'type' => 'client'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_find_initiator_user_name_response',
+                        'initiator_user_name' => $in['initiator_user_name'],
+                        // Your Hub-UUID username
+                        'initiator_random_code' => $in['initiator_random_code'],
+                        // BASE64 string with 256 bytes of random binary data
+                        'initiator_seconds_since_epoc' => $in['initiator_seconds_since_epoc'],
+                        'initiator_calculated_id_code' => $in['initiator_calculated_id_code'],
+                        'responder_random_code' => $in['data_back']['responder_random_code'],
+                        'responder_seconds_since_epoc' => $in['data_back']['responder_seconds_since_epoc']
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_find_initiator_user_name_response')
-        {
+        if ($in['step'] === 'step_find_initiator_user_name_response') {
             $exist = $in['response']['post_exist'];
 
             if ($exist === 'false') {
@@ -397,9 +427,11 @@ class infohub_login extends infohub_base
 
         // Verify that initiator_calculated_id_code is correct.
         if ($in['step'] === 'step_verify_initiator_calculated_id_code') {
-
             // Merge the both random codes into one random_code
-            $randomCode = $this->_MergeBase64Strings($in['data_back']['initiator_random_code'], $in['data_back']['responder_random_code']);
+            $randomCode = $this->_MergeBase64Strings(
+                $in['data_back']['initiator_random_code'],
+                $in['data_back']['responder_random_code']
+            );
 
             // Subtract the shared_secret from the random_code and get the diff.
             $diff = $this->_DeductBase64Strings($randomCode, $in['data_back']['contact']['shared_secret']);
@@ -420,49 +452,52 @@ class infohub_login extends infohub_base
             $in['response']['message'] = 'The initiator_calculated_id_code is invalid.';
 
             if ($in['data_back']['initiator_calculated_id_code'] === $md5Checksum) {
-
                 // Rotate the diff 64 steps
                 $steps = 64;
                 $rotatedDiff = $this->_RotateBase64String($diff, $steps);
 
                 // Merge rotated diff and shared_secret
-                $leftOversValue = $this->_MergeBase64Strings($rotatedDiff, $in['data_back']['contact']['shared_secret']);
+                $leftOversValue = $this->_MergeBase64Strings(
+                    $rotatedDiff,
+                    $in['data_back']['contact']['shared_secret']
+                );
                 $leftOvers = md5($leftOversValue);
 
                 $in['step'] = 'step_register_session';
             }
-
         }
 
         // Register a session with infohub_session
         if ($in['step'] === 'step_register_session') {
+            $roleList = $this->_GetData(
+                [
+                    'name' => 'data_back/contact/role_list',
+                    'default' => [],
+                    'data' => $in
+                ]
+            );
 
-            $roleList = $this->_GetData(array(
-                'name' => 'data_back/contact/role_list',
-                'default' => [],
-                'data' => $in
-            ));
-
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_session',
-                    'function'=> 'responder_start_session'
-                ),
-                'data'=> array(
-                    'initiator_user_name' => $in['data_back']['initiator_user_name'], // user_{hub_id}
-                    'left_overs' => $leftOvers, // Left overs from the login. Never exposed outside this node
-                    'role_list' => $roleList
-                ),
-                'data_back'=> array(
-                    'step'=> 'step_register_session_response',
-                    'initiator_user_name' => $in['data_back']['initiator_user_name'] // user_{hub_id}
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_session',
+                        'function' => 'responder_start_session'
+                    ],
+                    'data' => [
+                        'initiator_user_name' => $in['data_back']['initiator_user_name'], // user_{hub_id}
+                        'left_overs' => $leftOvers, // Left overs from the login. Never exposed outside this node
+                        'role_list' => $roleList
+                    ],
+                    'data_back' => [
+                        'step' => 'step_register_session_response',
+                        'initiator_user_name' => $in['data_back']['initiator_user_name'] // user_{hub_id}
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_register_session_response')
-        {
+        if ($in['step'] === 'step_register_session_response') {
             $in['step'] = 'step_end';
 
             if ($in['response']['logged_in'] === 'true') {
@@ -472,23 +507,25 @@ class infohub_login extends infohub_base
 
         if ($in['step'] === 'step_end') // Remove the login_request
         {
-            $messages[] = $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_storage',
-                    'function'=> 'write'
-                ),
-                'data'=> array(
-                    'path'=> 'infohub_login/login_request/' . $in['initiator_user_name'],
-                    'data'=> []
-                ),
-                'data_back'=> array(
-                    'step' => 'step_end_response'
-                )
-            ));
+            $messages[] = $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storage',
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'path' => 'infohub_login/login_request/' . $in['initiator_user_name'],
+                        'data' => []
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end_response'
+                    ]
+                ]
+            );
         }
 
-        $out = array(
+        $out = [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
             'messages' => $messages,
@@ -496,29 +533,29 @@ class infohub_login extends infohub_base
             'session_id' => $in['response']['session_id'], // session_{hub_id}
             'session_created_at' => $in['response']['session_created_at'], // micro time with 3 decimals
             'logged_in' => $in['response']['logged_in']
-        );
+        ];
 
         return $out;
     }
 
     /**
      * Let this node login to another node
-     * @todo See how the client does this in infohub_login_login.js
-     * @version 2019-09-21
-     * @since   2019-09-21
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @since   2019-09-21
+     * @author  Peter Lembke
+     * @todo See how the client does this in infohub_login_login.js
+     * @version 2019-09-21
      */
     protected function login(array $in = []): array
     {
-        $default = array(
+        $default = [
             'node' => '',
             'step' => 'step_get_contact_data',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'server') {
@@ -526,59 +563,54 @@ class infohub_login extends infohub_base
             $in['step'] = 'step_end';
         }
 
-        if ($in['step'] === 'step_get_contact_data')
-        {
+        if ($in['step'] === 'step_get_contact_data') {
         }
 
-        if ($in['step'] === 'step_login_request')
-        {
+        if ($in['step'] === 'step_login_request') {
         }
 
-        if ($in['step'] === 'step_login_request_response')
-        {
+        if ($in['step'] === 'step_login_request_response') {
         }
 
-        if ($in['step'] === 'step_login_challenge')
-        {
+        if ($in['step'] === 'step_login_challenge') {
         }
 
-        if ($in['step'] === 'step_login_challenge_response')
-        {
+        if ($in['step'] === 'step_login_challenge_response') {
         }
 
         $answer = 'false';
         $message = 'Failed';
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Your initiator_calculated_id_code is valid. Here is the session_id we will use in all communication and the first package_password',
             'session_id' => '',
             'package_password' => ''
-        );
+        ];
     }
 
     /**
      * Read a user login file from file/infohub_login/
-     * @version 2020-07-07
-     * @since   2020-07-07
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-07-07
+     * @since   2020-07-07
      */
     protected function read_login_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'step' => 'step_get_login_file_name',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
-            'config' => array(
+            ],
+            'config' => [
                 'download_account' => [],
                 'user_name' => ''
-            ),
+            ],
             'response' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'client') {
@@ -596,86 +628,88 @@ class infohub_login extends infohub_base
             $in['step'] = 'step_end';
         }
 
-        $out = array(
+        $out = [
             'answer' => '',
             'message' => '',
             'contents' => '',
             'file_name' => ''
-        );
+        ];
 
-        if ($in['step'] === 'step_get_login_file_name')
-        {
+        if ($in['step'] === 'step_get_login_file_name') {
             $url = $_SERVER['HTTP_HOST'];
-            $fileName = $this->_GetData(array(
-                'name' => 'config/download_account/' . $url,
-                'default' => '',
-                'data' => $in,
-            ));
+            $fileName = $this->_GetData(
+                [
+                    'name' => 'config/download_account/' . $url,
+                    'default' => '',
+                    'data' => $in,
+                ]
+            );
 
             if ($this->_Empty($fileName) === 'false') {
                 $in['step'] = 'step_read_login_file';
             }
         }
 
-        if ($in['step'] === 'step_read_login_file')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node'=> 'server',
-                    'plugin'=> 'infohub_file',
-                    'function'=> 'read'
-                ),
-                'data'=> array(
-                    'path' => $fileName
-                ),
-                'data_back'=> array(
-                    'step'=> 'step_read_login_file_response'
-                )
-            ));
+        if ($in['step'] === 'step_read_login_file') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'path' => $fileName
+                    ],
+                    'data_back' => [
+                        'step' => 'step_read_login_file_response'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_read_login_file_response') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => '',
                 'contents' => '',
-                'path_info' => array(
+                'path_info' => [
                     'basename' => ''
-                )
-            );
+                ]
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
-            $out = array(
+            $out = [
                 'answer' => $in['response']['answer'],
                 'message' => $in['response']['message'],
                 'contents' => $in['response']['contents'],
                 'file_name' => $in['response']['path_info']['basename']
-            );
+            ];
         }
 
-        return array(
+        return [
             'answer' => $out['answer'],
             'message' => $out['message'],
             'contents' => $out['contents'],
             'file_name' => $out['file_name']
-        );
+        ];
     }
 
     /**
      * Create a 256 byte random code and encode it with base64
      * Used in login_request for responder_random_code
      * Used in login for initiator_random_code
-     * @version 2019-09-22
-     * @since   2019-09-22
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-09-22
+     * @since   2019-09-22
      */
     protected function internal_CreateRandomCode(array $in = []): array
     {
-        $default = array(
+        $default = [
             'length' => 256
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $valid = 'false';
@@ -683,21 +717,22 @@ class infohub_login extends infohub_base
 
         $triesLeft = 4;
 
-        while ($valid === 'false' && $triesLeft > 0)
-        {
+        while ($valid === 'false' && $triesLeft > 0) {
             $randomCodeString = '';
             for ($i = 0; $i < $in['length']; $i++) {
-                $randomNumber = $this->_Random(0,255);
+                $randomNumber = $this->_Random(0, 255);
                 $randomCodeString = $randomCodeString . chr($randomNumber);
             }
 
             $randomCodeBase64Encoded = base64_encode($randomCodeString);
 
-            $response = $this->internal_Cmd(array(
-                'func' => 'VerifyRandomCode',
-                'length' => 256,
-                'random_code' => $randomCodeBase64Encoded
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'VerifyRandomCode',
+                    'length' => 256,
+                    'random_code' => $randomCodeBase64Encoded
+                ]
+            );
 
             if ($response['valid'] === 'true') {
                 $valid = 'true';
@@ -706,12 +741,12 @@ class infohub_login extends infohub_base
             $triesLeft--;
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the random_code',
             'random_code' => $randomCodeBase64Encoded,
             'valid' => $valid
-        );
+        ];
     }
 
     /**
@@ -727,7 +762,7 @@ class infohub_login extends infohub_base
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
             } else {
-                $randomNumber = mt_rand($min,$max); // PHP 5 and later
+                $randomNumber = mt_rand($min, $max); // PHP 5 and later
             }
         } catch (Exception $e) {
             $randomNumber = 0; // Not ideal
@@ -741,18 +776,18 @@ class infohub_login extends infohub_base
      * Used in login_request for initiator_random_code
      * Used in login for responder_random_code
      * For advanced tests: https://www.random.org/analysis/
-     * @version 2019-09-22
-     * @since   2019-09-22
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-09-22
+     * @since   2019-09-22
      */
     protected function internal_VerifyRandomCode(array $in = []): array
     {
-        $default = array(
+        $default = [
             'random_code' => '',
             'length' => 256
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $valid = 'false';
@@ -766,12 +801,10 @@ class infohub_login extends infohub_base
         }
 
         $average = [];
-        $spread = array(2,3,5,7,11,13);
+        $spread = [2, 3, 5, 7, 11, 13];
 
-        for ($i=0; $i < $length;$i++)
-        {
-            foreach ($spread as $position => $number)
-            {
+        for ($i = 0; $i < $length; $i++) {
+            foreach ($spread as $position => $number) {
                 if (isset($average[$position]) === false) {
                     $average[$position] = ord($binary[$i]);
                     continue;
@@ -789,13 +822,11 @@ class infohub_login extends infohub_base
             goto leave;
         }
 
-        foreach ($spread as $position => $number)
-        {
+        foreach ($spread as $position => $number) {
             if ($average[$position] === $totalAverage) {
                 $message = 'Unlikely that the average is equal to the total average';
                 goto leave;
             }
-
             /*
             if ($average[$position] === round($average[$position])) {
                 $message = 'Unlikely that the average has no decimals';
@@ -808,50 +839,50 @@ class infohub_login extends infohub_base
         $message = 'These simple tests show that the random_code at least is not a flatline of numbers.';
 
         leave:
-        return array(
+        return [
             'answer' => 'true', // No exceptions occurred
             'message' => $message,
             'valid' => $valid
-        );
+        ];
     }
 
     /**
      * Get the current seconds since epoc
      * Used in login_request for responder_seconds_since_epoc
      * Used in login for initiator_seconds_since_epoc
-     * @version 2019-09-22
-     * @since   2019-09-22
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-09-22
+     * @since   2019-09-22
      */
     protected function internal_GetSecondsSinceEpoc(array $in = []): array
     {
         $secondsSinceEpoc = $this->_MicroTime(); // example 34567.456
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the current seconds since EPOC with fraction of seconds',
             'seconds_since_epoc' => $secondsSinceEpoc
-        );
+        ];
     }
 
     /**
      * Verify seconds since epoc that it is maximum x seconds old
      * Used in login_request for initiator_seconds_since_epoc
      * Used in login for responder_seconds_since_epoc
-     * @version 2019-09-22
-     * @since   2019-09-22
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-09-22
+     * @since   2019-09-22
      */
     protected function internal_VerifySecondsSinceEpoc(array $in = []): array
     {
-        $default = array(
+        $default = [
             'seconds_since_epoc' => 0.0,
             'max_seconds_old' => 2.0
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $message = 'The seconds_since_epoc is too old';
@@ -871,27 +902,27 @@ class infohub_login extends infohub_base
         }
 
         leave:
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
             'valid' => $valid,
             'diff' => $diff
-        );
+        ];
     }
 
     /**
      * Verify the hub_id that it is plausible
-     * @version 2019-12-07
-     * @since   2019-12-07
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-12-07
+     * @since   2019-12-07
      */
     protected function internal_VerifyHubId(array $in = []): array
     {
-        $default = array(
+        $default = [
             'hub_id' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $message = 'The hub_id you provided can not be a real hub_id';
@@ -920,7 +951,7 @@ class infohub_login extends infohub_base
             goto leave;
         }
 
-        $timeFloat = (float) $time;
+        $timeFloat = (float)$time;
         if ($timeFloat < 1514764800.0) {
             $message = 'No hub_id were issued before 2018-01-01';
             goto leave;
@@ -940,21 +971,21 @@ class infohub_login extends infohub_base
         $valid = 'true';
 
         leave:
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
             'valid' => $valid
-        );
+        ];
     }
 
     /**
      * Merge byte arrays
-     * @version 2020-01-08
-     * @since   2020-01-04
-     * @author  Peter Lembke
      * @param $string1
      * @param $string2
      * @return string
+     * @version 2020-01-08
+     * @since   2020-01-04
+     * @author  Peter Lembke
      */
     protected function _MergeBase64Strings($string1, $string2)
     {
@@ -963,7 +994,6 @@ class infohub_login extends infohub_base
         $result = '';
 
         for ($position = 0; $position < strlen($data1); $position++) {
-
             $value1 = ord(substr($data1, $position));
             $value2 = ord(substr($data2, $position));
             $value = ($value1 + $value2) % 256;
@@ -978,12 +1008,12 @@ class infohub_login extends infohub_base
 
     /**
      * Deduct one byte array from the other
-     * @version 2020-01-08
-     * @since   2020-01-04
-     * @author  Peter Lembke
      * @param $string1
      * @param $string2
      * @return string
+     * @version 2020-01-08
+     * @since   2020-01-04
+     * @author  Peter Lembke
      */
     protected function _DeductBase64Strings($string1, $string2)
     {
@@ -992,7 +1022,6 @@ class infohub_login extends infohub_base
         $result = '';
 
         for ($position = 0; $position < strlen($data1); $position++) {
-
             $value1 = ord(substr($data1, $position));
             $value2 = ord(substr($data2, $position));
             $value = $value1 - $value2;
@@ -1010,17 +1039,17 @@ class infohub_login extends infohub_base
 
     /**
      * Rotate a base64 encoded string with byte array
-     * @version 2020-01-08
-     * @since   2020-01-04
-     * @author  Peter Lembke
      * @param $string1
      * @param $steps
      * @return string
+     * @version 2020-01-08
+     * @since   2020-01-04
+     * @author  Peter Lembke
      */
     protected function _RotateBase64String($string1, $steps)
     {
         $data1 = base64_decode($string1);
-        $result = substr($data1, $steps +1 ) . substr($data1,0,$steps);
+        $result = substr($data1, $steps + 1) . substr($data1, 0, $steps);
 
         $base64Result = base64_encode($result);
 
@@ -1029,35 +1058,35 @@ class infohub_login extends infohub_base
 
     /**
      * Get a doc file
-     * @version 2019-03-14
-     * @since   2019-03-14
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-03-14
+     * @since   2019-03-14
      */
     protected function get_doc_file(array $in = []): array
     {
-        $default = array(
+        $default = [
             'language' => 'en',
             'folder' => 'plugin', // plugin or file
             'path' => 'start_page_text',
             'step' => 'step_read_doc_file',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report from get_doc_file',
                 'contents' => '',
                 'checksum' => ''
-            ),
+            ],
             'data_back' => [],
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => ''
-            ),
-            'config' => array(
-                'information' => array(
+            ],
+            'config' => [
+                'information' => [
                     'available_languages' => []
-                )
-            )
-        );
+                ]
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['node'] !== 'client') {
@@ -1073,27 +1102,29 @@ class infohub_login extends infohub_base
         $path = $in['path'] . '/' . $language . '.md';
 
         if ($in['step'] === 'step_read_doc_file') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'path' => $path,
-                    'folder' => $in['folder']
-                ),
-                'data_back' => array(
-                    'step' => 'step_end'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'path' => $path,
+                        'folder' => $in['folder']
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end'
+                    ]
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
             'contents' => $in['response']['contents'],
             'checksum' => $in['response']['checksum']
-        );
+        ];
     }
 }

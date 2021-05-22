@@ -47,8 +47,12 @@ class kick_out_tests_for_index
             $this->GetOut('REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . ' must be GET');
         }
 
-        if($_SERVER['QUERY_STRING'] !== '') {
-            $this->GetOut('QUERY_STRING must be empty: ' . $_SERVER['QUERY_STRING']);
+        if ($_SERVER['QUERY_STRING'] !== '') {
+            $pluginNameExist = strpos($_SERVER['QUERY_STRING'],'plugin_name=') === 0;
+            $pluginNameIsAlone = strpos($_SERVER['QUERY_STRING'],'&') === false;
+            if ($pluginNameExist === false || $pluginNameIsAlone === false) {
+                $this->GetOut('QUERY_STRING must contain plugin_name=infohub_asset or be empty: ' . $_SERVER['QUERY_STRING']);
+            }
         }
 
         if (count($_POST) !== 0) {
@@ -68,9 +72,9 @@ class kick_out_tests_for_index
      */
     protected function validCookies(): void
     {
-        $validCookies = array();
+        $validCookies = [];
         if (($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) and $_SERVER['SERVER_ADDR'] === '127.0.0.1') {
-            $validCookies = array('XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => '');
+            $validCookies = ['XDEBUG_PROFILE' => '', 'XDEBUG_SESSION' => ''];
         }
 
         $removeCookies = array_diff_key($_COOKIE, $validCookies);
@@ -106,9 +110,12 @@ class kick_out_tests_for_index
         $url = '';
         if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['REQUEST_URI'])) {
             $fileName = $this->getFileName();
-            $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace($fileName, '', $_SERVER['REQUEST_URI']);
+            $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace(
+                    $fileName,
+                    '',
+                    $_SERVER['REQUEST_URI']
+                );
         }
-
         /* This test have no practical meaning. I will probably delete it
         if (isset($_SERVER['HTTP_REFERER']) === true and $_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
@@ -128,10 +135,24 @@ class kick_out_tests_for_index
     protected function removeUnknownFilesAndFolders(): void
     {
         $foundFiles = scandir('.');
-        $acceptedFiles = array('.', '..', 'index.php', 'infohub.php',
-            'phpinfo.php', 'opcache.php', 'data-sample.php', 'define_folders.php', '.htaccess',
-            'fullstop.flag', 'manifest.json', 'infohub.png', 'infohub-512.png', 'serviceworker.js'
-        );
+        $acceptedFiles = [
+            '.',
+            '..',
+            'index.php',
+            'infohub.php',
+            'phpinfo.php',
+            'privacy.php',
+            'define_folders.php',
+            '.htaccess',
+            'fullstop.flag',
+            'manifest.json',
+            'manifest.php',
+            'infohub.png',
+            'infohub.svg',
+            'infohub-512.png',
+            'robots.txt',
+            'serviceworker.js'
+        ];
         $removeFiles = array_diff($foundFiles, $acceptedFiles);
         if (count($removeFiles) > 0) {
             foreach ($removeFiles as $file) {
@@ -166,9 +187,9 @@ class kick_out_tests_for_index
      */
     protected function GetOut(string $message = ''): void
     {
-        $messageOut = '<html><head></head><body><div class="form" id="info">'.
-            '<h1>Information</h1>'.
-            '<div id="alert" class="label">' . $message . '</div><br />'.
+        $messageOut = '<html><head></head><body><div class="form" id="info">' .
+            '<h1>Information</h1>' .
+            '<div id="alert" class="label">' . $message . '</div><br />' .
             '</div></body></html>';
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         echo $messageOut;

@@ -17,7 +17,7 @@
  */
 function infohub_tools_compress() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tools_compress() {
             'class_name': 'infohub_tools_compress',
             'note': 'Render a form for testing compression of data',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -39,7 +39,7 @@ function infohub_tools_compress() {
             'create': 'normal',
             'click_handle_node_select': 'normal',
             'click_button_compress': 'normal',
-            'click_button_uncompress': 'normal'
+            'click_button_uncompress': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,8 +59,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -68,73 +67,72 @@ function infohub_tools_compress() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_checksum'
-            }
+                'message': 'Nothing to report from tools_checksum',
+            },
         };
         $in = _Default($default, $in);
 
         const $size = '1';
         let $text = [];
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
-            $text[0] = _Translate('You can write your text in the text box under "Compress the data".');
-            $text[1] = _Translate('You can select what node and method you want to use to compress the data.');
-            $text[2] = _Translate('Click the button "Compress". Click on "Uncompress" to see the result.');
-            $text[3] = _Translate('Remove the text you wrote. Now click the button "Uncompress".');
+            $text[0] = _Translate('YOU_CAN_WRITE_YOUR_TEXT_IN_THE_TEXT_BOX_UNDER_"COMPRESS_THE_DATA".');
+            $text[1] = _Translate('YOU_CAN_SELECT_WHAT_NODE_AND_METHOD_YOU_WANT_TO_USE_TO_COMPRESS_THE_DATA.');
+            $text[2] = _Translate('CLICK_THE_BUTTON_"COMPRESS"._CLICK_ON_"UNCOMPRESS"_TO_SEE_THE_RESULT.');
+            $text[3] = _Translate('REMOVE_THE_TEXT_YOU_WROTE._NOW_CLICK_THE_BUTTON_"UNCOMPRESS".');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Compress')
+                            'data': _Translate('COMPRESS')
                         },
                         'box_instructions': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Click for instructions...'),
+                            'head_label': _Translate('CLICK_FOR_INSTRUCTIONS...'),
                             'content_data': '[i][ingress][/i]',
-                            'open': 'false'
+                            'open': 'false',
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': $text.join('<br>')
+                            'data': $text.join('<br>'),
                         },
                         'form_compress': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_uncompressed_data]<br>[select_compression_node][select_compression_method][button_compress]<br>[text_compress_output]',
-                            'label': _Translate('Compress'),
-                            'description': _Translate('Compress the data')
+                            'label': _Translate('COMPRESS'),
+                            'description': _Translate('COMPRESS_THE_DATA')
                         },
                         'text_uncompressed_data': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Your uncompressed data'),
+                            'placeholder': _Translate('YOUR_UNCOMPRESSED_DATA'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'select_compression_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Compression node"),
-                            "description": _Translate("What node should compress your data?"),
+                            "label": _Translate("COMPRESSION_NODE"),
+                            "description": _Translate("WHAT_NODE_SHOULD_COMPRESS_YOUR_DATA?"),
                             "size": $size,
                             "multiple": "false",
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ],
                             'to_plugin': 'infohub_tools',
                             'to_function': 'click',
@@ -142,64 +140,64 @@ function infohub_tools_compress() {
                             'custom_variables': {
                                 'affect_alias': 'select_compression_method',
                                 'affect_plugin': 'infohub_compress',
-                                'affect_function': 'get_available_options'
-                            }
+                                'affect_function': 'get_available_options',
+                            },
                         },
                         'select_compression_method': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Compression method"),
-                            "description": _Translate("What compression method do you want to use?"),
+                            "label": _Translate("COMPRESSION_METHOD"),
+                            "description": _Translate("WHAT_COMPRESSION_METHOD_DO_YOU_WANT_TO_USE?"),
                             "size": $size,
                             "multiple": "false",
                             'source_node': 'client',
                             'source_plugin': 'infohub_compress',
                             'source_function': 'get_available_options',
-                            "options": []
+                            'options': [],
                         },
                         'button_compress': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Compress'),
+                            'button_label': _Translate('COMPRESS'),
                             'event_data': 'compress|button_compress',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'text_compress_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the result'),
+                            'placeholder': _Translate('WILL_SHOW_THE_RESULT'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'form_uncompress': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_compressed_data]<br>[select_uncompression_node][select_uncompression_method][button_uncompress]<br>[text_uncompress_output]',
-                            'label': _Translate('Uncompress'),
-                            'description': _Translate('Uncompress the data'),
+                            'label': _Translate('UNCOMPRESS'),
+                            'description': _Translate('UNCOMPRESS_THE_DATA'),
                             'open': 'false'
                         },
                         'text_compressed_data': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Your compressed data'),
+                            'placeholder': _Translate('YOUR_COMPRESSED_DATA'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'select_uncompression_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Uncompression node"),
-                            "description": _Translate("What node should decompress your data?"),
+                            "label": _Translate("UNCOMPRESSION_NODE"),
+                            "description": _Translate("WHAT_NODE_SHOULD_DECOMPRESS_YOUR_DATA?"),
                             "size": $size,
                             "multiple": "false",
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ],
                             'to_plugin': 'infohub_tools',
                             'to_function': 'click',
@@ -207,81 +205,80 @@ function infohub_tools_compress() {
                             'custom_variables': {
                                 'affect_alias': 'select_uncompression_method',
                                 'affect_plugin': 'infohub_compress',
-                                'affect_function': 'get_available_options'
-                            }
+                                'affect_function': 'get_available_options',
+                            },
                         },
                         'select_uncompression_method': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Uncompression method"),
-                            "description": _Translate("What uncompression method do you want to use?"),
+                            "label": _Translate("UNCOMPRESSION_METHOD"),
+                            "description": _Translate("WHAT_UNCOMPRESSION_METHOD_DO_YOU_WANT_TO_USE?"),
                             "size": $size,
                             "multiple": "false",
                             'source_node': 'client',
                             'source_plugin': 'infohub_compress',
                             'source_function': 'get_available_options',
-                            "options": []
+                            'options': [],
                         },
                         'button_uncompress': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Uncompress'),
+                            'button_label': _Translate('UNCOMPRESS'),
                             'event_data': 'compress|button_uncompress',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'text_uncompress_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the result'),
+                            'placeholder': _Translate('WILL_SHOW_THE_RESULT'),
                             'class': 'textarea',
-                            'css_data': {}
-                        }
+                            'css_data': {},
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[h1][titel][/h1][box_instructions][form_compress][form_uncompress]'
+                        'text': '[h1][titel][/h1][box_instructions][form_compress][form_uncompress]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'compress'
+                    'cache_key': 'compress',
                 },
                 'data_back': {
-                    'step': 'step_form_data'
-                }
+                    'step': 'step_form_data',
+                },
             });
         }
 
-        if ($in.step === 'step_form_data')
-        {
-            const $formData =  {
-                'text_uncompressed_data': { 'value': 'hello' }
+        if ($in.step === 'step_form_data') {
+            const $formData = {
+                'text_uncompressed_data': {'value': 'hello'},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -292,8 +289,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function ($in)
-    {
+    const click_handle_node_select = function($in) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -304,36 +300,35 @@ function infohub_tools_compress() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': ''
-            }
+                'data': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
                     'id': $in.box_id + '_' + $in.affect_alias + '_form_element',
                     'source_node': $in.value,
                     'source_plugin': $in.affect_plugin,
-                    'source_function': $in.affect_function
+                    'source_function': $in.affect_function,
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'value': $in.value
-                }
+                    'value': $in.value,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -344,8 +339,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_compress');
-    const click_button_compress = function ($in)
-    {
+    const click_button_compress = function($in) {
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -353,44 +347,55 @@ function infohub_tools_compress() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'compressed_data': ''
-            }
+                'compressed_data': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $formData = {};
 
-        if ($in.step === 'step_start')
-        {
-            const $node = _GetData({'name': 'form_data/select_compression_node/value/0', 'default': 'client', 'data': $in });
-            const $method = _GetData({'name': 'form_data/select_compression_method/value/0', 'default': 'gzip', 'data': $in });
-            const $input = _GetData({'name': 'form_data/text_uncompressed_data/value', 'default': '', 'data': $in });
+        if ($in.step === 'step_start') {
+            const $node = _GetData({
+                'name': 'form_data/select_compression_node/value/0',
+                'default': 'client',
+                'data': $in,
+            });
+            const $method = _GetData({
+                'name': 'form_data/select_compression_method/value/0',
+                'default': 'gzip',
+                'data': $in,
+            });
+            const $input = _GetData({
+                'name': 'form_data/text_uncompressed_data/value',
+                'default': '',
+                'data': $in,
+            });
 
             const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_compress',
-                    'function': 'compress'
+                    'function': 'compress',
                 },
                 'data': {
                     'compression_method': $method,
-                    'uncompressed_data': $input
+                    'uncompressed_data': $input,
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tools',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_response'
-                }
+                    'step': 'step_response',
+                },
             });
 
         }
@@ -402,9 +407,9 @@ function infohub_tools_compress() {
             delete ($in.response.func);
             const $value = _JsonEncode($in.response);
 
-            $formData =  {
-                'text_compress_output': { 'value': $value },
-                'text_compressed_data': { 'value': $compressedData }
+            $formData = {
+                'text_compress_output': {'value': $value},
+                'text_compressed_data': {'value': $compressedData},
             };
 
             if ($in.response.answer === 'true') {
@@ -417,22 +422,22 @@ function infohub_tools_compress() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -443,8 +448,7 @@ function infohub_tools_compress() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_uncompress');
-    const click_button_uncompress = function ($in)
-    {
+    const click_button_uncompress = function($in) {
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -452,43 +456,55 @@ function infohub_tools_compress() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'uncompressed_data': ''
-            }
+                'uncompressed_data': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $formData = {};
 
         if ($in.step === 'step_start') {
-            const $node = _GetData({'name': 'form_data/select_uncompression_node/value/0', 'default': 'client', 'data': $in });
-            const $method = _GetData({'name': 'form_data/select_uncompression_method/value/0', 'default': 'gzip', 'data': $in });
-            const $input = _GetData({'name': 'form_data/text_compressed_data/value', 'default': '', 'data': $in });
+            const $node = _GetData({
+                'name': 'form_data/select_uncompression_node/value/0',
+                'default': 'client',
+                'data': $in,
+            });
+            const $method = _GetData({
+                'name': 'form_data/select_uncompression_method/value/0',
+                'default': 'gzip',
+                'data': $in,
+            });
+            const $input = _GetData({
+                'name': 'form_data/text_compressed_data/value',
+                'default': '',
+                'data': $in,
+            });
 
             const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_compress',
-                    'function': 'uncompress'
+                    'function': 'uncompress',
                 },
                 'data': {
                     'compression_method': $method,
-                    'compressed_data': $input
+                    'compressed_data': $input,
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tools',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_response'
-                }
+                    'step': 'step_response',
+                },
             });
 
         }
@@ -500,9 +516,9 @@ function infohub_tools_compress() {
             delete ($in.response.func);
             const $value = _JsonEncode($in.response);
 
-            $formData =  {
-                'text_uncompress_output': { 'value': $value },
-                'text_uncompressed_data': { 'value': $uncompressedData }
+            $formData = {
+                'text_uncompress_output': {'value': $value},
+                'text_uncompressed_data': {'value': $uncompressedData},
             };
 
             if ($in.response.answer === 'true') {
@@ -515,23 +531,24 @@ function infohub_tools_compress() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 }
+
 //# sourceURL=infohub_tools_compress.js

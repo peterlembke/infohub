@@ -17,7 +17,7 @@
  */
 function infohub_tree_backup() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tree_backup() {
             'class_name': 'infohub_tree_backup',
             'note': 'Backup your personal data to files',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -42,7 +42,7 @@ function infohub_tree_backup() {
             'click_button_backup_full': 'normal',
             'click_refresh_plugin_list_partial': 'normal',
             'click_refresh_key_list_partial': 'normal',
-            'click_button_backup_partial': 'normal'
+            'click_button_backup_partial': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -57,8 +57,7 @@ function infohub_tree_backup() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -66,7 +65,8 @@ function infohub_tree_backup() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
         return $response;
     };
@@ -85,8 +85,7 @@ function infohub_tree_backup() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -94,8 +93,8 @@ function infohub_tree_backup() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -105,7 +104,7 @@ function infohub_tree_backup() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -114,205 +113,205 @@ function infohub_tree_backup() {
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[form_backup_all]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'form_backup_all': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[button_backup_all]',
-                            'label': _Translate('Backup all'),
-                            'description': _Translate('Full backup of all your data you have on the server. You get one file with everything.')
+                            'label': _Translate('BACKUP_ALL'),
+                            'description': _Translate('FULL_BACKUP_OF_ALL_YOUR_DATA_YOU_HAVE_ON_THE_SERVER._YOU_GET_ONE_FILE_WITH_EVERYTHING.')
                         },
                         'button_backup_all': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Backup everything'),
+                            'button_label': _Translate('BACKUP_EVERYTHING'),
                             'button_left_icon': '[backup_icon]',
                             'event_data': 'backup|button_backup_all',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'container_full': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[form_backup_full]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'form_backup_full': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[button_refresh_plugin_list_full][plugin_list_full][button_backup_full]',
-                            'label': _Translate('Backup plugins'),
-                            'description': _Translate('Backup of each plugin separately. You get one backup file for each plugin.')
+                            'label': _Translate('BACKUP_PLUGINS'),
+                            'description': _Translate('BACKUP_OF_EACH_PLUGIN_SEPARATELY._YOU_GET_ONE_BACKUP_FILE_FOR_EACH_PLUGIN.')
                         },
                         'button_refresh_plugin_list_full': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh plugin list'),
+                            'button_label': _Translate('REFRESH_PLUGIN_LIST'),
                             'button_left_icon': '[refresh_icon]',
                             'event_data': 'backup|refresh_plugin_list_full',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'refresh_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[refresh_asset]'
+                            'data': '[refresh_asset]',
                         },
                         'refresh_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'refresh',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'plugin_list_full': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Plugin list"),
-                            "description": _Translate("List with all Tree plugins"),
+                            "label": _Translate("PLUGIN_LIST"),
+                            "description": _Translate("LIST_WITH_ALL_TREE_PLUGINS"),
                             "size": "22",
                             "multiple": "true",
                             'event_data': 'backup|plugin_list_full',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click',
-                            "options": [],
+                            'options': [],
                             'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                         'button_backup_full': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Backup selected plugins'),
+                            'button_label': _Translate('BACKUP_SELECTED_PLUGINS'),
                             'button_left_icon': '[backup_icon]',
                             'event_data': 'backup|button_backup_full',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'container_partial': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[form_backup_partial]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'form_backup_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[container_plugins_partial][container_keys_partial]',
-                            'label': _Translate('Partial backup'),
-                            'description': _Translate('Partial backup. Select one plugin and select keys to backup. You get one backup file.')
+                            'label': _Translate('PARTIAL_BACKUP'),
+                            'description': _Translate('PARTIAL_BACKUP._SELECT_ONE_PLUGIN_AND_SELECT_KEYS_TO_BACKUP._YOU_GET_ONE_BACKUP_FILE.')
                         },
                         'container_plugins_partial': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[button_refresh_plugin_list_partial][plugin_list_partial]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'container_keys_partial': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[button_refresh_key_list_partial][key_list_partial][button_backup_partial]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'button_refresh_plugin_list_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh plugin list'),
+                            'button_label': _Translate('REFRESH_PLUGIN_LIST'),
                             'button_left_icon': '[refresh_icon]',
                             'event_data': 'backup|refresh_plugin_list_partial',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'plugin_list_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Plugin list"),
-                            "description": _Translate("List with all Tree plugins. Select one"),
+                            "label": _Translate("PLUGIN_LIST"),
+                            "description": _Translate("LIST_WITH_ALL_TREE_PLUGINS._SELECT_ONE"),
                             "size": "1",
                             "multiple": "false",
                             'event_data': 'backup|plugin_list_partial',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click',
-                            "options": [],
+                            'options': [],
                             'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                         'button_refresh_key_list_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh key list'),
+                            'button_label': _Translate('REFRESH_KEY_LIST'),
                             'button_left_icon': '[refresh_icon]',
                             'event_data': 'backup|refresh_key_list_partial',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'key_list_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Keys"),
-                            "description": _Translate("All keys for the selected plugin. Select the ones you want to backup"),
+                            "label": _Translate("KEYS"),
+                            "description": _Translate("ALL_KEYS_FOR_THE_SELECTED_PLUGIN._SELECT_THE_ONES_YOU_WANT_TO_BACKUP"),
                             "size": "20",
                             "multiple": "true",
                             'event_data': 'backup|key_list_partial',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click',
-                            "options": [],
+                            'options': [],
                             'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                         'button_backup_partial': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Backup selected keys'),
+                            'button_label': _Translate('BACKUP_SELECTED_KEYS'),
                             'button_left_icon': '[backup_icon]',
                             'event_data': 'backup|button_backup_partial',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'backup_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[backup_asset]'
+                            'data': '[backup_asset]',
                         },
                         'backup_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'backup/export',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_all][container_full][container_partial]'
+                        'text': '[container_all][container_full][container_partial]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_tree.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'backup'
+                    'cache_key': 'backup',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -324,20 +323,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_button_backup_all");
-    const click_button_backup_all = function ($in)
-    {
+    $functions.push('click_button_backup_all');
+    const click_button_backup_all = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -349,7 +348,7 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -360,20 +359,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_refresh_plugin_list_full");
-    const click_refresh_plugin_list_full = function ($in)
-    {
+    $functions.push('click_refresh_plugin_list_full');
+    const click_refresh_plugin_list_full = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -385,7 +384,7 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -397,20 +396,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_button_backup_full");
-    const click_button_backup_full = function ($in)
-    {
+    $functions.push('click_button_backup_full');
+    const click_button_backup_full = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -422,7 +421,7 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -435,20 +434,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_refresh_plugin_list_partial");
-    const click_refresh_plugin_list_partial = function ($in)
-    {
+    $functions.push('click_refresh_plugin_list_partial');
+    const click_refresh_plugin_list_partial = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -460,7 +459,7 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -471,20 +470,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_refresh_key_list_partial");
-    const click_refresh_key_list_partial = function ($in)
-    {
+    $functions.push('click_refresh_key_list_partial');
+    const click_refresh_key_list_partial = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -496,7 +495,7 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -508,20 +507,20 @@ function infohub_tree_backup() {
      * @since 2020-08-29
      * @author Peter Lembke
      */
-    $functions.push("click_button_backup_partial");
-    const click_button_backup_partial = function ($in)
-    {
+    $functions.push('click_button_backup_partial');
+    const click_button_backup_partial = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -533,9 +532,10 @@ function infohub_tree_backup() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
 }
+
 //# sourceURL=infohub_tree_backup.js

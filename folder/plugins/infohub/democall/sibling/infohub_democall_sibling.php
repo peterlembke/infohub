@@ -27,38 +27,38 @@ class infohub_democall_sibling extends infohub_base
     /**
      * Version information for this plugin
      *
-     * @version 2019-03-09
+     * @return string[]
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2019-03-09
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-03-09',
             'version' => '1.0.0',
             'class_name' => 'infohub_democall_sibling',
             'checksum' => '{{checksum}}',
-            'note'=> 'Examples that show who can send messages to who',
+            'note' => 'Examples that show who can send messages to who',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
      *
-     * @version 2019-03-09
+     * @return mixed
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-03-09
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'my_test' => 'normal',
             'call_child' => 'normal' // OK
-        );
+        ];
     }
 
     /**
@@ -71,10 +71,10 @@ class infohub_democall_sibling extends infohub_base
         $default = [];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'You reached my_test in plugin ' . $this->_GetClassName()
-        );
+        ];
     }
 
     /**
@@ -85,35 +85,36 @@ class infohub_democall_sibling extends infohub_base
      */
     protected function call_child(array $in = [])
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start') 
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_democall_sibling_grandchild',
-                    'function' => 'my_test'
-                ),
-                'data' => array(
-                ),
-                'data_back' => array(
-                    'step' => 'step_end',
-                ),
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_democall_sibling_grandchild',
+                        'function' => 'my_test'
+                    ],
+                    'data' => [
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end',
+                    ],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message']
-        );
+        ];
     }
-    
+
 }

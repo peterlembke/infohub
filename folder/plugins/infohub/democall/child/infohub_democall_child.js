@@ -17,7 +17,7 @@
  */
 function infohub_democall_child() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -29,7 +29,7 @@ function infohub_democall_child() {
             'class_name': 'infohub_democall_child',
             'note': 'Example plugin for testing calling rules',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -38,7 +38,7 @@ function infohub_democall_child() {
             'child_func': 'normal',
             'invalid_call_to_sibling_grandchild': 'normal',
             'test_answer_child': 'normal',
-            'answer_child': 'normal'
+            'answer_child': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -51,8 +51,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('child_func');
-    const child_func = function ($in)
-    {
+    const child_func = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -60,8 +59,8 @@ function infohub_democall_child() {
                 'message': '',
                 'value': '',
                 'checksum': '',
-                'verified': 'false'
-            }
+                'verified': 'false',
+            },
         };
         $in = _Default($default, $in);
 
@@ -72,30 +71,30 @@ function infohub_democall_child() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_democall_sibling',
-                    'function': 'sibling_func'
+                    'function': 'sibling_func',
                 },
                 'data': {
-                    'alert': 'infohub_democall_child calling infohub_democall_sibling'
+                    'alert': 'infohub_democall_child calling infohub_democall_sibling',
                 },
                 'data_back': {
-                    'step': 'step_call_grandchild'
-                }
+                    'step': 'step_call_grandchild',
+                },
             });
         }
-        
+
         if ($in.step === 'step_call_grandchild') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_democall_child_grandchild',
-                    'function': 'grandchild_func'
+                    'function': 'grandchild_func',
                 },
                 'data': {
-                    'alert': 'infohub_democall_child calling infohub_democall_child_grandchild'
+                    'alert': 'infohub_democall_child calling infohub_democall_child_grandchild',
                 },
                 'data_back': {
-                    'step': 'step_call_level1'
-                }
+                    'step': 'step_call_level1',
+                },
             });
         }
 
@@ -104,33 +103,34 @@ function infohub_democall_child() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_checksum',
-                    'function': 'calculate_checksum'
+                    'function': 'calculate_checksum',
                 },
                 'data': {
-                    'value': 'hello'
+                    'value': 'hello',
                 },
                 'data_back': {
-                    'step': 'step_alert'
-                }
+                    'step': 'step_alert',
+                },
             });
         }
 
         if ($in.step === 'step_alert') {
 
-            const $text = 'infohub_democall_child sent hello to infohub_checksum and got checksum:' + $in.response.checksum;
+            const $text = 'infohub_democall_child sent hello to infohub_checksum and got checksum:' +
+                $in.response.checksum;
 
             const $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'alert'
+                    'function': 'alert',
                 },
                 'data': {
-                    'text': $text
+                    'text': $text,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messageArray.push($messageOut);
@@ -139,10 +139,10 @@ function infohub_democall_child() {
         return {
             'answer': 'true',
             'message': 'Done',
-            'messages': $messageArray
+            'messages': $messageArray,
         };
     };
-    
+
     /**
      * Make an invalid call to a sibling child
      * @version 2019-03-08
@@ -150,8 +150,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('invalid_call_to_sibling_grandchild');
-    const invalid_call_to_sibling_grandchild = function ($in)
-    {
+    const invalid_call_to_sibling_grandchild = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -159,8 +158,8 @@ function infohub_democall_child() {
                 'message': '',
                 'value': '',
                 'checksum': '',
-                'verified': 'false'
-            }
+                'verified': 'false',
+            },
         };
         $in = _Default($default, $in);
 
@@ -171,56 +170,55 @@ function infohub_democall_child() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'alert'
+                    'function': 'alert',
                 },
                 'data': {
-                    'text': $text
+                    'text': $text,
                 },
                 'data_back': {
-                    'step': 'step_subcall'
-                }
+                    'step': 'step_subcall',
+                },
             });
         }
 
-        if ($in.step === 'step_subcall')
-        {
+        if ($in.step === 'step_subcall') {
             const $text = 'infohub_democall_child calling infohub_democall_sibling_grandchild';
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_democall_sibling_grandchild',
-                    'function': 'grandchild_func'
+                    'function': 'grandchild_func',
                 },
                 'data': {
-                    'alert': $text
+                    'alert': $text,
                 },
                 'data_back': {
-                    'step': 'step_alert'
-                }
+                    'step': 'step_alert',
+                },
             });
         }
-        
+
         if ($in.step === 'step_alert') {
             const $text = 'infohub_democall_child is back from the call';
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'alert'
+                    'function': 'alert',
                 },
                 'data': {
-                    'text': $text
+                    'text': $text,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -231,10 +229,9 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('test_answer_child');
-    const test_answer_child = function ($in)
-    {
+    const test_answer_child = function($in) {
         const $default = {
-            'step': 'step_call_grandchild'
+            'step': 'step_call_grandchild',
         };
         $in = _Default($default, $in);
 
@@ -243,23 +240,22 @@ function infohub_democall_child() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_democall_child_grandchild',
-                    'function': 'call_parent'
+                    'function': 'call_parent',
                 },
                 'data': {
-                    'alert': 'infohub_democall_child calling infohub_democall_child_grandchild'
+                    'alert': 'infohub_democall_child calling infohub_democall_child_grandchild',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
         };
     };
-
 
     /**
      * A child plugin will call this function
@@ -268,10 +264,9 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('answer_child');
-    const answer_child = function ($in)
-    {
+    const answer_child = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -282,21 +277,22 @@ function infohub_democall_child() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'alert'
+                    'function': 'alert',
                 },
                 'data': {
-                    'text': $text
+                    'text': $text,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Done'
+            'message': 'Done',
         };
     };
 }
+
 //# sourceURL=infohub_democall_child.js

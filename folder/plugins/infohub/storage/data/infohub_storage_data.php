@@ -38,14 +38,14 @@ class infohub_storage_data extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-03-25
+     * @return  string[]
      * @since   2010-04-15
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2018-03-25
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-03-25',
             'since' => '2010-04-15',
             'version' => '1.3.3',
@@ -54,25 +54,25 @@ class infohub_storage_data extends infohub_base
             'note' => 'Handles the connection information to each storage (database server)',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-03-25
+     * @return mixed
      * @since   2010-04-15
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-03-25
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'read' => 'normal',
             'read_paths' => 'normal',
             'write' => 'normal',
             'write_overwrite' => 'normal', // Used by write
             'write_merge' => 'normal' // Used by write
-        );
+        ];
     }
 
     // *****************************************************************************
@@ -82,29 +82,29 @@ class infohub_storage_data extends infohub_base
 
     /**
      * General function for reading a bubble
-     * @version 2016-02-27
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-02-27
+     * @since   2016-01-30
      */
     protected function read(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
             'step' => 'step_start',
-            'calling_plugin' => array(
+            'calling_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
+            ],
             'config' => [],
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'data' => [],
                 'post_exist' => 'false'
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -127,8 +127,7 @@ class infohub_storage_data extends infohub_base
             goto leave;
         }
 
-        if ($in['step'] === 'step_start')
-        {
+        if ($in['step'] === 'step_start') {
             $in['step'] = 'step_get_final_connection';
             if (strpos($in['path'], $connect['plugin_name_owner'] . '/') === 0) {
                 $in['step'] = 'step_read';
@@ -142,69 +141,69 @@ class infohub_storage_data extends infohub_base
             }
         }
 
-        if ($in['step'] === 'step_get_final_connection')
-        {
+        if ($in['step'] === 'step_get_final_connection') {
             $path = 'infohub_storagemanager/connection/' . $in['calling_plugin']['plugin'];
 
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $connect['plugin_name_handler'],
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $path
-                ),
-                'data_back' => array(
-                    'step' => 'step_get_final_connection_response',
-                    'path' => $in['path'],
-                    'calling_plugin' => $in['calling_plugin']
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $path
+                    ],
+                    'data_back' => [
+                        'step' => 'step_get_final_connection_response',
+                        'path' => $in['path'],
+                        'calling_plugin' => $in['calling_plugin']
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_final_connection_response')
-        {
+        if ($in['step'] === 'step_get_final_connection_response') {
             $connect = $this->_Default($connect, $in['response']['data']);
             $in['step'] = 'step_read';
         }
 
-        if ($in['step'] === 'step_read')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $connect['plugin_name_handler'],
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $in['path']
-                ),
-                'data_back' => array(
-                    'path' => $in['path'],
-                    'calling_plugin' => $in['calling_plugin'],
-                    'step' => 'step_final'
-                )
-            ));
+        if ($in['step'] === 'step_read') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $in['path']
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'step' => 'step_final'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_final')
-        {
-            $answer =  $in['response']['answer'];
+        if ($in['step'] === 'step_final') {
+            $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $postExist = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['response']['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $response;
     }
 
@@ -215,25 +214,25 @@ class infohub_storage_data extends infohub_base
      */
     protected function read_paths(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => [],
             'path' => '', // Path that ends with a *
             'step' => 'step_start',
-            'calling_plugin' => array(
+            'calling_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
+            ],
             'config' => [],
             'response' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'false',
             'message' => 'Came to step ' . $in['step'],
             'path' => $in['path'],
             'data' => []
-        );
+        ];
 
         $connect = $this->_SetConnectionDefault($in['config']);
 
@@ -241,8 +240,7 @@ class infohub_storage_data extends infohub_base
             $connect['plugin_name_owner'] = $in['calling_plugin']['plugin'];
         }
 
-        if ($in['step'] === 'step_start')
-        {
+        if ($in['step'] === 'step_start') {
             $in['step'] = 'step_get_final_connection';
             if (strpos($in['path'], $connect['plugin_name_owner'] . '/') === 0) {
                 $in['step'] = 'step_read_paths';
@@ -256,117 +254,117 @@ class infohub_storage_data extends infohub_base
             }
         }
 
-        if ($in['step'] === 'step_get_final_connection')
-        {
+        if ($in['step'] === 'step_get_final_connection') {
             $path = 'infohub_storagemanager/connection/' . $in['calling_plugin']['plugin'];
 
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $connect['plugin_name_handler'],
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $path
-                ),
-                'data_back' => array(
-                    'step' => 'step_get_final_connection_response',
-                    'path' => $in['path'],
-                    'calling_plugin' => $in['calling_plugin']
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $path
+                    ],
+                    'data_back' => [
+                        'step' => 'step_get_final_connection_response',
+                        'path' => $in['path'],
+                        'calling_plugin' => $in['calling_plugin']
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_final_connection_response')
-        {
-            $default = array(
+        if ($in['step'] === 'step_get_final_connection_response') {
+            $default = [
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
                 'data' => []
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
             $connect = $this->_Default($connect, $in['response']['data']);
             $in['step'] = 'step_read_paths';
         }
 
-        if ($in['step'] === 'step_read_paths')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $connect['plugin_name_handler'],
-                    'function' => 'read_paths'
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $in['path'],
-                    'with_data' => 'false' // We only want the paths, not the data they contain
-                ),
-                'data_back' => array(
-                    'connect' => $connect,
-                    'path' => $in['path'],
-                    'step' => 'step_read_paths_response'
-                )
-            ));
+        if ($in['step'] === 'step_read_paths') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'read_paths'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $in['path'],
+                        'with_data' => 'false' // We only want the paths, not the data they contain
+                    ],
+                    'data_back' => [
+                        'connect' => $connect,
+                        'path' => $in['path'],
+                        'step' => 'step_read_paths_response'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_read_paths_response')
-        {
-            $default = array(
+        if ($in['step'] === 'step_read_paths_response') {
+            $default = [
                 'answer' => 'false',
                 'message' => '',
                 'path' => '',
                 'data' => []
-            );
+            ];
             $out = $this->_Default($default, $in['response']);
             $in['step'] = 'step_end';
         }
 
         leave:
-        return array(
+        return [
             'answer' => $out['answer'],
             'message' => $out['message'],
             'path' => $out['path'],
             'data' => $out['data']
-        );
+        ];
     }
 
     /**
      * General function for writing to one path
      * Be aware that a * can be in the end of the path
-     * @version 2016-02-27
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-02-27
+     * @since   2016-01-30
      */
     protected function write(array $in = []): array
     {
-        $default = array(
+        $default = [
             'path' => '',
             'data' => [],
             'mode' => '',
             'step' => 'step_start',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
-            'calling_plugin' => array(
+            ],
+            'calling_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
+            ],
             'config' => [],
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'path' => '',
                 'data' => [],
                 'post_exist' => 'false'
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -380,8 +378,7 @@ class infohub_storage_data extends infohub_base
 
         $connect = $this->_SetConnectionDefault($in['config']);
 
-        if ($in['step'] === 'step_start')
-        {
+        if ($in['step'] === 'step_start') {
             if ($this->_Empty($connect['plugin_name_owner']) === 'true') {
                 $connect['plugin_name_owner'] = $in['calling_plugin']['plugin'];
             }
@@ -400,100 +397,100 @@ class infohub_storage_data extends infohub_base
             }
         }
 
-        if ($in['step'] === 'step_get_final_connection')
-        {
+        if ($in['step'] === 'step_get_final_connection') {
             $path = 'infohub_storagemanager/connection/' . $in['calling_plugin']['plugin'];
 
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $connect['plugin_name_handler'],
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $path
-                ),
-                'data_back' => array(
-                    'step' => 'step_get_final_connection_response',
-                    'path' => $in['path'],
-                    'data' => $in['data'],
-                    'mode' => $in['mode'],
-                    'calling_plugin' => $in['calling_plugin']
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $path
+                    ],
+                    'data_back' => [
+                        'step' => 'step_get_final_connection_response',
+                        'path' => $in['path'],
+                        'data' => $in['data'],
+                        'mode' => $in['mode'],
+                        'calling_plugin' => $in['calling_plugin']
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_final_connection_response')
-        {
+        if ($in['step'] === 'step_get_final_connection_response') {
             $connect = $this->_Default($connect, $in['response']['data']);
             $in['step'] = 'step_write';
         }
 
-        if ($in['step'] === 'step_write')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_storage_data',
-                    'function' => 'write_' . $in['mode']
-                ),
-                'data' => array(
-                    'connect' => $connect,
-                    'path' => $in['path'],
-                    'data' => $in['data'],
-                    'mode' => $in['mode']
-                ),
-                'data_back' => array(
-                    'path' => $in['path'],
-                    'data' => $in['data'],
-                    'mode' => $in['mode'],
-                    'calling_plugin' => $in['calling_plugin'],
-                    'step' => 'step_final'
-                )
-            ));
+        if ($in['step'] === 'step_write') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_storage_data',
+                        'function' => 'write_' . $in['mode']
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $in['path'],
+                        'data' => $in['data'],
+                        'mode' => $in['mode']
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'data' => $in['data'],
+                        'mode' => $in['mode'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'step' => 'step_final'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_final')
-        {
-            $answer =  $in['response']['answer'];
+        if ($in['step'] === 'step_final') {
+            $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $postExist = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $response;
     }
 
     /**
      * Overwrite the data in the path
-     * @version 2020-06-24
-     * @since   2020-06-24
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-06-24
+     * @since   2020-06-24
      */
     protected function write_overwrite(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => [],
             'path' => '',
             'data' => [],
             'step' => 'step_write_data',
-            'calling_plugin' => array(
+            'calling_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
+            ],
             'response' => [],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -501,76 +498,78 @@ class infohub_storage_data extends infohub_base
         $postExist = 'false';
 
         if ($in['step'] === 'step_write_data') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $in['connect']['plugin_name_handler'],
-                    'function' => 'write'
-                ),
-                'data' => array(
-                    'connect' => $in['connect'],
-                    'path' => $in['path'],
-                    'data' => $in['data']
-                ),
-                'data_back' => array(
-                    'path' => $in['path'],
-                    'data' => $in['data'],
-                    'calling_plugin' => $in['calling_plugin'],
-                    'step' => 'step_final'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $in['connect']['plugin_name_handler'],
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'connect' => $in['connect'],
+                        'path' => $in['path'],
+                        'data' => $in['data']
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'data' => $in['data'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'step' => 'step_final'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_final') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => 'An error occurred',
                 'path' => '',
                 'data' => [],
                 'post_exist' => 'false'
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
-            $answer =  $in['response']['answer'];
+            $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $postExist = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $response;
     }
 
     /**
      * Merge with the data in the path
-     * @version 2020-06-24
-     * @since   2020-06-24
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-06-24
+     * @since   2020-06-24
      */
     protected function write_merge(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => [],
             'path' => '',
             'data' => [],
             'step' => 'step_read_data',
-            'calling_plugin' => array(
+            'calling_plugin' => [
                 'node' => '',
                 'plugin' => ''
-            ),
+            ],
             'response' => [],
-            'data_back' => array(
+            'data_back' => [
                 'new_data' => []
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -578,34 +577,35 @@ class infohub_storage_data extends infohub_base
         $postExist = 'false';
 
         if ($in['step'] === 'step_read_data') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $in['connect']['plugin_name_handler'],
-                    'function' => 'read'
-                ),
-                'data' => array(
-                    'connect' => $in['connect'],
-                    'path' => $in['path']
-                ),
-                'data_back' => array(
-                    'path' => $in['path'],
-                    'new_data' => $in['data'],
-                    'connect' => $in['connect'],
-                    'step' => 'step_read_data_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $in['connect']['plugin_name_handler'],
+                        'function' => 'read'
+                    ],
+                    'data' => [
+                        'connect' => $in['connect'],
+                        'path' => $in['path']
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'new_data' => $in['data'],
+                        'connect' => $in['connect'],
+                        'step' => 'step_read_data_response'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_read_data_response')
-        {
-            $default = array(
+        if ($in['step'] === 'step_read_data_response') {
+            $default = [
                 'answer' => '',
                 'message' => '',
                 'path' => '',
                 'data' => [],
                 'post_exist' => 'false'
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
             if ($in['response']['post_exist'] === 'true') {
@@ -616,50 +616,52 @@ class infohub_storage_data extends infohub_base
         }
 
         if ($in['step'] === 'step_write_data') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => $in['connect']['plugin_name_handler'],
-                    'function' => 'write'
-                ),
-                'data' => array(
-                    'connect' => $in['connect'],
-                    'path' => $in['path'],
-                    'data' => $in['data']
-                ),
-                'data_back' => array(
-                    'path' => $in['path'],
-                    'data' => $in['data'],
-                    'calling_plugin' => $in['calling_plugin'],
-                    'connect' => $in['connect'],
-                    'step' => 'step_final'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $in['connect']['plugin_name_handler'],
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'connect' => $in['connect'],
+                        'path' => $in['path'],
+                        'data' => $in['data']
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'data' => $in['data'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'connect' => $in['connect'],
+                        'step' => 'step_final'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_final') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => 'An error occurred',
                 'path' => '',
                 'data' => [],
                 'post_exist' => 'false'
-            );
+            ];
             $in['response'] = $this->_Default($default, $in['response']);
 
-            $answer =  $in['response']['answer'];
+            $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $postExist = $in['response']['post_exist'];
         }
 
         leave:
-        $response = array(
+        $response = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $response;
     }
 
@@ -670,15 +672,15 @@ class infohub_storage_data extends infohub_base
 
     /**
      * Default data for a connection. Reused in many places
-     * @version 2017-07-20
-     * @since   2016-01-30
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-07-20
+     * @since   2016-01-30
      */
     protected function _SetConnectionDefault(array $in = []): array
     {
-        $default = array(
+        $default = [
             'plugin_name_handler' => '', // Name of the storage child plugin that can handle this connection
             'plugin_name_owner' => '', // Level 1 Plugin name that own the data
             'used_for' => 'all', // Plugin names this main connection is used for
@@ -690,7 +692,7 @@ class infohub_storage_data extends infohub_base
             'db_password' => '', // password for username, or empty for sqlite
             'db_name' => '', // name of the database / name of the sqlite file
             'path' => '', // the path where this connection will be stored
-        );
+        ];
         $in = $this->_Default($default, $in);
         return $in;
     }

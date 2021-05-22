@@ -30,14 +30,14 @@ class infohub_storage_data_pgsql extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2017-08-13
+     * @return  string[]
      * @since   2014-12-06
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2017-08-13
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2017-08-13',
             'since' => '2014-12-06',
             'version' => '1.0.0',
@@ -47,23 +47,23 @@ class infohub_storage_data_pgsql extends infohub_base
             'note' => 'Support for PostgreSQL',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2017-08-13
+     * @return mixed
      * @since   2014-12-06
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2017-08-13
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'read' => 'normal',
             'write' => 'normal',
             'read_paths' => 'normal', // Get a list of matching paths
-        );
+        ];
     }
 
     /**
@@ -74,10 +74,10 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function read(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => null,
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
@@ -90,23 +90,27 @@ class infohub_storage_data_pgsql extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $in['connection'] = $response['connection'];
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostRead',
-            'connection' => $in['connection'],
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostRead',
+                'connection' => $in['connection'],
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -121,13 +125,13 @@ class infohub_storage_data_pgsql extends infohub_base
         }
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $data,
             'post_exist' => $postExist
-        );
+        ];
         return $out;
     }
 
@@ -143,11 +147,11 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function write(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => [],
             'path' => '',
             'data' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
@@ -159,18 +163,19 @@ class infohub_storage_data_pgsql extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $connection = $response['connection'];
 
-        if (empty($in['data']) === false)
-        {
+        if (empty($in['data']) === false) {
             /*
             $response = $this->internal_Cmd(array(
                 'func' => 'DatabaseCreate',
@@ -183,26 +188,30 @@ class infohub_storage_data_pgsql extends infohub_base
             }
             */
 
-            $response = $this->internal_Cmd(array(
-                'func' => 'TableCreate',
-                'connection' => $connection,
-                'database_name' => $in['connect']['db_name'],
-                'table_name' => $in['connect']['plugin_name_owner'],
-                'db_user' => $in['connect']['db_user']
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'TableCreate',
+                    'connection' => $connection,
+                    'database_name' => $in['connect']['db_name'],
+                    'table_name' => $in['connect']['plugin_name_owner'],
+                    'db_user' => $in['connect']['db_user']
+                ]
+            );
             if ($response['answer'] === 'false') {
                 $message = $response['message'];
                 goto leave;
             }
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostRead',
-            'connection' => $connection,
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostRead',
+                'connection' => $connection,
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -210,17 +219,17 @@ class infohub_storage_data_pgsql extends infohub_base
         $currentlyStoredDataString = $response['data'];
         $postExist = $response['post_exist'];
 
-        if (empty($in['data']) === true)
-        {
-            if ($postExist === 'true')
-            {
-                $response = $this->internal_Cmd(array(
-                    'func' => 'PostDelete',
-                    'connection' => $connection,
-                    'database_name' => $in['connect']['db_name'],
-                    'table_name' => $in['connect']['plugin_name_owner'],
-                    'path' => $in['path']
-                ));
+        if (empty($in['data']) === true) {
+            if ($postExist === 'true') {
+                $response = $this->internal_Cmd(
+                    [
+                        'func' => 'PostDelete',
+                        'connection' => $connection,
+                        'database_name' => $in['connect']['db_name'],
+                        'table_name' => $in['connect']['plugin_name_owner'],
+                        'path' => $in['path']
+                    ]
+                );
                 $answer = $response['answer'];
                 $message = $response['message'];
                 goto leave;
@@ -234,14 +243,16 @@ class infohub_storage_data_pgsql extends infohub_base
         $newDataString = $this->_JsonEncode($in['data']);
 
         if ($postExist === 'false') {
-            $response = $this->internal_Cmd(array(
-                'func' => 'PostInsert',
-                'connection' => $connection,
-                'database_name' => $in['connect']['db_name'],
-                'table_name' => $in['connect']['plugin_name_owner'],
-                'path' => $in['path'],
-                'bubble' => $newDataString
-            ));
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'PostInsert',
+                    'connection' => $connection,
+                    'database_name' => $in['connect']['db_name'],
+                    'table_name' => $in['connect']['plugin_name_owner'],
+                    'path' => $in['path'],
+                    'bubble' => $newDataString
+                ]
+            );
             $answer = $response['answer'];
             $message = $response['message'];
             $postExist = $response['post_exist'];
@@ -254,25 +265,27 @@ class infohub_storage_data_pgsql extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'PostUpdate',
-            'connection' => $connection,
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path'],
-            'bubble' => $newDataString
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'PostUpdate',
+                'connection' => $connection,
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path'],
+                'bubble' => $newDataString
+            ]
+        );
         $answer = $response['answer'];
         $message = $response['message'];
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $in['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $out;
     }
 
@@ -284,11 +297,11 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function read_paths(array $in = []): array
     {
-        $default = array(
+        $default = [
             'connect' => null,
             'path' => '',
             'with_data' => 'true'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $data = [];
@@ -300,24 +313,28 @@ class infohub_storage_data_pgsql extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ConnectionOpen',
-            'connect' => $in['connect']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ConnectionOpen',
+                'connect' => $in['connect']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
         }
         $in['connection'] = $response['connection'];
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'ReadPaths',
-            'connection' => $in['connection'],
-            'database_name' => $in['connect']['db_name'],
-            'table_name' => $in['connect']['plugin_name_owner'],
-            'path' => $in['path'],
-            'with_data' => $in['with_data']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'ReadPaths',
+                'connection' => $in['connection'],
+                'database_name' => $in['connect']['db_name'],
+                'table_name' => $in['connect']['plugin_name_owner'],
+                'path' => $in['path'],
+                'with_data' => $in['with_data']
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -328,12 +345,12 @@ class infohub_storage_data_pgsql extends infohub_base
         $message = 'Here are the paths';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
             'data' => $data
-        );
+        ];
         return $out;
     }
 
@@ -344,9 +361,9 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function internal_ConnectionOpen(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
-            'connect' => array(
+            'connect' => [
                 'plugin_name_handler' => 'infohub_storage_data_pgsql',
                 'plugin_name_owner' => '',
                 'db_type' => 'pgsql',
@@ -355,8 +372,8 @@ class infohub_storage_data_pgsql extends infohub_base
                 'db_user' => 'infohubuser',
                 'db_password' => 'infohubpassword',
                 'db_name' => 'infohub'
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -400,11 +417,11 @@ class infohub_storage_data_pgsql extends infohub_base
         $message = 'Here are the SQL server connection';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message,
             'connection' => $connection
-        );
+        ];
         return $out;
     }
 
@@ -416,34 +433,36 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function internal_DatabaseCreate(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
 
-        $response = $this->internal_Execute(array(
-            'connection' => $in['connection'],
-            'database_name' => $in['database_name'],
-            'sql' => 'CREATE DATABASE IF NOT EXISTS {database_name}',
-            'query' => 'false'
-        ));
+        $response = $this->internal_Execute(
+            [
+                'connection' => $in['connection'],
+                'database_name' => $in['database_name'],
+                'sql' => 'CREATE DATABASE IF NOT EXISTS {database_name}',
+                'query' => 'false'
+            ]
+        );
         if ($response['answer'] === 'false') {
             $message = 'Could not create database: ' . $in['database_name'] . ' - ' . $response['message'];
             goto leave;
         }
 
         $answer = 'true';
-        $message ='Have created the database if it did not exist';
+        $message = 'Have created the database if it did not exist';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message
-        );
+        ];
         return $out;
     }
 
@@ -454,13 +473,13 @@ class infohub_storage_data_pgsql extends infohub_base
      */
     protected function internal_SchemaCreate(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
             'schema_name' => '',
             'db_user' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
@@ -485,13 +504,13 @@ EOD;
         }
 
         $answer = 'true';
-        $message ='Have created the schema if it did not exist';
+        $message = 'Have created the schema if it did not exist';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message
-        );
+        ];
         return $out;
     }
 
@@ -502,23 +521,23 @@ EOD;
      */
     protected function internal_TableCreate(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
             'schema_name' => 'public',
             'table_name' => '',
             'db_user' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
 
-        $sqlArray = array(
+        $sqlArray = [
             'CREATE TABLE IF NOT EXISTS {database_name}.{schema_name}.{table_name} ( path VARCHAR(127) PRIMARY KEY,bubble text) WITH ( OIDS=FALSE);',
             'ALTER TABLE {database_name}.{schema_name}.{table_name} OWNER TO {db_user};',
             'CREATE UNIQUE INDEX IF NOT EXISTS path_index ON {schema_name}.{table_name} USING btree (path COLLATE pg_catalog."default");'
-        );
+        ];
         foreach ($sqlArray as $sql) {
             $in['sql'] = $sql;
             $response = $this->internal_Execute($in);
@@ -529,13 +548,13 @@ EOD;
         }
 
         $answer = 'true';
-        $message ='Have created the table if it did not exist';
+        $message = 'Have created the table if it did not exist';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $answer,
             'message' => $message
-        );
+        ];
         return $out;
     }
 
@@ -546,14 +565,14 @@ EOD;
      */
     protected function internal_PostRead(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
             'schema_name' => 'public',
             'table_name' => '',
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $postExist = 'false';
@@ -570,22 +589,22 @@ EOD;
         }
 
         if (isset($response['data'][0]['bubble'])) {
-            $response['message'] ='Here are the data string';
+            $response['message'] = 'Here are the data string';
             $response['data'] = $response['data'][0]['bubble'];
             $postExist = 'true';
         } else {
-            $response['message'] ='Did not find any data string on that path';
+            $response['message'] = 'Did not find any data string on that path';
             $response['data'] = [];
             $postExist = 'false';
         }
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $response['answer'],
             'message' => 'Post read: ' . $response['message'],
             'data' => $response['data'],
             'post_exist' => $postExist
-        );
+        ];
         return $out;
     }
 
@@ -597,14 +616,14 @@ EOD;
      */
     protected function internal_ReadPaths(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
             'table_name' => '',
             'path' => '',
             'with_data' => 'true'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['path'] = str_replace('*', '%', $in['path']);
@@ -622,8 +641,7 @@ EOD;
             }
         }
 
-        foreach ($response['data'] as $data)
-        {
+        foreach ($response['data'] as $data) {
             $path = $data['path'];
 
             $dataBack = [];
@@ -638,11 +656,11 @@ EOD;
         $response['message'] = 'Here are the paths that I found';
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $response['answer'],
             'message' => $response['message'],
             'data' => $answer
-        );
+        ];
         return $out;
     }
 
@@ -653,7 +671,7 @@ EOD;
      */
     protected function internal_PostInsert(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
@@ -661,21 +679,21 @@ EOD;
             'table_name' => '',
             'path' => '',
             'bubble' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['sql'] = 'insert into {database_name}.{schema_name}.{table_name} (path, bubble) values (:path, :bubble)';
         $response = $this->internal_Execute($in);
 
         if ($response['answer'] === 'true') {
-            $response['message'] ='Have inserted the post';
+            $response['message'] = 'Have inserted the post';
         }
 
-        $out = array(
+        $out = [
             'answer' => $response['answer'],
             'message' => 'Post insert: ' . $response['message'],
             'post_exist' => $response['answer']
-        );
+        ];
         return $out;
     }
 
@@ -686,7 +704,7 @@ EOD;
      */
     protected function internal_PostUpdate(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
@@ -694,20 +712,20 @@ EOD;
             'table_name' => '',
             'path' => '',
             'bubble' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['sql'] = 'update {database_name}.{schema_name}.{table_name} set bubble=:bubble where path=:path';
         $response = $this->internal_Execute($in);
 
         if ($response['answer'] === 'true') {
-            $response['message'] ='Have updated the post';
+            $response['message'] = 'Have updated the post';
         }
 
-        return array(
+        return [
             'answer' => $response['answer'],
             'message' => 'Post update: ' . $response['message']
-        );
+        ];
     }
 
     /**
@@ -717,14 +735,14 @@ EOD;
      */
     protected function internal_PostDelete(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'database_name' => '',
             'schema_name' => 'public',
             'table_name' => '',
             'path' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $in['sql'] = 'delete from {database_name}.{schema_name}.{table_name} where path = :path';
@@ -738,14 +756,14 @@ EOD;
         }
 
         if ($response['answer'] === 'true') {
-            $response['message'] ='Have deleted the post';
+            $response['message'] = 'Have deleted the post';
         }
 
         leave:
-        $out = array(
+        $out = [
             'answer' => $response['answer'],
             'message' => 'Post delete: ' . $response['message'],
-        );
+        ];
         return $out;
     }
 
@@ -757,9 +775,9 @@ EOD;
      */
     protected function _HandleSQLError(array $response = []): array
     {
-        $findArray = array(
+        $findArray = [
             'Base table or view not found'
-        );
+        ];
 
         foreach ($findArray as $find) {
             $found = strpos($response['message'], $find);
@@ -788,12 +806,12 @@ EOD;
      */
     protected function internal_Execute(array $in = []): array
     {
-        $default = array(
+        $default = [
             'where' => __CLASS__ . '.' . __FUNCTION__,
             'connection' => null,
             'sql' => '',
             'query' => 'false'
-        );
+        ];
         $in = $this->_Merge($default, $in);
 
         $response = [];
@@ -801,7 +819,7 @@ EOD;
         $answer = 'true';
 
         $query = $in['query'];
-        if (strtolower(substr($in['sql'], 0,6)) === 'select') {
+        if (strtolower(substr($in['sql'], 0, 6)) === 'select') {
             $query = 'true';
         }
 
@@ -828,17 +846,17 @@ EOD;
 
         } catch (PDOException $e) {
             $in['connection']->rollback();
-            $message = 'Error executing SQL - ' . $e->getMessage() . '. SQL:' . substr($in['sql'],0,100);
+            $message = 'Error executing SQL - ' . $e->getMessage() . '. SQL:' . substr($in['sql'], 0, 100);
             $answer = 'false';
         }
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $in['where'] . ' - ' . $message,
             'data' => $response,
             'query' => $query
-        );
+        ];
     }
 
     /**
@@ -846,9 +864,9 @@ EOD;
      * Then we substitute the parameters in the SQL query.
      * In the example all parameters with {parameter_name} will be substituted.
      * The :path is another binding that will be handled by _BindData() separately.
-     * @example delete from {database_name}.{schema_name}.{table_name} where path = :path
      * @param array $in
      * @return string
+     * @example delete from {database_name}.{schema_name}.{table_name} where path = :path
      */
     protected function _SubstituteData(array $in = []): string
     {

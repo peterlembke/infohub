@@ -17,7 +17,7 @@
  */
 function infohub_privacy_browser() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_privacy_browser() {
             'class_name': 'infohub_privacy_browser',
             'note': 'Browser tests to show you what information you reveal',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -43,7 +43,7 @@ function infohub_privacy_browser() {
             'click_battery': 'normal',
             'click_devicelight': 'normal',
             'click_deviceproximity': 'normal',
-            'click_navigator': 'normal'
+            'click_navigator': 'normal',
         };
     };
 
@@ -61,8 +61,7 @@ function infohub_privacy_browser() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -70,20 +69,19 @@ function infohub_privacy_browser() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from privacy_browser'
-            }
+                'message': 'Nothing to report from privacy_browser',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -94,7 +92,8 @@ function infohub_privacy_browser() {
                                 '[button_devicemotion][button_battery][button_devicelight]' +
                                 '[button_deviceproximity][button_navigator][textbox_navigator_output]',
                             'label': _Translate('Browser tests'),
-                            'description': _Translate('Run a test to see what you reveal')
+                            'description': _Translate(
+                                'Run a test to see what you reveal'),
                         },
                         'button_geolocation': {
                             'plugin': 'infohub_renderform',
@@ -105,7 +104,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_deviceorientation': {
                             'plugin': 'infohub_renderform',
@@ -116,7 +115,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_devicemotion': {
                             'plugin': 'infohub_renderform',
@@ -127,7 +126,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_battery': {
                             'plugin': 'infohub_renderform',
@@ -138,7 +137,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_devicelight': {
                             'plugin': 'infohub_renderform',
@@ -149,7 +148,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_deviceproximity': {
                             'plugin': 'infohub_renderform',
@@ -160,7 +159,7 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'true'
+                            'show_success_text': 'true',
                         },
                         'button_navigator': {
                             'plugin': 'infohub_renderform',
@@ -171,30 +170,30 @@ function infohub_privacy_browser() {
                             'to_plugin': 'infohub_privacy',
                             'to_function': 'click',
                             'show_error_text': 'true',
-                            'show_success_text': 'false'
+                            'show_success_text': 'false',
                         },
                         'textbox_navigator_output': {
                             'type': 'common',
-                            'subtype': 'container'
-                        }
+                            'subtype': 'container',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_form]'
+                        'text': '[my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
@@ -210,31 +209,29 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_geolocation = function ($in)
-    {
+    const click_geolocation = function($in) {
         const $default = {
             'step': 'step_start',
-            'callback_function': null
+            'callback_function': null,
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             if (_IsSet(navigator.geolocation) === 'false') {
                 return {
                     'answer': 'true',
                     'message': 'Geo location not supported. That is good.',
-                    'ok': 'true'
+                    'ok': 'true',
                 };
             }
 
             let options = {
                 enableHighAccuracy: true,
                 timeout: 5000,
-                maximumAge: 0
+                maximumAge: 0,
             };
 
-            const success = function ($position) {
+            const success = function($position) {
                 const $cordinates = $position.coords;
 
                 let $message = _Translate('Your current position is') + ': ' +
@@ -245,28 +242,30 @@ function infohub_privacy_browser() {
                 $in.callback_function({
                     'answer': 'false',
                     'message': $message,
-                    'ok': 'false'
+                    'ok': 'false',
                 });
                 return {};
             };
 
-            const error = function ($error) {
+            const error = function($error) {
 
                 const PERMISSION_DENIED = 1;
 
                 if ($error.code === PERMISSION_DENIED) {
                     $in.callback_function({
                         'answer': 'true',
-                        'message': 'You have Geo Location but have prevented that in the browser. Good. ' + $error.message,
-                        'ok': 'true'
+                        'message': 'You have Geo Location but have prevented that in the browser. Good. ' +
+                            $error.message,
+                        'ok': 'true',
                     });
                     return {};
                 }
 
                 $in.callback_function({
                     'answer': 'false',
-                    'message': 'You have allowed geo location. Just luck that the position could not be determined. ' + $error.message,
-                    'ok': 'false'
+                    'message': 'You have allowed geo location. Just luck that the position could not be determined. ' +
+                        $error.message,
+                    'ok': 'false',
                 });
             };
 
@@ -287,10 +286,9 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_deviceorientation = function ($in)
-    {
+    const click_deviceorientation = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -300,7 +298,7 @@ function infohub_privacy_browser() {
                 return {
                     'answer': 'true',
                     'message': 'Device orientation not supported. That is good.',
-                    'ok': 'true'
+                    'ok': 'true',
                 };
             }
 
@@ -322,8 +320,9 @@ function infohub_privacy_browser() {
 
                 $in.callback_function({
                     'answer': 'false',
-                    'message': 'You have allowed device orientation. ' + $message,
-                    'ok': 'false'
+                    'message': 'You have allowed device orientation. ' +
+                        $message,
+                    'ok': 'false',
                 });
             }, false);
         }
@@ -338,13 +337,12 @@ function infohub_privacy_browser() {
      * @since   2020-05-02
      * @author  Peter Lembke
      * @link
-     * @param $in
+        * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_devicemotion = function ($in)
-    {
+    const click_devicemotion = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -353,7 +351,7 @@ function infohub_privacy_browser() {
                 return {
                     'answer': 'true',
                     'message': 'Device orientation not supported. That is good.',
-                    'ok': 'true'
+                    'ok': 'true',
                 };
             }
 
@@ -370,7 +368,7 @@ function infohub_privacy_browser() {
                 $in.callback_function({
                     'answer': 'false',
                     'message': 'You have allowed device motion. ' + $message,
-                    'ok': 'false'
+                    'ok': 'false',
                 });
             }, false);
         }
@@ -387,20 +385,19 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_battery = function ($in)
-    {
+    const click_battery = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
 
-            const $logBattery = function ($battery) {
+            const $logBattery = function($battery) {
                 return {
                     'answer': 'false',
                     'message': 'Battery indication enabled. ' + $battery.level,
-                    'ok': 'false'
+                    'ok': 'false',
                 };
             };
 
@@ -409,7 +406,8 @@ function infohub_privacy_browser() {
                 return {};
             }
 
-            const $battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+            const $battery = navigator.battery || navigator.webkitBattery ||
+                navigator.mozBattery;
 
             if ($battery) {
                 $logBattery($battery);
@@ -419,14 +417,14 @@ function infohub_privacy_browser() {
             return {
                 'answer': 'true',
                 'message': 'Battery indication not supported. That is good.',
-                'ok': 'true'
+                'ok': 'true',
             };
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -439,10 +437,9 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_devicelight = function ($in)
-    {
+    const click_devicelight = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -453,16 +450,16 @@ function infohub_privacy_browser() {
                 return {
                     'answer': 'true',
                     'message': 'Device light not supported. That is good.',
-                    'ok': 'true'
+                    'ok': 'true',
                 };
             }
 
-            window.addEventListener("devicelight", function($event) {
+            window.addEventListener('devicelight', function($event) {
                 //light level is returned in lux units
                 return {
                     'answer': 'false',
                     'message': 'Light level in Lux: ' + $event.value,
-                    'ok': 'false'
+                    'ok': 'false',
                 };
             });
         }
@@ -479,10 +476,9 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_deviceproximity = function ($in)
-    {
+    const click_deviceproximity = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
@@ -493,15 +489,16 @@ function infohub_privacy_browser() {
                 return {
                     'answer': 'true',
                     'message': 'Device proximity not supported. That is good.',
-                    'ok': 'true'
+                    'ok': 'true',
                 };
             }
 
-            window.addEventListener("deviceproximity", function($event) {
+            window.addEventListener('deviceproximity', function($event) {
                 return {
                     'answer': 'false',
-                    'message': 'You close to the device in centimeters: ' + $event.value,
-                    'ok': 'false'
+                    'message': 'You close to the device in centimeters: ' +
+                        $event.value,
+                    'ok': 'false',
                 };
             });
         }
@@ -519,31 +516,30 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_navigator = function ($in)
-    {
+    const click_navigator = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_set_text',
             'answer': '',
-            'message': ''
+            'message': '',
         };
         $in = _Default($default, $in);
 
         let $answer = 'false';
         let $message = '';
 
-        if ($in.step === 'step_set_text')
-        {
+        if ($in.step === 'step_set_text') {
             let $messageArray = [];
-            $messageArray.push('This is what you reveal abut your device and operating system etc.');
-            $messageArray.push("Browser CodeName: " + navigator.appCodeName);
-            $messageArray.push("Browser Name: " + navigator.appName);
-            $messageArray.push("Browser Version: " + navigator.appVersion);
-            $messageArray.push("Cookies Enabled: " + navigator.cookieEnabled);
-            $messageArray.push("Browser Language: " + navigator.language);
-            $messageArray.push("Browser Online: " + navigator.onLine);
-            $messageArray.push("Platform: " + navigator.platform);
-            $messageArray.push("User-agent header: " + navigator.userAgent);
+            $messageArray.push(
+                'This is what you reveal abut your device and operating system etc.');
+            $messageArray.push('Browser CodeName: ' + navigator.appCodeName);
+            $messageArray.push('Browser Name: ' + navigator.appName);
+            $messageArray.push('Browser Version: ' + navigator.appVersion);
+            $messageArray.push('Cookies Enabled: ' + navigator.cookieEnabled);
+            $messageArray.push('Browser Language: ' + navigator.language);
+            $messageArray.push('Browser Online: ' + navigator.onLine);
+            $messageArray.push('Platform: ' + navigator.platform);
+            $messageArray.push('User-agent header: ' + navigator.userAgent);
 
             $message = '<p>' + $messageArray.join('</p><p>') + '</p>';
 
@@ -551,20 +547,19 @@ function infohub_privacy_browser() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.box_id + '.[textbox_navigator_output]',
-                    'text': $message
+                    'text': $message,
                 },
                 'data_back': {
-                    'step': 'step_set_text_response'
-                }
+                    'step': 'step_set_text_response',
+                },
             });
         }
 
-        if ($in.step === 'step_set_text_response')
-        {
+        if ($in.step === 'step_set_text_response') {
             $in.message = 'You could turn off cookies for Infohub sites.';
 
             if (navigator.cookieEnabled === false) {
@@ -576,8 +571,9 @@ function infohub_privacy_browser() {
         return {
             'answer': $answer,
             'message': $in.message,
-            'ok': $answer
+            'ok': $answer,
         };
     };
 }
+
 //# sourceURL=infohub_privacy_browser.js

@@ -30,14 +30,14 @@ class infohub_offline extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2019-11-13
+     * @return  string[]
      * @since 2019-11-13
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2019-11-13
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-11-13',
             'since' => '2019-11-13',
             'version' => '1.0.0',
@@ -47,21 +47,21 @@ class infohub_offline extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-11-13
+     * @return mixed
      * @since 2019-11-13
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-11-13
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'index_checksum' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -70,58 +70,57 @@ class infohub_offline extends infohub_base
 
     /**
      * Get current checksum for the files in index.php
-     * @version 2019-11-13
-     * @since   2019-11-13
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-11-13
+     * @since   2019-11-13
      */
     protected function index_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'rendered_checksum' => '',
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'true',
                 'message' => '',
                 'checksum' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start')
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'index_checksum'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'step' => 'step_response',
-                    'rendered_checksum' => $in['rendered_checksum']
-                )
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'index_checksum'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'step' => 'step_response',
+                        'rendered_checksum' => $in['rendered_checksum']
+                    ]
+                ]
+            );
         }
 
         $valid = 'false';
         $message = 'Please update your cache';
 
-        if ($in['step'] === 'step_response')
-        {
-            if ($in['rendered_checksum'] ===  $in['response']['checksum'])
-            {
+        if ($in['step'] === 'step_response') {
+            if ($in['rendered_checksum'] === $in['response']['checksum']) {
                 $valid = 'true';
                 $message = 'Your cache is still valid';
             }
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
             'checksum' => $in['response']['checksum'],
             'valid' => $valid
-        );
+        ];
     }
 }

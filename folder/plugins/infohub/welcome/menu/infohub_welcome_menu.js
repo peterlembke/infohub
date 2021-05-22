@@ -17,7 +17,7 @@
  */
 function infohub_welcome_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -31,13 +31,13 @@ function infohub_welcome_menu() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -52,8 +52,7 @@ function infohub_welcome_menu() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -61,12 +60,13 @@ function infohub_welcome_menu() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
     };
-    
+
     let $classTranslations = {};
 
     // ***********************************************************
@@ -81,8 +81,7 @@ function infohub_welcome_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -90,8 +89,8 @@ function infohub_welcome_menu() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_welcome_menu'
-            }
+                'message': 'Nothing to report from infohub_welcome_menu',
+            },
         };
         $in = _Default($default, $in);
 
@@ -101,7 +100,7 @@ function infohub_welcome_menu() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -112,46 +111,47 @@ function infohub_welcome_menu() {
                                 'welcome': {
                                     'alias': 'welcome_link',
                                     'event_data': 'welcome',
-                                    'button_label': _Translate('Welcome'),
+                                    'button_label': _Translate('WELCOME'),
                                     'to_plugin': 'infohub_welcome',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'you_can': {
                                     'alias': 'you_can_link',
                                     'event_data': 'youcan',
-                                    'button_label': _Translate('You can do all this'),
+                                    'button_label': _Translate('YOU_CAN_DO_ALL_THIS'),
                                     'to_plugin': 'infohub_welcome',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'tech': {
                                     'alias': 'tech_link',
                                     'event_data': 'tech',
-                                    'button_label': _Translate('If you like tech'),
+                                    'button_label': _Translate('IF_YOU_LIKE_TECH'),
                                     'to_plugin': 'infohub_welcome',
-                                    'to_function': 'click_menu'
-                                }
-                            }
-                        }
+                                    'to_function': 'click_menu',
+                                },
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'menu'
+                    'cache_key': 'menu',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_welcome_menu.js

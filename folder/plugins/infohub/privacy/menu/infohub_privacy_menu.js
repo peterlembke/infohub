@@ -17,7 +17,7 @@
  */
 function infohub_privacy_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,13 +30,13 @@ function infohub_privacy_menu() {
             'class_name': 'infohub_privacy_menu',
             'note': 'Render a menu for infohub_privacy',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         return {
-            'create': 'normal'
+            'create': 'normal',
         };
     };
 
@@ -54,8 +54,7 @@ function infohub_privacy_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -63,8 +62,8 @@ function infohub_privacy_menu() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_encrypt'
-            }                
+                'message': 'Nothing to report from tools_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
@@ -74,14 +73,14 @@ function infohub_privacy_menu() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': 'privacy tool and tips'
+                            'data': 'privacy tool and tips',
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
@@ -91,54 +90,59 @@ function infohub_privacy_menu() {
                                 'browser': {
                                     'alias': 'browser_link',
                                     'event_data': 'browser',
-                                    'button_label': _Translate('Browser privacy'),
+                                    'button_label': _Translate(
+                                        'Browser privacy'),
                                     'to_plugin': 'infohub_privacy',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'traffic': {
                                     'alias': 'traffic_link',
                                     'event_data': 'traffic',
-                                    'button_label': _Translate('Traffic privacy'),
+                                    'button_label': _Translate(
+                                        'Traffic privacy'),
                                     'to_plugin': 'infohub_privacy',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'server': {
                                     'alias': 'server_link',
                                     'event_data': 'server',
-                                    'button_label': _Translate('Server privacy'),
+                                    'button_label': _Translate(
+                                        'Server privacy'),
                                     'to_plugin': 'infohub_privacy',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'tips': {
                                     'alias': 'tips_link',
                                     'event_data': 'tips',
-                                    'button_label': _Translate('Tips for privacy'),
+                                    'button_label': _Translate(
+                                        'Tips for privacy'),
                                     'to_plugin': 'infohub_privacy',
-                                    'to_function': 'click_menu'
-                                }
-                            }
-                        }
+                                    'to_function': 'click_menu',
+                                },
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_privacy_menu.js

@@ -17,7 +17,7 @@
  */
 function infohub_tree_storage() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tree_storage() {
             'class_name': 'infohub_tree_storage',
             'note': 'Read and Write encrypted data in browser Storage. If missing then downloaded from Server.',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -60,10 +60,9 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read');
-    const read = function ($in)
-    {
+    const read = function($in) {
         const $default = {
-            'path': ''
+            'path': '',
         };
         $in = _Default($default, $in);
 
@@ -71,7 +70,7 @@ function infohub_tree_storage() {
             'answer': 'false',
             'message': 'Nothing to report from ' + _GetClassName() + ' -> read',
             'data': {},
-            'post_exist': 'false'
+            'post_exist': 'false',
         };
 
         if ($in.step === 'step_start') {
@@ -81,7 +80,7 @@ function infohub_tree_storage() {
             'answer': $out.answer,
             'message': $out.message,
             'data': $out.data,
-            'post_exist': $out.post_exist
+            'post_exist': $out.post_exist,
         };
     };
 
@@ -93,10 +92,9 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read_many');
-    const read_many = function ($in)
-    {
+    const read_many = function($in) {
         const $default = {
-            'path': ''
+            'path': '',
         };
         $in = _Default($default, $in);
 
@@ -104,7 +102,7 @@ function infohub_tree_storage() {
             'answer': 'false',
             'message': 'Nothing to report from ' + _GetClassName() + ' -> read',
             'data': {},
-            'post_exist': 'false'
+            'post_exist': 'false',
         };
 
         if ($in.step === 'step_start') {
@@ -114,7 +112,7 @@ function infohub_tree_storage() {
             'answer': $out.answer,
             'message': $out.message,
             'data': $out.data,
-            'post_exist': $out.post_exist
+            'post_exist': $out.post_exist,
         };
     };
 
@@ -126,10 +124,9 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read_pattern');
-    const read_pattern = function ($in)
-    {
+    const read_pattern = function($in) {
         const $default = {
-            'path': ''
+            'path': '',
         };
         $in = _Default($default, $in);
 
@@ -137,7 +134,7 @@ function infohub_tree_storage() {
             'answer': 'false',
             'message': 'Nothing to report from ' + _GetClassName() + ' -> read',
             'data': {},
-            'post_exist': 'false'
+            'post_exist': 'false',
         };
 
         if ($in.step === 'step_start') {
@@ -147,7 +144,7 @@ function infohub_tree_storage() {
             'answer': $out.answer,
             'message': $out.message,
             'data': $out.data,
-            'post_exist': $out.post_exist
+            'post_exist': $out.post_exist,
         };
     };
 
@@ -159,19 +156,19 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('write');
-    const write = function ($in)
-    {
+    const write = function($in) {
         const $default = {
             'path': '',
-            'data': {}
+            'data': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> write',
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> write',
             'data': {},
-            'post_exist': 'false'
+            'post_exist': 'false',
         };
 
         if ($in.step === 'step_start') {
@@ -179,7 +176,7 @@ function infohub_tree_storage() {
 
         return {
             'answer': $out.answer,
-            'message': $out.message
+            'message': $out.message,
         };
     };
 
@@ -193,15 +190,15 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('get_user_tree_plugin_list');
-    const get_user_tree_plugin_list = function ($in)
-    {
+    const get_user_tree_plugin_list = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> write',
-            'data': {}
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> write',
+            'data': {},
         };
 
         if ($in.step === 'step_start') {
@@ -210,7 +207,7 @@ function infohub_tree_storage() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'data': $out.data
+            'data': $out.data,
         };
     };
 
@@ -223,17 +220,17 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('get_user_plugin_path_index');
-    const get_user_plugin_path_index = function ($in)
-    {
+    const get_user_plugin_path_index = function($in) {
         const $default = {
-            'plugin_name': ''
+            'plugin_name': '',
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> get_user_plugin_path_index',
-            'data': {}
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> get_user_plugin_path_index',
+            'data': {},
         };
 
         if ($in.step === 'step_start') {
@@ -242,9 +239,10 @@ function infohub_tree_storage() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'data': $out.data
+            'data': $out.data,
         };
     };
 
 }
+
 //# sourceURL=infohub_tree_storage.js

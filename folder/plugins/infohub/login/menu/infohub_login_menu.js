@@ -17,7 +17,7 @@
  */
 function infohub_login_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,13 +30,13 @@ function infohub_login_menu() {
             'class_name': 'infohub_login_menu',
             'note': 'Render a menu for infohub_login',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -56,8 +56,7 @@ function infohub_login_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -65,8 +64,8 @@ function infohub_login_menu() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -76,14 +75,14 @@ function infohub_login_menu() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Menu')
+                            'data': _Translate('MENU')
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
@@ -94,91 +93,92 @@ function infohub_login_menu() {
                                     'alias': 'import',
                                     'event_data': 'import', // child plugin
                                     'button_left_icon': '[import_icon]',
-                                    'button_label': _Translate('Import contact data'),
+                                    'button_label': _Translate('IMPORT_CONTACT_DATA'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'login': {
                                     'alias': 'login',
                                     'event_data': 'login',
-                                    'button_label': _Translate('Login'),
+                                    'button_label': _Translate('LOGIN'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'password': {
                                     'alias': 'password',
                                     'event_data': 'password',
-                                    'button_label': _Translate('Set password'),
+                                    'button_label': _Translate('SET_PASSWORD'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'export': {
                                     'alias': 'export',
                                     'event_data': 'export',
                                     'button_left_icon': '[export_icon]',
-                                    'button_label': _Translate('Export contact data'),
+                                    'button_label': _Translate('EXPORT_CONTACT_DATA'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'logout': {
                                     'alias': 'logout',
                                     'event_data': 'logout',
-                                    'button_label': _Translate('Logout'),
+                                    'button_label': _Translate('LOGOUT'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
+                                    'to_function': 'click_menu',
                                 },
                                 'forget': {
                                     'alias': 'forget',
                                     'event_data': 'forget',
-                                    'button_label': _Translate('Forget contact'),
+                                    'button_label': _Translate('FORGET_CONTACT'),
                                     'to_plugin': 'infohub_login',
-                                    'to_function': 'click_menu'
-                                }
-                            }
+                                    'to_function': 'click_menu',
+                                },
+                            },
                         },
                         'import_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[import_asset]'
+                            'data': '[import_asset]',
                         },
                         'import_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'import',
-                            'plugin_name': 'infohub_login'
+                            'plugin_name': 'infohub_login',
                         },
                         'export_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[export_asset]'
+                            'data': '[export_asset]',
                         },
                         'export_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'export',
-                            'plugin_name': 'infohub_login'
-                        }
+                            'plugin_name': 'infohub_login',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu]'
+                        'text': '[my_menu]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.menu',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'menu'
+                    'cache_key': 'menu',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
 }
+
 //# sourceURL=infohub_login_menu.js

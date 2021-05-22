@@ -15,19 +15,19 @@
  You should have received a copy of the GNU General Public License
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
+
 // the_go_function , DOM events go here.
-function go($pluginName, $eventType, $containerId)
-{
-    "use strict";
+function go($pluginName, $eventType, $containerId) {
+    'use strict';
 
     let $boxId = '';
 
     if ($containerId) {
-        $boxId =  $containerId.split('_');
+        $boxId = $containerId.split('_');
         $boxId = $boxId.shift();
     }
 
-    let $data = {'box_id': $boxId, 'event_type': $eventType };
+    let $data = {'box_id': $boxId, 'event_type': $eventType};
 
     // Get all attributes from the box
     const $container = readMoreData($containerId, $data);
@@ -54,19 +54,16 @@ function go($pluginName, $eventType, $containerId)
     return sendMessage($pluginName, $data);
 }
 
-function readMoreData($id, $data)
-{
-    "use strict";
+function readMoreData($id, $data) {
+    'use strict';
 
     if ($id === '') {
         return false;
     }
 
     const $box = document.getElementById($id);
-    if ($box !== null)
-    {
-        Array.prototype.slice.call($box.attributes).forEach(function(item)
-        {
+    if ($box !== null) {
+        Array.prototype.slice.call($box.attributes).forEach(function(item) {
             let $itemName = item.name;
             let $itemValue = item.value;
 
@@ -87,17 +84,15 @@ function readMoreData($id, $data)
 
         return $box;
 
-    }
-    else {
+    } else {
         window.alert('Box does not exist:' + $id);
     }
 
     return false;
 }
 
-function readProperty($box, $method, $data)
-{
-    "use strict";
+function readProperty($box, $method, $data) {
+    'use strict';
 
     if (typeof $box[$method] === 'undefined') {
         return $data;
@@ -105,7 +100,8 @@ function readProperty($box, $method, $data)
 
     let $value = $box[$method];
 
-    if (typeof $data.type !== 'undefined' && $data.type === 'checkbox' && $method === 'value') {
+    if (typeof $data.type !== 'undefined' && $data.type === 'checkbox' &&
+        $method === 'value') {
         $value = $box.checked;
     }
 
@@ -122,23 +118,30 @@ function readProperty($box, $method, $data)
     return $data;
 }
 
-function sendMessage($pluginName, $data)
-{
-    "use strict";
+function sendMessage($pluginName, $data) {
+    'use strict';
 
     const $message1 = {
-        'to': {'node': 'client', 'plugin': $pluginName, 'function': 'event_message'},
+        'to': {
+            'node': 'client',
+            'plugin': $pluginName,
+            'function': 'event_message',
+        },
         'callstack': [],
-        'data': $data
+        'data': $data,
     };
 
     const $package = {
         'to_node': 'client',
-        'messages': [$message1]
+        'messages': [$message1],
     };
 
     const $event = new CustomEvent('infohub_call_main',
-        { detail: {'plugin': null, 'package': $package}, bubbles: true, cancelable: true }
+        {
+            detail: {'plugin': null, 'package': $package},
+            bubbles: true,
+            cancelable: true,
+        },
     );
 
     document.dispatchEvent($event);

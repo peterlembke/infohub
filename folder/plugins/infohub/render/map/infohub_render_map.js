@@ -19,7 +19,7 @@
  */
 function infohub_render_map() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -32,13 +32,13 @@ function infohub_render_map() {
             'class_name': 'infohub_render_map',
             'note': 'Render HTML for a map from OpenStreetMap, Google Maps, GPSies',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,8 +59,7 @@ function infohub_render_map() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -69,7 +68,8 @@ function infohub_render_map() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -83,14 +83,13 @@ function infohub_render_map() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         let $parameter = [];
 
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -124,18 +123,20 @@ function infohub_render_map() {
      * @returns {string}
      * @private
      */
-    const _AddOverlay = function ($html, $alias)
-    {
+    const _AddOverlay = function($html, $alias) {
         const $id = '{box_id}_' + $alias,
-            $command = 'document.getElementById(\''+ $id +'\').style.pointerEvents=',
-            $on = "'auto'",
-            $off = "''",
+            $command = 'document.getElementById(\'' + $id +
+                '\').style.pointerEvents=',
+            $on = '\'auto\'',
+            $off = '\'\'',
             $onclick = 'onclick="' + $command + $on + '"',
             $tab = 'tabindex="-1" ',
             $padlockCharacter = 'Lock', // "\uD83D\uDD12",
-            $lock = '<a href="javascript:void(0)" '+ 'onclick="' + $command + $off +'">' + $padlockCharacter + '</a>';
+            $lock = '<a href="javascript:void(0)" ' + 'onclick="' + $command +
+                $off + '">' + $padlockCharacter + '</a>';
 
-        $html = '<div class="map_overlay" ' + $tab + $onclick + '>' + $html + '</div>' + $lock;
+        $html = '<div class="map_overlay" ' + $tab + $onclick + '>' + $html +
+            '</div>' + $lock;
 
         return $html;
     };
@@ -154,11 +155,10 @@ function infohub_render_map() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -166,7 +166,7 @@ function infohub_render_map() {
             'answer': 'false',
             'message': '',
             'html': '',
-            'css_data': {}
+            'css_data': {},
         };
 
         let $itemIndex = {};
@@ -182,7 +182,7 @@ function infohub_render_map() {
             }
 
             // iframes are deprecated as a security breach. Will show a link instead.
-            if ($data.subtype.substr($data.subtype.length-4,4) !== 'link') {
+            if ($data.subtype.substr($data.subtype.length - 4, 4) !== 'link') {
                 $data.subtype = $data.subtype + 'link';
             }
 
@@ -198,10 +198,9 @@ function infohub_render_map() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
-
 
     // *****************************************************************************
     // * Internal function that you only can reach from internal_Cmd
@@ -213,8 +212,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Openstreetmap = function ($in)
-    {
+    const internal_Openstreetmap = function($in) {
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmap',
@@ -224,27 +222,33 @@ function infohub_render_map() {
             'point_longitude': '18.156281',
             'zoom': '12',
             'marker': 'true',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
         let $marker = '';
         if ($in.marker === 'true') {
-            $marker='&amp;marker=' + $in.point_latitude + '%2C' + $in.point_longitude;
+            $marker = '&amp;marker=' + $in.point_latitude + '%2C' +
+                $in.point_longitude;
         }
 
-        const $zoomNumber = Math.pow(10, (2.0 - 5.0*parseFloat($in.zoom)/15.0)); // 100 = world, 10 = europa, 1 = Stockholm/Linköping, 0.1 = Stockholm+Surbubs, 0.01 = Part of town, 0.001 = Almost max
+        const $zoomNumber = Math.pow(10,
+            (2.0 - 5.0 * parseFloat($in.zoom) / 15.0)); // 100 = world, 10 = europa, 1 = Stockholm/Linköping, 0.1 = Stockholm+Surbubs, 0.01 = Part of town, 0.001 = Almost max
 
         let $p = {
             lat1: parseFloat($in.point_latitude) - $zoomNumber * 0.57,
             long1: parseFloat($in.point_longitude) - $zoomNumber * 2.2,
             lat2: parseFloat($in.point_latitude) + $zoomNumber * 0.57,
-            long2: parseFloat($in.point_longitude) + $zoomNumber * 2.2
+            long2: parseFloat($in.point_longitude) + $zoomNumber * 2.2,
         };
         $p = $p.long1 + '%2C' + $p.lat1 + '%2C' + $p.long2 + '%2C' + $p.lat2;
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        let $html = '<iframe sandbox="allow-scripts" ' + $id + ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + $p + '&amp;layer=mapnik' + $marker + '" style="border: 1px solid #ff0000"></iframe>';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $html = '<iframe sandbox="allow-scripts" ' + $id +
+            ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' +
+            $p + '&amp;layer=mapnik' + $marker +
+            '" style="border: 1px solid #ff0000"></iframe>';
 
         $html = _AddOverlay($html, $in.alias);
 
@@ -252,7 +256,7 @@ function infohub_render_map() {
 
         if ($in.class === 'map') {
             $cssData = {
-                '.map_overlay iframe': 'pointer-events: none;'
+                '.map_overlay iframe': 'pointer-events: none;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -261,7 +265,7 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for an Openstreetmap map',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -271,8 +275,7 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Openstreetmaplink = function ($in)
-    {
+    const internal_Openstreetmaplink = function($in) {
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmaplink',
@@ -281,20 +284,25 @@ function infohub_render_map() {
             'css_data': {},
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
-            'label': 'New tab'
+            'label': 'New tab',
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
 
-        const $html = '<div ' + $id + '><a href="https://www.openstreetmap.org/?mlat=' + $in.point_latitude + '&amp;mlon=' + $in.point_longitude + '#map=7/' + $in.point_latitude + '/' + $in.point_longitude + '" target="_blank">' + $in.label + '</a></div>';
+        const $html = '<div ' + $id +
+            '><a href="https://www.openstreetmap.org/?mlat=' +
+            $in.point_latitude + '&amp;mlon=' + $in.point_longitude +
+            '#map=7/' + $in.point_latitude + '/' + $in.point_longitude +
+            '" target="_blank">' + $in.label + '</a></div>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'right') {
             $cssData = {
                 '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
-                '.right:hover': 'background: #6d8df7;'
+                '.right:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -302,7 +310,7 @@ function infohub_render_map() {
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -311,7 +319,7 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for an Openstreetmap link to a new tab',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -321,8 +329,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Googlemaps = function ($in)
-    {
+    const internal_Googlemaps = function($in) {
         let $html = '';
 
         const $default = {
@@ -336,17 +343,27 @@ function infohub_render_map() {
             'point_longitude': '18.156281',
             'zoom': '12',
             'marker': 'true',
-            'height': '350'
+            'height': '350',
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $parameters = ' sandbox="allow-scripts allow-same-origin" width="100%" height="'+$in.height+'" frameborder="0"  scrolling="no" marginwidth="0" marginheight="0"';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $parameters = ' sandbox="allow-scripts allow-same-origin" width="100%" height="' +
+            $in.height +
+            '" frameborder="0"  scrolling="no" marginwidth="0" marginheight="0"';
 
         if ($in.data === '') {
-            $html = '<iframe ' + $id + $parameters + ' src="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;output=embed&amp;iwloc=near"></iframe>';
+            $html = '<iframe ' + $id + $parameters +
+                ' src="https://maps.google.se/?saddr=' + $in.point_latitude +
+                ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' +
+                $in.point_latitude + ',' + $in.point_longitude +
+                '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom +
+                '&amp;output=embed&amp;iwloc=near"></iframe>';
         } else {
-            $html = '<iframe ' + $id + $parameters + ' src="https://mapsengine.google.com/map/embed?mid=' + $in.data + '"></iframe>';
+            $html = '<iframe ' + $id + $parameters +
+                ' src="https://mapsengine.google.com/map/embed?mid=' +
+                $in.data + '"></iframe>';
         }
 
         $html = _AddOverlay($html, $in.alias);
@@ -355,7 +372,7 @@ function infohub_render_map() {
 
         if ($in.class === 'map') {
             $cssData = {
-                '.map_overlay iframe': 'pointer-events: none;'
+                '.map_overlay iframe': 'pointer-events: none;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -364,7 +381,7 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for a Google maps',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -374,8 +391,7 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Googlemapslink = function ($in)
-    {
+    const internal_Googlemapslink = function($in) {
         const $default = {
             'type': 'map',
             'subtype': 'googlemapslink',
@@ -384,19 +400,26 @@ function infohub_render_map() {
             'data': '',
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
-            'label': 'New tab'
+            'label': 'New tab',
         };
         $in = _Default($default, $in);
 
         let $html = '';
 
         if ($in.data === '') {
-            $html = '<a href="https://maps.google.se/?saddr=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' + $in.point_longitude + '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom + '&amp;source=embed" target="_blank">' + $in.label + '</a>';
+            $html = '<a href="https://maps.google.se/?saddr=' +
+                $in.point_latitude + ',' + $in.point_longitude +
+                '&amp;ie=UTF8&amp;ll=' + $in.point_latitude + ',' +
+                $in.point_longitude +
+                '&amp;spn=0.009151,0.031629&amp;t=m&amp;z=' + $in.zoom +
+                '&amp;source=embed" target="_blank">' + $in.label + '</a>';
         } else {
-            $html = '<a href="https://mapsengine.google.com/map/embed?mid=' + $in.data + '" target="_blank">' + $in.label + '</a>';
+            $html = '<a href="https://mapsengine.google.com/map/embed?mid=' +
+                $in.data + '" target="_blank">' + $in.label + '</a>';
         }
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         $html = '<div ' + $id + '>' + $html + '</div>';
 
         let $cssData = $in.css_data;
@@ -404,7 +427,7 @@ function infohub_render_map() {
         if ($in.class === 'right') {
             $cssData = {
                 '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
-                '.right:hover': 'background: #6d8df7;'
+                '.right:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -412,7 +435,7 @@ function infohub_render_map() {
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -421,7 +444,7 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for a Googlemaps link to a new tab',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -431,8 +454,7 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Bingmaps = function ($in)
-    {
+    const internal_Bingmaps = function($in) {
         const $default = {
             'type': 'map',
             'subtype': 'bingmaps',
@@ -444,7 +466,7 @@ function infohub_render_map() {
             'height': '500',
             'width': '500',
             'static_map': 'false', // typ=s (static image) or typ=d (dynamic with pan and zoom)
-            'map_style': 'street' // areal_labels, areal, street (always labels)
+            'map_style': 'street', // areal_labels, areal, street (always labels)
         };
         $in = _Default($default, $in);
 
@@ -456,7 +478,7 @@ function infohub_render_map() {
         const $mapStyle = {
             'areal_labels': 'd',
             'areal': 'a',
-            'street': 'r'
+            'street': 'r',
         };
 
         let $sty = $mapStyle.street;
@@ -464,13 +486,18 @@ function infohub_render_map() {
             $sty = $mapStyle[$in.map_style];
         }
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $parameters = ' sandbox="allow-scripts" width="100%" height="' + $in.height + '" frameborder="0"  scrolling="no" marginwidth="0"';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $parameters = ' sandbox="allow-scripts" width="100%" height="' +
+            $in.height + '" frameborder="0"  scrolling="no" marginwidth="0"';
         const $url = 'https://www.bing.com/maps/embed?';
 
-        const $getParams = 'h=' + $in.height + '&w=' + $in.width + '&cp=' + $in.point_latitude + '~' + $in.point_longitude + '&lvl=' + $in.zoom + '&typ=' + $typ + '&sty=' + $sty;
+        const $getParams = 'h=' + $in.height + '&w=' + $in.width + '&cp=' +
+            $in.point_latitude + '~' + $in.point_longitude + '&lvl=' +
+            $in.zoom + '&typ=' + $typ + '&sty=' + $sty;
 
-        let $html = '<iframe ' + $id + $parameters + ' src="'+ $url + $getParams + '&src=SHELL&FORM=MBEDV8"></iframe>';
+        let $html = '<iframe ' + $id + $parameters + ' src="' + $url +
+            $getParams + '&src=SHELL&FORM=MBEDV8"></iframe>';
 
         $html = _AddOverlay($html, $in.alias);
 
@@ -478,7 +505,7 @@ function infohub_render_map() {
 
         if ($in.class === 'map') {
             $cssData = {
-                '.map_overlay iframe': 'pointer-events: none;'
+                '.map_overlay iframe': 'pointer-events: none;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -487,7 +514,7 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for a Bing map',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -497,8 +524,7 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Bingmapslink = function ($in)
-    {
+    const internal_Bingmapslink = function($in) {
         const $default = {
             'type': 'map',
             'subtype': 'bingmapslink',
@@ -507,13 +533,16 @@ function infohub_render_map() {
             'data': '',
             'point_latitude': '59.294597',
             'point_longitude': '18.156281',
-            'label': 'New tab'
+            'label': 'New tab',
         };
         $in = _Default($default, $in);
 
-        let $html = '<a href="https://www.bing.com/maps?cp=' + $in.point_latitude + '~' + $in.point_longitude + '&sty=r&lvl=16&FORM=MBEDLD" target="_blank">' + $in.label + '</a>';
+        let $html = '<a href="https://www.bing.com/maps?cp=' +
+            $in.point_latitude + '~' + $in.point_longitude +
+            '&sty=r&lvl=16&FORM=MBEDLD" target="_blank">' + $in.label + '</a>';
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         $html = '<div ' + $id + '>' + $html + '</div>';
 
         let $cssData = $in.css_data;
@@ -521,7 +550,7 @@ function infohub_render_map() {
         if ($in.class === 'right') {
             $cssData = {
                 '.right': 'position: relative; float: right; margin: 3px 3px 0px 3px; color: #1b350a;',
-                '.right:hover': 'background: #6d8df7;'
+                '.right:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -529,7 +558,7 @@ function infohub_render_map() {
         if ($in.class === 'link') {
             $cssData = {
                 '.link': 'color: #1b350a;',
-                '.link:hover': 'background: #6d8df7;'
+                '.link:hover': 'background: #6d8df7;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -538,8 +567,9 @@ function infohub_render_map() {
             'answer': 'true',
             'message': 'Rendered html for a Bingmaps link to a new tab',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 }
+
 //# sourceURL=infohub_render_map.js

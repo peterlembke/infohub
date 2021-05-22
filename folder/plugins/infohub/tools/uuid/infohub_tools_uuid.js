@@ -17,7 +17,7 @@
  */
 function infohub_tools_uuid() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tools_uuid() {
             'class_name': 'infohub_tools_uuid',
             'note': 'Render a form for testing UUID',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -38,7 +38,7 @@ function infohub_tools_uuid() {
         const $list = {
             'create': 'normal',
             'click_handle_uuid': 'normal',
-            'click_handle_node_select': 'normal'           
+            'click_handle_node_select': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,65 +58,72 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
-                'subtype': 'menu',
-                'parent_box_id': '',
-                'translations': {},
-                'step': 'step_start',
-                'response': {
-                    'answer': 'false',
-                    'message': 'Nothing to report from tools_encrypt'
-                }                
-            };
+            'subtype': 'menu',
+            'parent_box_id': '',
+            'translations': {},
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from tools_encrypt',
+            },
+        };
         $in = _Default($default, $in);
 
         const $size = '1';
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Unique Universal Identifier')
+                            'data': _Translate('UNIQUE_UNIVERSAL_IDENTIFIER')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('You can generate a UUID4 from the client plugin or from the server plugin')
+                            'data': _Translate('YOU_CAN_GENERATE_A_UUID4_FROM_THE_CLIENT_PLUGIN_OR_FROM_THE_SERVER_PLUGIN')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_select_node][my_select_version]<br>[my_submit_button]<br>[my_textbox_output]<br>[my_clear_button]',
                             'label': 'UUID',
-                            'description': _Translate('You can get a UUID4')
+                            'description': _Translate('YOU_CAN_GET_A_UUID4')
                         },
                         'my_select_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": "Node",
-                            "description": _Translate("What node plugin do you want to produce the UUIDs?"),
-                            "size": $size,
-                            "multiple": "false",
-                            "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                            "description": _Translate("WHAT_NODE_PLUGIN_DO_YOU_WANT_TO_PRODUCE_THE_UUIDS?"),
+                            'size': $size,
+                            'multiple': 'false',
+                            'options': [
+                                {
+                                    'type': 'option',
+                                    'value': 'client',
+                                    'label': _Translate('CLIENT'),
+                                    'selected': 'true',
+                                },
+                                {
+                                    'type': 'option',
+                                    'value': 'server',
+                                    'label': _Translate('SERVER'),
+                                },
                             ],
                             'event_data': 'uuid|handle_node_select',
                             'to_plugin': 'infohub_tools',
@@ -124,66 +131,66 @@ function infohub_tools_uuid() {
                             'custom_variables': {
                                 'affect_alias': 'my_select_version',
                                 'affect_plugin': 'infohub_uuid',
-                                'affect_function': 'get_available_options'
-                            }
+                                'affect_function': 'get_available_options',
+                            },
                         },
                         'my_select_version': {
                             'type': 'form',
                             'subtype': 'select',
-                            "label": _Translate("Version"),
-                            "description": _Translate("What version (flavour) of the UUID do you want?"),
+                            "label": _Translate("VERSION"),
+                            "description": _Translate("WHAT_VERSION_(FLAVOUR)_OF_THE_UUID_DO_YOU_WANT?"),
                             "size": $size,
                             "multiple": "false",
                             'source_node': 'client',
                             'source_plugin': 'infohub_uuid',
                             'source_function': 'get_available_options',
-                            "options": []
+                            'options': [],
                         },
                         'my_submit_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Get UUID'),
+                            'button_label': _Translate('GET_UUID'),
                             'event_data': 'uuid|handle_uuid|get_uuid',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_textbox_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the UUID'),
+                            'placeholder': _Translate('WILL_SHOW_THE_UUID'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'my_clear_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Clear'),
+                            'button_label': _Translate('CLEAR'),
                             'event_data': 'uuid|handle_uuid|clear_my_textbox_output',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text][my_form]'
+                        'text': '[my_text][my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'uuid'
+                    'cache_key': 'uuid',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
@@ -195,17 +202,16 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_uuid');
-    const click_handle_uuid = function ($in)
-    {
+    const click_handle_uuid = function($in) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': ''
+                'data': '',
             },
-            'event_data': ''
+            'event_data': '',
         };
         $in = _Default($default, $in);
 
@@ -214,50 +220,62 @@ function infohub_tools_uuid() {
         if ($in.step === 'step_start') {
             $in.step = 'step_get_uuid';
             if ($in.event_data === 'clear_my_textbox_output') {
-                $formData =  {
-                    'my_textbox_output': { 'value': '', 'type': 'textarea' }
+                $formData = {
+                    'my_textbox_output': {'value': '', 'type': 'textarea'},
                 };
                 $in.step = 'step_display_data';
             }
         }
 
         if ($in.step === 'step_get_uuid') {
-            const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'client', 'data': $in});
-            const $version = _GetData({'name': 'form_data/my_select_version/value/0', 'default': '100', 'data': $in});
+            const $node = _GetData({
+                'name': 'form_data/my_select_node/value/0',
+                'default': 'client',
+                'data': $in,
+            });
+            const $version = _GetData({
+                'name': 'form_data/my_select_version/value/0',
+                'default': '100',
+                'data': $in,
+            });
 
             const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_uuid',
-                    'function': 'uuid'
+                    'function': 'uuid',
                 },
                 'data': {
                     'version': $version,
-                    'count': 1
+                    'count': 1,
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tools',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
-                    'step': 'step_get_uuid_response'
-                }
+                    'step': 'step_get_uuid_response',
+                },
             });
 
         }
 
         if ($in.step === 'step_get_uuid_response') {
 
-            $formData =  {
-                'my_textbox_output': { 'value': $in.response.data, 'type': 'textarea', 'mode': 'add_left' }
+            $formData = {
+                'my_textbox_output': {
+                    'value': $in.response.data,
+                    'type': 'textarea',
+                    'mode': 'add_left',
+                },
             };
 
             if ($in.response.answer === 'true') {
@@ -270,22 +288,22 @@ function infohub_tools_uuid() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 
@@ -296,8 +314,7 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function ($in)
-    {
+    const click_handle_node_select = function($in) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -308,37 +325,37 @@ function infohub_tools_uuid() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': ''
-            }
+                'data': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'render_options'
+                    'function': 'render_options',
                 },
                 'data': {
                     'id': $in.box_id + '_' + $in.affect_alias,
                     'source_node': $in.value,
                     'source_plugin': $in.affect_plugin,
-                    'source_function': $in.affect_function
+                    'source_function': $in.affect_function,
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'value': $in.value
-                }
+                    'value': $in.value,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 }
+
 //# sourceURL=infohub_tools_uuid.js

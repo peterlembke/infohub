@@ -1,29 +1,32 @@
 # Infohub View
-Manages display areas (boxes) on the screen  
+
+Manages display areas (boxes) on the screen
 
 # Introduction
+
 You start with one box "main". A box can contain data OR boxes. You set that with box_mode.  
-The boxes are created as DIV tags in HTML and are styled with some simple CSS. The boxes are for dynamic
-structure only.
-          
-Boxes that will contain data can have a max_width set if you want to. It is 0=no width set , 100=100%, all
-other widths are rounded down to the closest division of 160px. Meaning that you can have 160px, 320px,
-480px, 640px and so on.
-          
+The boxes are created as DIV tags in HTML and are styled with some simple CSS. The boxes are for dynamic structure only.
+
+Boxes that will contain data can have a max_width set if you want to. It is 0=no width set , 100=100%, all other widths
+are rounded down to the closest division of 160px. Meaning that you can have 160px, 320px, 480px, 640px and so on.
+
 # Boxes in boxes
-Lets divide the main box into two data boxes under each other. First change mode on main to "under", then add two boxes with main as parent.
-The boxes are in mode "data" and can now be used to show rendered data. In the sections below you can read more in detail how you do this.
-          
-You can now create your own box structure and hide parts of the structure.  
+
+Lets divide the main box into two data boxes under each other. First change mode on main to "under", then add two boxes
+with main as parent. The boxes are in mode "data" and can now be used to show rendered data. In the sections below you
+can read more in detail how you do this.
+
+You can now create your own box structure and hide parts of the structure.
 
 # How to reference boxes
-In many of the functions you are supposed to give a box ID. You probably do not have that information.
-Instead you can give a relative path as the box_id.
-          
+
+In many of the functions you are supposed to give a box ID. You probably do not have that information. Instead you can
+give a relative path as the box_id.
+
 - If the id is just a number then it is used.
 - If the box_id contain a dot then we explode the string and treat each part as an alias.
 
-Here are some examples:  
+Here are some examples:
 
 ```
 main.body.infohub_doc.doc
@@ -32,21 +35,28 @@ main.body.infohub_doc.doc
 main.body.infohub_launcher.my_list.[my_list_box_content] (This example give 12011_my_list_box_content)
 ```
 
-You see that you can use parent as an alias for the parent box. You can use [ and ] to add some string to the end of the id.  
+You see that you can use parent as an alias for the parent box. You can use [ and ] to add some string to the end of the
+id.  
 All functions in Infohub View that need to handle IDs call the parser and get the calculated ID.
-          
+
 ## Use of Workbench
-If you use the Workbench to show boxes then the path to your plugin is main.body.your_plugin  
+
+If you use the Workbench to show boxes then the path to your plugin is main.body.your_plugin
 
 # CMD functions
-Infohub View have a lot of functions. All functions that need to manipulate the DOM must be here.  
+
+Infohub View have a lot of functions. All functions that need to manipulate the DOM must be here.
 
 # init
-Sets the View CSS. Used by Infohub_Workbench in its startup function.  
-    
+
+Sets the View CSS. Used by Infohub_Workbench in its startup function.
+
 # get_box_id
-You can reference all boxes with their absolute path like this: 'main.body.infohub_doc.index'. That will give you the box_id for that specific box.  
-When ever you are supposed to give a box_id you can instead give an absolute path, each CMD function use the direct function _GetBoxId to get the real box_id.  
+
+You can reference all boxes with their absolute path like this: 'main.body.infohub_doc.index'. That will give you the
+box_id for that specific box.  
+When ever you are supposed to give a box_id you can instead give an absolute path, each CMD function use the direct
+function _GetBoxId to get the real box_id.
 
 # Example
 
@@ -67,8 +77,10 @@ return _SubCall({
 ```
 
 # scroll_to_box_id
-Give a box_id and the screen will scroll so that the box upper edge will be at the top of the viewport.
-If the page is not long enough then it scrolls as far as it can.
+
+Give a box_id and the screen will scroll so that the box upper edge will be at the top of the viewport. If the page is
+not long enough then it scrolls as far as it can.
+
 ```
 return _SubCall({
     'to': {
@@ -84,6 +96,7 @@ return _SubCall({
     }
 });
 ```
+
 You can also add a command in your rendering data so that it scrolls when the rendering is done.
 
 ```
@@ -95,10 +108,12 @@ You can also add a command in your rendering data so that it scrolls when the re
 ```
 
 # scroll_to_bottom_box_id
-Give a box_id and the screen will scroll so that the box lower edge will be at the bottom of the viewport.
-If the page is not long enough then it scrolls as far as it can.
 
-Reason I created this function was that iPhone SE 2016 has a small screen and when I clicked on an icon in Launcher I did not see the Run button. (Task HUB-1020).
+Give a box_id and the screen will scroll so that the box lower edge will be at the bottom of the viewport. If the page
+is not long enough then it scrolls as far as it can.
+
+Reason I created this function was that iPhone SE 2016 has a small screen and when I clicked on an icon in Launcher I
+did not see the Run button. (Task HUB-1020).
 
 ```
 return _SubCall({
@@ -115,6 +130,7 @@ return _SubCall({
     }
 });
 ```
+
 You can also add a command in your rendering data so that it scrolls when the rendering is done.
 
 ```
@@ -124,33 +140,39 @@ You can also add a command in your rendering data so that it scrolls when the re
             'scroll_to_bottom_box_id': 'true'
         },
 ```
+
 You can see an example of this in infohub_launcher.js when the plugin_information is rendered.
-    
+
 # box_mode
+
 By changing box_mode on a box means that the children will get that class name.
 
-Changes the div “box_mode”. You can change to “data”, “side”, “under”. You can only switch to a different
-mode than the current mode. When you switch mode then the box are cleared.
+Changes the div “box_mode”. You can change to “data”, “side”, “under”. You can only switch to a different mode than the
+current mode. When you switch mode then the box are cleared.
 
-- data - the box will now contain data.  
-- side - the box will contain boxes that will be ordered side by side.  
+- data - the box will now contain data.
+- side - the box will contain boxes that will be ordered side by side.
 - under - the box will contain boxes that will be ordered under each other.  
-In mode "side" and "under" there will be an auto created hidden end-box that will always be at the end of the boxes you create in a box. You can see it if you inspect the html
+  In mode "side" and "under" there will be an auto created hidden end-box that will always be at the end of the boxes
+  you create in a box. You can see it if you inspect the html
 
 ## box mode css
+
 In infohub_view.css you find four classes:
-- data - Rarely used since you almost always have a parent with box_mode = side or under. 
+
+- data - Rarely used since you almost always have a parent with box_mode = side or under.
 - side - This box will be side by side with the siblings
 - under - This box will be under the siblings
 - end - Used by the last box in a series of boxes. Hidden and does not contain anything.
 
-A box will always have the class set to the same name as parent box_mode.
-If the parent box has box_mode = "under" then all its children have class="under". 
-If the parent box has box_mode = "side" then all its children have class="side".
+A box will always have the class set to the same name as parent box_mode. If the parent box has box_mode = "under" then
+all its children have class="under". If the parent box has box_mode = "side" then all its children have class="side".
 
 # Example
-Uses box_mode to empty box with id "main.body.infohub_doc.index" and change its mode to "side", preparing it for containing up to 99 boxes. The digits tell how many boxes that can be created. 1=9, 2=99, 3=999
-                         
+
+Uses box_mode to empty box with id "main.body.infohub_doc.index" and change its mode to "side", preparing it for
+containing up to 99 boxes. The digits tell how many boxes that can be created. 1=9, 2=99, 3=999
+
 ```
 return _SubCall({
     'to': {
@@ -168,13 +190,15 @@ return _SubCall({
     }
 });
 ```
-    
+
 # box_delete
-You can delete a box if it is not an “end”-box.  
+
+You can delete a box if it is not an “end”-box.
 
 # Example
-Delete the box "body"  
-        
+
+Delete the box "body"
+
 ```
 return _SubCall({
     'to': {
@@ -190,16 +214,19 @@ return _SubCall({
     }
 });
 ```
-    
+
 # box_clear
+
 Clear the contents of a data box. Removes all child boxes except the end-box in side/under-boxes.  
-You can reference the box by its box_id or its box_alias. If you provide an alias then "box_find" will be run to find the box_id.  
+You can reference the box by its box_id or its box_alias. If you provide an alias then "box_find" will be run to find
+the box_id.  
 If you clear a "data"-box then it is just cleared and we are done.  
-If you clear a "side"-, or "under"-box then all boxes in that box are deleted except the "end"-box.  
+If you clear a "side"-, or "under"-box then all boxes in that box are deleted except the "end"-box.
 
 # Example
-Uses box_clear to empty the box with alias "main.body.infohub_doc.index"  
-        
+
+Uses box_clear to empty the box with alias "main.body.infohub_doc.index"
+
 ```
 return _SubCall({
     'to': {
@@ -215,10 +242,11 @@ return _SubCall({
     }
 });
 ```
-    
+
 # box_insert
-You can insert a new box before another box. This imply that the parent box is in mode: "side" or"under".  
-    
+
+You can insert a new box before another box. This imply that the parent box is in mode: "side" or"under".
+
 ```
 return _SubCall({
     'to': {
@@ -243,21 +271,32 @@ return _SubCall({
 ```
 
 View need the parent_box_id.    
-View need to know where you want the new box to be inserted in the parent box. You give the before_box_id or you can give the box_position. "first" (default), "last", "middle". Even if you select "first" your box will still be before the "end"-box.  
-Now View want to know more about the new box. box_mode, you can read more about box_mode in another section.  
-- box_data, string with data. Can be used if box_mode = "data", else you ignore this.  
-- box_alias, the alias of the box. This parameter "box_alias" is set on the box. It is used by box_find to find a box. The "name" parameter is also set to this value.  
-- box_class, A box will have class = its parent box_mode. Box children will have class = its parent box_mode. In addition to that, box_class can add an extra class to the box.  
-- max_width, if the box_mode = "data" then you can set a max-width on the box. A more flexible solution is that you set the max-width on your data instead.  
-    
+View need to know where you want the new box to be inserted in the parent box. You give the before_box_id or you can
+give the box_position. "first" (default), "last", "middle". Even if you select "first" your box will still be before
+the "end"-box.  
+Now View want to know more about the new box. box_mode, you can read more about box_mode in another section.
+
+- box_data, string with data. Can be used if box_mode = "data", else you ignore this.
+- box_alias, the alias of the box. This parameter "box_alias" is set on the box. It is used by box_find to find a box.
+  The "name" parameter is also set to this value.
+- box_class, A box will have class = its parent box_mode. Box children will have class = its parent box_mode. In
+  addition to that, box_class can add an extra class to the box.
+- max_width, if the box_mode = "data" then you can set a max-width on the box. A more flexible solution is that you set
+  the max-width on your data instead.
+
 # boxes_insert
-This is almost the same as box_insert except that it creates a lot of boxes with the same configuration and fill each box with its own data.  
-This is useful if you have an array with data and want each data to be in its own box. For example viewing a list of thumb images with detailed information.  
-Everything is the same as box_insert except "boxes_data" where you have key-value data that will be looped, and each data will get its own box inserted.  
+
+This is almost the same as box_insert except that it creates a lot of boxes with the same configuration and fill each
+box with its own data.  
+This is useful if you have an array with data and want each data to be in its own box. For example viewing a list of
+thumb images with detailed information.  
+Everything is the same as box_insert except "boxes_data" where you have key-value data that will be looped, and each
+data will get its own box inserted.
 
 # Example
-This example come from infohub_workbench  
-        
+
+This example come from infohub_workbench
+
 ```
 return _SubCall({
     'to': {
@@ -281,13 +320,15 @@ return _SubCall({
     }
 });
 ```
-    
+
 # function: boxes_insert_detailed
-Almost the same as boxes_insert except that you can have full details on each box you insert.  
+
+Almost the same as boxes_insert except that you can have full details on each box you insert.
 
 # Example
-This example comes from Infohub_Demo  
-        
+
+This example comes from Infohub_Demo
+
 ```
 return _SubCall({
     'to': {
@@ -321,10 +362,11 @@ return _SubCall({
     }
 });
 ```
-        
+
 # box_view
-Show “1” or hide “0” a box and its contents. You can not change the view on an “end”-div. They will remain hidden.  
-    
+
+Show “1” or hide “0” a box and its contents. You can not change the view on an “end”-div. They will remain hidden.
+
 ```
 return _SubCall({
     'to': {
@@ -342,11 +384,13 @@ return _SubCall({
 });
 ```
 
-box_id, the ID of the box that you want to show/hide. 1=show, 0=hide.  
-    
+box_id, the ID of the box that you want to show/hide. 1=show, 0=hide.
+
 ## siblings_box_view
-Here you can set a specific box to show or hide, and in the same call you can set the box siblings to show/hide or opposite to what you set on the box.  
-    
+
+Here you can set a specific box to show or hide, and in the same call you can set the box siblings to show/hide or
+opposite to what you set on the box.
+
 ```
 const $default = {
     'box_id': '1', // Can be the box_id or the full friendly name box id
@@ -356,12 +400,15 @@ const $default = {
 ```
 
 You give the box_id to a box. the box_view = "1" or "0". And then siblings_box_view = "1" or "0".  
-If you leave siblings_box_view empty then it will be the opposite to box_view. box_view "1" becomes siblings_box_view "0".  
+If you leave siblings_box_view empty then it will be the opposite to box_view. box_view "1" becomes siblings_box_view "
+0".
 
 ## Example
+
 This example come from the tab system. You click on a tab and that tab become visible, the others become hidden.  
-The example do not set box_view because it is default to "1". Also no need to set siblings_box_view because it will become the opposite to box_view (default).  
-        
+The example do not set box_view because it is default to "1". Also no need to set siblings_box_view because it will
+become the opposite to box_view (default).
+
 ```
 return _SubCall({
     'to': {
@@ -377,10 +424,12 @@ return _SubCall({
     }
 });
 ```
-    
+
 # box_list
-Gives you an array with all child Ids to the box_id you provide. You will also get the end-box id. You can only get a list from boxes that have box_mode = “side” or “under”.  
-    
+
+Gives you an array with all child Ids to the box_id you provide. You will also get the end-box id. You can only get a
+list from boxes that have box_mode = “side” or “under”.
+
 ```
 return _SubCall({
     'to': {
@@ -397,13 +446,14 @@ return _SubCall({
 });
 ```
 
-box_id, the parent box ID. You will get all child box IDs.  
-    
+box_id, the parent box ID. You will get all child box IDs.
+
 # box_data
+
 Store data in a data box. You can only save data in boxes that have box_mode=”data”.  
 It will also substitute all "{box_id}" and "{parent_box_id}" to their correct values.  
-And finally it will add an anchor to the box so it is easier to scroll to the right section.  
-    
+And finally it will add an anchor to the box so it is easier to scroll to the right section.
+
 ```
 return _SubCall({
     'to': {
@@ -426,11 +476,13 @@ return _SubCall({
 ```
 
 With 'variables' you can insert more values into the box_data. {my_variable}  
-With 'mode' you can 'substitute' (default) the data in the box, or data can be 'add_last' or 'add_first' to create a form of logging.  
-    
+With 'mode' you can 'substitute' (default) the data in the box, or data can be 'add_last' or 'add_first' to create a
+form of logging.
+
 # box_copy
-Copy content from one box to another. You can only copy data between boxes that have box_mode = “data”.  
-    
+
+Copy content from one box to another. You can only copy data between boxes that have box_mode = “data”.
+
 ```
 return _SubCall({
     'to': {
@@ -448,15 +500,18 @@ return _SubCall({
 });
 ```
 
-The boxes must already exist and you must know each box_id.  
-    
+The boxes must already exist and you must know each box_id.
+
 # modify_class
-You can add/remove a class name from an object. You can also use 'switch', if the class exist it will be removed, if class do not exist it will be added.  
+
+You can add/remove a class name from an object. You can also use 'switch', if the class exist it will be removed, if
+class do not exist it will be added.
 
 ## Example
+
 The closest example I could find is in infohub_tabs but that is using a mass_update.  
-In the example below the object with id will lose class: 'yes'.  
-        
+In the example below the object with id will lose class: 'yes'.
+
 ```
 return _SubCall({
     'to': {
@@ -474,13 +529,17 @@ return _SubCall({
     }
 });
 ```
-    
+
 # set_favicon
-Since you can have many domain names and serve totally different content, then it is also important to set the right favicon for each occasion.  
+
+Since you can have many domain names and serve totally different content, then it is also important to set the right
+favicon for each occasion.
 
 ## Example
-You can use a service online to convert your PNG image into base64 data. Do not add 'data:image/png;base64,' to the data because this function do that for you.  
-        
+
+You can use a service online to convert your PNG image into base64 data. Do not add 'data:image/png;base64,' to the data
+because this function do that for you.
+
 ```
 return _SubCall({
     'to': {
@@ -496,18 +555,21 @@ return _SubCall({
     }
 });
 ```
-    
-You should use infohub_asset instead of adding the BASE64 data directly to the call.  
-    
+
+You should use infohub_asset instead of adding the BASE64 data directly to the call.
+
 # set_text
+
 Used to set the visible text on for example a button.  
-Set value or innerText on an object. Give the id and the text. The function figure out if value or innerText should be set depending on the object type.  
+Set value or innerText on an object. Give the id and the text. The function figure out if value or innerText should be
+set depending on the object type.  
 If the found object is NOT an input object and the type is unknown then innerText is set.  
-If the found object is a ['text', 'textarea', 'button', 'submit', 'reset'] then value is set.  
+If the found object is a ['text', 'textarea', 'button', 'submit', 'reset'] then value is set.
 
 ## Example
-This function will be used more with translations and forms.  
-        
+
+This function will be used more with translations and forms.
+
 ```
 return _SubCall({
     'to': {
@@ -524,13 +586,14 @@ return _SubCall({
     }
 });
 ```
-    
+
 # get_text
+
 Get value or innerHTML from an object. This is the opposite to set_text. Returns the text on for example a button.  
-Returns the text and also the type if it exist. Only input tags have type.  
+Returns the text and also the type if it exist. Only input tags have type.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -546,14 +609,17 @@ return _SubCall({
     }
 });
 ```
-    
+
 # zoom_level
-Sets the zoom level on everything. The built in zoom in the browser is preferred but on tablets and phones you can not press CTRL + and CTRL -, there it is better to have on screen buttons.  
-You can set a zoom level or you can increase/decrease the zoom level.  
+
+Sets the zoom level on everything. The built in zoom in the browser is preferred but on tablets and phones you can not
+press CTRL + and CTRL -, there it is better to have on screen buttons.  
+You can set a zoom level or you can increase/decrease the zoom level.
 
 ## Example
-This snippet comes from infohub_configlocal_zoom. It displays buttons that send the custom_variables to infohub_view.  
-        
+
+This snippet comes from infohub_configlocal_zoom. It displays buttons that send the custom_variables to infohub_view.
+
 ```
 'button_text_smaller': {
     'type': 'form',
@@ -584,9 +650,9 @@ This snippet comes from infohub_configlocal_zoom. It displays buttons that send 
     }
 },
 ```
-    
-The example show buttons but you can send the data directly if you want to.  
-    
+
+The example show buttons but you can send the data directly if you want to.
+
 ```
 return _SubCall({
     'to': {
@@ -604,10 +670,11 @@ return _SubCall({
 ```
 
 # function: is_visible
-Get visible = 'true' or 'false' if object with id is visible.  
+
+Get visible = 'true' or 'false' if object with id is visible.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -624,8 +691,8 @@ return _SubCall({
 });
 ```
 
-Returns  
-        
+Returns
+
 ```
 return {
     'answer': 'true',
@@ -634,13 +701,16 @@ return {
     'visible': $visible
 }
 ```
-    
+
 # function: set_visible
-Sets visibility on any object. If you want to show/hide boxes then use box_view instead. That is better suited for boxes.  
-Use set_visible for things inside boxes. You can set visible true / false / switch. With switch you switch between true/false.  
+
+Sets visibility on any object. If you want to show/hide boxes then use box_view instead. That is better suited for
+boxes.  
+Use set_visible for things inside boxes. You can set visible true / false / switch. With switch you switch between
+true/false.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -657,13 +727,15 @@ return _SubCall({
     }
 });
 ```
-    
+
 # is_enabled
-Check if an object is enabled. You get true / false. You have probably seen disabled objects, like buttons that are visible but grayed out and can not be clicked, they are then disabled.  
-You get id and is_enabled = 'true' or 'false'.  
+
+Check if an object is enabled. You get true / false. You have probably seen disabled objects, like buttons that are
+visible but grayed out and can not be clicked, they are then disabled.  
+You get id and is_enabled = 'true' or 'false'.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -679,12 +751,13 @@ return _SubCall({
     }
 });
 ```
-    
+
 # set_enabled
-Set if an object should be enabled with 'true' or 'false' or 'switch' between enabled/disabled.  
+
+Set if an object should be enabled with 'true' or 'false' or 'switch' between enabled/disabled.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -701,20 +774,26 @@ return _SubCall({
     }
 });
 ```
-    
+
 # toggle
-Switch visibility for an object. Use "set_visible" instead if you can. It can do the same thing. Used by infohub_render_link when creating toggle links.  
+
+Switch visibility for an object. Use "set_visible" instead if you can. It can do the same thing. Used by
+infohub_render_link when creating toggle links.
 
 ## Example
+
 No, use set_visible instead.
-    
+
 # mass_update
-You can send a lot of commands in one request to View. The function mass_update will use the View internal functions. That is much quicker than doing a lot of requests to View, and it is also easier to debug if something unexpected happens.  
+
+You can send a lot of commands in one request to View. The function mass_update will use the View internal functions.
+That is much quicker than doing a lot of requests to View, and it is also easier to debug if something unexpected
+happens.  
 In Infohub_Tabs I use mass_update to unselect all tabs except the selected tab that will be marked.  
-This is also a way to get access to the internal_ functions of View.  
+This is also a way to get access to the internal_ functions of View.
 
 ## Example
-       
+
 ```
 for ($pluginName in $in.response.index)
 {
@@ -753,12 +832,13 @@ return _SubCall({
     }
 });
 ```
-    
+
 # id_exist
-Check if ID exist in the DOM. Returns exist = 'true' or 'false'.  
+
+Check if ID exist in the DOM. Returns exist = 'true' or 'false'.
 
 ## Example
-        
+
 ```
 return _SubCall({
     'to': {
@@ -775,15 +855,17 @@ return _SubCall({
     }
 });
 ```
-    
+
 # mark_object
-You can make an object become highlighted, or marked in some way so the user will notice.
-You give an id to an object, and mark = 'true' or 'false' or 'switch'.  
-One note about checkboxes. Here the parent object will be marked instead.  
+
+You can make an object become highlighted, or marked in some way so the user will notice. You give an id to an object,
+and mark = 'true' or 'false' or 'switch'.  
+One note about checkboxes. Here the parent object will be marked instead.
 
 ## Example
-This code snippet comes from infohub_render  
-        
+
+This code snippet comes from infohub_render
+
 ```
 if ($isValid === 'false') {
     return _SubCall({
@@ -800,13 +882,15 @@ if ($isValid === 'false') {
     });
 }
 ```
-    
+
 # form_read
-Read a form, get data from all form elements. Give an ID to a form, you get form_data back.  
+
+Read a form, get data from all form elements. Give an ID to a form, you get form_data back.
 
 ## Example
-This example come from infohub_render  
-        
+
+This example come from infohub_render
+
 ```
 return _SubCall({
     'to': {
@@ -822,14 +906,16 @@ return _SubCall({
     }
 });
 ```
-    
+
 # form_write
-Write data to a form. You can not set data while you render form elements, instead you must use form_write.
-The reason is simple, the rendering would be complicated if all the validators had to be triggered during rendering.  
+
+Write data to a form. You can not set data while you render form elements, instead you must use form_write. The reason
+is simple, the rendering would be complicated if all the validators had to be triggered during rendering.
 
 ## Example
-Here is an example from infohub_demo_form2  
-        
+
+Here is an example from infohub_demo_form2
+
 ```
 $formData = {
     'my_checkboxes_extras.cheese': {'value': 'true'},
@@ -861,24 +947,31 @@ return _SubCall({
     }
 });
 ```
-    
+
 # event_message
-The go() function send events further. Some end up in View event_message.  
 
-The event_message function handle events where we can have a generic response to the event. For example expanding embeddeddata. Toggle visibility.  
+The go() function send events further. Some end up in View event_message.
 
-If you set send = 'true' in your data that trigger the event, then this event will also be forwarded to your plugin.  
+The event_message function handle events where we can have a generic response to the event. For example expanding
+embeddeddata. Toggle visibility.
 
-View event_message are triggered by render_link for toggle links and embedded links. See [InfoHub Render Link](plugin,infohub_render_link). The toggle link can toggle visibility on two objects at the same time.  
+If you set send = 'true' in your data that trigger the event, then this event will also be forwarded to your plugin.
 
-View event_message are triggered by renderadvancedlist. See [InfoHub Render Advanced List](plugin,infohub_renderadvancedlist)  
-    
+View event_message are triggered by render_link for toggle links and embedded links.
+See [InfoHub Render Link](plugin,infohub_render_link). The toggle link can toggle visibility on two objects at the same
+time.
+
+View event_message are triggered by renderadvancedlist.
+See [InfoHub Render Advanced List](plugin,infohub_renderadvancedlist)
+
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free
-Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no
-Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see<a href="https://www.gnu.org/licenses/" target="_blank">https://www.gnu.org/licenses/</a>.  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see<a href="https://www.gnu.org/licenses/" target="_blank">https://www.gnu.org/licenses/</a>.
 
 Since 2017-02-04 by Peter Lembke  
 Updated 2018-10-13 by Peter Lembke  

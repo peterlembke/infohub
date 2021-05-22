@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ALL ini_set is here. Time zone is set here. Error and Exception handler is here
  *
@@ -13,7 +14,7 @@
  * @link        https://infohub.se/ InfoHub main page
  */
 declare(strict_types=1);
-ini_set('zlib.output_compression','4096');
+ini_set('zlib.output_compression', '4096');
 ini_set('memory_limit', '16M');
 ini_set('max_execution_time', '5'); // seconds
 ini_set('default_socket_timeout', '4'); // seconds
@@ -50,14 +51,15 @@ $GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'lo
  * @param $file
  * @param $line
  */
-function myErrorHandler($code, $message, $file, $line) {
-    $toErrorLog = array(
+function myErrorHandler($code, $message, $file, $line)
+{
+    $toErrorLog = [
         'type' => 'error',
         'code' => $code,
         'message' => $message,
         'file' => $file,
         'line' => $line
-    );
+    ];
     $jsonMessage = json_encode($toErrorLog, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
     error_log($jsonMessage);
     $GLOBALS['infohub_error_message'] = $jsonMessage; // Only used by infohub_base::test
@@ -68,14 +70,15 @@ function myErrorHandler($code, $message, $file, $line) {
  * You end up here on all unhandled PHP exceptions
  * @param $exception
  */
-function myExceptionHandler($exception) {
-    $toErrorLog = array(
+function myExceptionHandler($exception)
+{
+    $toErrorLog = [
         'type' => 'exception',
         'code' => $exception->getCode(),
         'message' => $exception->getMessage(),
         'file' => $exception->getFile(),
         'line' => $exception->getLine()
-    );
+    ];
     $jsonMessage = json_encode($toErrorLog, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
     error_log($jsonMessage);
     $GLOBALS['infohub_error_message'] = $jsonMessage; // Only used by infohub_base::test
@@ -86,7 +89,8 @@ function myExceptionHandler($exception) {
  * Function called when the normal execution have stopped. We are out of script or an exit are called.
  * Will also be called if there are an error.
  */
-function shutdownFunction() {
+function shutdownFunction()
+{
     $lastError = error_get_last();
     if (isset($lastError['type'])) {
         if ($lastError['type'] === E_ERROR or $lastError['type'] === E_WARNING) {

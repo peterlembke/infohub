@@ -22,4 +22,4 @@ if (file_exists('fullstop.flag') == true) {
  * @see         https://github.com/peterlembke/infohub/blob/master/folder/doc/core/core.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
-    phpinfo();
+phpinfo();

@@ -29,7 +29,8 @@
             "Run plugin": "Run plugin",
             "More": "More",
             "User name": "User name",
-            "Logout": "Logout"
+            "Logout": "Logout",
+            "Run in new window": "Run in new window"
         }
     }
 }

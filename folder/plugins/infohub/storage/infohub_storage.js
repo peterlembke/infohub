@@ -23,11 +23,11 @@
  */
 function infohub_storage() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2018-03-25',
             'version': '1.1.0',
@@ -38,18 +38,18 @@ function infohub_storage() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': '',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'read': 'normal',
             'write': 'normal',
             'read_many': 'normal',
             'write_many': 'normal',
             'read_pattern': 'normal',
-            'write_pattern': 'normal'
+            'write_pattern': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -70,21 +70,20 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('read');
-    const read = function ($in)
-    {
+    const read = function($in) {
         const $default = {
             'path': '',
             'wanted_data': {},
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -94,7 +93,7 @@ function infohub_storage() {
             'path': $in.path,
             'data': {},
             'wanted_data': $in.wanted_data,
-            'post_exist': 'false'
+            'post_exist': 'false',
         };
 
         leave: {
@@ -117,30 +116,30 @@ function infohub_storage() {
 
             if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
                 const $row = 'Your plugin: %s, is not allowed to read this path: %s';
-                $out.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
+                $out.message = _SprintF($row,
+                    [$in.from_plugin.plugin, $in.path]);
                 break leave;
             }
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 $in.path = $in.path.toLowerCase().trim();
 
                 return _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage_data',
-                        'function': 'read'
+                        'function': 'read',
                     },
                     'data': {
                         'path': $in.path,
-                        'calling_plugin': $in.from_plugin
+                        'calling_plugin': $in.from_plugin,
                     },
                     'data_back': {
                         'path': $in.path,
                         'wanted_data': $in.wanted_data,
                         'calling_plugin': $in.from_plugin,
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
             }
 
@@ -149,12 +148,13 @@ function infohub_storage() {
                     'answer': 'false',
                     'message': 'There was an error',
                     'data': {},
-                    'post_exist': 'false'
+                    'post_exist': 'false',
                 };
                 $in.response = _Default($default, $in.response);
 
                 if (_Empty($in.wanted_data) === 'false') {
-                    $in.response.data = _Default($in.wanted_data, $in.response.data);
+                    $in.response.data = _Default($in.wanted_data,
+                        $in.response.data);
                 }
 
                 $out.answer = $in.response.answer;
@@ -170,7 +170,7 @@ function infohub_storage() {
             'path': $out.path,
             'data': $out.data,
             'wanted_data': $out.wanted_data,
-            'post_exist': $out.post_exist
+            'post_exist': $out.post_exist,
         };
     };
 
@@ -183,8 +183,7 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('write');
-    const write = function ($in)
-    {
+    const write = function($in) {
         const $default = {
             'path': '',
             'data': {},
@@ -192,14 +191,14 @@ function infohub_storage() {
             'step': 'step_write',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
@@ -208,7 +207,8 @@ function infohub_storage() {
             'message': '',
             'path': $in.path,
             'mode': $in.mode,
-            'post_exist': 'false'
+            'data': $in.data,
+            'post_exist': 'false',
         };
 
         leave: {
@@ -236,12 +236,12 @@ function infohub_storage() {
 
             if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
                 const $row = 'Your plugin: %s, is not allowed to write to this path: %s';
-                $out.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
+                $out.message = _SprintF($row,
+                    [$in.from_plugin.plugin, $in.path]);
                 break leave;
             }
 
-            if ($in.step === 'step_write')
-            {
+            if ($in.step === 'step_write') {
                 $in.path = $in.path.trim();
                 // ksort($in.data);
 
@@ -249,20 +249,20 @@ function infohub_storage() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage_data',
-                        'function': 'write'
+                        'function': 'write',
                     },
                     'data': {
                         'path': $in.path,
                         'data': $in.data,
                         'mode': $in.mode,
-                        'calling_plugin': _ByVal($in.from_plugin)
+                        'calling_plugin': _ByVal($in.from_plugin),
                     },
                     'data_back': {
                         'path': $in.path,
                         'mode': $in.mode,
                         'calling_plugin': _ByVal($in.from_plugin),
-                        'step': 'step_write_response'
-                    }
+                        'step': 'step_write_response',
+                    },
                 });
 
             }
@@ -271,7 +271,7 @@ function infohub_storage() {
                 const $default = {
                     'answer': 'false',
                     'message': 'There was an error',
-                    'post_exist': 'false'
+                    'post_exist': 'false',
                 };
                 $in.response = _Default($default, $in.response);
 
@@ -285,8 +285,9 @@ function infohub_storage() {
             'answer': $out.answer,
             'message': $out.message,
             'path': $out.path,
+            'mode': $out.mode,
             'data': $out.data,
-            'post_exist': $out.post_exist
+            'post_exist': $out.post_exist,
         };
     };
 
@@ -299,29 +300,28 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('read_many');
-    const read_many = function ($in)
-    {
+    const read_many = function($in) {
         const $default = {
             'paths': {},
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
                 'path': '',
                 'data': {},
-                'post_exist': 'false'
+                'post_exist': 'false',
             },
             'data_back': {
-                'items': {}
-            }
+                'items': {},
+            },
         };
         $in = _Default($default, $in);
 
@@ -331,8 +331,7 @@ function infohub_storage() {
                 break leave;
             }
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 if ($in.from_plugin.plugin !== 'infohub_storage') {
                     $in.calling_plugin = $in.from_plugin;
                 }
@@ -340,15 +339,13 @@ function infohub_storage() {
                 $in.step = 'step_read';
             }
 
-            if ($in.step === 'step_read_response')
-            {
+            if ($in.step === 'step_read_response') {
                 const $path = $in.response.path;
                 $in.data_back.items[$path] = $in.response.data;
                 $in.step = 'step_read';
             }
 
-            if ($in.step === 'step_read') 
-            {
+            if ($in.step === 'step_read') {
                 if (_Count($in.paths) > 0) {
                     const $pop = _Pop($in.paths);
 
@@ -356,19 +353,19 @@ function infohub_storage() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_storage',
-                            'function': 'read'
+                            'function': 'read',
                         },
                         'data': {
                             'path': $pop.key,
                             'wanted_data': $pop.data,
-                            'calling_plugin': $in.calling_plugin
+                            'calling_plugin': $in.calling_plugin,
                         },
                         'data_back': {
                             'paths': $pop.object,
                             'items': $in.data_back.items,
                             'calling_plugin': $in.calling_plugin,
-                            'step': 'step_read_response'
-                        }
+                            'step': 'step_read_response',
+                        },
                     });
                 }
             }
@@ -377,7 +374,7 @@ function infohub_storage() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'items': $in.data_back.items
+            'items': $in.data_back.items,
         };
     };
 
@@ -390,31 +387,30 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('write_many');
-    const write_many = function ($in)
-    {
+    const write_many = function($in) {
         const $default = {
             'paths': {}, // object with path and data object
             'mode': 'overwrite', // overwrite or merge
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'response': {},
             'data_back': {
-                'items': {}
-            }
+                'items': {},
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'message',
-            'items': {}
+            'items': {},
         };
 
         leave: {
@@ -423,8 +419,7 @@ function infohub_storage() {
                 break leave;
             }
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 if ($in.from_plugin.plugin !== 'infohub_storage') {
                     $in.calling_plugin = $in.from_plugin;
                 }
@@ -432,15 +427,13 @@ function infohub_storage() {
                 $in.step = 'step_write_many';
             }
 
-
-            if ($in.step === 'step_write_many_response')
-            {
+            if ($in.step === 'step_write_many_response') {
                 const $default = {
                     'answer': 'false',
                     'message': 'There was an error',
                     'path': '',
                     'data': {},
-                    'post_exist': 'false'
+                    'post_exist': 'false',
                 };
                 $in.response = _Default($default, $in.response);
 
@@ -457,28 +450,28 @@ function infohub_storage() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_storage',
-                            'function': 'write'
+                            'function': 'write',
                         },
                         'data': {
                             'path': $pop.key,
                             'data': $pop.data,
                             'mode': $in.mode,
-                            'calling_plugin': $in.calling_plugin
+                            'calling_plugin': $in.calling_plugin,
                         },
                         'data_back': {
                             'paths': $pop.object,
                             'items': $in.data_back.items,
                             'mode': $in.mode,
                             'calling_plugin': $in.calling_plugin,
-                            'step': 'step_write_many_response'
-                        }
+                            'step': 'step_write_many_response',
+                        },
                     });
                 }
 
                 $out = {
                     'answer': $in.response.answer,
                     'message': $in.response.message,
-                    'items': $in.data_back.items
+                    'items': $in.data_back.items,
                 };
             }
         }
@@ -486,7 +479,7 @@ function infohub_storage() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'items': $out.items
+            'items': $out.items,
         };
     };
 
@@ -499,28 +492,27 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('read_pattern');
-    const read_pattern = function ($in)
-    {
+    const read_pattern = function($in) {
         const $default = {
             'path': '',
             'wanted_data': {},
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'Nothing to report from client storage read_pattern',
-            'items': {}
+            'items': {},
         };
 
         leave: {
@@ -529,8 +521,7 @@ function infohub_storage() {
                 break leave;
             }
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 if ($in.from_plugin.plugin !== 'infohub_storage') {
                     $in.calling_plugin = $in.from_plugin;
                 }
@@ -543,28 +534,27 @@ function infohub_storage() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage_data',
-                        'function': 'read_paths'
+                        'function': 'read_paths',
                     },
                     'data': {
                         'path': $in.path,
-                        'calling_plugin': $in.calling_plugin
+                        'calling_plugin': $in.calling_plugin,
                     },
                     'data_back': {
                         'path': $in.path,
                         'wanted_data': $in.wanted_data,
                         'calling_plugin': $in.calling_plugin,
-                        'step': 'step_read_paths_response'
-                    }
+                        'step': 'step_read_paths_response',
+                    },
                 });
             }
 
-            if ($in.step === 'step_read_paths_response')
-            {
+            if ($in.step === 'step_read_paths_response') {
                 const $default = {
                     'answer': 'false',
                     'message': 'There was an error',
                     'path': '',
-                    'data': {}
+                    'data': {},
                 };
                 $in.response = _Default($default, $in.response);
 
@@ -574,14 +564,13 @@ function infohub_storage() {
                     $out = {
                         'answer': 'true',
                         'message': 'There were no matching paths. Work done.',
-                        'items': {}
+                        'items': {},
                     };
                     $in.step = 'step_end';
                 }
             }
 
-            if ($in.step === 'step_read_many')
-            {
+            if ($in.step === 'step_read_many') {
                 if (_Empty($in.wanted_data) === 'false') {
                     for (let $key in $in.response.data) {
                         if ($in.response.data.hasOwnProperty($key) === false) {
@@ -595,15 +584,15 @@ function infohub_storage() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage',
-                        'function': 'read_many'
+                        'function': 'read_many',
                     },
                     'data': {
                         'paths': $in.response.data,
-                        'calling_plugin': $in.calling_plugin
+                        'calling_plugin': $in.calling_plugin,
                     },
                     'data_back': {
-                        'step': 'step_read_many_response'
-                    }
+                        'step': 'step_read_many_response',
+                    },
                 });
             }
         }
@@ -612,7 +601,7 @@ function infohub_storage() {
             const $default = {
                 'answer': 'false',
                 'message': 'There was an error',
-                'items': {}
+                'items': {},
             };
             $out = _Default($default, $in.response);
         }
@@ -620,7 +609,7 @@ function infohub_storage() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'items': $out.items
+            'items': $out.items,
         };
     };
 
@@ -633,8 +622,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('write_pattern');
-    const write_pattern = function ($in)
-    {
+    const write_pattern = function($in) {
         const $default = {
             'path': '',
             'data': {},
@@ -642,20 +630,20 @@ function infohub_storage() {
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
             'calling_plugin': { // A way to preserve the original from_plugin
                 'node': '',
-                'plugin': ''
+                'plugin': '',
             },
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
             'message': 'Nothing to report from client storage write_pattern',
-            'items': {}
+            'items': {},
         };
 
         leave: {
@@ -664,8 +652,7 @@ function infohub_storage() {
                 break leave;
             }
 
-            if ($in.step === 'step_start')
-            {
+            if ($in.step === 'step_start') {
                 if ($in.from_plugin.plugin !== 'infohub_storage') {
                     $in.calling_plugin = $in.from_plugin;
                 }
@@ -678,29 +665,28 @@ function infohub_storage() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage_data',
-                        'function': 'read_paths'
+                        'function': 'read_paths',
                     },
                     'data': {
                         'path': $in.path,
-                        'calling_plugin': $in.calling_plugin
+                        'calling_plugin': $in.calling_plugin,
                     },
                     'data_back': {
                         'path': $in.path,
                         'data': $in.data,
                         'mode': $in.mode,
                         'calling_plugin': $in.calling_plugin,
-                        'step': 'step_read_paths_response'
-                    }
+                        'step': 'step_read_paths_response',
+                    },
                 });
             }
 
-            if ($in.step === 'step_read_paths_response')
-            {
+            if ($in.step === 'step_read_paths_response') {
                 const $default = {
                     'answer': 'false',
                     'message': 'There was an error',
                     'path': '',
-                    'data': {}
+                    'data': {},
                 };
                 $in.response = _Default($default, $in.response);
 
@@ -710,14 +696,13 @@ function infohub_storage() {
                     $out = {
                         'answer': 'true',
                         'message': 'There were no matching paths. Work done.',
-                        'items': {}
+                        'items': {},
                     };
                     $in.step = 'step_end';
                 }
             }
 
-            if ($in.step === 'step_write_many')
-            {
+            if ($in.step === 'step_write_many') {
                 for (let $key in $in.response.data) {
                     if ($in.response.data.hasOwnProperty($key) === false) {
                         continue;
@@ -729,26 +714,25 @@ function infohub_storage() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage',
-                        'function': 'write_many'
+                        'function': 'write_many',
                     },
                     'data': {
                         'paths': $in.response.data,
                         'mode': $in.mode,
-                        'calling_plugin': $in.calling_plugin
+                        'calling_plugin': $in.calling_plugin,
                     },
                     'data_back': {
                         'calling_plugin': $in.calling_plugin,
-                        'step': 'step_write_many_response'
-                    }
+                        'step': 'step_write_many_response',
+                    },
                 });
             }
 
-            if ($in.step === 'step_write_many_response')
-            {
+            if ($in.step === 'step_write_many_response') {
                 const $default = {
                     'answer': 'false',
                     'message': 'There was an error',
-                    'items': {}
+                    'items': {},
                 };
                 $out = _Default($default, $in.response);
             }
@@ -757,8 +741,9 @@ function infohub_storage() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'items': $out.items
+            'items': $out.items,
         };
     };
 }
+
 //# sourceURL=infohub_storage.js

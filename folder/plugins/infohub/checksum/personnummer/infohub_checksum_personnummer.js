@@ -11,7 +11,7 @@
  */
 function infohub_checksum_personnummer() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -26,7 +26,7 @@ function infohub_checksum_personnummer() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -35,7 +35,7 @@ function infohub_checksum_personnummer() {
     const _GetCmdFunctions = function() {
         const $list = {
             'calculate_checksum': 'normal',
-            'verify_checksum': 'normal'
+            'verify_checksum': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -53,11 +53,10 @@ function infohub_checksum_personnummer() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("calculate_checksum");
-    const calculate_checksum = function($in)
-    {
+    $functions.push('calculate_checksum');
+    const calculate_checksum = function($in) {
         const $default = {
-            'value': ''
+            'value': '',
         };
         $in = _Default($default, $in);
 
@@ -69,7 +68,7 @@ function infohub_checksum_personnummer() {
             'message': 'Here are the checksum',
             'value': $in.value,
             'checksum': $result.toString(),
-            'verified': 'false'
+            'verified': 'false',
         };
     };
 
@@ -81,12 +80,11 @@ function infohub_checksum_personnummer() {
      * @param array $in
      * @return array|bool
      */
-    $functions.push("verify_checksum");
-    const verify_checksum = function($in)
-    {
+    $functions.push('verify_checksum');
+    const verify_checksum = function($in) {
         const $default = {
             'value': '',
-            'checksum': ''
+            'checksum': '',
         };
         $in = _Default($default, $in);
 
@@ -104,12 +102,11 @@ function infohub_checksum_personnummer() {
             'message': 'Here are the result of the checksum verification',
             'value': $in.value,
             'checksum': $in.checksum,
-            'verified': $verified
+            'verified': $verified,
         };
     };
 
-    const _CleanUpPersonnummer = function($value)
-    {
+    const _CleanUpPersonnummer = function($value) {
         return _RemoveAllButNumbers($value);
     };
 
@@ -121,8 +118,7 @@ function infohub_checksum_personnummer() {
      * @param string $valueString
      * @return string
      */
-    const _PersonnummerCalculateChecksum = function($valueString)
-    {
+    const _PersonnummerCalculateChecksum = function($valueString) {
         const $numbers = $valueString;
         let $sum = 0;
 
@@ -142,8 +138,7 @@ function infohub_checksum_personnummer() {
         return $result;
     };
 
-    const _PersonnummerSum = function($valueString)
-    {
+    const _PersonnummerSum = function($valueString) {
         const $numbers = $valueString;
         let $sum = 0;
         for (let $key in $numbers) {
@@ -155,8 +150,7 @@ function infohub_checksum_personnummer() {
         return $sum;
     };
 
-    const _PersonnummerVerifyChecksum = function($valueString)
-    {
+    const _PersonnummerVerifyChecksum = function($valueString) {
         const $checksum = $valueString;
         $valueString = $valueString.splice(-1);
         const $result = _PersonnummerCalculateChecksum($valueString);
@@ -169,12 +163,12 @@ function infohub_checksum_personnummer() {
         return false;
     };
 
-    const _RemoveAllButNumbers = function($valueString)
-    {
-        const $output = $valueString.replace(/[^0-9.]/g, "");
+    const _RemoveAllButNumbers = function($valueString) {
+        const $output = $valueString.replace(/[^0-9.]/g, '');
 
         return $output;
     };
 
 }
+
 //# sourceURL=infohub_checksum_personnummer.js

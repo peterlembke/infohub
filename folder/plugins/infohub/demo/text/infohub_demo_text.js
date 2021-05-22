@@ -11,7 +11,7 @@
  */
 function infohub_demo_text() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_text() {
             'class_name': 'infohub_demo_text',
             'note': 'Render a text demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -42,7 +42,7 @@ function infohub_demo_text() {
      */
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,58 +62,56 @@ function infohub_demo_text() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_map'
-            }
+                'message': 'Nothing to report from infohub_demo_map',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n[full_text]",
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n[full_text]',
                             'css_data': {
-                                'p:first-letter': 'color: #FFFFFF; font-size: 2em;'
-                            }
+                                'p:first-letter': 'color: #FFFFFF; font-size: 2em;',
+                            },
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Welcome to InfoHub Demo Text')
+                            'data': _Translate('WELCOME_TO_INFOHUB_DEMO_TEXT')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Plugin infohub_render_text is used in this demo. You can use text to bind together rendered objects.')
+                            'data': _Translate('PLUGIN_INFOHUB_RENDER_TEXT_IS_USED_IN_THIS_DEMO._YOU_CAN_USE_TEXT_TO_BIND_TOGETHER_RENDERED_OBJECTS.')
                         },
                         'full_text': {
                             'type': 'common',
                             'subtype': 'join',
                             'data0': '[columns]',
-                            'data1': _Translate('The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.'),
-                            'data2': _Translate('[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]'),
-                            'data3': _Translate('[h2]Columns[/h2]You can activate columns. Then you automatically get columns that your text can flow in. You can [light]highlight portions of the text like this[/light] '),
-                            'data4': _Translate('and you can include other elements in your text, for example: [my_external_link].'),
-                            'data5': _Translate('[h2]Zoom level[/h2]You can zoom the view in your browser. When you do that and the space is to narrow for the column, then it reduces the number of columns. You always get a readable view in all zoom levels.'),
-                            'data6': _Translate('[h2]Sections[/h2]You see that the h2 sections do not wrap nice in the columns. There are css commands to fix that in most browsers. I have that on my todo list.'),
+                            'data1': _Translate('THE_TEXT_RENDERER_IS_THE_MOST_IMPORTANT_RENDERER_OF_THEM_ALL._IT_ACTS_AS_THE_GLUE_THAT_COMBINE_TOGETHER_ALL_THE_OTHER_RENDERED_PIECES.'),
+                            'data2': _Translate('[H2]BUILT_IN_COMMANDS[/H2]_YOU_CAN_DO_THIS_[:-)][:-(][(C)][(R)][TEL][EUR],_YOU_CAN_ALSO_USE_[B]BOLD[/B],_[I]ITALIC[/I],_[U]UNDERLINE[/U],_OR_A_LINE_LIKE_THIS_[LINE][BR]'),
+                            'data3': _Translate('[H2]COLUMNS[/H2]YOU_CAN_ACTIVATE_COLUMNS._THEN_YOU_AUTOMATICALLY_GET_COLUMNS_THAT_YOUR_TEXT_CAN_FLOW_IN._YOU_CAN_[LIGHT]HIGHLIGHT_PORTIONS_OF_THE_TEXT_LIKE_THIS[/LIGHT]_'),
+                            'data4': _Translate('AND_YOU_CAN_INCLUDE_OTHER_ELEMENTS_IN_YOUR_TEXT,_FOR_EXAMPLE:_[MY_EXTERNAL_LINK].'),
+                            'data5': _Translate('[H2]ZOOM_LEVEL[/H2]YOU_CAN_ZOOM_THE_VIEW_IN_YOUR_BROWSER._WHEN_YOU_DO_THAT_AND_THE_SPACE_IS_TO_NARROW_FOR_THE_COLUMN,_THEN_IT_REDUCES_THE_NUMBER_OF_COLUMNS._YOU_ALWAYS_GET_A_READABLE_VIEW_IN_ALL_ZOOM_LEVELS.'),
+                            'data6': _Translate('[H2]SECTIONS[/H2]YOU_SEE_THAT_THE_H2_SECTIONS_DO_NOT_WRAP_NICE_IN_THE_COLUMNS._THERE_ARE_CSS_COMMANDS_TO_FIX_THAT_IN_MOST_BROWSERS._I_HAVE_THAT_ON_MY_TODO_LIST.'),
                             'data7': '[/columns]'
                         },
                         'my_external_link': {
@@ -121,40 +119,41 @@ function infohub_demo_text() {
                             'subtype': 'external',
                             'alias': 'my_external_link',
                             'data': 'my_external_link',
-                            'show': _Translate('My external link to the ABC club'),
+                            'show': _Translate('MY_EXTERNAL_LINK_TO_THE_ABC_CLUB'),
                             'url': 'https://www.abc.se'
                         },
                         'light': {
                             'type': 'common',
                             'subtype': 'containerStart',
                             'class': 'light',
-                            'tag': 'span'
+                            'tag': 'span',
                         },
                         '/light': {
                             'type': 'common',
                             'subtype': 'containerStop',
-                            'tag': 'span'
-                        }
+                            'tag': 'span',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text]'
+                        'text': '[my_text]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 100, // means 100% so that the columns show properly
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'text'
+                    'cache_key': 'text',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_demo_text.js

@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
 
-  # Ubuntu 20.04 LTS (ubuntu/focal64)
-  config.vm.box = "ubuntu/focal64"
+  # Ubuntu 20.10 (ubuntu/rolling)
+  config.vm.box = "ubuntu/groovy64"
 
   # Set the static IP Address
   config.vm.network "private_network", ip: "192.168.33.12"

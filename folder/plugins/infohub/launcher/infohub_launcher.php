@@ -32,14 +32,14 @@ class infohub_launcher extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-11-18
+     * @return  string[]
      * @since   2017-12-03
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2018-11-18
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-11-18',
             'since' => '2017-12-03',
             'version' => '1.0.0',
@@ -49,21 +49,21 @@ class infohub_launcher extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-11-18
+     * @return mixed
      * @since   2017-12-03
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-11-18
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'get_full_list' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -71,59 +71,59 @@ class infohub_launcher extends infohub_base
     /**
      * Get a new updated full_list
      * The list key is plugin name, the data is the checksums of files launcher.json, icon/icon.svg, icon/icon.json
-     * @version 2018-11-18
-     * @since   2018-11-14
-     * @author  Peter Lembke
      * @param $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-11-18
+     * @since   2018-11-14
      */
     protected function get_full_list(array $in = []): array
     {
-        $default = array(
+        $default = [
             'list_checksum' => '',
             'step' => 'step_get_full_list',
-            'from_plugin' => array(
+            'from_plugin' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
-            ),
-            'config' => array(
+            ],
+            'config' => [
                 'client_plugin_names' => []
-            ),
-            'response' => array(
+            ],
+            'response' => [
                 'answer' => 'false',
                 'message' => 'Nothing to report',
                 'data' => []
-            ),
+            ],
             'data_back' => []
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report';
         $fullList = [];
 
-        if ($in['step'] === 'step_get_full_list')
-        {
-            return $this->_Subcall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'launcher_get_full_list'
-                ),
-                'data' => [],
-                'data_back' => array(
-                    'list_checksum' => $in['list_checksum'],
-                    'config' => array(
-                        'client_plugin_names' => $in['config']['client_plugin_names']
-                    ),
-                    'step' => 'step_get_full_list_response'
-                )
-            ));
+        if ($in['step'] === 'step_get_full_list') {
+            return $this->_Subcall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'launcher_get_full_list'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'list_checksum' => $in['list_checksum'],
+                        'config' => [
+                            'client_plugin_names' => $in['config']['client_plugin_names']
+                        ],
+                        'step' => 'step_get_full_list_response'
+                    ]
+                ]
+            );
         }
 
-        if ($in['step'] === 'step_get_full_list_response')
-        {
+        if ($in['step'] === 'step_get_full_list_response') {
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $in['step'] = 'step_end';
@@ -133,8 +133,7 @@ class infohub_launcher extends infohub_base
             }
         }
 
-        if ($in['step'] === 'step_prepare_full_list')
-        {
+        if ($in['step'] === 'step_prepare_full_list') {
             $list = $in['response']['data'];
             ksort($list);
 
@@ -155,7 +154,7 @@ class infohub_launcher extends infohub_base
                 $list = [];
             }
 
-            $fullList = array(
+            $fullList = [
                 'name' => 'full_list',
                 'do' => $do,
                 'micro_time' => $this->_MicroTime(),
@@ -163,7 +162,7 @@ class infohub_launcher extends infohub_base
                 'list_checksum' => $listChecksum,
                 'list' => $list,
                 'removed_some_plugins_because_no_rights' => $removedSomePluginsBecauseNoRights
-            );
+            ];
 
             $answer = 'true';
             $message = 'Here are the full_list';
@@ -178,10 +177,10 @@ class infohub_launcher extends infohub_base
             }
         }
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'data' => $fullList
-        );
+        ];
     }
 }

@@ -17,7 +17,7 @@
  */
 function infohub_tools_package() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,14 +30,14 @@ function infohub_tools_package() {
             'class_name': 'infohub_tools_package',
             'note': 'The messages_encoded data can be unpacked and viewed here',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_handle_package': 'normal'
+            'click_handle_package': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -57,8 +57,7 @@ function infohub_tools_package() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -66,91 +65,90 @@ function infohub_tools_package() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_encrypt'
-            }
+                'message': 'Nothing to report from tools_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('View data from messages_encoded')
+                            'data': _Translate('VIEW_DATA_FROM_MESSAGES_ENCODED')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('With this tool you can view data from the package property messages_encoded. See your browser network tab in developer tools.')
+                            'data': _Translate('WITH_THIS_TOOL_YOU_CAN_VIEW_DATA_FROM_THE_PACKAGE_PROPERTY_MESSAGES_ENCODED._SEE_YOUR_BROWSER_NETWORK_TAB_IN_DEVELOPER_TOOLS.')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_textbox_input]<br>[my_package_button][my_textbox_output]',
-                            'label': _Translate('messages_encoded'),
-                            'description': _Translate('Paste a string from messages_encoded')
+                            'label': _Translate('MESSAGES_ENCODED'),
+                            'description': _Translate('PASTE_A_STRING_FROM_MESSAGES_ENCODED')
                         },
                         'my_textbox_input': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Paste a string from messages_encoded'),
+                            'placeholder': _Translate('PASTE_A_STRING_FROM_MESSAGES_ENCODED'),
                             'class': 'textarea',
                             'value': '',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'my_package_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Decode'),
+                            'button_label': _Translate('DECODE'),
                             'event_data': 'package|handle_package|get_current_package',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_textbox_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the decoded pretty json'),
+                            'placeholder': _Translate('WILL_SHOW_THE_DECODED_PRETTY_JSON'),
                             'class': 'textarea',
                             'resize': 'both',
                             'css_data': {},
-                            'rows': 100
-                        }
+                            'rows': 100,
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text][my_form]'
+                        'text': '[my_text][my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'package'
+                    'cache_key': 'package',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
@@ -162,8 +160,7 @@ function infohub_tools_package() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_package');
-    const click_handle_package = function ($in)
-    {
+    const click_handle_package = function($in) {
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -171,11 +168,11 @@ function infohub_tools_package() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': null
+                'data': null,
             },
             'event_data': '',
             'data_back': {},
-            'ok': 'true'
+            'ok': 'true',
         };
         $in = _Default($default, $in);
 
@@ -184,8 +181,8 @@ function infohub_tools_package() {
         if ($in.step === 'step_start') {
             $in.step = 'step_get_package';
             if ($in.event_data === 'clear_my_textbox_output') {
-                $formData =  {
-                    'my_textbox_output': { 'value': '', 'type': 'textarea' }
+                $formData = {
+                    'my_textbox_output': {'value': '', 'type': 'textarea'},
                 };
                 $in.step = 'step_display_data';
             }
@@ -193,35 +190,38 @@ function infohub_tools_package() {
 
         if ($in.step === 'step_get_package') {
 
-            const $messagesEncoded = _GetData({'name': 'form_data/my_textbox_input/value', 'default': '', 'data': $in });
+            const $messagesEncoded = _GetData({
+                'name': 'form_data/my_textbox_input/value',
+                'default': '',
+                'data': $in,
+            });
             const $messagesJson = atob($messagesEncoded);
             const $messages = JSON.parse($messagesJson);
             const $prettyJson = _JsonEncode($messages);
             $in.data_back.ok = 'true';
             const $responseMessage = 'Here are the data';
             $in.data_back.response_message = $responseMessage;
-            
 
-            $formData =  {
-                'my_textbox_output': { 'value': $prettyJson, 'type': 'textarea' },
+            $formData = {
+                'my_textbox_output': {'value': $prettyJson, 'type': 'textarea'},
             };
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'ok': $in.data_back.ok,
                     'response_message': $in.data_back.response_message,
-                    'step': 'step_display_message'
-                }
+                    'step': 'step_display_message',
+                },
             });
         }
 
@@ -230,25 +230,26 @@ function infohub_tools_package() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.box_id + '_my_message',
-                    'text': $in.data_back.response_message
+                    'text': $in.data_back.response_message,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'ok': $in.data_back.ok,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
             'message': 'Finished handle_package',
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 }
+
 //# sourceURL=infohub_tools_package.js

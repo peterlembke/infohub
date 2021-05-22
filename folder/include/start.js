@@ -19,20 +19,19 @@
 // See bottom of this plugin for the command that trigger this start class
 function infohub_start($progress) {
 
-    "use strict";
+    'use strict';
 
     let $globalOnline = 'true', // Indicate if the server have answered or not
         $globalOnlineTimer = 0; // When server have not answered then $globalOnline is 'false' for 30 seconds
 
-    this.start = function ()
-    {
+    this.start = function() {
         _SetBackground();
 
-        $progress.whatArea('start',0, 'START');
+        $progress.whatArea('start', 0, 'START');
 
         if (_LocalStorageExist() === 'false') {
             const $text = 'localStorage is not available when you have disabled all cookies. Infohub do not use cookies but use localStorage to store plugins for performance and to store number of failed startup attempts so it can automatically correct the issues and start Infohub';
-            $progress.whatArea('start',0, $text);
+            $progress.whatArea('start', 0, $text);
             window.alert($text);
             return;
         }
@@ -41,20 +40,21 @@ function infohub_start($progress) {
             _ColdStart();
         }
 
-        $progress.whatArea('start',0, 'Get core plugin names');
+        $progress.whatArea('start', 0, 'Get core plugin names');
         const $neededPluginNames = _GetNeededPluginNames();
-        $progress.whatArea('missing_plugins',0, 'Get missing plugin names');
+        $progress.whatArea('missing_plugins', 0, 'Get missing plugin names');
         const $missingPluginNames = _GetMissingPluginNames($neededPluginNames);
 
         if ($missingPluginNames.length > 0) {
-            $progress.whatArea('get_package', 0, 'Create a package with messages');
+            $progress.whatArea('get_package', 0,
+                'Create a package with messages');
             const $package = _GetPackage($missingPluginNames);
             $progress.whatArea('call_server', 0, 'Call the server');
             _CallServer($package); // Ajax call, and it will run _StartCore later
         }
 
         if ($missingPluginNames.length === 0) {
-            $progress.whatArea('start_core_plugin',0, 'Start the core');
+            $progress.whatArea('start_core_plugin', 0, 'Start the core');
             const $corePluginNames = _GetCorePluginNames();
             _StartCore($corePluginNames);
         }
@@ -66,8 +66,7 @@ function infohub_start($progress) {
      * @returns {*}
      * @private
      */
-    const _Empty = function ($object)
-    {
+    const _Empty = function($object) {
         if (typeof $object === 'undefined' || $object === null) {
             return 'true';
         }
@@ -89,8 +88,7 @@ function infohub_start($progress) {
      * @since   2015-04-24
      * @author  Peter Lembke
      */
-    const _LocalStorageExist = function ()
-    {
+    const _LocalStorageExist = function() {
         let $exist = 'false';
 
         try {
@@ -112,8 +110,7 @@ function infohub_start($progress) {
      * @param {type} $in
      * @returns {Boolean}
      */
-    const _ColdStart = function ()
-    {
+    const _ColdStart = function() {
         let $failedStarts = localStorage.getItem('cold_start');
         if (_Empty($failedStarts) === 'true') {
             $failedStarts = 0;
@@ -121,14 +118,16 @@ function infohub_start($progress) {
         $failedStarts = parseInt($failedStarts);
 
         if ($failedStarts === 1) {
-            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and will trying again');
+            $progress.whatArea('start', 0,
+                'Failed start - Now cleared local storage and will trying again');
             localStorage.clear();
             localStorage.setItem('cold_start', '2');
             location.reload();
         }
 
         if ($failedStarts === 3) {
-            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and unregistered service workers and will try again');
+            $progress.whatArea('start', 0,
+                'Failed start - Now cleared local storage and unregistered service workers and will try again');
             _UnregisterServiceWorkers();
             localStorage.clear();
             localStorage.setItem('cold_start', '4');
@@ -136,22 +135,25 @@ function infohub_start($progress) {
         }
 
         if ($failedStarts === 5) {
-            $progress.whatArea('start',0, 'Failed start - Now cleared local storage and database, unregistered service workers and will try again');
+            $progress.whatArea('start', 0,
+                'Failed start - Now cleared local storage and database, unregistered service workers and will try again');
             _UnregisterServiceWorkers();
             localStorage.clear();
-            indexedDB.deleteDatabase("localforage");
-            indexedDB.deleteDatabase("keyval-store"); // idbkeyval
+            indexedDB.deleteDatabase('localforage');
+            indexedDB.deleteDatabase('keyval-store'); // idbkeyval
             localStorage.setItem('cold_start', '6');
             location.reload();
         }
 
         if ($failedStarts >= 7) {
-            $progress.whatArea('start',0, 'Failed start - Perhaps you are offline');
-            window.alert('I have cleared the localStorage and then the indexedDb and still I can not start Infohub. Are you offline?');
+            $progress.whatArea('start', 0,
+                'Failed start - Perhaps you are offline');
+            window.alert(
+                'I have cleared the localStorage and then the indexedDb and still I can not start Infohub. Are you offline?');
             return false;
         }
 
-        $progress.whatArea('start',0, 'failed starts: ' + $failedStarts);
+        $progress.whatArea('start', 0, 'failed starts: ' + $failedStarts);
 
         $failedStarts = $failedStarts + 1;
         $failedStarts = $failedStarts.toString();
@@ -165,7 +167,8 @@ function infohub_start($progress) {
             $failedStarts = parseInt($failedStarts);
 
             if ($failedStarts > 0 && $failedStarts < 7) {
-                $progress.whatArea('start',0, 'Failed start - Took too long to start - I will reload the page');
+                $progress.whatArea('start', 0,
+                    'Failed start - Took too long to start - I will reload the page');
                 location.reload();
             }
         }, 10000); // If the cold_start flag is not gone in 10 seconds then I reload the page
@@ -177,14 +180,14 @@ function infohub_start($progress) {
      * Unregister all service workers for this site
      * @private
      */
-    const _UnregisterServiceWorkers = function ()
-    {
+    const _UnregisterServiceWorkers = function() {
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for (let registration of registrations) {
-                    registration.unregister();
-                }
-            });
+            navigator.serviceWorker.getRegistrations().
+                then(function(registrations) {
+                    for (let registration of registrations) {
+                        registration.unregister();
+                    }
+                });
         }
     };
 
@@ -192,8 +195,7 @@ function infohub_start($progress) {
      * Plugins that must be started before you can send the first message
      * @returns {string[]}
      */
-    const _GetCorePluginNames = function ()
-    {
+    const _GetCorePluginNames = function() {
         return [
             'infohub_cache',
             'infohub_exchange',
@@ -203,7 +205,7 @@ function infohub_start($progress) {
             'infohub_keyboard',
             'infohub_offline',
             'infohub_checksum',
-            'infohub_timer'
+            'infohub_timer',
 
         ];
     };
@@ -212,8 +214,7 @@ function infohub_start($progress) {
      * Plugins that you need locally
      * @returns {string[]}
      */
-    const _GetNeededPluginNames = function ()
-    {
+    const _GetNeededPluginNames = function() {
         return [
             'infohub_asset',
             'infohub_base',
@@ -247,7 +248,7 @@ function infohub_start($progress) {
             'infohub_transfer',
             'infohub_translate',
             'infohub_view',
-            'infohub_workbench'
+            'infohub_workbench',
         ];
     };
 
@@ -258,16 +259,14 @@ function infohub_start($progress) {
      * @returns {Array}
      * @private
      */
-    const _GetMissingPluginNames = function ($corePluginNames)
-    {
+    const _GetMissingPluginNames = function($corePluginNames) {
         const $numberOfCorePluginNames = _Count($corePluginNames);
         let $missingCorePluginNames = [];
         let $number = 0;
         let $part = 0.0;
         const $areaCode = 'missing_plugins';
 
-        for (let $pluginNameId in $corePluginNames)
-        {
+        for (let $pluginNameId in $corePluginNames) {
             if ($corePluginNames.hasOwnProperty($pluginNameId) === false) {
                 continue;
             }
@@ -294,8 +293,7 @@ function infohub_start($progress) {
      * @returns {*}
      * @private
      */
-    const _Count = function ($object)
-    {
+    const _Count = function($object) {
         if (Array.isArray($object)) {
             return $object.length;
         }
@@ -313,28 +311,27 @@ function infohub_start($progress) {
      * @returns {{sign_code: string, session_id: string, messages_encoded_length: number, sign_code_created_at: string, package_type: string, messages_encoded: string}}
      * @private
      */
-    const _GetPackage = function ($missingPluginNames)
-    {
+    const _GetPackage = function($missingPluginNames) {
         const $message = {
             'to': {
                 'node': 'server',
                 'plugin': 'infohub_plugin',
-                'function': 'plugins_request'
+                'function': 'plugins_request',
             },
             'callstack': [
                 {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_start',
-                        'function': 'start'
-                    }
-                }
+                        'function': 'start',
+                    },
+                },
             ],
             'data': {
-                'missing_plugin_names': $missingPluginNames
+                'missing_plugin_names': $missingPluginNames,
             },
             'alias': 'Run plugins_request to get missing core client plugins',
-            'wait': 0.0
+            'wait': 0.0,
         };
 
         let $messages = [];
@@ -349,9 +346,9 @@ function infohub_start($progress) {
             'sign_code': '',
             'sign_code_created_at': $timestamp.toString(),
             'session_id': '',
-            'messages_encoded' : $messagesEncoded,
+            'messages_encoded': $messagesEncoded,
             'messages_encoded_length': $messagesEncoded.length,
-            'package_type': '2020'
+            'package_type': '2020',
         };
 
         return $package;
@@ -362,14 +359,13 @@ function infohub_start($progress) {
      * @param $package
      * @private
      */
-    const _CallServer = function ($package)
-    {
+    const _CallServer = function($package) {
         let xmlHttp = new XMLHttpRequest();
         const $content = JSON.stringify($package);
         const $url = 'infohub.php';
         const $async = true;
 
-        $progress.whatArea('call_server',10, 'Call the server - will send');
+        $progress.whatArea('call_server', 10, 'Call the server - will send');
 
         const $maxWaitTimeMS = 60000.0;
 
@@ -380,18 +376,16 @@ function infohub_start($progress) {
 
         xmlHttp.open('POST', $url, $async);
 
-        xmlHttp.onreadystatechange = function ()
-        {
-            if (xmlHttp.readyState === 4)
-            {
-                if (xmlHttp.status === 200)
-                {
-                    $progress.whatArea('call_server',30, 'Call the server - got response');
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState === 4) {
+                if (xmlHttp.status === 200) {
+                    $progress.whatArea('call_server', 30,
+                        'Call the server - got response');
 
                     _SetGlobalOnline('true'); // We got a message, we are online
                     clearTimeout(noResponseTimer); // We got a response before the timeout
 
-                    let $response =  xmlHttp.responseText;
+                    let $response = xmlHttp.responseText;
                     const $isErrorMessage = _IsErrorMessage($response);
 
                     if ($response !== '' && $response[0] === '{' && $isErrorMessage === 'false') {
@@ -400,25 +394,30 @@ function infohub_start($progress) {
                         $response.messages = JSON.parse(atob($response.messages_encoded));
                         delete ($response.messages_encoded);
 
-                        $progress.whatArea('call_server',40, 'Call the server - Valid response, parsing...');
+                        const $text = 'Call the server - Valid response, parsing...';
+                        $progress.whatArea('call_server', 40, $text);
 
                         _HandleServerResponse($response);
                         return;
                     }
 
                     if ($response[0] === '{') {
-                        $response = $response.substr(0, $response.indexOf('}') +1 );
+                        const $length = $response.indexOf('}') + 1;
+                        $response = $response.substr(0, $length);
                     }
 
-                    $progress.whatArea('call_server',40, 'Call the server - Invalid response');
-                    document.getElementById('error').innerHTML = 'Error from server<br>' + $response;
+                    let $text = 'Call the server - Invalid response';
+                    $progress.whatArea('call_server', 40, $text);
+
+                    $text = 'Error from server<br>' + $response;
+                    document.getElementById('error').innerHTML = $text;
                 }
             }
         };
 
-        xmlHttp.setRequestHeader("Content-type", "application/json");
-        setTimeout(function(){
-            $progress.whatArea('call_server',20, 'Call the server - sending');
+        xmlHttp.setRequestHeader('Content-type', 'application/json');
+        setTimeout(function() {
+            $progress.whatArea('call_server', 20, 'Call the server - sending');
             xmlHttp.send($content);
         }, 1000);
     };
@@ -429,8 +428,7 @@ function infohub_start($progress) {
      * @param $value
      * @private
      */
-    const _SetGlobalOnline = function ($value)
-    {
+    const _SetGlobalOnline = function($value) {
         if ($value !== 'true' && $value !== 'false') {
             return;
         }
@@ -439,8 +437,7 @@ function infohub_start($progress) {
             return;
         }
 
-        if ($value === 'false')
-        {
+        if ($value === 'false') {
             $globalOnline = 'false';
 
             const $maxWaitTimeMSToSetGlobalOnlineBackToTrue = 30000.0;
@@ -466,12 +463,10 @@ function infohub_start($progress) {
      * @returns {*}
      * @private
      */
-    const _IsErrorMessage = function ($response)
-    {
+    const _IsErrorMessage = function($response) {
         const $errorMessageArray = ['{"type":"exception",', '{"type":"error",'];
 
-        for (let $key in $errorMessageArray)
-        {
+        for (let $key in $errorMessageArray) {
             if ($errorMessageArray.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -492,9 +487,9 @@ function infohub_start($progress) {
      * @param $serverResponse
      * @private
      */
-    const _HandleServerResponse = function ($serverResponse)
-    {
-        $progress.whatArea('server_response',0, 'Server response - handle the data');
+    const _HandleServerResponse = function($serverResponse) {
+        $progress.whatArea('server_response', 0,
+            'Server response - handle the data');
 
         const $response = _GetMessagesFromResponse($serverResponse);
 
@@ -519,8 +514,7 @@ function infohub_start($progress) {
      * @returns {{answer: string, message: string, items: {}}}
      * @private
      */
-    const _GetMessagesFromResponse = function ($response)
-    {
+    const _GetMessagesFromResponse = function($response) {
         let $answer = 'false';
         let $message = '';
 
@@ -563,7 +557,7 @@ function infohub_start($progress) {
         return {
             'answer': $answer,
             'message': $message,
-            'items': $out
+            'items': $out,
         };
     };
 
@@ -572,12 +566,11 @@ function infohub_start($progress) {
      * @param $plugins
      * @private
      */
-    const _StorePlugins = function ($plugins)
-    {
+    const _StorePlugins = function($plugins) {
         const $areaCode = 'store_plugin';
         const $textPrefix = 'Store prefix - ';
 
-        $progress.whatArea($areaCode,0, $textPrefix + 'Initializing...');
+        $progress.whatArea($areaCode, 0, $textPrefix + 'Initializing...');
 
         let $index = localStorage.getItem('plugin_index');
 
@@ -591,8 +584,7 @@ function infohub_start($progress) {
         let $number = 0;
         let $partPercent = 0.0;
 
-        for (let $pluginName in $plugins)
-        {
+        for (let $pluginName in $plugins) {
             if ($plugins.hasOwnProperty($pluginName) === false) {
                 continue;
             }
@@ -607,12 +599,12 @@ function infohub_start($progress) {
 
             $index[$pluginName] = {
                 'checksum': $plugins[$pluginName].plugin_checksum,
-                'timestamp_added': _MicroTime()
+                'timestamp_added': _MicroTime(),
             };
 
         }
 
-        $progress.whatArea($areaCode,100, 'Store plugin Index...');
+        $progress.whatArea($areaCode, 100, 'Store plugin Index...');
         localStorage.setItem('plugin_index', JSON.stringify($index));
     };
 
@@ -621,8 +613,7 @@ function infohub_start($progress) {
      * @returns {number}
      * @private
      */
-    const _MicroTime = function ()
-    {
+    const _MicroTime = function() {
         const $microtime = (new Date()).getTime() / 1000.0;
 
         return $microtime;
@@ -634,8 +625,7 @@ function infohub_start($progress) {
      * @param $corePluginNames
      * @private
      */
-    const _StartCore = function ($corePluginNames)
-    {
+    const _StartCore = function($corePluginNames) {
         const $response = _StartPlugins($corePluginNames);
 
         if ($response.answer === 'true') {
@@ -643,7 +633,7 @@ function infohub_start($progress) {
             return;
         }
 
-        const $messageOut = JSON.stringify($response,null,'\t');
+        const $messageOut = JSON.stringify($response, null, '\t');
         alert($messageOut);
     };
 
@@ -653,8 +643,7 @@ function infohub_start($progress) {
      * @returns {{answer: string, message: string, all_started: string, started: {}, not_started: {}}}
      * @private
      */
-    const _StartPlugins = function ($corePluginNames)
-    {
+    const _StartPlugins = function($corePluginNames) {
         const $areaCode = 'start_core_plugin';
 
         let $out = {
@@ -662,10 +651,10 @@ function infohub_start($progress) {
             'message': 'All core plugins are started',
             'all_started': 'true',
             'started': {},
-            'not_started': {}
+            'not_started': {},
         };
 
-        $progress.whatArea('start_core_plugin',0, 'Start the core');
+        $progress.whatArea('start_core_plugin', 0, 'Start the core');
 
         const $basePluginJson = localStorage.getItem('plugin_infohub_base');
         const $basePlugin = JSON.parse($basePluginJson);
@@ -674,8 +663,7 @@ function infohub_start($progress) {
         const $numberOfCorePluginNames = _Count($corePluginNames);
         let $partPercent = 0.0;
 
-        for (let $pluginKey in $corePluginNames)
-        {
+        for (let $pluginKey in $corePluginNames) {
             if ($corePluginNames.hasOwnProperty($pluginKey) === false) {
                 continue;
             }
@@ -691,7 +679,8 @@ function infohub_start($progress) {
                 continue;
             }
 
-            const $pluginJsonData = localStorage.getItem('plugin_' + $pluginName);
+            const $pluginJsonData = localStorage.getItem(
+                'plugin_' + $pluginName);
             let $plugin = JSON.parse($pluginJsonData);
 
             if ($plugin === null) {
@@ -700,8 +689,10 @@ function infohub_start($progress) {
                 break;
             }
 
-            $plugin.plugin_code = $plugin.plugin_code.replace('{{base_checksum}}', $basePlugin.plugin_checksum);
-            $plugin.plugin_code = $plugin.plugin_code.replace('\// include \"infohub_base.js\"', $basePlugin.plugin_code);
+            $plugin.plugin_code = $plugin.plugin_code.replace(
+                '{{base_checksum}}', $basePlugin.plugin_checksum);
+            $plugin.plugin_code = $plugin.plugin_code.replace(
+                '\// include \"infohub_base.js\"', $basePlugin.plugin_code);
 
             const $response = _StartPlugin($plugin);
             if ($response.answer === 'false') {
@@ -727,11 +718,10 @@ function infohub_start($progress) {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const _StartPlugin = function ($in)
-    {
+    const _StartPlugin = function($in) {
         let $response = {
             'answer': 'false',
-            'message': ''
+            'message': '',
         };
 
         block: {
@@ -739,17 +729,20 @@ function infohub_start($progress) {
             let $ok = 'true';
 
             try {
-                eval.call(window,$in.plugin_code);
+                eval.call(window, $in.plugin_code);
             } catch ($err) {
-                $response.message = 'Can not evaluate the plugin class:"' + $in.plugin_name + '", error:"' + $err.message + '"';
+                $response.message = 'Can not evaluate the plugin class:"' +
+                    $in.plugin_name + '", error:"' + $err.message + '"';
                 break block;
             }
 
             // Check that the plugin class are available
             try {
-                eval("if (typeof " + $in.plugin_name + " === 'undefined') { $ok = 'false'; }");
+                eval('if (typeof ' + $in.plugin_name +
+                    ' === \'undefined\') { $ok = \'false\'; }');
             } catch ($err) {
-                $response.message = 'Can not check if the class:"' + $in.plugin_name + '" exist. error:"' + $err.message + '"';
+                $response.message = 'Can not check if the class:"' +
+                    $in.plugin_name + '" exist. error:"' + $err.message + '"';
                 break block;
             }
 
@@ -769,25 +762,25 @@ function infohub_start($progress) {
      * Sends the first message as an event.
      * @private
      */
-    const _SendFirstMessage = function ()
-    {
-        $progress.whatArea('send_first_message',0, 'Will send the first message');
+    const _SendFirstMessage = function() {
+        $progress.whatArea('send_first_message', 0,
+            'Will send the first message');
 
         const $message = {
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_exchange',
-                    'function': 'startup'
-                },
-                'callstack': [],
-                'data': {},
-                'alias': 'Run startup',
-                'wait': 0.0
-            };
+            'to': {
+                'node': 'client',
+                'plugin': 'infohub_exchange',
+                'function': 'startup',
+            },
+            'callstack': [],
+            'data': {},
+            'alias': 'Run startup',
+            'wait': 0.0,
+        };
 
         let $package = {
-            'to_node' : 'server',
-            'messages' : []
+            'to_node': 'server',
+            'messages': [],
         };
 
         $package.messages.push($message);
@@ -795,9 +788,10 @@ function infohub_start($progress) {
         let $plugin;
 
         try {
-            eval("$plugin = new infohub_exchange();");
+            eval('$plugin = new infohub_exchange();');
         } catch ($err) {
-            alert('Can not instantiate class:"infohub_exchange()", error:"' + $err.message + '"');
+            alert('Can not instantiate class:"infohub_exchange()", error:"' +
+                $err.message + '"');
             return;
         }
 
@@ -811,10 +805,14 @@ function infohub_start($progress) {
             localStorage.removeItem('cold_start');
 
             const $event = new CustomEvent('infohub_call_main',
-                { detail: {'plugin': $plugin, 'package': $package}, bubbles: true, cancelable: true }
+                {
+                    detail: {'plugin': $plugin, 'package': $package},
+                    bubbles: true,
+                    cancelable: true,
+                },
             );
             document.dispatchEvent($event);
-            $progress.whatArea('clean_up',0, 'Have sent first message');
+            $progress.whatArea('clean_up', 0, 'Have sent first message');
 
             // The first command in start.js is to check this flag. We have gone so far now that it is time to reset the flag.
 
@@ -835,7 +833,7 @@ function infohub_start($progress) {
         }
         document.body.style['backgroundColor'] = $backgroundColor;
         document.body.style['color'] = $backgroundColor;
-    }
+    };
 
     /**
      * Detects if dark mode is enabled or not
@@ -844,7 +842,8 @@ function infohub_start($progress) {
      * @private
      */
     const _IsDarkModeEnabled = function() {
-        const $result = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const $result = window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         return $result;
     };
@@ -855,9 +854,8 @@ function infohub_start($progress) {
  * See event listener below
  * @param $eventData
  */
-function infohubCallMainHandler($eventData)
-{
-    "use strict";
+function infohubCallMainHandler($eventData) {
+    'use strict';
 
     const $in = $eventData.detail;
 
@@ -873,22 +871,28 @@ function infohubCallMainHandler($eventData)
      */
 
     const $callMainMessage = {
-        'to': {'node': 'client', 'plugin': 'infohub_exchange', 'function': 'main' },
+        'to': {
+            'node': 'client',
+            'plugin': 'infohub_exchange',
+            'function': 'main',
+        },
         'callstack': [],
-        'data': {'package': $in.package },
+        'data': {'package': $in.package},
         'alias': 'First message',
-        'wait': 0.0
+        'wait': 0.0,
     };
 
     // console.dir($callMainMessage);
 
-    if (typeof infohubCallMainHandler.plugin === 'undefined' || infohubCallMainHandler.plugin === null) {
+    if (typeof infohubCallMainHandler.plugin === 'undefined' ||
+        infohubCallMainHandler.plugin === null) {
         infohubCallMainHandler.plugin = $in.plugin;
     }
 
     const $message = infohubCallMainHandler.plugin.cmd($callMainMessage);
 }
-document.addEventListener("infohub_call_main", infohubCallMainHandler, false);
+
+document.addEventListener('infohub_call_main', infohubCallMainHandler, false);
 
 const $infohub_start = new infohub_start($progress); // $progress are declared in another file
 $infohub_start.start();

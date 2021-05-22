@@ -32,14 +32,14 @@ class infohub_trigger extends infohub_base
 
     /**
      * Version information for this plugin
-     * @version 2020-09-12
+     * @return  string[]
      * @since   2020-08-12
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2020-09-12
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2020-09-12',
             'since' => '2020-08-12',
             'version' => '1.0.0',
@@ -49,21 +49,21 @@ class infohub_trigger extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'developer'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2020-09-12
+     * @return mixed
      * @since   2020-08-12
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-09-12
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'get_plugin_list' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -73,58 +73,60 @@ class infohub_trigger extends infohub_base
      * You will not get functions list for the js plugins. That will happen if you select a plugin.
      * You will not get the default message for a plugin that will happen if you select a function
      * and press send with an empty message
-     * @version 2020-08-17
-     * @since   2020-08-12
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-08-17
+     * @since   2020-08-12
      */
     protected function get_plugin_list(array $in = []): array
     {
-        $default = array(
-            'from_plugin' => array(
+        $default = [
+            'from_plugin' => [
                 'node' => ''
-            ),
+            ],
             'response' => [],
             'step' => 'step_ask_file'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $out = array(
+        $out = [
             'answer' => 'false',
             'message' => 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__,
             'data' => []
-        );
+        ];
 
         if ($in['step'] === 'step_ask_file') {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'developer_get_all_plugin_data'
-                ),
-                'data' => array(
-                    'plugin_status' => 'emerging'
-                ),
-                'data_back' => array(
-                    'step' => 'step_ask_file_response'
-                )
-            ));
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'developer_get_all_plugin_data'
+                    ],
+                    'data' => [
+                        'plugin_status' => 'emerging'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_ask_file_response'
+                    ]
+                ]
+            );
         }
 
         if ($in['step'] === 'step_ask_file_response') {
-            $default = array(
+            $default = [
                 'answer' => 'false',
                 'message' => 'Nothing',
                 'data' => []
-            );
+            ];
             $out = $this->_Default($default, $in['response']);
         }
 
-        return array(
+        return [
             'answer' => $out['answer'],
             'message' => $out['message'],
             'data' => $out['data']
-        );
+        ];
     }
 }

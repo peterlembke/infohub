@@ -17,7 +17,7 @@
  */
 function infohub_tools_random() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,14 +30,14 @@ function infohub_tools_random() {
             'class_name': 'infohub_tools_random',
             'note': 'Render a form for generating randoms in different formats',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_handle_random': 'normal'
+            'click_handle_random': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -57,8 +57,7 @@ function infohub_tools_random() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -66,125 +65,124 @@ function infohub_tools_random() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from tools_encrypt'
-            }
+                'message': 'Nothing to report from tools_encrypt',
+            },
         };
         $in = _Default($default, $in);
 
         const $size = '1';
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_text': {
                             'type': 'text',
-                            'text': "[h1][titel][/h1]\n [i][ingress][/i]\n"
+                            'text': '[h1][titel][/h1]\n [i][ingress][/i]\n',
                         },
                         'titel': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Generate random number')
+                            'data': _Translate('GENERATE_RANDOM_NUMBER')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('With this tool you can get the current random in different formats')
+                            'data': _Translate('WITH_THIS_TOOL_YOU_CAN_GET_THE_CURRENT_RANDOM_IN_DIFFERENT_FORMATS')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_select_node][my_textbox_min][my_textbox_max]<br>[my_random_button][my_textbox_output][my_clear_button]',
-                            'label': _Translate('Random format'),
-                            'description': _Translate('Select what random format you want to use')
+                            'label': _Translate('RANDOM_FORMAT'),
+                            'description': _Translate('SELECT_WHAT_RANDOM_FORMAT_YOU_WANT_TO_USE')
                         },
                         'my_select_node': {
                             'type': 'form',
                             'subtype': 'select',
-                            "label": _Translate("Node"),
-                            "description": _Translate("What node plugin do you want to produce the checksum?"),
+                            "label": _Translate("NODE"),
+                            "description": _Translate("WHAT_NODE_PLUGIN_DO_YOU_WANT_TO_PRODUCE_THE_CHECKSUM?"),
                             "size": $size,
                             "multiple": "false",
                             "options": [
-                                { "type": "option", "value": "client", "label": _Translate("Client"), 'selected': 'true' },
-                                { "type": "option", "value": "server", "label": _Translate("Server") }
+                                { "type": "option", "value": "client", "label": _Translate("CLIENT"), 'selected': 'true' },
+                                { "type": "option", "value": "server", "label": _Translate("SERVER") }
                             ]
                         },
                         'my_textbox_min': {
                             'type': 'form',
                             'subtype': 'text',
                             'input_type': 'text',
-                            'placeholder': _Translate('Set your minimum integer number'),
+                            'placeholder': _Translate('SET_YOUR_MINIMUM_INTEGER_NUMBER'),
                             'class': 'text',
                             'value': '1',
                             'css_data': {},
                             'validator_plugin': 'infohub_validate',
-                            'validator_function': 'validate_is_integer'
+                            'validator_function': 'validate_is_integer',
                         },
                         'my_textbox_max': {
                             'type': 'form',
                             'subtype': 'text',
                             'input_type': 'text',
-                            'placeholder': _Translate('Set your maximum integer number'),
+                            'placeholder': _Translate('SET_YOUR_MAXIMUM_INTEGER_NUMBER'),
                             'class': 'text',
                             'value': '100',
                             'css_data': {},
                             'validator_plugin': 'infohub_validate',
-                            'validator_function': 'validate_is_integer'
+                            'validator_function': 'validate_is_integer',
                         },
                         'my_random_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Generate random number'),
+                            'button_label': _Translate('GENERATE_RANDOM_NUMBER'),
                             'event_data': 'random|handle_random|get_current_random',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'my_textbox_output': {
                             'type': 'form',
                             'subtype': 'textarea',
                             'input_type': 'text',
-                            'placeholder': _Translate('Will show the random number'),
+                            'placeholder': _Translate('WILL_SHOW_THE_RANDOM_NUMBER'),
                             'class': 'textarea',
-                            'css_data': {}
+                            'css_data': {},
                         },
                         'my_clear_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Clear'),
+                            'button_label': _Translate('CLEAR'),
                             'event_data': 'random|handle_random|clear_my_textbox_output',
                             'to_plugin': 'infohub_tools',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_text][my_form]'
+                        'text': '[my_text][my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.tools',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'random'
+                    'cache_key': 'random',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
@@ -196,8 +194,7 @@ function infohub_tools_random() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_random');
-    const click_handle_random = function ($in)
-    {
+    const click_handle_random = function($in) {
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -205,11 +202,11 @@ function infohub_tools_random() {
             'response': {
                 'answer': 'false',
                 'message': '',
-                'data': 0.0
+                'data': 0.0,
             },
             'event_data': '',
             'data_back': {},
-            'ok': 'true'
+            'ok': 'true',
         };
         $in = _Default($default, $in);
 
@@ -218,8 +215,8 @@ function infohub_tools_random() {
         if ($in.step === 'step_start') {
             $in.step = 'step_get_random';
             if ($in.event_data === 'clear_my_textbox_output') {
-                $formData =  {
-                    'my_textbox_output': { 'value': '', 'type': 'textarea' }
+                $formData = {
+                    'my_textbox_output': {'value': '', 'type': 'textarea'},
                 };
 
                 $in.step = 'step_display_data';
@@ -228,48 +225,63 @@ function infohub_tools_random() {
 
         if ($in.step === 'step_get_random') {
 
-            const $node = _GetData({'name': 'form_data/my_select_node/value/0', 'default': 'server', 'data': $in });
-            const $minNumber = parseFloat(_GetData({'name': 'form_data/my_textbox_min/value', 'default': 1.0, 'data': $in }));
-            const $maxNumber = parseFloat(_GetData({'name': 'form_data/my_textbox_max/value', 'default': 100.0, 'data': $in }));
+            const $node = _GetData({
+                'name': 'form_data/my_select_node/value/0',
+                'default': 'server',
+                'data': $in,
+            });
+            const $minNumber = parseFloat(_GetData({
+                'name': 'form_data/my_textbox_min/value',
+                'default': 1.0,
+                'data': $in,
+            }));
+            const $maxNumber = parseFloat(_GetData({
+                'name': 'form_data/my_textbox_max/value',
+                'default': 100.0,
+                'data': $in,
+            }));
 
             const $callServer = {
                 'to': {
                     'node': $node,
                     'plugin': 'infohub_random',
-                    'function': 'random_number'
+                    'function': 'random_number',
                 },
                 'data': {
                     'min': $minNumber,
-                    'max': $maxNumber
+                    'max': $maxNumber,
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_tools',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
-                    'send_data': $callServer
+                    'send_data': $callServer,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_random_response'
-                }
+                    'step': 'step_get_random_response',
+                },
             });
 
         }
 
-        if ($in.step === 'step_get_random_response')
-        {
+        if ($in.step === 'step_get_random_response') {
             const $data = parseFloat($in.response.data);
 
-            $formData =  {
-                'my_textbox_output': { 'value': $data, 'type': 'textarea', 'mode': 'add_left' },
+            $formData = {
+                'my_textbox_output': {
+                    'value': $data,
+                    'type': 'textarea',
+                    'mode': 'add_left',
+                },
             };
-            
+
             if ($in.response.answer === 'true') {
                 $in.step = 'step_display_data';
             }
@@ -280,23 +292,24 @@ function infohub_tools_random() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_tools.tools',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.answer
+            'ok': $in.response.answer,
         };
     };
 }
+
 //# sourceURL=infohub_tools_random.js

@@ -17,11 +17,11 @@
  */
 function infohub_doc_navigate() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2019-06-08',
             'since': '2019-04-13',
@@ -31,16 +31,16 @@ function infohub_doc_navigate() {
             'note': 'Render navigation and handle click events on the list',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Navigate'
+            'title': 'Navigate',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'setup_gui': 'normal',
             'click_refresh': 'normal',
             'click_document_name': 'normal',
-            'view_navigation': 'normal'
+            'view_navigation': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -53,7 +53,7 @@ function infohub_doc_navigate() {
     // * Can only be reached trough cmd()
     // ***********************************************************
 
-    $functions.push("_GetBoxId");
+    $functions.push('_GetBoxId');
     const _GetBoxId = function($child) {
 
         if (_Empty($child) === 'true') {
@@ -74,8 +74,7 @@ function infohub_doc_navigate() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -83,24 +82,23 @@ function infohub_doc_navigate() {
             'response': {
                 'answer': '',
                 'message': '',
-                'data': {}
-            }
+                'data': {},
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
-            const $buttonLabel = _Translate('Refresh navigate');
+            const $buttonLabel = _Translate('REFRESH_NAVIGATE');
             const $boxId = _GetBoxId('navigate');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -112,45 +110,45 @@ function infohub_doc_navigate() {
                             'button_label': $buttonLabel,
                             'event_data': 'infohub_doc_navigate|click_refresh',
                             'to_plugin': 'infohub_doc',
-                            'to_function': 'event_message'
+                            'to_function': 'event_message',
                         },
                         'refresh_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[refresh_asset]'
+                            'data': '[refresh_asset]',
                         },
                         'refresh_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'refresh',
-                            'plugin_name': 'infohub_doc'
+                            'plugin_name': 'infohub_doc',
                         },
                         'list': {
                             'type': 'common',
                             'subtype': 'container',
-                            'tag': 'div'
+                            'tag': 'div',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[button_refresh][list]'
+                        'text': '[button_refresh][list]',
                     },
                     'where': {
                         'box_id': $boxId,
                         'max_width': 0,
-                        'scroll_to_box_id': 'false'
+                        'scroll_to_box_id': 'false',
                     },
-                    'cache_key': 'navigate'
+                    'cache_key': 'navigate',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'plugin GUI is done'
+            'message': 'plugin GUI is done',
         };
 
     };
@@ -161,43 +159,40 @@ function infohub_doc_navigate() {
      * @since 2019-05-29
      * @author Peter Lembke
      */
-    $functions.push("click_refresh");
-    const click_refresh = function ($in)
-    {
+    $functions.push('click_refresh');
+    const click_refresh = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
             'data_back': {
-                'step': ''
+                'step': '',
             },
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
                 'data': {},
                 'ok': 'false',
-                'value': [] // All selected options in select lists
-            }
+                'value': [], // All selected options in select lists
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_get',
-                    'function': 'get_documents_list'
+                    'function': 'get_documents_list',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_start_response'
-                }
+                    'step': 'step_start_response',
+                },
             });
         }
 
-        if ($in.step === 'step_start_response')
-        {
+        if ($in.step === 'step_start_response') {
             $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {
@@ -205,31 +200,28 @@ function infohub_doc_navigate() {
             }
         }
 
-        if ($in.step === 'step_handle_documents_list')
-        {
+        if ($in.step === 'step_handle_documents_list') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_navigate',
-                    'function': 'view_navigation'
+                    'function': 'view_navigation',
                 },
                 'data': {
-                    'data': $in.response.data
+                    'data': $in.response.data,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
-
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
-
 
     /**
      * When you click a document name from the navigation list
@@ -238,9 +230,8 @@ function infohub_doc_navigate() {
      * @since 2019-04-14
      * @author Peter Lembke
      */
-    $functions.push("click_document_name");
-    const click_document_name = function ($in)
-    {
+    $functions.push('click_document_name');
+    const click_document_name = function($in) {
         const $default = {
             'box_id': '',
             'area': '',
@@ -250,37 +241,36 @@ function infohub_doc_navigate() {
                 'answer': 'false',
                 'message': 'There was an error',
                 'document_data': {
-                    'document': ''
+                    'document': '',
                 },
                 'ok': 'false',
-                'value': [] // All selected options in select lists
-            }
+                'value': [], // All selected options in select lists
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_view_document')
-        {
+        if ($in.step === 'step_view_document') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_document',
-                    'function': 'view_document'
+                    'function': 'view_document',
                 },
                 'data': {
                     'area': $in.area,
-                    'document_name': $in.document_name
+                    'document_name': $in.document_name,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
@@ -291,44 +281,45 @@ function infohub_doc_navigate() {
      * @author  Peter Lembke
      */
     $functions.push('view_navigation');
-    const view_navigation = function ($in)
-    {
+    const view_navigation = function($in) {
         const $default = {
             'data': {},
             'step': 'step_view',
             'response': {},
             'data_back': {
-                'data': {}
-            }
+                'data': {},
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === "step_view")
-        {
+        if ($in.step === 'step_view') {
             // Create option array with data for the advanced list
             let $option = [];
 
-            for (let $area in $in.data)
-            {
+            for (let $area in $in.data) {
                 if ($in.data.hasOwnProperty($area) === false) {
                     continue;
                 }
 
-                for (let $docName in $in.data[$area])
-                {
+                for (let $docName in $in.data[$area]) {
                     if ($in.data[$area].hasOwnProperty($docName) === false) {
                         continue;
                     }
 
                     const $pluginName = 'infohub_doc';
                     const $eventType = 'click';
-                    const $containerId = "{box_id}_" + $area + '_' + $docName + ".link";
+                    const $containerId = '{box_id}_' + $area + '_' + $docName +
+                        '.link';
 
-                    const $onClickParameters = "'" + $pluginName + "'," + "'" + $eventType + "'," + "'" + $containerId + "'";
-                    const $onClick = 'onclick="go(' + $onClickParameters + ')" ';
+                    const $onClickParameters = '\'' + $pluginName + '\',' +
+                        '\'' +
+                        $eventType + '\',' + '\'' + $containerId + '\'';
+                    const $onClick = 'onclick="go(' + $onClickParameters +
+                        ')" ';
 
-                    const $idData = 'id="' + $containerId + '" area="' + $area + '" document_name="' + $docName + '" ';
+                    const $idData = 'id="' + $containerId + '" area="' + $area +
+                        '" document_name="' + $docName + '" ';
 
                     const $eventData = 'event_data="infohub_doc_navigate|click_document_name" ';
 
@@ -337,23 +328,24 @@ function infohub_doc_navigate() {
                     // You can put any parameters you like in the string above and they will show up in the event_message function.
 
                     const $label = $in.data[$area][$docName].label;
-                    const $html = '<a '+ $onClick + $idData + $eventData + $otherParams + '>' + _Translate($label) + '</a>';
+                    const $html = '<a ' + $onClick + $idData + $eventData +
+                        $otherParams + '>' + _Translate($label) + '</a>';
 
                     $option.push({
                         'label': $html,
-                        'level': $area + '_' + $docName
+                        'level': $area + '_' + $docName,
                     });
                 }
             }
 
-            const $headLabel = _Translate('Navigation');
+            const $headLabel = _Translate('NAVIGATION');
             const $boxId = _GetBoxId('navigate') + '.[list]';
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -362,29 +354,29 @@ function infohub_doc_navigate() {
                             'type': 'presentation_box',
                             'head_label': $headLabel,
                             'foot_text': '',
-                            'content_data': '[my_list]'
+                            'content_data': '[my_list]',
                         },
                         'my_list': {
                             'plugin': 'infohub_renderadvancedlist',
                             'type': 'advanced_list',
                             'subtype': 'list',
                             'option': $option,
-                            'separator': '_'
-                        }
+                            'separator': '_',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box]'
+                        'text': '[my_presentation_box]',
                     },
                     'where': {
                         'box_id': $boxId,
-                        'max_width': 320 // pixels
-                    }
+                        'max_width': 320, // pixels
+                    },
                 },
                 'data_back': {
                     'data': $in.data_back.data,
-                    'step': 'step_check_if_data_is_old'
-                }
+                    'step': 'step_check_if_data_is_old',
+                },
             });
 
         }
@@ -392,8 +384,9 @@ function infohub_doc_navigate() {
         return {
             'answer': 'true',
             'message': 'View navigation is done',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 }
+
 //# sourceURL=infohub_doc_navigate.js

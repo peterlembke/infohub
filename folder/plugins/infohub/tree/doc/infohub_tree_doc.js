@@ -17,7 +17,7 @@
  */
 function infohub_tree_doc() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_tree_doc() {
             'class_name': 'infohub_tree_doc',
             'note': 'Render the documentation for this plugin',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -43,12 +43,12 @@ function infohub_tree_doc() {
             'click_backup': 'normal',
             'click_restore': 'normal',
             'click_storage': 'normal',
-            'click_sync': 'normal'
+            'click_sync': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     let $classTranslations = {};
 
     // ***********************************************************
@@ -63,8 +63,7 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -72,8 +71,8 @@ function infohub_tree_doc() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -83,7 +82,7 @@ function infohub_tree_doc() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -92,13 +91,13 @@ function infohub_tree_doc() {
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[button_main][button_version][button_encrypt][button_backup][button_restore][button_storage][button_sync]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'container_doc': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': _Translate('Documentation will render here'),
+                            'data': _Translate('DOCUMENTATION_WILL_RENDER_HERE'),
                             'class': 'container-medium'
                         },
                         'button_main': {
@@ -106,125 +105,125 @@ function infohub_tree_doc() {
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[yellow_icon]',
-                            'button_label': _Translate('Main Doc'),
+                            'button_label': _Translate('MAIN_DOC'),
                             'event_data': 'doc|main',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_version': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[yellow_icon]',
-                            'button_label': _Translate('Version Doc'),
+                            'button_label': _Translate('VERSION_DOC'),
                             'event_data': 'doc|version',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_encrypt': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[grey_icon]',
-                            'button_label': _Translate('Encryption Doc'),
+                            'button_label': _Translate('ENCRYPTION_DOC'),
                             'event_data': 'doc|encrypt',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_backup': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[blue_icon]',
-                            'button_label': _Translate('Backup Doc'),
+                            'button_label': _Translate('BACKUP_DOC'),
                             'event_data': 'doc|backup',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_restore': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[blue_icon]',
-                            'button_label': _Translate('Restore Doc'),
+                            'button_label': _Translate('RESTORE_DOC'),
                             'event_data': 'doc|restore',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click'
                         },
-                       'button_storage': {
+                        'button_storage': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[grey_icon]',
-                            'button_label': _Translate('Storage Doc'),
+                            'button_label': _Translate('STORAGE_DOC'),
                             'event_data': 'doc|storage',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_sync': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_left_icon': '[blue_icon]',
-                            'button_label': _Translate('Sync Doc'),
+                            'button_label': _Translate('SYNC_DOC'),
                             'event_data': 'doc|sync',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'yellow_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[yellow_asset]'
+                            'data': '[yellow_asset]',
                         },
                         'yellow_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'doc/doc-yellow',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'blue_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[blue_asset]'
+                            'data': '[blue_asset]',
                         },
                         'blue_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'doc/doc-blue',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'grey_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[grey_asset]'
+                            'data': '[grey_asset]',
                         },
                         'grey_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'doc/doc-grey',
-                            'plugin_name': 'infohub_tree'
-                        }
+                            'plugin_name': 'infohub_tree',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_buttons][container_doc]'
+                        'text': '[container_buttons][container_doc]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_tree.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'doc'
+                    'cache_key': 'doc',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -235,13 +234,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    const click_main = function ($in)
-    {
+    const click_main = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -252,7 +250,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the main doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -263,13 +261,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_version');
-    const click_version = function ($in)
-    {
+    const click_version = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -280,7 +277,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the version doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -291,13 +288,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_encrypt');
-    const click_encrypt = function ($in)
-    {
+    const click_encrypt = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -308,7 +304,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the encrypt doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -319,13 +315,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_backup');
-    const click_backup = function ($in)
-    {
+    const click_backup = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -336,7 +331,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the backup doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -347,13 +342,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_restore');
-    const click_restore = function ($in)
-    {
+    const click_restore = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -364,7 +358,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the restore doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -375,13 +369,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_storage');
-    const click_storage = function ($in)
-    {
+    const click_storage = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -392,7 +385,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the storage doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -403,13 +396,12 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_sync');
-    const click_sync = function ($in)
-    {
+    const click_sync = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -420,7 +412,7 @@ function infohub_tree_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the sync doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -431,35 +423,36 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
-    const _GetCall = function ($fileName)
-    {
+    const _GetCall = function($fileName) {
         return _SubCall({
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
-                'function': 'create'
+                'function': 'create',
             },
             'data': {
                 'what': {
                     'my_doc': {
                         'plugin': 'infohub_tree',
-                        'type': $fileName
-                    }
+                        'type': $fileName,
+                    },
                 },
                 'how': {
                     'mode': 'one box',
-                    'text': '[my_doc]'
+                    'text': '[my_doc]',
                 },
                 'where': {
                     'box_id': 'main.body.infohub_tree.form.[container_doc]', // 'box_id': $in.parent_box_id + '.form',
                     'max_width': 100,
-                    'scroll_to_box_id': 'true'
-                }
+                    'scroll_to_box_id': 'true',
+                },
+                'cache_key': $fileName,
             },
             'data_back': {
-                'step': 'step_end'
-            }
+                'step': 'step_end',
+            },
         });
     };
 }
+
 //# sourceURL=infohub_tree_doc.js

@@ -1,24 +1,24 @@
-/**	infohub_uuid.js
+/**    infohub_uuid.js
 
-		Copyright (C) 2018 Peter Lembke , Infohub.se
-		the program is distributed under the terms of the GNU General Public License
+ Copyright (C) 2018 Peter Lembke , Infohub.se
+ the program is distributed under the terms of the GNU General Public License
 
-		infohub_uuid.js is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
+ infohub_uuid.js is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-		infohub_uuid.js is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
+ infohub_uuid.js is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
 
-		You should have received a copy of the GNU General Public License
-		along with infohub_uuid.js.	If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU General Public License
+ along with infohub_uuid.js.    If not, see <https://www.gnu.org/licenses/>.
+ */
 function infohub_uuid() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -35,7 +35,7 @@ function infohub_uuid() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -45,25 +45,24 @@ function infohub_uuid() {
             'get_available_options': 'normal',
             'guidv0': 'normal',
             'guidv4': 'normal',
-            'hub_id': 'normal'
+            'hub_id': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
-	/**
-	 * @version 2018-07-28
-	 * @since 2018-05-19
-	 * @author Your name
-	 */
-	$functions.push("uuid");
-	const uuid = function ($in)
-    {
+    /**
+     * @version 2018-07-28
+     * @since 2018-05-19
+     * @author Your name
+     */
+    $functions.push('uuid');
+    const uuid = function($in) {
         const $default = {
             'version': '100',
-            'count': 1
+            'count': 1,
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         let $answer = 'true';
         let $message = 'Here are the UUIDs you wanted';
@@ -72,8 +71,7 @@ function infohub_uuid() {
             $response = {},
             $data = '', $out = [];
 
-        for (let $i = $in.count; $i > 0; $i = $i - 1)
-        {
+        for (let $i = $in.count; $i > 0; $i = $i - 1) {
             switch ($in.version) {
                 case '0':
                     return guidv0();
@@ -113,9 +111,9 @@ function infohub_uuid() {
             'data': $first,
             'array': $out,
             'version': $in.version,
-            'count': $in.count
+            'count': $in.count,
         };
-	};
+    };
 
     /**
      * Get a list with all options
@@ -124,55 +122,57 @@ function infohub_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('get_available_options');
-    const get_available_options = function ($in)
-    {
+    const get_available_options = function($in) {
         return {
             'answer': 'true',
             'message': 'All UUID versions',
             'options': [
-                { "type": "option", "value": "0", "label": "Client UUID v0" },
-                { "type": "option", "value": "4", "label": "Client UUID v4" },
-                { "type": "option", "value": "100", "label": "Client Hub Id", 'selected': 'true' }
-            ]
+                {'type': 'option', 'value': '0', 'label': 'Client UUID v0'},
+                {'type': 'option', 'value': '4', 'label': 'Client UUID v4'},
+                {
+                    'type': 'option',
+                    'value': '100',
+                    'label': 'Client Hub Id',
+                    'selected': 'true',
+                },
+            ],
         };
     };
 
     /**
      * Nil UUID
-	 * @version 2018-05-19
-	 * @since 2018-05-19
-	 */
-	$functions.push("guidv0");
-	const guidv0 = function($in)
-    {
+     * @version 2018-05-19
+     * @since 2018-05-19
+     */
+    $functions.push('guidv0');
+    const guidv0 = function($in) {
         return {
-            'answer': 'true' ,
+            'answer': 'true',
             'message': 'Here are the guidv0',
-            'data': '00000000-0000-0000-0000-000000000000'
+            'data': '00000000-0000-0000-0000-000000000000',
         };
-	};
+    };
 
     /**
      * @version 2018-05-19
      * @since 2018-05-19
      * @author https://www.w3resource.com/javascript-exercises/javascript-math-exercise-23.php
      */
-    $functions.push("guidv4");
-    const guidv4 = function($in)
-    {
+    $functions.push('guidv4');
+    const guidv4 = function($in) {
         let $timeStamp = new Date().getTime();
         let $uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
 
         $uuid.replace(/[xy]/g, function(c) {
-            let $random = ($timeStamp + Math.random()*16)%16 | 0;
-            $timeStamp = Math.floor($timeStamp/16);
-            return (c=='x' ? $random :($random&0x3|0x8)).toString(16);
+            let $random = ($timeStamp + Math.random() * 16) % 16 | 0;
+            $timeStamp = Math.floor($timeStamp / 16);
+            return (c == 'x' ? $random : ($random & 0x3 | 0x8)).toString(16);
         });
 
         return {
-            'answer': 'true' ,
+            'answer': 'true',
             'message': 'Here are the guidv4',
-            'data': $uuid
+            'data': $uuid,
         };
     };
 
@@ -183,29 +183,32 @@ function infohub_uuid() {
      * Modified 2018-07-28 by Peter Lembke to fit in Infohub
      * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
      **/
-    $functions.push("guidv4b");
-    const guidv4b = function($in)
-    {
+    $functions.push('guidv4b');
+    const guidv4b = function($in) {
         var $lut = [], $result, $d0, $d1, $d2, $d3;
 
-        for (let $i=0; $i<256; $i = $i + 1) {
-            $lut[$i] = ($i<16?'0':'')+($i).toString(16);
+        for (let $i = 0; $i < 256; $i = $i + 1) {
+            $lut[$i] = ($i < 16 ? '0' : '') + ($i).toString(16);
         }
 
-        $d0 = Math.random()*0xffffffff|0;
-        $d1 = Math.random()*0xffffffff|0;
-        $d2 = Math.random()*0xffffffff|0;
-        $d3 = Math.random()*0xffffffff|0;
+        $d0 = Math.random() * 0xffffffff | 0;
+        $d1 = Math.random() * 0xffffffff | 0;
+        $d2 = Math.random() * 0xffffffff | 0;
+        $d3 = Math.random() * 0xffffffff | 0;
 
-        $result = $lut[$d0&0xff] + $lut[$d0>>8&0xff] + $lut[$d0>>16&0xff] + $lut[$d0>>24&0xff] + '-' +
-            $lut[$d1&0xff] + $lut[$d1>>8&0xff] + '-' + $lut[$d1>>16&0x0f|0x40] + $lut[$d1>>24&0xff] + '-' +
-            $lut[$d2&0x3f|0x80] + $lut[$d2>>8&0xff] + '-' + $lut[$d2>>16&0xff] + $lut[$d2>>24&0xff] +
-            $lut[$d3&0xff] + $lut[$d3>>8&0xff] + $lut[$d3>>16&0xff] + $lut[$d3>>24&0xff];
+        $result = $lut[$d0 & 0xff] + $lut[$d0 >> 8 & 0xff] +
+            $lut[$d0 >> 16 & 0xff] + $lut[$d0 >> 24 & 0xff] + '-' +
+            $lut[$d1 & 0xff] + $lut[$d1 >> 8 & 0xff] + '-' +
+            $lut[$d1 >> 16 & 0x0f | 0x40] + $lut[$d1 >> 24 & 0xff] + '-' +
+            $lut[$d2 & 0x3f | 0x80] + $lut[$d2 >> 8 & 0xff] + '-' +
+            $lut[$d2 >> 16 & 0xff] + $lut[$d2 >> 24 & 0xff] +
+            $lut[$d3 & 0xff] + $lut[$d3 >> 8 & 0xff] + $lut[$d3 >> 16 & 0xff] +
+            $lut[$d3 >> 24 & 0xff];
 
         return {
             'answer': 'true',
             'message': 'Here are the guidv4',
-            'data': $result
+            'data': $result,
         };
     };
 
@@ -216,18 +219,19 @@ function infohub_uuid() {
      * @param array $in
      * @return string
      */
-    $functions.push("hub_id");
-    const hub_id = function($in)
-    {
-        const $result = _MicroTime() + ':' + Math.random().toString().substring(2);
+    $functions.push('hub_id');
+    const hub_id = function($in) {
+        const $result = _MicroTime() + ':' +
+            Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654
         // substring(2) remove the 0. and leave 4568548654
 
         return {
             'answer': 'true',
             'message': 'Here are the infohub_uid',
-            'data': $result
+            'data': $result,
         };
     };
 }
+
 //# sourceURL=infohub_uuid.js

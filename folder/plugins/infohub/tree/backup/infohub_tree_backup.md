@@ -1,53 +1,83 @@
 # Infohub Tree Backup
+
 Backup your personal data to one or many files that are downloaded to your computer/device.
 
 ## Introduction
-You can backup ALL data from the server for ONE plugin.
 
-You can backup a selection of paths from the server for ONE plugin.
+You can only backup/restore data:
 
-## Available data
-infohub_tree_storage keep track of what plugin names it has stored data for and when data was last stored. 
+* that have been stored by the Tree.
+* that exist in local storage.
+* that are encrypted.
 
-infohub_tree_backup can ask for the plugin list and also give a time to only get plugin names that have changed data since that time. 
+You can:
 
-## GUI - backup plugins
+* Backup all plugins to separate files
+* Backup selected plugins to separate files
+* Backup plugin keys to one file
+
+You can not: (Might come in later version)
+
+* backup changed data since last backup
+* get an automatic backup regularly
+
+You can not: (Will probably not come in later versions)
+
+* backup everything to one file
+* backup more than one plugin to one file
+
+## File name
+
+File name: `infohub_tree-{plugin_name}-{date}-{time}-{number}.backup`
+File name: `infohub_tree-infohub_training-20200726-142113-0001.backup`
+
+Date is year month date yyyymmdd Time is 24h clock hour 00-23 minute 00-59 second 00-59 hhmmss Number is the order
+number in the backup series. All backup files in the same number series have the same date and time.
+
+## File format
+
+The file will be filles with max 1 Mb of data. The data format is JSON. Each file is independent and can be restored by
+its own.
+
+```json5
+{
+    "path1": {"server_checksum":  "123345", "local_checksum":  "234234", "encrypted_data_bytes": 1234, "encrypted_data": "" },
+    "path2": {"server_checksum":  "123245", "local_checksum":  "231234", "encrypted_data_bytes": 321, "encrypted_data": "" },
+}
+```
+
+The encrypted_data_bytes is the size of the encrypted data string.  
+server_checksum is a direct copy from the local server_checksum. It is the checksum of the decrypted json data we got
+from the server when we synced.  
+local_checksum is a direct copy from the local local_checksum. It is the checksum of the decrypted json data we had in
+the local Storage.
+
+## GUI - Backup all
+
+A button to backup all Tree data. A file for each plugin will be downloaded.
+
+## GUI - backup selected plugins
+
 There is a list with plugin names found in the paths, "__Plugin names__". Mark the plugins you want to backup.
 
-Click on button "__Backup plugins__". You will get a file for each plugin
-
-File name: `infohub-backup-infohub_training-full-{paths md5 checksum}-20200726:140000.backup`
+Button "__Backup plugins__". You will get a file for each plugin Button to refresh the plugin list.
 
 ## GUI - backup paths
-List with "__All paths__" from server database. 
 
-Each path consist of:
-`infohub_tree_storage/{user_name}/plugin_name/anything/the/plugin/uses`
-
-The first `infohub_tree_storage/{user_name}/` are removed from the paths before you see them.
-
-The paths are sorted alphabetically.
-
-There is also an empty list: "__Paths to backup__".
-
-When you click on a path in "__All paths__" it will appear in "__Paths to backup__" if not already there.
-
-When you click on a path in "__Paths to backup__" it will be removed.
-
-Click on button "__Backup paths__". You will get one file.
-
-File name: `infohub-backup-infohub_training-partial-{paths md5 checksum}-20200726:140000.backup`
-
-## Functions
-
-* backup_full - Backup all data for one plugin
-* backup_partial - Backup some paths for a plugin
+* Button: Refresh plugins
+* Selector: Plugin list
+* List: Paths in selected plugin
+* Button: Backup selected keys
 
 ## License
-This documentation is copyright (C) 2020 Peter Lembke.
- Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
- You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
+
+This documentation is copyright (C) 2020 Peter Lembke. Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free
+Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You should have received
+a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ## footer
+
 Created 2020-07-25 by Peter Lembke  
-Updated 2020-07-26 by Peter Lembke
+Updated 2021-02-18 by Peter Lembke

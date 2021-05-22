@@ -27,7 +27,7 @@
  */
 function infohub_encrypt_none() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -41,7 +41,7 @@ function infohub_encrypt_none() {
             'class_name': 'infohub_encrypt_none',
             'note': 'This method does nothing with the data. Useful if you want to introduce encryption but see the result',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -49,7 +49,7 @@ function infohub_encrypt_none() {
     const _GetCmdFunctions = function() {
         const $list = {
             'encrypt': 'normal',
-            'decrypt': 'normal'
+            'decrypt': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -70,11 +70,10 @@ function infohub_encrypt_none() {
      * @return array
      */
     $functions.push('encrypt');
-    const encrypt = function ($in)
-    {
+    const encrypt = function($in) {
         const $default = {
             'text': '',
-            'password': ''
+            'password': '',
         };
         $in = _Default($default, $in);
 
@@ -100,7 +99,7 @@ function infohub_encrypt_none() {
         return {
             'answer': $answer,
             'message': $message,
-            'data': $in.text
+            'data': $in.text,
         };
     };
 
@@ -114,11 +113,10 @@ function infohub_encrypt_none() {
      * @return array
      */
     $functions.push('decrypt');
-    const decrypt = function ($in)
-    {
+    const decrypt = function($in) {
         const $default = {
             'encrypted_text': '',
-            'password': ''
+            'password': '',
         };
         $in = _Default($default, $in);
 
@@ -144,9 +142,10 @@ function infohub_encrypt_none() {
         return {
             'answer': $answer,
             'message': $message,
-            'data': $in.encrypted_text
+            'data': $in.encrypted_text,
         };
     };
 
 }
+
 //# sourceURL=infohub_encrypt_none.js

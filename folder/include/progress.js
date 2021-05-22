@@ -22,7 +22,7 @@
  * On a cold start it will be different with longer wait.
  */
 function progress() {
-    "use strict";
+    'use strict';
 
     let $objProgress = document.getElementById('progress'),
         $objText = document.getElementById('progress_text');
@@ -36,7 +36,7 @@ function progress() {
         'store_asset': 5,
         'store_plugin': 6,
         'start_core_plugin': 7,
-        'send_first_message': 8
+        'send_first_message': 8,
     };
 
     /**
@@ -45,8 +45,7 @@ function progress() {
      * @param $partPercent | percent of this area 0-100
      * @param $text
      */
-    this.whatArea = function($areaCode, $partPercent, $text)
-    {
+    this.whatArea = function($areaCode, $partPercent, $text) {
         if ($areaCode === 'clean_up') {
             document.getElementById('log').innerText = '';
             return;
@@ -54,7 +53,7 @@ function progress() {
 
         const $numberOfAreas = _Count($areaCodeNumbers);
 
-        let $areaPercent = $areaCodeNumbers[$areaCode]/$numberOfAreas * 100.0;
+        let $areaPercent = $areaCodeNumbers[$areaCode] / $numberOfAreas * 100.0;
         let $areaPartPercent = 1 / $numberOfAreas * $partPercent;
 
         let $percent = $areaPercent + $areaPartPercent;
@@ -64,7 +63,7 @@ function progress() {
 
         $objProgress.value = $percent;
 
-        if (typeof $text  === 'string') {
+        if (typeof $text === 'string') {
             if ($text === '') {
                 $text = $areaCode;
             }
@@ -80,8 +79,7 @@ function progress() {
      * @returns {*}
      * @private
      */
-    const _Count = function ($object)
-    {
+    const _Count = function($object) {
         if (Array.isArray($object)) {
             return $object.length;
         }
@@ -94,5 +92,6 @@ function progress() {
     };
 
 }
+
 const $progress = new progress();
 //# sourceURL=progress.js

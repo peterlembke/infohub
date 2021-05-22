@@ -1,21 +1,30 @@
 # Infohub RenderForm
-Adds features to the basic form elements that infohub_render_form can render.  
+
+Adds features to the basic form elements that infohub_render_form can render.
 
 # Introduction
+
 RenderForm uses render_form and add features on top of render_form.  
-RenderForm adds label, description, original_data, symbol for required, symbol for changed, counts characters, shows max length, counts words and paragraphs.  
+RenderForm adds label, description, original_data, symbol for required, symbol for changed, counts characters, shows max
+length, counts words and paragraphs.  
 RenderForm is also the receiver of all events regarding the form elements. Mostly onchange and click.  
-RenderForm also handle the form data by reading and writing data. It does not however update lists and options, that need to be rerendered to be updated.  
+RenderForm also handle the form data by reading and writing data. It does not however update lists and options, that
+need to be rerendered to be updated.
 
 # Demo
-You can see a full demo here [Infohub Demo Form2](plugin,infohub_demo_form2). That demo will show you all aspects of renderform.  
+
+You can see a full demo here [Infohub Demo Form2](plugin,infohub_demo_form2). That demo will show you all aspects of
+renderform.
 
 # infohub_render_form
-The plugin infohub_render_form is a child to infohub_render and handle the render for the basic form elements, it handle the actual HTML that DOM needs to display the element.
-infohub_renderform on the other hand is a level 1 plugin that can receive events. It uses infohub_render_form for the rendering and adds extended features upon that.  
+
+The plugin infohub_render_form is a child to infohub_render and handle the render for the basic form elements, it handle
+the actual HTML that DOM needs to display the element. infohub_renderform on the other hand is a level 1 plugin that can
+receive events. It uses infohub_render_form for the rendering and adds extended features upon that.
 
 # Form
-All forms should be encapsulated with the form tag. You get a fieldset container at the same time.  
+
+All forms should be encapsulated with the form tag. You get a fieldset container at the same time.
 
 ```
 'my_form': {
@@ -28,11 +37,14 @@ All forms should be encapsulated with the form tag. You get a fieldset container
 ```
 
 # Fieldset
-All form elements and the form itself will all be encapsulated with fieldsets. The reason is simple. There are a lot of components on each form element, like flags: required, valid, info icon.
-And then you have the title, the description, error message from the validation,
-Character count, word count, line count, max length, selected range value. There is a lot of information for each form element.
-So to keep everything together I have decided to use fieldset as a wrapper round each form element when you render them with infohub_renderform. There is no way to avoid the fieldset wrapper.  
-You can see in the HTML below how it looks like on then rendered page when we render radio buttons. The example is from the Infohub Demo Form Advanced.  
+
+All form elements and the form itself will all be encapsulated with fieldsets. The reason is simple. There are a lot of
+components on each form element, like flags: required, valid, info icon. And then you have the title, the description,
+error message from the validation, Character count, word count, line count, max length, selected range value. There is a
+lot of information for each form element. So to keep everything together I have decided to use fieldset as a wrapper
+round each form element when you render them with infohub_renderform. There is no way to avoid the fieldset wrapper.  
+You can see in the HTML below how it looks like on then rendered page when we render radio buttons. The example is from
+the Infohub Demo Form Advanced.
 
 ```
 <span name="presentation_box" class="a120202_my_radios_bread_presentation_box">
@@ -85,7 +97,7 @@ You can see in the HTML below how it looks like on then rendered page when we re
 </span>
 ```
 
-The above example are the rendered result from the code below:  
+The above example are the rendered result from the code below:
 
 ```
 'my_radios_bread': {
@@ -103,13 +115,17 @@ The above example are the rendered result from the code below:
 ```
 
 # Label
-Each fieldset can show a legend label. It is the top label and it is clickable. The label is just a normal text.  
+
+Each fieldset can show a legend label. It is the top label and it is clickable. The label is just a normal text.
 
 # Description
-Description is a normal text, and you know what you can do with texts.. You can add any rendered objects you like into that text.  
+
+Description is a normal text, and you know what you can do with texts.. You can add any rendered objects you like into
+that text.
 
 # Text
-Text input in one row. You can not set a start text.  
+
+Text input in one row. You can not set a start text.
 
 ```
 $default = {
@@ -130,7 +146,7 @@ $default = {
 ```
 
 You do not need to set the original_alias. It will be populated.  
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'my_textbox': {
@@ -147,7 +163,8 @@ Usage: Here is an example.
 ```
 
 # Range
-Here you get a drag bar to set the value you want. You can not set a start value.  
+
+Here you get a drag bar to set the value you want. You can not set a start value.
 
 ```
 $default = {
@@ -168,7 +185,7 @@ $default = {
 };
 ```
 
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'my_range': {
@@ -183,8 +200,10 @@ Usage: Here is an example.
 ```
 
 # Color
+
 On all major platforms you will get a colour selector. On the rest of the platforms you get an ordinary input field.  
-The default values are here. You can not set a default value when you render the colour selector, instead you write the value in a separate call.  
+The default values are here. You can not set a default value when you render the colour selector, instead you write the
+value in a separate call.
 
 ```
 $default = {
@@ -199,7 +218,7 @@ $default = {
 };
 ```
 
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'my_colour_select': {
@@ -211,6 +230,7 @@ Usage: Here is an example.
 ```
 
 # Select
+
 Creates a select box. You can set it to be a multi select if you want to. You can set the number of rows to display.
 
 ```
@@ -241,7 +261,7 @@ $default = {
 };
 ```
 
-Here is an example of a select box  
+Here is an example of a select box
 
 ```
 'my_select': {
@@ -272,7 +292,8 @@ Here is an example of a select box
 ```
 
 # Textarea
-The text area are for larger texts. renderform give you some extra features like word, character count.  
+
+The text area are for larger texts. renderform give you some extra features like word, character count.
 
 ```
 const $default = {
@@ -300,7 +321,7 @@ const $default = {
 };
 ```
 
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'my_textarea': {
@@ -315,8 +336,11 @@ Usage: Here is an example.
 ```
 
 # Radios
-Renders a collection of radio buttons. More advanced AM/FM radio receivers had buttons where you could set a frequency for quicker change of radio channel. When you pressed in one button the others popped out so you could listen you the selected radio station.  
-The GUI elements "radio buttons" were invented while those radios were very popular.  
+
+Renders a collection of radio buttons. More advanced AM/FM radio receivers had buttons where you could set a frequency
+for quicker change of radio channel. When you pressed in one button the others popped out so you could listen you the
+selected radio station.  
+The GUI elements "radio buttons" were invented while those radios were very popular.
 
 ```
 $default = {
@@ -333,7 +357,7 @@ $default = {
 };
 ```
 
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'my_radios_bread': {
@@ -351,7 +375,8 @@ Usage: Here is an example.
 ```
 
 # Checkboxes
-Render a set of check boxes. You can not set any checkboxes during rendering. That must be done in a separate call.  
+
+Render a set of check boxes. You can not set any checkboxes during rendering. That must be done in a separate call.
 
 ```
 $default = {
@@ -367,7 +392,7 @@ $default = {
 };
 ```
 
-Usage: Here is an example.  
+Usage: Here is an example.
 
 ```
 'of_age': {
@@ -382,7 +407,9 @@ Usage: Here is an example.
 ```
 
 # Button
+
 The buttons and submit buttons are also rendered with renderform.
+
 ```
 const $default = {
     'enabled': 'true', // You can disable the button so it does not react on click
@@ -403,7 +430,9 @@ const $default = {
     'show_success_text': 'false' // Show the message below the select on success
 };
 ```
-Usage: Here is an example.  
+
+Usage: Here is an example.
+
 ```
 'my_submit_button': {
     'plugin': 'infohub_renderform',
@@ -417,13 +446,18 @@ Usage: Here is an example.
 ```
 
 # Events
+
 Some of the objects trigger events. Those events come to the module function event_message and are handled there.  
-text, textarea, range, color, button, select are objects that have logic in this function.  
+text, textarea, range, color, button, select are objects that have logic in this function.
 
 # License
+
 This documentation is copyright (C) 2018 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2018-05-30 by Peter Lembke  
 Updated 2020-04-26 by Peter Lembke  

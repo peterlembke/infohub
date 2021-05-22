@@ -17,7 +17,7 @@
  */
 function infohub_login_forget() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,14 +30,14 @@ function infohub_login_forget() {
             'class_name': 'infohub_login_forget',
             'note': 'Forget the contact data that might exist in the storage',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_forget': 'normal'
+            'click_forget': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -51,16 +51,15 @@ function infohub_login_forget() {
      * @since 2019-09-04
      * @author Peter Lembke
      */
-    $functions.push("_SetDefaultNodeData");
-    const _SetDefaultNodeData = function ($nodeData)
-    {
+    $functions.push('_SetDefaultNodeData');
+    const _SetDefaultNodeData = function($nodeData) {
         const $default = {
             'node': '',
             'note': '',
             'domain_address': '',
             'user_name': '',
             'shared_secret': '',
-            'role_list': []
+            'role_list': [],
         };
         $nodeData = _Default($default, $nodeData);
 
@@ -79,8 +78,7 @@ function infohub_login_forget() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -88,8 +86,8 @@ function infohub_login_forget() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -99,47 +97,47 @@ function infohub_login_forget() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'container_forget': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Forget contact'),
-                            'foot_text': _Translate('Here you can let the browser forget the contact data. You can always import your file again.'),
+                            'head_label': _Translate('FORGET_CONTACT'),
+                            'foot_text': _Translate('HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN.'),
                             'content_data': '[button_forget]'
                         },
                         'button_forget': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Forget'),
+                            'button_label': _Translate('FORGET'),
                             'event_data': 'forget|forget',
                             'to_plugin': 'infohub_login',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_forget]'
+                        'text': '[container_forget]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'forget'
+                    'cache_key': 'forget',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -149,36 +147,33 @@ function infohub_login_forget() {
      * @since 2019-09-03
      * @author Peter Lembke
      */
-    $functions.push("click_forget");
-    const click_forget = function ($in)
-    {
+    $functions.push('click_forget');
+    const click_forget = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_save_data_in_storage',
             'answer': 'true',
             'message': 'Done',
-            'ok': 'false'
+            'ok': 'false',
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_save_data_in_storage')
-        {
+        if ($in.step === 'step_save_data_in_storage') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'storage_forget_contact_data'
+                    'function': 'storage_forget_contact_data',
                 },
                 'data': {},
                 'data_back': {
                     'step': 'step_save_data_in_storage_response',
-                }
+                },
             });
 
         }
 
-        if ($in.step === 'step_save_data_in_storage_response')
-        {
+        if ($in.step === 'step_save_data_in_storage_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $in.ok = 'true';
@@ -186,23 +181,21 @@ function infohub_login_forget() {
             }
         }
 
-        if ($in.step === 'step_show_information')
-        {
+        if ($in.step === 'step_show_information') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'view_contact'
+                    'function': 'view_contact',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_show_information_response'
-                }
+                    'step': 'step_show_information_response',
+                },
             });
         }
 
-        if ($in.step === 'step_show_information_response')
-        {
+        if ($in.step === 'step_show_information_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $in.ok = 'true';
@@ -212,8 +205,9 @@ function infohub_login_forget() {
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $in.ok
+            'ok': $in.ok,
         };
     };
 }
+
 //# sourceURL=infohub_login_forget.js

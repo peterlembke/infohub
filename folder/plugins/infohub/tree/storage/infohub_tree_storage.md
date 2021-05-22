@@ -1,133 +1,120 @@
 # Infohub Tree Storage
-Handle the storage of the personal data to browser Storage.
 
-## Introduction
-Is the only plugin that uses infohub_tree_encrypt.
+Handle the storage of the personal data to browser Storage. Makes sure all data are encrypted before stored. Makes sure
+data get decrypted after read if you want it to be.
 
-Used by the Tree child plugins to read/write data to browser Storage.
+infohub_tree_storage is used by Backup/Restore/Sync/Tree. infohub_tree_storage is the only plugin that uses
+infohub_tree_encrypt.
 
-Does not handle sync of data top the server. That is a job for infohub_tree_sync.
+Does not handle sync of data to the server. That is a job for infohub_tree_sync.
 
-__Storage__
-Only stores encrypted data to browser Storage.
-You can get the data encrypted or decrypted.  
+Used by Tree, Backup, Restore, Sync Uses: Encrypt
 
 ## GUI
+
 This plugin has no GUI.
 
 ## Public functions
 
-    'read': 'normal',
-    'read_many': 'normal',
-    'read_pattern': 'normal',
-    'write': 'normal',
-    'get_plugin_list': 'normal',
-    'get_plugin_path_index': 'normal',
+    'read': 'normal', // Read one item from local storage
+    'write': 'normal', // Write to one item in local storage
+    'get_plugin_list': 'normal', // Get a list with all existing plugin_indexes
+    'get_plugin_index': 'normal', // Get one plugin_index
 
-## Download "path index"
-You first need to download the "path index" for the plugin you want to work with and store it in local Storage.
-Each user has its own path index for each plugin.
-The user get a message that the "path index" need to be downloaded and can manually trigger the download.
+## write
 
-Each path in the path index has the previous_checksum and the current_checksum.
-Now you can read/add/update/delete paths for the plugin.
+* When Tree save plain data to local Storage it will be encrypted by Storage before stored in local storage.
+* When Restore, Sync save plain data to local Storage it will be rejected.
+* When saving encrypted data to local Storage it will be stored as it is. (Restore, Sync, Tree)
 
-## Read path
-When you read an existing path from local Storage then you get the data if it exist.
-If the path do not exist locally then it is read from server Storage, handed to you and saved to local Storage in the background. The previous_checksum and the current_checksum might have changed on the server. If that is the case then the local "path index" are updated.
+## read
 
-## Add new path
-When you add a new path to local Storage the path is added to the local "path changed index".
-The local "path changed index" has the previous_checksum (empty) and the current_checksum.
+* When reading data from local Storage it will be delivered encrypted (Sync, Backup).
+* Only decrypts the data if it is Tree that ask for the data and want it decrypted.
+* If Tree request data that do not exist in local Storage then we ask Sync for the data.
+* If Backup, Restore, Sync request data do not exist in local Storage then we say no data.
 
-## Edit existing path
-When you edit an existing path and save it to local Storage the path is added to the local "path changed index".
-The local "path changed index" has the previous_checksum and the current_checksum.
+## get_plugin_list
 
-## Delete path
-When you delete an existing path and save it to local Storage the path is added to the local "path changed index".
-The local "path changed index" has the previous_checksum and the current_checksum (empty).
+You get an array with all plugin names that has a plugin_index.
 
-## Undo change
-When you undo a change then the path are removed from local Storage and from the local "path changed index".
+## get_plugin_index
 
-The user always know what is in "path changed index" and can manually trigger a sync with the server.
+Give a plugin_name and you get an object with paths that have been saved by the plugin.  
+The plugin_index are managed by Storage. The plugin_index are used by Storage, Backup, Restore, Sync.
 
-## Sync with server
-Send the "path changed index" to the server.
+## The plugin index
 
-The server delete the paths it can delete.
-where local current_checksum is empty and local previous_checksum = server current_checksum. 
-The server "path index" keep the path with the local previous_checksum and current_checksum (empty) so we know it has been deleted. 
-The server respond with a path list what paths it has deleted.
+Purpose of the index is to help Sync when it is time to sync data to the server. And to help restore when it is time to
+restore data to the storage.
 
-The server respond with a path list what paths it can update if you send the data.
-where the local previous_checksum = server current_checksum.
+Storage operate in your browser and only handle your data.  
+Storage handle one index for each plugin that use Tree for storing data.  
+A tree-plugin-list has the path to the item stored. The current_checksum, server_checksum.
 
-The server respond with a path list what paths a human must handle.
-where the local previous_checksum is not found on the server path.
+When a path is added/deleted/updated then the index is updated.
 
-### Client sync response
-The client can update the local "path index" with all paths the server have deleted and remove them from the "path changed index".
+File format for a plugin index. Path: infohub_tree/{user_id}/infohub_weight/index
 
-The client can send a chunk with some of the data the server wanted.
-The server will respond with a list what paths was updated and what paths a human must handle. 
-You can remove the paths from "path changed index".
+```json5
+{
+    "{hub_id}": {"server_checksum": "234123", "local_checksum": "123456", "remove":  "true"},
+    "{hub_id}": {"server_checksum": "234123", "local_checksum": "123456"}
+}
+```
 
-### Human interaction
-The client can work trough the paths a human must handle by downloading data from the server.  
-Show both the local data and the server data to the user.
+If both checksums are equal it means that you have not saved any changes locally, or you have successfully synced your
+version with the server. If the checksums are different then you have stored a change locally and that need to be synced
+to the server.
 
-* If the user chose the server version then remove the path from the human list and show an OK.
-* If the user chose the local version then send the local version to the server for update. Set previous_checksum and current_checksum so the server will accept the version.
-* If the user modify the local version and select that version then it is saved to local Storage and to server Storage with the previous_checksum and current_checksum so the server will accept the version.
+### Add
 
-## Functions - local
+If a path do not exist in the index then it is added. The local_checksum is calculated. The known_server_checksum is
+empty.
 
-* download_path_index
-    Download the path_changed_index for a plugin and save it in local storage.
-    Overwriting the existing path_changed_index.
-    Only downloads if "path_changed_index" is empty.
-* write - Write to one path
-    Use PGP encrypt.
-    Write to local storage with short tail message
-    Update the "paths changed list".
-* read - Read from one path
-    Read from local storage.
-    Use PGP decrypt.
-    If post exist then give data to user. 
-    If post do not exist then read from server Storage.
-    Give data to user 
-    Save data to local Storage 
-* undo_change - Remove a change
-    Can be done if path is in "path changed index"
-    Remove the path in "path changed index"
-    Remove the local data
-* get_path_changed_index
-    Return the current "path changed index" for a plugin.
-* send_path_changed_index
-    Send the "path_changed_index" to the server.
-    We will get back three lists.
-    * What paths to delete locally
-    * What paths the server can store if you give the data to the server
-    * What paths have a conflict and need a human to compare
-* delete - Delete one path locally
-* send_one_path_data_to_server
-    Send a path and its data to the server.
-* get_human_compare_index
-    Get the "human_compare_index", an array with paths for one plugin. 
-* get_one_path_data_for_human_compare
-    Give a path and get data from locally and from the server.
-* get_path_index
-    Get the path_index for one plugin. An array with all paths.
-    
-## Data
+### Delete locally
+
+Remove the path from the index.
+
+### Delete
+
+If server_checksum is empty then the path is removed. If server_checksum has data then the path is marked for removal.
+
+### Update
+
+If a path exist in the index then it is updated. The local_checksum is calculated. The server_checksum is untouched.
+
+## Read
+
+When you read an existing path from local Storage then you get the data + current checksum, if data exist locally. If
+the path do not exist then Storage ask Sync for help. Sync will either return the data or say that it does not exist on
+the server or that we are offline and sync can not check.
+
+## Write
+
+When you store data for a path then you must provide the previous local_checksum or an empty checksum for new paths. The
+local Storage are read, and the checksum are compared. Then the new data and new current_checksum are written.
+
+## get_plugin_list
+
+Function used by Sync to get a list with all plugin indexes that Sync can ask for. The list are updated by Storage when
+the write function are used.
+
+## get_plugin_index
+
+Function used by Sync to get one plugin index. The index is used by Sync to send the right data to the server. The
+plugin index are updated by Storage when the write function are used. Storage save data like:
+path, current_checksum, server_checksum, updated_at, synced_at, delete
 
 ## License
-This documentation is copyright (C) 2020 Peter Lembke.
- Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
- You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
+
+This documentation is copyright (C) 2020 Peter Lembke. Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free
+Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You should have received
+a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ## footer
+
 Created 2020-07-25 by Peter Lembke  
-Updated 2020-07-30 by Peter Lembke
+Updated 2021-02-17 by Peter Lembke

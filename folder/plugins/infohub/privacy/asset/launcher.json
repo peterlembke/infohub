@@ -2,5 +2,13 @@
     "plugin": "infohub_privacy",
     "title": "Privacy",
     "description": "See what information you reveal in this privacy plugin. Get solid tips to increase privacy.",
-    "uses": ["infohub_privacy_menu", "infohub_rendermenu", "infohub_privacy_browser", "infohub_privacy_traffic", "infohub_privacy_server", "infohub_privacy_tips"]
+    "keywords": "privacy,check,view,reviewer,information,aware,tool",
+    "uses": [
+        "infohub_privacy_menu",
+        "infohub_rendermenu",
+        "infohub_privacy_browser",
+        "infohub_privacy_traffic",
+        "infohub_privacy_server",
+        "infohub_privacy_tips"
+    ]
 }

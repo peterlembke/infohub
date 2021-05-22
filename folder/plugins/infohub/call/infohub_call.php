@@ -24,17 +24,16 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  */
 class infohub_call extends infohub_base
 {
-
     /**
      * Version information for this plugin
-     * @version 2020-10-04
+     * @return array
      * @since   2020-10-04
      * @author  Peter Lembke
-     * @return array
+     * @version 2020-10-04
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2020-10-04',
             'version' => '1.0.0',
             'class_name' => 'infohub_call',
@@ -43,21 +42,21 @@ class infohub_call extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2020-10-04
+     * @return mixed
      * @since   2020-10-04
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-10-04
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'call' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -70,23 +69,23 @@ class infohub_call extends infohub_base
      * Calls a web address and fetches an answer
      * Can pass GET-parameters and POST-data to that server
      * Supports certificates
-     * @version 2020-10-04
-     * @since   2020-10-04
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2020-10-04
+     * @since   2020-10-04
      */
     protected function call(array $in = []): array
     {
         $requirementsResponse = $this->_AreRequirementsFulfilled();
         if ($requirementsResponse['answer'] === 'false') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => $requirementsResponse['message']
-            );
+            ];
         }
 
-        $default = array(
+        $default = [
             'port' => 443,      // default SSL port
             'url' => '',        // URL to call
             'mode' => 'post',   // get or post
@@ -98,14 +97,14 @@ class infohub_call extends infohub_base
             'certificate_key_password' => '',
             'certificate_ca' => '',
             'curl_logging' => 'false'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['port'] !== 80 && $requirementsResponse['ssl'] === 'false') {
-            return array(
+            return [
                 'answer' => 'false',
                 'message' => 'You try to do an SSL call but SSL is not installed'
-            );
+            ];
         }
 
         if ($in['mode'] === 'get') {
@@ -129,10 +128,10 @@ class infohub_call extends infohub_base
 
         $curlHandle = curl_init();
         curl_setopt_array($curlHandle, $curlOptArray);
-        $responseString = (string) curl_exec($curlHandle);
+        $responseString = (string)curl_exec($curlHandle);
         $curlInfo = curl_getinfo($curlHandle);
-        $code = (string) $curlInfo['http_code'];
-        $curlError = (string) curl_error($curlHandle);
+        $code = (string)$curlInfo['http_code'];
+        $curlError = (string)curl_error($curlHandle);
         curl_close($curlHandle);
 
         $curlLog = '';
@@ -141,7 +140,7 @@ class infohub_call extends infohub_base
             fclose($fileHandle);
         }
 
-        $out = array(
+        $out = [
             'answer' => 'true',
             'message' => 'Got response',
             'error' => $curlError,
@@ -150,7 +149,7 @@ class infohub_call extends infohub_base
             'curl_info' => $curlInfo,
             'code' => $code,
             'curl_log' => $curlLog
-        );
+        ];
 
         if ($code !== '200' && $code !== '201' && empty($responseString) === true) {
             $out['answer'] = 'false';
@@ -189,12 +188,12 @@ class infohub_call extends infohub_base
             }
         }
 
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'curl' => $curl,
             'ssl' => $ssl
-        );
+        ];
     }
 
     /**
@@ -205,7 +204,7 @@ class infohub_call extends infohub_base
      */
     protected function _GetCurlOptArray($in = [])
     {
-        $default = array(
+        $default = [
             'port' => 443,      // default SSL port
             'url' => '',        // URL to call
             'mode' => 'post',   // get or post
@@ -215,10 +214,10 @@ class infohub_call extends infohub_base
             'certificate_key' => '', // path to the .key file, used for SSL
             'certificate_key_password' => '',
             'certificate_ca' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $curlOptArray = array(
+        $curlOptArray = [
             CURLOPT_URL => $in['url'],
             CURLOPT_PORT => $in['port'],
             CURLOPT_FRESH_CONNECT => 1,
@@ -226,25 +225,25 @@ class infohub_call extends infohub_base
             CURLOPT_FORBID_REUSE => 1,
             CURLOPT_TIMEOUT => 4,
             CURLOPT_HEADER => 1
-        );
+        ];
 
         if ($in['mode'] === 'post') {
-            $curlOptArrayPost = array(
+            $curlOptArrayPost = [
                 CURLOPT_POST => 1,
-                CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+                CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
                 CURLOPT_POSTFIELDS => $in['post_data'],
-            );
+            ];
             $curlOptArray = $curlOptArrayPost + $curlOptArray;
         }
 
         if ($in['mode'] === 'get') {
-            $curlOptArrayGet = array(
-            );
+            $curlOptArrayGet = [
+            ];
             $curlOptArray = $curlOptArrayGet + $curlOptArray;
         }
 
         if ($in['port'] !== 80) {
-            $curlOptArraySsl = array(
+            $curlOptArraySsl = [
                 CURLOPT_SSLCERT => $in['certificate_pem'],
                 CURLOPT_SSLCERTPASSWD => $in['certificate_pem_password'],
                 CURLOPT_SSLKEY => $in['certificate_key'],
@@ -252,7 +251,7 @@ class infohub_call extends infohub_base
                 CURLOPT_CAINFO => $in['certificate_ca'],
                 CURLOPT_SSL_VERIFYHOST => 2,
                 CURLOPT_SSL_VERIFYPEER => true
-            );
+            ];
             $curlOptArray = $curlOptArraySsl + $curlOptArray;
         }
 
@@ -263,7 +262,8 @@ class infohub_call extends infohub_base
      * Get a file handler
      * @return false|resource
      */
-    protected function _GetStdErrFileHandle() {
+    protected function _GetStdErrFileHandle()
+    {
         $fileName = 'php://temp';
         $fileHandle = fopen($fileName, 'a+');
 

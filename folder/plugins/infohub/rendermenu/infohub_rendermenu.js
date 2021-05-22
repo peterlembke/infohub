@@ -18,7 +18,7 @@
  */
 function infohub_rendermenu() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -34,15 +34,14 @@ function infohub_rendermenu() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
-    const _GetCmdFunctions = function()
-    {
+    const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -63,8 +62,7 @@ function infohub_rendermenu() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -72,7 +70,8 @@ function infohub_rendermenu() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -92,17 +91,16 @@ function infohub_rendermenu() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
             'config': {},
             'data_back': {
                 'item_name': '',
-                'item_index_done': {}
+                'item_index_done': {},
             },
             'response': {},
-            'step': 'step_create'
+            'step': 'step_create',
         };
         $in = _Default($default, $in);
 
@@ -112,7 +110,7 @@ function infohub_rendermenu() {
                 'message': '',
                 'html': '',
                 'css_data': {},
-                'display': ''
+                'display': '',
             };
             $in.response = _Default($defaultResponse, $in.response);
             const $itemName = $in.data_back.item_name;
@@ -134,7 +132,7 @@ function infohub_rendermenu() {
                     'html': '',
                     // 'class': '', // Let the child handle the class
                     'css_data': {},
-                    'config': {}
+                    'config': {},
                 };
                 $data = _Merge($defaultItem, $data);
 
@@ -148,21 +146,21 @@ function infohub_rendermenu() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'what': $response.data,
                         'how': $response.how,
                         'where': $response.where,
                         'alias': $data.alias,
-                        'css_data': $response.css_data
+                        'css_data': $response.css_data,
                     },
                     'data_back': {
                         'item_index': $in.item_index,
                         'item_name': $itemName,
                         'item_index_done': $in.data_back.item_index_done,
-                        'step': 'step_create_response'
-                    }
+                        'step': 'step_create_response',
+                    },
                 });
             }
             $in.step = 'step_end';
@@ -171,7 +169,7 @@ function infohub_rendermenu() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -181,8 +179,7 @@ function infohub_rendermenu() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Menu = function ($in)
-    {
+    const internal_Menu = function($in) {
         const $default = {
             'head_label': '',
             'head_text': '',
@@ -190,7 +187,7 @@ function infohub_rendermenu() {
             'original_alias': '',
             'options': {},
             'config': {},
-            'class': 'menu'
+            'class': 'menu',
         };
         $in = _Default($default, $in);
 
@@ -201,8 +198,8 @@ function infohub_rendermenu() {
                 'head_label': $in.head_label,
                 'foot_text': $in.foot_text,
                 'content_data': '',
-                'original_alias': $in.original_alias
-            }
+                'original_alias': $in.original_alias,
+            },
         };
 
         const $defaultOption = {
@@ -222,23 +219,22 @@ function infohub_rendermenu() {
             'custom_variables': {}, // You can add more custom variables like the data variable above
             'css_data': {
                 '.button':
-                    'font-size: 1.0em;'+
-                    'width: 100%;'+
-                    'box-sizing:border-box;'+
-                    'border-radius: 16px;'+
-                    'margin: 4px 0px 0px 0px;'+
-                    'padding: 2px 10px 2px 16px;'+
-                    'text-align: left;'+
+                    'font-size: 1.0em;' +
+                    'width: 100%;' +
+                    'box-sizing:border-box;' +
+                    'border-radius: 16px;' +
+                    'margin: 4px 0px 0px 0px;' +
+                    'padding: 2px 10px 2px 16px;' +
+                    'text-align: left;' +
                     'border: 0px;',
                 '.button-width':
-                    'width: 100%;'
-            }
+                    'width: 100%;',
+            },
         };
 
         let $names = [];
 
-        for (let $name in $in.options)
-        {
+        for (let $name in $in.options) {
             if ($in.options.hasOwnProperty($name) === false) {
                 continue;
             }
@@ -254,7 +250,8 @@ function infohub_rendermenu() {
         $parts.presentation_box.content_data = '[' + $names.join('][') + ']';
 
         if (_Empty($in.head_text) === 'false') {
-            $parts.presentation_box.content_data = $in.head_text + $parts.presentation_box.content_data;
+            $parts.presentation_box.content_data = $in.head_text +
+                $parts.presentation_box.content_data;
         }
 
         return {
@@ -263,11 +260,11 @@ function infohub_rendermenu() {
             'data': $parts,
             'how': {
                 'mode': 'one box',
-                'text': '[presentation_box]'
+                'text': '[presentation_box]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -277,13 +274,12 @@ function infohub_rendermenu() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function ($in)
-    {
+    const event_message = function($in) {
         const $default = {
             'parent_id': 0,
             'box_id': '',
             'step': 'start',
-            'event_data': ''
+            'event_data': '',
         };
         $in = _Merge($default, $in);
 
@@ -292,7 +288,7 @@ function infohub_rendermenu() {
         if ($in.step === 'step_end') {
             return {
                 'answer': 'true',
-                'message': 'Got a return message'
+                'message': 'Got a return message',
             };
         }
 
@@ -305,14 +301,14 @@ function infohub_rendermenu() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'alert'
+                        'function': 'alert',
                     },
                     'data': {
-                        'text': $text
+                        'text': $text,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
 
                 $messageArray.push($messageOut);
@@ -322,8 +318,9 @@ function infohub_rendermenu() {
         return {
             'answer': 'true',
             'message': 'Done handling events in RenderMenu',
-            'messages': $messageArray
+            'messages': $messageArray,
         };
     };
 }
+
 //# sourceURL=infohub_rendermenu.js

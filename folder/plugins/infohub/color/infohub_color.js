@@ -19,7 +19,7 @@
  */
 function infohub_color() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -35,7 +35,7 @@ function infohub_color() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -47,7 +47,7 @@ function infohub_color() {
             'click_color_reader': 'normal',
             'click_light_bar_selector': 'normal',
             'click_light_bar_reader': 'normal',
-            'calculate_color_lookup': 'normal'
+            'calculate_color_lookup': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,19 +62,18 @@ function infohub_color() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
 
         const $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -86,18 +85,17 @@ function infohub_color() {
      * @since   2013-04-15
      * @author  Peter Lembke
      */
-    $functions.push("create"); // Enable this function
-    const create = function ($in)
-    {
+    $functions.push('create'); // Enable this function
+    const create = function($in) {
         const $default = {
             'item_index': {},
             'config': {},
             'data_back': {
                 'item_name': '',
-                'item_index_done': {}
+                'item_index_done': {},
             },
             'response': {},
-            'step': 'step_create'
+            'step': 'step_create',
         };
         $in = _Default($default, $in);
 
@@ -107,7 +105,7 @@ function infohub_color() {
                 'message': '',
                 'html': '',
                 'css_data': {},
-                'display': ''
+                'display': '',
             };
             $in.response = _Default($defaultResponse, $in.response);
             const $itemName = $in.data_back.item_name;
@@ -126,7 +124,7 @@ function infohub_color() {
                     'type': 'color_bar',
                     'alias': '',
                     'original_alias': '',
-                    'css_data': {}
+                    'css_data': {},
                 };
                 $data = _Merge($defaultItem, $data);
 
@@ -140,21 +138,21 @@ function infohub_color() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_render',
-                        'function': 'create'
+                        'function': 'create',
                     },
                     'data': {
                         'what': $response.what,
                         'how': $response.how,
                         'where': $response.where,
                         'alias': $data.alias,
-                        'css_data': $response.css_data
+                        'css_data': $response.css_data,
                     },
                     'data_back': {
                         'item_index': $in.item_index,
                         'item_name': $itemName,
                         'item_index_done': $in.data_back.item_index_done,
-                        'step': 'step_create_response'
-                    }
+                        'step': 'step_create_response',
+                    },
                 });
             }
         }
@@ -162,7 +160,7 @@ function infohub_color() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -172,9 +170,8 @@ function infohub_color() {
      * @since   2013-08-17
      * @author  Peter Lembke
      */
-    $functions.push("event_message"); // Enable this function
-    const event_message = function ($in)
-    {
+    $functions.push('event_message'); // Enable this function
+    const event_message = function($in) {
         const $default = {
             'final_node': 'client',
             'final_plugin': '',
@@ -192,34 +189,33 @@ function infohub_color() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_color -> event_message'
-            }
+                'message': 'Nothing to report from infohub_color -> event_message',
+            },
         };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': $in.final_node,
                     'plugin': $in.final_plugin,
-                    'function': $in.final_function
+                    'function': $in.final_function,
                 },
                 'data': {
                     'event_type': $in.event_type,
                     'event_data': $in.event_data,
                     'innerHTML': $in.innerHTML,
-                    'box_id': $in.box_id
+                    'box_id': $in.box_id,
                 },
                 'data_back': {
-                    'step': 'step_final'
-                }
+                    'step': 'step_final',
+                },
             });
         }
 
         return {
             'answer': $in.answer,
-            'message': $in.message
+            'message': $in.message,
         };
     };
 
@@ -231,7 +227,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorSelector');
-    const internal_ColorSelector = function ($in) {
+    const internal_ColorSelector = function($in) {
         const $default = {
             'head_label': 'Pick a color',
             'width': 30,
@@ -240,7 +236,7 @@ function infohub_color() {
             'final_node': 'client',
             'final_plugin': 'infohub_color',
             'final_function': 'click_color_selector',
-            'original_alias': ''
+            'original_alias': '',
         };
 
         $in = _Default($default, $in);
@@ -253,14 +249,14 @@ function infohub_color() {
                     'plugin': 'infohub_rendermajor',
                     'type': 'presentation_box',
                     'head_label': $in.head_label,
-                    'content_data': '[hue_bar_container][light_bar_container][color_container][hue_degree_container]'
+                    'content_data': '[hue_bar_container][light_bar_container][color_container][hue_degree_container]',
                 },
                 'hue_bar_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '[hue_bar]',
                     'alias': 'hue_bar_container',
-                    'visible': 'true'
+                    'visible': 'true',
                 },
                 'hue_bar': {
                     'plugin': 'infohub_color',
@@ -272,37 +268,37 @@ function infohub_color() {
                     'final_node': $in.final_node,
                     'final_plugin': $in.final_plugin,
                     'final_function': $in.final_function,
-                    'event_data': $in.original_alias
+                    'event_data': $in.original_alias,
                 },
                 'light_bar_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '',
                     'alias': 'light_bar_container',
-                    'display': 'block'
+                    'display': 'block',
                 },
                 'color_container': {
                     'type': 'form',
                     'subtype': 'text',
                     'input_type': 'text',
                     'display': 'none',
-                    'original_alias': $in.original_alias + '_color'
+                    'original_alias': $in.original_alias + '_color',
                 },
                 'hue_degree_container': {
                     'type': 'form',
                     'subtype': 'text',
                     'input_type': 'text',
                     'display': 'none',
-                    'original_alias': $in.original_alias + '_hue_degree'
-                }
+                    'original_alias': $in.original_alias + '_hue_degree',
+                },
             },
             'how': {
                 'mode': 'one box',
-                'text': '[pick_color]'
+                'text': '[pick_color]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -314,12 +310,12 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorReader');
-    const internal_ColorReader = function ($in) {
+    const internal_ColorReader = function($in) {
         const $default = {
             'original_alias': '',
             'button_label': 'Use',
             'color_selector_name': '',
-            'custom_variables': {}
+            'custom_variables': {},
         };
 
         $in = _Default($default, $in);
@@ -334,7 +330,7 @@ function infohub_color() {
                     'alias': 'container_all',
                     'tag': 'div', // span, p, div, pre
                     'data': '[container_button_read][light_bar_container][hue_degree_container]',
-                    'display': 'block' // leave empty, "block" or "inline" or "none".
+                    'display': 'block', // leave empty, "block" or "inline" or "none".
                 },
                 'container_button_read': {
                     'type': 'common',
@@ -342,7 +338,7 @@ function infohub_color() {
                     'alias': 'container_button_read',
                     'tag': 'div', // span, p, div, pre
                     'data': '[button_read]',
-                    'display': 'inline' // leave empty, "block" or "inline" or "none".
+                    'display': 'inline', // leave empty, "block" or "inline" or "none".
                 },
                 'button_read': {
                     'plugin': 'infohub_renderform',
@@ -354,34 +350,34 @@ function infohub_color() {
                     'to_function': 'click_color_reader',
                     'css_data': {
                         '.button-width':
-                            'width: 100%;'+
-                            'box-sizing:border-box;'+
-                            'max-width: 160px;'
+                            'width: 100%;' +
+                            'box-sizing:border-box;' +
+                            'max-width: 160px;',
                     },
-                    'custom_variables': $in.custom_variables
+                    'custom_variables': $in.custom_variables,
                 },
                 'light_bar_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '',
                     'alias': 'light_bar_container',
-                    'display': 'inline'
+                    'display': 'inline',
                 },
                 'hue_degree_container': {
                     'type': 'form',
                     'subtype': 'text',
                     'input_type': 'text',
                     'display': 'none',
-                    'original_alias': $in.original_alias
-                }
+                    'original_alias': $in.original_alias,
+                },
             },
             'how': {
                 'mode': 'one box',
-                'text': '[container_all]'
+                'text': '[container_all]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -393,7 +389,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_LightBarSelector');
-    const internal_LightBarSelector = function ($in) {
+    const internal_LightBarSelector = function($in) {
         const $default = {
             'original_alias': '',
             'label': '',
@@ -404,7 +400,7 @@ function infohub_color() {
             'saturation_percent': 0,
             'start': 10,
             'stop': 90,
-            'jump': 8
+            'jump': 8,
         };
 
         $in = _Default($default, $in);
@@ -418,14 +414,14 @@ function infohub_color() {
                     'type': 'presentation_box',
                     'head_label': $in.label,
                     'content_data': '[light_bar_container][light_box_container][light_value_container]',
-                    'foot_text': $in.description
+                    'foot_text': $in.description,
                 },
                 'light_bar_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '[light_bar]',
                     'alias': 'light_bar_container',
-                    'display': 'inline'
+                    'display': 'inline',
                 },
                 'light_bar': {
                     'plugin': 'infohub_color',
@@ -440,29 +436,29 @@ function infohub_color() {
                     'final_node': 'client',
                     'final_plugin': 'infohub_color',
                     'final_function': 'click_light_bar_selector',
-                    'event_data': $in.original_alias
+                    'event_data': $in.original_alias,
                 },
                 'light_box_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '',
-                    'display': 'inline'
+                    'display': 'inline',
                 },
                 'light_value_container': {
                     'type': 'form',
                     'subtype': 'text',
                     'input_type': 'text',
                     'display': 'none',
-                    'original_alias': $in.original_alias
-                }
+                    'original_alias': $in.original_alias,
+                },
             },
             'how': {
                 'mode': 'one box',
-                'text': '[major_container]'
+                'text': '[major_container]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -474,12 +470,12 @@ function infohub_color() {
      * @since   2020-10-30
      * @author  Peter Lembke
      */
-    const internal_LightBarReader = function ($in) {
+    const internal_LightBarReader = function($in) {
         const $default = {
             'original_alias': '',
             'button_label': 'Use',
             'light_bar_selector_name': '',
-            'custom_variables': {}
+            'custom_variables': {},
         };
 
         $in = _Default($default, $in);
@@ -494,7 +490,7 @@ function infohub_color() {
                     'alias': 'container_all',
                     'tag': 'div', // span, p, div, pre
                     'data': '[container_button_read][light_box_container][light_value_container]',
-                    'display': 'block' // leave empty, "block" or "inline" or "none".
+                    'display': 'block', // leave empty, "block" or "inline" or "none".
                 },
                 'container_button_read': {
                     'type': 'common',
@@ -502,7 +498,7 @@ function infohub_color() {
                     'alias': 'container_button_read',
                     'tag': 'div', // span, p, div, pre
                     'data': '[button_read]',
-                    'display': 'inline' // leave empty, "block" or "inline" or "none".
+                    'display': 'inline', // leave empty, "block" or "inline" or "none".
                 },
                 'button_read': {
                     'plugin': 'infohub_renderform',
@@ -514,33 +510,33 @@ function infohub_color() {
                     'to_function': 'click_light_bar_reader',
                     'css_data': {
                         '.button-width':
-                            'width: 100%;'+
-                            'box-sizing:border-box;'+
-                            'max-width: 160px;'
+                            'width: 100%;' +
+                            'box-sizing:border-box;' +
+                            'max-width: 160px;',
                     },
-                    'custom_variables': $in.custom_variables
+                    'custom_variables': $in.custom_variables,
                 },
                 'light_box_container': {
                     'type': 'common',
                     'subtype': 'container',
                     'data': '',
-                    'display': 'inline'
+                    'display': 'inline',
                 },
                 'light_value_container': {
                     'type': 'form',
                     'subtype': 'text',
                     'input_type': 'text',
                     'display': 'none',
-                    'original_alias': $in.original_alias
-                }
+                    'original_alias': $in.original_alias,
+                },
             },
             'how': {
                 'mode': 'one box',
-                'text': '[container_all]'
+                'text': '[container_all]',
             },
             'where': {
-                'mode': 'html'
-            }
+                'mode': 'html',
+            },
         };
     };
 
@@ -551,8 +547,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorBar');
-    const internal_ColorBar = function ($in)
-    {
+    const internal_ColorBar = function($in) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -561,7 +556,7 @@ function infohub_color() {
             'final_plugin': 'infohub_color',
             'final_function': 'click_color_selector',
             'event_data': '',
-            'css_data': {}
+            'css_data': {},
         };
 
         $in = _Default($default, $in);
@@ -589,8 +584,8 @@ function infohub_color() {
             'display': 'inline-block',
             'visible': 'true',
             'css_data': {
-                '.container': ''
-            }
+                '.container': '',
+            },
         };
 
         let $oneEvent = {
@@ -603,10 +598,12 @@ function infohub_color() {
             'class': 'link',
             'final_node': $in.final_node,
             'final_plugin': $in.final_plugin,
-            'final_function': $in.final_function
+            'final_function': $in.final_function,
         };
 
-        const $css = 'box-sizing: border-box; padding: 1px; border: 0px; vertical-align: middle; min-width: ' + $in.width + 'px; min-height: ' + $in.height + 'px; background-color: ';
+        const $css = 'box-sizing: border-box; padding: 1px; border: 0px; vertical-align: middle; min-width: ' +
+            $in.width + 'px; min-height: ' + $in.height +
+            'px; background-color: ';
         let $parts = {};
         let $allNames = [];
 
@@ -616,7 +613,7 @@ function infohub_color() {
             }
 
             const $rgbColourArray = _HexToRgb($in.colors[$colorName]);
-            const $rgbTag = 'rgb(%s,%s,%s)'
+            const $rgbTag = 'rgb(%s,%s,%s)';
             const $finalRgbTag = _SprintF($rgbTag, $rgbColourArray);
 
             let $containerCss = $css + $finalRgbTag + ';';
@@ -629,16 +626,17 @@ function infohub_color() {
             $parts[$colorName] = _ByVal($oneColor);
 
             if ($in.event_data === '') {
-                $allNames.push('['+$colorName+']');
+                $allNames.push('[' + $colorName + ']');
                 continue; // This bar use no links
             }
 
             $oneEvent.alias = $colorName + '_link';
-            $oneEvent.event_data = $in.event_data + '|' + $colorName + '|' + $in.colors[$colorName];
-            $oneEvent.show = '['+$colorName+']';
+            $oneEvent.event_data = $in.event_data + '|' + $colorName + '|' +
+                $in.colors[$colorName];
+            $oneEvent.show = '[' + $colorName + ']';
             $parts[$colorName + '_link'] = _ByVal($oneEvent);
 
-            $allNames.push('['+$colorName+'_link]');
+            $allNames.push('[' + $colorName + '_link]');
         }
 
         if (_IsSet($in.css_data['.container']) === 'true') {
@@ -652,11 +650,11 @@ function infohub_color() {
             'how': {
                 'mode': 'one box',
                 'text': $allNames.join(''),
-                'css_data': $in.css_data
+                'css_data': $in.css_data,
             },
             'where': {
-                'mode': 'html' // mode HTML is cached where it is used.
-            }
+                'mode': 'html', // mode HTML is cached where it is used.
+            },
         };
     };
 
@@ -667,8 +665,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HueBar');
-    const internal_HueBar = function ($in)
-    {
+    const internal_HueBar = function($in) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -681,7 +678,7 @@ function infohub_color() {
             'final_plugin': 'infohub_color',
             'final_function': 'click_color_selector',
             'event_data': '',
-            'css_data': {}
+            'css_data': {},
         };
 
         $in = _Default($default, $in);
@@ -691,7 +688,8 @@ function infohub_color() {
         const $saturation = $in.saturation / 100.0; // percent. 0 = no color. 1.0 = maximum color
         const $light = $in.light / 100.0; // percent. 0.0 = black, 0.5 = full color. 1.0 = white
 
-        for (let $hueValue = $in.start; $hueValue < $in.stop; $hueValue = $hueValue + $in.jump) {
+        for (let $hueValue = $in.start; $hueValue <
+        $in.stop; $hueValue = $hueValue + $in.jump) {
             const $colorRgb = _HslToRgb($hueValue, $saturation, $light);
             const $colorHex = _RgbToHex($colorRgb);
             const $name = 'hue_' + $hueValue;
@@ -706,7 +704,7 @@ function infohub_color() {
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
             'event_data': $in.event_data,
-            'css_data': $in.css_data
+            'css_data': $in.css_data,
         });
 
         return $response;
@@ -719,8 +717,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_LightBar');
-    const internal_LightBar = function ($in)
-    {
+    const internal_LightBar = function($in) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -733,7 +730,7 @@ function infohub_color() {
             'final_plugin': 'infohub_color',
             'final_function': '',
             'event_data': '', // Add some data here if you want a clickable light bar
-            'css_data': {}
+            'css_data': {},
         };
 
         $in = _Default($default, $in);
@@ -742,8 +739,10 @@ function infohub_color() {
 
         const $saturation = $in.saturation_percent / 100.0; // percent. 0 = no color. 1.0 = maximum color
 
-        for (let $lightValue = $in.start; $lightValue <= $in.stop; $lightValue = $lightValue + $in.jump) {
-            const $colorRgb = _HslToRgb($in.hue_degree, $saturation, $lightValue / 100.0);
+        for (let $lightValue = $in.start; $lightValue <=
+        $in.stop; $lightValue = $lightValue + $in.jump) {
+            const $colorRgb = _HslToRgb($in.hue_degree, $saturation,
+                $lightValue / 100.0);
             const $colorHex = _RgbToHex($colorRgb);
             const $name = 'light_' + $lightValue;
             $colors[$name] = $colorHex;
@@ -757,7 +756,7 @@ function infohub_color() {
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
             'event_data': $in.event_data,
-            'css_data': $in.css_data
+            'css_data': $in.css_data,
         });
 
         return $response;
@@ -770,8 +769,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorBox');
-    const internal_ColorBox = function ($in)
-    {
+    const internal_ColorBox = function($in) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -784,7 +782,7 @@ function infohub_color() {
             'final_plugin': 'infohub_color',
             'final_function': '',
             'event_data': '',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
@@ -793,12 +791,13 @@ function infohub_color() {
         if ($color === '') {
             const $saturation = $in.saturation_percent / 100.0; // percent. 0 = no color. 1.0 = maximum color
             const $lightValue = $in.light_percent / 100.0; // percent.
-            const $colorRgb = _HslToRgb($in.hue_degree, $saturation, $lightValue);
+            const $colorRgb = _HslToRgb($in.hue_degree, $saturation,
+                $lightValue);
             $color = _RgbToHex($colorRgb);
         }
 
         let $colors = {};
-        $colors[ $in.color_name ] = $color;
+        $colors[$in.color_name] = $color;
 
         const $response = internal_ColorBar({
             'width': $in.width,
@@ -808,7 +807,7 @@ function infohub_color() {
             'final_plugin': $in.final_plugin,
             'final_function': $in.final_function,
             'event_data': $in.event_data,
-            'css_data': $in.css_data
+            'css_data': $in.css_data,
         });
 
         return $response;
@@ -822,19 +821,17 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_color_selector = function ($in) {
+    const click_color_selector = function($in) {
         const $default = {
             'event_data': '',
             'box_id': '',
-            'config': {
-            },
+            'config': {},
             'step': 'step_start',
-            'data_back': {
-            },
+            'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'An error occurred in click_color_selector'
-            }
+                'message': 'An error occurred in click_color_selector',
+            },
         };
         $in = _Default($default, $in);
 
@@ -852,7 +849,7 @@ function infohub_color() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -863,26 +860,26 @@ function infohub_color() {
                             'start': 10,
                             'stop': 90,
                             'jump': 8,
-                            'width': 16
-                        }
+                            'width': 16,
+                        },
                     },
                     'how': {
                         'mode': 'one box',
                         'text': '[light_bar]',
                         'css_data': {
-                            ' ': 'display: inline-block; max-width: 100%; border: 5px ridge; margin-left: 16px;'
-                        }
+                            ' ': 'display: inline-block; max-width: 100%; border: 5px ridge; margin-left: 16px;',
+                        },
                     },
                     'where': {
                         'box_id': $elementId + 'light_bar_container',
                         'max_width': 100,
-                        'scroll_to_box_id': 'false'
+                        'scroll_to_box_id': 'false',
                     },
-                    'cache_key': 'color_light_bar_' + $hueDegree
+                    'cache_key': 'color_light_bar_' + $hueDegree,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messagesArray.push($message);
@@ -891,15 +888,15 @@ function infohub_color() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $elementId + 'hue_degree_container',
-                    'text': $hueDegree.toString()
+                    'text': $hueDegree.toString(),
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messagesArray.push($message);
@@ -908,24 +905,24 @@ function infohub_color() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $elementId + 'color_container',
-                    'text': $colorHex
+                    'text': $colorHex,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messagesArray.push($message);
         }
 
-        return  {
+        return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'messages': $messagesArray
+            'messages': $messagesArray,
         };
     };
 
@@ -937,20 +934,18 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_color_reader = function ($in) {
+    const click_color_reader = function($in) {
         const $default = {
             'event_data': '',
             'box_id': '',
             'id': '',
-            'config': {
-            },
+            'config': {},
             'step': 'step_start',
-            'data_back': {
-            },
+            'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'An error occurred in click_color_selector'
-            }
+                'message': 'An error occurred in click_color_selector',
+            },
         };
         $in = _Default($default, $in);
 
@@ -960,39 +955,42 @@ function infohub_color() {
         if ($in.step === 'step_start') {
 
             const $fromElementId = $in.box_id + '_' + $in.event_data + '_';
-            const $lengthToSaveOnParent = $in.id.length - 'button_read_button'.length;
-            const $parentId = $in.id.substr(0,$lengthToSaveOnParent);
+            const $lengthToSaveOnParent = $in.id.length -
+                'button_read_button'.length;
+            const $parentId = $in.id.substr(0, $lengthToSaveOnParent);
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'mass_update'
+                    'function': 'mass_update',
                 },
                 'data': {
                     'do': [
                         {
                             'func': 'DataCopy',
-                            'from_box_id': $fromElementId + 'hue_degree_container',
-                            'to_box_id': $parentId + 'hue_degree_container'
+                            'from_box_id': $fromElementId +
+                                'hue_degree_container',
+                            'to_box_id': $parentId + 'hue_degree_container',
                         },
                         {
                             'func': 'DataCopy',
-                            'from_box_id': $fromElementId + 'light_bar_container',
-                            'to_box_id': $parentId + 'light_bar_container'
-                        }
-                    ]
+                            'from_box_id': $fromElementId +
+                                'light_bar_container',
+                            'to_box_id': $parentId + 'light_bar_container',
+                        },
+                    ],
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
-        return  {
+        return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'messages': $messagesArray
+            'messages': $messagesArray,
         };
     };
 
@@ -1004,19 +1002,17 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_light_bar_selector = function ($in) {
+    const click_light_bar_selector = function($in) {
         const $default = {
             'event_data': '',
             'box_id': '',
-            'config': {
-            },
+            'config': {},
             'step': 'step_start',
-            'data_back': {
-            },
+            'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'An error occurred in click_color_selector'
-            }
+                'message': 'An error occurred in click_color_selector',
+            },
         };
         $in = _Default($default, $in);
 
@@ -1027,7 +1023,8 @@ function infohub_color() {
 
             const $eventDataArray = $in.event_data.split('|');
             const $parentId = $in.box_id + '_' + $eventDataArray[0];
-            const $lightPercent = parseInt($eventDataArray[1].substr('light_'.length));
+            const $lightPercent = parseInt(
+                $eventDataArray[1].substr('light_'.length));
             const $hexColor = $eventDataArray[2];
             const $lightBoxContainer = $parentId + '_light_box_container';
             const $lightValueContainer = $parentId + '_light_value_container';
@@ -1036,7 +1033,7 @@ function infohub_color() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -1047,23 +1044,23 @@ function infohub_color() {
                             'width': 30,
                             'height': 30,
                             'css_data': {
-                                '.container': 'border: 5px ridge; margin-left: 16px;'
-                            }
-                        }
+                                '.container': 'border: 5px ridge; margin-left: 16px;',
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[color_bar]'
+                        'text': '[color_bar]',
                     },
                     'where': {
                         'box_id': $lightBoxContainer,
                         'max_width': 100,
-                        'scroll_to_box_id': 'false'
-                    }
+                        'scroll_to_box_id': 'false',
+                    },
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messagesArray.push($message);
@@ -1072,24 +1069,24 @@ function infohub_color() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $lightValueContainer,
-                    'text': $lightPercent.toString()
+                    'text': $lightPercent.toString(),
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messagesArray.push($message);
         }
 
-        return  {
+        return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'messages': $messagesArray
+            'messages': $messagesArray,
         };
     };
 
@@ -1101,20 +1098,18 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_light_bar_reader = function ($in) {
+    const click_light_bar_reader = function($in) {
         const $default = {
             'event_data': '',
             'box_id': '',
             'id': '',
-            'config': {
-            },
+            'config': {},
             'step': 'step_start',
-            'data_back': {
-            },
+            'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'An error occurred in click_light_bar_selector'
-            }
+                'message': 'An error occurred in click_light_bar_selector',
+            },
         };
         $in = _Default($default, $in);
 
@@ -1124,39 +1119,42 @@ function infohub_color() {
         if ($in.step === 'step_start') {
 
             const $fromElementId = $in.box_id + '_' + $in.event_data + '_';
-            const $lengthToSaveOnParent = $in.id.length - 'button_read_button'.length;
-            const $parentId = $in.id.substr(0,$lengthToSaveOnParent);
+            const $lengthToSaveOnParent = $in.id.length -
+                'button_read_button'.length;
+            const $parentId = $in.id.substr(0, $lengthToSaveOnParent);
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'mass_update'
+                    'function': 'mass_update',
                 },
                 'data': {
                     'do': [
                         {
                             'func': 'DataCopy',
-                            'from_box_id': $fromElementId + 'light_box_container',
-                            'to_box_id': $parentId + 'light_box_container'
+                            'from_box_id': $fromElementId +
+                                'light_box_container',
+                            'to_box_id': $parentId + 'light_box_container',
                         },
                         {
                             'func': 'DataCopy',
-                            'from_box_id': $fromElementId + 'light_value_container',
-                            'to_box_id': $parentId + 'light_value_container'
-                        }
-                    ]
+                            'from_box_id': $fromElementId +
+                                'light_value_container',
+                            'to_box_id': $parentId + 'light_value_container',
+                        },
+                    ],
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
-        return  {
+        return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'messages': $messagesArray
+            'messages': $messagesArray,
         };
     };
 
@@ -1166,7 +1164,7 @@ function infohub_color() {
      * @param $in
      * @returns {{color_lookup: {}, answer: string, color_schema: {}, message: string}}
      */
-    const calculate_color_lookup = function ($in) {
+    const calculate_color_lookup = function($in) {
         const $default = {
             'color_data': {},
             'step': 'step_start',
@@ -1176,7 +1174,7 @@ function infohub_color() {
         const $defaultItem = {
             'hue_degree': 0.0,
             'saturation': 0.5,
-            'lightness': 0.0
+            'lightness': 0.0,
         };
 
         let $colorLookup = {};
@@ -1188,7 +1186,8 @@ function infohub_color() {
             let $item = $in.color_data[$originalColor];
             $item = _Default($defaultItem, $item);
 
-            const $rgbArray = _HslToRgb($item.hue_degree, $item.saturation, $item.lightness / 100.0);
+            const $rgbArray = _HslToRgb($item.hue_degree, $item.saturation,
+                $item.lightness / 100.0);
             const $newColor = _RgbToHex($rgbArray);
 
             $colorLookup[$originalColor] = $newColor;
@@ -1197,19 +1196,18 @@ function infohub_color() {
         return {
             'answer': 'true',
             'message': 'Here are the color schema and the color lookup',
-            'color_lookup': $colorLookup
+            'color_lookup': $colorLookup,
         };
     };
 
-    $functions.push("_RgbToHex");
+    $functions.push('_RgbToHex');
     /**
      * Convert an array with three values to a string
      * Example: 160, 179, 33 to #A0B321
      * @returns {string}
      * @private
      */
-    const _RgbToHex = function($rgbArray = [])
-    {
+    const _RgbToHex = function($rgbArray = []) {
         let $result = '#';
         let $hexNumber = '';
         for (let $number = 0; $number < 3; $number = $number + 1) {
@@ -1223,7 +1221,7 @@ function infohub_color() {
         return $result;
     };
 
-    $functions.push("_HexToRgb");
+    $functions.push('_HexToRgb');
     /**
      * Convert a color code to an rgbArray with three values
      * Example: #A0B321 to 160, 179, 33
@@ -1231,11 +1229,10 @@ function infohub_color() {
      * @returns {[number, number, number]}
      * @private
      */
-    const _HexToRgb = function($colorCode = '')
-    {
-        const $red = parseInt('0x' + $colorCode.substr(1,2));
-        const $green = parseInt('0x' + $colorCode.substr(3,2));
-        const $blue = parseInt('0x' + $colorCode.substr(5,2));
+    const _HexToRgb = function($colorCode = '') {
+        const $red = parseInt('0x' + $colorCode.substr(1, 2));
+        const $green = parseInt('0x' + $colorCode.substr(3, 2));
+        const $blue = parseInt('0x' + $colorCode.substr(5, 2));
         const $rgbArray = [$red, $green, $blue];
 
         return $rgbArray;
@@ -1247,12 +1244,11 @@ function infohub_color() {
      * @returns {string}
      * @private
      */
-    const _RandomColour = function()
-    {
+    const _RandomColour = function() {
         const $chars = '0123456789ABCDEF';
         let $color = '';
 
-        for (let $position = 0; $position < 6; $position = $position +1) {
+        for (let $position = 0; $position < 6; $position = $position + 1) {
             const $number = Math.floor(Math.random() * 16);
             $color = $color + $chars[$number];
         }
@@ -1269,7 +1265,7 @@ function infohub_color() {
      * @returns {number[]}
      * @private
      */
-    const _RgbToHsl = function ($rgbArray = []) {
+    const _RgbToHsl = function($rgbArray = []) {
         const $redPercent = $rgbArray[0] / 255;
         const $greenPercent = $rgbArray[1] / 255;
         const $bluePercent = $rgbArray[2] / 255;
@@ -1278,12 +1274,14 @@ function infohub_color() {
         let $minPercent = Math.min($redPercent, $greenPercent, $bluePercent);
         let $deltaPercent = $maxPercent - $minPercent;
 
-        let $hueDegree = _CalculateHue($deltaPercent, $maxPercent, $redPercent, $greenPercent, $bluePercent);
+        let $hueDegree = _CalculateHue($deltaPercent, $maxPercent, $redPercent,
+            $greenPercent, $bluePercent);
         let $lightnessPercent = ($minPercent + $maxPercent) / 2;
 
         let $saturationPercent = 0;
         if ($deltaPercent !== 0) {
-            $saturationPercent = $deltaPercent / (1 - Math.abs(2 * $lightnessPercent - 1));
+            $saturationPercent = $deltaPercent /
+                (1 - Math.abs(2 * $lightnessPercent - 1));
         }
 
         return [$hueDegree, $saturationPercent, $lightnessPercent];
@@ -1300,7 +1298,8 @@ function infohub_color() {
      * @returns {number} | Degree of Hue. Between 0 and 360
      * @private
      */
-    const _CalculateHue = function($deltaPercent, $maxPercent, $redPercent, $greenPercent, $bluePercent) {
+    const _CalculateHue = function(
+        $deltaPercent, $maxPercent, $redPercent, $greenPercent, $bluePercent) {
 
         let $hue = 0;
 
@@ -1340,7 +1339,7 @@ function infohub_color() {
      * @returns {[number, number, number]}
      * @private
      */
-    const _HslToRgb = function ($hueDegree, $saturation, $lightness) {
+    const _HslToRgb = function($hueDegree, $saturation, $lightness) {
         let $c = (1 - Math.abs(2 * $lightness - 1)) * $saturation;
         let $hp = $hueDegree / 60.0;
         let $x = $c * (1 - Math.abs(($hp % 2) - 1));
@@ -1351,7 +1350,7 @@ function infohub_color() {
         const $green = Math.round(255 * ($rgbArray[1] + $m));
         const $blue = Math.round(255 * ($rgbArray[2] + $m));
 
-        return [$red,$green,$blue];
+        return [$red, $green, $blue];
     };
 
     /**
@@ -1403,4 +1402,5 @@ function infohub_color() {
     };
 
 }
+
 //# sourceURL=infohub_color.js

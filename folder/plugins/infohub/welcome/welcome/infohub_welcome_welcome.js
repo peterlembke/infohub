@@ -17,7 +17,7 @@
  */
 function infohub_welcome_welcome() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -31,13 +31,13 @@ function infohub_welcome_welcome() {
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -52,8 +52,7 @@ function infohub_welcome_welcome() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -61,7 +60,8 @@ function infohub_welcome_welcome() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -76,8 +76,7 @@ function infohub_welcome_welcome() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -85,8 +84,8 @@ function infohub_welcome_welcome() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from welcome_welcome'
-            }
+                'message': 'Nothing to report from welcome_welcome',
+            },
         };
         $in = _Default($default, $in);
 
@@ -97,65 +96,66 @@ function infohub_welcome_welcome() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'welcome_text': {
                             'type': 'text',
-                            'text': "[logo_icon][h1][title][/h1]\n [i][ingress][/i]\n[columns]\n" +
-                                "" +
-                                "[/columns]\n[i][my_link][/i]"
+                            'text': '[logo_icon][h1][title][/h1]\n [i][ingress][/i]\n[columns]\n' +
+                                '' +
+                                '[/columns]\n[i][my_link][/i]',
                         },
                         'logo_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[logo_asset]'
+                            'data': '[logo_asset]',
                         },
                         'logo_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'infohub-logo-done',
-                            'plugin_name': 'infohub_welcome'
+                            'plugin_name': 'infohub_welcome',
                         },
                         'title': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Welcome to your Infohub')
+                            'data': _Translate('WELCOME_TO_YOUR_INFOHUB')
                         },
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('We are going to have so much fun.')
+                            'data': _Translate('WE_ARE_GOING_TO_HAVE_SO_MUCH_FUN.')
                         },
                         'my_link': {
                             'type': 'link',
                             'subtype': 'link',
                             'text': 'Infohub',
-                            'data': 'http://www.infohub.se'
-                        }
+                            'data': 'http://www.infohub.se',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[welcome_text]'
+                        'text': '[welcome_text]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                     // 'cache_key': 'welcome' // No need to cache this
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 }
+
 //# sourceURL=infohub_welcome_welcome.js

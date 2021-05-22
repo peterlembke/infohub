@@ -1,6 +1,7 @@
 {
     "plugin": "infohub_demo",
     "title": "Demo",
-    "description": "Demos what you can do with InfoHub.",
-    "uses": ["infohub_demo_menu", "infohub_rendermenu"]
+    "description": "Demo examples how you can use the features in Infohub",
+    "keywords": "demo,example,implementation",
+    "uses": []
 }

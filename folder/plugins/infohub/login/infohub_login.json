@@ -9,7 +9,27 @@
         "information": {
             "enable": "true",
             "default_language": "en",
-            "available_languages": ["en","sv","es", "zh", "da", "de", "el", "et", "fi", "fr", "hi", "is", "it", "ja", "nb", "nl", "pl", "pt", "ru"],
+            "available_languages": [
+                "en",
+                "sv",
+                "es",
+                "zh",
+                "da",
+                "de",
+                "el",
+                "et",
+                "fi",
+                "fr",
+                "hi",
+                "is",
+                "it",
+                "ja",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "ru"
+            ],
             "folder": "plugin",
             "path": "start_page_text",
             "links": {
@@ -29,7 +49,27 @@
             "doc.infohub.se": "public-doc.infohub.se.json"
         },
         "information": {
-            "available_languages": ["en","sv","es", "zh", "da", "de", "el", "et", "fi", "fr", "hi", "is", "it", "ja", "nb", "nl", "pl", "pt", "ru"]
+            "available_languages": [
+                "en",
+                "sv",
+                "es",
+                "zh",
+                "da",
+                "de",
+                "el",
+                "et",
+                "fi",
+                "fr",
+                "hi",
+                "is",
+                "it",
+                "ja",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "ru"
+            ]
         }
     }
 }

@@ -30,20 +30,20 @@ class infohub_plugin_information extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2016-01-30
+     * @return  string[]
      * @since 2016-01-30
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2016-01-30
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2016-01-30',
             'since' => '2012-08-24',
             'version' => '1.0.0',
             'class_name' => 'infohub_plugin_information',
             'checksum' => '{{checksum}}'
-        );
+        ];
     }
 
     // ***********************************************************
@@ -54,20 +54,20 @@ class infohub_plugin_information extends infohub_base
     /**
      * Get an array with detailed information about a class
      * Using the built in class PHP Reflection
-     * @version 2013-12-29
-     * @since   2012-08-24
-     * @author  Peter Lembke
      * @param array $in
      * @return array
      * @throws ReflectionException
+     * @version 2013-12-29
+     * @since   2012-08-24
+     * @author  Peter Lembke
      */
     protected function plugin_data(array $in = [])
     {
-        $default = array(
+        $default = [
             'class_name' => '',
             'methods' => '*',
             'comment_parse' => 'false'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if (empty($in['class_name'])) {
@@ -77,14 +77,14 @@ class infohub_plugin_information extends infohub_base
         $object = new $in['class_name']();
         $class = new ReflectionClass($in['class_name']);
 
-        $classData = array(
+        $classData = [
             'name' => $in['class_name'],
             'parent_name' => get_parent_class($object),
             'comment' => $class->getDocComment(),
             'properties' => $class->getDefaultProperties(),
             'static_properties' => $class->getStaticProperties(),
             'constants' => $class->getConstants()
-        );
+        ];
 
         $wantedMethodsArray = [];
         $wantedMethod = false;
@@ -98,7 +98,6 @@ class infohub_plugin_information extends infohub_base
 
         $methods = $class->getMethods();
         foreach ($methods as $method) {
-
             if ($wantedMethod == true) {
                 if (isset($wantedMethodsArray[$method]) == false) {
                     continue; // Skip this method
@@ -114,10 +113,12 @@ class infohub_plugin_information extends infohub_base
 
             // This sub call takes to long time. Call the sub function separately if needed. 2013-05-25
             if ($in['comment_parse'] === 'true') {
-                $response = $this->internal_Cmd(array(
-                    'func' => 'CommentParse',
-                    'comment' => $methodsArray['comment']
-                ));
+                $response = $this->internal_Cmd(
+                    [
+                        'func' => 'CommentParse',
+                        'comment' => $methodsArray['comment']
+                    ]
+                );
                 $methodsArray['comment_parsed'] = $response['comment_parsed'];
             }
 
@@ -143,32 +144,35 @@ class infohub_plugin_information extends infohub_base
             $classData["methods"][$methodName] = $methodsArray;
         }
 
-        return array(
+        return [
             'answer' => 'true',
-            'message' => '', 'data' => $classData
-        );
+            'message' => '',
+            'data' => $classData
+        ];
     }
 
     /**
      * Give a PHPDOC comment and get it parsed into an array
      * Used by: you
-     * @version 2013-12-29
-     * @since   2013-05-25
-     * @author  Peter Lembke
      * @param array $in
      * @return bool|string
+     * @author  Peter Lembke
+     * @version 2013-12-29
+     * @since   2013-05-25
      */
     protected function plugin_data_comment_parse(array $in = [])
     {
-        $default = array(
+        $default = [
             'comment' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'CommentParse',
-            'comment' => $in['comment']
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'CommentParse',
+                'comment' => $in['comment']
+            ]
+        );
 
         return $response;
     }
@@ -187,17 +191,17 @@ class infohub_plugin_information extends infohub_base
      * That took too long time. Now you have to parse the info you are interested in.
      * example: $answer = internal_Cmd(array('func'=>'CommentParse','comment'=>$PHPDOC_comment));
      * Used by: plugin_data_comment_parse
-     * @version 2013-05-25
-     * @since   2013-05-25
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2013-05-25
+     * @since   2013-05-25
      */
     protected function internal_CommentParse(array $in = [])
     {
-        $default = array(
+        $default = [
             'comment' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $parsedRows = [];
@@ -250,7 +254,7 @@ class infohub_plugin_information extends infohub_base
                 $data = explode(' ', $data);
                 $data = array_map('trim', $data); // Run the trim function on all rows.
                 if (count($data) > 1) {
-                    $parsedRows['param'][$data[1]] = array('type' => $data[0], 'description' => '');
+                    $parsedRows['param'][$data[1]] = ['type' => $data[0], 'description' => ''];
                 }
                 continue;
             }
@@ -258,18 +262,18 @@ class infohub_plugin_information extends infohub_base
                 $data = explode("|", $data);
                 $data = array_map('trim', $data); // Run the trim function on all rows.
                 if (count($data) == 3) {
-                    $parsedRows['uses'][$data[0]] = array('type' => $data[1], 'description' => $data[2]);
+                    $parsedRows['uses'][$data[0]] = ['type' => $data[1], 'description' => $data[2]];
                 }
                 continue;
             }
             $parsedRows[$phpDocName] = $data;
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Have parsed the phpdoc comment into an array',
             'comment_parsed' => $parsedRows
-        );
+        ];
     }
 
 }

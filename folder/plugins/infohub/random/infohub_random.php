@@ -30,14 +30,14 @@ class infohub_random extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2019-01-07
+     * @return  string[]
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2019-01-07
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-01-07',
             'since' => '2017-06-17',
             'version' => '1.0.2',
@@ -47,22 +47,22 @@ class infohub_random extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-01-07
+     * @return mixed
      * @since   2017-06-17
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-01-07
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'random_number' => 'normal',
             'random_numbers' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -80,43 +80,45 @@ class infohub_random extends infohub_base
 
     /**
      * Gives you a random number
-     * @version 2017-06-17
-     * @since 2017-06-17
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2017-06-17
+     * @since 2017-06-17
      * @uses
      */
     protected function random_number(array $in = []): array
     {
-        $default = array(
+        $default = [
             'min' => 0,
             'max' => 0
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        return $this->internal_Cmd(array(
-            'func' => 'RandomNumber',
-            'min' => $in['min'],
-            'max' => $in['max']
-        ));
+        return $this->internal_Cmd(
+            [
+                'func' => 'RandomNumber',
+                'min' => $in['min'],
+                'max' => $in['max']
+            ]
+        );
     }
 
     /**
      * Gives you a random number
-     * @version 2017-06-17
-     * @since 2017-06-17
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2017-06-17
+     * @since 2017-06-17
      * @uses
      */
     protected function internal_RandomNumber(array $in = []): array
     {
-        $default = array(
+        $default = [
             'min' => 0,
             'max' => 0
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'true';
@@ -152,32 +154,32 @@ class infohub_random extends infohub_base
         $ok = 'true';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'ok' => $ok,
             'min' => $in['min'],
             'max' => $in['max'],
             'data' => $result
-        );
+        ];
     }
 
     /**
      * Gives you a list with random numbers
-     * @version 2018-07-29
-     * @since 2018-07-29
-     * @author Peter Lembke
      * @param array $in
      * @return array
+     * @author Peter Lembke
+     * @version 2018-07-29
+     * @since 2018-07-29
      * @uses
      */
     protected function random_numbers(array $in = []): array
     {
-        $default = array(
+        $default = [
             'min' => 0,
             'max' => 0,
             'count' => 10
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $answer = 'true';
@@ -185,13 +187,14 @@ class infohub_random extends infohub_base
         $result = [];
         $ok = 'false';
 
-        for ($i = $in['count']; $i > 0; $i--)
-        {
-            $response = $this->internal_Cmd(array(
-                'func' => 'RandomNumber',
-                'min' => $in['min'],
-                'max' => $in['max']
-            ));
+        for ($i = $in['count']; $i > 0; $i--) {
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'RandomNumber',
+                    'min' => $in['min'],
+                    'max' => $in['max']
+                ]
+            );
 
             if ($response['answer'] === 'false' || $response['ok'] === 'false') {
                 $message = $response['message'];
@@ -206,14 +209,14 @@ class infohub_random extends infohub_base
         $ok = 'true';
 
         leave:
-        return array(
+        return [
             'answer' => $answer,
             'message' => $message,
             'ok' => $ok,
             'min' => $in['min'],
             'max' => $in['max'],
             'data' => $result
-        );
+        ];
     }
 
     /**
@@ -229,7 +232,7 @@ class infohub_random extends infohub_base
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
             } else {
-                $randomNumber = mt_rand($min,$max); // PHP 5 and later
+                $randomNumber = mt_rand($min, $max); // PHP 5 and later
             }
         } catch (Exception $e) {
             $randomNumber = 0; // Not ideal

@@ -1,23 +1,23 @@
 /**
-    Copyright (C) 2020 Peter Lembke , CharZam soft
-    the program is distributed under the terms of the GNU General Public License
+ Copyright (C) 2020 Peter Lembke , CharZam soft
+ the program is distributed under the terms of the GNU General Public License
 
-    Infohub_Timer is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ Infohub_Timer is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    Infohub_Timer is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
+ Infohub_Timer is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Infohub_Timer.	If not, see <https://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with Infohub_Timer.    If not, see <https://www.gnu.org/licenses/>.
  */
 function infohub_timer() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -33,7 +33,7 @@ function infohub_timer() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
@@ -41,7 +41,7 @@ function infohub_timer() {
         const $list = {
             'start_timer': 'normal',
             'start_timer_advanced': 'normal',
-            'stop_timer': 'normal'
+            'stop_timer': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -49,7 +49,7 @@ function infohub_timer() {
 
     let $timer = {};
 
-    $functions.push("start_timer");
+    $functions.push('start_timer');
     /**
      * Send a message to here and state how many seconds you want to wait for a response
      * @version 2020-03-08
@@ -58,8 +58,7 @@ function infohub_timer() {
      * @param $in
      * @returns {{milliseconds: number, answer: string, name: *, message: string, ok: boolean}|{}}
      */
-    const start_timer = function($in)
-    {
+    const start_timer = function($in) {
         const $default = {
             'name': 'default',
             'milliseconds': 0,
@@ -68,8 +67,8 @@ function infohub_timer() {
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -78,7 +77,7 @@ function infohub_timer() {
             'message': '',
             'name': $in.name,
             'milliseconds': $in.milliseconds,
-            'ok': 'false'
+            'ok': 'false',
         };
 
         if ($in.from_plugin.node !== 'client') {
@@ -115,7 +114,7 @@ function infohub_timer() {
         return $out;
     };
 
-    $functions.push("start_timer_advanced");
+    $functions.push('start_timer_advanced');
     /**
      * Send a message to here and state when you want a response
      * @version 2020-03-08
@@ -124,8 +123,7 @@ function infohub_timer() {
      * @param $in
      * @returns {{milliseconds: number, answer: string, name: *, message: string, ok: boolean}|{}}
      */
-    const start_timer_advanced = function($in)
-    {
+    const start_timer_advanced = function($in) {
         const $default = {
             'name': 'default',
             'when': 0, // When do you want a response
@@ -136,8 +134,8 @@ function infohub_timer() {
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -145,7 +143,7 @@ function infohub_timer() {
             'answer': 'true',
             'message': '',
             'name': $in.name,
-            'ok': 'false'
+            'ok': 'false',
         };
 
         if ($in.from_plugin.node !== 'client') {
@@ -188,7 +186,7 @@ function infohub_timer() {
         let $earliest = _GetData({
             'name': $in.from_plugin.plugin + '/' + $in.name + '/earliest',
             'default': 0.0,
-            'data': $timer
+            'data': $timer,
         });
 
         if ($earliest === 0.0 && $in.earliest > 0.0) {
@@ -263,7 +261,7 @@ function infohub_timer() {
         return $out;
     };
 
-    $functions.push("stop_timer");
+    $functions.push('stop_timer');
     /**
      * Stop a timer if it is started
      * @version 2020-03-08
@@ -272,22 +270,21 @@ function infohub_timer() {
      * @param $in
      * @returns {{was_set: string, answer: string, message: string}}
      */
-    const stop_timer = function($in)
-    {
+    const stop_timer = function($in) {
         const $default = {
             'name': 'default',
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
         if ($in.from_plugin.node !== 'client') {
             return {
                 'answer': 'false',
-                'message': 'Only the client node can stop a timer'
+                'message': 'Only the client node can stop a timer',
             };
         }
 
@@ -303,15 +300,14 @@ function infohub_timer() {
      * @returns {string}
      * @private
      */
-    const _TimerExist = function($in)
-    {
+    const _TimerExist = function($in) {
         const $default = {
             'name': 'default',
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -320,7 +316,7 @@ function infohub_timer() {
         const $done = _GetData({
             'name': $name,
             'default': 'true',
-            'data': $timer // Class global
+            'data': $timer, // Class global
         });
 
         if ($done === 'true') {
@@ -339,8 +335,7 @@ function infohub_timer() {
      * @returns {{}|{was_set: string, answer: string, message: string}}
      * @private
      */
-    const _StartTimer = function($in)
-    {
+    const _StartTimer = function($in) {
         const $default = {
             'name': 'default',
             'milliseconds': 0,
@@ -349,15 +344,15 @@ function infohub_timer() {
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'true',
             'message': 'Timer was already set',
-            'was_set': 'true'
+            'was_set': 'true',
         };
 
         if (_TimerExist($in) === 'true') {
@@ -372,8 +367,7 @@ function infohub_timer() {
             $timer[$in.from_plugin.plugin][$in.name] = {};
         }
 
-        const $myTimer = setTimeout(function()
-        {
+        const $myTimer = setTimeout(function() {
             $timer[$in.from_plugin.plugin][$in.name].done = 'true';
             $timer[$in.from_plugin.plugin][$in.name].done_now = _MicroTime();
 
@@ -382,11 +376,12 @@ function infohub_timer() {
                 'message': 'I answer you now',
                 'name': $in.name,
                 'milliseconds': $in.milliseconds,
-                'ok': 'true'
+                'ok': 'true',
             });
         }, $in.milliseconds);
 
-        $timer[$in.from_plugin.plugin][$in.name].when = _MicroTime() + $in.milliseconds / 1000.0;
+        $timer[$in.from_plugin.plugin][$in.name].when = _MicroTime() +
+            $in.milliseconds / 1000.0;
         $timer[$in.from_plugin.plugin][$in.name].timer = $myTimer;
         $timer[$in.from_plugin.plugin][$in.name].done = 'false';
         $timer[$in.from_plugin.plugin][$in.name].done_now = 0.0;
@@ -403,22 +398,21 @@ function infohub_timer() {
      * @returns {{was_set: string, answer: string, message: string}}
      * @private
      */
-    const _StopTimer = function($in)
-    {
+    const _StopTimer = function($in) {
         const $default = {
             'name': 'default',
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'true',
             'message': 'Timer was not set',
-            'was_set': 'false'
+            'was_set': 'false',
         };
 
         if (_TimerExist($in) === 'false') {
@@ -443,16 +437,15 @@ function infohub_timer() {
      * @returns {string}
      * @private
      */
-    const _CompareTime = function($in)
-    {
+    const _CompareTime = function($in) {
         const $default = {
             'milliseconds': 0,
             'name': 'default',
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
-            }
+                'function': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -468,4 +461,5 @@ function infohub_timer() {
     };
 
 }
+
 //# sourceURL=infohub_timer.js

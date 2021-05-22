@@ -1,6 +1,6 @@
 /**
  * infohub_render_common.js renders the commonly used html
-  * @category InfoHub
+ * @category InfoHub
  * @package infohub_render_common
  * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
  * @author Peter Lembke <peter.lembke@infohub.se>
@@ -19,7 +19,7 @@
  */
 function infohub_render_common() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -32,14 +32,14 @@ function infohub_render_common() {
             'class_name': 'infohub_render_common',
             'note': 'Render HTML for features like images, iframes, containers, legends, lists, progress etc',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal', // ContainerStart, ContainerStop, Container, Codecontainer, Iframe, Legend, Image, Value, List, LabelData
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -60,8 +60,7 @@ function infohub_render_common() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         if (_Empty($text) === 'true') {
             return '';
         }
@@ -69,13 +68,13 @@ function infohub_render_common() {
         let $response = '';
         let $parts = $text.split('_');
 
-        for (let $key in $parts)
-        {
+        for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
 
         return $response;
@@ -89,12 +88,11 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -132,10 +130,9 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    const _Display = function ($in)
-    {
+    const _Display = function($in) {
         const $default = {
-            'display': ''
+            'display': '',
         };
         $in = _Default($default, $in);
 
@@ -171,11 +168,10 @@ function infohub_render_common() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -196,7 +192,7 @@ function infohub_render_common() {
                 'message': '',
                 'html': '',
                 'css_data': {},
-                'display': ''
+                'display': '',
             };
             $response = _Default($defaultResponse, $response);
 
@@ -206,7 +202,7 @@ function infohub_render_common() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
 
@@ -220,8 +216,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_ContainerStart = function ($in)
-    {
+    const internal_ContainerStart = function($in) {
         const $default = {
             'alias': '',
             'class': 'container',
@@ -237,20 +232,21 @@ function infohub_render_common() {
         let $tag = {
             'span': 'span',
             'p': 'p',
-            'div': 'div'
+            'div': 'div',
         };
 
         if (typeof $tag[$in.tag] === 'undefined') {
             $in.tag = 'div';
         }
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $html = '<' + $in.tag + ' ' + $id + '>';
 
         return {
             'answer': 'true',
             'message': 'Container html',
-            'html': $html
+            'html': $html,
         };
     };
 
@@ -260,22 +256,21 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_ContainerStop = function ($in)
-    {
+    const internal_ContainerStop = function($in) {
         const $default = {
-                'tag': 'div' // span, p, div
+            'tag': 'div', // span, p, div
             // 'css_data': {}
             // You can not use css_data because it wraps around the html,
             // and this is only a start tag without an end tag.
             // Set the css on an internal_Container instead.
-            };
+        };
         $in = _Default($default, $in);
 
         // Make sure only the valid tags are used
         let $tag = {
             'span': 'span',
             'p': 'p',
-            'div': 'div'
+            'div': 'div',
         };
 
         if (typeof $tag[$in.tag] === 'undefined') {
@@ -287,7 +282,7 @@ function infohub_render_common() {
         return {
             'answer': 'true',
             'message': 'Container html',
-            'html': $html
+            'html': $html,
         };
     };
 
@@ -297,15 +292,14 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_Container = function ($in)
-    {
+    const internal_Container = function($in) {
         const $default = {
             'alias': '',
             'class': 'container',
             'tag': 'span', // span, p, div, pre
             'data': '',
             'css_data': {},
-            'display': '' // leave empty, "block" or "inline" or "none".
+            'display': '', // leave empty, "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -313,39 +307,41 @@ function infohub_render_common() {
         let $tag = {
             'span': 'span',
             'p': 'p',
-            'div': 'div'
+            'div': 'div',
         };
         if (typeof $tag[$in.tag] === 'undefined') {
             $in.tag = 'span';
         }
 
         const $display = _Display($in);
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display +'>' + $in.data + '</' + $in.tag + '>';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display + '>' +
+            $in.data + '</' + $in.tag + '>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'container-pretty') {
             $cssData = {
-                '.container-pretty' : 'border:1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;'
+                '.container-pretty': 'border:1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
         if ($in.class === 'container-small') {
             $cssData = {
-                '.container-small': 'display:inline-block;vertical-align:top;max-width:320px;'
+                '.container-small': 'display:inline-block;vertical-align:top;max-width:320px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
         if ($in.class === 'container-medium') {
             $cssData = {
-                '.container-medium': 'display:inline-block;vertical-align:top;max-width:640px;'
+                '.container-medium': 'display:inline-block;vertical-align:top;max-width:640px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
         if ($in.class === 'container-large') {
             $cssData = {
-                '.container-large': 'display:inline-block;vertical-align:top;max-width:960px;'
+                '.container-large': 'display:inline-block;vertical-align:top;max-width:960px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -355,7 +351,7 @@ function infohub_render_common() {
             'message': 'Container html',
             'html': $html,
             'css_data': $cssData,
-            'display': $in.display
+            'display': $in.display,
         };
     };
 
@@ -365,47 +361,48 @@ function infohub_render_common() {
      * @since   2018-10-22
      * @author  Peter Lembke
      */
-    const internal_Codecontainer = function ($in)
-    {
+    const internal_Codecontainer = function($in) {
         const $default = {
             'alias': '',
             'class': 'code-example',
             'language': 'json',
             'data': '',
             'tag': 'div', // div, span or nothing
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': '' });
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': ''});
 
-        const $data = _Replace("\n", '&#13;&#10;', $in.data);
+        const $data = _Replace('\n', '&#13;&#10;', $in.data);
 
         let $inline = '';
         if ($in.tag === '') {
             $inline = ' style="display:inline-block;"';
         }
 
-        let $html = '<pre'+$inline+'><code class="language-' + $in.language + '" '+ $id +'>' + $data + '</code></pre>';
+        let $html = '<pre' + $inline + '><code class="language-' +
+            $in.language + '" ' + $id + '>' + $data + '</code></pre>';
 
         if ($in.tag === 'div' || $in.tag === 'span') {
-            $html = '<'+$in.tag+' class="'+ $in.class +'">' + $html + '</'+$in.tag+'>';
+            $html = '<' + $in.tag + ' class="' + $in.class + '">' + $html +
+                '</' + $in.tag + '>';
         }
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'code-example') {
             $cssData = {
-                '.code-example' : 'display: inline-grid;',
-                'pre': 'background-color: rgba(220, 220, 220, 0.9);border:1px solid rgba(0, 0, 0, 0.5);padding: 3px;margin: 1px;margin-top: 3px;overflow-x:scroll;font-family: monospace;box-sizing:border-box'
+                '.code-example': 'display: inline-grid;',
+                'pre': 'background-color: rgba(220, 220, 220, 0.1);border:1px solid rgba(0, 0, 0, 0.5);padding: 3px;margin: 1px;margin-top: 3px;overflow-x:scroll;font-family: monospace;box-sizing:border-box',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
         if ($in.class === 'code-inline') {
             $cssData = {
-                '.code-inline' : 'display: inline-grid;',
-                'pre': 'background-color: rgba(220, 220, 220, 0.9);border:1px solid rgba(0, 0, 0, 0.5);padding: 0px;margin: 0 2px 0 2px; padding: 0 2px 0 2px; font-family: monospace;box-sizing:border-box'
+                '.code-inline': 'display: inline-grid;',
+                'pre': 'background-color: rgba(220, 220, 220, 0.1);border:1px solid rgba(0, 0, 0, 0.5);padding: 0px;margin: 0 2px 0 2px; padding: 0 2px 0 2px; font-family: monospace;box-sizing:border-box',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -414,7 +411,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Code container html',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -428,18 +425,18 @@ function infohub_render_common() {
      * @author  Peter Lembke
      * @deprecated
      */
-    const internal_Iframe = function ($in)
-    {
+    const internal_Iframe = function($in) {
         const $default = {
             'alias': '',
             'height': '350px',
             'class': 'iframe',
             'data': '', // Url to the external data
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
 
         const $parameters = [
             'sandbox="allow-scripts allow-same-origin allow-forms allow-popups"',
@@ -450,7 +447,7 @@ function infohub_render_common() {
             'style="overflow:hidden;margin:0px;padding:0px;"',
             'height="' + $in.height + '"',
             'src="' + $in.data + '"',
-            $id
+            $id,
         ];
         const $html = '<iframe ' + $parameters.join(' ') + '></iframe>';
 
@@ -458,7 +455,7 @@ function infohub_render_common() {
 
         if ($in.class === 'iframe') {
             $cssData = {
-                '.iframe': 'border: 2px solid #ff0000; box-sizing:border-box;'
+                '.iframe': 'border: 2px solid #ff0000; box-sizing:border-box;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -467,7 +464,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'iframe html',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -478,14 +475,13 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    const internal_Legend = function ($in)
-    {
+    const internal_Legend = function($in) {
         const $default = {
             'alias': '',
             'label': '',
             'data': '',
             'class': 'fieldset',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
@@ -493,22 +489,22 @@ function infohub_render_common() {
         let $html = '';
 
         if ($in.label !== '') {
-            $id = _GetId({'class': 'legend' });
+            $id = _GetId({'class': 'legend'});
             $html = '<legend ' + $id + '>' + $in.label + '</legend>';
         }
 
         $html = $html + $in.data;
 
-        $id = _GetId({'class': $in.class });
+        $id = _GetId({'class': $in.class});
         $html = '<fieldset ' + $id + '>' + $html + '</fieldset>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'fieldset') {
             $cssData = {
-                'parent' : 'break-inside: avoid;',
-                'fieldset' : 'border: 1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
-                'fieldset .legend': 'color: #0b1f00; border: 1px solid #7df76d; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #7df76d; margin-left: 20px; border-radius: 20px;'
+                'parent': 'break-inside: avoid;',
+                'fieldset': 'border: 1px solid #7df76d; margin: 8px 4px 8px 4px; padding: 4px 4px 4px 4px; border-radius:10px;',
+                'fieldset .legend': 'color: #0b1f00; border: 1px solid #7df76d; padding: 2px 13px; font-size: 1.0em; font-weight: bold; box-shadow: 0 0 0 0px #7df76d; margin-left: 20px; border-radius: 20px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -517,7 +513,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -527,24 +523,25 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    const internal_Image = function ($in)
-    {
+    const internal_Image = function($in) {
         const $default = {
             'alias': '',
             'data': '',
             'class': 'image',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
         let $html = '';
 
         if ($in.data !== '') {
-            if ($in.data.substr(0, 10) !== 'data:image' && $in.data.substr(0, 1) !== '[') {
+            if ($in.data.substr(0, 10) !== 'data:image' &&
+                $in.data.substr(0, 1) !== '[') {
                 $in.data = 'data:image/png;base64,' + $in.data;
             }
 
-            const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
             $html = '<img ' + $id + ' src="' + $in.data + '">';
         }
 
@@ -552,7 +549,7 @@ function infohub_render_common() {
 
         if ($in.class === 'image') {
             $cssData = {
-                '.image': 'border-radius: 15px 15px 15px 15px; width: 100%; clear: both; display: block; box-sizing: border-box;'
+                '.image': 'border-radius: 15px 15px 15px 15px; width: 100%; clear: both; display: block; box-sizing: border-box;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -561,7 +558,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -576,24 +573,22 @@ function infohub_render_common() {
      * @param {type} $in
      * @returns {infohub_render_common.internal_Svg.infohub_render_commonAnonym$18}
      */
-    const internal_Svg = function ($in)
-    {
+    const internal_Svg = function($in) {
         const $default = {
             'alias': '',
             'data': '',
             'class': 'svg',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
         let $html = '';
 
-        if ($in.data !== '')
-        {
+        if ($in.data !== '') {
             const $parameters = _GetId({
                 'id': $in.alias,
                 'name': $in.alias,
-                'class': $in.class
+                'class': $in.class,
             });
 
             $html = '<div ' + $parameters + '>' + $in.data + '</div>';
@@ -603,7 +598,7 @@ function infohub_render_common() {
 
         if ($in.class === 'svg') {
             $cssData = {
-                '.svg': 'width:100%; height:100%; clear:both; display:block; box-sizing:border-box; margin-top: 1px;'
+                '.svg': 'width:100%; height:100%; clear:both; display:block; box-sizing:border-box; margin-top: 1px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -612,7 +607,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Legend HTML',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -622,17 +617,16 @@ function infohub_render_common() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    const internal_Value = function ($in)
-    {
+    const internal_Value = function($in) {
         const $default = {
-            'data': ''
+            'data': '',
         };
         $in = _Default($default, $in);
 
         return {
             'answer': 'true',
             'message': 'value HTML',
-            'html': $in.data
+            'html': $in.data,
         };
     };
 
@@ -643,8 +637,7 @@ function infohub_render_common() {
      * @since   2019-10-06
      * @author  Peter Lembke
      */
-    const internal_Join = function ($in)
-    {
+    const internal_Join = function($in) {
         const $default = {
             'title': '',
             'data0': '',
@@ -656,14 +649,13 @@ function infohub_render_common() {
             'data6': '',
             'data7': '',
             'data8': '',
-            'data9': ''
+            'data9': '',
         };
         $in = _Default($default, $in);
 
         let $htmlArray = [];
 
-        for (let $i = 0; $i < 10; $i = $i + 1)
-        {
+        for (let $i = 0; $i < 10; $i = $i + 1) {
             const $key = 'data' + $i;
             const $data = $in[$key];
             if ($data !== '') {
@@ -680,7 +672,7 @@ function infohub_render_common() {
         return {
             'answer': 'true',
             'message': 'value HTML',
-            'html': $html
+            'html': $html,
         };
     };
 
@@ -690,14 +682,13 @@ function infohub_render_common() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_List = function ($in)
-    {
+    const internal_List = function($in) {
         const $default = {
             'alias': '',
             'class': 'list',
             'option': [],
             'css_data': {},
-            'display': '' // leave empty or use "block" or "inline" or "none".
+            'display': '', // leave empty or use "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
@@ -705,13 +696,13 @@ function infohub_render_common() {
 
         const $optionDefault = {
             'label': '',
-            'id': ''
+            'id': '',
         };
 
         let $id;
 
-        for (let $rowNumber = 0; $rowNumber < $in.option.length; $rowNumber = $rowNumber + 1)
-        {
+        for (let $rowNumber = 0; $rowNumber <
+        $in.option.length; $rowNumber = $rowNumber + 1) {
             let $row = $in.option[$rowNumber];
             $row = _Default($optionDefault, $row);
 
@@ -724,7 +715,7 @@ function infohub_render_common() {
             $in.html = $in.html + $startTag + $row.label + '</li>';
         }
 
-        $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+        $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = _Display($in);
         $in.html = '<ul ' + $id + ' ' + $display + '>' + $in.html + '</ul>';
 
@@ -732,7 +723,7 @@ function infohub_render_common() {
 
         if ($in.class === 'list') {
             $cssData = {
-                '.list': 'list-style-type: square; list-style-position: inside; list-style-image: none;'
+                '.list': 'list-style-type: square; list-style-position: inside; list-style-image: none;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -741,7 +732,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Rendered html for a list',
             'html': $in.html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -753,21 +744,30 @@ function infohub_render_common() {
      * @since   2018-06-30
      * @author  Peter Lembke
      */
-    const internal_LabelData = function ($in)
-    {
+    const internal_LabelData = function($in) {
         const $default = {
             'alias': '',
             'label': '',
             'data': '',
             'class': 'labeldata',
-            'css_data': {}
+            'css_data': {},
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $idLabel = _GetId({'id': $in.alias + '_label', 'name': $in.alias + '_label', 'class': 'label' });
-        const $idData = _GetId({'id': $in.alias + '_data', 'name': $in.alias + '_data', 'class': 'data' });
-        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $idLabel = _GetId({
+            'id': $in.alias + '_label',
+            'name': $in.alias + '_label',
+            'class': 'label',
+        });
+        const $idData = _GetId({
+            'id': $in.alias + '_data',
+            'name': $in.alias + '_data',
+            'class': 'data',
+        });
+        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label +
+            '</span><span ' + $idData + '>' + $in.data + '</span></div>';
 
         let $cssData = $in.css_data;
 
@@ -776,7 +776,7 @@ function infohub_render_common() {
                 'parent': 'display: inline-block',
                 '.labeldata': 'width: 100%; display: inline; box-sizing: border-box; padding: 2px 2px 2px 2px;', //  border: 1px solid #4CAF50;
                 '.label': 'font-weight: bold; padding: 2px 2px 2px 2px;',
-                '.data': 'padding: 2px 2px 2px 2px;'
+                '.data': 'padding: 2px 2px 2px 2px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
@@ -785,7 +785,7 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Label and data',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
@@ -796,21 +796,22 @@ function infohub_render_common() {
      * @since   2020-08-30
      * @author  Peter Lembke
      */
-    const internal_Progress = function ($in)
-    {
+    const internal_Progress = function($in) {
         const $default = {
             'alias': '',
             'class': 'progress',
             'max': 100,
             'value': 0,
             'css_data': {},
-            'display': '' // leave empty or use "block" or "inline" or "none".
+            'display': '', // leave empty or use "block" or "inline" or "none".
         };
         $in = _Default($default, $in);
 
         const $display = _Display($in);
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
-        const $html = '<progress ' + $id + ' max="'+$in.max+'" value="'+$in.value+'" ' + $display +'></progress>';
+        const $id = _GetId(
+            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $html = '<progress ' + $id + ' max="' + $in.max + '" value="' +
+            $in.value + '" ' + $display + '></progress>';
 
         let $cssData = $in.css_data;
 
@@ -818,7 +819,7 @@ function infohub_render_common() {
             $cssData = {
                 'progress[value]':
                     'appearance: none; border: none; width: 66%; display: block; ' +
-                    'margin-left: auto; margin-right: auto;'+
+                    'margin-left: auto; margin-right: auto;' +
                     'height: 20px; ' +
                     'background-color: #7df76d; ' +
                     'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25) inset; ' +
@@ -837,8 +838,8 @@ function infohub_render_common() {
                     'appearance: none; border: none; width: 100%; height: 20px; ' +
                     'background-color: #7df76d; ' +
                     'box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) inset; ' +
-                    'border-radius: 10px;'
-            }
+                    'border-radius: 10px;',
+            };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
@@ -846,8 +847,9 @@ function infohub_render_common() {
             'answer': 'true',
             'message': 'Rendered html for a progress bar',
             'html': $html,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 }
+
 //# sourceURL=infohub_render_common.js

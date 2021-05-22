@@ -11,7 +11,7 @@
  */
 function infohub_contact_doc() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_contact_doc() {
             'class_name': 'infohub_contact_doc',
             'note': 'Render the documentation',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -45,12 +45,12 @@ function infohub_contact_doc() {
             'create': 'normal',
             'click_main': 'normal',
             'click_client': 'normal',
-            'click_server': 'normal'
+            'click_server': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     let $classTranslations = {};
 
     // ***********************************************************
@@ -65,8 +65,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -74,8 +73,8 @@ function infohub_contact_doc() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -85,7 +84,7 @@ function infohub_contact_doc() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -94,63 +93,63 @@ function infohub_contact_doc() {
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[button_main][button_client][button_server]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'container_doc': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': _Translate('Documentation will render here'),
+                            'data': _Translate('DOCUMENTATION_WILL_RENDER_HERE'),
                             'class': 'container-medium'
                         },
                         'button_main': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Main Doc'),
+                            'button_label': _Translate('MAIN_DOC'),
                             'event_data': 'doc|main',
                             'to_plugin': 'infohub_contact',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_client': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Client Doc'),
+                            'button_label': _Translate('CLIENT_DOC'),
                             'event_data': 'doc|client',
                             'to_plugin': 'infohub_contact',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'button_server': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Server Doc'),
+                            'button_label': _Translate('SERVER_DOC'),
                             'event_data': 'doc|server',
                             'to_plugin': 'infohub_contact',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_buttons][container_doc]'
+                        'text': '[container_buttons][container_doc]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_contact.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'doc'
+                    'cache_key': 'doc',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -161,13 +160,12 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    const click_main = function ($in)
-    {
+    const click_main = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -178,7 +176,7 @@ function infohub_contact_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the main doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -189,13 +187,12 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_client');
-    const click_client = function ($in)
-    {
+    const click_client = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -206,7 +203,7 @@ function infohub_contact_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the client doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -217,13 +214,12 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_server');
-    const click_server = function ($in)
-    {
+    const click_server = function($in) {
         const $default = {
             'step': 'step_render',
             'response': {
-                'html': ''
-            }
+                'html': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -234,7 +230,7 @@ function infohub_contact_doc() {
         return {
             'answer': 'true',
             'message': 'Showed the server doc',
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -245,36 +241,36 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
-    const _GetCall = function ($fileName)
-    {
+    const _GetCall = function($fileName) {
         return _SubCall({
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
-                'function': 'create'
+                'function': 'create',
             },
             'data': {
                 'what': {
                     'my_doc': {
                         'plugin': 'infohub_contact',
-                        'type': $fileName
-                    }
+                        'type': $fileName,
+                    },
                 },
                 'how': {
                     'mode': 'one box',
-                    'text': '[my_doc]'
+                    'text': '[my_doc]',
                 },
                 'where': {
                     'box_id': 'main.body.infohub_contact.form.[container_doc]', // 'box_id': $in.parent_box_id + '.form',
                     'max_width': 100,
-                    'scroll_to_box_id': 'true'
-                }
+                    'scroll_to_box_id': 'true',
+                },
             },
             'data_back': {
-                'step': 'step_end'
-            }
+                'step': 'step_end',
+            },
         });
     };
 
 }
+
 //# sourceURL=infohub_contact_doc.js

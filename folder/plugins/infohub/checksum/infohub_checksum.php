@@ -32,14 +32,14 @@ class infohub_checksum extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2018-03-03
+     * @return string[]
      * @since   2018-03-03
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2018-03-03
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2018-03-03',
             'since' => '2018-03-03',
             'version' => '1.0.1',
@@ -49,23 +49,23 @@ class infohub_checksum extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2018-03-03
+     * @return mixed
      * @since   2018-03-03
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2018-03-03
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'calculate_checksum' => 'normal',
             'verify_checksum' => 'normal',
             'get_available_options' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -76,15 +76,15 @@ class infohub_checksum extends infohub_base
 
     /**
      * Main checksum calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function calculate_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'type' => 'md5',
             'value' => '',
             'checksum' => '',
@@ -92,48 +92,50 @@ class infohub_checksum extends infohub_base
             'answer' => 'false',
             'message' => 'Could not get a checksum',
             'verified' => 'false'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'start_step') {
-
             $functionName = 'Calculate' . ucwords($in['type']);
             if (method_exists($this, 'internal_' . $functionName) === true) {
-                return $this->internal_Cmd(array(
-                    'func' => $functionName,
-                    'value' => $in['value']
-                ));
+                return $this->internal_Cmd(
+                    [
+                        'func' => $functionName,
+                        'value' => $in['value']
+                    ]
+                );
             }
 
             $pluginName = 'infohub_checksum_' . $in['type'];
-            return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => $pluginName, 'function' => 'calculate_checksum'),
-                'data' => array('value' => $in['value'], 'checksum' => $in['checksum']),
-                'data_back' => array('step' => 'response'),
-            ));
-
+            return $this->_SubCall(
+                [
+                    'to' => ['node' => 'server', 'plugin' => $pluginName, 'function' => 'calculate_checksum'],
+                    'data' => ['value' => $in['value'], 'checksum' => $in['checksum']],
+                    'data_back' => ['step' => 'response'],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message'],
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * Main checksum calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function verify_checksum(array $in = []): array
     {
-        $default = array(
+        $default = [
             'type' => 'md5',
             'value' => '',
             'checksum' => '',
@@ -141,79 +143,80 @@ class infohub_checksum extends infohub_base
             'answer' => 'false',
             'message' => 'Could not get a checksum',
             'verified' => 'false'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         if ($in['step'] === 'start_step') {
-
             $functionName = 'Verify' . ucwords($in['type']);
             if (method_exists($this, 'internal_' . $functionName) === true) {
-                return $this->internal_Cmd(array(
-                    'func' => $functionName,
-                    'value' => $in['value'],
-                    'checksum' => $in['checksum']
-                ));
+                return $this->internal_Cmd(
+                    [
+                        'func' => $functionName,
+                        'value' => $in['value'],
+                        'checksum' => $in['checksum']
+                    ]
+                );
             }
 
             $pluginName = 'infohub_checksum_' . $in['type'];
-            return $this->_SubCall(array(
-                'to' => array('node' => 'server', 'plugin' => $pluginName, 'function' => 'verify_checksum'),
-                'data' => array('value' => $in['value'], 'checksum' => $in['checksum']),
-                'data_back' => array('step' => 'response'),
-            ));
-
+            return $this->_SubCall(
+                [
+                    'to' => ['node' => 'server', 'plugin' => $pluginName, 'function' => 'verify_checksum'],
+                    'data' => ['value' => $in['value'], 'checksum' => $in['checksum']],
+                    'data_back' => ['step' => 'response'],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['answer'],
             'message' => $in['message'],
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => 'false'
-        );
-
+        ];
     }
 
     /**
      * md5 checksum calculation
-     * 
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
+     *
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function internal_CalculateMd5(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the md5 checksum',
             'value' => $in['value'],
             'checksum' => md5($in['value']),
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * md5 verify calculation
      *
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function internal_VerifyMd5(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -221,55 +224,55 @@ class infohub_checksum extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the md5 checksum verified',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
      * crc32 checksum calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function internal_CalculateCrc32(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        $checksum = (string) crc32($in['value']);
+        $checksum = (string)crc32($in['value']);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the crc32 checksum',
             'value' => $in['value'],
             'checksum' => $checksum,
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * crc32 verify calculation
-     * @version 2016-04-16
-     * @since   2016-04-16
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2016-04-16
+     * @since   2016-04-16
      */
     protected function internal_VerifyCrc32(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -277,54 +280,54 @@ class infohub_checksum extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the crc32 checksum verified',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
      * soundex checksum calculation
      * https://en.wikipedia.org/wiki/Soundex
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function internal_CalculateSoundex(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the soundex checksum',
             'value' => $in['value'],
             'checksum' => soundex($in['value']),
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * soundex verify calculation
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function internal_VerifySoundex(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -332,54 +335,54 @@ class infohub_checksum extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the soundex checksum verified',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
      * metaphone checksum calculation
      * https://en.wikipedia.org/wiki/Metaphone
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function internal_CalculateMetaphone(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the metaphone checksum',
             'value' => $in['value'],
             'checksum' => metaphone($in['value']),
             'verified' => 'false'
-        );
+        ];
     }
 
     /**
      * metaphone verify calculation
-     * @version 2018-03-03
-     * @since   2018-03-03
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function internal_VerifyMetaphone(array $in = []): array
     {
-        $default = array(
+        $default = [
             'value' => '',
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $verified = 'false';
@@ -387,40 +390,40 @@ class infohub_checksum extends infohub_base
             $verified = 'true';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are the metaphone checksum verified',
             'value' => $in['value'],
             'checksum' => $in['checksum'],
             'verified' => $verified
-        );
+        ];
     }
 
     /**
      * Get list with checksum methods you can use
-     * @version 2018-08-10
-     * @since   2018-08-10
-     * @author  Peter Lembke
      * @param array $in
      * @return array|bool
+     * @author  Peter Lembke
+     * @version 2018-08-10
+     * @since   2018-08-10
      */
-    protected function  get_available_options(array $in = []): array
+    protected function get_available_options(array $in = []): array
     {
-        $options = array(
-            array("type" => "option", "value" => 'crc32', "label" => 'CRC32'),
-            array("type" => "option", "value" => 'soundex', "label" => 'Soundex'),
-            array("type" => "option", "value" => 'metaphone', "label" => 'Metaphone'),
-            array("type" => "option", "value" => 'doublemetaphone', "label" => 'Double metaphone'),
-            array("type" => "option", "value" => 'luhn', "label" => 'Luhn'),
-            array("type" => "option", "value" => 'md5', "label" => 'MD5', 'selected' => 'true'),
-            array("type" => "option", "value" => 'personnummer', "label" => 'Personnummer')
-        );
+        $options = [
+            ["type" => "option", "value" => 'crc32', "label" => 'CRC32'],
+            ["type" => "option", "value" => 'soundex', "label" => 'Soundex'],
+            ["type" => "option", "value" => 'metaphone', "label" => 'Metaphone'],
+            ["type" => "option", "value" => 'doublemetaphone', "label" => 'Double metaphone'],
+            ["type" => "option", "value" => 'luhn', "label" => 'Luhn'],
+            ["type" => "option", "value" => 'md5', "label" => 'MD5', 'selected' => 'true'],
+            ["type" => "option", "value" => 'personnummer', "label" => 'Personnummer']
+        ];
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'List of valid checksum methods.',
             'options' => $options
-        );
+        ];
     }
 
 }

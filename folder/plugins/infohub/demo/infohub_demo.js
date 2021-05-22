@@ -11,7 +11,7 @@
  */
 function infohub_demo() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -34,7 +34,7 @@ function infohub_demo() {
             'title': 'Demo collection',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -51,7 +51,7 @@ function infohub_demo() {
             'click': 'normal',
             'click_link': 'normal',
             'call_server': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -64,10 +64,9 @@ function infohub_demo() {
      * @returns {string}
      * @private
      */
-    const _GetPluginName = function($data)
-    {
+    const _GetPluginName = function($data) {
         let $pluginType = 'welcome',
-            $tmp = $data.split("_");
+            $tmp = $data.split('_');
 
         if (_IsSet($tmp[0]) === 'true') {
             $pluginType = $tmp[0];
@@ -75,7 +74,7 @@ function infohub_demo() {
 
         return 'infohub_demo_' + $pluginType;
     };
-    
+
     let $classTranslations = {};
 
     // ***********************************************************
@@ -90,41 +89,38 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Merge($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'box_mode'
+                    'function': 'box_mode',
                 },
                 'data': {
                     'box_id': $in.box_id,
                     'box_mode': 'side',
-                    'digits': '2'
+                    'digits': '2',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_boxes_insert'
-                }
+                    'step': 'step_boxes_insert',
+                },
             });
         }
 
-        if ($in.step === 'step_boxes_insert')
-        {
+        if ($in.step === 'step_boxes_insert') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'boxes_insert_detailed'
+                    'function': 'boxes_insert_detailed',
                 },
                 'data': {
                     'items': [
@@ -134,7 +130,7 @@ function infohub_demo() {
                             'box_mode': 'data',
                             'box_alias': 'menu',
                             'max_width': 640,
-                            'box_data': 'The menu will render here'
+                            'box_data': 'The menu will render here',
                         },
                         {
                             'parent_box_id': $in.box_id,
@@ -142,100 +138,97 @@ function infohub_demo() {
                             'box_mode': 'data',
                             'box_alias': 'demo',
                             'max_width': 100, // 100 will be translated to 100%
-                            'box_data': 'Use the menu'
-                        }
-                    ]
+                            'box_data': 'Use the menu',
+                        },
+                    ],
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations'
-                }
+                    'step': 'step_get_translations',
+                },
             });
         }
 
-        if ($in.step === 'step_get_translations')
-        {
+        if ($in.step === 'step_get_translations') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_translate',
-                    'function': 'get_translate_data'
+                    'function': 'get_translate_data',
                 },
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations_response'
-                }
+                    'step': 'step_get_translations_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_translations_response') {            
+        if ($in.step === 'step_get_translations_response') {
             $classTranslations = _ByVal($in.response.data);
             $in.step = 'step_menu';
         }
 
-        if ($in.step === 'step_menu')
-        {
+        if ($in.step === 'step_menu') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo_menu',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'parent_box_id': $in.box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_render_instructions'
-                }
+                    'step': 'step_render_instructions',
+                },
             });
         }
 
-        if ($in.step === 'step_render_instructions')
-        {
+        if ($in.step === 'step_render_instructions') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Instructions'),
+                            'head_label': _Translate('INSTRUCTIONS'),
                             'head_text': '',
-                            'content_data': '[description]'
+                            'content_data': '[description]',
                         },
                         'description': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('Use the menu.')
+                            'data': _Translate('USE_THE_MENU.')
                         }
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[presentation_box]'
+                        'text': '[presentation_box]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_demo.demo',
                         'max_width': 640,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'instructions'
+                    'cache_key': 'instructions',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'plugin GUI is done'
+            'message': 'plugin GUI is done',
         };
 
     };
@@ -246,53 +239,50 @@ function infohub_demo() {
      * @since 2018-09-26
      * @author Peter Lembke
      */
-    $functions.push("click_menu");
-    const click_menu = function ($in)
-    {
+    $functions.push('click_menu');
+    const click_menu = function($in) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             const $pluginName = _GetPluginName($in.event_data);
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'subtype': $in.event_data,
                     'parent_box_id': $in.parent_box_id,
-                    'translations': $classTranslations
+                    'translations': $classTranslations,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'Menu click done'
+            'message': 'Menu click done',
         };
     };
-    
+
     /**
-     * All clicks except the menu goes here and are distributed 
+     * All clicks except the menu goes here and are distributed
      * to the right child and the right click function.
      * @version 2019-03-13
      * @since 2019-03-13
      * @author Peter Lembke
      */
-    $functions.push("click");
-    const click = function ($in)
-    {
+    $functions.push('click');
+    const click = function($in) {
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -307,32 +297,32 @@ function infohub_demo() {
                 'message': 'There was an error',
                 'ok': 'false',
                 'value': [], // All selected options in select lists
-                'files_data': [] // For the import button
-            }
+                'files_data': [], // For the import button
+            },
         };
         $in = _Default($default, $in);
-        
+
         if (_Empty($in.event_data) === 'true') {
             $in.step = 'step_end';
             $in.response.message = 'Event_data is empty. I can not continue.';
         }
 
         if ($in.step === 'step_start') {
-            
+
             const $parts = $in.event_data.split('|');
             const $childName = $parts[0];
             const $clickName = $parts[1];
-            
+
             let $eventData = '';
             if (_IsSet($parts[2]) === 'true') {
                 $eventData = $parts[2];
             }
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_demo_' + $childName,
-                    'function': 'click_' + $clickName
+                    'function': 'click_' + $clickName,
                 },
                 'data': {
                     'event_data': $eventData,
@@ -343,12 +333,12 @@ function infohub_demo() {
                     'box_id': $in.box_id,
                     'type': $in.type,
                     'event_type': $in.event_type,
-                    'form_data': $in.form_data
+                    'form_data': $in.form_data,
                 },
                 'data_back': {
                     'event_data': $in.event_data,
-                    'step': 'step_response'
-                }
+                    'step': 'step_response',
+                },
             });
         }
 
@@ -361,7 +351,7 @@ function infohub_demo() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
@@ -371,9 +361,8 @@ function infohub_demo() {
      * @since 2020-01-24
      * @author Peter Lembke
      */
-    $functions.push("click_link");
-    const click_link = function ($in)
-    {
+    $functions.push('click_link');
+    const click_link = function($in) {
         const $default = {
             'event_data': '',
         };
@@ -386,7 +375,7 @@ function infohub_demo() {
         return {
             'answer': 'true',
             'message': 'Done',
-            'messages': $messageArray
+            'messages': $messageArray,
         };
     };
 
@@ -396,9 +385,8 @@ function infohub_demo() {
      * @since 2019-03-31
      * @author Peter Lembke
      */
-    $functions.push("call_server");
-    const call_server = function ($in)
-    {
+    $functions.push('call_server');
+    const call_server = function($in) {
         const $plugin = 'infohub_demo_';
 
         const $default = {
@@ -406,17 +394,17 @@ function infohub_demo() {
             'from_plugin': {
                 'node': '',
                 'plugin': '',
-                'function': ''
+                'function': '',
             },
             'send_data': {},
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             if ($in.from_plugin.node === 'client') {
-                if ($in.from_plugin.plugin.substr(0,$plugin.length) === $plugin) {
+                if ($in.from_plugin.plugin.substr(0, $plugin.length) ===
+                    $plugin) {
                     $in.send_data.data_back.step = 'step_response';
                     return _SubCall($in.send_data);
                 }
@@ -424,7 +412,7 @@ function infohub_demo() {
 
             return {
                 'answer': 'false',
-                'message': 'The call do not come from a child. I will do nothing.'
+                'message': 'The call do not come from a child. I will do nothing.',
             };
         }
 
@@ -439,8 +427,7 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function ($in)
-    {
+    const event_message = function($in) {
         const $default = {
             'parent_id': '',
             'box_id': '',
@@ -448,30 +435,29 @@ function infohub_demo() {
             'event_data': '',
             'type': '',
             'event_type': '',
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Merge($default, $in);
 
         let $messageArray = [];
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             if ($in.type === 'link') {
                 if ($in.event_type === 'click') {
-                    const $text = _Translate('This link works and goes to infohub_demo -> event_message.');
+                    const $text = _Translate('THIS_LINK_WORKS_AND_GOES_TO_INFOHUB_DEMO_->_EVENT_MESSAGE.');
                     const $messageOut = _Alert($text);
                     $messageArray.push($messageOut);
                 }
             }
 
             if ($in.type === 'button') {
-                const $text = _Translate('This button works and goes to infohub_demo -> event_message.');
+                const $text = _Translate('THIS_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO_->_EVENT_MESSAGE.');
                 const $messageOut = _Alert($text);
                 $messageArray.push($messageOut);
             }
 
             if ($in.type === 'submit') {
-                const $text = _Translate('This submit button works and goes to infohub_demo -> event_message. This only happens if all data is valid.');
+                const $text = _Translate('THIS_SUBMIT_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO_->_EVENT_MESSAGE._THIS_ONLY_HAPPENS_IF_ALL_DATA_IS_VALID.');
                 const $messageOut = _Alert($text);
                 $messageArray.push($messageOut);
             }
@@ -480,8 +466,9 @@ function infohub_demo() {
         return {
             'answer': 'true',
             'message': 'Done handle the event',
-            'messages': $messageArray
+            'messages': $messageArray,
         };
     };
 }
+
 //# sourceURL=infohub_demo.js

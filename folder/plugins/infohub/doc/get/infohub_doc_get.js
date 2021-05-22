@@ -17,11 +17,11 @@
  */
 function infohub_doc_get() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2019-04-18',
             'since': '2019-04-16',
@@ -31,29 +31,28 @@ function infohub_doc_get() {
             'note': 'Keep data updated locally and get new data from the server.',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Get'
+            'title': 'Get',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'get_document': 'normal',
             'get_documents_list': 'normal',
-            'get_all_documents': 'normal'
+            'get_all_documents': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     /**
      * You can request one document
      * @version 2019-04-18
      * @since 2019-04-18
      * @author Peter Lembke
      */
-    $functions.push("get_document");
-    const get_document = function ($in)
-    {
+    $functions.push('get_document');
+    const get_document = function($in) {
         const $default = {
             'area': 'main', // main or plugin
             'document_name': 'main',
@@ -63,33 +62,32 @@ function infohub_doc_get() {
                 'area': '',
                 'document_name': '',
                 'data': {},
-                'document_exist_locally': 'false'
-            }
+                'document_exist_locally': 'false',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === "step_get_document_from_storage") 
-        {
+        if ($in.step === 'step_get_document_from_storage') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_doc_get/document/' + $in.area + '/' + $in.document_name
+                    'path': 'infohub_doc_get/document/' + $in.area + '/' +
+                        $in.document_name,
                 },
                 'data_back': {
                     'area': $in.area,
                     'document_name': $in.document_name,
-                    'step': 'step_get_document_from_storage_response'
-                }
+                    'step': 'step_get_document_from_storage_response',
+                },
             });
         }
 
-        if ($in.step === "step_get_document_from_storage_response") 
-        {
-            $in.step = "step_get_document_from_server";
+        if ($in.step === 'step_get_document_from_storage_response') {
+            $in.step = 'step_get_document_from_server';
             $in.data_back.data.checksum = '';
 
             if (_Empty($in.response.data) === 'false') {
@@ -99,8 +97,7 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_check_if_data_is_old") 
-        {
+        if ($in.step === 'step_check_if_data_is_old') {
             // @todo Return the data we have and do a background update. That is quicker.
 
             const $days = 14,
@@ -116,37 +113,35 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_get_document_from_server") 
-        {
+        if ($in.step === 'step_get_document_from_server') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_doc',
-                        'function': 'get_document'
+                        'function': 'get_document',
                     },
                     'data': {
                         'area': $in.area,
                         'document_name': $in.document_name,
-                        'checksum': $in.data_back.data.checksum
-                    }
+                        'checksum': $in.data_back.data.checksum,
+                    },
                 },
                 'data_back': {
                     'area': $in.area,
                     'document_name': $in.document_name,
                     'data': $in.data_back.data,
-                    'step': 'step_get_document_from_server_response'
-                }
+                    'step': 'step_get_document_from_server_response',
+                },
             });
         }
 
-        if ($in.step === "step_get_document_from_server_response") 
-        {
+        if ($in.step === 'step_get_document_from_server_response') {
             $in.step = 'step_end';
 
             if ($in.response.answer === 'false') {
@@ -164,29 +159,28 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_save_data")
-        {
+        if ($in.step === 'step_save_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
-                    'path': 'infohub_doc_get/document/' + $in.area + '/' + $in.document_name,
-                    'data': $in.data_back.data
+                    'path': 'infohub_doc_get/document/' + $in.area + '/' +
+                        $in.document_name,
+                    'data': $in.data_back.data,
                 },
                 'data_back': {
                     'area': $in.area,
                     'document_name': $in.document_name,
                     'data': $in.data_back.data,
-                    'step': 'step_save_data_response'
-                }
+                    'step': 'step_save_data_response',
+                },
             });
         }
 
-        if ($in.step === "step_save_data_response")
-        {
+        if ($in.step === 'step_save_data_response') {
             $in.response.ok = $in.response.answer;
         }
 
@@ -194,7 +188,7 @@ function infohub_doc_get() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'document_data': $in.data_back.data,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
@@ -209,8 +203,7 @@ function infohub_doc_get() {
      * @author  Peter Lembke
      */
     $functions.push('get_documents_list');
-    const get_documents_list = function ($in)
-    {
+    const get_documents_list = function($in) {
         const $default = {
             'step': 'step_get_navigation_from_storage',
             'response': {
@@ -223,37 +216,35 @@ function infohub_doc_get() {
                     'data': {},
                     'micro_time': 0.0,
                     'provided_checksum': '',
-                    'time_stamp': ''
+                    'time_stamp': '',
                 },
                 'path': '',
-                'post_exist': 'false'
+                'post_exist': 'false',
             },
             'data_back': {
-                'data': {}
-            }
+                'data': {},
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === "step_get_navigation_from_storage")
-        {
+        if ($in.step === 'step_get_navigation_from_storage') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'read'
+                    'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_doc_get/navigation'
+                    'path': 'infohub_doc_get/navigation',
                 },
                 'data_back': {
-                    'step': 'step_get_navigation_from_storage_response'
-                }
+                    'step': 'step_get_navigation_from_storage_response',
+                },
             });
         }
 
-        if ($in.step === "step_get_navigation_from_storage_response") 
-        {
-            $in.step = "step_get_navigation_from_server";
+        if ($in.step === 'step_get_navigation_from_storage_response') {
+            $in.step = 'step_get_navigation_from_server';
             $in.data_back.data.checksum = '';
 
             if (_Empty($in.response.data.data) === 'false') {
@@ -262,8 +253,7 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_check_if_data_is_old") 
-        {
+        if ($in.step === 'step_check_if_data_is_old') {
             // @todo Return the data we have and do a background update. That is quicker.
 
             const $days = 14,
@@ -277,31 +267,29 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_get_navigation_from_server") 
-        {
+        if ($in.step === 'step_get_navigation_from_server') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
                     'to': {
-                        'function': 'get_documents_list'
+                        'function': 'get_documents_list',
                     },
                     'data': {
-                        'checksum': $in.data_back.data.checksum
-                    }
+                        'checksum': $in.data_back.data.checksum,
+                    },
                 },
                 'data_back': {
                     'data': $in.data_back.data,
-                    'step': 'step_get_navigation_from_server_response'
-                }
+                    'step': 'step_get_navigation_from_server_response',
+                },
             });
         }
 
-        if ($in.step === "step_get_navigation_from_server_response") 
-        {
+        if ($in.step === 'step_get_navigation_from_server_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 if ($in.response.data.checksum_same === 'false') {
@@ -311,41 +299,39 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_save_data") 
-        {
+        if ($in.step === 'step_save_data') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_storage',
-                    'function': 'write'
+                    'function': 'write',
                 },
                 'data': {
                     'path': 'infohub_doc_get/navigation',
-                    'data': $in.data_back.data
+                    'data': $in.data_back.data,
                 },
                 'data_back': {
                     'data': $in.data_back.data,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         let $data = {};
 
-        if ($in.step === "step_end")
-        {
+        if ($in.step === 'step_end') {
             $data = _GetData({
                 'name': 'data_back/data/data',
                 'default': {},
                 'data': $in,
-                'split': '/'
+                'split': '/',
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $data
+            'data': $data,
         };
     };
 
@@ -355,47 +341,44 @@ function infohub_doc_get() {
      * @since 2019-10-06
      * @author Peter Lembke
      */
-    $functions.push("get_all_documents");
-    const get_all_documents = function ($in)
-    {
+    $functions.push('get_all_documents');
+    const get_all_documents = function($in) {
         const $default = {
             'step': 'step_get_all_documents_from_server',
             'response': {
                 'answer': 'false',
                 'message': '',
                 'data': {},
-                'ok': 'false'
-            }
+                'ok': 'false',
+            },
         };
         $in = _Default($default, $in);
 
         let $messagesArray = [];
         let $message = {};
 
-        if ($in.step === "step_get_all_documents_from_server")
-        {
+        if ($in.step === 'step_get_all_documents_from_server') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
-                    'function': 'call_server'
+                    'function': 'call_server',
                 },
                 'data': {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_doc',
-                        'function': 'get_all_documents'
+                        'function': 'get_all_documents',
                     },
-                    'data': {}
+                    'data': {},
                 },
                 'data_back': {
-                    'step': 'step_get_all_documents_from_server_response'
-                }
+                    'step': 'step_get_all_documents_from_server_response',
+                },
             });
         }
 
-        if ($in.step === "step_get_all_documents_from_server_response")
-        {
+        if ($in.step === 'step_get_all_documents_from_server_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.response.ok = 'true';
@@ -403,10 +386,8 @@ function infohub_doc_get() {
             }
         }
 
-        if ($in.step === "step_save_data")
-        {
-            for (let $key in $in.response.data)
-            {
+        if ($in.step === 'step_save_data') {
+            for (let $key in $in.response.data) {
                 if ($in.response.data.hasOwnProperty($key) === false) {
                     continue;
                 }
@@ -417,29 +398,30 @@ function infohub_doc_get() {
                     'name': 'response|data|' + $key + '|area',
                     'default': '',
                     'data': $in,
-                    'split': '|'
+                    'split': '|',
                 });
 
                 const $documentName = _GetData({
                     'name': 'response|data|' + $key + '|document_name',
                     'default': '',
                     'data': $in,
-                    'split': '|'
+                    'split': '|',
                 });
 
                 $message = _SubCall({
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_storage',
-                        'function': 'write'
+                        'function': 'write',
                     },
                     'data': {
-                        'path': 'infohub_doc_get/document/' + $area + '/' + $documentName,
-                        'data': $document
+                        'path': 'infohub_doc_get/document/' + $area + '/' +
+                            $documentName,
+                        'data': $document,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
 
                 $messagesArray.push($message);
@@ -450,8 +432,9 @@ function infohub_doc_get() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'messages': $messagesArray,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 }
+
 //# sourceURL=infohub_doc_get.js

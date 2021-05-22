@@ -1,27 +1,27 @@
 /**
  Copyright (C) 2010- Peter Lembke, CharZam soft
  the program is distributed under the terms of the GNU General Public License
- 
+
  InfoHub is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  InfoHub is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 function infohub_tree_restore() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2020-08-25',
             'since': '2020-07-25',
@@ -30,21 +30,21 @@ function infohub_tree_restore() {
             'class_name': 'infohub_tree_restore',
             'note': 'Restore data to the browser/server from your backup files',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
             'click_import_files': 'normal',
             'click_clear_list': 'normal',
-            'click_save_data': 'normal'
+            'click_save_data': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     let $classTranslations = {};
 
     // ***********************************************************
@@ -59,8 +59,7 @@ function infohub_tree_restore() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -68,165 +67,260 @@ function infohub_tree_restore() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render')
-        {
+        if ($in.step === 'step_render') {
             $classTranslations = $in.translations;
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
-                        'container_buttons': {
+                        'container_list': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_import][button_clear][button_restore]',
-                            'class': 'container-small'
+                            'data': '[button_import][button_clear][list_backup_files][button_restore]',
+                            'class': 'container-small',
                         },
                         'container_information': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[information]',
-                            'class': 'container-small'
+                            'data': '[information][log]',
+                            'class': 'container-small',
                         },
-                        'container_restore_log': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'div',
-                            'data': '[log]',
-                            'class': 'container-small'
-                        },
-                        'container_list': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'div',
-                            'data': '[list_backup_files]',
-                            'class': 'container-medium'
+                        'container_conflict': {
+                            'plugin': 'infohub_rendermajor',
+                            'type': 'presentation_box',
+                            'head_label': _Translate('Conflicts'),
+                            'content_data': '[container_conflict_list][container_local_version][container_server_version]',
+                            'foot_text': 'Here you can solve conflicts in the restore data',
                         },
                         'button_import': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
-                            'button_label': _Translate('Import'),
+                            'button_label': _Translate('SELECT_BACKUP_FILES'),
                             'button_left_icon': '[import_icon]',
                             'accept': 'application/json,.json', // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers
                             'event_data': 'restore|import_files',
                             'to_node': 'client',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'import_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[import_asset]'
+                            'data': '[import_asset]',
                         },
                         'import_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'restore/import',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'button_clear': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Clear list'),
+                            'button_label': _Translate('CLEAR_LIST'),
                             'button_left_icon': '[clear_icon]',
                             'event_data': 'restore|clear_list',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'clear_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[clear_asset]'
+                            'data': '[clear_asset]',
                         },
                         'clear_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'restore/clear',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'button_restore': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Save data to browser Storage'),
+                            'button_label': _Translate('RESTORE_DATA_TO_BROWSER_STORAGE'),
                             'button_left_icon': '[restore_icon]',
                             'event_data': 'restore|save_data',
                             'to_plugin': 'infohub_tree',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'restore_icon': {
                             'type': 'common',
                             'subtype': 'svg',
-                            'data': '[restore_asset]'
+                            'data': '[restore_asset]',
                         },
                         'restore_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'storage/save_data',
-                            'plugin_name': 'infohub_tree'
+                            'plugin_name': 'infohub_tree',
                         },
                         'list_backup_files': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            "label": _Translate("Backup files"),
-                            "description": _Translate("Here is a list with all backup files you have selected in the file selector"),
+                            "label": _Translate("BACKUP_FILES"),
+                            "description": _Translate("HERE_IS_A_LIST_WITH_ALL_BACKUP_FILES_YOU_HAVE_SELECTED_IN_THE_FILE_SELECTOR"),
                             "size": "20",
                             "multiple": "true",
                             'event_data': 'server|list',
                             'to_plugin': 'infohub_tree',
                             'to_function': 'click',
-                            "options": [],
+                            'options': [],
                             'css_data': {
-                                '.select': 'max-width: 200px;'
-                            }
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                         'information': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Information'),
+                            'head_label': _Translate('INFORMATION'),
                             'content_data': '',
-                            'foot_text': 'Here you see information about the latest backup file you click on in the list'
+                            'foot_text': 'Here you see information about the latest backup file you click on in the list',
                         },
                         'log': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Restore log'),
+                            'head_label': _Translate('RESTORE_LOG'),
                             'content_data': '',
-                            'foot_text': 'You see the progress of the restore here'
+                            'foot_text': 'You see the progress of the restore here',
+                        },
+                        'container_conflict_list': {
+                            'type': 'common',
+                            'subtype': 'container',
+                            'tag': 'div',
+                            'data': '[button_refresh_conflict_list][select_conflict_list]',
+                            'class': 'container-small',
+                        },
+                        'container_local_version': {
+                            'type': 'common',
+                            'subtype': 'container',
+                            'tag': 'div',
+                            'data': '[form_local_version][button_keep_local_version]',
+                            'class': 'container-medium',
+                        },
+                        'container_server_version': {
+                            'type': 'common',
+                            'subtype': 'container',
+                            'tag': 'div',
+                            'data': '[form_server_version][button_keep_server_version]',
+                            'class': 'container-medium',
+                        },
+                        'form_server_version': {
+                            'type': 'common',
+                            'subtype': 'container',
+                            'tag': 'div',
+                            'data': _Translate('Click on the list'),
+                            'class': 'container-medium',
+                        },
+                        'form_local_version': {
+                            'type': 'common',
+                            'subtype': 'container',
+                            'tag': 'div',
+                            'data': _Translate('Click on the list'),
+                            'class': 'container-medium',
+                        },
+                        'button_refresh_conflict_list': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Refresh conflict list'),
+                            'button_left_icon': '[refresh_icon]',
+                            'event_data': 'sync|refresh_conflict_list',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click',
+                        },
+                        'button_keep_local_version': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Keep local version'),
+                            'button_left_icon': '[keep_icon]',
+                            'event_data': 'sync|keep_local_version',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click',
+                        },
+                        'button_keep_server_version': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('Keep server version'),
+                            'button_left_icon': '[keep_icon]',
+                            'event_data': 'sync|keep_server_version',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click',
+                        },
+                        'refresh_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[refresh_asset]',
+                        },
+                        'refresh_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'refresh',
+                            'plugin_name': 'infohub_tree',
+                        },
+                        'keep_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[keep_asset]',
+                        },
+                        'keep_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'sync/keep',
+                            'plugin_name': 'infohub_tree',
+                        },
+                        'select_conflict_list': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'select',
+                            'label': _Translate('Conflict list'),
+                            'description': _Translate(
+                                'You can help me decide what version to keep'),
+                            'size': '20',
+                            'multiple': 'false',
+                            'event_data': 'sync|conflict_list',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click',
+                            'options': [],
+                            'css_data': {
+                                '.select': 'max-width: 200px;',
+                            },
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_buttons][container_restore_log][container_list][container_information]'
+                        'text': '[container_list][container_information][container_conflict]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_tree.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'restore'
+                    'cache_key': 'restore',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }                
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -236,20 +330,20 @@ function infohub_tree_restore() {
      * @since 2020-08-30
      * @author Peter Lembke
      */
-    $functions.push("click_import_files");
-    const click_import_files = function ($in)
-    {
+    $functions.push('click_import_files');
+    const click_import_files = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_import_files'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_import_files',
         };
 
         if ($in.step === 'step_call_server') {
@@ -261,7 +355,7 @@ function infohub_tree_restore() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -271,20 +365,20 @@ function infohub_tree_restore() {
      * @since 2020-08-30
      * @author Peter Lembke
      */
-    $functions.push("click_clear_list");
-    const click_clear_list = function ($in)
-    {
+    $functions.push('click_clear_list');
+    const click_clear_list = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_clear_list'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_clear_list',
         };
 
         if ($in.step === 'step_call_server') {
@@ -296,7 +390,7 @@ function infohub_tree_restore() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 
@@ -307,20 +401,20 @@ function infohub_tree_restore() {
      * @since 2020-08-30
      * @author Peter Lembke
      */
-    $functions.push("click_save_data");
-    const click_save_data = function ($in)
-    {
+    $functions.push('click_save_data');
+    const click_save_data = function($in) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
             'response': {},
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_save_data'
+            'message': 'Nothing to report from ' + _GetClassName() +
+                ' -> click_save_data',
         };
 
         if ($in.step === 'step_call_server') {
@@ -332,8 +426,9 @@ function infohub_tree_restore() {
         return {
             'answer': $out.answer,
             'message': $out.message,
-            'ok': $out.answer
+            'ok': $out.answer,
         };
     };
 }
+
 //# sourceURL=infohub_tree_restore.js

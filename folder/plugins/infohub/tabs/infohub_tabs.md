@@ -1,12 +1,18 @@
 # Infohub Tabs
-Handle the windows so you can create tabs.  
+
+Handle the windows so you can create tabs.
 
 # Introduction
-Creates two boxes under each other: head and a body. Tabs can add or remove a box in head and a box in body. Both boxes have the same alias.  
-You can add any content to the head and body box. You can tell what body box you want to show. That is all this plugin does.  
+
+Creates two boxes under each other: head and a body. Tabs can add or remove a box in head and a box in body. Both boxes
+have the same alias.  
+You can add any content to the head and body box. You can tell what body box you want to show. That is all this plugin
+does.
 
 # How to use
-Here are examples how you can use the tabs plugin.  
+
+Here are examples how you can use the tabs plugin.
+
 ## Initialize the tab system
 
 ```
@@ -24,8 +30,10 @@ Here are examples how you can use the tabs plugin.
 ```
 
 # Add a tab
-In this example we want to add one tab to the already initialized boxes. A tab will only be added if the alias is unique among the tabs.  
-You will get results back how it went.  
+
+In this example we want to add one tab to the already initialized boxes. A tab will only be added if the alias is unique
+among the tabs.  
+You will get results back how it went.
 
 ```
 'to': {
@@ -43,7 +51,8 @@ You will get results back how it went.
 ```
 
 # Remove a tab
-In this example we will remove a tab. You will get results back how it went.  
+
+In this example we will remove a tab. You will get results back how it went.
 
 ```
 'to': {
@@ -61,8 +70,10 @@ In this example we will remove a tab. You will get results back how it went.
 ```
 
 # Add data to tab
+
 In this example we will add data to a tab box. You will get results back how it went.  
-We will add a text with a highlight to 'my_tabs.body.my_new_tab'. As you can see this is a normal rendering to a box. In this case it will find the box with alias 'my_new_tab' and insert the data in that box.  
+We will add a text with a highlight to 'my_tabs.body.my_new_tab'. As you can see this is a normal rendering to a box. In
+this case it will find the box with alias 'my_new_tab' and insert the data in that box.
 
 ```
 return {
@@ -103,7 +114,8 @@ return {
 ```
 
 # siblings_box_view
-In this example we will hide all siblings to a specific box.  
+
+In this example we will hide all siblings to a specific box.
 
 ```
 'to': {
@@ -122,16 +134,22 @@ In this example we will hide all siblings to a specific box.
 ```
 
 # event_message
-When you click on a tab then an event triggers. You can see the receiving function at the bottom of infohub_tabs.
-First the data area made visible and all siblings are hidden. Then the tab is highlighted.  
+
+When you click on a tab then an event triggers. You can see the receiving function at the bottom of infohub_tabs. First
+the data area made visible and all siblings are hidden. Then the tab is highlighted.
 
 # Demo
-Infohub Tabs are used in infohub_workbench.js , Search for "infohub_tabs" and you will see how tabs are used.  
+
+Infohub Tabs are used in infohub_workbench.js , Search for "infohub_tabs" and you will see how tabs are used.
 
 # License
+
 This documentation is copyright (C) 2017 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2017-10-13 by Peter Lembke  
 Updated 2018-01-28 by Peter Lembke  

@@ -1,63 +1,88 @@
 # Infohub Transfer
-With no exceptions handle all communication that goes outside of this node.  
+
+With no exceptions handle all communication that goes outside of this node.
 
 # Introduction
+
 Infohub Transfer handle all traffic.   
 If you want to communicate with the outside of your node then Infohub Transfer handle that.   
 Infohub Transfer handle the messages that Infohub Exchange want to send to other nodes.
 
 ## Client
-Today the Client version of the plugin can do Ajax calls to the server and handle the response from the server. The client will __not communicate with anyone else than the server__. That is a privacy issue.  
+
+Today the Client version of the plugin can do Ajax calls to the server and handle the response from the server. The
+client will __not communicate with anyone else than the server__. That is a privacy issue.
 
 ## Server
-Today the Server version can answer the Client request. In the future the server node will also be able to communicate with other server nodes.
+
+Today the Server version can answer the Client request. In the future the server node will also be able to communicate
+with other server nodes.
 
 ## Other nodes
-There will be other types of infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to communicate with each other in the same way.
+
+There will be other types of infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to
+communicate with each other in the same way.
 
 # Send to a node
-Infohub Exchange send an array with nodes and their messages to Transfer. The send function in the Transfer plugin loop trough the nodes, if it recognizes a node then it handles the messages.
-  
-Server (PHP): For node 'client' it just makes a json package and echo it on screen because the client is always the initiator an the server is always the responder.
-  
-When your messages have been sent and the answer comes back, the package are handled and the messages are put in the main loop for sorting.
-  
+
+Infohub Exchange send an array with nodes and their messages to Transfer. The send function in the Transfer plugin loop
+trough the nodes, if it recognizes a node then it handles the messages.
+
+Server (PHP): For node 'client' it just makes a json package and echo it on screen because the client is always the
+initiator an the server is always the responder.
+
+When your messages have been sent and the answer comes back, the package are handled and the messages are put in the
+main loop for sorting.
+
 You will also get back a timestamp when it is OK to contact the node again.
 
 ## Authentication (login)
-The client can login to the server and get more rights. The plugin [infohub_login](plugin,infohub_login) handle the login and uses the [infohub_session](plugin,infohub_session) to initiate a session.
+
+The client can login to the server and get more rights. The plugin [infohub_login](plugin,infohub_login) handle the
+login and uses the [infohub_session](plugin,infohub_session) to initiate a session.
 
 ## Sessions
-Session handling. Since Infohub is stateless you do not store session variables, but you do need to know what rights the logged in session have. Not logged in users will only have the right to login if they can ask politely.  
 
-PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies and we can implemt sessions in any communication form.
+Session handling. Since Infohub is stateless you do not store session variables, but you do need to know what rights the
+logged in session have. Not logged in users will only have the right to login if they can ask politely.
+
+PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies
+and we can implemt sessions in any communication form.
 
 ## banned until
-The responder set banned_seconds and banned_until in the responding package. Also stores the data on the session.
-The initiator get the data and stores it. Then does not contact the node again until the current time is > banned_until.
 
-The client is always the initiator.
-The server is right now always the responder.
-If any other node has a login account then they act as a client and has a session_id.
+The responder set banned_seconds and banned_until in the responding package. Also stores the data on the session. The
+initiator get the data and stores it. Then does not contact the node again until the current time is > banned_until.
 
-The server could send messages to other nodes and get data. I have not implemented that support yet so for now the server is always a responder. 
+The client is always the initiator. The server is right now always the responder. If any other node has a login account
+then they act as a client and has a session_id.
 
-infohub.php checks the banned_until and can refuse access if banned_until > now.
-infohub_transfer will add the configured amount of time to the session banned_until.
+The server could send messages to other nodes and get data. I have not implemented that support yet so for now the
+server is always a responder.
+
+infohub.php checks the banned_until and can refuse access if banned_until > now. infohub_transfer will add the
+configured amount of time to the session banned_until.
 
 ## Leave the callstack behind
-The callstack can reveal many sensitive details if it follows the message to the next node. The callstack is not needed for a subcall to another node.
 
- *If* we send an answer to a request *then* we do not need to do anything.   
- *If* we send a subcall to another node *then* it is best to leave the callstack in our node, do the sub call and pick up the call stack when we are home again.
+The callstack can reveal many sensitive details if it follows the message to the next node. The callstack is not needed
+for a subcall to another node.
 
-This is implemented on the client. Later when we have server to server data transfer then we also need this on the server.
+*If* we send an answer to a request *then* we do not need to do anything.   
+*If* we send a subcall to another node *then* it is best to leave the callstack in our node, do the sub call and pick up
+the call stack when we are home again.
+
+This is implemented on the client. Later when we have server to server data transfer then we also need this on the
+server.
 
 # Example
-A package is an outgoing array with messages. 
+
+A package is an outgoing array with messages.
 
 ## Outgoing package
+
 This is an example of an outgoing package from the client to the server.
+
 ```
 {
     "session_id": "session_1587916349.1317:1026789844987178614",
@@ -67,14 +92,18 @@ This is an example of an outgoing package from the client to the server.
     "package_type": "2020"
 }
 ```
+
 We have a session_id so it means we are logged in. The sign_code is a md5 checksum.
+
 ```
 $sign_code = md5($session_created_at + $created_at +  $left_overs + $messages_checksum + $session_id + $initiator_user_name);
 ``` 
-sign_code_created_at is the seconds with decimals from 1970-01-01.
-package_type = "2020" means that we have this setup with properties in the package.
-messages_encoded is a base64 encoded array with messages. There is a [messages tool](plugin,infohub_tool_package) where you can paste the data and get the decoded data array back.
-This is what we got from the data above.
+
+sign_code_created_at is the seconds with decimals from 1970-01-01. package_type = "2020" means that we have this setup
+with properties in the package. messages_encoded is a base64 encoded array with messages. There is
+a [messages tool](plugin,infohub_tool_package) where you can paste the data and get the decoded data array back. This is
+what we got from the data above.
+
 ```
 [
     {
@@ -107,16 +136,19 @@ This is what we got from the data above.
     }
 ]
 ```
-You see that it is an array [] with objects {} where each object is a message.
-A message always have a: to, data, callstack. To is where the message wil be delivered on the node.
-The data is the data you will find in the $in parameter in the function we call.
+
+You see that it is an array [] with objects {} where each object is a message. A message always have a: to, data,
+callstack. To is where the message wil be delivered on the node. The data is the data you will find in the $in parameter
+in the function we call.
 
 The callstack is the way back to the caller. We see that the message comes from node client, plugin infohub_asset.   
-The function looks strange and it is because the rest of the callstack is left behind at the client. The code in "function" is used to find the callstack again when the server have returned the answer.
- 
-The message in the example request some assets from the server.  
+The function looks strange and it is because the rest of the callstack is left behind at the client. The code in "
+function" is used to find the callstack again when the server have returned the answer.
+
+The message in the example request some assets from the server.
 
 Let us look at the answer from the server.
+
 ```
 {
     "to_node": "client",
@@ -204,69 +236,99 @@ Let us look at the answer from the server.
     "banned_until": 1587916362.851249
 }
 ```
+
 You can see that "package_type": "2020" is not implemented yet. This is the old style of the messages.
 
-The task HUB-626 - Server: Response package. Comply to package_type = "2020"  
- 
+The task HUB-626 - Server: Response package. Comply to package_type = "2020"
+
 will change that but for now it looks like this.
 
 # Future features
+
 Features that are planned to be implemented.
 
 ## Client
+
 Features that will come to infohub_transfer.js
 
 ### Offline/failed to login - answer the messages
-If we can not deliver the package then we wait for a while but then we need to answer the messages that we could not send.
-The messages are answered with "answer": "false" and "message": "offline" or "login failed".    
+
+If we can not deliver the package then we wait for a while but then we need to answer the messages that we could not
+send. The messages are answered with "answer": "false" and "message": "offline" or "login failed".
 
 ## Server
+
 Features that will come to infohub_transfer.php
 
 ### Server to server
-The server node will be able to communicate with other infohub nodes and exchange information.
-This will be used to get data from specialized nodes.
+
+The server node will be able to communicate with other infohub nodes and exchange information. This will be used to get
+data from specialized nodes.
 
 ### Leave callstack behind
+
 When calling other nodes the server also need to leave the callstack behind to not reveal any data.
 
 ### Web services
-A lot of interesting services exist on the internet. You can use REST to get weather from yr.no or get radio programs from sr.se  
-The support in Infohub will be trough the server trough Transfer. The support for web services will be generic and can be misused for sharing. Do remember that Infohub is __NOT__ for sharing.
+
+A lot of interesting services exist on the internet. You can use REST to get weather from yr.no or get radio programs
+from sr.se  
+The support in Infohub will be trough the server trough Transfer. The support for web services will be generic and can
+be misused for sharing. Do remember that Infohub is __NOT__ for sharing.
 
 # Other ways of communication
+
 If we ever develop other ways to communicate then we can be sure infohub_transfer is the place where data are exchanged.
-* The phone can send out audio and listen to audio. 
+
+* The phone can send out audio and listen to audio.
 * The phone can flash colours or show QR codes and see with the camera.
-* Slow communication by importing a package from a file and save a package to a file. Then carry the USB memory. 
+* Slow communication by importing a package from a file and save a package to a file. Then carry the USB memory.
 
 # Bad ideas
-Infohub is NOT about sharing. It is not about working together in small groups. Infohub is about personal data that only you can access.  
-To achieve that we need to be very careful and think about security everywhere. Here are some bad ideas that will not be implemented and why.  
+
+Infohub is NOT about sharing. It is not about working together in small groups. Infohub is about personal data that only
+you can access.  
+To achieve that we need to be very careful and think about security everywhere. Here are some bad ideas that will not be
+implemented and why.
 
 ## WebRTC
+
 Browser to browser communication.   
-If we had a shopping site with many products and categories then one client could download data and share it with other clients directly.   
+If we had a shopping site with many products and categories then one client could download data and share it with other
+clients directly.   
 That would reduce the traffic and strain on the server.  
-It would also mean that we expose our IP number and are no longer a small part in a bigger mass of data. We would be exposed.  
-WebRTC is appealing but would open up a side door to the client. 
+It would also mean that we expose our IP number and are no longer a small part in a bigger mass of data. We would be
+exposed.  
+WebRTC is appealing but would open up a side door to the client.
 
 ## Email
-Would be cool if we could send emails to people. Then we could use that to send out offers, order confirmations (transactional emails) and use it as we would in an e-commerce site. We could even use Infohub as a marketing tool.  
-Infohub is about privacy of your data. Email is insecure. Email can not handle private information. Even if we restricted ourself to only send emails to you when you ask them it would still be unencrypted and easily intercepted. You would also reveal yourself as a user of that Infohub server.  
+
+Would be cool if we could send emails to people. Then we could use that to send out offers, order confirmations (
+transactional emails) and use it as we would in an e-commerce site. We could even use Infohub as a marketing tool.  
+Infohub is about privacy of your data. Email is insecure. Email can not handle private information. Even if we
+restricted ourself to only send emails to you when you ask them it would still be unencrypted and easily intercepted.
+You would also reveal yourself as a user of that Infohub server.  
 E-mail is an obsolete way to communicate. It should not be implemented in Infohub.
 
 ## Social
-Infohub is NOT about sharing. Social networks is a bout sharing. Do not mix them. You can still use social but not trough Infohub.
+
+Infohub is NOT about sharing. Social networks is a bout sharing. Do not mix them. You can still use social but not
+trough Infohub.
 
 ## SMS
-Sending SMS is an obsolete way of communicating. The amount of data is 120 byte unencrypted. It is easy to reroute the message to another phone.
-SMS is insecure and Infohub will not use it. It can also be used for sending to many recipients and that is just annoying.
+
+Sending SMS is an obsolete way of communicating. The amount of data is 120 byte unencrypted. It is easy to reroute the
+message to another phone. SMS is insecure and Infohub will not use it. It can also be used for sending to many
+recipients and that is just annoying.
 
 # License
+
 This documentation is copyright (C) 2016 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  
+You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
+see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Updated 2020-04-26 by Peter Lembke  
 Created 2016-04-01 by Peter Lembke  

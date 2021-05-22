@@ -11,7 +11,7 @@
  */
 function infohub_demo_frog() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -30,7 +30,7 @@ function infohub_demo_frog() {
             'class_name': 'infohub_demo_frog',
             'note': 'Render a frog demo for infohub_demo',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -43,7 +43,7 @@ function infohub_demo_frog() {
     const _GetCmdFunctions = function() {
         const $list = {
             'create': 'normal',
-            'click_frog': 'normal'
+            'click_frog': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -63,48 +63,46 @@ function infohub_demo_frog() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_form2'
-            }
+                'message': 'Nothing to report from infohub_demo_form2',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start') 
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
-            
+
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'instructions_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Instructions'),
+                            'head_label': _Translate('INSTRUCTIONS'),
                             'content_data': '[my_foot_text]',
-                            'content_embed_new_tab': '[my_external_link]'
+                            'content_embed_new_tab': '[my_external_link]',
                         },
                         'result_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Result'),
-                            'foot_text': _Translate('When you do a misstake in your rendering code then the frog shows up as a placeholder.'),
-                            'content_data': _Translate('Have you seen any frogs?'),
+                            'head_label': _Translate('RESULT'),
+                            'foot_text': _Translate('WHEN_YOU_DO_A_MISSTAKE_IN_YOUR_RENDERING_CODE_THEN_THE_FROG_SHOWS_UP_AS_A_PLACEHOLDER.'),
+                            'content_data': _Translate('HAVE_YOU_SEEN_ANY_FROGS?'),
                         },
                         'my_foot_text': {
                             'type': 'text',
-                            'text': _Translate('I made a frog is a Swedish expression for making a mistake. Jag gjorde en groda. If you render an object with an unknown type or subtype then a frog appear instead.')
+                            'text': _Translate('I_MADE_A_FROG_IS_A_SWEDISH_EXPRESSION_FOR_MAKING_A_MISTAKE._JAG_GJORDE_EN_GRODA._IF_YOU_RENDER_AN_OBJECT_WITH_AN_UNKNOWN_TYPE_OR_SUBTYPE_THEN_A_FROG_APPEAR_INSTEAD.')
                         },
                         'my_external_link': {
                             'type': 'link',
@@ -112,49 +110,49 @@ function infohub_demo_frog() {
                             'alias': 'my_external_link',
                             'data': 'my_external_link',
                             'show': 'Wiktionary',
-                            'url': 'https://sv.wiktionary.org/wiki/g%C3%B6ra_en_groda'
+                            'url': 'https://sv.wiktionary.org/wiki/g%C3%B6ra_en_groda',
                         },
                         'my_menu': {
                             'plugin': 'infohub_rendermenu',
                             'type': 'menu',
-                            'head_label': _Translate('Make a frog'),
+                            'head_label': _Translate('MAKE_A_FROG'),
                             'options': {
                                 'correct': {
                                     'alias': 'correct_link',
                                     'event_data': 'frog|frog|frog_correct', // demo_frog | click_frog
-                                    'button_label': _Translate('Correct way'),
+                                    'button_label': _Translate('CORRECT_WAY'),
                                     'to_plugin': 'infohub_demo',
-                                    'to_function': 'click'
+                                    'to_function': 'click',
                                 },
                                 'misstake1': {
                                     'alias': 'misstake1_link',
                                     'event_data': 'frog|frog|frog_misstake1',
-                                    'button_label': _Translate('Misstake #1 - Wrong type'),
+                                    'button_label': _Translate('MISSTAKE_#1_-_WRONG_TYPE'),
                                     'to_plugin': 'infohub_demo',
-                                    'to_function': 'click'
+                                    'to_function': 'click',
                                 },
                                 'misstake2': {
                                     'alias': 'misstake2_link',
                                     'event_data': 'frog|frog|frog_misstake2',
-                                    'button_label': _Translate('Misstake #2 - Wrong subtype'),
+                                    'button_label': _Translate('MISSTAKE_#2_-_WRONG_SUBTYPE'),
                                     'to_plugin': 'infohub_demo',
-                                    'to_function': 'click'
-                                }
-                            }
-                        }
+                                    'to_function': 'click',
+                                },
+                            },
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_menu][instructions_box][result_box]'
+                        'text': '[my_menu][instructions_box][result_box]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.demo',
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'frog'
+                    'cache_key': 'frog',
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
 
         }
@@ -162,7 +160,7 @@ function infohub_demo_frog() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -172,38 +170,36 @@ function infohub_demo_frog() {
      * @since 2019-01-09
      * @author Peter Lembke
      */
-    $functions.push("click_frog");
-    const click_frog = function ($in)
-    {
+    $functions.push('click_frog');
+    const click_frog = function($in) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
             'box_id': '',
-            'data_back': {}
+            'data_back': {},
         };
         $in = _Default($default, $in);
 
         let $data;
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $data = {
                 'frog_correct': {
                     'type': 'frog',
                     'subtype': '',
-                    'text': _Translate('Correct, The frog is rendered by calling the render_frog plugin.'),
+                    'text': _Translate('CORRECT,_THE_FROG_IS_RENDERED_BY_CALLING_THE_RENDER_FROG_PLUGIN.'),
                     'ok': 'true',
                 },
                 'frog_misstake1': {
                     'type': 'common',
                     'subtype': 'fizbaz',
-                    'text': _Translate('Mistake #1, The frog were rendered by calling render_common with the none existing subtype fizbaz. That gives a frog and an error message on top.'),
+                    'text': _Translate('MISTAKE_#1,_THE_FROG_WERE_RENDERED_BY_CALLING_RENDER_COMMON_WITH_THE_NONE_EXISTING_SUBTYPE_FIZBAZ._THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
                     'ok': 'false',
                 },
                 'frog_misstake2': {
                     'type': 'foobar',
                     'subtype': '',
-                    'text': _Translate('Mistake #2, The frog were rendered by calling the none existing plugin foobar. That gives a frog and an error message on top.'),
+                    'text': _Translate('MISTAKE_#2,_THE_FROG_WERE_RENDERED_BY_CALLING_THE_NONE_EXISTING_PLUGIN_FOOBAR._THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
                     'ok': 'false',
                 },
             };
@@ -212,38 +208,37 @@ function infohub_demo_frog() {
                 $in.step = 'step_make_frog';
             }
         }
-        
-        if ($in.step === 'step_make_frog')
-        {
+
+        if ($in.step === 'step_make_frog') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_frog': {
                             'type': $data[$in.event_data].type,
                             'subtype': $data[$in.event_data].subtype,
-                        }
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_frog]'
+                        'text': '[my_frog]',
                     },
                     'where': {
                         'box_id': $in.box_id + '_result_box_content',
                         'max_width': 640,
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'text': $data[$in.event_data].text,
                     'ok': $data[$in.event_data].ok,
-                    'step': 'step_write_text'
-                }
+                    'step': 'step_write_text',
+                },
             });
         }
 
@@ -252,24 +247,25 @@ function infohub_demo_frog() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': $in.data_back.box_id + '_result_box_foot',
-                    'text': $in.data_back.text
+                    'text': $in.data_back.text,
                 },
                 'data_back': {
                     'ok': $in.data_back.ok,
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
             'message': 'Frog is made',
-            'ok': $in.data_back.ok
+            'ok': $in.data_back.ok,
         };
     };
 }
+
 //# sourceURL=infohub_demo_frog.js

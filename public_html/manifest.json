@@ -1,6 +1,8 @@
 {
     "short_name": "InfoHub",
     "name": "Infohub",
+    "description": "Run InfoHub on your server or your friends server so you can store your private data and keep them away from every one else. Away from social networks and away from sharing.",
+    "categories": ["lifestyle", "personalization", "security"],
     "icons": [
         {
             "src": "infohub.png",

@@ -11,7 +11,7 @@
  */
 function infohub_configlocal_language() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -25,7 +25,7 @@ function infohub_configlocal_language() {
             'class_name': 'infohub_configlocal_language',
             'note': 'Here you can set your preferred languages',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -35,7 +35,7 @@ function infohub_configlocal_language() {
             'create': 'normal',
             'click_transfer': 'normal',
             'click_submit': 'normal',
-            'apply_config': 'normal'
+            'apply_config': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -55,28 +55,26 @@ function infohub_configlocal_language() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
             'step': 'step_render_form',
             'response': {
                 'answer': '',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_form')
-        {
+        if ($in.step === 'step_render_form') {
             $classTranslations = _ByVal($in.translations);
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -84,82 +82,82 @@ function infohub_configlocal_language() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[select_language][button_transfer][language][button_save][button_clear_render_cache]',
-                            'label': _Translate('Language'),
-                            'description': '[language_icon]' + _Translate('Here you can select your preferred languages. This is used to translate the texts in all plugins to what you prefer.')
+                            'label': _Translate('LANGUAGE'),
+                            'description': '[language_icon]' + _Translate('HERE_YOU_CAN_SELECT_YOUR_PREFERRED_LANGUAGES._THIS_IS_USED_TO_TRANSLATE_THE_TEXTS_IN_ALL_PLUGINS_TO_WHAT_YOU_PREFER.')
                         },
                         'select_language': {
                             'plugin': 'infohub_language',
                             'type': 'select',
-                            'label': _Translate('Select a language'),
-                            'description': _Translate('Select a language you can speak and click on Transfer')
+                            'label': _Translate('SELECT_A_LANGUAGE'),
+                            'description': _Translate('SELECT_A_LANGUAGE_YOU_CAN_SPEAK_AND_CLICK_ON_TRANSFER')
                         },
                         'button_transfer': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'click',
-                            'button_label': _Translate('Transfer'),
+                            'button_label': _Translate('TRANSFER'),
                             'event_data': 'language|transfer', // infohub_config_local_language | click_transfer
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'language': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
-                            'label': _Translate('Language codes'),
-                            'description': _Translate('Language codes you prefer. Comma separate them. I prefer: sv,en'),
+                            'label': _Translate('LANGUAGE_CODES'),
+                            'description': _Translate('LANGUAGE_CODES_YOU_PREFER._COMMA_SEPARATE_THEM._I_PREFER:_SV,EN'),
                             'maxlength': '30',
                             'placeholder': '',
-                            'show_characters_left': 'false'
+                            'show_characters_left': 'false',
                         },
                         'button_save': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Save'),
+                            'button_label': _Translate('SAVE'),
                             'event_data': 'language|submit',
                             'to_plugin': 'infohub_configlocal',
-                            'to_function': 'click'
+                            'to_function': 'click',
                         },
                         'language_icon': {
                             'type': 'common',
                             'subtype': 'svg',
                             'data': '[language_asset]',
                             'css_data': {
-                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;'
-                            }
+                                '.svg': 'width:64px; height:64px; padding:1px; max-width:64px;',
+                            },
                         },
                         'language_asset': {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'language/language',
-                            'plugin_name': 'infohub_configlocal'
+                            'plugin_name': 'infohub_configlocal',
                         },
                         'button_clear_render_cache': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Clear render cache'),
+                            'button_label': _Translate('CLEAR_RENDER_CACHE'),
                             'event_data': '',
                             'to_plugin': 'infohub_render',
-                            'to_function': 'delete_render_cache_for_user_name'
+                            'to_function': 'delete_render_cache_for_user_name',
                         },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_form]'
+                        'text': '[my_form]',
                     },
                     'where': {
                         'box_id': $in.parent_box_id + '.form',
                         'max_width': 640,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'language'
+                    'cache_key': 'language',
                 },
                 'data_back': {
                     'parent_box_id': $in.parent_box_id,
                     'form_data': $in.form_data,
-                    'step': 'step_render_form_response'
-                }
+                    'step': 'step_render_form_response',
+                },
             });
         }
 
@@ -169,7 +167,7 @@ function infohub_configlocal_language() {
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
@@ -179,53 +177,50 @@ function infohub_configlocal_language() {
      * @since 2019-10-12
      * @author Peter Lembke
      */
-    $functions.push("click_transfer");
-    const click_transfer = function ($in)
-    {
+    $functions.push('click_transfer');
+    const click_transfer = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
             'answer': '',
             'message': '',
             'response': {
-                'form_data': {}
-            }
+                'form_data': {},
+            },
         };
         $in = _Default($default, $in);
 
         let $ok = 'false';
         let $newTextWithLanguageCodes = '';
 
-        if ($in.step === 'step_form_read')
-        {
+        if ($in.step === 'step_form_read') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '.[my_form_form]'
+                    'id': $in.box_id + '.[my_form_form]',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_form_read_response'
-                }
+                    'step': 'step_form_read_response',
+                },
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             const $newLanguageCode = _GetData({
                 'name': 'response/form_data/select_language_code/value/0',
                 'default': '',
-                'data': $in
+                'data': $in,
             });
 
             const $languagesText = _GetData({
                 'name': 'response/form_data/language/value',
                 'default': '',
-                'data': $in
+                'data': $in,
             });
 
             let $languageArray = $languagesText.split(',');
@@ -242,8 +237,7 @@ function infohub_configlocal_language() {
             $in.step = 'step_end';
             $ok = 'true'; // It is ok if we already have the language code
 
-            if (_IsSet($lookup[$newLanguageCode]) === 'false')
-            {
+            if (_IsSet($lookup[$newLanguageCode]) === 'false') {
                 $lookup[$newLanguageCode] = 1;
 
                 let $newCodesArray = [];
@@ -258,32 +252,30 @@ function infohub_configlocal_language() {
             }
         }
 
-        if ($in.step === 'step_update_text')
-        {
+        if ($in.step === 'step_update_text') {
             const $formData = {
                 'language': {
-                    'value': $newTextWithLanguageCodes
-                }
+                    'value': $newTextWithLanguageCodes,
+                },
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': $in.box_id + '.[my_form_form]',
-                    'form_data': $formData
+                    'form_data': $formData,
                 },
                 'data_back': {
-                    'step': 'step_update_text_response'
-                }
+                    'step': 'step_update_text_response',
+                },
             });
         }
 
-        if ($in.step === 'step_update_text_response')
-        {
+        if ($in.step === 'step_update_text_response') {
             if ($in.answer === 'true') {
                 $ok = 'true';
             }
@@ -292,7 +284,7 @@ function infohub_configlocal_language() {
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -304,9 +296,8 @@ function infohub_configlocal_language() {
      * @since 2019-10-28
      * @author Peter Lembke
      */
-    $functions.push("click_submit");
-    const click_submit = function ($in)
-    {
+    $functions.push('click_submit');
+    const click_submit = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -315,65 +306,61 @@ function infohub_configlocal_language() {
             'response': {
                 'form_data': {
                     'language': {
-                        'value': ''
-                    }
-                }
-            }
+                        'value': '',
+                    },
+                },
+            },
         };
         $in = _Default($default, $in);
 
         let $ok = 'false';
 
-        if ($in.step === 'step_form_read')
-        {
+        if ($in.step === 'step_form_read') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '.[my_form_form]'
+                    'id': $in.box_id + '.[my_form_form]',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_form_read_response'
-                }
+                    'step': 'step_form_read_response',
+                },
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $in.step = 'step_save_config';
             }
         }
 
-        if ($in.step === 'step_save_config')
-        {
+        if ($in.step === 'step_save_config') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_configlocal',
-                    'function': 'submit'
+                    'function': 'submit',
                 },
                 'data': {
                     'event_data': 'language',
                     'form_data': {
                         'language': {
-                            'value': $in.response.form_data.language.value
-                        }
-                    }
+                            'value': $in.response.form_data.language.value,
+                        },
+                    },
                 },
                 'data_back': {
-                    'step': 'step_save_config_response'
-                }
+                    'step': 'step_save_config_response',
+                },
             });
         }
 
-        if ($in.step === 'step_save_config_response')
-        {
+        if ($in.step === 'step_save_config_response') {
             $in.step = 'step_end';
             if ($in.answer === 'true') {
                 $ok = 'true';
@@ -383,7 +370,7 @@ function infohub_configlocal_language() {
         return {
             'answer': $in.answer,
             'message': $in.message,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -396,30 +383,30 @@ function infohub_configlocal_language() {
      * @since 2019-10-19
      * @author Peter Lembke
      */
-    $functions.push("apply_config");
-    const apply_config = function ($in)
-    {
+    $functions.push('apply_config');
+    const apply_config = function($in) {
         const $default = {
             'local_config': {
                 'language': {
-                    'value': ''
-                }
+                    'value': '',
+                },
             },
             'step': 'step_apply_config',
             'response': {
                 'answer': 'true',
-                'message': 'Nothing to report'
+                'message': 'Nothing to report',
             },
             'config': {
-                'user_name': ''
-            }
+                'user_name': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_apply_config')
-        {
-            if ($in.local_config.language.value === '' || $in.config.user_name === 'guest') {
-                const $languageCountry = navigator.language || navigator.userLanguage;
+        if ($in.step === 'step_apply_config') {
+            if ($in.local_config.language.value === '' ||
+                $in.config.user_name === 'guest') {
+                const $languageCountry = navigator.language ||
+                    navigator.userLanguage;
                 let $parts = $languageCountry.split('-');
                 const $language = $parts[0].toLowerCase();
 
@@ -428,19 +415,19 @@ function infohub_configlocal_language() {
                         'to': {
                             'node': 'client',
                             'plugin': 'infohub_configlocal',
-                            'function': 'submit'
+                            'function': 'submit',
                         },
                         'data': {
                             'event_data': 'language',
                             'form_data': {
                                 'language': {
-                                    'value': $language
-                                }
-                            }
+                                    'value': $language,
+                                },
+                            },
                         },
                         'data_back': {
-                            'step': 'step_save_config_response'
-                        }
+                            'step': 'step_save_config_response',
+                        },
                     });
                 }
             }
@@ -448,9 +435,10 @@ function infohub_configlocal_language() {
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
 
     };
 }
+
 //# sourceURL=infohub_configlocal_language.js

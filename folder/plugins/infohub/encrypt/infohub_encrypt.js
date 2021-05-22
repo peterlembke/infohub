@@ -27,7 +27,7 @@
  */
 function infohub_encrypt() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -44,7 +44,7 @@ function infohub_encrypt() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -53,7 +53,7 @@ function infohub_encrypt() {
         const $list = {
             'encrypt': 'normal',
             'decrypt': 'normal',
-            'get_available_options': 'normal'
+            'get_available_options': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -73,8 +73,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('encrypt');
-    const encrypt = function ($in)
-    {
+    const encrypt = function($in) {
         const $default = {
             'text': '',
             'password': '',
@@ -83,13 +82,12 @@ function infohub_encrypt() {
             'response': {
                 'answer': 'false',
                 'message': '-',
-                'data': ''
-            }
+                'data': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $in.step = 'step_call_child';
 
             if (_Empty($in.text) === 'true') {
@@ -114,32 +112,30 @@ function infohub_encrypt() {
             }
         }
 
-        if ($in.step === 'step_call_child')
-        {
+        if ($in.step === 'step_call_child') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_encrypt_' + $in.method,
-                    'function': 'encrypt'
+                    'function': 'encrypt',
                 },
                 'data': {
                     'text': $in.text,
                     'password': $in.password,
                 },
                 'data_back': {
-                    'step': 'step_call_child_response'
-                }
+                    'step': 'step_call_child_response',
+                },
             });
         }
 
-        if ($in.step === 'step_call_child_response')
-        {
+        if ($in.step === 'step_call_child_response') {
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -152,8 +148,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('decrypt');
-    const decrypt = function ($in)
-    {
+    const decrypt = function($in) {
         const $default = {
             'encrypted_text': '',
             'password': '',
@@ -162,13 +157,12 @@ function infohub_encrypt() {
             'response': {
                 'answer': 'false',
                 'message': '-',
-                'data': ''
-            }
+                'data': '',
+            },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $in.step = 'step_call_child';
 
             if (_Empty($in.encrypted_text) === 'true') {
@@ -193,32 +187,30 @@ function infohub_encrypt() {
             }
         }
 
-        if ($in.step === 'step_call_child')
-        {
+        if ($in.step === 'step_call_child') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_encrypt_' + $in.method,
-                    'function': 'decrypt'
+                    'function': 'decrypt',
                 },
                 'data': {
                     'encrypted_text': $in.encrypted_text,
                     'password': $in.password,
                 },
                 'data_back': {
-                    'step': 'step_call_child_response'
-                }
+                    'step': 'step_call_child_response',
+                },
             });
         }
 
-        if ($in.step === 'step_call_child_response')
-        {
+        if ($in.step === 'step_call_child_response') {
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'data': $in.response.data
+            'data': $in.response.data,
         };
     };
 
@@ -232,28 +224,29 @@ function infohub_encrypt() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function ($in)
-    {
+    const get_available_options = function($in) {
         const $methods = _GetAvailableMethods();
         let $options = [];
 
         for (let $key in $methods) {
             if ($methods.hasOwnProperty($key)) {
                 const $method = $methods[$key];
-                $options.push({"type": "option", "value": $method, "label": $method });
+                $options.push(
+                    {'type': 'option', 'value': $method, 'label': $method});
             }
         }
 
         return {
             'answer': 'true',
             'message': 'List of valid encoding methods.',
-            'options': $options
+            'options': $options,
         };
     };
 
-    const _GetAvailableMethods = function ($in) {
-        return ['pgp','none'];
+    const _GetAvailableMethods = function($in) {
+        return ['pgp', 'none'];
     };
 
 }
+
 //# sourceURL=infohub_encrypt.js

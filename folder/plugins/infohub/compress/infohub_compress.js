@@ -13,7 +13,7 @@
  */
 function infohub_compress() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -29,7 +29,7 @@ function infohub_compress() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false'
+            'core_plugin': 'false',
         };
     };
 
@@ -37,7 +37,7 @@ function infohub_compress() {
         const $list = {
             'compress': 'normal',
             'uncompress': 'normal',
-            'get_available_options': 'normal'
+            'get_available_options': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -55,9 +55,8 @@ function infohub_compress() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("compress");
-    const compress = function($in)
-    {
+    $functions.push('compress');
+    const compress = function($in) {
         const $default = {
             'compression_method': 'gzip',
             'uncompressed_data': '',
@@ -65,20 +64,19 @@ function infohub_compress() {
             'data_back': {
                 'uncompressed_length': 0,
                 'compressed_length': 0,
-                'size_percent_of_original': 0.0
+                'size_percent_of_original': 0.0,
             },
             'response': {
                 'answer': 'false',
                 'message': 'Could not compress the data',
-                'compressed_data': ''
-            }
+                'compressed_data': '',
+            },
         };
         $in = _Default($default, $in);
 
         let $functionName;
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $in.data_back.uncompressed_length = $in.uncompressed_data.length;
 
             $in.step = 'step_ask_child_plugin';
@@ -89,31 +87,29 @@ function infohub_compress() {
             }
         }
 
-        if ($in.step === 'step_ask_child_plugin')
-        {
+        if ($in.step === 'step_ask_child_plugin') {
             const $pluginName = 'infohub_compress_' + $in.compression_method;
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
-                    'function': 'compress'
+                    'function': 'compress',
                 },
                 'data': {
-                    'uncompressed_data': $in.uncompressed_data
+                    'uncompressed_data': $in.uncompressed_data,
                 },
                 'data_back': {
                     'compression_method': $in.compression_method,
                     'uncompressed_length': $in.data_back.uncompressed_length,
-                    'step': 'step_calculate_compressed_data_length'
+                    'step': 'step_calculate_compressed_data_length',
                 },
             });
         }
 
-        if ($in.step === 'step_ask_function')
-        {
+        if ($in.step === 'step_ask_function') {
             const $response = internal_Cmd({
                 'func': $functionName,
-                'uncompressed_data': $in.uncompressed_data
+                'uncompressed_data': $in.uncompressed_data,
             });
 
             $in.response.answer = $response.answer;
@@ -122,14 +118,14 @@ function infohub_compress() {
             $in.step = 'step_calculate_compressed_data_length';
         }
 
-        if ($in.step === 'step_calculate_compressed_data_length')
-        {
+        if ($in.step === 'step_calculate_compressed_data_length') {
             const $uncompressedLength = $in.data_back.uncompressed_length;
 
             const $compressedLength = $in.response.compressed_data.length;
             $in.data_back.compressed_length = $compressedLength;
 
-            $in.data_back.size_percent_of_original = $compressedLength / $uncompressedLength * 100.0;
+            $in.data_back.size_percent_of_original = $compressedLength /
+                $uncompressedLength * 100.0;
         }
 
         return {
@@ -139,7 +135,7 @@ function infohub_compress() {
             'compression_method': $in.compression_method,
             'uncompressed_length': $in.data_back.uncompressed_length,
             'compressed_length': $in.data_back.compressed_length,
-            'size_percent_of_original': $in.data_back.size_percent_of_original
+            'size_percent_of_original': $in.data_back.size_percent_of_original,
         };
     };
 
@@ -151,9 +147,8 @@ function infohub_compress() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("uncompress");
-    const uncompress = function($in)
-    {
+    $functions.push('uncompress');
+    const uncompress = function($in) {
         const $default = {
             'compression_method': 'gzip',
             'compressed_data': '',
@@ -161,21 +156,20 @@ function infohub_compress() {
             'data_back': {
                 'uncompressed_length': 0,
                 'compressed_length': 0,
-                'size_percent_of_original': 0.0
+                'size_percent_of_original': 0.0,
             },
             'response': {
                 'answer': 'false',
                 'message': 'Could not compress the data',
-                'uncompressed_data': ''
-            }
+                'uncompressed_data': '',
+            },
         };
 
         let $functionName;
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $in.data_back.compressed_length = $in.compressed_data.length;
 
             $in.step = 'step_ask_child_plugin';
@@ -186,31 +180,29 @@ function infohub_compress() {
             }
         }
 
-        if ($in.step === 'step_ask_child_plugin')
-        {
+        if ($in.step === 'step_ask_child_plugin') {
             const $pluginName = 'infohub_compress_' + $in.compression_method;
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
-                    'function': 'uncompress'
+                    'function': 'uncompress',
                 },
                 'data': {
-                    'compressed_data': $in.compressed_data
+                    'compressed_data': $in.compressed_data,
                 },
                 'data_back': {
                     'compression_method': $in.compression_method,
                     'compressed_length': $in.data_back.compressed_length,
-                    'step': 'step_calculate_uncompressed_data_length'
-                }
+                    'step': 'step_calculate_uncompressed_data_length',
+                },
             });
         }
 
-        if ($in.step === 'step_ask_function')
-        {
+        if ($in.step === 'step_ask_function') {
             const $response = internal_Cmd({
                 'func': $functionName,
-                'compressed_data': $in.compressed_data
+                'compressed_data': $in.compressed_data,
             });
 
             $in.response.answer = $response.answer;
@@ -219,16 +211,15 @@ function infohub_compress() {
             $in.step = 'step_calculate_uncompressed_data_length';
         }
 
-        if ($in.step === 'step_calculate_uncompressed_data_length')
-        {
+        if ($in.step === 'step_calculate_uncompressed_data_length') {
             const $compressedLength = $in.data_back.compressed_length;
 
             const $uncompressedLength = $in.response.uncompressed_data.length;
             $in.data_back.uncompressed_length = $uncompressedLength;
 
-            $in.data_back.size_percent_of_original = $compressedLength / $uncompressedLength * 100.0;
+            $in.data_back.size_percent_of_original = $compressedLength /
+                $uncompressedLength * 100.0;
         }
-
 
         return {
             'answer': $in.response.answer,
@@ -237,7 +228,7 @@ function infohub_compress() {
             'compression_method': $in.compression_method,
             'uncompressed_length': $in.data_back.uncompressed_length,
             'compressed_length': $in.data_back.compressed_length,
-            'size_percent_of_original': $in.data_back.size_percent_of_original
+            'size_percent_of_original': $in.data_back.size_percent_of_original,
         };
     };
 
@@ -257,19 +248,19 @@ function infohub_compress() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function ($in)
-    {
+    const get_available_options = function($in) {
         const $options = [
-            {"type": "option", "value": 'gzip', "label": 'Gzip' },
-            {"type": "option", "value": 'lz', "label": 'LZ' }
+            {'type': 'option', 'value': 'gzip', 'label': 'Gzip'},
+            {'type': 'option', 'value': 'lz', 'label': 'LZ'},
         ];
 
         return {
             'answer': 'true',
             'message': 'List of valid compression methods.',
-            'options': $options
+            'options': $options,
         };
     };
 
 }
+
 //# sourceURL=infohub_compress.js

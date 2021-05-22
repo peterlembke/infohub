@@ -17,11 +17,11 @@
  */
 function infohub_doc_document() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
-    const _Version = function () {
+    const _Version = function() {
         return {
             'date': '2019-04-16',
             'since': '2019-04-16',
@@ -31,16 +31,16 @@ function infohub_doc_document() {
             'note': 'Render a document',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
-            'title': 'Document'
+            'title': 'Document',
         };
     };
 
-    const _GetCmdFunctions = function () {
+    const _GetCmdFunctions = function() {
         const $list = {
             'setup_gui': 'normal',
             'view_document': 'normal',
             'click_link': 'normal',
-            'get_document_html': 'normal'
+            'get_document_html': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -53,7 +53,7 @@ function infohub_doc_document() {
     // * Can only be reached trough cmd()
     // ***********************************************************
 
-    $functions.push("_GetBoxId");
+    $functions.push('_GetBoxId');
     const _GetBoxId = function($child) {
 
         if (_Empty($child) === 'true') {
@@ -72,8 +72,7 @@ function infohub_doc_document() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -81,25 +80,24 @@ function infohub_doc_document() {
             'response': {
                 'answer': '',
                 'message': '',
-                'data': {}
-            }
+                'data': {},
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
-            const $headLabel = _Translate('Document');
-            const $headText = _Translate('Here you will see the document');
+            const $headLabel = _Translate('DOCUMENT');
+            const $headText = _Translate('HERE_YOU_WILL_SEE_THE_DOCUMENT');
             const $boxId = _GetBoxId('document');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -109,28 +107,28 @@ function infohub_doc_document() {
                             'head_label': $headLabel,
                             'head_text': $headText,
                             'content_data': '',
-                        }
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[major_box]'
+                        'text': '[major_box]',
                     },
                     'where': {
                         'box_id': $boxId,
                         'max_width': 100, // percent
-                        'scroll_to_box_id': 'false'
+                        'scroll_to_box_id': 'false',
                     },
-                    'cache_key': 'document'
+                    'cache_key': 'document',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'plugin GUI is done'
+            'message': 'plugin GUI is done',
         };
 
     };
@@ -143,9 +141,8 @@ function infohub_doc_document() {
      * @since 2019-06-08
      * @author Peter Lembke
      */
-    $functions.push("view_document");
-    const view_document = function ($in)
-    {
+    $functions.push('view_document');
+    const view_document = function($in) {
         const $boxId = _GetBoxId('document');
 
         const $default = {
@@ -157,36 +154,34 @@ function infohub_doc_document() {
                 'answer': 'false',
                 'message': 'There was an error',
                 'document_data': {
-                    'document': ''
+                    'document': '',
                 },
                 'what': {},
                 'how': '',
-                'ok': 'false'
-            }
+                'ok': 'false',
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_get_document')
-        {
+        if ($in.step === 'step_get_document') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_get',
-                    'function': 'get_document'
+                    'function': 'get_document',
                 },
                 'data': {
                     'area': $in.area,
-                    'document_name': $in.document_name
+                    'document_name': $in.document_name,
                 },
                 'data_back': {
-                    'step': 'step_view_document'
-                }
+                    'step': 'step_view_document',
+                },
             });
         }
 
-        if ($in.step === 'step_view_document')
-        {
+        if ($in.step === 'step_view_document') {
             let $markdownText = $in.response.document_data.document;
             $markdownText = _UpdateNavigationLinks($markdownText);
 
@@ -194,7 +189,7 @@ function infohub_doc_document() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -202,23 +197,23 @@ function infohub_doc_document() {
                             'plugin': 'infohub_renderdocument',
                             'type': 'document',
                             'text': $markdownText,
-                            'what': {} // See infohub_demo_document. You can insert any render object.
-                        }
+                            'what': {}, // See infohub_demo_document. You can insert any render object.
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_document]'
+                        'text': '[my_document]',
                     },
                     'where': {
                         'box_id': $in.box_id,
                         'max_width': 0, // pixels
                         'set_visible': 'true',
-                        'scroll_to_box_id': 'true'
-                    }
+                        'scroll_to_box_id': 'true',
+                    },
                 },
                 'data_back': {
-                    'step': 'step_view_document_response'
-                }
+                    'step': 'step_view_document_response',
+                },
             });
 
         }
@@ -233,7 +228,7 @@ function infohub_doc_document() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
 
     };
@@ -249,8 +244,7 @@ function infohub_doc_document() {
      * @returns {*|void|string}
      * @private
      */
-    const _UpdateNavigationLinks = function ($text)
-    {
+    const _UpdateNavigationLinks = function($text) {
         const $notFound = -1;
 
         let $first = 0,
@@ -258,8 +252,7 @@ function infohub_doc_document() {
             $modifiedText = $text,
             $leave = 40;
 
-        while ($text.indexOf('](', $second) !== $notFound && $leave > 0)
-        {
+        while ($text.indexOf('](', $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
 
             $second = $text.indexOf('](', $second);
@@ -276,7 +269,7 @@ function infohub_doc_document() {
                 continue;
             }
 
-            if ($url.indexOf("\n") !== $notFound) {
+            if ($url.indexOf('\n') !== $notFound) {
                 continue;
             }
 
@@ -312,9 +305,8 @@ function infohub_doc_document() {
      * @since 2019-04-14
      * @author Peter Lembke
      */
-    $functions.push("click_link");
-    const click_link = function ($in)
-    {
+    $functions.push('click_link');
+    const click_link = function($in) {
         const $default = {
             'area': '',
             'document_name': '',
@@ -322,34 +314,33 @@ function infohub_doc_document() {
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
-                'ok': 'false'
-            }
+                'ok': 'false',
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc_document',
-                    'function': 'view_document'
+                    'function': 'view_document',
                 },
                 'data': {
                     'area': $in.area,
-                    'document_name': $in.document_name
+                    'document_name': $in.document_name,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
@@ -360,37 +351,35 @@ function infohub_doc_document() {
      * @since 2019-06-08
      * @author Peter Lembke
      */
-    $functions.push("get_document_html");
-    const get_document_html = function ($in)
-    {
+    $functions.push('get_document_html');
+    const get_document_html = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
                 'html': '',
-                'ok': 'false'
-            }
+                'ok': 'false',
+            },
         };
 
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             const $boxId = _GetBoxId('document');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'get_html'
+                    'function': 'get_html',
                 },
                 'data': {
-                    'id': $boxId
+                    'id': $boxId,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
@@ -398,8 +387,9 @@ function infohub_doc_document() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'document_html': $in.response.html,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 }
+
 //# sourceURL=infohub_doc_document.js

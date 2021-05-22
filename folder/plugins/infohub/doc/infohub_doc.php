@@ -27,14 +27,14 @@ class infohub_doc extends infohub_base
     /**
      * Version information for this plugin
      *
-     * @version 2019-05-30
+     * @return string[]
      * @since   2016-04-02
      * @author  Peter Lembke
-     * @return string[]
+     * @version 2019-05-30
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-05-30',
             'since' => '2016-04-02',
             'version' => '1.2.0',
@@ -44,24 +44,24 @@ class infohub_doc extends infohub_base
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
             'user_role' => 'user'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
      *
-     * @version 2019-05-30
+     * @return mixed
      * @since   2016-04-02
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-05-30
      */
     protected function _GetCmdFunctions(): array
     {
-        $list = array(
+        $list = [
             'get_document' => 'normal',
             'get_all_documents' => 'normal',
             'get_documents_list' => 'normal'
-        );
+        ];
 
         return parent::_GetCmdFunctionsBase($list);
     }
@@ -69,10 +69,10 @@ class infohub_doc extends infohub_base
     /**
      * Used by the cmd functions to get the file extension.
      * All other functions must be general and not assume we want to use this extension
-     * @version 2019-05-30
+     * @return string
      * @since   2016-04-02
      * @author  Peter Lembke
-     * @return string
+     * @version 2019-05-30
      */
     protected function _GetFileExtension(): string
     {
@@ -82,30 +82,32 @@ class infohub_doc extends infohub_base
     /**
      * Returns the document with embedded images
      *
-     * @version 2017-07-14
-     * @since   2017-07-14
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-07-14
+     * @since   2017-07-14
      */
     protected function get_document(array $in = []): array
     {
-        $default = array(
+        $default = [
             'area' => 'main', // main or plugin
             'document_name' => 'main',
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $fileExtension = $this->_GetFileExtension();
 
-        $response = $this->internal_Cmd(array(
-            'func' => 'GetDocument',
-            'area' => $in['area'],
-            'document_name' => $in['document_name'],
-            'checksum' => $in['checksum'],
-            'file_extension' => $fileExtension
-        ));
+        $response = $this->internal_Cmd(
+            [
+                'func' => 'GetDocument',
+                'area' => $in['area'],
+                'document_name' => $in['document_name'],
+                'checksum' => $in['checksum'],
+                'file_extension' => $fileExtension
+            ]
+        );
 
         return $response;
     }
@@ -113,20 +115,20 @@ class infohub_doc extends infohub_base
     /**
      * Returns the Markdown documentation text
      *
-     * @version 2017-07-14
-     * @since   2017-07-14
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-07-14
+     * @since   2017-07-14
      */
     protected function internal_GetDocument(array $in = []): array
     {
-        $default = array(
+        $default = [
             'area' => 'main', // main or plugin
             'document_name' => 'main',
             'checksum' => '',
             'file_extension' => 'md'
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $area = $in['area'];
@@ -148,10 +150,10 @@ class infohub_doc extends infohub_base
             $message = 'The data you already have is valid. Keep using it';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
-            'data' => array(
+            'data' => [
                 'document' => $docContents,
                 'area' => $in['area'],
                 'document_name' => $in['document_name'],
@@ -160,24 +162,24 @@ class infohub_doc extends infohub_base
                 'provided_checksum' => $in['checksum'],
                 'checksum' => $checksum,
                 'checksum_same' => $checksumSame
-            )
-        );
+            ]
+        ];
     }
 
     /**
      * Get a list with all available documents
      *
-     * @version 2017-09-28
-     * @since   2017-09-28
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2017-09-28
+     * @since   2017-09-28
      */
     protected function get_documents_list(array $in = []): array
     {
-        $default = array(
+        $default = [
             'checksum' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $checksumSame = 'false';
@@ -185,33 +187,31 @@ class infohub_doc extends infohub_base
 
         $fileExtension = $this->_GetFileExtension();
 
-        $data = array(
+        $data = [
             'main' => $this->_GetAllDocNamesByArea('main', $fileExtension),
             'plugin' => $this->_GetAllDocNamesByArea('plugin', $fileExtension),
-        );
+        ];
 
         $findFirst = '# ';
         $findLast = "\n";
 
         $dataOut = [];
-        foreach ($data as $area => $docNames)
-        {
+        foreach ($data as $area => $docNames) {
             $dataOut[$area] = [];
             $basePath = $this->_GetBasePath($area);
 
-            foreach ($docNames as $docName)
-            {
+            foreach ($docNames as $docName) {
                 $docFileName = $this->_GetFileName($area, $docName, $fileExtension, $basePath);
                 $docContents = $this->_GetFileContents($docFileName);
                 $label = $this->_GetPartOfString($docContents, $findFirst, $findLast);
 
                 $label = str_replace('_', ' ', $label);
 
-                $dataOut[$area][$docName] = array(
+                $dataOut[$area][$docName] = [
                     'doc_name' => $docName,
                     'label' => $label,
                     'area' => $area
-                );
+                ];
             }
         }
 
@@ -224,60 +224,60 @@ class infohub_doc extends infohub_base
             $message = 'The data you already have is valid. Keep using it';
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => $message,
-            'data' => array(
+            'data' => [
                 'data' => $dataOut,
                 'time_stamp' => $this->_TimeStamp(),
                 'micro_time' => $this->_MicroTime(),
                 'provided_checksum' => $in['checksum'],
                 'checksum' => $checksum,
                 'checksum_same' => $checksumSame
-            )
-        );
+            ]
+        ];
     }
 
     /**
      * Add links to root documents that normally is not displayed in the doc index
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param array $dataOut
      * @return array
+     * @author  Peter Lembke
+     * @version 2019-05-30
+     * @since   2016-04-02
      */
     protected function _AddRootDocuments(array $dataOut = []): array
     {
-        $dataOut['root']['root'] = array(
+        $dataOut['root']['root'] = [
             'doc_name' => 'root',
             'label' => 'root',
             'area' => 'root'
-        );
+        ];
 
-        $dataOut['root']['CHANGELOG'] = array(
+        $dataOut['root']['CHANGELOG'] = [
             'doc_name' => 'CHANGELOG',
             'label' => 'CHANGELOG',
             'area' => 'root'
-        );
+        ];
 
-        $dataOut['root']['TERMS'] = array(
+        $dataOut['root']['TERMS'] = [
             'doc_name' => 'TERMS',
             'label' => 'TERMS',
             'area' => 'root'
-        );
+        ];
 
-        $dataOut['root']['LICENSE'] = array(
+        $dataOut['root']['LICENSE'] = [
             'doc_name' => 'LICENSE',
             'label' => 'LICENSE',
             'area' => 'root'
-        );
+        ];
 
-        $dataOut['root']['README'] = array(
+        $dataOut['root']['README'] = [
             'doc_name' => 'README',
             'label' => 'README',
             'area' => 'root'
-        );
+        ];
 
         return $dataOut;
     }
@@ -285,11 +285,11 @@ class infohub_doc extends infohub_base
     /**
      * Returns all documents in one big array
      *
-     * @version 2018-10-23
-     * @since   2018-10-23
-     * @author  Peter Lembke
      * @param array $in
      * @return array
+     * @author  Peter Lembke
+     * @version 2018-10-23
+     * @since   2018-10-23
      */
     protected function get_all_documents(array $in = []): array
     {
@@ -300,32 +300,32 @@ class infohub_doc extends infohub_base
 
         $fileExtension = $this->_GetFileExtension();
 
-        $data = array(
+        $data = [
             'main' => $this->_GetAllDocNamesByArea('main', $fileExtension),
             'plugin' => $this->_GetAllDocNamesByArea('plugin', $fileExtension),
-        );
+        ];
 
-        foreach ($data as $area => $docNamesArray)
-        {
-            foreach ($docNamesArray as $docName)
-            {
-                $response = $this->internal_Cmd(array(
-                    'func' => 'GetDocument',
-                    'area' => $area,
-                    'document_name' => $docName,
-                    'file_extension' => $fileExtension
-                ));
+        foreach ($data as $area => $docNamesArray) {
+            foreach ($docNamesArray as $docName) {
+                $response = $this->internal_Cmd(
+                    [
+                        'func' => 'GetDocument',
+                        'area' => $area,
+                        'document_name' => $docName,
+                        'file_extension' => $fileExtension
+                    ]
+                );
 
                 $path = 'infohub_doc/document/' . $area . '/' . $docName;
                 $dataOut[$path] = $response['data'];
             }
         }
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'Here are all doc files. Ready to be saved locally',
             'data' => $dataOut
-        );
+        ];
     }
 
     /**
@@ -334,12 +334,12 @@ class infohub_doc extends infohub_base
      * Converts string to lower case, removes all characters except a-z and 0-9 and underscore.
      * Checks that there are at least one underscore or else returns an empty string
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $area
      * @param string $name
      * @return string
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      */
     protected function _CleanName(string $area = '', string $name = ''): string
     {
@@ -364,18 +364,22 @@ class infohub_doc extends infohub_base
     /**
      * Constructs a path to a file and returns that path to you.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $area
      * @param string $name | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $extension | md or markdown
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
+     * @author  Peter Lembke
+     * @version 2019-05-30
+     * @since   2016-04-02
      */
-    protected function _GetFileName(string $area = '', string $name = '', string $extension = 'md', string $basePath = ''): string
-    {
-        $okExtensions = array('md', 'markdown', 'css');
+    protected function _GetFileName(
+        string $area = '',
+        string $name = '',
+        string $extension = 'md',
+        string $basePath = ''
+    ): string {
+        $okExtensions = ['md', 'markdown', 'css'];
         if (in_array($extension, $okExtensions) === false) {
             return '';
         }
@@ -395,13 +399,13 @@ class infohub_doc extends infohub_base
     /**
      * I will construct a path and return that path to you.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $docName | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $imageName
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @version 2019-05-30
      */
     protected function _GetImageFileName(string $docName = '', string $imageName = '', string $basePath = ''): string
     {
@@ -416,21 +420,21 @@ class infohub_doc extends infohub_base
      *
      * Right now two areas are supported: plugin and main.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $area | main or plugin
      * @return string
+     * @author  Peter Lembke
+     * @version 2019-05-30
+     * @since   2016-04-02
      */
     protected function _GetBasePath(string $area = 'main'): string
     {
         $basePath = '';
 
-        $validPaths = array(
+        $validPaths = [
             'plugin' => PLUGINS,
             'main' => DOC,
             'root' => ROOT,
-        );
+        ];
 
         if (isset($validPaths[$area])) {
             $basePath = $validPaths[$area];
@@ -442,11 +446,11 @@ class infohub_doc extends infohub_base
     /**
      * Returns the file contents or an empty string.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $file
      * @return string
+     * @author  Peter Lembke
+     * @version 2019-05-30
+     * @since   2016-04-02
      */
     protected function _GetFileContents(string $file = ''): string
     {
@@ -463,14 +467,14 @@ class infohub_doc extends infohub_base
      *
      * When the url do not have any / in it then we embed an image.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
-     * @uses _ImageHtml
      * @param string $text
      * @param string $docName
      * @param string $area
      * @return string
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @uses _ImageHtml
      */
     protected function _HandleImages(string $text = '', string $docName = '', string $area = ''): string
     {
@@ -480,19 +484,20 @@ class infohub_doc extends infohub_base
 
         $imageNamesArray = $this->_GetAllImageNamesByAreaAndDocName($area, $docName);
 
-        foreach ($imageNamesArray as $imageName)
-        {
+        foreach ($imageNamesArray as $imageName) {
             $find = '(' . $imageName . ')';
 
             if (strpos($text, $find) === false) {
                 continue;
             }
 
-            $imageBase64Data = $this->_ImageBase64Data(array(
-                'area' => $area,
-                'doc_name' => $docName,
-                'image_name' => $imageName
-            ));
+            $imageBase64Data = $this->_ImageBase64Data(
+                [
+                    'area' => $area,
+                    'doc_name' => $docName,
+                    'image_name' => $imageName
+                ]
+            );
 
             $replaceWith = '(' . $imageBase64Data . ')';
 
@@ -508,19 +513,19 @@ class infohub_doc extends infohub_base
      * {{command=image|image_name=my_image.png|label=My text under the image|doc_name=optional_doc_name|area=optional area name}}
      * doc_name and area are optional parameters. If omitted then the document doc_name and area are used.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param array $in
      * @return string
+     * @author  Peter Lembke
+     * @version 2019-05-30
+     * @since   2016-04-02
      */
     protected function _ImageBase64Data(array $in = []): string
     {
-        $default = array(
+        $default = [
             'area' => '',
             'doc_name' => '',
             'image_name' => ''
-        );
+        ];
         $in = $this->_Default($default, $in);
 
         $basePath = $this->_GetBasePath($in['area']);
@@ -541,12 +546,12 @@ class infohub_doc extends infohub_base
     /**
      * Get array with all doc names for an area
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $area
      * @param string $fileExtension
      * @return array
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      */
     protected function _GetAllDocNamesByArea(string $area = 'main', string $fileExtension = 'md'): array
     {
@@ -564,12 +569,12 @@ class infohub_doc extends infohub_base
     /**
      * Get array with all image names for a document in an area
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $area
      * @param string $docName
      * @return array
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      */
     protected function _GetAllImageNamesByAreaAndDocName(string $area = 'main', $docName = ''): array
     {
@@ -593,13 +598,13 @@ class infohub_doc extends infohub_base
     /**
      * Find part of a string between the start and stop strings
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param string $string
      * @param string $findFirst
      * @param string $findLast
      * @return string
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @version 2019-05-30
      */
     protected function _GetPartOfString(string $string = '', string $findFirst = '', string $findLast = ''): string
     {
@@ -626,19 +631,18 @@ class infohub_doc extends infohub_base
     /**
      * Pull out the actual doc file name on each file path
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
      * @param array $fileNamesArray
      * @param string $basePath
      * @return array
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      */
     protected function _GetAllDocNames(array $fileNamesArray = [], string $basePath = ''): array
     {
         $docNamesArray = [];
 
-        foreach ($fileNamesArray as $fullFileNameWithPath)
-        {
+        foreach ($fileNamesArray as $fullFileNameWithPath) {
             $fileNameParts = pathinfo($fullFileNameWithPath);
 
             $fileName = $fileNameParts['filename'];
@@ -647,7 +651,7 @@ class infohub_doc extends infohub_base
                 continue; // I only accept lower case file names
             }
 
-            $directory = substr($fileNameParts['dirname'], strlen($basePath)+1);
+            $directory = substr($fileNameParts['dirname'], strlen($basePath) + 1);
             $directory = str_replace('/', '_', $directory);
 
             if ($directory !== $fileName) {
@@ -663,24 +667,23 @@ class infohub_doc extends infohub_base
     /**
      * Give a search pattern. Get array with found files and paths.
      *
-     * @version 2019-05-30
-     * @since   2016-04-02
-     * @author  Peter Lembke
-     * @see https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/ Recursive
      * @param string $pattern | Example: $basePath . DS . '*.md';
      * @param int $flags
      * @return array
+     * @see https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/ Recursive
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
      */
     protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
     {
         $files = glob($pattern, $flags);
 
-        $directoryPattern = dirname($pattern).'/*';
-        $directoriesArray = glob($directoryPattern, GLOB_ONLYDIR|GLOB_NOSORT);
+        $directoryPattern = dirname($pattern) . '/*';
+        $directoriesArray = glob($directoryPattern, GLOB_ONLYDIR | GLOB_NOSORT);
 
-        foreach ($directoriesArray as $directory)
-        {
-            $subDirectoryPattern = $directory.'/'.basename($pattern);
+        foreach ($directoriesArray as $directory) {
+            $subDirectoryPattern = $directory . '/' . basename($pattern);
             $subDirectoryFiles = $this->_RecursiveSearch($subDirectoryPattern, $flags);
             $files = array_merge($files, $subDirectoryFiles);
         }

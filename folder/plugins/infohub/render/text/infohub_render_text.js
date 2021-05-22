@@ -19,7 +19,7 @@
  */
 function infohub_render_text() {
 
-    "use strict";
+    'use strict';
 
     // include "infohub_base.js"
 
@@ -32,13 +32,13 @@ function infohub_render_text() {
             'class_name': 'infohub_render_text',
             'note': 'Renders a text with embedded commands',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,14 +58,13 @@ function infohub_render_text() {
      * @returns {string}
      * @private
      */
-    const _GetId = function ($in)
-    {
+    const _GetId = function($in) {
         let $parameter = [];
 
         const $default = {
             'id': '',
             'name': '',
-            'class': ''
+            'class': '',
         };
         $in = _Default($default, $in);
 
@@ -105,11 +104,10 @@ function infohub_render_text() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'item_index': {},
-            'config': {}
+            'config': {},
         };
         $in = _Default($default, $in);
 
@@ -126,7 +124,7 @@ function infohub_render_text() {
                 'alias': '',
                 'text': '',
                 'class': 'text_article',
-                'css_data': {}
+                'css_data': {},
             };
             $data = _Default($defaultItem, $data);
             $data.config = $in.config;
@@ -136,7 +134,7 @@ function infohub_render_text() {
                     'answer': 'true',
                     'message': 'You must have something in "text"',
                     'html': '',
-                    'css_data': {}
+                    'css_data': {},
                 };
                 continue;
             }
@@ -148,7 +146,7 @@ function infohub_render_text() {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'html': '',
-                'css_data': {}
+                'css_data': {},
             };
             $response = _Default($defaultResponse, $response);
 
@@ -158,7 +156,7 @@ function infohub_render_text() {
         return {
             'answer': 'true',
             'message': 'Here is what I rendered',
-            'item_index': $itemIndex
+            'item_index': $itemIndex,
         };
     };
 
@@ -172,8 +170,7 @@ function infohub_render_text() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_Text = function ($in)
-    {
+    const internal_Text = function($in) {
         const $default = {
             'func': 'Text',
             'what_done': {},
@@ -193,22 +190,23 @@ function infohub_render_text() {
         }
 
         // And now we divide the text into rows
-        $in.text = $in.text.split("\n");
+        $in.text = $in.text.split('\n');
 
         let $cssData = $in.css_data;
 
         let $pCssAdded = 'false';
 
         // Each row get a <p> and a </p>
-        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth < $aliasDepth; $currentAliasDepth++)
-        {
+        for (let $currentAliasDepth = 0, $aliasDepth = $in.text.length; $currentAliasDepth <
+        $aliasDepth; $currentAliasDepth++) {
             if ($in.text[$currentAliasDepth].charAt(0) === ' ') {
-                $in.text[$currentAliasDepth] = '<p>' + $in.text[$currentAliasDepth].slice(1) + '</p>';
+                $in.text[$currentAliasDepth] = '<p>' +
+                    $in.text[$currentAliasDepth].slice(1) + '</p>';
 
                 if ($pCssAdded === 'false') {
                     const $baseCss = {
-                        'p:first-letter': 'font-size: 1.0em;'
-                    }
+                        'p:first-letter': 'font-size: 1.0em;',
+                    };
                     $cssData = _MergeStringData($baseCss, $cssData);
                     $pCssAdded = 'true';
                 }
@@ -218,14 +216,15 @@ function infohub_render_text() {
         // Put all rows together.
         $in.text = $in.text.join('');
         if ($in.class !== '') {
-            const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class });
+            const $id = _GetId(
+                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
             $in.text = '<div ' + $id + '>' + $in.text + '</div>';
         }
 
         if ($in.class === 'text_article') {
             const $baseCss = {
                 '.text_columns': 'column-width:280px; column-gap: 1em; font-size: 1em; padding: 0 0 1em;',
-                '.text_article': 'font: 14px/24px Times; margin: 3px 3px 3px 3px;'
+                '.text_article': 'font: 14px/24px Times; margin: 3px 3px 3px 3px;',
             };
             $cssData = _MergeStringData($baseCss, $cssData);
         }
@@ -234,27 +233,26 @@ function infohub_render_text() {
             'answer': 'true',
             'message': 'Here are the rendered text',
             'html': $in.text,
-            'css_data': $cssData
+            'css_data': $cssData,
         };
     };
 
-    const _CheckParts = function ($in)
-    {
+    const _CheckParts = function($in) {
         let $copy = $in.what_done,
             $next, $previous, $start, $stop, $part, $find, $html;
 
         // We find all [ and ]
-        $next = 0; $previous = -1;
+        $next = 0;
+        $previous = -1;
 
-        while ($in.text.indexOf('[', $next) > $previous)
-        {
+        while ($in.text.indexOf('[', $next) > $previous) {
             $start = $in.text.indexOf('[', $next);
             $stop = $in.text.indexOf(']', $start);
-            $part = $in.text.substring($start+1, $stop);
+            $part = $in.text.substring($start + 1, $stop);
             $find = '[' + $part + ']';
 
             $previous = $start;
-            $next = $start +1;
+            $next = $start + 1;
 
             if (typeof $copy[$part] !== 'undefined') {
                 const $textPart = _SvgIdsMoreUnique($part, $copy[$part]);
@@ -267,7 +265,7 @@ function infohub_render_text() {
 
             $html = _Exchange($part);
             if ($html !== '') {
-                $in.text = $in.text.replace($find,$html);
+                $in.text = $in.text.replace($find, $html);
                 continue;
             }
             // $in.text = $in.text.replace($find, ''); // If data can not be found for the part, then remove the part
@@ -282,19 +280,17 @@ function infohub_render_text() {
      * @since   2020-03-27
      * @author  Peter Lembke
      */
-    const _SvgIdsMoreUnique = function ($alias, $asset)
-    {
-        if ($asset.indexOf('<svg') >= 0)
-        {
-            $asset = _Replace("\n", '', $asset);
+    const _SvgIdsMoreUnique = function($alias, $asset) {
+        if ($asset.indexOf('<svg') >= 0) {
+            $asset = _Replace('\n', '', $asset);
 
             // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
-            $asset = _Replace("(#", '(#{alias}', $asset);
+            $asset = _Replace('(#', '(#{alias}', $asset);
             $asset = _Replace('id="', 'id="{alias}', $asset);
             $asset = _Replace('href="#', 'href="#{alias}', $asset);
 
             const $id = '{box_id}_' + $alias + '-';
-            $asset = _Replace("{alias}", $id, $asset);
+            $asset = _Replace('{alias}', $id, $asset);
         }
 
         return $asset;
@@ -307,8 +303,7 @@ function infohub_render_text() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const _Exchange = function ($find)
-    {
+    const _Exchange = function($find) {
         const $data = {
             ':-)': '☺',
             ':-(': '☹',
@@ -339,7 +334,7 @@ function infohub_render_text() {
             '/h6': '</h6>',
             'br': '<br>',
             'strike': '<strike>',
-            '/strike': '</strike>'
+            '/strike': '</strike>',
         };
 
         let $html = '';
@@ -350,4 +345,5 @@ function infohub_render_text() {
         return $html;
     };
 }
+
 //# sourceURL=infohub_render_text.js

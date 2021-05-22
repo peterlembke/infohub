@@ -1,4 +1,4 @@
-/**	infohub_password
+/**    infohub_password
 
  Copyright (C) 2017 Peter Lembke , CharZam soft
  the program is distributed under the terms of the GNU General Public License
@@ -14,11 +14,11 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with infohub_password.	If not, see <https://www.gnu.org/licenses/>.
+ along with infohub_password.    If not, see <https://www.gnu.org/licenses/>.
  */
 function infohub_password() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -34,13 +34,13 @@ function infohub_password() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'source_code': 'https://github.com/peterlembke/charzam-password-generator',
             'homepage': 'http://www.charzam.com/2016/12/27/battre-losenord/',
-            'user_role': 'user'
+            'user_role': 'user',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'generate': 'normal'
+            'generate': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -58,13 +58,12 @@ function infohub_password() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("generate");
-    const generate = function($in)
-    {
+    $functions.push('generate');
+    const generate = function($in) {
         const $default = {
             'number_of_passwords': 30, // Number of passwords you want to select from
             'password_length': 0, // wanted password length, give 0 for a random length 16-64 characters
-            'max_group_number': 4 // Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
+            'max_group_number': 4, // Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
         };
         $in = _Default($default, $in);
 
@@ -74,17 +73,20 @@ function infohub_password() {
             $lengthText = $in.password_length.toString();
         }
 
-        const $message = 'Password generator '  + $lengthText + " characters from group 0-" + $in.max_group_number + '.';
+        const $message = 'Password generator ' + $lengthText +
+            ' characters from group 0-' + $in.max_group_number + '.';
         let $passwordArray = [];
 
-        for (let $passwordNumber = $in.number_of_passwords; $passwordNumber > 0; $passwordNumber = $passwordNumber - 1) {
-            $passwordArray.push(_Generate($in.password_length, $in.max_group_number));
+        for (let $passwordNumber = $in.number_of_passwords; $passwordNumber >
+        0; $passwordNumber = $passwordNumber - 1) {
+            $passwordArray.push(
+                _Generate($in.password_length, $in.max_group_number));
         }
 
         return {
             'answer': 'true',
             'message': $message,
-            'passwords': $passwordArray
+            'passwords': $passwordArray,
         };
     };
 
@@ -94,8 +96,7 @@ function infohub_password() {
      * @param $maxGroupNumber | Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
      * @return string
      */
-    const _Generate = function($length, $maxGroupNumber)
-    {
+    const _Generate = function($length, $maxGroupNumber) {
         if ($length < 0) { $length = 0; }
         if ($maxGroupNumber < 0) { $maxGroupNumber = 0; }
         if ($maxGroupNumber > 4) { $maxGroupNumber = 4; }
@@ -109,7 +110,8 @@ function infohub_password() {
         for (let $key in $groupStringArray) {
             if ($groupStringArray.hasOwnProperty($key)) {
                 const $groupNumber = $groupStringArray[$key];
-                $result = $result + _GetRandomGroupCharacter($groupNumber, $maxGroupNumber);
+                $result = $result +
+                    _GetRandomGroupCharacter($groupNumber, $maxGroupNumber);
             }
         }
 
@@ -122,9 +124,8 @@ function infohub_password() {
      * A 16 character password is shamelessly small but some like it short.
      * @return mixed
      */
-    const _GetRandomLength = function()
-    {
-        return _Random(16,64);
+    const _GetRandomLength = function() {
+        return _Random(16, 64);
     };
 
     /**
@@ -136,8 +137,7 @@ function infohub_password() {
      * @param $length
      * @return string
      */
-    const _GetGroupString = function($length)
-    {
+    const _GetGroupString = function($length) {
         if ($length < 0) { $length = 64; }
 
         const $start = '0000011111222333344';
@@ -149,20 +149,20 @@ function infohub_password() {
         return $result;
     };
 
-    const _Shuffle = function($string)
-    {
-        const $characterArray = $string.split(""),
+    const _Shuffle = function($string) {
+        const $characterArray = $string.split(''),
             $characterCount = $characterArray.length;
 
-        for (let $characterNumber = $characterCount - 1; $characterNumber > 0; $characterNumber = $characterNumber - 1)
-        {
-            const $characterNewNumber = Math.floor(Math.random() * ($characterNumber + 1));
+        for (let $characterNumber = $characterCount - 1; $characterNumber >
+        0; $characterNumber = $characterNumber - 1) {
+            const $characterNewNumber = Math.floor(
+                Math.random() * ($characterNumber + 1));
             const $copyCharacter = $characterArray[$characterNumber];
             $characterArray[$characterNumber] = $characterArray[$characterNewNumber];
             $characterArray[$characterNewNumber] = $copyCharacter;
         }
 
-        return $characterArray.join("");
+        return $characterArray.join('');
     };
 
     /**
@@ -171,22 +171,20 @@ function infohub_password() {
      * @param $maxGroupNumber
      * @return string
      */
-    const _GetRandomGroupCharacter = function($groupNumber, $maxGroupNumber)
-    {
+    const _GetRandomGroupCharacter = function($groupNumber, $maxGroupNumber) {
         const $group = _GetGroupData($groupNumber, $maxGroupNumber);
         const $length = $group.length;
         if ($length <= 0) {
             return '';
         }
 
-        const $position = _Random(0, $length-1);
+        const $position = _Random(0, $length - 1);
         const $character = $group.substring($position, $position + 1);
 
         return $character;
     };
 
-    const _Random = function($min, $max)
-    {
+    const _Random = function($min, $max) {
         if ($min < 0) { $min = 0; }
         if ($max < 0) { $max = 0; }
 
@@ -200,8 +198,7 @@ function infohub_password() {
      * @param $maxGroupNumber | In some cases special characters are not allowed
      * @return mixed
      */
-    const _GetGroupData = function($groupNumber, $maxGroupNumber)
-    {
+    const _GetGroupData = function($groupNumber, $maxGroupNumber) {
         if ($groupNumber < 0) {
             $groupNumber = 0;
         }
@@ -223,10 +220,11 @@ function infohub_password() {
             1: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             2: '0123456789',
             3: '!#%&()=?+-*:;,._',
-            4: ' '
+            4: ' ',
         };
 
         return $data[$groupNumber];
     };
 }
+
 //# sourceURL=infohub_password.js

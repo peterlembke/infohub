@@ -17,7 +17,7 @@
  */
 function infohub_keyboard() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -32,7 +32,7 @@ function infohub_keyboard() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
@@ -48,12 +48,12 @@ function infohub_keyboard() {
             'gui_show_subscribers': 'normal',
             'demo_popup': 'normal',
             'all_keys_to_gui': 'normal',
-            'event_message': 'normal'
+            'event_message': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
     };
-    
+
     let $classTranslations = {};
 
     // *****************************************************************************
@@ -69,13 +69,12 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_ConvertToKey');
-    const _ConvertToKey = function ($in)
-    {
+    const _ConvertToKey = function($in) {
         const $default = {
             'alt_key': 'false',
             'ctrl_key': 'false',
             'shift_key': 'false',
-            'key_code': 0
+            'key_code': 0,
         };
         $in = _Default($default, $in);
 
@@ -110,8 +109,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_GetSubscribersMessages');
-    const _GetSubscribersMessages = function ($key)
-    {
+    const _GetSubscribersMessages = function($key) {
         const $data = _LoadData();
         const $realKey = $key;
 
@@ -129,14 +127,12 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_AddMessages');
-    const _AddMessages = function ($key, $realKey, $data, $messages)
-    {
+    const _AddMessages = function($key, $realKey, $data, $messages) {
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
 
-        for (let $from in $data[$key])
-        {
+        for (let $from in $data[$key]) {
             if ($data[$key].hasOwnProperty($from) === false) {
                 continue;
             }
@@ -147,7 +143,7 @@ function infohub_keyboard() {
 
             $message.data_back = {
                 'step': 'step_end',
-                'key': $key
+                'key': $key,
             };
 
             $message.data.key = $realKey;
@@ -165,8 +161,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_LoadData');
-    const _LoadData = function ()
-    {
+    const _LoadData = function() {
         const $jsonData = sessionStorage.getItem('infohub_keyboard');
         let $data = JSON.parse($jsonData);
         if (_Empty($data) === 'true') {
@@ -176,34 +171,58 @@ function infohub_keyboard() {
         const $staticSubscriptions = {
             'shift_alt_ctrl_49': { // 49 = "1"
                 'client|infohub_debug': {
-                    'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'reload_page'}
-                }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_debug',
+                        'function': 'reload_page',
+                    },
+                },
             },
             'shift_alt_ctrl_50': { // 50 = "2"
                 'client|infohub_debug': {
-                    'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'refresh_plugins_and_reload_page'}
-                }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_debug',
+                        'function': 'refresh_plugins_and_reload_page',
+                    },
+                },
             },
             'shift_alt_ctrl_51': { // 51 = "3"
                 'client|infohub_debug': {
-                    'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'clear_storage_and_reload_page'}
-                }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_debug',
+                        'function': 'clear_storage_and_reload_page',
+                    },
+                },
             },
             'shift_alt_ctrl_52': { // 52 = "4"
                 'client|infohub_debug': {
-                    'to': {'node': 'client', 'plugin': 'infohub_debug', 'function': 'set_cold_start_and_reload_page'}
-                }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_debug',
+                        'function': 'set_cold_start_and_reload_page',
+                    },
+                },
             },
             'shift_alt_ctrl_57': { // 57 = "9"
                 'client|infohub_login': {
-                    'to': {'node': 'client', 'plugin': 'infohub_render', 'function': 'delete_render_cache_for_user_name'}
-                }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render',
+                        'function': 'delete_render_cache_for_user_name',
+                    },
+                },
             },
             'shift_alt_ctrl_48': { // 48 = "0"
                 'client|infohub_login': {
-                    'to': {'node': 'client', 'plugin': 'infohub_login', 'function': 'logout'}
-                }
-            }
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_login',
+                        'function': 'logout',
+                    },
+                },
+            },
         };
         $data = _Merge($data, $staticSubscriptions);
 
@@ -217,8 +236,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('_SaveData');
-    const _SaveData = function ($data)
-    {
+    const _SaveData = function($data) {
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -239,11 +257,10 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function ($in)
-    {
+    const setup_gui = function($in) {
         const $default = {
             'box_id': '',
-            'step': 'step_get_translations'
+            'step': 'step_get_translations',
         };
         $in = _Merge($default, $in);
 
@@ -252,117 +269,119 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_translate',
-                    'function': 'get_translate_data'
+                    'function': 'get_translate_data',
                 },
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
-                    'step': 'step_get_translations_response'
-                }
+                    'step': 'step_get_translations_response',
+                },
             });
         }
 
-        if ($in.step === 'step_get_translations_response') {            
+        if ($in.step === 'step_get_translations_response') {
             $classTranslations = _ByVal($in.response.data);
             $in.step = 'step_start';
         }
 
-        if ($in.step === 'step_start')
-        {
+        if ($in.step === 'step_start') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
                         'my_presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Keyboard tests'),
+                            'head_label': _Translate('KEYBOARD_TESTS'),
                             'content_data': '[my_form]',
-                            'foot_text': _Translate('Try combinations on your keyboard for SHIFT + CTRL + ALT and another key. The combination form a string above.')
+                            'foot_text': _Translate('TRY_COMBINATIONS_ON_YOUR_KEYBOARD_FOR_SHIFT_+_CTRL_+_ALT_AND_ANOTHER_KEY._THE_COMBINATION_FORM_A_STRING_ABOVE.')
                         },
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[my_textbox][button_subscribe][button_unsubscribe][button_show_subscribers][my_container]'
+                            'content': '[my_textbox][button_subscribe][button_unsubscribe][button_show_subscribers][my_container]',
                         },
                         'my_textbox': {
                             'type': 'form',
                             'subtype': 'text',
-                            'input_type': 'text'
+                            'input_type': 'text',
                         },
                         'button_subscribe': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Subscribe'),
+                            'button_label': _Translate('SUBSCRIBE'),
                             'event_data': 'keyboard',
                             'to_plugin': 'infohub_keyboard',
-                            'to_function': 'gui_subscribe'
+                            'to_function': 'gui_subscribe',
                         },
                         'button_unsubscribe': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Unsubscribe'),
+                            'button_label': _Translate('UNSUBSCRIBE'),
                             'event_data': 'keyboard',
                             'to_plugin': 'infohub_keyboard',
-                            'to_function': 'gui_unsubscribe'
+                            'to_function': 'gui_unsubscribe',
                         },
                         'button_show_subscribers': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Show subscribers'),
+                            'button_label': _Translate('SHOW_SUBSCRIBERS'),
                             'event_data': 'keyboard',
                             'to_plugin': 'infohub_keyboard',
-                            'to_function': 'gui_show_subscribers'
+                            'to_function': 'gui_show_subscribers',
                         },
                         'my_container': {
                             'type': 'common',
-                            'subtype': 'codecontainer'
-                        }
+                            'subtype': 'codecontainer',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[my_presentation_box]'
+                        'text': '[my_presentation_box]',
                     },
                     'where': {
                         'box_id': $in.box_id,
                         'max_width': 320,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'keyboard'
+                    'cache_key': 'keyboard',
                 },
-                'data_back': {'step': 'step_subscribe'}
+                'data_back': {'step': 'step_subscribe'},
             });
         }
 
-        if ($in.step === 'step_subscribe')
-        {
+        if ($in.step === 'step_subscribe') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
-                    'function': 'subscribe'
+                    'function': 'subscribe',
                 },
                 'data': {
                     'subscriptions': {
                         'all': {
-                            'to': {'node': 'client', 'plugin': 'infohub_keyboard', 'function': 'all_keys_to_gui'}
-                        }
-                    }
+                            'to': {
+                                'node': 'client',
+                                'plugin': 'infohub_keyboard',
+                                'function': 'all_keys_to_gui',
+                            },
+                        },
+                    },
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': 'true',
-            'message': 'plugin GUI is done'
+            'message': 'plugin GUI is done',
         };
 
     };
@@ -377,34 +396,33 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    const subscribe = function ($in)
-    {
+    const subscribe = function($in) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
         const $from = $in.from_plugin.node + '|' + $in.from_plugin.plugin;
 
         const $messageOutDefault = {
-            'to': {'node': '', 'plugin': '', 'function': '' },
-            'data': {}
+            'to': {'node': '', 'plugin': '', 'function': ''},
+            'data': {},
         };
 
-        let $key= '', // If the loop break then I want to return $key
+        let $key = '', // If the loop break then I want to return $key
             $messageOut = {}, // If the loop break then I want to return $messageOut
             $answer = 'true',
             $message = 'Now you subscribe to the combinations you want';
 
         leave: {
-            for ($key in $in.subscriptions)
-            {
+            for ($key in $in.subscriptions) {
                 if ($in.subscriptions.hasOwnProperty($key) === false) {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault,
+                    $in.subscriptions[$key]);
 
                 if ($messageOut.to.node !== $in.from_plugin.node) {
                     $answer = 'false';
@@ -419,19 +437,19 @@ function infohub_keyboard() {
                 }
             }
 
-            for ($key in $in.subscriptions)
-            {
+            for ($key in $in.subscriptions) {
                 if ($in.subscriptions.hasOwnProperty($key) === false) {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault,
+                    $in.subscriptions[$key]);
 
                 const $response = internal_Cmd({
                     'func': 'Subscribe',
                     'from': $from,
                     'key': $key,
-                    'message': $messageOut
+                    'message': $messageOut,
                 });
 
                 if ($response.answer === 'false') {
@@ -447,7 +465,7 @@ function infohub_keyboard() {
             'message': $message,
             'key': $key,
             'from': $from,
-            'message_out': $messageOut
+            'message_out': $messageOut,
         };
     };
 
@@ -461,11 +479,10 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    const unsubscribe = function ($in)
-    {
+    const unsubscribe = function($in) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
@@ -476,14 +493,14 @@ function infohub_keyboard() {
                 internal_Cmd({
                     'func': 'Unsubscribe',
                     'from': $from,
-                    'key': $key
+                    'key': $key,
                 });
             }
         }
 
         return {
             'answer': 'true',
-            'message': 'Done with unsubscribing'
+            'message': 'Done with unsubscribing',
         };
     };
 
@@ -496,10 +513,9 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    const unsubscribe_all = function ($in)
-    {
+    const unsubscribe_all = function($in) {
         const $default = {
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' }
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
 
@@ -507,7 +523,7 @@ function infohub_keyboard() {
 
         return internal_Cmd({
             'func': 'UnsubscribeAll',
-            'from': $from
+            'from': $from,
         });
     };
 
@@ -518,12 +534,11 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    const internal_Subscribe = function ($in)
-    {
+    const internal_Subscribe = function($in) {
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
-            'message': {} // The message you want to send when key combination is pressed
+            'message': {}, // The message you want to send when key combination is pressed
         };
         $in = _Default($default, $in);
 
@@ -536,7 +551,7 @@ function infohub_keyboard() {
 
         return {
             'answer': 'true',
-            'message': 'Done storing subscription'
+            'message': 'Done storing subscription',
         };
     };
 
@@ -547,11 +562,10 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    const internal_Unsubscribe = function ($in)
-    {
+    const internal_Unsubscribe = function($in) {
         const $default = {
             'from': '',
-            'key': ''
+            'key': '',
         };
         $in = _Default($default, $in);
 
@@ -578,7 +592,7 @@ function infohub_keyboard() {
             'answer': 'true',
             'message': $message,
             'key': $in.key,
-            'changed': $changed
+            'changed': $changed,
         };
     };
 
@@ -589,10 +603,9 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    const internal_UnsubscribeAll = function ($in)
-    {
+    const internal_UnsubscribeAll = function($in) {
         const $default = {
-            'from': ''
+            'from': '',
         };
         $in = _Default($default, $in);
 
@@ -620,7 +633,7 @@ function infohub_keyboard() {
         return {
             'answer': 'true',
             'message': $message,
-            'changed': $changed
+            'changed': $changed,
         };
     };
 
@@ -631,11 +644,10 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_subscribe');
-    const gui_subscribe = function ($in)
-    {
+    const gui_subscribe = function($in) {
         const $default = {
             'step': 'step_start',
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -646,14 +658,14 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'get_text'
+                    'function': 'get_text',
                 },
                 'data': {
-                    'id': 'main.body.infohub_keyboard.[my_textbox]'
+                    'id': 'main.body.infohub_keyboard.[my_textbox]',
                 },
                 'data_back': {
-                    'step': 'step_start_response'
-                }
+                    'step': 'step_start_response',
+                },
             });
         }
 
@@ -670,27 +682,27 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
-                    'function': 'demo_popup'
-                }
+                    'function': 'demo_popup',
+                },
             };
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
-                    'function': 'subscribe'
+                    'function': 'subscribe',
                 },
                 'data': {
-                    'subscriptions': $subscribe
+                    'subscriptions': $subscribe,
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.response.text
+            'key': $in.response.text,
         };
     };
 
@@ -701,11 +713,10 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_unsubscribe');
-    const gui_unsubscribe = function ($in)
-    {
+    const gui_unsubscribe = function($in) {
         const $default = {
             'step': 'step_start',
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
@@ -716,14 +727,14 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'get_text'
+                    'function': 'get_text',
                 },
                 'data': {
-                    'id': 'main.body.infohub_keyboard.[my_textbox]'
+                    'id': 'main.body.infohub_keyboard.[my_textbox]',
                 },
                 'data_back': {
-                    'step': 'step_subscribe'
-                }
+                    'step': 'step_subscribe',
+                },
             });
         }
 
@@ -735,19 +746,19 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
-                    'function': 'unsubscribe'
+                    'function': 'unsubscribe',
                 },
                 'data': {
-                    'subscriptions': $subscribe
+                    'subscriptions': $subscribe,
                 },
-                'data_back': {'step': 'step_end'}
+                'data_back': {'step': 'step_end'},
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.response.text
+            'key': $in.response.text,
         };
     };
 
@@ -758,14 +769,13 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    const gui_show_subscribers = function ($in)
-    {
+    const gui_show_subscribers = function($in) {
         const $default = {
             'step': 'step_start',
             'response': {
                 'answer': '',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -777,23 +787,23 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'set_text'
+                    'function': 'set_text',
                 },
                 'data': {
                     'id': 'main.body.infohub_keyboard.[my_container]',
-                    'text': JSON.stringify($data, null, 2)
+                    'text': JSON.stringify($data, null, 2),
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'key': $in.key
-                }
+                    'key': $in.key,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.key
+            'key': $in.key,
         };
     };
 
@@ -804,30 +814,29 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('demo_popup');
-    const demo_popup = function ($in)
-    {
+    const demo_popup = function($in) {
         const $default = {
-            'step': 'step_start'
+            'step': 'step_start',
         };
         $in = _Default($default, $in);
 
         let $messageArray = [];
 
         if ($in.step === 'step_start') {
-            const $text = _Translate('Keyboard Demo popup');
+            const $text = _Translate('KEYBOARD_DEMO_POPUP');
 
             const $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'alert'
+                    'function': 'alert',
                 },
                 'data': {
-                    'text': $text
+                    'text': $text,
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
 
             $messageArray.push($messageOut);
@@ -836,7 +845,7 @@ function infohub_keyboard() {
         return {
             'answer': 'true',
             'message': 'done',
-            'messages': $messageArray
+            'messages': $messageArray,
         };
     };
 
@@ -847,16 +856,15 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('all_keys_to_gui');
-    const all_keys_to_gui = function ($in)
-    {
+    const all_keys_to_gui = function($in) {
         const $default = {
             'step': 'step_start',
             'key': '',
             'data_back': {},
             'response': {
                 'answer': 'false',
-                'message': 'Done'
-            }
+                'message': 'Done',
+            },
         };
         $in = _Default($default, $in);
 
@@ -865,25 +873,25 @@ function infohub_keyboard() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_write'
+                    'function': 'form_write',
                 },
                 'data': {
                     'id': 'main.body.infohub_keyboard',
                     'form_data': {
-                        'my_textbox': {'value': $in.key }
-                    }
+                        'my_textbox': {'value': $in.key},
+                    },
                 },
                 'data_back': {
                     'step': 'step_end',
-                    'key': $in.key
-                }
+                    'key': $in.key,
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'key': $in.key
+            'key': $in.key,
         };
     };
 
@@ -895,22 +903,21 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function ($in)
-    {
+    const event_message = function($in) {
         const $default = {
-            'from_plugin': {'node': '', 'plugin': '', 'function': '' },
+            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
             'alt_key': 'false',
             'ctrl_key': 'false',
             'shift_key': 'false',
             'key_code': 0,
             'step': 'step_start',
             'data_back': {
-                'key': ''
+                'key': '',
             },
             'response': {
                 'answer': '',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -925,10 +932,10 @@ function infohub_keyboard() {
             const $messagesOut = _GetSubscribersMessages($key);
             if (_Empty($messagesOut) === 'false') {
                 if (Array.isArray($messagesOut)) {
-                    return  {
+                    return {
                         'answer': 'true',
                         'message': 'Here comes a multi message',
-                        'messages': $messagesOut
+                        'messages': $messagesOut,
                     };
                 }
             }
@@ -945,7 +952,7 @@ function infohub_keyboard() {
         return {
             'answer': $answer,
             'message': $message,
-            'key': $in.data_back.key
+            'key': $in.data_back.key,
         };
     };
 
@@ -953,25 +960,29 @@ function infohub_keyboard() {
 
 function keyUp(event) {
 
-    "use strict";
+    'use strict';
 
     event = event || window.event;
     if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
-        const $alt = event.altKey, $ctrl= event.ctrlKey, $shift = event.shiftKey;
+        const $alt = event.altKey, $ctrl = event.ctrlKey,
+            $shift = event.shiftKey;
         if ($alt || $shift || $ctrl) {
             // If shift is used then it can not be alone, must be in a combination with ctrl or alt or both.
-            if (($alt && !$shift && !$ctrl) || (!$alt && !$shift && $ctrl) || ($alt && !$shift && $ctrl) || ($alt && $shift && !$ctrl) || ($alt && $shift && $ctrl) || (!$alt && $shift && $ctrl)) {
+            if (($alt && !$shift && !$ctrl) || (!$alt && !$shift && $ctrl) ||
+                ($alt && !$shift && $ctrl) || ($alt && $shift && !$ctrl) ||
+                ($alt && $shift && $ctrl) || (!$alt && $shift && $ctrl)) {
                 sendMessage('infohub_keyboard', {
                     'event_type': 'key_up',
                     'ctrl_key': $ctrl ? 'true' : 'false',
                     'alt_key': $alt ? 'true' : 'false',
                     'shift_key': $shift ? 'true' : 'false',
-                    'key_code': event.keyCode
+                    'key_code': event.keyCode,
                 });
             }
         }
     }
 }
-window.addEventListener('keyup',  keyUp);
+
+window.addEventListener('keyup', keyUp);
 
 //# sourceURL=infohub_keyboard.js

@@ -17,7 +17,7 @@
  */
 function infohub_democall_menu() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -29,13 +29,13 @@ function infohub_democall_menu() {
             'class_name': 'infohub_democall_menu',
             'note': 'Render a menu for infohub_democall',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal'
+            'create': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -50,15 +50,15 @@ function infohub_democall_menu() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text)
-    {
+    const _GetFuncName = function($text) {
         let $response = '';
         let $parts = $text.split('_');
         for (let $key in $parts) {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() +
+                $parts[$key].substr(1);
         }
         return $response;
     };
@@ -77,12 +77,11 @@ function infohub_democall_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
-            'translations': {}
+            'translations': {},
         };
         $in = _Default($default, $in);
 
@@ -94,7 +93,7 @@ function infohub_democall_menu() {
         return {
             'answer': $response.answer,
             'message': $response.message,
-            'data': $response.data
+            'data': $response.data,
         };
     };
 
@@ -103,12 +102,11 @@ function infohub_democall_menu() {
      * @param $in
      * @returns {*}
      */
-    $functions.push("internal_Menu");
-    const internal_Menu = function ($in)
-    {
+    $functions.push('internal_Menu');
+    const internal_Menu = function($in) {
         const $default = {
             'subtype': 'menu',
-            'parent_box_id': ''
+            'parent_box_id': '',
         };
         $in = _Default($default, $in);
 
@@ -116,19 +114,19 @@ function infohub_democall_menu() {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_render',
-                'function': 'create'
+                'function': 'create',
             },
             'data': {
                 'what': {
                     'titel': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('Demo Call')
+                        'data': _Translate('DEMO_CALL')
                     },
                     'ingress': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]')
+                        'data': _Translate('[I]HERE_YOU_CAN_EXPLORE_WHAT_HAPPENS_IF_YOU_CALL_A_PLUGIN_THAT_IS_MISSING,_OR_A_MISSING_FUNCTION.[/I]')
                     },
                     'my_menu': {
                         'plugin': 'infohub_rendermenu',
@@ -139,61 +137,61 @@ function infohub_democall_menu() {
                             'client_correct': {
                                 'alias': 'client_correct_link',
                                 'event_data': 'client_correct',
-                                'button_label': _Translate('Client - Correct call. Plugin and function exist'),
+                                'button_label': _Translate('CLIENT_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'client_missing_cmd_function': { // Fail
                                 'alias': 'client_missing_cmd_function_link',
                                 'event_data': 'client_missing_cmd_function',
-                                'button_label': _Translate('Client - Plugin exist, cmd function do not exist'),
+                                'button_label': _Translate('CLIENT_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'client_missing_plugin': { // Fail
                                 'alias': 'client_missing_plugin_link',
                                 'event_data': 'client_missing_plugin',
-                                'button_label': _Translate('Client - Plugin is missing'),
+                                'button_label': _Translate('CLIENT_-_PLUGIN_IS_MISSING'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'server_correct': {
                                 'alias': 'server_correct_link',
                                 'event_data': 'server_correct',
-                                'button_label': _Translate('Server - Correct call. Plugin and function exist'),
+                                'button_label': _Translate('SERVER_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'server_missing_cmd_function': { // Fail
                                 'alias': 'server_missing_cmd_function_link',
                                 'event_data': 'server_missing_cmd_function',
-                                'button_label': _Translate('Server - Plugin exist, cmd function do not exist'),
+                                'button_label': _Translate('SERVER_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'server_missing_plugin': { // Fail
                                 'alias': 'server_missing_plugin_link',
                                 'event_data': 'server_missing_plugin',
-                                'button_label': _Translate('Server - Plugin is missing'),
+                                'button_label': _Translate('SERVER_-_PLUGIN_IS_MISSING'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'client_child_valid': { // Would be OK with the new rules
                                 'alias': 'client_child_to_level1_link',
                                 'event_data': 'client_child_valid',
-                                'button_label': _Translate('Client - Child talk to valid responders'),
+                                'button_label': _Translate('CLIENT_-_CHILD_TALK_TO_VALID_RESPONDERS'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'client_invalid_call_to_sibling_grandchild': {
                                 'alias': 'client_invalid_call_to_sibling_grandchild_link',
                                 'event_data': 'client_invalid_call_to_sibling_grandchild',
-                                'button_label': _Translate('Client - Invalid call to sibling child'),
+                                'button_label': _Translate('CLIENT_-_INVALID_CALL_TO_SIBLING_CHILD'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'client_invalid_call_from_child_to_parent': {
                                 'alias': 'client_invalid_call_from_child_to_parent',
                                 'event_data': 'client_invalid_call_from_child_to_parent',
-                                'button_label': _Translate('Client - Invalid call from child to parent'),
+                                'button_label': _Translate('CLIENT_-_INVALID_CALL_FROM_CHILD_TO_PARENT'),
                                 'to_plugin': 'infohub_democall'
                             },
                             'server_run_all_tests': {
                                 'alias': 'server_run_all_tests_link',
                                 'event_data': 'server_run_all_tests',
-                                'button_label': _Translate('Server - Run all server tests'),
+                                'button_label': _Translate('SERVER_-_RUN_ALL_SERVER_TESTS'),
                                 'to_plugin': 'infohub_democall'
                             }
                         }
@@ -201,21 +199,22 @@ function infohub_democall_menu() {
                 },
                 'how': {
                     'mode': 'one box',
-                    'text': '[my_menu]'
+                    'text': '[my_menu]',
                 },
                 'where': {
                     'box_id': $in.parent_box_id + '.menu',
-                    'max_width': 640
-                }
+                    'max_width': 640,
+                },
             },
-            'data_back': {'step': 'step_end'}
+            'data_back': {'step': 'step_end'},
         };
 
         return {
             'answer': 'true',
             'message': 'Here are the render data that will create a menu',
-            'data': $data
+            'data': $data,
         };
     };
 }
+
 //# sourceURL=infohub_democall_menu.js

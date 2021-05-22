@@ -17,7 +17,7 @@
  */
 function infohub_login_password() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -28,9 +28,9 @@ function infohub_login_password() {
             'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_login_password',
-            'note': 'Change local password on the shared_secret',
+            'note': 'Change local password on the shared_secret and private_secret',
             'status': 'normal',
-            'SPDX-License-Identifier': 'GPL-3.0-or-later'
+            'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
     };
 
@@ -39,7 +39,7 @@ function infohub_login_password() {
             'create': 'normal',
             'click_password_change': 'normal',
             'shared_secret_scramble': 'normal',
-            'shared_secret_restore': 'normal'
+            'shared_secret_restore': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -61,8 +61,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, message: *}|{}}
      */
-    const create = function ($in)
-    {
+    const create = function($in) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -70,8 +69,8 @@ function infohub_login_password() {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': ''
-            }
+                'message': '',
+            },
         };
         $in = _Default($default, $in);
 
@@ -81,7 +80,7 @@ function infohub_login_password() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
-                    'function': 'create'
+                    'function': 'create',
                 },
                 'data': {
                     'what': {
@@ -90,65 +89,65 @@ function infohub_login_password() {
                             'subtype': 'container',
                             'tag': 'div',
                             'data': '[form_password]',
-                            'class': 'container-small'
+                            'class': 'container-small',
                         },
                         'form_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_current_password][text_new_password][button_change]',
-                            'label': _Translate('Set password'),
-                            'description': _Translate('When you set your local password you scramble the shared secret so that it require your password to work')
+                            'label': _Translate('SET_PASSWORD'),
+                            'description': _Translate('WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK')
                         },
                         'text_current_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
-                            'label': _Translate('Current password'),
-                            'description': _Translate('Leave blank if you have none'),
+                            'label': _Translate('CURRENT_PASSWORD'),
+                            'description': _Translate('LEAVE_BLANK_IF_YOU_HAVE_NONE'),
                             'maxlength': '30',
-                            'show_characters_left': 'false'
+                            'show_characters_left': 'false',
                         },
                         'text_new_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
-                            'label': _Translate('New password'),
-                            'description': _Translate('Leave blank if you want to remove the password'),
+                            'label': _Translate('NEW_PASSWORD'),
+                            'description': _Translate('LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD'),
                             'maxlength': '30',
-                            'show_characters_left': 'false'
+                            'show_characters_left': 'false',
                         },
                         'button_change': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Change password'),
+                            'button_label': _Translate('CHANGE_PASSWORD'),
                             'event_data': 'password|password_change',
                             'to_plugin': 'infohub_login',
-                            'to_function': 'click'
-                        }
+                            'to_function': 'click',
+                        },
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_password]'
+                        'text': '[container_password]',
                     },
                     'where': {
                         'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
-                        'scroll_to_box_id': 'true'
+                        'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'password'
+                    'cache_key': 'password',
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
         }
 
         return {
             'answer': $in.response.answer,
-            'message': $in.response.message
+            'message': $in.response.message,
         };
     };
 
-    $functions.push("click_password_change");
+    $functions.push('click_password_change');
     /**
      * You clicked the button to change local_password on your shared_secret
      * @version 2019-09-12
@@ -157,8 +156,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, message: *, ok: (string)}}
      */
-    const click_password_change = function ($in)
-    {
+    const click_password_change = function($in) {
         const $default = {
             'box_id': '',
             'step': 'step_get_contact',
@@ -167,37 +165,35 @@ function infohub_login_password() {
                 'message': 'Done',
                 'data': {},
                 'form_data': {},
-                'ok': 'true'
+                'ok': 'true',
             },
             'data_back': {
                 'contact': {},
-                'form_data': {}
-            }
+                'form_data': {},
+            },
         };
         $in = _Default($default, $in);
 
         let $sharedSecret = '';
 
-        if ($in.step === 'step_get_contact')
-        {
+        if ($in.step === 'step_get_contact') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'storage_read_contact_data'
+                    'function': 'storage_read_contact_data',
                 },
                 'data': {},
                 'data_back': {
                     'box_id': $in.box_id,
                     'step': 'step_get_contact_response',
                     'contact': $in.data_back.contact,
-                    'form_data': $in.data_back.form_data
-                }
+                    'form_data': $in.data_back.form_data,
+                },
             });
         }
 
-        if ($in.step === 'step_get_contact_response')
-        {
+        if ($in.step === 'step_get_contact_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.data_back.contact = $in.response.data;
@@ -205,32 +201,29 @@ function infohub_login_password() {
             }
         }
 
-        if ($in.step === 'step_form_read')
-        {
+        if ($in.step === 'step_form_read') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_view',
-                    'function': 'form_read'
+                    'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '_form_password_form'
+                    'id': $in.box_id + '_form_password_form',
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'step': 'step_form_read_response',
                     'contact': $in.data_back.contact,
-                    'form_data': $in.data_back.form_data
-                }
+                    'form_data': $in.data_back.form_data,
+                },
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
 
-            if ($in.response.answer === 'true')
-            {
+            if ($in.response.answer === 'true') {
                 $in.step = 'step_modify_shared_secret';
 
                 $in.data_back.form_data = $in.response.form_data;
@@ -249,8 +242,7 @@ function infohub_login_password() {
             }
         }
 
-        if ($in.step === 'step_modify_shared_secret')
-        {
+        if ($in.step === 'step_modify_shared_secret') {
             const $currentPassword = _GetData({
                 'name': 'data_back/form_data/text_current_password/value',
                 'default': '',
@@ -262,7 +254,7 @@ function infohub_login_password() {
                     'func': 'ModifySharedSecret',
                     'password': $currentPassword,
                     'shared_secret': $sharedSecret,
-                    'mode': 'restore'
+                    'mode': 'restore',
                 });
                 $sharedSecret = $response.data;
             }
@@ -279,7 +271,7 @@ function infohub_login_password() {
                     'func': 'ModifySharedSecret',
                     'password': $newPassword,
                     'shared_secret': $sharedSecret,
-                    'mode': 'scramble'
+                    'mode': 'scramble',
                 });
                 $sharedSecret = $response.data;
                 $hasPassword = 'true';
@@ -292,22 +284,21 @@ function infohub_login_password() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'storage_write_contact_data'
+                    'function': 'storage_write_contact_data',
                 },
                 'data': {
-                    'data': $in.data_back.contact
+                    'data': $in.data_back.contact,
                 },
                 'data_back': {
                     'box_id': $in.box_id,
                     'step': 'step_modify_shared_secret_response',
                     'contact': $in.data_back.contact,
-                    'form_data': $in.data_back.form_data
-                }
+                    'form_data': $in.data_back.form_data,
+                },
             });
         }
 
-        if ($in.step === 'step_modify_shared_secret_response')
-        {
+        if ($in.step === 'step_modify_shared_secret_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.response.ok = 'true';
@@ -315,23 +306,21 @@ function infohub_login_password() {
             }
         }
 
-        if ($in.step === 'step_refresh_contact_view')
-        {
+        if ($in.step === 'step_refresh_contact_view') {
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_login_contact',
-                    'function': 'view_contact'
+                    'function': 'view_contact',
                 },
                 'data': {},
                 'data_back': {
                     'step': 'step_refresh_contact_view_response',
-                }
+                },
             });
         }
 
-        if ($in.step === 'step_refresh_contact_view_response')
-        {
+        if ($in.step === 'step_refresh_contact_view_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
                 $in.response.ok = 'true';
@@ -341,11 +330,11 @@ function infohub_login_password() {
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $in.response.ok
+            'ok': $in.response.ok,
         };
     };
 
-    $functions.push("shared_secret_scramble");
+    $functions.push('shared_secret_scramble');
     /**
      * Add the password so we get a shared_secret that we can store
      * @version 2019-09-11
@@ -354,8 +343,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    const shared_secret_scramble = function ($in)
-    {
+    const shared_secret_scramble = function($in) {
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -366,18 +354,18 @@ function infohub_login_password() {
             'func': 'ModifySharedSecret',
             'password': $in.password,
             'shared_secret': $in.shared_secret,
-            'mode': 'scramble'
+            'mode': 'scramble',
         });
 
         return {
             'answer': $response.answer,
             'message': $response.message,
             'shared_secret_modified': $response.data,
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
-    $functions.push("shared_secret_restore");
+    $functions.push('shared_secret_restore');
     /**
      * Remove the password so we get a shared_secret that we can use
      * @version 2019-09-11
@@ -386,11 +374,10 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    const shared_secret_restore = function ($in)
-    {
+    const shared_secret_restore = function($in) {
         const $default = {
             'password': '', // in plain text
-            'shared_secret': '' // base64 encoded
+            'shared_secret': '', // base64 encoded
         };
         $in = _Default($default, $in);
 
@@ -398,14 +385,14 @@ function infohub_login_password() {
             'func': 'ModifySharedSecret',
             'password': $in.password,
             'shared_secret': $in.shared_secret,
-            'mode': 'restore'
+            'mode': 'restore',
         });
 
         return {
             'answer': $response.answer,
             'message': $response.message,
             'shared_secret_modified': $response.data,
-            'ok': 'true'
+            'ok': 'true',
         };
     };
 
@@ -414,8 +401,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, shared_secret_scrambled: *, message: *, ok: *}}
      */
-    const internal_ModifySharedSecret = function ($in)
-    {
+    const internal_ModifySharedSecret = function($in) {
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -431,14 +417,14 @@ function infohub_login_password() {
             $passwordCharacterPosition = 0,
             $passwordCharCode = 0;
 
-        for (let $i = 0; $i < $length; $i = $i + 1)
-        {
+        for (let $i = 0; $i < $length; $i = $i + 1) {
             $code = $resultUint8Array[$i];
             $passwordCharacterPosition = $i % $passwordLength;
-            $passwordCharCode = $in.password.charCodeAt($passwordCharacterPosition);
+            $passwordCharCode = $in.password.charCodeAt(
+                $passwordCharacterPosition);
 
             if ($in.mode === 'restore') {
-                $passwordCharCode = - $passwordCharCode;
+                $passwordCharCode = -$passwordCharCode;
             }
 
             $code = ($code + $passwordCharCode) % 256;
@@ -450,7 +436,7 @@ function infohub_login_password() {
         return {
             'answer': 'true',
             'message': 'shared secret modified',
-            'data': $sharedSecretModified
+            'data': $sharedSecretModified,
         };
     };
 
@@ -462,14 +448,12 @@ function infohub_login_password() {
      * @returns {ArrayBufferLike}
      * @private
      */
-    const _Base64ToArrayBuffer = function ($base64String)
-    {
-        const $binaryString =  window.atob($base64String);
+    const _Base64ToArrayBuffer = function($base64String) {
+        const $binaryString = window.atob($base64String);
         const $length = $binaryString.length;
-        let $binaryIntegerArray = new Uint8Array( $length );
+        let $binaryIntegerArray = new Uint8Array($length);
 
-        for (let $i = 0; $i < $length; $i = $i + 1)
-        {
+        for (let $i = 0; $i < $length; $i = $i + 1) {
             $binaryIntegerArray[$i] = $binaryString.charCodeAt($i);
         }
 
@@ -483,15 +467,14 @@ function infohub_login_password() {
      * @returns string
      * @private
      */
-    const _ArrayBufferToBase64 = function($arrayBuffer)
-    {
+    const _ArrayBufferToBase64 = function($arrayBuffer) {
         let $stringWithBinaryData = '';
         const $binaryIntegerArray = new Uint8Array($arrayBuffer);
         const $length = $binaryIntegerArray.byteLength;
 
-        for (let $i = 0; $i < $length; $i = $i + 1)
-        {
-            $stringWithBinaryData = $stringWithBinaryData + String.fromCharCode($binaryIntegerArray[$i]);
+        for (let $i = 0; $i < $length; $i = $i + 1) {
+            $stringWithBinaryData = $stringWithBinaryData +
+                String.fromCharCode($binaryIntegerArray[$i]);
         }
 
         const $base64String = btoa($stringWithBinaryData);
@@ -499,4 +482,5 @@ function infohub_login_password() {
         return $base64String;
     };
 }
+
 //# sourceURL=infohub_login_password.js

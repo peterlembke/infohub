@@ -17,7 +17,7 @@
  */
 function infohub_transfer() {
 
-    "use strict";
+    'use strict';
 
 // include "infohub_base.js"
 
@@ -33,13 +33,13 @@ function infohub_transfer() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'send': 'normal'
+            'send': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -67,9 +67,8 @@ function infohub_transfer() {
      * @returns {string}
      * @private
      */
-    const _IsOnline = function ()
-    {
-        const $online = navigator.onLine ? "true" : "false";
+    const _IsOnline = function() {
+        const $online = navigator.onLine ? 'true' : 'false';
 
         return $online;
     };
@@ -80,8 +79,7 @@ function infohub_transfer() {
      * @param $value
      * @private
      */
-    const _SetGlobalOnline = function ($value)
-    {
+    const _SetGlobalOnline = function($value) {
         if ($value !== 'true' && $value !== 'false') {
             return;
         }
@@ -123,19 +121,18 @@ function infohub_transfer() {
      * @param {type} $in
      * @returns {{wait_milliseconds: *, answer: *, message: *, message_count: *}}
      */
-    const send = function ($in)
-    {
+    const send = function($in) {
         const $default = {
             'to_node': {}, // node name as key and an array with messages to that node
             'from_plugin': {},
             'step': 'step_start',
             'response': {},
             'data_back': {
-                'package': {}
+                'package': {},
             },
             'config': {
-                'add_clear_text_messages': 'false'
-            }
+                'add_clear_text_messages': 'false',
+            },
         };
 
         $in = _Default($default, $in);
@@ -145,7 +142,7 @@ function infohub_transfer() {
             'message': 'Nothing to report',
             'wait_milliseconds': 0,
             'message_count': 0,
-            'messages': []
+            'messages': [],
         };
 
         let $messagesArray = [];
@@ -153,7 +150,7 @@ function infohub_transfer() {
         if ($in.step === 'step_start') {
 
             const $response = internal_GetWaitMilliseconds({
-                'to_node': $in.to_node
+                'to_node': $in.to_node,
             });
 
             $out.message = 'I have no messages to send';
@@ -169,16 +166,16 @@ function infohub_transfer() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_timer',
-                        'function': 'start_timer'
+                        'function': 'start_timer',
                     },
                     'data': {
                         'name': 'send',
                         'milliseconds': $response.wait_milliseconds,
-                        'update': 'lower' // no, yes, lower, higher
+                        'update': 'lower', // no, yes, lower, higher
                     },
                     'data_back': {
-                        'step': 'step_time_to_send_now'
-                    }
+                        'step': 'step_time_to_send_now',
+                    },
                 });
             }
         }
@@ -202,16 +199,16 @@ function infohub_transfer() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_timer',
-                        'function': 'start_timer'
+                        'function': 'start_timer',
                     },
                     'data': {
                         'name': 'send',
                         'milliseconds': $milliSeconds,
-                        'update': 'yes' // no, yes, lower, higher
+                        'update': 'yes', // no, yes, lower, higher
                     },
                     'data_back': {
-                        'step': 'step_time_to_send_now'
-                    }
+                        'step': 'step_time_to_send_now',
+                    },
                 });
             }
 
@@ -224,7 +221,7 @@ function infohub_transfer() {
                 'answer': 'false',
                 'message': '',
                 'milliseconds': 0.0,
-                'name': ''
+                'name': '',
             };
             $in.response = _Default($default, $in.response);
 
@@ -243,7 +240,7 @@ function infohub_transfer() {
             if ($isOnline === 'false') {
                 $out.message = 'We are offline, I can not send anything. Your subcalls will be returned to you now.';
                 internal_Cmd({
-                    'func': 'HandleOffline'
+                    'func': 'HandleOffline',
                 });
                 $globalWaitingForResponse = 'false';
                 $in.step = 'step_end';
@@ -255,7 +252,7 @@ function infohub_transfer() {
             if ($globalOnline === 'false') {
                 $out.message = 'The server did not answer the last time I tried. I am waiting a while to try again. Your subcalls will be returned to you now.';
                 internal_Cmd({
-                    'func': 'HandleOffline'
+                    'func': 'HandleOffline',
                 });
                 $globalWaitingForResponse = 'false';
                 $in.step = 'step_end';
@@ -294,7 +291,7 @@ function infohub_transfer() {
                     'sign_code_created_at': '',
                     'messages_encoded': $messagesEncoded,
                     'messages_encoded_length': $messagesEncoded.length,
-                    'messages_checksum': ''
+                    'messages_checksum': '',
                 };
 
                 if ($in.config.add_clear_text_messages === 'true') {
@@ -305,15 +302,15 @@ function infohub_transfer() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_checksum',
-                        'function': 'calculate_checksum'
+                        'function': 'calculate_checksum',
                     },
                     'data': {
-                        'value': $messagesEncoded
+                        'value': $messagesEncoded,
                     },
                     'data_back': {
                         'step': 'step_checksum_response',
-                        'package': $package
-                    }
+                        'package': $package,
+                    },
                 });
 
                 $messagesArray.push($messageOut);
@@ -332,7 +329,7 @@ function infohub_transfer() {
             const $default = {
                 'answer': 'false',
                 'message': '',
-                'checksum': ''
+                'checksum': '',
             };
             $in.response = _Default($default, $in.response);
 
@@ -348,16 +345,16 @@ function infohub_transfer() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_calculate_sign_code'
+                    'function': 'initiator_calculate_sign_code',
                 },
                 'data': {
                     'node': $in.data_back.package.to_node,
-                    'messages_checksum': $in.data_back.package.messages_checksum
+                    'messages_checksum': $in.data_back.package.messages_checksum,
                 },
                 'data_back': {
                     'step': 'step_sign_code_response',
-                    'package': $in.data_back.package
-                }
+                    'package': $in.data_back.package,
+                },
             });
         }
 
@@ -369,7 +366,7 @@ function infohub_transfer() {
                 'session_id': '',
                 'sign_code': '',
                 'sign_code_created_at': '',
-                'user_name': ''
+                'user_name': '',
             };
             $in.response = _Default($default, $in.response);
 
@@ -395,7 +392,7 @@ function infohub_transfer() {
 
             let $response = internal_Cmd({
                 'func': 'AjaxCall',
-                'package': $packageJson
+                'package': $packageJson,
             });
 
             $out.answer = $response.answer;
@@ -406,14 +403,14 @@ function infohub_transfer() {
                     'to': {
                         'node': 'client',
                         'plugin': 'infohub_view',
-                        'function': 'alert'
+                        'function': 'alert',
                     },
                     'data': {
-                        'text': $out.message
+                        'text': $out.message,
                     },
                     'data_back': {
-                        'step': 'step_end'
-                    }
+                        'step': 'step_end',
+                    },
                 });
 
                 $out.messages.push($messageOut);
@@ -422,7 +419,7 @@ function infohub_transfer() {
             internal_Log({
                 'level': 'log',
                 'message': $out.message,
-                'object': $in.data_back.package
+                'object': $in.data_back.package,
             });
         }
 
@@ -431,7 +428,7 @@ function infohub_transfer() {
             'message': $out.message,
             'wait_milliseconds': $out.wait_milliseconds,
             'message_count': $out.message_count,
-            'messages': $out.messages
+            'messages': $out.messages,
         };
     };
 
@@ -444,10 +441,9 @@ function infohub_transfer() {
      * @param $in
      */
     $functions.push('internal_AddMessagesToGlobalSendToNode');
-    const internal_AddMessagesToGlobalSendToNode = function ($in)
-    {
+    const internal_AddMessagesToGlobalSendToNode = function($in) {
         const $default = {
-            'to_node': {} // Node name as key and data as an array with messages
+            'to_node': {}, // Node name as key and data as an array with messages
         };
         $in = _Default($default, $in);
 
@@ -461,12 +457,13 @@ function infohub_transfer() {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            $globalSendToNode[$nodeName] = _ByVal($globalSendToNode[$nodeName].concat($in.to_node[$nodeName]));
+            $globalSendToNode[$nodeName] = _ByVal(
+                $globalSendToNode[$nodeName].concat($in.to_node[$nodeName]));
         }
 
         return {
             'answer': 'true',
-            'message': 'Done adding messages to the global variable'
+            'message': 'Done adding messages to the global variable',
         };
     };
 
@@ -486,13 +483,12 @@ function infohub_transfer() {
      * @param $in
      */
     $functions.push('internal_GetWaitMilliseconds');
-    const internal_GetWaitMilliseconds = function ($in)
-    {
+    const internal_GetWaitMilliseconds = function($in) {
         const $default = {
             'func': 'internal_GetWaitMilliseconds',
-            'to_node': { }
+            'to_node': {},
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         const $currentTime = _MicroTime();
         let $timestamp = $currentTime + 600.0;
@@ -507,7 +503,8 @@ function infohub_transfer() {
             const $toNodeMessageCount = $in.to_node[$nodeName].length;
             $totalMessageCount = $totalMessageCount + $toNodeMessageCount;
 
-            for (let $messageId = 0; $messageId < $toNodeMessageCount; $messageId = $messageId + 1) {
+            for (let $messageId = 0; $messageId <
+            $toNodeMessageCount; $messageId = $messageId + 1) {
                 const $messageData = $in.to_node[$nodeName][$messageId];
 
                 if (_IsSet($messageData.wait) === 'false') {
@@ -541,7 +538,7 @@ function infohub_transfer() {
             'message': 'Found out how long we must wait until we can send the messages',
             'wait_milliseconds': $waitMilliseconds,
             'timestamp': $timestamp,
-            'message_count': $totalMessageCount
+            'message_count': $totalMessageCount,
         };
     };
 
@@ -557,10 +554,9 @@ function infohub_transfer() {
      * @uses
      */
     $functions.push('internal_PutPackageBack');
-    const internal_PutPackageBack = function ($in)
-    {
+    const internal_PutPackageBack = function($in) {
         const $default = {
-            'package': ''
+            'package': '',
         };
         $in = _Default($default, $in);
 
@@ -570,7 +566,7 @@ function infohub_transfer() {
             'name': 'messages',
             'default': [],
             'data': $packageObject,
-            'split': '/'
+            'split': '/',
         });
 
         leave: {
@@ -584,8 +580,10 @@ function infohub_transfer() {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1) {
-                const $message = _PickUpCallStack($messagesArray[$messageNumber]);
+            for (let $messageNumber = 0; $messageNumber <
+            $messagesArray.length; $messageNumber = $messageNumber + 1) {
+                const $message = _PickUpCallStack(
+                    $messagesArray[$messageNumber]);
                 $globalSendToNode[$nodeName].push($message);
             }
         }
@@ -593,7 +591,7 @@ function infohub_transfer() {
         return {
             'answer': true,
             'message': 'Have handled the package. Extracted messages and put them in the global variable',
-            'messages_count': $messagesArray.length
+            'messages_count': $messagesArray.length,
         };
     };
 
@@ -608,8 +606,7 @@ function infohub_transfer() {
      * @uses
      */
     $functions.push('internal_HandleOffline');
-    const internal_HandleOffline = function ($in)
-    {
+    const internal_HandleOffline = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -629,11 +626,13 @@ function infohub_transfer() {
 
             for (let $messageNumber in $globalSendToNode[$nodeName]) {
 
-                if ($globalSendToNode[$nodeName].hasOwnProperty($messageNumber) === false) {
+                if ($globalSendToNode[$nodeName].hasOwnProperty(
+                    $messageNumber) === false) {
                     continue;
                 }
 
-                const $messageOut = _ByVal($globalSendToNode[$nodeName][$messageNumber]);
+                const $messageOut = _ByVal(
+                    $globalSendToNode[$nodeName][$messageNumber]);
                 const $lastItem = $messageOut.callstack.pop();
                 const $returnToNode = $lastItem.to.node;
 
@@ -644,26 +643,26 @@ function infohub_transfer() {
 
                 let $response = {
                     'answer': 'false',
-                    'message': 'Offline. Can not reach the server'
+                    'message': 'Offline. Can not reach the server',
                 };
 
                 let $dataBack = $lastItem.data_back;
 
-                let $data =_Merge($response, $dataBack); // Data is first the response and then the untouched data_back variables on top of that
+                let $data = _Merge($response, $dataBack); // Data is first the response and then the untouched data_back variables on top of that
 
                 $data = _Merge($data, { // Then we mix in the response and data_back. Now we have a full data
                     'response': $response,
-                    'data_back': $dataBack
+                    'data_back': $dataBack,
                 });
 
                 const $returnMessage = {
                     'to': {
                         'node': $lastItem.to.node,
                         'plugin': $lastItem.to.plugin,
-                        'function': $lastItem.to.function
+                        'function': $lastItem.to.function,
                     },
                     'callstack': $messageOut.callstack,
-                    'data': $data
+                    'data': $data,
                 };
 
                 $messagesToAnswerArray.push($returnMessage);
@@ -677,12 +676,12 @@ function infohub_transfer() {
 
                 const $package = {
                     'to_node': 'client',
-                    'messages': _ByVal($messagesToAnswerArray)
+                    'messages': _ByVal($messagesToAnswerArray),
                 };
 
                 const $event = new CustomEvent('infohub_call_main', {
                     detail: {'package': $package, 'message': 'Offline answers'},
-                    bubbles: true, cancelable: true
+                    bubbles: true, cancelable: true,
                 });
 
                 document.dispatchEvent($event);
@@ -691,7 +690,7 @@ function infohub_transfer() {
 
         return {
             'answer': true,
-            'message': 'Handled offline messages'
+            'message': 'Handled offline messages',
         };
     };
 
@@ -703,17 +702,16 @@ function infohub_transfer() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_AjaxCall');
-    const internal_AjaxCall = function ($in)
-    {
+    const internal_AjaxCall = function($in) {
         const $default = {
-            'package': ''
+            'package': '',
         };
         $in = _Default($default, $in);
 
         internal_Log({
             'level': 'log',
             'message': 'Sending package with Ajax',
-            'object': JSON.parse($in.package)
+            'object': JSON.parse($in.package),
         });
 
         const xmlHttp = new XMLHttpRequest();
@@ -725,11 +723,11 @@ function infohub_transfer() {
 
             internal_Cmd({
                 'func': 'PutPackageBack',
-                'package': $in.package
+                'package': $in.package,
             });
 
             internal_Cmd({
-                'func': 'HandleOffline'
+                'func': 'HandleOffline',
             });
 
             $globalWaitingForResponse = 'false';
@@ -741,7 +739,7 @@ function infohub_transfer() {
         const $async = true;
         xmlHttp.open('POST', $url, $async);
 
-        xmlHttp.onreadystatechange = function () {
+        xmlHttp.onreadystatechange = function() {
 
             if (xmlHttp.readyState !== 4) {
                 return;
@@ -761,13 +759,13 @@ function infohub_transfer() {
                 'message': 'Incoming ajax message',
                 'function_name': '*onreadystatechange',
                 'start_time': $currentTime,
-                'depth': 1
+                'depth': 1,
             });
 
             internal_Log({
                 'message': 'Incoming package',
                 'function_name': '*onreadystatechange',
-                'object': {'package': $incomingData }
+                'object': {'package': $incomingData},
             });
 
             _SetGlobalOnline('true'); // We got a message, we are online
@@ -786,9 +784,10 @@ function infohub_transfer() {
 
                     internal_Log({
                         'level': 'error',
-                        'message': 'Can not parse JSON. error: "' + $err.message + '"',
+                        'message': 'Can not parse JSON. error: "' +
+                            $err.message + '"',
                         'function_name': '*onreadystatechange',
-                        'object': {'package': $incomingData }
+                        'object': {'package': $incomingData},
                     });
 
                     _BoxError($incomingData, 'false');
@@ -800,7 +799,7 @@ function infohub_transfer() {
             internal_Log({
                 'function_name': '*onreadystatechange',
                 'message': 'Parsed data',
-                'object': $package
+                'object': $package,
             });
 
             if (_IsSet($package.error_array) === 'true') {
@@ -814,7 +813,7 @@ function infohub_transfer() {
             const $dataType = _GetData({
                 'name': 'type',
                 'default': '',
-                'data': $package
+                'data': $package,
             });
 
             if ($dataType === 'exception') {
@@ -831,59 +830,61 @@ function infohub_transfer() {
                 'function_name': '*onreadystatechange',
                 'message': 'Leaving Incoming ajax message',
                 'start_time': $currentTime,
-                'depth': -1
+                'depth': -1,
             });
 
             if ($package.package_type === '2020') {
                 $package.messages = JSON.parse(atob($package.messages_encoded));
             }
 
-            $package.messages = _ReceivedMessagesCleanAndExpand($package.messages);
+            $package.messages = _ReceivedMessagesCleanAndExpand(
+                $package.messages);
 
             const $message1 = {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_exchange',
-                    'function': 'initiator_verify_sign_code'
+                    'function': 'initiator_verify_sign_code',
                 },
                 'callstack': [],
                 'data': {
-                    'package': $package
-                }
+                    'package': $package,
+                },
             };
 
             const $package1 = {
                 'to_node': 'client',
-                'messages': [$message1]
+                'messages': [$message1],
             };
 
             $event = new CustomEvent('infohub_call_main', {
                 detail: {
                     'package': $package1,
-                    'message': 'Incoming ajax message'
+                    'message': 'Incoming ajax message',
                 },
                 bubbles: true,
-                cancelable: true
+                cancelable: true,
             });
             document.dispatchEvent($event);
         };
 
-        xmlHttp.setRequestHeader("Content-type", "application/json");
+        xmlHttp.setRequestHeader('Content-type', 'application/json');
 
-        let $answer = 'false'
+        let $answer = 'false';
         let $message = 'Error sending Ajax in infohub_transfer->internal_AjaxCall';
 
         try {
             xmlHttp.send($content);
             $answer = 'true';
-            $message = 'Sent message with ' + $content.length + ' bytes of data';
+            $message = 'Sent message with ' + $content.length +
+                ' bytes of data';
         } catch (exception) {
             $message = $message + ' Error: ' + exception.message;
         }
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -893,8 +894,7 @@ function infohub_transfer() {
      * remove messages that has a call stack
      * @param $messages
      */
-    const _ReceivedMessagesCleanAndExpand = function ($messages)
-    {
+    const _ReceivedMessagesCleanAndExpand = function($messages) {
         let $oneMessage;
 
         for (let $key in $messages) {
@@ -926,8 +926,7 @@ function infohub_transfer() {
      * clean out all unneeded and unexpected parameters
      * @param $messages
      */
-    const _SendingMessagesClean = function ($messages)
-    {
+    const _SendingMessagesClean = function($messages) {
         let $oneMessage;
         for (let $key in $messages) {
             if ($messages.hasOwnProperty($key) === false) {
@@ -973,12 +972,11 @@ function infohub_transfer() {
      * @returns {{}|{answer: string, data: [], message: string}}
      * @private
      */
-    const _CleanMessage = function ($message)
-    {
+    const _CleanMessage = function($message) {
         const $default = {
             'to': {},
             'callstack': [],
-            'data': {}
+            'data': {},
         };
         $message = _Default($default, $message);
 
@@ -993,7 +991,7 @@ function infohub_transfer() {
 
             // Remove duplicates. These will expand on the other side anyhow. See _ExpandMessage
             for (let $key in $message.data.data_back) {
-                if ($message.data.data_back.hasOwnProperty($key)) {
+                if ($message.data.data_back.hasOwnProperty($key) === true) {
                     delete $message.data[$key];
                 }
             }
@@ -1029,12 +1027,11 @@ function infohub_transfer() {
      * @returns {{}|{answer: string, data: [], message: string}}
      * @private
      */
-    const _ExpandMessage = function ($message)
-    {
+    const _ExpandMessage = function($message) {
         const $default = {
             'to': {},
             'callstack': [],
-            'data': {}
+            'data': {},
         };
         $message = _Default($default, $message);
 
@@ -1060,12 +1057,11 @@ function infohub_transfer() {
      * @returns {{}}
      * @private
      */
-    const _LeaveCallStack = function ($message)
-    {
+    const _LeaveCallStack = function($message) {
         const $default = {
             'to': {'node': '', 'plugin': '', 'function': ''},
             'callstack': [],
-            'data': {}
+            'data': {},
         };
         $message = _Default($default, $message);
 
@@ -1075,7 +1071,7 @@ function infohub_transfer() {
                 break leave;
             }
 
-            let $lastItem = $message.callstack[$message.callstack.length -1];
+            let $lastItem = $message.callstack[$message.callstack.length - 1];
             if ($lastItem.to.node !== 'client') {
                 break leave;
             }
@@ -1083,15 +1079,16 @@ function infohub_transfer() {
             let $hubId = _GetUniqueIdentiferHubId('callstack'); // Get unique identifier
             $globalCallStack[$hubId] = _ByVal($message.callstack);
 
-            $message.callstack = [{
-                'data_back': {},
-                'data_request': $lastItem.data_request, // Since the server need this to answer properly
-                'to': {
-                    'node': 'client',
-                    'plugin': $lastItem.to.plugin,
-                    'function': $hubId
-                }
-            }];
+            $message.callstack = [
+                {
+                    'data_back': {},
+                    'data_request': $lastItem.data_request, // Since the server need this to answer properly
+                    'to': {
+                        'node': 'client',
+                        'plugin': $lastItem.to.plugin,
+                        'function': $hubId,
+                    },
+                }];
         }
 
         return $message;
@@ -1108,12 +1105,11 @@ function infohub_transfer() {
      * @returns {{}}
      * @private
      */
-    const _PickUpCallStack = function ($message)
-    {
+    const _PickUpCallStack = function($message) {
         const $default = {
             'to': {'node': '', 'plugin': '', 'function': ''},
             'callstack': [],
-            'data': {}
+            'data': {},
         };
         $message = _Default($default, $message);
 
@@ -1148,19 +1144,18 @@ function infohub_transfer() {
      * @author Peter Lembke
      * @return string
      */
-    const _GetUniqueIdentiferHubId = function($prefix)
-    {
+    const _GetUniqueIdentiferHubId = function($prefix) {
         if (_Empty($prefix) === 'false') {
             $prefix = $prefix + '-';
         }
 
-        const $result = $prefix + _MicroTime() + ':' + Math.random().toString().substring(2);
+        const $result = $prefix + _MicroTime() + ':' +
+            Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654
         // substring(2) remove the 0. and leave 4568548654
 
         return $result;
     };
-
 
     /**
      * Write error message to screen. Newest error highest.
@@ -1170,8 +1165,7 @@ function infohub_transfer() {
      * @param $message
      */
     $functions.push('_BoxError');
-    const _BoxError = function ($message, $doHtmlToText)
-    {
+    const _BoxError = function($message, $doHtmlToText) {
         if (typeof $doHtmlToText === 'undefined') {
             $doHtmlToText = 'true';
         }
@@ -1183,22 +1177,23 @@ function infohub_transfer() {
             if ($doHtmlToText === 'true') {
                 $message = _HtmlToText($message);
             }
-            $boxError.innerHTML = $message + "\n<br>" + $boxError.innerHTML;
+            $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
 
             return;
         }
 
         if (Array.isArray($message) === true) {
             const $messageLength = $message.length;
-            for (let $i = 0; $i < $messageLength; $i=$i+1) {
+            for (let $i = 0; $i < $messageLength; $i = $i + 1) {
                 $message[$i] = _HtmlToText($message[$i]);
-                $boxError.innerHTML = $message[$i] + "\n<br>" + $boxError.innerHTML;
+                $boxError.innerHTML = $message[$i] + '\n<br>' +
+                    $boxError.innerHTML;
             }
         }
 
         if (typeof $message === 'object') {
             $message = JSON.stringify($message);
-            $boxError.innerHTML = $message + "\n<br>" + $boxError.innerHTML;
+            $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
         }
     };
 
@@ -1211,8 +1206,7 @@ function infohub_transfer() {
      * @param $message
      */
     $functions.push('_HtmlToText');
-    const _HtmlToText = function ($message)
-    {
+    const _HtmlToText = function($message) {
         $message = $message.replace(/&/g, '&amp;');
         $message = $message.replace(/</g, '&lt;');
         $message = $message.replace(/>/g, '&gt;');
@@ -1222,4 +1216,5 @@ function infohub_transfer() {
         return $message;
     };
 }
+
 //# sourceURL=infohub_transfer.js

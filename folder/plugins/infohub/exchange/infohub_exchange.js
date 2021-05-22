@@ -17,7 +17,7 @@
  */
 function infohub_exchange() {
 
-    "use strict";
+    'use strict';
 
 // webworker=false
 // include "infohub_base.js"
@@ -28,7 +28,7 @@ function infohub_exchange() {
     };
 
     let $classSessionId = '';
-    const _GetSessionId = function () {
+    const _GetSessionId = function() {
         return $classSessionId;
     };
 
@@ -44,7 +44,7 @@ function infohub_exchange() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'false',
-            'core_plugin': 'true'
+            'core_plugin': 'true',
         };
     };
 
@@ -56,7 +56,7 @@ function infohub_exchange() {
             'event_message': 'normal',
             'plugin_started': 'normal',
             'initiator_verify_sign_code': 'normal',
-            'redirect': 'normal'
+            'redirect': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -66,7 +66,7 @@ function infohub_exchange() {
         $Sort = [], // Array with all unsorted messages
         $ToPending = [], // Array with all messages going to Pending or will be discarded
         $Pending = {}, // Messages waiting for a plugin to be loaded, $Pending['pluginname']=array()
-        $Plugin = {'infohub_exchange': {} }, // Object with all started plugins. $Plugin['pluginname']={}
+        $Plugin = {'infohub_exchange': {}}, // Object with all started plugins. $Plugin['pluginname']={}
         $PluginMissing = {}, // Object with all missing plugins. $PluginMissing['pluginname']={}
         $Stack = [], // Array with commands waiting to be executed in a loaded plugin
         $ToNode = {}, // Object with nodeName and arrays with all messages going to the nodes
@@ -87,8 +87,7 @@ function infohub_exchange() {
      * @param $message
      */
     $functions.push('_BoxError');
-    const _BoxError = function ($message, $doHtmlToText)
-    {
+    const _BoxError = function($message, $doHtmlToText) {
         if (_IsSet($doHtmlToText) === 'false') {
             $doHtmlToText = 'true';
         }
@@ -100,7 +99,7 @@ function infohub_exchange() {
             if ($doHtmlToText === 'true') {
                 $message = _HtmlToText($message);
             }
-            $boxError.innerHTML = $message + "\n<br>" + $boxError.innerHTML;
+            $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
             return;
         }
 
@@ -109,10 +108,11 @@ function infohub_exchange() {
         }
 
         const $messageLength = $message.length;
-        for (let $messageNumber = 0; $messageNumber < $messageLength; $messageNumber = $messageNumber + 1)
-        {
+        for (let $messageNumber = 0; $messageNumber <
+        $messageLength; $messageNumber = $messageNumber + 1) {
             $message[$messageNumber] = _HtmlToText($message[$messageNumber]);
-            $boxError.innerHTML = $message[$messageNumber] + "\n<br>" + $boxError.innerHTML;
+            $boxError.innerHTML = $message[$messageNumber] + '\n<br>' +
+                $boxError.innerHTML;
         }
     };
 
@@ -125,8 +125,7 @@ function infohub_exchange() {
      * @param $message
      */
     $functions.push('_HtmlToText');
-    const _HtmlToText = function ($message)
-    {
+    const _HtmlToText = function($message) {
         $message = $message.replace(/&/g, '&amp;');
         $message = $message.replace(/</g, '&lt;');
         $message = $message.replace(/>/g, '&gt;');
@@ -147,11 +146,38 @@ function infohub_exchange() {
      * @private
      */
     $functions.push('_GetCurrentHostname');
-    const _GetCurrentHostname = function ()
-    {
+    const _GetCurrentHostname = function() {
         const $hostname = window.location.hostname;
 
         return $hostname;
+    };
+
+    /**
+     * Get plugin_name GET parameter from URL
+     * If it is set then infohub_standalone is used with this plugin_name
+     * @version 2021-04-30
+     * @since   2021-04-30
+     * @author  Peter Lembke
+     * @returns {string}
+     * @private
+     */
+    $functions.push('_GetUrlPluginName');
+    const _GetUrlPluginName = function()
+    {
+        const $getParameter = window.location.search.substr(1);
+
+        if (_Empty($getParameter) === 'true') {
+            return '';
+        }
+
+        let $pluginName = '';
+
+        let $parts = $getParameter.split('=');
+        if (_IsSet($parts[1]) === 'true') {
+            $pluginName = $parts[1];
+        }
+
+        return $pluginName;
     };
 
     // ***********************************************************
@@ -169,12 +195,11 @@ function infohub_exchange() {
      * @return {{answer: string, message: string}}
      */
     $functions.push('main');
-    const main = function ($in)
-    {
+    const main = function($in) {
         const $default = {
             'package': {},
             'answer': 'false',
-            'message': ''
+            'message': '',
         };
         $in = _Default($default, $in);
 
@@ -184,7 +209,7 @@ function infohub_exchange() {
 
         internal_Cmd({
             'func': 'ToSort',
-            'package': $in.package
+            'package': $in.package,
         });
         delete $in.package;
 
@@ -211,8 +236,7 @@ function infohub_exchange() {
                 internal_Cmd({'func': 'Stack'});
             }
 
-            if ($moreToDo === 'false' && $addedTransferMessage === 'false')
-            {
+            if ($moreToDo === 'false' && $addedTransferMessage === 'false') {
                 if (_Count($ToNode) > 0) {
                     _AddTransferMessage();
                     $addedTransferMessage = 'true';
@@ -229,8 +253,7 @@ function infohub_exchange() {
         $in.answer = 'true';
         $in.message = 'Have handled all messages in all queues';
 
-        if ($moreToDo === 'true')
-        {
+        if ($moreToDo === 'true') {
             $in.answer = 'false';
             $in.message = 'There are more messages to handle but we have already ran 400 loops. Will continue later';
 
@@ -238,7 +261,7 @@ function infohub_exchange() {
                 'func': 'Log',
                 'level': 'error',
                 'message': $in.message,
-                'function_name': 'main'
+                'function_name': 'main',
             });
         }
 
@@ -246,7 +269,7 @@ function infohub_exchange() {
 
         return {
             'answer': $in.answer,
-            'message': $in.message
+            'message': $in.message,
         };
     };
 
@@ -257,17 +280,16 @@ function infohub_exchange() {
      * @private
      */
     $functions.push('_AddTransferMessage');
-    const _AddTransferMessage = function()
-    {
+    const _AddTransferMessage = function() {
         let $subCall = _SubCall({
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_transfer',
-                'function': 'send'
+                'function': 'send',
             },
             'data': {
-                'to_node': $ToNode
-            }
+                'to_node': $ToNode,
+            },
         });
 
         $subCall.callstack = [];
@@ -276,13 +298,13 @@ function infohub_exchange() {
             'to': {
                 'node': 'client',
                 'plugin': 'infohub_exchange',
-                'function': 'main'
+                'function': 'main',
             },
-            'data_back': {}
+            'data_back': {},
         };
 
         $ToNode = {};
-        _SortAdd({'message': $subCall });
+        _SortAdd({'message': $subCall});
 
         return 'true';
     };
@@ -296,9 +318,8 @@ function infohub_exchange() {
      * @since 2015-02-12
      * @author Peter Lembke
      */
-    $functions.push("startup");
-    const startup = function ($in)
-    {
+    $functions.push('startup');
+    const startup = function($in) {
         const $default = {
             'step': 'step_get_session_data',
             'parent_box_id': '1',
@@ -312,39 +333,39 @@ function infohub_exchange() {
             'data_back': {
                 'session_valid': 'false',
                 'user_name': '',
-                'role_list': []
-            }
+                'role_list': [],
+            },
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         if ($in.step === 'step_get_session_data') {
 
-            $progress.whatArea('send_first_message',20, 'Get session data');
+            $progress.whatArea('send_first_message', 20, 'Get session data');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_get_session_data'
+                    'function': 'initiator_get_session_data',
                 },
                 'data': {
-                    'node': 'server'
+                    'node': 'server',
                 },
                 'data_back': {
-                    'step': 'step_get_session_data_response'
-                }
+                    'step': 'step_get_session_data_response',
+                },
             });
         }
 
         if ($in.step === 'step_get_session_data_response') {
 
-            $progress.whatArea('send_first_message',40, 'Got session data');
+            $progress.whatArea('send_first_message', 40, 'Got session data');
 
             const $default = {
                 'user_name': '',
                 'session_id': '',
                 'post_exist': 'false',
-                'role_list': []
+                'role_list': [],
             };
             $in.response = _Default($default, $in.response);
 
@@ -359,33 +380,34 @@ function infohub_exchange() {
 
         if ($in.step === 'step_check_session_valid') {
 
-            $progress.whatArea('send_first_message',50, 'Check session valid');
+            $progress.whatArea('send_first_message', 50, 'Check session valid');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_check_session_valid'
+                    'function': 'initiator_check_session_valid',
                 },
                 'data': {
-                    'node': 'server'
+                    'node': 'server',
                 },
                 'data_back': {
-                    'step': 'step_check_session_valid_response'
-                }
+                    'step': 'step_check_session_valid_response',
+                },
             });
         }
 
         if ($in.step === 'step_check_session_valid_response') {
 
-            $progress.whatArea('send_first_message',55, 'Check session valid response');
+            $progress.whatArea('send_first_message', 55,
+                'Check session valid response');
 
             const $default = {
                 'answer': '',
                 'message': '',
                 'session_valid': 'false',
                 'user_name': '',
-                'role_list': []
+                'role_list': [],
             };
             $in.response = _Default($default, $in.response);
 
@@ -401,27 +423,28 @@ function infohub_exchange() {
 
         if ($in.step === 'step_delete_session') {
 
-            $progress.whatArea('send_first_message',60, 'Deleting session');
+            $progress.whatArea('send_first_message', 60, 'Deleting session');
 
             return _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'delete_session_data'
+                    'function': 'delete_session_data',
                 },
                 'data': {},
                 'data_back': {
                     'session_valid': 'false',
                     'user_name': $in.data_back.user_name,
                     'role_list': $in.data_back.role_list,
-                    'step': 'step_get_session_data' // We start over from the top with no session data this time
-                }
+                    'step': 'step_get_session_data', // We start over from the top with no session data this time
+                },
             });
         }
 
         if ($in.step === 'step_prepare_first_message') {
 
-            $progress.whatArea('send_first_message',60, 'Preparing first message');
+            $progress.whatArea('send_first_message', 60,
+                'Preparing first message');
 
             $classUserName = 'guest';
             if ($in.data_back.session_valid === 'true') {
@@ -433,9 +456,9 @@ function infohub_exchange() {
 
         let $messages = [];
 
-        if ($in.step === 'step_send_first_message')
-        {
-            $progress.whatArea('send_first_message',90, 'Send message depending on domain settings');
+        if ($in.step === 'step_send_first_message') {
+            $progress.whatArea('send_first_message', 90,
+                'Send message depending on domain settings');
 
             let $name = 'domain';
             if ($classUserName === 'guest') {
@@ -445,7 +468,7 @@ function infohub_exchange() {
             let $domain = _GetData({
                 'name': $name,
                 'default': '',
-                'data': $in.config
+                'data': $in.config,
             });
 
             let $subCall = {};
@@ -466,16 +489,26 @@ function infohub_exchange() {
                 'data': $subCall,
             });
 
+            if ($name !== 'domain_guest') {
+                const $urlPluginName = _GetUrlPluginName();
+                if ($urlPluginName !== '') {
+                    $subCall.node = 'client';
+                    $subCall.plugin = 'infohub_standalone';
+                    $subCall.functon = 'startup';
+                    $data = {'plugin_name': $urlPluginName};
+                }
+            }
+
             let $messageOut = _SubCall({
                 'to': {
                     'node': $subCall.node,
                     'plugin': $subCall.plugin,
-                    'function': $subCall.function
+                    'function': $subCall.function,
                 },
                 'data': $data,
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($messageOut);
 
@@ -483,14 +516,14 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_keyboard',
-                    'function': 'event_message'
+                    'function': 'event_message',
                 },
                 'data': {
-                    'event_type': 'ping' // Just to wake up the plugin, it has event observers that must be run
+                    'event_type': 'ping', // Just to wake up the plugin, it has event observers that must be run
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($messageOut);
 
@@ -498,14 +531,14 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_offline',
-                    'function': 'event_message'
+                    'function': 'event_message',
                 },
                 'data': {
-                    'event_type': 'ping' // Just to wake up the plugin, it has event observers that must be run
+                    'event_type': 'ping', // Just to wake up the plugin, it has event observers that must be run
                 },
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($messageOut);
 
@@ -513,22 +546,22 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_offline',
-                    'function': 'update_service_worker'
+                    'function': 'update_service_worker',
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end'
-                }
+                    'step': 'step_end',
+                },
             });
             $messages.push($messageOut);
 
-            $progress.whatArea('send_first_message',100, 'Now we start');
+            $progress.whatArea('send_first_message', 100, 'Now we start');
         }
 
         return {
             'answer': 'true',
             'message': 'Leaving function infohub_exchange->startup()',
-            'messages': $messages
+            'messages': $messages,
         };
     };
 
@@ -538,19 +571,18 @@ function infohub_exchange() {
      * @since 2015-06-20
      * @author Peter Lembke
      */
-    $functions.push("event_message");
-    const event_message = function ($in)
-    {
+    $functions.push('event_message');
+    const event_message = function($in) {
         const $default = {
             'event_type': '',
             'message': '',
-            'answer': ''
+            'answer': '',
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         return {
             'answer': 'true',
-            'message': 'Leaving function infohub_exchange->event_message'
+            'message': 'Leaving function infohub_exchange->event_message',
         };
     };
 
@@ -562,12 +594,11 @@ function infohub_exchange() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push("plugin_started");
-    const plugin_started = function($in)
-    {
+    $functions.push('plugin_started');
+    const plugin_started = function($in) {
         const $default = {
             'plugin_name': '',
-            'plugin_started': 'false'
+            'plugin_started': 'false',
         };
         $in = _Default($default, $in);
 
@@ -576,17 +607,18 @@ function infohub_exchange() {
 
         leave: {
             if (_IsSet($Pending[$in.plugin_name]) === false) {
-                $message = 'We have not requested this plugin:' + $in.plugin_name + ', skip it';
+                $message = 'We have not requested this plugin:' +
+                    $in.plugin_name + ', skip it';
                 break leave;
             }
 
             if (_Count($Pending[$in.plugin_name]) === 0) {
-                $message = 'We have no pending messages to this plugin:' + $in.plugin_name + ', skip it';
+                $message = 'We have no pending messages to this plugin:' +
+                    $in.plugin_name + ', skip it';
                 break leave;
             }
 
-            if ($in.plugin_started !== 'true')
-            {
+            if ($in.plugin_started !== 'true') {
                 // The plugin could not be started. We have some pending messages to handle.
                 $message = 'Could not get the plugin from the server';
 
@@ -594,7 +626,7 @@ function infohub_exchange() {
                     'function_name': 'plugin_started',
                     'message': $message,
                     'level': 'error',
-                    'object': {'plugin': $in.plugin_name }
+                    'object': {'plugin': $in.plugin_name},
                 });
 
                 $PluginMissing[$in.plugin_name] = {};
@@ -613,9 +645,11 @@ function infohub_exchange() {
 
             $Plugin[$in.plugin_name] = {};
             try {
-                eval("$Plugin[$in.plugin_name] = new " + $in.plugin_name + "();");
+                eval('$Plugin[$in.plugin_name] = new ' + $in.plugin_name +
+                    '();');
             } catch ($err) {
-                $message = 'Can not not instantiate class:' + $in.plugin_name + ', error:' + $err.message();
+                $message = 'Can not not instantiate class:' + $in.plugin_name +
+                    ', error:' + $err.message();
                 break leave;
             }
 
@@ -628,7 +662,7 @@ function infohub_exchange() {
 
         return {
             'answer': $answer,
-            'message': $message
+            'message': $message,
         };
     };
 
@@ -639,7 +673,7 @@ function infohub_exchange() {
      * @returns {*}
      * @private
      */
-    const _CheckIncomingMessagesIfSessionValid = function ($in) {
+    const _CheckIncomingMessagesIfSessionValid = function($in) {
 
         for (let $key in $in.package.messages) {
             if ($in.package.messages.hasOwnProperty($key) === false) {
@@ -676,8 +710,7 @@ function infohub_exchange() {
      * If package true then run some code and give messages to the main loop.
      * @param $in
      */
-    const initiator_verify_sign_code = function ($in)
-    {
+    const initiator_verify_sign_code = function($in) {
         const $default = {
             'step': 'step_check_incoming_data',
             'package': {
@@ -688,20 +721,20 @@ function infohub_exchange() {
                 'package_type': '',
                 'session_id': '',
                 'sign_code': '',
-                'sign_code_created_at': ''
+                'sign_code_created_at': '',
             },
             'config': {
                 'session_id': '',
-                'user_name': ''
+                'user_name': '',
             },
             'data_back': {},
-            'response': {}
+            'response': {},
         };
         $in = _Default($default, $in);
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report'
+            'message': 'Nothing to report',
         };
 
         if ($in.step === 'step_check_incoming_data') {
@@ -714,7 +747,8 @@ function infohub_exchange() {
 
                 $in = _CheckIncomingMessagesIfSessionValid($in);
 
-                if ($in.config.session_id === '' && $in.config.user_name === 'guest') {
+                if ($in.config.session_id === '' && $in.config.user_name ===
+                    'guest') {
                     $out.message = 'Package session_id or sign_code are empty but it is OK since we are guest';
                     $in.step = 'step_ok';
                 }
@@ -726,16 +760,16 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_checksum',
-                    'function': 'calculate_checksum'
+                    'function': 'calculate_checksum',
                 },
                 'data': {
-                    'value': $in.package.messages_encoded
+                    'value': $in.package.messages_encoded,
                 },
                 'data_back': {
                     'step': 'step_messages_checksum_response',
                     'package': $in.package,
-                    'config': $in.config
-                }
+                    'config': $in.config,
+                },
             });
         }
 
@@ -755,7 +789,7 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_session',
-                    'function': 'initiator_verify_sign_code'
+                    'function': 'initiator_verify_sign_code',
                 },
                 'data': {
                     'node': 'server', // node name
@@ -766,8 +800,8 @@ function infohub_exchange() {
                 'data_back': {
                     'step': 'step_initiator_verify_sign_code_response',
                     'package': $in.package,
-                    'config': $in.config
-                }
+                    'config': $in.config,
+                },
             });
         }
 
@@ -775,7 +809,7 @@ function infohub_exchange() {
             const $default = {
                 'answer': 'false',
                 'message': '',
-                'ok': 'false'
+                'ok': 'false',
             };
             $in.response = _Default($default, $in.response);
 
@@ -796,10 +830,10 @@ function infohub_exchange() {
             let $event = new CustomEvent('infohub_call_main', {
                 detail: {
                     'package': $in.package,
-                    'message': 'Incoming ajax message'
+                    'message': 'Incoming ajax message',
                 },
                 bubbles: true,
-                cancelable: true
+                cancelable: true,
             });
             document.dispatchEvent($event);
 
@@ -809,7 +843,7 @@ function infohub_exchange() {
 
         return {
             'answer': $out.answer,
-            'message': $out.message
+            'message': $out.message,
         };
     };
 
@@ -832,32 +866,32 @@ function infohub_exchange() {
      * @uses package | string | The incoming package as a JSON string
      */
     $functions.push('internal_ToSort');
-    const internal_ToSort = function ($in)
-    {
+    const internal_ToSort = function($in) {
         const $default = {
-            'func':'ToSort',
-            'package': {}
+            'func': 'ToSort',
+            'package': {},
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         const $package = $in.package;
 
         let $response = {
             'answer': 'true',
-            'message': ''
+            'message': '',
         };
 
         block: {
-            if (_IsSet($package.messages) === 'false' || Array.isArray($package.messages) === false)
-            {
+            if (_IsSet($package.messages) === 'false' ||
+                Array.isArray($package.messages) === false) {
                 $response.message = 'There are no messages in the package to sort';
                 break block;
             }
 
             // Copy all messages to array Sort if we have any
-            for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber = messageNumber +1)
-            {
-                if (_IsSet($package.messages[messageNumber].error_array) === 'true') {
+            for (let messageNumber = 0; messageNumber <
+            $package.messages.length; messageNumber = messageNumber + 1) {
+                if (_IsSet($package.messages[messageNumber].error_array) ===
+                    'true') {
                     _BoxError($package.messages[messageNumber].error_array);
                     delete $package.messages[messageNumber].error_array;
                 }
@@ -870,7 +904,7 @@ function infohub_exchange() {
 
         return {
             'answer': $response.answer,
-            'message': $response.message
+            'message': $response.message,
         };
     };
 
@@ -879,17 +913,16 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SendMessageBackPluginNotFound');
-    const _SendMessageBackPluginNotFound = function($in, $message)
-    {
+    const _SendMessageBackPluginNotFound = function($in, $message) {
         const $default = {
             'callstack': [],
             'data': {},
             'data_back': {},
             'to': {
-                'node': '', 'plugin': '', 'function': ''
+                'node': '', 'plugin': '', 'function': '',
             },
             'wait': 0.0,
-            'execution_time': 0.0
+            'execution_time': 0.0,
         };
         $in = _Default($default, $in);
 
@@ -902,13 +935,13 @@ function infohub_exchange() {
             'variables': {
                 'answer': 'false',
                 'message': $message,
-                'to': $in.to
+                'to': $in.to,
             },
-            'original_message': $in
+            'original_message': $in,
         });
 
         if ($dataMessage.answer === 'true') {
-            _SortAdd({'message' : $dataMessage.return_call_data });
+            _SortAdd({'message': $dataMessage.return_call_data});
         }
     };
 
@@ -918,18 +951,17 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SendMessageBackMessageFailedTests');
-    const _SendMessageBackMessageFailedTests = function($in)
-    {
+    const _SendMessageBackMessageFailedTests = function($in) {
         const $default = {
             'callstack': [],
             'data': {},
             'data_back': {},
             'to': {
-                'node': '', 'plugin': '', 'function': ''
+                'node': '', 'plugin': '', 'function': '',
             },
             'wait': 0.0,
             'execution_time': 0.0,
-            'message': ''
+            'message': '',
         };
         $in = _Default($default, $in);
 
@@ -938,13 +970,13 @@ function infohub_exchange() {
             'variables': {
                 'answer': 'false',
                 'message': $in.message,
-                'to': $in.to
+                'to': $in.to,
             },
-            'original_message': $in
+            'original_message': $in,
         });
 
         if ($dataMessage.answer === 'true') {
-            _SortAdd({'message' : $dataMessage.return_call_data });
+            _SortAdd({'message': $dataMessage.return_call_data});
         }
     };
 
@@ -953,18 +985,16 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SortAdd');
-    const _SortAdd = function($in)
-    {
+    const _SortAdd = function($in) {
         const $default = {
             'test': 'true',
-            'message': {}
+            'message': {},
         };
         $in = _Default($default, $in);
 
         let $dataMessage = $in.message;
 
-        if ($in.test === 'true')
-        {
+        if ($in.test === 'true') {
             $dataMessage.func = 'MessageCheck';
             const $response = internal_Cmd($dataMessage);
             if ($response.ok === 'false') {
@@ -987,11 +1017,15 @@ function infohub_exchange() {
 
         const $package = {
             'to_node': 'client',
-            'messages': [$dataMessage]
+            'messages': [$dataMessage],
         };
 
         const $event = new CustomEvent('infohub_call_main',
-            { detail: {'plugin': null, 'package': $package}, bubbles: true, cancelable: true }
+            {
+                detail: {'plugin': null, 'package': $package},
+                bubbles: true,
+                cancelable: true,
+            },
         );
         document.dispatchEvent($event);
     };
@@ -1002,28 +1036,28 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('internal_MessageCheck');
-    const internal_MessageCheck = function($in)
-    {
+    const internal_MessageCheck = function($in) {
         const $default = {
             'callstack': [],
             'data': {},
             'data_back': {},
-            'to': {'node': '', 'plugin': '', 'function': '' },
+            'to': {'node': '', 'plugin': '', 'function': ''},
             'wait': 0.0,
-            'execution_time': 0.0
+            'execution_time': 0.0,
         };
         $in = _Default($default, $in);
 
         const $defaultCallstackItem = {
             'data_back': {},
             'data_request': [],
-            'to': {'node': '', 'plugin': '', 'function': '' }
+            'to': {'node': '', 'plugin': '', 'function': ''},
         };
 
         // Set default values in all callstack items
-        for (let $callstackItemNumber = 0; $callstackItemNumber < $in.callstack.length; $callstackItemNumber = $callstackItemNumber + 1)
-        {
-            $in.callstack[$callstackItemNumber] = _Default($defaultCallstackItem, $in.callstack[$callstackItemNumber]);
+        for (let $callstackItemNumber = 0; $callstackItemNumber <
+        $in.callstack.length; $callstackItemNumber = $callstackItemNumber + 1) {
+            $in.callstack[$callstackItemNumber] = _Default(
+                $defaultCallstackItem, $in.callstack[$callstackItemNumber]);
         }
 
         let $response;
@@ -1052,7 +1086,7 @@ function infohub_exchange() {
             'answer': $response.answer,
             'message': $response.message,
             'data_message': $response.data_message,
-            'ok': $response.ok
+            'ok': $response.ok,
         };
     };
 
@@ -1064,8 +1098,7 @@ function infohub_exchange() {
      * @private
      */
     $functions.push('_CheckMessageStructure');
-    const _CheckMessageStructure = function($in)
-    {
+    const _CheckMessageStructure = function($in) {
         $in = _ByVal($in);
 
         let $ok = 'false';
@@ -1085,7 +1118,7 @@ function infohub_exchange() {
 
             const $defaultBack = {
                 'to': {'node': '', 'plugin': '', 'function': ''},
-                'data_back': {}
+                'data_back': {},
             };
             $in.callstack[0] = _Default($defaultBack, $in.callstack[0]);
 
@@ -1102,7 +1135,7 @@ function infohub_exchange() {
             'answer': 'true',
             'message': $message,
             'data_message': $in,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -1112,10 +1145,8 @@ function infohub_exchange() {
      * @return string
      */
     $functions.push('_CheckMessageStructureTo');
-    const _CheckMessageStructureTo = function($in)
-    {
-        for (let $key in $in.to)
-        {
+    const _CheckMessageStructureTo = function($in) {
+        for (let $key in $in.to) {
             if ($in.to.hasOwnProperty($key) === false) {
                 continue;
             }
@@ -1138,8 +1169,7 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('_CheckMessageNode');
-    const _CheckMessageNode = function($in)
-    {
+    const _CheckMessageNode = function($in) {
         $in = _ByVal($in);
 
         let $ok = 'true',
@@ -1168,7 +1198,7 @@ function infohub_exchange() {
             'answer': 'true',
             'message': $message,
             'data_message': $in,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -1178,8 +1208,7 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('_CheckMessageCalling');
-    const _CheckMessageCalling = function($in)
-    {
+    const _CheckMessageCalling = function($in) {
         $in = _ByVal($in);
 
         let $answer = 'true';
@@ -1207,16 +1236,18 @@ function infohub_exchange() {
             const $toPart = $to.plugin.split('_');
 
             if ($in.callstack.length === 0) {
-                $message = $message + ' OK to arrive at a plugin with an empty callstack. Means you used a multi message with a short tail';
+                $message = $message +
+                    ' OK to arrive at a plugin with an empty callstack. Means you used a multi message with a short tail';
                 break leave;
             }
 
-            let $back = $in.callstack[$in.callstack.length-1];
+            let $back = $in.callstack[$in.callstack.length - 1];
             $back = $back.to;
             const $backPart = $back.plugin.split('_');
 
             if ($toPart.length === 2 && $backPart.length === 2) {
-                $message = $message + ' OK, communication on level 1 is OK, even between nodes';
+                $message = $message +
+                    ' OK, communication on level 1 is OK, even between nodes';
                 break leave;
             }
 
@@ -1233,7 +1264,8 @@ function infohub_exchange() {
             }
 
             if ($toPart.length === 2 && $backPart.length > 2) {
-                $message = $message + ' OK, the destination is a level 1 plugin on the same node';
+                $message = $message +
+                    ' OK, the destination is a level 1 plugin on the same node';
                 break leave;
             }
 
@@ -1257,7 +1289,8 @@ function infohub_exchange() {
                 $toPartCopy.pop(); // Remove the child name from the end of the array
                 let $backPartCopy = _ByVal($backPart);
                 $backPartCopy.pop(); // Remove the child name from the end of the array
-                if (JSON.stringify($toPartCopy) === JSON.stringify($backPartCopy)) {
+                if (JSON.stringify($toPartCopy) ===
+                    JSON.stringify($backPartCopy)) {
                     $message = $message + ' OK, the destination is a sibling';
                     break leave;
                 }
@@ -1275,7 +1308,7 @@ function infohub_exchange() {
             'answer': $answer,
             'message': $message,
             'data_message': $in,
-            'ok': $ok
+            'ok': $ok,
         };
     };
 
@@ -1289,16 +1322,15 @@ function infohub_exchange() {
      * @returns {*}
      */
     $functions.push('internal_Sort');
-    const internal_Sort = function ($in)
-    {
+    const internal_Sort = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
-        while ($Sort.length > 0)
-        {
+        while ($Sort.length > 0) {
             const $dataMessage = $Sort.pop(); // Move the last message from the array Sort
 
-            if (_IsSet($dataMessage.to) === 'false' || _IsSet($dataMessage.to.node) === 'false') {
+            if (_IsSet($dataMessage.to) === 'false' ||
+                _IsSet($dataMessage.to.node) === 'false') {
                 continue;
             }
 
@@ -1330,7 +1362,7 @@ function infohub_exchange() {
 
         return {
             'answer': 'true',
-            'message': 'Sorted the messages in Sort'
+            'message': 'Sorted the messages in Sort',
         };
     };
 
@@ -1344,18 +1376,16 @@ function infohub_exchange() {
      * @return object
      */
     $functions.push('internal_ToPending');
-    const internal_ToPending = function ($in)
-    {
+    const internal_ToPending = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
-        while($ToPending.length > 0)
-        {
+        while ($ToPending.length > 0) {
             const $dataMessage = $ToPending.pop();
             const $pluginName = $dataMessage.to.plugin;
 
-            if (_IsSet($Pending[$pluginName]) === 'true' && Array.isArray($Pending[$pluginName]) === true)
-            {
+            if (_IsSet($Pending[$pluginName]) === 'true' &&
+                Array.isArray($Pending[$pluginName]) === true) {
                 // We have got messages to this pending plugin before
                 if ($Pending[$pluginName].length === 0) {
                     // We earlier got information that the plugin could not be found.
@@ -1366,7 +1396,7 @@ function infohub_exchange() {
                         'function_name': 'internal_ToPending',
                         'message': $message,
                         'level': 'error',
-                        'object': {'plugin': $pluginName }
+                        'object': {'plugin': $pluginName},
                     });
 
                     $PluginMissing[$pluginName] = {};
@@ -1388,12 +1418,12 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_plugin',
-                    'function': 'plugin_request'
+                    'function': 'plugin_request',
                 },
                 'data': {
                     'plugin_name': $pluginName,
-                    'plugin_node': $dataMessage.to.node
-                }
+                    'plugin_node': $dataMessage.to.node,
+                },
             });
 
             $subCall.callstack = [];
@@ -1402,17 +1432,17 @@ function infohub_exchange() {
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_exchange',
-                    'function': 'main'
+                    'function': 'main',
                 },
-                'data_back': {}
+                'data_back': {},
             };
 
-            _SortAdd({'message': $subCall });
+            _SortAdd({'message': $subCall});
         }
 
         return {
             'answer': 'true',
-            'message': 'Sorted the messages in ToPending'
+            'message': 'Sorted the messages in ToPending',
         };
     };
 
@@ -1426,38 +1456,35 @@ function infohub_exchange() {
      * @returns {{answer: string, message}}
      */
     $functions.push('internal_Stack');
-    const internal_Stack = function ($in)
-    {
+    const internal_Stack = function($in) {
         const $default = {};
         $in = _Default($default, $in);
 
-        while ($Stack.length > 0)
-        {
+        while ($Stack.length > 0) {
             let $dataMessage = $Stack.pop();
             const $pluginName = $dataMessage.to.plugin;
 
-            if (_IsSet($Plugin[$pluginName]) === 'false')
-            {
+            if (_IsSet($Plugin[$pluginName]) === 'false') {
                 internal_Log({
                     'level': 'error',
                     'message': 'The plugin do not exist. Too late to do something about that now.',
                     'function_name': 'internal_Stack',
-                    'object': {'plugin': $pluginName }
+                    'object': {'plugin': $pluginName},
                 });
 
                 $PluginMissing[$pluginName] = {};
                 continue;
             }
 
-            const $responseConfig = internal_GetConfigFromLocalStorage($pluginName);
-            if ($responseConfig.answer === 'false')
-            {
+            const $responseConfig = internal_GetConfigFromLocalStorage(
+                $pluginName);
+            if ($responseConfig.answer === 'false') {
                 // you as a developer deleted the plugin from browser after infohub had loaded it
                 internal_Log({
                     'level': 'error',
                     'message': $responseConfig.message,
                     'function_name': 'internal_Stack',
-                    'object': {'plugin': $pluginName }
+                    'object': {'plugin': $pluginName},
                 });
 
                 // $PluginMissing[$pluginName] = {}; // Do not set as missing, just try again instead.
@@ -1474,10 +1501,9 @@ function infohub_exchange() {
                 $run = $that;
             }
 
-            $dataMessage.callback_function = function($response)
-            {
+            $dataMessage.callback_function = function($response) {
                 _SortAdd({
-                    'message': $response
+                    'message': $response,
                 });
             };
 
@@ -1486,7 +1512,7 @@ function infohub_exchange() {
 
         return {
             'answer': 'true',
-            'message': 'Have run all messages in the Stack, have put the responses in Sort'
+            'message': 'Have run all messages in the Stack, have put the responses in Sort',
         };
     };
 
@@ -1499,16 +1525,14 @@ function infohub_exchange() {
      * @private
      */
     $functions.push('internal_GetConfigFromLocalStorage');
-    const internal_GetConfigFromLocalStorage = function($pluginName)
-    {
+    const internal_GetConfigFromLocalStorage = function($pluginName) {
         let $pluginConfig = {},
             $answer = 'false',
             $message = 'Plugin do not exist in local storage';
 
         const $pluginJson = localStorage.getItem('plugin_' + $pluginName);
 
-        if (_Empty($pluginJson) === 'false')
-        {
+        if (_Empty($pluginJson) === 'false') {
             const $pluginData = JSON.parse($pluginJson);
             $pluginConfig = $pluginData.plugin_config;
             $answer = 'true';
@@ -1523,7 +1547,7 @@ function infohub_exchange() {
             'answer': $answer,
             'message': $message,
             'plugin_config': $pluginConfig,
-            'plugin_name': $pluginName
+            'plugin_name': $pluginName,
         };
     };
 
@@ -1532,8 +1556,7 @@ function infohub_exchange() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_StartCore');
-    const internal_StartCore = function()
-    {
+    const internal_StartCore = function() {
         const $corePluginNames = [
             'infohub_cache',
             'infohub_exchange',
@@ -1543,16 +1566,15 @@ function infohub_exchange() {
             'infohub_keyboard',
             'infohub_offline',
             'infohub_checksum',
-            'infohub_timer'
+            'infohub_timer',
         ];
 
         let $out = {
             'answer': 'true',
-            'message': 'Started the core plugins'
+            'message': 'Started the core plugins',
         };
 
-        while ($corePluginNames.length > 0)
-        {
+        while ($corePluginNames.length > 0) {
             const $name = $corePluginNames.pop();
             if (_IsSet($Plugin[$name]) === 'true') {
                 continue;
@@ -1561,10 +1583,11 @@ function infohub_exchange() {
             $Plugin[$name] = {};
 
             try {
-                eval("$Plugin[$name] = new " + $name + "();");
+                eval('$Plugin[$name] = new ' + $name + '();');
             } catch ($err) {
                 $out.answer = 'false';
-                $out.message = 'Can not instantiate class:"' + $name + '", error:"' + $err.message + '"';
+                $out.message = 'Can not instantiate class:"' + $name +
+                    '", error:"' + $err.message + '"';
                 break;
             }
         }
@@ -1579,20 +1602,20 @@ function infohub_exchange() {
      * @param $in
      * @returns {{new_url: string, answer: string, message: string}}
      */
-    const redirect = function($in)
-    {
+    const redirect = function($in) {
         const $default = {
-            'new_url': ''
+            'new_url': '',
         };
-        $in = _Default($default,$in);
+        $in = _Default($default, $in);
 
         window.location.replace($in.new_url);
 
         return {
             'answer': 'true',
             'message': 'Rerouting to another url',
-            'new_url': $in.new_url
+            'new_url': $in.new_url,
         };
     };
 }
+
 //# sourceURL=infohub_exchange.js

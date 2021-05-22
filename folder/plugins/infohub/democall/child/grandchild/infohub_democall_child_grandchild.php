@@ -26,41 +26,41 @@ class infohub_democall_child_grandchild extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @version 2019-03-09
+     * @return  string[]
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return  string[]
+     * @version 2019-03-09
      */
     protected function _Version(): array
     {
-        return array(
+        return [
             'date' => '2019-03-09',
             'since' => '2019-03-09',
             'version' => '1.0.0',
             'class_name' => 'infohub_democall_child_grandchild',
             'checksum' => '{{checksum}}',
-            'note'=> 'Examples that show who can send messages to who',
+            'note' => 'Examples that show who can send messages to who',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later'
-        );
+        ];
     }
 
     /**
      * Public functions in this plugin
-     * @version 2019-03-09
+     * @return mixed
      * @since   2019-03-09
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2019-03-09
      */
     protected function _GetCmdFunctions(): array
     {
-        return array(
+        return [
             'my_test' => 'normal',
             'call_self' => 'normal', // OK
             'call_level1_on_same_node' => 'normal', // OK
             'call_level1_on_other_node' => 'normal', // FAIL
             'call_parent' => 'normal' // FAIL
-        );
+        ];
     }
 
     /**
@@ -74,10 +74,10 @@ class infohub_democall_child_grandchild extends infohub_base
         $default = [];
         $in = $this->_Default($default, $in);
 
-        return array(
+        return [
             'answer' => 'true',
             'message' => 'You reached my_test in plugin ' . $this->_GetClassName()
-        );
+        ];
     }
 
     /**
@@ -88,38 +88,39 @@ class infohub_democall_child_grandchild extends infohub_base
      */
     protected function call_self(array $in = [])
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start') 
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_democall_child_grandchild',
-                    'function' => 'my_test'
-                ),
-                'data' => array(
-                ),
-                'data_back' => array(
-                    'step' => 'step_end',
-                ),
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_democall_child_grandchild',
+                        'function' => 'my_test'
+                    ],
+                    'data' => [
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end',
+                    ],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message']
-        );
+        ];
     }
 
-    
+
     /**
      * Call a level 1 plugin in this node
      * This call is OK
@@ -128,36 +129,37 @@ class infohub_democall_child_grandchild extends infohub_base
      */
     protected function call_level1_on_same_node(array $in = [])
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start') 
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_checksum',
-                    'function' => 'calculate_checksum'
-                ),
-                'data' => array(
-                    'value' => 'hello'
-                ),
-                'data_back' => array(
-                    'step' => 'step_end'
-                )
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_checksum',
+                        'function' => 'calculate_checksum'
+                    ],
+                    'data' => [
+                        'value' => 'hello'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end'
+                    ]
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message']
-        );
+        ];
     }
 
     /**
@@ -168,36 +170,37 @@ class infohub_democall_child_grandchild extends infohub_base
      */
     protected function call_level1_on_other_node(array $in = [])
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start') 
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'client',
-                    'plugin' => 'infohub_checksum',
-                    'function' => 'calculate_checksum'
-                ),
-                'data' => array(
-                    'value' => 'hello'
-                ),
-                'data_back' => array(
-                    'step' => 'step_end'
-                )
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'client',
+                        'plugin' => 'infohub_checksum',
+                        'function' => 'calculate_checksum'
+                    ],
+                    'data' => [
+                        'value' => 'hello'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end'
+                    ]
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message']
-        );
+        ];
     }
 
     /**
@@ -208,35 +211,36 @@ class infohub_democall_child_grandchild extends infohub_base
      */
     protected function call_parent(array $in = [])
     {
-        $default = array(
+        $default = [
             'step' => 'step_start',
-            'response' => array(
+            'response' => [
                 'answer' => 'false',
                 'message' => ''
-            )
-        );
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        if ($in['step'] === 'step_start') 
-        {
-            return $this->_SubCall(array(
-                'to' => array(
-                    'node' => 'server',
-                    'plugin' => 'infohub_democall_child',
-                    'function' => 'my_test'
-                ),
-                'data' => array(
-                ),
-                'data_back' => array(
-                    'step' => 'step_end',
-                ),
-            ));
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_democall_child',
+                        'function' => 'my_test'
+                    ],
+                    'data' => [
+                    ],
+                    'data_back' => [
+                        'step' => 'step_end',
+                    ],
+                ]
+            );
         }
 
-        return array(
+        return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message']
-        );
+        ];
     }
-    
+
 }
