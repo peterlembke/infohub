@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "Sameiginlegt leyndarmál",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Þú deilir þessu leyndarmáli við netþjóninn",
             "CHECKSUM_KEY": "Eftirlitssumma",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Eftirlitssumma lénsfangs + notandanafn + sameiginlegt leyndarmál.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Eftirlitssumma lénsfangs + notandanafn + sameiginlegt leyndarmál.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Leyfileg viðbót við netþjóna",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Listi með öllum nöfnum viðbótaþjóna sem þú getur sent skilaboð til á ytri hnútnum"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "Veldu skrá"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "Innskráning",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hér geturðu notað tengiliðagögnin sem þú fluttir inn og skráð þig inn á netþjóninn",
+            "PASSWORD_KEY": "Lykilorð",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Lykilorðið sem þú þarft til að afkóða sameiginlega_ leyndina",
+            "LOGIN_RESULT_KEY": "innskráningarniðurstaða",
+            "RELOAD_AFTER_LOGIN_KEY": "Endurhlaða eftir innskráningu",
+            "SELECT_FILE_KEY": "Veldu skrá",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Sæktu demo reikning",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Þú ert þegar innskráður",
+            "MISSING_USER_NAME_KEY": "Vantar notandanafn",
+            "MISSING_RANDOM_CODE_KEY": "Vantar af handahófi kóða",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Svarið frá netþjóninum tók of langan tíma. Ég mun yfirgefa innskráningartilraunina",
+            "FAILED_TO_LOGIN_KEY": "Mistókst að skrá þig inn",
+            "SUCCESS_LOGGING_IN_KEY": "Árangur við innskráningu",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Slembikóðinn hefur ekki rétta lengd",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Ólíklegt að heildarmeðaltalið hafi engar aukastafir",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Ólíklegt að meðaltalið sé jafnt heildar meðaltali",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Þessar einföldu próf sýna að random_code er að minnsta kosti ekki flatlína með tölum."
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "Innskráning",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hér geturðu notað tengiliðagögnin sem þú fluttir inn og skráð þig inn á netþjóninn",
             "PASSWORD_KEY": "Lykilorð",

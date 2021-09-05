@@ -55,7 +55,7 @@ function infohub_demo_document() {
 
     // ***********************************************************
     // * your class functions below, only declare with const
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -65,7 +65,7 @@ function infohub_demo_document() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -157,7 +157,7 @@ function infohub_demo_document() {
      * @author Peter Lembke
      */
     $functions.push('click_file_read');
-    const click_file_read = function($in) {
+    const click_file_read = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report',
@@ -221,7 +221,7 @@ function infohub_demo_document() {
      * @author Peter Lembke
      */
     $functions.push('click_load_example');
-    const click_load_example = function($in) {
+    const click_load_example = function($in = {}) {
         const $default = {
             'answer': 'true',
             'message': 'Nothing to report',
@@ -238,7 +238,7 @@ function infohub_demo_document() {
 Small example how Markdown can be used.
 
 ## Style
-Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^highlighted^^.  
+Text in //italic// and **bold** and __underline__ and ~~strike through~~ and ^^highlighted^^.  
 
 ## Link
 - External [link](https://www.teamfakta.se).
@@ -290,7 +290,7 @@ Text in //italic// and **bold** and __underline__ and ~~strike trough~~ and ^^hi
      * @author Peter Lembke
      */
     $functions.push('click_markdown_to_html');
-    const click_markdown_to_html = function($in) {
+    const click_markdown_to_html = function($in = {}) {
         const $default = {
             'form_data': {
                 'my_textarea': {

@@ -38,7 +38,7 @@ function infohub_translate_createfile() {
         const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
-            'click_create_file': 'normal',
+            'click_create_files': 'normal',
             'click_download': 'normal',
         };
 
@@ -112,7 +112,7 @@ function infohub_translate_createfile() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -122,7 +122,7 @@ function infohub_translate_createfile() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -156,7 +156,7 @@ function infohub_translate_createfile() {
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
-                            'content': '[button_refresh][select_plugin][missing_plugin_name][button_create_file][my_container]',
+                            'content': '[button_refresh][select_plugin][missing_plugin_name][download_file][button_create_file][my_container]',
                         },
                         'button_refresh': {
                             'plugin': 'infohub_renderform',
@@ -174,7 +174,7 @@ function infohub_translate_createfile() {
                             "label": _Translate("SELECT_PLUGIN"),
                             "description": _Translate("LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._SELECT_A_PLUGIN_AND_CLICK_CREATE_FILE."),
                             "size": "6",
-                            "multiple": "false",
+                            "multiple": "true",
                             "options": [],
                             'source_node': 'client',
                             'source_plugin': 'infohub_launcher',
@@ -189,12 +189,30 @@ function infohub_translate_createfile() {
                             'label': _Translate('PLUGIN_NAME'),
                             'description':_Translate('YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST.')
                         },
+                        'download_file': {
+                            'type': 'form',
+                            'subtype': 'radios',
+                            'group_name': 'file',
+                            "options": [
+                                {
+                                    "group_name": "file",
+                                    "value": "file_download",
+                                    "label": _Translate("DOWNLOAD_FILE")
+                                },
+                                {
+                                    "group_name": "file",
+                                    "value": "file_save",
+                                    "label": _Translate("SAVE_FILE_ON_SERVER"),
+                                    "selected": "true"
+                                }
+                            ]
+                        },
                         'button_create_file': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('CREATE_FILE'),
-                            'event_data': 'createfile|create_file',
+                            'event_data': 'createfile|create_files',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
@@ -208,7 +226,8 @@ function infohub_translate_createfile() {
                         },
                         'text_instructions': {
                             'type': 'text',
-                            'text': 'You get the english translation file. You can then use that file on online translation services to translate it to other languages.',
+                            'text': _Translate('YOU_GET_THE_ENGLISH_TRANSLATION_FILE.') + ' ' +
+                                _Translate('YOU_CAN_THEN_USE_THAT_FILE_ON_ONLINE_TRANSLATION_SERVICES_TO_TRANSLATE_IT_TO_OTHER_LANGUAGES.'),
                         },
                     },
                     'how': {
@@ -241,7 +260,7 @@ function infohub_translate_createfile() {
      * @since 2019-04-01
      * @author Peter Lembke
      */
-    const click_refresh = function($in) {
+    const click_refresh = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_render_plugin_options',
@@ -313,8 +332,8 @@ function infohub_translate_createfile() {
      * @since   2016-03-24
      * @author  Peter Lembke
      */
-    $functions.push('click_create_file');
-    const click_create_file = function($in) {
+    $functions.push('click_create_files');
+    const click_create_files = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -323,20 +342,20 @@ function infohub_translate_createfile() {
                 'message': 'Nothing to report',
                 'data': {},
                 'form_data': {},
-                'file': {},
+                'file_lookup': {},
             },
             'data_back': {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'ok': 'false',
-                'plugin_name': '',
-                'file': {},
+                'plugin_name_array': [],
+                'file_lookup': {},
             },
 
         };
         $in = _Default($default, $in);
 
-        let $nodeData = {};
+        let $pluginNameArray = [];
 
         if ($in.step === 'step_form_read') {
             return _SubCall({
@@ -357,34 +376,42 @@ function infohub_translate_createfile() {
 
         if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
-
             if ($in.response.answer === 'true') {
-                const $pluginNameSelected = _GetData({
-                    'name': 'response/form_data/select_plugin/value/0',
-                    'default': '',
-                    'data': $in,
-                });
-
-                const $pluginNameText = _GetData({
-                    'name': 'response/form_data/missing_plugin_name/value',
-                    'default': '',
-                    'data': $in,
-                });
-
-                let $pluginName = $pluginNameSelected;
-                if (_Empty($pluginNameText) === 'false') {
-                    $pluginName = $pluginNameText;
-                }
-
-                $nodeData = {
-                    'plugin_name': $pluginName,
-                };
-
                 $in.step = 'step_ask_server';
             }
         }
 
         if ($in.step === 'step_ask_server') {
+
+            const $pluginNameArraySelected = _GetData({
+                'name': 'response/form_data/select_plugin/value',
+                'default': [],
+                'data': $in,
+            });
+
+            const $pluginNameText = _GetData({
+                'name': 'response/form_data/missing_plugin_name/value',
+                'default': '',
+                'data': $in,
+            });
+
+            const $fileDownload = _GetData({
+                'name': 'response/form_data/download_file.file_download/value',
+                'default': 'false',
+                'data': $in,
+            });
+
+            const $fileSave = _GetData({
+                'name': 'response/form_data/download_file.file_save/value',
+                'default': 'false',
+                'data': $in,
+            });
+
+            $pluginNameArray = $pluginNameArraySelected;
+            if (_Empty($pluginNameText) === 'false') {
+                $pluginNameArray.push($pluginNameText);
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -395,41 +422,64 @@ function infohub_translate_createfile() {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_translate',
-                        'function': 'create_translation_file',
+                        'function': 'create_translation_files',
                     },
                     'data': {
-                        'plugin_name': $nodeData.plugin_name,
+                        'plugin_name_array': $pluginNameArray,
+                        'file_download': $fileDownload,
+                        'file_save': $fileSave
                     },
                 },
                 'data_back': {
                     'step': 'step_ask_server_response',
-                    'plugin_name': $nodeData.plugin_name,
+                    'plugin_name_array': $pluginNameArray,
                 },
             });
         }
 
         if ($in.step === 'step_ask_server_response') {
+
             $in.data_back.answer = $in.response.answer;
             $in.data_back.message = $in.response.message;
-            $in.data_back.file = $in.response.file;
+            $in.data_back.file_lookup = $in.response.file_lookup;
 
             if ($in.response.answer === 'true') {
                 $in.data_back.ok = 'true';
             }
 
-            $in.step = 'step_show_message';
-        }
-
-        if ($in.step === 'step_show_message') {
-            const $pluginName = _GetData({
-                'name': 'data_back/plugin_name',
-                'default': '',
+            const $fileLookup = _GetData({
+                'name': 'data_back/file_lookup',
+                'default': 'template',
                 'data': $in,
             });
 
-            let $showMessage = $in.data_back.message;
-            if (_Empty($pluginName) === 'false') {
-                $showMessage = $pluginName + ': ' + $showMessage;
+            const $extension = '-en.json';
+
+            let $messageArray = [];
+
+            for (let $fileName in $fileLookup) {
+                if ($fileLookup.hasOwnProperty($fileName) === false) {
+                    continue;
+                }
+
+                const $contentArray = $fileLookup[$fileName];
+
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_view',
+                        'function': 'file_write',
+                    },
+                    'data': {
+                        'file_name': $fileName + $extension,
+                        'content': _JsonEncode($contentArray),
+                    },
+                    'data_back': {
+                        'step': 'step_end',
+                    },
+                });
+
+                $messageArray.push($messageOut);
             }
 
             return _SubCall({
@@ -440,50 +490,21 @@ function infohub_translate_createfile() {
                 },
                 'data': {
                     'id': 'main.body.infohub_translate.form.[my_container]',
-                    'text': $showMessage,
+                    'text': $in.data_back.message,
                 },
                 'data_back': {
                     'answer': $in.data_back.answer,
                     'message': $in.data_back.message,
                     'ok': $in.data_back.ok,
-                    'plugin_name': $in.data_back.plugin_name,
+                    'plugin_name_array': $in.data_back.plugin_name_array,
                     'file': $in.data_back.file,
                     'step': 'step_show_message_response',
                 },
+                'messages': $messageArray
             });
         }
 
         if ($in.step === 'step_show_message_response') {
-            $in.step = 'step_file_write';
-        }
-
-        if ($in.step === 'step_file_write') {
-            const $fileName = _GetData({
-                'name': 'data_back/plugin_name',
-                'default': 'template',
-                'data': $in,
-            });
-
-            const $extension = '.json';
-
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_view',
-                    'function': 'file_write',
-                },
-                'data': {
-                    'file_name': $fileName + $extension,
-                    'content': _JsonEncode($in.data_back.file),
-                },
-                'data_back': {
-                    'step': 'step_file_write_response',
-                    'plugin_name': $in.data_back.plugin_name,
-                },
-            });
-        }
-
-        if ($in.step === 'step_file_write_response') {
             $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {

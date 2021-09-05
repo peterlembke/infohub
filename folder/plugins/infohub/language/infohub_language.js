@@ -58,7 +58,7 @@ function infohub_language() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -165,7 +165,7 @@ function infohub_language() {
      * @author  Peter Lembke
      */
     $functions.push('option_list_main_languages');
-    const option_list_main_languages = function($in) {
+    const option_list_main_languages = function($in = {}) {
         const $default = {
             'step': 'step_update_plugin_assets',
         };
@@ -234,7 +234,7 @@ function infohub_language() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('option_list_all_languages');
-    const option_list_all_languages = function($in) {
+    const option_list_all_languages = function($in = {}) {
         const $answer = 'true',
             $message = 'Here are the option values';
 
@@ -295,7 +295,7 @@ function infohub_language() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('get_translations');
-    const get_translations = function($in) {
+    const get_translations = function($in = {}) {
         const $default = {
             'step': 'step_update_plugin_assets',
             'response': {

@@ -2,7 +2,7 @@
 How version numbers work  
 
 # Introduction
-Each plugin in InfoHub have its own version number. Its purpose its to see how compatible it is with previous versions of the plugin.  
+Each plugin in InfoHub have its own version number. Its purpose is to see how compatible it is with previous versions of the plugin.  
 
 # Version number
 The version number is used to see how compatible it is with previous versions of the plugin.  
@@ -14,7 +14,7 @@ The sections can have any large number. 9999.9999.9999 is OK.
 When you PUBLISH a new version of the plugin, then change the data to today in function `_Version()`  
 
 # Fraction
-When you PUBLISH a new version of the plugin and you have done ANY amount of work on it, then increase the Fraction by one.  
+When you PUBLISH a new version of the plugin, and you have done ANY amount of work on it, then increase the Fraction by one.  
 
 # Minor
 When you PUBLISH a new version of the plugin where any functions have a changed status, then increase the Minor by one, and then reset the Fraction to zero.  
@@ -29,7 +29,7 @@ You need to promote ALL "emerging" functions in your plugin to "normal" or to "r
 You need to promote ALL "deprecated" functions in your plugin to "removed".  
 Now you can increase the major version number by one and reset the minor and fraction to zero. Example: 1.0.0 or 2.0.0 or 24.0.0 or 567.0.0  
 Read more about function status here: [function status](main,plugin_status)  
-If your plugin is part of a set with child plugins, then the whole set should have the same new major version. ALL plugins in the set should go trough the same process. This is something that could be coordinated among the developers of the set.  
+If your plugin is part of a set with child plugins, then the whole set should have the same new major version. ALL plugins in the set should go through the same process. This is something that could be coordinated among the developers of the set.  
 Removing functions is a major change. Introducing normal functions is also a major change.  
 
 # What triggers what

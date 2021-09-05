@@ -68,7 +68,7 @@ function infohub_login_forget() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -78,7 +78,7 @@ function infohub_login_forget() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -105,7 +105,8 @@ function infohub_login_forget() {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
                             'head_label': _Translate('FORGET_CONTACT'),
-                            'foot_text': _Translate('HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN.'),
+                            'foot_text': _Translate('HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA.') + ' ' +
+                                _Translate('YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN.'),
                             'content_data': '[button_forget]'
                         },
                         'button_forget': {
@@ -148,7 +149,7 @@ function infohub_login_forget() {
      * @author Peter Lembke
      */
     $functions.push('click_forget');
-    const click_forget = function($in) {
+    const click_forget = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_save_data_in_storage',

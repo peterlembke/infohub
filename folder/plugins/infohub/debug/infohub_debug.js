@@ -101,7 +101,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_translations',
@@ -175,7 +175,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('create'); // Enable this function
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -260,7 +260,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('clear_plugins'); // Enable this function
-    const clear_plugins = function($in) {
+    const clear_plugins = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -295,7 +295,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('clear_database'); // Enable this function
-    const clear_database = function($in) {
+    const clear_database = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -326,7 +326,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('refresh_plugins'); // Enable this function
-    const refresh_plugins = function($in) {
+    const refresh_plugins = function($in = {}) {
         const $default = {
             'step': 'step_update_plugin_list',
         };
@@ -375,7 +375,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('reload_page'); // Enable this function
-    const reload_page = function($in) {
+    const reload_page = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -411,7 +411,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('refresh_plugins_and_reload_page'); // Enable this function
-    const refresh_plugins_and_reload_page = function($in) {
+    const refresh_plugins_and_reload_page = function($in = {}) {
         const $default = {
             'step': 'step_update_plugins',
             'response': {},
@@ -511,7 +511,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('clear_storage_and_reload_page'); // Enable this function
-    const clear_storage_and_reload_page = function($in) {
+    const clear_storage_and_reload_page = function($in = {}) {
         const $default = {
             'step': 'step_delete_cache',
         };
@@ -558,7 +558,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('set_cold_start_and_reload_page'); // Enable this function
-    const set_cold_start_and_reload_page = function($in) {
+    const set_cold_start_and_reload_page = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -591,7 +591,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('delete_render_cache_for_user_name_and_reload_page'); // Enable this function
-    const delete_render_cache_for_user_name_and_reload_page = function($in) {
+    const delete_render_cache_for_user_name_and_reload_page = function($in = {}) {
         const $default = {
             'response': {
                 'answer': 'false',
@@ -617,7 +617,7 @@ function infohub_debug() {
 
         if ($in.step === 'step_delete_render_cache_for_user_name_response') {
             if ($in.response.answer === 'true') {
-                $in.response.message = _Translate('Done clearing cache');
+                $in.response.message = _Translate('DONE_CLEARING_CACHE');
                 $in.step = 'step_reload_page';
             }
         }
@@ -638,7 +638,7 @@ function infohub_debug() {
 
         if ($in.step === 'step_reload_page_response') {
             if ($in.response.answer === 'true') {
-                $in.response.message = _Translate('Done refreshing page');
+                $in.response.message = _Translate('DONE_REFRESHING_PAGE');
             }
         }
 
@@ -655,7 +655,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('keyboard_subscribe'); // Enable this function
-    const keyboard_subscribe = function($in) {
+    const keyboard_subscribe = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -736,7 +736,7 @@ function infohub_debug() {
      * @since   2018-09-09
      * @author  Peter Lembke
      */
-    const internal_DebugButtons = function($in) {
+    const internal_DebugButtons = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -790,7 +790,7 @@ function infohub_debug() {
             },
             'reload_page_text': {
                 'type': 'text',
-                'text': _Translate('RELOAD_PAGE._SHIFT_ALT_CTRL_1')
+                'text': _Translate('RELOAD_PAGE.') + ' SHIFT ALT CTRL 1'
             },
             'refresh_page_link': {
                 'type': 'link',
@@ -822,7 +822,7 @@ function infohub_debug() {
             },
             'refresh_page_text': {
                 'type': 'text',
-                'text': _Translate('CLEAN_OUT_OLD_PLUGINS_MARKED_BY_THE_SERVER._RELOAD_PAGE._SHIFT_ALT_CTRL_2')
+                'text': _Translate('CLEAN_OUT_OLD_PLUGINS_MARKED_BY_THE_SERVER._RELOAD_PAGE.') + ' SHIFT ALT CTRL 2'
             },
             'clear_plugins_link': {
                 'type': 'link',
@@ -854,7 +854,7 @@ function infohub_debug() {
             },
             'clear_plugins_text': {
                 'type': 'text',
-                'text': _Translate('CLEAN_OUT_ALL_LOCAL_PLUGINS,_RELOAD_PAGE._SHIFT_ALT_CTRL_3')
+                'text': _Translate('CLEAN_OUT_ALL_LOCAL_PLUGINS,_RELOAD_PAGE.') + 'SHIFT ALT CTRL 3'
             },
             'cold_start_link': {
                 'type': 'link',
@@ -886,7 +886,7 @@ function infohub_debug() {
             },
             'cold_start_text': {
                 'type': 'text',
-                'text': _Translate('CLEAN_OUT_ALL_LOCAL_DATA,_RELOAD_PAGE._SHIFT_ALT_CTRL_4')
+                'text': _Translate('CLEAN_OUT_ALL_LOCAL_DATA,_RELOAD_PAGE.') + ' SHIFT ALT CTRL 4'
             },
             'instructions_text': {
                 'type': 'text',
@@ -902,11 +902,11 @@ function infohub_debug() {
             },
             'information_text_3': {
                 'type': 'text',
-                'text': _Translate('[B]#3[/B]_IS_ALSO_AT_THE_BOTTOM_OF_THE_LAUNCHER_SCREEN_AS_A_BUTTON_IN_CASE_YOU_CAN_NOT_START_DEBUG_AND_HAVE_NO_KEYBOARD_ON_YOUR_DEVICE.')
+                'text': '[b]#3[/b] ' + _Translate('IS_ALSO_AT_THE_BOTTOM_OF_THE_LAUNCHER_SCREEN_AS_A_BUTTON_IN_CASE_YOU_CAN_NOT_START_DEBUG_AND_HAVE_NO_KEYBOARD_ON_YOUR_DEVICE.')
             },
             'information_text_4': {
                 'type': 'text',
-                'text': _Translate('[B]#4[/B]_IS_THE_ONLY_OPTION_THAT_ALSO_REMOVE_ICONS_AND_TRANSLATIONS_AND_SETTINGS_FROM_THE_LOCAL_STORAGE.')
+                'text': '[b]#4[/b] ' + _Translate('IS_THE_ONLY_OPTION_THAT_ALSO_REMOVE_ICONS_AND_TRANSLATIONS_AND_SETTINGS_FROM_THE_LOCAL_STORAGE.')
             },
             'clear_render_cache_link': {
                 'type': 'link',
@@ -996,7 +996,7 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'event_data': '',
             'step': 'step_start',

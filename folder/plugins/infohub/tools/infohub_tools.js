@@ -50,7 +50,13 @@ function infohub_tools() {
         return _GetCmdFunctionsBase($list);
     };
 
-    const _GetPluginName = function($data) {
+    /**
+     *
+     * @param $data
+     * @returns {string}
+     * @private
+     */
+    const _GetPluginName = function($data ='') {
         let $pluginType = 'welcome';
 
         let $tmp = $data.split('_');
@@ -66,7 +72,7 @@ function infohub_tools() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -76,7 +82,7 @@ function infohub_tools() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -227,7 +233,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -268,7 +274,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -348,7 +354,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'from_plugin': {
@@ -388,7 +394,7 @@ function infohub_tools() {
      * @author Peter Lembke
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'from_plugin': {

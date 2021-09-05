@@ -1,10 +1,10 @@
 {
     "version": {
-        "date": "2020-02-09 08:02:00",
+        "date": "2021-08-12 12:32:59",
         "plugin": "infohub_login",
         "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
         "language": "sv",
-        "country": "",
+        "country": "SE",
         "file_type": "finished_file"
     },
     "launcher": {
@@ -13,89 +13,96 @@
     },
     "data": {
         "infohub_login": {
-            "Instructions": "Instruktioner",
-            "Use the menu.": "Använd menyn.",
-            "What is this?": "Vad är det här?"
+            "INSTRUCTIONS_KEY": "Instruktioner",
+            "USE_THE_MENU._KEY": "Använd menyn.",
+            "WHAT_IS_THIS?_KEY": "Vad är detta?"
         },
         "infohub_login_contact": {
-            "One contact": "En kontakt",
-            "This is the data form for one contact": "Detta är dataformuläret för en kontakt",
-            "Node": "Nod",
-            "Any text you want": "All text du vill",
-            "Note": "Obs",
-            "Save": "Spara",
-            "Domain address": "Domänadress",
-            "The domain address to your server": "Domänadressen till din server",
-            "User name": "Användarnamn",
-            "This is you on the server": "Det här är du på servern",
-            "Shared secret": "Delad hemlighet",
-            "You share this secret with the server": "Du delar denna hemlighet med servern",
-            "Checksum": "Checksumma",
-            "Checksum of domain address + user name + shared secret.": "Kontrollsumma för domänadress + användarnamn + delad hemlighet.",
-            "Allowed plugins": "Tillåtna plugins",
-            "List with all plugin names you can send messages to on the remote node": "Lista med alla insticksnamn som du kan skicka meddelanden till på fjärrnoden"
+            "ONE_CONTACT_KEY": "En kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Detta är dataformuläret för en kontakt",
+            "NODE_KEY": "Nod",
+            "ANY_TEXT_YOU_WANT_KEY": "Vilken text du vill",
+            "NOTE_KEY": "Obs",
+            "SAVE_KEY": "Spara",
+            "DOMAIN_ADDRESS_KEY": "Domänadress",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domänadressen till din server",
+            "USER_NAME_KEY": "Användarnamn",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Det här är du på servern",
+            "SHARED_SECRET_KEY": "Delad hemlighet",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Du delar denna hemlighet med servern",
+            "CHECKSUM_KEY": "Checksumma",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrollsumma för domänadress + användarnamn + delad hemlighet.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Tillåtna serverplugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista med alla serverplugin -namn som du kan skicka meddelanden till på fjärranoden"
         },
         "infohub_login_export": {
-            "Export contact": "Exportera kontakt",
-            "Here you can export the contact data": "Här kan du exportera kontaktdata",
-            "Export": "Exportera"
+            "EXPORT_CONTACT_KEY": "Exportera kontakt",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Här kan du exportera kontaktdata",
+            "EXPORT_KEY": "Exportera"
         },
         "infohub_login_forget": {
-            "Forget contact": "Glöm kontakt",
-            "Here you can let the browser forget the contact data. You can always import your file again.": "Här kan du låta webbläsaren glömma kontaktdata. Du kan alltid importera din fil igen.",
-            "Forget": "Glöm"
+            "FORGET_CONTACT_KEY": "Glöm kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Här kan du låta webbläsaren glömma kontaktuppgifterna. Du kan alltid importera din fil igen.",
+            "FORGET_KEY": "Glöm"
         },
         "infohub_login_import": {
-            "Import": "Importera",
-            "Import the contact information from file": "Importera kontaktinformationen från filen",
-            "Select file": "Välj fil"
+            "IMPORT_KEY": "Importera",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importera kontaktinformationen från filen",
+            "SELECT_FILE_KEY": "Välj fil"
         },
         "infohub_login_login": {
-            "Login": "Logga in",
-            "Here you can use the contact data you imported and login to the server": "Här kan du använda kontaktdata som du importerade och logga in på servern",
-            "Password": "Lösenord",
-            "login result": "Inloggningsresultat",
-            "Download demo account": "Ladda ned demo loginfil",
-            "The password you need to decode the shared_secret": "Lösenordet du behöver för att avkoda den delade hemligheten",
-            "Reload after login": "Ladda om sidan efter inloggning",
-            "Select file": "Välj fil",
-            "You are already logged in": "Du är redan inloggad",
-            "Missing user name": "Saknar användarnamn",
-            "Missing random code": "Saknar slumpmässig kod",
-            "The answer from the server took too long time. I will abandon the login attempt": "Svaret från servern tog för lång tid. Jag lämnar inloggningsförsöket",
-            "Failed to login": "Det gick inte att logga in",
-            "Success logging in": "Du är nu inloggad",
-            "The random code do not have the correct length": "Slumpmässig kod har inte rätt längd",
-            "Unlikely that the total average has no decimals": "Det är osannolikt att det totala genomsnittet inte har några decimaler",
-            "Unlikely that the average is equal to the total average": "Det är osannolikt att genomsnittet är lika med det totala genomsnittet",
-            "These simple tests show that the random_code at least is not a flatline of numbers.": "Dessa enkla test visar att den slumpmässiga koden åtminstone inte är en plattlinje med siffror."
+            "LOGIN_KEY": "Logga in",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Här kan du använda kontaktdata som du importerade och logga in på servern",
+            "PASSWORD_KEY": "Lösenord",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Lösenordet du behöver för att avkoda den delade hemligheten",
+            "LOGIN_RESULT_KEY": "Inloggningsresultat",
+            "RELOAD_AFTER_LOGIN_KEY": "Ladda om efter inloggning",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Du är redan inloggad",
+            "MISSING_USER_NAME_KEY": "Användarnamn saknas",
+            "MISSING_RANDOM_CODE_KEY": "Slumpmässig kod saknas",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Svaret från servern tog för lång tid. Jag avbryter inloggningsförsöket",
+            "FAILED_TO_LOGIN_KEY": "Det gick inte att logga in",
+            "SUCCESS_LOGGING_IN_KEY": "Framgångsrik inloggning",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Slumpkoden har inte rätt längd",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Det är osannolikt att det totala genomsnittet inte har några decimaler",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Det är osannolikt att genomsnittet är lika med det totala genomsnittet",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Dessa enkla tester visar att slumpkoden åtminstone inte är en platt linje med siffror."
         },
         "infohub_login_logout": {
-            "Logout": "Logga ut",
-            "logout result": "Resultat av utloggning",
-            "Here you can logout from the server": "Här kan du logga ut från servern",
-            "If successful then the login page shows": "Om det lyckas visas inloggningssidan",
-            "Reload after logout": "Ladda om sidan efter utloggning",
-            "Failed to logout": "Det gick inte att logga ut",
-            "Success logging out": "Du är nu utloggad"
+            "LOGOUT_KEY": "Logga ut",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Här kan du logga ut från servern",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Om det lyckas visas inloggningssidan",
+            "LOGOUT_RESULT_KEY": "Utloggningsresultat",
+            "FAILED_TO_LOGOUT_KEY": "Det gick inte att logga ut",
+            "SUCCESS_LOGGING_OUT_KEY": "Utloggning lyckades"
         },
         "infohub_login_menu": {
-            "Menu": "Meny",
-            "Import contact data": "Importera kontaktdata",
-            "Login": "Logga in",
-            "Set password": "Ställ in lösenord",
-            "Export contact data": "Exportera kontaktdata",
-            "Logout": "Logga ut",
-            "Forget contact": "Glöm kontakt"
+            "MENU_KEY": "Meny",
+            "IMPORT_CONTACT_DATA_KEY": "Importera kontaktdata",
+            "LOGIN_KEY": "Logga in",
+            "SET_PASSWORD_KEY": "Ange lösenord",
+            "EXPORT_CONTACT_DATA_KEY": "Exportera kontaktdata",
+            "LOGOUT_KEY": "Logga ut",
+            "FORGET_CONTACT_KEY": "Glöm kontakt"
         },
         "infohub_login_password": {
-            "Set password": "Ställ in lösenord",
-            "When you set your local password you scramble the shared secret so that it require your password to work": "När du ställer in ditt lokala lösenord kryper du den delade hemligheten så att det kräver att ditt lösenord fungerar",
-            "Current password": "Aktuellt lösenord",
-            "Leave blank if you have none": "Lämna tomt om du inte har något",
-            "New password": "Nytt lösenord",
-            "Leave blank if you want to remove the password": "Lämna tomt om du vill ta bort lösenordet",
-            "Change password": "Ändra lösenord"
+            "SET_PASSWORD_KEY": "Ange lösenord",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "När du ställer in ditt lokala lösenord krypterar du den delade hemligheten så att det kräver att ditt lösenord fungerar",
+            "CURRENT_PASSWORD_KEY": "Aktuellt lösenord",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Lämna tom om du inte har någon",
+            "NEW_PASSWORD_KEY": "Nytt lösenord",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Lämna tomt om du vill ta bort lösenordet",
+            "CHANGE_PASSWORD_KEY": "Ändra lösenord"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Logga in",
+            "SELECT_FILE_KEY": "Välj fil",
+            "PASSWORD_KEY": "Lösenord",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Ladda ner demokonto",
+            "LOGIN_RESULT_KEY": "Inloggningsresultat",
+            "MORE_KEY": "Mer",
+            "CURRENT_URL_KEY": "Aktuell webbadress",
+            "REFRESH_PAGE_KEY": "Uppdatera sida"
         }
     }
 }

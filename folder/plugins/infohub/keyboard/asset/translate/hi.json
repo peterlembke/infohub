@@ -1,0 +1,27 @@
+{
+    "version": {
+        "date": "2021-08-28 22:07:03",
+        "plugin": "infohub_keyboard",
+        "data_checksum": "0d0487c89ba341103fd77fbb08b6e487",
+        "language": "hi",
+        "language_name": "hindi",
+        "country": "IN",
+        "country_name": "India",
+        "file_type": "translate_file"
+    },
+    "launcher": {
+        "title": "Keyboard",
+        "description": "Subscribe to key combinations."
+    },
+    "data": {
+        "infohub_keyboard": {
+            "KEYBOARD_TESTS_KEY": "Keyboard tests",
+            "TRY_COMBINATIONS_ON_YOUR_KEYBOARD_KEY": "Try combinations on your keyboard",
+            "ANY_BUTTON_KEY": "Any button",
+            "SUBSCRIBE_KEY": "Subscribe",
+            "UNSUBSCRIBE_KEY": "Unsubscribe",
+            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "KEYBOARD_DEMO_POPUP_KEY": "Keyboard demo popup"
+        }
+    }
+}

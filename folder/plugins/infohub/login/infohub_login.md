@@ -46,6 +46,10 @@ prove that they know the shared_secret without revealing the shared_secret.
 
 You can read about this process in detail here: [login](plugin,infohub_login_login)
 
+## Translations
+
+The login-plugin have additional translations to more languages. You can read more [here](doc,accessibility_translate).
+
 # License
 
 This documentation is copyright (C) 2019 Peter Lembke. Permission is granted to copy, distribute and/or modify this
@@ -54,4 +58,5 @@ Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Ba
 a copy of the GNU Free Documentation License along with this documentation. If not,
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
-Created 2018-09-14 by Peter Lembke Updated 2019-09-14 by Peter Lembke
+Created 2018-09-14 by Peter Lembke 
+Updated 2021-08-29 by Peter Lembke

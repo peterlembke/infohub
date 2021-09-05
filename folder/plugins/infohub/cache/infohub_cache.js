@@ -55,13 +55,13 @@ function infohub_cache() {
     // * Name: _CamelCaseData
     // *****************************************************************************
 
+    $functions.push('_LocalStorageExist');
     /**
      * Check if local storage exist in the browser
      * @version 2015-09-20
      * @since   2015-04-24
      * @author  Peter Lembke
      */
-    $functions.push('_LocalStorageExist');
     const _LocalStorageExist = function() {
         let $exist = 'false';
 
@@ -83,6 +83,7 @@ function infohub_cache() {
     // * Observe! function names are lower_case
     // *****************************************************************************
 
+    $functions.push('save_data_to_cache');
     /**
      * Save the data to the cache and update the index
      * @version 2015-06-06
@@ -91,8 +92,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('save_data_to_cache');
-    const save_data_to_cache = function($in) {
+    const save_data_to_cache = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -156,6 +156,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('load_data_from_cache');
     /**
      * Load data from the cache
      * @version 2015-06-06
@@ -164,8 +165,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('load_data_from_cache');
-    const load_data_from_cache = function($in) {
+    const load_data_from_cache = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -231,6 +231,7 @@ function infohub_cache() {
         return $out;
     };
 
+    $functions.push('load_index_from_cache');
     /**
      * Load data from the cache
      * @version 2015-06-06
@@ -239,8 +240,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('load_index_from_cache');
-    const load_index_from_cache = function($in) {
+    const load_index_from_cache = function($in = {}) {
         const $default = {
             'prefix': '',
         };
@@ -258,6 +258,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('update_index_in_cache');
     /**
      * Purpose is to have an updated plugin index in the client. The plugin index show what plugins are stored locally.
      * You have previously sent the plugin_list to the server and got it updated by the server.
@@ -269,8 +270,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('update_index_in_cache');
-    const update_index_in_cache = function($in) {
+    const update_index_in_cache = function($in = {}) {
         const $default = {
             'prefix': '',
             'data': {}, // Complete list you want to compare the local list with
@@ -316,6 +316,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('remove_data_from_cache');
     /**
      * Remove the key from the cache and update the index
      * @version 2015-06-06
@@ -324,8 +325,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('remove_data_from_cache');
-    const remove_data_from_cache = function($in) {
+    const remove_data_from_cache = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -341,6 +341,7 @@ function infohub_cache() {
         return $response;
     };
 
+    $functions.push('internal_RemoveDataFromCache');
     /**
      * Remove the key from the cache and update the index
      * @version 2015-06-06
@@ -349,8 +350,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('internal_RemoveDataFromCache');
-    const internal_RemoveDataFromCache = function($in) {
+    const internal_RemoveDataFromCache = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -397,6 +397,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('remove_data_from_cache_by_prefix');
     /**
      * Remove all keys that have the same prefix
      * @version 2018-09-09
@@ -405,8 +406,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('remove_data_from_cache_by_prefix');
-    const remove_data_from_cache_by_prefix = function($in) {
+    const remove_data_from_cache_by_prefix = function($in = {}) {
         const $default = {
             'prefix': '',
         };
@@ -455,6 +455,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('remove_data_from_cache_by_prefix_and_keys');
     /**
      * Remove all mentioned keys that have the same prefix
      * @version 2020-08-01
@@ -463,8 +464,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('remove_data_from_cache_by_prefix_and_keys');
-    const remove_data_from_cache_by_prefix_and_keys = function($in) {
+    const remove_data_from_cache_by_prefix_and_keys = function($in = {}) {
         const $default = {
             'prefix': '',
             'keys': [],
@@ -518,6 +518,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('validate_cache');
     /**
      * Validate the cache, remove old data.
      * If you provide an array with keys+checksums then they are also used to validate the cache
@@ -527,8 +528,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('validate_cache');
-    const validate_cache = function($in) {
+    const validate_cache = function($in = {}) {
         const $default = {
             'prefix': '',
             'checksums': {}, // local storage key as key, checksum string as data
@@ -624,6 +624,7 @@ function infohub_cache() {
     // * An internal function give its answer as an array, success or error
     // *****************************************************************************
 
+    $functions.push('internal_LoadDataFromIndex');
     /**
      * Load data from index
      * @version 2015-06-06
@@ -632,8 +633,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
-    $functions.push('internal_LoadDataFromIndex');
-    const internal_LoadDataFromIndex = function($in) {
+    const internal_LoadDataFromIndex = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -684,6 +684,7 @@ function infohub_cache() {
         return $out;
     };
 
+    $functions.push('internal_SaveDataToIndex');
     /**
      * Save data to index
      * @version 2015-06-06
@@ -692,8 +693,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
-    $functions.push('internal_SaveDataToIndex');
-    const internal_SaveDataToIndex = function($in) {
+    const internal_SaveDataToIndex = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -767,6 +767,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('internal_RemoveDataFromIndex');
     /**
      * Remove data from index
      * @version 2015-05-18
@@ -775,8 +776,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
-    $functions.push('internal_RemoveDataFromIndex');
-    const internal_RemoveDataFromIndex = function($in) {
+    const internal_RemoveDataFromIndex = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -841,6 +841,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('internal_LoadIndex');
     /**
      * Get all index data
      * @version 2017-02-25
@@ -849,8 +850,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
-    $functions.push('internal_LoadIndex');
-    const internal_LoadIndex = function($in) {
+    const internal_LoadIndex = function($in = {}) {
         const $default = {
             'prefix': '',
         };
@@ -870,6 +870,7 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('internal_SaveIndex');
     /**
      * Set all index data
      * @version 2017-02-29
@@ -878,8 +879,7 @@ function infohub_cache() {
      * @param $in
      * @returns {{answer: string, message: string, plugin_index: {}}}
      */
-    $functions.push('internal_SaveIndex');
-    const internal_SaveIndex = function($in) {
+    const internal_SaveIndex = function($in = {}) {
         const $default = {
             'prefix': '',
             'index': {},
@@ -901,13 +901,13 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('internal_LocalStorageLoad');
     /**
      * Load data from the local storage if it exist
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    $functions.push('internal_LocalStorageLoad');
-    const internal_LocalStorageLoad = function($in) {
+    const internal_LocalStorageLoad = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',
@@ -973,13 +973,13 @@ function infohub_cache() {
         };
     };
 
+    $functions.push('internal_LocalStorageSave');
     /**
      * Save data to the local storage if it exist
      * @param $in
      * @returns {{answer: string, message: string, key: *}}
      */
-    $functions.push('internal_LocalStorageSave');
-    const internal_LocalStorageSave = function($in) {
+    const internal_LocalStorageSave = function($in = {}) {
         const $default = {
             'prefix': '',
             'key': '',

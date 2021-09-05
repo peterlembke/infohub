@@ -48,7 +48,7 @@ function infohub_tools_checksum() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -58,7 +58,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -80,8 +80,8 @@ function infohub_tools_checksum() {
             $text[0] = _Translate('YOU_CAN_GENERATE_A_CHECKSUM_FROM_THE_DATA_YOU_ENTER.');
             $text[1] = _Translate('YOU_CAN_SELECT_WHAT_NODE_WILL_GENERATE_THE_CHECKSUM.');
             $text[2] = _Translate('YOU_CAN_SELECT_WHAT_TYPE_OF_CHECKSUM_YOU_WANT.');
-            $text[3] = _Translate('<A_HREF="HTTPS://EN.WIKIPEDIA.ORG/WIKI/NATIONAL_IDENTIFICATION_NUMBER#SWEDEN"_TARGET="_BLANK">PERSONNUMMER</A>_IS_USED_IN_SWEDEN_AS_A_PERSONAL_IDENTIFIER_OR_A_COMPANY_IDENTIFIER.');
-            $text[4] = _Translate('YOU_CAN_ENTER_A_PERSONNUMMER_IN_THIS_FORMAT:_"YYMMDD-NNN".');
+            $text[3] = '<a href="https://en.wikipedia.org/wiki/National_identification_number#Sweden" target="_blank">Personnummer</a> ' + _Translate('IS_USED_IN_SWEDEN_AS_A_PERSONAL_IDENTIFIER_OR_A_COMPANY_IDENTIFIER.');
+            $text[4] = _Translate('YOU_CAN_ENTER_A_PERSONNUMMER_IN_THIS_FORMAT:') + ' "YYMMDD-NNN".';
             $text[5] = _Translate('YY_=_TWO_DIGIT_YEAR,_MM_=_TWO_DIGIT_MONTH,_DD_=_TWO_DIGIT_DAY_OF_MONTH,');
             $text[6] = _Translate('NNN_=_ANY_THREE_DIGIT_NUMBER.');
             $text[7] = _Translate('THE_CHECKSUM_WILL_CALCULATE_THE_FOURTH_(LAST)_DIGIT.');
@@ -206,7 +206,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function($in) {
+    const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -256,7 +256,7 @@ function infohub_tools_checksum() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_checksum');
-    const click_handle_checksum = function($in) {
+    const click_handle_checksum = function($in = {}) {
         let $formData = {};
 
         const $default = {

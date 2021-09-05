@@ -52,7 +52,7 @@ function infohub_demo_text() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_text() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -106,13 +106,25 @@ function infohub_demo_text() {
                             'type': 'common',
                             'subtype': 'join',
                             'data0': '[columns]',
-                            'data1': _Translate('THE_TEXT_RENDERER_IS_THE_MOST_IMPORTANT_RENDERER_OF_THEM_ALL._IT_ACTS_AS_THE_GLUE_THAT_COMBINE_TOGETHER_ALL_THE_OTHER_RENDERED_PIECES.'),
-                            'data2': _Translate('[H2]BUILT_IN_COMMANDS[/H2]_YOU_CAN_DO_THIS_[:-)][:-(][(C)][(R)][TEL][EUR],_YOU_CAN_ALSO_USE_[B]BOLD[/B],_[I]ITALIC[/I],_[U]UNDERLINE[/U],_OR_A_LINE_LIKE_THIS_[LINE][BR]'),
-                            'data3': _Translate('[H2]COLUMNS[/H2]YOU_CAN_ACTIVATE_COLUMNS._THEN_YOU_AUTOMATICALLY_GET_COLUMNS_THAT_YOUR_TEXT_CAN_FLOW_IN._YOU_CAN_[LIGHT]HIGHLIGHT_PORTIONS_OF_THE_TEXT_LIKE_THIS[/LIGHT]_'),
-                            'data4': _Translate('AND_YOU_CAN_INCLUDE_OTHER_ELEMENTS_IN_YOUR_TEXT,_FOR_EXAMPLE:_[MY_EXTERNAL_LINK].'),
-                            'data5': _Translate('[H2]ZOOM_LEVEL[/H2]YOU_CAN_ZOOM_THE_VIEW_IN_YOUR_BROWSER._WHEN_YOU_DO_THAT_AND_THE_SPACE_IS_TO_NARROW_FOR_THE_COLUMN,_THEN_IT_REDUCES_THE_NUMBER_OF_COLUMNS._YOU_ALWAYS_GET_A_READABLE_VIEW_IN_ALL_ZOOM_LEVELS.'),
-                            'data6': _Translate('[H2]SECTIONS[/H2]YOU_SEE_THAT_THE_H2_SECTIONS_DO_NOT_WRAP_NICE_IN_THE_COLUMNS._THERE_ARE_CSS_COMMANDS_TO_FIX_THAT_IN_MOST_BROWSERS._I_HAVE_THAT_ON_MY_TODO_LIST.'),
-                            'data7': '[/columns]'
+                            'data1': _Translate('THE_TEXT_RENDERER_IS_THE_MOST_IMPORTANT_RENDERER_OF_THEM_ALL.'),
+                            'data2': _Translate('IT_ACTS_AS_THE_GLUE_THAT_COMBINE_TOGETHER_ALL_THE_OTHER_RENDERED_PIECES.'),
+                            'data3': '[h2]' + _Translate('BUILT_IN_COMMANDS') + '[/h2] ',
+                            'data4': _Translate('YOU_CAN_DO_THIS') + ' [:-)][:-(][(c)][(r)][tel][eur], ',
+                            'data5': _Translate('YOU_CAN_ALSO_USE') + ' [b]Bold[/b], [i]Italic[/i], [u]Underline[/u], ',
+                            'data6': _Translate('OR_A_LINE_LIKE_THIS') + ' [line][br]',
+                            'data7': '[h2]' + _Translate('COLUMNS') + '[/h2]',
+                            'data8': _Translate('YOU_CAN_ACTIVATE_COLUMNS.'),
+                            'data9': _Translate('THEN_YOU_AUTOMATICALLY_GET_COLUMNS_THAT_YOUR_TEXT_CAN_FLOW_IN.'),
+                            'data10': _Translate('YOU_CAN') + ' [light]' + _Translate('HIGHLIGHT_PORTIONS_OF_THE_TEXT_LIKE_THIS') + '[/light] ',
+                            'data11': _Translate('AND_YOU_CAN_INCLUDE_OTHER_ELEMENTS_IN_YOUR_TEXT,_FOR_EXAMPLE:') + ' [my_external_link].',
+                            'data12': '[h2]' + _Translate('ZOOM_LEVEL') + '[/h2]',
+                            'data13': _Translate('YOU_CAN_ZOOM_THE_VIEW_IN_YOUR_BROWSER.'),
+                            'data14': _Translate('WHEN_YOU_DO_THAT_AND_THE_SPACE_IS_TO_NARROW_FOR_THE_COLUMN,_THEN_IT_REDUCES_THE_NUMBER_OF_COLUMNS.'),
+                            'data15': _Translate('YOU_ALWAYS_GET_A_READABLE_VIEW_IN_ALL_ZOOM_LEVELS.'),
+                            'data16': '[h2]' + _Translate('SECTIONS') + '[/h2]',
+                            'data17': _Translate('YOU_SEE_THAT_THE_H2_SECTIONS_DO_NOT_WRAP_NICE_IN_THE_COLUMNS.'),
+                            'data18': _Translate('THERE_ARE_CSS_COMMANDS_TO_FIX_THAT_IN_MOST_BROWSERS._I_HAVE_THAT_ON_MY_TODO_LIST.'),
+                            'data19': '[/columns]'
                         },
                         'my_external_link': {
                             'type': 'link',

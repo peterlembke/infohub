@@ -51,7 +51,7 @@ function infohub_privacy_browser() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('create');
@@ -61,7 +61,7 @@ function infohub_privacy_browser() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -209,7 +209,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_geolocation = function($in) {
+    const click_geolocation = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'callback_function': null,
@@ -286,7 +286,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_deviceorientation = function($in) {
+    const click_deviceorientation = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -340,7 +340,7 @@ function infohub_privacy_browser() {
         * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_devicemotion = function($in) {
+    const click_devicemotion = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -385,7 +385,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_battery = function($in) {
+    const click_battery = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -437,7 +437,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_devicelight = function($in) {
+    const click_devicelight = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -476,7 +476,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_deviceproximity = function($in) {
+    const click_deviceproximity = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -516,7 +516,7 @@ function infohub_privacy_browser() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const click_navigator = function($in) {
+    const click_navigator = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_set_text',

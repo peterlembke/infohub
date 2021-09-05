@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "Secret partagé",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Vous partagez ce secret avec le serveur",
             "CHECKSUM_KEY": "Somme de contrôle",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Somme de contrôle de l'adresse du domaine + nom d'utilisateur + secret partagé.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Somme de contrôle de l'adresse du domaine + nom d'utilisateur + secret partagé.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Plugins serveur autorisés",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste avec tous les noms de plugins de serveur auxquels vous pouvez envoyer des messages sur le nœud distant"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "Sélectionner un fichier"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "Connexion",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Ici, vous pouvez utiliser les données de contact que vous avez importées et vous connecter au serveur",
+            "PASSWORD_KEY": "Mot de passe",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Le mot de passe dont vous avez besoin pour décoder le shared_secret",
+            "LOGIN_RESULT_KEY": "résultat de la connexion",
+            "RELOAD_AFTER_LOGIN_KEY": "Recharger après connexion",
+            "SELECT_FILE_KEY": "Sélectionner un fichier",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Télécharger le compte démo",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Vous êtes déjà connecté",
+            "MISSING_USER_NAME_KEY": "Nom d'utilisateur manquant",
+            "MISSING_RANDOM_CODE_KEY": "Code aléatoire manquant",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "La réponse du serveur a pris trop de temps. J'abandonnerai la tentative de connexion",
+            "FAILED_TO_LOGIN_KEY": "Impossible de se connecter",
+            "SUCCESS_LOGGING_IN_KEY": "Connexion réussie",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Le code aléatoire n'a pas la bonne longueur",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Il est peu probable que la moyenne totale ne contienne pas de décimales",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Il est peu probable que la moyenne soit égale à la moyenne totale",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Ces tests simples montrent que le random_code au moins n'est pas une ligne plate de nombres."
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "Connexion",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Ici, vous pouvez utiliser les données de contact que vous avez importées et vous connecter au serveur",
             "PASSWORD_KEY": "Mot de passe",

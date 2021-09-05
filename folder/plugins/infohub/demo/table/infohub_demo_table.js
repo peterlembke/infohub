@@ -53,7 +53,7 @@ function infohub_demo_table() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_demo_table() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -236,7 +236,7 @@ function infohub_demo_table() {
      * @param $in
      */
     $functions.push('click_row');
-    const click_row = function($in) {
+    const click_row = function($in = {}) {
         const $default = {
             'event_data': '',
             'step': 'step_start',

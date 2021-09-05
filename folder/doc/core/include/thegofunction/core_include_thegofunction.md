@@ -1,5 +1,5 @@
 # the go function.js
-incoming event use this function to send a package to Exchange trough an event that Exchange listen on.  a# Introduction
+incoming event use this function to send a package to Exchange through an event that Exchange listen on.  a# Introduction
   
 @todo Update this document 
 

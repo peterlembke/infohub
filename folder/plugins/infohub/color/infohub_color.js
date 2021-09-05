@@ -62,7 +62,7 @@ function infohub_color() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -86,7 +86,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('create'); // Enable this function
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -171,7 +171,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('event_message'); // Enable this function
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'final_node': 'client',
             'final_plugin': '',
@@ -227,7 +227,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorSelector');
-    const internal_ColorSelector = function($in) {
+    const internal_ColorSelector = function($in = {}) {
         const $default = {
             'head_label': 'Pick a color',
             'width': 30,
@@ -310,7 +310,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorReader');
-    const internal_ColorReader = function($in) {
+    const internal_ColorReader = function($in = {}) {
         const $default = {
             'original_alias': '',
             'button_label': 'Use',
@@ -389,7 +389,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_LightBarSelector');
-    const internal_LightBarSelector = function($in) {
+    const internal_LightBarSelector = function($in = {}) {
         const $default = {
             'original_alias': '',
             'label': '',
@@ -470,7 +470,7 @@ function infohub_color() {
      * @since   2020-10-30
      * @author  Peter Lembke
      */
-    const internal_LightBarReader = function($in) {
+    const internal_LightBarReader = function($in = {}) {
         const $default = {
             'original_alias': '',
             'button_label': 'Use',
@@ -547,7 +547,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorBar');
-    const internal_ColorBar = function($in) {
+    const internal_ColorBar = function($in = {}) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -665,7 +665,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HueBar');
-    const internal_HueBar = function($in) {
+    const internal_HueBar = function($in = {}) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -717,7 +717,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_LightBar');
-    const internal_LightBar = function($in) {
+    const internal_LightBar = function($in = {}) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -769,7 +769,7 @@ function infohub_color() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ColorBox');
-    const internal_ColorBox = function($in) {
+    const internal_ColorBox = function($in = {}) {
         const $default = {
             'width': 30,
             'height': 30,
@@ -821,7 +821,7 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_color_selector = function($in) {
+    const click_color_selector = function($in = {}) {
         const $default = {
             'event_data': '',
             'box_id': '',
@@ -934,7 +934,7 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_color_reader = function($in) {
+    const click_color_reader = function($in = {}) {
         const $default = {
             'event_data': '',
             'box_id': '',
@@ -1002,7 +1002,7 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_light_bar_selector = function($in) {
+    const click_light_bar_selector = function($in = {}) {
         const $default = {
             'event_data': '',
             'box_id': '',
@@ -1098,7 +1098,7 @@ function infohub_color() {
      * @param $in
      * @returns {{answer: string, message: string}|*}
      */
-    const click_light_bar_reader = function($in) {
+    const click_light_bar_reader = function($in = {}) {
         const $default = {
             'event_data': '',
             'box_id': '',
@@ -1164,7 +1164,7 @@ function infohub_color() {
      * @param $in
      * @returns {{color_lookup: {}, answer: string, color_schema: {}, message: string}}
      */
-    const calculate_color_lookup = function($in) {
+    const calculate_color_lookup = function($in = {}) {
         const $default = {
             'color_data': {},
             'step': 'step_start',
@@ -1339,7 +1339,7 @@ function infohub_color() {
      * @returns {[number, number, number]}
      * @private
      */
-    const _HslToRgb = function($hueDegree, $saturation, $lightness) {
+    const _HslToRgb = function($hueDegree = 0, $saturation = 0.0, $lightness = 0.0) {
         let $c = (1 - Math.abs(2 * $lightness - 1)) * $saturation;
         let $hp = $hueDegree / 60.0;
         let $x = $c * (1 - Math.abs(($hp % 2) - 1));
@@ -1362,7 +1362,7 @@ function infohub_color() {
      * @returns {(number|*)[]|(*|number)[]|number[]}
      * @private
      */
-    const _GetRGBArray = function($hueDegree, $hp, $x, $c) {
+    const _GetRGBArray = function($hueDegree = 0, $hp = 0, $x = 0, $c = 0) {
         let $rgbArray = [0, 0, 0];
         if (isNaN($hueDegree)) {
             return $rgbArray;

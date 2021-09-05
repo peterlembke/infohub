@@ -51,7 +51,7 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('sibling_func');
-    const sibling_func = function($in) {
+    const sibling_func = function($in = {}) {
         const $default = {
             'alert': '',
             'step': 'step_start',
@@ -87,7 +87,7 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('invalid_call_to_sibling_grandchild');
-    const invalid_call_to_sibling_grandchild = function($in) {
+    const invalid_call_to_sibling_grandchild = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -146,7 +146,7 @@ function infohub_democall_sibling() {
      * @author  Peter Lembke
      */
     $functions.push('answer_child');
-    const answer_child = function($in) {
+    const answer_child = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };

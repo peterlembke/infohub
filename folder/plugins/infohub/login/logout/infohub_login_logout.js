@@ -47,7 +47,7 @@ function infohub_login_logout() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -57,7 +57,7 @@ function infohub_login_logout() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -136,7 +136,7 @@ function infohub_login_logout() {
      * @author Peter Lembke
      */
     $functions.push('click_logout');
-    const click_logout = function($in) {
+    const click_logout = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_logout',

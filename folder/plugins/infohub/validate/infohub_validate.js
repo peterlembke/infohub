@@ -58,7 +58,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_has_data');
-    const validate_has_data = function($in) {
+    const validate_has_data = function($in = {}) {
         const $default = {
             'data': null,
         };
@@ -86,7 +86,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_true');
-    const validate_is_true = function($in) {
+    const validate_is_true = function($in = {}) {
         const $default = {
             'data': 'false',
         };
@@ -114,7 +114,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_false');
-    const validate_is_false = function($in) {
+    const validate_is_false = function($in = {}) {
         const $default = {
             'data': 'false',
         };
@@ -142,7 +142,7 @@ function infohub_validate() {
      * @author  Peter Lembke
      */
     $functions.push('validate_is_integer');
-    const validate_is_integer = function($in) {
+    const validate_is_integer = function($in = {}) {
         const $default = {
             'data': null,
         };

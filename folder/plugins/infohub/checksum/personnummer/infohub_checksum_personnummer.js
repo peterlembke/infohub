@@ -54,7 +54,7 @@ function infohub_checksum_personnummer() {
      * @return array|bool
      */
     $functions.push('calculate_checksum');
-    const calculate_checksum = function($in) {
+    const calculate_checksum = function($in = {}) {
         const $default = {
             'value': '',
         };
@@ -81,7 +81,7 @@ function infohub_checksum_personnummer() {
      * @return array|bool
      */
     $functions.push('verify_checksum');
-    const verify_checksum = function($in) {
+    const verify_checksum = function($in = {}) {
         const $default = {
             'value': '',
             'checksum': '',

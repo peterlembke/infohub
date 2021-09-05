@@ -46,6 +46,7 @@ function infohub_doc() {
             'event_message': 'normal',
             'call_server': 'normal',
             'get_all_documents': 'normal',
+            'render_doc': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -55,7 +56,7 @@ function infohub_doc() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('_GetBoxId');
@@ -63,64 +64,109 @@ function infohub_doc() {
         return 'main.body.' + _GetClassName();
     };
 
+    $functions.push('create');
     /**
-     * Used when you want to render a markdown document in any box.
-     * Can also render an index list or navigation list or visited list.
-     * @version 2019-03-14
+     * Get the raw data for the markdown doc file.
+     * Used by infohub_tree_doc to render the documentation
+     * @version 2021-03-14
      * @since   2019-03-14
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{item_index: {}, answer: string, message: string}}
      */
-    $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
-            'type': 'document', // navigate, visited, index, document
-            'area': 'main',
-            'document_name': 'main',
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_call_child',
-            'html': '',
-            'css_data': {},
-            'response': {
-                'answer': 'false',
-                'message': 'nothing to report from infohub_doc->create',
-                'data': {},
-                'html': '',
+            'item_index': {},
+            'config': {},
+            'data_back': {
+                'item_name': '',
+                'item_index_done': {},
+                'item_index_contents': {},
             },
+            'response': {},
+            'step': 'step_get_doc_file',
         };
-        $in = _Merge($default, $in);
+        $in = _Default($default, $in);
 
-        if ($in.step === 'step_call_child') {
-            delete $in.step;
+        if ($in.step === 'step_get_doc_file_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'contents': '',
+            };
+            const $response = _Default($defaultResponse, $in.response);
+
+            const $itemName = $in.data_back.item_name;
+            $in.data_back.item_index_contents[$itemName] = {
+                'type': 'document',
+                'text': $response.contents,
+            };
+            $in.step = 'step_get_doc_file';
+        }
+
+        if ($in.step === 'step_get_doc_file') {
+            if (_Count($in.item_index) > 0) {
+                const $itemData = _Pop($in.item_index);
+                const $itemName = $itemData.key;
+                let $data = $itemData.data;
+                $in.item_index = $itemData.object;
+
+                const $defaultItem = {
+                    'type': '',
+                    'alias': '',
+                };
+                $data = _Merge($defaultItem, $data);
+
+                return _SubCall({
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_tree',
+                        'function': 'get_doc_file',
+                    },
+                    'data': {
+                        'file': $data.type,
+                    },
+                    'data_back': {
+                        'step': 'step_get_doc_file_response',
+                        'item_index': $in.item_index,
+                        'item_name': $itemName,
+                        'item_index_done': $in.data_back.item_index_done,
+                    },
+                });
+            }
+            $in.step = 'step_render_files';
+        }
+
+        if ($in.step === 'step_render_files') {
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_doc_' + $in.type,
+                    'plugin': 'infohub_renderdocument',
                     'function': 'create',
                 },
-                'data': $in,
+                'data': {
+                    'item_index': $in.data_back.item_index_contents,
+                },
                 'data_back': {
-                    'step': 'step_final',
-                    'alias': $in.alias,
-                    'type': $in.type,
+                    'step': 'step_render_files_response',
                 },
             });
         }
 
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
-            }
+        if ($in.step === 'step_render_files_response') {
+            const $defaultResponse = {
+                'answer': 'false',
+                'message': '',
+                'item_index': {},
+            };
+            const $response = _Default($defaultResponse, $in.response);
+            $in.data_back.item_index_done = $response.item_index;
         }
 
         return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'html': $in.html,
-            'css_data': $in.css_data,
+            'answer': 'true',
+            'message': 'Here is what I rendered',
+            'item_index': $in.data_back.item_index_done,
         };
     };
 
@@ -131,7 +177,7 @@ function infohub_doc() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -331,7 +377,7 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push('click_link');
-    const click_link = function($in) {
+    const click_link = function($in = {}) {
         const $default = {
             'event_data': '', // area,document_name
             'box_id': '',
@@ -390,7 +436,7 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'event_data': '', // full_child_name|full_child_function_name
             'value': '', // Selected option in select lists
@@ -476,7 +522,7 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},
@@ -531,7 +577,7 @@ function infohub_doc() {
      * @author Peter Lembke
      */
     $functions.push('get_all_documents');
-    const get_all_documents = function($in) {
+    const get_all_documents = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -552,6 +598,103 @@ function infohub_doc() {
         }
 
         return $in.response;
+    };
+
+    /**
+     * Render a documentation in your box id.
+     * Give the name of a plugin documentation file. Exclude the .md
+     * Give a box_id where to render the documentation.
+     *
+     * @version 2021-08-12
+     * @since   2019-03-14
+     * @author  Peter Lembke
+     */
+    $functions.push('render_doc'); // Enable this function
+    const render_doc = function($in = {}) {
+        const $default = {
+            'file_name': '', // Example: 'infohub_translate_updatefile'
+            'box_id': '', // Example: 'main.body.infohub_translate.form.[container_doc]'
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from infohub_translate->render_doc',
+                'data': {
+                    'document': ''
+                },
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start') {
+            $in.step = 'step_get_doc_file';
+            if ($in.file_name === '') {
+                $in.step = 'step_end';
+            }
+            if ($in.box_id === '') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_get_doc_file') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_doc',
+                    'function': 'get_document',
+                },
+                'data': {
+                    'area': 'plugin', // main or plugin
+                    'document_name': $in.file_name
+                },
+                'data_back': {
+                    'step': 'step_get_doc_file_response',
+                    'box_id': $in.box_id
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_doc_file_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_render_markdown';
+            }
+        }
+
+        if ($in.step === 'step_render_markdown') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create',
+                },
+                'data': {
+                    'what': {
+                        'my_doc': {
+                            'plugin': 'infohub_renderdocument',
+                            'type': 'document',
+                            'text': $in.response.data.document,
+                        },
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[my_doc]',
+                    },
+                    'where': {
+                        'box_id': $in.box_id,
+                        'max_width': 960,
+                        'scroll_to_box_id': 'true',
+                    },
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message
+        };
     };
 }
 

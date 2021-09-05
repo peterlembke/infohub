@@ -50,7 +50,7 @@ function infohub_doc_navigate() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('_GetBoxId');
@@ -74,7 +74,7 @@ function infohub_doc_navigate() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -160,7 +160,7 @@ function infohub_doc_navigate() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh');
-    const click_refresh = function($in) {
+    const click_refresh = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -231,7 +231,7 @@ function infohub_doc_navigate() {
      * @author Peter Lembke
      */
     $functions.push('click_document_name');
-    const click_document_name = function($in) {
+    const click_document_name = function($in = {}) {
         const $default = {
             'box_id': '',
             'area': '',
@@ -281,7 +281,7 @@ function infohub_doc_navigate() {
      * @author  Peter Lembke
      */
     $functions.push('view_navigation');
-    const view_navigation = function($in) {
+    const view_navigation = function($in = {}) {
         const $default = {
             'data': {},
             'step': 'step_view',
@@ -309,17 +309,14 @@ function infohub_doc_navigate() {
 
                     const $pluginName = 'infohub_doc';
                     const $eventType = 'click';
-                    const $containerId = '{box_id}_' + $area + '_' + $docName +
-                        '.link';
+                    const $containerId = '{box_id}_' + $area + '_' + $docName + '.link';
 
                     const $onClickParameters = '\'' + $pluginName + '\',' +
                         '\'' +
                         $eventType + '\',' + '\'' + $containerId + '\'';
-                    const $onClick = 'onclick="go(' + $onClickParameters +
-                        ')" ';
+                    const $onClick = 'onclick="go(' + $onClickParameters + ')" ';
 
-                    const $idData = 'id="' + $containerId + '" area="' + $area +
-                        '" document_name="' + $docName + '" ';
+                    const $idData = 'id="' + $containerId + '" area="' + $area + '" document_name="' + $docName + '" ';
 
                     const $eventData = 'event_data="infohub_doc_navigate|click_document_name" ';
 
@@ -328,8 +325,7 @@ function infohub_doc_navigate() {
                     // You can put any parameters you like in the string above and they will show up in the event_message function.
 
                     const $label = $in.data[$area][$docName].label;
-                    const $html = '<a ' + $onClick + $idData + $eventData +
-                        $otherParams + '>' + _Translate($label) + '</a>';
+                    const $html = '<a ' + $onClick + $idData + $eventData + $otherParams + '>' + _Translate($label) + '</a>';
 
                     $option.push({
                         'label': $html,

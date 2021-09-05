@@ -94,7 +94,7 @@ function infohub_rendermajor() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -179,7 +179,7 @@ function infohub_rendermajor() {
      * @since   2016-10-26
      * @author  Peter Lembke
      */
-    const internal_PresentationBox = function($in) {
+    const internal_PresentationBox = function($in = {}) {
         const $default = {
             'head_label': '',
             'head_label_icon': '',
@@ -208,8 +208,12 @@ function infohub_rendermajor() {
             $parts.head_label_data = {
                 'type': 'common',
                 'subtype': 'container',
+                'tag': 'div',
                 'data': $in.head_label,
                 'original_alias': $in.original_alias,
+                'css_data': {
+                    '.container': 'display:inline-flex;',
+                },
             };
         }
 
@@ -217,10 +221,10 @@ function infohub_rendermajor() {
             $parts.head_label_icon = {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.head_label_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:left; padding: 0px 4px 0px 0px;',
+                    '.container': 'width:16px; height:16px; display:inline-flex; float:left; padding: 0px 4px 0px 0px;',
                 },
             };
         }
@@ -302,9 +306,11 @@ function infohub_rendermajor() {
                 $label = '[head_label]';
             }
             if ($in.head_label_icon !== '') {
-                $parts.head_label.show = '[head_label_icon]' +
-                    $parts.head_label.show;
+                $parts.head_label.show = '[head_label_icon]' + $parts.head_label.show;
             }
+
+            const $defaultLegendCss = {'fieldset': '', 'fieldset .legend': ''};
+            const $legendCss = _Default($defaultLegendCss, $in.css_data);
 
             $parts.legend = {
                 'type': 'common',
@@ -312,6 +318,7 @@ function infohub_rendermajor() {
                 'label': $label,
                 'data': $legendData,
                 'original_alias': $in.original_alias,
+                'css_data': $legendCss
             };
         }
 

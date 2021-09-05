@@ -6,8 +6,8 @@ The plugin InfoHub_Magento uses the M2 REST api to get data from M2 and give dat
 This is useful if you do not want to install anything on M2 or if you just enjoy the REST API more than using dependency injections.  
 
 # InfoHub inside M2 (Native mode)
-InfoHub as an M2 module. Now InfoHub work inside M2 and provide an event interface so you can send messages to InfoHub trough the normal M2 events.  
-You can now use all InfoHub features from InfoHub directly in your M2 modules. The built in InfoHub can also act as a node and send messages to other nodes that you define. Your M2 installation can then become part of a bigger InfoHub network.  
+InfoHub as an M2 module. Now InfoHub work inside M2 and provide an event interface so you can send messages to InfoHub through the normal M2 events.  
+You can now use all InfoHub features from InfoHub directly in your M2 modules. The built-in InfoHub can also act as a node and send messages to other nodes that you define. Your M2 installation can then become part of a bigger InfoHub network.  
 
 # InfoHub as a frontend to M2
 InfoHub can be used with infohub_magento in API mode to have an extra frontend to the normal M2 frontend. You can then see how much sales both interfaces give you.  
@@ -22,7 +22,7 @@ Perhaps your preferred user interface is audio and a game pad, then you use that
 An integration hub is a neutral point that have interfaces to importers and exporters. With an integration hub you have importers and exporters. If you export data from your product data program to files, then you can import that data to the hub. Then you select an exporter, perhaps export to Magento, that will receive the data.  
 If you later want to change any of the systems then you change the importer or the exporter. This means that the integration can be reused.  
 Infohub read import files and put the data in queues. The queues are imported and the data are sent to the M2 REST API.  
-A new module in M2 provide a REST API for the features that can not be reached trough the normal API, like effective exports from M2 without polling.  
+A new module in M2 provide a REST API for the features that can not be reached through the normal API, like effective exports from M2 without polling.  
 
 # Hybrid usage
 If the InfoHub is built in into M2 then you can ask InfoHub things, but you can also let InfoHub render HTML and use that in templates.  

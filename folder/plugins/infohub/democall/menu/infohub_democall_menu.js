@@ -67,7 +67,7 @@ function infohub_democall_menu() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -77,7 +77,7 @@ function infohub_democall_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -103,7 +103,7 @@ function infohub_democall_menu() {
      * @returns {*}
      */
     $functions.push('internal_Menu');
-    const internal_Menu = function($in) {
+    const internal_Menu = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -126,7 +126,7 @@ function infohub_democall_menu() {
                     'ingress': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('[I]HERE_YOU_CAN_EXPLORE_WHAT_HAPPENS_IF_YOU_CALL_A_PLUGIN_THAT_IS_MISSING,_OR_A_MISSING_FUNCTION.[/I]')
+                        'data': '[i]' + _Translate('HERE_YOU_CAN_EXPLORE_WHAT_HAPPENS_IF_YOU_CALL_A_PLUGIN_THAT_IS_MISSING,_OR_A_MISSING_FUNCTION') + '.[/i]'
                     },
                     'my_menu': {
                         'plugin': 'infohub_rendermenu',

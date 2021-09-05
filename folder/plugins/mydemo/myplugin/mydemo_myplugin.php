@@ -30,10 +30,10 @@ class mydemo_myplugin extends infohub_base
 {
     /**
      * Version information for this plugin
-     * @return  string[]
+     * @version 2020-07-31
      * @since   2020-07-31
      * @author  Peter Lembke
-     * @version 2020-07-31
+     * @return string[]
      */
     protected final function _Version(): array
     {
@@ -52,10 +52,10 @@ class mydemo_myplugin extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     * @version 2020-07-31
      * @since   2020-07-31
      * @author  Peter Lembke
-     * @version 2020-07-31
+     * @return mixed
      */
     protected function _GetCmdFunctions(): array
     {
@@ -73,11 +73,11 @@ class mydemo_myplugin extends infohub_base
     /**
      * Example of class public function, always lower_case_names
      * Second row, more detailed description
-     * @param array $in
-     * @return array
-     * @author  Your name
      * @version 2020-07-31
      * @since   2020-07-31
+     * @author  Your name
+     * @param array $in
+     * @return array
      */
     final protected function my_function(array $in = []): array
     {
@@ -106,11 +106,11 @@ class mydemo_myplugin extends infohub_base
     /**
      * Example of class internal function, always internal_CamelCase names
      * Second row, more detailed description
-     * @param array $in
-     * @return array
-     * @author  Your name
      * @version 2020-07-25
      * @since   2012-01-01
+     * @author  Your name
+     * @param array $in
+     * @return array
      */
     final protected function internal_MyFunction(array $in = []): array
     {
@@ -129,4 +129,3 @@ class mydemo_myplugin extends infohub_base
         ];
     }
 }
-

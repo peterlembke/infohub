@@ -49,7 +49,7 @@ function infohub_tree_restore() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -59,7 +59,7 @@ function infohub_tree_restore() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -100,7 +100,7 @@ function infohub_tree_restore() {
                         'container_conflict': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('Conflicts'),
+                            'head_label': _Translate('CONFLICTS'),
                             'content_data': '[container_conflict_list][container_local_version][container_server_version]',
                             'foot_text': 'Here you can solve conflicts in the restore data',
                         },
@@ -222,21 +222,21 @@ function infohub_tree_restore() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': _Translate('Click on the list'),
+                            'data': _Translate('CLICK_ON_THE_LIST'),
                             'class': 'container-medium',
                         },
                         'form_local_version': {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': _Translate('Click on the list'),
+                            'data': _Translate('CLICK_ON_THE_LIST'),
                             'class': 'container-medium',
                         },
                         'button_refresh_conflict_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Refresh conflict list'),
+                            'button_label': _Translate('REFRESH_CONFLICT_LIST'),
                             'button_left_icon': '[refresh_icon]',
                             'event_data': 'sync|refresh_conflict_list',
                             'to_plugin': 'infohub_tree',
@@ -246,7 +246,7 @@ function infohub_tree_restore() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Keep local version'),
+                            'button_label': _Translate('KEEP_LOCAL_VERSION'),
                             'button_left_icon': '[keep_icon]',
                             'event_data': 'sync|keep_local_version',
                             'to_plugin': 'infohub_tree',
@@ -256,7 +256,7 @@ function infohub_tree_restore() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Keep server version'),
+                            'button_label': _Translate('KEEP_SERVER_VERSION'),
                             'button_left_icon': '[keep_icon]',
                             'event_data': 'sync|keep_server_version',
                             'to_plugin': 'infohub_tree',
@@ -287,7 +287,7 @@ function infohub_tree_restore() {
                         'select_conflict_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            'label': _Translate('Conflict list'),
+                            'label': _Translate('CONFLICT_LIST'),
                             'description': _Translate(
                                 'You can help me decide what version to keep'),
                             'size': '20',
@@ -331,7 +331,7 @@ function infohub_tree_restore() {
      * @author Peter Lembke
      */
     $functions.push('click_import_files');
-    const click_import_files = function($in) {
+    const click_import_files = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -366,7 +366,7 @@ function infohub_tree_restore() {
      * @author Peter Lembke
      */
     $functions.push('click_clear_list');
-    const click_clear_list = function($in) {
+    const click_clear_list = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -402,7 +402,7 @@ function infohub_tree_restore() {
      * @author Peter Lembke
      */
     $functions.push('click_save_data');
-    const click_save_data = function($in) {
+    const click_save_data = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',

@@ -1,5 +1,5 @@
 # Offline
-What Infohub means about offline is when you do a subcall to a node and it is not answering within 5 seconds then it is considered offline.  
+What Infohub means about offline is when you do a sub-call to a node, and it is not answering within 5 seconds then it is considered offline.  
  
 # Infohub_Transfer
 Infohub_Transfer keep track of what nodes are offline.  
@@ -11,8 +11,8 @@ Infohub_Transfer will try to contact that node again after 3 minutes and will do
 # browser online
 The browser has an event that detect if you are online or not. Meaning if you can reach the internet.   
 
-* It can detect if you put your brower in offline mode. 
-* It can detect if you lose internet connection in your WiFi. 
+* It can detect if you put your browser in offline mode. 
+* It can detect if you lose internet connection on your WIFI-connection. 
 * It can not always detect if you pull out your ethernet cable. 
 * It can not detect if the destination node will answer or not.  
 * It can not detect if we really need an internet connection to reach the node.
@@ -26,3 +26,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2019-06-16 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

@@ -170,7 +170,7 @@ class application_data extends infohub_base
             return $defaultPath;
         }
 
-        $path = $this->pluginPath . DS . str_replace($search = '_', $replace = DS, $pluginName) . DS . 'asset' . DS . 'icon' . DS . $fileName;
+        $path = $this->pluginPath . DS . strtr($pluginName, ['_' => DS]) . DS . 'asset' . DS . 'icon' . DS . $fileName;
         if (file_exists($path) === true) {
             return $path;
         }
@@ -180,14 +180,14 @@ class application_data extends infohub_base
 
     /**
      * Get full path to the existing icon file
-     * @param string $iconType
+     * @param string $pluginName
      * @return string
      */
     protected function getLauncherPath(
         string $pluginName = ''
     ): string
     {
-        $path = $this->pluginPath . DS . str_replace($search = '_', $replace = DS, $pluginName) . DS . 'asset' . DS . 'launcher.json';
+        $path = $this->pluginPath . DS . strtr($pluginName, ['_' => DS]) . DS . 'asset' . DS . 'launcher.json';
         if (file_exists($path) === true) {
             return $path;
         }
@@ -214,7 +214,7 @@ class application_data extends infohub_base
     {
         $pluginName = 'infohub_exchange';
         $fileNameConfig = $this->configPath . DS . $pluginName . '.json';
-        $fileNamePlugin = $this->pluginPath . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.json';
+        $fileNamePlugin = $this->pluginPath . DS . strtr($pluginName, ['_' => DS]) . DS . $pluginName . '.json';
 
         $fileName = $fileNameConfig;
         if (file_exists($fileName) === false) {

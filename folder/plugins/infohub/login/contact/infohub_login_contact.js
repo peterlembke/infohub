@@ -49,14 +49,14 @@ function infohub_login_contact() {
 
     let $classTranslations = {};
 
+    $functions.push('_SetDefaultNodeData');
     /**
      * These fields is what a contact need
      * @version 2019-09-04
      * @since 2019-09-04
      * @author Peter Lembke
      */
-    $functions.push('_SetDefaultNodeData');
-    const _SetDefaultNodeData = function($nodeData) {
+    const _SetDefaultNodeData = function($nodeData = {}) {
         const $default = {
             'node': '',
             'note': '',
@@ -73,7 +73,7 @@ function infohub_login_contact() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -83,7 +83,7 @@ function infohub_login_contact() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'contact',
             'parent_box_id': '',
@@ -247,7 +247,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push('view_contact');
-    const view_contact = function($in) {
+    const view_contact = function($in = {}) {
         const $default = {
             'step': 'step_read_data_from_storage',
             'response': {
@@ -383,7 +383,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push('storage_read_contact_data');
-    const storage_read_contact_data = function($in) {
+    const storage_read_contact_data = function($in = {}) {
         const $default = {
             'step': 'step_read',
             'answer': 'true',
@@ -440,7 +440,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push('storage_write_contact_data');
-    const storage_write_contact_data = function($in) {
+    const storage_write_contact_data = function($in = {}) {
         const $default = {
             'step': 'step_write',
             'answer': 'true',
@@ -487,7 +487,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push('storage_forget_contact_data');
-    const storage_forget_contact_data = function($in) {
+    const storage_forget_contact_data = function($in = {}) {
         const $default = {
             'step': 'step_write',
             'answer': 'true',
@@ -533,7 +533,7 @@ function infohub_login_contact() {
      * @author Peter Lembke
      */
     $functions.push('click_save');
-    const click_save = function($in) {
+    const click_save = function($in = {}) {
         const $default = {
             'step': 'step_read_form',
             'box_id': '',

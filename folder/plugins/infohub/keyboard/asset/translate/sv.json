@@ -1,24 +1,27 @@
 {
     "version": {
-        "date": "2019-10-26 22:34:56",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_keyboard",
-        "data_checksum": "f13c6111e2bfef8463dff57c003485c6",
-        "language": "",
-        "country": "",
-        "file_type": "finished_file"
+        "data_checksum": "0d0487c89ba341103fd77fbb08b6e487",
+        "language": "sv",
+        "language_name": "swedish",
+        "country": "SE",
+        "country_name": "Sweden",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Knappar",
-        "description": "Du kan se här vilka plugins som prenumererar på globala tangentbordstryckningar. Kan vara intressant om du utvecklar plugins till InfoHub."
+        "title": "Keyboard",
+        "description": "Subscribe to key combinations."
     },
     "data": {
         "infohub_keyboard": {
-            "Keyboard tests": "Tangentbordstester",
-            "Try combinations on your keyboard for SHIFT + CTRL + ALT and another key. The combination form a string above.": "Prova kombinationer på tangentbordet för SHIFT + CTRL + ALT och en annan tangent. Kombinationen bildar en sträng ovan.",
-            "Subscribe": "Prenumerera",
-            "Unsubscribe": "Avsluta prenumerationen",
-            "Show subscribers": "Visa prenumeranter",
-            "Keyboard Demo popup": "Demo koppla till popup"
+            "KEYBOARD_TESTS_KEY": "Keyboard tests",
+            "TRY_COMBINATIONS_ON_YOUR_KEYBOARD_KEY": "Try combinations on your keyboard",
+            "ANY_BUTTON_KEY": "Any button",
+            "SUBSCRIBE_KEY": "Subscribe",
+            "UNSUBSCRIBE_KEY": "Unsubscribe",
+            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "KEYBOARD_DEMO_POPUP_KEY": "Keyboard demo popup"
         }
     }
 }

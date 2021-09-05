@@ -10,7 +10,7 @@ If you have HTTPS you will also be able to run the service worker in Infohub. Th
 We can manage without HTTPS.
 
 ## Public folder
-Some web hotels have a public folder. Everything in public_html should be there. The rest of the files go outside of that folder. It does not matter what the public folder name is. Infohub will cope.
+Some web hotels have a public folder. Everything in public_html should be there. The rest of the files will be placed on the outside of that folder. It does not matter what the public folder name is. Infohub will cope.
 
 ## Database
 You also need to configure a main database in file folder/config/infohub_storage_data.json
@@ -36,4 +36,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2020-07-22 by Peter Lembke  
-Changed 2020-07-23 by Peter Lembke  
+Changed 2021-08-28 by Peter Lembke  

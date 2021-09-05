@@ -1,29 +1,33 @@
 {
     "version": {
-        "date": "2019-10-19 20:41:38",
+        "date": "2021-08-29 19:46:32",
         "plugin": "infohub_debug",
-        "data_checksum": "51ed009a608acac9310f7310e7a1781e",
+        "data_checksum": "f743afdce460f3ad0ad8519b9d3efa30",
         "language": "es",
+        "language_name": "spanish",
         "country": "ES",
-        "file_type": "finished_file"
+        "country_name": "Spain",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Depurar",
-        "description": "Herramientas que puede usar para reiniciar Infohub mientras borra ciertos datos. Perfecto cuando necesitas depurar el código del programa."
+        "title": "Debug",
+        "description": "Tool for developers and testers."
     },
     "data": {
         "infohub_debug": {
-            "Reload page. shift alt ctrl 1": "Recargar página. Shift alt ctrl 1",
-            "Clean out old plugins marked by the server. reload page. shift alt ctrl 2": "Limpie los complementos locales, el servidor tiene una versión más nueva de + su caché de representación. La página de recarga en cualquiera era nueva.",
-            "Clean out all local plugins, reload page. shift alt ctrl 3": "Limpie todos los complementos locales + render caché, vuelva a cargar la página.",
-            "Clean out all local data, reload page. shift alt ctrl 4": "Limpia todos los datos locales, vuelve a cargar la página.",
-            "Silently delete the render cache for the logged in user": "Eliminar silenciosamente el caché de renderizado para el usuario conectado",
-            "Logs you out and refresh the page": "Cierra la sesión y actualiza la página",
-            "Instructions": "Instrucciones",
-            "Click on an option or use the keyboard. These keys always works wherever you are in Infohub.": "Haga clic en una opción o use el teclado. Estas teclas siempre funcionan en cualquier lugar de Infohub.",
-            "Information": "Información",
-            "[b]#2+1[/b] is also at the bottom of the Launcher screen as a button in case you can not start Debug and have no keyboard on your device.": "[b]#2+1[/b] también se encuentra en la parte inferior de la pantalla del Iniciador como un botón en caso de que no pueda iniciar la depuración y no tenga un teclado en su dispositivo.",
-            "[b]#4[/b] is the only option that also remove icons and translations and settings from the local storage.": "[b]#4[/b] es la única opción que también elimina íconos y traducciones y configuraciones del almacenamiento local."
+            "DONE_CLEARING_CACHE_KEY": "Done clearing cache",
+            "DONE_REFRESHING_PAGE_KEY": "Done refreshing page",
+            "RELOAD_PAGE._KEY": "Reload page.",
+            "CLEAN_OUT_OLD_PLUGINS_MARKED_BY_THE_SERVER._RELOAD_PAGE._KEY": "Clean out old plugins marked by the server. Reload page.",
+            "CLEAN_OUT_ALL_LOCAL_PLUGINS,_RELOAD_PAGE._KEY": "Clean out all local plugins, reload page.",
+            "CLEAN_OUT_ALL_LOCAL_DATA,_RELOAD_PAGE._KEY": "Clean out all local data, reload page.",
+            "INSTRUCTIONS_KEY": "Instructions",
+            "CLICK_ON_AN_OPTION_OR_USE_THE_KEYBOARD._THESE_KEYS_ALWAYS_WORKS_WHEREVER_YOU_ARE_IN_INFOHUB._KEY": "Click on an option or use the keyboard. These keys always works wherever you are in infohub.",
+            "INFORMATION_KEY": "Information",
+            "IS_ALSO_AT_THE_BOTTOM_OF_THE_LAUNCHER_SCREEN_AS_A_BUTTON_IN_CASE_YOU_CAN_NOT_START_DEBUG_AND_HAVE_NO_KEYBOARD_ON_YOUR_DEVICE._KEY": "Is also at the bottom of the launcher screen as a button in case you can not start debug and have no keyboard on your device.",
+            "IS_THE_ONLY_OPTION_THAT_ALSO_REMOVE_ICONS_AND_TRANSLATIONS_AND_SETTINGS_FROM_THE_LOCAL_STORAGE._KEY": "Is the only option that also remove icons and translations and settings from the local storage.",
+            "SILENTLY_DELETE_THE_RENDER_CACHE_FOR_THE_LOGGED_IN_USER_KEY": "Silently delete the render cache for the logged in user",
+            "LOGS_YOU_OUT_AND_REFRESH_THE_PAGE_KEY": "Logs you out and refresh the page"
         }
     }
 }

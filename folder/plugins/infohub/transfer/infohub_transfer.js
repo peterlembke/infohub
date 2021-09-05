@@ -109,7 +109,7 @@ function infohub_transfer() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('send');
@@ -121,7 +121,7 @@ function infohub_transfer() {
      * @param {type} $in
      * @returns {{wait_milliseconds: *, answer: *, message: *, message_count: *}}
      */
-    const send = function($in) {
+    const send = function($in = {}) {
         const $default = {
             'to_node': {}, // node name as key and an array with messages to that node
             'from_plugin': {},
@@ -441,7 +441,7 @@ function infohub_transfer() {
      * @param $in
      */
     $functions.push('internal_AddMessagesToGlobalSendToNode');
-    const internal_AddMessagesToGlobalSendToNode = function($in) {
+    const internal_AddMessagesToGlobalSendToNode = function($in = {}) {
         const $default = {
             'to_node': {}, // Node name as key and data as an array with messages
         };
@@ -483,7 +483,7 @@ function infohub_transfer() {
      * @param $in
      */
     $functions.push('internal_GetWaitMilliseconds');
-    const internal_GetWaitMilliseconds = function($in) {
+    const internal_GetWaitMilliseconds = function($in = {}) {
         const $default = {
             'func': 'internal_GetWaitMilliseconds',
             'to_node': {},
@@ -554,7 +554,7 @@ function infohub_transfer() {
      * @uses
      */
     $functions.push('internal_PutPackageBack');
-    const internal_PutPackageBack = function($in) {
+    const internal_PutPackageBack = function($in = {}) {
         const $default = {
             'package': '',
         };
@@ -606,7 +606,7 @@ function infohub_transfer() {
      * @uses
      */
     $functions.push('internal_HandleOffline');
-    const internal_HandleOffline = function($in) {
+    const internal_HandleOffline = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -702,7 +702,7 @@ function infohub_transfer() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('internal_AjaxCall');
-    const internal_AjaxCall = function($in) {
+    const internal_AjaxCall = function($in = {}) {
         const $default = {
             'package': '',
         };

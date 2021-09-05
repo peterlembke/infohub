@@ -63,13 +63,16 @@ function infohub_keyboard() {
     // *****************************************************************************
 
     /**
-     * You can subscribe to keyboard combinations
+     * You can subscribe to keyboard combinations that use any combination of
+     * ALT / CTRL / SHIFT
+     * Here we get a string that represent the keys-combination.
+     *
      * @version 2018-07-11
      * @since   2018-07-11
      * @author  Peter Lembke
      */
     $functions.push('_ConvertToKey');
-    const _ConvertToKey = function($in) {
+    const _ConvertToKey = function($in = {}) {
         const $default = {
             'alt_key': 'false',
             'ctrl_key': 'false',
@@ -103,7 +106,8 @@ function infohub_keyboard() {
     };
 
     /**
-     * You can subscribe to keyboard combinations
+     * Get all outgoing messages that match the key
+     *
      * @version 2018-07-11
      * @since   2018-07-11
      * @author  Peter Lembke
@@ -156,12 +160,15 @@ function infohub_keyboard() {
 
     /**
      * Loads the subscription data
+     * Some data is static. It is the key combinations you can use to clear cache, restart etc.
+     *
      * @version 2018-10-16
      * @since   2018-10-16
      * @author  Peter Lembke
      */
     $functions.push('_LoadData');
     const _LoadData = function() {
+
         const $jsonData = sessionStorage.getItem('infohub_keyboard');
         let $data = JSON.parse($jsonData);
         if (_Empty($data) === 'true') {
@@ -230,13 +237,15 @@ function infohub_keyboard() {
     };
 
     /**
-     * Saves the subscription data
+     * Saves the subscription data to the session storage
+     *
      * @version 2018-10-16
      * @since   2018-10-16
      * @author  Peter Lembke
      */
     $functions.push('_SaveData');
     const _SaveData = function($data) {
+
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -252,12 +261,13 @@ function infohub_keyboard() {
 
     /**
      * Setup the Config Graphical User Interface
+     *
      * @version 2018-09-09
      * @since   2018-09-09
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_translations',
@@ -298,7 +308,7 @@ function infohub_keyboard() {
                             'type': 'presentation_box',
                             'head_label': _Translate('KEYBOARD_TESTS'),
                             'content_data': '[my_form]',
-                            'foot_text': _Translate('TRY_COMBINATIONS_ON_YOUR_KEYBOARD_FOR_SHIFT_+_CTRL_+_ALT_AND_ANOTHER_KEY._THE_COMBINATION_FORM_A_STRING_ABOVE.')
+                            'foot_text': _Translate('TRY_COMBINATIONS_ON_YOUR_KEYBOARD') + ' SHIFT + CTRL + ALT + ' + _Translate('ANY_BUTTON') + '.'
                         },
                         'my_form': {
                             'type': 'form',
@@ -389,6 +399,7 @@ function infohub_keyboard() {
     /**
      * You can subscribe to many keyboard combinations in one call.
      * In "subscriptions" you put your key-strings and each key-strings message.
+     *
      * @version 2018-10-16
      * @since   2018-09-09
      * @author  Peter Lembke
@@ -396,7 +407,8 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    const subscribe = function($in) {
+    const subscribe = function($in = {}) {
+
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
@@ -479,7 +491,7 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    const unsubscribe = function($in) {
+    const unsubscribe = function($in = {}) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
@@ -513,7 +525,7 @@ function infohub_keyboard() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    const unsubscribe_all = function($in) {
+    const unsubscribe_all = function($in = {}) {
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
@@ -534,7 +546,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    const internal_Subscribe = function($in) {
+    const internal_Subscribe = function($in = {}) {
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
@@ -562,7 +574,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    const internal_Unsubscribe = function($in) {
+    const internal_Unsubscribe = function($in = {}) {
         const $default = {
             'from': '',
             'key': '',
@@ -603,7 +615,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    const internal_UnsubscribeAll = function($in) {
+    const internal_UnsubscribeAll = function($in = {}) {
         const $default = {
             'from': '',
         };
@@ -644,7 +656,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_subscribe');
-    const gui_subscribe = function($in) {
+    const gui_subscribe = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -713,7 +725,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_unsubscribe');
-    const gui_unsubscribe = function($in) {
+    const gui_unsubscribe = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -769,7 +781,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    const gui_show_subscribers = function($in) {
+    const gui_show_subscribers = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -814,7 +826,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('demo_popup');
-    const demo_popup = function($in) {
+    const demo_popup = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -856,7 +868,7 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('all_keys_to_gui');
-    const all_keys_to_gui = function($in) {
+    const all_keys_to_gui = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'key': '',
@@ -903,9 +915,14 @@ function infohub_keyboard() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
+
         const $default = {
-            'from_plugin': {'node': '', 'plugin': '', 'function': ''},
+            'from_plugin': {
+                'node': '',
+                'plugin': '',
+                'function': ''
+            },
             'alt_key': 'false',
             'ctrl_key': 'false',
             'shift_key': 'false',
@@ -955,7 +972,6 @@ function infohub_keyboard() {
             'key': $in.data_back.key,
         };
     };
-
 }
 
 function keyUp(event) {
@@ -964,8 +980,11 @@ function keyUp(event) {
 
     event = event || window.event;
     if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
-        const $alt = event.altKey, $ctrl = event.ctrlKey,
+
+        const $alt = event.altKey,
+            $ctrl = event.ctrlKey,
             $shift = event.shiftKey;
+
         if ($alt || $shift || $ctrl) {
             // If shift is used then it can not be alone, must be in a combination with ctrl or alt or both.
             if (($alt && !$shift && !$ctrl) || (!$alt && !$shift && $ctrl) ||

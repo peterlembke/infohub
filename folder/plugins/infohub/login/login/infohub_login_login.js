@@ -50,7 +50,7 @@ function infohub_login_login() {
 
     // ***********************************************************
     // * your class functions below, only declare with const
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -60,7 +60,7 @@ function infohub_login_login() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -79,9 +79,6 @@ function infohub_login_login() {
             $classTranslations = $in.translations;
 
             $in.step = 'step_render_for_workbench';
-            if ($in.desktop_environment === 'standalone') {
-                $in.step = 'step_render_for_standalone';
-            }
         }
 
         if ($in.step === 'step_render_for_workbench') {
@@ -109,13 +106,16 @@ function infohub_login_login() {
                         },
                         'text_password': {
                             'plugin': 'infohub_renderform',
-                            'type': 'text',
+                            'type': 'password',
                             'label': _Translate('PASSWORD'),
                             'description': _Translate('THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             'show_characters_left': 'false',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
                         },
                         'button_login': {
                             'plugin': 'infohub_renderform',
@@ -164,117 +164,6 @@ function infohub_login_login() {
             });
         }
 
-        if ($in.step === 'step_render_for_standalone') {
-            let $render = _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_render',
-                    'function': 'create',
-                },
-                'data': {
-                    'what': {
-                        'container_login': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'div',
-                            'data': '[form_password]',
-                            'class': 'container-small',
-                        },
-                        'form_password': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'form',
-                            'content': '[my_file_selector][text_password][button_login][status_message][button_export]',
-                            'label': _Translate('LOGIN')
-                        },
-                        'my_file_selector': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'file',
-                            'button_label': _Translate('SELECT_FILE'),
-                            'accept': '*.json',
-                            'event_data': 'login|import',
-                            'to_node': 'client',
-                            'to_plugin': 'infohub_login',
-                            'to_function': 'click',
-                        },
-                        'text_password': {
-                            'type': 'form',
-                            'subtype': 'text',
-                            'input_type': 'password',
-                            'placeholder': _Translate('PASSWORD')
-                        },
-                        'button_login': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('LOGIN'),
-                            'event_data': 'login|login',
-                            'to_plugin': 'infohub_login',
-                            'to_function': 'click',
-                            'custom_variables': {
-                                'desktop_environment': $in.desktop_environment,
-                            },
-                        },
-                        'button_export': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('DOWNLOAD_DEMO_ACCOUNT'),
-                            'button_left_icon': '[export_icon]',
-                            'event_data': 'login|export',
-                            'to_node': 'client',
-                            'to_plugin': 'infohub_login',
-                            'to_function': 'click',
-                            'custom_variables': {
-                                'desktop_environment': $in.desktop_environment,
-                            },
-                        },
-                        'export_icon': {
-                            'type': 'common',
-                            'subtype': 'svg',
-                            'data': '[export_asset]',
-                        },
-                        'export_asset': {
-                            'plugin': 'infohub_asset',
-                            'type': 'icon',
-                            'asset_name': 'export',
-                            'plugin_name': 'infohub_login',
-                        },
-                        'status_message': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'span',
-                            'data': _Translate('LOGIN_RESULT') + ':',
-                            'class': 'container-pretty',
-                            'display': 'inline-block',
-                        },
-                    },
-                    'how': {
-                        'mode': 'one box',
-                        'text': '[container_login]',
-                    },
-                    'where': {
-                        'box_id': 'main.body.infohub_login.form', // 'box_id': $in.parent_box_id + '.form',
-                        'max_width': 100,
-                        'scroll_to_box_id': 'true',
-                    },
-                },
-                'data_back': {
-                    'step': 'step_render_for_standalone_response',
-                },
-            });
-
-            const $url = location.hostname;
-
-            if (_IsSet($in.download_account[$url]) === 'false') {
-                delete $render.data.what.button_export;
-                delete $render.data.what.export_icon;
-                delete $render.data.what.export_asset;
-                $render.data.what.form_password.content = '[my_file_selector][text_password][button_login][status_message]';
-            }
-
-            return $render;
-        }
-
         if ($in.step === 'step_render_for_standalone_response') {
             return _SubCall({
                 'to': {
@@ -305,7 +194,7 @@ function infohub_login_login() {
      * @author Peter Lembke
      */
     $functions.push('set_boxes');
-    const set_boxes = function($in) {
+    const set_boxes = function($in = {}) {
         const $default = {
             'step': 'step_load_contact',
             'box_id': '',
@@ -314,11 +203,20 @@ function infohub_login_login() {
             'message': '',
             'post_exist': 'false',
             'password_visible': 'false',
+            'translations': {}
         };
 
         $in = _Default($default, $in);
 
         if ($in.step === 'step_load_contact') {
+
+            if (_Empty($classTranslations) === 'true') {
+                if (_Empty($in.translations) === 'false') {
+                    $classTranslations = $in.translations;
+                    // infohub_login_standalone never call create() to leave the translations, but calls this function
+                }
+            }
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -395,7 +293,7 @@ function infohub_login_login() {
      * @author Peter Lembke
      */
     $functions.push('click_login');
-    const click_login = function($in) {
+    const click_login = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_do_we_already_have_a_valid_session',
@@ -642,7 +540,8 @@ function infohub_login_login() {
                 let $diff = _MicroTime() -
                     $in.data_back.initiator_seconds_since_epoc;
                 if ($diff < 0.0 || $diff > 2.0) {
-                    $message = _Translate('THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT');
+                    $message = _Translate('THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME.') + ' ' +
+                        _Translate('I_WILL_ABANDON_THE_LOGIN_ATTEMPT');
                     $in.step = 'step_show_result';
                 }
             }
@@ -918,7 +817,7 @@ function infohub_login_login() {
      * @param $in
      * @returns {{answer: string, verified: string, message: string, random_code: string}}
      */
-    const internal_CreateRandomCode = function($in) {
+    const internal_CreateRandomCode = function($in = {}) {
         const $default = {
             'length': 256,
         };
@@ -981,7 +880,7 @@ function infohub_login_login() {
      * @param $in
      * @returns {{answer: string, verified: string, message: string}}
      */
-    const internal_VerifyRandomCode = function($in) {
+    const internal_VerifyRandomCode = function($in = {}) {
         const $default = {
             'random_code': '',
             'length': 256,
@@ -1050,7 +949,7 @@ function infohub_login_login() {
             }
 
             $verified = 'true';
-            $message = _Translate('THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS.');
+            $message = _Translate('THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS.');
         }
 
         return {
@@ -1070,7 +969,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    const _MergeBase64Strings = function($string1, $string2) {
+    const _MergeBase64Strings = function($string1 = '', $string2 = '') {
         let $data1 = atob($string1),
             $data2 = atob($string2),
             $result = '';
@@ -1097,7 +996,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    const _DeductBase64Strings = function($string1, $string2) {
+    const _DeductBase64Strings = function($string1 = '', $string2 = '') {
         let $data1 = atob($string1),
             $data2 = atob($string2),
             $result = '';
@@ -1129,7 +1028,7 @@ function infohub_login_login() {
      * @returns string | Base 64 byte array
      * @private
      */
-    const _RotateBase64String = function($string1, $steps) {
+    const _RotateBase64String = function($string1 = '', $steps = 0) {
         let $data1 = atob($string1);
 
         const $result = $data1.substr($steps + 1) + $data1.substr(0, $steps);
@@ -1146,7 +1045,7 @@ function infohub_login_login() {
      * @author Peter Lembke
      */
     $functions.push('click_import');
-    const click_import = function($in) {
+    const click_import = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_file_read_response',
@@ -1257,7 +1156,7 @@ function infohub_login_login() {
      * @author  Peter Lembke
      */
     $functions.push('click_export');
-    const click_export = function($in) {
+    const click_export = function($in = {}) {
         const $default = {
             'download_account': {},
             'step': 'step_get_file_name',

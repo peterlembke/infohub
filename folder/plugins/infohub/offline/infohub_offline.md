@@ -76,7 +76,7 @@ $key = {
 
 The index is where all subscriptions are stored. It is used for quickly looking up all messages to send for a key.  
 When you unsubscribe to a key then the index are updated.  
-When you unsubscribe to all then the index are looped trough all key combinations and your plugin are removed.  
+When you unsubscribe to all then the index are looped through all key combinations and your plugin are removed.  
 The index are stored in session storage. When the session ends then the session storage are cleared.
 
 # event_message

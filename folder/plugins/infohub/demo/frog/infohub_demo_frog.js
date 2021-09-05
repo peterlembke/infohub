@@ -53,7 +53,7 @@ function infohub_demo_frog() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_demo_frog() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -97,12 +97,14 @@ function infohub_demo_frog() {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
                             'head_label': _Translate('RESULT'),
-                            'foot_text': _Translate('WHEN_YOU_DO_A_MISSTAKE_IN_YOUR_RENDERING_CODE_THEN_THE_FROG_SHOWS_UP_AS_A_PLACEHOLDER.'),
+                            'foot_text': _Translate('WHEN_YOU_DO_A_MISTAKE_IN_YOUR_RENDERING_CODE_THEN_THE_FROG_SHOWS_UP_AS_A_PLACEHOLDER.'),
                             'content_data': _Translate('HAVE_YOU_SEEN_ANY_FROGS?'),
                         },
                         'my_foot_text': {
                             'type': 'text',
-                            'text': _Translate('I_MADE_A_FROG_IS_A_SWEDISH_EXPRESSION_FOR_MAKING_A_MISTAKE._JAG_GJORDE_EN_GRODA._IF_YOU_RENDER_AN_OBJECT_WITH_AN_UNKNOWN_TYPE_OR_SUBTYPE_THEN_A_FROG_APPEAR_INSTEAD.')
+                            'text': _Translate('I_MADE_A_FROG_IS_A_SWEDISH_EXPRESSION_FOR_MAKING_A_MISTAKE.') + ' ' +
+                                _Translate('JAG_GJORDE_EN_GRODA.') + ' ' +
+                                _Translate('IF_YOU_RENDER_AN_OBJECT_WITH_AN_UNKNOWN_TYPE_OR_SUBTYPE_THEN_A_FROG_APPEAR_INSTEAD.')
                         },
                         'my_external_link': {
                             'type': 'link',
@@ -124,17 +126,17 @@ function infohub_demo_frog() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click',
                                 },
-                                'misstake1': {
-                                    'alias': 'misstake1_link',
-                                    'event_data': 'frog|frog|frog_misstake1',
-                                    'button_label': _Translate('MISSTAKE_#1_-_WRONG_TYPE'),
+                                'mistake1': {
+                                    'alias': 'mistake1_link',
+                                    'event_data': 'frog|frog|frog_mistake1',
+                                    'button_label': _Translate('MISTAKE_#1_-_WRONG_SUBTYPE'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click',
                                 },
-                                'misstake2': {
-                                    'alias': 'misstake2_link',
-                                    'event_data': 'frog|frog|frog_misstake2',
-                                    'button_label': _Translate('MISSTAKE_#2_-_WRONG_SUBTYPE'),
+                                'mistake2': {
+                                    'alias': 'mistake2_link',
+                                    'event_data': 'frog|frog|frog_mistake2',
+                                    'button_label': _Translate('MISTAKE_#2_-_WRONG_TYPE'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click',
                                 },
@@ -171,7 +173,7 @@ function infohub_demo_frog() {
      * @author Peter Lembke
      */
     $functions.push('click_frog');
-    const click_frog = function($in) {
+    const click_frog = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -190,16 +192,18 @@ function infohub_demo_frog() {
                     'text': _Translate('CORRECT,_THE_FROG_IS_RENDERED_BY_CALLING_THE_RENDER_FROG_PLUGIN.'),
                     'ok': 'true',
                 },
-                'frog_misstake1': {
+                'frog_mistake1': {
                     'type': 'common',
                     'subtype': 'fizbaz',
-                    'text': _Translate('MISTAKE_#1,_THE_FROG_WERE_RENDERED_BY_CALLING_RENDER_COMMON_WITH_THE_NONE_EXISTING_SUBTYPE_FIZBAZ._THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
+                    'text': _Translate('MISTAKE_#1,_THE_FROG_WERE_RENDERED_BY_CALLING_RENDER_COMMON_WITH_THE_NONE_EXISTING_SUBTYPE_FIZBAZ.') + ' ' +
+                        _Translate('THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
                     'ok': 'false',
                 },
-                'frog_misstake2': {
+                'frog_mistake2': {
                     'type': 'foobar',
                     'subtype': '',
-                    'text': _Translate('MISTAKE_#2,_THE_FROG_WERE_RENDERED_BY_CALLING_THE_NONE_EXISTING_PLUGIN_FOOBAR._THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
+                    'text': _Translate('MISTAKE_#2,_THE_FROG_WERE_RENDERED_BY_CALLING_THE_NONE_EXISTING_PLUGIN_FOOBAR.') + ' ' +
+                        _Translate('THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP.'),
                     'ok': 'false',
                 },
             };

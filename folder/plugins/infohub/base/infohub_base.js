@@ -38,6 +38,7 @@ const _GetCmdFunctionsBase = function($childList = {}) {
 // * Name: _CamelCaseData
 // ***********************************************************
 
+$functions.push('_Default');
 /**
  * Make sure you get all variables you expect, at least with default values, and the right datatype.
  * example: $in = _Default($default,$in);
@@ -50,7 +51,6 @@ const _GetCmdFunctionsBase = function($childList = {}) {
  * @param {object} $in - This is the object we want to look like the $default
  * @return {object} New object
  */
-$functions.push('_Default');
 const _Default = function($default = {}, $in = {}) {
     if ($firstDefault === null) {
         $firstDefault = $default;
@@ -144,6 +144,7 @@ const _Default = function($default = {}, $in = {}) {
     return $answer;
 };
 
+$functions.push('_GetDataType');
 /**
  * Get variable data type name in lower case
  * @example
@@ -152,7 +153,6 @@ const _Default = function($default = {}, $in = {}) {
  * @returns {string} The data type name
  * @private
  */
-$functions.push('_GetDataType');
 const _GetDataType = function($object) {
     const $dataType = ({}).toString.call($object).
         match(/\s([a-zA-Z]+)/)[1].toLowerCase();
@@ -160,6 +160,7 @@ const _GetDataType = function($object) {
     return $dataType;
 };
 
+$functions.push('_Merge');
 /**
  * Merge two objects, everything from object2 goes on top of object1.
  * example: $in = _Merge($object1,$object2);
@@ -172,7 +173,6 @@ const _GetDataType = function($object) {
  * @param {object} $object2 - Second object
  * @return {object} A combined object
  */
-$functions.push('_Merge');
 const _Merge = function($object1 = {}, $object2 = {}) {
     let $newObject = {};
 
@@ -195,6 +195,7 @@ const _Merge = function($object1 = {}, $object2 = {}) {
     return _ByVal($newObject);
 };
 
+$functions.push('_MergeStringData');
 /**
  * Merge two objects strings, everything new from object2 or object1 are added to new object.
  * Every string that exist in both objects are glued together with object 1 firsts and object 2 second.
@@ -209,7 +210,6 @@ const _Merge = function($object1 = {}, $object2 = {}) {
  * @param {object} $object2 - Second object
  * @return {object} A combined object
  */
-$functions.push('_MergeStringData');
 const _MergeStringData = function($object1 = {}, $object2 = {}) {
     let $newObject = {};
 
@@ -235,6 +235,8 @@ const _MergeStringData = function($object1 = {}, $object2 = {}) {
 
     return _ByVal($newObject);
 };
+
+
 
 /**
  * Delete properties from object1. Name them in object2.
@@ -297,9 +299,14 @@ const _MiniClone = function($objectToBeCloned = {}) {
         objectClone = new Constructor();
 
     for (let $property in $objectToBeCloned) {
-        if ($objectToBeCloned.hasOwnProperty($property)) {
-            objectClone[$property] = _MiniClone($objectToBeCloned[$property]);
+        if ($objectToBeCloned.hasOwnProperty($property) === false) {
+            continue;
         }
+        if (typeof $objectToBeCloned[$property] !== 'object') {
+            objectClone[$property] = $objectToBeCloned[$property];
+            continue;
+        }
+        objectClone[$property] = _MiniClone($objectToBeCloned[$property]);
     }
 
     return objectClone;
@@ -754,35 +761,13 @@ const _Translate = function($string) {
         return $string.toString();
     }
 
-    if ($string === 'What is this?') {
-        let $a = 1;
+    let $key = $string;
+    if ($key.substr(-4,4) !== '_KEY') {
+        $key = $key + '_KEY';
     }
 
-    let $result = '';
-
-    $result = _GetData({
-        'name': _GetClassName() + '|' + $string,
-        'default': '',
-        'data': $classTranslations,
-        'split': '|',
-    });
-
-    if (_Full($result) === 'true') {
-        return $result.toString();
-    }
-
-    // No, what about if we convert the key to CAPS_KEY
-    // @todo One day all old keys are CAPS and this section can be deleted
-
-    let $capsKey = $string.toUpperCase();
-    $capsKey = _Replace(' ', '_', $capsKey);
-
-    if ($string === $capsKey) {
-        return $string;
-    }
-
-    $result = _GetData({
-        'name': _GetClassName() + '|' + $capsKey,
+    let $result = _GetData({
+        'name': _GetClassName() + '|' + $key,
         'default': '',
         'data': $classTranslations,
         'split': '|',
@@ -888,7 +873,7 @@ const _GetClassName = function() {
  * @private
  */
 $functions.push('_GetCallerPluginName');
-const _GetCallerPluginName = function($in) {
+const _GetCallerPluginName = function($in = {}) {
     const _GetLastInArray = function($dataArray) {
         if (Array.isArray($dataArray)) {
             if ($dataArray.length > 0) {
@@ -975,7 +960,7 @@ const _GetExtension = function($fileName = '') {
  * @return object
  */
 $functions.push('cmd');
-this.cmd = function($in) {
+this.cmd = function($in = {}) {
     // "use strict";
 
     const $startTime = _MicroTime();

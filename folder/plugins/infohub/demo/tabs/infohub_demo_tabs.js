@@ -52,7 +52,7 @@ function infohub_demo_tabs() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},

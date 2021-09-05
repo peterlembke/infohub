@@ -54,7 +54,7 @@ function infohub_demo_form2() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -64,7 +64,7 @@ function infohub_demo_form2() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -99,7 +99,8 @@ function infohub_demo_form2() {
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('IN_THIS_DEMO_YOU_CAN_ORDER_A_MEAL_AT_A_RESTAURANT._ALL_THE_FORM_ELEMENTS_ARE_USED_IN_THIS_DEMO.')
+                            'data': _Translate('IN_THIS_DEMO_YOU_CAN_ORDER_A_MEAL_AT_A_RESTAURANT.') + ' ' +
+                                _Translate('ALL_THE_FORM_ELEMENTS_ARE_USED_IN_THIS_DEMO.')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
@@ -261,7 +262,8 @@ function infohub_demo_form2() {
                             'plugin': 'infohub_renderform',
                             'type': 'color',
                             'label': _Translate('FLOWER'),
-                            'description': _Translate('YOU_GET_A_FLOWER_ON_THE_TABLE._SELECT_A_COLOUR_AND_WE_WILL_DO_A_CLOSE_MATCH_WITH_THE_FLOWERS_WE_HAVE.')
+                            'description': _Translate('YOU_GET_A_FLOWER_ON_THE_TABLE.') + ' ' +
+                                _Translate('SELECT_A_COLOUR_AND_WE_WILL_DO_A_CLOSE_MATCH_WITH_THE_FLOWERS_WE_HAVE.')
                         }
                     },
                     'how': {
@@ -293,7 +295,7 @@ function infohub_demo_form2() {
      * @author Peter Lembke
      */
     $functions.push('click_form2_buttons');
-    const click_form2_buttons = function($in) {
+    const click_form2_buttons = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'type': '',
@@ -363,7 +365,8 @@ function infohub_demo_form2() {
                             'my_radios_burger.beetroot_burger': {'value': 'true'},
                             'my_range': {'value': '150'},
                             'my_select': {'value': ['cutlery_knife', 'cutlery_fork', 'porcelain_plait', 'porcelain_glass', 'fabric_napkin', 'fabric_cloth']},
-                            'my_textarea': {'value': _Translate('I_WANT_TO_GO_ALL_IN_WITH_THIS_DINNER._DION_MUSTARD_AND_ROMANI_SALAD!!') },
+                            'my_textarea': {'value': _Translate('I_WANT_TO_GO_ALL_IN_WITH_THIS_DINNER.') + ' ' +
+                                    _Translate('DION_MUSTARD_AND_ROMANI_SALAD!!') },
                             'my_textbox': {'value': _Translate('DINNER_BURGER') },
                             'of_age.of_age': {'value': 'false'}
                         };
@@ -412,7 +415,7 @@ function infohub_demo_form2() {
      * @author Peter Lembke
      */
     $functions.push('click_submit');
-    const click_submit = function($in) {
+    const click_submit = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -422,7 +425,8 @@ function infohub_demo_form2() {
         let $messageArray = [];
 
         if ($in.step === 'step_start') {
-            const $text = _Translate('THIS_SUBMIT_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO._THIS_ONLY_HAPPENS_IF_ALL_DATA_IS_VALID.');
+            const $text = _Translate('THIS_SUBMIT_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO.') + ' ' +
+                _Translate('THIS_ONLY_HAPPENS_IF_ALL_DATA_IS_VALID.');
             const $messageOut = _Alert($text);
             $messageArray.push($messageOut);
         }

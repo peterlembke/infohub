@@ -7,8 +7,8 @@ Handles the keyboard. You can subscribe to key combinations and get a message.
 You can subscribe to keyboard key combinations and get a message when that combination happens.  
 Infohub Keyboard has a keyup observer that starts as soon as anyone subscribe.  
 When you write on your keyboard and use combinations of special keys then an event are triggered and the key data are
-sent to infohub_keybard.  
-This module check if the combination of key + special keys are OK and create an event_key for that combination.  
+sent to infohub_keyboard.  
+This plugin check if the combination of key + special keys are OK and create an event_key for that combination.  
 The event_key are checked against subscribers. The subscribers wanted messages are sent.
 
 # GUI
@@ -46,8 +46,8 @@ $key = {
 The index is where all subscriptions are stored. It is used for quickly looking up all messages to send for a key
 combination.  
 When you unsubscribe to a key combination then the index are updated.  
-When you unsubscribe to all then the index are looped trough all key_combinations and your plugin are removed.  
-The index are stored in session storage. When the session ends then the session storage are cleared.
+When you unsubscribe to all then the index are looping through all key_combinations and your plugin are removed.  
+The index is stored in session storage. When the session ends then the session storage are cleared.
 
 # event_message
 
@@ -58,8 +58,8 @@ All subscribers with this key combination will have their messages sent out.
 # Special keys
 
 The three special keys are CTRL, ALT, SHIFT. You can subscribe to combinations of special keys + a key code.  
-Shift is special. You often use SHIFT when you write text so it would produce a lot of event messages. To avoid this
-there is a filter in place in the GO function so you can not use just SHIFT + keycode.  
+Shift is special. You often use SHIFT when you write text, so it would produce a lot of event messages. To avoid this
+there is a filter in place in the GO function that you can not use just SHIFT + keycode.  
 You can have ALT, ALT + SHIFT, CTRL, CTRL + ALT, CTRL + ALT + SHIFT, CTRL + SHIFT
 
 # Hard coded subscribers
@@ -69,7 +69,7 @@ shift_alt_ctrl_49 ("1") - Refresh the page when the ban time has ended.
 shift_alt_ctrl_49 ("2") - Updates the local plugins and refresh the page when the ban time has ended.  
 shift_alt_ctrl_50 ("3") - Removes the local plugins and refresh the page when the ban time has ended.  
 shift_alt_ctrl_51 ("4") - Removes the local plugins and all data and refresh the page when the ban time has ended.  
-shift_alt_ctrl_57 ("9") - Silently delete all render cache for the logged in user  
+shift_alt_ctrl_57 ("9") - Silently delete all render cache for the logged-in user  
 shift_alt_ctrl_48 ("0") - Triggers a logout and refresh  
 The data in the local database are not touched.
 
@@ -83,4 +83,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2018-07-11 by Peter Lembke  
-Updated 2020-07-17 by Peter Lembke  
+Updated 2021-08-06 by Peter Lembke  

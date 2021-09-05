@@ -26,9 +26,9 @@ function infohub_renderform() {
 
     const _Version = function() {
         return {
-            'date': '2019-03-12',
+            'date': '2021-06-06',
             'since': '2018-05-30',
-            'version': '1.0.0',
+            'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_renderform',
             'note': 'Adds more features to the basic render form elements',
@@ -37,6 +37,7 @@ function infohub_renderform() {
             'user_role': 'user',
             'web_worker': 'true',
             'core_plugin': 'false',
+            'has_assets': 'true'
         };
     };
 
@@ -45,6 +46,8 @@ function infohub_renderform() {
             'create': 'normal', // Form, Text, Range, Color, Select, Textarea, Radios, Checkboxes
             'event_message': 'normal',
             'set_button_icon': 'normal',
+            'generate_password': 'normal',
+            'view_password': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -75,8 +78,7 @@ function infohub_renderform() {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
 
         return $response;
@@ -96,7 +98,7 @@ function infohub_renderform() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -179,13 +181,269 @@ function infohub_renderform() {
         };
     };
 
+    $functions.push('generate_password');
+    /**
+     * Generate a password into the password text box
+     * @version 2021-06-06
+     * @since   2021-06-06
+     * @author  Peter Lembke
+     */
+    const generate_password = function($in = {}) {
+        const $default = {
+            'box_id': '',
+            'id': '',
+            'alias': '',
+            'name': '',
+            'password_length': '16',
+            'max_group_number': '2',
+            'from_plugin': {
+                'node': '',
+                'plugin': '',
+                'function': ''
+            },
+            'parent_box_id': '',
+            'response': {},
+            'data_back': {
+                'form_element_id': '',
+                'characters_left_label_id': '',
+                'password': '',
+                'maxlength': 0,
+                'step': ''
+            },
+            'step': 'step_generate_password'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_generate_password') {
+            const $formElementId = _NewId($in.id, $in.name, 'form_element');
+            const $charactersLeftLabelId = _NewId($in.id, $in.name, 'characters_left_data');
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_password',
+                    'function': 'generate',
+                },
+                'data': {
+                    'number_of_passwords': 1, // Number of passwords you want
+                    'password_length': parseInt($in.password_length),
+                    'max_group_number': parseInt($in.max_group_number)
+                },
+                'data_back': {
+                    'form_element_id': $formElementId,
+                    'characters_left_label_id': $charactersLeftLabelId,
+                    'step': 'step_generate_password_response'
+                },
+            });
+        }
+
+        if ($in.step === 'step_generate_password_response') {
+
+            const $default = {
+                'answer': 'false',
+                'message': '',
+                'passwords': []
+            };
+
+            const $response = _Default($default, $in.response);
+
+            if ($response.answer === 'true' && $response.passwords.length > 0) {
+                $in.data_back.password = $response.passwords[0];
+                $in.step = 'step_get_maxlength';
+            }
+        }
+
+        if ($in.step === 'step_get_maxlength') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'get_attribute',
+                },
+                'data': {
+                    'id': $in.data_back.form_element_id,
+                    'name_array': ['maxlength']
+                },
+                'data_back': {
+                    'form_element_id': $in.data_back.form_element_id,
+                    'characters_left_label_id': $in.data_back.characters_left_label_id,
+                    'password': $in.data_back.password,
+                    'step': 'step_get_maxlength_response'
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_maxlength_response') {
+            $in.data_back.maxlength = _GetData({
+                'name': 'response/data/maxlength',
+                'default': '0',
+                'data': $in,
+            });
+
+            const $numberBase = 10;
+            $in.data_back.maxlength = parseInt($in.data_back.maxlength,$numberBase);
+
+            $in.step = 'step_write_password_and_left';
+        }
+
+        if ($in.step === 'step_write_password_and_left') {
+
+            const $left = $in.data_back.maxlength - $in.data_back.password.length;
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update',
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'SetText',
+                            'id': $in.data_back.form_element_id,
+                            'text': $in.data_back.password
+                        },
+                        {
+                            'func': 'SetText',
+                            'id': $in.data_back.characters_left_label_id,
+                            'text': $left.toString()
+                        }
+                    ]
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Done',
+        };
+    };
+
+    $functions.push('view_password');
+    /**
+     * Generate a password into the password text box
+     * @version 2021-06-06
+     * @since   2021-06-06
+     * @author  Peter Lembke
+     */
+    const view_password = function($in = {}) {
+        const $default = {
+            'box_id': '',
+            'id': '',
+            'alias': '',
+            'name': '',
+            'password': '', // view or hide
+            'from_plugin': {
+                'node': '',
+                'plugin': '',
+                'function': ''
+            },
+            'parent_box_id': '',
+            'step': 'step_start'
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start') {
+            const $textBoxId = _NewId($in.id, $in.name, 'form_element');
+            const $eyeClosedId = _NewId($in.id, $in.name, 'hide_password');
+            const $eyeOpenId = _NewId($in.id, $in.name, 'view_password');
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update',
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'SetAttribute',
+                            'id': $textBoxId,
+                            'name': 'type',
+                            'value1': 'text',
+                            'value2': 'password',
+                            'mode': 'switch'
+                        },
+                        {
+                            'func': 'SetVisible',
+                            'id': $eyeClosedId,
+                            'set_visible': 'switch',
+                            'block_type_visible': 'inline-block'
+                        },
+                        {
+                            'func': 'SetVisible',
+                            'id': $eyeOpenId,
+                            'set_visible': 'switch',
+                            'block_type_visible': 'inline-block'
+                        }
+                    ]
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+        }
+
+        if ($in.step === 'step_toggle_view_password') {
+
+            const $newId = _NewId($in.id, $in.name, 'form_element');
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'set_attribute',
+                },
+                'data': {
+                    'id': $newId,
+                    'name': 'type',
+                    'value1': 'text',
+                    'value2': 'password',
+                    'mode': 'switch'
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Done',
+        };
+    };
+
+    /**
+     * We have the id for the current dom object,
+     * we remove the last bit to get the parent id
+     * Then we add the new name we want.
+     * @param $id
+     * @param $currentName
+     * @param $newName
+     * @returns {string}
+     * @private
+     */
+    const _NewId = function(
+        $id = '',
+        $currentName = '',
+        $newName = 'form_element'
+    ) {
+        const $lastIndex = $id.lastIndexOf('_' + $currentName);
+        const $parentId = $id.substr(0, $lastIndex);
+        const $newId = $parentId + '_' + $newName;
+
+        return $newId;
+    }
+
     /**
      * Basic form
      * @version 2018-06-06
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Form = function($in) {
+    const internal_Form = function($in = {}) {
         const $default = {
             'content': '',
             'to_node': 'client',
@@ -249,7 +507,7 @@ function infohub_renderform() {
      * @since   2019-01-01
      * @author  Peter Lembke
      */
-    const internal_Button = function($in) {
+    const internal_Button = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -293,34 +551,34 @@ function infohub_renderform() {
             'button_left_icon': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_left_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:left;',
+                    '.container': 'width:16px; height:16px; display:inline-block; float:left;',
                 },
             },
             'button_label': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_label,
                 'css_data': {
-                    '.container': 'display:inline; padding-left: 4px; padding-right: 4px;',
+                    '.container': 'display:inline-block; padding-left: 4px; padding-right: 4px;',
                 },
             },
             'button_icon': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:right;',
+                    '.container': 'width:16px; height:16px; display:inline-block; float:right;',
                 },
             },
             'button_result': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': '',
                 'css_data': {
                     '.container': 'border-style: dotted; border-color: #6d8df7; display:none;',
@@ -331,8 +589,7 @@ function infohub_renderform() {
         if ($in.button_left_icon === '') {
             delete $parts.button_left_icon;
         } else {
-            $parts.button.button_label = '[button_left_icon]' +
-                $parts.button.button_label;
+            $parts.button.button_label = '[button_left_icon]' + $parts.button.button_label;
         }
 
         return {
@@ -356,7 +613,7 @@ function infohub_renderform() {
      * @since   2019-09-07
      * @author  Peter Lembke
      */
-    const internal_File = function($in) {
+    const internal_File = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -405,34 +662,34 @@ function infohub_renderform() {
             'button_left_icon': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_left_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:left;',
+                    '.container': 'width:16px; height:16px; display:inline-block; float:left;',
                 },
             },
             'button_label': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_label,
                 'css_data': {
-                    '.container': 'display:inline; padding-left: 4px; padding-right: 4px;',
+                    '.container': 'display:inline-block; padding-left: 4px; padding-right: 4px;',
                 },
             },
             'button_icon': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': $in.button_icon,
                 'css_data': {
-                    '.container': 'width:16px; height:16px; display:inline; float:right;',
+                    '.container': 'width:16px; height:16px; display:inline-block; float:right;',
                 },
             },
             'button_result': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': '',
                 'css_data': {
                     '.container': 'border-style: dotted;border-color: #7df76d; display:none;', // Normal colour
@@ -467,7 +724,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Text = function($in) {
+    const internal_Text = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'label': '', // The clickable text at the top
@@ -526,8 +783,7 @@ function infohub_renderform() {
                 'label': 'Left',
                 'data': '-',
             };
-            $parts.presentation_box.content_data = $parts.presentation_box.content_data +
-                '[characters_left]';
+            $parts.presentation_box.content_data = $parts.presentation_box.content_data + '[characters_left]';
         }
 
         return {
@@ -542,7 +798,229 @@ function infohub_renderform() {
                 'mode': 'html',
             },
         };
+    };
 
+    /**
+     * Render a password input box in a presentation box
+     * @version 2021-05-22
+     * @since   2021-05-22
+     * @author  Peter Lembke
+     */
+    const internal_Password = function($in = {}) {
+        const $default = {
+            'enabled': 'true',
+            'label': '', // The clickable text at the top
+            'description': '', // Optional descriptive text
+            'maxlength': '', // Optional number of characters until the text are cut off
+            'datalist_id': '', // Optional dropdown list. Rendered separately
+            'placeholder': '', // Optional text that show when the text box is empty
+            'to_node': 'client', // node, plugin, function that will get the change event after validation
+            'to_plugin': 'infohub_renderform',
+            'to_function': 'event_message',
+            'validator_plugin': 'infohub_password', // Validator plugin, function. Node is always client
+            'validator_function': 'validate',
+            'class': 'password', // Optional class name
+            'css_data': {}, // Optional CSS data
+            'original_alias': '', // The alias you used for this object. for example "my_text". Will be used as a container when you read/write data to the form
+            'show_characters_left': 'true',
+            'event_data': '',
+            'custom_variables': {
+                'password_length': 16, // wanted password length, give 0 for a random length 16-64 characters
+                'max_group_number': 2, // Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
+            },
+            'show_generate_password': 'true',
+            'show_view_password': 'true',
+        };
+        $in = _Default($default, $in);
+
+        let $formElementCss = {
+            '.password':
+                'box-sizing:border-box;' +
+                'margin: 0px 0px 0px 0px;' +
+                'padding: 4px 4px 4px 4px;' +
+                'border-radius: 20px;' +
+                'background-color: #f76d6d;' +
+                'border: 1px solid #7df76d;' +
+                'font-size: 16px;' +
+                'color: #0b1f00;' +
+                '-webkit-appearance: none;',
+            '.password:focus':
+                'box-shadow: 0 0 0 2pt #6d8df7;',
+            '.password:hover':
+                'box-shadow: 0 0 0 2pt #6d8df7;'
+        };
+
+        if ($in.class === 'password') {
+            $formElementCss = _Default($formElementCss, $in.css_data);
+        } else {
+            $formElementCss = _ByVal($in.css_data);
+        }
+
+        let $parts = {
+            'presentation_box': {
+                'plugin': 'infohub_rendermajor',
+                'type': 'presentation_box',
+                'head_label': $in.label,
+                'head_text': $in.description,
+                'content_data': '[form_container]',
+                'original_alias': $in.original_alias,
+                'css_data': $in.css_data
+            },
+            'form_container': {
+                'type': 'common',
+                'subtype': 'container',
+                'class': 'form-container',
+                'css_data': {
+                    'form-container': 'margin: 0px; padding: 4px 0px 4px 0px;'
+                },
+                'tag': 'div', // span, p, div
+                'data': '[form_element]',
+                'visible': 'true',
+            },
+            'form_element': {
+                'type': 'form',
+                'subtype': 'text',
+                'input_type': 'password',
+                'maxlength': $in.maxlength,
+                'placeholder': $in.placeholder,
+                'datalist_id': $in.datalist_id,
+                'to_node': $in.to_node,
+                'to_plugin': $in.to_plugin,
+                'to_function': $in.to_function,
+                'validator_plugin': $in.validator_plugin,
+                'validator_function': $in.validator_function,
+                'class': $in.class,
+                'css_data': $formElementCss,
+                'original_alias': $in.original_alias,
+                'event_data': $in.event_data,
+                'enabled': $in.enabled,
+                'custom_variables': $in.custom_variables,
+            }
+        };
+
+        if ($in.show_generate_password === 'true') {
+            $parts.form_container.data = $parts.form_container.data + '[generate_password]';
+            $parts = Object.assign($parts, {
+                'generate_password': {
+                    'type': 'link',
+                    'subtype': 'link',
+                    'data': $in.event_data,
+                    'show': '[generate_icon]',
+                    'to_node': 'client',
+                    'to_plugin': 'infohub_renderform',
+                    'to_function': 'generate_password',
+                    'class': 'link',
+                    'custom_variables': $in.custom_variables
+                },
+                'generate_icon': {
+                    'type': 'common',
+                    'subtype': 'svg',
+                    'data': '[generate_icon_asset]',
+                    'class': 'svg',
+                    'css_data': {
+                        '.svg': 'max-width:32px; max-height:32px; padding:0px; display: inline-block;',
+                    },
+                },
+                'generate_icon_asset': {
+                    'plugin': 'infohub_asset',
+                    'type': 'icon',
+                    'asset_name': 'dice-green-and-purple-b',
+                    'plugin_name': 'infohub_renderform',
+                }
+            });
+        }
+
+        if ($in.show_view_password === 'true') {
+            $parts.form_container.data = $parts.form_container.data + '[view_password][hide_password]';
+            $parts = Object.assign($parts, {
+                'view_password': {
+                    'type': 'link',
+                    'subtype': 'link',
+                    'data': $in.event_data,
+                    'show': '[eye_closed_icon]',
+                    'to_node': 'client',
+                    'to_plugin': 'infohub_renderform',
+                    'to_function': 'view_password',
+                    'class': 'link',
+                    'css_data': {
+                        '.link': 'display: inline-block;',
+                    },
+                    'custom_variables': {
+                        'password': 'view'
+                    }
+                },
+                'hide_password': {
+                    'type': 'link',
+                    'subtype': 'link',
+                    'data': $in.event_data,
+                    'show': '[eye_open_icon]',
+                    'to_node': 'client',
+                    'to_plugin': 'infohub_renderform',
+                    'to_function': 'view_password',
+                    'class': 'link',
+                    'css_data': {
+                        '.link': 'display: none;',
+                    },
+                    'custom_variables': {
+                        'password': 'hide'
+                    }
+                },
+                'eye_open_icon': {
+                    'type': 'common',
+                    'subtype': 'svg',
+                    'data': '[eye_open_icon_asset]',
+                    'class': 'svg',
+                    'css_data': {
+                        '.svg': 'max-width:32px; max-height:32px; padding:0px; display: inline-block;',
+                    },
+                },
+                'eye_open_icon_asset': {
+                    'plugin': 'infohub_asset',
+                    'type': 'icon',
+                    'asset_name': 'eye-1185237',
+                    'plugin_name': 'infohub_renderform',
+                },
+                'eye_closed_icon': {
+                    'type': 'common',
+                    'subtype': 'svg',
+                    'data': '[eye_closed_icon_asset]',
+                    'class': 'svg',
+                    'css_data': {
+                        '.svg': 'max-width:32px; max-height:32px; padding:0px; display: inline-block;',
+                    },
+                },
+                'eye_closed_icon_asset': {
+                    'plugin': 'infohub_asset',
+                    'type': 'icon',
+                    'asset_name': 'eye-closed',
+                    'plugin_name': 'infohub_renderform',
+                }
+
+            });
+        }
+
+        if ($in.maxlength > 0 && $in.show_characters_left === 'true') {
+            $parts.form_container.data = $parts.form_container.data + '[characters_left]';
+            $parts.characters_left = {
+                'type': 'common',
+                'subtype': 'label_data',
+                'label': 'Left',
+                'data': '-',
+            };
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the parts to build the presentation box',
+            'data': $parts,
+            'how': {
+                'mode': 'one box',
+                'text': '[presentation_box]',
+            },
+            'where': {
+                'mode': 'html',
+            },
+        };
     };
 
     /**
@@ -551,7 +1029,7 @@ function infohub_renderform() {
      * @since   2018-06-22
      * @author  Peter Lembke
      */
-    const internal_Range = function($in) {
+    const internal_Range = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'label': '',
@@ -655,7 +1133,7 @@ function infohub_renderform() {
      * @since   2018-06-22
      * @author  Peter Lembke
      */
-    const internal_Color = function($in) {
+    const internal_Color = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'label': '',
@@ -723,7 +1201,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Select = function($in) {
+    const internal_Select = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -791,7 +1269,7 @@ function infohub_renderform() {
             'select_result': {
                 'type': 'common',
                 'subtype': 'container',
-                'tag': 'span',
+                'tag': 'div',
                 'data': '',
                 'css_data': {
                     '.container': 'border-style: dotted;border-color: #7df76d; display:none;', // normal colour
@@ -820,7 +1298,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Textarea = function($in) {
+    const internal_Textarea = function($in = {}) {
         const $default = {
             'enabled': 'true', // Visible. If set to enable false you can not write in the textarea
             'placeholder': '', // Shown in the textarea before you start writing
@@ -941,7 +1419,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Radios = function($in) {
+    const internal_Radios = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -1005,7 +1483,7 @@ function infohub_renderform() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Checkboxes = function($in) {
+    const internal_Checkboxes = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'options': [],
@@ -1070,7 +1548,7 @@ function infohub_renderform() {
      * @returns {string}
      * @private
      */
-    const _Signs = function($in) {
+    const _Signs = function($in = {}) {
         const $default = {
             'validate': 'false',
             'require': 'false',
@@ -1129,7 +1607,7 @@ function infohub_renderform() {
         return $row;
     };
 
-    const _CountText = function($in) {
+    const _CountText = function($in = {}) {
         const $default = {
             'text': '',
         };
@@ -1168,7 +1646,7 @@ function infohub_renderform() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'type': '',
@@ -1409,13 +1887,34 @@ function infohub_renderform() {
             }
         }
 
-        if ($in.type === 'text' && $in.event_type === 'keyup' && $in.step ===
-            'step_start') {
+        if ($in.type === 'link' && $in.event_type === 'click') {
+            if ($in.step === 'step_start') {
+                $in = _Delete($in, {
+                    'innerHTML': '', // A button do not need this. And it mess up messages to the server
+                    'value': '',
+                });
+
+                return _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_render', // Manages common link
+                        'function': 'event_message',
+                    },
+                    'data': _Delete($in, {'step': ''}), // Remove step from $in
+                    'data_back': _Merge($in, {'step': 'step_end'}),
+                });
+            }
+        }
+
+        if (
+            ($in.type === 'text' || $in.type === 'password')
+            && $in.event_type === 'keyup'
+            && $in.step === 'step_start'
+        ) {
             $in = _Delete($in, {'innerHTML': ''});
 
             if ($in.maxlength > 0) {
-                const $id = $in.box_id + '_' + $in.form_alias +
-                    '_characters_left_data';
+                const $id = $in.box_id + '_' + $in.form_alias + '_characters_left_data';
                 const $valueInteger = $in.maxlength - $in.value.length;
 
                 return _SubCall({
@@ -1425,14 +1924,16 @@ function infohub_renderform() {
                         'function': 'set_text',
                     },
                     'data': {'id': $id, 'text': $valueInteger.toString()},
-                    'data_back': _Merge($in,
-                        {'step': 'step_send_to_final_plugin'}),
+                    'data_back': _Merge($in, {'step': 'step_send_to_final_plugin'}),
                 });
             }
         }
 
-        if ($in.type === 'textarea' && $in.event_type === 'keyup' &&
-            $in.step === 'step_start') {
+        if (
+            $in.type === 'textarea'
+            && $in.event_type === 'keyup'
+            && $in.step === 'step_start'
+        ) {
             $in = _Delete($in, {'innerHTML': ''});
 
             const $id = $in.box_id + '_' + $in.form_alias + '_count_';
@@ -1483,10 +1984,8 @@ function infohub_renderform() {
                             let $data = _Delete($in, {'step': ''});
                             $data = _Delete($data, {'callback_function': ''});
 
-                            let $dataBack = _Merge($in,
-                                {'step': 'step_select_result'});
-                            $dataBack = _Delete($dataBack,
-                                {'callback_function': ''});
+                            let $dataBack = _Merge($in, {'step': 'step_select_result'});
+                            $dataBack = _Delete($dataBack, {'callback_function': ''});
 
                             // Infohub_render calls to_node, to_plugin, to_function
 
@@ -1692,7 +2191,7 @@ function infohub_renderform() {
      * @param $in
      * @returns {{answer: string, messages: [], message: string}}
      */
-    const set_button_icon = function($in) {
+    const set_button_icon = function($in = {}) {
         const $default = {
             'box_id': '',
             'ok': 'false',

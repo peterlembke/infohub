@@ -48,7 +48,7 @@ function infohub_tools_time() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -58,7 +58,7 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -95,8 +95,10 @@ function infohub_tools_time() {
                         },
                         'ingress': {
                             'type': 'common',
-                            'subtype': 'value',
-                            'data': _Translate('<P>WITH_THIS_TOOL_YOU_CAN_GET_THE_CURRENT_TIME_IN_DIFFERENT_FORMATS.</P><P>OBSERVE_THAT_THE_SERVER_PHP_PLUGIN_MUST_KNOW_ABOUT_YOUR_TIME_ZONE._SEE_THE_DOCUMENTATION_FOR_INFOHUB_TIME_HOW_TO_CHANGE_THAT.</P>')
+                            'subtype': 'join',
+                            'data0': '<p>' + _Translate('WITH_THIS_TOOL_YOU_CAN_GET_THE_CURRENT_TIME_IN_DIFFERENT_FORMATS') + '.</p><p>',
+                            'data1': _Translate('OBSERVE_THAT_THE_SERVER_PHP_PLUGIN_MUST_KNOW_ABOUT_YOUR_TIME_ZONE.'),
+                            'data2': _Translate('SEE_THE_DOCUMENTATION_FOR_INFOHUB_TIME_HOW_TO_CHANGE_THAT') + '.</p>'
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
@@ -192,7 +194,7 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_time');
-    const click_handle_time = function($in) {
+    const click_handle_time = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -302,7 +304,7 @@ function infohub_tools_time() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function($in) {
+    const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',

@@ -1,35 +1,37 @@
 {
     "version": {
-        "date": "2019-10-19 21:05:59",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_democall",
-        "data_checksum": "2fd9d11a1a29469ed07db938aadc4db3",
+        "data_checksum": "9c20a2c911b0f83a2cb4dc0f5aa8356e",
         "language": "sv",
+        "language_name": "swedish",
         "country": "SE",
-        "file_type": "finished_file"
+        "country_name": "Sweden",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Demo anrop",
-        "description": "Här kan du undersöka hur felaktiga anrop ser ut. Bra att veta om du ska utveckla plugins till InfoHub."
+        "title": "Demo Call",
+        "description": "Shows what happens when you call a plugin or function that do not exist."
     },
     "data": {
         "infohub_democall": {
-            "Instructions": "Instruktioner",
-            "Use the menu.": "Använd menyn.",
-            "Result": "Resultat"
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu.",
+            "RESULT_KEY": "Result"
         },
         "infohub_democall_menu": {
-            "Demo Call": "Demo - anrop",
-            "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]": "[i] Här kan du undersöka vad som händer om du gör ett anrop till en plugin som saknas eller en saknad funktion. [/i]",
-            "Client - Correct call. Plugin and function exist": "Klient - Rätt anrop. Plugin och funktion finns",
-            "Client - Plugin exist, cmd function do not exist": "Klient - Plugin finns, cmd-funktion finns inte",
-            "Client - Plugin is missing": "Klient - Plugin saknas",
-            "Server - Correct call. Plugin and function exist": "Server - Rätt anrop. Plugin och funktion finns",
-            "Server - Plugin exist, cmd function do not exist": "Server - Plugin finns, cmd-funktion finns inte",
-            "Server - Plugin is missing": "Server - Plugin saknas",
-            "Client - Child talk to valid responders": "Klient - Barn pratar med giltiga svarare",
-            "Client - Invalid call to sibling child": "Klient - Ogiltigt anrop till syskonbarnet",
-            "Client - Invalid call from child to parent": "Klient - Ogiltigt anrop från barn till förälder",
-            "Server - Run all server tests": "Server - Kör alla servertester"
+            "DEMO_CALL_KEY": "Demo call",
+            "HERE_YOU_CAN_EXPLORE_WHAT_HAPPENS_IF_YOU_CALL_A_PLUGIN_THAT_IS_MISSING,_OR_A_MISSING_FUNCTION_KEY": "Here you can explore what happens if you call a plugin that is missing, or a missing function",
+            "CLIENT_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST_KEY": "Client - correct call. Plugin and function exist",
+            "CLIENT_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST_KEY": "Client - plugin exist, cmd function do not exist",
+            "CLIENT_-_PLUGIN_IS_MISSING_KEY": "Client - plugin is missing",
+            "SERVER_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST_KEY": "Server - correct call. Plugin and function exist",
+            "SERVER_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST_KEY": "Server - plugin exist, cmd function do not exist",
+            "SERVER_-_PLUGIN_IS_MISSING_KEY": "Server - plugin is missing",
+            "CLIENT_-_CHILD_TALK_TO_VALID_RESPONDERS_KEY": "Client - child talk to valid responders",
+            "CLIENT_-_INVALID_CALL_TO_SIBLING_CHILD_KEY": "Client - invalid call to sibling child",
+            "CLIENT_-_INVALID_CALL_FROM_CHILD_TO_PARENT_KEY": "Client - invalid call from child to parent",
+            "SERVER_-_RUN_ALL_SERVER_TESTS_KEY": "Server - run all server tests"
         }
     }
 }

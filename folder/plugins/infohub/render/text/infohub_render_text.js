@@ -25,9 +25,9 @@ function infohub_render_text() {
 
     const _Version = function() {
         return {
-            'date': '2017-02-18',
+            'date': '2021-06-06',
             'since': '2016-10-08',
-            'version': '1.0.0',
+            'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_render_text',
             'note': 'Renders a text with embedded commands',
@@ -58,7 +58,7 @@ function infohub_render_text() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -104,7 +104,7 @@ function infohub_render_text() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -170,7 +170,7 @@ function infohub_render_text() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_Text = function($in) {
+    const internal_Text = function($in = {}) {
         const $default = {
             'func': 'Text',
             'what_done': {},
@@ -237,7 +237,13 @@ function infohub_render_text() {
         };
     };
 
-    const _CheckParts = function($in) {
+    /**
+     * Find all [part] and exchange them to the rendered HTMl for that part
+     * @param $in
+     * @returns {*}
+     * @private
+     */
+    const _CheckParts = function($in = {}) {
         let $copy = $in.what_done,
             $next, $previous, $start, $stop, $part, $find, $html;
 
@@ -276,22 +282,51 @@ function infohub_render_text() {
 
     /**
      * Update SVG IDs to be more unique
-     * @version 2020-03-27
+     * @version 2021-06-04
      * @since   2020-03-27
      * @author  Peter Lembke
      */
     const _SvgIdsMoreUnique = function($alias, $asset) {
-        if ($asset.indexOf('<svg') >= 0) {
-            $asset = _Replace('\n', '', $asset);
 
-            // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
-            $asset = _Replace('(#', '(#{alias}', $asset);
-            $asset = _Replace('id="', 'id="{alias}', $asset);
-            $asset = _Replace('href="#', 'href="#{alias}', $asset);
-
-            const $id = '{box_id}_' + $alias + '-';
-            $asset = _Replace('{alias}', $id, $asset);
+        const $svgStart = $asset.indexOf('<svg');
+        if ($svgStart === -1) {
+            return $asset;
         }
+
+        let $svgStop = $asset.indexOf('</svg>', $svgStart);
+        if ($svgStop === -1) {
+            return $asset;
+        }
+        $svgStop = $svgStop + '</svg>'.length;
+
+        let $svgPart = $asset.substring($svgStart, $svgStop);
+
+        const $firstIdStart = $svgPart.indexOf('id="');
+        if ($firstIdStart !== -1) {
+            const $hasBoxId = $svgPart.substring($firstIdStart+4, $firstIdStart+5) === '{'; // {box_id}_
+            if ($hasBoxId === true) {
+                return $asset; // We already have added the box_id to this svg
+            }
+        }
+
+        $svgPart = _Replace('\n', '', $svgPart);
+
+        // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
+        $svgPart = _Replace('(#', '(#{alias}', $svgPart);
+        $svgPart = _Replace('id="', 'id="{alias}', $svgPart);
+        $svgPart = _Replace('href="#', 'href="#{alias}', $svgPart);
+
+        const $id = '{box_id}_' + $alias + '-';
+        $svgPart = _Replace('{alias}', $id, $svgPart);
+
+        const $beforeSvg = $asset.substring(0, $svgStart);
+        const $afterSvg = $asset.substring($svgStop);
+
+        if ($beforeSvg.length > 54 || $afterSvg.length > 0) {
+            let $debugHere = 1;
+        }
+
+        $asset = $beforeSvg + $svgPart + $afterSvg;
 
         return $asset;
     };

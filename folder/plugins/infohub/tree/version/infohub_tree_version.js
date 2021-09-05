@@ -63,7 +63,7 @@ function infohub_tree_version() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -81,17 +81,17 @@ function infohub_tree_version() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
+    $functions.push('create');
     /**
      * Get instructions and create the message to InfoHub View
      * @version 2019-03-13
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -194,14 +194,16 @@ function infohub_tree_version() {
         };
     };
 
+    $functions.push('click_refresh');
     /**
      * Refresh the list with versions
      * @version 2020-07-26
      * @since 2020-07-25
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message, ok}|{}|{}|{}|*|{answer: string, messages: *[], message: string, ok: string}}
      */
-    $functions.push('click_refresh');
-    const click_refresh = function($in) {
+    const click_refresh = function($in = {}) {
         const $default = {
             'step': 'step_get_version',
             'response': {},

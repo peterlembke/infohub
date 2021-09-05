@@ -4,8 +4,14 @@
         "plugin": "infohub_login",
         "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
         "language": "da",
+        "language_name": "danish",
         "country": "",
-        "file_type": "key_file"
+        "country_name": "Denmark",
+        "file_type": "translate_file"
+    },
+    "launcher": {
+        "title": "",
+        "description": ""
     },
     "data": {
         "infohub_login": {
@@ -14,10 +20,10 @@
             "WHAT_IS_THIS?_KEY": "Hvad er dette?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Én kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dette er dataformularen for en kontakt",
+            "ONE_CONTACT_KEY": "Én kontaktperson",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dette er dataskemaet for en kontaktperson",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Enhver tekst du ønsker",
+            "ANY_TEXT_YOU_WANT_KEY": "Enhver tekst, du ønsker",
             "NOTE_KEY": "Bemærk",
             "SAVE_KEY": "Gem",
             "DOMAIN_ADDRESS_KEY": "Domæneadresse",
@@ -26,14 +32,14 @@
             "THIS_IS_YOU_ON_THE_SERVER_KEY": "Dette er dig på serveren",
             "SHARED_SECRET_KEY": "Delt hemmelighed",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Du deler denne hemmelighed med serveren",
-            "CHECKSUM_KEY": "Kontrolsum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Kontrolsum for domæneadresse + brugernavn + delt hemmelighed.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Tilladte server-plugins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste med alle server pluginavne, som du kan sende meddelelser til på fjernnoden"
+            "CHECKSUM_KEY": "Checksum",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolsum af domæneadresse + brugernavn + delt hemmelighed.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Tilladte server -plugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste med alle server plugin navne, du kan sende meddelelser til på den eksterne knude"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksport kontakt",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Her kan du eksportere kontaktdataene",
+            "EXPORT_CONTACT_KEY": "Eksporter kontakt",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Her kan du eksportere kontaktdata",
             "EXPORT_KEY": "Eksporter"
         },
         "infohub_login_forget": {
@@ -42,55 +48,63 @@
             "FORGET_KEY": "Glem"
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importér",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importer kontaktoplysninger fra fil",
+            "IMPORT_KEY": "Import",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importer kontaktoplysningerne fra filen",
             "SELECT_FILE_KEY": "Vælg fil"
         },
         "infohub_login_login": {
             "LOGIN_KEY": "Login",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Her kan du bruge de kontaktdata, du importerede, og logge ind på serveren",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Her kan du bruge de kontaktdata, du har importeret, og logge ind på serveren",
             "PASSWORD_KEY": "Adgangskode",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Den adgangskode, du har brug for til at afkode det delte_sekret",
-            "LOGIN_RESULT_KEY": "login-resultat",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Den adgangskode, du skal bruge til at afkode den delte hemmelighed",
+            "LOGIN_RESULT_KEY": "Login resultat",
             "RELOAD_AFTER_LOGIN_KEY": "Genindlæs efter login",
-            "SELECT_FILE_KEY": "Vælg fil",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo-konto",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Du er allerede logget ind",
-            "MISSING_USER_NAME_KEY": "Manglende brugernavn",
-            "MISSING_RANDOM_CODE_KEY": "Mangler tilfældig kode",
+            "MISSING_USER_NAME_KEY": "Mangler brugernavn",
+            "MISSING_RANDOM_CODE_KEY": "Manglende tilfældig kode",
             "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Svaret fra serveren tog for lang tid. Jeg vil opgive loginforsøget",
-            "FAILED_TO_LOGIN_KEY": "Log ind mislykkedes",
-            "SUCCESS_LOGGING_IN_KEY": "Log ind med succes",
-            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Den tilfældige kode har ikke den rigtige længde",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Usandsynligt, at det samlede gennemsnit ikke har nogen decimaler",
+            "FAILED_TO_LOGIN_KEY": "Kunne ikke logge ind",
+            "SUCCESS_LOGGING_IN_KEY": "Det lykkedes at logge ind",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Den tilfældige kode har ikke den korrekte længde",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Det er usandsynligt, at det samlede gennemsnit ikke har decimaler",
             "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Usandsynligt, at gennemsnittet er lig med det samlede gennemsnit",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Disse enkle tests viser, at tilfældig_koden i det mindste ikke er en flatline med tal."
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Disse enkle tests viser, at den tilfældige kode i det mindste ikke er en flad linje med tal."
         },
         "infohub_login_logout": {
             "LOGOUT_KEY": "Log af",
-            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Her kan du logge ud fra serveren",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Hvis det lykkes, viser login-siden",
-            "LOGOUT_RESULT_KEY": "logout resultat",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Her kan du logge af fra serveren",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Hvis det lykkes, vises login -siden",
+            "LOGOUT_RESULT_KEY": "Logout -resultat",
             "FAILED_TO_LOGOUT_KEY": "Kunne ikke logge ud",
-            "SUCCESS_LOGGING_OUT_KEY": "Succes aflogning"
+            "SUCCESS_LOGGING_OUT_KEY": "Det lykkedes at logge ud"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Import af kontaktdata",
+            "IMPORT_CONTACT_DATA_KEY": "Importer kontaktdata",
             "LOGIN_KEY": "Login",
             "SET_PASSWORD_KEY": "Indstil adgangskode",
-            "EXPORT_CONTACT_DATA_KEY": "Eksportér kontaktdata",
+            "EXPORT_CONTACT_DATA_KEY": "Eksporter kontaktdata",
             "LOGOUT_KEY": "Log af",
             "FORGET_CONTACT_KEY": "Glem kontakt"
         },
         "infohub_login_password": {
             "SET_PASSWORD_KEY": "Indstil adgangskode",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Når du indstiller din lokale adgangskode, krypterer du den delte hemmelighed, så den kræver, at din adgangskode skal fungere",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Når du angiver din lokale adgangskode, krypterer du den delte hemmelighed, så den kræver din adgangskode til at fungere",
             "CURRENT_PASSWORD_KEY": "Aktuel adgangskode",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Efterlad tomt, hvis du ikke har nogen",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Lad tomt være, hvis du ikke har nogen",
             "NEW_PASSWORD_KEY": "Ny adgangskode",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Efterlad tomt, hvis du vil fjerne adgangskoden",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Lad det stå tomt, hvis du vil fjerne adgangskoden",
             "CHANGE_PASSWORD_KEY": "Skift adgangskode"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Login",
+            "SELECT_FILE_KEY": "Vælg fil",
+            "PASSWORD_KEY": "Adgangskode",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo -konto",
+            "LOGIN_RESULT_KEY": "Login resultat",
+            "MORE_KEY": "Mere",
+            "CURRENT_URL_KEY": "Aktuel webadresse",
+            "REFRESH_PAGE_KEY": "Opdater side"
         }
     }
 }

@@ -58,7 +58,7 @@ function infohub_timer() {
      * @param $in
      * @returns {{milliseconds: number, answer: string, name: *, message: string, ok: boolean}|{}}
      */
-    const start_timer = function($in) {
+    const start_timer = function($in = {}) {
         const $default = {
             'name': 'default',
             'milliseconds': 0,
@@ -123,7 +123,7 @@ function infohub_timer() {
      * @param $in
      * @returns {{milliseconds: number, answer: string, name: *, message: string, ok: boolean}|{}}
      */
-    const start_timer_advanced = function($in) {
+    const start_timer_advanced = function($in = {}) {
         const $default = {
             'name': 'default',
             'when': 0, // When do you want a response
@@ -270,7 +270,7 @@ function infohub_timer() {
      * @param $in
      * @returns {{was_set: string, answer: string, message: string}}
      */
-    const stop_timer = function($in) {
+    const stop_timer = function($in = {}) {
         const $default = {
             'name': 'default',
             'from_plugin': {
@@ -300,7 +300,7 @@ function infohub_timer() {
      * @returns {string}
      * @private
      */
-    const _TimerExist = function($in) {
+    const _TimerExist = function($in = {}) {
         const $default = {
             'name': 'default',
             'from_plugin': {
@@ -335,7 +335,7 @@ function infohub_timer() {
      * @returns {{}|{was_set: string, answer: string, message: string}}
      * @private
      */
-    const _StartTimer = function($in) {
+    const _StartTimer = function($in = {}) {
         const $default = {
             'name': 'default',
             'milliseconds': 0,
@@ -398,7 +398,7 @@ function infohub_timer() {
      * @returns {{was_set: string, answer: string, message: string}}
      * @private
      */
-    const _StopTimer = function($in) {
+    const _StopTimer = function($in = {}) {
         const $default = {
             'name': 'default',
             'from_plugin': {
@@ -437,7 +437,7 @@ function infohub_timer() {
      * @returns {string}
      * @private
      */
-    const _CompareTime = function($in) {
+    const _CompareTime = function($in = {}) {
         const $default = {
             'milliseconds': 0,
             'name': 'default',

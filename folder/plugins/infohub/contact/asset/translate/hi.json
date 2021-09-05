@@ -1,0 +1,88 @@
+{
+    "version": {
+        "date": "2021-08-28 22:07:03",
+        "plugin": "infohub_contact",
+        "data_checksum": "f68f3b1d5f56bbc681e2a18fac0fd013",
+        "language": "hi",
+        "language_name": "hindi",
+        "country": "IN",
+        "country_name": "India",
+        "file_type": "translate_file"
+    },
+    "launcher": {
+        "title": "Node contacts",
+        "description": "Handles all node connections. Server uses this data to connect to other nodes."
+    },
+    "data": {
+        "infohub_contact": {
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu."
+        },
+        "infohub_contact_client": {
+            "REFRESH_CLIENTS_KEY": "Refresh clients",
+            "CLIENT_CONTACTS_KEY": "Client contacts",
+            "LIST_ALL_CLIENT_CONTACTS_KEY": "List all client contacts",
+            "NEW_KEY": "New",
+            "SAVE_KEY": "Save",
+            "DELETE_KEY": "Delete",
+            "IMPORT_KEY": "Import",
+            "EXPORT_KEY": "Export",
+            "ONE_CONTACT_KEY": "One contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "This is the data form for one contact",
+            "NODE_KEY": "Node",
+            "YOUR_UNIQUE_NAME_OF_THE_CLIENT_KEY": "Your unique name of the client",
+            "NOTE_KEY": "Note",
+            "ANY_TEXT_YOU_WANT_KEY": "Any text you want",
+            "DOMAIN_ADDRESS_KEY": "Domain address",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "The domain address to your server",
+            "USER_NAME_KEY": "User name",
+            "YOU_GET_A_HUB-UUID_WHEN_YOU_SAVE_(LEAVE_BLANK)_KEY": "You get a hub-uuid when you save (leave blank)",
+            "SHARED_SECRET_KEY": "Shared secret",
+            "YOU_WILL_GET_A_2K_RANDOM_STRING_WHEN_YOU_SAVE_(LEAVE_BLANK)_KEY": "You will get a 2k random string when you save (leave blank)",
+            "ALLOWED_ROLES_KEY": "Allowed roles",
+            "LIST_WITH_ALL_USER_ROLES_YOU_HAVE_KEY": "List with all user roles you have",
+            "USER_KEY": "User",
+            "DEVELOPER_KEY": "Developer",
+            "ADMIN_KEY": "Admin"
+        },
+        "infohub_contact_doc": {
+            "DOCUMENTATION_WILL_RENDER_HERE_KEY": "Documentation will render here",
+            "MAIN_DOC_KEY": "Main doc",
+            "CLIENT_DOC_KEY": "Client doc",
+            "SERVER_DOC_KEY": "Server doc"
+        },
+        "infohub_contact_menu": {
+            "CONTACT_MANAGER_KEY": "Contact manager",
+            "DOCUMENTATION_KEY": "Documentation",
+            "CLIENT_CONTACT_KEY": "Client contact",
+            "SERVER_CONTACT_KEY": "Server contact"
+        },
+        "infohub_contact_server": {
+            "REFRESH_KEY": "Refresh",
+            "SERVER_CONTACTS_KEY": "Server contacts",
+            "LIST_ALL_SERVER_CONTACTS_KEY": "List all server contacts",
+            "SAVE_KEY": "Save",
+            "DELETE_KEY": "Delete",
+            "IMPORT_KEY": "Import",
+            "EXPORT_KEY": "Export",
+            "PING_SERVER_KEY": "Ping server",
+            "ONE_CONTACT_KEY": "One contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT._KEY": "This is the data form for one contact.",
+            "NODE_KEY": "Node",
+            "YOUR_UNIQUE_NODE_NAME_KEY": "Your unique node name",
+            "NOTE_KEY": "Note",
+            "ANY_TEXT_YOU_WANT_KEY": "Any text you want",
+            "DOMAIN_ADDRESS_KEY": "Domain address",
+            "THE_DOMAIN_ADDRESS_TO_THE_REMOTE_SERVER_KEY": "The domain address to the remote server",
+            "USER_NAME_KEY": "User name",
+            "HUB-UUID_YOU_GOT_FROM_THE_REMOTE_SERVER_KEY": "Hub-uuid you got from the remote server",
+            "SHARED_SECRET_KEY": "Shared secret",
+            "2K_RANDOM_STRING_YOU_GOT_FROM_THE_REMOTE_SERVER_KEY": "2k random string you got from the remote server",
+            "ALLOWED_ROLES_KEY": "Allowed roles",
+            "LIST_WITH_ALL_ROLES_THIS_ACCOUNT_HAS_KEY": "List with all roles this account has",
+            "USER_KEY": "User",
+            "DEVELOPER_KEY": "Developer",
+            "ADMIN_KEY": "Admin"
+        }
+    }
+}

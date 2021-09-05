@@ -50,7 +50,7 @@ function infohub_tools_testcall() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -60,7 +60,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -198,7 +198,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_select_template');
-    const click_select_template = function($in) {
+    const click_select_template = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -248,7 +248,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_button_send');
-    const click_button_send = function($in) {
+    const click_button_send = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'box_id': '',
@@ -323,14 +323,14 @@ function infohub_tools_testcall() {
 
     /**
      * Get list with config examples you can use
-     * @version 2019-07-11
+     * @version 2021-09-05
      * @since   2019-07-11
      * @author  Peter Lembke
      * @param array $in
      * @return array
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $default = {
             'config': {},
         };
@@ -341,14 +341,26 @@ function infohub_tools_testcall() {
         ];
 
         for (let $key in $in.config) {
-            if ($in.config.hasOwnProperty($key)) {
-                const $option = {
-                    'type': 'option',
-                    'value': $key,
-                    'label': $key,
-                };
-                $options.push($option);
+            if ($in.config.hasOwnProperty($key) === false) {
+                continue;
             }
+
+            let $to = _GetData({
+                'name': 'config/' + $key + '/to', // example: "response/data/checksum"
+                'default': {}, // example: ""
+                'data': $in, // an object with data where you want to pull out a part of it
+            });
+
+            if (_Empty($to) === 'true') {
+                continue;
+            }
+
+            const $option = {
+                'type': 'option',
+                'value': $key,
+                'label': $key,
+            };
+            $options.push($option);
         }
 
         return {
@@ -365,7 +377,7 @@ function infohub_tools_testcall() {
      * @author  Peter Lembke
      */
     $functions.push('click_select_demo');
-    const click_select_demo = function($in) {
+    const click_select_demo = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',

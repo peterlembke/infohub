@@ -53,7 +53,7 @@ function infohub_demo_common() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_demo_common() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -126,8 +126,8 @@ function infohub_demo_common() {
                             'subtype': 'list',
                             'option': [
                                 {'label': _Translate('DOES_NOT_TRACK_YOU') },
-                                {'label': _Translate('DOES_NOT_[U]SELL[/U]_YOU_ANYTHING') },
-                                {'label': _Translate('THAT_IS_WHY_I_[:-)]_LIKE_THEM') }
+                                {'label': _Translate('DOES_NOT_SELL_YOU_ANYTHING') },
+                                {'label': _Translate('THAT_IS_WHY_I_LIKE_THEM') }
                             ],
                         },
                         'my_icon': {
@@ -195,15 +195,21 @@ function infohub_demo_common() {
                         },
                         'my_h1': {
                             'type': 'text',
-                            'text': _Translate("[H1]COMMON_DEMO[/H1]")
+                            'text': '[h1]' + _Translate("COMMON_DEMO") + '[/h1]'
                         },
                         'my_ingress': {
                             'type': 'text',
-                            'text': _Translate("[I]PLUGIN_INFOHUB_RENDER_COMMON_ARE_USED_IN_THIS_DEMO._YOU_SEE_A_COMBINATION_OF_WHAT_RENDER_COMMON_CAN_DO._HERE_IS_A_LIST_WHAT_PARTS_YOU_SEE_IN_THE_EXAMPLE:[/I]")
+                            'text': '[i]' +
+                                _Translate('PLUGIN_INFOHUB_RENDER_COMMON_ARE_USED_IN_THIS_DEMO.') + ' ' +
+                                _Translate('YOU_SEE_A_COMBINATION_OF_WHAT_RENDER_COMMON_CAN_DO.') + ' ' +
+                                _Translate('HERE_IS_A_LIST_WHAT_PARTS_YOU_SEE_IN_THE_EXAMPLE:') +
+                                '[/i]'
                         },
                         'my_image_text': {
                             'type': 'text',
-                            'text': _Translate("THE_FIRST_IMAGE_IS_IN_JPEG_FORMAT_700_PIXELS_WIDE_30KB._THE_SECOND_IMAGE_IS_IN_PNG_FORMAT_BLACK&WHITE,_240_PIXELS_WIDE_AND_17KB_AND_THEN_UPSCALED_TO_640_PIXELS_WIDE._YOU_CAN_SEE_SEVERAL_THINGS_HERE:")
+                            'text': _Translate('THE_FIRST_IMAGE_IS_IN_JPEG_FORMAT_700_PIXELS_WIDE_30KB.') + ' ' +
+                                _Translate('_THE_SECOND_IMAGE_IS_IN_PNG_FORMAT_BLACK&WHITE,_240_PIXELS_WIDE_AND_17KB_AND_THEN_UPSCALED_TO_640_PIXELS_WIDE.') + ' ' +
+                                _Translate('YOU_CAN_SEE_SEVERAL_THINGS_HERE:')
                         },
                         'my_intro_list': {
                             'type': 'common',
@@ -225,7 +231,8 @@ function infohub_demo_common() {
                             'option': [
                                 {'label': _Translate('USE_JPEG_FOR_PHOTOGRAPHS') },
                                 {'label': _Translate('USE_PNG_FOR_SMALL_DETAILED_IMAGES_WHERE_YOU_CAN_NOT_USE_SVG_OR_JPEG') },
-                                {'label': _Translate('USE_A_RESOLUTION_CLOSE_TO_THE_VIEWED_RESOLUTION._DO_NOT_UPSCALE._AVOID_DOWNSCALING_TOO_MUCH.') }
+                                {'label': _Translate('USE_A_RESOLUTION_CLOSE_TO_THE_VIEWED_RESOLUTION._DO_NOT_UPSCALE.') + ' ' +
+                                        _Translate('_AVOID_DOWNSCALING_TOO_MUCH.') }
                             ]
                         },
                         'progress_bar1': {
@@ -288,7 +295,7 @@ function infohub_demo_common() {
      * @author Peter Lembke
      */
     $functions.push('click_progress');
-    const click_progress = function($in) {
+    const click_progress = function($in = {}) {
         const $default = {
             'step': 'step_read_first',
             'box_id': '',

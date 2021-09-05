@@ -47,7 +47,7 @@ function infohub_tools_package() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -57,7 +57,7 @@ function infohub_tools_package() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -93,7 +93,8 @@ function infohub_tools_package() {
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('WITH_THIS_TOOL_YOU_CAN_VIEW_DATA_FROM_THE_PACKAGE_PROPERTY_MESSAGES_ENCODED._SEE_YOUR_BROWSER_NETWORK_TAB_IN_DEVELOPER_TOOLS.')
+                            'data': _Translate('WITH_THIS_TOOL_YOU_CAN_VIEW_DATA_FROM_THE_PACKAGE_PROPERTY_MESSAGES_ENCODED.') + ' ' +
+                                _Translate('SEE_YOUR_BROWSER_NETWORK_TAB_IN_DEVELOPER_TOOLS.')
                         },
                         'my_form': {
                             'plugin': 'infohub_renderform',
@@ -160,7 +161,7 @@ function infohub_tools_package() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_package');
-    const click_handle_package = function($in) {
+    const click_handle_package = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'box_id': '',

@@ -94,7 +94,7 @@ function infohub_renderadvancedlist() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {
@@ -175,7 +175,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const internal_AdvancedList = function($in) {
+    const internal_AdvancedList = function($in = {}) {
         const $default = {
             'option': {},
             'label_expand': '⊕', // https://unicode-table.com/en/2295/
@@ -380,7 +380,7 @@ function infohub_renderadvancedlist() {
      * @returns {*}
      */
     $functions.push('expand'); // Enable this function
-    const expand = function($in) {
+    const expand = function($in = {}) {
         const $default = {
             'box_id': '',
             'list_name': '',

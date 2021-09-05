@@ -48,7 +48,7 @@ function infohub_configlocal_colour() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -58,7 +58,7 @@ function infohub_configlocal_colour() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -147,7 +147,7 @@ function infohub_configlocal_colour() {
                         'base_color_5': {
                             'plugin': 'infohub_color',
                             'type': 'color_reader',
-                            'button_label': _Translate('Layer 2: Title text'),
+                            'button_label': _Translate('LAYER_2:_TITLE_TEXT'),
                             'color_selector_name': 'color_selector',
                         },
                         'light_picker': {
@@ -162,25 +162,25 @@ function infohub_configlocal_colour() {
                         'layer_0': {
                             'plugin': 'infohub_color',
                             'type': 'light_bar_reader',
-                            'button_label': _Translate('Layer 0'),
+                            'button_label': _Translate('LAYER_0'),
                             'light_bar_selector_name': 'light_picker',
                         },
                         'layer_1': {
                             'plugin': 'infohub_color',
                             'type': 'light_bar_reader',
-                            'button_label': _Translate('Layer 1'),
+                            'button_label': _Translate('LAYER_1'),
                             'light_bar_selector_name': 'light_picker',
                         },
                         'layer_2': {
                             'plugin': 'infohub_color',
                             'type': 'light_bar_reader',
-                            'button_label': _Translate('Layer 2'),
+                            'button_label': _Translate('LAYER_2'),
                             'light_bar_selector_name': 'light_picker',
                         },
                         'name': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
-                            'label': _Translate('Schema name'), // The clickable text at the top
+                            'label': _Translate('SCHEMA_NAME'), // The clickable text at the top
                             'description': _Translate(
                                 'Give your schema a name so you can download the schema to a file'), // Optional descriptive text
                             'placeholder': _Translate(
@@ -191,7 +191,7 @@ function infohub_configlocal_colour() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Preview'),
+                            'button_label': _Translate('PREVIEW'),
                             'event_data': 'colour|preview',
                             'to_node': 'client',
                             'to_plugin': 'infohub_configlocal',
@@ -217,7 +217,7 @@ function infohub_configlocal_colour() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Apply'),
+                            'button_label': _Translate('APPLY'),
                             'event_data': 'colour|apply_config',
                             'to_plugin': 'infohub_configlocal',
                             'to_function': 'click',
@@ -230,7 +230,7 @@ function infohub_configlocal_colour() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Download schema file'),
+                            'button_label': _Translate('DOWNLOAD_SCHEMA_FILE'),
                             'data': 'download_file',
                             'event_data': 'colour|file_download',
                             'to_node': 'client',
@@ -248,7 +248,7 @@ function infohub_configlocal_colour() {
                             'to_node': 'client',
                             'to_plugin': 'infohub_configlocal',
                             'to_function': 'click',
-                            'button_label': _Translate('Upload schema file'),
+                            'button_label': _Translate('UPLOAD_SCHEMA_FILE'),
                             'css_data': {
                                 '.button-width': $buttonMaxWidth,
                             },
@@ -293,7 +293,7 @@ function infohub_configlocal_colour() {
      * @author  Peter Lembke
      */
     $functions.push('render_done');
-    const render_done = function($in) {
+    const render_done = function($in = {}) {
         const $default = {
             'form_data': {
                 'form_data': {},
@@ -500,7 +500,7 @@ function infohub_configlocal_colour() {
      * @author Peter Lembke
      */
     $functions.push('get_form_data');
-    const get_form_data = function($in) {
+    const get_form_data = function($in = {}) {
         const $default = {
             'step': 'step_form_read',
             'answer': '',
@@ -642,7 +642,7 @@ function infohub_configlocal_colour() {
      * @author Peter Lembke
      */
     $functions.push('click_preview');
-    const click_preview = function($in) {
+    const click_preview = function($in = {}) {
         const $default = {
             'step': 'step_form_read',
             'answer': '',
@@ -738,7 +738,7 @@ function infohub_configlocal_colour() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[full_text]',
-                            'label': _Translate('Preview'),
+                            'label': _Translate('PREVIEW'),
                             'description': _Translate(
                                 'Here you see how the colours will look like on real form elements.'),
                         },
@@ -746,24 +746,26 @@ function infohub_configlocal_colour() {
                             'type': 'common',
                             'subtype': 'join',
                             'data0': '[columns]',
-                            'data1': _Translate(
-                                'The text renderer is the most important renderer of them all. It acts as the glue that combine together all the other rendered pieces.'),
-                            'data2': _Translate(
-                                '[h2]Built in commands[/h2] You can do this [:-)][:-(][(c)][(r)][tel][eur], you can also use [b]bold[/b], [i]italic[/i], [u]underline[/u], or a line like this [line][br]'),
-                            'data3': _Translate(
-                                '[h2]Columns[/h2]You can activate columns. Then you automatically get columns that your text can flow in. You can [light]highlight portions of the text like this[/light] '),
-                            'data4': _Translate(
-                                'and you can include other elements in your text, for example: [my_external_link].'),
-                            'data5': _Translate(
-                                '[h2]Zoom level[/h2]You can zoom the view in your browser. When you do that and the space is to narrow for the column, then it reduces the number of columns. You always get a readable view in all zoom levels.'),
-                            'data5': '[my_button][my_select]',
-                            'data6': '[/columns]',
+                            'data1': _Translate('THE_TEXT_RENDERER_IS_THE_MOST_IMPORTANT_RENDERER_OF_THEM_ALL') + '.',
+                            'data2': _Translate('IT_ACTS_AS_THE_GLUE_THAT_COMBINE_TOGETHER_ALL_THE_OTHER_RENDERED_PIECES') + '.',
+                            'data3': '[h2]' + _Translate('BUILT_IN_COMMANDS') + '[/h2]',
+                            'data4': _Translate('YOU_CAN_DO_THIS') + ' [:-)][:-(][(c)][(r)][tel][eur],',
+                            'data5': _Translate('YOU_CAN_ALSO_USE') + ' [b]Bold[/b], [i]Italic[/i], [u]Underline[/u], ' + _Translate('OR_A_LINE_LIKE_THIS') + ' [line][br]',
+                            'data6': '[h2]' + _Translate('COLUMNS') + '[/h2]' + _Translate('YOU_CAN_ACTIVATE_COLUMNS.') + ' ',
+                            'data7': _Translate('THEN_YOU_AUTOMATICALLY_GET_COLUMNS_THAT_YOUR_TEXT_CAN_FLOW_IN.') + ' ',
+                            'data8': _Translate('YOU_CAN') + ' [light]' + _Translate('HIGHLIGHT_PORTIONS_OF_THE_TEXT_LIKE_THIS') + '[/light]',
+                            'data9': _Translate('AND_YOU_CAN_INCLUDE_OTHER_ELEMENTS_IN_YOUR_TEXT,_FOR_EXAMPLE:') + '[my_external_link].',
+                            'data10': '[h2]' + _Translate('ZOOM_LEVEL') + '[/h2]' + _Translate('YOU_CAN_ZOOM_THE_VIEW_IN_YOUR_BROWSER.') + ' ',
+                            'data11': _Translate('WHEN_YOU_DO_THAT_AND_THE_SPACE_IS_TO_NARROW_FOR_THE_COLUMN,_THEN_IT_REDUCES_THE_NUMBER_OF_COLUMNS.'),
+                            'data12': _Translate('YOU_ALWAYS_GET_A_READABLE_VIEW_IN_ALL_ZOOM_LEVELS.'),
+                            'data13': '[my_button][my_select]',
+                            'data14': '[/columns]',
                         },
                         'my_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'submit',
-                            'button_label': _Translate('Test button'),
+                            'button_label': _Translate('TEST_BUTTON'),
                             'event_data': 'colour|preview',
                             'to_plugin': 'infohub_configlocal',
                             'to_function': 'click',
@@ -771,7 +773,7 @@ function infohub_configlocal_colour() {
                         'my_select': {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
-                            'label': _Translate('Test select'),
+                            'label': _Translate('TEST_SELECT'),
                             'description': _Translate(
                                 'Here you see a selector'),
                             'size': '10',
@@ -780,51 +782,51 @@ function infohub_configlocal_colour() {
                                 {
                                     'type': 'option',
                                     'value': 'nothing',
-                                    'label': _Translate('Nothing'),
+                                    'label': _Translate('NOTHING'),
                                 },
                                 {
                                     'type': 'optgroup',
-                                    'label': _Translate('Cutlery'),
+                                    'label': _Translate('CUTLERY'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'cutlery_knife',
-                                    'label': _Translate('Knife'),
+                                    'label': _Translate('KNIFE'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'cutlery_fork',
-                                    'label': _Translate('Fork'),
+                                    'label': _Translate('FORK'),
                                 },
                                 {'type': '/optgroup'},
                                 {
                                     'type': 'optgroup',
-                                    'label': _Translate('Porcelain'),
+                                    'label': _Translate('PORCELAIN'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'porcelain_plait',
-                                    'label': _Translate('Plait'),
+                                    'label': _Translate('PLAIT'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'porcelain_glass',
-                                    'label': _Translate('Glass'),
+                                    'label': _Translate('GLASS'),
                                 },
                                 {'type': '/optgroup'},
                                 {
                                     'type': 'optgroup',
-                                    'label': _Translate('Fabric'),
+                                    'label': _Translate('FABRIC'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'fabric_napkin',
-                                    'label': _Translate('Napkin'),
+                                    'label': _Translate('NAPKIN'),
                                 },
                                 {
                                     'type': 'option',
                                     'value': 'fabric_cloth',
-                                    'label': _Translate('Table Cloth'),
+                                    'label': _Translate('TABLE_CLOTH'),
                                 },
                                 {'type': '/optgroup'},
                             ],
@@ -834,8 +836,7 @@ function infohub_configlocal_colour() {
                             'subtype': 'external',
                             'alias': 'my_external_link',
                             'data': 'my_external_link',
-                            'show': _Translate(
-                                'My external link to the ABC club'),
+                            'show': _Translate('MY_EXTERNAL_LINK_TO_THE_ABC_CLUB'),
                             'url': 'https://www.abc.se',
                         },
                         'light': {
@@ -949,7 +950,7 @@ function infohub_configlocal_colour() {
      * @author Peter Lembke
      */
     $functions.push('click_submit');
-    const click_submit = function($in) {
+    const click_submit = function($in = {}) {
         const $default = {
             'step': 'step_form_read',
             'answer': '',
@@ -1032,7 +1033,7 @@ function infohub_configlocal_colour() {
      * @since 2020-12-27
      * @author Peter Lembke
      */
-    const click_apply_config = function($in) {
+    const click_apply_config = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -1095,7 +1096,7 @@ function infohub_configlocal_colour() {
      * @author Peter Lembke
      */
     $functions.push('click_file_upload');
-    const click_file_upload = function($in) {
+    const click_file_upload = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'files_data': [],
@@ -1134,7 +1135,7 @@ function infohub_configlocal_colour() {
      * @author Peter Lembke
      */
     $functions.push('click_file_download');
-    const click_file_download = function($in) {
+    const click_file_download = function($in = {}) {
         const $default = {
             'response': {
                 'answer': 'false',
@@ -1209,7 +1210,7 @@ function infohub_configlocal_colour() {
      * @since 2020-12-27
      * @author Peter Lembke
      */
-    const apply_config = function($in) {
+    const apply_config = function($in = {}) {
         const $default = {
             'local_config': _GetDefaultColorData(),
             'step': 'step_check_color_schema',

@@ -65,7 +65,7 @@ The use of # is ugly but that is besides the point.
 
 If the class concept evolve in the future and all criteria are met then it would be possible to support classes in new plugins.
 
-For now I will continue with the current plugin structure. 
+For the moment I will continue with the current plugin structure. 
 
 # License
 This documentation is copyright (C) 2020 Peter Lembke.  

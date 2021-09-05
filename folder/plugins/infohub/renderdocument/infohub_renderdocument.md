@@ -50,7 +50,7 @@ Styles can be used to make text fatter, underlined, slant or scrapped.
 - Bold text. Start and end with a `**` **Like this**
 - Underline text. Start and end with a `__` __Like this__
 - Italic text. Start and end with a `//`. //Like this//
-- Strike trough text. Start and end with a `~~`. ~~Like this~~
+- Strike through text. Start and end with a `~~`. ~~Like this~~
 - Or you can [light]highlight some text[/light] whenever you want.
 
 ### Link

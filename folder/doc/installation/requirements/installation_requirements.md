@@ -3,9 +3,9 @@ InfoHub only require a web server that run a [supported PHP](https://www.php.net
 
 ## Browsers supported
 Minimum browsers that InfoHub (JavaScript) aim to support are the [latest version](https://browsehappy.com/) of:  
-- Desktop Windows: Edge, Chrome, FireFox
-- Desktop Ubuntu: Chrome, Firefox
-- Desktop MacOS: Safari, Chrome, Firefox
+- Desktop Windows: Edge, Brave, FireFox
+- Desktop Ubuntu: Brave, Firefox
+- Desktop MacOS: Safari, Brave, Firefox
 - Apple Phone/Tablet (IOS): Safari
 - Android Phone/Tablet: Chrome
 - Chrome OS: Chrome
@@ -15,7 +15,7 @@ Note that on IOS you have Safari. All other browsers on IOS is based on Safari.
 
 Note that on Android you have Chrome. All other browsers on Android is based on Chrome.
 
-Browsers like Opera, Brave and Edge are based on Chromium so those browsers are likely to work.
+Browsers like Chrome, Opera, Brave and Edge are based on Chromium so those browsers are likely to work.
 
 You can read more about [browser engines here](https://en.wikipedia.org/wiki/Comparison_of_browser_engines).
   
@@ -38,3 +38,6 @@ It works very well to run Infohub on a Raspberry Pi 3. You can read more [here](
 You can use Infohub on any supported browser. My reference platform is an iPhone SE 2016 with a 4" screen. Infohub works well on my old Chromebook, modern Linux, MacOS, and Windows. I have tested Infohub OK on older Android.
 I have tested with 4" screens (iPhone), iPad, Android 10" pads. In portrait mode and landscape mode. 
 HD screen 1920*1080 up to UHD screens (Linux) and it scales good.
+
+Created 2020-07-22 by Peter Lembke  
+Changed 2021-08-28 by Peter Lembke  

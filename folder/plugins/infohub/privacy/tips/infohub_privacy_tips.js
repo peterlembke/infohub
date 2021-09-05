@@ -46,7 +46,7 @@ function infohub_privacy_tips() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('create');
@@ -56,7 +56,7 @@ function infohub_privacy_tips() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -225,7 +225,7 @@ function infohub_privacy_tips() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function($in) {
+    const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',
@@ -275,7 +275,7 @@ function infohub_privacy_tips() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_checksum');
-    const click_handle_checksum = function($in) {
+    const click_handle_checksum = function($in = {}) {
         let $formData = {};
 
         const $default = {

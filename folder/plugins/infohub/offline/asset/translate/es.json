@@ -1,25 +1,29 @@
 {
     "version": {
-        "date": "2019-10-26 23:16:23",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_offline",
-        "data_checksum": "da0c5d5c92dde503e201920171610a71",
-        "language": "",
-        "country": "",
-        "file_type": "finished_file"
+        "data_checksum": "8f51ae67678e6cd58a53cfa62e4a57a2",
+        "language": "es",
+        "language_name": "spanish",
+        "country": "ES",
+        "country_name": "Spain",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Desconectado",
-        "description": "Aquí puede prepararse para fuera de línea. También maneje suscriptores de eventos fuera de línea / en línea."
+        "title": "Offline",
+        "description": "Here you can prepare for offline. Also handle offline\/online event subscribers."
     },
     "data": {
         "infohub_offline": {
-            "Offline tools": "Herramientas sin conexión",
-            "Tools to see if you are online/offline. See what plugins are subscribing to that event. Buttons to download and store data to prepare for offline usage.": "Herramientas para ver si está en línea / fuera de línea. Vea qué complementos se están suscribiendo a ese evento. Botones para descargar y almacenar datos para prepararse para el uso sin conexión",
-            "Download plugins": "Descargar complementos",
-            "Download assets": "Descargar activos",
-            "Download documentation": "Descargar documentación",
-            "Show subscribers": "Mostrar suscriptores",
-            "Status": "Estado"
+            "OFFLINE_TOOLS_KEY": "Offline tools",
+            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Tools to see if you are online or offline.",
+            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "See what plugins are subscribing to that event.",
+            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Buttons to download and store data to prepare for offline usage.",
+            "DOWNLOAD_PLUGINS_KEY": "Download plugins",
+            "DOWNLOAD_ASSETS_KEY": "Download assets",
+            "DOWNLOAD_DOCUMENTATION_KEY": "Download documentation",
+            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "STATUS_KEY": "Status"
         }
     }
 }

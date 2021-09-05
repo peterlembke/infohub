@@ -1,20 +1,13 @@
 /**
- * @category InfoHub
- * @package infohub_rendermenu
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * Render a menu
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2018-09-05
+ * @since       2018-09-05
+ * @copyright   Copyright (c) 2018, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/rendermenu/infohub_rendermenu.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_rendermenu() {
 
@@ -34,7 +27,7 @@ function infohub_rendermenu() {
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'false',
+            'core_plugin': 'false'
         };
     };
 
@@ -91,7 +84,7 @@ function infohub_rendermenu() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -179,7 +172,7 @@ function infohub_rendermenu() {
      * @since   2018-06-06
      * @author  Peter Lembke
      */
-    const internal_Menu = function($in) {
+    const internal_Menu = function($in = {}) {
         const $default = {
             'head_label': '',
             'head_text': '',
@@ -274,7 +267,7 @@ function infohub_rendermenu() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'parent_id': 0,
             'box_id': '',

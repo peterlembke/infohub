@@ -1,0 +1,29 @@
+{
+    "version": {
+        "date": "2021-08-28 22:07:03",
+        "plugin": "infohub_offline",
+        "data_checksum": "8f51ae67678e6cd58a53cfa62e4a57a2",
+        "language": "zh",
+        "language_name": "chinese",
+        "country": "CN",
+        "country_name": "China",
+        "file_type": "translate_file"
+    },
+    "launcher": {
+        "title": "Offline",
+        "description": "Here you can prepare for offline. Also handle offline\/online event subscribers."
+    },
+    "data": {
+        "infohub_offline": {
+            "OFFLINE_TOOLS_KEY": "Offline tools",
+            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Tools to see if you are online or offline.",
+            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "See what plugins are subscribing to that event.",
+            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Buttons to download and store data to prepare for offline usage.",
+            "DOWNLOAD_PLUGINS_KEY": "Download plugins",
+            "DOWNLOAD_ASSETS_KEY": "Download assets",
+            "DOWNLOAD_DOCUMENTATION_KEY": "Download documentation",
+            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "STATUS_KEY": "Status"
+        }
+    }
+}

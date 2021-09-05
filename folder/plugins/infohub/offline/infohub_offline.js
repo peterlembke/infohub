@@ -84,7 +84,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('_GetStatus');
-    const _GetStatus = function($online) {
+    const _GetStatus = function($online = '') {
         let $status = 'unknown';
 
         if ($online === 'false') {
@@ -98,14 +98,17 @@ function infohub_offline() {
         return $status;
     };
 
+    $functions.push('_GetSubscribersMessages');
     /**
      * You can subscribe to offline combinations
      * @version 2018-07-11
      * @since   2018-07-11
      * @author  Peter Lembke
+     * @param $key
+     * @returns {*}
+     * @private
      */
-    $functions.push('_GetSubscribersMessages');
-    const _GetSubscribersMessages = function($key) {
+    const _GetSubscribersMessages = function($key = '') {
         let $messages = [];
         const $data = _LoadData();
         const $realKey = $key;
@@ -116,14 +119,20 @@ function infohub_offline() {
         return $messages;
     };
 
+    $functions.push('_AddMessages');
     /**
      * Collect all outgoing messages that matches the key
      * @version 2018-10-16
      * @since   2018-10-16
      * @author  Peter Lembke
+     * @param $key
+     * @param $realKey
+     * @param $data
+     * @param $messages
+     * @returns {*[]}
+     * @private
      */
-    $functions.push('_AddMessages');
-    const _AddMessages = function($key, $realKey, $data, $messages) {
+    const _AddMessages = function($key = '', $realKey = '', $data = {}, $messages = []) {
         if (_IsSet($data[$key]) === 'false') {
             return $messages;
         }
@@ -184,14 +193,16 @@ function infohub_offline() {
         return $data;
     };
 
+    $functions.push('_SaveData');
     /**
      * Saves the subscription data
      * @version 2018-10-16
      * @since   2018-10-16
      * @author  Peter Lembke
+     * @param $data
+     * @private
      */
-    $functions.push('_SaveData');
-    const _SaveData = function($data) {
+    const _SaveData = function($data = {}) {
         if (_Empty($data) === 'true') {
             $data = {};
         }
@@ -211,7 +222,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_translations',
@@ -252,7 +263,9 @@ function infohub_offline() {
                             'type': 'presentation_box',
                             'head_label': _Translate('OFFLINE_TOOLS'),
                             'content_data': '[my_form]',
-                            'foot_text': _Translate('TOOLS_TO_SEE_IF_YOU_ARE_ONLINE/OFFLINE._SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE.')
+                            'foot_text': _Translate('TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE.') + ' ' +
+                                _Translate('SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT.') + ' ' +
+                                _Translate('BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE.')
                         },
                         'my_form': {
                             'type': 'form',
@@ -380,7 +393,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('subscribe');
-    const subscribe = function($in) {
+    const subscribe = function($in = {}) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and the message you want.
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
@@ -464,7 +477,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe');
-    const unsubscribe = function($in) {
+    const unsubscribe = function($in = {}) {
         const $default = {
             'subscriptions': {}, // Add the key_combination string and and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
@@ -495,7 +508,7 @@ function infohub_offline() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('unsubscribe_all');
-    const unsubscribe_all = function($in) {
+    const unsubscribe_all = function($in = {}) {
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
@@ -516,7 +529,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Subscribe');
-    const internal_Subscribe = function($in) {
+    const internal_Subscribe = function($in = {}) {
         const $default = {
             'from': '', // "node|plugin_name"
             'key': '', // example: "shift_alt_ctrl_49"
@@ -544,7 +557,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Unsubscribe');
-    const internal_Unsubscribe = function($in) {
+    const internal_Unsubscribe = function($in = {}) {
         let $changed = 'false',
             $message = 'Could not find that key';
 
@@ -585,7 +598,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('internal_UnsubscribeAll');
-    const internal_UnsubscribeAll = function($in) {
+    const internal_UnsubscribeAll = function($in = {}) {
         let $changed = 'false',
             $message = 'Could not find any keys';
 
@@ -626,7 +639,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_plugins');
-    const gui_download_plugins = function($in) {
+    const gui_download_plugins = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -660,7 +673,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_assets');
-    const gui_download_assets = function($in) {
+    const gui_download_assets = function($in = {}) {
         const $default = {
             'step': 'step_get_all_plugin_names_that_has_assets',
             'response': {
@@ -725,7 +738,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_download_documentation');
-    const gui_download_documentation = function($in) {
+    const gui_download_documentation = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -759,7 +772,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('gui_show_subscribers');
-    const gui_show_subscribers = function($in) {
+    const gui_show_subscribers = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -806,7 +819,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_indicator');
-    const update_indicator = function($in) {
+    const update_indicator = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'key': '',
@@ -886,7 +899,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('update_service_worker');
-    const update_service_worker = function($in) {
+    const update_service_worker = function($in = {}) {
         const $cacheLifeTimeSeconds = 10 * 60.0;
         const $path = 'infohub_offline/service_worker';
 
@@ -1060,7 +1073,7 @@ function infohub_offline() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
             'event_type': '',

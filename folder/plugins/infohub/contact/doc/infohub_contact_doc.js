@@ -55,7 +55,7 @@ function infohub_contact_doc() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -65,7 +65,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -160,7 +160,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    const click_main = function($in) {
+    const click_main = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
@@ -187,7 +187,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_client');
-    const click_client = function($in) {
+    const click_client = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
@@ -197,7 +197,7 @@ function infohub_contact_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('client/infohub_contact_client');
+            return _GetCall('infohub_contact_client');
         }
 
         return {
@@ -214,7 +214,7 @@ function infohub_contact_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_server');
-    const click_server = function($in) {
+    const click_server = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
@@ -224,7 +224,7 @@ function infohub_contact_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('server/infohub_contact_server');
+            return _GetCall('infohub_contact_server');
         }
 
         return {
@@ -236,41 +236,30 @@ function infohub_contact_doc() {
 
     /**
      * Show the documentation
-     * @version 2019-03-13
+     * @version 2021-08-12
      * @since   2019-03-13
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
     const _GetCall = function($fileName) {
+
+        const $pluginName = 'infohub_contact';
+
         return _SubCall({
             'to': {
                 'node': 'client',
-                'plugin': 'infohub_render',
-                'function': 'create',
+                'plugin': 'infohub_doc',
+                'function': 'render_doc',
             },
             'data': {
-                'what': {
-                    'my_doc': {
-                        'plugin': 'infohub_contact',
-                        'type': $fileName,
-                    },
-                },
-                'how': {
-                    'mode': 'one box',
-                    'text': '[my_doc]',
-                },
-                'where': {
-                    'box_id': 'main.body.infohub_contact.form.[container_doc]', // 'box_id': $in.parent_box_id + '.form',
-                    'max_width': 100,
-                    'scroll_to_box_id': 'true',
-                },
+                'file_name': $fileName,
+                'box_id': 'main.body.' + $pluginName + '.form.[container_doc]'
             },
             'data_back': {
-                'step': 'step_end',
+                'step': 'step_end'
             },
         });
     };
-
 }
 
 //# sourceURL=infohub_contact_doc.js

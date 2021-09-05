@@ -57,7 +57,7 @@ function infohub_trigger() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -67,7 +67,7 @@ function infohub_trigger() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_translations',
@@ -189,7 +189,7 @@ function infohub_trigger() {
                             'type': 'textarea',
                             'placeholder': _Translate('DEFAULT_MESSAGE_FOR_THE_SELECTED_FUNCTION'),
                             "label": _Translate("MESSAGE"),
-                            "description": _Translate("THIS_IS_THE_MESSAGE_YOU_CAN_SEND_TO_THE_SELECTED_PLUGIN._THE_MESSAGE_YOU_SEE_IS_THE_DEFAULT_VALUES_THE_FUNCTION_HAVE_SET."),
+                            "description": _Translate('THIS_IS_THE_MESSAGE_YOU_CAN_SEND_TO_THE_SELECTED_PLUGIN.') + ' ' + _Translate('THE_MESSAGE_YOU_SEE_IS_THE_DEFAULT_VALUES_THE_FUNCTION_HAVE_SET.'),
                             'resize': 'both',
                             'rows': 8,
                             'cols': 80,
@@ -266,7 +266,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('click_node');
-    const click_node = function($in) {
+    const click_node = function($in = {}) {
         const $default = {
             'value': '', // Selected option in select lists
             'box_id': '', // The box we are in
@@ -385,7 +385,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('click_plugin');
-    const click_plugin = function($in) {
+    const click_plugin = function($in = {}) {
         const $default = {
             'value': '', // Selected option in select lists
             'box_id': '', // The box we are in
@@ -513,7 +513,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('click_get_default_message');
-    const click_get_default_message = function($in) {
+    const click_get_default_message = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_form_data',
@@ -643,7 +643,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('click_send');
-    const click_send = function($in) {
+    const click_send = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_form_data',
@@ -809,7 +809,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh_plugin_list');
-    const click_refresh_plugin_list = function($in) {
+    const click_refresh_plugin_list = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -851,7 +851,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('get_plugin_list');
-    const get_plugin_list = function($in) {
+    const get_plugin_list = function($in = {}) {
         const $default = {
             'use_local_version_if_available': 'true',
             'step': 'step_start',
@@ -949,7 +949,7 @@ function infohub_trigger() {
      * @author Peter Lembke
      */
     $functions.push('update_plugin_list');
-    const update_plugin_list = function($in) {
+    const update_plugin_list = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'response': {

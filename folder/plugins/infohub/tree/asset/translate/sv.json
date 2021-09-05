@@ -1,95 +1,108 @@
 {
     "version": {
-        "date": "2019-10-19 20:33:44",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_tree",
-        "data_checksum": "6ef51c32c3f1b8c6571730c81c251b5a",
+        "data_checksum": "7a034f2638dd33539e338cba26f66194",
         "language": "sv",
+        "language_name": "swedish",
         "country": "SE",
-        "file_type": "finished_file"
+        "country_name": "Sweden",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Träd",
-        "description": "Verktyg för att hantera loginkonton och används enbart av administratören. Hantera inkommande kontakter som vill in i InfoHub servern. Hantera utgående kontakter där InfoHub vill kontakta andra InfoHub."
+        "title": "Tree",
+        "description": "Handles your personal data."
     },
     "data": {
         "infohub_tree": {
-            "Instructions": "Instruktioner",
-            "Use the menu.": "Använd menyn."
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu."
         },
-        "infohub_tree_client": {
-            "Refresh Clients": "Uppdatera klienter",
-            "Client Contacts": "Klientkontakter",
-            "List all client contacts": "Lista med alla klientkontakter som får logga in på din server",
-            "New": "Ny",
-            "Save": "Spara",
-            "Delete": "Radera",
-            "Import": "Importera",
-            "Export": "Exportera",
-            "Groups": "Grupper",
-            "Pick groups for this client": "Välj grupper för den här klienten",
-            "One contact": "En kontakt",
-            "This is the data form for one contact": "Denna klient vill logga in på din server",
-            "Node": "Nod",
-            "Your unique name of the client": "Ditt unika namn för klienten",
-            "Note": "Notering",
-            "Any text you want": "Här kan du skriva noteringar om den här klienten. Noteringen kommer med i exporten och syns för klienten.",
-            "Domain address": "Domänadress",
-            "The domain address to your server": "Domänadressen till din server",
-            "User name": "Användarnamn",
-            "You get a Hub-UUID when you save (Leave blank)": "Du får en hub-UUID när du sparar (lämna tomt)",
-            "Shared secret": "Delad hemlighet",
-            "You will get a 2K random string when you save (Leave blank)": "Du får en 2000 tecken lång slumpmässig sträng när du sparar (Lämna tomt)",
-            "Allowed plugins": "Tillåtna plugins",
-            "List with all plugin names you can send messages to on this node": "Lista med alla plugins som klienten kan skicka meddelanden till på din server"
+        "infohub_tree_backup": {
+            "BACKUP_ALL_KEY": "Backup all",
+            "FULL_BACKUP_OF_ALL_YOUR_DATA_YOU_HAVE_ON_THE_SERVER._KEY": "Full backup of all your data you have on the server.",
+            "YOU_GET_ONE_FILE_WITH_EVERYTHING._KEY": "You get one file with everything.",
+            "BACKUP_EVERYTHING_KEY": "Backup everything",
+            "BACKUP_PLUGINS_KEY": "Backup plugins",
+            "BACKUP_OF_EACH_PLUGIN_SEPARATELY._KEY": "Backup of each plugin separately.",
+            "YOU_GET_ONE_BACKUP_FILE_FOR_EACH_PLUGIN._KEY": "You get one backup file for each plugin.",
+            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
+            "PLUGIN_LIST_KEY": "Plugin list",
+            "LIST_WITH_ALL_TREE_PLUGINS_KEY": "List with all tree plugins",
+            "BACKUP_SELECTED_PLUGINS_KEY": "Backup selected plugins",
+            "PARTIAL_BACKUP_KEY": "Partial backup",
+            "PARTIAL_BACKUP._KEY": "Partial backup.",
+            "SELECT_ONE_PLUGIN_AND_SELECT_KEYS_TO_BACKUP._KEY": "Select one plugin and select keys to backup.",
+            "YOU_GET_ONE_BACKUP_FILE._KEY": "You get one backup file.",
+            "LIST_WITH_ALL_TREE_PLUGINS._KEY": "List with all tree plugins.",
+            "SELECT_ONE_KEY": "Select one",
+            "REFRESH_KEY_LIST_KEY": "Refresh key list",
+            "KEYS_KEY": "Keys",
+            "ALL_KEYS_FOR_THE_SELECTED_PLUGIN._KEY": "All keys for the selected plugin.",
+            "SELECT_THE_ONES_YOU_WANT_TO_BACKUP_KEY": "Select the ones you want to backup",
+            "BACKUP_SELECTED_KEYS_KEY": "Backup selected keys"
         },
         "infohub_tree_doc": {
-            "Documentation will render here": "Dokumentation kommer att visas här",
-            "Main Doc": "Läs mig först",
-            "Client Doc": "Läs om Klient",
-            "Server Doc": "Läs om Server",
-            "Group Doc": "Läs om Grupp"
+            "DOCUMENTATION_WILL_RENDER_HERE_KEY": "Documentation will render here",
+            "MAIN_DOC_KEY": "Main doc",
+            "VERSION_DOC_KEY": "Version doc",
+            "ENCRYPTION_DOC_KEY": "Encryption doc",
+            "BACKUP_DOC_KEY": "Backup doc",
+            "RESTORE_DOC_KEY": "Restore doc",
+            "STORAGE_DOC_KEY": "Storage doc",
+            "SYNC_DOC_KEY": "Sync doc"
         },
-        "infohub_tree_group": {
-            "Refresh groups": "Uppdatera grupper",
-            "Group names": "Gruppnamn",
-            "New": "Ny",
-            "Save": "Spara",
-            "Delete": "Radera",
-            "Rights for one group": "Gruppens rättigheter",
-            "Group name": "Gruppnamn",
-            "Your note": "Din anteckning",
-            "Select server plugins in this group": "Tillåtna serverplugins"
+        "infohub_tree_encrypt": {
+            "IMPORT_KEY_FILE_KEY": "Import key file",
+            "IMPORT_PASSWORD_KEY": "Import password",
+            "YOUR_PASSWORD_FOR_THE_FILE_KEY": "Your password for the file",
+            "FORGET_IMPORTED_KEY_KEY": "Forget imported",
+            "EXPORT_KEY_FILE_KEY": "Export key file",
+            "EXPORT_THE_IMPORTED_KEY_WITH_NEW_PASSWORD_KEY": "Export the imported key with new password",
+            "EXPORT_PASSWORD_KEY": "Export password",
+            "CREATE_KEY_FILE_KEY": "Create key file",
+            "CREATE_NEW_KEY_FILE_KEY": "Create new key file",
+            "CREATE_NEW_KEY_WITH_NEW_PASSWORD_KEY": "Create new key with new password"
         },
         "infohub_tree_menu": {
-            "Contact manager": "Kontaktadministratör",
-            "Documentation": "Dokumentation",
-            "Group rights": "Grupprättigheter",
-            "Client contact": "Klientkontakt",
-            "Server contact": "Serverkontakt"
+            "TREE_MANAGER_KEY": "Tree manager",
+            "DOCUMENTATION_KEY": "Documentation",
+            "VERSION_KEY": "Version",
+            "ENCRYPTION_KEY": "Encryption",
+            "BACKUP_KEY": "Backup",
+            "RESTORE_KEY": "Restore",
+            "SYNC_KEY": "Sync"
         },
-        "infohub_tree_server": {
-            "Refresh": "Uppdatera",
-            "Server Contacts": "Serverkontakter",
-            "List all server contacts": "Lista med alla servrar som din server kan skicka meddelanden till.",
-            "Save": "Spara",
-            "Delete": "Radera",
-            "Import": "Importera",
-            "Export": "Exportera",
-            "Ping server": "Ping-server",
-            "One contact": "En kontakt",
-            "This is the data form for one contact.": "Uppgifter som du fått för att din server ska kunna logga in på en annan server.",
-            "Node": "Nod",
-            "Your unique node name": "Ditt unika nodnamn. Du kan då skicka meddelanden till den här noden och de levereras till servern.",
-            "Note": "Notering",
-            "Any text you want": "Noteringen som serverägaren skrev när de skapade ditt loginkonto. Du kan ändra noteringen om du vill.",
-            "Domain address": "Domänadress",
-            "The domain address to the remote server": "Domänadressen till fjärrservern",
-            "User name": "Användarnamn",
-            "Hub-UUID you got from the remote server": "Hub-UUID som du fick från fjärrservern",
-            "Shared secret": "Delad hemlighet",
-            "2K random string you got from the remote server": "2000 tecken lång slumpmässig sträng du fick från fjärrservern",
-            "Allowed plugins": "Tillåtna plugins",
-            "List with all plugin names you can send messages to on this node": "Lista med alla plugins som du kan skicka meddelanden till på den här noden"
+        "infohub_tree_restore": {
+            "CONFLICTS_KEY": "Conflicts",
+            "SELECT_BACKUP_FILES_KEY": "Select backup files",
+            "CLEAR_LIST_KEY": "Clear list",
+            "RESTORE_DATA_TO_BROWSER_STORAGE_KEY": "Restore data to browser storage",
+            "BACKUP_FILES_KEY": "Backup files",
+            "HERE_IS_A_LIST_WITH_ALL_BACKUP_FILES_YOU_HAVE_SELECTED_IN_THE_FILE_SELECTOR_KEY": "Here is a list with all backup files you have selected in the file selector",
+            "INFORMATION_KEY": "Information",
+            "RESTORE_LOG_KEY": "Restore log",
+            "CLICK_ON_THE_LIST_KEY": "Click on the list",
+            "REFRESH_CONFLICT_LIST_KEY": "Refresh conflict list",
+            "KEEP_LOCAL_VERSION_KEY": "Keep local version",
+            "KEEP_SERVER_VERSION_KEY": "Keep server version",
+            "CONFLICT_LIST_KEY": "Conflict list"
+        },
+        "infohub_tree_sync": {
+            "START_THE_SYNC_HERE_KEY": "Start the sync here",
+            "YOU_FIRST_SYNC,_THEN_HANDLE_THE_UPLOAD,_DOWNLOAD_AND_CONFLICT_LISTS_KEY": "You first sync, then handle the upload, download and conflict lists",
+            "CLICK_ON_THE_LIST_KEY": "Click on the list",
+            "SYNC_KEY": "Sync",
+            "UPLOAD_KEY": "Upload",
+            "DOWNLOAD_KEY": "Download",
+            "REFRESH_CONFLICT_LIST_KEY": "Refresh conflict list",
+            "KEEP_LOCAL_VERSION_KEY": "Keep local version",
+            "KEEP_SERVER_VERSION_KEY": "Keep server version",
+            "CONFLICT_LIST_KEY": "Conflict list",
+            "YOU_CAN_HELP_ME_DECIDE_WHAT_VERSION_TO_KEEP_KEY": "You can help me decide what version to keep"
+        },
+        "infohub_tree_version": {
+            "REFRESH_VERSION_DATA_KEY": "Refresh version data"
         }
     }
 }

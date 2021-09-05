@@ -71,7 +71,7 @@ function infohub_checksum_doublemetaphone() {
      * @return array
      */
     $functions.push('calculate_checksum');
-    const calculate_checksum = function($in) {
+    const calculate_checksum = function($in = {}) {
         const $default = {
             'value': '',
         };
@@ -100,7 +100,7 @@ function infohub_checksum_doublemetaphone() {
      * @return array
      */
     $functions.push('verify_checksum');
-    const verify_checksum = function($in) {
+    const verify_checksum = function($in = {}) {
         const $default = {
             'value': '',
             'checksum': '',
@@ -168,7 +168,7 @@ function infohub_checksum_doublemetaphone() {
 //
 //  2020-01-10 Peter Lembke https://www.charzam.com
 //  Could not get the code to work in the browser. A lot of issues and warnings in PHP Storm and jshint.
-//  Ran the code trough the PHP Storm "reformat code". Changed all variables to start with $.
+//  Ran the code through the PHP Storm "reformat code". Changed all variables to start with $.
 //  All comparision from == to === and !==. Added variable declarations with let.
 //  Changed to a command. Now it works in the browser.
 // ------------------------------------------------------------------

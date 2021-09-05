@@ -14,31 +14,31 @@
             "WHAT_IS_THIS?_KEY": "Mikä tämä on?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Yksi yhteyshenkilö",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Tämä on yhden kontaktin tietolomake",
-            "NODE_KEY": "Solmu",
-            "ANY_TEXT_YOU_WANT_KEY": "Mikä tahansa haluamasi teksti",
+            "ONE_CONTACT_KEY": "Yksi yhteystieto",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Tämä on tietolomake yhdelle yhteyshenkilölle",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Kaikki haluamasi teksti",
             "NOTE_KEY": "Huomautus",
             "SAVE_KEY": "Tallenna",
             "DOMAIN_ADDRESS_KEY": "Verkkotunnuksen osoite",
-            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Palvelimen verkkotunnuksen osoite",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Palvelimesi verkkotunnuksen osoite",
             "USER_NAME_KEY": "Käyttäjänimi",
             "THIS_IS_YOU_ON_THE_SERVER_KEY": "Tämä olet sinä palvelimella",
             "SHARED_SECRET_KEY": "Jaettu salaisuus",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Jaat tämän salaisuuden palvelimen kanssa",
             "CHECKSUM_KEY": "Tarkistussumma",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Verkkotunnuksen osoitteen + käyttäjänimen + jaetun salaisuuden tarkistussumma.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Verkkotunnuksen osoitteen tarkistussumma + käyttäjänimi + jaettu salaisuus.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Sallitut palvelinlaajennukset",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Luettelo kaikista palvelimen laajennusten nimistä, joille voit lähettää viestejä etäsolmussa"
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Luettelo kaikista palvelinlaajennusten nimistä, joille voit lähettää viestejä etäsolmulla"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Vie yhteyshenkilö",
+            "EXPORT_CONTACT_KEY": "Vie yhteystieto",
             "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Täällä voit viedä yhteystiedot",
             "EXPORT_KEY": "Vie"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Unohda yhteyshenkilö",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Täällä voit antaa selaimen unohtaa yhteystiedot. Voit tuoda tiedoston uudelleen.",
+            "FORGET_CONTACT_KEY": "Unohda yhteys",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Tässä voit antaa selaimen unohtaa yhteystiedot. Voit aina tuoda tiedoston uudelleen.",
             "FORGET_KEY": "Unohda"
         },
         "infohub_login_import": {
@@ -50,29 +50,27 @@
             "LOGIN_KEY": "Kirjaudu",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Täällä voit käyttää tuomiasi yhteystietoja ja kirjautua palvelimelle",
             "PASSWORD_KEY": "Salasana",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Salasana, jonka haluat purkaa jaetun salaisuuden",
-            "LOGIN_RESULT_KEY": "kirjautumistulos",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Salasana, jonka tarvitset jaetun salauksen purkamiseen",
+            "LOGIN_RESULT_KEY": "Kirjautumistulos",
             "RELOAD_AFTER_LOGIN_KEY": "Lataa uudelleen kirjautumisen jälkeen",
-            "SELECT_FILE_KEY": "Valitse tiedosto",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Lataa esittelytili",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Olet jo kirjautunut sisään",
             "MISSING_USER_NAME_KEY": "Puuttuva käyttäjänimi",
-            "MISSING_RANDOM_CODE_KEY": "Satunnaiskoodi puuttuu",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Palvelimen vastaus kesti liian kauan. Hylkään kirjautumisyrityksen",
+            "MISSING_RANDOM_CODE_KEY": "Satunnainen koodi puuttuu",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Palvelimen vastaus kesti liian kauan. Lopetan kirjautumisyrityksen",
             "FAILED_TO_LOGIN_KEY": "Kirjautuminen epäonnistui",
-            "SUCCESS_LOGGING_IN_KEY": "Sisäänkirjautuminen onnistui",
+            "SUCCESS_LOGGING_IN_KEY": "Kirjautuminen onnistui",
             "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Satunnaiskoodilla ei ole oikeaa pituutta",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "On epätodennäköistä, että kokonaiskeskiarvossa ei ole desimaaleja",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "On epätodennäköistä, että keskiarvo on yhtä suuri kuin kokonaiskeskiarvo",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Nämä yksinkertaiset testit osoittavat, että ainakin random_code ei ole tasainen numero."
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "On epätodennäköistä, että kokonaiskeskiarvolla ei ole desimaaleja",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Tuskin keskiarvo on yhtä suuri kuin kokonaiskeskiarvo",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Nämä yksinkertaiset testit osoittavat, että ainakin satunnaiskoodi ei ole lukujen tasainen viiva."
         },
         "infohub_login_logout": {
             "LOGOUT_KEY": "Kirjaudu ulos",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Täällä voit kirjautua ulos palvelimelta",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Jos se onnistuu, kirjautumissivu näkyy",
-            "LOGOUT_RESULT_KEY": "kirjautumistulos",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Jos onnistuu, kirjautumissivu näyttää",
+            "LOGOUT_RESULT_KEY": "Uloskirjautumisen tulos",
             "FAILED_TO_LOGOUT_KEY": "Uloskirjautuminen epäonnistui",
-            "SUCCESS_LOGGING_OUT_KEY": "Kirjautuminen ulos onnistui"
+            "SUCCESS_LOGGING_OUT_KEY": "Uloskirjautuminen onnistui"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Valikko",
@@ -81,16 +79,26 @@
             "SET_PASSWORD_KEY": "Aseta salasana",
             "EXPORT_CONTACT_DATA_KEY": "Vie yhteystiedot",
             "LOGOUT_KEY": "Kirjaudu ulos",
-            "FORGET_CONTACT_KEY": "Unohda yhteyshenkilö"
+            "FORGET_CONTACT_KEY": "Unohda yhteys"
         },
         "infohub_login_password": {
             "SET_PASSWORD_KEY": "Aseta salasana",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kun asetat paikallisen salasanasi, sekoitat jaetun salaisuuden, jotta se edellyttää",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kun määrität paikallisen salasanasi, sekoitat jaetun salaisuuden niin, että se vaatii",
             "CURRENT_PASSWORD_KEY": "Nykyinen salasana",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Jätä tyhjäksi, jos sinulla ei ole",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Jätä tyhjäksi, jos sinulla ei ole mitään",
             "NEW_PASSWORD_KEY": "Uusi salasana",
             "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Jätä tyhjäksi, jos haluat poistaa salasanan",
             "CHANGE_PASSWORD_KEY": "Vaihda salasana"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Kirjaudu",
+            "SELECT_FILE_KEY": "Valitse tiedosto",
+            "PASSWORD_KEY": "Salasana",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Lataa demotili",
+            "LOGIN_RESULT_KEY": "Kirjautumistulos",
+            "MORE_KEY": "Lisää",
+            "CURRENT_URL_KEY": "Nykyinen URL -osoite",
+            "REFRESH_PAGE_KEY": "Päivitä sivu"
         }
     }
 }

@@ -4,8 +4,8 @@ How to protect your information on its way to/from your server.
 
 # Introduction
 
-When your secure browser communicate with your secure server then the traffic pass trough your network, trough your
-internet service providers (ISP) network, trough several networks until it reaches your servers internet provider and
+When your secure browser communicate with your secure server then the traffic pass through your network, through your
+internet service providers (ISP) network, through several networks until it reaches your servers internet provider and
 finally your server.
 
 ## Meta information
@@ -34,7 +34,7 @@ logging your data.
 
 Single point encryption is another way of stopping viewing your information. You encrypt the data in your browser. The
 data are never decrypted. If you want the data it is still encrypted and you are the only one that can decrypt the data
-in your browser. This is built into Infohub when you save data trough the Tree plugin.
+in your browser. This is built into Infohub when you save data through the Tree plugin.
 
 ## Manipulate information
 

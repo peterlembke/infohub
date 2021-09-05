@@ -6,7 +6,7 @@ The Infohub software is licensed under GNU GENERAL PUBLIC LICENSE Version 3. You
 The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in this document.
 
 Created at: 2020-02-08 by Peter Lembke, Infohub
-Updated at: 2020-02-08 by Peter Lembke, Infohub
+Updated at: 2021-08-01 by Peter Lembke, Infohub
 
 ## Words we use in this document
 - **you** - that is you the responsible party for the site.
@@ -74,13 +74,13 @@ The Infohub software and the site owner can use any service from the server as l
 
 One example that is prohibited is sending an email or SMS to a user. This is prohibited because there is a 3rd party involved and the user telephone/email address are then revealed.
 
-The use of 3rd party client side services are prohibited because all data must go trough the server. We can not secure the client side if we do not know what code is running there.
+The use of 3rd party client side services are prohibited because all data must go through the server. We can not secure the client side if we do not know what code is running there.
 
 Examples of prohibited services: Google maps, Spotify, Soundcloud, Open street map, Youtube, Vimeo, Daily motion. Also CDN services, iframes and files linked from any server are prohibited.
 
 It is the users responsibility to not use a site that provide client side 3rd party services.
 
-The user must protect its data by using secure web browsers like Firefox, Safari, DuckDuckGo. And also be sure not to use browser plugins that leak data to 3rd party. 
+The user must protect its data by using secure web browsers like Firefox, Safari, Brave, DuckDuckGo. And also be sure not to use browser plugins that leak data to 3rd party. 
 
 The Infohub software need to be on a private web server or at a web hosting company so the users can connect. You as a site owner is responsible for using https in your domain address. The user is responsible for not using a site that have issues with the certificate.
 
@@ -98,7 +98,7 @@ A person can only become a user by an invite from you the site owner. You the si
 
 Examples of reasons could be that the user have poor security on its computer, browser, browser plugins. Have shared the login credentials with others. Have uploaded more material than agreed on. Have not logged in to the site for a month. Have done manipulations to the client side code.
 
-If you as a site owner do not want a specific user on your site then mark the user as "You got two weeks notice to move from this site and then you will be automatically deleted".
+If you as a site owner do not want a specific user on your site then mark the user as "You got two weeks notice to move from this site, and then you will be automatically deleted".
 
 The Infohub software will refuse the user to save any more data to the server Storage.
 
@@ -151,5 +151,21 @@ You the site owner should also make a statement on how the backups are stored an
 Should is not a must.
 
 The user should only use sites that can tell what backup strategy they are following.
+
+## Advertising
+
+The Infohub plugins must be clean from advertising. You could mention optional related plugins in the documentation.
+You must not show advertising to the user. Not even if the data comes from the server. If you want to promote something then use other channels for that, like social media.
+
+## Log usage of features
+
+The client software are not allowed to track usage statistics, not even anonymous data. The client must be free from trackers.
+The Infohub server can have anonymous usage statistics but that need to be stored in a tool that you manage. Like https://matomo.org/ if you host it yourself.
+
+## Bugs
+
+Server bugs are logged to a text file with no personal data. You are allowed to send anonymous data to a log tool you host yourself, like GrayLog.
+
+A client bug is always shown on screen at the top. Client bugs are never reported back to the server. They might have to be in the future. You are allowed to forward anonymous client bug data to a log tool you host yourself, like GrayLog.
 
 __End of document__

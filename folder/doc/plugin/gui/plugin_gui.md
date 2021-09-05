@@ -2,7 +2,7 @@
 How to give your plugin a graphical user interface (GUI)  
 
 # Introduction
-You can add a GUI to your plugin so it can be used in Workbench. One good example you can look at is [infohub_doc](plugin,infohub_doc).  
+You can add a GUI to your plugin and use it in the Workbench. One good example you can look at is [infohub_doc](plugin,infohub_doc).  
 
 # Asset
 Add a folder called "asset" in your plugin folder. In there add a file called "launcher.json". This example come from Infohub Doc:  
@@ -75,4 +75,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2018-04-08 by Peter Lembke  
-Updated 2018-04-08 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

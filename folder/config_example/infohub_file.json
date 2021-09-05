@@ -1,0 +1,9 @@
+{
+    "server": {
+        "log": {
+            "read": "",
+            "get_folder_structure": "",
+            "launcher_get_full_list": ""
+        }
+    }
+}

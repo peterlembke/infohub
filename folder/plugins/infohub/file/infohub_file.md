@@ -156,7 +156,7 @@ $response = array(
 
 Locked to server plugins.  
 You can get the folder structure for a path. This is useful if you do not know what folders and files exist and want to
-navigate trough them.
+navigate through them.
 
 ## Example how to get folder structure
 

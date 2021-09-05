@@ -21,122 +21,34 @@ function infohub_translate_updateplugin() {
 
 // include "infohub_base.js"
 
-    const _Version = function() {
+    const _Version = function () {
         return {
-            'date': '2020-12-15',
-            'since': '2020-12-15',
+            'date': '2021-08-15',
+            'since': '2021-08-15',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_translate_updateplugin',
-            'note': 'Handle the creation of template files that you can translate',
+            'note': 'Updates the plugin translation keys if needed. Creates a copy of the plugin',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later'
         };
     };
 
-    const _GetCmdFunctions = function() {
+    const _GetCmdFunctions = function () {
         const $list = {
             'create': 'normal',
             'click_refresh': 'normal',
-            'click_update_plugin': 'normal'
+            'click_update_plugin_array': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
     };
 
-    let $pluginTranslationsMerged = {};
-
-    /**
-     * Get the level 1 plugin name from a plugin name
-     * example: infohub_contact_menu gives you infohub_contact
-     * @param {string} $pluginName
-     * @returns {string}
-     * @private
-     */
-    $functions.push("_GetGrandPluginName");
-    const _GetGrandPluginName = function($pluginName)
-    {
-        const $parts = $pluginName.split('_');
-
-        if (_Count($parts) > 2) {
-            return $parts[0] + '_' + $parts[1];
-        }
-
-        return $pluginName;
-    };
-
     let $classTranslations = {};
-
-    /**
-     * Translate - Substitute a string for another string using a class local object
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_Translate');
-    const _Translate = function ($string)
-    {
-        if (typeof $classTranslations !== 'object') {
-            return $string;
-        }
-
-        return _GetData({
-            'name': _GetClassName() + '|' + $string,
-            'default': $string, 'data': $classTranslations, 'split': '|'
-        });
-    };
-
-    /**
-     * Merge only when there are data in a key
-     * @param {type} $string
-     * @returns string
-     */
-    $functions.push('_MergeData');
-    const _MergeData = function ($object1, $object2)
-    {
-        if (typeof $object1 === 'object') {
-            if (typeof $object2 === 'object') {
-                $object1 = _ByVal(_MergeKeys($object1, $object2));
-            }
-        }
-
-        return _ByVal($object1);
-    };
-
-    $functions.push('_MergeKeys');
-    const _MergeKeys = function ($object1, $object2)
-    {
-        for (let $key in $object2)
-        {
-            if ($object2.hasOwnProperty($key) === false) {
-                continue;
-            }
-
-            if (typeof $object2[$key] === 'string') {
-                if ($object2[$key] !== '') {
-                    $object1[$key] = $object2[$key];
-                }
-            }
-
-            if (typeof $object2[$key] === 'object')
-            {
-                if (_Count($object2[$key]) > 0)
-                {
-                    if (_IsSet($object1[$key]) === 'false') {
-                        $object1[$key] = {};
-                    }
-
-                    $object1[$key] = _MergeKeys($object1[$key], $object2[$key]);
-                }
-            }
-        }
-
-        return _ByVal($object1);
-    };
-
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -146,8 +58,7 @@ function infohub_translate_updateplugin() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function ($in)
-    {
+    const create = function ($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -160,8 +71,7 @@ function infohub_translate_updateplugin() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render')
-        {
+        if ($in.step === 'step_render') {
             $classTranslations = $in.translations;
 
             return _SubCall({
@@ -188,7 +98,7 @@ function infohub_translate_updateplugin() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REFRESH_LISTS'),
+                            'button_label': _Translate('REFRESH_PLUGIN_LIST'),
                             'event_data': 'updateplugin|refresh',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
@@ -198,9 +108,9 @@ function infohub_translate_updateplugin() {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("SELECT_PLUGIN"),
-                            "description": _Translate("LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._SELECT_A_PLUGIN_AND_CLICK_UPDATE_PLUGIN."),
+                            "description": _Translate('LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES.') + ' ' + _Translate('SELECT_A_PLUGIN_AND_CLICK_UPDATE_PLUGIN.'),
                             "size": "6",
-                            "multiple": "false",
+                            "multiple": "true",
                             "options": [],
                             'source_node': 'client',
                             'source_plugin': 'infohub_launcher',
@@ -213,14 +123,14 @@ function infohub_translate_updateplugin() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('PLUGIN_NAME'),
-                            'description':_Translate('YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST.')
+                            'description': _Translate('YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST.') + ' ' + _Translate('ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST.')
                         },
                         'button_update_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('UPDATE_PLUGIN'),
-                            'event_data': 'updateplugin|update_plugin',
+                            'event_data': 'updateplugin|update_plugin_array',
                             'to_node': 'client',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click'
@@ -234,7 +144,7 @@ function infohub_translate_updateplugin() {
                         },
                         'text_instructions': {
                             'type': 'text',
-                            'text': 'The plugin you select will have its Translate() text converted to a key string.'
+                            'text': _Translate('THE_PLUGIN_YOU_SELECT_WILL_HAVE_ITS_TRANSLATE_TEXT_CONVERTED_TO_A_KEY_STRING.')
                         }
                     },
                     'how': {
@@ -267,8 +177,7 @@ function infohub_translate_updateplugin() {
      * @author Peter Lembke
      */
     $functions.push("click_refresh");
-    const click_refresh = function ($in)
-    {
+    const click_refresh = function ($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_render_plugin_options',
@@ -280,8 +189,7 @@ function infohub_translate_updateplugin() {
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render_plugin_options')
-        {
+        if ($in.step === 'step_render_plugin_options') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -303,8 +211,7 @@ function infohub_translate_updateplugin() {
 
         }
 
-        if ($in.step === 'step_render_language_options')
-        {
+        if ($in.step === 'step_render_language_options') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -338,9 +245,8 @@ function infohub_translate_updateplugin() {
      * @since   2020-12-15
      * @author  Peter Lembke
      */
-    $functions.push('click_update_plugin');
-    const click_update_plugin = function ($in)
-    {
+    $functions.push('click_update_plugin_array');
+    const click_update_plugin_array = function ($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -354,13 +260,12 @@ function infohub_translate_updateplugin() {
                 'answer': 'false',
                 'message': 'Nothing to report',
                 'ok': 'false',
-                'plugin_name': ''
+                'plugin_name_array': []
             }
-
         };
         $in = _Default($default, $in);
 
-        let $nodeData = {};
+        let $pluginNameArray = [];
 
         if ($in.step === 'step_form_read') {
             return _SubCall({
@@ -379,15 +284,13 @@ function infohub_translate_updateplugin() {
             });
         }
 
-        if ($in.step === 'step_form_read_response')
-        {
+        if ($in.step === 'step_form_read_response') {
             $in.step = 'step_end';
 
-            if ($in.response.answer === 'true')
-            {
-                const $pluginNameSelected = _GetData({
-                    'name': 'response/form_data/select_plugin/value/0',
-                    'default': '',
+            if ($in.response.answer === 'true') {
+                const $pluginNameArraySelected = _GetData({
+                    'name': 'response/form_data/select_plugin/value',
+                    'default': [],
                     'data': $in
                 });
 
@@ -397,21 +300,16 @@ function infohub_translate_updateplugin() {
                     'data': $in
                 });
 
-                let $pluginName = $pluginNameSelected;
+                $pluginNameArray = $pluginNameArraySelected;
                 if (_Empty($pluginNameText) === 'false') {
-                    $pluginName = $pluginNameText;
+                    $pluginNameArray.push($pluginNameText);
                 }
-
-                $nodeData = {
-                    'plugin_name': $pluginName
-                };
 
                 $in.step = 'step_ask_server';
             }
         }
 
-        if ($in.step === 'step_ask_server')
-        {
+        if ($in.step === 'step_ask_server') {
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -422,38 +320,27 @@ function infohub_translate_updateplugin() {
                     'to': {
                         'node': 'server',
                         'plugin': 'infohub_translate',
-                        'function': 'update_plugin'
+                        'function': 'update_plugins'
                     },
                     'data': {
-                        'plugin_name': $nodeData.plugin_name
+                        'plugin_name_array': $pluginNameArray
                     }
                 },
                 'data_back': {
                     'step': 'step_ask_server_response',
-                    'plugin_name': $nodeData.plugin_name
+                    'plugin_name_array': $pluginNameArray
                 }
             });
         }
 
-        if ($in.step === 'step_ask_server_response')
-        {
+        if ($in.step === 'step_ask_server_response') {
             $in.data_back.answer = $in.response.answer;
             $in.data_back.message = $in.response.message;
             let $showMessage = $in.data_back.message;
 
             if ($in.response.answer === 'true') {
                 $in.data_back.ok = 'true';
-                $showMessage = _Translate('PLUGIN_AND_CHILDREN_UPDATED._SEE_FOLDER:_FILE/INFOHUB_TRANSLATE/');
-            }
-
-            const $pluginName = _GetData({
-                'name': 'data_back/plugin_name',
-                'default': '',
-                'data': $in
-            });
-
-            if (_Empty($pluginName) === 'false') {
-                $showMessage = $pluginName + ': ' + $showMessage;
+                $showMessage = _Translate('PLUGIN_AND_CHILDREN_UPDATED._SEE_FOLDER:') + ' file/infohub_translate';
             }
 
             return _SubCall({
@@ -476,8 +363,7 @@ function infohub_translate_updateplugin() {
             });
         }
 
-        if ($in.step === 'step_show_message_response')
-        {
+        if ($in.step === 'step_show_message_response') {
         }
 
         return {
@@ -487,4 +373,5 @@ function infohub_translate_updateplugin() {
         };
     };
 }
+
 //# sourceURL=infohub_translate_updateplugin.js

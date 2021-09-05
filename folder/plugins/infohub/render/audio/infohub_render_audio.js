@@ -59,7 +59,7 @@ function infohub_render_audio() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
         let $parts = $text.split('_');
 
@@ -83,7 +83,7 @@ function infohub_render_audio() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -135,7 +135,7 @@ function infohub_render_audio() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -192,7 +192,7 @@ function infohub_render_audio() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Jamendo = function($in) {
+    const internal_Jamendo = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'jamendo',
@@ -233,7 +233,7 @@ function infohub_render_audio() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Jamendolink = function($in) {
+    const internal_Jamendolink = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'jamendolink',
@@ -283,7 +283,7 @@ function infohub_render_audio() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Soundcloud = function($in) {
+    const internal_Soundcloud = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'soundcloud',
@@ -327,7 +327,7 @@ function infohub_render_audio() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Soundcloudlink = function($in) {
+    const internal_Soundcloudlink = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'soundcloudlink',
@@ -377,7 +377,7 @@ function infohub_render_audio() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Spotify = function($in) {
+    const internal_Spotify = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'spotify',
@@ -422,7 +422,7 @@ function infohub_render_audio() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Spotifylink = function($in) {
+    const internal_Spotifylink = function($in = {}) {
         const $default = {
             'type': 'audio',
             'subtype': 'spotifylink',

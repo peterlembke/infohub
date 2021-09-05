@@ -88,7 +88,7 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         const $default = {
             'id': '',
             'name': '',
@@ -130,7 +130,7 @@ function infohub_render_common() {
      * @returns {string}
      * @private
      */
-    const _Display = function($in) {
+    const _Display = function($in = {}) {
         const $default = {
             'display': '',
         };
@@ -168,7 +168,7 @@ function infohub_render_common() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -216,7 +216,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_ContainerStart = function($in) {
+    const internal_ContainerStart = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'container',
@@ -239,8 +239,7 @@ function infohub_render_common() {
             $in.tag = 'div';
         }
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $html = '<' + $in.tag + ' ' + $id + '>';
 
         return {
@@ -256,7 +255,7 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_ContainerStop = function($in) {
+    const internal_ContainerStop = function($in = {}) {
         const $default = {
             'tag': 'div', // span, p, div
             // 'css_data': {}
@@ -292,11 +291,11 @@ function infohub_render_common() {
      * @since   2015-02-15
      * @author  Peter Lembke
      */
-    const internal_Container = function($in) {
+    const internal_Container = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'container',
-            'tag': 'span', // span, p, div, pre
+            'tag': 'div', // span, p, div, pre
             'data': '',
             'css_data': {},
             'display': '', // leave empty, "block" or "inline" or "none".
@@ -310,14 +309,12 @@ function infohub_render_common() {
             'div': 'div',
         };
         if (typeof $tag[$in.tag] === 'undefined') {
-            $in.tag = 'span';
+            $in.tag = 'div';
         }
 
         const $display = _Display($in);
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
-        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display + '>' +
-            $in.data + '</' + $in.tag + '>';
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display + '>' + $in.data + '</' + $in.tag + '>';
 
         let $cssData = $in.css_data;
 
@@ -327,18 +324,21 @@ function infohub_render_common() {
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
+
         if ($in.class === 'container-small') {
             $cssData = {
                 '.container-small': 'display:inline-block;vertical-align:top;max-width:320px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
+
         if ($in.class === 'container-medium') {
             $cssData = {
                 '.container-medium': 'display:inline-block;vertical-align:top;max-width:640px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
+
         if ($in.class === 'container-large') {
             $cssData = {
                 '.container-large': 'display:inline-block;vertical-align:top;max-width:960px;',
@@ -361,7 +361,7 @@ function infohub_render_common() {
      * @since   2018-10-22
      * @author  Peter Lembke
      */
-    const internal_Codecontainer = function($in) {
+    const internal_Codecontainer = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'code-example',
@@ -372,7 +372,11 @@ function infohub_render_common() {
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': ''});
+        const $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': ''
+        });
 
         const $data = _Replace('\n', '&#13;&#10;', $in.data);
 
@@ -385,8 +389,7 @@ function infohub_render_common() {
             $in.language + '" ' + $id + '>' + $data + '</code></pre>';
 
         if ($in.tag === 'div' || $in.tag === 'span') {
-            $html = '<' + $in.tag + ' class="' + $in.class + '">' + $html +
-                '</' + $in.tag + '>';
+            $html = '<' + $in.tag + ' class="' + $in.class + '">' + $html + '</' + $in.tag + '>';
         }
 
         let $cssData = $in.css_data;
@@ -425,7 +428,7 @@ function infohub_render_common() {
      * @author  Peter Lembke
      * @deprecated
      */
-    const internal_Iframe = function($in) {
+    const internal_Iframe = function($in = {}) {
         const $default = {
             'alias': '',
             'height': '350px',
@@ -435,8 +438,11 @@ function infohub_render_common() {
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': $in.class
+        });
 
         const $parameters = [
             'sandbox="allow-scripts allow-same-origin allow-forms allow-popups"',
@@ -475,7 +481,7 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    const internal_Legend = function($in) {
+    const internal_Legend = function($in = {}) {
         const $default = {
             'alias': '',
             'label': '',
@@ -485,17 +491,21 @@ function infohub_render_common() {
         };
         $in = _Default($default, $in);
 
-        let $id = '';
         let $html = '';
 
         if ($in.label !== '') {
-            $id = _GetId({'class': 'legend'});
+            const $id = _GetId({'class': 'legend'});
             $html = '<legend ' + $id + '>' + $in.label + '</legend>';
         }
 
         $html = $html + $in.data;
 
-        $id = _GetId({'class': $in.class});
+        const $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': $in.class
+        });
+
         $html = '<fieldset ' + $id + '>' + $html + '</fieldset>';
 
         let $cssData = $in.css_data;
@@ -523,7 +533,7 @@ function infohub_render_common() {
      * @since   2015-03-31
      * @author  Peter Lembke
      */
-    const internal_Image = function($in) {
+    const internal_Image = function($in = {}) {
         const $default = {
             'alias': '',
             'data': '',
@@ -540,8 +550,12 @@ function infohub_render_common() {
                 $in.data = 'data:image/png;base64,' + $in.data;
             }
 
-            const $id = _GetId(
-                {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+            const $id = _GetId({
+                'id': $in.alias,
+                'name': $in.alias,
+                'class': $in.class
+            });
+
             $html = '<img ' + $id + ' src="' + $in.data + '">';
         }
 
@@ -573,7 +587,7 @@ function infohub_render_common() {
      * @param {type} $in
      * @returns {infohub_render_common.internal_Svg.infohub_render_commonAnonym$18}
      */
-    const internal_Svg = function($in) {
+    const internal_Svg = function($in = {}) {
         const $default = {
             'alias': '',
             'data': '',
@@ -617,7 +631,7 @@ function infohub_render_common() {
      * @since   2016-10-16
      * @author  Peter Lembke
      */
-    const internal_Value = function($in) {
+    const internal_Value = function($in = {}) {
         const $default = {
             'data': '',
         };
@@ -637,7 +651,7 @@ function infohub_render_common() {
      * @since   2019-10-06
      * @author  Peter Lembke
      */
-    const internal_Join = function($in) {
+    const internal_Join = function($in = {}) {
         const $default = {
             'title': '',
             'data0': '',
@@ -650,12 +664,22 @@ function infohub_render_common() {
             'data7': '',
             'data8': '',
             'data9': '',
+            'data10': '',
+            'data11': '',
+            'data12': '',
+            'data13': '',
+            'data14': '',
+            'data15': '',
+            'data16': '',
+            'data17': '',
+            'data18': '',
+            'data19': '',
         };
         $in = _Default($default, $in);
 
         let $htmlArray = [];
 
-        for (let $i = 0; $i < 10; $i = $i + 1) {
+        for (let $i = 0; $i < 20; $i = $i + 1) {
             const $key = 'data' + $i;
             const $data = $in[$key];
             if ($data !== '') {
@@ -663,7 +687,7 @@ function infohub_render_common() {
             }
         }
 
-        let $html = $htmlArray.join('');
+        let $html = $htmlArray.join(' ');
 
         if ($in.title !== '') {
             $html = '[h2]' + $in.title + '[/h2]' + $html;
@@ -682,7 +706,7 @@ function infohub_render_common() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_List = function($in) {
+    const internal_List = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'list',
@@ -697,25 +721,37 @@ function infohub_render_common() {
         const $optionDefault = {
             'label': '',
             'id': '',
+            'display': ''
         };
 
-        let $id;
 
-        for (let $rowNumber = 0; $rowNumber <
-        $in.option.length; $rowNumber = $rowNumber + 1) {
+        for (let $rowNumber = 0; $rowNumber < $in.option.length; $rowNumber = $rowNumber + 1)
+        {
             let $row = $in.option[$rowNumber];
             $row = _Default($optionDefault, $row);
 
-            let $startTag = '<li>';
+            let $id = '',
+                $style = '';
+
             if (_Empty($row.id) === 'false') {
-                $id = 'id="{box_id}_' + $row.id + '"';
-                $startTag = '<li ' + $id + '>';
+                $id = ' id="{box_id}_' + $row.id + '"';
             }
+
+            if ($row.display === 'false') {
+                $style = ' style="display: none;"';
+            }
+
+            let $startTag = '<li' + $id + $style + '>';
 
             $in.html = $in.html + $startTag + $row.label + '</li>';
         }
 
-        $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': $in.class
+        });
+
         const $display = _Display($in);
         $in.html = '<ul ' + $id + ' ' + $display + '>' + $in.html + '</ul>';
 
@@ -744,7 +780,7 @@ function infohub_render_common() {
      * @since   2018-06-30
      * @author  Peter Lembke
      */
-    const internal_LabelData = function($in) {
+    const internal_LabelData = function($in = {}) {
         const $default = {
             'alias': '',
             'label': '',
@@ -754,20 +790,25 @@ function infohub_render_common() {
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': $in.class
+        });
+
         const $idLabel = _GetId({
             'id': $in.alias + '_label',
             'name': $in.alias + '_label',
             'class': 'label',
         });
+
         const $idData = _GetId({
             'id': $in.alias + '_data',
             'name': $in.alias + '_data',
             'class': 'data',
         });
-        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label +
-            '</span><span ' + $idData + '>' + $in.data + '</span></div>';
+
+        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
 
         let $cssData = $in.css_data;
 
@@ -796,7 +837,7 @@ function infohub_render_common() {
      * @since   2020-08-30
      * @author  Peter Lembke
      */
-    const internal_Progress = function($in) {
+    const internal_Progress = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'progress',
@@ -808,10 +849,14 @@ function infohub_render_common() {
         $in = _Default($default, $in);
 
         const $display = _Display($in);
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
-        const $html = '<progress ' + $id + ' max="' + $in.max + '" value="' +
-            $in.value + '" ' + $display + '></progress>';
+
+        const $id = _GetId({
+            'id': $in.alias,
+            'name': $in.alias,
+            'class': $in.class
+        });
+
+        const $html = '<progress ' + $id + ' max="' + $in.max + '" value="' + $in.value + '" ' + $display + '></progress>';
 
         let $cssData = $in.css_data;
 

@@ -519,7 +519,7 @@ class infohub_demo extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $in['url_path'] = str_replace('.', '/', $in['url_path']);
+        $in['url_path'] = strtr($in['url_path'], ['.' => '/']);
 
         if ($in['step'] === 'step_parent_call_child') {
             return $this->_SubCall(

@@ -68,7 +68,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'path': '',
             'step': 'step_start',
@@ -197,7 +197,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('read_paths');
-    const read_paths = function($in) {
+    const read_paths = function($in = {}) {
         const $default = {
             'connect': {},
             'path': '', // Path that ends with a *
@@ -320,7 +320,7 @@ function infohub_storage_data() {
      * @returns {*}
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'path': '',
             'data': {},
@@ -453,7 +453,7 @@ function infohub_storage_data() {
      * @param $in
      * @return array
      */
-    const write_overwrite = function($in) {
+    const write_overwrite = function($in = {}) {
         const $default = {
             'connect': {},
             'path': '',
@@ -527,7 +527,7 @@ function infohub_storage_data() {
      * @param $in
      * @return array
      */
-    const write_merge = function($in) {
+    const write_merge = function($in = {}) {
         const $default = {
             'connect': {},
             'path': '',
@@ -641,7 +641,7 @@ function infohub_storage_data() {
      * @return array
      */
     $functions.push('_SetConnectionDefault');
-    const _SetConnectionDefault = function($in) {
+    const _SetConnectionDefault = function($in = {}) {
         const $default = {
             'plugin_name_handler': 'infohub_storage_data_indexeddb', // Name of the storage child plugin that can handle this connection
             'plugin_name_owner': '', // Level 1 Plugin name that own the data

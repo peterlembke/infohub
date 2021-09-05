@@ -196,12 +196,11 @@ class infohub_storage_data_mysql extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'ConnectionOpen',
-                'connect' => $in['connect']
-            ]
-        );
+        $response = $this->internal_Cmd([
+            'func' => 'ConnectionOpen',
+            'connect' => $in['connect']
+        ]);
+
         if ($response['answer'] === 'false') {
             $message = $response['message'];
             goto leave;
@@ -833,7 +832,7 @@ EOD;
     }
 
     /**
-     * Looks trough the array and pull out all parameters that could be used in the SQL query.
+     * Looks through the array and pull out all parameters that could be used in the SQL query.
      * Then we substitute the parameters in the SQL query.
      * In the example all parameters with {parameter_name} will be substituted.
      * The :path is another binding that will be handled by _BindData() separately.

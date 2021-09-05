@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.1] - 2021-09-05
+
+* [Release notes](main,release_v1_v1v3_v1v3v1)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.1)
+
+You can now render password boxes with generate passsword, show/hide password. You can render status boxes. Improved translation tool that validate translation files. Bug fixes. Performance improvements. All plugins can now have assets. Added password to the Tree private secret
+
 # [1.3.0] - 2021-05-22
 
 * [Release notes](main,release_v1_v1v3_v1v3v0)

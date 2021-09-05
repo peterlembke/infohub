@@ -52,7 +52,7 @@ function infohub_demo_menu() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -212,6 +212,13 @@ function infohub_demo_menu() {
                                     'alias': 'storage_demo_link',
                                     'event_data': 'storage',
                                     'button_label': _Translate('STORAGE'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu',
+                                },
+                                'status_demo': {
+                                    'alias': 'status_demo_link',
+                                    'event_data': 'status',
+                                    'button_label': _Translate('STATUS'),
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu',
                                 },

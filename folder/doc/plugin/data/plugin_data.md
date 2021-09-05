@@ -8,8 +8,8 @@ All these examples download as little data as possible to reduce bandwidth and w
 
 # List with data
 The client should be able to request a list with data. The list should contain names of the data and their checksums so the client can compare with what they already have.  
-The list itself also has a checksum so it is easy to detect if a list has changed.  
-The client can then figutre out from the local list and the server list what data that are missing or changed so it can request that data from the server.  
+The list itself also has a checksum that makes it is easy to detect if a list has changed.  
+The client can then figure out from the local list and the server list what data that are missing or changed, then it can request that data from the server.  
 
 # Bandwidth
 Infohub try to use as little bandwidth as possible and as few requests as possible.  
@@ -17,12 +17,12 @@ It is always the client that request data lists and what data to download. The c
 Messages are automatically bundled together in packages. That means the client can send several requests to the server in one request.  
 
 # Reuse data (cache)
-The data that the clent have downloaded should be stored locally and reused. Store the data with a datetime stamp and the client then decide how long time the client consider the data to be valid.  
+The data that the client have downloaded should be stored locally and reused. Store the data with a datetime stamp and the client then decide how long time the client consider the data to be valid.  
 
 # Update data (cache)
 When the client version of the data list is old then request a new list from the server IF the client is online.  
 The client send the checksum of the local list to the server. If the server list has the same checksum then a do:keep is sent back.  
-If the checksum is different then a do:update is sent back together with the new list.  
+If the checksum is different, then a do:update is sent back together with the new list.  
 The client can then compare the local list with the latest server list and request the data that is changed or new, but also delete data that are obsolete.  
 
 # Offline data (cache)
@@ -37,4 +37,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2018-12-31 by Peter Lembke  
-Updated 2018-12-31 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

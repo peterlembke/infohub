@@ -68,7 +68,7 @@ function infohub_welcome() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -196,7 +196,7 @@ function infohub_welcome() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',

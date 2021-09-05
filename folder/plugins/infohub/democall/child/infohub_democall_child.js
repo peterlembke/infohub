@@ -51,7 +51,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('child_func');
-    const child_func = function($in) {
+    const child_func = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -150,7 +150,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('invalid_call_to_sibling_grandchild');
-    const invalid_call_to_sibling_grandchild = function($in) {
+    const invalid_call_to_sibling_grandchild = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -229,7 +229,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('test_answer_child');
-    const test_answer_child = function($in) {
+    const test_answer_child = function($in = {}) {
         const $default = {
             'step': 'step_call_grandchild',
         };
@@ -264,7 +264,7 @@ function infohub_democall_child() {
      * @author  Peter Lembke
      */
     $functions.push('answer_child');
-    const answer_child = function($in) {
+    const answer_child = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };

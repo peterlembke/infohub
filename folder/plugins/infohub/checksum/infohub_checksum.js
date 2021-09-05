@@ -56,7 +56,7 @@ function infohub_checksum() {
      * @returns {*}
      */
     $functions.push('calculate_checksum');
-    const calculate_checksum = function($in) {
+    const calculate_checksum = function($in = {}) {
         const $default = {
             'type': 'md5',
             'value': '',
@@ -114,7 +114,7 @@ function infohub_checksum() {
      * @returns {*}
      */
     $functions.push('verify_checksum');
-    const verify_checksum = function($in) {
+    const verify_checksum = function($in = {}) {
         const $default = {
             'type': 'md5',
             'value': '',
@@ -175,7 +175,7 @@ function infohub_checksum() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $options = [
             {'type': 'option', 'value': 'crc32', 'label': 'CRC32'},
             {'type': 'option', 'value': 'luhn', 'label': 'Luhn'},

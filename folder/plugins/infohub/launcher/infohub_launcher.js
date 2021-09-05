@@ -81,7 +81,7 @@ function infohub_launcher() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -91,7 +91,7 @@ function infohub_launcher() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_boxes',
@@ -369,7 +369,7 @@ function infohub_launcher() {
                         'presentation_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('instructions'),
+                            'head_label': _Translate('INSTRUCTIONS'),
                             'head_text': '[button_help]',
                             'content_data': '[description]',
                         },
@@ -429,7 +429,7 @@ function infohub_launcher() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[user_name]<br>[button_logout]<br>[button_refresh]',
+                            'content': '[user_name]<br>[current_url]<br>[button_logout]<br>[button_refresh]',
                             'label': _Translate('MORE'),
                             'label_icon': '[down_icon]',
                             'description': '',
@@ -449,8 +449,12 @@ function infohub_launcher() {
                         'user_name': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('USER_NAME') + ': ' +
-                                $userRealName,
+                            'data': _Translate('USER_NAME') + ': ' + $userRealName,
+                        },
+                        'current_url': {
+                            'type': 'common',
+                            'subtype': 'value',
+                            'data': _Translate('CURRENT_URL') + ': ' + window.location.href,
                         },
                         'button_logout': {
                             'plugin': 'infohub_renderform',
@@ -522,7 +526,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('first_contact');
-    const first_contact = function($in) {
+    const first_contact = function($in = {}) {
         const $default = {
             'step': 'step_is_my_list_empty',
             'response': {
@@ -654,7 +658,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('switch_button');
-    const switch_button = function($in) {
+    const switch_button = function($in = {}) {
         let $listName = 'my_list';
 
         const $default = {
@@ -711,7 +715,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('render_list');
-    const render_list = function($in) {
+    const render_list = function($in = {}) {
         const $default = {
             'list_name': '',
             'render_icons': 'true', // Used for server list in the initial startup to avoid render icons before all assets have been downloaded.
@@ -944,7 +948,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('get_option_list');
-    const get_option_list = function($in) {
+    const get_option_list = function($in = {}) {
         const $default = {
             'list_name': 'full_list',
             'step': 'step_start',
@@ -969,7 +973,7 @@ function infohub_launcher() {
             $in.step = 'step_read_local_list';
             if ($listName !== 'my_list' && $listName !== 'full_list') {
                 $message = _Translate(
-                    'infohub_launcher -> get_option_list() can not give option values for the list') +
+                    'GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST') +
                     ': ' + $listName;
                 $in.step = 'step_alert';
             }
@@ -1047,8 +1051,7 @@ function infohub_launcher() {
     $functions.push('internal_AddIcon');
     const internal_AddIcon = function($what, $list, $item) {
         let $answer = 'false';
-        let $message = _Translate(
-            'There was an error in infohub_launcher -> internal_AddIcon');
+        let $message = _Translate('THERE_WAS_AN_ERROR_IN_ADDICON');
 
         leave:
         {
@@ -1057,13 +1060,13 @@ function infohub_launcher() {
             }
 
             if ($list !== 'my_list' && $list !== 'full_list') {
-                $message = _Translate('_AddIcon got an invalid list') + ': ' +
+                $message = _Translate('ADDICON_GOT_AN_INVALID_LIST') + ': ' +
                     $list;
                 break leave;
             }
 
             if (_Empty($item) === 'true') {
-                $message = _Translate('_AddIcon got an empty item');
+                $message = _Translate('ADDICON_GOT_AN_EMPTY_ITEM');
                 break leave;
             }
 
@@ -1174,7 +1177,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('refresh_list');
-    const refresh_list = function($in) {
+    const refresh_list = function($in = {}) {
         const $default = {
             'list_name': '',
             'step': 'step_start',
@@ -1279,8 +1282,7 @@ function infohub_launcher() {
 
             let $files = {}; // The translation files we want for each plugin
             for (let $number in $in.data_back.language_codes) {
-                if ($in.data_back.language_codes.hasOwnProperty($number) ===
-                    false) {
+                if ($in.data_back.language_codes.hasOwnProperty($number) === false) {
                     continue;
                 }
 
@@ -1295,8 +1297,7 @@ function infohub_launcher() {
                     continue;
                 }
 
-                $in.data_back.list[$key] = _Merge($in.data_back.list[$key],
-                    $files);
+                $in.data_back.list[$key] = _Merge($in.data_back.list[$key], $files);
             }
 
             $in.step = 'step_update_specific_assets';
@@ -1355,6 +1356,7 @@ function infohub_launcher() {
         };
     };
 
+    $functions.push('get_list');
     /**
      * Give the list name and you will get the list from infohub_launcher.
      * Infohub_launcher owns the list and is the only one that is allowed to ask Storage for the list.
@@ -1364,8 +1366,7 @@ function infohub_launcher() {
      * @since 2018-10-26
      * @author Peter Lembke
      */
-    $functions.push('get_list');
-    const get_list = function($in) {
+    const get_list = function($in = {}) {
         const $default = {
             'list_name': 'full_list',
             'step': 'step_start',
@@ -1409,6 +1410,7 @@ function infohub_launcher() {
         };
     };
 
+    $functions.push('update_full_list');
     /**
      * Update the locally saved full_list
      * Reads the local full_list, check if it is old, if old then ask server for a new list from the server.
@@ -1417,8 +1419,7 @@ function infohub_launcher() {
      * @since 2017-12-04
      * @author Peter Lembke
      */
-    $functions.push('update_full_list');
-    const update_full_list = function($in) {
+    const update_full_list = function($in = {}) {
         const $default = {
             'step': 'step_get_full_list_from_client',
             'data_back': {
@@ -1638,7 +1639,7 @@ function infohub_launcher() {
     };
 
     $functions.push('_GetListPath');
-    const _GetListPath = function($type, $userName) {
+    const _GetListPath = function($type = 'my_list', $userName = '') {
         let $path = '';
         if ($type !== 'my_list' && $type !== 'full_list') {
             return $path;
@@ -1656,7 +1657,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('my_list_add');
-    const my_list_add = function($in) {
+    const my_list_add = function($in = {}) {
         const $default = {
             'plugin': '',
             'new_data': {},
@@ -1853,7 +1854,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('my_list_remove');
-    const my_list_remove = function($in) {
+    const my_list_remove = function($in = {}) {
         let $myList;
 
         const $default = {
@@ -1898,11 +1899,10 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_does_plugin_exist_in_my_list_response') {
+            $in.step = 'step_get_my_list_from_storage';
             if ($in.response.exist === 'false') {
                 $message = 'The plugin is already gone from my list on screen';
                 $in.step = 'step_end';
-            } else {
-                $in.step = 'step_get_my_list_from_storage';
             }
         }
 
@@ -1983,7 +1983,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('plugin_information');
-    const plugin_information = function($in) {
+    const plugin_information = function($in = {}) {
         const $default = {
             'plugin_name': '',
             'list_name': '',
@@ -2061,7 +2061,7 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Add to my list'),
+                            'button_label': _Translate('ADD_TO_MY_LIST'),
                             'button_left_icon': '[button_add_icon]',
                             'event_data': $in.list_name + '|' +
                                 $in.plugin_name + '|add',
@@ -2071,7 +2071,7 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Remove from my list'),
+                            'button_label': _Translate('REMOVE_FROM_LIST'),
                             'button_left_icon': '[button_remove_icon]',
                             'event_data': $in.list_name + '|' +
                                 $in.plugin_name + '|remove',
@@ -2081,7 +2081,7 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('Run plugin'),
+                            'button_label': _Translate('RUN_PLUGIN'),
                             'button_left_icon': '[button_play_icon]',
                             'event_data': $in.list_name + '|' +
                                 $in.plugin_name + '|run',
@@ -2092,7 +2092,7 @@ function infohub_launcher() {
                             'subtype': 'external',
                             'alias': 'link_new_window',
                             'data': 'link_new_window',
-                            'show': _Translate('Run in new window'),
+                            'show': _Translate('RUN_IN_NEW_WINDOW'),
                             'url': window.location.origin + '?plugin_name=' + $in.plugin_name,
                         },
                         'button_add_icon': {
@@ -2160,7 +2160,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('get_launch_information');
-    const get_launch_information = function($in) {
+    const get_launch_information = function($in = {}) {
         const $default = {
             'plugin_name': '', // infohub_asset and infohub_launcher can use this.
             'from_plugin': {'node': '', 'plugin': ''},
@@ -2406,7 +2406,7 @@ function infohub_launcher() {
      * @author Peter Lembke
      */
     $functions.push('get_launch_list');
-    const get_launch_list = function($in) {
+    const get_launch_list = function($in = {}) {
         const $default = {
             'from_plugin': {'node': '', 'plugin': ''},
             'step': 'step_get_launch_information',
@@ -2502,7 +2502,7 @@ function infohub_launcher() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',

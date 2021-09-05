@@ -79,18 +79,17 @@ function infohub_exchange() {
     // * Name: _CamelCaseData
     // *****************************************************************************
 
+    $functions.push('_BoxError');
     /**
      * Write error message to screen. Newest error highest.
      * @version 2014-01-17
      * @since   2014-01-17
      * @author  Peter Lembke
      * @param $message
+     * @param $doHtmlToText
+     * @private
      */
-    $functions.push('_BoxError');
-    const _BoxError = function($message, $doHtmlToText) {
-        if (_IsSet($doHtmlToText) === 'false') {
-            $doHtmlToText = 'true';
-        }
+    const _BoxError = function($message = '', $doHtmlToText = 'true') {
 
         let $boxError = document.getElementById('error');
         $boxError.className = 'error';
@@ -116,6 +115,7 @@ function infohub_exchange() {
         }
     };
 
+    $functions.push('_HtmlToText');
     /**
      * Convert HTML to text to be shown on screen without harm
      * http://www.freebits.co.uk/convert-html-code-to-text.html
@@ -124,8 +124,7 @@ function infohub_exchange() {
      * @author  Peter Lembke
      * @param $message
      */
-    $functions.push('_HtmlToText');
-    const _HtmlToText = function($message) {
+    const _HtmlToText = function($message = '') {
         $message = $message.replace(/&/g, '&amp;');
         $message = $message.replace(/</g, '&lt;');
         $message = $message.replace(/>/g, '&gt;');
@@ -182,7 +181,7 @@ function infohub_exchange() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -195,7 +194,7 @@ function infohub_exchange() {
      * @return {{answer: string, message: string}}
      */
     $functions.push('main');
-    const main = function($in) {
+    const main = function($in = {}) {
         const $default = {
             'package': {},
             'answer': 'false',
@@ -319,7 +318,7 @@ function infohub_exchange() {
      * @author Peter Lembke
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $default = {
             'step': 'step_get_session_data',
             'parent_box_id': '1',
@@ -399,8 +398,7 @@ function infohub_exchange() {
 
         if ($in.step === 'step_check_session_valid_response') {
 
-            $progress.whatArea('send_first_message', 55,
-                'Check session valid response');
+            $progress.whatArea('send_first_message', 55, 'Check session valid response');
 
             const $default = {
                 'answer': '',
@@ -572,7 +570,7 @@ function infohub_exchange() {
      * @author Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'event_type': '',
             'message': '',
@@ -595,7 +593,7 @@ function infohub_exchange() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_started');
-    const plugin_started = function($in) {
+    const plugin_started = function($in = {}) {
         const $default = {
             'plugin_name': '',
             'plugin_started': 'false',
@@ -607,14 +605,12 @@ function infohub_exchange() {
 
         leave: {
             if (_IsSet($Pending[$in.plugin_name]) === false) {
-                $message = 'We have not requested this plugin:' +
-                    $in.plugin_name + ', skip it';
+                $message = 'We have not requested this plugin:' + $in.plugin_name + ', skip it';
                 break leave;
             }
 
             if (_Count($Pending[$in.plugin_name]) === 0) {
-                $message = 'We have no pending messages to this plugin:' +
-                    $in.plugin_name + ', skip it';
+                $message = 'We have no pending messages to this plugin:' + $in.plugin_name + ', skip it';
                 break leave;
             }
 
@@ -645,11 +641,9 @@ function infohub_exchange() {
 
             $Plugin[$in.plugin_name] = {};
             try {
-                eval('$Plugin[$in.plugin_name] = new ' + $in.plugin_name +
-                    '();');
+                eval('$Plugin[$in.plugin_name] = new ' + $in.plugin_name + '();');
             } catch ($err) {
-                $message = 'Can not not instantiate class:' + $in.plugin_name +
-                    ', error:' + $err.message();
+                $message = 'Can not not instantiate class:' + $in.plugin_name + ', error:' + $err.message();
                 break leave;
             }
 
@@ -673,7 +667,7 @@ function infohub_exchange() {
      * @returns {*}
      * @private
      */
-    const _CheckIncomingMessagesIfSessionValid = function($in) {
+    const _CheckIncomingMessagesIfSessionValid = function($in = {}) {
 
         for (let $key in $in.package.messages) {
             if ($in.package.messages.hasOwnProperty($key) === false) {
@@ -710,7 +704,7 @@ function infohub_exchange() {
      * If package true then run some code and give messages to the main loop.
      * @param $in
      */
-    const initiator_verify_sign_code = function($in) {
+    const initiator_verify_sign_code = function($in = {}) {
         const $default = {
             'step': 'step_check_incoming_data',
             'package': {
@@ -866,7 +860,7 @@ function infohub_exchange() {
      * @uses package | string | The incoming package as a JSON string
      */
     $functions.push('internal_ToSort');
-    const internal_ToSort = function($in) {
+    const internal_ToSort = function($in = {}) {
         const $default = {
             'func': 'ToSort',
             'package': {},
@@ -908,12 +902,12 @@ function infohub_exchange() {
         };
     };
 
+    $functions.push('_SendMessageBackPluginNotFound');
     /**
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
      * @param array $in
      */
-    $functions.push('_SendMessageBackPluginNotFound');
-    const _SendMessageBackPluginNotFound = function($in, $message) {
+    const _SendMessageBackPluginNotFound = function($in = {}, $message = '') {
         const $default = {
             'callstack': [],
             'data': {},
@@ -951,7 +945,7 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SendMessageBackMessageFailedTests');
-    const _SendMessageBackMessageFailedTests = function($in) {
+    const _SendMessageBackMessageFailedTests = function($in = {}) {
         const $default = {
             'callstack': [],
             'data': {},
@@ -985,7 +979,7 @@ function infohub_exchange() {
      * @param array $in
      */
     $functions.push('_SortAdd');
-    const _SortAdd = function($in) {
+    const _SortAdd = function($in = {}) {
         const $default = {
             'test': 'true',
             'message': {},
@@ -1036,7 +1030,7 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('internal_MessageCheck');
-    const internal_MessageCheck = function($in) {
+    const internal_MessageCheck = function($in = {}) {
         const $default = {
             'callstack': [],
             'data': {},
@@ -1098,7 +1092,7 @@ function infohub_exchange() {
      * @private
      */
     $functions.push('_CheckMessageStructure');
-    const _CheckMessageStructure = function($in) {
+    const _CheckMessageStructure = function($in = {}) {
         $in = _ByVal($in);
 
         let $ok = 'false';
@@ -1145,7 +1139,7 @@ function infohub_exchange() {
      * @return string
      */
     $functions.push('_CheckMessageStructureTo');
-    const _CheckMessageStructureTo = function($in) {
+    const _CheckMessageStructureTo = function($in = {}) {
         for (let $key in $in.to) {
             if ($in.to.hasOwnProperty($key) === false) {
                 continue;
@@ -1169,7 +1163,7 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('_CheckMessageNode');
-    const _CheckMessageNode = function($in) {
+    const _CheckMessageNode = function($in = {}) {
         $in = _ByVal($in);
 
         let $ok = 'true',
@@ -1208,7 +1202,7 @@ function infohub_exchange() {
      * @return array
      */
     $functions.push('_CheckMessageCalling');
-    const _CheckMessageCalling = function($in) {
+    const _CheckMessageCalling = function($in = {}) {
         $in = _ByVal($in);
 
         let $answer = 'true';
@@ -1322,7 +1316,7 @@ function infohub_exchange() {
      * @returns {*}
      */
     $functions.push('internal_Sort');
-    const internal_Sort = function($in) {
+    const internal_Sort = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1376,7 +1370,7 @@ function infohub_exchange() {
      * @return object
      */
     $functions.push('internal_ToPending');
-    const internal_ToPending = function($in) {
+    const internal_ToPending = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1456,7 +1450,7 @@ function infohub_exchange() {
      * @returns {{answer: string, message}}
      */
     $functions.push('internal_Stack');
-    const internal_Stack = function($in) {
+    const internal_Stack = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1602,7 +1596,7 @@ function infohub_exchange() {
      * @param $in
      * @returns {{new_url: string, answer: string, message: string}}
      */
-    const redirect = function($in) {
+    const redirect = function($in = {}) {
         const $default = {
             'new_url': '',
         };

@@ -56,7 +56,7 @@ function infohub_compress() {
      * @returns {*}
      */
     $functions.push('compress');
-    const compress = function($in) {
+    const compress = function($in = {}) {
         const $default = {
             'compression_method': 'gzip',
             'uncompressed_data': '',
@@ -148,7 +148,7 @@ function infohub_compress() {
      * @returns {*}
      */
     $functions.push('uncompress');
-    const uncompress = function($in) {
+    const uncompress = function($in = {}) {
         const $default = {
             'compression_method': 'gzip',
             'compressed_data': '',
@@ -248,7 +248,7 @@ function infohub_compress() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $options = [
             {'type': 'option', 'value': 'gzip', 'label': 'Gzip'},
             {'type': 'option', 'value': 'lz', 'label': 'LZ'},

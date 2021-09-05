@@ -55,7 +55,7 @@ function infohub_time() {
      * @returns {*}
      */
     $functions.push('time');
-    const time = function($in) {
+    const time = function($in = {}) {
         const $default = {
             'type': 'timestamp',
         };
@@ -115,7 +115,7 @@ function infohub_time() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $options = [
             {
                 'type': 'option',

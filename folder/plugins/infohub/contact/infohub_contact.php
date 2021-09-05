@@ -62,8 +62,7 @@ class infohub_contact extends infohub_base
             'delete_node_data' => 'normal',
             'load_node_data' => 'normal', // Also used by infohub_login.php
             'load_node_list' => 'normal',
-            'load_role_list' => 'normal',
-            'get_doc_file' => 'normal'
+            'load_role_list' => 'normal'
         ];
 
         return parent::_GetCmdFunctionsBase($list);
@@ -595,64 +594,6 @@ class infohub_contact extends infohub_base
             'role_list' => $roleList,
             'options' => $options,
             'ok' => $ok
-        ];
-    }
-
-    /**
-     * Get a doc file
-     * @param array $in
-     * @return array
-     * @author  Peter Lembke
-     * @version 2019-03-14
-     * @since   2019-03-14
-     */
-    protected function get_doc_file(array $in = []): array
-    {
-        $default = [
-            'file' => 'infohub_contact',
-            'step' => 'step_read_doc_file',
-            'response' => [
-                'answer' => 'false',
-                'message' => 'Nothing to report from get_doc_file',
-                'contents' => '',
-                'checksum' => ''
-            ],
-            'data_back' => [],
-            'from_plugin' => [
-                'node' => ''
-            ]
-        ];
-        $in = $this->_Default($default, $in);
-
-        if ($in['from_plugin']['node'] !== 'client') {
-            $in['response']['message'] = 'Only node client are allowed to use function get_doc_file';
-            $in['step'] = 'step_end';
-        }
-
-        if ($in['step'] === 'step_read_doc_file') {
-            return $this->_SubCall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'read'
-                    ],
-                    'data' => [
-                        'path' => $in['file'] . '.md',
-                        'folder' => 'plugin'
-                    ],
-                    'data_back' => [
-                        'step' => 'step_end'
-                    ]
-                ]
-            );
-        }
-
-        return [
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'contents' => $in['response']['contents'],
-            'checksum' => $in['response']['checksum']
         ];
     }
 }

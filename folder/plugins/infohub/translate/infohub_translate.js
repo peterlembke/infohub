@@ -39,7 +39,6 @@ function infohub_translate() {
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal',
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
@@ -130,103 +129,8 @@ function infohub_translate() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
-
-    /**
-     * Get the raw data for the markdown doc file.
-     * Used by infohub_translate_doc to render the documentation
-     * @version 2019-03-14
-     * @since   2019-03-14
-     * @author  Peter Lembke
-     */
-    $functions.push('create'); // Enable this function
-    const create = function($in) {
-        const $default = {
-            'type': '',
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_get_doc_file',
-            'html': '',
-            'css_data': {},
-            'response': {
-                'answer': 'false',
-                'message': 'nothing to report from infohub_translate->create',
-                'data': {},
-                'contents': '',
-                'checksum': '',
-                'html': '',
-            },
-        };
-        $in = _Merge($default, $in);
-
-        if ($in.step === 'step_get_doc_file') {
-            return _SubCall({
-                'to': {
-                    'node': 'server',
-                    'plugin': 'infohub_translate',
-                    'function': 'get_doc_file',
-                },
-                'data': {
-                    'file': $in.type,
-                },
-                'data_back': {
-                    'step': 'step_get_doc_file_response',
-                    'alias': $in.alias,
-                    'type': $in.type,
-                },
-            });
-        }
-
-        if ($in.step === 'step_get_doc_file_response') {
-            $in.step = 'step_end';
-            if ($in.response.answer === 'true') {
-                $in.step = 'step_render_markdown';
-            }
-        }
-
-        if ($in.step === 'step_render_markdown') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_renderdocument',
-                    'function': 'create',
-                },
-                'data': {
-                    'type': 'document',
-                    'text': atob($in.response.contents),
-                },
-                'data_back': {
-                    'step': 'step_render_markdown_response',
-                    'alias': $in.alias,
-                    'type': $in.type,
-                },
-            });
-        }
-
-        if ($in.step === 'step_render_markdown_response') {
-            $in.step = 'step_end';
-            if ($in.response.answer === 'true') {
-                $in.step = 'step_final';
-            }
-        }
-
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
-            }
-        }
-
-        return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'html': $in.html,
-            'css_data': $in.css_data,
-        };
-    };
 
     /**
      * Setup the Workbench Graphical User Interface
@@ -235,7 +139,7 @@ function infohub_translate() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -391,7 +295,7 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -433,7 +337,7 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -495,7 +399,7 @@ function infohub_translate() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},
@@ -548,7 +452,7 @@ function infohub_translate() {
      * @author  Peter Lembke
      */
     $functions.push('get_translate_data');
-    const get_translate_data = function($in) {
+    const get_translate_data = function($in = {}) {
         let $parts, $key, $assetKey, $data = {}, $pluginName;
 
         const $default = {
@@ -681,18 +585,6 @@ function infohub_translate() {
 
         if ($in.step === 'step_return_data') {
             $data = $pluginTranslationsMerged[$pluginName];
-
-            // @todo Remove this loop when all keys are in CAPS in the translation files
-            for (let $pluginName in $data) {
-                let $sectionTranslations = {};
-                for (let $currentKey in $data[$pluginName]) {
-                    let $newKey = $currentKey.toUpperCase();
-                    $newKey = _Replace(' ', '_', $newKey);
-                    $sectionTranslations[$newKey] = $data[$pluginName][$currentKey];
-                }
-                $data[$pluginName] = _ByVal($sectionTranslations);
-            }
-
             $in.response.answer = 'true';
             $in.response.message = 'Here are the translations for the plugin';
         }

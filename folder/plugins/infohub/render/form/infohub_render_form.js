@@ -84,7 +84,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         const $default = {
             'id': '',
             'name': '',
@@ -126,7 +126,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    const _Display = function($in) {
+    const _Display = function($in = {}) {
         const $default = {
             'display': '',
         };
@@ -210,7 +210,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    const _GetOptions = function($in) {
+    const _GetOptions = function($in = {}) {
         let $options = '', $selected;
 
         const $default = {
@@ -269,7 +269,7 @@ function infohub_render_form() {
      * @returns {string}
      * @private
      */
-    const _GetDataListOptions = function($in) {
+    const _GetDataListOptions = function($in = {}) {
         let $options = '';
 
         const $default = {
@@ -302,7 +302,7 @@ function infohub_render_form() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -349,7 +349,7 @@ function infohub_render_form() {
      * @returns {{answer: string, message: string, html: string}}
      */
     $functions.push('render_options');
-    const render_options = function($in) {
+    const render_options = function($in = {}) {
         const $default = {
             'options': [],
         };
@@ -375,7 +375,7 @@ function infohub_render_form() {
      * @since   2018-05-25
      * @author  Peter Lembke
      */
-    const internal_Button = function($in) {
+    const internal_Button = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -432,12 +432,10 @@ function infohub_render_form() {
                 $in.to_function + '" to_plugin="' + $in.to_plugin + '"';
         }
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = _Display($in);
 
-        $in.html = '<button' + $id + $display + _GetParameters($in, $fields) +
-            $destination + $event + '>' + $in.button_label + '</button>';
+        $in.html = '<button' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>' + $in.button_label + '</button>';
 
         if ($in.class ===
             'button button-width button-colour button-text-colour') {
@@ -483,7 +481,7 @@ function infohub_render_form() {
      * @since   2019-01-12
      * @author  Peter Lembke
      */
-    const internal_File = function($in) {
+    const internal_File = function($in = {}) {
         const $default = {
             'button_label': 'Submit',
             'enabled': 'true',
@@ -596,7 +594,7 @@ function infohub_render_form() {
      * @since   2018-05-25
      * @author  Peter Lembke
      */
-    const internal_Text = function($in) {
+    const internal_Text = function($in = {}) {
         const $default = {
             'input_type': 'text', // text, color, date, datetime-local, email, month, number, range, search, tel, time, url, week, password
             'enabled': 'true',
@@ -660,28 +658,22 @@ function infohub_render_form() {
         if ($in.event_handler !== '') {
             const $idString = ['{box_id}', $in.alias].join('_');
 
-            $event = ' onChange="go(\'' + $in.event_handler +
-                '\',\'change\',\'' +
-                $idString + '\')"';
-            if ($in.input_type === 'text') {
-                $event = ' onKeyup="go(\'' + $in.event_handler +
-                    '\',\'keyup\',\'' +
-                    $idString + '\')"';
+            $event = ' onChange="go(\'' + $in.event_handler + '\',\'change\',\'' + $idString + '\')"';
+
+            if ($in.input_type === 'text' || $in.input_type === 'password') {
+                $event = ' onKeyup="go(\'' + $in.event_handler + '\',\'keyup\',\'' + $idString + '\')"';
             }
         }
 
         let $destination = '';
         if ($in.to_plugin !== '') {
-            $destination = ' to_node="' + $in.to_node + '" to_function="' +
-                $in.to_function + '" to_plugin="' + $in.to_plugin + '"';
+            $destination = ' to_node="' + $in.to_node + '" to_function="' + $in.to_function + '" to_plugin="' + $in.to_plugin + '"';
         }
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = _Display($in);
 
-        $in.html = '<input' + $id + $display + _GetParameters($in, $fields) +
-            $destination + $event + '>';
+        $in.html = '<input' + $id + $display + _GetParameters($in, $fields) + $destination + $event + '>';
 
         let $cssData = $in.css_data;
 
@@ -722,7 +714,7 @@ function infohub_render_form() {
      * @since   2018-09-02
      * @author  Peter Lembke
      */
-    const internal_Range = function($in) {
+    const internal_Range = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'min_value': '',
@@ -845,7 +837,7 @@ function infohub_render_form() {
      * @since   2018-05-29
      * @author  Peter Lembke
      */
-    const internal_Textarea = function($in) {
+    const internal_Textarea = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'placeholder': '',
@@ -959,7 +951,7 @@ function infohub_render_form() {
      * @since   2018-05-29
      * @author  Peter Lembke
      */
-    const internal_Select = function($in) {
+    const internal_Select = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'size': '1',
@@ -1090,7 +1082,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Datalist = function($in) {
+    const internal_Datalist = function($in = {}) {
         const $default = {
             'options': [],
             'alias': '',
@@ -1131,7 +1123,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Radio = function($in) {
+    const internal_Radio = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -1217,7 +1209,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Radios = function($in) {
+    const internal_Radios = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'group_name': '',
@@ -1313,7 +1305,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Checkbox = function($in) {
+    const internal_Checkbox = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1402,7 +1394,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Checkboxes = function($in) {
+    const internal_Checkboxes = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1499,7 +1491,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Form = function($in) {
+    const internal_Form = function($in = {}) {
         const $default = {
             'enabled': 'true',
             'alias': '',
@@ -1577,7 +1569,7 @@ function infohub_render_form() {
      * @since   2018-05-31
      * @author  Peter Lembke
      */
-    const internal_Fieldset = function($in) {
+    const internal_Fieldset = function($in = {}) {
         const $default = {
             'alias': '',
             'label': '',

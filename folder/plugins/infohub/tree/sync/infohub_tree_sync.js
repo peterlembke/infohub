@@ -76,7 +76,7 @@ function infohub_tree_sync() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -86,7 +86,7 @@ function infohub_tree_sync() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -380,7 +380,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_sync');
-    const click_sync = function($in) {
+    const click_sync = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -415,7 +415,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_download');
-    const click_download = function($in) {
+    const click_download = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -450,7 +450,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_upload');
-    const click_upload = function($in) {
+    const click_upload = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -486,7 +486,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh_conflict_list');
-    const click_refresh_conflict_list = function($in) {
+    const click_refresh_conflict_list = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -523,7 +523,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_conflict_list');
-    const click_conflict_list = function($in) {
+    const click_conflict_list = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -559,7 +559,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_keep_local_version');
-    const click_keep_local_version = function($in) {
+    const click_keep_local_version = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -595,7 +595,7 @@ function infohub_tree_sync() {
      * @author Peter Lembke
      */
     $functions.push('click_keep_server_version');
-    const click_keep_server_version = function($in) {
+    const click_keep_server_version = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',

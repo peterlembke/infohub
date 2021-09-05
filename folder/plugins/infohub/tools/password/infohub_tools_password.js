@@ -47,7 +47,7 @@ function infohub_tools_password() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -57,7 +57,7 @@ function infohub_tools_password() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -85,7 +85,7 @@ function infohub_tools_password() {
             $text[6] = '3 = !#%&()=?+-*:;,._';
             $text[7] = '4 = spaces';
             $text[8] = _Translate('DEFAULT_MAX_GROUP_NUMBER_=_4_(0-4)_SOME_SITES_DO_NOT_ALLOW_SPACES,_THEN_SET_MAX_GROUP_NUMBER_=_3.');
-            $text[9] = _Translate('SOME_SITES_DO_NOT_ALLOW_SPECIAL_CHACATERS,_THEN_SET_MAX_GROUP_NUMBER_=_2.');
+            $text[9] = _Translate('SOME_SITES_DO_NOT_ALLOW_SPECIAL_CHARACTERS,_THEN_SET_MAX_GROUP_NUMBER_=_2.');
 
             return _SubCall({
                 'to': {
@@ -222,7 +222,7 @@ function infohub_tools_password() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_password');
-    const click_handle_password = function($in) {
+    const click_handle_password = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},

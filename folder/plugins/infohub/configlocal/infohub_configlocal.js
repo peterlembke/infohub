@@ -68,7 +68,7 @@ function infohub_configlocal() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -79,7 +79,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -201,7 +201,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $pluginName = 'infohub_configlocal';
 
         const $default = {
@@ -272,7 +272,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push('submit');
-    const submit = function($in) {
+    const submit = function($in = {}) {
         const $default = {
             'step': 'step_save',
             'data': null,
@@ -348,7 +348,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'parent_id': '',
             'box_id': '',
@@ -490,7 +490,7 @@ function infohub_configlocal() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -550,7 +550,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('load_items');
-    const load_items = function($in) {
+    const load_items = function($in = {}) {
         const $default = {
             'section_names_array': [],
             'step': 'step_load_data',
@@ -647,7 +647,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('get_config');
-    const get_config = function($in) {
+    const get_config = function($in = {}) {
         const $default = {
             'section_name': '',
             'step': 'step_start',
@@ -739,7 +739,7 @@ function infohub_configlocal() {
      * @author  Peter Lembke
      */
     $functions.push('apply_config');
-    const apply_config = function($in) {
+    const apply_config = function($in = {}) {
         const $default = {
             'step': 'step_get_config',
             'response': {

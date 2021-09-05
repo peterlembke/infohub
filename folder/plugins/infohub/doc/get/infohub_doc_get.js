@@ -52,7 +52,7 @@ function infohub_doc_get() {
      * @author Peter Lembke
      */
     $functions.push('get_document');
-    const get_document = function($in) {
+    const get_document = function($in = {}) {
         const $default = {
             'area': 'main', // main or plugin
             'document_name': 'main',
@@ -203,7 +203,7 @@ function infohub_doc_get() {
      * @author  Peter Lembke
      */
     $functions.push('get_documents_list');
-    const get_documents_list = function($in) {
+    const get_documents_list = function($in = {}) {
         const $default = {
             'step': 'step_get_navigation_from_storage',
             'response': {
@@ -342,7 +342,7 @@ function infohub_doc_get() {
      * @author Peter Lembke
      */
     $functions.push('get_all_documents');
-    const get_all_documents = function($in) {
+    const get_all_documents = function($in = {}) {
         const $default = {
             'step': 'step_get_all_documents_from_server',
             'response': {

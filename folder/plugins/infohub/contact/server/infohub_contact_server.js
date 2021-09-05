@@ -58,7 +58,7 @@ function infohub_contact_server() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -68,7 +68,7 @@ function infohub_contact_server() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -380,7 +380,7 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh');
-    const click_refresh = function($in) {
+    const click_refresh = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_render_options',
@@ -430,7 +430,7 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push('click_save');
-    const click_save = function($in) {
+    const click_save = function($in = {}) {
         let $ok = 'false',
             $nodeData = {};
 
@@ -526,7 +526,7 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push('click_delete');
-    const click_delete = function($in) {
+    const click_delete = function($in = {}) {
         let $ok = 'false',
             $userName = ''; // User names are universal so this works even if a remote server have created the user name
 
@@ -619,7 +619,7 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push('click_list');
-    const click_list = function($in) {
+    const click_list = function($in = {}) {
         const $default = {
             'value': '',
             'box_id': '',
@@ -710,7 +710,7 @@ function infohub_contact_server() {
      * @author Peter Lembke
      */
     $functions.push('click_import');
-    const click_import = function($in) {
+    const click_import = function($in = {}) {
         let $nodeData = {},
             $ok = 'false';
 
@@ -801,7 +801,7 @@ function infohub_contact_server() {
      * @author  Peter Lembke
      */
     $functions.push('click_export');
-    const click_export = function($in) {
+    const click_export = function($in = {}) {
         let $nodeData = {},
             $ok = 'false',
             $content = '';

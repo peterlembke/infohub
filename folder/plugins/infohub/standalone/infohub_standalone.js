@@ -56,7 +56,7 @@ function infohub_standalone() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -67,7 +67,7 @@ function infohub_standalone() {
      * @author Peter Lembke
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'plugin_name': '',
@@ -151,7 +151,7 @@ function infohub_standalone() {
      * @author  Peter Lembke
      */
     $functions.push('setup_plugin');
-    const setup_plugin = function($in) {
+    const setup_plugin = function($in = {}) {
         const $default = {
             'plugin_name': '',
             'step': 'step_is_plugin_started',

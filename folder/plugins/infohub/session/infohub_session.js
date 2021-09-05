@@ -61,7 +61,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_store_session_data');
-    const initiator_store_session_data = function($in) {
+    const initiator_store_session_data = function($in = {}) {
         const $default = {
             'node': '', // name of the node the initiator use to send data to the responder
             'initiator_user_name': '', // user_{hub_id}
@@ -126,7 +126,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_end_session');
-    const initiator_end_session = function($in) {
+    const initiator_end_session = function($in = {}) {
         const $default = {
             'node': '', // name of the node to end the session on both sides.
             'response': {
@@ -233,7 +233,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_calculate_sign_code');
-    const initiator_calculate_sign_code = function($in) {
+    const initiator_calculate_sign_code = function($in = {}) {
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -341,7 +341,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_verify_sign_code');
-    const initiator_verify_sign_code = function($in) {
+    const initiator_verify_sign_code = function($in = {}) {
         const $default = {
             'node': '', // node name
             'messages_checksum': '', // md5 checksum of all messages in the package
@@ -468,7 +468,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_check_session_valid');
-    const initiator_check_session_valid = function($in) {
+    const initiator_check_session_valid = function($in = {}) {
         const $default = {
             'node': 'client', // node name
             'step': 'step_get_session_data',
@@ -598,7 +598,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('initiator_get_session_data');
-    const initiator_get_session_data = function($in) {
+    const initiator_get_session_data = function($in = {}) {
         const $default = {
             'node': 'client', // node name
             'step': 'step_get_session_data',
@@ -659,7 +659,7 @@ function infohub_session() {
      * @author Peter Lembke
      */
     $functions.push('delete_session_data');
-    const delete_session_data = function($in) {
+    const delete_session_data = function($in = {}) {
         const $default = {
             'step': 'step_delete_session_data',
             'response': {

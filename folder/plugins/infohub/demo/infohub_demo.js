@@ -64,7 +64,7 @@ function infohub_demo() {
      * @returns {string}
      * @private
      */
-    const _GetPluginName = function($data) {
+    const _GetPluginName = function($data = '') {
         let $pluginType = 'welcome',
             $tmp = $data.split('_');
 
@@ -79,7 +79,7 @@ function infohub_demo() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -89,7 +89,7 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -233,14 +233,14 @@ function infohub_demo() {
 
     };
 
+    $functions.push('click_menu');
     /**
      * Handle the menu clicks
      * @version 2019-03-13
      * @since 2018-09-26
      * @author Peter Lembke
      */
-    $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -282,7 +282,7 @@ function infohub_demo() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list
@@ -362,7 +362,7 @@ function infohub_demo() {
      * @author Peter Lembke
      */
     $functions.push('click_link');
-    const click_link = function($in) {
+    const click_link = function($in = {}) {
         const $default = {
             'event_data': '',
         };
@@ -386,7 +386,7 @@ function infohub_demo() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $plugin = 'infohub_demo_';
 
         const $default = {
@@ -427,7 +427,7 @@ function infohub_demo() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'parent_id': '',
             'box_id': '',
@@ -457,7 +457,8 @@ function infohub_demo() {
             }
 
             if ($in.type === 'submit') {
-                const $text = _Translate('THIS_SUBMIT_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO_->_EVENT_MESSAGE._THIS_ONLY_HAPPENS_IF_ALL_DATA_IS_VALID.');
+                const $text = _Translate('THIS_SUBMIT_BUTTON_WORKS_AND_GOES_TO_INFOHUB_DEMO_->_EVENT_MESSAGE.') + ' ' +
+                    _Translate('THIS_ONLY_HAPPENS_IF_ALL_DATA_IS_VALID.');
                 const $messageOut = _Alert($text);
                 $messageArray.push($messageOut);
             }

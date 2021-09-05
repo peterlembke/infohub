@@ -45,7 +45,7 @@ function infohub_configlocal_language() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -55,7 +55,7 @@ function infohub_configlocal_language() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -83,7 +83,9 @@ function infohub_configlocal_language() {
                             'type': 'form',
                             'content': '[select_language][button_transfer][language][button_save][button_clear_render_cache]',
                             'label': _Translate('LANGUAGE'),
-                            'description': '[language_icon]' + _Translate('HERE_YOU_CAN_SELECT_YOUR_PREFERRED_LANGUAGES._THIS_IS_USED_TO_TRANSLATE_THE_TEXTS_IN_ALL_PLUGINS_TO_WHAT_YOU_PREFER.')
+                            'description': '[language_icon]' +
+                                _Translate('HERE_YOU_CAN_SELECT_YOUR_PREFERRED_LANGUAGES.') + ' ' +
+                                _Translate('THIS_IS_USED_TO_TRANSLATE_THE_TEXTS_IN_ALL_PLUGINS_TO_WHAT_YOU_PREFER.')
                         },
                         'select_language': {
                             'plugin': 'infohub_language',
@@ -178,7 +180,7 @@ function infohub_configlocal_language() {
      * @author Peter Lembke
      */
     $functions.push('click_transfer');
-    const click_transfer = function($in) {
+    const click_transfer = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -297,7 +299,7 @@ function infohub_configlocal_language() {
      * @author Peter Lembke
      */
     $functions.push('click_submit');
-    const click_submit = function($in) {
+    const click_submit = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -384,7 +386,7 @@ function infohub_configlocal_language() {
      * @author Peter Lembke
      */
     $functions.push('apply_config');
-    const apply_config = function($in) {
+    const apply_config = function($in = {}) {
         const $default = {
             'local_config': {
                 'language': {
@@ -397,18 +399,15 @@ function infohub_configlocal_language() {
                 'message': 'Nothing to report',
             },
             'config': {
-                'user_name': '',
+                'user_name': ''
             },
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_apply_config') {
-            if ($in.local_config.language.value === '' ||
-                $in.config.user_name === 'guest') {
-                const $languageCountry = navigator.language ||
-                    navigator.userLanguage;
-                let $parts = $languageCountry.split('-');
-                const $language = $parts[0].toLowerCase();
+            if ($in.local_config.language.value === '' || $in.config.user_name === 'guest') {
+
+                let $language = _GetDefaultLanguageString();
 
                 if (_Empty($language) === 'false') {
                     return _SubCall({
@@ -437,8 +436,45 @@ function infohub_configlocal_language() {
             'answer': $in.response.answer,
             'message': $in.response.message,
         };
-
     };
+
+    $functions.push('_GetBrowserLanguage');
+    /**
+     * Pull out the language you have set in your browser
+     * We will use that language as the default config if there is no config
+     * @private
+     * @version 2021-08-19
+     * @since 2021-08-19
+     * @author Peter Lembke
+     */
+    const _GetDefaultLanguageString = function() {
+
+        const $fallbackLanguage = 'en';
+        const $languageCountry = navigator.language || navigator.userLanguage;
+        let $parts = $languageCountry.split('-');
+        const $language = $parts[0].toLowerCase();
+
+        let $languageArray = [];
+
+        if ($parts.length === 2) {
+            $languageArray.push($languageCountry);
+        }
+
+        if ($languageCountry !== $language) {
+            $languageArray.push($language);
+        }
+
+        if ($fallbackLanguage !== '') {
+            if ($language !== $fallbackLanguage) {
+                $languageArray.push($fallbackLanguage);
+            }
+        }
+
+        const $finalString = $languageArray.join(',');
+
+        return $finalString;
+    };
+
 }
 
 //# sourceURL=infohub_configlocal_language.js

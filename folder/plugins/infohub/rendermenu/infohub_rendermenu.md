@@ -1,152 +1,325 @@
-# Infohub RenderForm
+# Infohub RenderMenu
 
-Adds features to the basic form elements that infohub_render_form can render.
+Renders a static menu list and handles the events.
+
+See the demo [Infohub Demo Menu](plugin,infohub_demo_menu)
 
 # Introduction
 
-RenderForm uses render_form and add features on top of render_form.  
-RenderForm adds label, description, original_data, symbol for required, symbol for changed, counts characters, shows max
-length, counts words and paragraphs.  
-RenderForm is also the receiver of all events regarding the form elements. Mostly onchange and click.  
-RenderForm also handle the form data by reading and writing data. It does not however update lists and options, that
-need to be rerendered to be updated.
+I have noticed that plugins that has a GUI often want to show a lot of different GUIs. With the menu you can have a list that then render the GUI you want to show.
+You can see the menu in action in the plugins: tree, demo, login, tools and many more.
 
-# infohub render form
+The plugin infohub_rendermenu is a level 1 rendering plugin that depend on other plugins to build the smaller pieces.
 
-The plugin infohub_render_form is a child to infohub_render and handle the render for the basic form elements, it handle
-the actual HTML that DOM needs to display the element. infohub_renderform on the other hand is a level 1 plugin that can
-receive events. It uses infohub_render_form for the rendering and adds extended features.
+# Events
 
-# Form
+Look at the demos below. You notice these properties on each menu alternative:
+``` 
+    'event_data': 'text',
+    'to_plugin': 'infohub_demo',
+    'to_function': 'click_menu',
+```
+Your parent plugin need to have the function that receive the event. You can have different to_function in each menu alternative if you want to.
+The event_data will be available to the event function.
 
-All forms should be encapsulated with the form tag. You get a fieldset container at the same time.
+# Default values and CSS
 
-# Fieldset
-
-All form elements and the form itself will all be encapsulated with fieldsets. The reason is simple. There are a lot of
-components on each form element, like flags: required, valid, info icon. And then you have the title, the description,
-error message from the validation, Character count, word count, line count, max length, selected range value. There is a
-lot of information for each form element. So to keep everything together I have decided to use fieldset as a wrapper
-round each form element when you render them with infohub_renderform. There is no way to avoid the fieldset wrapper.
-
-# Label
-
-The fieldset can show a legend label.
-
-# Description
-
-You get a toggle SVG image (i) that shows the description within the fieldset. So if the label and the placeholder is
-not enough information to you then you can click the (i) SVG and see the descripton.
-
-# Original data
-
-This hidden div box contain the orignal data as it was before the user changed the form element. The information is used
-to show the right SVG. SVG for Unchanged/Changed.
-
-# changed
-
-There are two SVG icons, one is a symbol for "unchanged", the other is a symbol for "Changed". You will see if the form
-element is considered to be changed by your input.
-
-# required
-
-There are two SVG icons, one is a symbol for "optional", the other is a symbol for "required". If you have a required
-text box then you can not save until the text box got some data. Some form elements like check boxes that only have two
-states can be set as required but both values true/false are valid.
-
-# maxlength
-
-If a form element have maxlength set then there will be a number showing the remaining characters you can write. For
-example if you are allowed to write 120 characters, then you see 120 when the text box is empty. When you have filled
-the box with 50 characters the number will say 70.
-
-# value
-
-Form elements like colour picker and range, they do not show their values. We have to copy the value to a box to see it.
-
-# event: changed
-
-When the user change something in a form element then an event message are sent to renderform. Now the icon for changed
-data can be updated.
-
-# event: onclick
-
-The click event is just for buttons. The event ends up in renderform. Now we can get the button mode and the
-affected_aliases to read or update the form fields. Then the assembled data are sent to your plugin so you can act on
-it. Perhaps save the data.
-
-# CSS
-
-The form elements are made pretty with CSS. The default CSS is to have round borders and grey/white relief so it looks
-like the forms are engraved in metal.  
-When you render a form you can provide your own CSS. renderform will provide CSS as a standard set up. You can provide
+When you render a menu you can provide your own CSS. rendermenu will provide CSS as a standard set up. You can provide
 your own if you want to.
+The default options look like this:
+
+```
+const $defaultOption = {
+    'plugin': 'infohub_renderform',
+    'type': 'button',
+    'enabled': 'true',
+    'alias': '',
+    'class': '', // Leave empty for buttons to get the default css
+    'button_left_icon': '',
+    'button_label': 'Submit',
+    'mode': 'button', // submit, button
+    'event_data': 'menu button', // Your data
+    'event_handler': 'infohub_renderform', // Normally leave as it is
+    'to_node': 'client',
+    'to_plugin': 'infohub_rendermenu',
+    'to_function': 'event_message',
+    'custom_variables': {}, // You can add more custom variables like the data variable above
+    'css_data': {
+        '.button':
+            'font-size: 1.0em;' +
+            'width: 100%;' +
+            'box-sizing:border-box;' +
+            'border-radius: 16px;' +
+            'margin: 4px 0px 0px 0px;' +
+            'padding: 2px 10px 2px 16px;' +
+            'text-align: left;' +
+            'border: 0px;',
+        '.button-width':
+            'width: 100%;',
+    },
+};
+```
 
 # How to use
 
-This is an example how you can use the renderform.
+This is part of the infohub demo plugin how it shows its menu.
 
 ```
 return _SubCall({
     'to': {
         'node': 'client',
         'plugin': 'infohub_render',
-        'function': 'create'
+        'function': 'create',
     },
     'data': {
         'what': {
-            'nike_video_presentation': {
-                'plugin': 'infohub_renderform',
-                'type': 'presentation_box',
-                'head_label': 'Video from Istanbul marathon',
-                'foot_text': 'The information text below the video can be as large as you want and the video will scale up to the size of the rest of the contents',
-                'content_data': '[my_image]',
-                'content_embed': '[nike_video]',
-                'content_embed_new_tab': '[nike_video_link]',
-                'open': 'false'
-            },
-            'my_image': {
+            'titel': {
                 'type': 'common',
-                'subtype': 'image',
-                'data': '/9j/4AAQSkZJRgABAQEASABIAAD and so on...'
+                'subtype': 'value',
+                'data': _Translate('DEMO_COLLECTION')
             },
-            'nike_video': {
-                'type': 'video',
-                'subtype': 'vimeo',
-                'data': '54003514'
-            },
-            'nike_video_link': {
-                'type': 'video',
-                'subtype': 'vimeolink',
-                'data': '54003514',
-                'class': 'right'
+            'my_menu': {
+                'plugin': 'infohub_rendermenu',
+                'type': 'menu',
+                'head_label': '[titel]',
+                'options': {
+                    'text_demo': {
+                        'alias': 'text_demo_link',
+                        'event_data': 'text',
+                        'button_label': _Translate('TEXT_DEMO'),
+                        'to_plugin': 'infohub_demo',
+                        'to_function': 'click_menu',
+                    },
+                    'common_demo': {
+                        'alias': 'common_demo_link',
+                        'event_data': 'common',
+                        'button_label': _Translate('COMMON_OBJECTS_DEMO'),
+                        'to_plugin': 'infohub_demo',
+                        'to_function': 'click_menu',
+                    },
+                    'svg_demo': {
+                        'alias': 'svg_demo_link',
+                        'event_data': 'svg',
+                        'button_label': _Translate('SVG_RENDERING_DEMO'),
+                        'to_plugin': 'infohub_demo',
+                        'to_function': 'click_menu',
+                    },
+                },
             },
         },
         'how': {
             'mode': 'one box',
-            'text': '[nike_video_presentation]'
+            'text': '[my_menu]',
         },
         'where': {
-            'parent_box_id': 'main.body.infohub_demo',
-            'box_position': 'last',
-            'box_alias': 'infohub_common_video_vimeo',
-            'max_width': 320
-        }
+            'box_id': $in.parent_box_id + '.menu',
+            'max_width': 320,
+            'scroll_to_box_id': 'true',
+        },
+        'cache_key': 'menu',
     },
     'data_back': {
-        'step': 'demo_head_2'
-    }
+        'step': 'step_end',
+    },
 });
+```
+
+# Icons on the left side
+
+In configlocal you see a menu with left side icons. This is how you do that.
+
+``` 
+return _SubCall({
+    'to': {
+        'node': 'client',
+        'plugin': 'infohub_render',
+        'function': 'create',
+    },
+    'data': {
+        'what': {
+            'titel': {
+                'type': 'common',
+                'subtype': 'value',
+                'data': _Translate('CONFIGURATION_-_LOCAL_ON_THIS_DEVICE')
+            },
+            'my_menu': {
+                'plugin': 'infohub_rendermenu',
+                'type': 'menu',
+                'head_label': '[titel]',
+                'options': {
+                    'zoom': {
+                        'alias': 'zoom_link',
+                        'event_data': 'zoom',
+                        'button_label': _Translate('ZOOM_LEVEL'),
+                        'button_left_icon': '[zoom_icon]',
+                        'to_plugin': 'infohub_configlocal',
+                        'to_function': 'click_menu',
+                    },
+                    'language': {
+                        'alias': 'language_link',
+                        'event_data': 'language',
+                        'button_label': _Translate('LANGUAGE_PREFERRED'),
+                        'button_left_icon': '[language_icon]',
+                        'to_plugin': 'infohub_configlocal',
+                        'to_function': 'click_menu',
+                    },
+                    'image': {
+                        'alias': 'image_link',
+                        'event_data': 'image',
+                        'button_label': _Translate('IMAGES_YOU_SEE'),
+                        'button_left_icon': '[image_icon]',
+                        'to_plugin': 'infohub_configlocal',
+                        'to_function': 'click_menu',
+                    },
+                    'colour': {
+                        'alias': 'colour_link',
+                        'event_data': 'colour',
+                        'button_left_icon': '[colour_icon]',
+                        'button_label': _Translate('COLOUR_SCHEMA'),
+                        'to_plugin': 'infohub_configlocal',
+                        'to_function': 'click_menu',
+                        'custom_variables': {
+                            'call_render_done': 'true',
+                        },
+                    },
+                },
+            },
+            'zoom_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[zoom_asset]',
+            },
+            'zoom_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'zoom/magnifyingglass',
+                'plugin_name': 'infohub_configlocal',
+            },
+            'language_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[language_asset]',
+            },
+            'language_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'language/language',
+                'plugin_name': 'infohub_configlocal',
+            },
+            'image_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[image_asset]',
+            },
+            'image_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'classic-config-icon',
+                'plugin_name': 'infohub_configlocal',
+            },
+            'colour_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[colour_asset]',
+            },
+            'colour_asset': {
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'colour/colour-star',
+                'plugin_name': 'infohub_configlocal',
+            },
+        },
+        'how': {
+            'mode': 'one box',
+            'text': '[my_menu]',
+        },
+        'where': {
+            'box_id': $in.parent_box_id + '.menu',
+            'max_width': 320,
+            'scroll_to_box_id': 'true',
+        },
+    },
+    'data_back': {
+        'step': 'step_end',
+    },
+});
+```
+
+# Additional button properties
+
+In the example above you can see this
+``` 
+                    'colour': {
+                        'alias': 'colour_link',
+                        'event_data': 'colour',
+                        'button_left_icon': '[colour_icon]',
+                        'button_label': _Translate('COLOUR_SCHEMA'),
+                        'to_plugin': 'infohub_configlocal',
+                        'to_function': 'click_menu',
+                        'custom_variables': {
+                            'call_render_done': 'true',
+                        },
+                    },
+```
+The "call_render_done" property will be added to the button and will be available to the click_menu function.
+This means you do not have to paste everything in "event_data". 
+
+# Events to child plugins
+
+You can study the Demo plugin how it does. There all events go to the parent plugin. The event_data then have the name of the child.
+The function call the child and paste all parameters. Like this:
+
+``` 
+$functions.push('click_menu');
+/**
+ * Handle the menu clicks
+ * @version 2019-03-13
+ * @since 2018-09-26
+ * @author Peter Lembke
+ */
+const click_menu = function($in = {}) {
+    const $default = {
+        'step': 'step_start',
+        'event_data': '',
+        'parent_box_id': '',
+    };
+    $in = _Default($default, $in);
+
+    if ($in.step === 'step_start') {
+        const $pluginName = _GetPluginName($in.event_data);
+
+        return _SubCall({
+            'to': {
+                'node': 'client',
+                'plugin': $pluginName,
+                'function': 'create',
+            },
+            'data': {
+                'subtype': $in.event_data,
+                'parent_box_id': $in.parent_box_id,
+                'translations': $classTranslations,
+            },
+            'data_back': {
+                'step': 'step_end',
+            },
+        });
+    }
+
+    return {
+        'answer': 'true',
+        'message': 'Menu click done',
+    };
+};
 ```
 
 # License
 
-This documentation is copyright (C) 2018 Peter Lembke.  
+This documentation is copyright (C) 2021 Peter Lembke.  
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
 License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no
 Front-Cover Texts, and no Back-Cover Texts.  
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
-Since 2018-05-30 by Peter Lembke  
-Updated 2018-05-30 by Peter Lembke  
+Since 2021-07-25 by Peter Lembke  
+Updated 2021-07-25 by Peter Lembke  

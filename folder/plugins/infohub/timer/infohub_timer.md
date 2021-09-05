@@ -13,7 +13,7 @@ The plugin has three functions
 * stop_timer
 
 Only plugins on the same node can start/stop a timer. The restriction is set because a timer takes up computer resources
-over time so we must have some control over this function.
+over time, so we must have some control over this function.
 
 You can have several timers active. They are separated by plugin_name and an alias that you set.
 
@@ -110,9 +110,9 @@ Everything about timing that was previously in infohub_transfer is now handled b
 
 infohub_transfer has a ban time, that is the minimum time.
 
-The messages has a wait time how long they can wait. The one that can wait the least will be used to set the timer.
+The messages have a wait time how long they can wait. The one that can wait the least will be used to set the timer.
 
-Messages come to infohub_transfer after the timer has started. If a message is in more hurry then the timer are updated
+Messages come to infohub_transfer after the timer has started. If a message is in more hurry, then the timer are updated
 as long as it does not go below the minimum time.
 
 ## License
@@ -125,4 +125,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2020-02-28 by Peter Lembke  
-Updated 2020-03-08 by Peter Lembke  
+Updated 2021-08-07 by Peter Lembke  

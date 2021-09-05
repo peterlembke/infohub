@@ -27,8 +27,8 @@ We can also ask Sync to download missing paths.
 
 This plugin has a GUI.
 
-* Button "Review" - start a review of what need to be done. Walk trough the list of plugin index Show a progress bar
-  value = how many plugin index have been handled. max = number of plugin index that we will handle. Walk trough all the
+* Button "Review" - start a review of what need to be done. Walk through the list of plugin index Show a progress bar
+  value = how many plugin index have been handled. max = number of plugin index that we will handle. Walk through all the
   plugin index lists and make action lists what to do before starting the sync.
 
 * Show items count based on all plugin indexes Number of items to: keep, upload, delete, conflict, download, missing

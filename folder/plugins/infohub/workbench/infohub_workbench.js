@@ -63,7 +63,7 @@ function infohub_workbench() {
      * @author Peter Lembke
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };
@@ -143,7 +143,7 @@ function infohub_workbench() {
      * @author  Peter Lembke
      */
     $functions.push('setup_plugin');
-    const setup_plugin = function($in) {
+    const setup_plugin = function($in = {}) {
         const $default = {
             'plugin_name': '',
             'step': 'step_is_plugin_started',

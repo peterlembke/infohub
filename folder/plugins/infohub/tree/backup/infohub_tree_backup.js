@@ -75,7 +75,7 @@ function infohub_tree_backup() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -85,7 +85,7 @@ function infohub_tree_backup() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -120,7 +120,7 @@ function infohub_tree_backup() {
                             'type': 'form',
                             'content': '[button_backup_all]',
                             'label': _Translate('BACKUP_ALL'),
-                            'description': _Translate('FULL_BACKUP_OF_ALL_YOUR_DATA_YOU_HAVE_ON_THE_SERVER._YOU_GET_ONE_FILE_WITH_EVERYTHING.')
+                            'description': _Translate('FULL_BACKUP_OF_ALL_YOUR_DATA_YOU_HAVE_ON_THE_SERVER.') + ' ' + _Translate('YOU_GET_ONE_FILE_WITH_EVERYTHING.')
                         },
                         'button_backup_all': {
                             'plugin': 'infohub_renderform',
@@ -144,7 +144,7 @@ function infohub_tree_backup() {
                             'type': 'form',
                             'content': '[button_refresh_plugin_list_full][plugin_list_full][button_backup_full]',
                             'label': _Translate('BACKUP_PLUGINS'),
-                            'description': _Translate('BACKUP_OF_EACH_PLUGIN_SEPARATELY._YOU_GET_ONE_BACKUP_FILE_FOR_EACH_PLUGIN.')
+                            'description': _Translate('BACKUP_OF_EACH_PLUGIN_SEPARATELY.') + ' ' + _Translate('YOU_GET_ONE_BACKUP_FILE_FOR_EACH_PLUGIN.')
                         },
                         'button_refresh_plugin_list_full': {
                             'plugin': 'infohub_renderform',
@@ -204,7 +204,9 @@ function infohub_tree_backup() {
                             'type': 'form',
                             'content': '[container_plugins_partial][container_keys_partial]',
                             'label': _Translate('PARTIAL_BACKUP'),
-                            'description': _Translate('PARTIAL_BACKUP._SELECT_ONE_PLUGIN_AND_SELECT_KEYS_TO_BACKUP._YOU_GET_ONE_BACKUP_FILE.')
+                            'description': _Translate('PARTIAL_BACKUP.') + ' ' +
+                                _Translate('SELECT_ONE_PLUGIN_AND_SELECT_KEYS_TO_BACKUP.') + ' ' +
+                                _Translate('YOU_GET_ONE_BACKUP_FILE.')
                         },
                         'container_plugins_partial': {
                             'type': 'common',
@@ -234,7 +236,8 @@ function infohub_tree_backup() {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("PLUGIN_LIST"),
-                            "description": _Translate("LIST_WITH_ALL_TREE_PLUGINS._SELECT_ONE"),
+                            "description": _Translate('LIST_WITH_ALL_TREE_PLUGINS.') + ' ' +
+                                _Translate('SELECT_ONE'),
                             "size": "1",
                             "multiple": "false",
                             'event_data': 'backup|plugin_list_partial',
@@ -259,7 +262,8 @@ function infohub_tree_backup() {
                             'plugin': 'infohub_renderform',
                             'type': 'select',
                             "label": _Translate("KEYS"),
-                            "description": _Translate("ALL_KEYS_FOR_THE_SELECTED_PLUGIN._SELECT_THE_ONES_YOU_WANT_TO_BACKUP"),
+                            "description": _Translate('ALL_KEYS_FOR_THE_SELECTED_PLUGIN.') + ' ' +
+                                _Translate('SELECT_THE_ONES_YOU_WANT_TO_BACKUP'),
                             "size": "20",
                             "multiple": "true",
                             'event_data': 'backup|key_list_partial',
@@ -324,7 +328,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_button_backup_all');
-    const click_button_backup_all = function($in) {
+    const click_button_backup_all = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -360,7 +364,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh_plugin_list_full');
-    const click_refresh_plugin_list_full = function($in) {
+    const click_refresh_plugin_list_full = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -397,7 +401,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_button_backup_full');
-    const click_button_backup_full = function($in) {
+    const click_button_backup_full = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -435,7 +439,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh_plugin_list_partial');
-    const click_refresh_plugin_list_partial = function($in) {
+    const click_refresh_plugin_list_partial = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -471,7 +475,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh_key_list_partial');
-    const click_refresh_key_list_partial = function($in) {
+    const click_refresh_key_list_partial = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -508,7 +512,7 @@ function infohub_tree_backup() {
      * @author Peter Lembke
      */
     $functions.push('click_button_backup_partial');
-    const click_button_backup_partial = function($in) {
+    const click_button_backup_partial = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -535,7 +539,5 @@ function infohub_tree_backup() {
             'ok': $out.answer,
         };
     };
-
 }
-
 //# sourceURL=infohub_tree_backup.js

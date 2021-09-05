@@ -85,7 +85,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetId');
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -126,7 +126,7 @@ function infohub_render() {
      * @private
      */
     $functions.push('_GetDisplay');
-    const _GetDisplay = function($in) {
+    const _GetDisplay = function($in = {}) {
         const $default = {
             'display': '',
         };
@@ -143,14 +143,14 @@ function infohub_render() {
         return '';
     };
 
+    $functions.push('_PopItem');
     /**
      * Pop out the first item in an object and shorten the object
      * @param $obj
      * @returns {*}
      * @private
      */
-    $functions.push('_PopItem');
-    const _PopItem = function($obj) {
+    const _PopItem = function($obj = {}) {
         let $first;
 
         for (let $key in $obj) {
@@ -172,7 +172,7 @@ function infohub_render() {
      * @returns {string}
      * @private
      */
-    const _AddStyle = function($in) {
+    const _AddStyle = function($in = {}) {
         const $default = {
             'html': '',
             'css_data': {},
@@ -190,8 +190,7 @@ function infohub_render() {
                 if ($key === 'parent') {
                     $keyCode = '';
                 }
-                $style = $style + '.' + $prefix + ' ' + $keyCode + ' { ' +
-                    $in.css_data[$key] + ' } \n\r';
+                $style = $style + '.' + $prefix + ' ' + $keyCode + ' { ' + $in.css_data[$key] + ' } \n\r';
             }
         }
         $style = '<style scoped>' + $style + '</style>';
@@ -218,7 +217,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         let $data, $key, $response, $plugin;
 
         const $default = {
@@ -263,6 +262,7 @@ function infohub_render() {
                 'display': '', // inline, block, none, or leave blank
                 'css_data': {},
                 'frog': 'false',
+                'item_index': {},
                 'step': '',
             },
             'response': {},
@@ -283,9 +283,11 @@ function infohub_render() {
 
         if ($in.step === 'step_load_cache') {
             if ($renderCacheLoaded === 'false' &&
-                $in.config.store_render_cache === 'true') {
+                $in.config.store_render_cache === 'true'
+            ) {
                 $renderCacheLoaded = 'true';
                 let $originalIn = _ByVal($in);
+
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -401,17 +403,14 @@ function infohub_render() {
                     $data.plugin = 'infohub_render_' + $data.type;
                 }
 
-                if (_IsSet($massCreatePluginNameIndexed[$data.plugin]) ===
-                    'false') {
+                if (_IsSet($massCreatePluginNameIndexed[$data.plugin]) === 'false') {
                     $massCreatePluginNameIndexed[$data.plugin] = {};
                 }
 
                 $massCreatePluginNameIndexed[$data.plugin][$itemName] = $data;
 
-                const $sourceIsSet = _IsSet($data.source_plugin) === 'true' &&
-                    $data.source_plugin !== '';
-                const $optionsAreEmpty = _IsSet($data.options) === 'true' &&
-                    $data.options === [];
+                const $sourceIsSet = _IsSet($data.source_plugin) === 'true' && $data.source_plugin !== '';
+                const $optionsAreEmpty = _IsSet($data.options) === 'true' && $data.options === [];
 
                 if ($sourceIsSet || $optionsAreEmpty) {
                     const $default = {
@@ -421,8 +420,7 @@ function infohub_render() {
                         'source_plugin': 'infohub_render',
                         'source_function': 'get_test_options',
                     };
-                    $needOptionsItemNameIndexed[$itemName] = _Default($default,
-                        $data);
+                    $needOptionsItemNameIndexed[$itemName] = _Default($default, $data);
                 }
 
             }
@@ -436,8 +434,7 @@ function infohub_render() {
 
         if ($in.step === 'step_call_source_response') {
             const $data = _ByVal($in.data_back.latest_popped_item);
-            $in.data_back.mass_create[$data.plugin][$data.item_name].options = _ByVal(
-                $in.response.options);
+            $in.data_back.mass_create[$data.plugin][$data.item_name].options = _ByVal($in.response.options);
             $in.step = 'step_call_source';
         }
 
@@ -476,12 +473,19 @@ function infohub_render() {
         if ($in.step === 'step_mass_create_response') {
             const $default = {
                 'item_index': {},
+                'answer': '-',
+                'message': ''
             };
             $in.response = _Default($default, $in.response);
 
+            if ($in.response.answer === 'false') {
+                // The plugin did not exist. We will get $oneRenderedItem.answer = 'false',
+                // and that will substitute all items into frogs
+                $in.response.item_index = _ByVal($in.data_back.item_index);
+            }
+
             for (const $itemName in $in.response.item_index) {
-                if ($in.response.item_index.hasOwnProperty($itemName) ===
-                    false) {
+                if ($in.response.item_index.hasOwnProperty($itemName) === false) {
                     continue;
                 }
 
@@ -496,7 +500,6 @@ function infohub_render() {
                 $oneRenderedItem = _Default($default, $oneRenderedItem);
 
                 if ($oneRenderedItem.answer === 'true') {
-
                     if (_Empty($oneRenderedItem.css_data) === 'false') {
                         $oneRenderedItem.html = _AddStyle({
                             'html': $oneRenderedItem.html,
@@ -510,8 +513,15 @@ function infohub_render() {
 
                 } else {
                     $in.data_back.frog = 'true';
+                    if (_IsSet($in.data_back.mass_create['infohub_render_frog']) === 'false') {
+                        $in.data_back.mass_create['infohub_render_frog'] = {};
+                    }
+                    if (_IsSet($in.data_back.mass_create['infohub_render_frog'][$itemName]) === 'false') {
+                        $in.data_back.mass_create['infohub_render_frog'][$itemName] = {
+                            'type': 'frog'
+                        };
+                    }
                 }
-
             }
 
             $in.step = 'step_mass_create';
@@ -544,6 +554,7 @@ function infohub_render() {
                         'mass_create': $in.data_back.mass_create,
                         'css_all': $in.data_back.css_all,
                         'frog': $in.data_back.frog,
+                        'item_index': $massCreateOnePluginItemIndex,
                         'step': 'step_mass_create_response',
                     },
                 });
@@ -630,8 +641,7 @@ function infohub_render() {
                     // All IDs become unique by inserting the parent alias in each ID.
                     const $find = '{box_id}';
                     const $replace = $find + '_' + $in.alias;
-                    $in.html = $in.html.replace(new RegExp($find, 'g'),
-                        $replace);
+                    $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
                 }
 
                 $in.step = 'step_return_html'; // Just return the HTML to the caller
@@ -873,7 +883,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
      */
-    const load_render_cache = function($in) {
+    const load_render_cache = function($in = {}) {
         const $default = {
             'step': 'step_load_render_cache',
             'data_back': {},
@@ -941,7 +951,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, html: *, sections_count: *, message: string}}
      */
-    const internal_FixBase64Data = function($in) {
+    const internal_FixBase64Data = function($in = {}) {
         const $default = {
             'html': '',
         };
@@ -975,7 +985,7 @@ function infohub_render() {
      * @returns {*}
      */
     $functions.push('validate_form_data');
-    const validate_form_data = function($in) {
+    const validate_form_data = function($in = {}) {
         const $default = {
             'step': 'step_loop',
             'form_data': {},
@@ -1089,7 +1099,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, options: [{label: string, type: string, value: string}], message: string}}
      */
-    const get_test_options = function($in) {
+    const get_test_options = function($in = {}) {
         return {
             'answer': 'true',
             'message': 'You did not set your own source for the select so you ended up here',
@@ -1113,7 +1123,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('render_options');
-    const render_options = function($in) {
+    const render_options = function($in = {}) {
         const $default = {
             'id': '',
             'source_node': '',
@@ -1229,7 +1239,7 @@ function infohub_render() {
      * @param $in
      * @returns {{valid: *, answer: string, message: string, ok: *}|*}
      */
-    const submit = function($in) {
+    const submit = function($in = {}) {
         const $default = {
             'parent_id': 0,
             'box_id': '',
@@ -1404,7 +1414,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('click_and_scroll');
-    const click_and_scroll = function($in) {
+    const click_and_scroll = function($in = {}) {
         const $default = {
             'id': '',
             'box_id': '',
@@ -1465,7 +1475,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('delete_render_cache_for_user_name');
-    const delete_render_cache_for_user_name = function($in) {
+    const delete_render_cache_for_user_name = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {
@@ -1528,7 +1538,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('delete_render_cache_for_user_name_specific_plugins');
-    const delete_render_cache_for_user_name_specific_plugins = function($in) {
+    const delete_render_cache_for_user_name_specific_plugins = function($in = {}) {
         const $default = {
             'plugins': [],
             'step': 'step_purge_render_cache',
@@ -1607,7 +1617,7 @@ function infohub_render() {
      * @returns {{}|{answer: string, message: string}}
      * @private
      */
-    const _RenderCachePurgePattern = function($pattern) {
+    const _RenderCachePurgePattern = function($pattern = '') {
         let $newRenderCache = $renderCache;
         $pattern = $pattern + '/';
 
@@ -1628,7 +1638,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const set_color_schema = function($in) {
+    const set_color_schema = function($in = {}) {
         const $default = {
             'color_schema': {},
             'color_lookup': {},
@@ -1652,8 +1662,7 @@ function infohub_render() {
 
             const $headersRule = _SubstituteColours('color: #1b350a;');
             const $lightRule = _SubstituteColours('background-color: #6d8df7;');
-            const $sanityRule = _SubstituteColours(
-                'color: #0b1f00; border-color: #6d8df7; background-color: #ff0000;');
+            const $sanityRule = _SubstituteColours('color: #0b1f00; border-color: #6d8df7; background-color: #ff0000;');
 
             const $messageOut = _SubCall({
                 'to': {
@@ -1716,7 +1725,7 @@ function infohub_render() {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const get_color_schema = function($in) {
+    const get_color_schema = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -1788,7 +1797,7 @@ function infohub_render() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         let $data, $isValid;
 
         const $default = {

@@ -64,7 +64,7 @@ function infohub_configlocal_allow() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -74,7 +74,7 @@ function infohub_configlocal_allow() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -99,7 +99,7 @@ function infohub_configlocal_allow() {
      * @returns {*}
      */
     $functions.push('internal_allow');
-    const internal_allow = function($in) {
+    const internal_allow = function($in = {}) {
         const $default = {
             'parent_box_id': '',
         };

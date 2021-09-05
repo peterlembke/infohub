@@ -85,7 +85,7 @@ function infohub_render_svg() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         const $default = {
             'id': '',
             'name': '',
@@ -240,7 +240,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -286,7 +286,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgStart = function($in) {
+    const internal_SvgStart = function($in = {}) {
         const $default = {
             'tag': 'svg',
             'alias': '',
@@ -334,7 +334,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgStop = function($in) {
+    const internal_SvgStop = function($in = {}) {
         const $default = {
             'tag': 'svg',
         };
@@ -371,7 +371,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgSingleTag = function($in) {
+    const internal_SvgSingleTag = function($in = {}) {
         const $default = {
             'alias': '',
             'tag': 'rect',
@@ -415,7 +415,7 @@ function infohub_render_svg() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_SvgContentTag = function($in) {
+    const internal_SvgContentTag = function($in = {}) {
         const $default = {
             'alias': '',
             'tag': 'g',

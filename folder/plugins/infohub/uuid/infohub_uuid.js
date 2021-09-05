@@ -57,7 +57,7 @@ function infohub_uuid() {
      * @author Your name
      */
     $functions.push('uuid');
-    const uuid = function($in) {
+    const uuid = function($in = {}) {
         const $default = {
             'version': '100',
             'count': 1,
@@ -122,7 +122,7 @@ function infohub_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         return {
             'answer': 'true',
             'message': 'All UUID versions',
@@ -145,7 +145,7 @@ function infohub_uuid() {
      * @since 2018-05-19
      */
     $functions.push('guidv0');
-    const guidv0 = function($in) {
+    const guidv0 = function($in = {}) {
         return {
             'answer': 'true',
             'message': 'Here are the guidv0',
@@ -159,7 +159,7 @@ function infohub_uuid() {
      * @author https://www.w3resource.com/javascript-exercises/javascript-math-exercise-23.php
      */
     $functions.push('guidv4');
-    const guidv4 = function($in) {
+    const guidv4 = function($in = {}) {
         let $timeStamp = new Date().getTime();
         let $uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
 
@@ -184,7 +184,7 @@ function infohub_uuid() {
      * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
      **/
     $functions.push('guidv4b');
-    const guidv4b = function($in) {
+    const guidv4b = function($in = {}) {
         var $lut = [], $result, $d0, $d1, $d2, $d3;
 
         for (let $i = 0; $i < 256; $i = $i + 1) {
@@ -220,7 +220,7 @@ function infohub_uuid() {
      * @return string
      */
     $functions.push('hub_id');
-    const hub_id = function($in) {
+    const hub_id = function($in = {}) {
         const $result = _MicroTime() + ':' +
             Math.random().toString().substring(2);
         // math.random produce a float between 0 and 1, example 0.4568548654

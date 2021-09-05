@@ -49,7 +49,7 @@ function infohub_tree_storage() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -60,7 +60,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'path': '',
         };
@@ -92,7 +92,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read_many');
-    const read_many = function($in) {
+    const read_many = function($in = {}) {
         const $default = {
             'path': '',
         };
@@ -124,7 +124,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('read_pattern');
-    const read_pattern = function($in) {
+    const read_pattern = function($in = {}) {
         const $default = {
             'path': '',
         };
@@ -156,7 +156,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'path': '',
             'data': {},
@@ -190,7 +190,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('get_user_tree_plugin_list');
-    const get_user_tree_plugin_list = function($in) {
+    const get_user_tree_plugin_list = function($in = {}) {
         const $default = {};
         $in = _Default($default, $in);
 
@@ -220,7 +220,7 @@ function infohub_tree_storage() {
      * @author  Peter Lembke
      */
     $functions.push('get_user_plugin_path_index');
-    const get_user_plugin_path_index = function($in) {
+    const get_user_plugin_path_index = function($in = {}) {
         const $default = {
             'plugin_name': '',
         };

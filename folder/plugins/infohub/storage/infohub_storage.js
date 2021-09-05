@@ -70,7 +70,7 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'path': '',
             'wanted_data': {},
@@ -183,7 +183,7 @@ function infohub_storage() {
      * @returns {*}
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'path': '',
             'data': {},
@@ -300,7 +300,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('read_many');
-    const read_many = function($in) {
+    const read_many = function($in = {}) {
         const $default = {
             'paths': {},
             'step': 'step_start',
@@ -387,7 +387,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('write_many');
-    const write_many = function($in) {
+    const write_many = function($in = {}) {
         const $default = {
             'paths': {}, // object with path and data object
             'mode': 'overwrite', // overwrite or merge
@@ -492,7 +492,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('read_pattern');
-    const read_pattern = function($in) {
+    const read_pattern = function($in = {}) {
         const $default = {
             'path': '',
             'wanted_data': {},
@@ -622,7 +622,7 @@ function infohub_storage() {
      * @return array|bool
      */
     $functions.push('write_pattern');
-    const write_pattern = function($in) {
+    const write_pattern = function($in = {}) {
         const $default = {
             'path': '',
             'data': {},

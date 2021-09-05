@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "Segreto condiviso",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Condividi questo segreto con il server",
             "CHECKSUM_KEY": "Checksum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Checksum indirizzo dominio + nome utente + segreto condiviso.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum indirizzo dominio + nome utente + segreto condiviso.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Plugin del server consentiti",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Elenco con tutti i nomi di plug-in del server a cui puoi inviare messaggi sul nodo remoto"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "Seleziona file"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Qui puoi utilizzare i dati di contatto che hai importato e accedere al server",
+            "PASSWORD_KEY": "Password",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "La password necessaria per decodificare shared_secret",
+            "LOGIN_RESULT_KEY": "risultato dell'accesso",
+            "RELOAD_AFTER_LOGIN_KEY": "Ricarica dopo l'accesso",
+            "SELECT_FILE_KEY": "Seleziona file",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Scarica account demo",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Hai già effettuato l'accesso",
+            "MISSING_USER_NAME_KEY": "Nome utente mancante",
+            "MISSING_RANDOM_CODE_KEY": "Codice casuale mancante",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "La risposta dal server ha richiesto troppo tempo. Abbandonerò il tentativo di accesso",
+            "FAILED_TO_LOGIN_KEY": "Accesso non riuscito",
+            "SUCCESS_LOGGING_IN_KEY": "Accesso riuscito",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Il codice casuale non ha la lunghezza corretta",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Improbabile che la media totale non abbia decimali",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Improbabile che la media sia uguale alla media totale",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Questi semplici test mostrano che il random_code almeno non è una linea piatta di numeri."
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "Login",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Qui puoi utilizzare i dati di contatto che hai importato e accedere al server",
             "PASSWORD_KEY": "Password",

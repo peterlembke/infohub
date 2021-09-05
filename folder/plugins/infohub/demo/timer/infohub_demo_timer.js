@@ -54,7 +54,7 @@ function infohub_demo_timer() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -64,7 +64,7 @@ function infohub_demo_timer() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -187,7 +187,7 @@ function infohub_demo_timer() {
      * @author Peter Lembke
      */
     $functions.push('click_button');
-    const click_button = function($in) {
+    const click_button = function($in = {}) {
         const $default = {
             'event_data': '',
             'answer': 'false',
@@ -319,7 +319,7 @@ function infohub_demo_timer() {
      * @author Peter Lembke
      */
     $functions.push('click_advanced');
-    const click_advanced = function($in) {
+    const click_advanced = function($in = {}) {
         const $default = {
             'event_data': '',
             'answer': 'false',

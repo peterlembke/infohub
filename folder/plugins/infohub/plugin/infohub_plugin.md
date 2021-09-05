@@ -109,11 +109,30 @@ custom settings for your site. For example `folder/config/infohub_exchange.json`
 * If no file exist in folder/config then the config file with the plugin will be used.
 * If there are no config file then you get an empty config.
 
-# Future features
+# Assets, has_assets
 
-The client will be allowed to request a list of available plugins and their version and checksum. Then the client can
-check against what is stored locally and request newer versions if needed. The server will not figure out what the
-client needs, it have to figure that out by itself.
+A plugin can have assets. See [infohub_asset](plugin,infohub_asset).
+Normally the assets are downloaded by [infohub_workbench](plugin,infohub_workbench) when you start a plugin from the Workbench.
+If a plugin is stand alone then you can add a flag: has_assets, in the Version data.  
+```
+const _Version = function() {
+    return {
+        'date': '2021-06-06',
+        'since': '2018-05-30',
+        'version': '1.0.1',
+        'checksum': '{{checksum}}',
+        'class_name': 'infohub_renderform',
+        'note': 'Adds more features to the basic render form elements',
+        'status': 'normal',
+        'SPDX-License-Identifier': 'GPL-3.0-or-later',
+        'user_role': 'user',
+        'web_worker': 'true',
+        'core_plugin': 'false',
+        'has_assets': 'true'
+    };
+};
+```
+Then the assets are downloaded using the function infohub_asset->update_all_plugin_assets. 
 
 # License
 
@@ -124,5 +143,5 @@ Front-Cover Texts, and no Back-Cover Texts.
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not,
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
-Updated 2018-10-11 by Peter Lembke  
+Updated 2021-08-03 by Peter Lembke  
 Since 2016-04-01 by Peter Lembke  

@@ -33,7 +33,7 @@ function infohub_storage_data_localforage() {
             'version': '1.0.0',
             'class_name': 'infohub_storage_data_localforage',
             'checksum': '{{checksum}}',
-            'note': 'Uses the local storage engine indexedDb trough the library localForage to store key value',
+            'note': 'Uses the local storage engine indexedDb through the library localForage to store key value',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
@@ -59,7 +59,7 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_localforage',
@@ -122,7 +122,7 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_localforage',
@@ -177,7 +177,7 @@ function infohub_storage_data_localforage() {
      * @return array
      */
     $functions.push('read_paths');
-    const read_paths = function($in) {
+    const read_paths = function($in = {}) {
         const $default = {
             'path': '',
             'callback_function': null,

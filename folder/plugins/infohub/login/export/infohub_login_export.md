@@ -15,7 +15,7 @@ You need to get the file to the user. Just remember to never transfer the file i
 For desktop and laptop computers that run Linux/MacOS/Windows you can install Vera encrypt. Create a Vera container and
 put the file in there. Now you can transfer the Vera container to the user. You need to share the password to the
 container. Transfer the container with an USB-memory or Google Drive or Dropbox or Microsoft OneDrive or send the
-container trough e-mail.
+container through e-mail.
 
 For Apple devices (MacOS/iPad/iPhone) you can use file share over bluetooth.
 

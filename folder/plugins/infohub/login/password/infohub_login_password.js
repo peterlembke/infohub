@@ -49,7 +49,7 @@ function infohub_login_password() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('create');
@@ -61,7 +61,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, message: *}|{}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -100,19 +100,28 @@ function infohub_login_password() {
                         },
                         'text_current_password': {
                             'plugin': 'infohub_renderform',
-                            'type': 'text',
+                            'type': 'password',
                             'label': _Translate('CURRENT_PASSWORD'),
                             'description': _Translate('LEAVE_BLANK_IF_YOU_HAVE_NONE'),
                             'maxlength': '30',
                             'show_characters_left': 'false',
+                            'show_generate_password': 'false',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
                         },
                         'text_new_password': {
                             'plugin': 'infohub_renderform',
-                            'type': 'text',
+                            'type': 'password',
                             'label': _Translate('NEW_PASSWORD'),
                             'description': _Translate('LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD'),
                             'maxlength': '30',
-                            'show_characters_left': 'false',
+                            'show_characters_left': 'true',
+                            'show_generate_password': 'true',
+                            'show_view_password': 'true',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
                         },
                         'button_change': {
                             'plugin': 'infohub_renderform',
@@ -156,7 +165,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, message: *, ok: (string)}}
      */
-    const click_password_change = function($in) {
+    const click_password_change = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_get_contact',
@@ -343,7 +352,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    const shared_secret_scramble = function($in) {
+    const shared_secret_scramble = function($in = {}) {
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -374,7 +383,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: string, message: string, shared_secret_modified: *, ok: string}}
      */
-    const shared_secret_restore = function($in) {
+    const shared_secret_restore = function($in = {}) {
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded
@@ -401,7 +410,7 @@ function infohub_login_password() {
      * @param $in
      * @returns {{answer: *, shared_secret_scrambled: *, message: *, ok: *}}
      */
-    const internal_ModifySharedSecret = function($in) {
+    const internal_ModifySharedSecret = function($in = {}) {
         const $default = {
             'password': '', // in plain text
             'shared_secret': '', // base64 encoded

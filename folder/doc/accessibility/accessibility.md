@@ -2,7 +2,7 @@
 Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be really good at that.
 
 [columns]
-Not everyone has a perfect locomotor system together with sharp eyesight that see all colours.
+Not everyone has perfect locomotor activity together with sharp eyesight that see all colours.
 
 People with normal sight also benefit from these systems. 
 
@@ -16,7 +16,7 @@ Accessibility in Infohub include:
 * Speech Recognition - Speak and it becomes text.
 * Speech Synthesis - Text to speech. 
 * Image - Set how image colours should be transformed to suite your eyes.
-* Keyboard navigation - tab index, short cut keys.
+* Keyboard navigation - tab index, and short-cut keys.
 * Zoom - Everything larger without panning.
 * Design - Keep the design together.
 
@@ -108,4 +108,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2018-01-18 by Peter Lembke  
-Updated 2018-01-18 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

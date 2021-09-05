@@ -69,7 +69,7 @@ function infohub_encrypt_pgp() {
      * @return array
      */
     $functions.push('encrypt');
-    const encrypt = function($in) {
+    const encrypt = function($in = {}) {
         const $default = {
             'text': '',
             'password': '',
@@ -125,7 +125,7 @@ function infohub_encrypt_pgp() {
      * @return array
      */
     $functions.push('decrypt');
-    const decrypt = function($in) {
+    const decrypt = function($in = {}) {
         const $default = {
             'encrypted_text': '',
             'password': '',

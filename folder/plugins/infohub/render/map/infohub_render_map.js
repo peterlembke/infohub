@@ -83,7 +83,7 @@ function infohub_render_map() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -155,7 +155,7 @@ function infohub_render_map() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -212,7 +212,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Openstreetmap = function($in) {
+    const internal_Openstreetmap = function($in = {}) {
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmap',
@@ -275,7 +275,7 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Openstreetmaplink = function($in) {
+    const internal_Openstreetmaplink = function($in = {}) {
         const $default = {
             'type': 'map',
             'subtype': 'openstreetmaplink',
@@ -329,7 +329,7 @@ function infohub_render_map() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Googlemaps = function($in) {
+    const internal_Googlemaps = function($in = {}) {
         let $html = '';
 
         const $default = {
@@ -391,7 +391,7 @@ function infohub_render_map() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Googlemapslink = function($in) {
+    const internal_Googlemapslink = function($in = {}) {
         const $default = {
             'type': 'map',
             'subtype': 'googlemapslink',
@@ -454,7 +454,7 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Bingmaps = function($in) {
+    const internal_Bingmaps = function($in = {}) {
         const $default = {
             'type': 'map',
             'subtype': 'bingmaps',
@@ -524,7 +524,7 @@ function infohub_render_map() {
      * @since   2018-04-14
      * @author  Peter Lembke
      */
-    const internal_Bingmapslink = function($in) {
+    const internal_Bingmapslink = function($in = {}) {
         const $default = {
             'type': 'map',
             'subtype': 'bingmapslink',

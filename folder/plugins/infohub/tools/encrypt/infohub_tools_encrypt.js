@@ -49,7 +49,7 @@ function infohub_tools_encrypt() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -59,7 +59,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -129,7 +129,7 @@ function infohub_tools_encrypt() {
                         'my_select_method': {
                             'type': 'form',
                             'subtype': 'select',
-                            "label": _Translate("ENCRYPT/DECRYPT_METHOD"),
+                            "label": _Translate("ENCRYPT_OR_DECRYPT_METHOD"),
                             "description": _Translate("WHAT_TYPE_OF_ENCRYPTION_METHOD_DO_YOU_WANT_TO_USE?"),
                             "size": $size,
                             "multiple": "false",
@@ -209,7 +209,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_encrypt');
-    const click_handle_encrypt = function($in) {
+    const click_handle_encrypt = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -316,7 +316,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_decrypt');
-    const click_handle_decrypt = function($in) {
+    const click_handle_decrypt = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -423,7 +423,7 @@ function infohub_tools_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function($in) {
+    const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',

@@ -62,7 +62,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('init'); // Enable this function
-    const init = function($in) {
+    const init = function($in = {}) {
         const $default = {
             'parent_box_id': '', // The box where you want the tabs
             'step': 'step_start',
@@ -118,15 +118,13 @@ function infohub_tabs() {
         if ($in.step === 'step_get_box_list_response') {
             $in.step = 'step_create_head';
 
-            let $id = _GetData(
-                {'name': 'index/head', 'default': '', 'data': $in.response});
+            let $id = _GetData({'name': 'index/head', 'default': '', 'data': $in.response});
             if ($id !== '') {
                 $in.data_back.head_id = $id;
                 $in.step = 'step_end';
             }
 
-            $id = _GetData(
-                {'name': 'index/body', 'default': '', 'data': $in.response});
+            $id = _GetData({'name': 'index/body', 'default': '', 'data': $in.response});
             if ($id !== '') {
                 $in.data_back.box_id = $id;
                 $in.step = 'step_end';
@@ -205,7 +203,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('add'); // Enable this function
-    const add = function($in) {
+    const add = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -338,7 +336,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('remove'); // Enable this function
-    const remove = function($in) {
+    const remove = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -429,7 +427,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('siblings_box_view'); // Enable this function
-    const siblings_box_view = function($in) {
+    const siblings_box_view = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -470,7 +468,7 @@ function infohub_tabs() {
      * @returns {*}
      */
     $functions.push('highlight_tab');
-    const highlight_tab = function($in) {
+    const highlight_tab = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'tab_alias': '',
@@ -552,7 +550,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('setup_full_tab_system'); // Enable this function
-    const setup_full_tab_system = function($in) {
+    const setup_full_tab_system = function($in = {}) {
         let $default = {
             'parent_box_id': '', // The box where you want the tabs
             'highlight_tab_alias': '',
@@ -858,7 +856,7 @@ function infohub_tabs() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',

@@ -51,7 +51,7 @@ function infohub_template() {
     // ***********************************************************
 
     $functions.push('_GetText');
-    const _GetText = function($in) {
+    const _GetText = function($in = {}) {
         return 'Text from _GetText';
     };
 
@@ -63,7 +63,7 @@ function infohub_template() {
      * @author Your name
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $default = {
             'step': 'start',
             'data': 'default data',
@@ -151,7 +151,7 @@ function infohub_template() {
      * @author Your name
      */
     $functions.push('my_function');
-    const my_function = function($in) {
+    const my_function = function($in = {}) {
         const $default = {
             'step': 'start',
             'data': ' Default text from my_function ',
@@ -182,7 +182,7 @@ function infohub_template() {
      * @since 2012-01-01
      * @author Your name
      */
-    const internal_MyFunction = function($in) {
+    const internal_MyFunction = function($in = {}) {
         const $default = {
             'step': 'start',
             'data': ' Default text from MyFunction ',

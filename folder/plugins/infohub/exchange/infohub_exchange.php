@@ -739,7 +739,7 @@ class infohub_exchange extends infohub_base
             $messageItem = $response['data_message'];
 
             if ($messageItem['to']['node'] !== 'server') {
-                $rejectReason['Messages that try to pass trough are thrown away'] = 1;
+                $rejectReason['Messages that try to pass through are thrown away'] = 1;
                 continue;
             }
 
@@ -755,7 +755,7 @@ class infohub_exchange extends infohub_base
             }
             if ($fromNode !== $back['to']['node']) {
                 $sort = []; //
-                $message = 'All messages in a package should come from the same node. The rule is to not allow any pass-trough messages. I will throw away the complete package.';
+                $message = 'All messages in a package should come from the same node. The rule is to not allow any pass-through messages. I will throw away the complete package.';
                 goto leave;
             }
 

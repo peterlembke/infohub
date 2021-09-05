@@ -23,7 +23,7 @@ function infohub_translate_doc() {
 
     const _Version = function() {
         return {
-            'date': '2019-09-28',
+            'date': '2021-09-05',
             'since': '2019-09-28',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
@@ -39,7 +39,8 @@ function infohub_translate_doc() {
             'create': 'normal',
             'click_main': 'normal',
             'click_createfile': 'normal',
-            'click_updatefile': 'normal',
+            'click_updateplugin': 'normal',
+            'click_validate': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -49,7 +50,7 @@ function infohub_translate_doc() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -59,7 +60,7 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -86,7 +87,7 @@ function infohub_translate_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_createfile][button_updatefile]',
+                            'data': '[button_main][button_createfile][button_updateplugin][button_validate]',
                             'class': 'container-small',
                         },
                         'container_doc': {
@@ -114,12 +115,21 @@ function infohub_translate_doc() {
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
                         },
-                        'button_updatefile': {
+                        'button_updateplugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('UPDATE_TRANSLATION_FILE'),
-                            'event_data': 'doc|updatefile',
+                            'button_label': _Translate('UPDATE_PLUGIN_KEYS'),
+                            'event_data': 'doc|updateplugin',
+                            'to_plugin': 'infohub_translate',
+                            'to_function': 'click',
+                        },
+                        'button_validate': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('VALIDATE_TRANSLATION_FILES'),
+                            'event_data': 'doc|validate',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
                         },
@@ -154,14 +164,12 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    const click_main = function($in) {
+    const click_main = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': '',
-                'frog': 'false',
-                'html': '',
+                'message': ''
             },
         };
         $in = _Default($default, $in);
@@ -170,15 +178,10 @@ function infohub_translate_doc() {
             return _GetCall('infohub_translate');
         }
 
-        let $ok = 'true';
-        if ($in.response.frog === 'true') {
-            $ok = 'false';
-        }
-
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $ok,
+            'ok': $in.response.answer
         };
     };
 
@@ -189,31 +192,24 @@ function infohub_translate_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_createfile');
-    const click_createfile = function($in) {
+    const click_createfile = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': '',
-                'frog': 'false',
-                'html': '',
+                'message': ''
             },
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('createfile/infohub_translate_createfile');
-        }
-
-        let $ok = 'true';
-        if ($in.response.frog === 'true') {
-            $ok = 'false';
+            return _GetCall('infohub_translate_createfile');
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $ok,
+            'ok': $in.response.answer
         };
     };
 
@@ -223,68 +219,79 @@ function infohub_translate_doc() {
      * @since   2019-03-13
      * @author  Peter Lembke
      */
-    $functions.push('click_updatefile');
-    const click_updatefile = function($in) {
+    $functions.push('click_updateplugin');
+    const click_updateplugin = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
                 'answer': 'false',
-                'message': '',
-                'frog': 'false',
-                'html': '',
+                'message': ''
             },
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('updatefile/infohub_translate_updatefile');
-        }
-
-        let $ok = 'true';
-        if ($in.response.frog === 'true') {
-            $ok = 'false';
+            return _GetCall('infohub_translate_updateplugin');
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'ok': $ok,
+            'ok': $in.response.answer
         };
     };
 
     /**
      * Show the documentation
      * @version 2019-03-13
+     * @since   2019-03-13
+     * @author  Peter Lembke
+     */
+    $functions.push('button_validate');
+    const click_validate = function($in = {}) {
+        const $default = {
+            'step': 'step_render',
+            'response': {
+                'answer': 'false',
+                'message': ''
+            },
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_render') {
+            return _GetCall('infohub_translate_validate');
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
+        };
+    };
+
+    /**
+     * Show the documentation
+     * @version 2021-08-12
      * @since   2019-03-13
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
     const _GetCall = function($fileName) {
+
+        const $pluginName = 'infohub_translate';
+
         return _SubCall({
             'to': {
                 'node': 'client',
-                'plugin': 'infohub_render',
-                'function': 'create',
+                'plugin': 'infohub_doc',
+                'function': 'render_doc',
             },
             'data': {
-                'what': {
-                    'my_doc': {
-                        'plugin': 'infohub_translate',
-                        'type': $fileName,
-                    },
-                },
-                'how': {
-                    'mode': 'one box',
-                    'text': '[my_doc]',
-                },
-                'where': {
-                    'box_id': 'main.body.infohub_translate.form.[container_doc]', // 'box_id': $in.parent_box_id + '.form',
-                    'max_width': 960,
-                    'scroll_to_box_id': 'true',
-                },
+                'file_name': $fileName,
+                'box_id': 'main.body.' + $pluginName + '.form.[container_doc]'
             },
             'data_back': {
-                'step': 'step_end',
+                'step': 'step_end'
             },
         });
     };

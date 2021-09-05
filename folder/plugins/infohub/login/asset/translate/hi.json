@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "साझा रहस्य",
             "You_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "आप सर्वर के साथ इस रहस्य को साझा करते हैं",
             "CHECKSUM_KEY": "चेकसम",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "डोमेन पते का चेकसम + उपयोगकर्ता नाम + साझा रहस्य।",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "डोमेन पते का चेकसम + उपयोगकर्ता नाम + साझा रहस्य।",
             "ALLOWED_SERVER_PLUGINS_KEY": "अनुमत सर्वर प्लगइन्स",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "उन सभी सर्वर प्लगइन नामों की सूची, जिन्हें आप दूरस्थ नोड पर संदेश भेज सकते हैं"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "फ़ाइल का चयन करें"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "लॉगिन",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "यहां आप आयात किए गए संपर्क डेटा का उपयोग कर सकते हैं और सर्वर में प्रवेश कर सकते हैं",
+            "PASSWORD_KEY": "पासवर्ड",
+            "The_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "जिस पासवर्ड को आपको साझा करने की जरूरत है, वह है शेयर",
+            "LOGIN_RESULT_KEY": "लॉगिन परिणाम",
+            "RELOAD_AFTER_LOGIN_KEY": "लॉगिन के बाद पुनः लोड करें",
+            "SELECT_FILE_KEY": "फ़ाइल का चयन करें",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "डेमो खाता डाउनलोड करें",
+            "You_ARE_ALREADY_LOGGED_IN_KEY": "आप पहले से ही लॉग इन हैं",
+            "MISSING_USER_NAME_KEY": "उपयोगकर्ता का नाम गुम है",
+            "MISSING_RANDOM_CODE_KEY": "यादृच्छिक कोड गुम",
+            "The_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "सर्वर से उत्तर बहुत लंबा है। मैं लॉगिन प्रयास को छोड़ दूंगा",
+            "FAILED_TO_LOGIN_KEY": "लॉगिन करने में विफल",
+            "SUCCESS_LOGGING_IN_KEY": "सफलता लॉगिंग इन",
+            "The_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "यादृच्छिक कोड की सही लंबाई नहीं है",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "कुल औसत कोई दशमलव नहीं है",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "औसत रूप से औसत कुल के बराबर है",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "ये सरल परीक्षण बताते हैं कि random_code कम से कम संख्याओं का एक समतल नहीं है।"
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "लॉगिन",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "यहां आप आयात किए गए संपर्क डेटा का उपयोग कर सकते हैं और सर्वर में प्रवेश कर सकते हैं",
             "PASSWORD_KEY": "पासवर्ड",

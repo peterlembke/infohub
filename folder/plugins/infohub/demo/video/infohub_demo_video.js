@@ -52,7 +52,7 @@ function infohub_demo_video() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_video() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -98,7 +98,8 @@ function infohub_demo_video() {
                             'type': 'common',
                             'subtype': 'join',
                             'data0': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_VIDEO.'),
-                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES._ALL_DATA_MUST_COME_FROM_THE_SERVER')
+                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES.'),
+                            'data2': _Translate('ALL_DATA_MUST_COME_FROM_THE_SERVER')
                         },
                         'my_text': {
                             'type': 'common',

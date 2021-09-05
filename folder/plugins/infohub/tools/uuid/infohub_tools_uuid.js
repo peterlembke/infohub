@@ -48,7 +48,7 @@ function infohub_tools_uuid() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -58,7 +58,7 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -202,7 +202,7 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_uuid');
-    const click_handle_uuid = function($in) {
+    const click_handle_uuid = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'form_data': {},
@@ -314,7 +314,7 @@ function infohub_tools_uuid() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_node_select');
-    const click_handle_node_select = function($in) {
+    const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'value': '',

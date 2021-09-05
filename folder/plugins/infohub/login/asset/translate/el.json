@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "Κοινόχρηστο μυστικό",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Μοιράζεστε αυτό το μυστικό με τον διακομιστή",
             "CHECKSUM_KEY": "Checksum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Έλεγχος διεύθυνσης τομέα + όνομα χρήστη + κοινόχρηστο μυστικό.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Έλεγχος διεύθυνσης τομέα + όνομα χρήστη + κοινόχρηστο μυστικό.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Επιτρεπόμενες προσθήκες διακομιστή",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Λίστα με όλα τα ονόματα προσθηκών διακομιστή στα οποία μπορείτε να στέλνετε μηνύματα στον απομακρυσμένο κόμβο"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "Επιλογή αρχείου"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "Είσοδος",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Εδώ μπορείτε να χρησιμοποιήσετε τα δεδομένα επαφής που εισαγάγατε και να συνδεθείτε στο διακομιστή",
+            "PASSWORD_KEY": "Κωδικός πρόσβασης",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Ο κωδικός πρόσβασης που πρέπει να αποκωδικοποιήσετε το shared_secret",
+            "LOGIN_RESULT_KEY": "αποτέλεσμα σύνδεσης",
+            "RELOAD_AFTER_LOGIN_KEY": "Επαναφόρτωση μετά τη σύνδεση",
+            "SELECT_FILE_KEY": "Επιλογή αρχείου",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Λήψη δοκιμαστικού λογαριασμού",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Έχετε ήδη συνδεθεί",
+            "MISSING_USER_NAME_KEY": "Λείπει το όνομα χρήστη",
+            "MISSING_RANDOM_CODE_KEY": "Λείπει τυχαίος κωδικός",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Η απάντηση από τον διακομιστή χρειάστηκε πολύς χρόνος. Θα εγκαταλείψω την προσπάθεια σύνδεσης",
+            "FAILED_TO_LOGIN_KEY": "Αποτυχία σύνδεσης",
+            "SUCCESS_LOGGING_IN_KEY": "Επιτυχής σύνδεση",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Ο τυχαίος κώδικας δεν έχει το σωστό μήκος",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Είναι απίθανο ότι ο συνολικός μέσος όρος δεν έχει δεκαδικά ψηφία",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Είναι απίθανο ο μέσος όρος να είναι ίσος με τον συνολικό μέσο όρο",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Αυτές οι απλές δοκιμές δείχνουν ότι ο τυχαίος_ κωδικός τουλάχιστον δεν είναι μια επίπεδη γραμμή αριθμών."
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "Είσοδος",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Εδώ μπορείτε να χρησιμοποιήσετε τα δεδομένα επαφής που εισαγάγατε και να συνδεθείτε στο διακομιστή",
             "PASSWORD_KEY": "Κωδικός πρόσβασης",

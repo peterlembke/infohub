@@ -43,7 +43,7 @@ function infohub_configlocal_font() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -53,7 +53,7 @@ function infohub_configlocal_font() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'subtype': 'menu',
@@ -158,7 +158,7 @@ function infohub_configlocal_font() {
      * @author Peter Lembke
      */
     $functions.push('click_test');
-    const click_test = function($in) {
+    const click_test = function($in = {}) {
         const $default = {
             'step': 'step_set_style',
             'form_data': {},

@@ -44,7 +44,7 @@ function infohub_configlocal_zoom() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -54,7 +54,7 @@ function infohub_configlocal_zoom() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -84,7 +84,7 @@ function infohub_configlocal_zoom() {
                             'type': 'form',
                             'content': '[zoom_level_plus][zoom_level_minus][zoom_level_normal]',
                             'label': _Translate('ZOOM_SETTINGS'),
-                            'description': '[zoom_icon]' + _Translate('USE_THIS_ZOOM_IF_YOU_HAVE_NO_KEYBOARD.__CTRL_+_OR_CTRL_-')
+                            'description': '[zoom_icon]' + _Translate('USE_THIS_ZOOM_IF_YOU_HAVE_NO_KEYBOARD') + '. CTRL+  CTRL-'
                         },
                         'zoom_level_plus': {
                             'plugin': 'infohub_renderform',
@@ -158,7 +158,7 @@ function infohub_configlocal_zoom() {
      * @author Peter Lembke
      */
     $functions.push('click_change');
-    const click_change = function($in) {
+    const click_change = function($in = {}) {
         const $default = {
             'step': 'step_set_zoom_level',
             'section': '',
@@ -258,7 +258,7 @@ function infohub_configlocal_zoom() {
      * @author Peter Lembke
      */
     $functions.push('apply_config');
-    const apply_config = function($in) {
+    const apply_config = function($in = {}) {
         const $default = {
             'local_config': {
                 'zoom_level': {

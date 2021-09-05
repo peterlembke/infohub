@@ -45,14 +45,14 @@ function infohub_login_import() {
 
     let $classTranslations = {};
 
+    $functions.push('_SetDefaultNodeData');
     /**
      * These fields is what a contact need
      * @version 2019-09-04
      * @since 2019-09-04
      * @author Peter Lembke
      */
-    $functions.push('_SetDefaultNodeData');
-    const _SetDefaultNodeData = function($nodeData) {
+    const _SetDefaultNodeData = function($nodeData = {}) {
         const $default = {
             'node': '',
             'note': '',
@@ -69,7 +69,7 @@ function infohub_login_import() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -79,7 +79,7 @@ function infohub_login_import() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -157,7 +157,7 @@ function infohub_login_import() {
      * @author Peter Lembke
      */
     $functions.push('click_import');
-    const click_import = function($in) {
+    const click_import = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_file_read_response',

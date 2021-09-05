@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "Gedeeld geheim",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Je deelt dit geheim met de server",
             "CHECKSUM_KEY": "Checksum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "Checksum van domeinadres + gebruikersnaam + gedeeld geheim.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum van domeinadres + gebruikersnaam + gedeeld geheim.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Toegestane server plug-ins",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lijst met alle server plug-in namen waarnaar je berichten kunt sturen op het externe knooppunt"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "Selecteer bestand"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "Inloggen",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kun je de contactgegevens gebruiken die je hebt geïmporteerd en inloggen op de server",
+            "PASSWORD_KEY": "Wachtwoord",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Het wachtwoord dat je nodig hebt om het shared_secret te decoderen",
+            "LOGIN_RESULT_KEY": "inlogresultaat",
+            "RELOAD_AFTER_LOGIN_KEY": "Herladen na inloggen",
+            "SELECT_FILE_KEY": "Selecteer bestand",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-account downloaden",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Je bent al ingelogd",
+            "MISSING_USER_NAME_KEY": "Ontbrekende gebruikersnaam",
+            "MISSING_RANDOM_CODE_KEY": "Ontbrekende willekeurige code",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Het antwoord van de server duurde te lang. Ik zal de inlogpoging afbreken",
+            "FAILED_TO_LOGIN_KEY": "Inloggen mislukt",
+            "SUCCESS_LOGGING_IN_KEY": "Inloggen geslaagd",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "De willekeurige code heeft niet de juiste lengte",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Het is onwaarschijnlijk dat het totale gemiddelde geen decimalen heeft",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Het is onwaarschijnlijk dat het gemiddelde gelijk is aan het totale gemiddelde",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Deze eenvoudige tests tonen aan dat de random_code op zijn minst geen platte lijn van getallen is."
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "Inloggen",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kun je de contactgegevens gebruiken die je hebt geïmporteerd en inloggen op de server",
             "PASSWORD_KEY": "Wachtwoord",

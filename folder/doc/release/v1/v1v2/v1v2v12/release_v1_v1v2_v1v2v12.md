@@ -33,7 +33,7 @@ Focused on deprecating test system and callback. Doc now read root files. New tr
 - sign_code_created_at - now string
 
 ## Removed
-- callback - Deprecated callback. If I want a secure system then there can only be one way in to the system and that is trough the login. Since I will not use Infohub for e-commerce and payment callbacks then the callback was just a security risk. Callback might come back later but as a client to a server.
+- callback - Deprecated callback. If I want a secure system then there can only be one way in to the system and that is through the login. Since I will not use Infohub for e-commerce and payment callbacks then the callback was just a security risk. Callback might come back later but as a client to a server.
 - test system - Deprecated the plugin test system. The system was outdated and required jQuery mobile. I will use another approach that will record live data and detect changes. That is truly automated tests.
 - Doc - removed most mentions of the callback and test system from the documentation.
 - package to_plugin - we do not allow routing so all messages will go to the receiving node.

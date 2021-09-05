@@ -36,7 +36,7 @@
 //
 //  2020-01-10 Peter Lembke https://www.charzam.com
 //  Could not get the code to work in the browser. A lot of issues and warnings in PHP Storm and jshint.
-//  Ran the code trough the PHP Storm "reformat code". Changed all variables to start with $.
+//  Ran the code through the PHP Storm "reformat code". Changed all variables to start with $.
 //  All comparision from == to === and !==. Added variable declarations with let.
 //  Changed to a command. Now it works in the browser.
 // ------------------------------------------------------------------

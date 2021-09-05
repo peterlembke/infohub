@@ -74,7 +74,7 @@ function infohub_plugin() {
      * @param $in
      */
     $functions.push('plugin_request');
-    const plugin_request = function($in) {
+    const plugin_request = function($in = {}) {
         const $default = {
             'plugin_name': '',
             'step': 'plugin_request_from_cache',
@@ -224,7 +224,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_start');
-    const plugin_start = function($in) {
+    const plugin_start = function($in = {}) {
         // "use strict"; // Do not use strict with eval()
 
         const $default = {
@@ -236,6 +236,9 @@ function infohub_plugin() {
             'found': '',
             'old': '',
             'plugins': {}, // Used for storing infohub_base + the plugin you want to start
+            'data_back': {
+                'has_assets': 'false'
+            }
         };
         $in = _Default($default, $in);
 
@@ -310,6 +313,7 @@ function infohub_plugin() {
             const $basePlugin = $in.plugins.infohub_base;
             let $pluginCode = $in.plugins[$in.plugin_name].plugin_code;
             let $webWorkerFlag = 'true';
+            let $hasAssets = 'false';
 
             block: {
                 if (_Empty($pluginCode) === 'true') {
@@ -322,31 +326,32 @@ function infohub_plugin() {
                     break block;
                 }
 
-                $pluginCode = $pluginCode.replace('{{base_checksum}}',
-                    $basePlugin.plugin_checksum);
-                $pluginCode = $pluginCode.replace(
-                    '\// include \"infohub_base.js\"', $basePlugin.plugin_code);
+                $pluginCode = $pluginCode.replace('{{base_checksum}}', $basePlugin.plugin_checksum);
+                $pluginCode = $pluginCode.replace('\// include \"infohub_base.js\"', $basePlugin.plugin_code);
 
                 try {
                     eval.call(window, $pluginCode);
                 } catch ($err) {
-                    $message = 'Can not evaluate the plugin class:"' +
-                        $in.plugin_name + '", error:"' + $err.message + '"';
+                    $message = 'Can not evaluate the plugin class:"' + $in.plugin_name + '", error:"' + $err.message + '"';
                     break block;
                 }
+
                 // Check that the plugin class are available
                 try {
-                    eval('if (typeof ' + $in.plugin_name +
-                        ' === \'undefined\') { $ok = \'false\'; }');
+                    const $run = 'if (typeof ' + $in.plugin_name + ' === \'undefined\') { $ok = \'false\'; }';
+                    eval($run);
                 } catch ($err) {
-                    $message = 'Can not check if the class:"' +
-                        $in.plugin_name + '" exist. error:"' + $err.message +
-                        '"';
+                    $message = 'Can not check if the class:"' + $in.plugin_name + '" exist. error:"' + $err.message + '"';
                     break block;
                 }
                 if ($ok === 'false') {
                     $message = 'Could not start plugin:' + $in.plugin_name;
                     break block;
+                }
+
+                // Plugins that start from workbench get update_all_plugin_assets. Other plugins need a flag
+                if ($pluginCode.indexOf("'has_assets': 'true'") >= 0) {
+                    $hasAssets = 'true';
                 }
 
                 // Default is to start plugin as a web worker, unless we explicitly turn that off in the plugin code.
@@ -360,7 +365,7 @@ function infohub_plugin() {
                     /*
                     const $blob = new Blob([$pluginCode], {type: 'application/javascript'});
                     $worker = new Worker(URL.createObjectURL($blob));
-                    $worker.onmessage = function($in) { // Move this function to infohub_exchange
+                    $worker.onmessage = function($in = {}) { // Move this function to infohub_exchange
                         $message = JSON.parse($in);
                         let $package = {
                                 'to_node' : 'server',
@@ -379,8 +384,7 @@ function infohub_plugin() {
                 }
 
                 $answer = 'true';
-                $message = $message +
-                    '. Now it is up to infohub_exchange to instantiate the plugin and move messages from Pending to Stack';
+                $message = $message + '. Now it is up to infohub_exchange to instantiate the plugin and move messages from Pending to Stack';
 
                 return _SubCall({
                     'to': {
@@ -394,15 +398,43 @@ function infohub_plugin() {
                         'plugin_started': 'true',
                         'web_worker_flag': $webWorkerFlag,
                         'web_worker': $worker,
+                        'has_assets': $hasAssets
                     },
                     'data_back': {
-                        'step': 'step_plugin_started_response',
-                    },
+                        'has_assets': $hasAssets,
+                        'plugin_name': $in.plugin_name,
+                        'step': 'step_plugin_started_response'
+                    }
                 });
             }
         }
 
         if ($in.step === 'step_plugin_started_response') {
+            $answer = $in.answer;
+            $message = $in.message;
+
+            if ($in.data_back.has_assets === 'true') {
+                $in.step = 'step_update_all_plugin_assets';
+            }
+        }
+
+        if ($in.step === 'step_update_all_plugin_assets') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_asset',
+                    'function': 'update_all_plugin_assets',
+                },
+                'data': {
+                    'plugin_name': $in.plugin_name,
+                },
+                'data_back': {
+                    'step': 'step_update_all_plugin_assets_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_update_all_plugin_assets_response') {
             $answer = $in.answer;
             $message = $in.message;
         }
@@ -445,7 +477,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('plugin_list');
-    const plugin_list = function($in) {
+    const plugin_list = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': '',
@@ -540,7 +572,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('download_all_plugins');
-    const download_all_plugins = function($in) {
+    const download_all_plugins = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': '',
@@ -647,7 +679,7 @@ function infohub_plugin() {
      * @returns {{answer: string, message: string}}
      */
     $functions.push('set_plugin_config');
-    const set_plugin_config = function($in) {
+    const set_plugin_config = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': '',

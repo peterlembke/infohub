@@ -13,7 +13,7 @@ message system.
 
 # cmd()
 
-All communication with your plugin goes trough the public function cmd(). You give cmd() an array and it will call the
+All communication with your plugin goes through the public function cmd(). You give cmd() an array and it will call the
 function you mention in the array.
 
 With cmd() you get: logging, execution time, checks on incoming data, check that the called function exist, catching and

@@ -58,7 +58,7 @@ function infohub_random() {
      * @returns {*}
      */
     $functions.push('random_number');
-    const random_number = function($in) {
+    const random_number = function($in = {}) {
         const $default = {
             'min': 0,
             'max': 0,
@@ -81,7 +81,7 @@ function infohub_random() {
      * @returns {*}
      */
     $functions.push('internal_RandomNumber');
-    const internal_RandomNumber = function($in) {
+    const internal_RandomNumber = function($in = {}) {
         const $default = {
             'min': 0,
             'max': 0,
@@ -145,7 +145,7 @@ function infohub_random() {
      * @uses
      */
     $functions.push('random_numbers');
-    const random_numbers = function($in) {
+    const random_numbers = function($in = {}) {
         const $default = {
             'min': 0,
             'max': 0,
@@ -203,7 +203,7 @@ function infohub_random() {
      * @uses
      */
     $functions.push('random_byte_string');
-    const random_byte_string = function($in) {
+    const random_byte_string = function($in = {}) {
         const $default = {
             'count': 10,
         };

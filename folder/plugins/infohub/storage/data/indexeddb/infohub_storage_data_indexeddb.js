@@ -56,7 +56,7 @@ function infohub_storage_data_indexeddb() {
      * @return array
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_indexeddb',
@@ -137,7 +137,7 @@ function infohub_storage_data_indexeddb() {
      * @return array
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_indexeddb',

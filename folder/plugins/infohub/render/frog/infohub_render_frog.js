@@ -59,7 +59,7 @@ function infohub_render_frog() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -83,7 +83,7 @@ function infohub_render_frog() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -129,7 +129,7 @@ function infohub_render_frog() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -175,7 +175,7 @@ function infohub_render_frog() {
      * @param $in
      * @returns {{answer: string, html: string, message: string}}
      */
-    const internal_Frog = function($in) {
+    const internal_Frog = function($in = {}) {
         const $default = {
             'alias': '',
             'class': 'frog_image',

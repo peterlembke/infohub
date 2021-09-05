@@ -47,7 +47,7 @@ function infohub_tools_random() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -57,7 +57,7 @@ function infohub_tools_random() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -194,7 +194,7 @@ function infohub_tools_random() {
      * @author  Peter Lembke
      */
     $functions.push('click_handle_random');
-    const click_handle_random = function($in) {
+    const click_handle_random = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'box_id': '',

@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "共有秘密",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "このシークレットをサーバーと共有します",
             "CHECKSUM_KEY": "チェックサム",
-            "CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "ドメインアドレス+ユーザー名+共有シークレットのチェックサム。",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "ドメインアドレス+ユーザー名+共有シークレットのチェックサム。",
             "ALLOWED_SERVER_PLUGINS_KEY": "許可され​​たサーバープラグイン",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "リモートノードでメッセージを送信できるすべてのサーバープラグイン名をリストします"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "ファイルを選択"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "ログイン",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "ここでは,インポートした連絡先データを使用してサーバーにログインできます",
+            "PASSWORD_KEY": "パスワード",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "shared_secretをデコードするために必要なパスワード",
+            "LOGIN_RESULT_KEY": "ログイン結果",
+            "RELOAD_AFTER_LOGIN_KEY": "ログイン後にリロード",
+            "SELECT_FILE_KEY": "ファイルを選択",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "デモアカウントをダウンロード",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "あなたはすでにログインしています",
+            "MISSING_USER_NAME_KEY": "ユーザー名がありません",
+            "MISSING_RANDOM_CODE_KEY": "ランダムコードがありません",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "サーバーからの応答に時間がかかりすぎました。ログインの試行を中止します",
+            "FAILED_TO_LOGIN_KEY": "ログインに失敗しました",
+            "SUCCESS_LOGGING_IN_KEY": "ログインに成功しました",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "ランダムコードの長さが正しくありません",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "合計平均に小数がない可能性は低い",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "平均が合計平均と等しい可能性は低い",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "これらの簡単なテストは,random_codeが少なくとも数値のフラットラインではないことを示しています。"
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "ログイン",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "ここでは,インポートした連絡先データを使用してサーバーにログインできます",
             "PASSWORD_KEY": "パスワード",

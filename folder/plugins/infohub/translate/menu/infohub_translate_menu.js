@@ -46,7 +46,7 @@ function infohub_translate_menu() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -56,7 +56,7 @@ function infohub_translate_menu() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -99,7 +99,7 @@ function infohub_translate_menu() {
                                 'updateplugin': {
                                     'alias': 'updateplugin_link',
                                     'event_data': 'updateplugin',
-                                    'button_label': _Translate('CONVERT_TO_KEYS_IN_A_PLUGIN'),
+                                    'button_label': _Translate('UPDATE_PLUGIN_KEYS'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
@@ -107,6 +107,13 @@ function infohub_translate_menu() {
                                     'alias': 'createfile_link',
                                     'event_data': 'createfile',
                                     'button_label': _Translate('CREATE_A_TRANSLATION_FILE'),
+                                    'to_plugin': 'infohub_translate',
+                                    'to_function': 'click_menu'
+                                },
+                                'validate': {
+                                    'alias': 'validate_link',
+                                    'event_data': 'validate',
+                                    'button_label': _Translate('VALIDATE_TRANSLATION_FILES'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },

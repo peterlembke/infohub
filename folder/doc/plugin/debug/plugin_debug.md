@@ -11,7 +11,7 @@ In Javascript, make sure ALL functions have the extra row before the function de
 
 ```
 $functions.push("get_launch_information");
-var get_launch_information = function($in) {
+var get_launch_information = function($in = {}) {
 ```
 
 Make sure all your cmd-functions are listed in `_GetCmdFunctions` like this: (Example from infohub_doc.js)  
@@ -63,7 +63,7 @@ The main tool is a good editor and xdebug. This combination is so essential that
 because xdebug will show you exactly what is happening in all variables in real time. Just install it.  
     
 ## Javascript tools
-The main tool here are the inspector that are built into your browser. Right click on a web page and select "Inspect elements". Now you can debug javascript. Learn the inspector, at least the javascript debugging.  
+The main tool here are the inspector that are built into your browser. Right-click on a web page and select "Inspect elements". Now you can debug javascript. Learn the inspector, at least the javascript debugging.  
 
 # Errors
 Keep calm, work when you are alert, have a never ending patience. Here are some logical tricks you can apply:  
@@ -80,7 +80,7 @@ Ban time: If you got banned then your remaining ban time will show up. The serve
 The ban scripts are here: `include/kick_out_tests_for_index.php` and `include/kick_out_tests_for_infohub.php`
     
 ## Error handlers
-Some programmers like to wrap everything in try-catch, some even trigger error events themselves. I recommend that you do not use that technique. Instead handle the problems where they appear and return a normal message instead.  
+Some programmers like to wrap everything in try-catch, some even trigger error events themselves. I recommend that you do not use that technique. Handle the problems where they appear and return a normal message instead.  
 
 Just as a precaution you are always wrapped in try-catch in the cmd() function. But try to avoid getting caught in that, handle your own problems.
   
@@ -149,11 +149,11 @@ That file contain one row of PHP that will show you information about the server
 # Javascript Client
 The Javascript client depend on the server for automatically downloading data. You should check the traffic to the server with the inspector -> network. Here you can see what is sent in the package and what you got back.The response from the server should be readable and look sane.
   
-All plugins that are downloaded are saved in the local storage. If you do changes in a JS plugin then you ned to delete that plugin from the local storage and then refresh the page. Alternatively you can refresh twice.
+All plugins that are downloaded are saved in the local storage. If you make changes in a JS plugin then you need to delete that plugin from the local storage and then refresh the page. Alternatively you can refresh twice.
  
 The plugins are updated automatically when they got old and there is a new version.
    
-All assets (icons etc that exist in the plugin folder "asset") are saved in indexedDb. If you want to reload an asset you need to delete it from indexeddb. For four of the plugins (workbench, asset, doc, demo) you also need to delete the assets from the local storage too.
+All assets (icons etcetera that exist in the plugin folder "asset") are saved in indexedDb. If you want to reload an asset you need to delete it from indexeddb. For four of the plugins (workbench, asset, doc, demo) you also need to delete the assets from the local storage too.
 
 ## Keyboard refresh commands
 These commands will be your primary tool for clearing/updating the cache in the browser.
@@ -169,7 +169,7 @@ The `refresh` button you find in the Workbench Launcher triggers a SHIFT + CTRL 
 This is a useful button on touch devices that has no keyboard.
 
 ## Infohub Debug
-This plugin has the logic. Here you see the four buttons as on screen buttons and you can use them on touch devices, if you can get that far and load the plugin. 
+This plugin has the logic. Here you see the four buttons as on screen buttons, and you can use them on touch devices, if you can get that far and load the plugin. 
     
 # Return
 The return statement that you must use in all your functions can be wrong. If you return a response then you must have at least these two properties: "answer" and "message" in the response.
@@ -196,7 +196,7 @@ return _SubCall({
 ```
 
 # Exchange
-All messages goes trough exchange. It would be tempting to set a debug point there. But first check that you follow all rules in your plugin.  
+All messages goes through exchange. It would be tempting to set a debug point there. But first check that you follow all rules in your plugin.  
     
 # Training
 With training and experience you create your own style of programming. Remember that you do whatever you like in your plugin so the below tips are just how I do things. My aim is always readability and always do the same.
@@ -211,7 +211,7 @@ With training and experience you create your own style of programming. Remember 
   
 **Check, Do, Report** - I always start a function with checking the data and bail out on error, then do something with the data, and then report back.
   
-**Default** - In PHP you should use $this->_Default, in Javascript you MUST use `_Default` or else your changes to the object affect the object outside of your function too.
+**Default** - In PHP you should use `$this->_Default`. In Javascript you MUST use `_Default` or else your changes to the object affect the object on the outside of your function too.
   
 **Variable naming** - An array with products will get the name "$productsArray". Describing names are very important for readability. $itemsLeftToProcessArray
   
@@ -232,4 +232,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2017-07-10 by Peter Lembke  
-Updated 2020-01-02 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

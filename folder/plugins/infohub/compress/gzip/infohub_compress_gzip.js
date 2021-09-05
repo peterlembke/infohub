@@ -57,7 +57,7 @@ function infohub_compress_gzip() {
      * @return array|bool
      */
     $functions.push('compress');
-    const compress = function($in) {
+    const compress = function($in = {}) {
         const $default = {
             'uncompressed_data': '',
         };
@@ -93,7 +93,7 @@ function infohub_compress_gzip() {
      * @return array|bool
      */
     $functions.push('uncompress');
-    const uncompress = function($in) {
+    const uncompress = function($in = {}) {
         const $default = {
             'compressed_data': '',
         };

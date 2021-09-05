@@ -3,14 +3,14 @@ How to configure Infohub
 
 ## Introduction
 A plugin can have a configuration file in the same folder as the plugin.  
-The plugin can have one configuration file and it is also used for all its children.
+The plugin can have one configuration file, and it is also used for all its children.
 
 The configuration file is in json and have two sections: "client" and "server".
 
 The configuration in "client" are available to the client plugin in the $in variable to each function.
 The configuration in "server" are available to the server plugin in the $in variable to each function.
 
-Only the develper should change this configuration file.
+Only the developer should change this configuration file.
 
 You can copy the configuration file to `folder/config` and edit it there.  
 The copy you have in `folder/config` will completely override the original configuration file.
@@ -30,4 +30,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2020-05-17 by Peter Lembke  
-Updated 2020-05-17 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

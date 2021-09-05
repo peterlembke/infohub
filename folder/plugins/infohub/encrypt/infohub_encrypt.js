@@ -73,7 +73,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('encrypt');
-    const encrypt = function($in) {
+    const encrypt = function($in = {}) {
         const $default = {
             'text': '',
             'password': '',
@@ -148,7 +148,7 @@ function infohub_encrypt() {
      * @return array
      */
     $functions.push('decrypt');
-    const decrypt = function($in) {
+    const decrypt = function($in = {}) {
         const $default = {
             'encrypted_text': '',
             'password': '',
@@ -224,7 +224,7 @@ function infohub_encrypt() {
      * @return array|bool
      */
     $functions.push('get_available_options');
-    const get_available_options = function($in) {
+    const get_available_options = function($in = {}) {
         const $methods = _GetAvailableMethods();
         let $options = [];
 
@@ -243,7 +243,7 @@ function infohub_encrypt() {
         };
     };
 
-    const _GetAvailableMethods = function($in) {
+    const _GetAvailableMethods = function($in = {}) {
         return ['pgp', 'none'];
     };
 

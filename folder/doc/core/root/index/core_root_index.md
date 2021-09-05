@@ -82,7 +82,7 @@ These files are included and run on the server before you even get the page.
 The Javascripts used in index.php are embedded into the page with PHP to avoid requests to the server.  
 
 - [error_handler_and_frame_breakout.js](main,core_include_errorhandler) - Shows a popup on errors. Breaks out of iFrames.
-- [the_go_function.js](main,core_include_thegofunction) - incoming event use this function to send a package to [Exchange](plugin,infohub_exchange) trough an event that Exchange listen on.
+- [the_go_function.js](main,core_include_thegofunction) - incoming event use this function to send a package to [Exchange](plugin,infohub_exchange) through an event that Exchange listen on.
 - [sanity_check.js](main,core_include_sanitycheck) - Every 5 second it checks if the DOM have references to external content and then warns.
 - [start.js](main,core_include_start) - starts up the core plugins and sends the first message.
 

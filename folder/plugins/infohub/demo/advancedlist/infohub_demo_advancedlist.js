@@ -53,7 +53,7 @@ function infohub_demo_advancedlist() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_demo_advancedlist() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -103,21 +103,17 @@ function infohub_demo_advancedlist() {
                 if ($nodes.hasOwnProperty($level)) {
                     const $label = $nodes[$level];
                     const $id = '{box_id}_' + $level + '.link';
-                    const $idData = 'id="' + $id +
-                        '" event_data="advancedlist|advanced_list" level="' +
-                        $level + '"';
+                    const $idData = 'id="' + $id + '" event_data="advancedlist|advanced_list" level="' + $level + '"';
 
                     // You see that the click event goes to infohub_demo, and there it must be handled
                     const $to = ' to_node="client" to_plugin="infohub_demo" to_function="click"';
-                    const $onClick = ' onclick="go(\'infohub_render\',\'click\',\'' +
-                        $id + '\')"';
+                    const $onClick = ' onclick="go(\'infohub_render\',\'click\',\'' + $id + '\')"';
 
                     // In this case the event_message function will check what renderer you use and act on that.
                     const $otherParams = ' href="#header" class="link" renderer="advancedlist" type="link"';
                     // You can put any parameters you like in the string above and they will show up in the event_message function.
 
-                    const $html = '<a' + $onClick + $idData + $to +
-                        $otherParams + '>' + $label + '</a>';
+                    const $html = '<a' + $onClick + $idData + $to + $otherParams + '>' + $label + '</a>';
 
                     $option.push({
                         'label': $html,
@@ -142,7 +138,8 @@ function infohub_demo_advancedlist() {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
                             'head_label': _Translate('NAVIGATION'),
-                            'foot_text': _Translate('THIS_IS_AN_EXAMPLE_OF_AN_ADVANCED_LIST._YOU_CAN_EXPAND_THE_NODES_AND_CLICK_ON_THE_LABELS.'),
+                            'foot_text': _Translate('THIS_IS_AN_EXAMPLE_OF_AN_ADVANCED_LIST.') + ' ' +
+                                _Translate('YOU_CAN_EXPAND_THE_NODES_AND_CLICK_ON_THE_LABELS.'),
                             'content_data': '[my_list]'
                         },
                         'my_list': {
@@ -191,7 +188,7 @@ function infohub_demo_advancedlist() {
      * @author Peter Lembke
      */
     $functions.push('click_advanced_list');
-    const click_advanced_list = function($in) {
+    const click_advanced_list = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'level': '',

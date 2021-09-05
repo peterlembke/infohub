@@ -82,7 +82,7 @@ function infohub_renderdocument() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -170,7 +170,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('event_message'); // Enable this function
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'final_node': 'client',
             'final_plugin': '',
@@ -223,7 +223,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_Document');
-    const internal_Document = function($in) {
+    const internal_Document = function($in = {}) {
         const $default = {
             'text': '',
             'class': 'document',
@@ -363,7 +363,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseCodeSegment');
-    const internal_ParseCodeSegment = function($in) {
+    const internal_ParseCodeSegment = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -424,7 +424,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_ParseInlineCodeSegment');
-    const internal_ParseInlineCodeSegment = function($in) {
+    const internal_ParseInlineCodeSegment = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -501,7 +501,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleImages');
-    const internal_HandleImages = function($in) {
+    const internal_HandleImages = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -660,7 +660,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLinks');
-    const internal_HandleLinks = function($in) {
+    const internal_HandleLinks = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -783,7 +783,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleHeaders');
-    const internal_HandleHeaders = function($in) {
+    const internal_HandleHeaders = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -843,7 +843,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleStyle');
-    const internal_HandleStyle = function($in) {
+    const internal_HandleStyle = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -901,7 +901,7 @@ function infohub_renderdocument() {
      * @returns {string}
      * @private
      */
-    const _FindStyle = function($in) {
+    const _FindStyle = function($in = {}) {
         const $default = {
             'text': '',
             'find': '**',
@@ -939,7 +939,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleLists');
-    const internal_HandleLists = function($in) {
+    const internal_HandleLists = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},
@@ -1011,7 +1011,7 @@ function infohub_renderdocument() {
      * @author  Peter Lembke
      */
     $functions.push('internal_HandleNewline');
-    const internal_HandleNewline = function($in) {
+    const internal_HandleNewline = function($in = {}) {
         const $default = {
             'text': '',
             'what': {},

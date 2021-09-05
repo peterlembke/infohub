@@ -74,7 +74,7 @@ function infohub_privacy() {
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -224,7 +224,7 @@ function infohub_privacy() {
      * @since 2018-09-26
      * @author Peter Lembke
      */
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -265,7 +265,7 @@ function infohub_privacy() {
      * @since 2019-03-13
      * @author Peter Lembke
      */
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName|RestOfEventData
             'level': '', // For the advanced list

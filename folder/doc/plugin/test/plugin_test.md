@@ -2,7 +2,7 @@
 How to test a plugin in Infohub.  
 
 # Introduction
-Test driven programming produces testst that can be run automatically to detect if an expected outcome have changed.
+Test driven programming produces tests that can be run automatically to detect if an expected outcome have changed.
 
 Infohub has another approach. The data in and out from a plugin are recorded and stored. If the expected outcome change then you will be notified.
 
@@ -35,7 +35,7 @@ Now server -> infohub_checksum -> calculate_checksum will have its in and out da
 If in data is missing in storage then in and out are stored.
 If out data is missing but in data exist then out are stored.
 If in and out data exist in storage then out data are compared.
-If out data are different then you are notified.
+If out data are different, then you are notified.
 
 You just delete data that is not accurate any more.  
 
@@ -55,4 +55,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
 Created 2020-04-15 by Peter Lembke  
-Updated 2020-04-15 by Peter Lembke  
+Updated 2021-08-28 by Peter Lembke  

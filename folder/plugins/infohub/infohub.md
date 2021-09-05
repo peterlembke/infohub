@@ -69,7 +69,7 @@ infohub_render relay on [infohub_view](plugin,infohub_view), who is the only plu
 ### Storage
 
 Infohub support many backend storage solutions but all your storage need to go
-trough [infohub_storage](plugin,infohub_storage).
+through [infohub_storage](plugin,infohub_storage).
 
 ### Localization
 

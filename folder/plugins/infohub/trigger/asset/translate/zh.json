@@ -1,0 +1,45 @@
+{
+    "version": {
+        "date": "2021-08-28 22:07:03",
+        "plugin": "infohub_trigger",
+        "data_checksum": "bfefcf00f201a27ea713898cdba7944d",
+        "language": "zh",
+        "language_name": "chinese",
+        "country": "CN",
+        "country_name": "China",
+        "file_type": "translate_file"
+    },
+    "launcher": {
+        "title": "Trigger",
+        "description": "As a developer you can send messages to your functions."
+    },
+    "data": {
+        "infohub_trigger": {
+            "TRIGGER_KEY": "Trigger",
+            "YOU_AS_A_DEVELOPER_CAN_SEND_A_MESSAGE_TO_YOUR_EMERGING_PLUGIN._KEY": "You as a developer can send a message to your emerging plugin.",
+            "REFRESH_DATA_KEY": "Refresh data",
+            "NODE_KEY": "Node",
+            "SELECT_THE_NODE_YOU_WANT_TO_SEND_THE_MESSAGE_TO_KEY": "Select the node you want to send the message to",
+            "CLIENT_KEY": "Client",
+            "SERVER_KEY": "Server",
+            "PLUGIN_KEY": "Plugin",
+            "SELECT_THE_PLUGIN_YOU_WANT_TO_SEND_THE_MESSAGE_TO_KEY": "Select the plugin you want to send the message to",
+            "FUNCTION_KEY": "Function",
+            "SELECT_THE_FUNCTION_YOU_WANT_TO_SEND_THE_MESSAGE_TO_KEY": "Select the function you want to send the message to",
+            "FILTER_KEY": "Filter",
+            "SELECT_THE_FILTER_YOU_WANT_TO_RUN_ON_THE_RESPONSE_KEY": "Select the filter you want to run on the response",
+            "GET_ALL_KEY": "Get all",
+            "NO_CONFIG_KEY": "No config",
+            "BARE_BONE_KEY": "Bare bone",
+            "DEFAULT_MESSAGE_FOR_THE_SELECTED_FUNCTION_KEY": "Default message for the selected function",
+            "MESSAGE_KEY": "Message",
+            "THIS_IS_THE_MESSAGE_YOU_CAN_SEND_TO_THE_SELECTED_PLUGIN._KEY": "This is the message you can send to the selected plugin.",
+            "THE_MESSAGE_YOU_SEE_IS_THE_DEFAULT_VALUES_THE_FUNCTION_HAVE_SET._KEY": "The message you see is the default values the function have set.",
+            "GET_DEFAULT_MESSAGE_KEY": "Get default message",
+            "SEND_MESSAGE_KEY": "Send message",
+            "RESPONSE_FROM_THE_FUNCTION_KEY": "Response from the function",
+            "RESPONSE_KEY": "Response",
+            "HERE_YOU_WILL_SEE_THE_RESPONSE_FROM_THE_FUNCTION._KEY": "Here you will see the response from the function."
+        }
+    }
+}

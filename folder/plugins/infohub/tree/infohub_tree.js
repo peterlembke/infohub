@@ -40,7 +40,6 @@ function infohub_tree() {
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal',
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
@@ -52,7 +51,7 @@ function infohub_tree() {
         return _GetCmdFunctionsBase($list);
     };
 
-    const _GetPluginName = function($data) {
+    const _GetPluginName = function($data = '') {
         let $pluginType = 'welcome';
         const $tmp = $data.split('_');
 
@@ -67,114 +66,8 @@ function infohub_tree() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
-
-    $functions.push('create');
-    /**
-     * Get the raw data for the markdown doc file.
-     * Used by infohub_tree_doc to render the documentation
-     * @version 2021-03-14
-     * @since   2019-03-14
-     * @author  Peter Lembke
-     * @param $in
-     * @returns {{item_index: {}, answer: string, message: string}}
-     */
-    const create = function($in) {
-        const $default = {
-            'item_index': {},
-            'config': {},
-            'data_back': {
-                'item_name': '',
-                'item_index_done': {},
-                'item_index_contents': {},
-            },
-            'response': {},
-            'step': 'step_get_doc_file',
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_get_doc_file_response') {
-            const $defaultResponse = {
-                'answer': 'false',
-                'message': '',
-                'contents': '',
-            };
-            const $response = _Default($defaultResponse, $in.response);
-
-            const $itemName = $in.data_back.item_name;
-            $in.data_back.item_index_contents[$itemName] = {
-                'type': 'document',
-                'text': $response.contents,
-            };
-            $in.step = 'step_get_doc_file';
-        }
-
-        if ($in.step === 'step_get_doc_file') {
-            if (_Count($in.item_index) > 0) {
-                const $itemData = _Pop($in.item_index);
-                const $itemName = $itemData.key;
-                let $data = $itemData.data;
-                $in.item_index = $itemData.object;
-
-                const $defaultItem = {
-                    'type': '',
-                    'alias': '',
-                };
-                $data = _Merge($defaultItem, $data);
-
-                return _SubCall({
-                    'to': {
-                        'node': 'server',
-                        'plugin': 'infohub_tree',
-                        'function': 'get_doc_file',
-                    },
-                    'data': {
-                        'file': $data.type,
-                    },
-                    'data_back': {
-                        'step': 'step_get_doc_file_response',
-                        'item_index': $in.item_index,
-                        'item_name': $itemName,
-                        'item_index_done': $in.data_back.item_index_done,
-                    },
-                });
-            }
-            $in.step = 'step_render_files';
-        }
-
-        if ($in.step === 'step_render_files') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_renderdocument',
-                    'function': 'create',
-                },
-                'data': {
-                    'item_index': $in.data_back.item_index_contents,
-                },
-                'data_back': {
-                    'step': 'step_render_files_response',
-                },
-            });
-        }
-
-        if ($in.step === 'step_render_files_response') {
-            const $defaultResponse = {
-                'answer': 'false',
-                'message': '',
-                'item_index': {},
-            };
-            const $response = _Default($defaultResponse, $in.response);
-            $in.data_back.item_index_done = $response.item_index;
-        }
-
-        return {
-            'answer': 'true',
-            'message': 'Here is what I rendered',
-            'item_index': $in.data_back.item_index_done,
-        };
-    };
 
     /**
      * Setup the Workbench Graphical User Interface
@@ -183,7 +76,7 @@ function infohub_tree() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -339,7 +232,7 @@ function infohub_tree() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -380,7 +273,7 @@ function infohub_tree() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -442,7 +335,7 @@ function infohub_tree() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},
@@ -496,7 +389,7 @@ function infohub_tree() {
      * @returns {*}
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         const $default = {
             'path': '',
             'wanted_data': {},
@@ -547,7 +440,7 @@ function infohub_tree() {
      * @returns {*}
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'path': '',
             'data': {},

@@ -1,36 +1,38 @@
 {
     "version": {
-        "date": "2019-10-27 08:01:25",
+        "date": "2021-08-12 12:24:28",
         "plugin": "infohub_launcher",
-        "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
+        "data_checksum": "97c802d3f1aa93c3f7c76ec7c8314923",
         "language": "en",
         "country": "GB",
-        "file_type": "finished_file"
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Launcher",
-        "description": "Plugin with a GUI that show icons for available plugins that you can start. The actual starting are handled by the Workbench."
+        "title": "Start",
+        "description": "Plugin with a graphical user interface that allow you to start plugins. The actual start is done by the Workbench."
     },
     "data": {
         "infohub_launcher": {
-            "Switch list": "Switch list",
-            "My list": "My list",
-            "All available plugins": "All available plugins",
-            "Instructions": "Instructions",
-            "Switch list. Refresh. Click icon.": "Switch list. Refresh. Click icon.",
-            "Help": "Help",
-            "Refresh": "Refresh",
-            "Refresh page": "Refresh the page",
-            "Update this list": "Update this list",
-            "_AddIcon got an invalid list": "_AddIcon got an invalid list",
-            "_AddIcon got an empty item": "_AddIcon got an empty item",
-            "Add to my list": "Add to my list",
-            "Remove from my list": "Remove from my list",
-            "Run plugin": "Run plugin",
-            "More": "More",
-            "User name": "User name",
-            "Logout": "Logout",
-            "Run in new window": "Run in new window"
+            "SWITCH_LIST_KEY": "Switch list",
+            "MY_LIST_KEY": "My list",
+            "ALL_AVAILABLE_PLUGINS_KEY": "All available plugins",
+            "INSTRUCTIONS_KEY": "Instructions",
+            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Switch list. Refresh. Click icon.",
+            "HELP_KEY": "Help",
+            "MORE_KEY": "More",
+            "USER_NAME_KEY": "User name",
+            "CURRENT_URL_KEY": "Current url",
+            "LOGOUT_KEY": "Logout",
+            "REFRESH_PAGE_KEY": "Refresh page",
+            "REFRESH_KEY": "Refresh",
+            "UPDATE_THIS_LIST_KEY": "Update this list",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "There was an error in addicon",
+            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon got an invalid list",
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon got an empty item",
+            "ADD_TO_MY_LIST_KEY": "Add to my list",
+            "REMOVE_FROM_LIST_KEY": "Remove from list",
+            "RUN_PLUGIN_KEY": "Run plugin",
+            "RUN_IN_NEW_WINDOW_KEY": "Run in new window"
         }
     }
 }

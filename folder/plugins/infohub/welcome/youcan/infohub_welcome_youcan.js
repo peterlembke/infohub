@@ -77,7 +77,7 @@ function infohub_welcome_youcan() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -120,7 +120,10 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('CALENDAR'),
                             'data0': '[calendar_image_data]',
-                            'data1': _Translate('WRITE_AND_FIND_DATA_IN_YOUR_CALENDAR._HISTORY_AND_FUTURE_IS_JUST_AS_IMPORTANT._DO_NOT_MISS_NAME_DAYS,_BIRTHDAYS,_ANNIVERSARIES,_HOLIDAYS,_EVENTS._YOU_CAN_SEE_TIMES_FOR_THE_SUN_AND_MOON._LINKS_TO_WIKIPEDIA_FOR_NAMES_AND_HOLIDAYS_SO_YOU_CAN_READ_MORE.')
+                            'data1': _Translate('WRITE_AND_FIND_DATA_IN_YOUR_CALENDAR.'),
+                            'data2': _Translate('HISTORY_AND_FUTURE_IS_JUST_AS_IMPORTANT.'),
+                            'data3': _Translate('DO_NOT_MISS_NAME_DAYS,_BIRTHDAYS,_ANNIVERSARIES,_HOLIDAYS,_EVENTS._YOU_CAN_SEE_TIMES_FOR_THE_SUN_AND_MOON.'),
+                            'data4': _Translate('LINKS_TO_WIKIPEDIA_FOR_NAMES_AND_HOLIDAYS_SO_YOU_CAN_READ_MORE.')
                         },
                         'calendar_image_data': {
                             'type': 'common',
@@ -139,7 +142,13 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('TREE'),
                             'data0': '[tree_image_data]',
-                            'data1': _Translate('WITH_TREE_YOU_START_WITH_YOURSELF_AND_MAKE_BUBBLES_ON_SUBJECTS_AROUND_YOU._YOU_COULD_CREATE_A_BUBBLE_FOR_YOUR_CARS._DURING_YOUR_LIFETIME_YOU_MIGHT_OWN_MORE_THAN_ONE_CAR_AND_CREATE_A_BUBBLE_FOR_EACH_CAR._PERHAPS_ATTACH_A_PHOTO_AND_FILL_WITH_ANY_DATA_YOU_LIKE._PERHAPS_YOU_WANT_A_SERVICE_BUBBLE_IN_YOUR_CAR_TO_REGISTER_ALL_SERVICE_YOU_HAVE_DONE._WHEN_DID_YOU_GO_TO_THE_DENTIST?_YOU_CAN_CREATE_ANY_BUBBLE_AND_FILL_THE_BUBBLE_WITH_DATA_AND_LINK_TO_OTHER_BUBBLES._YOU_CAN_CREATE_A_WEB_WITH_BUBBLES_AND_CONNECTIONS_-_YOUR_LIFE_EXPERIENCES.')
+                            'data1': _Translate('WITH_TREE_YOU_START_WITH_YOURSELF_AND_MAKE_BUBBLES_ON_SUBJECTS_AROUND_YOU.'),
+                            'data2': _Translate('YOU_COULD_CREATE_A_BUBBLE_FOR_YOUR_CARS.'),
+                            'data3': _Translate('DURING_YOUR_LIFETIME_YOU_MIGHT_OWN_MORE_THAN_ONE_CAR_AND_CREATE_A_BUBBLE_FOR_EACH_CAR.'),
+                            'data4': _Translate('PERHAPS_ATTACH_A_PHOTO_AND_FILL_WITH_ANY_DATA_YOU_LIKE.'),
+                            'data5': _Translate('PERHAPS_YOU_WANT_A_SERVICE_BUBBLE_IN_YOUR_CAR_TO_REGISTER_ALL_SERVICE_YOU_HAVE_DONE.'),
+                            'data6': _Translate('WHEN_DID_YOU_GO_TO_THE_DENTIST?_YOU_CAN_CREATE_ANY_BUBBLE_AND_FILL_THE_BUBBLE_WITH_DATA_AND_LINK_TO_OTHER_BUBBLES.'),
+                            'data7': _Translate('YOU_CAN_CREATE_A_WEB_WITH_BUBBLES_AND_CONNECTIONS_-_YOUR_LIFE_EXPERIENCES.')
                         },
                         'tree_image_data': {
                             'type': 'common',
@@ -158,7 +167,11 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('BODY'),
                             'data0': '[body_image_data]',
-                            'data1': _Translate('YOU_ARE_IMPORTANT!_YOU_CAN_NOT_EXIST_WITHOUT_YOUR_BODY._THAT_MAKES_ALSO_YOUR_BODY_IMPORTANT!_WITH_BODY_YOU_GET_PRACTICAL_TIPS_HOW_YOU_CAN_IMPROVE_YOUR_HEALTH._YOU_CAN_TRACK_YOUR_IMPROVEMENTS._IT_IS_THE_SMALL_DECISIONS_YOU_DO_EVERY_DAY_THAT_MAKE_A_DIFFERENCE_IN_YOUR_LIFE.')
+                            'data1': _Translate('YOU_ARE_IMPORTANT!_YOU_CAN_NOT_EXIST_WITHOUT_YOUR_BODY.'),
+                            'data2': _Translate('THAT_MAKES_ALSO_YOUR_BODY_IMPORTANT!') + ' ',
+                            'data3': _Translate('WITH_BODY_YOU_GET_PRACTICAL_TIPS_HOW_YOU_CAN_IMPROVE_YOUR_HEALTH.'),
+                            'data4': _Translate('YOU_CAN_TRACK_YOUR_IMPROVEMENTS.'),
+                            'data5': _Translate('IT_IS_THE_SMALL_DECISIONS_YOU_DO_EVERY_DAY_THAT_MAKE_A_DIFFERENCE_IN_YOUR_LIFE') + '.'
                         },
                         'body_image_data': {
                             'type': 'common',
@@ -177,7 +190,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('STORY_EDITOR'),
                             'data0': '[story_image_data]',
-                            'data1': _Translate('PUT_TOGETHER_AN_ARTICLE_WITH_TEXT,_IMAGES,_IMAGE_TEXTS,_LINKS,_TITLES,_INGRESS,_BULLET_LISTS,_CODE_EXAMPLES._YOU_CAN_THEN_EXPORT_YOUR_STORY_AND_USE_IT_OUTSIDE_OF_INFOHUB_OR_STORE_IT_IN_YOUR_TREE.')
+                            'data1': _Translate('PUT_TOGETHER_AN_ARTICLE_WITH_TEXT,_IMAGES,_IMAGE_TEXTS,_LINKS,_TITLES,_INGRESS,_BULLET_LISTS,_CODE_EXAMPLES.'),
+                            'data2': _Translate('YOU_CAN_THEN_EXPORT_YOUR_STORY_AND_USE_IT_OUTSIDE_OF_INFOHUB_OR_STORE_IT_IN_YOUR_TREE') + '.'
                         },
                         'story_image_data': {
                             'type': 'common',
@@ -197,7 +211,8 @@ function infohub_welcome_youcan() {
                             'title': _Translate('THINGS'),
                             'data0': '[things_image_data]',
                             'data1': _Translate('REGISTER_YOUR_LARGER_THINGS:_WHAT_IT_IS,_WHEN_AND_WHERE_YOU_BOUGHT_IT,_THE_SERIAL_NUMBER,_WARRANTY_AND_SO_ON.'),
-                            'data2': _Translate('REGISTER_YOU_CARS_HERE_AND_ALL_SERVICE_YOU_HAVE_DONE_TO_THE_CARS._OR_YOUR_SNEEKERS_COLLECTION.')
+                            'data2': _Translate('REGISTER_YOU_CARS_HERE_AND_ALL_SERVICE_YOU_HAVE_DONE_TO_THE_CARS.'),
+                            'data3': _Translate('OR_YOUR_SNEAKERS_COLLECTION.')
                         },
                         'things_image_data': {
                             'type': 'common',
@@ -216,7 +231,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('USAGE'),
                             'data0': '[usage_image_data]',
-                            'data1': _Translate('HERE_YOU_CAN_REGISTER_WHEN_YOU_USE_ONE_OF_YOUR_REGISTERED_THINGS._IT_COULD_FOR_EXAMPLE_BE_ONE_OF_YOUR_SNEEKERS_WHILE_TRAINING.')
+                            'data1': _Translate('HERE_YOU_CAN_REGISTER_WHEN_YOU_USE_ONE_OF_YOUR_REGISTERED_THINGS.'),
+                            'data2': _Translate('IT_COULD_FOR_EXAMPLE_BE_ONE_OF_YOUR_SNEAKERS_WHILE_TRAINING.')
                         },
                         'usage_image_data': {
                             'type': 'common',
@@ -235,7 +251,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('PLANNING'),
                             'data0': '[planning_image_data]',
-                            'data1': _Translate('YOUR_PROJECTS._YOU_CAN_SET_UP_TASKS_IN_PROJECTS_HERE._DATE_WHEN_THINGS_MUST_BE_DONE_AND_WHEN_THEY_WERE_DONE.')
+                            'data1': _Translate('YOUR_PROJECTS._YOU_CAN_SET_UP_TASKS_IN_PROJECTS_HERE.'),
+                            'data2': _Translate('DATE_WHEN_THINGS_MUST_BE_DONE_AND_WHEN_THEY_WERE_DONE.')
                         },
                         'planning_image_data': {
                             'type': 'common',
@@ -273,7 +290,7 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('MEDIA'),
                             'data0': '[media_image_data]',
-                            'data1': _Translate('MEDIA_IS_IMAGES/VIDEO/AUDIO_-_YOUR_CATALOG_WITH_MEDIA_AND_ITS_META_DATA.'),
+                            'data1': _Translate('MEDIA_IS_IMAGES,VIDEO,AUDIO_-_YOUR_CATALOG_WITH_MEDIA_AND_ITS_META_DATA.'),
                             'data2': _Translate('YOU_CAN_SEE_SMALL_VERSIONS_OF_YOUR_IMAGES_AND_MARK_THE_PERSONS_FACES_AND_CONNECT_THEM_TO_CONTACTS,_PLACES,_TRAVELS,_DATES.')
                         },
                         'media_image_data': {
@@ -312,7 +329,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('BUDGET'),
                             'data0': '[budget_image_data]',
-                            'data1': _Translate('CALCULATE_YOUR_INCOME_AND_EXPECTED_EXPENSES_IN_THIS_PLUGIN._YOU_CAN_THEN_SEE_WHAT_IS_REASONABLE_TO_INVEST_IN.')
+                            'data1': _Translate('CALCULATE_YOUR_INCOME_AND_EXPECTED_EXPENSES_IN_THIS_PLUGIN.'),
+                            'data2': _Translate('YOU_CAN_THEN_SEE_WHAT_IS_REASONABLE_TO_INVEST_IN.')
                         },
                         'budget_image_data': {
                             'type': 'common',
@@ -331,8 +349,10 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('EXPENSE'),
                             'data0': '[expence_image_data]',
-                            'data1': _Translate('REGISTER_YOUR_PURCHASES_TO_KEEP_TRACK_WHERE_THE_MONEY_GOES._PUT_EXPENCES_IN_GROUPS_SO_YOU_SEE_HOW_MUCH_YOUR_CAR_COST,_YOUR_HOBBY,_FOOD_ETC.'),
-                            'data2': _Translate('PERHAPS_YOU_CAN_CUT_COSTS_WITHOUT_CUTTING_DOWN_ON_COMFORT._YOU_NEED_A_CLEAR_PICTURE_OF_YOUR_EXPENCES_TO_TAKE_THE_RIGHT_DECISIONS.')
+                            'data1': _Translate('REGISTER_YOUR_PURCHASES_TO_KEEP_TRACK_WHERE_THE_MONEY_GOES.'),
+                            'data2': _Translate('PUT_EXPENCES_IN_GROUPS_SO_YOU_SEE_HOW_MUCH_YOUR_CAR_COST,_YOUR_HOBBY,_FOOD_ETC.'),
+                            'data3': _Translate('PERHAPS_YOU_CAN_CUT_COSTS_WITHOUT_CUTTING_DOWN_ON_COMFORT.'),
+                            'data4': _Translate('YOU_NEED_A_CLEAR_PICTURE_OF_YOUR_EXPENCES_TO_TAKE_THE_RIGHT_DECISIONS.')
                         },
                         'expence_image_data': {
                             'type': 'common',
@@ -351,7 +371,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('REVIEW'),
                             'data0': '[review_image_data]',
-                            'data1': _Translate('WRITE_YOUR_REVIEWS_OF_FILMS,_BOOKS,_RECORDS,_TV_SERIES,_GAMES,_SUBSCRIPTIONS,_MAGAZINES._THEN_YOU_CAN_SEE_WHAT_MOVIES_YOU_HAVE_SEEN_AND_WHEN_YOU_SAW_THEM.')
+                            'data1': _Translate('WRITE_YOUR_REVIEWS_OF_FILMS,_BOOKS,_RECORDS,_TV_SERIES,_GAMES,_SUBSCRIPTIONS,_MAGAZINES.'),
+                            'data2': _Translate('THEN_YOU_CAN_SEE_WHAT_MOVIES_YOU_HAVE_SEEN_AND_WHEN_YOU_SAW_THEM.')
                         },
                         'review_image_data': {
                             'type': 'common',
@@ -370,7 +391,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('PLACE'),
                             'data0': '[place_image_data]',
-                            'data1': _Translate('YOU_CAN_REGISTER_PLACES_YOU_HAVE_VISITED_AND_GET_A_MAP_WITH_DOTS._YOU_CAN_ALSO_LINK_A_PLACE_TO_A_STORY,_IMAGE,_TRAINING_AND_SO_ON.')
+                            'data1': _Translate('YOU_CAN_REGISTER_PLACES_YOU_HAVE_VISITED_AND_GET_A_MAP_WITH_DOTS.'),
+                            'data2': _Translate('YOU_CAN_ALSO_LINK_A_PLACE_TO_A_STORY,_IMAGE,_TRAINING_AND_SO_ON.')
                         },
                         'place_image_data': {
                             'type': 'common',
@@ -389,7 +411,8 @@ function infohub_welcome_youcan() {
                             'subtype': 'join',
                             'title': _Translate('EVENT'),
                             'data0': '[event_image_data]',
-                            'data1': _Translate('REGISTER_EVENTS_YOU_WANT_TO_PARTICIPATE_IN_OR_HAVE_PARTICIPATED_IN._YOU_CAN_LINK_A_PLACE,_A_REVIEW_ETC.')
+                            'data1': _Translate('REGISTER_EVENTS_YOU_WANT_TO_PARTICIPATE_IN_OR_HAVE_PARTICIPATED_IN.'),
+                            'data2': _Translate('YOU_CAN_LINK_A_PLACE,_A_REVIEW_ETC.')
                         },
                         'event_image_data': {
                             'type': 'common',

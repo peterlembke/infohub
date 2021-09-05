@@ -26,7 +26,7 @@ communicate with each other in the same way.
 # Send to a node
 
 Infohub Exchange send an array with nodes and their messages to Transfer. The send function in the Transfer plugin loop
-trough the nodes, if it recognizes a node then it handles the messages.
+through the nodes, if it recognizes a node then it handles the messages.
 
 Server (PHP): For node 'client' it just makes a json package and echo it on screen because the client is always the
 initiator an the server is always the responder.
@@ -273,7 +273,7 @@ When calling other nodes the server also need to leave the callstack behind to n
 
 A lot of interesting services exist on the internet. You can use REST to get weather from yr.no or get radio programs
 from sr.se  
-The support in Infohub will be trough the server trough Transfer. The support for web services will be generic and can
+The support in Infohub will be through the server through Transfer. The support for web services will be generic and can
 be misused for sharing. Do remember that Infohub is __NOT__ for sharing.
 
 # Other ways of communication
@@ -313,7 +313,7 @@ E-mail is an obsolete way to communicate. It should not be implemented in Infohu
 ## Social
 
 Infohub is NOT about sharing. Social networks is a bout sharing. Do not mix them. You can still use social but not
-trough Infohub.
+through Infohub.
 
 ## SMS
 

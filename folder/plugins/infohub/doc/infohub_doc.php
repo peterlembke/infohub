@@ -99,15 +99,13 @@ class infohub_doc extends infohub_base
 
         $fileExtension = $this->_GetFileExtension();
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetDocument',
-                'area' => $in['area'],
-                'document_name' => $in['document_name'],
-                'checksum' => $in['checksum'],
-                'file_extension' => $fileExtension
-            ]
-        );
+        $response = $this->internal_Cmd([
+            'func' => 'GetDocument',
+            'area' => $in['area'],
+            'document_name' => $in['document_name'],
+            'checksum' => $in['checksum'],
+            'file_extension' => $fileExtension
+        ]);
 
         return $response;
     }
@@ -205,7 +203,7 @@ class infohub_doc extends infohub_base
                 $docContents = $this->_GetFileContents($docFileName);
                 $label = $this->_GetPartOfString($docContents, $findFirst, $findLast);
 
-                $label = str_replace('_', ' ', $label);
+                $label = strtr($label, ['_' => ' ']);
 
                 $dataOut[$area][$docName] = [
                     'doc_name' => $docName,

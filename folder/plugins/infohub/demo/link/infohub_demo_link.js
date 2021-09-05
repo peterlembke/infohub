@@ -52,7 +52,7 @@ function infohub_demo_link() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_link() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -185,7 +185,7 @@ function infohub_demo_link() {
      * @returns {*}
      */
     $functions.push('internal_LinkMyEvent');
-    const internal_LinkMyEvent = function($in) {
+    const internal_LinkMyEvent = function($in = {}) {
         const $default = {
             'parent_box_id': '',
         };
@@ -211,7 +211,10 @@ function infohub_demo_link() {
                     'ingress': {
                         'type': 'common',
                         'subtype': 'value',
-                        'data': _Translate('THIS_IS_WHAT_IS_RENDERED_WHEN_YOU_PRESS_THE_EVENT_LINK._EVENT_LINKS_ALWAYS_COME_TO_THE_LEVEL_1_PLUGIN_IN_FUNCTION_EVENT_MESSAGE._FROM_THERE_YOU_CAN_DO_WHATEVER_YOU_WANT._I_WANTED_TO_RENDER_THIS.')
+                        'data': _Translate('THIS_IS_WHAT_IS_RENDERED_WHEN_YOU_PRESS_THE_EVENT_LINK.') + ' ' +
+                            _Translate('EVENT_LINKS_ALWAYS_COME_TO_THE_LEVEL_1_PLUGIN_IN_FUNCTION_EVENT_MESSAGE.') + ' ' +
+                            _Translate('FROM_THERE_YOU_CAN_DO_WHATEVER_YOU_WANT.') + ' ' +
+                            _Translate('I_WANTED_TO_RENDER_THIS.')
                     }
                 },
                 'how': {

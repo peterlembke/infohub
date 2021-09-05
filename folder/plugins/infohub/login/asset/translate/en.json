@@ -1,100 +1,112 @@
 {
     "version": {
-        "date": "2020-01-19 20:14:18",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_login",
-        "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
+        "data_checksum": "53c9dfabdbe197f877dcb85f0ffc15fb",
         "language": "en",
-        "country": "US",
-        "file_type": "finished_file"
+        "language_name": "english",
+        "country": "GB",
+        "country_name": "Great Britain",
+        "file_type": "translate_file"
     },
     "launcher": {
         "title": "Login",
-        "description": "Here you can login to the server."
+        "description": "Handles your login to the server"
     },
     "data": {
         "infohub_login": {
-            "Instructions": "Instructions",
-            "Use the menu.": "Use the menu.",
-            "What is this?": "What is this?"
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu.",
+            "WHAT_IS_THIS?_KEY": "What is this?"
         },
         "infohub_login_contact": {
-            "One contact": "One contact",
-            "This is the data form for one contact": "This is the data form for one contact",
-            "Node": "Node",
-            "Any text you want": "Any text you want",
-            "Note": "Note",
-            "Save": "Save",
-            "Domain address": "Domain address",
-            "The domain address to your server": "The domain address to your server",
-            "User name": "User name",
-            "This is you on the server": "This is you on the server",
-            "Shared secret": "Shared secret",
-            "You share this secret with the server": "You share this secret with the server",
-            "Checksum": "Checksum",
-            "Checksum of domain address + user name + shared secret.": "Checksum of domain address + user name + shared secret.",
-            "Allowed plugins": "Allowed plugins",
-            "List with all plugin names you can send messages to on the remote node": "List with all plugin names you can send messages to on the remote node"
+            "ONE_CONTACT_KEY": "One contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "This is the data form for one contact",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Any text you want",
+            "NOTE_KEY": "Note",
+            "SAVE_KEY": "Save",
+            "DOMAIN_ADDRESS_KEY": "Domain address",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "The domain address to your server",
+            "USER_NAME_KEY": "User name",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "This is you on the server",
+            "SHARED_SECRET_KEY": "Shared secret",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "You share this secret with the server",
+            "CHECKSUM_KEY": "Checksum",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum of domain address + user name + shared secret.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Allowed server plugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "List with all server plugin names you can send messages to on the remote node"
         },
         "infohub_login_export": {
-            "Export contact": "Export contact",
-            "Here you can export the contact data": "Here you can export the contact data",
-            "Export": "Export"
+            "EXPORT_CONTACT_KEY": "Export contact",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Here you can export the contact data",
+            "EXPORT_KEY": "Export"
         },
         "infohub_login_forget": {
-            "Forget contact": "Forget contact",
-            "Here you can let the browser forget the contact data. You can always import your file again.": "Here you can let the browser forget the contact data. You can always import your file again.",
-            "Forget": "Forget"
+            "FORGET_CONTACT_KEY": "Forget contact",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Here you can let the browser forget the contact data.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "You can always import your file again.",
+            "FORGET_KEY": "Forget"
         },
         "infohub_login_import": {
-            "Import": "Import",
-            "Import the contact information from file": "Import the contact information from file",
-            "Select file": "Select file"
+            "IMPORT_KEY": "Import",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Import the contact information from file",
+            "SELECT_FILE_KEY": "Select file"
         },
         "infohub_login_login": {
-            "Login": "Login",
-            "Here you can use the contact data you imported and login to the server": "Here you can use the contact data you imported and login to the server",
-            "Password": "Password",
-            "login result": "login result",
-            "The password you need to decode the shared_secret": "The password you need to decode the shared_secret",
-            "Reload after login": "Reload after login",
-            "Select file": "Select file",
-            "You are already logged in": "You are already logged in",
-            "Missing user name": "Missing user name",
-            "Missing random code": "Missing random code",
-            "The answer from the server took too long time. I will abandon the login attempt": "The answer from the server took too long time. I will abandon the login attempt",
-            "Failed to login": "Failed to login",
-            "Success logging in": "Success logging in",
-            "The random code do not have the correct length": "The random code do not have the correct length",
-            "Unlikely that the total average has no decimals": "Unlikely that the total average has no decimals",
-            "Unlikely that the average is equal to the total average": "Unlikely that the average is equal to the total average",
-            "These simple tests show that the random_code at least is not a flatline of numbers.": "These simple tests show that the random_code at least is not a flatline of numbers."
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Here you can use the contact data you imported and login to the server",
+            "PASSWORD_KEY": "Password",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "The password you need to decode the shared secret",
+            "LOGIN_RESULT_KEY": "Login result",
+            "RELOAD_AFTER_LOGIN_KEY": "Reload after login",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "You are already logged in",
+            "MISSING_USER_NAME_KEY": "Missing user name",
+            "MISSING_RANDOM_CODE_KEY": "Missing random code",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "The answer from the server took too long time.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "I will abandon the login attempt",
+            "FAILED_TO_LOGIN_KEY": "Failed to login",
+            "SUCCESS_LOGGING_IN_KEY": "Success logging in",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "The random code do not have the correct length",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Unlikely that the total average has no decimals",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Unlikely that the average is equal to the total average",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "These simple tests show that the random code at least is not a flat line of numbers."
         },
         "infohub_login_logout": {
-            "Logout": "Logout",
-            "logout result": "logout result",
-            "Here you can logout from the server": "Here you can logout from the server",
-            "If successful then the login page shows": "If successful then the login page shows",
-            "Reload after logout": "Reload after logout",
-            "Failed to logout": "Failed to logout",
-            "Success logging out": "Success logging out"
+            "LOGOUT_KEY": "Logout",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Here you can logout from the server",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "If successful then the login page shows",
+            "LOGOUT_RESULT_KEY": "Logout result",
+            "FAILED_TO_LOGOUT_KEY": "Failed to logout",
+            "SUCCESS_LOGGING_OUT_KEY": "Success logging out"
         },
         "infohub_login_menu": {
-            "Menu": "Menu",
-            "Import contact data": "Import contact data",
-            "Login": "Login",
-            "Set password": "Set password",
-            "Export contact data": "Export contact data",
-            "Logout": "Logout",
-            "Forget contact": "Forget contact"
+            "MENU_KEY": "Menu",
+            "IMPORT_CONTACT_DATA_KEY": "Import contact data",
+            "LOGIN_KEY": "Login",
+            "SET_PASSWORD_KEY": "Set password",
+            "EXPORT_CONTACT_DATA_KEY": "Export contact data",
+            "LOGOUT_KEY": "Logout",
+            "FORGET_CONTACT_KEY": "Forget contact"
         },
         "infohub_login_password": {
-            "Set password": "Set password",
-            "When you set your local password you scramble the shared secret so that it require your password to work": "When you set your local password you scramble the shared secret so that it require your password to work",
-            "Current password": "Current password",
-            "Leave blank if you have none": "Déjelo en blanco si no tiene contraseña",
-            "New password": "New password",
-            "Leave blank if you want to remove the password": "Leave blank if you want to remove the password",
-            "Change password": "Change password"
+            "SET_PASSWORD_KEY": "Set password",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "When you set your local password you scramble the shared secret so that it require your password to work",
+            "CURRENT_PASSWORD_KEY": "Current password",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Leave blank if you have none",
+            "NEW_PASSWORD_KEY": "New password",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Leave blank if you want to remove the password",
+            "CHANGE_PASSWORD_KEY": "Change password"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Login",
+            "SELECT_FILE_KEY": "Select file",
+            "PASSWORD_KEY": "Password",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo account",
+            "LOGIN_RESULT_KEY": "Login result",
+            "MORE_KEY": "More",
+            "CURRENT_URL_KEY": "Current url",
+            "REFRESH_PAGE_KEY": "Refresh page"
         }
     }
 }

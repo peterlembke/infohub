@@ -52,7 +52,7 @@ function infohub_demo_svg() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_svg() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -97,7 +97,8 @@ function infohub_demo_svg() {
                         'ingress': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_INFOHUB_SVG._IF_YOU_INSTEAD_WANT_TO_USE_EXISTING_SVG_FILES_THEN_HAVE_A_LOOK_AT_INFOHUB_RENDER_COMMON.')
+                            'data': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_INFOHUB_SVG.') + ' ' +
+                                _Translate('IF_YOU_INSTEAD_WANT_TO_USE_EXISTING_SVG_FILES_THEN_HAVE_A_LOOK_AT_INFOHUB_RENDER_COMMON.')
                         },
                         'demo1': {
                             'plugin': 'infohub_rendermajor',

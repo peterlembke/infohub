@@ -33,7 +33,7 @@ function infohub_storage_data_idbkeyval() {
             'version': '1.0.0',
             'class_name': 'infohub_storage_data_idbkeyval',
             'checksum': '{{checksum}}',
-            'note': 'Uses the local storage engine indexedDb trough the library idbkeyval to store key value',
+            'note': 'Uses the local storage engine indexedDb through the library idbkeyval to store key value',
             'status': 'normal',
             'SPDX-License-Identifier': 'GPL-3.0-or-later',
         };
@@ -59,7 +59,7 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('read');
-    const read = function($in) {
+    const read = function($in = {}) {
         let $postExist;
 
         const $default = {
@@ -123,7 +123,7 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('write');
-    const write = function($in) {
+    const write = function($in = {}) {
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_idbkeyval',
@@ -207,7 +207,7 @@ function infohub_storage_data_idbkeyval() {
      * @return array
      */
     $functions.push('read_paths');
-    const read_paths = function($in) {
+    const read_paths = function($in = {}) {
         let $data = {};
 
         const $default = {

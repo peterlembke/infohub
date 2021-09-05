@@ -1,49 +1,73 @@
 {
     "version": {
-        "date": "2019-10-26 23:53:04",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_translate",
-        "data_checksum": "526acf83057600854b30e7a50d58628e",
-        "language": "",
-        "country": "",
-        "file_type": "finished_file"
+        "data_checksum": "666a4b9d249fc8667c5edeb988eb4483",
+        "language": "es",
+        "language_name": "spanish",
+        "country": "ES",
+        "country_name": "Spain",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Traducir",
-        "description": "Cree archivos de plantilla que pueda traducir."
+        "title": "Translate",
+        "description": "Create template files that you can translate"
     },
     "data": {
         "infohub_translate": {
-            "Instructions": "Instrucciones",
-            "Use the menu.": "Usa el menú"
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu."
         },
-        "infohub_translate_createfiles": {
-            "Create files": "Crear archivos",
-            "Refresh lists": "Actualizar listas",
-            "Select plugin": "Seleccionar complemento",
-            "Lists all client plugins that can have translation files. Select a plugin and click Create files.": "Lista todos los complementos del cliente que pueden tener archivos de traducción. Seleccione un complemento y haga clic en Crear archivos"
+        "infohub_translate_createfile": {
+            "CREATE_TRANSLATION_FILE_KEY": "Create translation file",
+            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
+            "SELECT_PLUGIN_KEY": "Select plugin",
+            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._SELECT_A_PLUGIN_AND_CLICK_CREATE_FILE._KEY": "Lists all client plugins that can have translation files. Select a plugin and click create file.",
+            "PLUGIN_NAME_KEY": "Plugin name",
+            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.",
+            "DOWNLOAD_FILE_KEY": "Download file",
+            "SAVE_FILE_ON_SERVER_KEY": "Save file on server",
+            "CREATE_FILE_KEY": "Create file",
+            "YOU_GET_THE_ENGLISH_TRANSLATION_FILE._KEY": "You get the english translation file.",
+            "YOU_CAN_THEN_USE_THAT_FILE_ON_ONLINE_TRANSLATION_SERVICES_TO_TRANSLATE_IT_TO_OTHER_LANGUAGES._KEY": "You can then use that file on online translation services to translate it to other languages."
         },
         "infohub_translate_doc": {
-            "Documentation will render here": "La documentación se procesará aquí",
-            "Main Doc": "Doc principal",
-            "Create files Doc": "Crear archivos Doc",
-            "Merge files Doc": "Fusionar archivos Doc",
-            "Update files Doc": "Actualizar archivos Doc"
+            "DOCUMENTATION_WILL_RENDER_HERE_KEY": "Documentation will render here",
+            "MAIN_DOC_KEY": "Main doc",
+            "CREATE_TRANSLATION_FILE_KEY": "Create translation file",
+            "UPDATE_PLUGIN_KEYS_KEY": "Update plugin keys"
         },
         "infohub_translate_menu": {
-            "Translation tool": "Herramienta de traducción",
-            "Documentation": "Documentación",
-            "Create translation files": "Crear archivos de traducción",
-            "Merge translation files": "Fusionar archivos de traducción",
-            "Update translation files": "Actualizar archivos de traducción"
+            "TRANSLATION_TOOL_KEY": "Translation tool",
+            "DOCUMENTATION_KEY": "Documentation",
+            "UPDATE_PLUGIN_KEYS_KEY": "Update plugin keys",
+            "CREATE_A_TRANSLATION_FILE_KEY": "Create a translation file",
+            "VALIDATE_TRANSLATION_FILES_KEY": "Validate translation files"
         },
-        "infohub_translate_mergefiles": {
-            "Merge files": "Fusionar archivos",
-            "Merge the two files": "Fusionar los dos archivos"
+        "infohub_translate_updateplugin": {
+            "UPDATE_PLUGIN_KEY": "Update plugin",
+            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
+            "SELECT_PLUGIN_KEY": "Select plugin",
+            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._KEY": "Lists all client plugins that can have translation files.",
+            "SELECT_A_PLUGIN_AND_CLICK_UPDATE_PLUGIN._KEY": "Select a plugin and click update plugin.",
+            "PLUGIN_NAME_KEY": "Plugin name",
+            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list.",
+            "ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "Only startable plugins are in the list.",
+            "THE_PLUGIN_YOU_SELECT_WILL_HAVE_ITS_TRANSLATE_TEXT_CONVERTED_TO_A_KEY_STRING._KEY": "The plugin you select will have its translate text converted to a key string.",
+            "PLUGIN_AND_CHILDREN_UPDATED._SEE_FOLDER:_KEY": "Plugin and children updated. See folder:"
         },
-        "infohub_translate_updatefiles": {
-            "If you already have a language file and want to add the latest phrases then use this feature. Upload the file. Get the new phrases and then download the updated file.": "Si ya tiene un archivo de idioma y desea agregar las últimas frases, use esta función. Sube el archivo. Obtenga las nuevas frases y luego descargue el archivo actualizado.",
-            "Update translation file": "Actualizar archivo de traducción",
-            "Select file": "Seleccionar archivo"
+        "infohub_translate_validate": {
+            "VALIDATE_TRANSLATION_FILES_KEY": "Validate translation files",
+            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
+            "SELECT_PLUGIN_KEY": "Select plugin",
+            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._KEY": "Lists all client plugins that can have translation files.",
+            "SELECT_A_PLUGIN_AND_CLICK_VALIDATE._KEY": "Select a plugin and click validate.",
+            "PLUGIN_NAME_KEY": "Plugin name",
+            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list.",
+            "ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "Only startable plugins are in the list.",
+            "VALIDATE_KEY": "Validate",
+            "VALIDATES_THE_TRANSLATION_FILES_FOR_THE_SELECTED_PLUGINS._KEY": "Validates the translation files for the selected plugins.",
+            "RESULT_KEY": "Result"
         }
     }
 }

@@ -63,7 +63,7 @@ function infohub_democall() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -73,7 +73,7 @@ function infohub_democall() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -224,7 +224,7 @@ function infohub_democall() {
      * @author Peter Lembke
      */
     $functions.push('startup');
-    const startup = function($in) {
+    const startup = function($in = {}) {
         const $default = {
             'step': 'step_democall_list',
             'parent_box_id': '1',
@@ -274,7 +274,7 @@ function infohub_democall() {
      * @author  Peter Lembke
      */
     $functions.push('event_message');
-    const event_message = function($in) {
+    const event_message = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',

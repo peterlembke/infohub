@@ -41,6 +41,7 @@ function infohub_password() {
     const _GetCmdFunctions = function() {
         const $list = {
             'generate': 'normal',
+            'validate': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,7 +60,7 @@ function infohub_password() {
      * @returns {*}
      */
     $functions.push('generate');
-    const generate = function($in) {
+    const generate = function($in = {}) {
         const $default = {
             'number_of_passwords': 30, // Number of passwords you want to select from
             'password_length': 0, // wanted password length, give 0 for a random length 16-64 characters
@@ -96,7 +97,7 @@ function infohub_password() {
      * @param $maxGroupNumber | Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
      * @return string
      */
-    const _Generate = function($length, $maxGroupNumber) {
+    const _Generate = function($length = 0, $maxGroupNumber = 0) {
         if ($length < 0) { $length = 0; }
         if ($maxGroupNumber < 0) { $maxGroupNumber = 0; }
         if ($maxGroupNumber > 4) { $maxGroupNumber = 4; }
@@ -135,9 +136,10 @@ function infohub_password() {
      * Then shuffle the group numbers.
      * Then cut the string into the right length. (This can be an issue but then just try another password)
      * @param $length
-     * @return string
+     * @returns {string}
+     * @private
      */
-    const _GetGroupString = function($length) {
+    const _GetGroupString = function($length = 0) {
         if ($length < 0) { $length = 64; }
 
         const $start = '0000011111222333344';
@@ -149,7 +151,13 @@ function infohub_password() {
         return $result;
     };
 
-    const _Shuffle = function($string) {
+    /**
+     * Shuffle the characters in the string
+     * @param $string
+     * @returns {*}
+     * @private
+     */
+    const _Shuffle = function($string = '') {
         const $characterArray = $string.split(''),
             $characterCount = $characterArray.length;
 
@@ -171,7 +179,7 @@ function infohub_password() {
      * @param $maxGroupNumber
      * @return string
      */
-    const _GetRandomGroupCharacter = function($groupNumber, $maxGroupNumber) {
+    const _GetRandomGroupCharacter = function($groupNumber = 0, $maxGroupNumber = 0) {
         const $group = _GetGroupData($groupNumber, $maxGroupNumber);
         const $length = $group.length;
         if ($length <= 0) {
@@ -184,11 +192,20 @@ function infohub_password() {
         return $character;
     };
 
-    const _Random = function($min, $max) {
+    /**
+     * Get a random integer number between min and max
+     * @param $min
+     * @param $max
+     * @returns {number}
+     * @private
+     */
+    const _Random = function($min = 0, $max = 0) {
         if ($min < 0) { $min = 0; }
         if ($max < 0) { $max = 0; }
 
-        return Math.floor(Math.random() * ($max - $min + 1)) + $min;
+        const $randomNumber =  Math.floor(Math.random() * ($max - $min + 1)) + $min;
+
+        return $randomNumber;
     };
 
     /**
@@ -198,7 +215,7 @@ function infohub_password() {
      * @param $maxGroupNumber | In some cases special characters are not allowed
      * @return mixed
      */
-    const _GetGroupData = function($groupNumber, $maxGroupNumber) {
+    const _GetGroupData = function($groupNumber = 0, $maxGroupNumber = 0) {
         if ($groupNumber < 0) {
             $groupNumber = 0;
         }
@@ -225,6 +242,33 @@ function infohub_password() {
 
         return $data[$groupNumber];
     };
-}
 
+    $functions.push('validate');
+    /**
+     * Validate a minimum allowed password
+     * @version 2021-05-22
+     * @since   2021-05-22
+     * @author  Peter Lembke
+     * @param $in
+     * @returns {*}
+     */
+    const validate = function($in = {}) {
+        const $default = {
+            'data': 'false',
+        };
+        $in = _Default($default, $in);
+
+        let $valid = 'true';
+
+        if ($in.data.length < 8) {
+            $valid = 'false';
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'The data is now validated. Here is the answer',
+            'valid': $valid,
+        };
+    };
+}
 //# sourceURL=infohub_password.js

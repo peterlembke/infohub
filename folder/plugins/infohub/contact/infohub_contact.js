@@ -46,7 +46,6 @@ function infohub_contact() {
      */
     const _GetCmdFunctions = function() {
         const $list = {
-            'create': 'normal',
             'setup_gui': 'normal',
             'click_menu': 'normal',
             'click': 'normal',
@@ -78,88 +77,8 @@ function infohub_contact() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
-
-    /**
-     * Get the raw data for the markdown doc file.
-     * Used by infohub_contact_doc to render the documentation
-     * @version 2020-04-30
-     * @since   2019-03-14
-     * @author  Peter Lembke
-     */
-    $functions.push('create'); // Enable this function
-    const create = function($in) {
-        const $default = {
-            'type': '',
-            'alias': '',
-            'original_alias': '',
-            'step': 'step_get_doc_file',
-            'html': '',
-            'css_data': {},
-            'response': {
-                'answer': 'false',
-                'message': 'nothing to report from infohub_contact->create',
-                'data': {},
-                'contents': '',
-                'checksum': '',
-                'html': '',
-            },
-        };
-        $in = _Merge($default, $in);
-
-        if ($in.step === 'step_get_doc_file') {
-            return _SubCall({
-                'to': {
-                    'node': 'server',
-                    'plugin': 'infohub_contact',
-                    'function': 'get_doc_file',
-                },
-                'data': {
-                    'file': $in.type,
-                },
-                'data_back': {
-                    'step': 'step_get_doc_file_response',
-                    'alias': $in.alias,
-                    'type': $in.type,
-                },
-            });
-        }
-
-        if ($in.step === 'step_get_doc_file_response') {
-            return _SubCall({
-                'to': {
-                    'node': 'client',
-                    'plugin': 'infohub_renderdocument',
-                    'function': 'create',
-                },
-                'data': {
-                    'text': atob($in.response.contents),
-                },
-                'data_back': {
-                    'step': 'step_final',
-                    'alias': $in.alias,
-                    'type': $in.type,
-                },
-            });
-        }
-
-        if ($in.step === 'step_final') {
-            if (_Empty($in.alias) === 'false') {
-                // All IDs become unique by inserting the parent alias in each ID.
-                const $find = '{box_id}';
-                const $replace = $find + '_' + $in.alias;
-                $in.html = $in.html.replace(new RegExp($find, 'g'), $replace);
-            }
-        }
-
-        return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'html': $in.html,
-            'css_data': $in.css_data,
-        };
-    };
 
     /**
      * Setup the Workbench Graphical User Interface
@@ -168,7 +87,7 @@ function infohub_contact() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -324,7 +243,7 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -365,7 +284,7 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -427,7 +346,7 @@ function infohub_contact() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'to': {'function': ''},

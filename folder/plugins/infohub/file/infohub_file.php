@@ -72,7 +72,8 @@ class infohub_file extends infohub_base
             'developer_get_all_plugin_data' => 'normal', // Used by developer plugins like Infohub_Trigger
             'get_all_level1_plugin_names' => 'normal', // infohub_translate
             'load_node_role_plugin_name_role_list' => 'normal', // infohub_contact
-            'get_plugin_js_files_content' => 'normal' // infohub_translate
+            'get_plugin_js_files_content' => 'normal', // infohub_translate
+            'get_translation_files' => 'normal', // infohub_translate
         ];
 
         return parent::_GetCmdFunctionsBase($list);
@@ -95,7 +96,11 @@ class infohub_file extends infohub_base
     {
         $default = [
             'path' => '',
-            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'from_plugin' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
             'folder' => 'file' // plugin or file
         ];
         $in = $this->_Default($default, $in);
@@ -247,7 +252,8 @@ class infohub_file extends infohub_base
         $in['func'] = 'Write';
         $in['path'] = MAIN . DS . 'file' . DS . $in['from_plugin']['plugin'] . DS . $in['path'];
 
-        return $this->internal_Cmd($in);
+        $response = $this->internal_Cmd($in);
+        return $response;
     }
 
     /**
@@ -288,15 +294,15 @@ class infohub_file extends infohub_base
         */
 
         $pathParts = pathinfo($in['path']);
-        if ($this->_IsBinaryFileExtension($pathParts['extension']) === 'true') {
+        if ($this->_IsBinaryFileExtensionWrite($pathParts['extension']) === 'true') {
             $in['contents'] = base64_decode($in['contents']);
         }
 
         $checksum = $this->_Hash($in['contents']);
 
         if ($response['file_info']['folder_exist'] === 'false') {
-            $response = mkdir($response['path'], $mode = 0777, $recursive = true);
-            if ($response === false) {
+            $result = mkdir($pathParts['dirname'], $mode = 0777, $recursive = true);
+            if ($result === false) {
                 $message = 'Folder do not exist and I can not create it';
                 goto leave;
             }
@@ -346,6 +352,24 @@ class infohub_file extends infohub_base
     {
         // OBSERVE: Do NOT add PHP and JS files to this list even if they are text files
         $validNonBinaryExtensions = ['txt', 'csv', 'xml', 'json', 'svg', 'md'];
+        $isBinaryFileExtension = 'true';
+        if (in_array($extension, $validNonBinaryExtensions) === true) {
+            $isBinaryFileExtension = 'false';
+        }
+        return $isBinaryFileExtension;
+    }
+
+    /**
+     * Determine if an extension indicate a binary file ("true"), or a text file ("false")
+     * @param string $extension
+     * @return string | boolean string "true" or "false"
+     * @author  Peter Lembke
+     * @version 2018-05-12
+     * @since   2018-05-12
+     */
+    protected function _IsBinaryFileExtensionWrite(string $extension = ''): string
+    {
+        $validNonBinaryExtensions = ['txt', 'csv', 'xml', 'json', 'svg', 'md', 'js', 'php'];
         $isBinaryFileExtension = 'true';
         if (in_array($extension, $validNonBinaryExtensions) === true) {
             $isBinaryFileExtension = 'false';
@@ -1481,7 +1505,7 @@ class infohub_file extends infohub_base
     }
 
     /**
-     * Give a plugin name and you get the source code for all js files indexed on each plugin name.
+     * Give a plugin name array, and you get the source code for all js files indexed on each plugin name.
      * Used ONLY by infohub_translate.php
      * @param array $in
      * @return array
@@ -1492,7 +1516,7 @@ class infohub_file extends infohub_base
     protected function get_plugin_js_files_content(array $in = []): array
     {
         $default = [
-            'plugin_name' => '',
+            'plugin_name_array' => [],
             'from_plugin' => ['node' => '', 'plugin' => '']
         ];
         $in = $this->_Default($default, $in);
@@ -1500,6 +1524,7 @@ class infohub_file extends infohub_base
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $data = [];
+        $launcher = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -1511,66 +1536,127 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $in['path'] = PLUGINS . DS . str_replace('_', DS, $in['plugin_name']);
+        foreach ($in['plugin_name_array'] as $requestedPluginName) {
 
-        /*
-        $folder = $in['path'] . DS . 'asset' . DS . 'translate';
-        if (is_dir($folder) === false) {
-            $message = 'You should at least have prepared with an asset/translate folder';
-            goto leave;
-        }
-        */
+            $requestedPath = PLUGINS . DS . str_replace('_', DS, $requestedPluginName);
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetFolderStructure',
-                'path' => $in['path'],
-                'pattern' => '*.js',
-            ]
-        );
+            $response = $this->internal_Cmd(
+                [
+                    'func' => 'GetFolderStructure',
+                    'path' => $requestedPath,
+                    'pattern' => '*.js',
+                ]
+            );
 
-        if ($response['answer'] === 'false') {
-            $message = $response['message'];
-            goto leave;
-        }
-
-        foreach ($response['data'] as $path) {
-            $pathInfo = pathinfo($path);
-            $pluginName = $pathInfo['filename'];
-
-            if (strpos($pluginName, '_') === false) {
-                continue; // Skip js files without _ in the name
+            if ($response['answer'] === 'false') {
+                $message = $response['message'];
+                goto leave;
             }
 
-            if (strtolower($pluginName) !== $pluginName) {
-                continue; // Skip names that contain upper case letters
-            }
+            foreach ($response['data'] as $path) {
+                $pathInfo = pathinfo($path);
+                $pluginName = $pathInfo['filename'];
 
-            $avoid = [
-                'infohub_test_plugin_js' => '',
-            ];
+                if (strpos($pluginName, '_') === false) {
+                    continue; // Skip js files without _ in the name
+                }
 
-            if (isset($avoid[$pluginName])) {
-                continue;
-            }
+                if (strtolower($pluginName) !== $pluginName) {
+                    continue; // Skip names that contain upper case letters
+                }
 
-            $data[$pluginName] = file_get_contents($path);
+                $avoid = [
+                    'infohub_test_plugin_js' => '',
+                ];
 
-            if (strpos($data[$pluginName], '_Translate(') === false) {
-                unset($data[$pluginName]); // This file do not contain anything to translate, skip it.
+                if (isset($avoid[$pluginName])) {
+                    continue;
+                }
+
+                $data[$pluginName] = file_get_contents($path);
+
+                if (strpos($data[$pluginName], '_Translate(') === false) {
+                    unset($data[$pluginName]); // This file do not contain anything to translate, skip it.
+                }
+
+                $requestedPath = PLUGINS . DS . str_replace('_', DS, $requestedPluginName) . DS . 'asset' . DS . 'launcher.json';
+                $launcher[$requestedPluginName] = file_get_contents($requestedPath);
             }
         }
 
         ksort($data);
+        ksort($launcher);
 
         $answer = 'true';
-        $message = 'Here are all javascript code for one plugin name';
+        $message = 'Here are all javascript code for all requested plugin names and their children';
 
         leave:
         return [
             'answer' => $answer,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
+            'launcher' => $launcher
+        ];
+    }
+
+    /**
+     * Give a plugin name and get all translate files for that plugin in a lookup with language code => file contents
+     * @param  array  $in
+     * @return array
+     */
+    protected function get_translation_files(
+        array $in = []
+    ): array {
+        $default = [
+            'from_plugin' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
+            'plugin_name' => '',
+        ];
+        $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            return [
+                'answer' => 'false',
+                'message' => 'I only accept messages that origin from this server node'
+            ];
+        }
+
+        $path = PLUGINS . DS . str_replace('_', DS, $in['plugin_name']) . DS . 'asset' . DS . 'translate';
+
+        $response = $this->internal_Cmd([
+            'func' => 'GetFolderStructure',
+            'path' => $path,
+            'pattern' => '*.json'
+        ]);
+
+        $pathArray = $response['data'];
+
+        $fileLookup = [];
+
+        foreach ($pathArray as $path) {
+            $response = $this->internal_Cmd([
+                'func' => 'Read',
+                'path' => $path
+            ]);
+
+            if ($response['answer'] === false) {
+                return [
+                    'answer' => $response['answer'],
+                    'message' => $response['message']
+                ];
+            }
+
+            $indexOnLanguageCode = $response['path_info']['filename'];
+            $fileLookup[$indexOnLanguageCode] = $response['contents'];
+        }
+
+        return [
+            'answer' => $response['answer'],
+            'message' => $response['message'],
+            'data' => $fileLookup
         ];
     }
 }

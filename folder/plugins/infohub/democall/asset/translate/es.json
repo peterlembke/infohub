@@ -1,35 +1,37 @@
 {
     "version": {
-        "date": "2019-10-19 21:05:59",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_democall",
-        "data_checksum": "2fd9d11a1a29469ed07db938aadc4db3",
+        "data_checksum": "9c20a2c911b0f83a2cb4dc0f5aa8356e",
         "language": "es",
+        "language_name": "spanish",
         "country": "ES",
-        "file_type": "finished_file"
+        "country_name": "Spain",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Llamada de demostración",
-        "description": "Muestra lo que sucede cuando se llama a un complemento o función que no existe."
+        "title": "Demo Call",
+        "description": "Shows what happens when you call a plugin or function that do not exist."
     },
     "data": {
         "infohub_democall": {
-            "Instructions": "Instrucciones",
-            "Use the menu.": "Usar el menú",
-            "Result": "Resultado"
+            "INSTRUCTIONS_KEY": "Instructions",
+            "USE_THE_MENU._KEY": "Use the menu.",
+            "RESULT_KEY": "Result"
         },
         "infohub_democall_menu": {
-            "Demo Call": "Llamada de demostración",
-            "[i]Here you can explore what happens if you call a plugin that is missing, or a missing function.[/i]": "[i] Aquí puede explorar qué sucede si llama a un complemento que falta o una función que falta. [/i]",
-            "Client - Correct call. Plugin and function exist": "Cliente: llamada correcta. El complemento y la función existen",
-            "Client - Plugin exist, cmd function do not exist": "Cliente: el complemento existe, la función cmd no existe",
-            "Client - Plugin is missing": "Cliente: falta el complemento",
-            "Server - Correct call. Plugin and function exist": "Servidor: llamada correcta. El complemento y la función existen",
-            "Server - Plugin exist, cmd function do not exist": "Servidor: el complemento existe, la función cmd no existe",
-            "Server - Plugin is missing": "Servidor: falta el complemento",
-            "Client - Child talk to valid responders": "Cliente - Niño habla con respondedores válidos",
-            "Client - Invalid call to sibling child": "Cliente - Llamada no válida al hermano menor",
-            "Client - Invalid call from child to parent": "Cliente: llamada no válida de hijo a padre",
-            "Server - Run all server tests": "Servidor: ejecutar todas las pruebas del servidor"
+            "DEMO_CALL_KEY": "Demo call",
+            "HERE_YOU_CAN_EXPLORE_WHAT_HAPPENS_IF_YOU_CALL_A_PLUGIN_THAT_IS_MISSING,_OR_A_MISSING_FUNCTION_KEY": "Here you can explore what happens if you call a plugin that is missing, or a missing function",
+            "CLIENT_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST_KEY": "Client - correct call. Plugin and function exist",
+            "CLIENT_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST_KEY": "Client - plugin exist, cmd function do not exist",
+            "CLIENT_-_PLUGIN_IS_MISSING_KEY": "Client - plugin is missing",
+            "SERVER_-_CORRECT_CALL._PLUGIN_AND_FUNCTION_EXIST_KEY": "Server - correct call. Plugin and function exist",
+            "SERVER_-_PLUGIN_EXIST,_CMD_FUNCTION_DO_NOT_EXIST_KEY": "Server - plugin exist, cmd function do not exist",
+            "SERVER_-_PLUGIN_IS_MISSING_KEY": "Server - plugin is missing",
+            "CLIENT_-_CHILD_TALK_TO_VALID_RESPONDERS_KEY": "Client - child talk to valid responders",
+            "CLIENT_-_INVALID_CALL_TO_SIBLING_CHILD_KEY": "Client - invalid call to sibling child",
+            "CLIENT_-_INVALID_CALL_FROM_CHILD_TO_PARENT_KEY": "Client - invalid call from child to parent",
+            "SERVER_-_RUN_ALL_SERVER_TESTS_KEY": "Server - run all server tests"
         }
     }
 }

@@ -5,17 +5,17 @@ Your local message router
 # Introduction
 
 When Infohub get a package with messages the messages arrives to Infohub_Exchange for sorting. There are several message
-queues the message will pass trough on its way to the destination.  
+queues the message will pass through on its way to the destination.  
 Responses from plugins also goes into the queues and are rerouted to its destination by Infohub Exchange.
 
 # Pre-sorting
 
-Each message in the incoming package must pass trough some strict checks.  
+Each message in the incoming package must pass through some strict checks.  
 If the package contain more than 20 messages then I will throw away all messages. Because all nodes know this rule and
 should not send more messages than this.  
 Each message are now checked. It must have the right structure. It must come from a known node. It must follow the rules
 whom it is allowed to call.  
-The final destination for this message must be this node, I do not allow messages to just pass trough. A package always
+The final destination for this message must be this node, I do not allow messages to just pass through. A package always
 come from another node, therefore if a message in the package claim to be from this node then it is obviously not true
 and the whole package will be thrown away.
 

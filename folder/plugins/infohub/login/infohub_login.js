@@ -34,7 +34,7 @@ function infohub_login() {
             'title': 'Login',
             'user_role': 'user',
             'web_worker': 'true',
-            'core_plugin': 'true',
+            'core_plugin': 'true'
         };
     };
 
@@ -52,7 +52,7 @@ function infohub_login() {
         return _GetCmdFunctionsBase($list);
     };
 
-    const _GetPluginName = function($data) {
+    const _GetPluginName = function($data = '') {
         let $pluginType = 'login',
             $tmp = $data.split('_');
 
@@ -67,7 +67,7 @@ function infohub_login() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -77,7 +77,7 @@ function infohub_login() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -189,7 +189,7 @@ function infohub_login() {
             $in.step = 'step_menu';
 
             if ($in.desktop_environment === 'standalone') {
-                $in.step = 'step_render_login';
+                $in.step = 'step_render_standalone';
             }
         }
 
@@ -317,6 +317,42 @@ function infohub_login() {
             });
         }
 
+        if ($in.step === 'step_render_standalone') {
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'setup_information',
+                },
+                'data': {},
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
+                    'step': 'step_end',
+                },
+            });
+            let $messageArray = [];
+            $messageArray.push($messageOut);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_login',
+                    'function': 'click_menu',
+                },
+                'data': {
+                    'event_data': 'standalone',
+                    'desktop_environment': $in.desktop_environment,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'desktop_environment': $in.desktop_environment,
+                    'step': 'step_end',
+                },
+                'messages': $messageArray,
+            });
+        }
+
         return {
             'answer': 'true',
             'message': 'plugin GUI is done',
@@ -330,7 +366,7 @@ function infohub_login() {
      * @author  Peter Lembke
      */
     $functions.push('setup_information');
-    const setup_information = function($in) {
+    const setup_information = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'config': {
@@ -527,7 +563,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push('click_menu');
-    const click_menu = function($in) {
+    const click_menu = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'event_data': '',
@@ -579,7 +615,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push('click');
-    const click = function($in) {
+    const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
             'value': '', // Selected option in select lists
@@ -648,7 +684,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push('call_server');
-    const call_server = function($in) {
+    const call_server = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'to': {
@@ -709,7 +745,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push('get_user_real_name');
-    const get_user_real_name = function($in) {
+    const get_user_real_name = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},
@@ -788,7 +824,7 @@ function infohub_login() {
      * @author Peter Lembke
      */
     $functions.push('logout');
-    const logout = function($in) {
+    const logout = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {},

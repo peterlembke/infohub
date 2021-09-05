@@ -44,7 +44,7 @@ function infohub_configlocal_image() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -54,7 +54,7 @@ function infohub_configlocal_image() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -104,7 +104,8 @@ function infohub_configlocal_image() {
                             'max_value': '1000',
                             'step_value': '100',
                             'label': _Translate('MAX_ASSET_SIZE'),
-                            'description': _Translate('MAX_ASSET_SIZE_IN_KILOBYTES_YOU_ALLOW_TO_BE_DOWNLOADED._YOU_CAN_LIMIT_TO_SAVE_DOWNLOAD_SPEED_AND_QUOTA')
+                            'description': _Translate('MAX_ASSET_SIZE_IN_KILOBYTES_YOU_ALLOW_TO_BE_DOWNLOADED.') + ' ' +
+                                _Translate('YOU_CAN_LIMIT_TO_SAVE_DOWNLOAD_SPEED_AND_QUOTA')
                         },
                         'index_cache_days': {
                             'plugin': 'infohub_renderform',
@@ -113,13 +114,15 @@ function infohub_configlocal_image() {
                             'max_value': '365',
                             'step_value': '3',
                             'label': _Translate('CACHE_TIME_FOR_ASSETS'),
-                            'description': _Translate('ASSET_IS_CONSIDERED_FRESH_UNTIL_THIS_MANY_DAYS_HAVE_PASSED._THEN_WE_WILL_CONTACT_THE_SERVER_AND_SEE_IF_IT_HAS_BEEN_UPDATED')
+                            'description': _Translate('ASSET_IS_CONSIDERED_FRESH_UNTIL_THIS_MANY_DAYS_HAVE_PASSED.') + ' ' +
+                                _Translate('THEN_WE_WILL_CONTACT_THE_SERVER_AND_SEE_IF_IT_HAS_BEEN_UPDATED')
                         },
                         'allowed_asset_types': {
                             'plugin': 'infohub_renderform',
                             'type': 'checkboxes',
                             "label": _Translate("IMAGE_TYPES_YOU_CAN_SEE"),
-                            "description": _Translate("DIFFERENT_BROWSERS_SUPPORT_DIFFERENT_IMAGE_FORMATS._SELECT_THE_IMAGE_TYPES_YOU_CAN_SEE_AND_I_WILL_AVOID_DOWNLOADING_IMAGES_YOU_CAN'T_SEE_ON_THIS_BROWSER"),
+                            "description": _Translate("DIFFERENT_BROWSERS_SUPPORT_DIFFERENT_IMAGE_FORMATS.") + ' ' +
+                                _Translate("SELECT_THE_IMAGE_TYPES_YOU_CAN_SEE_AND_I_WILL_AVOID_DOWNLOADING_IMAGES_YOU_CAN_NOT_SEE_ON_THIS_BROWSER"),
                             "options": [
                                 { "value": "svg", "label": "[image_svg]" },
                                 { "value": "json", "label": "[image_jpeg]" },
@@ -281,7 +284,7 @@ function infohub_configlocal_image() {
      * @author Peter Lembke
      */
     $functions.push('click_submit');
-    const click_submit = function($in) {
+    const click_submit = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_form_read',
@@ -414,7 +417,7 @@ function infohub_configlocal_image() {
      * @author Peter Lembke
      */
     $functions.push('apply_config');
-    const apply_config = function($in) {
+    const apply_config = function($in = {}) {
         const $default = {
             'local_config': {
                 'download_assets.download_assets': {

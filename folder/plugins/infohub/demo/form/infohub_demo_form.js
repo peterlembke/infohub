@@ -78,7 +78,7 @@ function infohub_demo_form() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -88,7 +88,7 @@ function infohub_demo_form() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -269,7 +269,9 @@ function infohub_demo_form() {
                         },
                         'my_file_selector_information': {
                             'type': 'text',
-                            'text': _Translate('BELOW_YOU_CAN_PRESS_THE_BUTTON_TO_GET_A_FILE_SELECTOR._SELECT_ONE_OR_MORE_JPEG_IMAGES._THEY_WILL_BE_READ_AND_SHOWN_UNDER_THE_BUTTON.')
+                            'text': _Translate('BELOW_YOU_CAN_PRESS_THE_BUTTON_TO_GET_A_FILE_SELECTOR.') + ' ' +
+                                _Translate('SELECT_ONE_OR_MORE_JPEG_IMAGES.') + ' ' +
+                                _Translate('THEY_WILL_BE_READ_AND_SHOWN_UNDER_THE_BUTTON.')
                         },
                         'my_file_selector': {
                             'type': 'form',
@@ -316,7 +318,7 @@ function infohub_demo_form() {
      * @author Peter Lembke
      */
     $functions.push('click_file_read');
-    const click_file_read = function($in) {
+    const click_file_read = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report',
@@ -380,7 +382,7 @@ function infohub_demo_form() {
      * @author Peter Lembke
      */
     $functions.push('click_file_write');
-    const click_file_write = function($in) {
+    const click_file_write = function($in = {}) {
         const $default = {
             'step': 'step_start',
         };

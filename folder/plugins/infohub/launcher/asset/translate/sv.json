@@ -13,24 +13,25 @@
     },
     "data": {
         "infohub_launcher": {
-            "Switch list": "Byt lista",
-            "My list": "Min lista",
-            "All available plugins": "Alla tillgängliga plugins",
-            "Instructions": "Instruktioner",
-            "Switch list. Refresh. Click icon.": "Byt lista. Uppdatera. Klicka på ikonen.",
-            "Help": "Hjälp",
-            "Refresh": "Uppdatera",
-            "Refresh page": "Uppdatera sidan",
-            "Update this list": "Uppdatera denna lista",
-            "_AddIcon got an invalid list": "_AddIcon fick en ogiltig lista",
-            "_AddIcon got an empty item": "_AddIcon fick ett tomt objekt",
-            "Add to my list": "Lägg till i min lista",
-            "Remove from my list": "Ta bort från min lista",
-            "Run plugin": "Kör plugin",
-            "More": "Mer",
-            "User name": "Användarnamn",
-            "Logout": "Logga ut",
-            "Run in new window": "Kör i nytt fönster"
-        }
-    }
+            "SWITCH_LIST_KEY": "Byt lista",
+            "MY_LIST_KEY": "Min lista",
+            "ALL_AVAILABLE_PLUGINS_KEY": "Alla tillgängliga plugins",
+            "INSTRUCTIONS_KEY": "Instruktioner",
+            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Byt lista. Uppdatera. Klicka på ikonen.",
+            "HELP_KEY": "Hjälp",
+            "MORE_KEY": "Mer",
+            "USER_NAME_KEY": "Användarnamn",
+            "CURRENT_URL_KEY": "Aktuell webbadress",
+            "LOGOUT_KEY": "Logga ut",
+            "REFRESH_PAGE_KEY": "Uppdatera sida",
+            "REFRESH_KEY": "Uppdatera",
+            "UPDATE_THIS_LIST_KEY": "Uppdatera den här listan",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Det uppstod ett fel i addicon",
+            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon har en ogiltig lista",
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon har ett tomt objekt",
+            "ADD_TO_MY_LIST_KEY": "Lägg till i min lista",
+            "REMOVE_FROM_LIST_KEY": "Ta bort från listan",
+            "RUN_PLUGIN_KEY": "Kör plugin",
+            "RUN_IN_NEW_WINDOW_KEY": "Kör i nytt fönster"
+        }    }
 }

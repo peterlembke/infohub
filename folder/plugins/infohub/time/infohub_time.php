@@ -66,7 +66,7 @@ class infohub_time extends infohub_base
     /**
      * Gives you the current time in different time formats that are used in InfoHub.
      *
-     * The functions used are available trough the base class.
+     * The functions used are available through the base class.
      * If you want a true testable plugin then you need to avid fetching unpredictable values directly,
      * instead you can call this function and get a value back to your function.
      *

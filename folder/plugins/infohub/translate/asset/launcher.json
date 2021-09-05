@@ -4,6 +4,13 @@
     "description": "Create template files that you can translate",
     "keywords": "translations,translate,language",
     "uses": [
-        "infohub_language"
+        "infohub_language",
+        "infohub_translate_createfile",
+        "infohub_translate_doc",
+        "infohub_translate_menu",
+        "infohub_translate_updateplugin",
+        "infohub_translate_validate",
+        "infohub_renderadvancedlist",
+        "infohub_rendermenu"
     ]
 }

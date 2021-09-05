@@ -1,8 +1,10 @@
 # My plugin
-My first test
+Your template for your own plugin
   
 # Introduction
-This is my first test plugin
+This is two template plugins. One for Javascript and one for PHP.
+
+
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

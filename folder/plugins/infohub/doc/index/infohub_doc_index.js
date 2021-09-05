@@ -49,11 +49,17 @@ function infohub_doc_index() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('_GetBoxId');
-    const _GetBoxId = function($child) {
+    /**
+     *
+     * @param $child
+     * @returns {string}
+     * @private
+     */
+    const _GetBoxId = function($child = '') {
 
         if (_Empty($child) === 'true') {
             $child = 'index';
@@ -71,7 +77,7 @@ function infohub_doc_index() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -153,7 +159,7 @@ function infohub_doc_index() {
      * @author Peter Lembke
      */
     $functions.push('click_refresh');
-    const click_refresh = function($in) {
+    const click_refresh = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -314,7 +320,7 @@ function infohub_doc_index() {
      * @author Peter Lembke
      */
     $functions.push('click_item');
-    const click_item = function($in) {
+    const click_item = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',

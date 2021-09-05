@@ -41,6 +41,7 @@ function infohub_tree_encrypt() {
             'create': 'normal',
             'click_import_key_data': 'normal',
             'click_forget_key_data': 'normal',
+            'click_export_key_data': 'normal',
             'click_create_key_data': 'normal',
             'create_secret': 'normal',
             'encrypt': 'normal',
@@ -59,7 +60,7 @@ function infohub_tree_encrypt() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
         const $parts = $text.split('_');
 
@@ -79,7 +80,7 @@ function infohub_tree_encrypt() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -89,22 +90,103 @@ function infohub_tree_encrypt() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
             'translations': {},
-            'step': 'step_render',
+            'step': 'step_get_box_list',
             'response': {
                 'answer': 'false',
                 'message': '',
+                'responses': []
             },
         };
         $in = _Default($default, $in);
 
-        if ($in.step === 'step_render') {
+        if ($in.step === 'step_get_box_list') {
             $classTranslations = $in.translations;
+
             return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update',
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'BoxMode',
+                            'box_id': $in.parent_box_id + '.form',
+                            'box_mode': 'side',
+                            'digits': '1',
+                        },
+                        {
+                            'func': 'BoxList',
+                            'box_id': $in.parent_box_id + '.form',
+                        },
+                    ],
+                },
+                'data_back': {
+                    'parent_box_id': $in.parent_box_id,
+                    'step': 'step_get_box_list_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_box_list_response') {
+            $in.step = 'step_render_boxes';
+
+            let $id = _GetData({'name': 'responses/1/index/import', 'default': '', 'data': $in.response});
+            if ($id !== '') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_render_boxes') {
+            $classTranslations = $in.translations;
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'mass_update',
+                },
+                'data': {
+                    'do': [
+                        {
+                            'func': 'BoxMode',
+                            'box_id': $in.parent_box_id + '.form',
+                            'box_mode': 'side',
+                            'digits': '1',
+                        },
+                        {
+                            'func': 'BoxesInsert',
+                            'parent_box_id': $in.parent_box_id + '.form',
+                            'box_position': 'last',
+                            'box_mode': 'data',
+                            'box_alias': 'parts',
+                            'boxes_data': {
+                                'import': 'Import private_key',
+                                'forget': 'Forget private_key',
+                                'export': 'Export private_key',
+                                'create': 'Create new private_key'
+                            },
+                        },
+                    ],
+                },
+                'data_back': {
+                    'parent_box_id': $in.parent_box_id,
+                    'step': 'step_render',
+                },
+            });
+        }
+
+        if ($in.step === 'step_render') {
+
+            let $messagesArray = [];
+
+            let $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_render',
@@ -112,12 +194,23 @@ function infohub_tree_encrypt() {
                 },
                 'data': {
                     'what': {
-                        'container_encrypt': {
-                            'type': 'common',
-                            'subtype': 'container',
-                            'tag': 'div',
-                            'data': '[button_import_key][button_forget_key][button_create_key]',
-                            'class': 'container-small',
+                        'presentation_import_key': {
+                            'plugin': 'infohub_rendermajor',
+                            'type': 'presentation_box',
+                            'head_label': _Translate('IMPORT_KEY_FILE'),
+                            'content_data': '[text_import_password][button_import_key]',
+                        },
+                        'text_import_password': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'password',
+                            'label': '', // _Translate('IMPORT_PASSWORD'),
+                            'description': _Translate('YOUR_PASSWORD_FOR_THE_FILE'),
+                            'maxlength': '32',
+                            'show_characters_left': 'false',
+                            'show_generate_password': 'false',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
                         },
                         'button_import_key': {
                             'plugin': 'infohub_renderform',
@@ -141,11 +234,37 @@ function infohub_tree_encrypt() {
                             'asset_name': 'encrypt/import',
                             'plugin_name': 'infohub_tree',
                         },
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[presentation_import_key]',
+                    },
+                    'where': {
+                        'box_id': 'main.body.infohub_tree.form.import', // 'box_id': $in.parent_box_id + '.form',
+                        'max_width': 100,
+                        'scroll_to_box_id': 'false',
+                    },
+                    'cache_key': 'import',
+                },
+                'data_back': {
+                    'step': 'step_end',
+                },
+            });
+            $messagesArray.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create',
+                },
+                'data': {
+                    'what': {
                         'button_forget_key': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('FORGET_KEY_FROM_MEMORY_AND_STORAGE'),
+                            'button_label': _Translate('FORGET_IMPORTED_KEY'),
                             'button_left_icon': '[delete_icon]',
                             'event_data': 'encrypt|forget_key_data',
                             'to_plugin': 'infohub_tree',
@@ -161,6 +280,115 @@ function infohub_tree_encrypt() {
                             'type': 'icon',
                             'asset_name': 'encrypt/delete',
                             'plugin_name': 'infohub_tree',
+                        },
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[button_forget_key]',
+                    },
+                    'where': {
+                        'box_id': 'main.body.infohub_tree.form.forget', // 'box_id': $in.parent_box_id + '.form',
+                        'max_width': 100,
+                        'scroll_to_box_id': 'false',
+                    },
+                    'cache_key': 'forget',
+                },
+                'data_back': {
+                    'step': 'step_end',
+                },
+            });
+            $messagesArray.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create',
+                },
+                'data': {
+                    'what': {
+                        'presentation_export_key': {
+                            'plugin': 'infohub_rendermajor',
+                            'type': 'presentation_box',
+                            'head_label': _Translate('EXPORT_KEY_FILE'),
+                            'head_text': _Translate('EXPORT_THE_IMPORTED_KEY_WITH_NEW_PASSWORD'),
+                            'content_data': '[text_export_password][button_create_key]',
+                        },
+                        'text_export_password': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'password',
+                            'label': '', //_Translate('EXPORT_PASSWORD'),
+                            'description': _Translate('YOUR_PASSWORD_FOR_THE_FILE'),
+                            'maxlength': '32',
+                            'show_characters_left': 'true',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
+                        },
+                        'button_create_key': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'button',
+                            'mode': 'button',
+                            'button_label': _Translate('CREATE_KEY_FILE'),
+                            'button_left_icon': '[create_icon]',
+                            'event_data': 'encrypt|export_key_data',
+                            'to_plugin': 'infohub_tree',
+                            'to_function': 'click',
+                        },
+                        'create_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[create_asset]',
+                        },
+                        'create_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'encrypt/ping',
+                            'plugin_name': 'infohub_tree',
+                        }
+                    },
+                    'how': {
+                        'mode': 'one box',
+                        'text': '[presentation_export_key]',
+                    },
+                    'where': {
+                        'box_id': 'main.body.infohub_tree.form.export', // 'box_id': $in.parent_box_id + '.form',
+                        'max_width': 100,
+                        'scroll_to_box_id': 'true',
+                    },
+                    'cache_key': 'export_existing',
+                },
+                'data_back': {
+                    'step': 'step_end',
+                },
+            });
+            $messagesArray.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_render',
+                    'function': 'create',
+                },
+                'data': {
+                    'what': {
+                        'presentation_create_key': {
+                            'plugin': 'infohub_rendermajor',
+                            'type': 'presentation_box',
+                            'head_label': _Translate('CREATE_NEW_KEY_FILE'),
+                            'head_text': _Translate('CREATE_NEW_KEY_WITH_NEW_PASSWORD'),
+                            'content_data': '[text_create_password][button_create_key]',
+                        },
+                        'text_create_password': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'password',
+                            'label': '', //_Translate('EXPORT_PASSWORD'),
+                            'description': _Translate('YOUR_PASSWORD_FOR_THE_FILE'),
+                            'maxlength': '32',
+                            'show_characters_left': 'true',
+                            'css_data': {
+                                'fieldset': 'border: 0px;'
+                            }
                         },
                         'button_create_key': {
                             'plugin': 'infohub_renderform',
@@ -186,19 +414,26 @@ function infohub_tree_encrypt() {
                     },
                     'how': {
                         'mode': 'one box',
-                        'text': '[container_encrypt]',
+                        'text': '[presentation_create_key]',
                     },
                     'where': {
-                        'box_id': 'main.body.infohub_tree.form', // 'box_id': $in.parent_box_id + '.form',
+                        'box_id': 'main.body.infohub_tree.form.create', // 'box_id': $in.parent_box_id + '.form',
                         'max_width': 100,
                         'scroll_to_box_id': 'true',
                     },
-                    'cache_key': 'encrypt',
+                    'cache_key': 'export_new',
                 },
                 'data_back': {
                     'step': 'step_end',
                 },
             });
+            $messagesArray.push($messageOut);
+
+            return {
+                'answer': 'true',
+                'message': 'Sending all rendering messages',
+                'messages': $messagesArray,
+            };
         }
 
         return {
@@ -215,7 +450,7 @@ function infohub_tree_encrypt() {
      * @author Peter Lembke
      */
     $functions.push('click_import_key_data');
-    const click_import_key_data = function($in) {
+    const click_import_key_data = function($in = {}) {
         const $default = {
             'step': 'step_file_read_response',
             'answer': '',
@@ -301,7 +536,7 @@ function infohub_tree_encrypt() {
      * @author Peter Lembke
      */
     $functions.push('click_forget_key_data');
-    const click_forget_key_data = function($in) {
+    const click_forget_key_data = function($in = {}) {
         const $default = {
             'answer': 'false',
             'message': 'Nothing to report from infohub_tree_encrypt -> click_forget_key_data',
@@ -345,13 +580,102 @@ function infohub_tree_encrypt() {
     };
 
     /**
+     * Export the key data in memory with a new password to a file and download it.
+     * @version 2021-07-10
+     * @since 2021-07-10
+     * @author Peter Lembke
+     */
+    $functions.push('click_export_key_data');
+    const click_export_key_data = function($in = {}) {
+        const $default = {
+            'config': {
+                'user_name': ''
+            },
+            'step': 'step_get_secret',
+            'answer': 'false',
+            'message': '',
+            'response': {}
+        };
+        $in = _Default($default, $in);
+
+        let $privateSecret = '';
+
+        if ($in.step === 'step_get_secret')
+        {
+            if (_IsSet($classGlobalKeyData.private_secret) === 'true') {
+                $privateSecret = $classGlobalKeyData.private_secret;
+                $in.step = 'step_get_password';
+            }
+
+            if ($privateSecret === '') {
+                $in.message = 'Could not get the private secret from memory';
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_get_password') {
+            $in.step = 'step_get_password_response';
+        }
+
+        if ($in.step === 'step_get_password_response') {
+
+            // Scramble the key with the password
+
+            $in.step = 'step_file_write';
+        }
+
+        if ($in.step === 'step_file_write') {
+            const $privateObject = {
+                "system": "Infohub",
+                "url": "https://github.com/peterlembke/infohub",
+                "user_name": $in.config.user_name,
+                "created_at": _TimeStamp(),
+                "note": "Private encryption key for the Tree plugin to encrypt/decrypt your data before they are sent to the server",
+                "has_password": "false",
+                "private_secret": $privateSecret
+            };
+
+            const $privateJson = _JsonEncode($privateObject);
+            const $fileName = 'private_secret.json';
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'file_write',
+                },
+                'data': {
+                    'file_name': $fileName,
+                    'content': $privateJson,
+                },
+                'data_back': {
+                    'step': 'step_file_write_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_file_write_response') {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.message = 'File exported';
+            }
+        }
+
+        return {
+            'answer': $in.answer,
+            'message': $in.message,
+            'ok': $in.answer
+        };
+    };
+
+    /**
      * Create the key data file and download it.
      * @version 2020-09-03
      * @since 2020-09-03
      * @author Peter Lembke
      */
     $functions.push('click_create_key_data');
-    const click_create_key_data = function($in) {
+    const click_create_key_data = function($in = {}) {
         const $default = {
             'config': {
                 'user_name': ''
@@ -454,7 +778,7 @@ function infohub_tree_encrypt() {
      * @author Peter Lembke
      */
     $functions.push('create_secret');
-    const create_secret = function($in) {
+    const create_secret = function($in = {}) {
         const $default = {
             'step': 'step_create_secret',
             'response': {
@@ -499,7 +823,7 @@ function infohub_tree_encrypt() {
      * @author Peter Lembke
      */
     $functions.push('encrypt');
-    const encrypt = function($in) {
+    const encrypt = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',
@@ -510,8 +834,7 @@ function infohub_tree_encrypt() {
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() +
-                ' -> click_button_backup_all',
+            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_button_backup_all',
         };
 
         if ($in.step === 'step_call_server') {
@@ -535,7 +858,7 @@ function infohub_tree_encrypt() {
      * @author Peter Lembke
      */
     $functions.push('decrypt');
-    const decrypt = function($in) {
+    const decrypt = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
             'box_id': '',

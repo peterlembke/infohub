@@ -59,7 +59,7 @@ function infohub_render_video() {
      * @param $text
      * @return string
      */
-    const _GetFuncName = function($text) {
+    const _GetFuncName = function($text = '') {
         let $response = '';
 
         const $parts = $text.split('_');
@@ -83,7 +83,7 @@ function infohub_render_video() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -129,7 +129,7 @@ function infohub_render_video() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -186,7 +186,7 @@ function infohub_render_video() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Youtube = function($in) {
+    const internal_Youtube = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'youtube',
@@ -226,7 +226,7 @@ function infohub_render_video() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Youtubelink = function($in) {
+    const internal_Youtubelink = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'youtube',
@@ -275,7 +275,7 @@ function infohub_render_video() {
      * @since   2014-03-08
      * @author  Peter Lembke
      */
-    const internal_Vimeo = function($in) {
+    const internal_Vimeo = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'vimeo',
@@ -315,7 +315,7 @@ function infohub_render_video() {
      * @since   2016-11-03
      * @author  Peter Lembke
      */
-    const internal_Vimeolink = function($in) {
+    const internal_Vimeolink = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'vimeolink',
@@ -363,7 +363,7 @@ function infohub_render_video() {
      * @since   2018-04-13
      * @author  Peter Lembke
      */
-    const internal_Dailymotion = function($in) {
+    const internal_Dailymotion = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'dailymotion',
@@ -403,7 +403,7 @@ function infohub_render_video() {
      * @since   2018-04-13
      * @author  Peter Lembke
      */
-    const internal_Dailymotionlink = function($in) {
+    const internal_Dailymotionlink = function($in = {}) {
         const $default = {
             'type': 'video',
             'subtype': 'dailymotionlink',

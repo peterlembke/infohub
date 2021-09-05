@@ -13,7 +13,7 @@ a red frame. When you have filled your order you can press submit.
 When you have a form like this in your plugin then you must remember the way messages are allowed to travel. You can
 answer your parent. You get answers from your children. You can ask your siblings. You can answer your siblings.  
 The form layout and the handler for the three buttons are in the child plugin infohub_demo_form2. This means that
-infohub_demo will ask the child for layout data and will also pass trough buttons clicks to the child.
+infohub_demo will ask the child for layout data and will also pass through buttons clicks to the child.
 
 # License
 

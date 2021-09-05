@@ -1,24 +1,27 @@
 {
     "version": {
-        "date": "2019-10-26 22:34:56",
+        "date": "2021-08-28 22:07:03",
         "plugin": "infohub_keyboard",
-        "data_checksum": "f13c6111e2bfef8463dff57c003485c6",
-        "language": "",
-        "country": "",
-        "file_type": "finished_file"
+        "data_checksum": "0d0487c89ba341103fd77fbb08b6e487",
+        "language": "es",
+        "language_name": "spanish",
+        "country": "ES",
+        "country_name": "Spain",
+        "file_type": "translate_file"
     },
     "launcher": {
-        "title": "Teclado",
-        "description": "Suscribirse a combinaciones de teclas."
+        "title": "Keyboard",
+        "description": "Subscribe to key combinations."
     },
     "data": {
         "infohub_keyboard": {
-            "Keyboard tests": "Pruebas de teclado",
-            "Try combinations on your keyboard for SHIFT + CTRL + ALT and another key. The combination form a string above.": "Pruebe combinaciones en su teclado para SHIFT + CTRL + ALT y otra tecla. La combinación forma una cadena arriba",
-            "Subscribe": "Suscribirse",
-            "Unsubscribe": "Cancelar suscripción",
-            "Show subscribers": "Mostrar suscriptores",
-            "Keyboard Demo popup": "Ventana emergente de demostración de teclado"
+            "KEYBOARD_TESTS_KEY": "Keyboard tests",
+            "TRY_COMBINATIONS_ON_YOUR_KEYBOARD_KEY": "Try combinations on your keyboard",
+            "ANY_BUTTON_KEY": "Any button",
+            "SUBSCRIBE_KEY": "Subscribe",
+            "UNSUBSCRIBE_KEY": "Unsubscribe",
+            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "KEYBOARD_DEMO_POPUP_KEY": "Keyboard demo popup"
         }
     }
 }

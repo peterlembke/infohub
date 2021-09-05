@@ -53,7 +53,7 @@ function infohub_demo_storage() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_demo_storage() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -144,12 +144,12 @@ function infohub_demo_storage() {
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "/a/test1", "label": _Translate("/A/TEST1"), 'selected': 'true' },
-                                { "type": "option", "value": "/b/test2", "label": _Translate("/B/TEST2") },
-                                { "type": "option", "value": "/b/test3", "label": _Translate("/B/TEST3") },
-                                { "type": "option", "value": "/c/test4", "label": _Translate("/C/TEST4") },
+                                { "type": "option", "value": "/a/test1", "label": _Translate("A->TEST1"), 'selected': 'true' },
+                                { "type": "option", "value": "/b/test2", "label": _Translate("B->TEST2") },
+                                { "type": "option", "value": "/b/test3", "label": _Translate("B->TEST3") },
+                                { "type": "option", "value": "/c/test4", "label": _Translate("C->TEST4") },
                                 { "type": "option", "value": "all_four", "label": _Translate("ALL_FOUR") },
-                                { "type": "option", "value": "/b/*", "label": _Translate("/B/*") }
+                                { "type": "option", "value": "/b/*", "label": _Translate("B->*") }
                             ]
                         },
                         'write_data': {
@@ -207,12 +207,12 @@ function infohub_demo_storage() {
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             "options": [
-                                { "type": "option", "value": "/a/test1", "label": _Translate("/A/TEST1"), 'selected': 'true' },
-                                { "type": "option", "value": "/b/test2", "label": _Translate("/B/TEST2") },
-                                { "type": "option", "value": "/b/test3", "label": _Translate("/B/TEST3") },
-                                { "type": "option", "value": "/c/test4", "label": _Translate("/C/TEST4") },
+                                { "type": "option", "value": "/a/test1", "label": _Translate("A->TEST1"), 'selected': 'true' },
+                                { "type": "option", "value": "/b/test2", "label": _Translate("B->TEST2") },
+                                { "type": "option", "value": "/b/test3", "label": _Translate("B->TEST3") },
+                                { "type": "option", "value": "/c/test4", "label": _Translate("C->TEST4") },
                                 { "type": "option", "value": "all_four", "label": _Translate("ALL_FOUR") },
-                                { "type": "option", "value": "/b/*", "label": _Translate("/B/*") }
+                                { "type": "option", "value": "/b/*", "label": _Translate("B->*") }
                             ]
                         },
                         'read_wanted_data': {
@@ -275,7 +275,7 @@ function infohub_demo_storage() {
      * @author Peter Lembke
      */
     $functions.push('click_button');
-    const click_button = function($in) {
+    const click_button = function($in = {}) {
         const $default = {
             'box_id': '',
             'type': '',

@@ -50,7 +50,7 @@ function infohub_doc_document() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     $functions.push('_GetBoxId');
@@ -72,7 +72,7 @@ function infohub_doc_document() {
      * @author  Peter Lembke
      */
     $functions.push('setup_gui');
-    const setup_gui = function($in) {
+    const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
             'step': 'step_start',
@@ -142,7 +142,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push('view_document');
-    const view_document = function($in) {
+    const view_document = function($in = {}) {
         const $boxId = _GetBoxId('document');
 
         const $default = {
@@ -306,7 +306,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push('click_link');
-    const click_link = function($in) {
+    const click_link = function($in = {}) {
         const $default = {
             'area': '',
             'document_name': '',
@@ -352,7 +352,7 @@ function infohub_doc_document() {
      * @author Peter Lembke
      */
     $functions.push('get_document_html');
-    const get_document_html = function($in) {
+    const get_document_html = function($in = {}) {
         const $default = {
             'step': 'step_start',
             'response': {

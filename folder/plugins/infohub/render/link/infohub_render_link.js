@@ -68,8 +68,7 @@ function infohub_render_link() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
         }
 
         return $response;
@@ -83,7 +82,7 @@ function infohub_render_link() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -165,7 +164,7 @@ function infohub_render_link() {
      * @returns {string}
      * @private
      */
-    const _Display = function($in) {
+    const _Display = function($in = {}) {
         const $default = {
             'display': '',
         };
@@ -193,7 +192,7 @@ function infohub_render_link() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -222,6 +221,7 @@ function infohub_render_link() {
             'final_function': 'event_message',
             'class': 'link',
             'css_data': {},
+            'custom_variables': {} // Variables that will be added to the dom element as attributes
         };
 
         const $defaultResponse = {
@@ -266,7 +266,7 @@ function infohub_render_link() {
      * @since   2014-02-22
      * @author  Peter Lembke
      */
-    const internal_Link = function($in) {
+    const internal_Link = function($in = {}) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -301,29 +301,22 @@ function infohub_render_link() {
         };
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' +
-            $in.event_type + '\',\'' + $idString + '\')"';
+        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' + $in.event_type + '\',\'' + $idString + '\')"';
 
-        let $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         if ($in.legend === 'true') {
-            $id = _GetId(
-                {'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
+            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' +
-            $in.to_plugin + '" to_function="' + $in.to_function + '"';
+        const $destination = ' to_node="' + $in.to_node + '" to_plugin="' + $in.to_plugin + '" to_function="' + $in.to_function + '"';
 
         let $finalDestination = '';
         if ($in.final_plugin !== '') {
-            $finalDestination = ' final_node="' + $in.final_node +
-                '" final_plugin="' + $in.final_plugin + '" final_function="' +
-                $in.final_function + '"';
+            $finalDestination = ' final_node="' + $in.final_node + '" final_plugin="' + $in.final_plugin + '" final_function="' + $in.final_function + '"';
         }
 
-        $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination +
-            $finalDestination + $event + '>' + $in.show + '</a>';
+        $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination + $finalDestination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
@@ -352,7 +345,7 @@ function infohub_render_link() {
      * @since   2016-10-29
      * @author  Peter Lembke
      */
-    const internal_Toggle = function($in) {
+    const internal_Toggle = function($in = {}) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -377,13 +370,11 @@ function infohub_render_link() {
         $in = _Merge($in, $constants);
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $toggleIdString = ' toggle_id="' +
-            ['{box_id}', $in.toggle_alias].join('_') + '"';
+        const $toggleIdString = ' toggle_id="' + ['{box_id}', $in.toggle_alias].join('_') + '"';
 
         let $otherIdString = '';
         if (_Empty($in.other_alias) === 'false') {
-            $otherIdString = ' other_id="' +
-                ['{box_id}', $in.other_alias].join('_') + '"';
+            $otherIdString = ' other_id="' + ['{box_id}', $in.other_alias].join('_') + '"';
         }
 
         let $blockType = '';
@@ -391,27 +382,20 @@ function infohub_render_link() {
             $blockType = ' block_type="' + $in.block_type_visible + '"';
         }
 
-        let $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = ' ' + _Display($in);
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
-            '" type="' + $in.subtype + '" alias="' + $in.alias + '"' +
-            $toggleIdString + $otherIdString + $display + $blockType;
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" alias="' + $in.alias + '"' + $toggleIdString + $otherIdString + $display + $blockType;
 
         const $destination = ' to_node="client" to_plugin="infohub_view" to_function="toggle"';
 
-        const $event = ' onClick="go(\'infohub_view\', \'toggle\', \'' +
-            $idString +
-            '\')"';
+        const $event = ' onClick="go(\'infohub_view\', \'toggle\', \'' + $idString + '\')"';
 
         if ($in.legend === 'true') {
-            $id = _GetId(
-                {'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
+            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
-            '</a>';
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
@@ -437,7 +421,7 @@ function infohub_render_link() {
      * @since   2016-10-29
      * @author  Peter Lembke
      */
-    const internal_External = function($in) {
+    const internal_External = function($in = {}) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -459,28 +443,22 @@ function infohub_render_link() {
         };
         $in = _Merge($in, $constants);
 
-        let $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $data = btoa($in.url);
 
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
-            '" type="' + $in.subtype + '" data="' + $data + '" alias="' +
-            $in.alias + '"';
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" data="' + $data + '" alias="' + $in.alias + '"';
 
         const $destination = '';
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' +
-            $in.event_type + '\',\'' + $idString + '\')"';
+        const $event = ' onClick="go(\'' + $in.to_plugin + '\',\'' + $in.event_type + '\',\'' + $idString + '\')"';
 
         if ($in.legend === 'true') {
-            $id = _GetId(
-                {'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
+            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'link_legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
-            '</a>';
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
@@ -507,7 +485,7 @@ function infohub_render_link() {
      * @since   2016-10-29
      * @author  Peter Lembke
      */
-    const internal_Embed = function($in) {
+    const internal_Embed = function($in = {}) {
         const $default = {
             'alias': '',
             'show': '', // Text to show on screen
@@ -526,28 +504,22 @@ function infohub_render_link() {
         };
         $in = _Merge($in, $constants);
 
-        let $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $data = '{{*' + $in.embed + '*}}';
 
-        const $renderer = ' ' + $id + ' renderer="' + $in.renderer +
-            '" type="' + $in.subtype + '" data="' + $data + '" alias="' +
-            $in.alias + '"';
+        const $renderer = ' ' + $id + ' renderer="' + $in.renderer + '" type="' + $in.subtype + '" data="' + $data + '" alias="' + $in.alias + '"';
 
         const $destination = '';
 
         const $idString = ['{box_id}', $in.alias].join('_');
-        const $event = ' onClick="go(\'infohub_view\',\'' + $in.event_type +
-            '\',\'' + $idString + '\')"';
+        const $event = ' onClick="go(\'infohub_view\',\'' + $in.event_type + '\',\'' + $idString + '\')"';
 
         if ($in.legend === 'true') {
-            $id = _GetId(
-                {'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
+            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
             $in.show = '<p ' + $id + '>' + $in.show + '</p>';
         }
 
-        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show +
-            '</a>';
+        $in.html = '<a ' + $renderer + $destination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
@@ -567,5 +539,4 @@ function infohub_render_link() {
         };
     };
 }
-
 //# sourceURL=infohub_render_link.js

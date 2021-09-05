@@ -50,7 +50,7 @@ function infohub_democall_child_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('grandchild_func');
-    const grandchild_func = function($in) {
+    const grandchild_func = function($in = {}) {
         const $default = {
             'alert': '',
             'step': 'step_start',
@@ -91,7 +91,7 @@ function infohub_democall_child_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('call_level1');
-    const sibling_func = function($in) {
+    const sibling_func = function($in = {}) {
         const $default = {
             'step': 'step_call_level1',
             'response': {
@@ -156,7 +156,7 @@ function infohub_democall_child_grandchild() {
      * @author  Peter Lembke
      */
     $functions.push('call_parent');
-    const call_parent = function($in) {
+    const call_parent = function($in = {}) {
         const $default = {
             'step': 'step_call_parent',
             'response': {},

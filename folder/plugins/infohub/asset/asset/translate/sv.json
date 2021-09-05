@@ -1,11 +1,13 @@
 {
     "version": {
-        "date": "2020-02-09 08:02:00",
+        "date": "2021-08-28 14:25:06",
         "plugin": "infohub_asset",
-        "data_checksum": "f946d7a44dd5997568ebad9c34bd7ec1",
-        "language": "",
-        "country": "",
-        "file_type": "finished_file"
+        "data_checksum": "658df0d8a7b1de2d60e421f967a2e4a0",
+        "language": "sv",
+        "language_name": "swedish",
+        "country": "SE",
+        "country_name": "Sweden",
+        "file_type": "translate_file"
     },
     "launcher": {
         "title": "Tillgångar",
@@ -13,7 +15,7 @@
     },
     "data": {
         "infohub_asset": {
-            "Refresh": "Uppdatera"
+            "REFRESH_KEY": "Uppdatera"
         }
     }
 }

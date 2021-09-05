@@ -52,7 +52,7 @@ function infohub_demo_audio() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -62,7 +62,7 @@ function infohub_demo_audio() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'parent_box_id': '',
             'translations': {},
@@ -98,7 +98,8 @@ function infohub_demo_audio() {
                             'type': 'common',
                             'subtype': 'join',
                             'data0': _Translate('HERE_ARE_SOME_DEMOS_TO_SHOW_YOU_WHAT_INFOHUB_CAN_DO_WITH_AUDIO.'),
-                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES._ALL_DATA_MUST_COME_FROM_THE_SERVER')
+                            'data1': _Translate('INFOHUB_CLIENT_DO_NOT_USE_3RD_PARTY_SERVICES.') + ' ' +
+                                _Translate('ALL_DATA_MUST_COME_FROM_THE_SERVER')
                         },
                         'jamendo_album_major': {
                             'plugin': 'infohub_rendermajor',
@@ -124,7 +125,7 @@ function infohub_demo_audio() {
                             'type': 'audio',
                             'subtype': 'jamendo',
                             'data': 'album/170617',
-                            'label': _Translate('IN_NEW_TAB')
+                            'label': _Translate('IN_NEW_TAB'),
                             'css_data': {
                                 '.right': 'font-size: 1.5em;', // You can add your own css to the default css
                             },

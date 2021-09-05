@@ -80,7 +80,7 @@ There are some security features built in.
 If you want to store data more secure you should use checksums instead of paths in your plugin. If you do then it is not
 possible to use pattern search.  
 With plain text paths like my/secret/document then it is easy to figure out where your secret document is stored. If you
-instead run that path trough a checksum generator and use the checksum as path, then it is much harder for an intruder.
+instead run that path through a checksum generator and use the checksum as path, then it is much harder for an intruder.
 
 ## Protected data
 

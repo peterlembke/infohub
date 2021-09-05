@@ -126,8 +126,7 @@ function infohub_start($progress) {
         }
 
         if ($failedStarts === 3) {
-            $progress.whatArea('start', 0,
-                'Failed start - Now cleared local storage and unregistered service workers and will try again');
+            $progress.whatArea('start', 0, 'Failed start - Now cleared local storage and unregistered service workers and will try again');
             _UnregisterServiceWorkers();
             localStorage.clear();
             localStorage.setItem('cold_start', '4');
@@ -135,8 +134,7 @@ function infohub_start($progress) {
         }
 
         if ($failedStarts === 5) {
-            $progress.whatArea('start', 0,
-                'Failed start - Now cleared local storage and database, unregistered service workers and will try again');
+            $progress.whatArea('start', 0, 'Failed start - Now cleared local storage and database, unregistered service workers and will try again');
             _UnregisterServiceWorkers();
             localStorage.clear();
             indexedDB.deleteDatabase('localforage');
@@ -146,10 +144,8 @@ function infohub_start($progress) {
         }
 
         if ($failedStarts >= 7) {
-            $progress.whatArea('start', 0,
-                'Failed start - Perhaps you are offline');
-            window.alert(
-                'I have cleared the localStorage and then the indexedDb and still I can not start Infohub. Are you offline?');
+            $progress.whatArea('start', 0, 'Failed start - Perhaps you are offline');
+            window.alert('I have cleared the localStorage and then the indexedDb and still I can not start Infohub. Are you offline?');
             return false;
         }
 
@@ -167,8 +163,7 @@ function infohub_start($progress) {
             $failedStarts = parseInt($failedStarts);
 
             if ($failedStarts > 0 && $failedStarts < 7) {
-                $progress.whatArea('start', 0,
-                    'Failed start - Took too long to start - I will reload the page');
+                $progress.whatArea('start', 0, 'Failed start - Took too long to start - I will reload the page');
                 location.reload();
             }
         }, 10000); // If the cold_start flag is not gone in 10 seconds then I reload the page
@@ -377,45 +372,50 @@ function infohub_start($progress) {
         xmlHttp.open('POST', $url, $async);
 
         xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.readyState === 4) {
-                if (xmlHttp.status === 200) {
-                    $progress.whatArea('call_server', 30,
-                        'Call the server - got response');
 
-                    _SetGlobalOnline('true'); // We got a message, we are online
-                    clearTimeout(noResponseTimer); // We got a response before the timeout
-
-                    let $response = xmlHttp.responseText;
-                    const $isErrorMessage = _IsErrorMessage($response);
-
-                    if ($response !== '' && $response[0] === '{' && $isErrorMessage === 'false') {
-                        $response = JSON.parse($response);
-
-                        $response.messages = JSON.parse(atob($response.messages_encoded));
-                        delete ($response.messages_encoded);
-
-                        const $text = 'Call the server - Valid response, parsing...';
-                        $progress.whatArea('call_server', 40, $text);
-
-                        _HandleServerResponse($response);
-                        return;
-                    }
-
-                    if ($response[0] === '{') {
-                        const $length = $response.indexOf('}') + 1;
-                        $response = $response.substr(0, $length);
-                    }
-
-                    let $text = 'Call the server - Invalid response';
-                    $progress.whatArea('call_server', 40, $text);
-
-                    $text = 'Error from server<br>' + $response;
-                    document.getElementById('error').innerHTML = $text;
-                }
+            if (xmlHttp.readyState !== 4) {
+                return;
             }
+
+            if (xmlHttp.status !== 200) {
+                return;
+            }
+
+            $progress.whatArea('call_server', 30, 'Call the server - got response');
+
+            _SetGlobalOnline('true'); // We got a message, we are online
+            clearTimeout(noResponseTimer); // We got a response before the timeout
+
+            let $response = xmlHttp.responseText;
+            const $isErrorMessage = _IsErrorMessage($response);
+
+            if ($response !== '' && $response[0] === '{' && $isErrorMessage === 'false') {
+                $response = JSON.parse($response);
+
+                $response.messages = JSON.parse(atob($response.messages_encoded));
+                delete ($response.messages_encoded);
+
+                const $text = 'Call the server - Valid response, parsing...';
+                $progress.whatArea('call_server', 40, $text);
+
+                _HandleServerResponse($response);
+                return;
+            }
+
+            if ($response[0] === '{') {
+                const $length = $response.indexOf('}') + 1;
+                $response = $response.substr(0, $length);
+            }
+
+            let $text = 'Call the server - Invalid response';
+            $progress.whatArea('call_server', 40, $text);
+
+            $text = 'Error from server<br>' + $response;
+            document.getElementById('error').innerHTML = $text;
         };
 
         xmlHttp.setRequestHeader('Content-type', 'application/json');
+
         setTimeout(function() {
             $progress.whatArea('call_server', 20, 'Call the server - sending');
             xmlHttp.send($content);
@@ -429,6 +429,7 @@ function infohub_start($progress) {
      * @private
      */
     const _SetGlobalOnline = function($value) {
+
         if ($value !== 'true' && $value !== 'false') {
             return;
         }
@@ -457,7 +458,7 @@ function infohub_start($progress) {
     };
 
     /**
-     * Loop trough all types of error messages and return 'true' if an
+     * Loop through all types of error messages and return 'true' if an
      * error message is detected in the response.
      * @param $response
      * @returns {*}
@@ -718,7 +719,7 @@ function infohub_start($progress) {
      * @param $in
      * @returns {{answer: string, message: string}}
      */
-    const _StartPlugin = function($in) {
+    const _StartPlugin = function($in = {}) {
         let $response = {
             'answer': 'false',
             'message': '',
@@ -763,8 +764,7 @@ function infohub_start($progress) {
      * @private
      */
     const _SendFirstMessage = function() {
-        $progress.whatArea('send_first_message', 0,
-            'Will send the first message');
+        $progress.whatArea('send_first_message', 0, 'Will send the first message');
 
         const $message = {
             'to': {
@@ -790,8 +790,7 @@ function infohub_start($progress) {
         try {
             eval('$plugin = new infohub_exchange();');
         } catch ($err) {
-            alert('Can not instantiate class:"infohub_exchange()", error:"' +
-                $err.message + '"');
+            alert('Can not instantiate class:"infohub_exchange()", error:"' + $err.message + '"');
             return;
         }
 
@@ -842,10 +841,11 @@ function infohub_start($progress) {
      * @private
      */
     const _IsDarkModeEnabled = function() {
-        const $result = window.matchMedia &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        return $result;
+        const $matchMedia = '(prefers-color-scheme: dark)';
+        const $wantDarkMode = window.matchMedia && window.matchMedia($matchMedia).matches;
+
+        return $wantDarkMode;
     };
 }
 

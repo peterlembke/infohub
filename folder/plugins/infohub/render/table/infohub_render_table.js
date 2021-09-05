@@ -58,7 +58,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _GetId = function($in) {
+    const _GetId = function($in = {}) {
         let $parameter = [];
 
         const $default = {
@@ -99,7 +99,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _GetParameters = function($in, $fields) {
+    const _GetParameters = function($in = {}, $fields = {}) {
         let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true') {
@@ -150,7 +150,7 @@ function infohub_render_table() {
      * @param $in
      * @returns {{item_index: {}, answer: string, message: string}}
      */
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'item_index': {},
             'config': {},
@@ -222,7 +222,7 @@ function infohub_render_table() {
      * @returns {{}|{answer: string, data: [], message: string}}
      * @private
      */
-    const _SetDefaultInValues = function($in) {
+    const _SetDefaultInValues = function($in = {}) {
         let $default = {
             'type': 'table',
             'alias': '', // Your name on this table. Full name will be {box_id}_{alias}
@@ -300,7 +300,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _AllRowsHtml = function($in) {
+    const _AllRowsHtml = function($in = {}) {
         const $idFieldName = $in.id_field_name;
         const $destination = ' to_node="' + $in.to_node + '" to_plugin="' +
             $in.to_plugin + '" to_function="' + $in.to_function + '"';
@@ -359,18 +359,14 @@ function infohub_render_table() {
                 }
 
                 if ($in.definition[$fieldName].view_button === 'true') {
-                    const $event = ' onClick="go(\'' + $in.event_handler +
-                        '\',\'click\',\'' + $rowId + '\')"';
-                    $value = '<button type="button"' + $event +
-                        '>View</button>';
+                    const $event = ' onClick="go(\'' + $in.event_handler + '\',\'click\',\'' + $rowId + '\')"';
+                    $value = '<button type="button"' + $event + '>View</button>';
                 }
 
                 const $cellName = $in.definition[$fieldName].name;
-                const $cellId = ['{box_id}', $in.alias, $id, $cellName].join(
-                    '_');
+                const $cellId = ['{box_id}', $in.alias, $id, $cellName].join('_');
                 const $cellIdString = ' id="' + $cellId + '"';
-                const $html = '<td' + $cellIdString + $class + $name + '>' +
-                    $value + '</td>';
+                const $html = '<td' + $cellIdString + $class + $name + '>' + $value + '</td>';
                 $valueArray.push($html);
             }
 
@@ -396,7 +392,7 @@ function infohub_render_table() {
      * @returns {string}
      * @private
      */
-    const _RenderHead = function($in) {
+    const _RenderHead = function($in = {}) {
         let $labelArray = [];
         for (let $fieldName in $in.definition) {
             if ($in.definition.hasOwnProperty($fieldName) === false) {

@@ -27,7 +27,7 @@
             "SHARED_SECRET_KEY": "共享机密",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "您与服务器共享此机密",
             "CHECKSUM_KEY": "校验和",
-            " CHECKSUM_OF_DOMAIN_ADDRESS _ + _ USER_NAME _ + _ SHARED_SECRET._KEY": "域名+用户名+共享密钥的校验和。",
+            " CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "域名+用户名+共享密钥的校验和。",
             "ALLOWED_SERVER_PLUGINS_KEY": "允许的服务器插件",
             "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "列出了可以向远程节点发送消息的所有服务器插件名称"
         },
@@ -47,6 +47,26 @@
             "SELECT_FILE_KEY": "选择文件"
         },
         "infohub_login_login": {
+            "LOGIN_KEY": "登录",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "这里您可以使用导入的联系数据并登录到服务器",
+            "PASSWORD_KEY": "密码",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "解密共享密钥所需的密码",
+            "LOGIN_RESULT_KEY": "登录结果",
+            "RELOAD_AFTER_LOGIN_KEY": "登录后重新加载",
+            "SELECT_FILE_KEY": "选择文件",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "下载模拟帐户",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "您已经登录",
+            "MISSING_USER_NAME_KEY": "缺少用户名",
+            "MISSING_RANDOM_CODE_KEY": "缺少随机代码",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "来自服务器的答复花费了很长时间。我将放弃登录尝试",
+            "FAILED_TO_LOGIN_KEY": "登录失败",
+            "SUCCESS_LOGGING_IN_KEY": "成功登录",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "随机代码的长度不正确",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "总平均值不可能没有小数位",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "平均数不可能等于总平均数",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "这些简单的测试表明,random_code至少不是数字的平坦。"
+        },
+        "infohub_login_standalone": {
             "LOGIN_KEY": "登录",
             "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "这里您可以使用导入的联系数据并登录到服务器",
             "PASSWORD_KEY": "密码",

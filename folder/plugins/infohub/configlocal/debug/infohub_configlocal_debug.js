@@ -63,7 +63,7 @@ function infohub_configlocal_debug() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -73,7 +73,7 @@ function infohub_configlocal_debug() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -98,7 +98,7 @@ function infohub_configlocal_debug() {
      * @returns {*}
      */
     $functions.push('internal_debug');
-    const internal_debug = function($in) {
+    const internal_debug = function($in = {}) {
         const $default = {
             'parent_box_id': '',
         };

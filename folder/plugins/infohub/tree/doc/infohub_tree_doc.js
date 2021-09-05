@@ -53,7 +53,7 @@ function infohub_tree_doc() {
 
     // ***********************************************************
     // * your class functions below, only declare with var
-    // * Can only be reached trough cmd()
+    // * Can only be reached through cmd()
     // ***********************************************************
 
     /**
@@ -63,7 +63,7 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('create');
-    const create = function($in) {
+    const create = function($in = {}) {
         const $default = {
             'subtype': 'menu',
             'parent_box_id': '',
@@ -234,12 +234,9 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_main');
-    const click_main = function($in) {
+    const click_main = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
@@ -261,17 +258,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_version');
-    const click_version = function($in) {
+    const click_version = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('version/infohub_tree_version');
+            return _GetCall('infohub_tree_version');
         }
 
         return {
@@ -288,17 +282,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_encrypt');
-    const click_encrypt = function($in) {
+    const click_encrypt = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('encrypt/infohub_tree_encrypt');
+            return _GetCall('infohub_tree_encrypt');
         }
 
         return {
@@ -315,17 +306,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_backup');
-    const click_backup = function($in) {
+    const click_backup = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('backup/infohub_tree_backup');
+            return _GetCall('infohub_tree_backup');
         }
 
         return {
@@ -342,17 +330,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_restore');
-    const click_restore = function($in) {
+    const click_restore = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('restore/infohub_tree_restore');
+            return _GetCall('infohub_tree_restore');
         }
 
         return {
@@ -369,17 +354,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_storage');
-    const click_storage = function($in) {
+    const click_storage = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('storage/infohub_tree_storage');
+            return _GetCall('infohub_tree_storage');
         }
 
         return {
@@ -396,17 +378,14 @@ function infohub_tree_doc() {
      * @author  Peter Lembke
      */
     $functions.push('click_sync');
-    const click_sync = function($in) {
+    const click_sync = function($in = {}) {
         const $default = {
-            'step': 'step_render',
-            'response': {
-                'html': '',
-            },
+            'step': 'step_render'
         };
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('sync/infohub_tree_sync');
+            return _GetCall('infohub_tree_sync');
         }
 
         return {
@@ -418,38 +397,27 @@ function infohub_tree_doc() {
 
     /**
      * Show the documentation
-     * @version 2019-03-13
+     * @version 2021-08-12
      * @since   2019-03-13
      * @author  Peter Lembke
      */
     $functions.push('_GetCall');
     const _GetCall = function($fileName) {
+
+        const $pluginName = 'infohub_tree';
+
         return _SubCall({
             'to': {
                 'node': 'client',
-                'plugin': 'infohub_render',
-                'function': 'create',
+                'plugin': 'infohub_doc',
+                'function': 'render_doc',
             },
             'data': {
-                'what': {
-                    'my_doc': {
-                        'plugin': 'infohub_tree',
-                        'type': $fileName,
-                    },
-                },
-                'how': {
-                    'mode': 'one box',
-                    'text': '[my_doc]',
-                },
-                'where': {
-                    'box_id': 'main.body.infohub_tree.form.[container_doc]', // 'box_id': $in.parent_box_id + '.form',
-                    'max_width': 100,
-                    'scroll_to_box_id': 'true',
-                },
-                'cache_key': $fileName,
+                'file_name': $fileName,
+                'box_id': 'main.body.' + $pluginName + '.form.[container_doc]'
             },
             'data_back': {
-                'step': 'step_end',
+                'step': 'step_end'
             },
         });
     };
