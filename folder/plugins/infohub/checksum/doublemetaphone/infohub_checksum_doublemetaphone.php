@@ -52,10 +52,11 @@ class infohub_checksum_doublemetaphone extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2018-03-03
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function _GetCmdFunctions(): array
     {

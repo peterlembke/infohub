@@ -1211,6 +1211,7 @@ function infohub_renderform() {
             'source_node': '',
             'source_plugin': '', // Plugin that has the options. Called only if the options are empty.
             'source_function': '',
+            'source_data': {},
             'to_node': 'client',
             'to_plugin': 'infohub_renderform',
             'to_function': 'event_message',
@@ -1253,6 +1254,7 @@ function infohub_renderform() {
                 'source_node': $in.source_node,
                 'source_plugin': $in.source_plugin, // Plugin that has the options. Called only if the options are empty.
                 'source_function': $in.source_function,
+                'source_data': $in.source_data,
                 'to_node': $in.to_node,
                 'to_plugin': $in.to_plugin,
                 'to_function': $in.to_function,

@@ -23,9 +23,9 @@ function infohub_translate_menu() {
 
     const _Version = function() {
         return {
-            'date': '2019-09-27',
+            'date': '2021-09-09',
             'since': '2019-09-27',
-            'version': '1.0.0',
+            'version': '1.0.1',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_translate_menu',
             'note': 'Render a menu for infohub_translate',
@@ -116,7 +116,7 @@ function infohub_translate_menu() {
                                     'button_label': _Translate('VALIDATE_TRANSLATION_FILES'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
-                                },
+                                }
                             },
                         },
                     },

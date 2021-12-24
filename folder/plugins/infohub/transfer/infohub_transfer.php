@@ -57,10 +57,11 @@ class infohub_transfer extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2012-01-01
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2015-09-20
+     * @since   2012-01-01
      */
     protected function _GetCmdFunctions(): array
     {
@@ -235,9 +236,6 @@ class infohub_transfer extends infohub_base
             }
 
             $packageJson = $this->_JsonEncode($in['data_back']['package']);
-            if ($packageJson === false) {
-                $packageJson = 'error: Server could not json encode the data.';
-            }
 
             if ($nodeName === 'client') {
                 $chunks = str_split($packageJson, 64 * 1024);
@@ -358,6 +356,12 @@ class infohub_transfer extends infohub_base
 
         $fileName = LOG . DS . 'infohub_transfer_curl.log';
         $fileHandle = fopen($fileName, 'a+');
+        if ($fileHandle === false) {
+            return [
+                'answer' => 'false',
+                'message' => 'Can not open the file'
+            ];
+        }
 
         $requestScheme = 'http';
         if (isset($_SERVER['REQUEST_SCHEME'])) {
@@ -394,10 +398,11 @@ class infohub_transfer extends infohub_base
         $incomingData = curl_exec($curlHandle);
         session_start();
 
-        $curlInfo = curl_getinfo($curlHandle);
-        $httpCode = (string)$curlInfo['http_code'];
-        $curlError = (string)curl_error($curlHandle);
+        $curlInfo = (array) curl_getinfo($curlHandle);
+        $httpCode = $curlInfo['http_code'];
+        $curlError = (string) curl_error($curlHandle);
         curl_close($curlHandle);
+
         fclose($fileHandle);
 
         $answer = 'true';

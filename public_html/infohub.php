@@ -31,7 +31,21 @@ include_once 'define_folders.php';
 include_once INCLUDES . DS . 'settings_and_errors.php';
 include_once INCLUDES . DS . 'kick_out_tests_for_infohub.php'; // we get $package
 
-$corePlugins = ['infohub_base', 'infohub_exchange', 'infohub_plugin', 'infohub_transfer'];
+$corePlugins = [
+    'infohub_base',
+    'infohub_exchange',
+    'infohub_plugin',
+    'infohub_transfer',
+    'infohub_session',
+    'infohub_storage',
+    'infohub_storage_data',
+    'infohub_storage_data_mysql',
+    'infohub_file',
+    'infohub_call',
+    'infohub_login',
+    'infohub_uuid',
+    'infohub_checksum',
+];
 foreach ($corePlugins as $pluginName) {
     $path = PLUGINS . DS . strtr($pluginName, ['_' => DS]) . DS . $pluginName . '.php';
     if (file_exists($path) === true) {

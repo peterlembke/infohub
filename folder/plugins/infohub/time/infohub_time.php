@@ -48,10 +48,11 @@ class infohub_time extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-06-17
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-08-17
+     * @since   2017-06-17
      */
     protected function _GetCmdFunctions(): array
     {

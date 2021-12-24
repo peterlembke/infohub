@@ -56,10 +56,11 @@ class infohub_storage extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2010-04-15
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-09-12
+     * @since   2010-04-15
      */
     protected function _GetCmdFunctions(): array
     {

@@ -22,7 +22,7 @@ if (file_exists('fullstop.flag') == true) {
  * @see         https://github.com/peterlembke/infohub/blob/master/folder/doc/core/root/definefolders/core_root_definefolders.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
-define('DS', DIRECTORY_SEPARATOR);
+const DS = DIRECTORY_SEPARATOR;
 
 $currentWorkingDirectory = getcwd();
 $lastPosition = strrpos($currentWorkingDirectory, DS);
@@ -30,7 +30,7 @@ $lastPosition = strrpos($currentWorkingDirectory, DS);
 $rootDirectory = substr($currentWorkingDirectory, $start = 0, $length = $lastPosition);
 
 define('ROOT', $rootDirectory);
-define('MAIN', ROOT . DS . 'folder');
+const MAIN = ROOT.DS.'folder';
 
 $folders = [
     'INCLUDES' => MAIN . DS . 'include', // Files required by infohub.php or index.php

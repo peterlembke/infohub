@@ -8,7 +8,7 @@
  * @subpackage  infohub_file
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
@@ -23,7 +23,8 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * @since       2017-11-01
  * @copyright   Copyright (c) 2017, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md
+ *     Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_file extends infohub_base
@@ -31,6 +32,7 @@ class infohub_file extends infohub_base
 
     /**
      * Version information for this plugin
+     *
      * @return string[]
      * @since   2017-11-01
      * @author  Peter Lembke
@@ -53,10 +55,11 @@ class infohub_file extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-11-01
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-02-23
+     * @since   2017-11-01
      */
     protected function _GetCmdFunctions(): array
     {
@@ -86,7 +89,8 @@ class infohub_file extends infohub_base
     /**
      * Read meta data and content from a file
      * You can limit the response data, Use data_request in your subcall.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-08-01
@@ -140,7 +144,8 @@ class infohub_file extends infohub_base
 
     /**
      * Read meta data and content from a file
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-08-15
@@ -214,10 +219,11 @@ class infohub_file extends infohub_base
 
     /**
      * Write data to a file
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
-     * @version 2018-05-12
+     * @version 2021-12-23
      * @since   2017-11-05
      */
     protected function write(array $in = []): array
@@ -234,11 +240,11 @@ class infohub_file extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        if (strpos($in['path'], '..') !== false) {
+        if (str_contains($in['path'], '..') === true) {
             return ['answer' => 'false', 'message' => 'Path can not use ..'];
         }
 
-        if (strpos($in['path'], '~') !== false) {
+        if (str_contains($in['path'], '~') === true) {
             return ['answer' => 'false', 'message' => 'Path can not use ~'];
         }
 
@@ -258,7 +264,8 @@ class infohub_file extends infohub_base
 
     /**
      * Write data to a file
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2017-12-07
@@ -293,15 +300,19 @@ class infohub_file extends infohub_base
         }
         */
 
-        $pathParts = pathinfo($in['path']);
-        if ($this->_IsBinaryFileExtensionWrite($pathParts['extension']) === 'true') {
-            $in['contents'] = base64_decode($in['contents']);
+        $pathPartArray = pathinfo($in['path']);
+
+        $extension = $pathPartArray['extension'] ?? '';
+
+        if ($this->_IsBinaryFileExtensionWrite($extension) === 'true') {
+            $result = base64_decode($in['contents']);
+            $in['contents'] = $result;
         }
 
         $checksum = $this->_Hash($in['contents']);
 
         if ($response['file_info']['folder_exist'] === 'false') {
-            $result = mkdir($pathParts['dirname'], $mode = 0777, $recursive = true);
+            $result = mkdir($pathPartArray['dirname'], $mode = 0777, $recursive = true);
             if ($result === false) {
                 $message = 'Folder do not exist and I can not create it';
                 goto leave;
@@ -342,8 +353,9 @@ class infohub_file extends infohub_base
 
     /**
      * Determine if an extension indicate a binary file ("true"), or a text file ("false")
-     * @param string $extension
-     * @return string | boolean string "true" or "false"
+     *
+     * @param  string  $extension
+     * @return string "true" or "false"
      * @author  Peter Lembke
      * @version 2018-05-12
      * @since   2018-05-12
@@ -361,8 +373,9 @@ class infohub_file extends infohub_base
 
     /**
      * Determine if an extension indicate a binary file ("true"), or a text file ("false")
-     * @param string $extension
-     * @return string | boolean string "true" or "false"
+     *
+     * @param  string  $extension
+     * @return string "true" or "false"
      * @author  Peter Lembke
      * @version 2018-05-12
      * @since   2018-05-12
@@ -379,7 +392,8 @@ class infohub_file extends infohub_base
 
     /**
      * Get an array with all file paths and file names that match the pattern, also recursively.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2017-12-10
@@ -412,7 +426,8 @@ class infohub_file extends infohub_base
 
     /**
      * Calculate the checksum the same way as in index.php
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2019-11-13
@@ -433,10 +448,10 @@ class infohub_file extends infohub_base
             ];
         }
 
-        $globalCss = base64_encode(file_get_contents(INCLUDES . '/infohub_global.css'));
-        $faviconPng = base64_encode(file_get_contents(MAIN . '/favicon.png'));
-        $infohubPng = base64_encode(file_get_contents(MAIN . '/infohub.png'));
-        $infohubSvg = file_get_contents(PLUGINS . '/infohub/welcome/asset/icon/infohub-logo-done.svg');
+        $globalCss = $this->_GetFileContentBase64Data(INCLUDES . '/infohub_global.css');
+        $faviconPng = $this->_GetFileContentBase64Data(MAIN . '/favicon.png');
+        $infohubPng = $this->_GetFileContentBase64Data(MAIN . '/infohub.png');
+        $infohubSvg = $this->_GetFileContent(PLUGINS . '/infohub/welcome/asset/icon/infohub-logo-done.svg');
 
         $checksum = md5($globalCss) . md5($faviconPng) . md5($infohubPng) . md5($infohubSvg);
 
@@ -450,7 +465,7 @@ class infohub_file extends infohub_base
         ];
 
         foreach ($files as $fileName) {
-            $fileContents = file_get_contents(INCLUDES . DS . $fileName);
+            $fileContents = $this->_GetFileContent(INCLUDES . DS . $fileName);
             $checksum = $checksum . md5($fileContents);
         }
 
@@ -462,8 +477,43 @@ class infohub_file extends infohub_base
     }
 
     /**
+     * Read a file, convert the contents to base64 data and return it
+     * If anything goes wrong you get an empty string back.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function _GetFileContentBase64Data(
+        string $path = ''
+    ): string {
+        $fileContents = $this->_GetFileContent($path);
+        $base64Data = base64_encode($fileContents);
+
+        return $base64Data;
+    }
+
+    /**
+     * Read a file, return the data
+     * If anything goes wrong you get an empty string back.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function _GetFileContent(
+        string $path = ''
+    ): string {
+        $fileContents = file_get_contents($path);
+        if ($fileContents === false) {
+            return '';
+        }
+
+        return $fileContents;
+    }
+
+    /**
      * Get an array with all file paths and file names that match the pattern, also recursively.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2017-12-07
@@ -527,7 +577,8 @@ class infohub_file extends infohub_base
 
     /**
      * Get information about a file
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2017-11-05
@@ -643,7 +694,8 @@ class infohub_file extends infohub_base
 
     /**
      * Check the path that it is correct
-     * @param string $path
+     *
+     * @param  string  $path
      * @return string
      * @author  Peter Lembke
      * @version 2017-11-05
@@ -668,8 +720,9 @@ class infohub_file extends infohub_base
 
     /**
      * Keep allowed characters in the string
-     * @param string $string
-     * @param string $type
+     *
+     * @param  string  $string
+     * @param  string  $type
      * @return string
      * @version 2017-12-07
      * @since   2017-11-05
@@ -706,7 +759,8 @@ class infohub_file extends infohub_base
 
     /**
      * Give a data string, get a checksum value as a string
-     * @param string $dataString
+     *
+     * @param  string  $dataString
      * @return string
      * @author  Peter Lembke
      * @version 2017-11-05
@@ -714,31 +768,49 @@ class infohub_file extends infohub_base
      */
     protected function _Hash(string $dataString = ''): string
     {
-        return (string)md5($dataString);
+        return (string) md5($dataString);
     }
 
     /**
-     * Give a path and pattern. Get an array with all paths and file names recursively.
-     * https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/
-     * @param string $pattern
+     * Give a search pattern. Get array with found files and paths.
+     *
+     * @param string $pattern | Example: $basePath . DS . '*.md';
      * @param int $flags
      * @return array
-     * @version 2017-11-05
-     * @since   2017-11-05
+     * @see https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/ Recursive
+     * @version 2021-12-23
+     * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
-    {
-        $files = glob($pattern, $flags);
-        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
-            $files = array_merge($files, $this->_RecursiveSearch($dir . '/' . basename($pattern), $flags));
+    protected function _RecursiveSearch(
+        string $pattern = '',
+        int $flags = 0
+    ): array {
+
+        $fileArray = glob($pattern, $flags);
+        if ($fileArray === false) {
+            $fileArray = [];
         }
-        return $files;
+
+        $directoryPattern = dirname($pattern) . '/*';
+        $directoryArray = glob($directoryPattern, GLOB_ONLYDIR | GLOB_NOSORT);
+        if ($directoryArray === false) {
+            $directoryArray = [];
+        }
+
+        foreach ($directoryArray as $directoryName) {
+            $subDirectoryPattern = $directoryName . '/' . basename($pattern);
+            $subDirectoryFileArray = $this->_RecursiveSearch($subDirectoryPattern, $flags);
+            $fileArray = array_merge($fileArray, $subDirectoryFileArray);
+        }
+
+        return $fileArray;
     }
 
     /**
      * I do not want a slash at the end of the path
-     * @param string $path
+     *
+     * @param  string  $path
      * @return string
      */
     protected function _RemoveEndSlash(string $path = ''): string
@@ -753,7 +825,8 @@ class infohub_file extends infohub_base
      * Get a list with plugin names that has a file called asset/launcher.json
      * The list key is plugin name, the data is the assets launcher.json, icon/icon.svg, icon/icon.json
      * Used only by infohub_launcher
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2018-12-07
@@ -780,13 +853,11 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetFolderStructure',
-                'path' => PLUGINS,
-                'pattern' => 'launcher.json',
-            ]
-        );
+        $response = $this->internal_Cmd([
+            'func' => 'GetFolderStructure',
+            'path' => PLUGINS,
+            'pattern' => 'launcher.json',
+        ]);
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -853,7 +924,8 @@ class infohub_file extends infohub_base
     /**
      * Get ALL assets for ONE plugin
      * Used by infohub_asset
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-05-23
@@ -955,7 +1027,8 @@ class infohub_file extends infohub_base
     /**
      * You can request specific assets
      * Used by infohub_asset
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-05-23
@@ -988,6 +1061,10 @@ class infohub_file extends infohub_base
             $path = substr($path, strlen($prefix));
 
             $pluginEnd = strpos($path, '/');
+            if ($pluginEnd === false) {
+                continue;
+            }
+
             $pluginName = substr($path, 0, $pluginEnd);
 
             $remove = $pluginName . '/';
@@ -999,12 +1076,10 @@ class infohub_file extends infohub_base
 
             $filePath = $assetPath . DS . $assetName;
 
-            $fileData = $this->internal_Cmd(
-                [
-                    'func' => 'Read',
-                    'path' => $filePath
-                ]
-            );
+            $fileData = $this->internal_Cmd([
+                'func' => 'Read',
+                'path' => $filePath
+            ]);
 
             $storedPath = $prefix . $pluginName . '/' . $assetName;
 
@@ -1035,7 +1110,8 @@ class infohub_file extends infohub_base
     /**
      * Get a list with all javascript plugin names
      * Used by infohub_plugin
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2018-10-26
@@ -1113,7 +1189,8 @@ class infohub_file extends infohub_base
      * Get a list with all plugin names and each plugin details.
      * You get everything except the file contents.
      * Used in Infohub_Trigger to display a list with emerging plugins for a node.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-08-15
@@ -1193,8 +1270,8 @@ class infohub_file extends infohub_base
                 }
 
                 if ($in['level'] !== 'all') {
-                    $parts = explode($pluginName);
-                    if (count($parts) > (int)$in['level']) {
+                    $parts = explode($separator = '_', $pluginName);
+                    if (count($parts) > (int) $in['level']) {
                         continue; // We skip this plugin since it is in a too deep level
                     }
                 }
@@ -1238,7 +1315,8 @@ class infohub_file extends infohub_base
     /**
      * Get an array indexed on plugin name. Each item point to an empty array.
      * Used by Infohub_Contact among others
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-08-15
@@ -1317,7 +1395,8 @@ class infohub_file extends infohub_base
      * Get a list with all level 1 plugin names that has a role (user,developer,admin)
      * node array -> role name array -> plugin name array -> role name string
      * Used by infohub_exchange to know what rights a role has when reviewing messages in an incoming package
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2020-08-05
@@ -1423,7 +1502,8 @@ class infohub_file extends infohub_base
 
     /**
      * Five a file extension and get a node name back
-     * @param string $extension
+     *
+     * @param  string  $extension
      * @return string
      */
     protected function _GetNodeFromExtension(string $extension = ''): string
@@ -1440,8 +1520,9 @@ class infohub_file extends infohub_base
 
     /**
      * Pulls out the user_role from the source code
-     * @param string $node
-     * @param string $contents
+     *
+     * @param  string  $node
+     * @param  string  $contents
      * @return string
      */
     protected function _GetUserRole(string $node = '', string $contents = ''): string
@@ -1473,8 +1554,9 @@ class infohub_file extends infohub_base
 
     /**
      * Pulls out the plugin status from the source code
-     * @param string $node
-     * @param string $contents
+     *
+     * @param  string  $node
+     * @param  string  $contents
      * @return string
      */
     protected function _GetPluginStatus(string $node = '', string $contents = ''): string
@@ -1507,7 +1589,8 @@ class infohub_file extends infohub_base
     /**
      * Give a plugin name array, and you get the source code for all js files indexed on each plugin name.
      * Used ONLY by infohub_translate.php
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2019-03-24
@@ -1573,14 +1656,17 @@ class infohub_file extends infohub_base
                     continue;
                 }
 
-                $data[$pluginName] = file_get_contents($path);
+                $data[$pluginName] = $this->_GetFileContent($path);
 
                 if (strpos($data[$pluginName], '_Translate(') === false) {
-                    unset($data[$pluginName]); // This file do not contain anything to translate, skip it.
+                    unset($data[$pluginName]); // This file does not contain anything to translate, skip it.
                 }
 
-                $requestedPath = PLUGINS . DS . str_replace('_', DS, $requestedPluginName) . DS . 'asset' . DS . 'launcher.json';
-                $launcher[$requestedPluginName] = file_get_contents($requestedPath);
+                $pluginPath = str_replace('_', DS, $requestedPluginName);
+                $requestedPath = PLUGINS . DS . $pluginPath . DS . 'asset' . DS . 'launcher.json';
+
+                $contentString = $this->_GetFileContent($requestedPath);
+                $launcher[$requestedPluginName] = $contentString;
             }
         }
 
@@ -1601,6 +1687,7 @@ class infohub_file extends infohub_base
 
     /**
      * Give a plugin name and get all translate files for that plugin in a lookup with language code => file contents
+     *
      * @param  array  $in
      * @return array
      */

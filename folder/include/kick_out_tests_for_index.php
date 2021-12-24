@@ -135,6 +135,10 @@ class kick_out_tests_for_index
     protected function removeUnknownFilesAndFolders(): void
     {
         $foundFiles = scandir('.');
+        if ($foundFiles === false) {
+            $foundFiles = [];
+        }
+
         $acceptedFiles = [
             '.',
             '..',
@@ -153,20 +157,23 @@ class kick_out_tests_for_index
             'robots.txt',
             'serviceworker.js'
         ];
+
         $removeFiles = array_diff($foundFiles, $acceptedFiles);
-        if (count($removeFiles) > 0) {
-            foreach ($removeFiles as $file) {
-                if (is_file($file) === true) {
-                    unlink($file); // Remove files that are not on the accepted list
-                    continue;
-                }
-                if (is_dir($file) === true) {
-                    rmdir($file); // Remove folders that are not on the accepted list
-                    continue;
-                }
-            }
-            $this->GetOut('Found files that are not accepted in the server root folder:' . implode(',', $removeFiles));
+        if (count($removeFiles) === 0) {
+            return;
         }
+
+        foreach ($removeFiles as $file) {
+            if (is_file($file) === true) {
+                unlink($file); // Remove files that are not on the accepted list
+                continue;
+            }
+            if (is_dir($file) === true) {
+                rmdir($file); // Remove folders that are not on the accepted list
+                continue;
+            }
+        }
+        $this->GetOut('Found files that are not accepted in the server root folder:' . implode(',', $removeFiles));
     }
 
     /**
@@ -183,7 +190,8 @@ class kick_out_tests_for_index
 
     /**
      * If you end up here you will be thrown out
-     * @param $message | A message to display to the user
+     * @param  string  $message A message to display to the user
+     * @return void
      */
     protected function GetOut(string $message = ''): void
     {

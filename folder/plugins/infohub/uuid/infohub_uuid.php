@@ -53,10 +53,11 @@ class infohub_uuid extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-06-17
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-12-07
+     * @since   2017-06-17
      */
     protected function _GetCmdFunctions(): array
     {
@@ -192,23 +193,20 @@ class infohub_uuid extends infohub_base
 
         try {
             if (function_exists('com_create_guid') === true) {
-                $result = trim(com_create_guid(), '{}'); // Remove surrounding brackets
+                $guid = com_create_guid();
+                if ($guid === false) {
+                    $message = 'Can not create guid';
+                    $guid = '';
+                    goto leave;
+                }
+
+                $result = trim($guid, '{}'); // Remove surrounding brackets
                 $answer = 'true';
                 $message = 'Here are the guidv4, created with com_create_guid';
                 goto leave;
             }
 
-            $data = '';
-
-            if (function_exists('random_bytes')) {
-                $data = random_bytes(16); // PHP >= 7
-            } else {
-                if (function_exists('openssl_random_pseudo_bytes')) {
-                    $data = openssl_random_pseudo_bytes(16); // PHP < 7
-                } else {
-                    goto leave;
-                }
-            }
+            $data = $this->_GetRandomBytes();
 
             if (strlen($data) !== 16) {
                 goto leave;
@@ -216,10 +214,14 @@ class infohub_uuid extends infohub_base
 
             $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
             $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
-            $result = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+
+
+            $dataHex = bin2hex($data);
+            $dataHexArray = str_split($dataHex, 4);
+            $result = vsprintf('%s%s-%s-%s-%s-%s%s%s', $dataHexArray);
 
             $answer = 'true';
-            $message = 'Here are the guidv4';
+            $message = 'Here are the guidv4, created with code';
         } catch (Exception $e) {
         }
 
@@ -229,6 +231,30 @@ class infohub_uuid extends infohub_base
             'message' => $message,
             'data' => $result
         ];
+    }
+
+    /**
+     * Get a string with 16 bytes
+     *
+     * @param  int  $length
+     * @return string
+     * @throws Exception
+     */
+    protected function _GetRandomBytes(
+        int $length = 16
+    ): string {
+
+        if (function_exists('random_bytes')) {
+            $data = random_bytes(16); // PHP >= 7
+            return $data;
+        }
+
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $data = openssl_random_pseudo_bytes(16); // PHP < 7
+            return $data;
+        }
+
+        return '';
     }
 
     /**

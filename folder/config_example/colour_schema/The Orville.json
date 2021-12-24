@@ -1,0 +1,50 @@
+{
+    "form_data": {
+        "base_color_0": {
+            "value": "30"
+        },
+        "base_color_1": {
+            "value": "190"
+        },
+        "base_color_2": {
+            "value": "190"
+        },
+        "base_color_3": {
+            "value": "350"
+        },
+        "base_color_4": {
+            "value": "190"
+        },
+        "base_color_5": {
+            "value": "190"
+        },
+        "layer_0": {
+            "value": "82"
+        },
+        "layer_1": {
+            "value": "58"
+        },
+        "layer_2": {
+            "value": "26"
+        },
+        "name": {
+            "value": "The Orville"
+        }
+    },
+    "color_schema": {
+        "layer-0-background": "#f76d6d",
+        "layer-1-normal": "#7df76d",
+        "layer-1-highlight": "#6d8df7",
+        "layer-1-warning": "#ff0000",
+        "layer-2-normal-text": "#0b1f00",
+        "layer-2-title-text": "#1b350a"
+    },
+    "color_lookup": {
+        "#f76d6d": "#e8d1ba",
+        "#7df76d": "#5eb8c9",
+        "#6d8df7": "#5eb8c9",
+        "#ff0000": "#c95e70",
+        "#0b1f00": "#215863",
+        "#1b350a": "#215863"
+    }
+}

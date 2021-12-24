@@ -1,0 +1,11 @@
+{
+    "server": {
+        "libre_translate": {
+            "url": "http://translate",
+            "port": 5000,
+            "curl_logging": "true"
+        }
+    },
+    "client": {
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "server": {
+    },
+    "client": {
+        "from_language": "sv",
+        "to_language": "fi"
+    }
+}

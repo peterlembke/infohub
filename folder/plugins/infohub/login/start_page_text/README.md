@@ -6,27 +6,27 @@ Remember that it is [language code](https://www.loc.gov/standards/iso639-2/php/c
 
 ## Languages
 
-|code|Language|Countries|
-|----|--------|---------|
-|cz  |Chinese (Simplified)|China|
-|nb  |Norwegian (Bokmål)|Norway|
-|de  |German|Germany|
-|da  |Danish|Denmark|
-|et  |Estonian|Estonia|
-|en  |English|England, USA|
-|es  |Spanish|Spain|
-|fi  |Finnish|Finland|
-|fr  |French|France|
-|el  |Greek (modern)|Greece|
-|hi  |Hindi|India|
-|is  |Icelandic|Iceland|
-|it  |Italian|Italy|
-|ja  |Japanese|Japan|
-|nl  |Dutch|Netherlands|
-|pl  |Polish|Poland
-|pt  |Portuguese|Portugal|
-|ru  |Russian|Russia|
-|sv  |Swedish|Sweden|
+| code | Language             | Countries    |
+|------|----------------------|--------------|
+| cz   | Chinese (Simplified) | China        |
+| nb   | Norwegian (Bokmål)   | Norway       |
+| de   | German               | Germany      |
+| da   | Danish               | Denmark      |
+| et   | Estonian             | Estonia      |
+| en   | English              | England, USA |
+| es   | Spanish              | Spain        |
+| fi   | Finnish              | Finland      |
+| fr   | French               | France       |
+| el   | Greek (modern)       | Greece       |
+| hi   | Hindi                | India        |
+| is   | Icelandic            | Iceland      |
+| it   | Italian              | Italy        |
+| ja   | Japanese             | Japan        |
+| nl   | Dutch                | Netherlands  |
+| pl   | Polish               | Poland       |
+| pt   | Portuguese           | Portugal     |
+| ru   | Russian              | Russia       |
+| sv   | Swedish              | Sweden       |
 
 ## Browser language
 

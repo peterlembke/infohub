@@ -455,8 +455,7 @@ function infohub_exchange() {
         let $messages = [];
 
         if ($in.step === 'step_send_first_message') {
-            $progress.whatArea('send_first_message', 90,
-                'Send message depending on domain settings');
+            $progress.whatArea('send_first_message', 90, 'Send message depending on domain settings');
 
             let $name = 'domain';
             if ($classUserName === 'guest') {
@@ -1470,8 +1469,7 @@ function infohub_exchange() {
                 continue;
             }
 
-            const $responseConfig = internal_GetConfigFromLocalStorage(
-                $pluginName);
+            const $responseConfig = internal_GetConfigFromLocalStorage($pluginName);
             if ($responseConfig.answer === 'false') {
                 // you as a developer deleted the plugin from browser after infohub had loaded it
                 internal_Log({

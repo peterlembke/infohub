@@ -52,7 +52,8 @@ class infohub_compress extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     *
+     * @return array
      * @since   2019-07-02
      * @author  Peter Lembke
      * @version 2019-07-06
@@ -99,6 +100,8 @@ class infohub_compress extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
+        $functionName = '';
+
         if ($in['step'] === 'step_start') {
             $in['data_back']['uncompressed_length'] = strlen($in['uncompressed_data']);
 
@@ -132,12 +135,11 @@ class infohub_compress extends infohub_base
         }
 
         if ($in['step'] === 'step_ask_function') {
-            $response = $this->internal_Cmd(
-                [
-                    'func' => $functionName,
-                    'uncompressed_data' => $in['uncompressed_data']
-                ]
-            );
+
+            $response = $this->internal_Cmd([
+                'func' => $functionName,
+                'uncompressed_data' => $in['uncompressed_data']
+            ]);
 
             $in['response']['answer'] = $response['answer'];
             $in['response']['message'] = $response['message'];
@@ -191,6 +193,8 @@ class infohub_compress extends infohub_base
             ]
         ];
         $in = $this->_Default($default, $in);
+
+        $functionName = '';
 
         if ($in['step'] === 'step_start') {
             $in['data_back']['compressed_length'] = strlen($in['compressed_data']);
@@ -260,8 +264,9 @@ class infohub_compress extends infohub_base
 
     /**
      * Get list with compression methods you can use
+     *
      * @param array $in
-     * @return array|bool
+     * @return array
      * @author  Peter Lembke
      * @version 2019-07-02
      * @since   2019-07-02
@@ -292,7 +297,16 @@ class infohub_compress extends infohub_base
         $default = ['uncompressed_data' => ''];
         $in = $this->_Default($default, $in);
 
-        $in['compressed_data'] = base64_encode(gzencode($in['uncompressed_data']));
+        $compressedString = gzencode($in['uncompressed_data']);
+        if ($compressedString === false) {
+            return [
+                'answer' => 'false',
+                'message' => 'Failed compressing data',
+                'compressed_data' => ''
+            ];
+        }
+
+        $in['compressed_data'] = base64_encode($compressedString);
 
         return [
             'answer' => 'true',

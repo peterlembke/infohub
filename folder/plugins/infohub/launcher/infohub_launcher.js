@@ -972,9 +972,7 @@ function infohub_launcher() {
         if ($in.step === 'step_start') {
             $in.step = 'step_read_local_list';
             if ($listName !== 'my_list' && $listName !== 'full_list') {
-                $message = _Translate(
-                    'GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST') +
-                    ': ' + $listName;
+                $message = _Translate('GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST') + ': ' + $listName;
                 $in.step = 'step_alert';
             }
         }

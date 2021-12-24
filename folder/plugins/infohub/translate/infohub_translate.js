@@ -44,6 +44,7 @@ function infohub_translate() {
             'click': 'normal',
             'call_server': 'normal',
             'get_translate_data': 'normal',
+            'get_language_option_list': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -595,6 +596,18 @@ function infohub_translate() {
             'data': $data,
         };
     };
+
+    /**
+     *
+     * @version 2021-09-09
+     * @since   2021-09-09
+     * @author  Peter Lembke
+     */
+    $functions.push('get_language_option_list');
+    const get_language_option_list = function($in = {}) {
+        let $a = 1;
+    }
+
 }
 
 //# sourceURL=infohub_translate.js

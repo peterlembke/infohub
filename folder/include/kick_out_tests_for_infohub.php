@@ -8,6 +8,8 @@
  */
 declare(strict_types=1);
 
+include_once PLUGINS . DS . 'infohub' . DS . 'base' . DS . 'infohub_base.php';
+
 /**
  * Kick out tests that will be run in infohub.php
  *
@@ -19,7 +21,7 @@ declare(strict_types=1);
  * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/storage/data/infohub_storage_data.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
-class kick_out_tests_for_infohub
+class kick_out_tests_for_infohub extends infohub_base
 {
     /**
      * Main function that run all tests
@@ -133,25 +135,25 @@ class kick_out_tests_for_infohub
      */
     protected function checkAndUpdatePackageParameters(): array
     {
-        $content = file_get_contents('php://input');
+        $contentString = file_get_contents('php://input');
+        if ($contentString === false) {
+            $contentString = '';
+        }
 
         $maxContentLength = 1024 * 1024;
 
-        $contentLength = ceil(strlen($content));
+        $contentLength = (int) ceil(strlen($contentString));
         if ($contentLength > $maxContentLength) {
-            $this->GetOut(
-                'Length of content max ' . abs(floor($maxContentLength / 1024)) . 'Kb, you sent ' . abs(
-                    floor($contentLength / 1024)
-                ) . 'Kb'
-            );
+            $message = 'Length of content max ' . $this->getKb($maxContentLength) . ', you sent ' . $this->getKb($contentLength);
+            $this->GetOut($message);
         }
-        if (strlen($content) < 18) {
+        if (strlen($contentString) < 18) {
             $this->GetOut('Length of content must be minimum 18 bytes');
         }
 
-        $package = json_decode($content, true);
+        $package = $this->_JsonDecode($contentString);
 
-        if (empty($package)) {
+        if (empty($package) === true) {
             $this->GetOut(
                 'Server says: The incoming package failed to convert from JSON to array. There might be something wrong with the JSON you sent'
             );
@@ -201,8 +203,12 @@ class kick_out_tests_for_infohub
         }
 
         $messagesJson = base64_decode($package['messages_encoded'], $strict = true);
+        if ($messagesJson === false) {
+            $messagesJson = '{}';
+        }
+
         $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form and you see that this is needed
-        $messages = json_decode($messagesJson, true);
+        $messages = $this->_JsonDecode($messagesJson);
 
         if (empty($messages)) {
             $messages = [];
@@ -223,6 +229,17 @@ class kick_out_tests_for_infohub
     }
 
     /**
+     * Convert a value to a string with Kb
+     *
+     * @param  int  $byteCount
+     * @return string
+     */
+    protected function getKb(int $byteCount = 0): string {
+        $bytesInKb = '' . abs(floor($byteCount / 1024)) . 'Kb';
+        return $bytesInKb;
+    }
+
+    /**
      * Get the filename in the url
      * @return string
      */
@@ -236,7 +253,8 @@ class kick_out_tests_for_infohub
 
     /**
      * If you end up here you will be thrown out
-     * @param $message | A message to display to the user
+     * @param  string  $message A message to display to the user
+     * @return void
      */
     public function GetOut(string $message = ''): void
     {
@@ -255,7 +273,7 @@ class kick_out_tests_for_infohub
             ]
         ];
         $package = ['to_node' => 'client', 'messages' => [$messageOut]];
-        $messageOut = json_encode($package, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
+        $messageOut = $this->_JsonEncode($package);
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         // echo $messageOut;
         exit($messageOut);

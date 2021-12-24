@@ -54,10 +54,11 @@ class infohub_template extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2020-11-25
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-11-25
+     * @since   2020-11-25
      */
     protected function _GetCmdFunctions(): array
     {

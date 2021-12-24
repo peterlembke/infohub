@@ -47,20 +47,23 @@ class infohub_democall_child_grandchild extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2019-03-09
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-03-09
+     * @since   2019-03-09
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'my_test' => 'normal',
             'call_self' => 'normal', // OK
             'call_level1_on_same_node' => 'normal', // OK
             'call_level1_on_other_node' => 'normal', // FAIL
             'call_parent' => 'normal' // FAIL
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

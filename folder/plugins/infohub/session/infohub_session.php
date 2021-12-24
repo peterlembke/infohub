@@ -55,10 +55,11 @@ class infohub_session extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2020-01-10
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-07-07
+     * @since   2020-01-10
      */
     protected function _GetCmdFunctions(): array
     {
@@ -596,13 +597,11 @@ class infohub_session extends infohub_base
         }
 
         if ($in['step'] === 'step_calculate') {
-            $data = $this->_GetData(
-                [
-                    'name' => 'response/data',
-                    'default' => [],
-                    'data' => $in,
-                ]
-            );
+            $data = (array) $this->_GetData([
+                'name' => 'response/data',
+                'default' => [],
+                'data' => $in,
+            ]);
 
             if ($this->_Empty($data) === 'false') {
                 $signCodeCreatedAt = $this->_CreatedAt();
@@ -795,6 +794,8 @@ class infohub_session extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
+        $ok = 'false';
+
         // Verify sign_code_created_at that it is max 2 seconds old
         // Read the data in path infohub_session/node/{node}
         // Calculate sign_code
@@ -836,13 +837,11 @@ class infohub_session extends infohub_base
         }
 
         if ($in['step'] === 'step_calculate') {
-            $data = $this->_GetData(
-                [
-                    'name' => 'response/data',
-                    'default' => [],
-                    'data' => $in,
-                ]
-            );
+            $data = (array) $this->_GetData([
+                'name' => 'response/data',
+                'default' => [],
+                'data' => $in,
+            ]);
 
             if ($this->_Empty($data) === 'false') {
                 $string = $data['session_created_at'] . $in['sign_code_created_at'] .

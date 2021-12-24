@@ -531,8 +531,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $label = $in.text.substr($first + 2,
-                $second - 2 - $first - 2);
+            const $label = $in.text.substr($first + 2, $second - 2 - $first - 2);
 
             if (_Empty($label) === 'true') {
                 continue;
@@ -568,8 +567,7 @@ function infohub_renderdocument() {
             if ($url.toLowerCase().substr(0, 4) === 'http') {
                 const $fullToFind = '![' + $label + '](' + $url + ')';
                 const $replaceWith = '';
-                $modifiedText = $modifiedText.replace($fullToFind,
-                    $replaceWith);
+                $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
                 $second = $second + 2;
                 continue;
             }
@@ -579,16 +577,25 @@ function infohub_renderdocument() {
 
             leave: {
 
+                let $css = 'max-width: 640px; max-height: 640px;';
+                if ($label === 'right' || $label === 'left') {
+                    $css = 'float: ' + $label + '; max-width: 180px; max-height: 180px;';
+                }
+
+                let $cssData = {'.image': $css };
+
                 if ($url.substr(0, 11) === 'data:image/') {
                     let $subtype = 'image'; // Render an image (jpeg/png) or an svg
                     if ($url.substr(12, 3) === 'svg') {
                         $subtype = 'svg';
+                        $cssData = {'.svg': $css };
                     }
 
                     $what[$tag] = {
                         'type': 'common',
                         'subtype': $subtype,
                         'data': $url,
+                        'css_data': $cssData
                     };
 
                     break leave;
@@ -616,12 +623,14 @@ function infohub_renderdocument() {
                     let $subtype = 'image'; // Render an image (jpeg/png) or an svg
                     if ($assetParts[1] === 'svg') {
                         $subtype = 'svg';
+                        $cssData = {'.svg': $css};
                     }
 
                     $what[$tag] = {
                         'type': 'common',
                         'subtype': $subtype,
                         'data': '[' + $tag + '_asset]',
+                        'css_data': $cssData
                     };
 
                     $what[$tag + '_asset'] = {

@@ -71,12 +71,12 @@ The minimum and maximum are stored with the timer and can only be set when you s
 
 The parameter `update` can have one of four alternatives.
 
-|Value |Start timer|Update if lower|Update if higher|
-|:----:|:---------:|:-------------:|:--------------:|
-|no    |x          |               |                |
-|yes   |x          |x              |x               |
-|lower |x          |x              |                |
-|higher|x          |               |x               |
+| Value  | Start timer | Update if lower | Update if higher |
+|:------:|:-----------:|:---------------:|:----------------:|
+|   no   |      x      |                 |                  |
+|  yes   |      x      |        x        |        x         |
+| lower  |      x      |        x        |                  |
+| higher |      x      |                 |        x         |
 
 Update if provided time is lower than what is left on the timer but still higher than the minimum allowed value.
 

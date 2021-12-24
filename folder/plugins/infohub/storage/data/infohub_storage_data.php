@@ -59,20 +59,23 @@ class infohub_storage_data extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2010-04-15
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-03-25
+     * @since   2010-04-15
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'read' => 'normal',
             'read_paths' => 'normal',
             'write' => 'normal',
             'write_overwrite' => 'normal', // Used by write
             'write_merge' => 'normal' // Used by write
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     // *****************************************************************************

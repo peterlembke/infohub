@@ -52,10 +52,11 @@ class infohub_offline extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since 2019-11-13
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-11-13
+     * @since 2019-11-13
      */
     protected function _GetCmdFunctions(): array
     {

@@ -40,10 +40,16 @@ class application_data extends infohub_base
     /** @var string  */
     protected string $keyWords = '';
 
+    /**
+     * Constructor
+     * @param  string  $mainPath
+     * @param  string  $pluginPath
+     * @param  string  $configPath
+     */
     public function __construct(
-        $mainPath,
-        $pluginPath,
-        $configPath
+        string $mainPath = '',
+        string $pluginPath = '',
+        string $configPath = ''
     ) {
         $this->mainPath = $mainPath;
         $this->pluginPath = $pluginPath;
@@ -52,6 +58,7 @@ class application_data extends infohub_base
 
     /**
      * Get the icon data as BASE64 encoded string with the data:image type
+     *
      * @param string $iconType
      * @return string
      */
@@ -61,7 +68,11 @@ class application_data extends infohub_base
     {
         $path = $this->getPath($iconType);
         $dataType = "data:image/$iconType;base64,";
-        $iconData = $dataType . base64_encode(file_get_contents($path));
+        $fileContents = $this->_GetFileContent($path);
+
+        $base64EncodedData = base64_encode($fileContents);
+
+        $iconData = $dataType . $base64EncodedData;
 
         return $iconData;
     }
@@ -101,6 +112,7 @@ class application_data extends infohub_base
 
     /**
      * Return the application description we will use in index.php and in manifest.php
+     *
      * @return array
      */
     public function getKeyWordsAsArray(): array {
@@ -108,6 +120,9 @@ class application_data extends infohub_base
             $this->getTitleAndDescription();
         }
         $keyWordsArray = explode(',', $this->keyWords);
+        if (empty($keyWordsArray) === true) {
+            $keyWordsArray = [];
+        }
 
         return $keyWordsArray;
     }
@@ -140,7 +155,12 @@ class application_data extends infohub_base
             return $default;
         }
 
-        $launcherArray = json_decode(file_get_contents($launcherPath),$associative = true);
+        $contentString = $this->_GetFileContent($launcherPath);
+
+        $launcherArray = $this->_JsonDecode($contentString);
+        if (empty($launcherArray) === true) {
+            return $default;
+        }
 
         $this->title = $launcherArray['title'];
         $this->description = $launcherArray['description'];
@@ -224,8 +244,9 @@ class application_data extends infohub_base
             }
         }
 
-        $fileContents = file_get_contents($fileName);
-        $configData = json_decode($fileContents, true);
+        $fileContents = $this->_GetFileContent($fileName);
+        $configData = $this->_JsonDecode($fileContents);
+
         $domain = $_SERVER['HTTP_HOST'];
         if (isset($configData['client']['domain'][$domain]) === false) {
             return '';
@@ -258,6 +279,29 @@ class application_data extends infohub_base
         $pluginName = $domainConfigData['data']['plugin_name'];
 
         return $pluginName;
+    }
+
+    /**
+     * Read a file, return the data
+     * If anything goes wrong you get an empty string back.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function _GetFileContent(
+        string $path = ''
+    ): string {
+
+        if (file_exists($path) === false) {
+            return '';
+        }
+        
+        $fileContents = file_get_contents($path);
+        if ($fileContents === false) {
+            return '';
+        }
+
+        return $fileContents;
     }
 }
 

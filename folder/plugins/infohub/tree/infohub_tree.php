@@ -50,10 +50,11 @@ class infohub_tree extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2020-07-25
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-08-25
+     * @since   2020-07-25
      */
     protected function _GetCmdFunctions(): array
     {
@@ -952,6 +953,7 @@ class infohub_tree extends infohub_base
         $message = 'Nothing to report from load_plugin_data';
         $ok = 'false';
         $pluginList = [];
+        $options= [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'Only node client are allowed to use function load_group_list';

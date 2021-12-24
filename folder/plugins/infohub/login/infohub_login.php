@@ -52,10 +52,11 @@ class infohub_login extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2019-09-21
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-01-12
+     * @since   2019-09-21
      */
     protected function _GetCmdFunctions(): array
     {
@@ -613,6 +614,15 @@ class infohub_login extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
+        $out = [
+            'answer' => '',
+            'message' => '',
+            'contents' => '',
+            'file_name' => ''
+        ];
+
+        $fileName = '';
+
         if ($in['from_plugin']['node'] !== 'client') {
             $out['message'] = 'Only the client are allowed to use function read_login_file';
             $in['step'] = 'step_end';
@@ -628,22 +638,13 @@ class infohub_login extends infohub_base
             $in['step'] = 'step_end';
         }
 
-        $out = [
-            'answer' => '',
-            'message' => '',
-            'contents' => '',
-            'file_name' => ''
-        ];
-
         if ($in['step'] === 'step_get_login_file_name') {
             $url = $_SERVER['HTTP_HOST'];
-            $fileName = $this->_GetData(
-                [
-                    'name' => 'config/download_account/' . $url,
-                    'default' => '',
-                    'data' => $in,
-                ]
-            );
+            $fileName = $this->_GetData([
+                'name' => 'config/download_account/' . $url,
+                'default' => '',
+                'data' => $in,
+            ]);
 
             if ($this->_Empty($fileName) === 'false') {
                 $in['step'] = 'step_read_login_file';
@@ -980,15 +981,18 @@ class infohub_login extends infohub_base
 
     /**
      * Merge byte arrays
-     * @param $string1
-     * @param $string2
+     * @param  string  $string1
+     * @param  string  $string2
      * @return string
      * @version 2020-01-08
      * @since   2020-01-04
      * @author  Peter Lembke
      */
-    protected function _MergeBase64Strings($string1, $string2)
-    {
+    protected function _MergeBase64Strings(
+        string $string1 = '',
+        string $string2 = ''
+    ): string {
+
         $data1 = base64_decode($string1);
         $data2 = base64_decode($string2);
         $result = '';
@@ -1008,15 +1012,19 @@ class infohub_login extends infohub_base
 
     /**
      * Deduct one byte array from the other
-     * @param $string1
-     * @param $string2
+     *
+     * @param  string  $string1
+     * @param  string  $string2
      * @return string
      * @version 2020-01-08
      * @since   2020-01-04
      * @author  Peter Lembke
      */
-    protected function _DeductBase64Strings($string1, $string2)
-    {
+    protected function _DeductBase64Strings(
+        string $string1 = '',
+        string $string2 = ''
+    ): string {
+
         $data1 = base64_decode($string1);
         $data2 = base64_decode($string2);
         $result = '';
@@ -1039,15 +1047,19 @@ class infohub_login extends infohub_base
 
     /**
      * Rotate a base64 encoded string with byte array
-     * @param $string1
-     * @param $steps
+     *
+     * @param  string  $string1
+     * @param  int  $steps
      * @return string
      * @version 2020-01-08
      * @since   2020-01-04
      * @author  Peter Lembke
      */
-    protected function _RotateBase64String($string1, $steps)
-    {
+    protected function _RotateBase64String(
+        string $string1 = '',
+        int $steps = 0
+    ): string {
+
         $data1 = base64_decode($string1);
         $result = substr($data1, $steps + 1) . substr($data1, 0, $steps);
 
@@ -1058,6 +1070,7 @@ class infohub_login extends infohub_base
 
     /**
      * Get a doc file
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke

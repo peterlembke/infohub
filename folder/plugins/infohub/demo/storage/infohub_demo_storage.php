@@ -50,14 +50,14 @@ class infohub_demo_storage extends infohub_base
     /**
      * Public functions in this plugin
      *
-     * @return mixed
-     * @since   2020-06-23
+     * @return array
      * @author  Peter Lembke
      * @version 2020-06-23
+     * @since   2020-06-23
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'read' => 'normal',
             'write' => 'normal',
             'read_many' => 'normal',
@@ -65,6 +65,8 @@ class infohub_demo_storage extends infohub_base
             'read_pattern' => 'normal',
             'write_pattern' => 'normal'
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

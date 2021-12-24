@@ -1,0 +1,12 @@
+{
+    "plugin": "infohub_libretranslate",
+    "title": "Libre Translate",
+    "description": "Calls Libre Translate for your translation needs",
+    "keywords": "translations,translate,language",
+    "uses": [
+        "infohub_libretranslate_doc",
+        "infohub_libretranslate_menu",
+        "infohub_libretranslate_manual",
+        "infohub_rendermenu"
+    ]
+}

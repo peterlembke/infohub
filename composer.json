@@ -1,0 +1,17 @@
+{
+    "name": "infohub/core",
+    "description": "Infohub operating system",
+    "type": "os",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Peter Lembke",
+            "email": "info@infohub.se"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0"
+    }
+}

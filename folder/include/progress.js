@@ -41,8 +41,8 @@ function progress() {
 
     /**
      * Modifies the progress bar.
-     * @param $areaCode | A name from the object above, example: 'missing_plugins'
-     * @param $partPercent | percent of this area 0-100
+     * @param $areaCode A name from the object above, example: 'missing_plugins'
+     * @param $partPercent percent of this area 0-100
      * @param $text
      */
     this.whatArea = function($areaCode, $partPercent, $text) {

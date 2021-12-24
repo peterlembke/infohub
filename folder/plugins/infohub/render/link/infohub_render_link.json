@@ -1,7 +1,0 @@
-{
-    "client": {
-        "css_link": "color: darkblue; display: inline-block;",
-        "css_link_hover": "background: lightgrey;"
-    },
-    "server": {}
-}

@@ -54,10 +54,11 @@ class infohub_launcher extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-12-03
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-11-18
+     * @since   2017-12-03
      */
     protected function _GetCmdFunctions(): array
     {
@@ -71,11 +72,12 @@ class infohub_launcher extends infohub_base
     /**
      * Get a new updated full_list
      * The list key is plugin name, the data is the checksums of files launcher.json, icon/icon.svg, icon/icon.json
-     * @param $in
+     *
+     * @param  array  $in
      * @return array
+     * @since   2018-11-14
      * @author  Peter Lembke
      * @version 2018-11-18
-     * @since   2018-11-14
      */
     protected function get_full_list(array $in = []): array
     {
@@ -146,7 +148,7 @@ class infohub_launcher extends infohub_base
                 }
             }
 
-            $listChecksum = md5(json_encode($list));
+            $listChecksum = md5($this->_JsonEncode($list));
 
             $do = 'update';
             if ($listChecksum === $in['list_checksum']) {

@@ -56,10 +56,11 @@ class infohub_encrypt extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2016-01-30
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-08-05
+     * @since   2016-01-30
      */
     protected function _GetCmdFunctions(): array
     {
@@ -174,33 +175,45 @@ class infohub_encrypt extends infohub_base
         $in['encrypted_text'] = str_replace(' ', '+', $in['encrypted_text']);
 
         $cipherText = base64_decode($in['encrypted_text'], $strict = true);
-        if (empty($cipherText)) {
+        if ($cipherText === false) {
+            $message = 'Could not get the cipherText';
+            $cipherText = '';
+            goto leave;
+        }
+
+        if (empty($cipherText) === true) {
             $message = 'Could not base64 decode the encrypted text';
             goto leave;
         }
 
         $ivLength = openssl_cipher_iv_length($in['method']);
-        if (empty($ivLength)) {
+        if ($ivLength === false) {
+            $message = 'Could not get the ivLength';
+            $ivLength = 0;
+            goto leave;
+        }
+
+        if (empty($ivLength) === true) {
             $message = 'The ivLength is zero';
             goto leave;
         }
 
         // retrieves the IV that we attached first to the encoded data.
         $iv = substr($cipherText, 0, $ivLength);
-        if (empty($iv)) {
+        if (empty($iv) === true) {
             $message = 'The iv is empty';
             goto leave;
         }
 
         // retrieves the cipher text by removing the iv we attached at the beginning
         $cipherText = substr($cipherText, $ivLength);
-        if (empty($cipherText)) {
+        if (empty($cipherText) === true) {
             $message = 'The encrypted text is empty';
             goto leave;
         }
 
         $key = $this->_GetKey($in['encryption_key']);
-        if (empty($key)) {
+        if (empty($key) === true) {
             $message = 'The key is empty';
             goto leave;
         }
@@ -208,6 +221,7 @@ class infohub_encrypt extends infohub_base
         $plainTextDecrypted = openssl_decrypt($cipherText, $in['method'], $key, OPENSSL_RAW_DATA, $iv);
         if ($plainTextDecrypted === false) {
             $message = 'Could not decrypt the encrypted data';
+            $plainTextDecrypted = '';
             goto leave;
         }
 
@@ -368,20 +382,21 @@ class infohub_encrypt extends infohub_base
 
     /**
      * Read the encryption string from the configuration.
-     * @param string $encryptionKey | Plain text encryption key
-     * @return string | Hashed encryption string
+     *
+     * @param  string  $encryptionKey  Plain text encryption key
+     * @return string Hashed encryption string
      * @author  ?
      * @version 2018-03-15
      * @since   2016-01-30
      */
-    protected function _GetKey($encryptionKey = '')
+    protected function _GetKey(string $encryptionKey = ''): string
     {
         // the key should be random binary, use scrypt, bcrypt or PBKDF2 to
         // convert a string into a key
         // key is specified using hexadecimal
 
-        if (empty($encryptionKey)) {
-            return false;
+        if (empty($encryptionKey) === true) {
+            return '';
         }
 
         // $hashedEncryptionKey = password_hash($encryptionKey, PASSWORD_BCRYPT, array('cost' => 12));
@@ -397,13 +412,17 @@ class infohub_encrypt extends infohub_base
      * @param string $method
      * @return string
      * @author  ?
-     * @version 2018-03-15
+     * @version 2021-12-23
      * @since   2016-01-30
      */
-    protected function _GenerateIv(string $method = 'AES-128-CBC')
+    protected function _GenerateIv(string $method = 'AES-128-CBC'): string
     {
         $ivLength = openssl_cipher_iv_length($method);
-        $iv = str_repeat('0', $ivLength);
+        if ($ivLength === false) {
+            $ivLength = 0;
+        }
+
+        $iv = str_repeat($stringToRepeat ='0', $ivLength);
         $isStrong = false; // Will be set to true by the function if the algorithm used was cryptographically secure
         $try = 5;
         do {
@@ -421,7 +440,7 @@ class infohub_encrypt extends infohub_base
      * @return array
      * @throws Exception
      */
-    protected function create_encryption_key(array $in = [])
+    protected function create_encryption_key(array $in = []): array
     {
         $default = [
             'length_in_bytes' => 255
@@ -429,13 +448,18 @@ class infohub_encrypt extends infohub_base
         $in = $this->_Default($default, $in);
 
         $data = '';
-        if (function_exists('random_bytes')) {
+
+        if (function_exists('random_bytes') === true) {
             $data = random_bytes($in['length_in_bytes']); // PHP >= 7
-        } else {
-            if (function_exists('openssl_random_pseudo_bytes')) {
-                $data = openssl_random_pseudo_bytes($in['length_in_bytes']); // PHP < 7
-            }
+            goto leave;
         }
+
+        if (function_exists('openssl_random_pseudo_bytes') === true) {
+            $data = openssl_random_pseudo_bytes($in['length_in_bytes']); // PHP < 7
+            goto leave;
+        }
+
+        leave:
 
         return [
             'answer' => 'true',

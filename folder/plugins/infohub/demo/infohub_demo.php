@@ -50,10 +50,10 @@ class infohub_demo extends infohub_base
     /**
      * Public functions in this plugin
      *
-     * @return mixed
-     * @since   2016-04-17
+     * @return array
      * @author  Peter Lembke
      * @version 2016-04-17
+     * @since   2016-04-17
      */
     protected function _GetCmdFunctions(): array
     {
@@ -304,13 +304,16 @@ class infohub_demo extends infohub_base
     /**
      * Trims the string and reverses the characters
      *
-     * @param $row
+     * @param  string  $row
      * @return string
      */
-    protected function _Reverse($row): string
+    protected function _Reverse(
+        string $row = ''
+    ): string
     {
         $row = trim($row);
         $row = strrev($row);
+
         return $row;
     }
 
@@ -426,9 +429,6 @@ class infohub_demo extends infohub_base
             );
         }
 
-        if ($in['step'] === 'response_step') {
-        }
-
         return [
             'answer' => 'true',
             'message' => 'Finished calling a child function',
@@ -479,9 +479,6 @@ class infohub_demo extends infohub_base
                     ],
                 ]
             );
-        }
-
-        if ($in['step'] === 'response_step') {
         }
 
         return [

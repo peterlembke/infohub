@@ -52,10 +52,11 @@ class infohub_random extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-06-17
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-01-07
+     * @since   2017-06-17
      */
     protected function _GetCmdFunctions(): array
     {

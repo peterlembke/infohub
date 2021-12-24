@@ -52,10 +52,11 @@ class mydemo_myplugin extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @version 2020-07-31
+     *
+     * @return array
      * @since   2020-07-31
      * @author  Peter Lembke
-     * @return mixed
+     * @version 2020-07-31
      */
     protected function _GetCmdFunctions(): array
     {
@@ -63,7 +64,9 @@ class mydemo_myplugin extends infohub_base
             'my_function' => 'emerging'
         ];
 
-        return parent::_GetCmdFunctionsBase($list);
+        $response = parent::_GetCmdFunctionsBase($list);
+
+        return $response;
     }
 
     // ***********************************************************

@@ -54,7 +54,8 @@ class infohub_checksum extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     *
+     * @return array
      * @since   2018-03-03
      * @author  Peter Lembke
      * @version 2018-03-03
@@ -402,7 +403,7 @@ class infohub_checksum extends infohub_base
     /**
      * Get list with checksum methods you can use
      * @param array $in
-     * @return array|bool
+     * @return array
      * @author  Peter Lembke
      * @version 2018-08-10
      * @since   2018-08-10

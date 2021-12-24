@@ -52,10 +52,11 @@ class infohub_plugin extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2013-11-22
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2016-01-25
+     * @since   2013-11-22
      */
     protected function _GetCmdFunctions(): array
     {
@@ -566,12 +567,14 @@ class infohub_plugin extends infohub_base
         $data = file_get_contents($fileName);
         if (empty($data) === true) {
             $message = 'File exist but are empty';
+            $data = '';
             goto leave;
         }
 
         $data = json_decode($data, true);
         if (is_array($data) === false) {
             $message = 'File data could not be decoded';
+            $data = [];
             goto leave;
         }
 
@@ -630,6 +633,7 @@ class infohub_plugin extends infohub_base
         $data = file_get_contents($fileName);
         if (empty($data) === true) {
             $message = 'File exist but are empty';
+            $data = '';
             goto leave;
         }
 
@@ -855,7 +859,12 @@ class infohub_plugin extends infohub_base
             $pluginPath = $response['plugin_path'];
 
             if (file_exists($pluginPath) === true) {
-                $checksum = $this->_Hash(trim(file_get_contents($pluginPath)));
+                $contentString = file_get_contents($pluginPath);
+                if ($contentString === false) {
+                    $contentString = '';
+                }
+
+                $checksum = $this->_Hash(trim($contentString));
                 if ($checksum === $data['checksum']) {
                     // Plugins that still have the same checksum as locally will get their
                     // timestamp set to now so they last a bit longer in the local cache

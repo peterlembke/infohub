@@ -19,7 +19,7 @@
 
 var $GLOBALS = {};
 $GLOBALS.infohub_error_message = '';
-$GLOBALS.infohub_minimum_error_level = 'warn'; // log, info, warn or error
+$GLOBALS.infohub_minimum_error_level = 'info'; // log, info, warn or error
 
 window.onerror = function($msg, $url, $line) {
     'use strict';

@@ -23,13 +23,15 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * @since       2016-12-27
  * @copyright   Copyright (c) 2016, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/password/infohub_password.md Documentation
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/password/infohub_password.md
+ *     Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_password extends infohub_base
 {
     /**
      * Version information for this plugin
+     *
      * @return  string[]
      * @since 2016-12-27
      * @author  Peter Lembke
@@ -54,10 +56,11 @@ class infohub_password extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since 2016-12-27
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2017-04-02
+     * @since 2016-12-27
      */
     protected function _GetCmdFunctions(): array
     {
@@ -74,13 +77,14 @@ class infohub_password extends infohub_base
 
     /**
      * Generate an array with new passwords
-     * @param array $in
-     * @return array|bool
+     *
+     * @param  array  $in
+     * @return array
+     * @since   2016-12-27
      * @author  Peter Lembke
      * @version 2017-04-02
-     * @since   2016-12-27
      */
-    protected function generate(array $in = [])
+    protected function generate(array $in = []): array
     {
         $default = [
             'number_of_passwords' => 30, // Number of passwords you want to select from
@@ -110,19 +114,25 @@ class infohub_password extends infohub_base
 
     /**
      * Generates a password
-     * @param int $length | wanted password length, give 0 for a random length 16-64 characters
-     * @param int $maxGroupNumber | Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
+     *
+     * @param  int  $length  Wanted password length, give 0 for a random length 16-64 characters
+     * @param  int  $maxGroupNumber  Gives a mix from 5 groups 0-4. Some sites accept only group 0-2.
      * @return string
      */
-    protected function _Generate(int $length = 0, int $maxGroupNumber = 4): string
-    {
+    protected function _Generate(
+        int $length = 0,
+        int $maxGroupNumber = 4
+    ): string {
+
         if ($length === 0) {
             $length = $this->_GetRandomLength();
         }
         $groupString = $this->_GetGroupString($length);
         $groupStringArray = str_split($groupString);
+
         $result = '';
-        foreach ($groupStringArray as $groupNumber) {
+        foreach ($groupStringArray as $groupNumberString) {
+            $groupNumber = (int) $groupNumberString;
             $result = $result . $this->_GetRandomGroupCharacter($groupNumber, $maxGroupNumber);
         }
 
@@ -133,11 +143,13 @@ class infohub_password extends infohub_base
 
     /**
      * A 16 character password is shamelessly small but some like it short.
-     * @return mixed
+     *
+     * @return int
      */
     protected function _GetRandomLength()
     {
         $length = $this->_Random(16, 64);
+
         return $length;
     }
 
@@ -147,27 +159,35 @@ class infohub_password extends infohub_base
      * Constructs a string with at least enough group numbers to cover the wanted password length.
      * Then shuffle the group numbers.
      * Then cut the string into the right length. (This can be an issue but then just try another password)
-     * @param int $length
+     *
+     * @param  int  $length
      * @return string
      */
-    protected function _GetGroupString($length = 64)
-    {
+    protected function _GetGroupString(
+        int $length = 64
+    ): string {
+
         $start = '0000011111222333344';
         $copies = (int)ceil($length / strlen($start));
         $result = str_repeat($start, $copies);
         $result = str_shuffle($result);
         $result = substr($result, 0, $length);
+
         return $result;
     }
 
     /**
      * Get a random character from the group of characters
-     * @param $groupNumber
-     * @param $maxGroupNumber
+     *
+     * @param  int  $groupNumber
+     * @param  int  $maxGroupNumber
      * @return string
      */
-    protected function _GetRandomGroupCharacter($groupNumber, $maxGroupNumber)
-    {
+    protected function _GetRandomGroupCharacter(
+        int $groupNumber = 0,
+        int $maxGroupNumber = 0
+    ): string {
+
         $group = $this->_GetGroupData($groupNumber, $maxGroupNumber);
         $length = strlen($group);
         if ($length <= 0) {
@@ -176,17 +196,22 @@ class infohub_password extends infohub_base
 
         $position = $this->_Random(0, $length - 1);
         $character = substr($group, $position, 1);
+
         return $character;
     }
 
     /**
      * Gives you the best random number that your version of PHP can offer
-     * @param int $min
-     * @param int $max
+     *
+     * @param  int  $min
+     * @param  int  $max
      * @return int
      */
-    protected function _Random($min = 0, $max = 0): int
-    {
+    protected function _Random(
+        int $min = 0,
+        int $max = 0
+    ): int {
+
         $randomNumber = 0;
         try {
             if (function_exists('random_int')) { // Requires PHP 7
@@ -204,12 +229,16 @@ class infohub_password extends infohub_base
     /**
      * Often passwords require characters from different groups,
      * a CAPITAL letter, a number, a special character etc.
-     * @param int $groupNumber | Get one of the lines
-     * @param int $maxGroupNumber | In some cases special characters are not allowed
-     * @return mixed
+     *
+     * @param  int  $groupNumber  Get one of the lines
+     * @param  int  $maxGroupNumber  In some cases special characters are not allowed
+     * @return string
      */
-    protected function _GetGroupData($groupNumber = 0, $maxGroupNumber = 4)
-    {
+    protected function _GetGroupData(
+        int $groupNumber = 0,
+        int $maxGroupNumber = 4
+    ): string {
+
         if ($groupNumber < 0) {
             $groupNumber = 0;
         }

@@ -49,16 +49,18 @@ class infohub_democall_sibling_grandchild extends infohub_base
     /**
      * Public functions in this plugin
      *
-     * @return mixed
-     * @since   2019-03-09
+     * @return array
      * @author  Peter Lembke
      * @version 2019-03-09
+     * @since   2019-03-09
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'my_test' => 'normal'
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

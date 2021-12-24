@@ -928,6 +928,7 @@ function infohub_keyboard() {
             'shift_key': 'false',
             'key_code': 0,
             'step': 'step_start',
+            'event_type': '',
             'data_back': {
                 'key': '',
             },
@@ -942,6 +943,14 @@ function infohub_keyboard() {
             $message = 'Nothing to report';
 
         if ($in.step === 'step_start') {
+
+            if ($in.event_type === 'ping') {
+                internal_Log({
+                    'function': 'event_message',
+                    'message': 'Just to wake up the plugin, it has event observers that must be run',
+                    'level': 'info', // log, info, warn, error
+                });
+            }
 
             const $key = _ConvertToKey($in);
 

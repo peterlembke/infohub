@@ -6,7 +6,7 @@ The Infohub software is licensed under GNU GENERAL PUBLIC LICENSE Version 3. You
 The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in this document.
 
 Created at: 2020-02-08 by Peter Lembke, Infohub
-Updated at: 2021-08-01 by Peter Lembke, Infohub
+Updated at: 2021-09-23 by Peter Lembke, Infohub
 
 ## Words we use in this document
 - **you** - that is you the responsible party for the site.

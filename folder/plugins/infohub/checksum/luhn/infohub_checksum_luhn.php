@@ -51,7 +51,8 @@ class infohub_checksum_luhn extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     *
+     * @return array
      * @since   2016-04-16
      * @author  Peter Lembke
      * @version 2018-03-03
@@ -72,7 +73,7 @@ class infohub_checksum_luhn extends infohub_base
 
     /**
      * Main checksum calculation
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2016-04-16
@@ -102,7 +103,7 @@ class infohub_checksum_luhn extends infohub_base
     /**
      * Main checksum verification
      *
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2016-04-16
@@ -138,36 +139,36 @@ class infohub_checksum_luhn extends infohub_base
      *
      * https://en.wikipedia.org/wiki/Luhn_algorithm
      * http://rosettacode.org/wiki/Luhn_test_of_credit_card_numbers
-     * @param string $valueString
+     * @param  string  $valueString
      * @return string
      */
-    protected function _LuhnCalculateChecksum($valueString = ''): string
+    protected function _LuhnCalculateChecksum(string $valueString = ''): string
     {
         $sum = 0;
         if ($valueString !== '') {
             $numbers = str_split($valueString, 1);
-            foreach ($numbers as $index => $number) {
+            foreach ($numbers as $index => $numberString) {
                 if ($index % 2 === 1) {
-                    $number = (string)(2 * $number);
-                    $number = $this->_LuhnSum($number);
+                    $numberString = (string) (2 * (int) $numberString);
+                    $numberString = $this->_LuhnSum($numberString);
                 }
-                $sum = $sum + (int)$number;
+                $sum = $sum + (int) $numberString;
             }
         }
 
-        $checksumDigit = (string)($sum * 9);
+        $checksumDigit = (string) ($sum * 9);
         $checksumDigit = substr($checksumDigit, -1);
-        $result = $valueString . $checksumDigit;
+        $result = $valueString.$checksumDigit;
 
         return $result;
     }
 
     /**
      * Give a string with digits. The sum of the digits will be returned.
-     * @param string $valueString
+     * @param  string  $valueString
      * @return int
      */
-    protected function _LuhnSum($valueString = ''): int
+    protected function _LuhnSum(string $valueString = ''): int
     {
         $numbers = str_split($valueString, 1);
         $sum = 0;
@@ -179,10 +180,10 @@ class infohub_checksum_luhn extends infohub_base
 
     /**
      * Give the value. The last digit will be checked if it is valid
-     * @param string $valueString
+     * @param  string  $valueString
      * @return bool
      */
-    protected function _LuhnVerifyChecksum($valueString = ''): bool
+    protected function _LuhnVerifyChecksum(string $valueString = ''): bool
     {
         $checksum = substr($valueString, -1);
         $valueString = substr($valueString, 0, -1);
@@ -197,14 +198,18 @@ class infohub_checksum_luhn extends infohub_base
 
     /**
      * Remove all characters from the string that is not 0-9
-     * @param string $valueString
+     * @param  string  $valueString
      * @return string
      */
-    protected function _RemoveAllButNumbers($valueString = ''): string
+    protected function _RemoveAllButNumbers(string $valueString = ''): string
     {
         $pattern = '/\D/';
         $replacement = '';
         $output = preg_replace($pattern, $replacement, $valueString);
+
+        if (is_null($output) === true) {
+            $output = $valueString;
+        }
 
         return $output;
     }

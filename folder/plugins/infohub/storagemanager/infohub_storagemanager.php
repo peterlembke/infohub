@@ -47,10 +47,11 @@ class infohub_storagemanager extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2010-04-15
+     *
+     * @return string[]
      * @author  Peter Lembke
      * @version 2017-07-23
+     * @since   2010-04-15
      */
     protected function _GetCmdFunctions(): array
     {

@@ -419,6 +419,7 @@ function infohub_render() {
                         'source_node': 'client',
                         'source_plugin': 'infohub_render',
                         'source_function': 'get_test_options',
+                        'source_data': {}
                     };
                     $needOptionsItemNameIndexed[$itemName] = _Default($default, $data);
                 }
@@ -451,7 +452,7 @@ function infohub_render() {
                         'plugin': $data.source_plugin,
                         'function': $data.source_function,
                     },
-                    'data': {},
+                    'data': $data.source_data,
                     'data_back': {
                         'how': $in.how,
                         'where': $in.where,

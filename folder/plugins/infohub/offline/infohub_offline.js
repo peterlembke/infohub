@@ -924,6 +924,11 @@ function infohub_offline() {
 
         if ('serviceWorker' in navigator) {
         } else {
+            internal_Log({
+                'function_name': 'update_service_worker',
+                'message': 'There is no service worker available. Probably because of invalid HTTPS certificate',
+                'level': 'info', // log, info, warn, error
+            });
             $in.step = 'step_end';
         }
 
@@ -931,6 +936,11 @@ function infohub_offline() {
         if ('$renderedTime' in window) {
             $localRenderedTime = $renderedTime;
         } else {
+            internal_Log({
+                'function_name': 'update_service_worker',
+                'message': 'There is no $renderedTime available in window. Exiting',
+                'level': 'info', // log, info, warn, error
+            });
             $in.step = 'step_end';
         }
 
@@ -938,12 +948,23 @@ function infohub_offline() {
         if ('$renderedChecksum' in window) {
             $localRenderedChecksum = $renderedTime;
         } else {
+            internal_Log({
+                'function_name': 'update_service_worker',
+                'message': 'There is no $renderedChecksum available in window. Exiting',
+                'level': 'info', // log, info, warn, error
+            });
             $in.step = 'step_end';
         }
 
         let $time = $localRenderedTime;
 
         if ($in.step === 'step_load_data') {
+
+            internal_Log({
+                'function_name': 'update_service_worker',
+                'message': 'We update_service_worker',
+                'level': 'info', // log, info, warn, error
+            });
 
             return _SubCall({
                 'to': {
@@ -1095,6 +1116,15 @@ function infohub_offline() {
         $in.status = _GetStatus($in.online);
 
         if ($in.step === 'step_start') {
+
+            if ($in.event_type === 'ping') {
+                internal_Log({
+                    'function': 'event_message',
+                    'message': 'Just to wake up the plugin, it has event observers that must be run',
+                    'level': 'info', // log, info, warn, error
+                });
+            }
+
             if ($in.event_type === 'online') {
                 $in.data_back.key = $in.status;
                 const $messagesOut = _GetSubscribersMessages($in.status);

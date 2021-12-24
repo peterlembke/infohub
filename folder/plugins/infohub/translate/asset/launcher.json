@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_translate",
     "title": "Translate",
-    "description": "Create template files that you can translate",
+    "description": "Create + validate translation files.",
     "keywords": "translations,translate,language",
     "uses": [
         "infohub_language",

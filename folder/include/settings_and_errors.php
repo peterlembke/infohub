@@ -32,7 +32,7 @@ ini_set('display_startup_errors', '1'); // Yes, let every error show in the brow
 ini_set('log_errors', '1');
 ini_set('error_log', LOG . DS . 'php-error.log');
 
-set_error_handler('myErrorHandler');
+set_error_handler('myErrorhandler');
 set_exception_handler('myExceptionHandler');
 register_shutdown_function('shutdownFunction');
 
@@ -46,31 +46,44 @@ $GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'lo
 
 /**
  * Execution errors end up here
- * @param $code
- * @param $message
- * @param $file
- * @param $line
+ *
+ * @param  int  $errorNumber
+ * @param  string  $message
+ * @param  string  $file
+ * @param  int  $line
+ * @return bool
  */
-function myErrorHandler($code, $message, $file, $line)
-{
+function myErrorHandler(
+    int $errorNumber = 0,
+    string $message = '',
+    string $file = '',
+    int $line = 0
+): bool {
+
     $toErrorLog = [
         'type' => 'error',
-        'code' => $code,
+        'code' => $errorNumber,
         'message' => $message,
         'file' => $file,
         'line' => $line
     ];
     $jsonMessage = json_encode($toErrorLog, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
+    if (empty($jsonMessage) === true) {
+        $jsonMessage = '{ "message": "Failed to json encode the real error message"}';
+    }
+
     error_log($jsonMessage);
     $GLOBALS['infohub_error_message'] = $jsonMessage; // Only used by infohub_base::test
     echo $jsonMessage;
+
+    return true;
 }
 
 /**
  * You end up here on all unhandled PHP exceptions
- * @param $exception
+ * @param Throwable $exception
  */
-function myExceptionHandler($exception)
+function myExceptionHandler(Throwable $exception): void
 {
     $toErrorLog = [
         'type' => 'exception',
@@ -80,8 +93,12 @@ function myExceptionHandler($exception)
         'line' => $exception->getLine()
     ];
     $jsonMessage = json_encode($toErrorLog, JSON_PRETTY_PRINT & JSON_PRESERVE_ZERO_FRACTION);
+    if (empty($jsonMessage) === true) {
+        $jsonMessage = '{ "message": "Failed to json encode the real error message"}';
+    }
     error_log($jsonMessage);
     $GLOBALS['infohub_error_message'] = $jsonMessage; // Only used by infohub_base::test
+
     echo $jsonMessage;
 }
 
@@ -89,7 +106,7 @@ function myExceptionHandler($exception)
  * Function called when the normal execution have stopped. We are out of script or an exit are called.
  * Will also be called if there are an error.
  */
-function shutdownFunction()
+function shutdownFunction(): void
 {
     $lastError = error_get_last();
     if (isset($lastError['type'])) {

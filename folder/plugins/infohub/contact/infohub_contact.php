@@ -50,10 +50,11 @@ class infohub_contact extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2018-03-03
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-03-03
+     * @since   2018-03-03
      */
     protected function _GetCmdFunctions(): array
     {
@@ -540,6 +541,7 @@ class infohub_contact extends infohub_base
         $message = 'Nothing to report from load_role_list';
         $ok = 'false';
         $roleList = [];
+        $options = [];
 
         if ($in['from_plugin']['node'] !== 'client') {
             $message = 'Only node client are allowed to use function load_role_list';

@@ -11,15 +11,15 @@ Calls a web page/API with
 
 This plugin enables your plugins to call services on the internet. This plugin will be used by the Infohub server to
 reach other Infohub servers. Also used to get data from Web APIs. The main thing now is that I want to support the
-CouchDb database. It has a HTTP interface.
+CouchDb database. It has an HTTP interface.
 
 # Other Infohub servers
 
 This is the communication part. There will be more code in this plugin around this in future releases.
 
-# REST APIs
+# REST and GraphQL APIs
 
-Support will be implemented later for using REST APIs with JSON.
+Support will be implemented later for using REST and GraphQL APIs with JSON.
 
 [/columns]
 
@@ -33,4 +33,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2020-10-04 by Peter Lembke  
-Updated 2020-10-04 by Peter Lembke  
+Updated 2021-09-06 by Peter Lembke  

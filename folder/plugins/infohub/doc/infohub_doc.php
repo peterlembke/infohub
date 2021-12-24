@@ -50,10 +50,10 @@ class infohub_doc extends infohub_base
     /**
      * Public functions in this plugin
      *
-     * @return mixed
-     * @since   2016-04-02
+     * @return array
      * @author  Peter Lembke
      * @version 2019-05-30
+     * @since   2016-04-02
      */
     protected function _GetCmdFunctions(): array
     {
@@ -215,7 +215,16 @@ class infohub_doc extends infohub_base
 
         $dataOut = $this->_AddRootDocuments($dataOut);
 
-        $checksum = md5(json_encode($dataOut));
+        $jsonDataOut = json_encode($dataOut);
+        if ($jsonDataOut === false) {
+            return [
+                'answer' => 'false',
+                'message' => 'Could not json encode the data in infohub_doc',
+                'data' => []
+            ];
+        }
+
+        $checksum = md5($jsonDataOut);
         if ($in['checksum'] === $checksum) {
             $dataOut = [];
             $checksumSame = 'true';
@@ -245,7 +254,9 @@ class infohub_doc extends infohub_base
      * @version 2019-05-30
      * @since   2016-04-02
      */
-    protected function _AddRootDocuments(array $dataOut = []): array
+    protected function _AddRootDocuments(
+        array $dataOut = []
+    ): array
     {
         $dataOut['root']['root'] = [
             'doc_name' => 'root',
@@ -339,7 +350,10 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _CleanName(string $area = '', string $name = ''): string
+    protected function _CleanName(
+        string $area = '',
+        string $name = ''
+    ): string
     {
         if ($area === 'root') {
             return $name;
@@ -348,11 +362,16 @@ class infohub_doc extends infohub_base
         $name = strtolower($name);
 
         // Replace all characters with empty string except a-z 0-9 and underscore _
-        $name = preg_replace('/[^a-z0-9_]/', '', $name);
+        $pattern = '/[^a-z0-9_]/';
+        $replacement = '';
+        $value = preg_replace($pattern, $replacement, $name);
+        if (is_null($value) === false) {
+            $name = $value;
+        }
 
         // Proper doc names have at least one underscore that divide the string. Example: infohub_doc
-        $parts = explode('_', $name);
-        if (count($parts) < 1) {
+        $parts = explode($separator = '_', $name);
+        if (empty($parts) === true) {
             $name = '';
         }
 
@@ -376,7 +395,8 @@ class infohub_doc extends infohub_base
         string $name = '',
         string $extension = 'md',
         string $basePath = ''
-    ): string {
+    ): string
+    {
         $okExtensions = ['md', 'markdown', 'css'];
         if (in_array($extension, $okExtensions) === false) {
             return '';
@@ -405,7 +425,11 @@ class infohub_doc extends infohub_base
      * @author  Peter Lembke
      * @version 2019-05-30
      */
-    protected function _GetImageFileName(string $docName = '', string $imageName = '', string $basePath = ''): string
+    protected function _GetImageFileName(
+        string $docName = '',
+        string $imageName = '',
+        string $basePath = ''
+    ): string
     {
         $docPath = str_replace('_', DS, $docName);
         $path = $basePath . DS . $docPath . DS . 'images' . DS . $imageName;
@@ -424,7 +448,9 @@ class infohub_doc extends infohub_base
      * @version 2019-05-30
      * @since   2016-04-02
      */
-    protected function _GetBasePath(string $area = 'main'): string
+    protected function _GetBasePath(
+        string $area = 'main'
+    ): string
     {
         $basePath = '';
 
@@ -450,11 +476,17 @@ class infohub_doc extends infohub_base
      * @version 2019-05-30
      * @since   2016-04-02
      */
-    protected function _GetFileContents(string $file = ''): string
+    protected function _GetFileContents(
+        string $file = ''
+    ): string
     {
-        $fileContents = '';
-        if (file_exists($file)) {
-            $fileContents = file_get_contents($file);
+        if (file_exists($file) === false) {
+            return '';
+        }
+
+        $fileContents = file_get_contents($file);
+        if ($fileContents === false) {
+            return '';
         }
 
         return $fileContents;
@@ -474,7 +506,11 @@ class infohub_doc extends infohub_base
      * @author  Peter Lembke
      * @uses _ImageHtml
      */
-    protected function _HandleImages(string $text = '', string $docName = '', string $area = ''): string
+    protected function _HandleImages(
+        string $text = '',
+        string $docName = '',
+        string $area = ''
+    ): string
     {
         if ($area === 'root') {
             return $text;
@@ -489,13 +525,11 @@ class infohub_doc extends infohub_base
                 continue;
             }
 
-            $imageBase64Data = $this->_ImageBase64Data(
-                [
-                    'area' => $area,
-                    'doc_name' => $docName,
-                    'image_name' => $imageName
-                ]
-            );
+            $imageBase64Data = $this->_ImageBase64Data([
+                'area' => $area,
+                'doc_name' => $docName,
+                'image_name' => $imageName
+            ]);
 
             $replaceWith = '(' . $imageBase64Data . ')';
 
@@ -517,7 +551,9 @@ class infohub_doc extends infohub_base
      * @version 2019-05-30
      * @since   2016-04-02
      */
-    protected function _ImageBase64Data(array $in = []): string
+    protected function _ImageBase64Data(
+        array $in = []
+    ): string
     {
         $default = [
             'area' => '',
@@ -551,7 +587,10 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllDocNamesByArea(string $area = 'main', string $fileExtension = 'md'): array
+    protected function _GetAllDocNamesByArea(
+        string $area = 'main',
+        string $fileExtension = 'md'
+    ): array
     {
         $basePath = $this->_GetBasePath($area);
 
@@ -574,7 +613,10 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllImageNamesByAreaAndDocName(string $area = 'main', $docName = ''): array
+    protected function _GetAllImageNamesByAreaAndDocName(
+        string $area = 'main',
+        string $docName = ''
+    ): array
     {
         $basePath = $this->_GetBasePath($area);
         $pluginPath = str_replace('_', DS, $docName);
@@ -604,8 +646,12 @@ class infohub_doc extends infohub_base
      * @author  Peter Lembke
      * @version 2019-05-30
      */
-    protected function _GetPartOfString(string $string = '', string $findFirst = '', string $findLast = ''): string
-    {
+    protected function _GetPartOfString(
+        string $string = '',
+        string $findFirst = '',
+        string $findLast = ''
+    ): string {
+
         $subString = '';
 
         $foundFirst = strpos($string, $findFirst);
@@ -636,8 +682,11 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllDocNames(array $fileNamesArray = [], string $basePath = ''): array
-    {
+    protected function _GetAllDocNames(
+        array $fileNamesArray = [],
+        string $basePath = ''
+    ): array {
+
         $docNamesArray = [];
 
         foreach ($fileNamesArray as $fullFileNameWithPath) {
@@ -669,23 +718,32 @@ class infohub_doc extends infohub_base
      * @param int $flags
      * @return array
      * @see https://thephpeffect.com/recursive-glob-vs-recursive-directory-iterator/ Recursive
-     * @version 2019-05-30
+     * @version 2021-12-23
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _RecursiveSearch(string $pattern = '', int $flags = 0): array
-    {
-        $files = glob($pattern, $flags);
+    protected function _RecursiveSearch(
+        string $pattern = '',
+        int $flags = 0
+    ): array {
 
-        $directoryPattern = dirname($pattern) . '/*';
-        $directoriesArray = glob($directoryPattern, GLOB_ONLYDIR | GLOB_NOSORT);
-
-        foreach ($directoriesArray as $directory) {
-            $subDirectoryPattern = $directory . '/' . basename($pattern);
-            $subDirectoryFiles = $this->_RecursiveSearch($subDirectoryPattern, $flags);
-            $files = array_merge($files, $subDirectoryFiles);
+        $fileArray = glob($pattern, $flags);
+        if ($fileArray === false) {
+            $fileArray = [];
         }
 
-        return $files;
+        $directoryPattern = dirname($pattern) . '/*';
+        $directoryArray = glob($directoryPattern, GLOB_ONLYDIR | GLOB_NOSORT);
+        if ($directoryArray === false) {
+            $directoryArray = [];
+        }
+
+        foreach ($directoryArray as $directoryName) {
+            $subDirectoryPattern = $directoryName . '/' . basename($pattern);
+            $subDirectoryFileArray = $this->_RecursiveSearch($subDirectoryPattern, $flags);
+            $fileArray = array_merge($fileArray, $subDirectoryFileArray);
+        }
+
+        return $fileArray;
     }
 }

@@ -51,7 +51,8 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     *
+     * @return array
      * @since   2016-04-17
      * @author  Peter Lembke
      * @version 2018-07-29
@@ -72,7 +73,7 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Main checksum calculation
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2016-04-16
@@ -99,7 +100,7 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Main checksum verification
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2016-04-16
@@ -131,8 +132,9 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Clean up the personnummer
-     * @param string $value
-     * @return int
+     *
+     * @param  string  $value
+     * @return string
      */
     protected function _CleanUpPersonnummer(string $value = ''): string
     {
@@ -146,31 +148,32 @@ class infohub_checksum_personnummer extends infohub_base
      * except that they double the odd numbers instead of the even numbers.
      * http://www.skatteverket.se/privat/folkbokforing/personnummer/personnumretsuppbyggnad.4.18e1b10334ebe8bc80001502.html
      * Example from Skatteverket: 640823–323, remove the - and it calculates to 6408233234
-     * @param string $valueString
+     *
+     * @param  string  $valueString
      * @return string
      */
     protected function _PersonnummerCalculateChecksum(string $valueString = ''): string
     {
         $numbers = str_split($valueString, 1);
         $sum = 0;
-        foreach ($numbers as $index => $number) {
+        foreach ($numbers as $index => $numberString) {
             if ($index % 2 === 0) {
-                $number = (string)(2 * $number);
-                $number = $this->_PersonnummerSum($number);
+                $numberString = (string) (2 * (int) $numberString);
+                $numberString = $this->_PersonnummerSum($numberString);
             }
-            $sum = $sum + $number;
+            $sum = $sum + (int) $numberString;
         }
 
-        $checksumDigit = (string)($sum * 9);
+        $checksumDigit = (string) ($sum * 9);
         $checksumDigit = substr($checksumDigit, $offset = -1);
-        $result = $valueString . $checksumDigit;
+        $result = $valueString.$checksumDigit;
 
         return $result;
     }
 
     /**
      * Give a string with digits. The sum of the digits will be returned.
-     * @param string $valueString
+     * @param  string  $valueString
      * @return int
      */
     protected function _PersonnummerSum(string $valueString = ''): int
@@ -186,7 +189,7 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Give a full personnummer. The last digit will be checked if it is valid
-     * @param string $valueString
+     * @param  string  $valueString
      * @return bool
      */
     protected function _PersonnummerVerifyChecksum(string $valueString = ''): bool
@@ -204,14 +207,18 @@ class infohub_checksum_personnummer extends infohub_base
 
     /**
      * Remove all characters from the string that is not 0-9
-     * @param string $valueString
+     * @param  string  $valueString
      * @return string
      */
-    protected function _RemoveAllButNumbers($valueString = ''): string
+    protected function _RemoveAllButNumbers(string $valueString = ''): string
     {
         $pattern = '/\D/';
         $replacement = '';
         $output = preg_replace($pattern, $replacement, $valueString);
+
+        if (is_null($output) === true) {
+            $output = $valueString;
+        }
 
         return $output;
     }

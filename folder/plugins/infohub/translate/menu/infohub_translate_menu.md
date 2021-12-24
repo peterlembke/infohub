@@ -1,10 +1,10 @@
-# Infohub Tools Menu
+# Infohub Translate Menu
 
-Displays a menu with all tools
+Displays a menu with all options for your translation needs.
 
 # Introduction
 
-This plugin renders a menu with all the tools.  
+This plugin renders a menu with all the translation options.  
 Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
 
 # License
@@ -17,4 +17,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2018-09-18 by Peter Lembke  
-Updated 2018-09-18 by Peter Lembke  
+Updated 2021-09-16 by Peter Lembke  

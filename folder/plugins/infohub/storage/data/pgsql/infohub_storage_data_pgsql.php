@@ -52,18 +52,21 @@ class infohub_storage_data_pgsql extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2014-12-06
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2017-08-13
+     * @since   2014-12-06
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'read' => 'normal',
             'write' => 'normal',
             'read_paths' => 'normal', // Get a list of matching paths
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**
@@ -826,6 +829,8 @@ EOD;
         try {
             $in['connection']->beginTransaction(); // Begin transaction
             $in['sql'] = $this->_SubstituteData($in);
+
+
             $stmt = $this->_BindData($in);
             $response = $stmt->execute();
 
@@ -842,7 +847,10 @@ EOD;
                 $response = $this->_Boolean($response);
             }
 
-            $in['connection']->commit(); // End transaction
+            $inTransaction = $in['connection']->inTransaction();
+            if ($inTransaction === true) {
+                $in['connection']->commit(); // End transaction
+            }
 
         } catch (PDOException $e) {
             $in['connection']->rollback();
@@ -887,22 +895,24 @@ EOD;
      * Does a real data field binding in the sql query
      * All parameters in the sql query that looks like this :myparamname
      * are bound to a value. This means that PHP decide if the value should be wrapped with " or not.
-     * @param array $in
-     * @return mixed
+     * @param  array  $in
+     * @return PDOStatement
      */
-    protected function _BindData(array $in = [])
+    protected function _BindData(array $in = []): PDOStatement
     {
+        /** @var PDOStatement $stmt */
         $stmt = $in['connection']->prepare($in['sql']);
         foreach ($in as $name => $data) {
             if ($name === 'connection' or $name === 'sql' or $name === 'query') {
                 continue;
             }
-            $param = ':' . $name . '';
-            if (strpos($in['sql'], $param) === false) {
+            $param = ':' . $name;
+            if (str_contains($in['sql'], $param) === false) {
                 continue;
             }
             $stmt->bindValue($name, $data);
         }
+
         return $stmt;
     }
 

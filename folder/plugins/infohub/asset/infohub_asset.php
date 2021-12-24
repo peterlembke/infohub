@@ -9,7 +9,8 @@
  * @subpackage  infohub_asset
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
+
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
@@ -25,13 +26,15 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * @since       2017-12-03
  * @copyright   Copyright (c) 2017, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/asset/infohub_asset.md Documentation
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/asset/infohub_asset.md
+ *     Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 class infohub_asset extends infohub_base
 {
     /**
      * Version information for this plugin
+     *
      * @return  string[]
      * @since   2017-12-03
      * @author  Peter Lembke
@@ -54,10 +57,11 @@ class infohub_asset extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2017-12-03
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2018-01-22
+     * @since   2017-12-03
      */
     protected function _GetCmdFunctions(): array
     {
@@ -75,7 +79,8 @@ class infohub_asset extends infohub_base
      * Asset names that have its checksum mean that your data is accurate.
      * Asset names that have no checksum mean that your data should be deleted.
      * Asset names that have something in content should be updated/added on the client.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2018-11-14
@@ -251,7 +256,8 @@ class infohub_asset extends infohub_base
     /**
      * Compare the asset list we got from the client with the assets we have collected on the server
      * Some are new to the client, some are OK on the client, some should be updated on the client.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2017-12-03
@@ -312,7 +318,8 @@ class infohub_asset extends infohub_base
     /**
      * Get a list from infohub_asset with plugin names and sub list with asset names.
      * All assets on the list should be updated. No need to verify checksums.
-     * @param array $in
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2018-12-22

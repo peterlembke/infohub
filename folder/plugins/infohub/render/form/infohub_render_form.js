@@ -1004,15 +1004,12 @@ function infohub_render_form() {
 
         if ($in.event_handler !== '') {
             const $idString = ['{box_id}', $in.alias].join('_');
-            $event = ' onChange="go(\'' + $in.event_handler +
-                '\',\'change\',\'' +
-                $idString + '\')"';
+            $event = ' onChange="go(\'' + $in.event_handler + '\',\'change\',\'' + $idString + '\')"';
         }
 
         let $destination = '';
         if ($in.to_plugin !== '') {
-            $destination = ' to_node="' + $in.to_node + '" to_function="' +
-                $in.to_function + '" to_plugin="' + $in.to_plugin + '"';
+            $destination = ' to_node="' + $in.to_node + '" to_function="' + $in.to_function + '" to_plugin="' + $in.to_plugin + '"';
         }
 
         let $multiple = '';
@@ -1020,12 +1017,10 @@ function infohub_render_form() {
             $multiple = ' multiple';
         }
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $display = _Display($in);
 
-        $in.html = '<select' + $id + $display + _GetParameters($in, $fields) +
-            $destination + $multiple + $event + '>' + $options + '</select>';
+        $in.html = '<select' + $id + $display + _GetParameters($in, $fields) + $destination + $multiple + $event + '>' + $options + '</select>';
 
         let $cssData = $in.css_data;
 
@@ -1106,8 +1101,7 @@ function infohub_render_form() {
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': ''});
 
-        $in.html = '<datalist' + $id + _GetParameters($in, $fields) + '>' +
-            $options + '</datalist>';
+        $in.html = '<datalist' + $id + _GetParameters($in, $fields) + '>' + $options + '</datalist>';
 
         return {
             'answer': 'true',

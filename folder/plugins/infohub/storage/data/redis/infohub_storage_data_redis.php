@@ -52,18 +52,21 @@ class infohub_storage_data_redis extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2016-08-13
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2017-08-10
+     * @since   2016-08-13
      */
     protected function _GetCmdFunctions(): array
     {
-        return [
+        $list = [
             'read' => 'normal',
             'write' => 'normal',
             'read_paths' => 'normal', // Get a list of matching paths
         ];
+
+        return parent::_GetCmdFunctionsBase($list);
     }
 
     /**

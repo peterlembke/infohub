@@ -54,10 +54,11 @@ class infohub_trigger extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2020-08-12
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2020-09-12
+     * @since   2020-08-12
      */
     protected function _GetCmdFunctions(): array
     {

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.2] - 2021-12-24
+
+* [Release notes](main,release_v1_v1v3_v1v3v2)
+* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.2)
+
+Requires PHP8. PHPStan level 9 pass OK. Bad ideas listed in documentation. LibreTranslate implemented.
+
 # [1.3.1] - 2021-09-05
 
 * [Release notes](main,release_v1_v1v3_v1v3v1)

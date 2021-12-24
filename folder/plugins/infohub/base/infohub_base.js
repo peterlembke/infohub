@@ -1509,8 +1509,8 @@ const internal_Log = function($in = {}) {
 
     const $allowedLevels = ['log', 'info', 'warn', 'error'];
 
-    const $minimumLogLevel = $allowedLevels.indexOf(
-        $GLOBALS.infohub_minimum_error_level);
+    const $minimumLogLevel = $allowedLevels.indexOf($GLOBALS.infohub_minimum_error_level);
+
     if ($minimumLogLevel === -1) {
         return {
             'answer': 'true',

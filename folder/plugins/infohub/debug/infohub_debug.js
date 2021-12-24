@@ -141,7 +141,7 @@ function infohub_debug() {
                             'plugin': 'infohub_debug',
                             'type': 'debug_buttons',
                             'alias': '1202_debug_buttons-1202',
-                        },
+                        }
                     },
                     'how': {
                         'mode': 'one box',

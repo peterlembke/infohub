@@ -7,6 +7,7 @@
  */
 
 declare(strict_types=1);
+
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     exit; // This file must be included, not called directly
 }
@@ -15,7 +16,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * infohub_call calls a web address and fetches an answer.
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2020-10-04
+ * @version     2021-09-06
  * @since       2020-10-04
  * @copyright   Copyright (c) 2020, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -34,7 +35,8 @@ class infohub_call extends infohub_base
     protected function _Version(): array
     {
         return [
-            'date' => '2020-10-04',
+            'date' => '2021-09-06',
+            'since' => '2020-10-04',
             'version' => '1.0.0',
             'class_name' => 'infohub_call',
             'checksum' => '{{checksum}}',
@@ -47,7 +49,8 @@ class infohub_call extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
+     *
+     * @return array
      * @since   2020-10-04
      * @author  Peter Lembke
      * @version 2020-10-04
@@ -55,6 +58,7 @@ class infohub_call extends infohub_base
     protected function _GetCmdFunctions(): array
     {
         $list = [
+            'call_many' => 'normal',
             'call' => 'normal'
         ];
 
@@ -64,6 +68,37 @@ class infohub_call extends infohub_base
     // ***********************************************************
     // * your class functions below, only use protected functions
     // ***********************************************************
+
+    /**
+     * Same as call but there you can send in many calls
+     * @param  array  $in
+     * @return array
+     */
+    protected function call_many(array $in = []): array {
+        $default = [
+            'call_array' => []
+        ];
+        $in = $this->_Default($default, $in);
+
+        $out = [
+            'answer' => true,
+            'message' => 'Success',
+            'data' => []
+        ];
+
+        foreach ($in['call_array'] as $callNumber => $call) {
+            $call['func'] = 'Call';
+            $response = $this->internal_Cmd($in);
+            if ($response['answer'] === 'false') {
+                $out['answer'] = 'false';
+                $out['message'] = 'At least one call failed';
+            }
+            $out['data'][] = $response;
+        }
+
+        return $out;
+    }
+
 
     /**
      * Calls a web address and fetches an answer
@@ -77,6 +112,43 @@ class infohub_call extends infohub_base
      */
     protected function call(array $in = []): array
     {
+        $fromNode = $this->_GetData([
+            'name' => 'from_plugin/node',
+            'default' => '',
+            'data' => $in,
+        ]);
+
+        if ($fromNode !== 'server') {
+            $response = [
+                'answer' => 'false',
+                'message' => 'The message must come from a server plugin. Your message come from ' . $fromNode,
+                'response_string' => ''
+            ];
+            goto leave;
+        }
+
+        $in['func'] = 'Call';
+        $response = $this->internal_Cmd($in);
+
+        leave:
+        return [
+            'answer' => $response['answer'],
+            'message' => $response['message'],
+            'response_string' => $response['response_string']
+        ];
+    }
+
+    /**
+     * Calls a web address and fetches an answer
+     * Can pass GET-parameters and POST-data to that server
+     * Supports certificates
+     * @param array $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2020-10-04
+     * @since   2020-10-04
+     */
+    protected function internal_Call(array $in = []): array {
         $requirementsResponse = $this->_AreRequirementsFulfilled();
         if ($requirementsResponse['answer'] === 'false') {
             return [
@@ -118,8 +190,12 @@ class infohub_call extends infohub_base
 
         $curlOptArray = $this->_GetCurlOptArray($in);
 
-        if ($in['curl_logging'] === true) {
-            $fileHandle = $this->getStdErrFileHandle();
+        $fileHandle = false;
+        if ($in['curl_logging'] === 'true') {
+            $fileHandle = $this->_GetStdErrFileHandle();
+        }
+
+        if ($fileHandle !== false) {
             $curlOptArray[CURLOPT_STDERR] = $fileHandle;
             $curlOptArray[CURLOPT_VERBOSE] = true;
             $curlOptArray[CURLOPT_CERTINFO] = true;
@@ -128,14 +204,14 @@ class infohub_call extends infohub_base
 
         $curlHandle = curl_init();
         curl_setopt_array($curlHandle, $curlOptArray);
-        $responseString = (string)curl_exec($curlHandle);
-        $curlInfo = curl_getinfo($curlHandle);
-        $code = (string)$curlInfo['http_code'];
-        $curlError = (string)curl_error($curlHandle);
+        $responseString = (string) curl_exec($curlHandle);
+        $curlInfo = (array) curl_getinfo($curlHandle);
+        $code = $curlInfo['http_code'] ?? '';
+        $curlError = (string) curl_error($curlHandle);
         curl_close($curlHandle);
 
         $curlLog = '';
-        if ($in['curl_logging'] === 'true') {
+        if ($fileHandle !== false) {
             $curlLog = $this->_GetVerboseLogging($fileHandle);
             fclose($fileHandle);
         }
@@ -153,7 +229,7 @@ class infohub_call extends infohub_base
 
         if ($code !== '200' && $code !== '201' && empty($responseString) === true) {
             $out['answer'] = 'false';
-            $out['message'] = 'Transfer failed';
+            $out['message'] = $curlError;
         }
 
         return $out;
@@ -177,11 +253,6 @@ class infohub_call extends infohub_base
         }
 
         $info = curl_version();
-        if (is_string($info) === true) {
-            if (strpos($info, 'OpenSSL') !== false) {
-                $ssl = 'true';
-            }
-        }
         if (is_array($info) === true) {
             if (isset($info['ssl_version']) === true) {
                 $ssl = 'true';
@@ -224,7 +295,7 @@ class infohub_call extends infohub_base
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_FORBID_REUSE => 1,
             CURLOPT_TIMEOUT => 4,
-            CURLOPT_HEADER => 1
+            CURLOPT_HEADER => 0 // 0 = response string has data only. 1 = response string has all headers too
         ];
 
         if ($in['mode'] === 'post') {
@@ -247,7 +318,7 @@ class infohub_call extends infohub_base
                 CURLOPT_SSLCERT => $in['certificate_pem'],
                 CURLOPT_SSLCERTPASSWD => $in['certificate_pem_password'],
                 CURLOPT_SSLKEY => $in['certificate_key'],
-                CURLOPT_SSLKEYPASSWD => $in['certificate_key_password'],
+                // CURLOPT_SSLKEYPASSWD => $in['certificate_key_password'],
                 CURLOPT_CAINFO => $in['certificate_ca'],
                 CURLOPT_SSL_VERIFYHOST => 2,
                 CURLOPT_SSL_VERIFYPEER => true
@@ -265,7 +336,9 @@ class infohub_call extends infohub_base
     protected function _GetStdErrFileHandle()
     {
         $fileName = 'php://temp';
-        $fileHandle = fopen($fileName, 'a+');
+        $mode = 'a+';
+
+        $fileHandle = fopen($fileName, $mode);
 
         return $fileHandle;
     }
@@ -273,13 +346,16 @@ class infohub_call extends infohub_base
     /**
      * Get the verbose curl logging for this call.
      * @see https://stackoverflow.com/questions/9550319/bad-request-connecting-to-sites-via-curl-on-host-and-system/62453208#62453208 stackoverflow
-     * @param $fileHandle
+     * @param resource $fileHandle
      * @return string
      */
     protected function _GetVerboseLogging($fileHandle): string
     {
         rewind($fileHandle);
         $verboseLog = stream_get_contents($fileHandle);
+        if ($verboseLog === false) {
+            return '';
+        }
 
         $safeLog = htmlspecialchars($verboseLog);
 

@@ -13,6 +13,8 @@ Infohub is designed with speed in mind. The browser locally caches plugins, asse
 automatically updated when the cache gets old. If they are not updated or you want to speed things up then you need to
 handle the cache yourself.
 
+![keyboard diagram](asset/icon/keyboard-diagram-function-buttons.svg)
+
 # Browser cache life time
 
 The browser cache is handled by [infohub_cache](plugin,infohub_cache).

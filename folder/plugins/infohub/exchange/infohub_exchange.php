@@ -68,7 +68,7 @@ class infohub_exchange extends infohub_base
     protected string $sendAnswer = 'true';
 
     /** @var array Contain a lookup array with allowed plugin names for this user */
-    protected $allowedServerPluginNamesLookupArray = [];
+    protected array $allowedServerPluginNamesLookupArray = [];
 
     protected function _GetAllowedServerPluginNames(): array
     {
@@ -76,7 +76,7 @@ class infohub_exchange extends infohub_base
     }
 
     /** @var array Contain a lookup array with allowed client plugin names for this user */
-    protected $allowedClientPluginNamesLookupArray = [];
+    protected array $allowedClientPluginNamesLookupArray = [];
 
     protected function _GetAllowedClientPluginNames(): array
     {
@@ -108,10 +108,11 @@ class infohub_exchange extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since 2012-01-01
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2016-01-28
+     * @since 2012-01-01
      */
     protected function _GetCmdFunctions(): array
     {
@@ -803,9 +804,10 @@ class infohub_exchange extends infohub_base
 
     /**
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
+     *
      * @param array $in
      */
-    protected function _SendMessageBackPluginNotFound(array $in = [])
+    protected function _SendMessageBackPluginNotFound(array $in = []): void
     {
         $default = [
             'callstack' => [],
@@ -841,9 +843,10 @@ class infohub_exchange extends infohub_base
     /**
      * Some messages could be answered with the error. Others have no sender.
      * This function send back answers to those messages that has a sender.
+     *
      * @param array $in
      */
-    protected function _SendMessageBackMessageFailedTests(array $in = [])
+    protected function _SendMessageBackMessageFailedTests(array $in = []): void
     {
         $default = [
             'callstack' => [],
@@ -880,9 +883,10 @@ class infohub_exchange extends infohub_base
 
     /**
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
+     *
      * @param array $in
      */
-    protected function _SortAdd(array $in = [])
+    protected function _SortAdd(array $in = []): void
     {
         $default = [
             'test' => 'true',
@@ -1424,10 +1428,11 @@ class infohub_exchange extends infohub_base
         $data = file_get_contents($fileName);
         if (empty($data) === true) {
             $message = 'File exist but are empty';
+            $data = '';
             goto leave;
         }
 
-        $data = json_decode($data, true);
+        $data = json_decode($data, $associative = true);
         if (is_array($data) === false) {
             $message = 'File data could not be decoded';
             goto leave;
@@ -1437,7 +1442,7 @@ class infohub_exchange extends infohub_base
             'server' => [],
             'client' => []
         ];
-        $data = $this->_Default($default, $data);
+        $data = $this->_Default($default, (array) $data);
 
         $node = $in['node'];
         $config = $data[$node];

@@ -52,18 +52,21 @@ class infohub_translate extends infohub_base
 
     /**
      * Public functions in this plugin
-     * @return mixed
-     * @since   2019-03-23
+     *
+     * @return array
      * @author  Peter Lembke
      * @version 2019-03-23
+     * @since   2019-03-23
      */
     protected function _GetCmdFunctions(): array
     {
         $list = [
             'load_plugin_list' => 'normal',
             'create_translation_files' => 'normal',
+            'translate_and_save' => 'normal',
             'update_plugins' => 'normal',
-            'validate_translation_files' => 'normal'
+            'validate_translation_files' => 'normal',
+            'get_language_option_list' => 'normal'
         ];
 
         return parent::_GetCmdFunctionsBase($list);
@@ -171,7 +174,8 @@ class infohub_translate extends infohub_base
                 'answer' => 'false',
                 'message' => 'Nothing',
                 'data' => [],
-                'launcher' => []
+                'launcher' => [],
+                'options' => [] // we get all available languages
             ],
             'data_back' => [
                 'out' => []
@@ -182,23 +186,21 @@ class infohub_translate extends infohub_base
         $messageArray = [];
 
         if ($in['step'] === 'step_get_plugin_js_files_content') {
-            return $this->_SubCall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'get_plugin_js_files_content'
-                    ],
-                    'data' => [
-                        'plugin_name_array' => $in['plugin_name_array']
-                    ],
-                    'data_back' => [
-                        'file_save' => $in['file_save'],
-                        'file_download' => $in['file_download'],
-                        'step' => 'step_get_plugin_js_files_content_response'
-                    ]
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'get_plugin_js_files_content'
+                ],
+                'data' => [
+                    'plugin_name_array' => $in['plugin_name_array']
+                ],
+                'data_back' => [
+                    'file_save' => $in['file_save'],
+                    'file_download' => $in['file_download'],
+                    'step' => 'step_get_plugin_js_files_content_response'
                 ]
-            );
+            ]);
         }
 
         if ($in['step'] === 'step_get_plugin_js_files_content_response') {
@@ -324,11 +326,31 @@ class infohub_translate extends infohub_base
         if ($in['step'] === 'step_file_save_or_download') {
             $in['step'] = 'step_file_download';
             if ($in['file_save'] === 'true') {
-                $in['step'] = 'step_file_save';
+                $in['step'] = 'step_get_language_option_list';
             }
         }
 
-        if ($in['step'] === 'step_file_save') {
+        if ($in['step'] === 'step_get_language_option_list') {
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_libretranslate',
+                    'function' => 'get_language_option_list'
+                ],
+                'data' => [
+                ],
+                'data_back' => [
+                    'step' => 'step_get_language_option_list_response',
+                    'out' => $in['data_back']['out']
+                ]
+            ]);
+        }
+
+        if ($in['step'] === 'step_get_language_option_list_response') {
+            $optionArray = $in['response']['options'];
+        }
+
+        if ($in['step'] === 'step_translate_and_save') {
 
             // https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers
 
@@ -376,18 +398,19 @@ class infohub_translate extends infohub_base
                     $path = 'translate' . DS . str_replace('_', '/', $parentPluginName) . DS . "$languageCode.json";
 
                     $contentArray['version'] = array_merge($contentArray['version'], $localizedHeaderData);
-                    $contentsJson = $this->_JsonEncode($contentArray);
 
                     $messageOut = $this->_SubCall([
                         'to' => [
                             'node' => 'server',
-                            'plugin' => 'infohub_file',
-                            'function' => 'write'
+                            'plugin' => 'infohub_translate',
+                            'function' => 'translate_and_save'
                         ],
                         'data' => [
                             'path' => $path,
-                            'contents' => $contentsJson,
-                            'allow_overwrite' => 'true'
+                            'from_language' => 'en',
+                            'to_language' => $languageCode,
+                            'translation_lookup' => $contentArray,
+                            'allow_overwrite' => 'true',
                         ],
                         'data_back' => [
                             'step' => 'step_end'
@@ -412,6 +435,101 @@ class infohub_translate extends infohub_base
             'message' => $in['response']['message'],
             'file_lookup' => $in['data_back']['out'],
             'messages' => $messageArray
+        ];
+    }
+
+    /**
+     * Get the english translation file.
+     * Get the localised header data
+     * Pull out the destination language
+     * Translate the data by calling libretranslate in a lot of tail less messages
+     * Save the translated file
+     * @param  array  $in
+     * @return string[]
+     */
+    public function translate_and_save(
+        array $in = []
+    ): array {
+        $default = [
+            'step' => 'step_file_save',
+            'path' => '',
+            'from_language' => '',
+            'to_language' => '',
+            'translation_lookup' => [],
+            'allow_overwrite' => 'true',
+            'response' => [
+                'answer' => 'false',
+                'message' => 'Nothing to report'
+            ],
+            'from_plugin' => [
+                'node' => '',
+                'plugin' => ''
+            ]
+        ];
+        $in = $this->_Default($default, $in);
+
+        if ($in['from_plugin']['node'] !== 'server') {
+            return [
+                'answer' => 'false',
+                'message' => 'I only accept messages from the server node'
+            ];
+        }
+
+        if ($in['from_plugin']['plugin'] !== 'infohub_translate') {
+            return [
+                'answer' => 'false',
+                'message' => 'I only accept messages from the translate plugin'
+            ];
+        }
+
+        if ($in['step'] === 'step_translate') {
+
+            // TODO: Loop through the data and create a message that Darkhold can process
+
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_libretranslate',
+                    'function' => 'translate'
+                ],
+                'data' => [
+                    'from_language' => $in['from_language'],
+                    'to_language' => $in['to_language'],
+                    'translation_lookup' => $in['translation_lookup']
+                ],
+                'data_back' => [
+                    'path' => $in['path'],
+                    'translation_lookup' => $in['translation_lookup'],
+                    'allow_overwrite' => $in['allow_overwrite'],
+                    'step' => 'step_file_save'
+                ]
+            ]);
+        }
+
+        if ($in['step'] === 'step_file_save') {
+
+            $contentsJson = $this->_JsonEncode($in['translation_lookup']);
+
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'write'
+                ],
+                'data' => [
+                    'path' => $in['path'],
+                    'contents' => $contentsJson,
+                    'allow_overwrite' => $in['allow_overwrite']
+                ],
+                'data_back' => [
+                    'step' => 'step_end'
+                ]
+            ]);
+        }
+
+        return [
+            'answer' => 'true',
+            'message' => 'Sent file to be saved'
         ];
     }
 
@@ -907,5 +1025,63 @@ class infohub_translate extends infohub_base
         $log[$languageCode][] = $row;
 
         return $log;
+    }
+
+    /**
+     * Get all available languages that LibreTranslate can translate to
+     * @param  array  $in
+     * @return array
+     */
+    protected function get_language_option_list(
+        array $in = []
+    ): array {
+
+        $default = [
+            'config' => [
+                'libre_translate' => [
+                    'url' => '',
+                    'port' => 0
+                ]
+            ],
+            'step' => 'step_start',
+            'response' => [],
+            'data_back' => []
+        ];
+        $in = $this->_Default($default, $in);
+
+        if ($in['step'] === 'step_start') {
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_call',
+                    'function' => 'call'
+                ],
+                'data' => [
+                    'url' => $in['config']['libre_translate']['url'] . '/languages',
+                    'port' => $in['config']['libre_translate']['port'],
+                    'curl_logging' => 'true'
+                ],
+                'data_back' => [
+                    'step' => 'step_start_response'
+                ]
+            ]);
+        }
+
+        if ($in['step'] === 'step_start_response') {
+            $default = [
+                'answer' => 'true',
+                'message' => 'Got response',
+                'error' => '',
+                'request_array' => [],
+                'response_string' => '',
+                'curl_info' => [],
+                'code' => 0,
+                'curl_log' => []
+            ];
+            $in['response'] = $this->_Default($default, $in['response']);
+
+        }
+
+        return [];
     }
 }
