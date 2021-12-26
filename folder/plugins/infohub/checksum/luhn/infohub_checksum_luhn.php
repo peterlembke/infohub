@@ -146,7 +146,7 @@ class infohub_checksum_luhn extends infohub_base
     {
         $sum = 0;
         if ($valueString !== '') {
-            $numbers = str_split($valueString, 1);
+            $numbers = str_split($valueString, $length = 1);
             foreach ($numbers as $index => $numberString) {
                 if ($index % 2 === 1) {
                     $numberString = (string) (2 * (int) $numberString);
@@ -170,7 +170,7 @@ class infohub_checksum_luhn extends infohub_base
      */
     protected function _LuhnSum(string $valueString = ''): int
     {
-        $numbers = str_split($valueString, 1);
+        $numbers = str_split($valueString, $length = 1);
         $sum = 0;
         foreach ($numbers as $number) {
             $sum = $sum + $number;

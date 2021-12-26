@@ -17,15 +17,15 @@ Compress
 * Selector for compression node
 * Selector for compression method
 * Button - compress
-* Text area with the meta data from the compress
+* Text area with the metadata from the compress
 
-Uncompress
+Uncompressed
 
 * Text box with compressed data, base64 encoded.
-* Selector for uncompression node
-* Selector for uncompresion node
-* Button - uncompress
-* Text area with the meta data from the uncompress
+* Selector for un-compression node
+* Selector for compression node
+* Button - un-compress
+* Text area with the metadata from the un-compress
 
 # Node
 
@@ -34,7 +34,7 @@ client node. The server node are written in PHP. The client node are written in 
 
 # Method
 
-Some of the compression methods are the same so you can compress/uncompress between the nodes.  
+The compression methods are the same. You can compress/un-compress between the nodes.  
 Gzip exist in both javascript and in php. You can transfer data between them. LZ only exist in Javascript. You can use
 LZ for storage locally.
 
@@ -43,8 +43,8 @@ LZ for storage locally.
 You can write your text in the text box under "Compress the data".  
 You can select what node and method you want to use to compress the data.  
 Click the button "Compress" to compress your text.   
-Click on "Uncompress" to see the result. You unfold the result box.  
-Remove the text you wrote. Now click the button "Uncompress" to see if the uncompression can restore your text.
+Click on "Un-compress" to see the result. You unfold the result box.  
+Remove the text you wrote. Now click the button "Un-compress" to see if the un-compression can restore your text.
 
 # License
 

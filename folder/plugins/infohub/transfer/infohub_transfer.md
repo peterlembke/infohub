@@ -1,6 +1,6 @@
 # Infohub Transfer
 
-With no exceptions handle all communication that goes outside of this node.
+With no exceptions handle all communication that goes outside this node.
 
 # Introduction
 
@@ -20,7 +20,7 @@ with other server nodes.
 
 ## Other nodes
 
-There will be other types of infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to
+There will be other types of Infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to
 communicate with each other in the same way.
 
 # Send to a node
@@ -29,25 +29,25 @@ Infohub Exchange send an array with nodes and their messages to Transfer. The se
 through the nodes, if it recognizes a node then it handles the messages.
 
 Server (PHP): For node 'client' it just makes a json package and echo it on screen because the client is always the
-initiator an the server is always the responder.
+initiator and the server are always the responder.
 
 When your messages have been sent and the answer comes back, the package are handled and the messages are put in the
 main loop for sorting.
 
 You will also get back a timestamp when it is OK to contact the node again.
 
-## Authentication (login)
+## Authentication (log in)
 
-The client can login to the server and get more rights. The plugin [infohub_login](plugin,infohub_login) handle the
+The client can log in to the server and get more rights. The plugin [infohub_log in](plugin,infohub_log in) handle the
 login and uses the [infohub_session](plugin,infohub_session) to initiate a session.
 
 ## Sessions
 
 Session handling. Since Infohub is stateless you do not store session variables, but you do need to know what rights the
-logged in session have. Not logged in users will only have the right to login if they can ask politely.
+logged-in session have. Not logged-in users will only have the right to log in if they can ask politely.
 
-PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies
-and we can implemt sessions in any communication form.
+PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies,
+and we can implement sessions in any communication form.
 
 ## banned until
 
@@ -93,13 +93,13 @@ This is an example of an outgoing package from the client to the server.
 }
 ```
 
-We have a session_id so it means we are logged in. The sign_code is a md5 checksum.
+We have a session_id, so it means we are logged in. The sign_code is a MD5 checksum.
 
 ```
 $sign_code = md5($session_created_at + $created_at +  $left_overs + $messages_checksum + $session_id + $initiator_user_name);
 ``` 
 
-sign_code_created_at is the seconds with decimals from 1970-01-01. package_type = "2020" means that we have this setup
+sign_code_created_at is the seconds with decimals from 1970-01-01. package_type = "2020" means that we have this set up
 with properties in the package. messages_encoded is a base64 encoded array with messages. There is
 a [messages tool](plugin,infohub_tool_package) where you can paste the data and get the decoded data array back. This is
 what we got from the data above.
@@ -142,7 +142,7 @@ callstack. To is where the message wil be delivered on the node. The data is the
 in the function we call.
 
 The callstack is the way back to the caller. We see that the message comes from node client, plugin infohub_asset.   
-The function looks strange and it is because the rest of the callstack is left behind at the client. The code in "
+The function looks strange, and it is because the rest of the callstack is left behind at the client. The code in "
 function" is used to find the callstack again when the server have returned the answer.
 
 The message in the example request some assets from the server.
@@ -251,10 +251,10 @@ Features that are planned to be implemented.
 
 Features that will come to infohub_transfer.js
 
-### Offline/failed to login - answer the messages
+### Offline/failed to log in - answer the messages
 
-If we can not deliver the package then we wait for a while but then we need to answer the messages that we could not
-send. The messages are answered with "answer": "false" and "message": "offline" or "login failed".
+If we can not deliver the package then we wait for a while, but then we need to answer the messages that we could not
+send. The messages are answered with "answer": "false" and "message": "offline" or "log in failed".
 
 ## Server
 
@@ -262,7 +262,7 @@ Features that will come to infohub_transfer.php
 
 ### Server to server
 
-The server node will be able to communicate with other infohub nodes and exchange information. This will be used to get
+The server node will be able to communicate with other Infohub nodes and exchange information. This will be used to get
 data from specialized nodes.
 
 ### Leave callstack behind
@@ -306,7 +306,7 @@ WebRTC is appealing but would open up a side door to the client.
 Would be cool if we could send emails to people. Then we could use that to send out offers, order confirmations (
 transactional emails) and use it as we would in an e-commerce site. We could even use Infohub as a marketing tool.  
 Infohub is about privacy of your data. Email is insecure. Email can not handle private information. Even if we
-restricted ourself to only send emails to you when you ask them it would still be unencrypted and easily intercepted.
+restricted ourselves to only send emails to you when you ask them it would still be unencrypted and easily intercepted.
 You would also reveal yourself as a user of that Infohub server.  
 E-mail is an obsolete way to communicate. It should not be implemented in Infohub.
 

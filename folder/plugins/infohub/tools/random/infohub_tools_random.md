@@ -12,7 +12,7 @@ number, a button you can press, a text box where you see the result, and a butto
 # Nodes
 
 The plugin infohub_uuid that does all the work, it comes in a version for the server node and one version for the client
-node. Some of the methods are the same so you can verify your result between the nodes. Some methods only exist in one
+node. Some methods are the same, so you can verify your result between the nodes. Some methods only exist in one
 of the nodes due to practical reasons.  
 If you select the server node and press the button quickly to get many random numbers, then after 1 seconds you will get
 a lot of numbers at the same time. This is due to the way Infohub communicate with the server.

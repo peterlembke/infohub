@@ -20,7 +20,7 @@ used since 1962 in different applications.
 
 # Implementation in PHP
 
-PHP have a built in function crc32() that you can use. See the parent document about "Built in checksums".
+PHP has a built-in function crc32() that you can use. See the parent document about "Built in checksums".
 
 # Implementation in Javascript
 

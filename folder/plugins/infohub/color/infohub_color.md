@@ -3,7 +3,7 @@
 I want to improve the colour templating in Infohub and learn more about colours.
 
 I have read a great [article](https://www.smashingmagazine.com/2020/08/application-color-schemes-css-custom-properties/)
-abouit that and got inspired of its [example](https://codepen.io/smashingmag/pen/LYNEXdw). I also tested
+about that and got inspired of its [example](https://codepen.io/smashingmag/pen/LYNEXdw). I also tested
 the [colour tool](https://paletton.com/#uid=74H0X0kllllaFw0g0qFpxgxw0aF) that are mentioned.
 
 # My plan
@@ -63,7 +63,7 @@ not change the colours on the fly.
 The configuration will be in ConfigLocal. When we save the configuration then the groupName and baseColors are sent to
 infohub_color that will calculate the colours if needed and save the array to the Storage.
 
-If someone ask for the array and infohub_color can not find any array in Storage then it will return a standard array
+If someone is asking for the array and infohub_color can not find any array in Storage then it will return a standard array
 and totally ignore the ConfigLocal settings. You will have to save the settings again in ConfigLocal.
 
 The colour series can be calculated from the HSL value with
@@ -71,7 +71,7 @@ a [javascript function](https://gist.github.com/vahidk/05184faf3d92a0aa1b46aeaa9
 
 ## How it works
 
-If Infohub Render do not have the color data it will ask infohub_color for it. infohub_color return a pre calculated
+If Infohub Render do not have the color data it will ask infohub_color for it. infohub_color return a pre-calculated
 array to infohub_render:
 
 ```  

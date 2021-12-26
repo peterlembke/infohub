@@ -1,7 +1,7 @@
 # .htaccess
-A .htaccess file exist in each folder where we want to restrict access to files and folders. Note that .htaccess works on the Apache web server and it is read on EVERY request you make to the server.  
+A .htaccess file exist in each folder where we want to restrict access to files and folders. Note that .htaccess works on the Apache web server, and it is read on EVERY request you make to the server.  
 Apache also have a configuration file that is read once. If you are able to transfer the settings to that config file then do that.  
-If you use the web server nginx then .htaccess do not work. Instead use the nginx config files. Guides for this will come in the future since nginx is a supported web server.  
+If you use the web server nginx then .htaccess do not work. Use the nginx config files. Guides for this will come in the future since nginx is a supported web server.  
 The root file looks like this:  
 
 ```
@@ -20,7 +20,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 
-### every other url go to callback.php
+### every other URL go to callback.php
 # RewriteRule .* callback.php [L]
 # RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
 

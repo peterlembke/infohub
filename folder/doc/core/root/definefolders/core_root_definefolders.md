@@ -2,7 +2,7 @@
 The file define_folders.php is a central place where file paths are defined.  
 
 # Constants
-- <b>DS</b> = \ on windows machines, / on *nix machines. This is a PHP feature.
+- <b>DS</b> = \ on Windows machines, / on *nix machines. This is a PHP feature.
 - <b>ROOT</b> = the root folder where all files are in.
 - <b>MAIN</b> = the folder, there is only one folder in the root.
 - <b>INCLUDES</b> = Files that are inserted in index.php or part of infohub.php.

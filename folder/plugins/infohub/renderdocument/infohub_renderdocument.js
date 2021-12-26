@@ -217,7 +217,7 @@ function infohub_renderdocument() {
     };
 
     /**
-     * Parse the markdown text and divide it into blocks that can be rendered separately
+     * Parse the Markdown text and divide it into blocks that can be rendered separately
      * @version 2019-07-16
      * @since   2019-07-16
      * @author  Peter Lembke
@@ -404,7 +404,7 @@ function infohub_renderdocument() {
                 $text = $text + '[' + $tag + ']';
             }
 
-            // In markdown code can start with newline + 4 spaces and end with two newline. I do not support that yet.
+            // In Markdown code can start with newline + 4 spaces and end with two newline. I do not support that yet.
 
         }
 
@@ -478,7 +478,7 @@ function infohub_renderdocument() {
     };
 
     /**
-     * Set safe code characters. I do not want them to render as html so I substitute them.
+     * Set safe code characters. I do not want them to render as HTML, so I substitute them.
      * https://unicode-table.com/en/
      * @version 2019-08-18
      * @since   2019-08-18

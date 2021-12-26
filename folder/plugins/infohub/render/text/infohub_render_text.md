@@ -84,7 +84,7 @@ You can easily show special characters by adding these codes into your text.
 
 # Add other elements
 
-As you can see in the example above you can have other rendered parts inserted into the text. The example have "titel"
+As you can see in the example above you can have other rendered parts inserted into the text. The example have "title"
 and "ingress". These two will be rendered to HTML before they reach the text plugin, and they will be inserted into the
 text.
 

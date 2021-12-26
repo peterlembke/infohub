@@ -36,7 +36,7 @@ Soundcloud have trackers (Javascript) that are downloaded and run in your browse
 
 # Spotify
 
-With Spotify you only get a sample of the music you want to display. Spotify download trackers to the browser. You can
+With Spotify, you only get a sample of the music you want to display. Spotify download trackers to the browser. You can
 make a link that opens at Spotify.
 
 ```
@@ -47,7 +47,7 @@ make a link that opens at Spotify.
 }
 ```
 
-# Self hosting
+# Self-hosting
 
 Plugins like Infohub_Audio, Infohub_RenderAudioPlayer are on the todo list. It will help you to host the audio yourself
 on your server without making the audio public. Then you do not need public services.

@@ -4,7 +4,7 @@ Improved rendering speeds by grouping items that will go to the same renderer.
 This change breaks compatability with custom renderers. But since no one is reading this note, no one is using Infohub and certainly no one create their own renderers for Infohub then it does not matter.  
 
 * [Release notes](main,release_v1_v1v2_v1v2v27)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.27)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.27)
 
 ## Known issues
 * infohub_configlocal -> color schema is not done. Will be handled in the next version.
@@ -29,11 +29,11 @@ This change breaks compatability with custom renderers. But since no one is read
 * HUB-1113, Some assets do not show in launcher. Caused by plugin_name that were lost, so the icon could not be found in the database.
 * HUB-1114, Language dropdown select not populated with languages. It was the Render -> Create that did not detect a select.
     Also made the infohub_language dropdown renderer working with item_index. 
-* HUB-1115, Button progress indicators not showing. Reason infohub_renderform -> button used $in.alias as alias. It should have set no alias and let infohub Render handle the alias.
+* HUB-1115, Button progress indicators not showing. Reason infohub_renderform -> button used `$in.alias` as alias. It should have set no alias and let Infohub Render handle the alias.
 * HUB-1118, Manual, main, installation - gives error. It was an OK variable that was not set when saving the document to local Storage.
 * HUB-1117, Demo - Lists with tabs, gives errors.
   I was using an alias for a part of the tab. Must always let render->create handle that alias. 
-  Also fixed render_link so it now merge css_data. 
+  Also fixed render_link, so it now merges css_data. 
 
 ## Tested
 * HUB-1107, Translate: Check regressions in create english language file. Works as expected.

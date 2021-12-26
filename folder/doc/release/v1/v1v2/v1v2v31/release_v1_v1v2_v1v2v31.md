@@ -3,7 +3,7 @@
 Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
 
 * [Release notes](main,release_v1_v1v2_v1v2v31)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.31)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.31)
 
 ## Known issues
 

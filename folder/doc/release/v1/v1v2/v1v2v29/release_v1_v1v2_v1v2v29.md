@@ -1,10 +1,10 @@
 # [1.2.29] - 2021-01-09
 
-Colour schema configuration updated. You can now name, download, upload, apply colour schemas. You can now preview the colour schema. Mocca chocolate is the default colour schema. Created some colour schemas you can use.
+Colour schema configuration updated. You can now name, download, upload, apply colour schemas. You can now preview the colour schema. Mocha chocolate is the default colour schema. Created some colour schemas you can use.
 Your Css is now added at the end of the existing css if you use the same class name.
 
 * [Release notes](main,release_v1_v1v2_v1v2v29)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.29)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.29)
 
 ## Known issues
 * Colour config - not fully translated yet. Future version.
@@ -47,7 +47,7 @@ Your Css is now added at the end of the existing css if you use the same class n
 ## Removed
 
 ## Fixed
-* HUB-1182, configlocal_colour: Preview. Affects the submit. Avoid that.
+* HUB-1182, configlocal_colour: Preview. Affects to submit. Avoid that.
 
 ## Tested
 
@@ -60,5 +60,5 @@ Your Css is now added at the end of the existing css if you use the same class n
     FPC always give problems with data. I will implement web workers instead that increase rendering speed. I will close this task.
 * HUB-1175, configlocal_colour: Download must save correct data. After I did HUB-1177 this fixed itself. Compared downloaded files OK.
 * HUB-1180, infohub_render - create: Allow a color_lookup parameter for a colour schema used only for this rendering.
-    The investigation showed that there will be special cases and more complications. Instead I will use an override of the css
+    The investigation showed that there will be special cases and more complications. I will use an override of the css
     and use rgb() colours.

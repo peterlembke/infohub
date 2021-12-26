@@ -8,6 +8,7 @@
 
 declare(strict_types=1);
 
+include_once 'define_folders.php';
 include_once PLUGINS . DS . 'infohub' . DS . 'base' . DS . 'infohub_base.php';
 
 /**

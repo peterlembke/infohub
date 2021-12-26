@@ -260,7 +260,7 @@ function infohub_keyboard() {
     // *****************************************************************************
 
     /**
-     * Setup the Config Graphical User Interface
+     * Set up the Config Graphical User Interface
      *
      * @version 2018-09-09
      * @since   2018-09-09
@@ -493,7 +493,7 @@ function infohub_keyboard() {
     $functions.push('unsubscribe');
     const unsubscribe = function($in = {}) {
         const $default = {
-            'subscriptions': {}, // Add the key_combination string and and empty message
+            'subscriptions': {}, // Add the key_combination string and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
@@ -862,7 +862,7 @@ function infohub_keyboard() {
     };
 
     /**
-     * In setup_gui we subscribe to all key strokes, they will come to event_message and then here.
+     * In setup_gui we subscribe to all keystrokes, they will come to event_message and then here.
      * @version 2018-10-18
      * @since   2018-10-18
      * @author  Peter Lembke
@@ -987,7 +987,6 @@ function keyUp(event) {
 
     'use strict';
 
-    event = event || window.event;
     if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
 
         const $alt = event.altKey,

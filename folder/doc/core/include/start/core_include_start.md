@@ -22,9 +22,9 @@ I might change this in the future but for now I will just test if cookies are en
 
 ## `_ColdStart`
 Sets a flag "cold_start" in localStorage containing the number of failed starts. In Infohub_launcher after the last thing has rendered the flag is removed.  
-If you need to reload the page before the flag is removed then it is considered a failed start. On the first failed start all the plugins are removed from localStogare.  
+If you need to reload the page before the flag is removed then it is considered a failed start. On the first failed start all the plugins are removed from localStorage.  
 On the second failed start both the plugins in the localStorage and the database in indexedDb are deleted. Now we have a clean start.  
-If the start takes longer than 20 seconds then a timer will do a reload automatically.  
+If the start takes longer than 20 seconds then a timer will do a full reload automatically.  
     
 ## `_GetCorePluginNames`
 Get a list with all core plugin names.  

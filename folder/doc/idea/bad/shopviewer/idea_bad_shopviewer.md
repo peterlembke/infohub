@@ -4,7 +4,7 @@ Display the products.
 
 This is fast and tracker free.
 
-I do not want to use Google feed. That is a lump of data. But it exists and works. So use it.
+I do not want to use Google Feed. That is a lump of data. But it exists and works. So use it.
 
 I can invent a json format with data for each product.
 

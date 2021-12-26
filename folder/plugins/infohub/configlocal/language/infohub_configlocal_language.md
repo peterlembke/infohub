@@ -1,14 +1,14 @@
 # Infohub Demo Form2
 
-Shows a demo how you can use the infohub render link plugin.
+Shows a demo how you can use the Infohub render link plugin.
 
 # Introduction
 
-In this demo we show how to use the infohub render link plugin.  
+In this demo we show how to use the Infohub render link plugin.  
 You will see all the supported link types.
 
 - event link - send event message to function event_message
-- external link - for getting a url in a new tab/window
+- external link - for getting a URL in a new tab/window
 - toggle - Can show/hide an object on the screen
 - embed - Has embedded content that substitute the content you click on
 

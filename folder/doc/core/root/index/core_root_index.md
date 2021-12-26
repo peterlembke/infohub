@@ -35,21 +35,21 @@ width=device-width
 Read more about [viewport](https://www.w3schools.com/css/css_rwd_viewport.asp)
 
 ## description and keywords
-No one will read this but it is here anyhow. It is good for the indexers (crawlers) and we do not want them.
+No one will read this, but it is here anyhow. It is good for the indexers (crawlers) and we do not want them.
 
 ## apple-mobile-web-app
-The three meta tags help showing the app better on Apple IOS.
+The three meta tags help to show the app better on Apple IOS.
 
-## allowed-outgoing-urls
-This meta tag do not exist. I just wish it did. The thought would be to limit all outgoing requests to the urls mentioned in this tag.
+## allowed-outgoing-URLs
+This meta tag do not exist. I just wish it did. The thought would be to limit all outgoing requests to the URLs mentioned in this tag.
 The "origin" mean that the browser can contact the same origin.
 
-Then comma separate more urls if you need. For Infohub I only want to communicate with the server.
+Then comma separate more URLs if you need. For Infohub I only want to communicate with the server.
 
 The closest thing to a limit I have found is [this](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Setting_HTTP_request_headers) and [this](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests) but that is for Firefox only and for browser apps only.
 
 # Links
-The links have content and that is embedded into the index.php file so we do not have more requests to the server.
+The links have content and that is embedded into the index.php file, so we do not have more requests to the server.
 ```
 <link rel="stylesheet" type="text/css" id="infohub_global" href="data:text/css;base64,<?php echo base64_encode(file_get_contents(INCLUDES . '/infohub_global.css')); ?>">
 <link rel="shortcut icon" id="favicon" href="data:image/png;base64,<?php echo base64_encode(file_get_contents(MAIN . '/favicon.png')); ?>" />
@@ -58,7 +58,7 @@ The links have content and that is embedded into the index.php file so we do not
 ```
 
 ## Stylesheet
-This is the only global css file. The work is to decrease this file until it does not exist any more.
+This is the only global css file. The work is to decrease this file until it does not exist anymore.
 I will add nothing more to this file.
 
 ## Shortcut icon (Favicon)
@@ -79,7 +79,7 @@ These files are included and run on the server before you even get the page.
 
 
 # JavaScripts embedded in page
-The Javascripts used in index.php are embedded into the page with PHP to avoid requests to the server.  
+The Javascript used in index.php are embedded into the page with PHP to avoid requests to the server.  
 
 - [error_handler_and_frame_breakout.js](main,core_include_errorhandler) - Shows a popup on errors. Breaks out of iFrames.
 - [the_go_function.js](main,core_include_thegofunction) - incoming event use this function to send a package to [Exchange](plugin,infohub_exchange) through an event that Exchange listen on.
@@ -87,8 +87,8 @@ The Javascripts used in index.php are embedded into the page with PHP to avoid r
 - [start.js](main,core_include_start) - starts up the core plugins and sends the first message.
 
 # Changes
-index.php are cached locally with the help of the Cache.manifest. If you do any change to index.php or any of the embedded javascript files, then you need to update the version comment in the Cache.manifest or else the client will continue to use the old cached index.php.  
-I will NOT create a system that changes the Cache.manifest if the files changes. You have to change the file yourself, then you have the best control of what is happening.  
+index.php are cached locally with the help of the Cache.manifest. If you do any change to index.php or any of the embedded javascript files, then you need to update the version comment in the `cache.manifest` or else the client will continue to use the old cached index.php.  
+I will NOT create a system that changes the `cache.manifest` if the files changes. You have to change the file yourself, then you have the best control of what is happening.  
 
 # Viewport
 

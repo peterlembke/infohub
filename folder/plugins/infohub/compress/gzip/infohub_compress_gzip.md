@@ -17,7 +17,7 @@ Zlib is not built into the browser.
 
 # Implementation in PHP
 
-PHP have a built in function gzencode(), gzdecode() that are used in the plugin.
+PHP has a built-in function `gzencode()`, `gzdecode()` that are used in the plugin.
 
 # Implementation in Javascript
 
@@ -25,8 +25,8 @@ Javascript have ZERO commands of any compression algorithms. That could have bee
 are done in Javascript-code instead.  
 The Gzip implementation come
 from <a href="https://github.com/imaya/zlib.js/blob/develop/test/browser/gzip-test.js" target="_blank">Imaya Zlib on
-Github</a>, written by author <a href="https://github.com/imaya" target="_blank">Imaya Yuta</a>.  
-License. "Copyright © 2012 imaya. Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT
+GitHub</a>, written by author <a href="https://github.com/imaya" target="_blank">Imaya Yuta</a>.  
+License. Copyright © 2012 imaya. Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT
 License</a>.  
 The code is then part of plugin infohub_compress_gzip.js
 
@@ -47,23 +47,23 @@ gzcompress(), gzencode(), gzdeflate().
 
 ## JS compress JS decompress
 
-This works well. I can compress a utf-8 string, get a compressed binary base64 back. I can decompress the binary base64
-string into an utf-8 string.
+This works well. I can compress a UTF-8 string, get a compressed binary base64 back. I can decompress the binary base64
+string into a UTF-8 string.
 
 ## PHP compress PHP decompress
 
-This works well. I can compress a utf-8 string, get a compressed binary base64 back. I can decompress the binary base64
-string into an utf-8 string.
+This works well. I can compress a UTF-8 string, get a compressed binary base64 back. I can decompress the binary base64
+string into a UTF-8 string.
 
 ## PHP compress JS decompress
 
-This works well. I can compress a utf-8 string, get a compressed binary base64 back. I can decompress the binary base64
-string into an utf-8 string.
+This works well. I can compress a UTF-8 string, get a compressed binary base64 back. I can decompress the binary base64
+string into a UTF-8 string.
 
 ## JS compress PHP decompress
 
-This works well. I can compress a utf-8 string, get a compressed binary base64 back. I can decompress the binary base64
-string into an utf-8 string. The thing here is all conversions needed. See the code.
+This works well. I can compress a UTF-8 string, get a compressed binary base64 back. I can decompress the binary base64
+string into a UTF-8 string. The thing here is all conversions needed. See the code.
 
 # License
 

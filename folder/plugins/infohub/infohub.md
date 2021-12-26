@@ -1,7 +1,7 @@
 # Infohub
 
 You are now among the plugins and in the Infohub domain. Here you will find the core plugins and the main supporting
-plugins that are part if the infohub system. There is a mix of PHP server side plugins and Javascript browser plugins.
+plugins that are part if the Infohub system. There is a mix of PHP server side plugins and Javascript browser plugins.
 
 ## Core plugins
 
@@ -106,9 +106,9 @@ There is a system for defining rights (infohub_contact), logging in persons and 
 track of their presence (infohub_session).
 
 * [infohub_contact](plugin,infohub_contact)
-* [infohub_login](plugin,infohub_login)
+* [infohub_log in](plugin,infohub_log in)
 * [infohub_session](plugin,infohub_session)
-  These could have been labeled "support plugins" but you can run infohub without them.
+  These could have been labeled "support plugins" but you can run Infohub without them.
 
 ### Documentation
 
@@ -121,9 +121,8 @@ these plugins:
 
 ### Callbacks
 
-The world as we know it is not filled with Infohub servers that politely login to another node to communicate. Instead
-you see servers doing REST calls directly to a URL. With infohub_callback you can set up URLs and get data on them. The
-data are put in a message and sent into the infohub system.
+The world as we know it is not filled with Infohub servers that politely log in to another node to communicate. You see servers doing REST calls directly to a URL. With infohub_callback you can set up URLs and get data on them. The
+data are put in a message and sent into the Infohub system.
 
 * [infohub_callback](plugin,infohub_callback)
 

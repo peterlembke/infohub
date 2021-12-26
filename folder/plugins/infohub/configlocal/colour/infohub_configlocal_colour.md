@@ -54,8 +54,8 @@ Each layer has its own light percent. If you pick 10% on layer 0 then you have 5
 
 ## 4, Layer 2: Text normal
 
-* Button text on top of level 1
-* Normal text on top of level 0
+* Button texts on top of level 1
+* Normal texts on top of level 0
 * Table row text color
 
 ## 5, Layer 2: Text titles
@@ -70,7 +70,7 @@ Each layer has its own light percent. If you pick 10% on layer 0 then you have 5
 You select a main light percent for the background. How dark or light you want the background to be. That will be the
 light percent of layer 0.
 
-Then layer 1 and layer 2 light percent are calculated so they are a bit away from the background.
+Then layer 1 and layer 2 light percent are calculated, so they are a bit away from the background.
 
 Example: You pick 10% (almost black) for the background color. You get a very dark shade of the colour you picked for
 the background. Now layer 1 will be 50%. You get full pastel colors. Layer 2 will be 90% (almost white). You get a
@@ -92,7 +92,7 @@ This rather ugly colour schema is the basic colour schema. I used it to set thes
 'layer-2-normal-text': '#0b1f00',
 'layer-2-title-text': '#1b350a',
 
-I removed all rgb() and all friendly names (blue, yellow etcetera) and all other colours that are either hard coded or
+I removed all rgb() and all friendly names (blue, yellow and so on) and all other colours that are either hard coded or
 in config files. No other systems than this schema system are allowed now.
 
 # Plugins with colours

@@ -11,7 +11,7 @@ I want to ask the middleware for the data. The middleware give me the data it ha
 
 ## Comment 1
 I hesitate if this is a good idea or not. If you have a pair of plugins that act together then this StorageCache will act as a middle hand, and you have a dependency.
-Also the StorageCache will own the data on the client. That is not good.
+The StorageCache will own the data on the client. That is not good.
 
 infohub_tree will be this middleware. With the drawbacks. So this idea will be implemented in Tree, but it will not be implemented generally.
 

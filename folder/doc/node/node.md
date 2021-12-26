@@ -8,7 +8,7 @@ Now you can send a message from your node to the other node.
 
 # Node information
 Information about nodes are managed in infohub_transfermanager. Here you can add all required information about a node.  
-Your friendly name for this node. Domain name on internet. Your login user ID on that node. Your login shared random data.  
+Your friendly name for this node. Domain name on internet. Your login user ID on that node. Your log in shared random data.  
 Infohub Transfer handle all communication. Infohub Login use the information to log you into the other node.  
 
 # Web node

@@ -7,19 +7,13 @@ Bad ideas; the documentation is now listing a lot of ideas that seem good but do
 The good ideas will come later.
 
 * [Release notes](main,release_v1_v1v3_v1v3v2)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.2)
-
-## Work in progress
-* Darkhold - Planned for v1.3.3 - Splits a job in many messages, collects the answers and returns one answer. Required for implementing Swoole. 
-* Translate - Planned for v1.3.4 - Using LibreTranslate to create translation files. Requires Darkhold to query LibreTranslate.
-* Tree - Planned for v1.3.5 - All personal plugins will use Tree.
-* Blog - Planned for v1.3.6 - Publish Markdown texts that guests can read.
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.2)
 
 ## Added
 * Added more start up logging. Changed minimum logging level from warn to info.
 * HUB-1382, infohub_translate.php: Functions for calling LibreTranslate
 * HUB-1381, infohub_translate: GUI just like LibreTranslate has
-* HUB-1385, infohub_libretranslate - bare bone plugin
+* HUB-1385, infohub_libretranslate - bare-bone plugin
 * HUB-1387, infohub_libretranslate - icon and title
 * HUB-1386, infohub_libretranslate - Get GUI working. Now it works. But the GUI is not translated yet
 * HUB-1391, LibreTranslate: Pick source language

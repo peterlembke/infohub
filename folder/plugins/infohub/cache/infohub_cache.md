@@ -7,7 +7,7 @@ Your browser plugin storage
 
 All major browsers have a feature called localStorage. It is a persistent key-value storage. Infohub_cache use this
 storage to store plugins.  
-When the infohub core in your browser require a plugin then infohub_cache can either give the plugin or conclude that it
+When the Infohub core in your browser require a plugin then infohub_cache can either give the plugin or conclude that it
 does not have it.
 
 # Caching in Infohub
@@ -31,7 +31,7 @@ This mini core and infohub_cache are the only two that can interact with the loc
 
 # Usage
 
-First of all, do not use this plugin. Leave the caching to the infohub core. Now, if you want to use this plugin anyhow
+Do not use this plugin. Leave the caching to the Infohub core. Now, if you want to use this plugin anyhow
 then this is how you do it:
 
 * _save_data_to_cache_ : you give `{'prefix': '', 'key': '', 'data': {}, 'checksum': ''}`. The prefix for plugins are "
@@ -51,7 +51,7 @@ There are two benefits with the browser plugin cache. You reduce the number of r
 When you have all the plugins you do not have to ask the server at all, and you can then run the app without a network
 connection.
 
-# Browser cache life time
+# Browser cache lifetime
 
 The browser cache is handled by [infohub_cache](plugin,infohub_cache).
 

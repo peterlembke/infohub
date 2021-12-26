@@ -1,10 +1,10 @@
 # Infohub_Session
 
-When [infohub_login](plugin,infohub_login) have successfully logged you in to the remote server it calls infohub_session
+When [infohub_log in](plugin,infohub_log in) have successfully logged you in to the remote server it calls infohub_session
 and provide some data. infohub_session store the data. The data are used for calculating and verifying one time
 passwords.
 
-Only infohub_transfer and infohub_login on the same node can use infohub_session.
+Only infohub_transfer and infohub_log in on the same node can use infohub_session.
 
 **Functions**
 
@@ -19,25 +19,25 @@ Only infohub_transfer and infohub_login on the same node can use infohub_session
 
 # responder_start_session
 
-If the login was a success then infohub_login call responder_start_session to register a new session.
+If the log-in was a success then infohub_log in call responder_start_session to register a new session.
 
-infohub_login then return a success message and the session data needed for the initiator.
+infohub_log in then return a success message and the session data needed for the initiator.
 
 **Incoming data**
 
 * initiator_user_name - user_{hub_id}
-* left_overs - Left overs from the login. Based on secrets but can not be reversed to the secret.
+* left_overs - Left-overs from the log-in. Based on secrets but can not be reversed to the secret.
 
 **The function store this data**
 
 * initiator_user_name - user_{hub_id}
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
 
 Path contain session_id: `infohub_session\session\session_{hub_id}`
 
-Then it will be possible for the initiator to login on several devices with the same account.
+Then it will be possible for the initiator to log in on several devices with the same account.
 
 **The function return this data**
 
@@ -50,7 +50,7 @@ Then it will be possible for the initiator to login on several devices with the 
 
 # initiator_store_session_data
 
-Used by `infohub_login` to store session data we got from the other node.
+Used by `infohub_log in` to store session data we got from the other node.
 
 Initiator get the session data and verify the session_created_at. It must be within 2 seconds.  
 Then use `add_session_data` to store a session under a node name.
@@ -63,13 +63,13 @@ The initiator can now send messages to that node.
 * initiator_user_name - user_{hub_id}
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 
 **The function store this data**
 
 * node - name of the node
 * initiator_user_name - user_{hub_id}
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
 
@@ -83,7 +83,7 @@ Path contain node: `infohub_session\node\server`
 
 # initiator_end_session
 
-Used by `infohub_login` to ask the responder to forget about the login and then delete the local session data.
+Used by `infohub_log in` to ask the responder to forget about the log-in and then delete the local session data.
 
 **Incoming data**
 
@@ -103,7 +103,7 @@ If it was a success then we delete the session data locally.
 
 # responder_end_session
 
-Used by infohub_session to ask the responder to forget about the login.
+Used by infohub_session to ask the responder to forget about the log-in.
 
 **Incoming data**
 
@@ -124,7 +124,7 @@ Used by infohub_transfer to get a `sign_code` for the query package.
 **Incoming data**
 
 * node - For requests
-* messages_checksum - md5 checksum of all messages in the package
+* messages_checksum - MD5 checksum of all messages in the package
 
 **Read the session data**
 Now I have these values too:
@@ -132,7 +132,7 @@ Now I have these values too:
 * initiator_user_name - user_{hub_id}
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 
 **And create this value**
 
@@ -163,7 +163,7 @@ Used by infohub_transfer to get a `sign_code` for the response package.
 **Incoming data**
 
 * session_id
-* messages_checksum - md5 checksum of all messages in the package
+* messages_checksum - MD5 checksum of all messages in the package
 
 **Read the session data**
 Now I have these values too:
@@ -171,7 +171,7 @@ Now I have these values too:
 * initiator_user_name - user_{hub_id}
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 
 **And create this value**
 
@@ -202,7 +202,7 @@ Used by infohub_transfer to verify a response package `sign_code`.
 **Incoming data**
 
 * node - node name
-* messages_checksum (md5 checksum of all messages in the package)
+* messages_checksum (MD5 checksum of all messages in the package)
 * sign_code
 * sign_code_created_at
 
@@ -214,7 +214,7 @@ Now I have these values too:
 * initiator_user_name - user_{hub_id}
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 
 **Calculations will be**  
 sign_code = md5(session_created_at . sign_code_created_at . left_overs . messages_checksum . session_id .
@@ -235,7 +235,7 @@ Used by infohub_transfer to verify a query package `sign_code`.
 **Incoming data**
 
 * session_id
-* messages_checksum (md5 checksum of all messages in the package)
+* messages_checksum (MD5 checksum of all messages in the package)
 * sign_code
 * sign_code_created_at
 
@@ -247,7 +247,7 @@ Now I have these values too:
 * initiator_user_name - user_{hub_id}
 * session_id - session_{hub_id}
 * session_created_at - micro time with 3 decimals
-* left_overs - Left overs from the login
+* left_overs - Left-overs from the log in
 
 **Calculations will be**  
 sign_code = md5(session_created_at . sign_code_created_at . left_overs . messages_checksum . session_id .

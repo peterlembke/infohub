@@ -1,5 +1,5 @@
 # Facebook
-I care for my privacy but I also want to communicate with my friends on Facebook.
+I care for my privacy, but I also want to communicate with my friends on Facebook.
 Can't Infohub have a Facebook client that let the server communicate with Facebook and then the server communicate with my browser.
 Then Facebook can not track all data, and I feel safer.
 

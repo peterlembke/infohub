@@ -19,7 +19,7 @@ You can have several timers active. They are separated by plugin_name and an ali
 
 ## Start a timer
 
-This example code comes from the infohub_demo_timer. In this case we use a [multi message](plugin,infohub_base) but you
+This example code comes from the infohub_demo_timer. In this case we use a [multi message](plugin,infohub_base), but you
 can use a normal _SubCall if you want to.
 
 * The call goes to infohub_timer -> start_timer. The name is any name you like.
@@ -84,7 +84,7 @@ Update if provided time is higher than what is left on the timer but still lower
 
 ## Stop a timer
 
-You can stop a timer that you have started. The timers are divided by plugin name so you can not stop a timer started by
+You can stop a timer that you have started. The timers are divided by plugin name, so you can not stop a timer started by
 another plugin.
 
 ```javascript

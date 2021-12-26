@@ -17,12 +17,12 @@ The aim of the demos are to show all the rendering capabilities you can use in y
 # Server demos
 
 To start the server demos you will be using the callback system. Check out the file "
-folder/plugins/infohub/callback/infohub_callback.json", here you find definitions to all the demos. A url will be shown
+folder/plugins/infohub/callback/infohub_callback.json", here you find definitions to all the demos. A URL will be shown
 together with each demo description below.
 
 ## Demo 1 - Return a Camel Case String
 
-The demo gets a pre defined lower case string in variable "my_variable" and converts it to camel case.    
+The demo gets a pre-defined lower case string in variable "my_variable" and converts it to camel case.    
 Url: <a href="/demo/1" target="_blank">Demo 1</a>  
 Definition in infohub_callback.json
 
@@ -54,7 +54,7 @@ Definition in infohub_callback.json
 
 ## Demo 2 - Return an UPPER CASE STRING
 
-The demo gets a pre defined lower case string in variable "my_variable" and converts it to UPPER CASE.  
+The demo gets a pre-defined lower case string in variable "my_variable" and converts it to UPPER CASE.  
 Url: <a href="/demo/2" target="_blank">Demo 2</a>    
 Definition in infohub_callback.json
 

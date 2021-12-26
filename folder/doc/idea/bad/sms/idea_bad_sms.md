@@ -1,13 +1,13 @@
 # SMS
-Would be cool if Infohub could send and receive SMS. Then I could improve the login procedure and send out one time password.
+Would be cool if Infohub could send and receive SMS. Then I could improve the log in procedure and send out one time password.
 I could also get commands from SMS.
 
 && communication,share
 
 ## SMS send
-Getting login information is the only use for sending emails.
+Getting log in information is the only use for sending emails.
 A telephone number is private, it is also easy to reroute.
-SMS should not be used for login.
+SMS should not be used for log in.
 
 ## SMS receive
 Receiving SMS to trigger something sounds like a good idea.

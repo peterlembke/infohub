@@ -60,8 +60,8 @@
 class DoubleMetaphone
 {
     public string $original = "";
-    public $primary = "";
-    public $secondary = "";
+    public string $primary = "";
+    public string $secondary = "";
     public int $length = 0;
     public int $last = 0;
     public int $current = 0;
@@ -70,7 +70,6 @@ class DoubleMetaphone
     {
         $this->primary = "";
         $this->secondary = "";
-        $this->current = 0;
 
         $this->current = 0;
         $this->length = strlen($string);

@@ -1,10 +1,10 @@
 # Infohub Demo SVG
 
-Shows a demo how you can use the infohub svg plugin.
+Shows a demo how you can use the Infohub SVG plugin.
 
 # Introduction
 
-In this demo we show how to use the [infohub Render SVG](plugin,infohub_render_svg) plugin.
+In this demo we show how to use the [Infohub Render SVG](plugin,infohub_render_svg) plugin.
 
 SVG are scalable vector graphics. This demo show some of what the plugin can do.
 

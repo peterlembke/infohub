@@ -203,12 +203,9 @@ function infohub_render_audio() {
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $sandbox = _GetSandbox();
-        const $html = '<iframe ' + $id +
-            ' width="100%" height="370" scrolling="no" frameborder="no" src="https://widgets.jamendo.com/v3/' +
-            $in.data + '" ' + $sandbox + '></iframe>';
+        const $html = '<iframe ' + $id + ' width="100%" height="370" src="https://widgets.jamendo.com/v3/' + $in.data + '" ' + $sandbox + '></iframe>';
 
         let $cssData = $in.css_data;
 
@@ -298,7 +295,7 @@ function infohub_render_audio() {
             {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $sandbox = _GetSandbox();
         const $html = '<iframe ' + $id +
-            ' width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/' +
+            ' width="100%" height="166" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/' +
             $in.data +
             '&amp;color=0066cc&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true&amp;show_user=true&amp;visual=true" ' +
             $sandbox + '></iframe>';
@@ -322,7 +319,7 @@ function infohub_render_audio() {
 
     /**
      * Create HTML for Soundcloud link
-     * Note that the data for the embed and the link is different for the same song
+     * Note that the data for the embed and the link are different for the same song
      * @version 2016-11-03
      * @since   2016-11-03
      * @author  Peter Lembke
@@ -388,12 +385,11 @@ function infohub_render_audio() {
         };
         $in = _Default($default, $in);
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
         const $sandbox = _GetSandbox();
         const $html = '<iframe ' + $id +
             ' src="https://open.spotify.com/embed/' + $in.data +
-            '" height="80" frameborder="0" allowtransparency="true" ' +
+            '" height="80" allowtransparency="true" style="border:0;"' +
             $sandbox + '></iframe>';
 
         // <iframe src="https://open.spotify.com/embed/track/6o56JEMxnUMPmO4qjWnjc9" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>

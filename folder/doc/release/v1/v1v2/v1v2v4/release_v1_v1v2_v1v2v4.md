@@ -4,7 +4,7 @@ I started developing Infohub at 2010-01-01 and today 10 years later I give you t
 This is a service release with a lot of small changes but also a new feature with the table renderer and my view on doc/accessibility.
 
 * [Release notes](main,release_v1_v1v2_v1v2v4)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.4)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.4)
 
 ## Added
 - infohub_render_table - Now you can use tables
@@ -20,7 +20,7 @@ This is a service release with a lot of small changes but also a new feature wit
 - infohub_transfer - Deleting the step parameter on outgoing messages from client and from server. We will not try to upset the other node by manipulate the step parameter in the function we call.
 - infohub_transfer - Restore the call stack on messages that could not be sent to the server. Then the message can report that it can not be sent.
 - infohub_view.js - Refactoring. Removed `var` and introduced `const` and `let`.
-- infohu_workbench - Menu icons width/height from 80px to 64px to make the GUI tighter. Still finger friendly.
+- infohub_workbench - Menu icons width/height from 80px to 64px to make the GUI tighter. Still finger friendly.
  
 ## Removed
 - infohub_view.css - Removed word-break.

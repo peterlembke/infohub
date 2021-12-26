@@ -18,15 +18,15 @@ $infohub_start.start();
 The start function have a list of all plugins that should be available, then checks what plugins exist in the localstorage.  
 If any plugin is missing then an ajax call is done to the server to get the missing plugins. Then store the plugins from the response into the local storage.  
 When all plugins are in local storage then they are all started. Now we have the core plugins started, we now only need the first message that triggers it all.  
-The first message will goto client->infohub_exchage->startup, but how will we get it into the system? If you look at the end of startup.js you see an event listener called infohub_call_main.
+The first message will goto client->infohub_exchange->startup, but how will we get it into the system? If you look at the end of startup.js you see an event listener called infohub_call_main.
 The event listener are usually used when we have data from an event and want that as a message into the system. See [the_go_function.js](main,core_include_thegofunction). Now we send an event with the first message.  
 
 # Infohub Exchange
 When you send a message through the event infohub_call_main the message are put in a package (an array) with the destination client->infohub_exchange->main.
-And that package are given to infohub_exchange.cmd(). The return value are discarded.  
+And that package is given to infohub_exchange.cmd(). The return value are discarded.  
 You can read more about [Infohub Exchange](plugin,infohub_exchange).  
-There is a configuration file called infoub_exchange.json that hold domain names and the start message for each domain name.
-In startup it pulls the current domain name and checks the configuration what message to send.  
+There is a configuration file called infohub_exchange.json that hold domain names and the start message for each domain name.
+In startup, it pulls the current domain name and checks the configuration what message to send.  
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  

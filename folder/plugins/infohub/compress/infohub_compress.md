@@ -6,8 +6,8 @@ Different methods to compress / decompress a data string.
 
 This plugin and its child plugins give you a set of compress functions you can use.  
 There are different kind of compression suitable for different kind of problems. Compression can be used to reduce the
-size of the data before you transfer it to a node or before you store it in Storage.  
-Infohub will use compression in transfer of data between nodes. In infohub Compress you will find different kind of
+size of the data before you transfer it to a node, or before you store it in Storage.  
+Infohub will use compression in transfer of data between nodes. In Infohub Compress you will find different kind of
 compressions and each child plugin have its own documentation
 
 # A good compression
@@ -20,10 +20,10 @@ the compressed data that adds 33% on the compressed data and still it is a good 
 
 # Built in compression
 
-PHP have a built in function for compression, it is the ZLib functions. These functions are quicker to use directly and
-they give a predictable answer every time so you can absolutely use them in your code.  
+PHP has a built-in function for compression, it is the ZLib functions. These functions are quicker to use directly, and
+they give a predictable answer every time, so you can absolutely use them in your code.  
 On the other hand, if you ever want to convert your plugin to other languages that do not have this built in then you
-need to use a plugin. For example gzencode are a PHP function but do not exist in Javascript unless you use a plugin.  
+need to use a plugin. For example gz-encode are a PHP function but do not exist in Javascript unless you use a plugin.  
 There are other arguments for using the plugins. You can intercept the message and exchange the type. You get a unified
 way of getting compressed data.
 
@@ -39,7 +39,7 @@ You can read more about Gzip on <a href="https://en.wikipedia.org/wiki/Gzip" tar
 # LZ (do not exist in php, JS plugin)
 
 lz-string was designed to fulfill the need of storing large amounts of data in localStorage, specifically on mobile
-devices. localStorage being usually limited to 5MB, all you can compress is that much more data you can store.  
+devices. localStorage being usually limited to 5Mb, all you can compress is that much more data you can store.  
 You can read more about LZ on <a href="http://pieroxy.net/blog/pages/lz-string/index.html" target="_blank">
 pieroxy.net</a>.
 

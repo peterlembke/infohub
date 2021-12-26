@@ -3,7 +3,7 @@ I have a lot of visions for InfoHub
 - [Applications to build](main,main_vision_applications) - A list of applications I want to build with InfoHub.
 - [Central hub](main,main_vision_centralhub) - Find plugins, InfoHubs, documentation, Core download, certified developers, guides.
 - [Certification](main,main_vision_certification) - A certification program, questions come from the community. You can be certified.
-- [Extend Magento with InfoHub](main,main_vision_magento) - As a frontend, As a storage, As an integration hub, As a login partner.
+- [Extend Magento with InfoHub](main,main_vision_magento) - As a frontend, As a storage, As an integration hub, As a log in partner.
 - [Many platforms](main,main_vision_platforms) - In addition to PHP and Javascript; InfoHub in NodeJS, in Python, in Cordova apps, in Electron apps, in Ruby.
         
 # License

@@ -66,7 +66,7 @@ function infohub_doc() {
 
     $functions.push('create');
     /**
-     * Get the raw data for the markdown doc file.
+     * Get the raw data for the Markdown doc file.
      * Used by infohub_tree_doc to render the documentation
      * @version 2021-03-14
      * @since   2019-03-14
@@ -171,7 +171,7 @@ function infohub_doc() {
     };
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2019-04-14
      * @since   2019-04-14
      * @author  Peter Lembke
@@ -370,7 +370,7 @@ function infohub_doc() {
     };
 
     /**
-     * When you click a navigation link in the markdown text you end up here.
+     * When you click a navigation link in the Markdown text you end up here.
      * We will now render the right document.
      * @version 2019-08-18
      * @since 2019-08-18
@@ -516,7 +516,7 @@ function infohub_doc() {
     /**
      * Calls the server with the same plugin name as this plugin, and the function name you choose.
      * Children can talk to level1 plugins on the same node.
-     * When you need data from other nodes then any level1 plugin must help getting that.
+     * When you need data from other nodes then any level1 plugin must help to get that.
      * @version 2019-03-13
      * @since 2019-03-13
      * @author Peter Lembke

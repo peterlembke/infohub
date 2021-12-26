@@ -154,7 +154,7 @@ class infohub_checksum_personnummer extends infohub_base
      */
     protected function _PersonnummerCalculateChecksum(string $valueString = ''): string
     {
-        $numbers = str_split($valueString, 1);
+        $numbers = str_split($valueString, $length = 1);
         $sum = 0;
         foreach ($numbers as $index => $numberString) {
             if ($index % 2 === 0) {
@@ -178,7 +178,7 @@ class infohub_checksum_personnummer extends infohub_base
      */
     protected function _PersonnummerSum(string $valueString = ''): int
     {
-        $numbers = str_split($valueString, 1);
+        $numbers = str_split($valueString, $length = 1);
         $sum = 0;
         foreach ($numbers as $number) {
             $sum = $sum + $number;

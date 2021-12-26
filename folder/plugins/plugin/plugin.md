@@ -9,10 +9,10 @@ In the plugin folder you find domain folders. Each plugin producer have their ow
 A domain name is one single word/name with low case letters.
 
 # Review the plugins you want to use
-If you want to use a plugin in your system then you must review it first so you are sure there are no strange behaviours.  
+If you want to use a plugin in your system then you must review it first, so you are sure there are no strange behaviours.  
 
 Do ^^not^^ use the plugin code if:
-- the code is encrypted/obscured so you can not read all code.
+- the code is encrypted/obscured, so you can not read all code.
 - the code uses another programming languages than the rest of the core.
 - the code has named variables or functions that do not describe their contents and purpose.
 - the code have a lot of comments - that means the code is poorly written.
@@ -21,7 +21,7 @@ Do ^^not^^ use the plugin code if:
 - the test file is missing.
 
 # Two languages
-In this distribution you have php plugins and javascript plugins. The web browser run javascript plugins and the server run the php plugins. The browser can not get hold of the javascript plugins without the help of the php plugins so they live a symbiotic relationship.
+In this distribution you have php plugins and javascript plugins. The web browser run javascript plugins and the server run the php plugins. The browser can not get hold of the javascript plugins without the help of the php plugins, so they live a symbiotic relationship.
 
 # Plugin type
 
@@ -45,7 +45,7 @@ Plugins that can be used by other plugins and provide some service. The plugin h
 
 If the plugin is not one of the core plugins and has no asset/launcher.json then it is a support plugin.
 
-Example: asset, cache, callback, configlocal, render, session, storage, view, audio, file, markdown, password, random, renderadvancedlist, renderdocument, renderform, rendermajor, rendermenu, tabs, time, validate, uuid.
+Example: asset, cache, callback, configlocal, render, session, storage, view, audio, file, Markdown, password, random, renderadvancedlist, renderdocument, renderform, rendermajor, rendermenu, tabs, time, validate, uuid.
 
 # License
 This documentation is copyright (C) 2017 Peter Lembke.  

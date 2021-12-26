@@ -5,12 +5,12 @@ Compress and decompress data with LZ.
 # LZ compression
 
 lz-string was designed to fulfill the need of storing large amounts of data in localStorage, specifically on mobile
-devices. localStorage being usually limited to 5MB, all you can compress is that much more data you can store.
+devices. localStorage being usually limited to 5Mb, all you can compress is that much more data you can store.
 
 # Implementation in PHP
 
 lz-string is originally for Javascript but there are implementations in other languages. The PHP implementation is
-spread over several files so I have decided not to implement that implementation.
+spread over several files, so I have decided not to implement that implementation.
 
 # Implementation in Javascript
 

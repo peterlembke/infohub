@@ -62,7 +62,7 @@ function infohub_exchange() {
         return _GetCmdFunctionsBase($list);
     };
 
-    let $that = this,// to reference cmd inside of infohub_exchange. Do not do this in other plugins.
+    let $that = this,// to reference cmd inside infohub_exchange. Do not do this in other plugins.
         $Sort = [], // Array with all unsorted messages
         $ToPending = [], // Array with all messages going to Pending or will be discarded
         $Pending = {}, // Messages waiting for a plugin to be loaded, $Pending['pluginname']=array()
@@ -849,7 +849,7 @@ function infohub_exchange() {
 
     /**
      * The incoming package have messages, place them in array Sort.
-     * If we have no package the we just continue. That can happen when the timer calls main function
+     * If we have no package then we just continue. That can happen when the timer calls main function
      * Used by: main
      * @version 2015-01-25
      * @since 2013-11-21
@@ -904,7 +904,9 @@ function infohub_exchange() {
     $functions.push('_SendMessageBackPluginNotFound');
     /**
      * If the message passes the tests then it is added to queue Sort, else it is thrown away.
-     * @param array $in
+     * @param $in
+     * @param $message
+     * @private
      */
     const _SendMessageBackPluginNotFound = function($in = {}, $message = '') {
         const $default = {
@@ -1403,7 +1405,7 @@ function infohub_exchange() {
                 continue;
             }
 
-            // This message are the first to come to this plugin name
+            // This message is the first to come to this plugin name
             $Pending[$pluginName] = [];
             $Pending[$pluginName].push($dataMessage);
 

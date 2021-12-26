@@ -4,7 +4,7 @@ Here you can read all documentation. The general documentation and documentation
 
 ## Introduction
 
-You can document your plugin in a simple markdown format.  
+You can document your plugin in a simple Markdown format.  
 The documentation file for plugin infohub_doc is called infohub_doc.md and is placed together with the plugin code. The
 content of the file is plain text and based on Markdown.   
 Other examples: infohub_demo.md, infohub_callback.md
@@ -24,7 +24,7 @@ You can see how all the plugins are documented with a file that has the same nam
 with .md that indicate the file is written in the MarkDown format. Markdown is a plain text file where you write ina
 specific way that the computer can read.
 
-Read more about the [Github Markdown flawor](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+Read more about the [GitHub Markdown flavor](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 Read more about the [Infohub document format](plugin,infohub_renderdocument)
 
 You write in Markdown format but for Infohub to correctly handle event links and images I needed to modify how some
@@ -63,7 +63,7 @@ When you start infohub_doc you will see two buttons "Refresh Navigate", "Refresh
 ### Navigation
 
 Click on the button "Refresh Navigate" to update the list with available documents you can view. You can now click on a
-document name and you can expand nodes by clicking on the + and -. When you click a document name the document will be
+document name, and you can expand nodes by clicking on the + and -. When you click a document name the document will be
 viewed.
 
 ### Index
@@ -84,7 +84,7 @@ This section is only interesting for developers.
 The infohub_doc.php plugin give you the data.
 
 * get_document - download a document with image data embedded
-* get_documents - download many docments
+* get_documents - download many documents
 * get_documents_list - get a full list of all available documents
 
 #### get_document
@@ -97,14 +97,14 @@ The item contain
 
 * name - The name path with underscores like plugin_infohub_doc_index or document_node_client
 * content - The document with embedded images
-* checksum - md5 of the content with embedded images
+* checksum - MD5 of the content with embedded images
 * title - The first h1 in the content
 * provided_checksum - the checksum you provided
 * keep_existing - "true" or "false"
 
 #### get_documents
 
-Same as get_document but you provide an array with document name and checksum if you have.  
+Same as get_document, but you provide an array with document name and checksum if you have.  
 Calls get_document for each provided item. The result will be the same as get_document but in an item array.
 
 #### get_documents_list
@@ -118,7 +118,7 @@ The key is "name" - The name path with underscores like plugin_infohub_doc_index
 
 An item contain:
 
-* checksum - md5 of the content with embedded images
+* checksum - MD5 of the content with embedded images
 * title - The first line that start with #
 
 ### infohub_doc.js
@@ -128,9 +128,9 @@ The client Javascript plugin that is the umbrella for the child plugins.
 Functions
 
 * create - Used in rendering a document, navigate, index, visited list
-* setup_gui - Creates the boxes and calls the children to render their content in each box.
+* set up_gui - Creates the boxes and calls the children to render their content in each box.
 * click - All gui clicks comes here and are distributed to the right child plugin and function.
-* call_server - Used by the childen to call the server.
+* call_server - Used by the children to call the server.
 
 #### create
 
@@ -141,7 +141,7 @@ Used in rendering part of the gui. You can render
 * index
 * visited
 
-#### setup_gui
+#### set up_gui
 
 Creates the boxes and calls the children to render their content in each box.  
 Calls: navigate, document, index, visited
@@ -152,13 +152,13 @@ All gui clicks comes here and are distributed to the right child plugin and func
 
 #### call_server
 
-Used by the childen to call the server. All children can contact all level1 plugins.  
+Used by the children to call the server. All children can contact all level1 plugins.  
 This function can only be used by its own children.
 
 ### infohub_doc_navigate
 
 Renders the navigation tree. When you expand a node then that part is rendered.  
-When you click a document name then that document are rendered.
+When you click a document name then that document is rendered.
 
 Uses infohub_doc_get -> get_documents_list to get the data needed for the list.
 
@@ -173,7 +173,7 @@ document and jump to each title in the document.
 
 ### infohub_doc_visited
 
-This is *not* implemented yet. Handles the list with the 16 latest visited documents and their meta data.
+This is *not* implemented yet. Handles the list with the 16 latest visited documents and their metadata.
 
 add_document - Add a document to the list and get the current list get_list - Get the list
 
@@ -192,7 +192,7 @@ The other sibling plugins use infohub_doc_get to get the data they need.
 
 If infohub_doc_get have the data then it will be given to them. If infohub_doc_get do not have the data then it will ask
 the server and then give to them.  
-If infohub_doc_get do not have the data and we are offline then a false will be returned. Old data does not matter, the
+If infohub_doc_get do not have the data, and we are offline then a false will be returned. Old data does not matter, the
 sibling will get the data we have. Then infohub_doc_get will try to update the local data by asking the server.
 
 #### get_document

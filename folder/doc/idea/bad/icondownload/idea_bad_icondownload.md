@@ -6,7 +6,7 @@ The manual work involved with using icons would be reduced.
 
 ## Comment 1
 Icons come from a lot of places. To support all those places or even a couple of them is just waste of work.
-The icon often need to be simplified in Inkscape. Colours changed. Things modified. Resaved into an optimal format.
+The icon often need to be simplified in Inkscape. Colours changed. Things modified. Then saved into an optimal format.
 Creating a plugin icon is a lot of work. The download part and creating a license file is a small effort in the whole.
 
 So this is just a bad idea.

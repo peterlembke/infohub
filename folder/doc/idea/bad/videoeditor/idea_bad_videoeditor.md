@@ -8,7 +8,7 @@ That would save a lot of bandwidth and space on the server.
 There are existing programs better suited for this.
 
 Often you import a video from your phone.
-Cuttong a video is quickly done in other software that is built for video handling.
+Cutting a video is quickly done in other software that is built for video handling.
 Same thing with converting a video. It is better done in other software.
 
 Fix the video first, then upload it to Infohub.

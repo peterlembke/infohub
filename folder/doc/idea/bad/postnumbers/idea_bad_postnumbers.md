@@ -5,7 +5,7 @@ If I ever write a private shipping plugin then post numbers would eb handy.
 
 ## Comment 1
 Infohub is about privacy and private data. Stockpiling public data in Infohub is not very useful.
-Writing a private shipping feature is better done outside of Infohub.
+Writing a private shipping feature is better done outside Infohub.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

@@ -3,7 +3,7 @@ What Infohub means about offline is when you do a sub-call to a node, and it is 
  
 # Infohub_Transfer
 Infohub_Transfer keep track of what nodes are offline.  
-If a node is offline then all subcalls to that node are answered with an offline message.  
+If a node is offline then all sub calls to that node are answered with an offline message.  
 All other messages that are answers from the other node will remain there until the node is online again.
 
 Infohub_Transfer will try to contact that node again after 3 minutes and will do three tries until the rest of the messages are deleted too.

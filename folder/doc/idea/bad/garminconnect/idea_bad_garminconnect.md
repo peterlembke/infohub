@@ -7,10 +7,10 @@ Would be cool to see my data in Infohub as a backup and to make my own search in
 ## Comment 1
 The data in the gps is not your data, it is the property of Garmin. 
 You sync their data to their service. 
-They give you the right to see some of the data that you have produced. 
+They give you the right to see some data that you have produced. 
 They also give you the right to let others see a subset of the data that comes from you.
 
-So Garmin own all data. They have no public API. Infohub will not use unofficial APIs to extract other companies data without their explicit consent.
+So Garmin own all data. They have no public API. Infohub will not use unofficial APIs to extract other companies' data without their explicit consent.
 
 That is why interfacing with Garmin is a bad idea.
 

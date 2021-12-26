@@ -4,15 +4,15 @@ The GUI to handle outgoing connections to other servers
 
 ## Introduction
 
-Server mean that your server will login to other servers and use the connection details.  
-The connection name is also the node name. You can send messages to this node and they will reach the other server.
+Server mean that your server will log in to other servers and use the connection details.  
+The connection name is also the node name. You can send messages to this node, and they will reach the other server.
 
 ## GUI
 
 You have to get a json file from the other server and import it to your system. Then you can modify the name and the
 note if you want to.  
 You will also get the domain name to the server in the json. If for some reason you know that the domain name have
-changd then you can modify that too.  
+changed then you can modify that too.  
 You can not modify the list of allowed plugins from the GUI. You can export the data to a json.  
 You can test the communication with the button "Ping server".
 

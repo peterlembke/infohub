@@ -952,7 +952,7 @@ const _GetExtension = function($fileName = '') {
 
 /**
  * Execute one private function in this class
- * Used by: Infohub Exchange or if you use the class outside of InfoHub.
+ * Used by: Infohub Exchange or if you use the class outside InfoHub.
  * Will only call function names that DO NOT start with internal_ or _
  * @version 2014-01-01
  * @since 2012-01-01
@@ -1653,7 +1653,7 @@ const internal_SubCall = function($in = {}) {
         'data_request': [], // Array with variable names you want from the sub-function. Leave blank to get everything.
         'data_back': {}, // Return these variables untouched in the returning message. (OPTIONAL)
         'wait': 10.0, // Seconds you can wait before this message really need to be sent.
-        'track': 'false', // 'true' lets Cmd add an array of where this message have been.
+        'track': 'false', // 'true' lets Cmd add an array of where this message has been.
         'original_message': {}, // Original message that came into cmd().
     };
     $in = _Default($default, $in);

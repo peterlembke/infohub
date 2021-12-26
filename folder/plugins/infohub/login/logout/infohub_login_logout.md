@@ -1,11 +1,11 @@
 # Infohub_Login_Logout
 
-Here you can tell the remote server that you want to close the open connection for now. This will require you to login
+Here you can tell the remote server that you want to close the open connection for now. This will require you to log in
 the next time.
 
 ## Logout
 
-The GUI only have one button "Logout". Press the button and you will get a message of the result.
+The GUI only have one button "Logout". Press the button, and you will get a message of the result.
 
 # License
 

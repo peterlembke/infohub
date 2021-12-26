@@ -5,7 +5,7 @@ Where all data is stored
 # Introduction
 
 All data are stored in Storage. Storage supports different storage solutions as child plugins.  
-The data are stored as key-value data and you can store any data.  
+The data are stored as key-value data, and you can store any data.  
 There is a [Storage Demo](plugin,infohub_demo_storage) where you can see how it works.
 
 # Path
@@ -43,14 +43,14 @@ You can read more about reading data here [Storage Data](plugin,infohub_storage_
 
 ## Read many paths
 
-With the normal read function you can read a path or a path with a pattern. With read_many you can read many different
+With the normal read function you can read a path or a path with a pattern. With read_many you can read many
 paths at once.  
 The answer is an array with the answers from multiple read.
 
 ## Write many paths
 
 With the normal write function you can write to one path or to a path with a pattern. With write_many you can write to
-many different paths at once with different data on each path.  
+many paths at once with different data on each path.  
 The answer is an array with the answers from multiple writes.
 
 # Index data and search
@@ -96,7 +96,7 @@ You should encrypt your data before sending it to Storage. The encryption string
 
 Access rights are not part of Storage, they are part of InfoHub in general.  
 Each user is logged in (user_id) and are allowed a list of plugins they are allowed to use in the node.  
-The messages will only reach plugins that the logged in user is allowed to use.   
+The messages will only reach plugins that the logged-in user is allowed to use.   
 Then it is up to the plugin to segment the data. It might very well have its own list with more detailed rights.
 
 ## Data manipulation detection

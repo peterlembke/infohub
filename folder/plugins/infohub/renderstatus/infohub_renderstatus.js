@@ -179,7 +179,7 @@ function infohub_renderstatus() {
             'head_text': '',
             'foot_text': '',
             'original_alias': '',
-            'show': '', // What option to show
+            'show': '', // What options to show
             'options': {},
             'config': {},
             'class': 'menu',

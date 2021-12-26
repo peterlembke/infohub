@@ -7,10 +7,10 @@ Would it not be practical to have a manager plugin that can be used by site admi
 ## Comment 1
 Data should be stored with storage to suitable databases.
 Files should not be used. Adding a file manager just makes it easier to use files.
-It is not a rotten idea but it is not in line with having all data in databases.
+It is not a rotten idea, but it is not in line with having all data in databases.
 Reality is that much data is in files.
 
-This idea is in the bad ideas section for now.
+This idea is in the bad-ideas section for now.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

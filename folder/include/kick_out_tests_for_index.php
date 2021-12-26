@@ -48,8 +48,8 @@ class kick_out_tests_for_index
         }
 
         if ($_SERVER['QUERY_STRING'] !== '') {
-            $pluginNameExist = strpos($_SERVER['QUERY_STRING'],'plugin_name=') === 0;
-            $pluginNameIsAlone = strpos($_SERVER['QUERY_STRING'],'&') === false;
+            $pluginNameExist = str_starts_with($_SERVER['QUERY_STRING'], 'plugin_name=');
+            $pluginNameIsAlone = str_contains($_SERVER['QUERY_STRING'], '&') === false;
             if ($pluginNameExist === false || $pluginNameIsAlone === false) {
                 $this->GetOut('QUERY_STRING must contain plugin_name=infohub_asset or be empty: ' . $_SERVER['QUERY_STRING']);
             }
@@ -68,7 +68,7 @@ class kick_out_tests_for_index
 
     /**
      * Check that we only have valid cookies.
-     * Delete all other cookies
+     * Delete all others cookies
      */
     protected function validCookies(): void
     {
@@ -116,7 +116,7 @@ class kick_out_tests_for_index
                     $_SERVER['REQUEST_URI']
                 );
         }
-        /* This test have no practical meaning. I will probably delete it
+        /* This test has no practical meaning. I will probably delete it
         if (isset($_SERVER['HTTP_REFERER']) === true and $_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
             if ($refererFileName !== 'serviceworker.js') {
@@ -195,7 +195,7 @@ class kick_out_tests_for_index
      */
     protected function GetOut(string $message = ''): void
     {
-        $messageOut = '<html><head></head><body><div class="form" id="info">' .
+        $messageOut = '<html lang="en"><head><title>Get out</title></head><body><div class="form" id="info">' .
             '<h1>Information</h1>' .
             '<div id="alert" class="label">' . $message . '</div><br />' .
             '</div></body></html>';

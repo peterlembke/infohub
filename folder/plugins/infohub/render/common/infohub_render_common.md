@@ -65,14 +65,14 @@ return {
 ```
 
 Here we have defined a start tag with a class, and an end tag. You then use these tags when you render a text.  
-Why are the CSS code in "how" and not in "light"? The renderer for contanierStart is creating a span-tag. If we were
+Why are the CSS code in "how" and not in "light"? The renderer for containerStart is creating a span-tag. If we were
 wrapping CSS to that tag then an end tag would be inserted by the browser to complete the start tag.
 
 # iframe
 
 Do not use iframes!! Do not use 3rd party services in iframes. Spare the browser from all this and let it get all data
 from the server instead. iframes prevent your app from working offline.  
-Ok, nice said, not so easy done when you want to show a google map or a youtube video. Yes, those cases have their own
+Ok, nice said, not so easy done when you want to show a Google Map or a YouTube-video. Yes, those cases have their own
 renderers. Please use infohub_render_video and infohub_render_map.  
 And even then it is not polite to just show an iframe. Embed the iframe by using infohub_rendermajor.  
 So the usage for this function is other cases that not yet have its own renderer. And you still should (have to) embed
@@ -127,7 +127,7 @@ The same result could easily be achieved by using the form plugin and ask the se
 
 # Legend
 
-Legends are used when you want to box something with a nice frame and a good looking title.
+Legends are used when you want to box something with a nice frame and a good-looking title.
 
 ```
 'a_legend': {
@@ -140,7 +140,7 @@ Legends are used when you want to box something with a nice frame and a good loo
 },
 ```
 
-I have not added any "css_data" because you get a good looking hard coded set of data if you leave "css_data" blank.  
+I have not added any "css_data" because you get a good-looking hard coded set of data if you leave "css_data" blank.  
 If you want your own css you can add 'css_data' to the definition above. Below is the hard coded css you get if you
 omit 'css_data'.
 
@@ -156,7 +156,7 @@ omit 'css_data'.
 The image data is usually coming from infohub_asset. You can either use infohub_asset as in the example below, or you
 can embed the image yourself.  
 If you embed your own image then the image must be base64 encoded. You can find services online that encode images to
-base64 text. Use png, jpeg or svg. They have the largest browser support.  
+base64 text. Use PNG, JPEG or SVG. They have the largest browser support.  
 One of many pages that can convert an image to base64
 is <a href="https://www.base64-image.de/" target="_BLANK">https://www.base64-image.de/</a>
 
@@ -310,11 +310,11 @@ return {
 
 # Message structure
 
-As usual we send the message to the renderer. In data we have the usual what (to render), how (to render it), where (to
+As usual, we send the message to the renderer. In data, we have the usual what (to render), how (to render it), where (to
 put the result).  
-_Where_ : As usual, where InfoHub View will create a box for this contents. In this case last in box with alias: "body"
+_Where_ : As usual, where InfoHub View will create a box for these contents. In this case last in box with alias: "body"
 .  
-_How_ : One box. Note that you can write anyting in "text" and that `[my_container]` is a reference to one of the items
+_How_ : One box. Note that you can write anything in "text" and that `[my_container]` is a reference to one of the items
 in "what". You can reference more items in "what" if you want to.  
 And we also have "css_data" in "how". That is CSS you want to use within this box. Normally you put the CSS in each
 object but in this case we use "containerStart" that does not support css_data. More about that later.  
@@ -327,8 +327,8 @@ to itself creating an infinite loop.
 _my_container_ : is a div-tag container that contain this: `'Time:[light][time][/light][a_legend]'`. It has its own CSS
 to give a grey border with a light green background.  
 _light_ : is a 'containerStart' span box with class "light". Since this is just the start tag then you can not wrap a
-CSS div box around it. That would give bad HTML. Instead the CSS have to be defined in the "how" section.  
-_time_ : This is a value that will be inserted as it is. In this case we call a function to get the value and we call
+CSS div box around it. That would give bad HTML. The CSS have to be defined in the "how" section.  
+_time_ : This is a value that will be inserted as it is. In this case we call a function to get the value, and we call
 the _TimeStamp() function.  
 _/light_ : the end span tag for "light".  
 _a_legend_ : is a fieldset with a legend title. It contains `'[my_iframe][my_image][my_list]'`. The CSS for the class

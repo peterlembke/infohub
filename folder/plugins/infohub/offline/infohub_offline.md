@@ -1,10 +1,10 @@
 # Infohub Offline
 
-Prepares you for going offline. Also handles the online/offline event so you can subscribe to it.
+Prepares you for going offline. Also handles the online/offline event, so you can subscribe to it.
 
 # Introduction
 
-This plugin does two things, download data so you can go offline, and handle subscriptions for the online/offline
+This plugin does two things, download data, so you can go offline, and handle subscriptions for the online/offline
 event.  
 You can download all client plugins, all assets and finally all documentation.  
 You can also see in this plugin if you are online or offline.  
@@ -33,8 +33,8 @@ releases so only the new/changed plugins will be downloaded.
 
 # Download assets
 
-Plugins that have a GUI (Graphical User Interface) also have assets (icons, images etc). When these assets are needed
-but are missing in the Storage then they are downloaded and stored locally. This require that you have a working
+Plugins that have a GUI (Graphical User Interface) also have assets (icons, images etc.). When these assets are needed
+but are missing in the Storage then they are downloaded and stored locally. This requires that you have a working
 connection to your server. If you are offline then the asset are not downloaded and in best case you will see a
 substitute image, a blue circle.  
 With this function you can download all assets and store then locally. Then you know you are prepared for going
@@ -45,7 +45,7 @@ releases so only the new/changed assets will be downloaded.
 # Download documentation
 
 The infohub_doc plugin do a great job displaying the xml doc files. If a documentation is missing in the local Storage
-then it is downloaded automatically. This require that you have a working connection to the server.  
+then it is downloaded automatically. This requires that you have a working connection to the server.  
 In infohub_doc there is already a button for downloading all the documentation. The button in this plugin simply use the
 already working feature in infohub_doc.
 
@@ -77,11 +77,11 @@ $key = {
 The index is where all subscriptions are stored. It is used for quickly looking up all messages to send for a key.  
 When you unsubscribe to a key then the index are updated.  
 When you unsubscribe to all then the index are looped through all key combinations and your plugin are removed.  
-The index are stored in session storage. When the session ends then the session storage are cleared.
+The index is stored in session storage. When the session ends then the session storage are cleared.
 
 # event_message
 
-When a offline event occur, then a message comes to this function. We create a key string and check the index for a
+When an offline event occur, then a message comes to this function. We create a key string and check the index for a
 match.  
 All subscribers with this key will have their messages sent out.
 
@@ -91,8 +91,8 @@ DEPRECATED: online and offline - Always sent to Infohub_Transfer.
 
 # Service worker - update
 
-Service worker is now updated during refresh if the last check is at least 10 minutes old and you get a response from
-the server and the checksum is different compared to what you have - then the service worker are unregistered and the
+Service worker is now updated during refresh if the last check is at least 10 minutes old, and you get a response from
+the server and the checksum are different compared to what you have - then the service worker are unregistered and the
 page is refreshed when the ban time is up.
 
 # License

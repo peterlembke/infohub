@@ -127,7 +127,7 @@ function infohub_timer() {
         const $default = {
             'name': 'default',
             'when': 0, // When do you want a response
-            'earliest': 0, // Set an earliest timestamp when I'll give a response
+            'earliest': 0, // Set the earliest timestamp when I'll give a response
             'latest': 0, // Set a latest timestamp when I'll give a response
             'update': 'no', // no, yes, lower, higher
             'callback_function': null,
@@ -390,7 +390,7 @@ function infohub_timer() {
     };
 
     /**
-     * Stop timer if it exist
+     * Stop timer if it exists
      * @version 2020-02-28
      * @since 2020-02-28
      * @author  Peter Lembke

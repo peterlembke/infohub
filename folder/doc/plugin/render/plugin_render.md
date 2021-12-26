@@ -14,7 +14,7 @@ The renderer is a normal plugin, you need to have the functions _Version, and _G
 
 # create
 As you have learned by now, when you use a renderer you send the data to be rendered to [InfoHub Render](plugin,infohub_render).
-Infohub_Render then call each renderer. It might be a child renderer or a level 1 renderer like infohub_rendermajor. Infohub_Render know that each renderar always have the cmd function "create".  
+Infohub_Render then call each renderer. It might be a child renderer or a level 1 renderer like infohub_rendermajor. Infohub_Render know that each renderer always have the cmd function "create".  
 Infohub_Render only call a renderer if it has all the data needed for the renderer to perform its task.  
 The data can look like this:  
 
@@ -62,13 +62,13 @@ return {
 Make sure you use 'mode': 'html' so that Infohub Render return the HTML to your renderer.  
     
 # Inspiration
-Ok, so now you know how to use a renderer and you know how to create one for yourself. What can you do with all this? Here are some examples:  
+Ok, so now you know how to use a renderer, and you know how to create one for yourself. What can you do with all this? Here are some examples:  
 
 - Graphs - different kinds of SVG graphs to present data
 - Canvas - Use the canvas for 2d or 3d graphics
 - Audio - Anything you can render to HTML, it does not have to be visual
 
-Today you already get the built in renderers for audio, common, image, link, map, text, video. You will get forms and SVG. And you have the higher level renderers like rendermajor and renderadvancedlist.  
+Today you already get the built-in renderers for audio, common, image, link, map, text, video. You will get forms and SVG. And you have the higher level renderers like rendermajor and renderadvancedlist.  
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  

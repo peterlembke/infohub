@@ -62,7 +62,7 @@ function infohub_welcome() {
     let $classTranslations = {};
 
     /**
-     * Setup the Config Graphical User Interface
+     * Set up the Config Graphical User Interface
      * @version 2018-09-09
      * @since   2018-09-09
      * @author  Peter Lembke

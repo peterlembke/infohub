@@ -3,7 +3,7 @@
 This is a code update release with PHPDOC improvements. Added future flags for web_worker and code_plugin. Slimmer renderers to prepare for web workers. Improved PHP code to be more modern. Removed unnecessary files. Started removing the use of window in JS files to prepare for web workers. Bug fixes. Added on the fly minification of JS files + a config setting to disable it.  
 
 * [Release notes](main,release_v1_v1v2_v1v2v24)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.24)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.24)
 
 ## Added
 HUB-1053, added minify to JS files. Enabled in infohub_plugin.json by default.

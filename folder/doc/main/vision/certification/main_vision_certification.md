@@ -40,7 +40,7 @@ Here you can explain in detail how the Javascript Browser Core works
 
 - What are the system requirements for Javascript Browser Core
 - How can you install the Javascript Browser Core
-- Describe why and how the Javascript Browser Core have a special bound with the PHP Core
+- Describe why and how the Javascript Browser Core has a special bound with the PHP Core
 - What are the Javascript Browser Core plugins and what are they doing
 - How does the View system work
 - Explain the render system that renders HTML
@@ -51,7 +51,7 @@ Here you can explain in detail how the Javascript Browser Core works
 You can explain in detail how to produce plugins that can be used with InfoHub. All parts of the process  
 
 - What is the plugin template and when to use it
-- What is the difference i licensing between using the plugin template and write your own plugin from scratch
+- What is the difference in licensing between using the plugin template and write your own plugin from scratch
 - Three kind of functions can exist in a plugin, what is the difference between them
 - What are states and why must I avoid them at all costs
 - If a state can not be avoided, how should you then deal with that

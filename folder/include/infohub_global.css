@@ -39,7 +39,6 @@ h1, h2, h3, h4, h5, h6, ul {
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
@@ -68,7 +67,7 @@ progress[value]::-moz-progress-bar {
     border-radius: 10px;
 }
 
-/* Progress bar Chrome and derivates */
+/* Progress bar Chrome and derivatives */
 progress[value]::-webkit-progress-value {
     appearance: none;
     border: none;
@@ -102,6 +101,6 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
     border: 1px solid green;
     -webkit-text-fill-color: green;
-    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    -webkit-box-shadow: 0 0 0 1000px #000 inset;
     transition: background-color 5000s ease-in-out 0s;
 }

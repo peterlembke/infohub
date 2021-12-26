@@ -1,6 +1,6 @@
 # Infohub RenderDocument
 
-This is a traditional infohub renderer that render documents written in Markdown.   
+This is a traditional Infohub renderer that render documents written in Markdown.   
 Links can be internal or external. Images can be assets or what you provide.
 
 [columns]
@@ -22,13 +22,13 @@ Possible uses of renderdocument in:
 
 ## Markdown
 
-The markdown format used in the documents are easy to learn. It is used on Github and on many other places. Read
+The Markdown format used in the documents are easy to learn. It is used on GitHub and on many other places. Read
 more [here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
 ### Section
 
-Sections are internal links in the document so you can navigate to different sections within the document.  
-The markdown format has titles and each title will get an `a` tag and an id based on the title name.  
+Sections are internal links in the document, so you can navigate to different sections within the document.  
+The Markdown format has titles and each title will get an `a` tag and an id based on the title name.  
 The index can then scroll to each title.
 
 ```
@@ -135,8 +135,8 @@ The result:
 
 ### Image
 
-You can have images in your markdown.  
-This is how an image are shown in Markdown. It is the same format as a link plus a ! at the beginning.
+You can have images in your Markdown.  
+This is how an image are shown in Markdown. It is the same format as a link plus a "!" at the beginning.
 
 ```
 ![Alternative text](my-image-name)
@@ -150,25 +150,25 @@ that you perhaps have stored in the database.
 
 #### external images
 
-Normally when you write a markdown text and want an image then you need a reference to that image.  
-Infohub do not allow references. Instead Infohub insert data where it is needed.
+Normally when you write a Markdown text and want an image then you need a reference to that image.  
+Infohub do not allow references. Instead, Infohub insert data where it is needed.
 
-You can NOT reference an image from the internet. If you use an url like this:
+You can NOT reference an image from the internet. If you use a URL like this:
 
 ```
 ![Alternative text](https://www.aaaa.com/image.jpeg)
 ```
 
-That will just be removed from the markdown and you will see no image.
+That will just be removed from the Markdown and you will see no image.
 
 The result:
 ![Alternative text](https://www.aaaa.com/image.jpeg)
 
-Instead you have to use assets or provide image data. See below.
+Instead, you have to use assets or provide image data. See below.
 
-#### asset image jpeg
+#### asset image JPEG
 
-If your image is an asset jpeg then it can look like this.
+If your image is an asset JPEG then it can look like this.
 
 ```
 ![Alternative text](infohub_demo/asset/image/common/con00004.jpeg)
@@ -177,7 +177,7 @@ If your image is an asset jpeg then it can look like this.
 The result:
 ![Alternative text](infohub_demo/asset/image/common/con00004.jpeg)
 
-##### How asset image jpeg are rendered
+##### How asset image JPEG are rendered
 
 That would substitute to a `[image_1]` in the text and in the array you will see:
 
@@ -197,7 +197,7 @@ That would substitute to a `[image_1]` in the text and in the array you will see
 },
 ```
 
-#### asset image svg
+#### asset image SVG
 
 If your image is an asset SVG it can look like this:
 
@@ -253,11 +253,11 @@ Is the same as: `[my_icon]`
 
 ## Examples
 
-Here are examples of how you can render a markdown document.
+Here are examples of how you can render a Markdown document.
 
 ### Basic example
 
-In this example we show a markdown document.
+In this example we show a Markdown document.
 
 ```
 return _SubCall({
@@ -292,7 +292,7 @@ return _SubCall({
 
 ### Render anything in the document
 
-In this example we provide an image and it will be inserted in the Markdown text everywhere you write `[my_icon]`.  
+In this example we provide an image, and it will be inserted in the Markdown text everywhere you write `[my_icon]`.  
 You realize now that you can render anything in your Markdown texts as long as you provide how to render it in the
 subcall. If a tag is `[missing]` data then it will be removed.
 

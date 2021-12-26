@@ -12,7 +12,7 @@ the result, and a button to clear the box.
 # Nodes
 
 The plugin infohub_time that does all the work, it comes in a version for the server node and one version for the client
-node. Some of the methods are the same so you can verify your result between the nodes. Some methods only exist in one
+node. Some methods are the same, so you can verify your result between the nodes. Some methods only exist in one
 of the nodes due to practical reasons.
 
 # License

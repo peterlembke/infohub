@@ -1,4 +1,4 @@
-# Infohub Storage Data Mysql
+# Infohub Storage Data MySQL
 
 Stores data in a MySQL server
 
@@ -11,9 +11,9 @@ MySQL is a server, manages many concurrent connections and heavy load, open sour
 # Installation
 
 _In Ubuntu_ `sudo apt-get install mysql-server` and then `sudo apt-get install mysql-client`  
-_In MacOS_ `brew install mysql`  
+_In macOS_ `brew install mysql`  
 _In Windows_ See the [MySQL](https://www.mysql.com/) home page`  
-_Docker_ You can run MySQL from a docker container. Read more here [Docker MySQL](https://hub.docker.com/_/mysql/). You
+_Docker_ You can run MySQL from a Docker container. Read more here [Docker MySQL](https://hub.docker.com/_/mysql/). You
 can start several containers on the same computer. Each have its own port.
 
 # MariaDb
@@ -21,41 +21,41 @@ can start several containers on the same computer. Each have its own port.
 MariaDB is a community-developed fork of MySQL intended to remain free under the GNU GPL. MariaDb is a drop in
 replacement for MySQL. Being led by the original developers of MySQL, who forked it due to concerns over its acquisition
 by Oracle.  
-_Docker_ You can run MariaDb from a docker container. Read more here [Docker MariaDb](https://hub.docker.com/_/mariadb/)
+_Docker_ You can run MariaDb from a Docker container. Read more here [Docker MariaDb](https://hub.docker.com/_/mariadb/)
 . You can start several containers on the same computer. Each have its own port.
 
-# Setup
+# Set up
 
 You have to set up a user that InfoHub will use to access the database(s)  
-Instructions in Swedish: [MySQL för MacOS](https://www.charzam.com/2016/08/02/osx-mysql-databas/).
+Instructions in Swedish: [MySQL för macOS](https://www.charzam.com/2016/08/02/osx-mysql-databas/).
 
 # Manage the database
 
-For MySQL you have many options.  
-[SequelPro for MacOS](https://www.sequelpro.com/) is free to use.  
-[MySQL Workbench](https://www.mysql.com/products/workbench/) for MacOS, Linux, Windows is free to use.  
-[Dbeaver](https://dbeaver.jkiss.org/) for MacOS, Linux, Windows is open source (Apache) and support many database
+For MySQL, you have many options.  
+[SequelPro for macOS](https://www.sequelpro.com/) is free to use.  
+[MySQL Workbench](https://www.mysql.com/products/workbench/) for macOS, Linux, Windows is free to use.  
+[Dbeaver](https://dbeaver.jkiss.org/) for macOS, Linux, Windows is open source (Apache) and support many database
 engines.  
 [phpMyAdmin](https://www.phpmyadmin.net/) runs in the browser. Open source GPL2 license.  
-There are many many other database managers out there if the ones above is not sufficient for you.
+There are many other database managers out there if the ones above is not sufficient for you.
 
 # Database structure
 
 You must create the database and set up a user that are allowed to create tables. Then the plugin create the tables.
 Each level 1 plugin in Infohub can store data in Infohub Storage and if needed a table is created for each plugin
 name.  
-This means that plugins can not reach each others data.
+This means that plugins can not reach each other's data.
 
 # How to use the plugin
 
-There are two public function in this plugin. The plugin itself is intended to be used by infohub_storage_data but you
-can use it stand alone outside of Infohub.  
-infohub_storage_data send this kind of messages and you can do the same. First you need a connection.
+There are two public function in this plugin. The plugin itself is intended to be used by infohub_storage_data, but you
+can use it standalone outside Infohub.  
+infohub_storage_data send this kind of messages, and you can do the same. First you need a connection.
 
 ## Connection and path
 
-MySQL require that you have connection credentials so you can reach the database. Use the ones you created when you
-setup MySQL.  
+MySQL requires that you have connection credentials, so you can reach the database. Use the ones you created when you
+set up MySQL.  
 You also need to know where you want to read/write, to what path.
 
 ```
@@ -119,7 +119,7 @@ return $this->_SubCall(array(
 
 # How MySQL became NoSQL
 
-The basic parts is that you need a connection, a path and you get/set an array. That is the description of a key/value
+The basic parts is that you need a connection, a path, and you get/set an array. That is the description of a key/value
 NoSQL database, but MySQL is a SQL server, that is not how MySQL works. It has servers, databases, tables, posts,
 fields, indexes. Here is how MySQL was turned into a NoSQL document database.
 
@@ -130,11 +130,11 @@ set up in the MySQL server must be allowed to handle the database, be allowed to
 
 ## Tables
 
-The table name equals to the plugin name. The name is always in lower case and it is only level 1 plugins that can store
+The table name equals to the plugin name. The name is always in lower case, and it is only level 1 plugins that can store
 data in the database. Example names: infohub_exchange, some_name, charzam_cart.  
 You can write to a table that does not exist, then it will be created. Tables will never be deleted. If you want to
 delete a table you have to do that manually.  
-The table structure is pre set and will not change. The structure is created for saving json data strings together with
+The table structure is pre-set and will not change. The structure is created for saving json data strings together with
 a path
 
 ### path
@@ -155,7 +155,7 @@ engine because it was too complicated. I kept this illogical name as a memory.
 
 You only see two plugins, read/write. There are other support functions in the plugin.
 
-- internal_ConnectionOpen - Opens a connection to an existing MySQL database server with an existing login account.
+- internal_ConnectionOpen - Opens a connection to an existing MySQL database server with an existing log-in account.
 - internal_DatabaseCreate - Not used. You need to manually create the database. Exist here for completeness
 - internal_TableCreate - Creates the table if it does not exist
 - internal_PostRead - Gives you the stored text or empty text if the post do not exist. You also get a post_exist '
@@ -163,7 +163,7 @@ You only see two plugins, read/write. There are other support functions in the p
 - internal_PostInsert - When writing data we first read to see if the post exist, if not then PostInsert is used.
 - internal_PostUpdate - When writing data we first read to see if the post exist, if it does then PostUpdate is used.
 - internal_PostDelete - When writing empty data then PostDelete is used.
-- `_HandleSQLError` - See if it is possible to recover from an sql error
+- `_HandleSQLError` - See if it is possible to recover from an SQL error
 - internal_Execute - This is where the action is. The execution of the query/sql statement.
 - `_SubstituteData` - Values can be substituted in the sql query or bound (see below).
 - `_BindData` - All parameters that are not substituted in the sql query are instead bound to a value.

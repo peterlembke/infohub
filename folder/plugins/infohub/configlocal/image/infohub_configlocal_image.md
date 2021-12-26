@@ -8,7 +8,7 @@ Different browsers have different capabilities what image types they can show. D
 their different devices. Perhaps you can download more at home on broad band and less on your phone when you are on the
 go. Mobile phones usually has a quota how much you are allowed to download.
 
-The configuration is not perfect and will not cover even the most basic use cases but it is a start at least.
+The configuration is not perfect and will not cover even the most basic use cases, but it is a start at least.
 
 All configuration are stored locally in the local Storage and applied to the client configuration stored in the asset
 plugin.
@@ -20,7 +20,7 @@ plugin.
   quota
 * Cache time for assets - Asset is considered fresh until this many days have passed. Then we will contact the server
   and see if it has been updated
-* Image types you can see - Different browsers support different image formats. Select the image types you can see and I
+* Image types you can see - Different browsers support different image formats. Select the image types you can see, and I
   will avoid downloading images you can't see on this browser
 
 # Use cases
@@ -28,10 +28,10 @@ plugin.
 On your stationary computer and all other devices you have connected to your broad band you might want to download
 assets, big assets too, low cache time - perhaps a week.
 
-On your phone you might have broad band and then you might want to download assets, medium size assets too, medium cache
+On your phone you might have broad band, and then you might want to download assets, medium size assets too, medium cache
 time - perhaps two weeks.
 
-If you want to reduce the quota on your phone to the essentials then you could download assets, set a maxumum of 100Kb,
+If you want to reduce the quota on your phone to the essentials then you could download assets, set a maximum of 100Kb,
 long cache time four weeks. Only mark SVG and do not mark the other image types.
 
 And if you want to have the absolute minimum then disable download of assets. You can still use the assets you have
@@ -40,10 +40,10 @@ already downloaded.
 ## Advanced use cases
 
 Depending on how this configuration is used there might be improvements in the future.  
-Perhaps a dropdown where you can quickly select a pre defined configuration.
+Perhaps a dropdown where you can quickly select a pre-defined configuration.
 
 * Large - Download all assets
-* Medium - Download icons and medum size assets
+* Medium - Download icons and medium size assets
 * Low - Download icons only
 * Stop - Download no more assets
 
@@ -53,9 +53,9 @@ Not all file formats are suitable in the assets. Here is a list. Do remember tha
 need a license file.  
 The below formats work well in all supported browser.
 
-* svg - scalable vector graphics. Recommended for all icons and illustrations.
-* jpeg - old and common image format, lossy. Recommended for photos.
-* png - free and common image format for lossless images. Recommended when details are very important.
+* SVG - scalable vector graphics. Recommended for all icons and illustrations.
+* JPEG - old and common image format, lossy. Recommended for photos.
+* PNG - free and common image format for lossless images. Recommended when details are very important.
 * ogg/opus - open audio format with the best compression for all usage from low bit rate speech to high bit rate music.
   Recommended for all audio
 * ogg/vorbis - open audio format with similar compression as mp3. Use opus.
@@ -66,7 +66,7 @@ The below formats work well in all supported browser.
   in [these browsers](https://caniuse.com/avif) and
   be [activated in Firefox](https://geekermag.com/open-avif-files-in-firefox/)
 
-In the future all images will be avif. It superseed all other image formats.
+In the future all images will be AVIF. It superseded all other image formats.
 
 - [Infohub Render Link](plugin,infohub_render_link)
 - [Infohub Asset](plugin,infohub_asset)

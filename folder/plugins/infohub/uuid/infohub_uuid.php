@@ -178,7 +178,7 @@ class infohub_uuid extends infohub_base
 
     /**
      * UUID version 4
-     * guidv4 is a standardized way of getting a uinque identifier string.
+     * guidv4 is a standardized way of getting a unique identifier string.
      * @param array $in
      * @return array
      * @author https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
@@ -258,7 +258,7 @@ class infohub_uuid extends infohub_base
     }
 
     /**
-     * The default InfoHub universal ID method that produce an unique identifier string
+     * The default InfoHub universal ID method that produce a unique identifier string
      * Example: 1575709656.3529:4518025819754968159
      * First the time since EPOC with decimals.
      * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.

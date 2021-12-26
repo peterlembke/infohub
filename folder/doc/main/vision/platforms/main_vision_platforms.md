@@ -2,13 +2,13 @@
 In addition to PHP and Javascript; InfoHub in NodeJS, in Python, in Cordova apps, in Electron apps, in Ruby.  
 
 # PHP Core
-The PHP Core is the reference platform and it already exist.  
+The PHP Core is the reference platform, and it already exists.  
 
 # Javascript Browser Core
-The Javascript Browser Core is the reference platform for Javascript-based situations and it already exist.  
+The Javascript Browser Core is the reference platform for Javascript-based situations, and it already exists.  
 
 # Python Core
-Does not exist. Could be used for stand alone server apps.  
+Does not exist. Could be used for standalone server apps.  
 
 # NodeJS Core
 Does not exist. Could be used for services that should respond quickly.  
@@ -17,7 +17,7 @@ Does not exist. Could be used for services that should respond quickly.
 Cordova is used to create apps to IOS, Android and Windows Mobile 10. You make them with HTML, Javascript and CSS. A first step could be to examine if it is even possible.  
 
 # Electron apps
-Github have created Electron where you can create desktop apps for Windows, MacOS, Linux. You make them with HTML, Javascript and CSS. A first step could be to examine if it is even possible.  
+GitHub have created Electron where you can create desktop apps for Windows, macOS, Linux. You make them with HTML, Javascript and CSS. A first step could be to examine if it is even possible.  
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

@@ -85,7 +85,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function run_all_tests(array $in = [])
+    protected function run_all_tests(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -159,7 +159,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function my_test(array $in = [])
+    protected function my_test(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);
@@ -180,7 +180,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_self(array $in = [])
+    protected function call_self(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -223,7 +223,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child(array $in = [])
+    protected function call_child(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -266,7 +266,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_level1_on_same_node(array $in = [])
+    protected function call_level1_on_same_node(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -310,7 +310,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_grandchild(array $in = [])
+    protected function call_grandchild(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -353,7 +353,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_self(array $in = [])
+    protected function call_child_that_call_self(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -397,7 +397,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_level1_on_same_node(array $in = [])
+    protected function call_child_that_call_level1_on_same_node(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -441,7 +441,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_level1_on_other_node(array $in = [])
+    protected function call_child_that_call_level1_on_other_node(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -485,7 +485,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_grandchild(array $in = [])
+    protected function call_child_that_call_grandchild(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -529,7 +529,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_grandchild_that_call_level1_on_same_node(array $in = [])
+    protected function call_child_that_call_grandchild_that_call_level1_on_same_node(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -573,7 +573,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_grandchild_that_call_parent(array $in = [])
+    protected function call_child_that_call_grandchild_that_call_parent(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -617,7 +617,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_sibling(array $in = [])
+    protected function call_child_that_call_sibling(array $in = []): array
     {
         $default = [
             'step' => 'step_start',
@@ -653,7 +653,7 @@ class infohub_democall extends infohub_base
     }
 
     /**
-     * Call a child that then call its siblings child
+     * Call a child that then call its siblings' child
      * This call will FAIL. This is not allowed.
      *
      * @param array $in
@@ -661,7 +661,7 @@ class infohub_democall extends infohub_base
      * @version 2019-03-09
      * @since   2019-03-09
      */
-    protected function call_child_that_call_siblings_child(array $in = [])
+    protected function call_child_that_call_siblings_child(array $in = []): array
     {
         $default = [
             'step' => 'step_start',

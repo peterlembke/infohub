@@ -7,7 +7,7 @@ Create random passwords
 You can generate a password with this tool. Passwords are not meant to be remembered. I store my passwords in a True
 Crypt (Vera crypt) file.  
 You can generate short passwords with 16 characters up to long ones with 64 characters. You can select what type of
-caharacters should be in your password.  
+characters should be in your password.  
 There is an instruction at the top that you can unfold. It is folded so the tool look better on iPhone SE.  
 Read more about passwords here: [Infohub Password](plugin,infohub_password)
 

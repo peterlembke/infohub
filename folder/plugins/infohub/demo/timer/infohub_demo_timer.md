@@ -12,7 +12,7 @@ Read more in the documentation about
 
 ## The tiger, the peacock and the rainbow
 
-To prepare this demo I made a Lab example outside of Infohub.
+To prepare this demo I made a Lab example outside Infohub.
 
 ## License
 

@@ -116,7 +116,7 @@ function infohub_render_map() {
     };
 
     /**
-     * Adds an overlay over the iframe so you can scroll past the map and not zoom into it.
+     * Adds an overlay over the iframe, so you can scroll past the map and not zoom into it.
      * Click the padLock to zoom with the wheel.
      * @param $html
      * @param $alias
@@ -241,12 +241,13 @@ function infohub_render_map() {
             lat2: parseFloat($in.point_latitude) + $zoomNumber * 0.57,
             long2: parseFloat($in.point_longitude) + $zoomNumber * 2.2,
         };
+
         $p = $p.long1 + '%2C' + $p.lat1 + '%2C' + $p.long2 + '%2C' + $p.lat2;
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+
         let $html = '<iframe sandbox="allow-scripts" ' + $id +
-            ' width="100%" height="350" frameborder="0" scrollig="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' +
+            ' width="100%" height="350" style="border:0;" src="https://www.openstreetmap.org/export/embed.html?bbox=' +
             $p + '&amp;layer=mapnik' + $marker +
             '" style="border: 1px solid #ff0000"></iframe>';
 

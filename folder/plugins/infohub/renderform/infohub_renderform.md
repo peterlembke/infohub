@@ -1,6 +1,6 @@
 # Infohub RenderForm
 
-Adds features to the basic form elements that infohub_render_form can render.
+Add features to the basic form elements that infohub_render_form can render.
 
 # Introduction
 
@@ -9,7 +9,7 @@ RenderForm adds label, description, original_data, symbol for required, symbol f
 length, counts words and paragraphs.  
 RenderForm is also the receiver of all events regarding the form elements. Mostly onchange and click.  
 RenderForm also handle the form data by reading and writing data. It does not however update lists and options, that
-need to be rerendered to be updated.
+need to be re-rendered to be updated.
 
 # Demo
 
@@ -18,7 +18,7 @@ renderform.
 
 # infohub_render_form
 
-The plugin infohub_render_form is a child to infohub_render and handle the render for the basic form elements, it handle
+The plugin infohub_render_form is a child to infohub_render and handle the render for the basic form elements, it handles
 the actual HTML that DOM needs to display the element. infohub_renderform on the other hand is a level 1 plugin that can
 receive events. It uses infohub_render_form for the rendering and adds extended features upon that.
 
@@ -120,7 +120,7 @@ Each fieldset can show a legend label. It is the top label and it is clickable. 
 
 # Description
 
-Description is a normal text, and you know what you can do with texts.. You can add any rendered objects you like into
+Description is a normal text, and you know what you can do with texts. You can add any rendered objects you like into
 that text.
 
 # Text
@@ -338,7 +338,7 @@ Usage: Here is an example.
 # Radios
 
 Renders a collection of radio buttons. More advanced AM/FM radio receivers had buttons where you could set a frequency
-for quicker change of radio channel. When you pressed in one button the others popped out so you could listen you the
+for quicker change of radio channel. When you pressed in one button the others popped out, so you could listen you the
 selected radio station.  
 The GUI elements "radio buttons" were invented while those radios were very popular.
 
@@ -447,7 +447,7 @@ Usage: Here is an example.
 
 # Events
 
-Some of the objects trigger events. Those events come to the module function event_message and are handled there.  
+Some objects trigger events. Those events come to the module function event_message and are handled there.  
 text, textarea, range, color, button, select are objects that have logic in this function.
 
 # License

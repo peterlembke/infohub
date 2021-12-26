@@ -34,13 +34,13 @@ This plugin has a GUI.
 * Show items count based on all plugin indexes Number of items to: keep, upload, delete, conflict, download, missing
   Click on an action title to see the list of paths. Click on a path to see the data if available.
 
-If you view a conflict list you will see both the local and the server version of the data and you can pick one of them.
+If you view a conflict list you will see both the local and the server version of the data, and you can pick one of them.
 
 - If you click to keep the server version then it is immediately overwriting the local version.
 - If you click to keep the local version then it is immediately overwriting the server version.
 
-* Button "Upload" - handles the upload list and shows a progress bar.
-* Button "Delete" - handles the delete list and shows a progress bar.
+* Button "Upload" - handles the upload-list and shows a progress bar.
+* Button "Delete" - handles the delete-list and shows a progress bar.
 * Button "Download" - handles the download list and shows a progress bar.
 * Button "Download missing" - handles the download missing list and shows a progress bar.
 

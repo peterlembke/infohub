@@ -61,7 +61,7 @@ function infohub_trigger() {
     // ***********************************************************
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2019-03-13
      * @since   2017-10-03
      * @author  Peter Lembke

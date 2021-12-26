@@ -345,7 +345,7 @@ function infohub_login_password() {
 
     $functions.push('shared_secret_scramble');
     /**
-     * Add the password so we get a shared_secret that we can store
+     * Add the password, so we get a shared_secret that we can store
      * @version 2019-09-11
      * @since 2019-09-09
      * @author Peter Lembke
@@ -376,7 +376,7 @@ function infohub_login_password() {
 
     $functions.push('shared_secret_restore');
     /**
-     * Remove the password so we get a shared_secret that we can use
+     * Remove the password, so we get a shared_secret that we can use
      * @version 2019-09-11
      * @since 2019-09-09
      * @author Peter Lembke

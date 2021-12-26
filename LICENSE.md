@@ -38,7 +38,7 @@ of others.
 For example, if you distribute copies of such a program, whether
 gratis or for a fee, you must pass on to the recipients the same
 freedoms that you received. You must make sure that they, too, receive
-or can get the source code. And you must show them these terms so they
+or can get the source code. And you must show them these terms, so they
 know their rights.
 
 Developers that use the GNU GPL protect your rights with two steps:

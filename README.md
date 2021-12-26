@@ -10,7 +10,7 @@ This is a generic platform where you run your plugins. The long term aim is to c
 * License: GNU [GPL-3.0-or-later](LICENSE.md)
 * License [details](folder/doc/license/license.md)
 
-The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you the site owner apply to the terms in [TERMS.md](TERMS.md).
+The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you, the site owner apply to the terms in [TERMS.md](TERMS.md).
 
 # Current status
 Infohub is complete. I will improve the core Infohub but focus on applications for Infohub. First application will be the Tree.
@@ -21,7 +21,7 @@ See below [Apps for personal data](#Apps for personal data) for more information
 Infohub have been developed since 2010-01-01 and have some [releases](CHANGELOG.md). 
 
 # Plugins
-You know you can install programs on the computer, or install apps on the phone, or install add-ons in your browser. Regardless of the name we call them it is just software. In Infohub you can install plugins but it is the same thing. 
+You know you can install programs on the computer, or install apps on the phone, or install add-ons in your browser. Regardless of the name we call them it is just software. In Infohub you can install plugins, but it is the same thing. 
  
 You can use existing plugins. You can also easily write your own plugins if you have basic knowledge of a programming language where there exist a core. I have written a core for PHP and for Javascript.
 A plugin is one single class that always extend the base class, that is it.
@@ -41,7 +41,7 @@ I refer to these rules every time I am in doubt how to solve something.
 
 **Self containing**
 - A plugin have no dependencies on other plugins. (Learn how dependency free sub calls are done between plugins)
-- A plugin can be used outside of InfoHub in any other software project without changes.
+- A plugin can be used outside InfoHub in any other software project without changes.
 
 # What is this repository for?
 - The master branch contain Infohub releases. I do not develop in this branch.
@@ -53,18 +53,18 @@ Clone this git repository. Surf to your web server.
 Read more [here](https://github.com/peterlembke/infohub-articles#readme)
 
 # Contribution guidelines
-Not written yet. It will be pull requests here on Github.
+Not written yet. It will be pull requests here on GitHub.
 
-If you want to support my effort with money then I have a [Paypal.Me link](https://www.paypal.com/paypalme/peterlembke). Thank you for your contribution.
+If you want to support my effort with money then I have a [PayPal.Me link](https://www.paypal.com/paypalme/peterlembke). Thank you for your contribution.
 
 # Who do I talk to?
 There are no forum yet at the [home page](https://infohub.se).
 
 # More to read
-On Github you find the [documentation](https://github.com/peterlembke/infohub/tree/master/folder/doc) and [articles](https://github.com/peterlembke/infohub-articles#readme). 
+On GitHub, you find the [documentation](https://github.com/peterlembke/infohub/tree/master/folder/doc) and [articles](https://github.com/peterlembke/infohub-articles#readme). 
 
 # Traditional web page
-You can run the [workbench](https://infohub.se) or start a plugin as a [stand alone](https://demo.infohub.se) page.
+You can run the [workbench](https://infohub.se) or start a plugin as a [standalone](https://demo.infohub.se) page.
 That means you can create a traditional web page with Infohub.
 
 # Plans for InfoHub ![Infohub](folder/favicon.png)
@@ -89,7 +89,7 @@ also see the [CHANGELOG](CHANGELOG.md) for future plans.
 * Introduction articles written in English and Swedish.
 
 ## Planned parts I am working on
-The Tree plugin. The Login procedure. Running any plugin stand alone.
+The Tree plugin. The Login procedure. Running any plugin standalone.
 
 ## Future plans
 InfoHub is your private place on the internet.
@@ -129,7 +129,7 @@ Things I will implement.
 * Image - Set how image colours should be transformed to suite your eyes.
   This is now implemented in the colour schema.
 * Font - Select the font type you prefer from the browser built in fonts.
-* Keyboard navigation - tab index, short cut keys.
+* Keyboard navigation - tab index, short-cut keys.
 
 Everyone benefits from better visibility on the web pages. 
 
@@ -146,7 +146,7 @@ Things I might implement.
 * Calendar - Your future and past todo and what you have done. Find data by date.
 * Planning - Your projects. You can set up tasks in projects here. Date when things must be done and when they were done.
 * Diary - How was your day. Write the text version of your day and use links to your data.
-* Media (images/video/audio) - Your catalog with media and its meta data.
+* Media (images/video/audio) - Your catalog with media and its metadata.
 * Contact - The contact information to your friends.
 * Budget - Calculate your income and expected expenses in this plugin.
 * Expense - Register your purchases to keep track where the money goes.   
@@ -174,27 +174,27 @@ Things I might implement.
 * Country flags and country information. 
     Can be used in your texts.
 * Colour names and their colour codes. 
-    You can write the name of a colour and it is then possible to see that colour.
+    You can write the name of a colour, and it is then possible to see that colour.
 
 ## Bad ideas
 Things I will not implement.
 I have a long list with bad ideas and why they are bad for InfoHub.
 Some examples:
-* Interface to Twitter, Facebook, Google Calendar, LinkedIn, Garmin, Wordpress, Bank data.
+* Interface to Twitter, Facebook, Google Calendar, LinkedIn, Garmin, WordPress, Bank data.
     Bad because Infohub is not about sharing. And Infohub is also not a reader for external data.
     Use the services as they were intended to be used.
 * Image editor, Video editor, Audio editor.
     Bad because InfoHub is about information. There are excellent tools outside InfoHub that can handle this.
 * Tracking behaviour, Tracking position, even calculating any GPS data is bad. IP positioning.
     All kind of tracking is against what Infohub is about. Privacy.
-* Send/receive sms/email/slack/chat
+* Send/receive sms/email/Slack/chat
     Bad because Infohub is not about sharing. Use appropriate software for that instead.
 * Scraping data from sites
-    That practive is not fair. Bad idea.
+    That practice is not fair. Bad idea.
 * Read RSS files, Wikipedia, Web search like DuckduckGo, Bing, Google etc. 
     Use the services as they were intended to be used. Infohub is not a viewer for external data.
 * Smart home with Telldus live, and view webcam streams.
-    Bad because there are already appropriate software for that. Also not so good to have login to these services stored on the Infohub server.
+    Bad because there are already appropriate software for that. Also, not so good to have log in to these services stored on the Infohub server.
 
 ## Other Cores - ["There is another system"](https://en.wikipedia.org/wiki/Colossus:_The_Forbin_Project)
 The Infohub Core can be implemented in any language. 
@@ -204,7 +204,7 @@ The core concepts are:
 
 * Level 1
     * Communication between nodes in the Infohub format
-    * Kickout tests
+    * Kick out tests
 * Level 2
     * Message queues system
     * Plugin system
@@ -217,7 +217,7 @@ You could have a static software that implement Level 1 so other Infohub cores c
 
 You could implement Level 2 so other developers more easily can get started with the core and write plugins.
 
-You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and login & sessions but do not need a GUI.
+You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and log in & sessions but do not need a GUI.
 
 A Python Core that aim to be a desktop solution might implement all levels.
 

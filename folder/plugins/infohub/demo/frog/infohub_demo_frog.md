@@ -5,7 +5,7 @@ Shows a demo what happens if you want to render something that do not exist.
 # Introduction
 
 To make a frog (Att göra en groda) is a Swedish expression for doing a mistake.  
-If you want to render something and that something do not exist, the you will get a frog instead. You can also render
+If you want to render something and that something do not exist, then you will get a frog instead. You can also render
 the frog if you want to. The demo will show you the results from different mistakes.
 
 # License

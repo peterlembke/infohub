@@ -12,17 +12,17 @@ SQLite have one file for each database, it is portable with files.
 
 * _In Ubuntu_ `sudo apt-get install sqlite`and `sudo apt-get install php-sqlite`
   and `sudo apt-get install sqlitebrowser`
-* _In MacOS_ `brew install sqlite`
+* _In macOS_ `brew install sqlite`
 * _In Windows_ See the [SQLite](http://sqlite.org) home page
 
-# Setup
+# Set up
 
 You do not have to set up any users
 
 # Manage the database
 
-It is good to have a tool that can peek into the databas.  
-[Dbeaver](https://dbeaver.jkiss.org/) for MacOS, Linux, Windows is open source (Apache) and support many database
+It is good to have a tool that can peek into the database.  
+[Dbeaver](https://dbeaver.jkiss.org/) for macOS, Linux, Windows is open source (Apache) and support many database
 engines.
 
 # License

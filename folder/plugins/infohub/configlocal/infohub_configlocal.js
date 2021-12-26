@@ -72,7 +72,7 @@ function infohub_configlocal() {
     // ***********************************************************
 
     /**
-     * Setup the Config Graphical User Interface
+     * Set up the Config Graphical User Interface
      * Used by Workbench
      * @version 2018-09-09
      * @since   2018-09-09
@@ -641,7 +641,7 @@ function infohub_configlocal() {
 
     /**
      * Get one configuration section.
-     * Used by you to read the configuration so you can use it in your plugin
+     * Used by you to read the configuration, so you can use it in your plugin
      * @version 2019-03-19
      * @since   2019-03-19
      * @author  Peter Lembke
@@ -732,8 +732,8 @@ function infohub_configlocal() {
     };
 
     /**
-     * Apply all config that can be applied by calling each child
-     * each child then have the function apply_config
+     * Apply all config that can be applied by calling each child.
+     * Each child then have the function apply_config
      * @version 2019-10-19
      * @since   2019-10-19
      * @author  Peter Lembke

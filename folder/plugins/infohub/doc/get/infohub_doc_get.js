@@ -336,7 +336,7 @@ function infohub_doc_get() {
     };
 
     /**
-     * Here you get all documents so you are prepared if you need to go offline
+     * Here you get all documents, so you are prepared if you need to go offline
      * @version 2019-10-06
      * @since 2019-10-06
      * @author Peter Lembke

@@ -4,7 +4,7 @@ Shows a demo how you can use the infohub_tabs plugin.
 
 # Introduction
 
-The tabs system are used in Workbench on the top. You click an icon and the right window will show.  
+The tab's system are used in Workbench on the top. You click an icon and the right window will show.  
 In this demo you can see the exact same tab system in action. This demo uses unicode characters that look different on
 different systems. I will remake this demo without unicode characters.  
 Read more in the documentation about

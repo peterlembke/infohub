@@ -23,7 +23,7 @@ Select a node. The plugin list for that node are shown in the next select box.
 
 Select a plugin. The function list for the selected plugin are shown in the next select box.
 
-Now the plugin are called and we pull out the function list. We populate the next select box with the function list.
+Now the plugin are called, and we pull out the function list. We populate the next select box with the function list.
 
 ## Select a function
 
@@ -41,7 +41,7 @@ Here you can select a filter for the response message:
 
 * Get all - get the response unchanged
 * No config - filter away the config data
-* Bare bone - filter away all unneccessary data
+* Bare bone - filter away all unnecessary data
 
 ## Send a message
 

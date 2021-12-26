@@ -1,5 +1,5 @@
 # Accessibility
-Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be really good at that.
+Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be perfect at that.
 
 [columns]
 Not everyone has perfect locomotor activity together with sharp eyesight that see all colours.
@@ -85,7 +85,7 @@ Keyboard navigation is very quick for people with normal locomotor system and th
 
 # Zoom
 Everything larger without panning. Still looking good.
-Zooming on a mobile phone makes things on the screen move beneath each other so you have to scroll more up down but nothing to the sides.
+Zooming on a mobile phone makes things on the screen move beneath each other, so you have to scroll more up down but nothing to the sides.
 
 # Design
 Target device: 

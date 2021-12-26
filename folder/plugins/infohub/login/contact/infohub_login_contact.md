@@ -4,8 +4,8 @@ Here you can see your contact data. You can also change node name and note.
 
 # The data
 
-In the form you can see the contact data. Most fields are read only but two are open so you can change the contents and
-save. The from is called "One contact".
+In the form you can see the contact data. Most fields are read only but two are open, so you can change the contents and
+save. The form is called "One contact".
 
 ## Node
 
@@ -41,16 +41,16 @@ can read more about [Hub-UUID](plugin,infohub_uuid).
 You share this secret with the server. Do not reveal it with anyone else. Protect it to your best effort.
 
 The shared secret is 2048 byte long. You can scramble the shared secret with a password.
-See [password](plugin,infohub_login_password).
+See [password](plugin,infohub_log in_password).
 
 ## Checksum
 
-The checksum is calculated every time your contact data are displayed. The checksum is a crc32 of the domain address +
-user name + shared secret.
+The checksum is calculated every time your contact data are displayed. The checksum is a CRC32 of the domain address +
+username + shared secret.
 
 You can use the checksum to quickly see if your contact information have been manipulated.
 
-If you set a password and store that password in a safe place then you can also write down the checksum so you know that
+If you set a password and store that password in a safe place then you can also write down the checksum, so you know that
 this password fit this contact information.
 
 ## Allowed plugins

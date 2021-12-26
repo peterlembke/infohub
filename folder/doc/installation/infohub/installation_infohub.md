@@ -1,7 +1,7 @@
 # Install Infohub
 If you have fulfilled all requirements then it is time to install Infohub.
 
-If you use the vagrant setup then you are done here. Surf to `http://vagrant.infohub.local`
+If you use the vagrant set up then you are done here. Surf to `http://vagrant.infohub.local`
 
 The below instructions cover installation on web hotel or own server.
 
@@ -15,20 +15,20 @@ Some web hotels have a public folder. Everything in public_html should be there.
 ## Database
 You also need to configure a main database in file folder/config/infohub_storage_data.json
 
-@todo Vagrant need a database setup
+@todo Vagrant need a database set up
 
 ## Domains
-If you have one domain name then the default setting will make sure you will see the login page and then the Workbench. If you want something else or have many domains then copy infohub_exchange.json from the config-examples to config. Create folder/config if it does not exist.
+If you have one domain name then the default setting will make sure you will see the log-in page and then the Workbench. If you want something else or have many domains then copy infohub_exchange.json from the config-examples to config. Create folder/config if it does not exist.
 
-## First login account
+## First log in account
 Copy infohub_contact.json to the folder/config and modify it to have your domain address.
 
 You can now try to surf to your domain.
 
-Use the login account in folder/config-examples/infohub_login/local.infohub.se.json
+Use the log-in account in folder/config-examples/infohub_log in/local.infohub.se.json
 You need to modify the domain address.
 
-If everything goes to plan you will then see the login page. Select the login account file and login. And you will then see the Workbench.
+If everything goes to plan you will then see the log-in page. Select the log-in account file and log in. And you will then see the Workbench.
 
 # License
 This documentation is copyright (C) 2020 Peter Lembke.  

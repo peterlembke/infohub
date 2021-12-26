@@ -3,7 +3,7 @@ All the code that is published in the Infohub.se brand is licensed as GNU Genera
   
 SPDX License Identifier: [GPL-3.0-or-later](https://spdx.org/licenses/)
 
-All the documentation that is published in the Infobub.se brand is licensed as GNU Free Documentation License version 1.3 or later. You can read the details of the license here: [GNU FDL](https://www.gnu.org/licenses/)
+All the documentation that is published in the Infohub.se brand is licensed as GNU Free Documentation License version 1.3 or later. You can read the details of the license here: [GNU FDL](https://www.gnu.org/licenses/)
 
 SPDX License Identifier: [GFDL-1.3-or-later](https://spdx.org/licenses/)
   
@@ -45,7 +45,7 @@ On the other hand, if you want to run your plugin in the Infohub.se system, then
 This will change. Bug HUB-680 - Allow plugins to have any license.  
 
 # Make your code available
-If you make changes to someones plugin and you think that the changes could be useful to others, then please do a pull request. You do not have to, but the extra effort will make you an "open software contributor", and that can be beneficial for you in the long run.
+If you make changes to someone's plugin, and you think that the changes could be useful to others, then please do a pull request. You do not have to, but the extra effort will make you an "open software contributor", and that can be beneficial for you in the long run.
 
 If you create your own general plugin and think that it can be useful to others, please make it available with good documentation and licensed as GNU GPL v3 or later. The extra effort will make you an "open software creator", and that can be beneficial for you in the long run.  
 
@@ -53,7 +53,7 @@ If you create your own general plugin and think that it can be useful to others,
 Images, Videos, Sound, Data - All can easily be imported to Infohub, but you must also add detailed information about the license, or else you will not be able to import the material. You can read more here [infohub_file](plugin,infohub_file)  
 
 # Use of the name infohub.se
-The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on the site if you the site owner apply to the terms in [TERMS.md](TERMS.md).
+The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on the site if you, the site owner apply to the terms in [TERMS.md](TERMS.md).
 
 # SPDX-License-Identifiers
 All license codes used in Infohub must conform to the SPDX-License-Identifiers. It is a list with the most common licenses and a unique identifier code exist for each license.

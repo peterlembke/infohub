@@ -11,7 +11,7 @@ It is a false security to require https. One might think that https is the only 
 
 Auto-detecting HTTPS and set it as a requirement is not a good way to go. 
 We will mention HTTPS in the installation document and urge site owners to use it.
-And we will urge site users to only enter sites that has HTTPS. That is common knowledge by now.
+And we will urge site users to only enter sites that have HTTPS. That is common knowledge by now.
 
 If you want to run your local Infohub with HTTP then Infohub should not stop you.
 Infohub also has built in signing of all packages and optional encryption of the traffic data.

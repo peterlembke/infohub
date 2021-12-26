@@ -23,9 +23,8 @@ The configuration are stored locally on this device. You can also store the conf
 Normally when you have a keyboard you can change the zoom level with CTRL and + or -. (CMD + or - on Mac). If you have a
 mouse then you can configure buttons to change the zoom level.  
 If you have a mobile phone you can do the pinch with your fingers to zoom in and out. But this zoom is like a magnifier,
-it makes you come closer so you have to side scroll to read the text.  
-The Zoom buttons on the other hand increase the objects on the page and keep the page width. The text now require more
-rows and you do not have to side scroll.  
+it makes you come closer, so you have to side scroll to read the text.  
+The Zoom buttons on the other hand increase the objects on the page and keep the page width. The text now require more rows, and you do not have to side scroll.  
 The zoom buttons work on desktop too. If the normal CTRL + do not give you enough zoom then you can also use the zoom
 buttons to get even more zoom.
 
@@ -33,7 +32,7 @@ buttons to get even more zoom.
 
 You have different fonts (how symbols are shaped) on different devices. If a font is missing then the device will pick a
 similar font from the ones it has.  
-With this setting you can see available fonts and select one font. The nunber of fonts you see will be deliberately few.
+With this setting you can see available fonts and select one font. The number of fonts you see will be deliberately few.
 Readability is the prime goal.
 
 # Colour
@@ -52,7 +51,7 @@ colours in that set and store it with a name. You can select the set you want to
 * Show assets (default yes)
 * Show missing assets (default: yes)
 * Download of assets (default yes)
-* Specific types: svg (yes), jpeg (yes), png (yes), gif (yes)
+* Specific types: SVG (yes), JPEG (yes), PNG (yes), GIF (yes)
 * Max asset size (100Kb)
 * Asset index cache time: 7d
 * Asset cache time: 28d

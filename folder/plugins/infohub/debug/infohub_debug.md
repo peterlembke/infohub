@@ -10,12 +10,12 @@ error with more ban time.
 The refresh methods used in Infohub Debug wait for the ban time to end and then refresh the page.
 
 Infohub is designed with speed in mind. The browser locally caches plugins, assets, settings. Normally all these are
-automatically updated when the cache gets old. If they are not updated or you want to speed things up then you need to
+automatically updated when the cache gets old. If they are not updated, or you want to speed things up then you need to
 handle the cache yourself.
 
 ![keyboard diagram](asset/icon/keyboard-diagram-function-buttons.svg)
 
-# Browser cache life time
+# Browser cache lifetime
 
 The browser cache is handled by [infohub_cache](plugin,infohub_cache).
 
@@ -46,7 +46,7 @@ The #3 is useful when you want to keep your configuration but clear out all plug
 
 The #4 is useful when the error won't go away.
 
-The #2 was intended to be faster than #3 but they are roughly at the same speed so I mostly use #3.
+The #2 was intended to be faster than #3, but they are roughly at the same speed, so I mostly use #3.
 
 # Key listeners
 
@@ -69,14 +69,14 @@ Touch devices are computers that have no keyboard.
 When you refresh the page a couple of times then the first refresh will update the local plugins in the background. The
 second refresh will use the local plugins.
 
-## Use infohub Debug GUI
+## Use Infohub Debug GUI
 
 The gui gives you the four buttons on screen. But this is only useful if you can start the plugin. That is not always
 the case.
 
 ## Use Launcher refresh
 
-The refresh option #3 is also available as an on screen button in the Workbenck Launcher.
+The refresh option #3 is also available as an on-screen button in the Workbench Launcher.
 
 # License
 

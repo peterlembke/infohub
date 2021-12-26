@@ -43,7 +43,7 @@ Add this to your plugins, yes your child plugins too:
 
 ### In your level 1 plugin
 
-In your level 1 plugin in function `setup_gui` you have these steps:
+In your level 1 plugin in function `set up_gui` you have these steps:
 
 ```
         if ($in.step === 'step_get_translations') {

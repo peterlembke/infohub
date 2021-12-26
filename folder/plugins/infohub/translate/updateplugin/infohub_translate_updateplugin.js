@@ -240,7 +240,7 @@ function infohub_translate_updateplugin() {
     };
 
     /**
-     * Update the selected plugin by changing all translation phrases to keys
+     * Update the selected plugin by changing all translation phrases into keys
      * @version 2020-12-15
      * @since   2020-12-15
      * @author  Peter Lembke

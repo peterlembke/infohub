@@ -2,9 +2,9 @@
 This is not about sharing. InfoHub handle your private data on your own or your friends trusted server on the internet or in your private network.
 This is a generic platform where you run your plugins. The long term aim is to create a trustworthy operating system for your browser.
 
-You can run the [workbench](https://www.infohub.se) or start a plugin as [stand alone](https://demo.infohub.se).
+You can run the [workbench](https://www.infohub.se) or start a plugin as [standalone](https://demo.infohub.se).
 
-This documentation contain general informations and get more detailed the deeper down in the documentation tree you get.
+This documentation contains general information and get more detailed the deeper down in the documentation tree you get.
 
 You can find the source code and much more [here](https://github.com/peterlembke/infohub).
 

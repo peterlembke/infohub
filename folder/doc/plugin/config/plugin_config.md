@@ -17,7 +17,7 @@ The copy you have in `folder/config` will completely override the original confi
 
 ## Example
 
-### Basic setup
+### Basic set up
 
 
 ### Selective logging

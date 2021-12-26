@@ -20,7 +20,7 @@ function infohub_asset() {
     $functions.push('_Version');
     /**
      * Mandatory version information
-     * @returns {{date: string, note: string, license_name: string, checksum: string, version: string, class_name: string, since: string, status: string}}
+     * @returns {}
      * @private
      */
     const _Version = function() {
@@ -54,7 +54,7 @@ function infohub_asset() {
             'update_all_assets': 'normal', // Use by infohub_offline and infohub_asset
             'update_all_plugin_assets': 'normal', // Use by asset owner and by infohub_asset
             'update_specific_assets': 'normal', // Use by infohub_launcher, infohub_asset. Update specific assets for several plugins
-            'update_plugin_asset_index': 'normal', // Used by update_specific_assets to update each plugins asset index
+            'update_plugin_asset_index': 'normal', // Used by update_specific_assets to update each plugin asset index
             'get_plugin_assets': 'normal', // Used by asset owner and by infohub_asset. Get named assets for a plugin
             'get_asset_and_license': 'normal', // Use by asset owner and by function create to get an asset + license
         };
@@ -92,7 +92,7 @@ function infohub_asset() {
      * @since   2013-04-15
      * @author  Peter Lembke
      * @param $in
-     * @returns {{item_index: {}, answer: string, message: string}}
+     * @returns {}
      */
     const create = function($in = {}) {
         const $default = {
@@ -206,7 +206,7 @@ function infohub_asset() {
 
     $functions.push('setup_gui');
     /**
-     * Setup the Asset Graphical User Interface
+     * Set up the Asset Graphical User Interface
      * One refresh button and a result container
      * @version 2020-03-22
      * @since   2020-03-22
@@ -759,7 +759,8 @@ function infohub_asset() {
      * Syncs ALL assets from the server to the client for ONE plugin
      * Checksums make sure only new/changed assets are downloaded to the client
      * It is the client plugin that own the assets that can ask for a sync of its assets.
-     * Also infohub_asset can call this function.
+     * infohub_asset can call this function.
+     *
      * @version 2017-12-23
      * @since 2017-12-23
      * @author Peter Lembke
@@ -937,7 +938,7 @@ function infohub_asset() {
      * @since 2018-12-02
      * @author Peter Lembke
      * @param {object} $in
-     * @returns {{answer: string, message: *, messages: Array}}
+     * @returns {}
      */
     const update_specific_assets = function($in = {}) {
         const $default = {

@@ -1,6 +1,6 @@
 # Location
 
-I could ask for the location data. Then I can write a run/bicycle app to Infohub that record the users data. Then the user do not have to upload the data to 3rd party servers.
+I could ask for the location data. Then I can write a run/bicycle app to Infohub that record the users' data. Then the user do not have to upload the data to 3rd party servers.
 
 && track
 

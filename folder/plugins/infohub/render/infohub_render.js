@@ -440,7 +440,7 @@ function infohub_render() {
         }
 
         if ($in.step === 'step_call_source') {
-            // We are here because the form element need options but they are empty.
+            // We are here because the form element need options, but they are empty.
             // There is a source_plugin and source_function that can provide the missing options.
             if (_Count($in.data_back.need_options) > 0) {
 
@@ -635,7 +635,7 @@ function infohub_render() {
             $in.html = _SubstituteColours($in.html);
 
             if ($in.where.mode === 'html') {
-                // We now restore our tags after calling the high end renderer
+                // We now restore our tags after calling the high-end renderer
                 $in.html = _Replace('[*', '[', $in.html);
 
                 if (_Empty($in.alias) === 'false') {
@@ -948,7 +948,7 @@ function infohub_render() {
 
     $functions.push('internal_FixBase64Data');
     /**
-     * BASE64 encode HTML code that are wrapped with {{* html-code *}}
+     * BASE64 encode HTML-code that are wrapped with {{* html-code *}}
      * @param $in
      * @returns {{answer: string, html: *, sections_count: *, message: string}}
      */
@@ -1614,8 +1614,8 @@ function infohub_render() {
 
     /**
      * Remove render cache from class variable that match the pattern
-     * @param $in
-     * @returns {{}|{answer: string, message: string}}
+     *
+     * @param $pattern
      * @private
      */
     const _RenderCachePurgePattern = function($pattern = '') {

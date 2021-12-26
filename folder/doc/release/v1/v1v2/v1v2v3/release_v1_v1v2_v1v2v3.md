@@ -1,7 +1,7 @@
 # [1.2.3] - 2019-12-05
 
 * [Release notes](main,release_v1_v1v2_v1v2v3)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.3)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.3)
 
 ## Added
 - Encryption - See Infohub Tools Encrypt.
@@ -18,5 +18,5 @@
 - infohub_welcome - Now has translations on all children from start
 
 ## Fixed
-- cold_start - failed on Firefox. Moved the deletion of the cold_start flag to an earlier point and now it works.
+- cold_start - failed on Firefox. Moved the deletion of the cold_start flag to an earlier point, and now it works.
 - infohub_offline.js - used variables that not all service workers have yet. Now it checks if the variable is defined.

@@ -21,7 +21,7 @@ opcache.blacklist_filename = /etc/php/opcache.blacklist
 opcache.preload=/var/www/folder/include/preload.php
 ```
 
-The file opcache.blacklist is only used during development, so you do not have to clear the opcache on every change. 
+The file `opcache.blacklist` is only used during development, so you do not have to clear the opcache on every change. 
 ```
 /folder/plugin/infohub/*
 /folder/include/*
@@ -30,6 +30,6 @@ The file opcache.blacklist is only used during development, so you do not have t
 
 ## Preload
 
-The pre load just get all php files and run a compile command on each.
+The preload just get all php files and run a compile command on each.
 
 To clear the opcache you need to restart the web server or at least restart php.

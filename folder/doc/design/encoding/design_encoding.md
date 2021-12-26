@@ -15,15 +15,15 @@ Here we have a multitude of libraries.
 
 I need a single distribution file.
 * HOT [ygoe/msgpack](https://github.com/ygoe/msgpack.js), [latest tag 2020](https://github.com/ygoe/msgpack.js/tags)
-* COLD [creationix/msgpack](https://github.com/creationix/msgpack-js), [latest tag 2013](https://github.com/creationix/msgpack-js/tags)
+* COLD [creationix/msgpack](https://github.com/creationix/msgpack-js), [the latest tag 2013](https://github.com/creationix/msgpack-js/tags)
 * COLD [kawanet/msgpack-lite](https://github.com/kawanet/msgpack-lite) and on [NPM](https://www.npmjs.com/package/msgpack-lite), [latest tag 2017](https://github.com/kawanet/msgpack-lite/tags)
-* COLD [chakrit/msgpack-js](https://github.com/chakrit/msgpack-js) forked from creationix/msgpack. [NPM](https://www.npmjs.com/package/msgpack-js-v5), [latest tag 2013](https://github.com/chakrit/msgpack-js/tags)
-* HOT [mcollina/msgpack5](https://github.com/mcollina/msgpack5), [latest release 2021](https://github.com/mcollina/msgpack5/releases), [NPM](https://www.npmjs.com/package/msgpack5)
+* COLD [chakrit/msgpack-js](https://github.com/chakrit/msgpack-js) forked from creationix/msgpack. [NPM](https://www.npmjs.com/package/msgpack-js-v5), [the latest tag 2013](https://github.com/chakrit/msgpack-js/tags)
+* HOT [mcollina/msgpack5](https://github.com/mcollina/msgpack5), [the latest release 2021](https://github.com/mcollina/msgpack5/releases), [NPM](https://www.npmjs.com/package/msgpack5)
 
 Other implementations that do not have a single file
-* HOT OFFICIAL [msgpack/msgpack-javascript](https://github.com/msgpack/msgpack-javascript), has a [browser example](https://github.com/msgpack/msgpack-javascript/blob/main/example/amd-example.html), [latest release 2021](https://github.com/msgpack/msgpack-javascript/releases/tag/v2.7.1) 
-* HOT [mprot/msgpack](https://github.com/mprot/msgpack-js), [latest tag 2020](https://github.com/mprot/msgpack-js/tags)
-* COLD [hypergeometric/notepack](https://github.com/hypergeometric/notepack), latest release 2014
+* HOT OFFICIAL [msgpack/msgpack-javascript](https://github.com/msgpack/msgpack-javascript), has a [browser example](https://github.com/msgpack/msgpack-javascript/blob/main/example/amd-example.html), [the latest release 2021](https://github.com/msgpack/msgpack-javascript/releases/tag/v2.7.1) 
+* HOT [mprot/msgpack](https://github.com/mprot/msgpack-js), [the latest tag 2020](https://github.com/mprot/msgpack-js/tags)
+* COLD [hypergeometric/notepack](https://github.com/hypergeometric/notepack), the latest release 2014
 
 So we have 4 hot and 4 cold libraries.
 

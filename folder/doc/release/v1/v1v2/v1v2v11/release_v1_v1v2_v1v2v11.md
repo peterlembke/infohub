@@ -1,10 +1,10 @@
 # [1.2.11] - 2020-04-15
-Main focus in this release was to improve the plugin icons. Introcuce SPDX-License-Identifier. Refactor Infohub Transfer so it can call Infohub Session and get one step closer to v1.3.0. Fix bugs in Infohub Asset. 
+Main focus in this release was to improve the plugin icons. Introduce SPDX-License-Identifier. Refactor Infohub Transfer, so it can call Infohub Session and get one step closer to v1.3.0. Fix bugs in Infohub Asset. 
 
 I want to release all these small changes now so that the next release will be easier to see the differences in.
 
 * [Release notes](main,release_v1_v1v2_v1v2v11)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.11)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.11)
 
 ## Added
 - Infohub Asset - got a new icon
@@ -27,7 +27,7 @@ I want to release all these small changes now so that the next release will be e
 - infohub_transfer - Added emerging function "Received".
 - infohub_exchange - Refactored _AddTransferMessage()
 - doc/license/license.md - Wrote about SPDX identifiers.
-- infohub Contact, improved the default array.
+- Infohub Contact, improved the default array.
 - Exchange.php, added PHPDOC and refactored
 - Kick out and infohub.php got some refactoring
 - Timer, bug fix. Checksum and Transfer got minor refactoring

@@ -1,13 +1,13 @@
 # Infohub Privacy Browser
 
-You can do a lot of things to increase privacy in your browser. This Infohub plugin will highligt what you share to
+You can do a lot of things to increase privacy in your browser. This Infohub plugin will highlight what you share to
 Infohub and how you can prevent this. The tips can be applied to other sites too.
 
 ## Infohub and Cookies
 
 Infohub has the kickout tests. If the browser set a cookie then the user are kicked out of the server.
 
-Cookes are usually used for logging in an keeping track of who was logged in. Infohub uses another approach where
+Cookies are usually used for logging in and keeping track of who was logged in. Infohub uses another approach where
 session data is part of the message and the browser store session data in the local database.
 
 So there is no need at all for cookies and that is why the kickout tests can kick on all cookies.
@@ -15,7 +15,7 @@ So there is no need at all for cookies and that is why the kickout tests can kic
 ## Infohub and sensors
 
 Infohub will not read your sensors. Automatic data collection is always bad because you will eventually forget that the
-data are collected. Every upload to the server must be a consious decision.
+data are collected. Every upload to the server must be a conscious decision.
 
 ## The tests
 

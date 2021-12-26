@@ -18,7 +18,7 @@ Then test your Docker box
 wget -O test.json http://0.0.0.0:5050/languages
 cat test.json
 ```
-And then test inside your App docker box that it can reach the LibreTranslate docker box. 
+And then test inside your App Docker box that it can reach the LibreTranslate Docker box. 
 ```
 dox shell app root 
 wget -O test.json http://translate:5000/languages

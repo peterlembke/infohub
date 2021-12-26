@@ -1,7 +1,7 @@
 # News from RSS
 RSS reader, but no further scraping of data.
 The server poll the RSS feeds and store the data on the server.
-Then when you connect you will get your mix of feeds filtered on your key words.
+Then when you connect you will get your mix of feeds filtered on your keywords.
 
 && rss,news,collect_data
 

@@ -56,7 +56,7 @@ What to render. In the example below we render a presentation box with infohub_r
     'my_presentation_box': {
         'plugin': 'infohub_rendermajor',
         'type': 'presentation_box',
-        'head_label': 'This is a Youtube video',
+        'head_label': 'This is a YouTube video',
         'foot_text': 'My really long footer text on several rows to check how the link to the right looks like among all this text.',
         'content_data': '[my_image]',
         'content_embed': '[my_video]',
@@ -91,10 +91,10 @@ What to render. In the example below we render a presentation box with infohub_r
 }
 ```
 
-![This is a Youtube video](rendermajor-1.png)
-![This is also a Youtube video](rendermajor-2.png)
+![This is a YouTube video](rendermajor-1.png)
+![This is also a YouTube video](rendermajor-2.png)
 
-If we instead like to use the built in child renderers then we can do this
+If we instead like to use the built-in child renderers then we can do this
 
 ```
 'what': {

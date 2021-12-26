@@ -15,7 +15,7 @@ The indexedDb lack features and tools that other databases have.
 On the other hand. The client ONLY talk with the server. No exception.
 If you want a local storage on localhost then install the Infohub server locally. Then you have the full range of database engines to choose from.
 
-I will later add features to sync data between infohub servers. Then your local server will have all data.
+I will later add features to sync data between Infohub servers. Then your local server will have all data.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

@@ -62,7 +62,7 @@ function infohub_transfer() {
      * If the browser is in online mode then "true" is returned
      * Let Infohub_Transfer handle online/offline. Do NOT use this function anywhere else.
      * The only interesting fact is if the server will respond or not. This function can not tell that.
-     * Also you can be offline (have no internet) and still reach infohub on a local network.
+     * You can be offline (have no internet) and still reach infohub on a local network.
      * So again, let infohub handle online/offline.
      * @returns {string}
      * @private
@@ -75,7 +75,7 @@ function infohub_transfer() {
 
     /**
      * Set or clear the global variable $globalOnline.
-     * The variable will go back to true after 30 seconds so we can try again to reach the server.
+     * The variable will go back to true after 30 seconds, so we can try again to reach the server.
      * @param $value
      * @private
      */
@@ -114,7 +114,7 @@ function infohub_transfer() {
 
     $functions.push('send');
     /**
-     * Used by infohub_exchange.js to trigger a send of messages to the server when the ban time is up
+     * Used by infohub_exchange.js to trigger a sending of messages to the server when the ban time is up
      * @version 2020-07-05
      * @since 2013-11-21
      * @author Peter Lembke
@@ -319,7 +319,7 @@ function infohub_transfer() {
             $out.messages = $messagesArray;
             $in.step = 'step_end';
             // This will send all the messages in messagesArray.
-            // In Client we only send to the server but I
+            // In Client, we only send to the server, but I
             // intend to have the same solution in other cores.
             // We return one message at the time at step_checksum_response
         }
@@ -474,9 +474,9 @@ function infohub_transfer() {
     /**
      * Calculate the timestamp when the message can be sent
      * Save the timestamp for the message that are in the most hurry to get to the server
-     * This timestamp are used to postpone the sending of data,
+     * This timestamp is used to postpone the sending of data,
      * piling upp messages to reducing the number of requests to the server
-     * That is important since the server give a 1 second ban after each request
+     * That is important since the server give a 1-second ban after each request
      * @version 2015-01-18
      * @since 2013-11-30
      * @author Peter Lembke
@@ -696,7 +696,7 @@ function infohub_transfer() {
 
     /**
      * Does an ajax call to the server.
-     * Sends the ready made package string.
+     * Sends the ready-made package string.
      * handles the response, cleans up the messages and send them in an event to the main loop.
      * @param $in
      * @returns {{answer: string, message: string}}
@@ -746,7 +746,7 @@ function infohub_transfer() {
             }
 
             if (xmlHttp.status !== 200) {
-                _SetGlobalOnline('false'); // We should have got a message but it never arrived.
+                _SetGlobalOnline('false'); // We should have got a message, but it never arrived.
                 return;
             }
 
@@ -891,7 +891,7 @@ function infohub_transfer() {
     /**
      * Get an array with messages
      * expand the messages so variables exist in data
-     * remove messages that has a call stack
+     * remove messages that have a call stack
      * @param $messages
      */
     const _ReceivedMessagesCleanAndExpand = function($messages) {
@@ -907,7 +907,7 @@ function infohub_transfer() {
             $oneMessage = _CleanMessage($oneMessage);
 
             if ($oneMessage.callstack.length > 0) {
-                // I remove messages that has a call stack (HUB-549)
+                // I remove messages that have a call stack (HUB-549)
                 $oneMessage = {};
                 delete $messages[$key];
                 continue;
@@ -966,7 +966,7 @@ function infohub_transfer() {
     };
 
     /**
-     * Clean up the outgoing or incoming message so it has no duplicate data
+     * Clean up the outgoing or incoming message, so it has no duplicate data
      * and no variables that can interfere.
      * @param $message
      * @returns {{}|{answer: string, data: [], message: string}}

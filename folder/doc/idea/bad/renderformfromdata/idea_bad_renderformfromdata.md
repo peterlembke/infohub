@@ -11,7 +11,7 @@ Then I can render a form very quickly from just data fields.
 ```
 
 The form will only support text fields and number fields.
-I can either show the form as it is for quick editing or use the form array as a template for pouring it into code and do modifications so I can get other form field types.
+I can either show the form as it is for quick editing or use the form array as a template for pouring it into code and do modifications, so I can get other form field types.
 
 && render
 

@@ -6,7 +6,7 @@ Used for validating a value and return true or false.
 
 Validators are mainly used in form data to quickly determine if an input is valid or not. The user of the form will be
 noted while they type.  
-This usage makes it important that the validator is small quick and effective so it can be run many times without the
+This usage makes it important that the validator is small quick and effective, so it can be run many times without the
 user noticing any lag.
 
 # Usage in forms

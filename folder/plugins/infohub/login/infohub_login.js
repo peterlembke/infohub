@@ -71,7 +71,7 @@ function infohub_login() {
     // ***********************************************************
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2019-09-03
      * @since   2019-09-03
      * @author  Peter Lembke
@@ -360,7 +360,7 @@ function infohub_login() {
     };
 
     /**
-     * Setup the information page
+     * Set up the information page
      * @version 2020-08-20
      * @since   2020-08-20
      * @author  Peter Lembke
@@ -678,7 +678,7 @@ function infohub_login() {
 
     /**
      * Children can talk to level1 plugins on the same node.
-     * When you need data from other nodes then any level1 plugin must help getting that.
+     * When you need data from other nodes then any level1 plugin must help to get that.
      * @version 2019-09-03
      * @since 2019-03-13
      * @author Peter Lembke

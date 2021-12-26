@@ -11,20 +11,20 @@ InfoHub is about taking control over your information. Become an anonymous infor
 
 # Mass communication consumer
 - RSS - Pull and parse RSS feeds.
-- Web scraper - Fetch web pages and pull out the information you want. Server do the scraping.
+- Web scraper - Fetch web pages and pull out the information you want. The server do the scraping.
 - SR.se - browse and play audio from Swedish Radio. Server uses the SR API.
-- Twitter - Read tweats. Server uses the Twitter API
+- Twitter - Read tweets. Server uses the Twitter API
 - Facebook - Read streams from your contacts. Server uses the Facebook API
-- Wordpress - Download blog posts you found by subscribing to its RSS channel.
+- WordPress - Download blog posts you found by subscribing to its RSS channel.
 - Magento 2 - Get information from Magento 2 sites.
 - Magento 2 - Quote and checkout
 
 # Mass communication producer
 
 - RSS - Produce RSS feeds.
-- Twitter - Create tweats and publish them on your account.
+- Twitter - Create tweets and publish them on your account.
 - Facebook - Update your Facebook stream.
-- Wordpress - Create new blog post in a Wordpress installation.
+- WordPress - Create new blog post in a WordPress installation.
 - Magento 2 - Publish product information and other information.
 - HTML export - You can export a full site with HTML, small embedded images. All for a fast and public web without javascript or php.
 
@@ -38,13 +38,13 @@ InfoHub is about taking control over your information. Become an anonymous infor
 # Data vault your own data
 
 - [Training](plugin,teamfakta_training) - Store training data and will show that data online. Will substitute the MS Access database.
-- Vault - Find your text, image, audio, video again. All meta data and the actual text or a small image. Then link to the big file.
+- Vault - Find your text, image, audio, video again. All metadata and the actual text or a small image. Then link to the big file.
 
 # Other tools
 
 - Storage manager - Graphical tool to manage Storages
 - GPS - All tools needed to manage GPS data. Calculations. Conversions. Tracking routes.
-- Crypt - Cryptographic tools. Used for two way encryption, one way encryption. Do not depend on standards or libraries.
+- Crypt - Cryptographic tools. Used for two-way encryption, one way encryption. Do not depend on standards or libraries.
 - Telldus .NET - Control your lights at home. Plugin uses the API for Telldus.
 
 # License

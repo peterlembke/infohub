@@ -122,7 +122,7 @@ class infohub_random extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $answer = 'true';
+        $answer = 'false';
         $message = 'Could not generate a random number';
         $ok = 'false';
         $result = 0;
@@ -145,7 +145,6 @@ class infohub_random extends infohub_base
         try {
             $result = $this->_Random($in['min'], $in['max']);
         } catch (Exception $e) {
-            $answer = 'false';
             $message = $e->getMessage();
             goto leave;
         }
@@ -183,19 +182,18 @@ class infohub_random extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $answer = 'true';
+        $answer = 'false';
         $message = 'Could not generate your random numbers';
         $result = [];
         $ok = 'false';
 
         for ($i = $in['count']; $i > 0; $i--) {
-            $response = $this->internal_Cmd(
-                [
-                    'func' => 'RandomNumber',
-                    'min' => $in['min'],
-                    'max' => $in['max']
-                ]
-            );
+
+            $response = $this->internal_Cmd([
+                'func' => 'RandomNumber',
+                'min' => $in['min'],
+                'max' => $in['max']
+            ]);
 
             if ($response['answer'] === 'false' || $response['ok'] === 'false') {
                 $message = $response['message'];
@@ -226,20 +224,25 @@ class infohub_random extends infohub_base
      * @param int $max
      * @return int
      */
-    protected function _Random($min = 0, $max = 0): int
+    protected function _Random(
+        int $min = 0,
+        int $max = 0
+    ): int
     {
-        $randomNumber = 0;
         try {
+
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
-            } else {
-                $randomNumber = mt_rand($min, $max); // PHP 5 and later
+                return $randomNumber;
             }
+
+            $randomNumber = mt_rand($min, $max); // PHP 5 and later
+            return $randomNumber;
+
         } catch (Exception $e) {
-            $randomNumber = 0; // Not ideal
         }
 
-        return $randomNumber;
+        return $min;
     }
 
 }

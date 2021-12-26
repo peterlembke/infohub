@@ -4,7 +4,7 @@ Backup your personal data to one or many files that are downloaded to your compu
 
 ## Introduction
 
-You can only backup/restore data:
+You can only back up/restore data:
 
 * that have been stored by the Tree.
 * that exist in local storage.
@@ -36,7 +36,7 @@ number in the backup series. All backup files in the same number series have the
 
 ## File format
 
-The file will be filles with max 1 Mb of data. The data format is JSON. Each file is independent and can be restored by
+The file will be files with max 1 Mb of data. The data format is JSON. Each file is independent and can be restored by
 its own.
 
 ```json5
@@ -49,16 +49,16 @@ its own.
 The encrypted_data_bytes is the size of the encrypted data string.  
 server_checksum is a direct copy from the local server_checksum. It is the checksum of the decrypted json data we got
 from the server when we synced.  
-local_checksum is a direct copy from the local local_checksum. It is the checksum of the decrypted json data we had in
+local_checksum is a direct copy from the local `local_checksum`. It is the checksum of the decrypted json data we had in
 the local Storage.
 
 ## GUI - Backup all
 
-A button to backup all Tree data. A file for each plugin will be downloaded.
+A button to back up all Tree data. A file for each plugin will be downloaded.
 
 ## GUI - backup selected plugins
 
-There is a list with plugin names found in the paths, "__Plugin names__". Mark the plugins you want to backup.
+There is a list with plugin names found in the paths, "__Plugin names__". Mark the plugins you want to back up.
 
 Button "__Backup plugins__". You will get a file for each plugin Button to refresh the plugin list.
 

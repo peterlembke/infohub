@@ -107,8 +107,9 @@ function infohub_start($progress) {
     /**
      * Set/Check the cold_start flag in localStorage
      * Will be removed in the end of this file when the first message have been sent. See end of _SendFirstMessage
-     * @param {type} $in
-     * @returns {Boolean}
+     *
+     * @returns {boolean}
+     * @private
      */
     const _ColdStart = function() {
         let $failedStarts = localStorage.getItem('cold_start');
@@ -350,7 +351,7 @@ function infohub_start($progress) {
     };
 
     /**
-     * AJAX call to the server
+     * An AJAX call to the server
      * @param $package
      * @private
      */
@@ -424,7 +425,7 @@ function infohub_start($progress) {
 
     /**
      * Set or clear the global variable $globalOnline.
-     * The variable will go back to true after 30 seconds so we can try again to reach the server.
+     * The variable will go back to true after 30 seconds, so we can try again to reach the server.
      * @param $value
      * @private
      */

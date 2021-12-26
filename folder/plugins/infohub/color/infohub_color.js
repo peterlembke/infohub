@@ -815,7 +815,7 @@ function infohub_color() {
 
     $functions.push('click_color_selector');
     /**
-     * You first end up in event_message and then you get here
+     * You first end up in event_message, and then you get here
      * Pull out the selected hex color and pull out the hueDegree
      * Render a light bar
      * @param $in
@@ -1000,7 +1000,7 @@ function infohub_color() {
      * I will get the hex color. Convert to HSL and save light percent in the hidden box.
      * Render one box with the hex color.
      * @param $in
-     * @returns {{answer: string, message: string}|*}
+     * @returns {}
      */
     const click_light_bar_selector = function($in = {}) {
         const $default = {

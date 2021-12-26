@@ -125,13 +125,13 @@ class infohub_storagemanager extends infohub_base
 
     /**
      * Write data for a database connection
-     * @param array $in
-     * @return array|bool
      * @author  Peter Lembke
      * @version 2017-07-26
      * @since   2016-07-17
+     * @param  array  $in
+     * @return array
      */
-    protected function write_connection(array $in = [])
+    protected function write_connection(array $in = []): array
     {
         $default = [
             'data' => [

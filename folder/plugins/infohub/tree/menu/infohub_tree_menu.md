@@ -5,7 +5,7 @@ Displays a menu with all options
 ## Introduction
 
 This plugin renders a menu with all the options you can select in the plugin.  
-Each menu alternative is a child plugin and it will render its GUI.  
+Each menu alternative is a child plugin, and it will render its GUI.  
 Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
 
 ## License

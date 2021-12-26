@@ -144,7 +144,7 @@ class infohub_storage_data_redis extends infohub_base
      * If data is empty then the post is deleted
      * If data do not exist in the database then it is inserted
      * If data exist in the database and is same as the one you want to save - then success without action
-     * If data exist and are different then the post will be updated
+     * If data exist and are different, then the post will be updated
      * @param array $in
      * @return array
      */
@@ -310,8 +310,9 @@ class infohub_storage_data_redis extends infohub_base
 
     /**
      * Returns a db connection with the help of the connect-variables.
-     * @param array $in
+     * @param  array  $in
      * @return array
+     * @throws RedisException
      */
     protected function internal_ConnectionOpen(array $in = []): array
     {
@@ -386,7 +387,7 @@ class infohub_storage_data_redis extends infohub_base
             goto leave;
         }
 
-        if (is_null($data) || empty($data)) {
+        if (empty($data) === true) {
             $out = [
                 'answer' => 'true',
                 'message' => 'Post read: Did not find any data string on that path',

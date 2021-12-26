@@ -6,14 +6,14 @@ The class that all plugins extend from.
 # Introduction
 
 When you create a plugin you start by extending the base class. This is always the case. You do not extend any other
-class and you do not use any fancy php tricks to implement features from other classes.
+class, and you do not use any fancy php tricks to implement features from other classes.
 
 Infohub Base give your plugin all the base features it needs to function within the InfoHub core and be a part of the
 message system.
 
 # cmd()
 
-All communication with your plugin goes through the public function cmd(). You give cmd() an array and it will call the
+All communication with your plugin goes through the public function cmd(). You give cmd() an array, and it will call the
 function you mention in the array.
 
 With cmd() you get: logging, execution time, checks on incoming data, check that the called function exist, catching and
@@ -29,11 +29,11 @@ if it would like to do something.
 plugin. The function name must be in lower case and start with a letter. Like this: `my_nice_function()`
 
 The {{cmd}} functions always return a {{subcall}} message or a {{returncall}} message to cmd() and then cmd() deliver
-that message to the outside of the plugin. The message are picked up by [infohub_exchange](plugin,infohub_exchange) and
+that message to the outside of the plugin. The message is picked up by [infohub_exchange](plugin,infohub_exchange) and
 delivered to the destination plugin.
 
 Because of that you can not directly use your other cmd() functions in your plugin by doing a simple direct call.
-Instead I recommend that you put code in {{direct}} functions and even better; in {{internal}} functions.
+I recommend that you put code in {{direct}} functions and even better; in {{internal}} functions.
 
 To properly use any cmd() function you do a {{subcall}}. You also need to {{register}} all cmd functions.
 
@@ -45,8 +45,8 @@ more about that here: [Function Status](doc,plugins_status) and also read about 
 In the base class you also have functions that you can call directly. The most commonly used function are `_Default()`.
 These functions start with an underscore `_` and then the name is in CamelCase.
 
-The PHP version and the JavaScript version of the base class have different functions and it is because of different
-needs in different languages. JavaScript have an important function called `_ByVal()`, and PHP have the same feature
+The PHP version and the JavaScript version of the base class have different functions, and it is because of different
+needs in different languages. JavaScript has  an important function called `_ByVal()`, and PHP have the same feature
 built into the language.
 
 You can write your own direct functions in your plugin. but I would recommend that you only use them for simple stuff
@@ -92,7 +92,7 @@ $this->internal_Cmd(array(
 # SubCall
 
 One of the features is to make a subcall to another cmd function in the same or other plugin on the same or any other
-node. Be aware of what plugin you are allowed to call or you will get a return message with a rejection.
+node. Be aware of what plugin you are allowed to call, or you will get a return message with a rejection.
 
 When you do a subcall you leave the cmd function with a return call, leaving the control back to cmd(). A subcall will
 give you an answer back. The answer will go to the cmd function that made the call. Meaning that if you do the subcall
@@ -144,12 +144,10 @@ if-statement you can run a `_Default` on the 'response' and start using it.
 Callback function only works with Javascript. It does not exist for PHP because it is not needed.
 
 Javascript heavily use callback functions as an imaginary solution they use when something might take time to do. PHP on
-the other hand generally not use callback functions and they do fine.
+the other hand generally not use callback functions, and they do fine.
 
-Javascript simply say "This thing you asked me to do will take some time, I'll call a separate function when I am done
-so you can now continue with other things". If you really need the answer to continue then you are trapped. To prevent
-this situation Javascript have invented Promises. Instead of the result you now get a promise variable that eventually
-will will give you the answer. And there are more features around simplifying the use of promises. This does not help
+Javascript simply say "This thing you asked me to do will take some time, I'll call a separate function when I am done, so you can now continue with other things". If you really need the answer to continue then you are trapped. To prevent this situation Javascript have invented Promises. Instead of the result you now get a promise variable that eventually
+will give you the answer. And there are more features around simplifying the use of promises. This does not help
 you. You are still stuck in that callback/promise hell.
 
 InfoHub in JavaScript give you a `callback_function` that you can call when you want to get out of the hell. Here is an
@@ -320,7 +318,7 @@ Read more about logging in [debug tools](doc,plugin_debug).
 
 # Logging in PHP
 
-When you use `internal_Log` the data are stored in an array. That array are then passed into the response from cmd() in
+When you use `internal_Log` the data are stored in an array. That array is then passed into the response from cmd() in
 parameter `log_array`.
 
 The data come to Infohub Exchange and are sent to `internal_LogArrayToConsole` and each log entry are sent

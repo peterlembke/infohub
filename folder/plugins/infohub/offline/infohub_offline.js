@@ -216,7 +216,7 @@ function infohub_offline() {
     // *****************************************************************************
 
     /**
-     * Setup the Config Graphical User Interface
+     * Set up the Config Graphical User Interface
      * @version 2018-09-09
      * @since   2018-09-09
      * @author  Peter Lembke
@@ -479,7 +479,7 @@ function infohub_offline() {
     $functions.push('unsubscribe');
     const unsubscribe = function($in = {}) {
         const $default = {
-            'subscriptions': {}, // Add the key_combination string and and empty message
+            'subscriptions': {}, // Add the key_combination string and empty message
             'from_plugin': {'node': '', 'plugin': '', 'function': ''},
         };
         $in = _Default($default, $in);
@@ -893,7 +893,8 @@ function infohub_offline() {
      * If our copy of index.php is old and our last check is old then
      * Asks the server for the checksum of all files that are included in index.php
      * Compares with the checksum that is in our cached copy of index.php
-     * If the answer is valid and the checksums are different then unregister all service workers
+     * If the answer is valid and the checksums are different from each other, then unregister all service workers
+     *
      * @version 2019-11-14
      * @since   2019-11-14
      * @author  Peter Lembke
@@ -1021,13 +1022,12 @@ function infohub_offline() {
             if ($in.answer === 'true') {
 
                 if ($in.response.valid === 'false') {
-                    // The checksum we have is not valid. Lets unregister all service workers and reload the page.
+                    // The checksum we have is not valid. Let's unregister all service workers and reload the page.
                     // That will cache a new index.php
                     navigator.serviceWorker.getRegistrations().
                         then(function(registrations) {
 
-                            for (let $i = 0; $i <
-                            registrations.length; $i = $i + 1) {
+                            for (let $i = 0; $i < registrations.length; $i = $i + 1) {
                                 let $registration = registrations[$i];
                                 $registration.unregister();
                             }

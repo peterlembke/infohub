@@ -6,7 +6,6 @@
 */
 
 .data {
-    width: auto;
     width: 100%;
     box-sizing: border-box;
     /* word-break: break-all; */

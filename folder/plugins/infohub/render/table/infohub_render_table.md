@@ -133,8 +133,7 @@ Give a definition for each column how it should appear.
 ## Data
 
 And also provide the data to show. The table will be rendered with all data. It will not be updated in any way. Each
-time anything should be changed then the table must be rendered in full. That is the fastest way to just insert a pre
-built HTML.
+time anything should be changed then the table must be rendered in full. That is the fastest way to just insert a pre-built HTML.
 
 ## Rendered table
 

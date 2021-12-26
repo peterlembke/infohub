@@ -6,14 +6,14 @@ Renders an advanced list.
 
 With Infohub_AdvancedList you can show an advanced list with expandable nodes. The features are:
 
-- HTML list with optional indents (lists in lists)
+- HTML-list with optional indents (lists in lists)
 - Each node can be default expanded or contracted
-- Unicode characters (default) or optional SVG images for the expand/contract buttons
+- Unicode-characters (default) or optional SVG images for the expand/contract buttons
 
 # How to use
 
 In this example you get a presentation box with a head label and in the contents of the box you have an advanced list.
-The expand and contract buttons are custom icons. If you omit them you get standard unicode characters instead. The
+The expand button and contract button are custom icons. If you omit them you get standard unicode characters instead. The
 options in the list are in the $option variable.
 
 ```

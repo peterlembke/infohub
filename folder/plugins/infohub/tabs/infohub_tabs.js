@@ -543,7 +543,7 @@ function infohub_tabs() {
     };
 
     /**
-     * Normally you init the tab system and then add tabs and then add contents
+     * Normally you initialise the tab system and then add tabs and then add contents
      * In this function you give everything you want and the tabs are set up with contents.
      * @version 2018-02-02
      * @since   2018-02-02

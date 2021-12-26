@@ -1,17 +1,17 @@
-# Infohub Checksum md5
+# Infohub Checksum MD5
 
 Checksum function that detect unintentional data corruption
 
 # Introduction
 
 Ronald Rivest created MD5 in 1991. MD5 was designed to be used in encryption, but it is no longer useful for that
-purpose. It can still be used as a checksum to verify data integrity, but only against unintentional corruption.. You
+purpose. It can still be used as a checksum to verify data integrity, but only against unintentional corruption. You
 can read more about MD5 on <a href="https://en.wikipedia.org/wiki/MD5" target="_blank">Wikipedia</a>.
 
 # Javascript implementation
 
 The implementation used in InfoHub is called Spark MD5. If comes
-from <a href="https://github.com/satazor/js-spark-md5" target="_blank">Github</a>. The license
+from <a href="https://github.com/satazor/js-spark-md5" target="_blank">GitHub</a>. The license
 are <a href="https://github.com/satazor/js-spark-md5/blob/master/LICENSE" target="_blank">WTFPL</a>
 
 # License

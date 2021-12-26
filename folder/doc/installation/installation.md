@@ -4,7 +4,7 @@ How to install Infohub on your server
 # requirements
 InfoHub require a web server that run a [supported PHP](https://www.php.net/supported-versions.php) and the [latest version](https://browsehappy.com/) of a modern web browser.
 
-If you use login then you need a supported database server like MariaDb / MySQL / SQlite3 / Redis / PostgreSQL. 
+If you use log in then you need a supported database server like MariaDb / MySQL / SQlite3 / Redis / PostgreSQL. 
 
 # Installation
 
@@ -22,11 +22,11 @@ sudo systemctl restart apache2.service
 
 ## Set up the domain names
 Your LAMP server need one or more nice domain names. It is called VHOST. 
-If you can read Swedish then you can follow this guide: [Flera domännamn på samma webserver i Ubuntu](http://www.charzam.com/2017/06/02/1342/flera-domannamn-pa-samma-webserver/) or this one [VHOST på MacOS](http://www.charzam.com/2016/08/07/1240/satta-upp-vhost-pa-osx-apache/)
-Or you can internet search for vhost apache2 and your operating system.
+If you can read Swedish then you can follow this guide: [Flera domännamn på samma webserver i Ubuntu](http://www.charzam.com/2017/06/02/1342/flera-domannamn-pa-samma-webserver/) or this one [VHOST på macOS](http://www.charzam.com/2016/08/07/1240/satta-upp-vhost-pa-osx-apache/)
+Or you can search for vhost apache2 and your operating system.
 
 ## Get the code
-- Clone or download the files from Github
+- Clone or download the files from GitHub
   - [Download](https://github.com/peterlembke/infohub/archive/master.zip) the installation package and unpack it into your www root
   - [Clone the files](https://github.com/peterlembke/infohub) from the repository.
   
@@ -44,9 +44,9 @@ This config process is rather manual. I will improve it in later releases.
 In `infohub_exchange.json` you find what domain sends what start message. You can delete all domains you do not use and add your domain instead. 
 
 ### Config first user
-You can set up one user in config file `infohub_contact.json` that does not require any database setup.
+You can set up one user in config file `infohub_contact.json` that does not require any database set up.
 
-You have a matching user login file in `infohubuser.json` that need the same information.
+You have a matching user log in file in `infohubuser.json` that need the same information.
 
 Modify the file to suite you. Node is the name you call yourself. Modify node, domain_address, user_name. It is easy to damage the shared_secret so let it be for now.
 
@@ -56,7 +56,7 @@ Once you have configured the database and are logged in you can run [Contact](pl
 In `infohub_storage_data.json` you can configure your main database. You can leave section "client" and focus on section "server". You can read details here: [Infohub Storage](plugin,infohub_storage).
 
 # Done
-Surf to your domain and [login](plugin,infohub_login) with the login file. 
+Surf to your domain and [log in](plugin,infohub_log in) with the log in file. 
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

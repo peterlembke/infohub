@@ -4,15 +4,15 @@ Render links to video services
 
 # Introduction
 
-Video is a nice way to relay information. Unfortunately all 3rd party video services uses iframes and they are a
+Video is a nice way to relay information. Unfortunately all 3rd party video services uses iframes, and they are a
 security breach. You can render a link to the service.
 
-This documentation is about how to use youtube, vimeo, daily_motion.
+This documentation is about how to use YouTube, Vimeo, DailyMotion.
 
-# Youtube
+# YouTube
 
-Youtube is the most famous of the platforms where you can upload your own movies. It is easy to use and it is also easy
-to rendera link to Youtube so the video can be opened in a new tab.
+YouTube is the most famous of the platforms where you can upload your own movies. It is easy to use, and it is also easy
+to render a link to YouTube so the video can be opened in a new tab.
 
 ```
 'my_video_link': {
@@ -25,7 +25,7 @@ to rendera link to Youtube so the video can be opened in a new tab.
 
 # Vimeo
 
-You can render a vimeo link that goes directly to Vimeo
+You can render a Vimeo link that goes directly to Vimeo
 
 ```
 'my_video_link': {
@@ -38,7 +38,7 @@ You can render a vimeo link that goes directly to Vimeo
 
 # Daily motion
 
-You can create a link that goes directly to daily motion.
+You can create a link that goes directly to Daily motion.
 
 ```
 'my_video_link': {
@@ -49,7 +49,7 @@ You can create a link that goes directly to daily motion.
 }
 ```
 
-# Self hosting
+# Self-hosting
 
 Plugins like Infohub_RenderVideoPlayer are on the todo list. It will help you to host the video yourself on your server
 without making the video public.

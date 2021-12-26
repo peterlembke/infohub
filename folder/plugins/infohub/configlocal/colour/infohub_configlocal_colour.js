@@ -1251,7 +1251,8 @@ function infohub_configlocal_colour() {
 
     /**
      * Return the default data that we save on submit
-     * @returns {}
+     *
+     * @returns {{color_lookup: {"#1b350a": string, "#6d8df7": string, "#0b1f00": string, "#f76d6d": string, "#7df76d": string, "#ff0000": string}, form_data: {base_color_5: {value: string}, base_color_4: {value: string}, base_color_3: {value: string}, base_color_2: {value: string}, base_color_1: {value: string}, name: {value: string}, base_color_0: {value: string}, layer_2: {value: string}, layer_1: {value: string}, layer_0: {value: string}}, color_schema: {"layer-1-highlight": string, "layer-2-title-text": string, "layer-1-normal": string, "layer-0-background": string, "layer-1-warning": string, "layer-2-normal-text": string}}}
      * @private
      */
     const _GetDefaultColorData = function() {
@@ -1328,6 +1329,7 @@ function infohub_configlocal_colour() {
     /**
      * Detects if dark mode is enabled or not
      * I will just test. This must be moved to infohub_view later
+     * 
      * @returns {boolean}
      * @private
      */

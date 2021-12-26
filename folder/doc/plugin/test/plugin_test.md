@@ -6,10 +6,10 @@ Test driven programming produces tests that can be run automatically to detect i
 
 Infohub has another approach. The data in and out from a plugin are recorded and stored. If the expected outcome change then you will be notified.
 
-This is possible because infohub uses one array in and one array out. The message structure with steps and return sub calls makes it easy to test the functions.
+This is possible because Infohub uses one array in and one array out. The message structure with steps and return sub calls makes it easy to test the functions.
 
 # Activate testing
-Each plugin can have a configuration file in JSON format. The file are read if exist by both PHP and JS and the server och client section are passed to the cmd() function.
+Each plugin can have a configuration file in JSON format. The file is read if exist by both PHP and JS and the server och client section are passed to the cmd() function.
 
 * infohub_checksum.js
 * infohub_checksum.php
@@ -37,7 +37,7 @@ If out data is missing but in data exist then out are stored.
 If in and out data exist in storage then out data are compared.
 If out data are different, then you are notified.
 
-You just delete data that is not accurate any more.  
+You just delete data that is not accurate anymore.  
 
 # Store data
 When a function have run then cmd() has both in and out data. 

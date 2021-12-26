@@ -88,7 +88,7 @@ class infohub_tree extends infohub_base
             'node_data' => [
                 'node' => '', // Name of this connection. This is also a node name in messages.
                 'note' => '',
-                'domain_address' => '', // We login to this destination domain
+                'domain_address' => '', // We log in to this destination domain
                 'user_name' => '', // Your identity
                 'shared_secret' => '', // 2Kb random bytes base64 encoded
                 'server_plugin_names' => [],
@@ -415,8 +415,7 @@ class infohub_tree extends infohub_base
             'message' => 'Nothing to report from load_node_list',
             'ok' => 'false',
             'node_list' => [],
-            'options' => [],
-            'post_exist' => 'false'
+            'options' => []
         ];
 
         if ($in['from_plugin']['node'] !== 'client') {
@@ -509,7 +508,7 @@ class infohub_tree extends infohub_base
 
         try {
             $sharedSecret = random_bytes($in['length']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $sharedSecret = '';
         }
 

@@ -22,21 +22,21 @@ const _GetCmdFunctions = function () {
         'get_launch_information': 'normal',
         'view_document': 'normal',
         'view_navigation': 'normal',
-        'setup_gui': 'normal',
+        'set up_gui': 'normal',
         'event_message': 'normal'
     };
 };
 ```
 
-## Bare bone template
+## Bare-bone template
 This is the bare minimum you need for a plugin to work. Suitable for normal plugins that have no GUI and are not a renderer.  
     
 ## Renderer
-If you create a renderer then this template is suitable as a start. You can also take a look at other renderers like infohub rendermajor.
+If you create a renderer then this template is suitable as a start. You can also take a look at other renderers like Infohub Rendermajor.
   
 If your renderer do not work then put a break point in function "create" and see if it is reached. Then you can see if the input data is correct before and after `_Default`.
   
-Renderers are client plugins and they should then show up in local storage. Right click on the web page, select the inpector, storage, local storage. You should find your plugin there or else.  
+Renderers are client plugins, and they should then show up in local storage. Right-click on the web page, select the inspector, storage, local storage. You should find your plugin there or else.  
     
 ## plugin with a GUI
 If your plugin need a graphical user interface (GUI) then select this template or copy parts from this template.
@@ -52,7 +52,7 @@ You need an `asset/launcher.json` file like this:
 }
 ```
 
-Make sure your `_GetCmdFunctions` have "'setup_gui': 'normal'" and that you have the function setup_gui.  
+Make sure your `_GetCmdFunctions` have "'set up_gui': 'normal'" and that you have the function set up_gui.  
 You also need asset/icon/icon.svg and asset/icon/icon.json. See how other plugins have done this.  
     
 # Tools
@@ -71,7 +71,7 @@ Keep calm, work when you are alert, have a never ending patience. Here are some 
 ## On screen errors
 Package errors: If there are errors in the package from the server then a message will be shown on screen in the browser.  
 
-External references: The file `include/sanity_check.js` always scan the DOM for any reference to files outside of the domain and warn on screen about that. Never ever use external references to scripts, images etc.
+External references: The file `include/sanity_check.js` always scan the DOM for any reference to files outside the domain and warn on screen about that. Never ever use external references to scripts, images etc.
   
 Javascript errors: A popup will show the error. 
 See `include/error_handler_and_frame_breakout.js`
@@ -96,8 +96,8 @@ You can set break points in these error handlers if you need to amd see the call
     
 # Logging
 Both JS and PHP has logging. 
-* PHP log to files in `"log"`. 
-* JS log to the browser console (Right click the page and select "Inspector").
+* PHP logs to file in `"log"`. 
+* JS logs to the browser console (Right-click the page and select "Inspector").
   
 Observer that **logging takes time and are normally restricted to severe errors.**
   
@@ -110,7 +110,7 @@ To log everything on the server you set the minimum log level in `include/settin
 Then you will see a new log file: `log/log-all.log`.  
     
 ## Selective logging
-When you run PHP code on a server, perhaps your web host, then you do not have access to xdebug. Instead you can use selective logging.  
+When you run PHP code on a server, perhaps your web host, then you do not have access to xdebug. Instead, you can use selective logging.  
 Each plugin can have a configuration file. This is an example from infohub/checksum/infohub_checksum.json  
 
 ```
@@ -135,16 +135,16 @@ You can debug the server with xdebug. PHP is single threaded and do one thing at
   
 If your plugin is not loaded then check that: your web server has read rights on the php file.
   
-You should not install xdebug on a production server because PHP will be much slower. Instead use selective logging.
+You should not install xdebug on a production server because PHP will be much slower. Instead, use selective logging.
 
 ## Avoid cache systems like Varnish
-Cache systems like `Varnish` do nothing for speeding up applications like Infohub. Instead they are just an unnecessary layer that can mess things up.
+Cache systems like `Varnish` do nothing for speeding up applications like Infohub. Instead, they are just an unnecessary layer that can mess things up.
 
 ## Get any response from web server
 If nothing works on the server then try to surf to
 `https://www.yourdomainname.com/phpinfo.php`
 
-That file contain one row of PHP that will show you information about the server. If not even that file works then you have a server error. Possible file & folder rights or other config issues.
+That file contains one row of PHP that will show you information about the server. If not even that file works then you have a server error. Possible file & folder rights or other config issues.
 
 # Javascript Client
 The Javascript client depend on the server for automatically downloading data. You should check the traffic to the server with the inspector -> network. Here you can see what is sent in the package and what you got back.The response from the server should be readable and look sane.
@@ -153,7 +153,7 @@ All plugins that are downloaded are saved in the local storage. If you make chan
  
 The plugins are updated automatically when they got old and there is a new version.
    
-All assets (icons etcetera that exist in the plugin folder "asset") are saved in indexedDb. If you want to reload an asset you need to delete it from indexeddb. For four of the plugins (workbench, asset, doc, demo) you also need to delete the assets from the local storage too.
+All assets (icons and so on that exist in the plugin folder "asset") are saved in indexedDb. If you want to reload an asset you need to delete it from indexeddb. For four of the plugins (workbench, asset, doc, demo) you also need to delete the assets from the local storage too.
 
 ## Keyboard refresh commands
 These commands will be your primary tool for clearing/updating the cache in the browser.
@@ -196,12 +196,12 @@ return _SubCall({
 ```
 
 # Exchange
-All messages goes through exchange. It would be tempting to set a debug point there. But first check that you follow all rules in your plugin.  
+All messages go through exchange. It would be tempting to set a debug point there. But first check that you follow all rules in your plugin.  
     
 # Training
 With training and experience you create your own style of programming. Remember that you do whatever you like in your plugin so the below tips are just how I do things. My aim is always readability and always do the same.
   
-**Step** - I use "if ($in.step === 'step_start') {", each step name start with "step_" so I know that it is a step label.
+**Step** - I use `if ($in.step === 'step_start') {`, each step name start with `step_` so I know that it is a step label.
   
 **Step _SubCall** - If I have a step with a sub call, for example "step_read_storage" then I also have a "step_read_storage_response". That step handle the response and continue in the next step.
   

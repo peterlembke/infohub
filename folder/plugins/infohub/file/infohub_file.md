@@ -11,10 +11,10 @@ The usage of this plugin are locked to server plugins. There are no infohub_file
 
 # Folders in general
 
-When you read or write a file then you provide a path to the file. The path starts from the web root and it includes the
+When you read or write a file then you provide a path to the file. The path starts from the web root, and it includes the
 file you want to read/write. Example: folder/plugin/infohub/callback/infohub_callback.json  
-The path will be converted to lower case. This is important to know on case sensitive file systems. You are not allowed
-to use .. in the path to get one level up. That will be removed from the path.  
+The path will be converted to lower case. This is important to know on case-sensitive file systems. You are not allowed
+to use `..` in the path to get one level up. That will be removed from the path.  
 The only characters that will be left in the path
 is: `a-z (letters), 0-9 (numbers) _ (underscore) - (hyphen) / (slash) . (dot)`  
 On Windows systems a path contain backslash. Use slash instead, that works.
@@ -36,7 +36,7 @@ infohub_launcher - Uses all launcher.json files. They contain title, note, and s
 and license.  
 All plugins can ask Asset for files that are part of their own plugin, like icons, translations, config etc.
 
-# Miss use
+# Misuse
 
 Config data are provided by infohub_exchange to the plugin. No need for the plugin to read the config data.  
 Today two modules read their own config file. That dependency will be removed completely.  
@@ -101,7 +101,7 @@ $response = array(
 
 Locked to server plugins.  
 You provide a path. The path will get folder/file/{plugin_name} before your provided path  
-The data are written to the file and the meta data are returned to you.
+The data are written to the file and the metadata are returned to you.
 
 ## Example write
 

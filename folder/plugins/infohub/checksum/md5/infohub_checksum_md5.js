@@ -382,7 +382,7 @@ function infohub_checksum_md5() {
             }
         }
 
-        // Beware that the final length might not fit in 32 bits so we take care of that
+        // Beware that the final length might not fit in 32 bits, so we take care of that
         tmp = n * 8;
         tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
         lo = parseInt(tmp[2], 16);
@@ -429,7 +429,7 @@ function infohub_checksum_md5() {
             }
         }
 
-        // Beware that the final length might not fit in 32 bits so we take care of that
+        // Beware that the final length might not fit in 32 bits, so we take care of that
         tmp = n * 8;
         tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
         lo = parseInt(tmp[2], 16);
@@ -461,7 +461,7 @@ function infohub_checksum_md5() {
         return x.join('');
     }
 
-    // In some cases the fast add32 function cannot be used..
+    // In some cases the fast add32 function cannot be used.
     if (hex(md51('hello')) !== '5d41402abc4b2a76b9719d911017c592') {
         add32 = function(x, y) {
             var lsw = (x & 0xFFFF) + (y & 0xFFFF),
@@ -727,7 +727,7 @@ function infohub_checksum_md5() {
         }
 
         // Do the final computation based on the tail and length
-        // Beware that the final length may not fit in 32 bits so we take care of that
+        // Beware that the final length may not fit in 32 bits, so we take care of that
         tmp = this._length * 8;
         tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
         lo = parseInt(tmp[2], 16);

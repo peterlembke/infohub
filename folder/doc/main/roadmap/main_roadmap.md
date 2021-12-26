@@ -5,16 +5,16 @@ You can find the releases [here](https://github.com/peterlembke/infohub/releases
 
 I also have a list with [planned parts I am working on](https://github.com/peterlembke/infohub#planned-parts-i-am-working-on) and [future plans](https://github.com/peterlembke/infohub#future-plans).
 
-This road map is about the [future plans](https://github.com/peterlembke/infohub#future-plans) for the Infohub domain. Planned mile stone versions and when I aim to release them. 
+This road map is about the [future plans](https://github.com/peterlembke/infohub#future-plans) for the Infohub domain. Planned milestone versions and when I aim to release them. 
 This also means that I can release applications ^^^for^^ the Infohub platform in separate domains and repositories. 
 
-Releases that do not contain any mile stones have a smaller number like version 1.2.6.
-Smaller versions can still contain a lot of new things but are not considered a mile stone for Infohub.
+Releases that do not contain any milestones have a smaller number like version 1.2.6.
+Smaller versions can still contain a lot of new things but are not considered a milestone for Infohub.
 
-Here are the planned mile stones for Infohub.
+Here are the planned milestones for Infohub.
 
 # v1.3.0 - Login and sessions
-Require login. Sign messages (both directions). Sessions.  
+Require log in. Sign messages (both directions). Sessions.  
 I have worked on this the last 6 months and released minor versions. When v1.3.0 is released then all that work is done. 
 
 Release: May 2020.

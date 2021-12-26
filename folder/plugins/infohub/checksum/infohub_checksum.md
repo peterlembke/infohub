@@ -20,19 +20,19 @@ data should seldom get the same checksum.
 
 # Built in checksums
 
-PHP have a built in function for calculating CRC32, MD5 etc. These functions are quicker to use directly and they give a
-predictable answer every time so you can absolutely use them in your code.  
+PHP has a built-in function for calculating CRC32, MD5 etc. These functions are quicker to use directly, and they give a
+predictable answer every time, so you can absolutely use them in your code.  
 On the other hand, if you ever want to convert your plugin to other languages that do not have this built in then you
 need to use a plugin. For example MD5 and CRC32 are PHP functions but do not exist in Javascript unless you use a
 plugin.  
 There are other arguments for using the plugins. You can intercept the message and exchange the type. You get a unified
 way of getting checksums.
 
-# md5 (native php, JS plugin)
+# MD5 (native php, JS plugin)
 
 Checksum function that detect unintentional data corruption  
 Ronald Rivest created MD5 in 1991. MD5 was designed to be used in encryption, but it is no longer useful for that
-purpose. It can still be used as a checksum to verify data integrity, but only against unintentional corruption.. You
+purpose. It can still be used as a checksum to verify data integrity, but only against unintentional corruption. You
 can read more about MD5 on <a href="https://en.wikipedia.org/wiki/MD5" target="_blank">Wikipedia</a>.
 
 # CRC32 (native php, JS plugin)
@@ -67,7 +67,7 @@ Wikipedia</a>.
 # Why not fall back to another node
 
 It would be cool to reroute the checksum request to another node if the requested checksum type do not exist in this
-node. Yes, that would be easy to do but it should not be done, because the value you want to have a checksum on is
+node. Yes, that would be easy to do, but it should not be done, because the value you want to have a checksum on is
 probably sensitive data.  
 Checksums are often used to reduce network traffic by verifying that the data you already have is still valid. If we
 sent the value to another node then we would increase traffic instead.  
@@ -79,7 +79,7 @@ the verification, then we have a trust issue.
 There are many great libraries that do many nice things. InfoHub should remain simple, native, independent as far as
 possible. That is why I do not add libraries to InfoHub.  
 Infohub need one good checksum function that can be implemented in all languages. Right now that need are covered with
-md5 and possible crc32.  
+MD5 and possible CRC32.  
 Other uses of checksum, like the Luhn and Personnummer that have a specific usage, will be added as child plugins.  
 When encryption are added as a plugin, then there will be need for encryption secure checksums, and those might be added
 to then checksum plugin, or to the encryption plugin.

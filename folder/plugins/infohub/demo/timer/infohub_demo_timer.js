@@ -455,7 +455,7 @@ function infohub_demo_timer() {
                 'data': {
                     'name': 'simulate_send_message',
                     'when': $when, // When do you want a response
-                    'earliest': $now + 1.0, // Set an earliest timestamp when I'll give a response
+                    'earliest': $now + 1.0, // Set the earliest timestamp when I'll give a response
                     'latest': $now + 60.0, // Set a latest timestamp when I'll give a response
                     'update': 'lower', // no, yes, lower, higher
                 },

@@ -82,7 +82,7 @@ class infohub_plugin extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function plugins_request(array $in = [])
+    protected function plugins_request(array $in = []): array
     {
         $default = [
             'missing_plugin_names' => [],
@@ -391,15 +391,15 @@ class infohub_plugin extends infohub_base
             }
             if ($part === '/*' || $part === '* ' || $part === '*/' || $deleteMode === true) {
                 unset($rowArray[$rowNumber]);
-                if ($deleteMode === true && strpos($rowString, '*/') !== false) {
+                if ($deleteMode === true && str_contains($rowString, '*/') === true) {
                     $deleteMode = false;
                 }
             }
             if ($part === '//') {
-                if (substr($rowString, 0, strlen($okRow1)) === $okRow1) {
+                if (str_starts_with($rowString, $okRow1) === true) {
                     continue;
                 }
-                if (substr($rowString, 0, strlen($okRow2)) === $okRow2) {
+                if (str_starts_with($rowString, $okRow2) === true) {
                     continue;
                 }
                 unset($rowArray[$rowNumber]);
@@ -543,7 +543,7 @@ class infohub_plugin extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $answer = 'true';
+        $answer = 'true'; // We do not fail over some bad config
         $foundConfig = 'false';
         $message = '';
         $config = [];
@@ -586,7 +586,7 @@ class infohub_plugin extends infohub_base
 
         $node = $in['node'];
         $config = $data[$node];
-        $answer = 'true';
+        // $answer = 'true';
         $message = 'Here are the config for your node';
         $foundConfig = 'true';
 
@@ -603,7 +603,7 @@ class infohub_plugin extends infohub_base
     }
 
     /**
-     * Get the data from the css file if it exist
+     * Get the data from the css file if it exists
      * The use of css files is discouraged
      * @param array $in
      * @return array
@@ -744,7 +744,7 @@ class infohub_plugin extends infohub_base
      * @since 2013-11-21
      * @uses
      */
-    protected function plugin_start(array $in = [])
+    protected function plugin_start(array $in = []): array
     {
         $default = [
             'plugin_node' => 'server',
@@ -837,7 +837,7 @@ class infohub_plugin extends infohub_base
      * @since 2017-02-25
      * @uses
      */
-    protected function plugin_list(array $in = [])
+    protected function plugin_list(array $in = []): array
     {
         $default = [
             'plugin_list' => []
@@ -867,13 +867,13 @@ class infohub_plugin extends infohub_base
                 $checksum = $this->_Hash(trim($contentString));
                 if ($checksum === $data['checksum']) {
                     // Plugins that still have the same checksum as locally will get their
-                    // timestamp set to now so they last a bit longer in the local cache
+                    // timestamp set to now, so they last a bit longer in the local cache
                     $in['plugin_list'][$pluginName]['timestamp_added'] = $valid;
                     continue;
                 }
             }
 
-            // Plugins that do no longer exist or has a new checksum will be set as one week old in the local cache.
+            // Plugins that do no longer exist or has a new checksum will be set as one-week-old in the local cache.
             $in['plugin_list'][$pluginName]['timestamp_added'] = $invalid;
         }
 
@@ -948,7 +948,7 @@ class infohub_plugin extends infohub_base
         $pluginCode = str_replace('{{checksum}}', $pluginChecksum, $pluginCode);
 
         if ($in['plugin_node'] === 'server') {
-            if (strpos($pluginCode, '<?php') === 0) {
+            if (str_starts_with($pluginCode, '<?php') === true) {
                 $pluginCode = substr($pluginCode, 5);
             }
             if (strrpos($pluginCode, '?>') == (strlen($pluginCode) - 2)) {

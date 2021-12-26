@@ -1,6 +1,6 @@
 # Font size in local config
 Config is important that it works. That attract more people.
-Specially Zoom level language Language is important.
+Specially Zoom level language is important.
 
 && workbench,config
 
@@ -11,7 +11,7 @@ Specially Zoom level language Language is important.
 ## Comment 1
 I already have a zoom that enlarge the text and also frames and images. That is much better than just scaling the text.
 A separate zoom for the text is not needed.
-Also better to have less settings and focus on the most important ones.
+Also better to have fewer settings and focus on the most important ones.
 
 Moving this to the bad ideas.
 

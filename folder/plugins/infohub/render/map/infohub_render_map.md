@@ -4,7 +4,7 @@ Shows a link to a map.
 
 # Introduction
 
-A map is useful by showing a pin pointed place so you can orient yourself. You can render a link and open the map in a
+A map is useful by showing a pinpointed place, so you can orient yourself. You can render a link and open the map in a
 new tab. Then you have all features the 3rd party map provider offers.
 
 # Open streetmap
@@ -21,7 +21,7 @@ only uses [Piwik](https://en.wikipedia.org/wiki/) for the site analytics.
 }
 ```
 
-# Google maps
+# Google Maps
 
 You can create a link to a map that opens in a new tab.
 

@@ -530,8 +530,7 @@ function infohub_privacy_browser() {
 
         if ($in.step === 'step_set_text') {
             let $messageArray = [];
-            $messageArray.push(
-                'This is what you reveal abut your device and operating system etc.');
+            $messageArray.push('This is what you reveal abut your device and operating system etc.');
             $messageArray.push('Browser CodeName: ' + navigator.appCodeName);
             $messageArray.push('Browser Name: ' + navigator.appName);
             $messageArray.push('Browser Version: ' + navigator.appVersion);

@@ -78,14 +78,16 @@ class infohub_storage extends infohub_base
 
     /**
      * The Storage path is always lower case and has no spaces.
-     * Example: plugin_name/what/ever_you/like
+     *
+     * @example plugin_name/what/ever_you/like
      * @param string $path
      * @return string
      */
-    protected function _TrimPath($path = ''): string
+    protected function _TrimPath(string $path = ''): string
     {
         $newPath = strtolower(trim($path));
         $newPath = str_replace(' ', '_', $newPath);
+
         return $newPath;
     }
 
@@ -141,7 +143,7 @@ class infohub_storage extends infohub_base
             $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
         }
 
-        if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
+        if (str_starts_with($in['path'], $in['from_plugin']['plugin'].'/') === false) {
             $row = 'Your plugin: %s, is not allowed to read this path: %s';
             $out['message'] = sprintf($row, $in['from_plugin']['plugin'], $in['path']);
             goto leave;
@@ -259,7 +261,7 @@ class infohub_storage extends infohub_base
             $in['from_plugin']['plugin'] = $in['calling_plugin']['plugin'];
         }
 
-        if (strpos($in['path'], $in['from_plugin']['plugin'] . '/') !== 0) {
+        if (str_starts_with($in['path'], $in['from_plugin']['plugin'].'/') === false) {
             $row = 'Your plugin: %s, is not allowed to read this path: %s';
             $out['message'] = sprintf($row, $in['from_plugin']['plugin'], $in['path']);
             goto leave;
@@ -544,7 +546,7 @@ class infohub_storage extends infohub_base
         ];
 
         if ($in['from_plugin']['node'] !== 'server') {
-            $in['response']['message'] = 'I only accept messages that origin from this server node';
+            $out['message'] = 'I only accept messages that origin from this server node';
             goto leave;
         }
 

@@ -2,7 +2,7 @@
 
 Infohub er dit private sted på nettet, hvor kun du kan få adgang til dine data.
 
-Dette site er en demo. Den har en knap, hvor du kan downloade en demo-konto. Normalt installerer en betroet ven Infohub på en privat server og giver dig en loginfil.
+Dette site er en demo. Den har en knap, hvor du kan downloade en demo-konto. Normalt installerer en betroet ven Infohub på en privat server og giver dig en log infil.
 
 # Hvorfor
 
@@ -14,7 +14,7 @@ Mit navn er Peter Lembke. Jeg ville have adgang til mine private data fra nogen 
 
 # Hvor
 
-Du eller en betroet ven downloader Infohub-kernen og installerer den på en privat eller offentlig webserver eller et webhotel. Udsted derefter manuelt login-konti til pålidelige venner, og lever loginfilerne manuelt til dem. Brugerne kan logge ind og bruge plugins. Kildekoden er open source, så du kan gennemgå den inden brug.
+Du eller en betroet ven downloader Infohub-kernen og installerer den på en privat eller offentlig webserver eller et webhotel. Udsted derefter manuelt log in-konti til pålidelige venner, og lever log infilerne manuelt til dem. Brugerne kan logge ind og bruge plugins. Kildekoden er open source, så du kan gennemgå den inden brug.
 
 # Manglende dele
 

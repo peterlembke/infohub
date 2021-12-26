@@ -1,7 +1,7 @@
 # Developer
 If you are an experienced developer you probably know everything about dependency injections, inheritance, interfaces, design patterns. Perhaps you also used frameworks like Magento 2 or Laravel where you have to write a lot of code to just make things work in the framework before you can add the logic.
 
-You can probably everything about routes, route resolvers, class mocking, PSR-, soft dependencies, PHPUnit testing, REST, SOAP, XML, JSON, OAuth.
+You probably know everything about routes, route resolvers, class mocking, PSR-, soft dependencies, PHPUnit testing, REST, SOAP, XML, JSON, OAuth.
 
 And SQL with left join, distinct, update, tables, views and so on. 
 

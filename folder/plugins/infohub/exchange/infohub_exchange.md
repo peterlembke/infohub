@@ -13,7 +13,7 @@ Responses from plugins also goes into the queues and are rerouted to its destina
 Each message in the incoming package must pass through some strict checks.  
 If the package contain more than 20 messages then I will throw away all messages. Because all nodes know this rule and
 should not send more messages than this.  
-Each message are now checked. It must have the right structure. It must come from a known node. It must follow the rules
+Each message is now checked. It must have the right structure. It must come from a known node. It must follow the rules
 whom it is allowed to call.  
 The final destination for this message must be this node, I do not allow messages to just pass through. A package always
 come from another node, therefore if a message in the package claim to be from this node then it is obviously not true
@@ -33,9 +33,9 @@ client node. That might change in the future if I overcome the technical obstacl
 
 These rules exist for security reasons to bring order into the message flow. The message flow are easier to understand
 with clear rules.  
-The rules gives you full control over the messages between your plugin children so you can do any changes you want
+The rules give you full control over the messages between your plugin children, so you can do any changes you want
 between your parent plugin and all your children.  
-It also give you ONE interface to a plugin that has children, since you now know that you can only call the parent and
+It also gives you ONE interface to a plugin that has children, since you now know that you can only call the parent and
 then the parent talk to its children.
 
 # Sort
@@ -55,7 +55,7 @@ plugin.
 If Pending have the plugin name but no messages, then it means it have previously got information that it will never
 come a plugin with that name and have thrown away all pending messages to that plugin. We will now throw away the
 message.  
-If Pending already have one or more messages to this plugin then this message are added to the queue.  
+If Pending already have one or more messages to this plugin then this message is added to the queue.  
 If Pending do not have this plugin name stored, then it stores the plugin name and the message, then makes a subcall to
 infohub_plugin and its function: plugin_request
 
@@ -100,8 +100,8 @@ default values in your server cmd function.
 Your server plugin will only get access to config data in the server section of the file. Your client plugin will only
 get access to the config data in the client section of the file.
 
-Why do this feature exist? Should not all data be stored in Storage? Yes all data should be stored in storage. There are
-just two problems with that, first we have the rule "Be self sufficient" - not to be dependent. And we also have the
+Why do this feature exists? Shouldn't all data be stored in Storage? Yes all data should be stored in storage. There are
+just two problems with that, first we have the rule "Be self-sufficient" - not to be dependent. And we also have the
 problem that core plugins sometimes need the data before Storage is available.
 
 There can also be other considerations like that data is needed on every call but could be changed, like in the case
@@ -112,7 +112,7 @@ that you could store in Storage instead. There are only some rare cases where th
 When should you use a config file:
 
 - You have read-only data that seldom change
-- Some of the data are needed in every call
+- Some data are needed in every call
 - It is not much data, less than 10Kb for each node
 
 It is not a big deal to start out with a config file and then if you later see that you should have used a Storage
@@ -201,7 +201,7 @@ Exchange will match the URL address and see what start message to send. You can 
 message. In the last row for local.infohub.random you will only see the response in the browser developer tools network
 tab. It will give you a server response with a random number.
 
-Plugins with a graphical user interface can not just be called directly because some boxes need to be setup first. Then
+Plugins with a graphical user interface can not just be called directly because some boxes need to be set up first. Then
 you call infohub_standalone and tell what plugin should be run.
 
 The normal start is to call infohub_workbench.

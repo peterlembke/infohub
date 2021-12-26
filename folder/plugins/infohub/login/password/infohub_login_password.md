@@ -1,8 +1,8 @@
 # Infohub_Login_Password
 
-Here you can set a password on your shared secret. This is an extra security in case someone get hold of your contact
-information. The password will scramble the shared secret. Anyone that try to guess your password need to try to login
-for each try. The server will be suspicious and will make it harder to login.
+Here you can set a password on your shared secret. This is an extra security in case someone gets hold of your contact
+information. The password will scramble the shared secret. Anyone that try to guess your password need to try to log in
+for each try. The server will be suspicious and will make it harder to log in.
 
 ## Set password
 

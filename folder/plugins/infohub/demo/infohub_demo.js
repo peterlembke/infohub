@@ -83,7 +83,7 @@ function infohub_demo() {
     // ***********************************************************
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2017-10-03
      * @since   2017-10-03
      * @author  Peter Lembke

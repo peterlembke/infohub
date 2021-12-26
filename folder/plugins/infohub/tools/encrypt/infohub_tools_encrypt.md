@@ -5,7 +5,7 @@ Tools for encrypting and decrypting data
 # Introduction
 
 With this tool you can encrypt and decrypt data with the help of [Infohub Encrypt](plugin,infohub_encrypt).  
-The GUI show a dropdown with node, the available excryption methods in that node, a text box with your encryption key.
+The GUI show a dropdown with node, the available encryption methods in that node, a text box with your encryption key.
 Text box with plain text. Text box with encrypted text. Button to encrypt. Button to decrypt.
 
 # Encryption key

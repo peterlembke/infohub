@@ -146,7 +146,7 @@ class infohub_password extends infohub_base
      *
      * @return int
      */
-    protected function _GetRandomLength()
+    protected function _GetRandomLength(): int
     {
         $length = $this->_Random(16, 64);
 
@@ -203,27 +203,28 @@ class infohub_password extends infohub_base
     /**
      * Gives you the best random number that your version of PHP can offer
      *
-     * @param  int  $min
-     * @param  int  $max
+     * @param int $min
+     * @param int $max
      * @return int
      */
     protected function _Random(
         int $min = 0,
         int $max = 0
-    ): int {
-
-        $randomNumber = 0;
+    ): int
+    {
         try {
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
-            } else {
-                $randomNumber = mt_rand($min, $max); // PHP 5 and later
+                return $randomNumber;
             }
+
+            $randomNumber = mt_rand($min, $max); // PHP 5 and later
+            return $randomNumber;
+
         } catch (Exception $e) {
-            $randomNumber = 0; // Not ideal
         }
 
-        return $randomNumber;
+        return $min;
     }
 
     /**

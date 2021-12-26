@@ -4,7 +4,7 @@ If my friends that use my Infohub server is all from one country then I could us
 && ip,security
 
 # Comment 1
-Ip lookup is as bad as geo-location. It is also no protection since an attacker can use a VPN that end in the right country.
+Ip lookup is as bad as geolocation. It is also no protection since an attacker can use a VPN that end in the right country.
 It is also against the platform policy to dig into the visitors private data.
 
 # License

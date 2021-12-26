@@ -4,7 +4,7 @@ Get the current time stamp in different formats
 
 # Introduction
 
-Time and timestamps are used for tracking when something happened. There are human readable formats and there are time
+Time and timestamps are used for tracking when something happened. There are human-readable formats and there are time
 formats suitable for computer calculations.  
 This time plugin is small. If you use this time plugin instead of the time functions in the base class then you can make
 your plugin truly testable because the answers from your plugin is always predictable.  
@@ -16,7 +16,7 @@ There might be more time formats later. I want to add: date, short_time, epoc
 
 ## Normal timestamp
 
-The local time where you are now.  
+The local time, where you are now.  
 This format gives Year, Month, Day. Space. 24 hours. Minutes, Seconds. All with leading zeros if needed.  
 Time format: timestamp  
 Plugin: JS, PHP  
@@ -24,7 +24,7 @@ Example: 2018-08-11 19:51:50
 
 ## Timestamp with offset
 
-The time is the local time where you are now.  
+The time is the local time, where you are now.  
 Variation of the normal time stamp. This has a T instead of a space. And +02:00 in the end. I am in the time zone for
 Sweden. That is +2 hours compared to Greenwich mean time.  
 Time format: timestamp_c  
@@ -33,7 +33,7 @@ Example: 2018-08-11T19:53:34+02:00
 
 ## Normal timestamp with fraction of second
 
-The time is the local time where you are now. It has the same format as a normal timestamp except that you also have
+The time is the local time, where you are now. It has the same format as a normal timestamp except that you also have
 fractions of a second.  
 This format only exist on the PHP version of the plugin. You can also see that PHP can give you 6 decimals. Javascript
 usually give you three decimals.  
@@ -47,24 +47,24 @@ EPOC happened 1080-01-01 at 00.00.00 in time zone +0. Seconds since EPOC is as i
 counted since that timestamp.  
 This time format is easy to use when you want to compare times in computer programs.  
 This format is a variation of seconds since EPOC since it also have fraction of seconds.  
-If you get the timestamp from Javascript then you get three decimals. From PHP you get six decimals.  
+If you get the timestamp from Javascript then you get three decimals. From PHP, you get six decimals.  
 Time format: microtime  
 Plugin: JS, PHP  
 Example: 1534010067.592
 
 # Time tool
 
-Start the plugin: Tools Collection. Here you can see what time formats exist and you can select a format and see the
+Start the plugin: Tools Collection. Here you can see what time formats exist, and you can select a format and see the
 result.  
 The tool is made as a demo and a tool. Showing how a tool can be built and how it can update lists and call a plugin and
 show the result.
 
 # Time zones
 
-There is a place called Greenwich. There you have the date line. Greenwitch Mean Time (GMT) have time zone +0.  
+There is a place called Greenwich. There you have the date line. Greenwich Mean Time (GMT) have time zone +0.  
 The more west you go the more behind you are, up to -12 hours from Greenwich mean time.  
 The more east you go the more ahead you are, up to +12 hours from Greenwich mean time.  
-If your computer clock is showing the local time where you are then you will see the right time when you ask the
+If your computer clock is showing the local time, where you are then you will see the right time when you ask the
 Javascript plugin.  
 The PHP plugin on the other hand might show you the GMT time with time cone +0. You have to configure your time zone in
 PHP.

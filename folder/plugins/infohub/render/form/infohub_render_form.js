@@ -117,7 +117,7 @@ function infohub_render_form() {
     };
 
     /**
-     * Gives CSS for how to display
+     * Gives CSS for how to display.
      * Display = "block", "inline", "none" or leave it empty
      * You can also set display = true, that equals to "block"
      * You can also set display = false, that equals to "none"

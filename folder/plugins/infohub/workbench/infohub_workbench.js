@@ -137,7 +137,7 @@ function infohub_workbench() {
     };
 
     /**
-     * Setup a plugin to work in the Workbench
+     * Set up a plugin to work in the Workbench
      * @version 2017-10-03
      * @since   2017-10-03
      * @author  Peter Lembke

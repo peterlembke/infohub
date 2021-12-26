@@ -13,9 +13,9 @@ The checksum will display under that.
 # Nodes
 
 The plugin infohub_checksum that does all the work, it comes in a version for the server node and one version for the
-client node. Some of the checksum methods are teh same so you can verify your checksum between the nodes. Some checksum
+client node. Some checksum methods are the same, so you can verify your checksum between the nodes. Some checksum
 methods only exist in one of the nodes due to practical reasons.  
-The server node are written in PHP. PHP have many more checksums built in. The client node are written in Javascript,
+The server node are written in PHP. PHP has many more checksums built in. The client node are written in Javascript,
 here are nothing built in and all checksum functions have to be written.
 
 # License

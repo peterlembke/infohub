@@ -68,7 +68,7 @@ class infohub_democall_sibling_grandchild extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function my_test(array $in = [])
+    protected function my_test(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);

@@ -14,7 +14,7 @@ These tests are run after file [settings_and_errors.php](main,core_include_setti
     - That it is "package"
     - Right contents and size. Not logged in max 1K. Logged in max 1M.
 - If you run on localhost then accept xdebug cookies too.
-- Deletes all unwantd cookies.
+- Deletes all unwanted cookies.
 - Deletes files and folders that are not on the accepted list.
 - Every request give 1 sec ban
 - If you fail one test when you requested:

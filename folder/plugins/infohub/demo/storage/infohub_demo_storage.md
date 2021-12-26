@@ -8,7 +8,7 @@ In this demo we show how to use  [Infohub Storage](plugin,infohub_storage).
 
 You will read a path, write to a path, read to many paths with different data, write to many paths with different data.
 
-And we also have "mode". Default is to overwrite but you can set to merge.
+And we also have "mode". Default is to overwrite, but you can set to merge.
 
 ## GUI
 

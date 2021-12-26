@@ -1,5 +1,5 @@
 # Installation Raspberry Pi
-You can run Infohub on Raspberry Pi. It has been tested with great success with this setup:
+You can run Infohub on Raspberry Pi. It has been tested with great success with this set up:
 
 * Raspberry Pi 3
 * Raspbian GNU/Linux 10 (buster) and with Ubuntu 20.04

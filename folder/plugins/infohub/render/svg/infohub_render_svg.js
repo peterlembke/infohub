@@ -123,7 +123,7 @@ function infohub_render_svg() {
      * Data must not have "
      * @version 2020-04-19
      * @since 2020-04-19
-     * @param $in
+     * @param $parameters
      * @returns {string}
      * @private
      */

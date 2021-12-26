@@ -111,7 +111,7 @@ function infohub_demo_advancedlist() {
 
                     // In this case the event_message function will check what renderer you use and act on that.
                     const $otherParams = ' href="#header" class="link" renderer="advancedlist" type="link"';
-                    // You can put any parameters you like in the string above and they will show up in the event_message function.
+                    // You can put any parameters you like in the string above, and they will show up in the event_message function.
 
                     const $html = '<a' + $onClick + $idData + $to + $otherParams + '>' + $label + '</a>';
 

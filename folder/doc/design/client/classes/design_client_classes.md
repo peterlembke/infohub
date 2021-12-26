@@ -23,7 +23,8 @@ class Human extends Animal {}
 
 ### A class can have private properties
 The brand new ES2019 allow you to have private properties in a class. You can put a # in front of a property to make it private.
-But it is way to early to use. See [CanIUse](https://caniuse.com/#search=private).
+See [CanIUse](https://caniuse.com/#search=private).
+
 The syntax looks like this:
 ```javascript
 class MyClass {

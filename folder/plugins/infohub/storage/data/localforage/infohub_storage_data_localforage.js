@@ -707,8 +707,7 @@ function infohub_storage_data_localforage() {
                         var isSafari = typeof openDatabase !== 'undefined' &&
                             /(Safari|iPhone|iPad|iPod)/.test(
                                 navigator.userAgent) &&
-                            !/Chrome/.test(navigator.userAgent) &&
-                            !/BlackBerry/.test(navigator.platform);
+                            !/Chrome/.test(navigator.userAgent);
 
                         var hasFetch = typeof fetch === 'function' &&
                             fetch.toString().indexOf('[native code') !== -1;
@@ -856,7 +855,7 @@ function infohub_storage_data_localforage() {
                             put(blob, 'key');
 
                         txn.onabort = function(e) {
-                            // If the transaction aborts now its due to not being able to
+                            // If the transaction aborts now it is due to not being able to
                             // write to the database, likely due to the disk being full
                             e.preventDefault();
                             e.stopPropagation();
@@ -1083,7 +1082,7 @@ function infohub_storage_data_localforage() {
 
 // Specialize the default `ready()` function by making it dependent
 // on the current database operations. Thus, the driver will be actually
-// ready when it's been initialized (default) *and* there are no pending
+// ready when it's been initialized (default) *and* there's no pending
 // operations on the database (initiated by some other instances).
                 function _fullyReady(callback) {
                     var self = this;
@@ -2674,7 +2673,7 @@ function infohub_storage_data_localforage() {
 
                         // If a result was found, parse it from the serialized
                         // string into a JS object. If result isn't truthy, the key
-                        // is likely undefined and we'll pass it straight to the
+                        // is likely undefined, and we'll pass it straight to the
                         // callback.
                         if (result) {
                             result = dbInfo.serializer.deserialize(result);
@@ -2714,7 +2713,7 @@ function infohub_storage_data_localforage() {
 
                             // If a result was found, parse it from the serialized
                             // string into a JS object. If result isn't truthy, the
-                            // key is likely undefined and we'll pass it straight
+                            // key is likely undefined, and we'll pass it straight
                             // to the iterator.
                             if (value) {
                                 value = dbInfo.serializer.deserialize(value);
@@ -2965,7 +2964,7 @@ function infohub_storage_data_localforage() {
                     description: '',
                     driver: DefaultDriverOrder.slice(),
                     name: 'localforage',
-                    // Default DB size is _JUST UNDER_ 5MB, as it's the highest size
+                    // Default DB size is _JUST UNDER_ 5Mb, as it's the highest size
                     // we can use without a prompt.
                     size: 4980736,
                     storeName: 'keyvaluepairs',
@@ -3035,11 +3034,11 @@ function infohub_storage_data_localforage() {
 
                     // Set any config values for localForage; can be called anytime before
                     // the first API call (e.g. `getItem`, `setItem`).
-                    // We loop through options so we don't overwrite existing config
+                    // We loop through options, so we don't overwrite existing config
                     // values.
 
                     LocalForage.prototype.config = function config(options) {
-                        // If the options argument is an object, we use it to set values.
+                        // If the option's argument is an object, we use it to set values.
                         // Otherwise, we return either a specified config value or all
                         // config values.
                         if ((typeof options === 'undefined'
@@ -3248,8 +3247,7 @@ function infohub_storage_data_localforage() {
                                 var currentDriverIndex = 0;
 
                                 function driverPromiseLoop() {
-                                    while (currentDriverIndex <
-                                    supportedDrivers.length) {
+                                    while (currentDriverIndex < supportedDrivers.length) {
                                         var driverName = supportedDrivers[currentDriverIndex];
                                         currentDriverIndex++;
 
@@ -3345,7 +3343,7 @@ function infohub_storage_data_localforage() {
                 }();
 
 // The actual localForage object that we expose as a module or via a
-// global. It's extended by pulling in one of our other libraries.
+// global constant. It's extended by pulling in one of our other libraries.
 
                 var localforage_js = new LocalForage();
 

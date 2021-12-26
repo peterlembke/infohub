@@ -295,7 +295,7 @@ function infohub_cache() {
             if ($localIndex[$key].timestamp_added !==
                 $incomingIndex[$key].timestamp_added) {
                 // Same checksum server <--> locally will set the current time
-                // Different checksum server <--> locally will set a week old time so the plugin will be invalidated.
+                // Different checksum server <--> locally will set a week-old time so the plugin will be invalidated.
                 $localIndex[$key].timestamp_added = $incomingIndex[$key].timestamp_added;
                 $changed = 'true';
             }
@@ -691,7 +691,7 @@ function infohub_cache() {
      * @since   2015-05-18
      * @author  Peter Lembke
      * @param $in
-     * @returns {{answer: string, message: string, plugin_index: {}}}
+     * @returns {}
      */
     const internal_SaveDataToIndex = function($in = {}) {
         const $default = {
@@ -903,7 +903,7 @@ function infohub_cache() {
 
     $functions.push('internal_LocalStorageLoad');
     /**
-     * Load data from the local storage if it exist
+     * Load data from the local storage if it exists
      * @param $in
      * @returns {{answer: string, message: string}}
      */
@@ -975,7 +975,7 @@ function infohub_cache() {
 
     $functions.push('internal_LocalStorageSave');
     /**
-     * Save data to the local storage if it exist
+     * Save data to the local storage if it exists
      * @param $in
      * @returns {{answer: string, message: string, key: *}}
      */

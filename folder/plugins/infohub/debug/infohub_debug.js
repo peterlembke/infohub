@@ -95,7 +95,7 @@ function infohub_debug() {
     // *****************************************************************************
 
     /**
-     * Setup the Config Graphical User Interface
+     * Set up the Config Graphical User Interface
      * @version 2018-09-09
      * @since   2018-09-09
      * @author  Peter Lembke
@@ -302,7 +302,7 @@ function infohub_debug() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            // This code should logically be placed in storage_data_localforage
+            // This code should logically be placed in storage_data_localforage,
             // but we use this code when we have a problem with Infohub.
             // Nothing says we have a working infohub that can reach that plugin.
             indexedDB.deleteDatabase('localforage');
@@ -318,7 +318,7 @@ function infohub_debug() {
     /**
      * Our plugin_list will be sent to the server and the server will compare checksum with what it has.
      * Plugins with the same checksum will get the current timestamp.
-     * Plugins with a different checksum is locally old and will get a week old timestamp.
+     * Plugins with a different checksum is locally old and will get a week-old timestamp.
      * The updated list are then saved. Then validate_cache will clean out the old plugins. Next time the plugin will
      * be used it must be requested from the server.
      * @version 2018-09-09
@@ -737,8 +737,6 @@ function infohub_debug() {
      * @author  Peter Lembke
      */
     const internal_DebugButtons = function($in = {}) {
-        const $default = {};
-        $in = _Default($default, $in);
 
         const $cssLink = 'color: rgba(68, 69, 166, 0.89); padding:4px; display:inline-flex; border-width:1 px;';
         const $cssSvg = 'width: 80px; padding: 4px;';

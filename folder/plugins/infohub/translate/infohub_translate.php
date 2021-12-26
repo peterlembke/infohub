@@ -311,10 +311,9 @@ class infohub_translate extends infohub_base
                         'title' => $launcher['title'],
                         'description' => $launcher['description']
                     ],
-                    'data' => []
+                    'data' => $contentArray
                 ];
 
-                $header['data'] = $contentArray;
                 $in['data_back']['out'][$parentPluginName] = $header;
             }
 
@@ -539,7 +538,8 @@ class infohub_translate extends infohub_base
      * @param  string  $pluginName
      * @return string
      */
-    protected function _GetParentPluginName(string $pluginName = '') {
+    protected function _GetParentPluginName(string $pluginName = ''): string
+    {
         $parts = explode('_', $pluginName);
         if (count($parts) < 2) {
             return '';
@@ -556,12 +556,12 @@ class infohub_translate extends infohub_base
      */
     protected function keyToText(string $key = ''): string
     {
-        if (strpos($key, '+') !== false) {
+        if (str_contains($key, '+') === true) {
             $a=1;
         }
 
         // Remove _KEY suffix if it exists
-        if (substr($key, -4, 4) === '_KEY') {
+        if (str_ends_with($key, '_KEY') === true) {
             $key = substr($key, 0, -4);
         }
 
@@ -590,7 +590,7 @@ class infohub_translate extends infohub_base
         $key = strtoupper($text);
         $key = strtr($key, [' ' => '_']);
 
-        $key = $key . '_KEY'; // This makes Google translate avoid translating the single word key
+        $key = $key . '_KEY'; // These makes Google Translate avoid translating the single word key
 
         return $key;
     }
@@ -721,7 +721,6 @@ class infohub_translate extends infohub_base
 
             $in['step'] = 'step_end';
 
-            $in['step'] = 'step_end';
             if (empty($out) === false) {
                 $in['data_back']['out'] = $out;
                 $in['step'] = 'step_create_plugins';
@@ -775,11 +774,11 @@ class infohub_translate extends infohub_base
             return false; // There are lower case characters in the key
         }
 
-        if (strpos($key,' ') !== false) {
+        if (str_contains($key, ' ') === true) {
             return false; // There are spaces in the key
         }
 
-        if (strpos($key,'\\') !== false) {
+        if (str_contains($key, '\\') === true) {
             return false; // There are backslash in the key
         }
 
@@ -857,7 +856,6 @@ class infohub_translate extends infohub_base
                     ]
                 );
             }
-            $in['step'] = 'step_return_result';
         }
 
         return [
@@ -927,9 +925,10 @@ class infohub_translate extends infohub_base
 
         $mainData = $translationFileArray[$mainLanguage];
 
+        $prefix = '';
         foreach ($translationFileArray as $languageCode => $contentArray) {
-            $log = $this->_CheckKeyHasData($mainData['data'], $contentArray['data'], $languageCode, $log, $prefix = '', $suffix = 'missing');
-            $log = $this->_CheckKeyHasData($contentArray['data'], $mainData['data'], $languageCode, $log, $prefix = '', $suffix = 'deprecated');
+            $log = $this->_CheckKeyHasData($mainData['data'], $contentArray['data'], $languageCode, $log, $prefix, $suffix = 'missing');
+            $log = $this->_CheckKeyHasData($contentArray['data'], $mainData['data'], $languageCode, $log, $prefix, $suffix = 'deprecated');
         }
 
         leave:

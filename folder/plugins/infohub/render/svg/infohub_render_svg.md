@@ -7,7 +7,7 @@ Render SVG images with this plugin.
 # Introduction
 
 This plugin is a normal renderer that can render the basic shapes in SVG. The purpose of this instead of just using a
-pre made SVG is the IDs that will be available in the rendered SVG in the DOM. They can be manipulated with
+pre-made SVG is the IDs that will be available in the rendered SVG in the DOM. They can be manipulated with
 infohub_view.
 
 If you want to show already existing SVG files then use [infohub_render_common](plugin,infohub_render_common).

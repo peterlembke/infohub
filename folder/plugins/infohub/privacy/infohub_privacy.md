@@ -18,8 +18,8 @@ social.
 
 ## Infohub privacy
 
-With this tool you can test your browser to see if some of the common ways of exposing private data are open. You will
-also get tips how to increate your privacy.
+With this tool you can test your browser to see if some common ways of exposing private data are open. You will
+also get tips how to increase your privacy.
 
 # License
 

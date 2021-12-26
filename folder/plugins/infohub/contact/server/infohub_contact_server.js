@@ -528,7 +528,7 @@ function infohub_contact_server() {
     $functions.push('click_delete');
     const click_delete = function($in = {}) {
         let $ok = 'false',
-            $userName = ''; // User names are universal so this works even if a remote server have created the user name
+            $userName = ''; // Usernames are universal so this works even if a remote server have created the username
 
         const $default = {
             'box_id': '',

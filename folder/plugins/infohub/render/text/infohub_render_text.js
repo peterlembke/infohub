@@ -311,7 +311,7 @@ function infohub_render_text() {
 
         $svgPart = _Replace('\n', '', $svgPart);
 
-        // SVG that use (# will interfere with each other. This will add unique aliases in the SVG.
+        // SVG that use "(#" will interfere with each other. This will add unique aliases in the SVG.
         $svgPart = _Replace('(#', '(#{alias}', $svgPart);
         $svgPart = _Replace('id="', 'id="{alias}', $svgPart);
         $svgPart = _Replace('href="#', 'href="#{alias}', $svgPart);
@@ -368,8 +368,8 @@ function infohub_render_text() {
             'h6': '<h6>',
             '/h6': '</h6>',
             'br': '<br>',
-            'strike': '<strike>',
-            '/strike': '</strike>',
+            'strike': '<del>',
+            '/strike': '</del>',
         };
 
         let $html = '';

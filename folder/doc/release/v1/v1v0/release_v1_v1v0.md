@@ -2,7 +2,7 @@
 The first version ever  
 
 # Introduction
-Core PHP is the bare bone code that is the minimum you need to start writing your own plugins in php.  
+Core PHP is the bare-bone code that is the minimum you need to start writing your own plugins in php.  
 
 # Files
 infohub.php - the file that receive your request.  
@@ -11,7 +11,7 @@ folder/include/kick_out_tests.php - If your request do not fulfill these rules t
 folder/include/settings_and_errors.php - Handles exceptions and errors. Used by infohub.php  
 
 # Callback
-The callback system was designed to receive callbacks from payment services. But it has also proven to be a good tool for easy input to the infohub system.  
+The callback system was designed to receive callbacks from payment services. But it has also proven to be a good tool for easy input to the Infohub system.  
 Callback are included i this release for your convenience when you want to trigger the documentation and the demos.  
 .htaccess - Instruct the Apache web server that all URLs that do not go to infohub.php will end up in callback.php  
 callback.php - this file just start the plugin infohub_callback and echo the response from that plugin.  
@@ -21,14 +21,14 @@ infohub_base - The base class that ALL plugins are extended from.
 infohub_exchange - Handles messages between plugins.  
 infohub_transfer - Transfers data in and out from this node.  
 infohub_plugin - Loads and starts plugins.  
-infohub_template - Your bare bone plugin that you can copy and make your own plugins from.  
-infohub_callback - Convert url requests into messages that infohub can understand  
+infohub_template - Your bare-bone plugin that you can copy and make your own plugins from.  
+infohub_callback - Convert URL requests into messages that Infohub can understand  
 infohub_doc - Documentation viewer. All plugins have a documentation that you can study.  
 infohub_demo - Demo code that you can study.  
 infohub_callback - verifies the message and uses cURL to call infohub.php. Now your data comes into the system the proper way.  
 
 # Demo
-The demo plugin and the documentation will show you how to do common things like creating a plugin, making a subcall within the plugin and making subcalls to other plugins.  
+The demo plugin and the documentation will show you how to do common things like creating a plugin, making a sub call within the plugin and making sub calls to other plugins.  
 You will also be able to debug and see what happens in the plugins.  
 
 # License

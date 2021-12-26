@@ -1,5 +1,5 @@
 # Scraping data
-If a web site does not have an API and there are data you want then you could let Infohub get the page, pull out the data and store it.
+If a website does not have an API and there are data you want then you could let Infohub get the page, pull out the data and store it.
 
 && collect_data
 

@@ -2,7 +2,7 @@
 Microsoft has a translation service.
 Code here. https://github.com/MicrosoftTranslator/Text-Translation-API-V3-PHP/blob/master/Translate.php
 
-You need a subscription key and a url.
+You need a subscription key and the URL.
 
 Quick start: https://docs.microsoft.com/sv-se/azure/cognitive-services/translator/quickstart-translator?tabs=python#translate-text
 
@@ -11,7 +11,7 @@ Details are here: https://docs.microsoft.com/sv-se/azure/cognitive-services/tran
 && translate
 
 ## Comment 1
-I will use LibreTranslate. MS translate and Google translate will not be used.
+I will use LibreTranslate. MS translate and Google Translate will not be used.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

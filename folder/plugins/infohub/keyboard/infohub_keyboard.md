@@ -5,7 +5,7 @@ Handles the keyboard. You can subscribe to key combinations and get a message.
 # Introduction
 
 You can subscribe to keyboard key combinations and get a message when that combination happens.  
-Infohub Keyboard has a keyup observer that starts as soon as anyone subscribe.  
+Infohub Keyboard has a keyup observer that starts as soon as anyone subscribes.  
 When you write on your keyboard and use combinations of special keys then an event are triggered and the key data are
 sent to infohub_keyboard.  
 This plugin check if the combination of key + special keys are OK and create an event_key for that combination.  

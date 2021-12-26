@@ -67,7 +67,7 @@ function infohub_democall() {
     // ***********************************************************
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2017-10-03
      * @since   2017-10-03
      * @author  Peter Lembke
@@ -267,8 +267,8 @@ function infohub_democall() {
     /**
      * Handle incoming event messages that come from the graphical user interface
      * Gets a string in variable event_data and looks up what message to send.
-     * The message we send get answered and we display the answer on the screen so you can
-     * see the result. Some result are intentionally wrong so you can see what happens.
+     * The message we send get answered, and we display the answer on the screen, so you can
+     * see the result. Some results are intentionally wrong, so you can see what happens.
      * @version 2019-10-24
      * @since   2018-05-19
      * @author  Peter Lembke

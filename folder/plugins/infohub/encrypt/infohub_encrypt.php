@@ -88,9 +88,9 @@ class infohub_encrypt extends infohub_base
      * @since   2017-06-24
      * @author  Peter Lembke
      * @param array $in
-     * @return array|bool
+     * @return array
      */
-    protected function encrypt(array $in = [])
+    protected function encrypt(array $in = []): array
     {
         $default = [
             'plain_text' => '',
@@ -156,9 +156,9 @@ class infohub_encrypt extends infohub_base
      * @since   2017-06-24
      * @author  Peter Lembke and ?
      * @param array $in
-     * @return array|bool
+     * @return array
      */
-    protected function decrypt(array $in = [])
+    protected function decrypt(array $in = []): array
     {
         $default = [
             'encrypted_text' => '', // Base 64 encoded cipher text
@@ -171,7 +171,7 @@ class infohub_encrypt extends infohub_base
         $message = 'Nothing to report';
         $plainTextDecrypted = '';
 
-        // Some how + signs have been exchanged with spaces during the transfer to here
+        // Somehow + signs have been exchanged with spaces during the transfer to here
         $in['encrypted_text'] = str_replace(' ', '+', $in['encrypted_text']);
 
         $cipherText = base64_decode($in['encrypted_text'], $strict = true);
@@ -275,7 +275,7 @@ class infohub_encrypt extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function _GetCipherMethods(array $in = [])
+    protected function _GetCipherMethods(array $in = []): array
     {
         $ciphers = openssl_get_cipher_methods();
         $ciphersAndAliases = openssl_get_cipher_methods(true);
@@ -353,9 +353,9 @@ class infohub_encrypt extends infohub_base
      * @since   2018-03-15
      * @author  From PHP documentation
      * @param array $in
-     * @return array|bool
+     * @return array
      */
-    protected function is_method_valid(array $in = [])
+    protected function is_method_valid(array $in = []): array
     {
         $default = [
             'method' => 'AES-128-CBC'
@@ -392,8 +392,8 @@ class infohub_encrypt extends infohub_base
     protected function _GetKey(string $encryptionKey = ''): string
     {
         // the key should be random binary, use scrypt, bcrypt or PBKDF2 to
-        // convert a string into a key
-        // key is specified using hexadecimal
+        // convert a string into a key.
+        // Key is specified using hexadecimal
 
         if (empty($encryptionKey) === true) {
             return '';

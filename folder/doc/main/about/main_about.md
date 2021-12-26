@@ -4,7 +4,7 @@ Use your favourite programming language. Download a core for your language and s
 
 # The generic web platform
 A platform take care of all the stuff that you know you need but would take ages to write. 
-There are many popular platforms, here are a few popular ones: Magento, Wordpress, Joomla, Drupal. 
+There are many popular platforms, here are a few popular ones: Magento, WordPress, Joomla, Drupal. 
 They are targeting different areas and can be expanded with modules. InfoHub is a generic platform. 
 It does nothing until it gets some plugins that tell it what to do. There are some demo plugins included.  
 
@@ -36,12 +36,12 @@ That is taken care of by the caller functions Cmd() and internal_Cmd().
 # Caller functions
 Each plugin have only one public function: Cmd(). The message goes into that function, and it calls the right cmd function. 
 You will get an array back from Cmd with the answer. 
-The Cmd function take care of logging, eror handling, measure execution time, check the incoming variables in the array, returns a return-message or a sub-call-message.  
+The Cmd function take care of logging, error handling, measure execution time, check the incoming variables in the array, returns a return-message or a sub-call-message.  
 
 # SubCall or Return message
 A plugin always return a valid message that can be released to the flow. The message is either a return message, or a sub-call message. 
 You can do a sub-call in your function to anywhere and then expect the very same function to get a return message with data. 
-You can attach variables in the sub call that will return untouched. See the demos for a ”step” variable.  
+You can attach variables in the sub call that will return untouched. See the demos for a "step"-variable.  
 
 # Strongly typed
 PHP and Javascript can do type-juggling without saying a pip. That is great. 
@@ -71,7 +71,7 @@ The function use the default values and give back the default answer.
 The arrays are saved in a test file for each plugin. In a future release I will also save live data to the test system.  
 
 # Multi domain
-One website can have multiple domains and sub-domains. You define in a configuration what start message should be sent for each domain. 
+One website can have multiple domains and subdomains. You define in a configuration what start message should be sent for each domain. 
 There is a default fallback. You can then get different contents for each domain.  
 
 # Universal storage
@@ -85,7 +85,7 @@ The target platforms are only: TOUCH and KEYBOARD. You can navigate solely by to
 The mouse is just a substitute for touch. That means we never use mouse hover or overlays. 
 Pick your preferred colors, font and zoom level. That is then used on all InfoHub sites you visit.  
 
-# Easy login
+# Easy log in
 Login by scanning a QR code with your phone.  
 
 # Lead words in building InfoHub
@@ -102,7 +102,7 @@ These three rules apply in all decisions about Infohub.
 ## 2, No exceptions
 - There should be no exceptions. Meaning that your plugin does as all other plugin does. That makes it easier to learn.
 - Means that ALL data are stored in Storage. ALL traffic are exchanged between plugins with InfoExchange.
-- EVERYONE have to do a login to access data. ALL data in/out from the node are handled by infohub transfer.
+- EVERYONE have to do a log in to access data. ALL data in/out from the node are handled by Infohub Transfer.
 - Do not introduce surprises, that would break rule #1
 
 ## 3, Self containing
@@ -111,7 +111,7 @@ These three rules apply in all decisions about Infohub.
 - It is easier (see #1) to follow internal sub calls.
 - Your plugin must handle a rejection from each sub call.
 - Your plugin can be used in other none Infohub projects with no changes.
-- Self containing also mean that your plugin is distributed with a good documentation file, test data file, all assets, default config etcetera so you do not have to search for more information.
+- Self containing also mean that your plugin is distributed with a good documentation file, test data file, all assets, default config and so on, so you do not have to search for more information.
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

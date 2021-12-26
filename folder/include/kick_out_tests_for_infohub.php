@@ -69,7 +69,7 @@ class kick_out_tests_for_infohub extends infohub_base
 
     /**
      * Check that we only have valid cookies.
-     * Delete all other cookies
+     * Delete all others cookies
      */
     protected function validCookies(): void
     {
@@ -121,7 +121,7 @@ class kick_out_tests_for_infohub extends infohub_base
         if (isset($_SERVER['HTTP_REFERER']) === false) {
             $this->GetOut('infohub.php can not be called directly');
         }
-        /* This test have no practical meaning. I will probably delete it
+        /* This test has no practical meaning. I will probably delete it
         if ($_SERVER['HTTP_REFERER'] !== $url) {
             $refererFileName = str_replace($url , '', $_SERVER['HTTP_REFERER']);
             $message = "HTTP_REFERER must be empty or the same as the url. Open this page in a fresh browser. Right now you have:" . $_SERVER['HTTP_REFERER'] . ', and the urls is:' . $url;
@@ -179,7 +179,7 @@ class kick_out_tests_for_infohub extends infohub_base
         foreach ($requiredPropertyNameArray as $requiredPropertyName => $dummyValue) {
             if (isset($package[$requiredPropertyName]) === false) {
                 if ($dummyValue === 2) {
-                    continue; // A property we only use some times for debug purposes
+                    continue; // A property we only use sometimes for debug purposes
                 }
                 $this->GetOut('Server says: Package parameter missing: ' . $requiredPropertyName);
             }
@@ -207,7 +207,7 @@ class kick_out_tests_for_infohub extends infohub_base
             $messagesJson = '{}';
         }
 
-        $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form and you see that this is needed
+        $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form, and you see that this is needed
         $messages = $this->_JsonDecode($messagesJson);
 
         if (empty($messages)) {

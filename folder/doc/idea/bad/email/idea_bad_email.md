@@ -12,7 +12,7 @@ Send email trough transfer.
 
 Infohub can send email to a user that have verified the address.
 
-Getting login information is the only use for sending emails.
+Getting log in information is the only use for sending emails.
 You never know who read and change your email.
 
 ## Email receive

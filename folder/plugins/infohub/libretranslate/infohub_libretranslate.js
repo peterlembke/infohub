@@ -86,7 +86,7 @@ function infohub_libretranslate() {
     // ***********************************************************
 
     /**
-     * Setup the Workbench Graphical User Interface
+     * Set up the Workbench Graphical User Interface
      * @version 2019-03-13
      * @since   2017-10-03
      * @author  Peter Lembke
@@ -346,7 +346,7 @@ function infohub_libretranslate() {
 
     /**
      * Children can talk to level1 plugins on the same node.
-     * When you need data from other nodes then any level1 plugin must help getting that.
+     * When you need data from other nodes then any level1 plugin must help to get that.
      * @version 2019-03-13
      * @since 2019-03-13
      * @author Peter Lembke

@@ -379,7 +379,7 @@ function infohub_language() {
 
     /**
      * Language data comes from http://www.lingoes.net/en/translator/langcode.htm
-     * @returns {infohub_language._RawData.infohub_languageAnonym$7}
+     * @returns {}
      */
     $functions.push('_RawData');
     const _RawData = function() {
@@ -405,7 +405,7 @@ function infohub_language() {
             'ar-YE': _Translate('Arabic (Yemen)'),
             'az': _Translate('Azeri (Latin)'),
             'az-AZ': _Translate('Azeri (Latin) (Azerbaijan)'),
-            'az-AZ': _Translate('Azeri (Cyrillic) (Azerbaijan)'),
+            // 'az-AZ': _Translate('Azeri (Cyrillic) (Azerbaijan)'),
             'be': _Translate('Belarusian'),
             'be-BY': _Translate('Belarusian (Belarus)'),
             'bg': _Translate('Bulgarian'),
@@ -452,7 +452,7 @@ function infohub_language() {
             'es-CR': _Translate('Spanish (Costa Rica)'),
             'es-DO': _Translate('Spanish (Dominican Republic)'),
             'es-EC': _Translate('Spanish (Ecuador)'),
-            'es-ES': _Translate('Spanish (Castilian)'),
+            // 'es-ES': _Translate('Spanish (Castilian)'),
             'es-ES': _Translate('Spanish (Spain)'),
             'es-GT': _Translate('Spanish (Guatemala)'),
             'es-HN': _Translate('Spanish (Honduras)'),
@@ -565,14 +565,14 @@ function infohub_language() {
             'sa-IN': _Translate('Sanskrit (India)'),
             'se': _Translate('Sami (Northern)'),
             'se-FI': _Translate('Sami (Northern) (Finland)'),
-            'se-FI': _Translate('Sami (Skolt) (Finland)'),
-            'se-FI': _Translate('Sami (Inari) (Finland)'),
+            // 'se-FI': _Translate('Sami (Skolt) (Finland)'),
+            // 'se-FI': _Translate('Sami (Inari) (Finland)'),
             'se-NO': _Translate('Sami (Northern) (Norway)'),
-            'se-NO': _Translate('Sami (Lule) (Norway)'),
-            'se-NO': _Translate('Sami (Southern) (Norway)'),
+            // 'se-NO': _Translate('Sami (Lule) (Norway)'),
+            // 'se-NO': _Translate('Sami (Southern) (Norway)'),
             'se-SE': _Translate('Sami (Northern) (Sweden)'),
-            'se-SE': _Translate('Sami (Lule) (Sweden)'),
-            'se-SE': _Translate('Sami (Southern) (Sweden)'),
+            // 'se-SE': _Translate('Sami (Lule) (Sweden)'),
+            // 'se-SE': _Translate('Sami (Southern) (Sweden)'),
             'sk': _Translate('Slovak'),
             'sk-SK': _Translate('Slovak (Slovakia)'),
             'sl': _Translate('Slovenian'),
@@ -580,9 +580,9 @@ function infohub_language() {
             'sq': _Translate('Albanian'),
             'sq-AL': _Translate('Albanian (Albania)'),
             'sr-BA': _Translate('Serbian (Latin) (Bosnia and Herzegovina)'),
-            'sr-BA': _Translate('Serbian (Cyrillic) (Bosnia and Herzegovina)'),
+            // 'sr-BA': _Translate('Serbian (Cyrillic) (Bosnia and Herzegovina)'),
             'sr-SP': _Translate('Serbian (Latin) (Serbia and Montenegro)'),
-            'sr-SP': _Translate('Serbian (Cyrillic) (Serbia and Montenegro)'),
+            // 'sr-SP': _Translate('Serbian (Cyrillic) (Serbia and Montenegro)'),
             'sv': _Translate('Swedish'),
             'sv-FI': _Translate('Swedish (Finland)'),
             'sv-SE': _Translate('Swedish (Sweden)'),
@@ -611,7 +611,7 @@ function infohub_language() {
             'ur-PK': _Translate('Urdu (Islamic Republic of Pakistan)'),
             'uz': _Translate('Uzbek (Latin)'),
             'uz-UZ': _Translate('Uzbek (Latin) (Uzbekistan)'),
-            'uz-UZ': _Translate('Uzbek (Cyrillic) (Uzbekistan)'),
+            // 'uz-UZ': _Translate('Uzbek (Cyrillic) (Uzbekistan)'),
             'vi': _Translate('Vietnamese'),
             'vi-VN': _Translate('Vietnamese (Viet Nam)'),
             'xh': _Translate('Xhosa'),

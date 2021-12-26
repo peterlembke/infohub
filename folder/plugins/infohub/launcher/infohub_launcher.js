@@ -59,7 +59,7 @@ function infohub_launcher() {
             'render_list': 'normal', // Render my_list or full_list
             'get_option_list': 'normal', // Use this as source for select boxes if you want the plugin names from my_list or full_list
             'refresh_list': 'normal', // Renders my_list or full_list with plugins including the refresh icon.
-            'get_list': 'normal', // Give the list name my_list or full_list and you will get the list from infohub_launcher.
+            'get_list': 'normal', // Give the list name my_list or full_list, and you will get the list from infohub_launcher.
             'update_full_list': 'normal', // If the local full_list is missing or old then it asks the server for an update and stores the list locally.
             'my_list_add': 'normal', // Add plugin to my_list
             'my_list_remove': 'normal', // Remove plugin from my_list
@@ -85,7 +85,7 @@ function infohub_launcher() {
     // ***********************************************************
 
     /**
-     * Setup the Launcher Graphical User Interface
+     * Set up the Launcher Graphical User Interface
      * @version 2017-10-03
      * @since   2017-10-03
      * @author  Peter Lembke
@@ -126,7 +126,7 @@ function infohub_launcher() {
                                 'switch_button': 'Switch list',
                                 'lists': 'My list and server list',
                                 'information': 'Information about a plugin',
-                                'more': '', // Name of logged in user and a logout button + refresh button for touch devices
+                                'more': '', // Name of logged-in user and a logout button + refresh button for touch devices
                             },
                         },
                         {
@@ -1235,7 +1235,7 @@ function infohub_launcher() {
             }
 
             if ($in.response.answer === 'false') {
-                $message = $in.response.message; // Perhaps we are off line and can not get a full_list.
+                $message = $in.response.message; // Perhaps we are off-line and can not get a full_list.
 
                 return _SubCall({
                     'to': {
@@ -1356,9 +1356,9 @@ function infohub_launcher() {
 
     $functions.push('get_list');
     /**
-     * Give the list name and you will get the list from infohub_launcher.
+     * Give the list name, and you will get the list from infohub_launcher.
      * Infohub_launcher owns the list and is the only one that is allowed to ask Storage for the list.
-     * If you would try to read the Storage directly from your plugin you would get:
+     * If you tried to read the Storage directly from your plugin you would get:
      * "I only accept paths that start with the calling plugin name".
      * @version 2018-10-26
      * @since 2018-10-26

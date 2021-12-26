@@ -1,9 +1,9 @@
 # [1.2.28] - 2020-12-31
 
-Colour schema configuration. Mocca chocolate default colour schema.
+Colour schema configuration. Mocha chocolate default colour schema.
 
 * [Release notes](main,release_v1_v1v2_v1v2v28)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.28)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.28)
 
 ## Known issues
 
@@ -11,7 +11,7 @@ Colour schema configuration. Mocca chocolate default colour schema.
 * HUB-1126, infohub_configlocal_colour - Button to get the selected gray scale
 * HUB-1127, infohub_configlocal_colour - save dark mode
 * HUB-1040, infohub_configlocal_colour - form load, show selected grey scale
-* HUB-1128, Selected colours - Apply button that trigger apply_config
+* HUB-1128, Selected colours - Apply button that trigger `apply_config`
 * HUB-1132, configlocal_colour -> apply_config send the configuration to infohub_render
 * HUB-1136, infohub_render -> set_color_schema
 * HUB-1141, Add the sixth colour selector. This time for Layer 2: Text titles
@@ -34,13 +34,13 @@ Colour schema configuration. Mocca chocolate default colour schema.
 * HUB-1142, Change all hard coded css to use the new colours
 * HUB-1152, Move more things from infohub_global.css
   Select css is moved from infohub_global.css to the select renderer.
-* HUB-1161, Set a mocca chocolate default colour schema
+* HUB-1161, Set a mocha chocolate default colour schema
 
 ## Removed
 * HUB-1133, infohub_configlocal->color->apply_config: Remove the function
 * HUB-1145, infohub_demo_common: Remove use of colour in css
 * HUB-1146, infohub_workbench: Remove use of colour in css
-    I did not remove. The high level renderers need to set css_data with colour some times.
+    I did not remove. The high level renderers need to set css_data with colour sometimes.
 * HUB-1148, Config files: Remove use of colour data in config files
 * HUB-1152, Move more things from infohub_global.css. Copied the progress css to infohub_render_common
 * HUB-1159, Contact: Fix select background colour. Removed custom css.

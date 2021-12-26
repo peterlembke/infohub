@@ -115,8 +115,10 @@ function infohub_checksum_personnummer() {
      * except that they double the odd numbers instead of the even numbers.
      * http://www.skatteverket.se/privat/folkbokforing/personnummer/personnumretsuppbyggnad.4.18e1b10334ebe8bc80001502.html
      * Example from Skatteverket: 640823–323, remove the - and it calculates to 6408233234
-     * @param string $valueString
-     * @return string
+     *
+     * @param $valueString
+     * @returns {string}
+     * @private
      */
     const _PersonnummerCalculateChecksum = function($valueString) {
         const $numbers = $valueString;

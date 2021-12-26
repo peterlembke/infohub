@@ -8,8 +8,8 @@ The 10 largest lakes in Sweden are:
 && game
 
 # Comment 1
-You can write your stand alone games in pygame or in phaser.io or pixi.js
-Then you need a library that connect to the infohub server and a token that allow to access only the game data.
+You can write your standalone games in pygame or in phaser.io or pixi.js
+Then you need a library that connect to the Infohub server and a token that allow to access only the game data.
 Infohub is about private data. Creating a library and a token system and an administrator is a lot of work. 
 
 Closing this as a bad idea for infohub.

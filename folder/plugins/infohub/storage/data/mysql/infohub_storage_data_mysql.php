@@ -160,7 +160,7 @@ class infohub_storage_data_mysql extends infohub_base
      * If data is empty then the post is deleted
      * If data do not exist in the database then it is inserted
      * If data exist in the database and is same as the one you want to save - then success without action
-     * If data exist and are different then the post will be updated
+     * If data exist and are different, then the post will be updated
      * @param array $in
      * @return array
      */
@@ -566,14 +566,13 @@ EOD;
             }
         }
 
-        if (isset($response['data'][0]['bubble'])) {
+        if (isset($response['data'][0]['bubble']) === true) {
             $response['message'] = 'Here are the data string';
             $response['data'] = $response['data'][0]['bubble'];
             $postExist = 'true';
         } else {
             $response['message'] = 'Did not find any data string on that path';
             $response['data'] = [];
-            $postExist = 'false';
         }
 
         leave:
@@ -864,7 +863,7 @@ EOD;
     /**
      * Does a real data field binding in the sql query
      * All parameters in the sql query that looks like this :myparamname
-     * are bound to a value. This means that PHP decide if the value should be wrapped with " or not.
+     * are bound to a value. This means that PHP decide if the value should be wrapped with quotation or not.
      * @param array $in
      * @return PDOStatement
      */

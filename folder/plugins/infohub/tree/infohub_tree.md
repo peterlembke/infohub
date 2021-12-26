@@ -1,6 +1,6 @@
 # Infohub Tree
 
-Handle all private data. Makes sure it gets encrypted and synced to the server. You can backup/restore your data.
+Handle all private data. Makes sure it gets encrypted and synced to the server. You can back up/restore your data.
 
 ## Version
 
@@ -8,7 +8,7 @@ Shows version information for the parent plugin and all child plugins.
 
 ## Doc
 
-Shows buttons to view all documentation in this plugin.
+Show buttons to view all documentation in this plugin.
 
 ## Encrypt
 
@@ -67,7 +67,7 @@ add `infohub_tree_storage/{user_name}/other_plugin/` to the path.
 
 The infohub_tree (server) handle sync and storage.
 
-We will configure so infohub_tree get its own database. A user get its own table. The table name is the user name. In
+We will configure so infohub_tree get its own database. A user get its own table. The table name is the username. In
 this table the user store the personal encrypted data.
 
 If one table is not enough for the user data then we could configure so infohub_tree get one database for each user.   

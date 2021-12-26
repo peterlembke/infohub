@@ -4,7 +4,7 @@ What happens if we do a bad call
 
 # Introduction
 
-You can call a node, plugin, function and that will run the function. The answer are returned to your function. But what
+You can call a node, plugin, function and that will run the function. The answer is returned to your function. But what
 happens if the function do not exist, or the plugin do not exist?  
 With democall you can test just that with calls to the client and to the server.  
 Who can call who? DemoCall also test if you can send a message to plugins that are self, child, sibling, parent, sibling
@@ -14,7 +14,7 @@ child, level1. The rules are described in [Infohub Exchange](plugin,infohub_exch
 
 If you call a missing plugin or a missing cmd function then you get a message back with answer = 'false' and a message
 that the plugin is missing. It really does not matter why it fails.  
-If you call an internal function and it does not exist, then you get answer = 'false' and a message that the function is
+If you call an internal function, and it does not exist, then you get answer = 'false' and a message that the function is
 missing.
 
 # License

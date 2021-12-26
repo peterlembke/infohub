@@ -12,7 +12,7 @@ Another great feature is that PouchDb and CounchDb can sync with each other.
 # Installation
 
 See the official [installation guides](https://wiki.apache.org/couchdb/Installation).  
-__Docker__ You can run CouchDb from a docker container. Read more
+__Docker__ You can run CouchDb from a Docker container. Read more
 here <a href="https://hub.docker.com/_/couchdb/" target="_blank">Docker CouchDb</a>. You can start several containers on
 the same computer. Each have its own port.
 
@@ -25,7 +25,7 @@ own requests. That is not compatable.
 # CouchDb
 
 The Infohub server will contact the CouchDb server. The Client will not contact CouchDb directly. There will be a
-wrapper in Infohub so you can us CouchDb just like any other Storage.
+wrapper in Infohub, so you can us CouchDb just like any other Storage.
 
 # License
 

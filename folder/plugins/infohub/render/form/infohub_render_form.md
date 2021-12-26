@@ -12,7 +12,7 @@ elements.
 # Render form elements
 
 You render all form elements in one go to a box.  
-All form elements are usually in the same box but you can render them in separate boxes if you want to as long as they
+All form elements are usually in the same box, but you can render them in separate boxes if you want to as long as they
 have the same parent.
 
 # Render one form element
@@ -109,7 +109,7 @@ form then send the object to the final destination in to_node, to_plugin, to_fun
 
 ## changed
 
-The data in an form element has changed due to user input. The event message is sent to render form.
+The data in a form element has changed due to user input. The event message is sent to render form.
 
 # Common properties
 
@@ -129,23 +129,23 @@ There is a set of properties that all form elements will have when it is created
 The button makes things happen. It has all the properties like any other form element and some of its own
 
 - button_label - Shown on the button
-- to_plugin - Plugin name that will receive the button click event, or the submit data after it is assembled into an
+- to_plugin - Plugin name that will receive the button click event, then submit data after it is assembled into an
   object
 - mode - reset, submit, click
 - data - Some data you want to add in the event
-- affected_aliases - a string with comma separated aliases that are affected by the submit or the clear
+- affected_aliases - a string with comma separated aliases that are affected by submit/clear.
 
 __Mode__
 
 - Mode "submit" is used when you want to assemble the data from the affected_aliases into an object and send it
   to_plugin as an event message.
-    - The receiving plugin can now do whatever it like with the data, like storing it. And perhaps load the next post
+    - The receiving plugin can now do whatever it is like with the data, like storing it. And perhaps load the next post
       and show that data on the form elements.
     - The event comes to Render_Form. An object is created and sent to View. View read the DOM and send back the data to
       Render_Form. Render_Form send the object to_plugin.
 - Mode "reset" is used when you want to set no data. The event comes to Render_Form. An object is created and sent to
   View. View update the DOM with the data.
-- Mode "click" send the event message to Render_Form that then send the message to to_plugin.
+- Mode "click" send the event message to Render_Form that then send the message to `to_plugin`.
 
 ```
 "my_event_button": {
@@ -210,7 +210,7 @@ The textarea have the common properties and in addition:
 - maxlength - (number) Specifies the maximum number of characters allowed in the text area
 - placeholder - Specifies a short hint that describes the expected value of a text area
 
-There is an area between the textarea and the decsription called 'info'. It is used for statistics.
+There is an area between the textarea and the description called 'info'. It is used for statistics.
 
 Characters xxx / maxlength (infinite), Words xxx, Lines xxx
 
@@ -234,7 +234,7 @@ It has no special attributes. The label is rendered to the right of the checkbox
 
 # file
 
-With the file selector you can select a file from your hard drive and it gets accessible from Javascript. This is useful
+With the file selector you can select a file from your hard drive, and it gets accessible from Javascript. This is useful
 if you as an end user want to use images, film clips, data files in infohub.  
 It has no special attributes. The data is base64 encoded.
 
@@ -291,7 +291,7 @@ Array with objects that has 'value', 'label', 'type'. The type can be 'option' (
 ## custom_variables
 
 The variables with values you add here will be added to the rendered select box and follow when you read the form.  
-You can see an example on this in infohub_tools - checksum, where the node select box have custom_variables so it knows
+You can see an example on this in infohub_tools - checksum, where the node select box have custom_variables, so it knows
 what other select boxes to update.  
 For now only select have custom_variables, but other form elements might get that in the future.
 

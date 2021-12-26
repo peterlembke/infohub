@@ -96,7 +96,7 @@ class infohub_session extends infohub_base
     {
         $default = [
             'initiator_user_name' => '', // user_{hub_id}
-            'left_overs' => '', // Left overs from the login. Never exposed outside this plugin.
+            'left_overs' => '', // Left-overs from the login. Never exposed outside this plugin.
             'role_list' => [],
             'step' => 'step_create_session_id',
             'from_plugin' => [
@@ -116,12 +116,12 @@ class infohub_session extends infohub_base
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['plugin'] !== 'infohub_login') {
-            $out['message'] = 'I only accept messages from plugin: infohub_login';
+            $in['response']['message'] = 'I only accept messages from plugin: infohub_login';
             $in['step'] = 'step_end';
         }
 
         if ($in['from_plugin']['node'] !== 'server') {
-            $out['message'] = 'I only accept messages from node: server';
+            $in['response']['message'] = 'I only accept messages from node: server';
             $in['step'] = 'step_end';
         }
 
@@ -239,7 +239,7 @@ class infohub_session extends infohub_base
             'initiator_user_name' => '', // user_{hub_id}
             'session_id' => '', //session_{hub_id}
             'session_created_at' => '', // micro time with 3 decimals
-            'left_overs' => '', // Left overs from the login. Never exposed outside this plugin
+            'left_overs' => '', // Left-overs from the login. Never exposed outside this plugin
             'banned_until' => 0.0,
             'step' => 'step_store_session_data',
             'from_plugin' => [
@@ -501,12 +501,12 @@ class infohub_session extends infohub_base
         $in = $this->_Default($default, $in);
 
         if ($in['from_plugin']['plugin'] !== 'infohub_session') {
-            $out['message'] = 'I only accept messages from plugin: infohub_session';
+            $in['response']['message'] = 'I only accept messages from plugin: infohub_session';
             $in['step'] = 'step_end';
         }
 
         if ($in['from_plugin']['node'] !== 'server') {
-            $out['message'] = 'I only accept messages from node: server';
+            $in['response']['message'] = 'I only accept messages from node: server';
             $in['step'] = 'step_end';
         }
 
@@ -658,12 +658,12 @@ class infohub_session extends infohub_base
         $messages = [];
 
         if ($in['from_plugin']['plugin'] !== 'infohub_transfer') {
-            $out['message'] = 'I only accept messages from plugin: infohub_transfer';
+            $in['response']['message'] = 'I only accept messages from plugin: infohub_transfer';
             $in['step'] = 'step_end';
         }
 
         if ($in['from_plugin']['node'] !== 'server') {
-            $out['message'] = 'I only accept messages from node: server';
+            $in['response']['message'] = 'I only accept messages from node: server';
             $in['step'] = 'step_end';
         }
 
@@ -1033,7 +1033,7 @@ class infohub_session extends infohub_base
         $sessionValid = 'false';
 
         if ($in['from_plugin']['node'] === 'server') {
-            $out['message'] = 'I only accept messages from other nodes';
+            $in['response']['message'] = 'I only accept messages from other nodes';
             $in['step'] = 'step_end';
         }
 
@@ -1068,7 +1068,6 @@ class infohub_session extends infohub_base
 
             $data = $in['response']['data'];
 
-            $sessionValid = 'false';
             if ($in['response']['post_exist'] === 'true') {
                 $sessionValid = 'true';
             }
@@ -1099,7 +1098,7 @@ class infohub_session extends infohub_base
     protected function _CreatedAt(): string
     {
         $time = $this->_MicroTime();
-        $time = round($time, 3);
+        $time = round($time, $precision = 3);
 
         return (string)$time;
     }
@@ -1446,8 +1445,6 @@ class infohub_session extends infohub_base
             $banned = $in['data_back']['banned'];
             $out = $in['response'];
             $out['banned'] = $banned;
-
-            $in['step'] = 'step_end';
         }
 
         return $out;

@@ -421,7 +421,7 @@ function infohub_translate_validate() {
 
     /**
      * Give the data from validate_translation_files
-     * get the options data needed to render an advanced list
+     * get the option's data needed to render an advanced list
      * @param $in
      * @returns {*[]}
      * @private

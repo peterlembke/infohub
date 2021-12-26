@@ -3,7 +3,7 @@ A bad idea could be something that is useful but does not fit into the Infohub c
 
 It is sometimes hard to detect these ideas. Here is a guide how to think about them.
 
-## What is/is not infohub 
+## What is/is not Infohub 
 
 ### Infohub is
 * Infohub is for registering and storing your personal data so YOU can access it on all your devices.
@@ -19,12 +19,12 @@ It is sometimes hard to detect these ideas. Here is a guide how to think about t
 Totally fine if the server use a web service to get public data. For example weather data. Calendar data. EU open APIs.
 Not fine if the client communicate with any other than the server.
 It is not fine if the server communicate with a service that handle personal data. The credentials can not be protected on the server.
-It is not fine to send credentials to the server and there login to the service. The server should not deal with unencrypted credentials and should not act on behalf of you.
+It is not fine to send credentials to the server and there log in to the service. The server should not deal with unencrypted credentials and should not act on behalf of you.
 
 ### Download personal data
 If you want your bank data, Garmin training data downloaded to Infohub then first download the data with other software and then upload it to Infohub.
 Infohub can not safely handle your credentials.
-Garmin does not have an open API so it is not cool to forse break it. Also the data on Gramin is their property so you must act according to Garmins rules.
+Garmin does not have an open API, so it is not cool to force break it. The data on Garmin is their property, so you must act according to Garmin rules.
 
 ### Client to a social network
 All information you store on for example Google, Facebook, Twitter, Instagram and so on is the property of the company. You may think that you own the data since you are allowed to delete some data but that is not the case.
@@ -33,7 +33,7 @@ Use the social networks as they were intended to be used, or don't use them at a
 ### Embed contents
 The iframe tag has a sandbox feature. That sandbox feature makes it better but not good enough. You are still tracked.
 I have experimented with click and embed. That works but should not be encouraged since if you click you are tracked.
-Also some hard code privacy advicates have disabled Google in their HOSTS files so any Youtube embed would fail.
+Some hard code privacy advocates have disabled Google in their HOSTS files, then any YouTube embed would fail.
 It is much better to show an image with a link that opens in a new tab.
 The iframe renderer now renders a link instead of the embedded contents. Do not use iframe. Do not embed contents.
 
@@ -50,7 +50,7 @@ Use your locally installed software and upload the data to Infohub.
 All data should be in the databases. Having a file manager would make it easier to deal with files.
 Use FileZilla instead and let it be a bit hard to deal with files.
 
-### Reach hardware like Webcan, Microphone, GPS, Tilt
+### Reach hardware like Webcam, Microphone, GPS, Tilt
 It is not fine to ask for the webcam, microphone, gps, tilt features and so on.
 Anything that actively detect the surroundings should not be asked for.
 
@@ -73,7 +73,7 @@ If you need a GPS location then look it up with a web page and enter the data in
 Not cool to do this. The API provider own the API and do not want freeloaders in their garage.
 
 ### Scraping data
-Data that was intended for view on a web page can be stolen. It is not cool to do that unless it is your site and you give yourself permission.
+Data that was intended for view on a web page can be stolen. It is not cool to do that unless it is your site, and you give yourself permission.
 
 ### Public data
 Infohub is about privacy and private data. Stockpiling public data in Infohub is not very useful.

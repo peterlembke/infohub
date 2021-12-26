@@ -1,10 +1,10 @@
 # Infohub Standalone
 
-Starts ONE workbench plugin as stand alone without any Workbench.
+Starts ONE workbench plugin as standalone without any Workbench.
 
 # Introduction
 
-You can start any workbench plugin as a stand alone app without Workbench. You use infohub_standalone and a
+You can start any workbench plugin as a standalone app without Workbench. You use infohub_standalone and a
 configuration in folder/config/infohub_exchange.json  
 Example of usage is to have a domain URL with a specific app like: a blog, a bulletin board system, a product browser
 and viewer.
@@ -61,9 +61,9 @@ You can copy the config file in folder/plugin/infohub/exchange/infohub_exchange.
 The domain name local.infohub.demo run infohub_standalone and that plugin will start infohub_demo.  
 You can read more about the startup procedure at: [Node Client](main,node_client)
 
-# Function setup_gui
+# Function set up_gui
 
-You can setup your graphical user interface with this function. Standalone has already prepared an area for you. You
+You can set up your graphical user interface with this function. Standalone has already prepared an area for you. You
 will get a box_id that you can fill with whatever you like.  
 This box_id is the one and only box_id you get. You need to create the boxes you need within this box_id. I suggest you
 start by changing box_mode on this box to "side" or "under"
@@ -120,7 +120,7 @@ if ($in.step === 'step_boxes_insert')
 }
 ```
 
-Now you have some boxes to start with and you can continue creating more boxes in those.
+Now you have some boxes to start with, and you can continue creating more boxes in those.
 
 # Boxes
 
@@ -134,7 +134,7 @@ Standalone set up fewer boxes than Workbench does, here is a list of them
 
 From the example above I created three boxes: first_box, second_box, third_box. The full path for the first_box
 is: `main.body.{plugin_name}.first_box`  
-When you want to reference "first_box" in you plugin you use: `_GetBoxId() + '.first_box'`,  
+When you want to reference "first_box" in your plugin you use: `_GetBoxId() + '.first_box'`,  
 To learn more about how to use the boxes I recommend reading: [Infohub_View](plugin,infohub_view)
 
 # License

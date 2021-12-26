@@ -450,7 +450,7 @@ function infohub_configlocal_language() {
     const _GetDefaultLanguageString = function() {
 
         const $fallbackLanguage = 'en';
-        const $languageCountry = navigator.language || navigator.userLanguage;
+        const $languageCountry = navigator.language;
         let $parts = $languageCountry.split('-');
         const $language = $parts[0].toLowerCase();
 

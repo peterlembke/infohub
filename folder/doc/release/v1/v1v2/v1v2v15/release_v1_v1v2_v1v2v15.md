@@ -2,7 +2,7 @@
 Focused on support for large responses. Regression issues. Installation documentation. Configuration files.
 
 * [Release notes](main,release_v1_v1v2_v1v2v15)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.15)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.15)
 
 ## Added
 * Client, Server: package messages_encoded_length added in infohub_transfer js and php
@@ -11,7 +11,7 @@ Focused on support for large responses. Regression issues. Installation document
 * start.js, added messages_encoded_length
 * define_folders.php - added folder `file` for future backup/restore of data
 * HUB-734, Doc added: installation requirements, plugin config
-* HUB-733, Added config-example files with login account, db connection and domain config
+* HUB-733, Added config-example files with log in account, db connection and domain config
 
 ## Changed
 * Client: Refactored infohub_welcome + children
@@ -28,7 +28,7 @@ Focused on support for large responses. Regression issues. Installation document
 ## Fixed
 * HUB-732, Client: Can not run the Welcome plugin
     It was the size of the assets. PHP echo could not handle it.
-    I split the string into 64K chings and print them. 
+    I split the string into 64K parts and print them. 
     Now it works.
 * HUB-738, Server: Checksum crc32 should return string
     Now it does. I also refactored infohub_checksum_crc32.js and infohub_checksum.php and infohub_tools_checksum.js

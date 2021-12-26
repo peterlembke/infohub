@@ -20,7 +20,7 @@ Restore your personal data from selected files that are then restored to your lo
 
 ## How it works
 
-The data in the backup is already encrypted. We ask Storage for the plugin_index so we can compare checksums. We have
+The data in the backup is already encrypted. We ask Storage for the plugin_index, so we can compare checksums. We have
 the plugin name. We have the server_checksum (BS), local_checksum (BL) in the plugin index We have the server_checksum (
 LS), local_checksum (LL) in the backup file.
 
@@ -34,7 +34,7 @@ Below is the rules. The must be done in this order:
 
 ## Future features
 
-* Use another encryption key during the restore so data are decryopted with that key and encrypted with your key when
+* Use another encryption key during the restore so data are decrypted with that key and encrypted with your key when
   stored in local storage.
 
 ## License

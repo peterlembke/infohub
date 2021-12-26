@@ -4,7 +4,7 @@ Small tools that might be useful
 
 # Introduction
 
-With Tools you have an example of a plugin that uses multiple screens and render them on demand. There is a slight wait
+With Tools, you have an example of a plugin that uses multiple screens and render them on demand. There is a slight wait
 the first time you use a tool. That is because the plugin must be downloaded from the server. The second time the plugin
 is in your browser already and all render quick.  
 You can read all about the tools in the child documents
@@ -15,7 +15,7 @@ The tool you see is the graphical user interface. When you press the button then
 plugin. That plugin can be in your browser or the message goes to the server.  
 Asking the server is always slower. And Infohub also add a second ban time to each correct request. Your browser keep
 track of this ban time and put all outgoing messages into a queue.  
-Start any of UUID, Time, Random, Password. They are all designed so you can ask the server for the data and you will get
+Start any of UUID, Time, Random, Password. They are all designed, so you can ask the server for the data, and you will get
 all results in a text box.  
 Now press the button quickly several times and note a slight delay before several responses show up in the text box.  
 If you are a developer you can check the requests from your browser and see that there are multiple messages in one

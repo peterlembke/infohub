@@ -120,11 +120,11 @@ class infohub_file extends infohub_base
             return ['answer' => 'false', 'message' => 'Folder must be file or plugin'];
         }
 
-        if (strpos($in['path'], '..') !== false) {
+        if (str_contains($in['path'], '..')) {
             return ['answer' => 'false', 'message' => 'Path can not use ..'];
         }
 
-        if (strpos($in['path'], '~') !== false) {
+        if (str_contains($in['path'], '~')) {
             return ['answer' => 'false', 'message' => 'Path can not use ~'];
         }
 
@@ -533,7 +533,7 @@ class infohub_file extends infohub_base
         $pattern = '';
         $fullPath = '';
 
-        $path = $this->_CleanString($in['path'], 'path');
+        $path = $this->_CleanString($in['path'], $type = 'path');
         if ($in['path'] !== $path) {
             $message = 'The path have illegal characters';
             goto leave;
@@ -614,7 +614,7 @@ class infohub_file extends infohub_base
         ];
         $fileInfo = $fileInfoDefault;
 
-        $in['path'] = $this->_CleanString($in['path'], 'path');
+        $in['path'] = $this->_CleanString($in['path'], $type = 'path');
         if ($this->_CheckPath($in['path']) === 'false') {
             $message = 'The path is not valid. Clean it up. Check the manual.';
             goto leave;
@@ -661,11 +661,6 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        if ($fileInfo['is_readable'] === 'false') {
-            $message = 'Folder or file is not readable. I do not have rights';
-            goto leave;
-        }
-
         $fileSize = filesize($in['path']);
 
         if ($fileSize === false) {
@@ -703,7 +698,7 @@ class infohub_file extends infohub_base
      */
     protected function _CheckPath(string $path = ''): string
     {
-        if (strpos($path, MAIN) !== 0) {
+        if (str_starts_with($path, MAIN) === false) {
             return 'false'; // Path must be somewhere in "folder"
         }
 
@@ -739,7 +734,7 @@ class infohub_file extends infohub_base
         }
 
         // Create lookup index with allowed characters as keys
-        $allowedCharacters = array_flip(str_split($allowed[$type], 1));
+        $allowedCharacters = array_flip(str_split($allowed[$type], $length = 1));
 
         $out = '';
 
@@ -815,15 +810,16 @@ class infohub_file extends infohub_base
      */
     protected function _RemoveEndSlash(string $path = ''): string
     {
-        if (substr($path, -1, 1) === '/') {
+        if (str_ends_with($path, '/') === true) {
             $path = substr($path, 0, -1);
         }
+
         return $path;
     }
 
     /**
      * Get a list with plugin names that has a file called asset/launcher.json
-     * The list key is plugin name, the data is the assets launcher.json, icon/icon.svg, icon/icon.json
+     * The list key is plugin name, the data is the asset's launcher.json, icon/icon.svg, icon/icon.json
      * Used only by infohub_launcher
      *
      * @param  array  $in
@@ -972,16 +968,14 @@ class infohub_file extends infohub_base
         $jsonIndex = [];
 
         foreach ($response['data'] as $path) {
-            if (strpos($path, '.') === false) {
-                continue; // Path did not have a . in the name, meaning it is not a file and therefore not interesting.
+            if (str_contains($path, '.') === false) {
+                continue; // Path did not have a `.` in the name, meaning it is not a file and therefore not interesting.
             }
 
-            $fileData = $this->internal_Cmd(
-                [
-                    'func' => 'Read',
-                    'path' => $path
-                ]
-            );
+            $fileData = $this->internal_Cmd([
+                'func' => 'Read',
+                'path' => $path
+            ]);
 
             $storedPath = $in['plugin_name'] . '/' . str_replace($assetPath . '/', '', $path);
 
@@ -997,7 +991,7 @@ class infohub_file extends infohub_base
                 'checksum' => $fileData['checksum'],
                 'is_binary' => $fileData['is_binary'],
                 'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
-                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
+                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human-readable
                 'file_size' => $fileData['file_size']
             ];
 
@@ -1091,7 +1085,7 @@ class infohub_file extends infohub_base
                 'checksum' => $fileData['checksum'],
                 'is_binary' => $fileData['is_binary'],
                 'micro_time' => $this->_MicroTime(), // Now we know when this data was accurate. Seconds since EPOC
-                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human readable
+                'time_stamp' => $this->_TimeStamp(), // Now we know when this data was accurate. Human-readable
                 'file_size' => $fileData['file_size']
             ];
         }
@@ -1155,7 +1149,7 @@ class infohub_file extends infohub_base
             $pathInfo = pathinfo($path);
             $pluginName = $pathInfo['filename'];
 
-            if (strpos($pluginName, '_') === false) {
+            if (str_contains($pluginName, '_') === false) {
                 continue; // Skip js files without _ in the name
             }
 
@@ -1253,7 +1247,7 @@ class infohub_file extends infohub_base
                 $pathInfo = pathinfo($path);
                 $pluginName = $pathInfo['filename'];
 
-                if (strpos($pluginName, '_') === false) {
+                if (str_contains($pluginName, '_') === false) {
                     continue; // Skip files without _ in the name
                 }
 
@@ -1536,7 +1530,7 @@ class infohub_file extends infohub_base
 
         $rolePatternLength = strlen($rolePattern);
 
-        $findStart = strpos($decodedContents, $rolePattern, 0);
+        $findStart = strpos($decodedContents, $rolePattern);
         if ($findStart === false) {
             return '';
         }
@@ -1570,7 +1564,7 @@ class infohub_file extends infohub_base
 
         $patternLength = strlen($pattern);
 
-        $findStart = strpos($decodedContents, $pattern, 0);
+        $findStart = strpos($decodedContents, $pattern);
         if ($findStart === false) {
             return '';
         }
@@ -1640,7 +1634,7 @@ class infohub_file extends infohub_base
                 $pathInfo = pathinfo($path);
                 $pluginName = $pathInfo['filename'];
 
-                if (strpos($pluginName, '_') === false) {
+                if (str_contains($pluginName, '_') === false) {
                     continue; // Skip js files without _ in the name
                 }
 
@@ -1658,7 +1652,7 @@ class infohub_file extends infohub_base
 
                 $data[$pluginName] = $this->_GetFileContent($path);
 
-                if (strpos($data[$pluginName], '_Translate(') === false) {
+                if (str_contains($data[$pluginName], '_Translate(') === false) {
                     unset($data[$pluginName]); // This file does not contain anything to translate, skip it.
                 }
 

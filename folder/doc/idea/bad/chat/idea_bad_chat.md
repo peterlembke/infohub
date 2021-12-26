@@ -10,7 +10,7 @@ Infohub is not about sharing data.
 Building a chat client sound awesome, but don't do that within Infohub.
 
 If you also want a secure client then use the app [Signal](https://signal.org/) instead.
-Signal exist for Windows, MacOS, Linux, Android, IOS.
+Signal exist for Windows, macOS, Linux, Android, IOS.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

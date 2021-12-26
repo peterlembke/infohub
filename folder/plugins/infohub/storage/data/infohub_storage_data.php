@@ -132,7 +132,7 @@ class infohub_storage_data extends infohub_base
 
         if ($in['step'] === 'step_start') {
             $in['step'] = 'step_get_final_connection';
-            if (strpos($in['path'], $connect['plugin_name_owner'] . '/') === 0) {
+            if (str_starts_with($in['path'], $connect['plugin_name_owner'].'/') === true) {
                 $in['step'] = 'step_read';
             }
             if ($in['step'] === 'step_get_final_connection') {
@@ -245,7 +245,7 @@ class infohub_storage_data extends infohub_base
 
         if ($in['step'] === 'step_start') {
             $in['step'] = 'step_get_final_connection';
-            if (strpos($in['path'], $connect['plugin_name_owner'] . '/') === 0) {
+            if (str_starts_with($in['path'], $connect['plugin_name_owner'].'/') === true) {
                 $in['step'] = 'step_read_paths';
             }
             if ($in['step'] === 'step_get_final_connection') {
@@ -323,7 +323,6 @@ class infohub_storage_data extends infohub_base
                 'data' => []
             ];
             $out = $this->_Default($default, $in['response']);
-            $in['step'] = 'step_end';
         }
 
         leave:
@@ -388,7 +387,7 @@ class infohub_storage_data extends infohub_base
 
             $in['step'] = 'step_get_final_connection';
             $startWith = $connect['plugin_name_owner'] . '/';
-            if (strpos($in['path'], $startWith) === 0) {
+            if (str_starts_with($in['path'], $startWith) === true) {
                 $in['step'] = 'step_write';
             }
             if ($in['step'] === 'step_get_final_connection') {

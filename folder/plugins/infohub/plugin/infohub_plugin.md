@@ -24,10 +24,10 @@ The client version are started by start.js as one of the core plugins that need 
 function properly.  
 When we get a plugin_request then we check in local storage if the plugin is here. If it is not too old then it is
 started.  
-If we do not have the plugin, or it is too old and we do have access to a network, then we do a plugin_request to the
+If we do not have the plugin, or it is too old, and we do have access to a network, then we do a plugin_request to the
 server. The server can say that the plugin we already have is just fine or the server can send us a newer version of the
 plugin, or the server can say that we should just throw away the plugin. We update the local storage and start the
-plugin if it still exist.  
+plugin if it still exists.  
 The client will only handle one version of the plugin, the one that we got from the server. The server decide what
 version we should have.
 
@@ -43,13 +43,13 @@ the Storage.
 
 # CSS file
 
-Each plugin can have a CSS file. Having a CSS file is very much discouraged and I urgently promote using no CSS at all,
+Each plugin can have a CSS file. Having a CSS file is very much discouraged, and I urgently promote using no CSS at all,
 or second best use the existing CSS in the rendered components.  
 infohub_view has a global css file for the boxes to work. In Infohub View you find the string "{infohub_view.css}" that
 will be substituted with the content from the css file.  
 The render plugins all use segmented CSS that are built into the code. So they do not use global CSS. Segmented CSS in
 the code is the preferred way to use CSS. Affect things globally is bad.  
-There is also a CSS file in infohub_exchange.css. That file are included in index.php. This file has a @TODO to be moved
+There is also a CSS file in infohub_exchange.css. That file is included in index.php. This file has a @TODO to be moved
 and updated.
 
 # Configuration
@@ -113,7 +113,7 @@ custom settings for your site. For example `folder/config/infohub_exchange.json`
 
 A plugin can have assets. See [infohub_asset](plugin,infohub_asset).
 Normally the assets are downloaded by [infohub_workbench](plugin,infohub_workbench) when you start a plugin from the Workbench.
-If a plugin is stand alone then you can add a flag: has_assets, in the Version data.  
+If a plugin is standalone then you can add a flag: has_assets, in the Version data.  
 ```
 const _Version = function() {
     return {

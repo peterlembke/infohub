@@ -169,7 +169,7 @@ class infohub_exchange extends infohub_base
      * @version 2013-12-30
      * @since 2012-11-17
      */
-    protected function main(array $in = [])
+    protected function main(array $in = []): array
     {
         $default = [
             'package' => [],
@@ -237,7 +237,7 @@ class infohub_exchange extends infohub_base
     }
 
     /**
-     * This message are added when all other messages have been processed.
+     * This message is added when all other messages have been processed.
      * Its purpose is to call infohub_transfer -> send so that the processed
      * messages answers can be sent back to the querying node.
      * @return string
@@ -295,7 +295,7 @@ class infohub_exchange extends infohub_base
      * @version 2016-01-30
      * @since 2016-01-30
      */
-    protected function plugin_started(array $in = [])
+    protected function plugin_started(array $in = []): array
     {
         $default = [
             'plugin_name' => '',
@@ -704,7 +704,7 @@ class infohub_exchange extends infohub_base
      * @version 2016-01-28
      * @since 2013-11-21
      */
-    protected function internal_ToSort(array $in = [])
+    protected function internal_ToSort(array $in = []): array
     {
         $default = [
             'package' => [
@@ -914,7 +914,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function internal_MessageCheck(array $in = [])
+    protected function internal_MessageCheck(array $in = []): array
     {
         $default = [
             'callstack' => [],
@@ -962,7 +962,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function _CheckMessageStructure(array $in = [])
+    protected function _CheckMessageStructure(array $in = []): array
     {
         $default = [
             'to' => [
@@ -1013,7 +1013,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return string
      */
-    protected function _CheckMessageStructureTo(array $in = [])
+    protected function _CheckMessageStructureTo(array $in = []): string
     {
         foreach ($in['to'] as $name => $data) {
             if (empty($data)) {
@@ -1023,6 +1023,7 @@ class infohub_exchange extends infohub_base
                 return 'I want lower case data in node, plugin and function';
             }
         }
+        
         return '';
     }
 
@@ -1031,7 +1032,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function _CheckMessageNode(array $in = [])
+    protected function _CheckMessageNode(array $in = []): array
     {
         if (empty($in['callstack'])) {
             return [
@@ -1061,7 +1062,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function _CheckMessageCalling(array $in = [])
+    protected function _CheckMessageCalling(array $in = []): array
     {
         $default = [
             'to' => [
@@ -1169,7 +1170,7 @@ class infohub_exchange extends infohub_base
      * @since 2013-08-18
      * @uses
      */
-    protected function internal_Sort(array $in = [])
+    protected function internal_Sort(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);
@@ -1222,7 +1223,7 @@ class infohub_exchange extends infohub_base
      * @since 2013-08-18
      * @uses
      */
-    protected function internal_ToPending(array $in = [])
+    protected function internal_ToPending(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);
@@ -1257,7 +1258,7 @@ class infohub_exchange extends infohub_base
                 continue;
             }
 
-            // This message are the first to come to this plugin name
+            // This message is the first to come to this plugin name
             $this->Pending[$pluginName] = [];
             $this->Pending[$pluginName][] = $dataMessage;
 
@@ -1308,7 +1309,7 @@ class infohub_exchange extends infohub_base
      * @version 2015-09-20
      * @since 2013-11-21
      */
-    protected function internal_Stack(array $in = [])
+    protected function internal_Stack(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);
@@ -1404,7 +1405,7 @@ class infohub_exchange extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $answer = 'true';
+        $answer = 'true'; // We do not fail over a bad config
         $foundConfig = 'false';
         $message = '';
         $config = [];
@@ -1446,7 +1447,7 @@ class infohub_exchange extends infohub_base
 
         $node = $in['node'];
         $config = $data[$node];
-        $answer = 'true';
+        // $answer = 'true';
         $message = 'Here are the config for your node';
         $foundConfig = 'true';
 
@@ -1468,7 +1469,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function internal_GetErrorArrayFromLogArray(array $in = [])
+    protected function internal_GetErrorArrayFromLogArray(array $in = []): array
     {
         $default = [
             'log_array' => []
@@ -1496,7 +1497,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return string[]
      */
-    protected function internal_LogArrayToConsole(array $in = [])
+    protected function internal_LogArrayToConsole(array $in = []): array
     {
         $default = [
             'log_array' => []
@@ -1525,7 +1526,7 @@ class infohub_exchange extends infohub_base
      * @param array $in
      * @return string[]
      */
-    protected function internal_Console(array $in = [])
+    protected function internal_Console(array $in = []): array
     {
         $default = [
             'time_stamp' => '',

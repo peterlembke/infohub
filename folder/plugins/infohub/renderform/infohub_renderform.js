@@ -1674,7 +1674,7 @@ function infohub_renderform() {
             if ($in.event_type === 'click' || $in.event_type === 'change') {
                 if ($in.step === 'step_start') {
                     $in = _Delete($in, {
-                        'innerHTML': '', // A button do not need this. And it mess up messages to the server
+                        'innerHTML': '', // A button do not need this. And it will mess up messages to the server
                         'value': '',
                     });
 
@@ -1688,7 +1688,7 @@ function infohub_renderform() {
                         },
                         'data': {
                             'id': $in.id,
-                            'set_enabled': 'true', // Normally false but you might want to set this to true when you debug so you can press the button again
+                            'set_enabled': 'true', // Normally false but you might want to set this to true when you debug, so you can press the button again
                         },
                         'data_back': _Merge($in, {'step': 'step_end'}),
                     });
@@ -1892,7 +1892,7 @@ function infohub_renderform() {
         if ($in.type === 'link' && $in.event_type === 'click') {
             if ($in.step === 'step_start') {
                 $in = _Delete($in, {
-                    'innerHTML': '', // A button do not need this. And it mess up messages to the server
+                    'innerHTML': '', // A button do not need this. And it will mess up messages to the server
                     'value': '',
                 });
 

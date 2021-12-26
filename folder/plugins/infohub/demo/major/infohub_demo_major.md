@@ -15,14 +15,14 @@ Read more in the documentation about
 
 The button title is: Presentation box.  
 You will see three presentation boxes. The first contain just a title and two links. The second contain a title, an
-image with embedded content that appear when you click the image, and a footer. The third has a title and an image so it
+image with embedded content that appear when you click the image, and a footer. The third has a title and an image, so it
 is very much like the first one.
 
 # Usage
 
-The main usage is to box content so you can present it better. You can click the title to fold/unfold the content. Read
+The main usage is to box content, so you can present it better. You can click the title to fold/unfold the content. Read
 more about RenderMajor to see the features.  
-Look at the videom audio, map demos, they use the presentation box in combination with the iframe.
+Look at the video, audio, map demos, they use the presentation box in combination with the iframe.
 
 # License
 

@@ -12,7 +12,7 @@ are rounded down to the closest division of 160px. Meaning that you can have 160
 
 # Boxes in boxes
 
-Lets divide the main box into two data boxes under each other. First change mode on main to "under", then add two boxes
+Let's divide the main box into two data boxes under each other. First change mode on main to "under", then add two boxes
 with main as parent. The boxes are in mode "data" and can now be used to show rendered data. In the sections below you
 can read more in detail how you do this.
 
@@ -20,7 +20,7 @@ You can now create your own box structure and hide parts of the structure.
 
 # How to reference boxes
 
-In many of the functions you are supposed to give a box ID. You probably do not have that information. Instead you can
+In many of the functions you are supposed to give a box ID. You probably do not have that information. Instead, you can
 give a relative path as the box_id.
 
 - If the id is just a number then it is used.
@@ -220,7 +220,7 @@ return _SubCall({
 Clear the contents of a data box. Removes all child boxes except the end-box in side/under-boxes.  
 You can reference the box by its box_id or its box_alias. If you provide an alias then "box_find" will be run to find
 the box_id.  
-If you clear a "data"-box then it is just cleared and we are done.  
+If you clear a "data"-box then it is just cleared, and we are done.  
 If you clear a "side"-, or "under"-box then all boxes in that box are deleted except the "end"-box.
 
 # Example
@@ -245,7 +245,7 @@ return _SubCall({
 
 # box_insert
 
-You can insert a new box before another box. This imply that the parent box is in mode: "side" or"under".
+You can insert a new box before another box. This implies that the parent box is in mode: "side" or "under".
 
 ```
 return _SubCall({
@@ -271,7 +271,7 @@ return _SubCall({
 ```
 
 View need the parent_box_id.    
-View need to know where you want the new box to be inserted in the parent box. You give the before_box_id or you can
+View need to know where you want the new box to be inserted in the parent box. You give the before_box_id, or you can
 give the box_position. "first" (default), "last", "middle". Even if you select "first" your box will still be before
 the "end"-box.  
 Now View want to know more about the new box. box_mode, you can read more about box_mode in another section.
@@ -406,7 +406,7 @@ If you leave siblings_box_view empty then it will be the opposite to box_view. b
 ## Example
 
 This example come from the tab system. You click on a tab and that tab become visible, the others become hidden.  
-The example do not set box_view because it is default to "1". Also no need to set siblings_box_view because it will
+The example do not set box_view because it is default to "1". Also, no need to set siblings_box_view because it will
 become the opposite to box_view (default).
 
 ```
@@ -450,9 +450,9 @@ box_id, the parent box ID. You will get all child box IDs.
 
 # box_data
 
-Store data in a data box. You can only save data in boxes that have box_mode=”data”.  
+Store data in a data box. You can only save data in boxes that have `box_mode="data"`.  
 It will also substitute all "{box_id}" and "{parent_box_id}" to their correct values.  
-And finally it will add an anchor to the box so it is easier to scroll to the right section.
+And finally it will add an anchor to the box, so it is easier to scroll to the right section.
 
 ```
 return _SubCall({
@@ -500,7 +500,7 @@ return _SubCall({
 });
 ```
 
-The boxes must already exist and you must know each box_id.
+The boxes must already exist, and you must know each box_id.
 
 # modify_class
 
@@ -590,7 +590,7 @@ return _SubCall({
 # get_text
 
 Get value or innerHTML from an object. This is the opposite to set_text. Returns the text on for example a button.  
-Returns the text and also the type if it exist. Only input tags have type.
+Returns the text and also the type if it exists. Only input tags have type.
 
 ## Example
 
@@ -612,9 +612,9 @@ return _SubCall({
 
 # zoom_level
 
-Sets the zoom level on everything. The built in zoom in the browser is preferred but on tablets and phones you can not
+Sets the zoom level on everything. The built-in zoom in the browser is preferred but on tablets and phones you can not
 press CTRL + and CTRL -, there it is better to have on screen buttons.  
-You can set a zoom level or you can increase/decrease the zoom level.
+You can set a zoom level, or you can increase/decrease the zoom level.
 
 ## Example
 
@@ -651,7 +651,7 @@ This snippet comes from infohub_configlocal_zoom. It displays buttons that send 
 },
 ```
 
-The example show buttons but you can send the data directly if you want to.
+The example show buttons, but you can send the data directly if you want to.
 
 ```
 return _SubCall({
@@ -706,7 +706,7 @@ return {
 
 Sets visibility on any object. If you want to show/hide boxes then use box_view instead. That is better suited for
 boxes.  
-Use set_visible for things inside boxes. You can set visible true / false / switch. With switch you switch between
+Use set_visible for things inside boxes. You can set visible true / false / switch. With switch, you switch between
 true/false.
 
 ## Example
@@ -953,7 +953,7 @@ return _SubCall({
 The go() function send events further. Some end up in View event_message.
 
 The event_message function handle events where we can have a generic response to the event. For example expanding
-embeddeddata. Toggle visibility.
+embedded data. Toggle visibility.
 
 If you set send = 'true' in your data that trigger the event, then this event will also be forwarded to your plugin.
 

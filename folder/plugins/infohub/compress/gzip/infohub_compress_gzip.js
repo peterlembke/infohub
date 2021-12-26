@@ -135,7 +135,9 @@ function infohub_compress_gzip() {
         for (var b; c.length && (b = c.shift());) !c.length && e !== p
             ? a[b] = e
             : a = a[b] ? a[b] : a[b] = {};
-    };var C = 'undefined' !== typeof Uint8Array && 'undefined' !==
+    }
+
+    var C = 'undefined' !== typeof Uint8Array && 'undefined' !==
         typeof Uint16Array && 'undefined' !== typeof Uint32Array &&
         'undefined' !== typeof DataView;
 
@@ -999,7 +1001,7 @@ function infohub_compress_gzip() {
             for (d = f[g]; m < d; m++) e[g] = e[g] << 1 | b & 1, b >>>= 1;
         }
         return e;
-    };
+    }
 
     function La(f, e) {
         this.input = f;
@@ -1087,7 +1089,9 @@ function infohub_compress_gzip() {
         for (var a; d.length && (a = d.shift());) !d.length && b !== p
             ? c[a] = b
             : c = c[a] ? c[a] : c[a] = {};
-    };var x = 'undefined' !== typeof Uint8Array && 'undefined' !==
+    }
+
+    var x = 'undefined' !== typeof Uint8Array && 'undefined' !==
         typeof Uint16Array && 'undefined' !== typeof Uint32Array &&
         'undefined' !== typeof DataView;
     new (x ? Uint8Array : Array)(256);
@@ -1397,7 +1401,9 @@ function infohub_compress_gzip() {
             m <<= 1;
         }
         return [f, d, c];
-    };var J = [], K;
+    }
+
+    var J = [], K;
     for (K = 0; 288 > K; K++) switch (!0) {
         case 143 >= K:
             J.push([K + 48, 8]);

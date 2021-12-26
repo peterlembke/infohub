@@ -519,7 +519,7 @@ function infohub_tree_encrypt() {
             if ($in.answer === 'true') {
                 $in.message = 'File imported';
                 $ok = 'true';
-            };
+            }
         }
 
         return {
@@ -569,7 +569,7 @@ function infohub_tree_encrypt() {
             if ($in.answer === 'true') {
                 $in.message = 'Key data is now forgotten';
                 $ok = 'true';
-            };
+            }
         }
 
         return {

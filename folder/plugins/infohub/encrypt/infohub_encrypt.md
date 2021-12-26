@@ -7,11 +7,11 @@ Use OpenPGP to encrypt and decrypt your data on the client or on the server.
 There are for now only one use case for encryption and that is the client encrypting data that are to be stored in local
 Storage or are transported and stored on the server.
 
-Encryption is complicated business. I have investigated the built in methods in the browsers and the build in methods in
+Encryption is complicated business. I have investigated the built-in methods in the browsers and the build in methods in
 PHP. It is a jungle and if you do anything wrong then the encryption is worthless.
 
 You also have to determine if you want a simple password or a two key solution with one public and one private key. And
-then if you want the client and server to encrypt/decrypt each others packages then it will get even more complicated.
+then if you want the client and server to encrypt/decrypt each other's packages then it will get even more complicated.
 
 It would be nice if PHP and the browsers had solutions that were easy to use for none experts.
 

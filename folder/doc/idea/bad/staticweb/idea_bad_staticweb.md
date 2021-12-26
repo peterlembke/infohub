@@ -13,9 +13,9 @@ Infohub will not handle credentials for publishing material.
 
 * Download the material from Infohub to your local device
 * Manually upload the data to your web page
-* All features associated with a modern Wordpress page will not be there, like search
+* All features associated with a modern WordPress page will not be there, like search
 
-The best alternative would be to just use Wordpress as use its built in [Markdown block](https://wordpress.com/support/wordpress-editor/blocks/markdown-block/) with [Jetpack](https://wpengine.co.uk/resources/using-markdown-wordpress/).
+The best alternative would be to just use WordPress as use its built in [Markdown block](https://wordpress.com/support/wordpress-editor/blocks/markdown-block/) with [Jetpack](https://wpengine.co.uk/resources/using-markdown-wordpress/).
 
 All documentation in Infohub is written with Markdown.
 

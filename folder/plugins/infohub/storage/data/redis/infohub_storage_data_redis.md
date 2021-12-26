@@ -10,19 +10,19 @@ Redis is quick, it uses the memory to store data. It is persistent since it dump
 # Installation
 
 * _In Ubuntu_ `sudo apt-get install redis-server` and `sudo apt-get install php-redis` and `sudo apachectl -k restart`
-* _In MacOS_ `brew install redis` and `brew install --HEAD homebrew/php/php70-redis`
+* _In macOS_ `brew install redis` and `brew install --HEAD homebrew/php/php70-redis`
 * _In Windows_ See the [Redis](https://redis.io) home page
-* _Docker_ You can run redis from a docker container. Read more here [Docker Redis](https://hub.docker.com/_/redis/).
+* _Docker_ You can run redis from a Docker container. Read more here [Docker Redis](https://hub.docker.com/_/redis/).
   You can start several containers on the same computer. Each have its own port.
 
-# Setup
+# Set up
 
 You do not have to set up any users
 
 # Testing
 
 Run redis-cli to get a command prompt for Redis-commands. Write "ping" and it would respond with "PONG".  
-set - Stores data in Redis: SET mykey ”Hello”  
+set - Stores data in Redis: SET mykey "Hello"  
 get - Reads data from Redis: GET mykey  
 del - Removes data from Redis: DEL mykey  
 exit - Leave the redis-cli by writing: exit

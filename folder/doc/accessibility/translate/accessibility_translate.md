@@ -30,7 +30,7 @@ With the help of [LibreTranslate](https://libretranslate.com/) I can automatical
 * ru - Russian
 * es - Spanish
 * tr - Turkish
-* uk - Ukranian
+* uk - Ukrainian
 * vi - Vietnamese
 
 More languages are probably [on the way of getting supported](https://github.com/argosopentech/argos-translate/discussions/91) in LibreTranslate, and then Infohub will support them too.

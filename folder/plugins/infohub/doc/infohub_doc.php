@@ -521,7 +521,7 @@ class infohub_doc extends infohub_base
         foreach ($imageNamesArray as $imageName) {
             $find = '(' . $imageName . ')';
 
-            if (strpos($text, $find) === false) {
+            if (str_contains($text, $find) === false) {
                 continue;
             }
 

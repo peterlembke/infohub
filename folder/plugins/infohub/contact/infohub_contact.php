@@ -1,6 +1,6 @@
 <?php
 /**
- * Data so server can login to other nodes
+ * Data so server can log in to other nodes
  *
  * @package     Infohub
  * @subpackage  infohub_contact
@@ -12,7 +12,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 }
 
 /**
- * Data so server can login to other nodes
+ * Data so server can log in to other nodes
  *
  * @author      Peter Lembke <info@infohub.se>
  * @version     2019-02-23
@@ -84,7 +84,7 @@ class infohub_contact extends infohub_base
             'node_data' => [
                 'node' => '', // Name of this connection. This is also a node name in messages.
                 'note' => '',
-                'domain_address' => '', // We login to this destination domain
+                'domain_address' => '', // We log in to this destination domain
                 'user_name' => '', // Your identity
                 'shared_secret' => '', // 2Kb random bytes base64 encoded
                 'role_list' => []
@@ -408,8 +408,7 @@ class infohub_contact extends infohub_base
             'message' => 'Nothing to report from load_node_list',
             'ok' => 'false',
             'node_list' => [],
-            'options' => [],
-            'post_exist' => 'false'
+            'options' => []
         ];
 
         if ($in['from_plugin']['node'] !== 'client') {
@@ -501,7 +500,7 @@ class infohub_contact extends infohub_base
 
         try {
             $sharedSecret = random_bytes($in['length']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $sharedSecret = '';
         }
 

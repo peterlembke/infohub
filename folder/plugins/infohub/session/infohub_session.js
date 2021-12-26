@@ -68,7 +68,7 @@ function infohub_session() {
             'session_id': '', //session_{hub_id}
             'session_created_at': '', // micro time with 3 decimals
             'role_list': [], // Allowed roles
-            'left_overs': '', // Left overs from the login. Never exposed outside this plugin
+            'left_overs': '', // Left-overs from the login. Never exposed outside this plugin
             'step': 'step_store_session_data',
             'response': {
                 'answer': 'false',

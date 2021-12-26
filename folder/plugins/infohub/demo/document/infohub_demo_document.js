@@ -284,7 +284,7 @@ Text in //italic// and **bold** and __underline__ and ~~strike through~~ and ^^h
     };
 
     /**
-     * Button click for Markdown to HTML
+     * Button-click for Markdown to HTML
      * @version 2019-02-03
      * @since 2019-02-03
      * @author Peter Lembke

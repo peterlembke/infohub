@@ -66,7 +66,7 @@ function infohub_doc_navigate() {
     };
 
     /**
-     * Setup the Graphical User Interface for this child
+     * Set up the Graphical User Interface for this child
      * Shows a major box with a title and instructions
      * In the box there are the main menu with "General doc" and "Plugin doc"
      * @version 2019-04-14
@@ -322,7 +322,7 @@ function infohub_doc_navigate() {
 
                     // In this case the event_message function will check what renderer you use and act on that.
                     const $otherParams = 'href="#header" class="link" renderer="infohub_doc" type="link" ';
-                    // You can put any parameters you like in the string above and they will show up in the event_message function.
+                    // You can put any parameters you like in the string above, and they will show up in the event_message function.
 
                     const $label = $in.data[$area][$docName].label;
                     const $html = '<a ' + $onClick + $idData + $eventData + $otherParams + '>' + _Translate($label) + '</a>';

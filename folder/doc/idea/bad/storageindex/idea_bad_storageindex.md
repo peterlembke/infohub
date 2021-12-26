@@ -9,10 +9,10 @@ The data will be encrypted on the server. The server will not handle any indexin
 On the client each Tree plugin could have its own encryption key so each Tree plugin is the only one handling their own data and is the only one that could send data to be indexed.
 The index would cover data for one Tree plugin. And the Tree plugin will store its index encrypted.
 
-It is not a bad idea, but it is complicated. With good naming and cataloging you can come far.
+It is not a bad idea, but it is complicated. With good naming and catalog ing you can come far.
 Searching can be done the hard way by iterating the available data and look in each text.
 
-So I think that an index would be a good idea but it is complicated, so it is a bad idea.
+So I think that an index would be a good idea, but it is complicated, so it is a bad idea.
 Search is a good idea, but each Tree plugin need to implement it for their data. We can not have a central search.
 
 # License

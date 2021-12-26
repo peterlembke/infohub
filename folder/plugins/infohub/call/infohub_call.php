@@ -273,7 +273,7 @@ class infohub_call extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function _GetCurlOptArray($in = [])
+    protected function _GetCurlOptArray(array $in = []): array
     {
         $default = [
             'port' => 443,      // default SSL port

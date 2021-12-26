@@ -100,7 +100,7 @@ The HTML look like this
    to_node="client" to_plugin="infohub_view" to_function="toggle"
    onclick="go('infohub_view', 'toggle', '1202_my_presentation_box_content')">
     <div id="1202_my_presentation_box_head_data" name="head_data" class="container" style="display: block">
-        This is a Google map
+        This is a Google Map
     </div>
 </a>
 ```
@@ -170,7 +170,7 @@ The HTML look like this
 ```
 
 Take special notice of the display: inline used on the div box. That makes the link a part of the text it is in.  
-The url have been base64 encoded into data.  
+The URL have been base64 encoded into data.  
 When you click the link you trigger the go() function.  
 The definition is go($pluginName, $eventType, $boxId); The first parameter 'infohub_render' is what plugin should have
 this message. eventType is a string. boxId is the ID of the "a"-tag.  
@@ -202,7 +202,7 @@ message look like this:
 ```
 
 When infohub_render get the event message it check the type=external, decode the data and open a new tab/windows with
-the url.
+the URL.
 
 # type: embed
 
@@ -272,11 +272,11 @@ look like this:
 }
 ```
 
-Why are this mesage sent to infohub_view? Because this action is generic and InfoHub View is the owner of the screen
+Why are this message sent to infohub_view? Because this action is generic and InfoHub View is the owner of the screen
 manipulations. No other plugin is allowed to do this on the screen.  
 View decode the base64 data. Pulls out the main box id (in this case 1202) and insert that number in the embedded html.
-Then substitute the existing HTML in the "a" tag. The div-tag with "my_image" is now gone and we instead have a Google
-map here.
+Then substitute the existing HTML in the "a" tag. The div-tag with "my_image" is now gone, and we instead have a Google
+Map here.
 
 # License
 

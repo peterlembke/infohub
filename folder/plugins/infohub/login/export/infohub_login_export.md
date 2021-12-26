@@ -1,10 +1,10 @@
 # Infohub_Login_Export
 
-Here you can export the current contact that you have previously imported. This is useful for backup or to import on another device so you can login there too.
+Here you can export the current contact that you have previously imported. This is useful for backup or to import on another device, so you can log in there too.
 
 ## Export
 
-The GUI only have one button labeled "Export". Click the button and you will get a file downloaded. The file name is "contact.json". It is a normal text file formatted in the JSON data format.
+The GUI only have one button labeled "Export". Click the button, and you will get a file downloaded. The file name is "contact.json". It is a normal text file formatted in the JSON data format.
 
 You can now rename the file to something meaningful and store it in a safe place. You can import the file in another device like your phone, tablet, computer etc.
 
@@ -12,12 +12,12 @@ You can now rename the file to something meaningful and store it in a safe place
 
 You need to get the file to the user. Just remember to never transfer the file in any insecure way like email.
 
-For desktop and laptop computers that run Linux/MacOS/Windows you can install Vera encrypt. Create a Vera container and
+For desktop and laptop computers that run Linux/macOS/Windows you can install Vera encrypt. Create a Vera container and
 put the file in there. Now you can transfer the Vera container to the user. You need to share the password to the
-container. Transfer the container with an USB-memory or Google Drive or Dropbox or Microsoft OneDrive or send the
+container. Transfer the container with a USB-memory or Google Drive or Dropbox or Microsoft OneDrive or send the
 container through e-mail.
 
-For Apple devices (MacOS/iPad/iPhone) you can use file share over bluetooth.
+For Apple devices (macOS/iPad/iPhone) you can use file share over bluetooth.
 
 # License
 

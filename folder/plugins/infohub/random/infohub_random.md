@@ -12,7 +12,7 @@ plugin will become testable when all your functions will have an expected output
 # Random number
 
 There are two functions: random_number accept a min and a max. Both are integers.  
-random_numbers also have min adn max, and also count so you can get many random numbers.
+random_numbers also have min adn max, and also count, so you can get many random numbers.
 
 # License
 

@@ -1,17 +1,17 @@
 # Release a plugin
-You can make your plugin avaliable to a bigger audience  
+You can make your plugin available to a bigger audience  
 
 # Introduction
 When you have created a plugin that you think others might find useful then you have some options how to get paid  
 
-- Ask for a contribution with Paypal or similar. (Swish in Sweden)
+- Ask for a contribution with PayPal or similar. (Swish in Sweden)
 - Create a server service and charge for usage or a monthly fee. You do not have to disclose the code if it is GPL v3.
 - You can sell an optional license. That is a variation of asking for a contribution.
 - The customer can purchase development of additions they need. Those are then added to the normal plugin for everyone to use (GPL v3 you know)
 
-# Github
-Github is a popular repository with a lot of different software projects. You can place your plugin here and let anyone download it.  
-Github can host projects that are managed with the version system Git.  
+# GitHub
+GitHub is a popular repository with a lot of different software projects. You can place your plugin here and let anyone download it.  
+GitHub can host projects that are managed with the version system Git.  
 
 # Bitbucket
 Bitbucket is a popular repository with a lot of different software projects. You can place your plugin here and let anyone download it.  

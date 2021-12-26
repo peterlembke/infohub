@@ -14,7 +14,7 @@ Virtual box is the virtualization engine that will run Ubuntu.
 Get the installation file [here](https://www.virtualbox.org/wiki/Downloads). 
 
 ## Install Vagrant
-Vagrant can be installed on Linux, MacOS and Windows.
+Vagrant can be installed on Linux, macOS and Windows.
 You have the official installations [here](https://www.vagrantup.com/downloads).
 
 You also need to install the vagrant guest tools. 
@@ -24,7 +24,7 @@ vagrant plugin install vagrant-vbguest
 
 ## local hosts file
 You need to change your hosts file.
-On Linux and MacOS you start up a terminal and write:
+On Linux and macOS you start up a terminal and write:
 ```
 sudo nano /etc/hosts
 ```
@@ -35,7 +35,7 @@ You need to add
 CTRL + O, CTRL + X
 
 ## use vagrant
-In the terminal you change folder to where you have downloaded the infohub source.
+In the terminal you change folder to where you have downloaded the Infohub source.
 
 * vagrant up - sets up the vagrant box / starts the vagrant box
 * vagrant provision - run this if you have changed something in the Vagrantfile or vagrant/vagrant.sh
@@ -59,8 +59,8 @@ vagrant provision
 ```
 
 ## xdebug
-This Vagrant setup has an active xdebug installation.
-You need an xdebug plugin in your browser to activate xdebug. 
+This Vagrant set up has an active xdebug installation.
+You need a xDebug plugin in your browser to activate xdebug. 
 
 If you run PHP Storm you need to click "Start listening for debug connections". 
 
@@ -69,7 +69,7 @@ You also need to map the source paths at menu Files >> Settings >> Languages & F
 ![PHP storm + Xdebug](../folder/doc/images/phpstorm-xdebug.png) 
 
 ## The guest system
-Right now we run Ubuntu 20.04 LTS (ubuntu/focal64) and that version contain PHP 7.4
+Right now we run Ubuntu 20.04 LTS (ubuntu/focal64) and that version contains PHP 7.4
 
 See all Ubuntu boxes [here](https://app.vagrantup.com/ubuntu).
 
@@ -88,7 +88,7 @@ Start vagrant and dbeaver. Add a new connection in dbeaver.
 
 Connection settings:
 * server host = 127.0.0.1
-* port = 3306 (default for mysql)
+* port = 3306 (default for MySQL)
 * database = local_infohub_se
 * user = root
 * password = topsecret 
@@ -97,7 +97,7 @@ A little down on the left side you find menu "Network" and then tab "SSH Tunnel"
 * use ssh tunnel = true
 * host = 127.0.0.1
 * port = 2222 (default for vagrant)
-* user name = vagrant (default for vagrant)
+* username = vagrant (default for vagrant)
 * Authentication method = Public key
 * Private key = The full path you got from vagrant ssh-config
 * Passphrase = vagrant (default for vagrant)

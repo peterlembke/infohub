@@ -1,6 +1,6 @@
 # Infohub Workbench
 
-Handles the screen setup for your plugins.
+Handles the screen set up for your plugins.
 
 # Introduction
 
@@ -20,9 +20,9 @@ used.
 So startup really has nothing to do with Workbench. You will usually not use any function called "startup" in your
 plugins. You can read more about the startup procedure at: [Node Client](main,node_client)
 
-# Function setup_gui
+# Function set up_gui
 
-You can setup your graphical user interface with this function. Workbench has already prepared an area for you. You will
+You can set up your graphical user interface with this function. Workbench has already prepared an area for you. You will
 get a box_id that you can fill with whatever you like.
 
 This box_id is the one and only box_id you get. You need to create the boxes you need within this box_id. I suggest you
@@ -80,7 +80,7 @@ if ($in.step === 'step_boxes_insert')
 }
 ```
 
-Now you have some boxes to start with and you can continue creating more boxes in those.
+Now you have some boxes to start with, and you can continue creating more boxes in those.
 
 # Boxes
 
@@ -94,12 +94,12 @@ Workbench set up a lot of boxes, here is a list of them
 
 From the example above I created three boxes: first_box, second_box, third_box. The full path for the first_box is:
 main.body.{plugin_name}.first_box  
-Whe you want to reference "first_box" in you plugin you use: `_GetBoxId() + '.first_box',`  
+When you want to reference the "first_box" in your plugin you use: `_GetBoxId() + '.first_box',`.  
 To learn more about how to use the boxes I recommend reading: [Infohub_View](plugin,infohub_view)
 
 # Launcher
 
-The plugin Infohub_Launcher is auto started by Workbench. Launcher show two lists. One is is "Available plugins", that
+The plugin Infohub_Launcher is auto started by Workbench. Launcher show two lists. One is "Available plugins", that
 is a list of plugins that can be started from Workbench. The list come from the server and is the same for every
 visitor.
 

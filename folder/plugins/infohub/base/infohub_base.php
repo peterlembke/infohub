@@ -204,7 +204,7 @@ class infohub_base
 
     /**
      * Return a datetime with microseconds.
-     * Used for logging purpose where seconds is not enough.
+     * Used for logging purpose where seconds are not enough.
      * From: https://stackoverflow.com/questions/169428/php-datetime-microseconds-always-returns-0
      * @return string
      */
@@ -232,7 +232,7 @@ class infohub_base
      * @param  mixed $object
      * @return string
      */
-    protected function _Empty($object): string
+    protected function _Empty(mixed $object): string
     {
         if (empty($object) === false) {
             return 'false';
@@ -246,7 +246,7 @@ class infohub_base
      * @param  mixed $object
      * @return string
      */
-    protected function _IsSet($object): string
+    protected function _IsSet(mixed $object): string
     {
         if (isset($object) === false) {
             return 'false';
@@ -297,9 +297,9 @@ class infohub_base
      * Returns default value if any level do not exist
      * Name can be 'just_a_name' or 'some/deep/level/data'
      * @param  array  $in
-     * @return array|mixed
+     * @return mixed
      */
-    protected function _GetData(array $in = [])
+    protected function _GetData(array $in = []): mixed
     {
         $default = [
             'name' => '',
@@ -310,7 +310,6 @@ class infohub_base
         $in = $this->_Default($default, $in);
 
         $nameArray = (array) explode($in['split'], $in['name']);
-
 
         $length = count($nameArray);
         $answer = $in['data'];
@@ -493,7 +492,7 @@ class infohub_base
 
     /**
      * Execute one private function in this class
-     * Used by: Infohub Exchange or if you use the class outside of InfoHub.
+     * Used by: Infohub Exchange or if you use the class outside InfoHub.
      * Will only call function names that DO NOT start with internal_ or _
      * Will ONLY reveal
      * @param array $in
@@ -670,7 +669,7 @@ class infohub_base
             return $out;
         };
 
-        if ($functionName === 'cmd' or $functionName[0] === '_' or substr($functionName, 0, 9) === 'internal_') {
+        if ($functionName === 'cmd' or $functionName[0] === '_' or str_starts_with($functionName, 'internal_')) {
             $message = 'function name: ' . $functionName . ', are not allowed to be called';
             $callResponse['message'] = $message;
             goto leave;
@@ -826,13 +825,13 @@ class infohub_base
         if ($includeAll === 'false') {
             $classMethods = [];
             foreach ($allClassMethods as $method) {
-                if (substr($method, 0, strlen('internal_')) === 'internal_') {
+                if (str_starts_with($method, 'internal_')) {
                     if ($in['include_internal_functions'] === 'true') {
                         $classMethods[] = $method;
                     }
                     continue;
                 }
-                if (substr($method, 0, strlen('_')) === '_') {
+                if (str_starts_with($method, '_')) {
                     if ($in['include_direct_functions'] === 'true') {
                         $classMethods[] = $method;
                     }
@@ -1103,7 +1102,7 @@ class infohub_base
             'wait' => 10.0,
             // Seconds you can wait before this message really need to be sent.
             'track' => 'false',
-            // 'true' lets Cmd add an array of where this message have been.
+            // 'true' lets Cmd add an array of where this message has been.
             'original_message' => []
             // Original message that came into cmd().
         ];

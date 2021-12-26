@@ -6,8 +6,8 @@ Stores data in your web browser
 
 <a href="https://github.com/jakearchibald/idb-keyval" target="_blank">IDB Keyval</a> is a wrapper library around
 IndexedDb that gives you a key-value database that the Storage can use.  
-The library helps reducing the complexity in the plugin. This library is the default storage solution in the browser.  
-I normally never include libraries, but IndexedDb is such a sad piece that it really need to be hidden away.
+The library helps to reduce the complexity in the plugin. This library is the default storage solution in the browser.  
+I normally never include libraries, but IndexedDb is such a sad piece that it really needs to be hidden away.
 The <a href="https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa" target="_blank">
 large number of wrappers</a> around IndexedDb that you can find on the internet show that IndexedDb is not good enough
 to be used in normal code.  
@@ -23,13 +23,13 @@ More info here: <a href="https://cdn.jsdelivr.net/npm/idb-keyval@3/dist/idb-keyv
 in jsdeliver</a>  
 More info here: <a href="https://www.npmjs.com/package/idb-keyval" target="_blank">IDB Keyval in NPM</a>
 
-# Setup
+# Set up
 
-Nothing to setup. IndexedDb are already in your supported browser and IDB Keyval will use it.
+Nothing to set up. IndexedDb are already in your supported browser and IDB Keyval will use it.
 
 # IDB Keyval features
 
-IDB Keyval is a key-value database but it is possible to get all the keys. You can match several keys with a pattern *
+IDB Keyval is a key-value database, but it is possible to get all the keys. You can match several keys with a pattern *
 .  
 IDB Keyval is a wrapper for IndexedDb and can therefore never be fast. It is still good since it hides away the awful
 IndexedDb.

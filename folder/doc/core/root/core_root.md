@@ -1,16 +1,15 @@
 # Root path
-InfoHub Core are the bare bone setup needed to run InfoHub on the web server and in the browser.
+InfoHub Core are the bare-bone set up needed to run InfoHub on the web server and in the browser.
   
 # Introduction
 You can download a core for your favourite programming language, copy a plugin template and fill it with code.  
-You do not have to learn a new language. You can work together with other programmers and they bring their languages to the project.  
+You do not have to learn a new language. You can work together with other programmers, and they bring their languages to the project.  
 The core handle all traffic between plugins and nodes (cores) in a loosely coupled manner.  
 
 # Cores
-I have developed a core for PHP ([core-php](main,core_php)), it is in the first release  
-and I have created one for JavaScript (core-js), it will be in a later release. It runs in the web browser and you can create offline applications.  
+I have developed a core for PHP ([core-php](main,core_php)), it is in the first release, and I have created one for JavaScript (core-js), it will be in a later release. It runs in the web browser, and you can create offline applications.  
 I would like to see cores for other programming languages and systems. I am fond of solutions that can run on several systems, like PHP, Javascript in the browser, Ruby, Python, Java.  
-A core in ANSI-C that can be compiled to different systems would also be practical. Or a Swift core. Swift exist for Linux and MacOS.  
+A core in ANSI-C that can be compiled to different systems would also be practical. Or a Swift core. Swift exist for Linux and macOS.  
 
 # Root files in public_html
 The files you can find in the InfoHub root folder public_html.  
@@ -23,12 +22,12 @@ The files you can find in the InfoHub root folder public_html.
 public_html is the web root folder. It can have any name to suite your web hosting company.  
 
 # Core plugins
-The plugins that build up the bare bone core  
+The plugins that build up the bare-bone core  
 
 - [Base](plugin,infohub_base) - Base class are inherited by all plugins
 - [Exchange](plugin,infohub_exchange) - Message queuing. This is the main plugin that keeps track of the other plugins.
-- [Transfer](plugin,infohub_transfer) - Client communicate with the server, Server communicate with Client and other servers.
-- [Plugin](plugin,infohub_plugin) - Handles request to start a plugin. It find the plugin and starts it.
+- [Transfer](plugin,infohub_transfer) - Client communicate with the server, The server communicate with Client and other servers.
+- [Plugin](plugin,infohub_plugin) - Handles request to start a plugin. It finds the plugin and starts it.
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

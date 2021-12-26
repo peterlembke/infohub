@@ -14,7 +14,7 @@ Mi nombre es Peter Lembke. Quiero que mis datos privados estén disponibles en t
 
 # Dónde
 
-Usted o un amigo de su confianza descargan Infohub y lo instalan en un servidor web o servidor web privado o público. Luego, cree archivos de inicio de sesión para los amigos con los que desea compartir el servidor y entrégueles los archivos manualmente. Los amigos pueden iniciar sesión y utilizar los complementos que les permita su función. Todo el código fuente está disponible en Github y es de código abierto, que puede revisar antes de usarlo.
+Usted o un amigo de su confianza descargan Infohub y lo instalan en un servidor web o servidor web privado o público. Luego, cree archivos de inicio de sesión para los amigos con los que desea compartir el servidor y entrégueles los archivos manualmente. Los amigos pueden iniciar sesión y utilizar los complementos que les permita su función. Todo el código fuente está disponible en GitHub y es de código abierto, que puede revisar antes de usarlo.
 
 # Cosas que faltan en Infohub
 

@@ -1,15 +1,15 @@
 # [1.2.14] - 2020-05-16
-Focused on the communication with messages_encoded, login procedure, rights, prepared security group tags, localization to swedish, english, spanish. Regressions fixed. Communication Packages from server are now formatted the same way as the client packages and the sign_code are verified.
+Focused on the communication with messages_encoded, log in procedure, rights, prepared security group tags, localization to swedish, english, spanish. Regressions fixed. Communication Packages from server are now formatted the same way as the client packages and the sign_code are verified.
 
 * [Release notes](main,release_v1_v1v2_v1v2v14)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.14)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.14)
 
 ## Added
 - HUB-702, Client. Set button OK/FAIL icon
 - HUB-703, Client: Login, "Select file": If json is already imported then have an OK icon
 - HUB-701, Client. Config. Settings. Add icons
 - HUB-695, Client. Contact. Menu add icons
-- HUB-656, Client: Contact, new option to set allowed client GUI plugins for a user. Had to change infohub_contant, infohub_file
+- HUB-656, Client: Contact, new option to set allowed client GUI plugins for a user. Had to change infohub_contact, infohub_file
 - HUB-623, Server: launcher, get_full_list - Now only give plugins you have rights to
 - HUB-623a, Server, Client: Contact, Added support for client_plugin_names
 - HUB-623b, Server, Client: Login, Added support for client_plugin_names

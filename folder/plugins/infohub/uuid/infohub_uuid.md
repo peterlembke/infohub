@@ -4,7 +4,7 @@ Universal Unique Identifier. You can get UUID0, UUID4 and the new infohub_uuid
 
 # Introduction
 
-An UUID is a string that is fairly unique. You can use it to identify a message, as a database key etc  
+A UUID is a string that is fairly unique. You can use it to identify a message, as a database key etc.  
 If you would ask a central server for a truly unique string, then it would take time and the application would be
 dependent on the service to always work. UUID is a way to fairly say that the UUID you create is likely to be unique.
 
@@ -22,14 +22,14 @@ Version 1,2,3,5 of the UUID standard also produce the same format but base their
 name. I have not implemented those versions because I do not want to reveal the MAC number or anything that can trace
 the UUID.
 
-# infohub uuid (default)
+# Infohub UUID (default)
 
-THe UUID4 is a totally random number. This means that an infinite number of UUIDs will eventually produce an UUID that
+THe UUID4 is a totally random number. This means that an infinite number of UUIDs will eventually produce a UUID that
 is already in use. I do not like that.  
 I have created my own UUID. I want the UUID to be time+random so that old UUIDs are safe from new UUIDs. Another goal
 with the time is to see what UUID was created first. And a third criteria is that the UUID must be very simple to
 implement  
-The infohub_uuid have three parts, Seconds since EPOC, a . and then milliseconds, a colon : and then a 16 byte random
+The infohub_uuid have three parts, Seconds since EPOC, a "." and then milliseconds, a colon : and then a 16 byte random
 number.
 
 ## Milliseconds
@@ -45,7 +45,7 @@ I have removed the 0. from the javascript number, but you could very well keep i
 
 # Calling UUID
 
-When you call the main functon "uuid", you can set the version and the numbe of UUIDs you want.
+When you call the main function "uuid", you can set the version and the number of UUIDs you want.
 
 ```
 {

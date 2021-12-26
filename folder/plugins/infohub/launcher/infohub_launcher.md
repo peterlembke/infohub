@@ -9,7 +9,7 @@ that actually start the plugin.
 Launcher is a plugin with a graphical user interface that runs in Workbench. Workbench auto start this plugin.  
 You see two lists, one list with your plugins in the order you want them. And then you have a hidden list with plugins
 that you can add to your list.  
-You can click any icon and it will expand to show you a description, the icon license. If the icon is in my_list you
+You can click any icon, and it will expand to show you a description, the icon license. If the icon is in my_list you
 also see two buttons: start, remove.  
 If the icon is in the full_list then you se one button: add to my_list.  
 my_list are saved locally.  
@@ -20,20 +20,20 @@ full_list come from the server. It is also stored locally for speed.
 Used by Workbench. Standard function that exist on all plugins that should show up in Workbench. Calls client->
 infohub_asset->get_launch_information and returns the answer
 
-# Setup the GUI
+# Set up the GUI
 
-When Workbench have set up the basic boxes needed it will call this plugin and function: setup_gui.  
-We change mode on the plugin box we got from Workbench so it can contain boxes that display under each other. Three
+When Workbench have set up the basic boxes needed it will call this plugin and function: set up_gui.  
+We change mode on the plugin box we got from Workbench, so it can contain boxes that display under each other. Three
 boxes are inserted in the box, under each other: switch_button, lists, information.  
 switch_button - render a rendermajor with a form button that send a message to infohub_launcher->switch_button  
 lists - Insert two boxes: my_list, full_list. Both get a rendermajor with no data in it. full_list are then hidden.  
 Both lists are then rendered with infohub_launcher->render_list.  
-Finally the instructions box get a rendermajor with instructions.
+The instructions box get a rendermajor with instructions.
 
 # switch_button
 
 Switch between the two lists with icons  
-The visibility on full_list are switched between visible/invidible. Same with local_list.
+The visibility on full_list are switched between visible/invisible. Same with local_list.
 
 # render_list
 
@@ -48,14 +48,14 @@ Call update_local_list and call render_list in a multi message.
 
 # get_list
 
-Give the list name and you will get the full_list or my_list.  
+Give the list name, and you will get the full_list or my_list.  
 Used by any plugin that would like to read the lists.  
-If you would try to read the Storage directly from your plugin you would will get:
+If you tried to read the Storage directly from your plugin you would get:
 "I only accept paths that start with the calling plugin name"
 
 # update_full_list
 
-Update the local copy of the full_list. The full_list lists all plugins that can be started from Launcher.  
+Update the local copy of the full_list. The `full_list` lists all plugins that can be started from Launcher.  
 If you already have a full_list then it is used regardless of how old it is. An update will be done in the background.
 If you do not have a full_list then we wait for the updated list and then render it.
 
@@ -144,11 +144,11 @@ Check "do" and see what to do with the list
 
 # my_list_add
 
-Adds the plugin to my_list. The my_list are saved in Storage.
+Adds the plugin to my_list. The `my_list` are saved in Storage.
 
 # my_list_remove
 
-Removes a plugin from my_list. The my_list are saved in Storage.
+Removes a plugin from my_list. The `my_list` are saved in Storage.
 
 # plugin_information
 

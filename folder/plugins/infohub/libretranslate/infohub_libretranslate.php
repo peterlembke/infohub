@@ -230,7 +230,6 @@ class infohub_libretranslate extends infohub_base
 
         if ($in['step'] === 'step_convert_to_options') {
             $languageArray = $this->_JsonDecode($in['response']['response_string']);
-            $options = [];
             foreach ($languageArray as $languageItem) {
                 $item = [
                     "type" => "option",

@@ -160,17 +160,18 @@ function infohub_view() {
 
     $functions.push('_GetBoxId');
     /**
-     * Give a box_id. If the id is a number then we just return it.
+     * Give a box_id. If the id is a number, then we just return it.
      * If the box_id contain a dot then we explode the string and treat each part as an alias.
      * Example: main.body.infohub_doc.doc
      * Example: 1204.doc (Mix of id and aliases)
      * Example: 1204.parent.parent.body.doc (Use of parent as a way to get the parentNode)
      * Example: main.body.infohub_launcher.my_list.[my_list_box_content] , this will give 12011_my_list_box_content
+     *
      * @version 2017-12-04
      * @since 2013-12-01
      * @author Peter Lembke
-     * @param $in
-     * @returns {{answer: string, data: number}}
+     * @param $id
+     * @returns {string|*}
      * @private
      */
     const _GetBoxId = function($id) {
@@ -288,7 +289,7 @@ function infohub_view() {
      * Start with a box_id that you already have evaluated through _GetBoxId
      * If the id contain a dot then we explode the string and treat each part as a tag name.
      * Example: 12011_my_list_box_content.svg.circle.0
-     * In the box 12011_my_list_box_content we find the svg tag and the circle tag, that is a list and we want the first one.
+     * In the box 12011_my_list_box_content we find the svg tag and the circle tag, that is a list, and we want the first one.
      * @version 2020-03-01
      * @since 2020-03-01
      * @author Peter Lembke
@@ -561,7 +562,7 @@ function infohub_view() {
 
         if ($currentScrollY !== $newScrollY) {
             window.location.hash = '1';
-            window.pageYOffset = $currentScrollY;
+            window.scrollY = $currentScrollY;
 
             window.scroll({
                 top: $newScrollY,
@@ -569,7 +570,7 @@ function infohub_view() {
                 behavior: 'smooth',
             });
 
-            // document.location.hash = ''; // Leaves a # in the url. Instead use:
+            // document.location.hash = ''; // Leaves a # in the url. use:
             history.replaceState('', document.title, window.location.pathname + window.location.search);
         }
 
@@ -707,7 +708,7 @@ function infohub_view() {
             }
 
             if ($oldMode === 'data') {
-                // We switch from a data box and then we need an 'end' box, creating one.
+                // We switch from a data box, and then we need an 'end' box, creating one.
                 const $id = $box.id.toString();
                 const $topId = $id + '000'.substr(0, $digits);
                 const $maxId = $id + '999'.substr(0, $digits);
@@ -1245,9 +1246,9 @@ function infohub_view() {
                 if ($in.box_data !== '') {
                     let $anchor = '';
 
-                    // If this is a data box and we have data then store the data in the new box
+                    // If this is a data box, and we have data then store the data in the new box
                     if ($in.box_alias !== '') {
-                        $anchor = '<a name="' + $in.box_alias + '"></a>';
+                        $anchor = '<a id="' + $in.box_alias + '"></a>';
                     }
 
                     $in.variables.parent_box_id = $parent.id;
@@ -1500,7 +1501,7 @@ function infohub_view() {
 
     /**
      * Give you an array with all child Ids to that box_id.
-     * Including the last Id that is always the “end”-box.
+     * Including the last id that is always the “end”-box.
      * You can only get a list from boxes that have box_mode = “side” or “under”.
      * @param $in
      * @version 2021-08-08
@@ -1576,7 +1577,7 @@ function infohub_view() {
 
     /**
      * Give you an array with all child Ids to that box.
-     * Including the last Id that is always the “end”-box.
+     * Including the last id that is always the “end”-box.
      * You can only get a list from boxes that have box_mode = “side” or “under”.
      * @param $in
      * @version 2017-10-05
@@ -1598,7 +1599,7 @@ function infohub_view() {
 
     /**
      * Give you an array with all child Ids to that box_id.
-     * Including the last Id that is always the “end”-box.
+     * Including the last id that is always the “end”-box.
      * You can only get a list from boxes that have box_mode = “side” or “under”.
      * @param $in
      * @version 2014-01-05
@@ -1663,7 +1664,7 @@ function infohub_view() {
 
     /**
      * Store data in a data box.
-     * You can only save data in boxes that have box_mode=”data”.
+     * You can only save data in boxes that have box_mode="data".
      * @version 2014-01-05
      * @since 2012-07-08
      * @author Peter Lembke
@@ -1695,7 +1696,7 @@ function infohub_view() {
 
     /**
      * Save data in a box.
-     * You can only save data in boxes that have box_mode=”data”.
+     * You can only save data in boxes that have box_mode="data".
      * @version 2012-07-08
      * @since 2012-07-08
      * @author Peter Lembke
@@ -1754,7 +1755,7 @@ function infohub_view() {
             if ($box.innerHTML === '') {
                 $boxAlias = $box.getAttribute('box_alias');
                 if ($boxAlias !== '') {
-                    $anchor = '<a name="' + $boxAlias + '"></a>';
+                    $anchor = '<a id="' + $boxAlias + '"></a>';
                     $box.innerHTML = $anchor;
                 }
             }
@@ -2182,7 +2183,6 @@ function infohub_view() {
 
             $style = document.createElement('style');
             $style.id = $in.id;
-            $style.type = 'text/css';
             let $cssPlainData = atob($in.css_data);
             $style.appendChild(document.createTextNode($cssPlainData));
             let $head = document.getElementsByTagName('head')[0];
@@ -2281,7 +2281,7 @@ function infohub_view() {
     $functions.push('set_text');
     const set_text = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // id for an object
             'text': '', // Text you want to insert into the object
         };
         $in = _Default($default, $in);
@@ -2302,7 +2302,7 @@ function infohub_view() {
     $functions.push('internal_SetText');
     const internal_SetText = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // id for an object
             'text': '', // Text you want to insert into the object
         };
         $in = _Default($default, $in);
@@ -2380,7 +2380,7 @@ function infohub_view() {
     $functions.push('get_text');
     const get_text = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // id for an object
         };
         $in = _Default($default, $in);
 
@@ -2398,7 +2398,7 @@ function infohub_view() {
     $functions.push('internal_GetText');
     const internal_GetText = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -2460,7 +2460,7 @@ function infohub_view() {
     $functions.push('get_html');
     const get_html = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -2478,7 +2478,7 @@ function infohub_view() {
     $functions.push('internal_GetHtml');
     const internal_GetHtml = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
 
         $in = _Default($default, $in);
@@ -2544,7 +2544,7 @@ function infohub_view() {
 
         const $default = {
             'current_zoom_level': 0, // Use when you know the current zoom level
-            'zoom_level': 0, // Use when you want to set a pre defined zoom level
+            'zoom_level': 0, // Use when you want to set a pre-defined zoom level
             'multiplier': 0.0, // Use when you want to increase (1.1) or decrease (0.9) the current zoom level
         };
         $in = _Default($default, $in);
@@ -2640,7 +2640,7 @@ function infohub_view() {
     $functions.push('is_visible');
     const is_visible = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -2699,7 +2699,7 @@ function infohub_view() {
     $functions.push('set_attribute');
     const set_attribute = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
             'name': '',
             'value1': '',
             'value2': '',
@@ -2796,7 +2796,7 @@ function infohub_view() {
     $functions.push('get_attribute');
     const get_attribute = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
             'name_array': [] // array with attribute names
         };
         $in = _Default($default, $in);
@@ -2862,7 +2862,7 @@ function infohub_view() {
     $functions.push('set_visible');
     const set_visible = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
             'set_visible': '', // 'true', 'false', 'switch', empty string
         };
         $in = _Default($default, $in);
@@ -2967,7 +2967,7 @@ function infohub_view() {
     $functions.push('is_enabled');
     const is_enabled = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -3024,7 +3024,7 @@ function infohub_view() {
     $functions.push('set_enabled');
     const set_enabled = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
             'set_enabled': 'true', // 'true', 'false', 'switch'
         };
         $in = _Default($default, $in);
@@ -3159,7 +3159,7 @@ function infohub_view() {
     $functions.push('id_exist');
     const id_exist = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -3177,7 +3177,7 @@ function infohub_view() {
     $functions.push('internal_IdExist');
     const internal_IdExist = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
         };
         $in = _Default($default, $in);
 
@@ -3212,7 +3212,7 @@ function infohub_view() {
     $functions.push('mark_object');
     const mark_object = function($in = {}) {
         const $default = {
-            'id': '', // Id for an object
+            'id': '', // The id for an object
             'mark': 'true', // 'true', 'false', 'switch'
         };
         $in = _Default($default, $in);
@@ -4135,8 +4135,8 @@ function infohub_view() {
 
     /**
      * Show an alert message
-     * Replaces all places where window.alert are used today
-     * I can not use window.alert in web workers
+     * Replaces all places where `window.alert` are used today
+     * I can not use `window.alert` in web workers
      * @version 2020-12-01
      * @since 2020-12-01
      */

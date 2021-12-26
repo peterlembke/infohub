@@ -158,7 +158,7 @@ class infohub_login extends infohub_base
         }
 
         if ($in['step'] === 'step_verify_initiator_user_name') {
-            // Check that the user name is plausible
+            // Check that the username is plausible
             $response = $this->internal_Cmd(
                 [
                     'func' => 'VerifyHubId',
@@ -259,7 +259,6 @@ class infohub_login extends infohub_base
         }
 
         if ($in['step'] === 'step_save_login_request_data_response') {
-            $in['step'] = 'step_end';
 
             $in['data_back']['answer'] = $in['response']['answer'];
             $in['data_back']['message'] = $in['response']['message'];
@@ -444,7 +443,7 @@ class infohub_login extends infohub_base
             // Merge rotated diff and shared_secret
             $rotatedResult = $this->_MergeBase64Strings($rotatedDiff, $in['data_back']['contact']['shared_secret']);
 
-            // Do an md5 of the rotatedResult. That is the initiator_calculated_id_code
+            // Do a MD5 of the rotatedResult. That is the initiator_calculated_id_code
             $toMd5Checksum = $in['data_back']['initiator_seconds_since_epoc'] . $rotatedResult . $in['data_back']['responder_seconds_since_epoc'];
 
             $md5Checksum = md5($toMd5Checksum);
@@ -487,7 +486,7 @@ class infohub_login extends infohub_base
                     ],
                     'data' => [
                         'initiator_user_name' => $in['data_back']['initiator_user_name'], // user_{hub_id}
-                        'left_overs' => $leftOvers, // Left overs from the login. Never exposed outside this node
+                        'left_overs' => $leftOvers, // Left-overs from the login. Never exposed outside this node
                         'role_list' => $roleList
                     ],
                     'data_back' => [
@@ -752,24 +751,29 @@ class infohub_login extends infohub_base
 
     /**
      * Gives you the best random number that your version of PHP can offer
+     *
      * @param int $min
      * @param int $max
      * @return int
      */
-    protected function _Random($min = 0, $max = 0): int
+    protected function _Random(
+        int $min = 0,
+        int $max = 0
+    ): int
     {
-        $randomNumber = 0;
         try {
             if (function_exists('random_int')) { // Requires PHP 7
                 $randomNumber = random_int($min, $max);
-            } else {
-                $randomNumber = mt_rand($min, $max); // PHP 5 and later
+                return $randomNumber;
             }
+
+            $randomNumber = mt_rand($min, $max); // PHP 5 and later
+            return $randomNumber;
+
         } catch (Exception $e) {
-            $randomNumber = 0; // Not ideal
         }
 
-        return $randomNumber;
+        return $min;
     }
 
     /**

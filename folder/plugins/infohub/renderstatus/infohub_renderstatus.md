@@ -11,7 +11,7 @@ This will be used in a lot of places.
 * Traffic indicator - To see when we talk with the server
 *
 
-# infohub render status
+# Infohub render status
 
 The plugin is a level 1 renderer that need other renderers to render the smaller pieces.
 You define all statuses you want the status box to show. Then one of them can be displayed.

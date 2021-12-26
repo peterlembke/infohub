@@ -2,7 +2,7 @@
 Main focus in this release was to spice up the icons and to separate the timer from the advanced Transfer plugin. I have done that.
 
 * [Release notes](main,release_v1_v1v2_v1v2v9)
-* [Github release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.9)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.9)
 
 ## Added
 - the_go_function.js - added use_strict
@@ -17,19 +17,19 @@ Main focus in this release was to spice up the icons and to separate the timer f
 - infohub/doc - Added icons to index and navigate. Added author to icon.json
 - infohub/keyboard - Added new icon. Renamed old one.
 - infohub/launcher - A lot of new icons.
-- infohub/login - New icons used on buttons.
+- infohub/log in - New icons used on buttons.
 - infohub/translate - New icon
-- infohub/render - Added where/throw_error_if_box_is_missing = 'true'. You can set this to supress errors when a box is missing. Used in the "Help" button.
+- infohub/render - Added where/throw_error_if_box_is_missing = 'true'. You can set this to suppress errors when a box is missing. Used in the "Help" button.
 - infohub/renderform - Buttons can now have a left side static icon
 
 ## Changed
 - infohub/democall - Updated the icon.json with author
 - infohub/launcher - Improved translations.
-- infohub/login - Improved translations.
-- infohub/offline - Updated the icon meta data
+- infohub/log in - Improved translations.
+- infohub/offline - Updated the icon metadata
 - infohub/tools - New background with my tools on it
 - infohub/welcome - New background with the i. on it
-- infohub_render_common.js - Now SVG do not interfere with each others IDs.
+- infohub_render_common.js - Now SVG do not interfere with each other's IDs.
 - infohub_render_form.js - The file selector now has a proper label and is centered.
 - infohub/view - box_data got support for throw_error_if_box_is_missing.
 - infohub/view - box_data got support for box_found.

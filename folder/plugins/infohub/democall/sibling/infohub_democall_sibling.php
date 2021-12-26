@@ -68,7 +68,7 @@ class infohub_democall_sibling extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function my_test(array $in = [])
+    protected function my_test(array $in = []): array
     {
         $default = [];
         $in = $this->_Default($default, $in);
@@ -85,7 +85,7 @@ class infohub_democall_sibling extends infohub_base
      * @param array $in
      * @return array
      */
-    protected function call_child(array $in = [])
+    protected function call_child(array $in = []): array
     {
         $default = [
             'step' => 'step_start',

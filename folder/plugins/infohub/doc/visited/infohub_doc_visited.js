@@ -63,7 +63,7 @@ function infohub_doc_visited() {
     };
 
     /**
-     * Setup the Graphical User Interface for this child
+     * Set up the Graphical User Interface for this child
      * Shows a major box with a title and instructions
      * In the box there are the main menu with "General doc" and "Plugin doc"
      * @version 2019-04-14

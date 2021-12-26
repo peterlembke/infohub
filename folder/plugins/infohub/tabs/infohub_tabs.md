@@ -11,7 +11,7 @@ does.
 
 # How to use
 
-Here are examples how you can use the tabs plugin.
+Here are examples how you can use the tab's plugin.
 
 ## Initialize the tab system
 

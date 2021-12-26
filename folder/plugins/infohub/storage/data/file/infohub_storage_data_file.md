@@ -15,33 +15,33 @@ system, no installation. Most people know how to use a file system with files an
 
 # Installation
 
-__In Ubuntu and MacOS__ just make sure that PHP have read/write rights to folder/db/file  
+__In Ubuntu and macOS__ just make sure that PHP have read/write rights to folder/db/file  
 __In Windows__ If it does not work then look on the internet
 
-# Setup
+# Set up
 
-No setup. The required folders will be created if PHP have rights
+No set up. The required folders will be created if PHP have rights
 
 # How it works
 
 Each folder is a bubble. Sub folders and XML files are children. main.xml contain the data in the folder  
 When you read a folder then you get the data from main.xml, all other xml files and sub folders are listed as children.
 You also get meta information about the folder you are reading, like name.  
-When you read an XML file then you get the file meta data (size, dates, name, extension) and the contents. The file have
+When you read an XML file then you get the file metadata (size, dates, name, extension) and the contents. The file have
 no children. If you also have a binary file with the same name then that data will also be read.
 
 # You can
 
 Create a folder like 20170603-StockholmMarathon and put a main.xml in there telling about the event. Place all your
 images in this folder.  
-Create an xml file for each image and fill it with information about the image, things like title, text, who is in the
+Create an XML file for each image and fill it with information about the image, things like title, text, who is in the
 image, license information.  
 In your main.xml you can write about the event and then reference to other xml files in the same folder.
 
 # Open format
 
 There is a difference between [open file formats](en.wikipedia.org/wiki/Open_format) and file formats that are free to
-use. Please do not use free to use or closed file formats with Infohub. Instead use open file formats.  
+use. Please do not use free to use or closed file formats with Infohub. Instead, use open file formats.  
 Being open is not enough, it must also be good and have support in the major web browsers (Chromium, Firefox, Opera). A
 major web browser must exist on all major operating systems (Linux, OSX, Windows, Android, IOS)
 
@@ -64,15 +64,15 @@ formats.
 One example: If you want to store GPS tracking data then you can
 use <a href="https://en.wikipedia.org/wiki/GPS_Exchange_Format" target_="_blank">GPX</a>.  
 And as always, simplicity is king. If you view the binary file in a text editor and understand the structure then the
-file format is extra good.
+file format is perfect.
 
 # Data file types - proprietary formats
 
-Infohub will not stop you if you use proprietary formats. Proprietary formats risk to be unreadable in the future by you
+Infohub will not stop you if you use proprietary formats. Proprietary formats risk being unreadable in the future by you
 when you no longer have a license to the software that created them. Proprietary formats are also useless to people that
 do not run the specific software you used to create the file. Therefore, using open source is not enough you must also
-use an open format that can be read in many different software programs on the major operating systems.  
-Examples: Word, Excel, Powerpoint. Instead use <a href="https://en.wikipedia.org/wiki/OpenDocument" target_="_blank">
+use an open format that can be read in many software programs on the major operating systems.  
+Examples: Word, Excel, PowerPoint. Instead, use <a href="https://en.wikipedia.org/wiki/OpenDocument" target_="_blank">
 OpenDocument</a>
 
 # Binary files
@@ -80,7 +80,7 @@ OpenDocument</a>
 You can read any binary file. A binary file is for example an image, audio, video.  
 The data you get will be encoded to BASE64. Make sure your binary data are less than 16 Mb after encoding to BASE64.
 When your binary file are encoded to BASE64 then it requires another 1/3 of space. So the recommended largest binary
-file is 12Mb but you also need some bytes for the structure in the bubble, therefore 11,9Mb is maximum
+file is 12Mb, but you also need some bytes for the structure in the bubble, therefore 11,9Mb is maximum
 
 # License - contents
 
@@ -97,7 +97,7 @@ Recommended image binary files.
 
 - JPEG - lossy file format. For photographs. Closed format. Only format with a broad support in major browsers. There
   are better open formats (JPEG2000, WebP) but they are not supported in the major browsers.
-- PNG - lossless file format. For icons and graphics. Well supported in the major browsers.
+- PNG - lossless file format. For icons and graphics. Well-supported in the major browsers.
 - SVG - vector file format. For scalable graphics. Use this format instead of PNG if possible. Basic support in the
   major browsers.
 

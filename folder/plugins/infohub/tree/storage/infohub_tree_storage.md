@@ -40,7 +40,7 @@ You get an array with all plugin names that has a plugin_index.
 
 ## get_plugin_index
 
-Give a plugin_name and you get an object with paths that have been saved by the plugin.  
+Give a plugin_name, and you get an object with paths that have been saved by the plugin.  
 The plugin_index are managed by Storage. The plugin_index are used by Storage, Backup, Restore, Sync.
 
 ## The plugin index
@@ -58,13 +58,13 @@ File format for a plugin index. Path: infohub_tree/{user_id}/infohub_weight/inde
 
 ```json5
 {
-    "{hub_id}": {"server_checksum": "234123", "local_checksum": "123456", "remove":  "true"},
-    "{hub_id}": {"server_checksum": "234123", "local_checksum": "123456"}
+    "{hub_id1}": {"server_checksum": "234123", "local_checksum": "123456", "remove":  "true"},
+    "{hub_id2}": {"server_checksum": "234123", "local_checksum": "123456"}
 }
 ```
 
 If both checksums are equal it means that you have not saved any changes locally, or you have successfully synced your
-version with the server. If the checksums are different then you have stored a change locally and that need to be synced
+version with the server. If the checksums are different, then you have stored a change locally and that need to be synced
 to the server.
 
 ### Add

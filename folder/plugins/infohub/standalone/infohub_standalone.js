@@ -145,7 +145,7 @@ function infohub_standalone() {
     };
 
     /**
-     * Setup a plugin to work in StandAlone
+     * Set up a plugin to work in StandAlone
      * @version 2019-03-11
      * @since   2019-03-11
      * @author  Peter Lembke

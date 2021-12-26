@@ -121,10 +121,11 @@ function infohub_render_common() {
     };
 
     /**
-     * Gives CSS for how to display
+     * Gives CSS for how to display on screen.
      * Display = "block", "inline", "none" or leave it empty
      * You can also set display = true, that equals to "block"
      * You can also set display = false, that equals to "none"
+     *
      * @since 2017-02-20
      * @param $in
      * @returns {string}
@@ -537,6 +538,7 @@ function infohub_render_common() {
         const $default = {
             'alias': '',
             'data': '',
+            'alt_text': '',
             'class': 'image',
             'css_data': {},
         };
@@ -556,7 +558,7 @@ function infohub_render_common() {
                 'class': $in.class
             });
 
-            $html = '<img ' + $id + ' src="' + $in.data + '">';
+            $html = '<img ' + $id + ' src="' + $in.data + '" alt="' + $in.alt_text + '">';
         }
 
         let $cssData = $in.css_data;
@@ -585,7 +587,7 @@ function infohub_render_common() {
      * @since   2018-12-30
      * @author  Peter Lembke
      * @param {type} $in
-     * @returns {infohub_render_common.internal_Svg.infohub_render_commonAnonym$18}
+     * @returns {}
      */
     const internal_Svg = function($in = {}) {
         const $default = {

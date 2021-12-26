@@ -1,4 +1,4 @@
-# Infohub Checksum luhn
+# Infohub Checksum Luhn
 
 Luhn is a simple checksum formula used to validate a variety of identification numbers
 

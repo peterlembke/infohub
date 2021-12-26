@@ -7,7 +7,7 @@ See the demo [Infohub Demo Menu](plugin,infohub_demo_menu)
 # Introduction
 
 I have noticed that plugins that has a GUI often want to show a lot of different GUIs. With the menu you can have a list that then render the GUI you want to show.
-You can see the menu in action in the plugins: tree, demo, login, tools and many more.
+You can see the menu in action in the plugins: tree, demo, log in, tools and many more.
 
 The plugin infohub_rendermenu is a level 1 rendering plugin that depend on other plugins to build the smaller pieces.
 
@@ -62,7 +62,7 @@ const $defaultOption = {
 
 # How to use
 
-This is part of the infohub demo plugin how it shows its menu.
+This is part of the Infohub demo plugin how it shows its menu.
 
 ```
 return _SubCall({

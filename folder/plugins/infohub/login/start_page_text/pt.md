@@ -2,7 +2,7 @@
 
 Infohub é o seu lugar privado na web, onde apenas você pode acessar seus dados.
 
-Este site é uma demonstração. Tem um botão onde você pode baixar uma conta demo. Normalmente, um amigo de confiança instala o Infohub em um servidor privado e fornece um arquivo de login.
+Este site é uma demonstração. Tem um botão onde você pode baixar uma conta demo. Normalmente, um amigo de confiança instala o Infohub em um servidor privado e fornece um arquivo de log in.
 
 # Por quê
 
@@ -14,7 +14,7 @@ Meu nome é Peter Lembke. Eu queria acessar meus dados privados de qualquer um d
 
 # Onde
 
-Você ou um amigo de confiança baixam o núcleo do Infohub e o instalam em um servidor da web público ou privado ou em um hotel da web. Em seguida, emita manualmente contas de login para amigos confiáveis e entregue os arquivos de login manualmente a eles. Os usuários podem fazer o login e usar os plug-ins. O código-fonte é open source, então você pode revisá-lo antes de usar.
+Você ou um amigo de confiança baixam o núcleo do Infohub e o instalam em um servidor da web público ou privado ou em um hotel da web. Em seguida, emita manualmente contas de log in para amigos confiáveis e entregue os arquivos de log in manualmente a eles. Os usuários podem fazer o log in e usar os plug-ins. O código-fonte é open source, então você pode revisá-lo antes de usar.
 
 # Partes faltando
 

@@ -26,7 +26,7 @@ max_group_number = numbers of groups to include in the password.
 ```
 
 Default max_group_number = 4 (0-4) Some sites do not allow spaces, then set max_group_number = 3 Some sites do not allow
-special chacaters, then set max_group_number = 2
+special characters, then set max_group_number = 2
 
 # Random numbers
 

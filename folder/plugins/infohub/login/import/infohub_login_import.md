@@ -1,19 +1,19 @@
 # Infohub_Login_Import
 
-Here you can import the file you got from the server owner. The file will allow you to login to the server. The file also tell you what rights you have on the server.
+Here you can import the file you got from the server owner. The file will allow you to log in to the server. The file also tell you what rights you have on the server.
 
 The file might contain your private_secret as a convenience when logging in.
 
 ## Select file
 
 The GUI only has one button "Select file". Press it and you see a file selector. Now select the JSON file you got. If
-the import was successful then you will see your contact informaton in "One contact".
+the import was successful then you will see your contact information in "One contact".
 
 If the import was a failure then you will get a message and the button will have a red indicator.
 
 ## Get the file
 
-See the [export](plugin,infohub_login_export) plugin for ways to transport the login file.
+See the [export](plugin,infohub_log in_export) plugin for ways to transport the log in file.
 
 # License
 

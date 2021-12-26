@@ -65,7 +65,7 @@ Calls get_asset_and_license for each asset
 ## get_asset_and_license
 
 Get the asset data and the asset license data for the asset you mention.  
-The plugin name is the callers plugin name. Infohub_asset can get assets from any plugin name.  
+The plugin name is the caller's plugin name. Infohub_asset can get assets from any plugin name.  
 Use by owner, infohub_asset
 
 # Server side
@@ -90,8 +90,7 @@ Used by client -> update_specific_assets
 
 # Folder and files
 
-In your plugin folder you create folder "asset". In that folder you put the file launcher.json. It contain information
-about the plugin
+In your plugin folder you create folder "asset". In that folder you put the file launcher.json. It contains information about the plugin
 
 ```
 {
@@ -101,9 +100,8 @@ about the plugin
 }
 ```
 
-In asset you can have sub folders like icon and image. In icon you put all svg files and their license files. You can
-have sub folders.  
-In image you put your images and license files. You can have sub folders.  
+In the asset folder you can have sub folders like `icon` and `image`. In the icon folder you put all SVG files and their license files. You can have sub folders.  
+In the image folder you put your images and license files. You can have sub folders.  
 An icon is always in SVG format. The license file has the same file name as the icon but is a json data file.  
 Example: asset/icon/video/icons8-vimeo.svg , and its license file asset/icon/video/icons8-vimeo.json
 
@@ -115,10 +113,10 @@ Example: asset/icon/video/icons8-vimeo.svg , and its license file asset/icon/vid
     "publisher_video_url": "https://www.youtube.com/channel/UCRXYx6Qg7kgH0EAqa-Gl0HA/",
     "collection_name": "flat color icons",
     "collection_url": "https://icons8.com/color-icons/",
-    "collection_note": " All the Flat Color Icons You Need. No doubt, we have social media icons like Facebook, Twitter, Youtube, and all kinds of arrows. Surely, we have basic ones like phone, home, and settings. However, if you are up for something more unorthodox, simply request it. No charge. Guaranteed.",
+    "collection_note": " All the Flat Color Icons You Need. No doubt, we have social media icons like Facebook, Twitter, YouTube, and all kinds of arrows. Surely, we have basic ones like phone, home, and settings. However, if you are up for something more unorthodox, simply request it. No charge. Guaranteed.",
     "license_name": "Use for Free, but Please Set a Link",
     "license_url": "https://icons8.com/license",
-    "license_note": "The icons, sounds, and photos are free for personal use and also free for commercial use, but we require linking to our web site. We distribute them under the license called Creative Commons Attribution-NoDerivs 3.0 Unported. Alternatively, you could buy a license that doesn't require any linking.",
+    "license_note": "The icons, sounds, and photos are free for personal use and also free for commercial use, but we require linking to our website. We distribute them under the license called Creative Commons Attribution-NoDerivs 3.0 Unported. Alternatively, you could buy a license that doesn't require any linking.",
     "file_name": "icons8-vimeo.svg",
     "creator_name": "",
     "creator_url": "",
@@ -131,7 +129,7 @@ Example: asset/icon/video/icons8-vimeo.svg , and its license file asset/icon/vid
 }
 ```
 
-You have the same setup for the images. You can use jpeg, png and any other image format.
+You have the same set up for the images. You can use JPEG, PNG and any other image format.
 
 # infohub_file
 
@@ -149,9 +147,9 @@ Not all file formats are suitable in the assets. Here is a list. Do remember tha
 need a license file.  
 The below formats work well in all supported browser.
 
-* svg - scalable vector graphics. Recommended for all icons and illustrations.
-* jpeg - old and common image format, lossy. Recommended for photos.
-* png - free and common image format for lossless images. Recommended when details are very important.
+* SVG - scalable vector graphics. Recommended for all icons and illustrations.
+* JPEG - old and common image format, lossy. Recommended for photos.
+* PNG - free and common image format for lossless images. Recommended when details are very important.
 * ogg/opus - open audio format with the best compression for all usage from low bit rate speech to high bit rate music.
   Recommended for all audio
 * ogg/vorbis - open audio format with similar compression as mp3. Use opus.
@@ -343,7 +341,7 @@ Each plugin asset index will be updated with the new data. Function update_plugi
 # update_plugin_assets_index
 
 Used by `update_specific_assets`. Will update existing plugin assets index with the new data. If the index do not exist
-it will be created. The index are stored in the local Storage.
+it will be created. The index is stored in the local Storage.
 
 See assets index below.
 
@@ -468,7 +466,7 @@ full_sync_done will be set to true by the server when the server says that we ha
 
 # Graphical user interface
 
-You can start the plugin from Workbench. You will see icons, images etc and their license information.
+You can start the plugin from Workbench. You will see icons, images etc. and their license information.
 
 Button "Refresh" will render one Major box for each plugin name that do not already have a Major box.
 
@@ -478,12 +476,12 @@ If a plugin name got a Major then a flag is set in the class global
 $loadedAsset[$in.plugin_name]['rendered'] = 'true';
 ```
 
-Title is the plugin name. Content are the svg/jpeg/png assets. Footer show license information when you click on an
+Title is the plugin name. Content are the SVG/JPEG/PNG assets. Footer show license information when you click on an
 asset.
 
 ## How it works
 
-setup_gui -> render refresh button Render GUI will render
+set up_gui -> render refresh button Render GUI will render
 
 * refresh
 * plugin_list

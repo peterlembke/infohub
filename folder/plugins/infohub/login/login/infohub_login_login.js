@@ -287,7 +287,7 @@ function infohub_login_login() {
     };
 
     /**
-     * You clicked the button to login to the server
+     * You clicked the button to log in to the server
      * @version 2019-09-03
      * @since 2019-09-03
      * @author Peter Lembke
@@ -565,7 +565,7 @@ function infohub_login_login() {
             const $rotatedResult = _MergeBase64Strings($rotatedDiff,
                 $in.data_back.contact.shared_secret);
 
-            // Do an md5 of the rotatedResult. That is the initiator_calculated_id_code
+            // Do a MD5 of the rotatedResult. That is the initiator_calculated_id_code
             const $toMd5Checksum = $in.data_back.initiator_seconds_since_epoc +
                 $rotatedResult + $in.data_back.responder_seconds_since_epoc;
 
@@ -720,7 +720,7 @@ function infohub_login_login() {
                     'initiator_user_name': $in.data_back.initiator_user_name,
                     'session_id': $in.data_back.session_id, //session_{hub_id}
                     'session_created_at': $in.data_back.session_created_at, // micro time with 3 decimals
-                    'left_overs': $in.data_back.left_overs, // Left overs from the login. Never exposed outside this plugin
+                    'left_overs': $in.data_back.left_overs, // Left-overs from the login. Never exposed outside this plugin
                     'role_list': $roleList,
                 },
                 'data_back': {
@@ -1039,7 +1039,7 @@ function infohub_login_login() {
     };
 
     /**
-     * You clicked the button to import contact data on the stand alone version
+     * You clicked the button to import contact data on the stand-alone version
      * @version 2019-09-03
      * @since 2019-09-03
      * @author Peter Lembke

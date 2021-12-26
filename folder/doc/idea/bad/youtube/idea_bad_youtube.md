@@ -1,14 +1,14 @@
-# Youtube
-It is easy to embed Youtube videos. Just paste an iframe embed link and you are done.
-If we want a more secure way we can activate the iframe sand box.
+# YouTube
+It is easy to embed YouTube videos. Just paste an iframe embed link, and you are done.
+If we want a more secure way we can activate the iframe sandbox.
 
 && embed
 
 ## Comment 1
-Youtube have trackers in the iframes. There is no way to prevent the trackers, not even with sandbox. 
-Embedding Youtube videos have worked but I have commented the code out due to privacy and license issues.
+YouTube have trackers in the iframes. There is no way to prevent the trackers, not even with sandbox. 
+Embedding YouTube videos have worked, but I have commented the code out due to privacy and license issues.
 
-There will be no Youtube API interface in Infohub.
+There will be no YouTube API interface in Infohub.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

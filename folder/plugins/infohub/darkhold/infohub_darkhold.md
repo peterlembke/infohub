@@ -27,7 +27,7 @@ Implement in infohub_base -> cmd()
 * Add message_hub_id and parent_hub_id on all short tail messages
 * Register them in a class variable -> parent_hub_id -> message_hub_id -> 
   * ['waiting_for' => [], 'got' => [], 'step' => '', 'callback_function' => object ]
-* Register the parent callback_function so we can call it later
+* Register the parent callback_function, so we can call it later
 * When a message comes we check for 'parent_hub_id' and 'message_hub_id',
   * If they exist in 'waiting_for' then remove them and register the 'response' in 'got'
   * If 'waiting_for' now is empty then construct a message with the data from 'got' and send it into the function

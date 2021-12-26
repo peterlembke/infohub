@@ -46,7 +46,7 @@ function infohub_login_forget() {
     let $classTranslations = {};
 
     /**
-     * These fields is what a contact need
+     * These fields are what a contact need
      * @version 2019-09-04
      * @since 2019-09-04
      * @author Peter Lembke

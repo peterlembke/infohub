@@ -1,4 +1,4 @@
-# Infohub Storage Data Pgsql
+# Infohub Storage Data PgSQL
 
 Stores data in a PostgreSQL server
 
@@ -10,26 +10,26 @@ PostgreSQL is a server, manages many concurrent connections and heavy load, open
 
 # Installation
 
-You can install PostgreSQL on many different platforms like: Linux, MacOS, Windows.  
-PostgreSQL manage many <a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides" target="_blank">
+You can install PostgreSQL on many platforms like: Linux, macOS, Windows.  
+PostgreSQL manages many <a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides" target="_blank">
 Installation guides</a>  
 Once you have a working PgSQL then install support in PHP. In Ubuntu: sudo apt-get install php-pgsql  
-__Docker__ You can run PostgreSQL from a docker container. Read more
+__Docker__ You can run PostgreSQL from a Docker container. Read more
 here <a href="https://hub.docker.com/_/postgres/" target="_blank">Docker PostgreSQL</a>. You can start several
 containers on the same computer. Each have its own port.
 
-# Setup
+# Set up
 
 You have to set up a user that InfoHub will use to access the database(s)  
 Instructions in Swedish: <a href="https://www.charzam.com/2017/08/11/postgresql-for-ubuntu/" target="_blank">PostgreSQL
 för Ubuntu</a>.  
 Instructions in Swedish: <a href="https://www.charzam.com/2016/06/25/postgresql/" target="_blank">PostgreSQL för
-MacOS</a>.
+macOS</a>.
 
 # Manage the database
 
 For PostgreSQL I can tip you of one solid option:  
-<a href="https://dbeaver.jkiss.org/" target="_blank">Dbeaver</a> for MacOS, Linux, Windows is open source (Apache) and
+<a href="https://dbeaver.jkiss.org/" target="_blank">Dbeaver</a> for macOS, Linux, Windows is open source (Apache) and
 support many database engines.  
 Look at the PostgreSQL home page for more options or search the web.
 
