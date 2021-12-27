@@ -1,7 +1,7 @@
 # Install Infohub
 If you have fulfilled all requirements then it is time to install Infohub.
 
-If you use the vagrant set up then you are done here. Surf to `http://vagrant.infohub.local`
+If you use the Vagrant set up then you are done here. Surf to `http://vagrant.infohub.local`
 
 The below instructions cover installation on web hotel or own server.
 

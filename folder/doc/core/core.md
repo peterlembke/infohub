@@ -11,6 +11,29 @@ I have developed a core for PHP [core-php](main,core_php), it is in the first re
 I would like to see cores for other programming languages and systems. I am fond of solutions that can run on several systems, like PHP, Javascript, Ruby, Python, Java.  
 A core in ANSI-C that can be compiled to different systems would also be practical. Or a Swift core. Swift exist for Linux and macOS. Kotlin is also interesting.  
 
+## Other Cores - ["There is another system"](https://en.wikipedia.org/wiki/Colossus:_The_Forbin_Project)
+The Infohub Core can be implemented in any language.
+The PHP/JS cores are template implementations how the systems work. If you implement an Infohub core in another language you might have to modify the systems to suite that platform. The important thing is that as a developer you can recognize the inner workings of the system when you jump between implementations.
+
+The core concepts are:
+
+* Level 1
+    * Communication between nodes in the Infohub format
+    * Kick out tests
+* Level 2
+    * Message queues system
+    * Plugin system
+* Level 3 - Pick what you need
+    * Login and sessions
+    * Storage system
+    * Rendering system for Graphical User Interface
+
+You could have a static software that implement Level 1 so other Infohub cores can communicate with it.
+You could implement Level 2 so other developers more easily can get started with the core and write plugins.
+You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and log in & sessions but do not need a GUI.
+A Python Core that aim to be a desktop solution might implement all levels.
+A Node Core that aim to be a service only need Level 1 and perhaps Level 2.
+
 # Root files
 The files you can find in the InfoHub root folder.  
 - [.htaccess](main,core_root_htaccess) - Restricts browser access

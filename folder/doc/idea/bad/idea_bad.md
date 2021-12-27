@@ -13,7 +13,7 @@ It is sometimes hard to detect these ideas. Here is a guide how to think about t
 * Infohub is NOT about being anonymous on the internet.
 * Infohub is NOT about making it easier to use other services that handle personal data.
 
-## Example areas
+## Example areas with bad ideas
 
 ### Using web services
 Totally fine if the server use a web service to get public data. For example weather data. Calendar data. EU open APIs.

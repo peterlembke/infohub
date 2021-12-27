@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
-# [1.3.3] - 2021-12-24
+# [1.3.4] - 2021-12-26
+
+* [Release notes](main,release_v1_v1v3_v1v3v4)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.4)
+
+Updated documentation and articles. Added new screenshots.
+
+# [1.3.3] - 2021-12-26
 
 * [Release notes](main,release_v1_v1v3_v1v3v3)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.3)

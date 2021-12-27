@@ -18,7 +18,18 @@ Note that on Android you have Chrome. All other browsers on Android is based on 
 Browsers like Chrome, Opera, Brave and Edge are based on Chromium so those browsers are likely to work.
 
 You can read more about [browser engines here](https://en.wikipedia.org/wiki/Comparison_of_browser_engines).
-  
+
+## Web browser add-ons supported
+Some web pages just stop working when you use security software. Infohub is built with security software turned on:
+
+* DuckDuckGo Privacy Essentials
+* Privacy Badger
+* Mullvad Privacy Companion
+* HTTPS Everywhere
+* uBlock Origin
+* Cookie AutoDelete
+
+This is possible because Infohub do not depend on 3rd party services on the client. All data goes only to the server. 
   
 ## Web servers supported
 Web servers that InfoHub (PHP) aim to run on. Latest or most used version of:  
@@ -40,4 +51,4 @@ I have tested with 4" screens (iPhone), iPad, Android 10" pads. In portrait mode
 HD screen 1920*1080 up to UHD screens (Linux) and it scales good.
 
 Created 2020-07-22 by Peter Lembke  
-Changed 2021-08-28 by Peter Lembke  
+Changed 2021-12-26 by Peter Lembke  
