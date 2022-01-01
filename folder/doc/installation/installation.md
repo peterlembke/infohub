@@ -2,11 +2,16 @@
 How to install Infohub on your server
 
 # requirements
-InfoHub require a web server that run a [supported PHP](https://www.php.net/supported-versions.php) and the [latest version](https://browsehappy.com/) of a modern web browser.
-
-If you use log in then you need a supported database server like MariaDb / MySQL / SQlite3 / Redis / PostgreSQL. 
+See [Requirements](requirements/installation_requirements.md)
 
 # Installation
+
+| System      | Docker | Vagrant | MAMP | XAMP | Native |
+|-------------|:------:|:-------:|:----:|:----:|:------:|
+| macOS Intel |   X    |    X    |  X   |  -   |   X    |
+| macOS M1    |   X    |    -    |  X   |  -   |   X    |
+| Windows     |   X    |    X    |  X   |  X   |   X    |
+| Ubuntu      |   X    |    X    |  -   |  -   |   X    |
 
 ## Install a LAMP server
 You find a [guide here for Ubuntu 20.04](https://websiteforstudents.com/how-to-install-the-lamp-stack-on-ubuntu-20-04-18-04/). The guide also works well on Raspberry Pi running Ubuntu. Do not install extra PPAs, just jump to install PHP 7.4.

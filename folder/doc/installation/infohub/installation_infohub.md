@@ -21,11 +21,11 @@ You also need to configure a main database in file folder/config/infohub_storage
 If you have one domain name then the default setting will make sure you will see the log-in page and then the Workbench. If you want something else or have many domains then copy infohub_exchange.json from the config-examples to config. Create folder/config if it does not exist.
 
 ## First log in account
-Copy infohub_contact.json to the folder/config and modify it to have your domain address.
+Copy `infohub_contact.json` to the folder `folder/config` and modify it to have your domain address.
 
 You can now try to surf to your domain.
 
-Use the log-in account in folder/config-examples/infohub_log in/local.infohub.se.json
+Use the log-in account in `folder/config-examples/infohub_log in/local.infohub.se.json`  
 You need to modify the domain address.
 
 If everything goes to plan you will then see the log-in page. Select the log-in account file and log in. And you will then see the Workbench.

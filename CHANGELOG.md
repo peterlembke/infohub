@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.5] - 2022-01-01
+
+* [Release notes](main,release_v1_v1v3_v1v3v5)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.5)
+
+Updated documentation about installation of Infohub. Investigated Composer. 
+
 # [1.3.4] - 2021-12-26
 
 * [Release notes](main,release_v1_v1v3_v1v3v4)
