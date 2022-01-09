@@ -80,61 +80,58 @@ const _Default = function($default = {}, $in = {}) {
         $callbackFunction = $in.callback_function;
     }
 
-    let $answer = _ByVal($in);
+    let Constructor = $default.constructor,
+        $answer = new Constructor();
 
     // Set all missing keys from the default object
-    for (let $key in $default) {
+    for (let $key in $default)
+    {
         if ($default.hasOwnProperty($key) === false) {
             continue;
         }
-        if (typeof $answer[$key] === 'undefined') {
-            $answer[$key] = $default[$key];
-        }
-    }
 
-    // Delete keys that are not in the default object
-    // If wrong data type then copy the data key value from default
-    for (let $key in $answer) {
-        if ($answer.hasOwnProperty($key) === false) {
-            continue;
-        }
-
-        const $defaultKeyType = typeof ($default[$key]);
-        if ($defaultKeyType === 'undefined') {
-            delete $answer[$key];
-            continue;
-        }
-        if ($default[$key] === null && $answer[$key] === null) {
+        if ($default[$key] === null && $in[$key] === null) { // No one want to set a value, you get a string
             $answer[$key] = '';
             continue;
         }
 
-        const $answerKeyType = typeof ($answer[$key]);
-        if ($answerKeyType !== $defaultKeyType) {
-            if ($default[$key] === null) {
-                continue;
-            }
-            $answer[$key] = $default[$key];
-            if ($default[$key] !== null) {
-                internal_Log({
-                    'level': 'error',
-                    'message': 'key:"' + $key + '", have wrong data type: ' +
-                        $answerKeyType + ', expected data type: ' +
-                        $defaultKeyType,
-                    'function_name': '_Default',
-                    'get_backtrace': 'true',
-                    'object': {'in': $in, 'default': $default},
-                });
-            }
+        if ($default[$key] === null) { // Default accept whatever value you have
+            $answer[$key] = $in[$key];
             continue;
         }
+
+        const $inKeyType = typeof ($in[$key]);
+        if ($inKeyType === 'undefined') { // No value in required property, you get the default value
+            $answer[$key] = $default[$key];
+            continue;
+        }
+
+        const $defaultKeyType = typeof ($default[$key]);
+        if ($defaultKeyType !== $inKeyType) { // Different data types. You get the default value
+            $answer[$key] = $default[$key];
+            internal_Log({
+                'level': 'error',
+                'message': 'key:"' + $key + '", have wrong data type: ' +
+                    $inKeyType + ', expected data type: ' +
+                    $defaultKeyType,
+                'function_name': '_Default',
+                'get_backtrace': 'true',
+                'object': {'in': $in, 'default': $default},
+            });
+            continue;
+        }
+
+        $answer[$key] = $in[$key];
+
         if ($defaultKeyType !== 'object') {
             continue;
         }
-        if (_Count($default[$key]) === 0) {
+
+        if (_Count($default[$key]) === 0) { // We do not investigate in depth
             continue;
         }
-        $answer[$key] = _Default($default[$key], $answer[$key]);
+
+        $answer[$key] = _Default($default[$key], $in[$key]);
     }
 
     if (typeof $callbackFunction === 'function') {
@@ -276,7 +273,6 @@ const _ByVal = function($object = {}) {
     if (!($object instanceof Object)) {
         return {};
     }
-
     return _MiniClone($object); // _MiniClone is better/quicker than _Clone and JSON.parse
 };
 
@@ -296,20 +292,20 @@ const _MiniClone = function($objectToBeCloned = {}) {
     }
 
     let Constructor = $objectToBeCloned.constructor,
-        objectClone = new Constructor();
+        $objectClone = new Constructor();
 
     for (let $property in $objectToBeCloned) {
         if ($objectToBeCloned.hasOwnProperty($property) === false) {
             continue;
         }
         if (typeof $objectToBeCloned[$property] !== 'object') {
-            objectClone[$property] = $objectToBeCloned[$property];
+            $objectClone[$property] = $objectToBeCloned[$property];
             continue;
         }
-        objectClone[$property] = _MiniClone($objectToBeCloned[$property]);
+        $objectClone[$property] = _MiniClone($objectToBeCloned[$property]);
     }
 
-    return objectClone;
+    return $objectClone;
 };
 
 /**
@@ -483,7 +479,7 @@ const _GetData = function($in = {}) {
 
     const $nameArray = $in.name.split($in.split);
     const $nameCount = $nameArray.length;
-    let $answer = _ByVal($in.data);
+    let $answer = $in.data;
 
     for (let $nameIndex = 0; $nameIndex < $nameCount; $nameIndex++) {
         if (typeof $answer[$nameArray[$nameIndex]] !== 'undefined') {
@@ -492,16 +488,6 @@ const _GetData = function($in = {}) {
             return $in.default;
         }
     }
-
-    /* @todo Why have I left this? I have that on server infohub_base.php
-    if (_GetDataType($answer) !== _GetDataType($in.default)) {
-        $answer = $in['default'];
-    }
-
-    if (_GetDataType($answer) === 'object') {
-        $answer = _Default($in.default, $answer);
-    }
-    */
 
     return $answer;
 };
@@ -518,10 +504,13 @@ $functions.push('_UcWords');
 const _UcWords = function($string = '') {
     $string = $string.replace(/_/g, ' ');
 
-    $string = ($string + '').replace(
-        /^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
-            return $1.toUpperCase();
-        });
+    const $pattern = /^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g;
+
+    const $replacer = function($1) {
+        return $1.toUpperCase();
+    };
+
+    $string = ($string + '').replace($pattern, $replacer);
 
     $string = $string.replace(/ /g, '');
 
@@ -1004,10 +993,9 @@ this.cmd = function($in = {}) {
     });
 
     const callbackFunction = function($callResponse) {
-        if (typeof $callResponse !== 'object') {
-            $message = 'Function: ' + $functionName +
-                ' did not return an object as it should. (' +
-                typeof ($callResponse) + ')';
+        const $callResponseType = typeof $callResponse;
+        if ($callResponseType !== 'object') {
+            $message = 'Function: ' + $functionName + ' did not return an object as it should. (' + $callResponseType + ')';
             $callResponse = {};
         }
 
@@ -1017,11 +1005,9 @@ this.cmd = function($in = {}) {
             'object': $callResponse,
         });
 
-        $callResponse = _Merge({'func': 'ReturnCall'}, $callResponse);
-
         $out.execution_time = _MicroTime() - $startTime;
-        $callResponse = _Merge({'execution_time': $out.execution_time},
-            $callResponse);
+        $callResponse.func = $callResponse.func ?? 'ReturnCall';
+        $callResponse.execution_time = $callResponse.execution_time ?? $out.execution_time;
 
         if ($callResponse.func === 'SubCall') {
             $subCall = _ByVal($callResponse);
@@ -1084,7 +1070,7 @@ this.cmd = function($in = {}) {
             }
         }
 
-        $out.from = _ByVal($in.to); // Add the message origin
+        $out.from = $in.to; // Add the message origin
 
         const $iWantAShortTail = _GetData({
             'name': 'data/i_want_a_short_tail',
@@ -1119,10 +1105,8 @@ this.cmd = function($in = {}) {
 
     leave:
     {
-        if ($functionName === 'cmd' || $functionName.indexOf('internal_') ===
-            0 || $functionName.indexOf('_') === 0) {
-            $message = 'function name: ' + $functionName +
-                ', are not allowed to be called';
+        if ($functionName === 'cmd' || $functionName.indexOf('internal_') === 0 || $functionName.indexOf('_') === 0) {
+            $message = 'function name: ' + $functionName + ', are not allowed to be called';
             $callResponse.message = $message;
             internal_Log({'level': 'error', 'message': $message});
             break leave;
@@ -1140,8 +1124,7 @@ this.cmd = function($in = {}) {
         $in.data.from_plugin = $response.from_plugin;
 
         if (_MethodExists($functionName) === 'false') {
-            $message = 'function name: ' + $functionName +
-                ', does not exist or are not allowed to be called';
+            $message = 'function name: ' + $functionName + ', does not exist or are not allowed to be called';
             $callResponse.message = $message;
             internal_Log({'level': 'error', 'message': $message});
             break leave;
@@ -1158,8 +1141,7 @@ this.cmd = function($in = {}) {
             $runThisRow = '$callResponse = ' + $functionName + '($in.data)';
             eval($runThisRow);
         } catch ($err) {
-            $message = 'Can not call: ' + $functionName + ', error:' +
-                $err.message;
+            $message = 'Can not call: ' + $functionName + ', error:' + $err.message;
             $errorStack = $err.stack.split('\n');
             internal_Log({
                 'level': 'error',
@@ -1595,8 +1577,7 @@ const internal_Log = function($in = {}) {
         if (Object.getOwnPropertyNames($in.object).length > 0) {
             window.console.dir($in.object);
             if ($in.level === 'error') {
-                $toScreen = $toScreen + '<br><pre>' +
-                    JSON.stringify($in.object, null, '\t') + '</pre>';
+                $toScreen = $toScreen + '<br><pre>' + JSON.stringify($in.object, null, '\t') + '</pre>';
             }
         }
 
@@ -1677,7 +1658,7 @@ const internal_SubCall = function($in = {}) {
             'data_back': $in.data_back,
             'data_request': $in.data_request,
         };
-        $out.callstack.push(_ByVal($callStackAdd));
+        $out.callstack.push($callStackAdd);
     }
 
     return {
@@ -1719,33 +1700,31 @@ const internal_ReturnCall = function($in = {}) {
         'data_request': [],
     };
 
-    $messageFromCallStack = _Default($defaultMessageFromCallStack,
-        $messageFromCallStack);
+    $messageFromCallStack = _Default($defaultMessageFromCallStack, $messageFromCallStack);
 
     let $dataSend = {};
 
     const $length = $messageFromCallStack.data_request.length;
     if ($length > 0) {
-        for (let dataRequestIndex = 0; dataRequestIndex <
-        $length; dataRequestIndex++) {
+        for (let dataRequestIndex = 0; dataRequestIndex < $length; dataRequestIndex++) {
             const $variableName = $messageFromCallStack.data_request[dataRequestIndex];
-            if ($in.variables.hasOwnProperty($variableName)) {
-                $dataSend[$variableName] = $in.variables[$variableName];
+            if ($in.variables.hasOwnProperty($variableName) === false) {
+                continue;
             }
+            $dataSend[$variableName] = $in.variables[$variableName];
         }
     } else {
-        $dataSend = _ByVal($in.variables);
+        $dataSend = $in.variables;
     }
 
     // 'data_back' will give you the data_back untouched. Just as we also do with the 'response' below.
     // This is for being able to reduce the $default parameters to just the required ones.
-    $messageFromCallStack.data_back.data_back = _ByVal(
-        $messageFromCallStack.data_back);
+    $messageFromCallStack.data_back.data_back = _ByVal($messageFromCallStack.data_back);
 
     // 'response' are for more advanced responses that can not be handled well with the normal array_merge below.
-    // Example: Response from two subcalls where the variable name is the same but have different data type.
-    // You validate the 'response' in the step that handle the subcall response.
-    $messageFromCallStack.data_back.response = _ByVal($dataSend);
+    // Example: Response from two sub calls where the variable name is the same but have different data type.
+    // You validate the 'response' in the step that handle the sub call response.
+    $messageFromCallStack.data_back.response = $dataSend;
 
     const $out = {
         'to': $messageFromCallStack.to, // To Node

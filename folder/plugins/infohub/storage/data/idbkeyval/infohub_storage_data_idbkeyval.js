@@ -29,8 +29,9 @@ function infohub_storage_data_idbkeyval() {
     $functions.push('_Version');
     const _Version = function() {
         return {
-            'date': '2019-03-09',
-            'version': '1.0.0',
+            'date': '2022-01-09',
+            'since': '2019-03-09',
+            'version': '1.0.1',
             'class_name': 'infohub_storage_data_idbkeyval',
             'checksum': '{{checksum}}',
             'note': 'Uses the local storage engine indexedDb through the library idbkeyval to store key value',
@@ -50,7 +51,8 @@ function infohub_storage_data_idbkeyval() {
         return _GetCmdFunctionsBase($list);
     };
 
-    let $WriteCache = {};
+    let $MemoryCache = {},
+        $NotInDb = {};
 
     /**
      * You give connection credentials and a path,
@@ -60,7 +62,13 @@ function infohub_storage_data_idbkeyval() {
      */
     $functions.push('read');
     const read = function($in = {}) {
-        let $postExist;
+
+        if (!window.idbKeyval) {
+            $in.callback_function({
+                'answer': 'false',
+                'message': 'idbkeyval is not installed',
+            });
+        }
 
         const $default = {
             'connect': {
@@ -74,31 +82,49 @@ function infohub_storage_data_idbkeyval() {
         };
         $in = _Default($default, $in);
 
-        if (!window.idbKeyval) {
+        if (_Empty($MemoryCache[$in.path]) === 'false') {
+            const $value = $MemoryCache[$in.path];
+            const $data = JSON.parse($value);
+
             $in.callback_function({
-                'answer': 'false',
-                'message': 'idbkeyval is not installed',
+                'answer': 'true',
+                'message': 'Here are the data I found in the memory cache',
+                'path': $in.path,
+                'data': $data,
+                'post_exist': 'true',
             });
+            return {};
         }
 
-        idbKeyval.get($in.path).then(function(value) {
-            $postExist = 'true';
+        if (_Empty($NotInDb[$in.path]) === 'false') {
+            $in.callback_function({
+                'answer': 'false',
+                'message': 'Error: You have asked for this path before. It is not in the database',
+                'path': $in.path,
+                'data': {},
+                'post_exist': 'false',
+            });
+            return {};
+        }
 
-            if (_Empty(value) === 'true') {
+        idbKeyval.get($in.path).then(function($value) {
+            let $postExist = 'true';
+
+            if (_Empty($value) === 'true') {
                 $postExist = 'false';
-                value = '{}';
-                if (_Empty($WriteCache[$in.path]) === 'false') {
-                    value = $WriteCache[$in.path];
+                $value = '{}';
+                if (_Empty($MemoryCache[$in.path]) === 'false') {
+                    $value = $MemoryCache[$in.path];
                 }
             }
 
-            value = JSON.parse(value);
+            $value = JSON.parse($value);
 
             $in.callback_function({
                 'answer': 'true',
                 'message': 'Here are the data I found in IndexedDb',
                 'path': $in.path,
-                'data': value,
+                'data': $value,
                 'post_exist': $postExist,
             });
         }).catch(function(err) {
@@ -124,6 +150,15 @@ function infohub_storage_data_idbkeyval() {
      */
     $functions.push('write');
     const write = function($in = {}) {
+
+        if (!window.idbKeyval) {
+            $in.callback_function({
+                'answer': 'false',
+                'message': 'idbkeyval is not installed',
+            });
+            return {};
+        }
+
         const $default = {
             'connect': {
                 'plugin_name_handler': 'infohub_storage_data_idbkeyval',
@@ -137,26 +172,12 @@ function infohub_storage_data_idbkeyval() {
         };
         $in = _Default($default, $in);
 
-        if (!window.idbKeyval) {
-            $in.callback_function({
-                'answer': 'false',
-                'message': 'idbkeyval is not installed',
-            });
-            return {};
-        }
-
-        let $dataString = JSON.stringify($in.data);
-
         if (_Empty($in.data) === 'true') {
-            $dataString = '';
-        }
 
-        $WriteCache[$in.path] = $dataString;
-
-        if (_Empty($in.data) === 'true') {
+            delete $MemoryCache[$in.path];
+            $NotInDb[$in.path] = 'true';
 
             idbKeyval.del($in.path).then(function() {
-                delete $WriteCache[$in.path];
                 $in.callback_function({
                     'answer': 'true',
                     'message': 'Deleted the post in indexedDb',
@@ -165,6 +186,8 @@ function infohub_storage_data_idbkeyval() {
                     'post_exist': 'false', // Successfully deleted the post
                 });
             }).catch(function(err) {
+                delete $MemoryCache[$in.path];
+                delete $NotInDb[$in.path];
                 $in.callback_function({
                     'answer': 'false',
                     'message': 'Error' + err,
@@ -176,8 +199,11 @@ function infohub_storage_data_idbkeyval() {
 
         } else {
 
+            let $dataString = JSON.stringify($in.data);
+            $MemoryCache[$in.path] = $dataString;
+            delete $NotInDb[$in.path];
+
             idbKeyval.set($in.path, $dataString).then(function() {
-                delete $WriteCache[$in.path];
                 $in.callback_function({
                     'answer': 'true',
                     'message': 'Here are the data I wrote to indexedDb',
@@ -186,6 +212,8 @@ function infohub_storage_data_idbkeyval() {
                     'post_exist': 'true',
                 });
             }).catch(function(err) {
+                delete $MemoryCache[$in.path];
+                delete $NotInDb[$in.path];
                 $in.callback_function({
                     'answer': 'false',
                     'message': 'Error' + err,
@@ -208,13 +236,6 @@ function infohub_storage_data_idbkeyval() {
      */
     $functions.push('read_paths');
     const read_paths = function($in = {}) {
-        let $data = {};
-
-        const $default = {
-            'path': '',
-            'callback_function': null,
-        };
-        $in = _Default($default, $in);
 
         if (!window.idbKeyval) {
             $in.callback_function({
@@ -225,6 +246,14 @@ function infohub_storage_data_idbkeyval() {
             });
             return {};
         }
+
+        const $default = {
+            'path': '',
+            'callback_function': null,
+        };
+        $in = _Default($default, $in);
+
+        let $data = {};
 
         window.idbKeyval.keys().then(function(keys) {
             $in.path = $in.path.substr(0, $in.path.indexOf('*'));

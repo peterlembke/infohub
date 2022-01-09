@@ -874,8 +874,7 @@ function infohub_launcher() {
 
                     $what = $response.what;
 
-                    const $id = '[' + $listName + '_' + $item.plugin +
-                        '_container]';
+                    const $id = '[' + $listName + '_' + $item.plugin + '_container]';
                     $text = $text + $id;
                 }
             }
@@ -895,8 +894,7 @@ function infohub_launcher() {
                         'text': $text,
                     },
                     'where': {
-                        'box_id': _GetBoxId() + '.lists.' + $listName + '.[' +
-                            $listName + '_box_content]',
+                        'box_id': _GetBoxId() + '.lists.' + $listName + '.[' + $listName + '_box_content]',
                     },
                 },
                 'data_back': {

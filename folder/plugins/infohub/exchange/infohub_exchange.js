@@ -860,13 +860,8 @@ function infohub_exchange() {
      */
     $functions.push('internal_ToSort');
     const internal_ToSort = function($in = {}) {
-        const $default = {
-            'func': 'ToSort',
-            'package': {},
-        };
-        $in = _Default($default, $in);
 
-        const $package = $in.package;
+        const $package = $in.package ?? {};
 
         let $response = {
             'answer': 'true',
@@ -881,8 +876,7 @@ function infohub_exchange() {
             }
 
             // Copy all messages to array Sort if we have any
-            for (let messageNumber = 0; messageNumber <
-            $package.messages.length; messageNumber = messageNumber + 1) {
+            for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber++) {
                 if (_IsSet($package.messages[messageNumber].error_array) ===
                     'true') {
                     _BoxError($package.messages[messageNumber].error_array);
@@ -981,15 +975,11 @@ function infohub_exchange() {
      */
     $functions.push('_SortAdd');
     const _SortAdd = function($in = {}) {
-        const $default = {
-            'test': 'true',
-            'message': {},
-        };
-        $in = _Default($default, $in);
 
-        let $dataMessage = $in.message;
+        const $test = $in.test ?? 'true';
+        let $dataMessage = $in.message ?? {};
 
-        if ($in.test === 'true') {
+        if ($test === 'true') {
             $dataMessage.func = 'MessageCheck';
             const $response = internal_Cmd($dataMessage);
             if ($response.ok === 'false') {
@@ -1049,10 +1039,11 @@ function infohub_exchange() {
         };
 
         // Set default values in all callstack items
-        for (let $callstackItemNumber = 0; $callstackItemNumber <
-        $in.callstack.length; $callstackItemNumber = $callstackItemNumber + 1) {
+        for (let $callstackItemNumber = 0; $callstackItemNumber < $in.callstack.length; $callstackItemNumber++) {
             $in.callstack[$callstackItemNumber] = _Default(
-                $defaultCallstackItem, $in.callstack[$callstackItemNumber]);
+                $defaultCallstackItem,
+                $in.callstack[$callstackItemNumber]
+            );
         }
 
         let $response;
@@ -1094,7 +1085,6 @@ function infohub_exchange() {
      */
     $functions.push('_CheckMessageStructure');
     const _CheckMessageStructure = function($in = {}) {
-        $in = _ByVal($in);
 
         let $ok = 'false';
         let $message = '';
@@ -1110,12 +1100,6 @@ function infohub_exchange() {
                 $ok = 'true';
                 break leave;
             }
-
-            const $defaultBack = {
-                'to': {'node': '', 'plugin': '', 'function': ''},
-                'data_back': {},
-            };
-            $in.callstack[0] = _Default($defaultBack, $in.callstack[0]);
 
             $message = _CheckMessageStructureTo($in.callstack[0]);
             if ($message !== '') {
@@ -1165,7 +1149,6 @@ function infohub_exchange() {
      */
     $functions.push('_CheckMessageNode');
     const _CheckMessageNode = function($in = {}) {
-        $in = _ByVal($in);
 
         let $ok = 'true',
             $message = 'Node is known, I am OK with this';
@@ -1204,7 +1187,6 @@ function infohub_exchange() {
      */
     $functions.push('_CheckMessageCalling');
     const _CheckMessageCalling = function($in = {}) {
-        $in = _ByVal($in);
 
         let $answer = 'true';
         let $message = 'I am OK with how you communicate in this message.';
@@ -1231,8 +1213,7 @@ function infohub_exchange() {
             const $toPart = $to.plugin.split('_');
 
             if ($in.callstack.length === 0) {
-                $message = $message +
-                    ' OK to arrive at a plugin with an empty callstack. Means you used a multi message with a short tail';
+                $message = $message + ' OK to arrive at a plugin with an empty callstack. Means you used a multi message with a short tail';
                 break leave;
             }
 
@@ -1241,8 +1222,7 @@ function infohub_exchange() {
             const $backPart = $back.plugin.split('_');
 
             if ($toPart.length === 2 && $backPart.length === 2) {
-                $message = $message +
-                    ' OK, communication on level 1 is OK, even between nodes';
+                $message = $message + ' OK, communication on level 1 is OK, even between nodes';
                 break leave;
             }
 
@@ -1259,8 +1239,7 @@ function infohub_exchange() {
             }
 
             if ($toPart.length === 2 && $backPart.length > 2) {
-                $message = $message +
-                    ' OK, the destination is a level 1 plugin on the same node';
+                $message = $message + ' OK, the destination is a level 1 plugin on the same node';
                 break leave;
             }
 
@@ -1284,8 +1263,7 @@ function infohub_exchange() {
                 $toPartCopy.pop(); // Remove the child name from the end of the array
                 let $backPartCopy = _ByVal($backPart);
                 $backPartCopy.pop(); // Remove the child name from the end of the array
-                if (JSON.stringify($toPartCopy) ===
-                    JSON.stringify($backPartCopy)) {
+                if (JSON.stringify($toPartCopy) === JSON.stringify($backPartCopy)) {
                     $message = $message + ' OK, the destination is a sibling';
                     break leave;
                 }
@@ -1318,8 +1296,6 @@ function infohub_exchange() {
      */
     $functions.push('internal_Sort');
     const internal_Sort = function($in = {}) {
-        const $default = {};
-        $in = _Default($default, $in);
 
         while ($Sort.length > 0) {
             const $dataMessage = $Sort.pop(); // Move the last message from the array Sort
@@ -1372,8 +1348,6 @@ function infohub_exchange() {
      */
     $functions.push('internal_ToPending');
     const internal_ToPending = function($in = {}) {
-        const $default = {};
-        $in = _Default($default, $in);
 
         while ($ToPending.length > 0) {
             const $dataMessage = $ToPending.pop();
@@ -1452,8 +1426,6 @@ function infohub_exchange() {
      */
     $functions.push('internal_Stack');
     const internal_Stack = function($in = {}) {
-        const $default = {};
-        $in = _Default($default, $in);
 
         while ($Stack.length > 0) {
             let $dataMessage = $Stack.pop();
@@ -1597,10 +1569,8 @@ function infohub_exchange() {
      * @returns {{new_url: string, answer: string, message: string}}
      */
     const redirect = function($in = {}) {
-        const $default = {
-            'new_url': '',
-        };
-        $in = _Default($default, $in);
+
+        $in.new_url = $in.new_url ?? '';
 
         window.location.replace($in.new_url);
 

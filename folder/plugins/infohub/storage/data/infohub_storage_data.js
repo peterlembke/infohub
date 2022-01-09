@@ -128,8 +128,7 @@ function infohub_storage_data() {
             }
 
             if ($in.step === 'step_get_final_connection') {
-                const $path = 'infohub_storagemanager/connection/' +
-                    $in.calling_plugin.plugin;
+                const $path = 'infohub_storagemanager/connection/' + $in.calling_plugin.plugin;
 
                 return _SubCall({
                     'to': {

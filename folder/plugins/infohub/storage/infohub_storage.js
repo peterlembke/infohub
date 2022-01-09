@@ -30,6 +30,7 @@ function infohub_storage() {
     const _Version = function() {
         return {
             'date': '2018-03-25',
+            'since': '2018-03-25',
             'version': '1.1.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_storage',
@@ -116,8 +117,7 @@ function infohub_storage() {
 
             if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
                 const $row = 'Your plugin: %s, is not allowed to read this path: %s';
-                $out.message = _SprintF($row,
-                    [$in.from_plugin.plugin, $in.path]);
+                $out.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
                 break leave;
             }
 
@@ -153,8 +153,7 @@ function infohub_storage() {
                 $in.response = _Default($default, $in.response);
 
                 if (_Empty($in.wanted_data) === 'false') {
-                    $in.response.data = _Default($in.wanted_data,
-                        $in.response.data);
+                    $in.response.data = _Default($in.wanted_data, $in.response.data);
                 }
 
                 $out.answer = $in.response.answer;
@@ -236,8 +235,7 @@ function infohub_storage() {
 
             if ($in.path.indexOf($in.from_plugin.plugin + '/') !== 0) {
                 const $row = 'Your plugin: %s, is not allowed to write to this path: %s';
-                $out.message = _SprintF($row,
-                    [$in.from_plugin.plugin, $in.path]);
+                $out.message = _SprintF($row, [$in.from_plugin.plugin, $in.path]);
                 break leave;
             }
 

@@ -992,8 +992,7 @@ function infohub_asset() {
                         continue;
                     }
 
-                    const $path = 'infohub_asset/asset/' + $pluginName + '/' +
-                        $assetName;
+                    const $path = 'infohub_asset/asset/' + $pluginName + '/' + $assetName;
                     const $checksum = $in.list[$pluginName][$assetName];
                     $wantedAssets[$path] = $checksum;
                     $paths[$path] = {

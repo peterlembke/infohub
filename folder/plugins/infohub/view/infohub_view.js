@@ -3420,9 +3420,7 @@ function infohub_view() {
                 $data = _ReadProperty($box, 'value', $data);
                 $data = _ReadProperty($box, 'innerHTML', $data);
 
-                if (_GetData(
-                    {'name': 'form_alias', 'default': '', 'data': $data}) ===
-                    '') {
+                if (_GetData({'name': 'form_alias', 'default': '', 'data': $data}) === '') {
                     continue;
                 }
 
@@ -3437,24 +3435,24 @@ function infohub_view() {
                     }
                     $data.value = $checkBoxData;
 
-                    $formData[$alias + '.' + $value] = _ByVal($data);
+                    $formData[$alias + '.' + $value] = $data;
                     continue;
                 }
 
                 if ($type === 'select') {
-                    $answer = [];
+                    let $answerArray = [];
                     for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
                         if ($box.options[$i].selected) {
-                            $answer.push($box.options[$i].value);
+                            $answerArray.push($box.options[$i].value);
                         }
                     }
-                    $data.value = _ByVal($answer);
+                    $data.value = $answerArray;
                     $data.innerHTML = '';
-                    $formData[$alias] = _ByVal($data);
+                    $formData[$alias] = $data;
                     continue;
                 }
 
-                $formData[$alias] = _ByVal($data);
+                $formData[$alias] = $data;
             }
 
             $answer = 'true';
@@ -3538,12 +3536,11 @@ function infohub_view() {
             'id': $in.id,
         });
 
-        const $currentFormData = _ByVal($response.form_data);
-        const $newFormData = _ByVal($in.form_data);
+        const $currentFormData = $response.form_data;
+        const $newFormData = $in.form_data;
 
         // Create a new object with all data in one level to be updated in DOM.
-        const $formDataToUpdate = _GetFormDataToUpdate($currentFormData,
-            $newFormData);
+        const $formDataToUpdate = _GetFormDataToUpdate($currentFormData, $newFormData);
 
         for (let $keyName in $formDataToUpdate) {
             if ($formDataToUpdate.hasOwnProperty($keyName) === false) {
@@ -3681,7 +3678,8 @@ function infohub_view() {
      * @param $newFormData | Object The new values. The structure matches $currentFormData
      * @private
      */
-    const _GetFormDataToUpdate = function($currentFormData, $newFormData) {
+    const _GetFormDataToUpdate = function($currentFormData, $newFormData)
+    {
         let $formDataToUpdate = {},
             $current;
 
@@ -3704,8 +3702,7 @@ function infohub_view() {
 
             $current = _Default($default, $currentFormData[$key]);
 
-            if ($current.type !== '' && _IsSet($newFormData[$key].value) ===
-                'true') {
+            if ($current.type !== '' && _IsSet($newFormData[$key].value) === 'true') {
                 $formDataToUpdate[$key] = {
                     'id': $current.id,
                     'type': $current.type,
@@ -3718,7 +3715,7 @@ function infohub_view() {
 
             // We have covered everything now except the case with radio buttons and checkboxes
 
-            $current = _ByVal($currentFormData[$key]);
+            $current = $currentFormData[$key];
 
             for (let $checkBoxKey in $current) {
 
@@ -3726,16 +3723,17 @@ function infohub_view() {
                     continue;
                 }
 
-                if (_GetData({
+                let $value = _GetData({
                     'name': $key + '/' + $checkBoxKey + '/value',
                     'default': '',
                     'data': $newFormData,
-                }) === '') {
+                });
+
+                if ($value === '') {
                     continue;
                 }
 
-                $current[$checkBoxKey] = _Default($default,
-                    $current[$checkBoxKey]);
+                $current[$checkBoxKey] = _Default($default, $current[$checkBoxKey]);
 
                 $formDataToUpdate[$key + '.' + $checkBoxKey] = {
                     'id': $current[$checkBoxKey].id,
@@ -3790,14 +3788,14 @@ function infohub_view() {
 
         const $box = _GetNode($in.id);
 
-        for (let $i = 0; $i < $box.files.length; $i = $i + 1) {
-            $filesData[$i] = {
-                'name': $box.files[$i].name,
-                'size': $box.files[$i].size,
-                'type': $box.files[$i].type,
-                'last_modified_seconds_since_epoc': $box.files[$i].lastModified /
+        for (let $number = 0; $number < $box.files.length; $number = $number + 1) {
+            $filesData[$number] = {
+                'name': $box.files[$number].name,
+                'size': $box.files[$number].size,
+                'type': $box.files[$number].type,
+                'last_modified_seconds_since_epoc': $box.files[$number].lastModified /
                     1000.0,
-                'last_modified_date': $box.files[$i].lastModifiedDate,
+                'last_modified_date': $box.files[$number].lastModifiedDate,
                 'content': '',
             };
         }
