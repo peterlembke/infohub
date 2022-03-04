@@ -905,7 +905,7 @@ function infohub_configlocal_colour() {
                     'style_value': $backgroundColor,
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
 
@@ -1334,8 +1334,7 @@ function infohub_configlocal_colour() {
      * @private
      */
     const _IsDarkModeEnabled = function() {
-        const $result = window.matchMedia &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const $result = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         return $result;
     };

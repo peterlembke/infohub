@@ -240,8 +240,8 @@ function infohub_start($progress) {
             'infohub_session',
             'infohub_standalone',
             'infohub_storage',
-            'infohub_storage_data',
-            'infohub_storage_data_idbkeyval',
+            // 'infohub_storage_data',
+            // 'infohub_storage_data_idbkeyval',
             'infohub_tabs',
             'infohub_timer',
             'infohub_transfer',
@@ -694,10 +694,8 @@ function infohub_start($progress) {
                 break;
             }
 
-            $plugin.plugin_code = $plugin.plugin_code.replace(
-                '{{base_checksum}}', $basePlugin.plugin_checksum);
-            $plugin.plugin_code = $plugin.plugin_code.replace(
-                '\// include \"infohub_base.js\"', $basePlugin.plugin_code);
+            $plugin.plugin_code = $plugin.plugin_code.replace('{{base_checksum}}', $basePlugin.plugin_checksum);
+            $plugin.plugin_code = $plugin.plugin_code.replace('\// include \"infohub_base.js\"', $basePlugin.plugin_code);
 
             const $response = _StartPlugin($plugin);
             if ($response.answer === 'false') {
@@ -736,15 +734,14 @@ function infohub_start($progress) {
             try {
                 eval.call(window, $in.plugin_code);
             } catch ($err) {
-                $response.message = 'Can not evaluate the plugin class:"' +
-                    $in.plugin_name + '", error:"' + $err.message + '"';
+                $response.message = 'Can not evaluate the plugin class:"' + $in.plugin_name + '", error:"' + $err.message + '"';
                 break block;
             }
 
             // Check that the plugin class are available
             try {
-                eval('if (typeof ' + $in.plugin_name +
-                    ' === \'undefined\') { $ok = \'false\'; }');
+                const $row = 'if (typeof ' + $in.plugin_name + ' === \'undefined\') { $ok = \'false\'; }';
+                eval($row);
             } catch ($err) {
                 $response.message = 'Can not check if the class:"' +
                     $in.plugin_name + '" exist. error:"' + $err.message + '"';

@@ -391,7 +391,7 @@ function infohub_debug() {
                 'data': {},
                 'data_back': {
                     'step': 'step_end',
-                },
+                }
             });
         }
 

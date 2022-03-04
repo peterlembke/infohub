@@ -194,7 +194,7 @@ function infohub_login_logout() {
                     'text': $in.response.message,
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($subCall);
@@ -216,7 +216,7 @@ function infohub_login_logout() {
                     'data': {},
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($subCall);

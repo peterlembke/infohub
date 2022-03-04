@@ -123,8 +123,7 @@ function infohub_view() {
         }
 
         const $timeStamp = new Date().toISOString();
-        $element.innerHTML = $timeStamp + ' : ' + $in.func + ':' + $in.message +
-            '<br>' + $element.innerHTML;
+        $element.innerHTML = $timeStamp + ' : ' + $in.func + ':' + $in.message + '<br>' + $element.innerHTML;
     };
 
     /**
@@ -362,8 +361,7 @@ function infohub_view() {
         };
         $in = _Merge($default, $in);
 
-        let $box, $children, $list = [], $nr, $message = '', $answer = 'false',
-            $beforeBoxId;
+        let $box, $children, $list = [], $nr, $message = '', $answer = 'false', $beforeBoxId;
 
         leave: {
             $box = _GetNode($in.parent_box_id);
@@ -598,6 +596,14 @@ function infohub_view() {
 
         const $currentScrollY = window.scrollY;
         const $box = _GetNode($in.box_id);
+        if (!$box) {
+            return {
+                'answer': 'false',
+                'message': 'Box was not found',
+                'id': $in.box_id
+            };
+        }
+
         const $domRectangle = $box.getBoundingClientRect();
         const $boxTopInViewPort = $domRectangle.top;
         const $boxHeight = $box.offsetHeight;
@@ -2091,7 +2097,8 @@ function infohub_view() {
 
         leave: {
             let $boxNode = _GetNode($in.id);
-            if ($boxNode === false) {
+            if (!$boxNode) {
+                // No it is not fine that the box id can not be found. Fix the problem instead of returning true
                 $message = 'Box id:"' + $in.id + '" was not found';
                 break leave;
             }
@@ -2102,8 +2109,7 @@ function infohub_view() {
                 $message = 'added';
                 if ($index > -1) {
                     $answer = 'true';
-                    $message = 'Class "' + $in.class + '" was already ' +
-                        $message;
+                    $message = 'Class "' + $in.class + '" was already ' + $message;
                     break leave;
                 }
                 $names.push($in.class);
@@ -2113,8 +2119,7 @@ function infohub_view() {
                 $message = 'removed';
                 if ($index === -1) {
                     $answer = 'true';
-                    $message = 'Class "' + $in.class + '" was already ' +
-                        $message;
+                    $message = 'Class "' + $in.class + '" was already ' + $message;
                     break leave;
                 }
                 $names.splice($index, 1);
@@ -3787,14 +3792,20 @@ function infohub_view() {
             $timer;
 
         const $box = _GetNode($in.id);
+        if (!$box) {
+            return {
+                'answer': 'false',
+                'message': 'Can not find the file box',
+                'files_data': []
+            };
+        }
 
         for (let $number = 0; $number < $box.files.length; $number = $number + 1) {
             $filesData[$number] = {
                 'name': $box.files[$number].name,
                 'size': $box.files[$number].size,
                 'type': $box.files[$number].type,
-                'last_modified_seconds_since_epoc': $box.files[$number].lastModified /
-                    1000.0,
+                'last_modified_seconds_since_epoc': $box.files[$number].lastModified / 1000.0,
                 'last_modified_date': $box.files[$number].lastModifiedDate,
                 'content': '',
             };

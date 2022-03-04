@@ -3,5 +3,8 @@
     "title": "Demo",
     "description": "Demo examples how you can use the features in Infohub",
     "keywords": "demo,example,implementation",
-    "uses": []
+    "uses": [
+        "infohub_demo_menu",
+        "infohub_rendermenu"
+    ]
 }

@@ -346,13 +346,15 @@ class infohub_asset extends infohub_base
         $message = 'server->infohub_asset->update_specific_assets has nothing to report. Perhaps the step names are wrong in this function';
         $assetsFound = [];
 
-        if ($in['from_plugin']['node'] !== 'client') {
-            $message = 'I only accept messages from the client node';
-            goto leave;
-        }
+        $from = $in['from_plugin']['node'] . '-' . $in['from_plugin']['plugin'];
 
-        if ($in['from_plugin']['plugin'] !== 'infohub_asset') {
-            $message = 'I only accept messages from client infohub_asset';
+        $allowed = [
+            'client-infohub_asset' => 'true',
+            'server-infohub_launcher' => 'true'
+        ];
+
+        if (isset($allowed[$from]) === false) {
+            $message = 'I do not accept messages from your node + plugin';
             goto leave;
         }
 

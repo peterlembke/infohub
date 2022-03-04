@@ -143,20 +143,18 @@ class infohub_transfer extends infohub_base
                     'banned_until' => 0.0
                 ];
 
-                $messageOut = $this->_SubCall(
-                    [
-                        'to' => [
-                            'node' => 'server',
-                            'plugin' => 'infohub_session',
-                            'function' => 'get_banned_until'
-                        ],
-                        'data' => [],
-                        'data_back' => [
-                            'package' => $package,
-                            'step' => 'step_get_banned_until_response'
-                        ],
-                    ]
-                );
+                $messageOut = $this->_SubCall([
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_session',
+                        'function' => 'get_banned_until'
+                    ],
+                    'data' => [],
+                    'data_back' => [
+                        'package' => $package,
+                        'step' => 'step_get_banned_until_response'
+                    ],
+                ]);
 
                 $messagesArray[] = $messageOut;
             }

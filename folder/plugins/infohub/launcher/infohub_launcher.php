@@ -83,6 +83,10 @@ class infohub_launcher extends infohub_base
     {
         $default = [
             'list_checksum' => '',
+            'with_assets' => 'false',
+            'language_codes' => [],
+            'allowed_asset_types' => '',
+            'max_asset_size_kb' => 0,
             'step' => 'step_get_full_list',
             'from_plugin' => [
                 'node' => '',
@@ -94,35 +98,40 @@ class infohub_launcher extends infohub_base
             ],
             'response' => [
                 'answer' => 'false',
-                'message' => 'Nothing to report',
+                'message' => 'Nothing to report from server -> infohub_launcher -> get_full_list',
                 'data' => []
             ],
-            'data_back' => []
+            'data_back' => [
+
+            ]
         ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report';
         $fullList = [];
+        $assets = [];
 
         if ($in['step'] === 'step_get_full_list') {
-            return $this->_Subcall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'launcher_get_full_list'
+            return $this->_Subcall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'launcher_get_full_list'
+                ],
+                'data' => [],
+                'data_back' => [
+                    'list_checksum' => $in['list_checksum'],
+                    'config' => [
+                        'client_plugin_names' => $in['config']['client_plugin_names']
                     ],
-                    'data' => [],
-                    'data_back' => [
-                        'list_checksum' => $in['list_checksum'],
-                        'config' => [
-                            'client_plugin_names' => $in['config']['client_plugin_names']
-                        ],
-                        'step' => 'step_get_full_list_response'
-                    ]
+                    'with_assets' => $in['with_assets'],
+                    'language_codes' => $in['language_codes'],
+                    'allowed_asset_types' => $in['allowed_asset_types'],
+                    'max_asset_size_kb' => $in['max_asset_size_kb'],
+                    'step' => 'step_get_full_list_response'
                 ]
-            );
+            ]);
         }
 
         if ($in['step'] === 'step_get_full_list_response') {
@@ -177,12 +186,64 @@ class infohub_launcher extends infohub_base
                 $message = 'You do not have rights to ANY client plugin. An account in the database overrule infohub_contact.json.';
                 $answer = 'false';
             }
+
+            $in['step'] = 'step_end';
+            if ($answer === 'true' && $in['list_checksum'] === '' && $in['with_assets'] === 'true') {
+                $in['step'] = 'step_with_assets';
+            }
+        }
+
+        if ($in['step'] === 'step_with_assets') {
+            $wantedAssets = [];
+            foreach ($fullList['list'] as $pluginName => $assetLookup) {
+                foreach ($assetLookup as $assetName => $assetChecksum) {
+                    $assetPath = "infohub_asset/asset/$pluginName/$assetName";
+                    $wantedAssets[$assetPath] = '';
+                }
+                foreach ($in['language_codes'] as $languageCode) {
+                    $assetPath = "infohub_asset/asset/$pluginName/translate/$languageCode.json";
+                    $wantedAssets[$assetPath] = '';
+                }
+            }
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_asset',
+                    'function' => 'update_specific_assets'
+                ],
+                'data' => [
+                    'assets_requested' => $wantedAssets,
+                    'allowed_asset_types' => $in['allowed_asset_types'],
+                    'max_asset_size_kb' => $in['max_asset_size_kb'],
+                ],
+                'data_back' => [
+                    'list_checksum' => $in['list_checksum'],
+                    'language_codes' => $in['language_codes'],
+                    'with_assets' => $in['with_assets'],
+                    'allowed_asset_types' => $in['allowed_asset_types'],
+                    'max_asset_size_kb' => $in['max_asset_size_kb'],
+                    'step' => 'step_with_assets_response',
+                    'message' => $message,
+                    'full_list' => $fullList
+                ]
+            ]);
+        }
+
+        if ($in['step'] === 'step_with_assets_response') {
+            if ($in['response']['answer'] === 'true') {
+                $answer = 'true';
+                $message = $in['data_back']['message'] ?? '';
+                $message = $message . ' Also added assets on your request';
+                $assets = $in['response']['data'];
+                $fullList = $in['data_back']['full_list'];
+            }
         }
 
         return [
             'answer' => $answer,
             'message' => $message,
-            'data' => $fullList
+            'data' => $fullList,
+            'assets' => $assets
         ];
     }
 }

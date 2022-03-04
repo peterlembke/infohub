@@ -457,6 +457,7 @@ function infohub_login() {
                 'data_back': {
                     'step': 'step_get_doc_file_response',
                 },
+                'wait': 0.2
             });
         }
 
@@ -731,6 +732,7 @@ function infohub_login() {
                 'data_back': {
                     'step': 'step_end',
                 },
+                'wait': 0.2
             });
         }
 

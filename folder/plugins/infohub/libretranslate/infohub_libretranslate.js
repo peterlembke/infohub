@@ -391,6 +391,7 @@ function infohub_libretranslate() {
                 'data_back': {
                     'step': 'step_end',
                 },
+                'wait': 0.2
             });
         }
 
@@ -489,7 +490,8 @@ function infohub_libretranslate() {
                     'step': 'step_store_in_cache',
                     'selected': $in.selected,
                     'use_cache': $in.use_cache
-                }
+                },
+                'wait': 0.2
             });
         }
 
@@ -563,7 +565,8 @@ function infohub_libretranslate() {
                 },
                 'data_back': {
                     'step': 'step_end'
-                }
+                },
+                'wait': 0.2
             });
         }
 

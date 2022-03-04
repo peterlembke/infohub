@@ -133,6 +133,7 @@ function infohub_plugin() {
                         'plugin_name': $in.plugin_name,
                         'start_plugin': $in.start_plugin,
                     },
+                    'wait': 0.2
                 });
             }
 
@@ -518,6 +519,7 @@ function infohub_plugin() {
                 'data_back': {
                     'step': 'step_server_response',
                 },
+                'wait': 0.2
             });
         }
 
@@ -594,6 +596,7 @@ function infohub_plugin() {
                 'data_back': {
                     'step': 'step_get_all_plugin_names_response',
                 },
+                'wait': 0.2
             });
         }
 
@@ -658,6 +661,7 @@ function infohub_plugin() {
                         'plugin_names': $in.plugin_names,
                         'step': 'step_save_data_to_cache',
                     },
+                    'wait': 0.2
                 });
             }
 

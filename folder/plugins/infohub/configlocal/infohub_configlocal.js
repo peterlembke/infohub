@@ -301,8 +301,7 @@ function infohub_configlocal() {
             }
 
             const $pluginName = 'infohub_configlocal_';
-            if ($in.from_plugin.plugin.substr(0, $pluginName.length) !==
-                $pluginName) {
+            if ($in.from_plugin.plugin.substr(0, $pluginName.length) !== $pluginName) {
                 $out.message = 'I only allow child plugins to use this function';
                 break leave;
             }
@@ -310,8 +309,7 @@ function infohub_configlocal() {
             if ($in.step === 'step_save') {
 
                 const $sectionName = $in.event_data;
-                const $path = 'infohub_configlocal/' + $sectionName + '/' +
-                    $in.config.user_name;
+                const $path = 'infohub_configlocal/' + $sectionName + '/' + $in.config.user_name;
 
                 $classGetConfig[$path] = $in.form_data;
 
@@ -570,9 +568,7 @@ function infohub_configlocal() {
         if ($in.step === 'step_load_data') {
             let $pathCollection = {};
 
-            for (let $sectionNumber = 0; $sectionNumber <
-            $in.section_names_array.length; $sectionNumber = $sectionNumber +
-                1) {
+            for (let $sectionNumber = 0; $sectionNumber < $in.section_names_array.length; $sectionNumber++) {
                 const $sectionName = $in.section_names_array[$sectionNumber];
                 const $path = 'infohub_configlocal/' + $sectionName + '/' +
                     $in.config.user_name;
@@ -606,12 +602,9 @@ function infohub_configlocal() {
         }
 
         if ($in.step === 'step_load_data_response') {
-            for (let $sectionNumber = 0; $sectionNumber <
-            $in.section_names_array.length; $sectionNumber = $sectionNumber +
-                1) {
+            for (let $sectionNumber = 0; $sectionNumber < $in.section_names_array.length; $sectionNumber++) {
                 const $sectionName = $in.section_names_array[$sectionNumber];
-                const $path = 'infohub_configlocal/' + $sectionName + '/' +
-                    $in.config.user_name;
+                const $path = 'infohub_configlocal/' + $sectionName + '/' + $in.config.user_name;
 
                 if (_IsSet($in.response.items[$path]) === 'false') {
                     if (_IsSet($classGetConfig[$path]) === 'false') {
@@ -622,8 +615,7 @@ function infohub_configlocal() {
 
                 const $item = _ByVal($in.response.items[$path]);
                 // Do not try to convert the item value here
-                const $newPath = 'infohub_configlocal/' +
-                    $in.section_names_array[$sectionNumber];
+                const $newPath = 'infohub_configlocal/' + $in.section_names_array[$sectionNumber];
                 $itemCollection[$newPath] = $item;
 
                 $classGetConfig[$path] = $item;
@@ -632,11 +624,13 @@ function infohub_configlocal() {
             $in.response.items = $itemCollection;
         }
 
-        return {
+        const $out = {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'items': $in.response.items,
         };
+
+        return $out;
     };
 
     /**
@@ -665,8 +659,7 @@ function infohub_configlocal() {
 
         leave: {
 
-            const $path = 'infohub_configlocal/' + $in.section_name + '/' +
-                $in.config.user_name;
+            const $path = 'infohub_configlocal/' + $in.section_name + '/' + $in.config.user_name;
 
             if ($in.step === 'step_start') {
                 if (_IsSet($classGetConfig[$path]) === 'true') {
@@ -786,8 +779,8 @@ function infohub_configlocal() {
                 $childName = '',
                 $config = {};
 
-            for (let $i = 0; $i < $children.length; $i = $i + 1) {
-                $childName = $children[$i];
+            for (let $childNumber = 0; $childNumber < $children.length; $childNumber++) {
+                $childName = $children[$childNumber];
 
                 $config = _GetData({
                     'name': 'response|items|infohub_configlocal/' + $childName,
@@ -806,7 +799,7 @@ function infohub_configlocal() {
                         'local_config': $config,
                     },
                     'data_back': {
-                        'step': 'step_end',
+                        'step': 'step_void',
                     },
                 });
                 $messages.push($subCall);

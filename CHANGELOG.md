@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.7] - 2022-03-04
+
+* [Release notes](main,release_v1_v1v3_v1v3v7)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.7)
+
+Infohub is much faster now on all browsers.
+Client Storage is now one plugin. Added a Storage memory cache.
+Launcher render the full list faster. Some plugins start faster. Removed many slow _ByVal and _Merge that was not needed.
+Used step_void in some places to avoid getting an answer I do not need.
+
 # [1.3.6] - 2022-01-04
 
 * [Release notes](main,release_v1_v1v3_v1v3v6)

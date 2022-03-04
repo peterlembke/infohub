@@ -242,7 +242,7 @@ function infohub_workbench() {
                     },
                     'data': {},
                     'data_back': {
-                        'step': 'step_end',
+                        'step': 'step_void',
                     },
                 });
                 $messagesArray.push($messageOut);

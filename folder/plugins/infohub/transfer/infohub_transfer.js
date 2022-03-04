@@ -631,8 +631,7 @@ function infohub_transfer() {
                     continue;
                 }
 
-                const $messageOut = _ByVal(
-                    $globalSendToNode[$nodeName][$messageNumber]);
+                const $messageOut = _ByVal($globalSendToNode[$nodeName][$messageNumber]);
                 const $lastItem = $messageOut.callstack.pop();
                 const $returnToNode = $lastItem.to.node;
 
@@ -1081,12 +1080,14 @@ function infohub_transfer() {
 
             $message.callstack = [
                 {
-                    'data_back': {},
+                    'data_back': {
+                        'callstack_hubid': $hubId
+                    },
                     'data_request': $lastItem.data_request, // Since the server need this to answer properly
                     'to': {
                         'node': 'client',
                         'plugin': $lastItem.to.plugin,
-                        'function': $hubId,
+                        'function': $lastItem.to.function,
                     },
                 }];
         }
@@ -1119,7 +1120,12 @@ function infohub_transfer() {
                 break leave;
             }
 
-            let $hubId = $message.to.function;
+            let $hubId = _GetData({
+                'name': 'data/data_back/callstack_hubid',
+                'default': '',
+                'data': $message,
+            });
+
             if (_IsSet($globalCallStack[$hubId]) === 'false') {
                 break leave;
             }

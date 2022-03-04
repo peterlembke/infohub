@@ -20,7 +20,7 @@ function infohub_asset() {
     $functions.push('_Version');
     /**
      * Mandatory version information
-     * @returns {}
+     * @returns {{date: string, note: string, user_role: string, web_worker: string, core_plugin: string, "SPDX-License-Identifier": string, checksum: string, version: string, class_name: string, since: string, status: string}}
      * @private
      */
     const _Version = function() {
@@ -54,6 +54,7 @@ function infohub_asset() {
             'update_all_assets': 'normal', // Use by infohub_offline and infohub_asset
             'update_all_plugin_assets': 'normal', // Use by asset owner and by infohub_asset
             'update_specific_assets': 'normal', // Use by infohub_launcher, infohub_asset. Update specific assets for several plugins
+            'save_assets_to_storage': 'normal', // Used by update_specific_assets and update_full_list
             'update_plugin_asset_index': 'normal', // Used by update_specific_assets to update each plugin asset index
             'get_plugin_assets': 'normal', // Used by asset owner and by infohub_asset. Get named assets for a plugin
             'get_asset_and_license': 'normal', // Use by asset owner and by function create to get an asset + license
@@ -87,12 +88,13 @@ function infohub_asset() {
     $functions.push('create');
     /**
      * Use this function when you want to render an asset.
-     * Example: 'jamendo_asset': {'plugin': 'infohub_asset', 'type': 'icon', 'asset_name': 'audio/jamendo-music-logo', 'plugin_name': 'infohub_demo' },
+     *
+     * @example 'jamendo_asset': {'plugin': 'infohub_asset', 'type': 'icon', 'asset_name': 'audio/jamendo-music-logo', 'plugin_name': 'infohub_demo' },
      * @version 2020-12-19
      * @since   2013-04-15
      * @author  Peter Lembke
      * @param $in
-     * @returns {}
+     * @returns {{}|{}|{}|*|Object|{item_index, answer: string, message: string}}
      */
     const create = function($in = {}) {
         const $default = {
@@ -239,7 +241,7 @@ function infohub_asset() {
                     $anyRendered = 'true';
                 }
 
-                $toRender[$pluginName] = _ByVal($loadedAsset[$pluginName]);
+                $toRender[$pluginName] = $loadedAsset[$pluginName];
             }
 
             $in.data_back.to_render = _ByVal($toRender);
@@ -488,7 +490,7 @@ function infohub_asset() {
                     'data_back': {
                         'box_id': $in.box_id,
                         'to_render': $in.data_back.to_render,
-                        'step': 'step_end',
+                        'step': 'step_void',
                     },
                 });
 
@@ -605,8 +607,7 @@ function infohub_asset() {
 
             $data = _Default($default, $data);
 
-            const $boxId = $in.box_id + '.[' + $in.data_back.plugin_name +
-                '_foot]';
+            const $boxId = $in.box_id + '.[' + $in.data_back.plugin_name + '_foot]';
 
             return _SubCall({
                 'to': {
@@ -713,8 +714,7 @@ function infohub_asset() {
             $in.step = 'step_end';
         }
 
-        if ($in.from_plugin.plugin !== 'infohub_asset' &&
-            $in.from_plugin.plugin !== 'infohub_offline') {
+        if ($in.from_plugin.plugin !== 'infohub_asset' && $in.from_plugin.plugin !== 'infohub_offline') {
             $message = 'Only infohub_asset, infohub_offline is allowed to call this function.';
             $in.step = 'step_end';
         }
@@ -736,7 +736,7 @@ function infohub_asset() {
                         'plugin_name': $key,
                     },
                     'data_back': {
-                        'step': 'step_end',
+                        'step': 'step_void',
                     },
                 });
                 $messageArray.push($messageOut);
@@ -851,11 +851,9 @@ function infohub_asset() {
             $index = _Default($default, $in.response.data);
 
             if ($in.response.answer === 'true') {
-                const $timestampWhenOld = $index.micro_time +
-                    $in.config.index_cache_seconds;
+                const $timestampWhenOld = $index.micro_time + $in.config.index_cache_seconds;
 
-                if ($timestampWhenOld >= _MicroTime() &&
-                    $index.full_sync_done === 'true') {
+                if ($timestampWhenOld >= _MicroTime() && $index.full_sync_done === 'true') {
                     $message = 'The asset index for this plugin is quite fresh. I will not update it.';
                     $in.step = 'step_end';
                 }
@@ -896,23 +894,24 @@ function infohub_asset() {
         if ($in.step === 'step_save_assets_in_storage') {
             $messageArray = [];
             for (let $key in $in.data_back.data) {
-                if ($in.data_back.data.hasOwnProperty($key)) {
-                    const $messageOut = _SubCall({
-                        'to': {
-                            'node': 'client',
-                            'plugin': 'infohub_storage',
-                            'function': 'write',
-                        },
-                        'data': {
-                            'path': $assetPath + $key,
-                            'data': $in.data_back.data[$key],
-                        },
-                        'data_back': {
-                            'step': 'step_end',
-                        },
-                    });
-                    $messageArray.push($messageOut);
+                if ($in.data_back.data.hasOwnProperty($key) === false) {
+                    continue;
                 }
+                const $messageOut = _SubCall({
+                    'to': {
+                        'node': 'client',
+                        'plugin': 'infohub_storage',
+                        'function': 'write',
+                    },
+                    'data': {
+                        'path': $assetPath + $key,
+                        'data': $in.data_back.data[$key],
+                    },
+                    'data_back': {
+                        'step': 'step_void',
+                    },
+                });
+                $messageArray.push($messageOut);
             }
             $in.step = 'step_end';
 
@@ -934,11 +933,12 @@ function infohub_asset() {
      * Assets that do not exist will be updated by asking the server.
      * Assets that have another checksum than the one you provided will be updated.
      * This function can only be used by infohub_asset, infohub_launcher
+     *
      * @version 2020-06-03
      * @since 2018-12-02
      * @author Peter Lembke
      * @param {object} $in
-     * @returns {}
+     * @returns {{}|{}|{}|*|Object|{answer: string, message: string}}
      */
     const update_specific_assets = function($in = {}) {
         const $default = {
@@ -987,8 +987,7 @@ function infohub_asset() {
                 }
 
                 for (let $assetName in $in.list[$pluginName]) {
-                    if ($in.list[$pluginName].hasOwnProperty($assetName) ===
-                        false) {
+                    if ($in.list[$pluginName].hasOwnProperty($assetName) === false) {
                         continue;
                     }
 
@@ -1087,19 +1086,91 @@ function infohub_asset() {
         }
 
         if ($in.step === 'step_update_specific_assets_response') {
-            $in.step = 'step_save_to_storage';
+            $in.step = 'step_save_assets_to_storage';
             if ($in.response.answer === 'false') {
                 $message = $in.response.message;
                 $in.step = 'step_end';
             }
         }
 
-        if ($in.step === 'step_save_to_storage') {
+        if ($in.step === 'step_save_assets_to_storage') {
             const $data = _GetData({
                 'name': 'response/data',
                 'default': {},
                 'data': $in,
             });
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_asset',
+                    'function': 'save_assets_to_storage',
+                },
+                'data': {
+                    'list': $data,
+                },
+                'data_back': {
+                    'step': 'step_save_assets_to_storage_response',
+                }
+            });
+        }
+
+        if ($in.step === 'step_save_assets_to_storage_response') {
+            $answer = $in.response.answer;
+            $message = $in.response.message;
+
+            if ($answer === 'true') {
+                $message = 'All requested assets are updated. The new/changed are saved to Storage';
+            }
+        }
+
+        return {
+            'answer': $answer,
+            'message': $message,
+        };
+    };
+
+    $functions.push('save_assets_to_storage');
+    /**
+     * Give a lookup with assets to store in the local Storage.
+     * Used by update_specific_assets and update_full_list
+     *
+     * @version 2022-02-25
+     * @since 2018-12-02
+     * @author Peter Lembke
+     * @param {object} $in
+     * @returns {{}|{}|{}|*|Object|{answer: string, message: string}}
+     */
+    const save_assets_to_storage = function($in = {}) {
+        const $default = {
+            'list': {}, // key=asset path
+                        // Set checksum to 'local' to keep the locally stored asset.
+            'step': 'step_save_assets_to_storage',
+            'from_plugin': {'node': '', 'plugin': ''},
+            'response': {},
+            'data_back': {
+                'wanted_assets': {},
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $answer = 'false',
+            $message = 'Nothing to report';
+
+        if ($in.from_plugin.node !== 'client') {
+            $message = 'I only accept calls from client plugins';
+            $in.step = 'step_end';
+        }
+
+        if ($in.from_plugin.plugin !== 'infohub_asset' &&
+            $in.from_plugin.plugin !== 'infohub_launcher') {
+            $message = 'Only infohub_asset, infohub_launcher is allowed to call this function.';
+            $in.step = 'step_end';
+        }
+        
+        if ($in.step === 'step_save_assets_to_storage') {
+
+            const $data = $in.list;
 
             let $pluginAssetIndex = {};
             for (let $key in $data) {
@@ -1118,8 +1189,7 @@ function infohub_asset() {
                     };
                 }
 
-                const $fullAssetName = $pluginName + '/' +
-                    $data[$key].asset_name;
+                const $fullAssetName = $pluginName + '/' + $data[$key].asset_name;
                 $pluginAssetIndex[$pluginName].checksums[$fullAssetName] = $data[$key].checksum;
             }
 
@@ -1142,7 +1212,7 @@ function infohub_asset() {
                         'index': $pluginAssetIndex[$pluginName],
                     },
                     'data_back': {
-                        'step': 'step_end',
+                        'step': 'step_void',
                     },
                 });
 
@@ -1156,21 +1226,21 @@ function infohub_asset() {
                     'function': 'write_many',
                 },
                 'data': {
-                    'paths': $in.response.data,
+                    'paths': $data,
                 },
                 'data_back': {
-                    'step': 'step_save_to_storage_response',
+                    'step': 'step_save_assets_to_storage_response',
                 },
                 'messages': $messageArrayUpdatePluginAssetIndex,
             });
         }
 
-        if ($in.step === 'step_save_to_storage_response') {
+        if ($in.step === 'step_save_assets_to_storage_response') {
             $answer = $in.response.answer;
             $message = $in.response.message;
 
             if ($answer === 'true') {
-                $message = 'All requested assets are updated. The new/changed are saved to Storage';
+                $message = 'All assets are saved in Storage';
             }
         }
 
@@ -1273,8 +1343,7 @@ function infohub_asset() {
                     continue;
                 }
 
-                if ($currentChecksums[$assetName] !==
-                    $newChecksums[$assetName]) {
+                if ($currentChecksums[$assetName] !== $newChecksums[$assetName]) {
                     $currentChecksums[$assetName] = $newChecksums[$assetName];
                     $indexChanged = 'true';
                 }

@@ -17,6 +17,7 @@
         "infohub_checksum",
         "infohub_checksum_md5",
         "infohub_checksum_crc32",
-        "infohub_validate"
+        "infohub_validate",
+        "infohub_password"
     ]
 }

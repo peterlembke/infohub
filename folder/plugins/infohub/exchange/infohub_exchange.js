@@ -504,7 +504,7 @@ function infohub_exchange() {
                 },
                 'data': $data,
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($messageOut);
@@ -519,7 +519,7 @@ function infohub_exchange() {
                     'event_type': 'ping', // Just to wake up the plugin, it has event observers that must be run
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($messageOut);
@@ -534,7 +534,7 @@ function infohub_exchange() {
                     'event_type': 'ping', // Just to wake up the plugin, it has event observers that must be run
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($messageOut);
@@ -547,7 +547,7 @@ function infohub_exchange() {
                 },
                 'data': {},
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messages.push($messageOut);

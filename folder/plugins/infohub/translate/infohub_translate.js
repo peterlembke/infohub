@@ -439,6 +439,7 @@ function infohub_translate() {
                 'data_back': {
                     'step': 'step_end',
                 },
+                'wait': 0.2
             });
         }
 

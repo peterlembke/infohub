@@ -15,6 +15,11 @@
         "infohub_tools_time",
         "infohub_time",
         "infohub_validate",
-        "infohub_tools_package"
+        "infohub_tools_package",
+        "infohub_tools_password",
+        "infohub_tools_testcall",
+        "infohub_tools_compress",
+        "infohub_tools_encrypt",
+        "infohub_encrypt"
     ]
 }

@@ -977,6 +977,7 @@ function infohub_trigger() {
                 'data_back': {
                     'step': 'step_call_server_response',
                 },
+                'wait': 0.2
             });
         }
 

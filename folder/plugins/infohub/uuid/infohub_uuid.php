@@ -43,7 +43,7 @@ class infohub_uuid extends infohub_base
             'version' => '1.1.1',
             'class_name' => 'infohub_random',
             'checksum' => '{{checksum}}',
-            'note' => 'Universally unique identifier',
+            'note' => 'Universally unique identifier UUID',
             'webpage' => 'https://en.wikipedia.org/wiki/Universally_unique_identifier',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
@@ -171,7 +171,7 @@ class infohub_uuid extends infohub_base
     {
         return [
             'answer' => 'true',
-            'message' => 'Here are the guidv0',
+            'message' => 'Here are the GUIDv0',
             'data' => '00000000-0000-0000-0000-000000000000'
         ];
     }
@@ -188,7 +188,7 @@ class infohub_uuid extends infohub_base
     protected function guidv4(array $in = []): array
     {
         $answer = 'false';
-        $message = 'Can not create a guidv4';
+        $message = 'Can not create a GUIDv4';
         $result = '';
 
         try {
@@ -202,7 +202,7 @@ class infohub_uuid extends infohub_base
 
                 $result = trim($guid, '{}'); // Remove surrounding brackets
                 $answer = 'true';
-                $message = 'Here are the guidv4, created with com_create_guid';
+                $message = 'Here are the GUIDv4, created with com_create_guid';
                 goto leave;
             }
 
@@ -221,7 +221,7 @@ class infohub_uuid extends infohub_base
             $result = vsprintf('%s%s-%s-%s-%s-%s%s%s', $dataHexArray);
 
             $answer = 'true';
-            $message = 'Here are the guidv4, created with code';
+            $message = 'Here are the GUIDv4, created with code';
         } catch (Exception $e) {
         }
 

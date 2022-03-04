@@ -253,7 +253,7 @@ function infohub_launcher() {
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = gui',
                     'box_id': $in.box_id,
-                    'step': 'step_end',
+                    'step': 'step_end', // One of the messages need to reach the last return, the rest have step_void
                 },
             });
             $messagesArray.push($messageOut);
@@ -286,7 +286,7 @@ function infohub_launcher() {
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = mylist',
                     'box_id': $in.box_id,
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -320,7 +320,7 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = fulllist',
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -336,7 +336,7 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'debug_message': 'step_render -> render_list my_list',
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -353,7 +353,7 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'debug_message': 'step_render -> render_list full_list',
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -413,7 +413,7 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = instructions',
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -501,7 +501,7 @@ function infohub_launcher() {
                 },
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = more',
-                    'step': 'step_end',
+                    'step': 'step_void',
                 },
             });
             $messagesArray.push($messageOut);
@@ -862,21 +862,23 @@ function infohub_launcher() {
             $in.step = 'step_create_list';
 
             for (let $key in $in.data_back.list.list) {
-                if ($in.data_back.list.list.hasOwnProperty($key) === true) {
-                    const $item = _ByVal($in.data_back.list.list[$key]);
-
-                    let $response = internal_AddIcon($what, $listName, $item);
-                    if ($response.answer === 'false') {
-                        $message = $response.message;
-                        $in.step = 'step_alert';
-                        break;
-                    }
-
-                    $what = $response.what;
-
-                    const $id = '[' + $listName + '_' + $item.plugin + '_container]';
-                    $text = $text + $id;
+                if ($in.data_back.list.list.hasOwnProperty($key) === false) {
+                    continue;
                 }
+
+                const $item = $in.data_back.list.list[$key];
+
+                let $response = internal_AddIcon($what, $listName, $item);
+                if ($response.answer === 'false') {
+                    $message = $response.message;
+                    $in.step = 'step_alert';
+                    break;
+                }
+
+                $what = $response.what;
+
+                const $id = '[' + $listName + '_' + $item.plugin + '_container]';
+                $text = $text + $id;
             }
         }
 
@@ -1056,8 +1058,7 @@ function infohub_launcher() {
             }
 
             if ($list !== 'my_list' && $list !== 'full_list') {
-                $message = _Translate('ADDICON_GOT_AN_INVALID_LIST') + ': ' +
-                    $list;
+                $message = _Translate('ADDICON_GOT_AN_INVALID_LIST') + ': ' + $list;
                 break leave;
             }
 
@@ -1183,6 +1184,7 @@ function infohub_launcher() {
                 'list_name': '',
                 'list': {},
                 'updated': 'false',
+                'assets_updated': 'false',
                 'data': {
                     'language': '',
                 },
@@ -1232,6 +1234,10 @@ function infohub_launcher() {
                 $in.step = 'step_render_list';
             }
 
+            if ($in.response.assets_updated === 'true') {
+                $in.step = 'step_render_list';
+            }
+
             if ($in.response.answer === 'false') {
                 $message = $in.response.message; // Perhaps we are off-line and can not get a full_list.
 
@@ -1273,16 +1279,15 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_get_selected_language_response') {
-            $in.data_back.language_codes = $in.response.data.language.split(
-                ',');
+            let $languageCodeArray = $in.response.data.language.split(',');
 
             let $files = {}; // The translation files we want for each plugin
-            for (let $number in $in.data_back.language_codes) {
-                if ($in.data_back.language_codes.hasOwnProperty($number) === false) {
+            for (let $number in $languageCodeArray) {
+                if ($languageCodeArray.hasOwnProperty($number) === false) {
                     continue;
                 }
 
-                const $languageCode = $in.data_back.language_codes[$number];
+                const $languageCode = $languageCodeArray[$number];
                 const $fileName = 'translate/' + $languageCode + '.json';
                 $files[$fileName] = 'local'; // local = I am happy with a local version if exist
             }
@@ -1422,11 +1427,19 @@ function infohub_launcher() {
                 'step': '',
                 'full_list': {},
                 'updated': 'false',
+                'language_codes': [],
+                'allowed_asset_types': [],
+                'max_asset_size_kb': 0,
+                'assets': {},
+                'assets_updated': 'false',
+                'save_full_list_answer': 'false',
+                'save_full_list_message': ''
             },
             'response': {
                 'answer': 'false',
                 'message': '',
                 'data': {},
+                'assets': {}
             },
             'config': {
                 'user_name': '',
@@ -1437,6 +1450,7 @@ function infohub_launcher() {
         let $answer = 'false';
         let $message = 'infohub_launcher -> update_full_list has nothing to report. Might be something wrong with the steps in the function';
         let $updated = $in.data_back.updated;
+        let $assetsUpdated = $in.data_back.assets_updated;
         let $messagesArray = [];
 
         const $defaultFullList = {
@@ -1491,14 +1505,12 @@ function infohub_launcher() {
                 $updated = 'false';
             }
 
-            if ($localFullListOld === 'true' && $localFullListExist ===
-                'false') {
+            if ($localFullListOld === 'true' && $localFullListExist === 'false') {
                 // We do this in serial and goto the next step
-                $in.step = 'step_get_full_list_from_server';
+                $in.step = 'step_get_language_config';
             }
 
-            if ($localFullListOld === 'true' && $localFullListExist ===
-                'true') {
+            if ($localFullListOld === 'true' && $localFullListExist === 'true') {
                 // We return the existing local list and ask the server for an updated list in the background
 
                 $answer = 'true';
@@ -1522,6 +1534,54 @@ function infohub_launcher() {
             }
         }
 
+        if ($in.step === 'step_get_language_config') {
+            // We do not have any local full list. We probably do not have any assets as well.
+            // When we ask the server for the list we will also ask for all the assets.
+            // Now getting the user language codes so that we can download translation assets too from the server
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'get_config',
+                },
+                'data': {
+                    'section_name': 'language',
+                },
+                'data_back': {
+                    'step': 'step_get_asset_config',
+                },
+                'wait': 0.0
+            });
+        }
+
+        if ($in.step === 'step_get_asset_config') {
+
+            const $languageConfig = $in.response.data.language ?? '';
+            const $languageCodeArray = $languageConfig.split(',');
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_configlocal',
+                    'function': 'get_config',
+                },
+                'data': {
+                    'section_name': 'asset',
+                },
+                'data_back': {
+                    'language_codes': $languageCodeArray,
+                    'step': 'step_get_asset_config_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_asset_config_response') {
+            $in.data_back.allowed_asset_types = $in.response.data.allowed_asset_types ?? [];
+            $in.data_back.max_asset_size_kb = $in.response.data.max_asset_size_kb ?? 0;
+            $in.step = 'step_get_full_list_from_server';
+        }
+
         if ($in.step === 'step_get_full_list_from_server') {
             return _SubCall({
                 'to': {
@@ -1530,15 +1590,25 @@ function infohub_launcher() {
                     'function': 'get_full_list',
                 },
                 'data': {
-                    'list_checksum': $fullList.list_checksum,
+                    'list_checksum': '',
+                    'with_assets': 'true',
+                    'language_codes': $in.data_back.language_codes,
+                    'allowed_asset_types': $in.data_back.allowed_asset_types,
+                    'max_asset_size_kb': $in.data_back.max_asset_size_kb
                 },
                 'data_back': {
+                    'language_codes': $in.data_back.language_codes,
+                    'allowed_asset_types': $in.data_back.allowed_asset_types,
+                    'max_asset_size_kb': $in.data_back.max_asset_size_kb,
                     'step': 'step_get_full_list_from_server_response',
                 },
             });
         }
 
         if ($in.step === 'step_get_full_list_from_server_response') {
+
+            $in.data_back.assets = $in.response.assets;
+
             $in.step = 'step_handle_server_response';
 
             if ($in.response.answer === 'false') {
@@ -1582,6 +1652,9 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_keep_full_list_response') {
+
+            // We keep the list we have locally. We just update the probably-good-after time
+
             $fullList = _Default($defaultFullList, $in.response.data);
             $fullList.micro_time = _MicroTime();
             $fullList.time_stamp = _TimeStamp();
@@ -1594,6 +1667,7 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_update_full_list') {
+            const $path = _GetListPath('full_list', $in.config.user_name);
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -1601,11 +1675,12 @@ function infohub_launcher() {
                     'function': 'write',
                 },
                 'data': {
-                    'path': _GetListPath('full_list', $in.config.user_name),
+                    'path': $path,
                     'data': $fullList,
                 },
                 'data_back': {
                     'full_list': $fullList,
+                    'assets': $in.data_back.assets,
                     'updated': $updated,
                     'step': 'step_update_full_list_response',
                 },
@@ -1613,8 +1688,51 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_update_full_list_response') {
-            $answer = $in.response.answer;
-            $message = $in.response.message;
+
+            $in.data_back.save_full_list_answer = $in.response.answer;
+            $in.data_back.save_full_list_message = $in.response.message;
+
+            $in.step = 'step_answer';
+            if ($in.response.answer === 'true') {
+                if (_Count($in.data_back.assets) > 0) {
+                    $in.step = 'step_save_assets_to_storage';
+                }
+            }
+        }
+
+        if ($in.step === 'step_save_assets_to_storage') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_asset',
+                    'function': 'save_assets_to_storage',
+                },
+                'data': {
+                    'list': $in.data_back.assets,
+                },
+                'data_back': {
+                    'full_list': $in.data_back.full_list,
+                    'updated': $in.data_back.updated,
+                    'save_full_list_answer': $in.data_back.save_full_list_answer,
+                    'save_full_list_message': $in.data_back.save_full_list_message,
+                    'step': 'step_save_assets_to_storage_response',
+                }
+            });
+        }
+
+        if ($in.step === 'step_save_assets_to_storage_response') {
+
+            if ($in.response.answer === 'true') {
+                $in.data_back.assets_updated = 'true';
+                $assetsUpdated = 'true';
+            }
+
+            $in.step = 'step_answer';
+        }
+
+        if ($in.step === 'step_answer') {
+            $answer = $in.data_back.save_full_list_answer;
+            $message = $in.data_back.save_full_list_message;
             $fullList = _Default($defaultFullList, $in.data_back.full_list);
 
             if ($answer === 'true') {
@@ -1630,6 +1748,7 @@ function infohub_launcher() {
             'message': $message,
             'updated': $updated,
             'list': $fullList.list,
+            'assets_updated': $assetsUpdated,
             'messages': $messagesArray,
         };
     };
@@ -1757,7 +1876,7 @@ function infohub_launcher() {
                 $message = 'I loaded the server list from Storage but the plugin data do not exist there';
                 $in.step = 'step_end';
             } else {
-                $data = _ByVal($in.response.data.list[$in.plugin]);
+                $data = $in.response.data.list[$in.plugin];
                 $in.step = 'step_get_my_list_from_storage';
             }
         }
@@ -1797,7 +1916,7 @@ function infohub_launcher() {
         }
 
         if ($in.step === 'step_add_data_to_my_list') {
-            $myList.list[$in.plugin] = _ByVal($in.new_data);
+            $myList.list[$in.plugin] = $in.new_data;
             $myList.micro_time = _MicroTime();
             $myList.current_time = _TimeStamp();
             $myList.list_checksum = ''; // Not used in my_list
@@ -1924,7 +2043,7 @@ function infohub_launcher() {
                 $message = 'I loaded my list from Storage but the plugin is already gone from the list';
                 $in.step = 'step_end';
             } else {
-                $myList = _ByVal($in.response.data);
+                $myList = $in.response.data;
                 delete ($myList.list[$in.plugin]);
                 $in.step = 'step_save_my_list_to_storage';
             }
@@ -2448,8 +2567,7 @@ function infohub_launcher() {
 
         if ($in.step === 'step_get_launch_information_response') {
             $pluginName = $in.data_back.plugin_name;
-            $in.data_back.result_list.list[$pluginName] = _ByVal(
-                $in.response.data);
+            $in.data_back.result_list.list[$pluginName] = _ByVal($in.response.data);
             $in.step = 'step_get_launch_information';
         }
 
@@ -2458,7 +2576,7 @@ function infohub_launcher() {
 
                 const $response = _Pop($in.list.list);
                 $pluginName = $response.key;
-                $in.list.list = _ByVal($response.object);
+                $in.list.list = $response.object;
 
                 return _SubCall({
                     'to': {

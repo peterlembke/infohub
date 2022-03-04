@@ -463,7 +463,7 @@ function infohub_session() {
      * Check if the session is valid
      * If not valid it will be deleted from the storage
      * Also return user_name and allowed plugin names
-     * @version 2020-05-10
+     * @version 2022-02-25
      * @since 2020-01-18
      * @author Peter Lembke
      */
@@ -490,6 +490,8 @@ function infohub_session() {
             'user_name': '',
             'role_list': [],
         };
+
+        let $messages = [];
 
         if ($in.step === 'step_get_session_data') {
             return _SubCall({
@@ -536,12 +538,13 @@ function infohub_session() {
             $in.step = 'step_end';
 
             if ($in.response.post_exist === 'true') {
+                $out.session_valid = 'true'; // We assume the session data we have is valid for now
                 $in.step = 'step_ask_server_if_session_is_valid';
             }
         }
 
         if ($in.step === 'step_ask_server_if_session_is_valid') {
-            return _SubCall({
+            let $messageOut = _SubCall({
                 'to': {
                     'node': 'server',
                     'plugin': 'infohub_session',
@@ -558,7 +561,9 @@ function infohub_session() {
                     'role_list': $out.role_list,
                     'step': 'step_ask_server_if_session_is_valid_response',
                 },
+                'wait': 0.2
             });
+            $messages.push($messageOut);
         }
 
         if ($in.step === 'step_ask_server_if_session_is_valid_response') {
@@ -574,15 +579,37 @@ function infohub_session() {
                 'answer': $in.response.answer,
                 'message': $in.response.message,
                 'session_id': $in.data_back.session_id,
-                'session_valid': $in.response.session_valid,
+                'session_valid': $in.response.session_valid, // Now we know if the session is valid
                 'user_name': $in.data_back.user_name,
                 'role_list': $in.data_back.role_list,
             };
+
+            if ($out.session_valid === 'false') {
+                $in.step = 'step_delete_session';
+            }
+        }
+
+        if ($in.step === 'step_delete_session') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_session',
+                    'function': 'delete_session_data',
+                },
+                'data': {},
+                'data_back': {
+                    'session_valid': 'false',
+                    'user_name': $out.user_name,
+                    'role_list': $out.role_list,
+                    'step': 'step_void',
+                },
+            });
         }
 
         return {
             'answer': $out.answer,
             'message': $out.message,
+            'messages': $messages,
             'session_valid': $out.session_valid,
             'user_name': $out.user_name,
             'role_list': $out.role_list,

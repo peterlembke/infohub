@@ -8,6 +8,7 @@
         "infohub_doc_navigate",
         "infohub_doc_document",
         "infohub_doc_index",
-        "infohub_doc_visited"
+        "infohub_doc_visited",
+        "infohub_renderadvancedlist"
     ]
 }

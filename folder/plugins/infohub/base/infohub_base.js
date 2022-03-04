@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/*jshint esversion: 11 */
 /*jshint forin: false */
 
 let $functions = [], // Array with all function names
@@ -601,7 +601,7 @@ const _SubCall = function($in = {}) {
         'data_back': {},
         'messages': [],
         'track': 'false',
-        'wait': 0.2,
+        'wait': 1.0,
     };
 
     const $out = _Default($default, $in);
