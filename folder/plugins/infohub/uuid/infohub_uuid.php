@@ -244,12 +244,12 @@ class infohub_uuid extends infohub_base
         int $length = 16
     ): string {
 
-        if (function_exists('random_bytes')) {
+        if (function_exists('random_bytes') === true) {
             $data = random_bytes(16); // PHP >= 7
             return $data;
         }
 
-        if (function_exists('openssl_random_pseudo_bytes')) {
+        if (function_exists('openssl_random_pseudo_bytes') === true) {
             $data = openssl_random_pseudo_bytes(16); // PHP < 7
             return $data;
         }
@@ -277,10 +277,10 @@ class infohub_uuid extends infohub_base
 
         try {
             $randomNumber = '';
-            if (function_exists('random_int')) {
+            if (function_exists('random_int') === true) {
                 $randomNumber = random_int(0, PHP_INT_MAX); // PHP >= 7
             } else {
-                if (function_exists('mt_rand')) {
+                if (function_exists('mt_rand') === true) {
                     $randomNumber = mt_rand(0, PHP_INT_MAX); // PHP < 7
                 } else {
                     goto leave;

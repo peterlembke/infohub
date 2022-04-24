@@ -68,8 +68,7 @@ function infohub_render_frog() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substring(1);
         }
 
         return $response;

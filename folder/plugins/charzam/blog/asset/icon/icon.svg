@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--part of the rodentia icon theme by sixsixfive released under CC0 (https://creativecommons.org/publicdomain/zero/1.0/) on openclipart-->
+
+<svg
+   viewBox="0 0 34.747231 43.583355"
+   version="1.1"
+   id="svg133"
+   width="100%"
+   height="100%"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="0">
+    <linearGradient
+       id="A">
+      <stop
+         id="L"
+         stop-color="#fff"
+         stop-opacity="0.8" />
+      <stop
+         id="M"
+         offset="1"
+         stop-color="#fff"
+         stop-opacity="0" />
+    </linearGradient>
+    <linearGradient
+       id="B">
+      <stop
+         id="N"
+         stop-color="#eeeeec" />
+      <stop
+         id="O"
+         offset="1"
+         stop-color="#d3d7cf" />
+    </linearGradient>
+    <radialGradient
+       cx="13.559"
+       cy="12.06"
+       r="16.219"
+       id="E"
+       xlink:href="#B"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6174379,2.5604989,-3.7886681,0.9135993,42.617351,-38.847795)" />
+    <linearGradient
+       y1="2.438"
+       x2="0"
+       y2="43.34"
+       id="F"
+       xlink:href="#A"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-6.75,-0.97914503)" />
+    <radialGradient
+       cx="34.130001"
+       cy="8.6090002"
+       r="3.03"
+       id="G"
+       xlink:href="#B"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.9999999,2.0717464e-7,-2.1678585e-7,2.0927836,-40.874995,-10.395336)" />
+    <linearGradient
+       x1="34.130001"
+       y1="8.75"
+       x2="36.533001"
+       y2="6.3629999"
+       id="H"
+       xlink:href="#A"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-6.75,-1.12777)" />
+    <filter
+       x="-0.16043671"
+       y="-0.15096443"
+       width="1.3208734"
+       height="1.3019289"
+       color-interpolation-filters="sRGB"
+       id="I">
+      <feGaussianBlur
+         stdDeviation="0.5327"
+         id="R" />
+    </filter>
+  </defs>
+  <path
+     d="M 3.09375,0.23960497 C 1.3763501,0.23960497 0,1.6159553 0,3.333355 v 37.15625 c 0,1.7174 1.3763496,3.093751 3.09375,3.09375 h 28.3125 c 1.7174,0 3.09375,-1.376351 3.09375,-3.09375 V 7.270855 L 27.75,0.23960497 Z"
+     id="2"
+     fill="#888a85"
+     style="display:inline" />
+  <path
+     d="m 3.09375,1.270855 c -1.1586131,0 -2.0625,0.903887 -2.0625,2.0625 v 37.15625 c 0,1.158614 0.9038868,2.062501 2.0625,2.0625 h 28.3125 c 1.158613,0 2.0625,-0.903888 2.0625,-2.0625 V 7.708355 l -6.15625,-6.4375 z"
+     id="3"
+     fill="url(#E)"
+     style="display:inline;fill:url(#E)" />
+  <g
+     transform="translate(-6.75,-1.6276449)"
+     id="4"
+     style="display:inline">
+    <g
+       transform="translate(4.4958508e-8,0.4998749)"
+       id="K"
+       style="display:inline">
+      <rect
+         width="25"
+         height="3"
+         x="11.5"
+         y="6.04"
+         id="X"
+         fill="#888a85" />
+      <rect
+         width="25"
+         height="3"
+         x="11.5"
+         y="24.040001"
+         id="Y"
+         fill="#888a85" />
+      <rect
+         width="17.865"
+         height="3"
+         x="11.5"
+         y="30.040001"
+         id="Z"
+         fill="#888a85" />
+      <rect
+         width="23.285999"
+         height="3"
+         x="11.5"
+         y="36.040001"
+         id="a"
+         fill="#888a85" />
+      <g
+         id="b">
+        <rect
+           width="13.157"
+           height="3"
+           x="11.5"
+           y="12.04"
+           id="f"
+           fill="#888a85" />
+        <rect
+           width="13.272"
+           height="3"
+           x="11.5"
+           y="18.040001"
+           id="g"
+           fill="#888a85" />
+        <path
+           d="m 31.651945,11.794995 c -2.120526,0.05576 -2.51948,1.58097 -2.406259,2.728341 0.01758,0.178185 0.10109,0.340679 0.233516,0.484819 0.01244,-0.113106 0.02942,-0.224364 0.05331,-0.333932 -0.0089,0.09724 -0.01269,0.196751 -0.01269,0.296828 0,0.923792 0.388878,1.739909 0.979766,2.22126 -0.03936,0.225828 -0.127942,0.418597 -0.2589,0.653021 l -2.213355,0.462556 c -1.07294,0.241886 -1.154119,1.730712 -1.081294,2.485931 9.5583,-0.02643 -0.01847,0.01556 9.553969,-0.01979 -0.03276,-0.825632 -0.152462,-2.293205 -1.243739,-2.520561 l -2.096598,-0.38835 c -1.57e-4,-0.0066 4.9e-4,-0.01319 0,-0.01979 L 33.030216,17.15026 c 0.563485,-0.485823 0.931538,-1.28101 0.931538,-2.179209 0,-0.0091 7.4e-5,-0.01816 0,-0.02721 0.0091,0.04526 0.01816,0.09001 0.02538,0.128625 0.120174,-0.157909 0.09199,-0.428232 0.124377,-0.640653 0.168523,-1.10527 -0.470126,-2.604256 -2.246353,-2.636819 -0.07203,-0.0013 -0.144806,-0.0018 -0.213212,0 z"
+           id="h"
+           fill="#888a85"
+           fill-rule="evenodd" />
+      </g>
+    </g>
+  </g>
+</svg>

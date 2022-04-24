@@ -2438,7 +2438,7 @@ function infohub_view() {
 
             $useValue = ['textarea'];
             if ($useValue.indexOf($type) >= 0) {
-                $text = $element.innerHTML;
+                $text = $element.value; // $element.innerHTML;
                 $text = _Replace('<br>', '\n', $text);
                 $message = 'Got the value from this input object';
                 break leave;
@@ -3544,6 +3544,8 @@ function infohub_view() {
         const $currentFormData = $response.form_data;
         const $newFormData = $in.form_data;
 
+        let $eventArray = [];
+
         // Create a new object with all data in one level to be updated in DOM.
         const $formDataToUpdate = _GetFormDataToUpdate($currentFormData, $newFormData);
 
@@ -3552,7 +3554,8 @@ function infohub_view() {
                 continue;
             }
 
-            let $box = _GetNode($formDataToUpdate[$keyName].id);
+            const $id = $formDataToUpdate[$keyName].id;
+            let $box = _GetNode($id);
             if (!$box) {
                 continue; // There is no element with that id
             }
@@ -3576,8 +3579,8 @@ function infohub_view() {
                 }
 
                 $box.value = $value.toString();
-                _Go($box, 'onkeyup');
-                _Go($box, 'onchange');
+                $eventArray.push({'id': $id, 'event_name': 'onkeyup'});
+                $eventArray.push({'id': $id, 'event_name': 'onchange'});
                 continue;
             }
 
@@ -3590,23 +3593,43 @@ function infohub_view() {
                 }
 
                 $box.value = $value.toString();
-                _Go($box, 'onkeyup');
+                $eventArray.push({'id': $id, 'event_name': 'onkeyup'});
                 continue;
             }
 
-            if ($type === 'radio' || $type === 'checkbox') {
+            if ($type === 'radio') {
                 if ($value === 'true') {
                     $box.checked = true;
-                    _Go($box, 'onchange');
+                    $eventArray.push({'id': $id, 'event_name': 'onchange'});
+                }
+                continue;
+            }
+
+            if ($type === 'checkbox') {
+                if ($value === 'true') {
+                    $box.checked = true;
+                    $eventArray.push({'id': $id, 'event_name': 'onchange'});
                     continue;
                 }
                 $box.checked = false;
-                _Go($box, 'onchange');
+                $eventArray.push({'id': $id, 'event_name': 'onchange'});
                 continue;
             }
 
             if ($type === 'select') {
+
+                // You can set your selection even before the select box has any options to select.
+                // Later when options have been added then your pending selection will be activated.
+                const $separator = ',';
+                const $pendingSelectionString = $box.getAttribute('pending_selection') ?? '';
+                let $pendingSelection = [];
+                if ($pendingSelectionString !== '') {
+                    $pendingSelection = $pendingSelectionString.split($separator);
+                }
+                const $hasPendingSelection = _Full($pendingSelection);
+
                 if ($mode === 'clean_and_add') {
+                    // $value array with text strings that will both display and be the value returned when selected
                     $box.options.length = 0;
 
                     for (let $i = 0; $i < $value.length; $i = $i + 1) {
@@ -3614,32 +3637,93 @@ function infohub_view() {
                         $option.text = $value[$i];
                         $option.value = $value[$i];
                         $box.add($option, null);
-                        // $box.options[$box.options.length-1].selected = true;
                     }
 
-                    // $box.options[0].selected = true;
+                    if ($hasPendingSelection === 'false') {
+                        continue; // Handle next form element
+                    }
 
+                    // We have a pending selection. We will set that now.
+                    $value = $pendingSelection;
+                }
+
+                if ($mode === 'clean_add_select') {
+                    // $value array with objects containing: type, label, value, selected
+                    $box.options.length = 0;
+
+                    let $hasSelected = false; // If we select any option then we will trigger an event
+
+                    for (let $key = 0; $key < $value.length; $key = $key + 1) {
+
+                        const $optionType = $value[$key].type ?? '';
+                        if ($optionType !== 'option' && $optionType !== 'optgroup') {
+                            continue;
+                        }
+
+                        let $option = document.createElement($optionType);
+                        $option.text = $value[$key].label ?? '---';
+
+                        if ($optionType === 'option') {
+                            $option.value = $value[$key].value ?? '---';
+                            const $selected = $value[$key].selected ?? false;
+                            if ($selected === true) {
+                                $hasSelected = true;
+                            }
+                            $option.selected = $selected;
+                        }
+
+                        $box.add($option, null);
+                    }
+
+                    if ($hasSelected === true) {
+                        _Go($box, 'onchange'); // Trigga event
+                        continue;
+                    }
+
+                    if ($hasPendingSelection === 'false') {
+                        continue; // Handle next form element
+                    }
+
+                    // We have a pending selection. We will set that now.
+                    $value = $pendingSelection;
+                }
+
+                // $value is an array with strings that will be selected in the dropdown
+                // an empty array will unselect all options
+
+                if ($box.options.length === 0) {
+                    // The dropdown has no options. We store the selection for later when we have options
+                    $box.setAttribute('pending_selection', $value.join($separator));
                     continue;
                 }
 
+                // $value array contain all selected option string values
                 let $selectIndex = {};
                 for (let $i = 0; $i < $value.length; $i = $i + 1) {
                     $selectIndex[$value[$i]] = 1;
                 }
 
+                // Unselect all options in the DOM
                 for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
                     $box.options[$i].selected = false;
                 }
 
+                // Select the options from $selectedIndex
                 for (let $i = 0; $i < $box.options.length; $i = $i + 1) {
-                    if (_IsSet($selectIndex[$box.options[$i].value]) ===
-                        'true') {
+                    if (_IsSet($selectIndex[$box.options[$i].value]) === 'true') {
                         $box.options[$i].selected = true;
                     }
                 }
 
-                _Go($box, 'onchange');
+                $box.setAttribute('pending_selection', '');
+
+                $eventArray.push({'id': $id, 'event_name': 'onchange'});
             }
+        }
+
+        for (let $nr = 0; $nr < $eventArray.length; $nr++) {
+            let $box = _GetNode($eventArray[$nr].id);
+            _Go($box, $eventArray[$nr].event_name);
         }
 
         const $answer = 'true';
@@ -3713,7 +3797,7 @@ function infohub_view() {
                     'type': $current.type,
                     'value': $newFormData[$key].value,
                     'form_alias': $current.form_alias,
-                    'mode': $newFormData[$key].mode,
+                    'mode': $newFormData[$key].mode ?? 'update',
                 };
                 continue;
             }

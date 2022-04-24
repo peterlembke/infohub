@@ -429,8 +429,7 @@ function infohub_login_password() {
         for (let $i = 0; $i < $length; $i = $i + 1) {
             $code = $resultUint8Array[$i];
             $passwordCharacterPosition = $i % $passwordLength;
-            $passwordCharCode = $in.password.charCodeAt(
-                $passwordCharacterPosition);
+            $passwordCharCode = $in.password.charCodeAt($passwordCharacterPosition);
 
             if ($in.mode === 'restore') {
                 $passwordCharCode = -$passwordCharCode;
@@ -482,8 +481,7 @@ function infohub_login_password() {
         const $length = $binaryIntegerArray.byteLength;
 
         for (let $i = 0; $i < $length; $i = $i + 1) {
-            $stringWithBinaryData = $stringWithBinaryData +
-                String.fromCharCode($binaryIntegerArray[$i]);
+            $stringWithBinaryData = $stringWithBinaryData + String.fromCharCode($binaryIntegerArray[$i]);
         }
 
         const $base64String = btoa($stringWithBinaryData);

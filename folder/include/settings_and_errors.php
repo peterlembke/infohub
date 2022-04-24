@@ -43,6 +43,7 @@ header("Pragma: no-cache");
 
 $GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
 $GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'log' if you want to debug in general.
+$GLOBALS['main_loop_max_count'] = 500; // Number of runs in the main loop. To prevent jobs that will never finish.
 
 /**
  * Execution errors end up here
@@ -108,8 +109,9 @@ function myExceptionHandler(Throwable $exception): void
  */
 function shutdownFunction(): void
 {
+    $memory = memory_get_usage();
     $lastError = error_get_last();
-    if (isset($lastError['type'])) {
+    if (isset($lastError['type']) === true) {
         if ($lastError['type'] === E_ERROR or $lastError['type'] === E_WARNING) {
             myErrorHandler($lastError['type'], $lastError['message'], $lastError['file'], $lastError['line']);
         }

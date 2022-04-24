@@ -92,8 +92,16 @@ In PHP the general error handler is here:
 In Javascript the general error handler is here:
  `include/error_handler_and_frame_breakout.js`
    
-You can set break points in these error handlers if you need to amd see the call stack.  
-    
+You can set break points in these error handlers if you need to amd see the call stack.
+
+## Script just dies
+The script just exit and there are no memory issues.  
+Check if you get the return message "There are more messages to handle but we have already ran $loopCount loops. I will stop now."  
+
+You can increase the limit in folder/include/settings_and_errors.php -> main_loop_max_count  
+The limit is there to avoid heavy work on the server and to avoid functions ping-poinging messages between each other forever.  
+In most cases 150 loops is enough. For getting the infohub_plugin->get_call_schema I have increased to 500.  
+
 # Logging
 Both JS and PHP has logging. 
 * PHP logs to file in `"log"`. 

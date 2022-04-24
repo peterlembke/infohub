@@ -276,12 +276,14 @@ function infohub_tree() {
     const click = function($in = {}) {
         const $default = {
             'event_data': '', // childName|clickName
+            'form_data': {},
             'value': '', // Selected option in select lists
             'box_id': '',
             'step': 'step_start',
             'response': {
                 'answer': 'false',
                 'message': 'There was an error',
+                'valid': 'false',
                 'ok': 'false',
                 'value': [], // All selected options in select lists
                 'files_data': [], // For the import button
@@ -308,6 +310,7 @@ function infohub_tree() {
                 },
                 'data': {
                     'event_data': $in.event_data,
+                    'form_data': $in.form_data,
                     'value': $in.value,
                     'values': $in.response.value,
                     'files_data': $in.response.files_data,

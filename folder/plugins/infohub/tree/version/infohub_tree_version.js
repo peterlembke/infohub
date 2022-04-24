@@ -232,8 +232,7 @@ function infohub_tree_version() {
                     'data': {},
                     'data_back': {
                         'plugin_name': $pluginName,
-                        'box_id': 'main.body.infohub_tree.form.[' +
-                            $pluginName + '_form_element]',
+                        'box_id': 'main.body.infohub_tree.form.[' + $pluginName + '_form_element]',
                         'step': 'step_get_version_response',
                     },
                 });

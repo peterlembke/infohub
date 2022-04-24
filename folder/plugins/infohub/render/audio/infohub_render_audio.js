@@ -69,7 +69,7 @@ function infohub_render_audio() {
             }
 
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
 
         return $response;

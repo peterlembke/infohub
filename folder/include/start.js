@@ -293,7 +293,7 @@ function infohub_start($progress) {
      * @private
      */
     const _Count = function($object) {
-        if (Array.isArray($object)) {
+        if (Array.isArray($object) === true) {
             return $object.length;
         }
 

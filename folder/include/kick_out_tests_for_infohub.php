@@ -97,11 +97,11 @@ class kick_out_tests_for_infohub extends infohub_base
     protected function httpRefererTest(): void
     {
         $requestScheme = 'http';
-        if (isset($_SERVER['REQUEST_SCHEME'])) {
+        if (isset($_SERVER['REQUEST_SCHEME']) === true) {
             $requestScheme = $_SERVER['REQUEST_SCHEME'];
         }
         if ($requestScheme === 'http') {
-            if (isset($_SERVER['HTTPS'])) {
+            if (isset($_SERVER['HTTPS']) === true) {
                 if ($_SERVER['HTTPS'] === 'on') {
                     $requestScheme = 'https';
                 }
@@ -109,7 +109,7 @@ class kick_out_tests_for_infohub extends infohub_base
         }
 
         $url = '';
-        if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['REQUEST_URI'])) {
+        if (isset($_SERVER['SERVER_NAME']) === true and isset($_SERVER['REQUEST_URI']) === true) {
             $fileName = $this->getFileName();
             $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace(
                     $fileName,
@@ -210,12 +210,12 @@ class kick_out_tests_for_infohub extends infohub_base
         $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form, and you see that this is needed
         $messages = $this->_JsonDecode($messagesJson);
 
-        if (empty($messages)) {
+        if (empty($messages) === true) {
             $messages = [];
         }
 
         $messageCount = count($messages);
-        if (empty($messageCount)) {
+        if (empty($messageCount) === true) {
             $this->GetOut('Server says: Package messages missing');
         }
         if ($messageCount > 100) {

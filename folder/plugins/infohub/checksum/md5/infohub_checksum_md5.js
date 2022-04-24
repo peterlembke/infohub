@@ -34,8 +34,9 @@ function infohub_checksum_md5() {
 
     const _GetCmdFunctions = function() {
         const $list = {
-            'calculate_checksum': 'emerging',
-            'verify_checksum': 'emerging',
+            'calculate_checksum': 'normal',
+            'verify_checksum': 'normal',
+            'password_checksum': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -100,6 +101,34 @@ function infohub_checksum_md5() {
             'value': $in.value,
             'checksum': $in.checksum,
             'verified': $verified,
+        };
+    };
+
+    /**
+     * Runs a checksum method several times on a password.
+     * @version 2022-03-22
+     * @since   2022-03-22
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array|bool
+     */
+    $functions.push('password_checksum');
+    const password_checksum = function($in = {}) {
+        const $default = {
+            'password': '',
+            'salt': '',
+            'iterations': 200
+        };
+
+        let $checksum = $in.password;
+        for (let $iteration = 0; $iteration < $in.iterations; $iteration++) {
+            $checksum = _Md5($in.salt + $checksum + $in.salt);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Here are the password checksum',
+            'data': $checksum,
         };
     };
 

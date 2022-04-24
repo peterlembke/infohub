@@ -377,11 +377,13 @@ function infohub_language() {
         return $out;
     };
 
+    $functions.push('_RawData');
     /**
      * Language data comes from http://www.lingoes.net/en/translator/langcode.htm
-     * @returns {}
+     *
+     * @returns {{"ky-KG": *, "sr-SP": *, ps: *, pt: *, "es-BO": *, "ar-SY": *, "ta-IN": *, "hr-BA": *, "el-GR": *, "nl-NL": *, "zu-ZA": *, "en-AU": *, "he-IL": *, "mk-MK": *, "ar-TN": *, "syr-SY": *, "hu-HU": *, qu: *, af: *, "es-SV": *, "tt-RU": *, "es-CR": *, "es-CL": *, "es-CO": *, ar: *, "pt-PT": *, "ar-EG": *, "cy-GB": *, "ar-DZ": *, az: *, "en-BZ": *, ro: *, "nb-NO": *, be: *, ru: *, bg: *, "es-PR": *, "zh-MO": *, "af-ZA": *, "es-PY": *, sa: *, "qu-PE": *, se: *, sk: *, sl: *, "en-PH": *, ca: *, sq: *, sv: *, "ps-AR": *, sw: *, "uz-UZ": *, "ko-KR": *, "ns-ZA": *, ta: *, cs: *, "ru-RU": *, te: *, "es-AR": *, th: *, cy: *, tl: *, "mr-IN": *, "da-DK": *, tn: *, da: *, tr: *, ts: *, tt: *, de: *, "lv-LV": *, "qu-EC": *, "nl-BE": *, "te-IN": *, dv: *, uk: *, "hi-IN": *, "se-FI": *, ur: *, "de-CH": *, "bs-BA": *, "ka-GE": *, uz: *, "ar-QA": *, el: *, en: *, eo: *, es: *, "nn-NO": *, et: *, "es-PE": *, eu: *, "en-NZ": *, "fa-IR": *, vi: *, "es-PA": *, "tr-TR": *, fa: *, "fr-FR": *, "vi-VN": *, fi: *, fo: *, "ar-AE": *, fr: *, "sl-SI": *, syr: *, "pa-IN": *, "fr-CH": *, "ar-SA": *, "de-DE": *, "sr-BA": *, gl: *, "zh-HK": *, "pt-BR": *, "sv-FI": *, "ar-BH": *, "kk-KZ": *, "es-MX": *, gu: *, "it-IT": *, xh: *, "id-ID": *, "qu-BO": *, he: *, "es-NI": *, "th-TH": *, "en-IE": *, hi: *, "ar-KW": *, "ms-MY": *, "en-ZA": *, hr: *, hu: *, hy: *, "ar-LB": *, id: *, "en-ZW": *, "ar-LY": *, "en-JM": *, is: *, it: *, "eu-ES": *, "fr-CA": *, "se-SE": *, zh: *, "pl-PL": *, "fr-BE": *, ja: *, "ar-MA": *, zu: *, "es-HN": *, "hr-HR": *, "gl-ES": *, "de-AT": *, "is-IS": *, ka: *, "bg-BG": *, "cs-CZ": *, kk: *, kn: *, ko: *, "zh-TW": *, "sk-SK": *, ky: *, "ar-OM": *, "sq-AL": *, "dv-MV": *, "sv-SE": *, "mn-MN": *, "uk-UA": *, "en-US": *, "gu-IN": *, "sa-IN": *, kok: *, lt: *, lv: *, "zh-CN": *, "ur-PK": *, "hy-AM": *, mi: *, "fo-FO": *, "ja-JP": *, mk: *, "se-NO": *, mn: *, "ar-YE": *, mr: *, ms: *, mt: *, "es-GT": *, "mi-NZ": *, "be-BY": *, nb: *, "ro-RO": *, "zh-SG": *, "mt-MT": *, "et-EE": *, "it-CH": *, "en-GB": *, nl: *, "fi-FI": *, "az-AZ": *, "en-CB": *, "en-CA": *, ns: *, "lt-LT": *, "es-DO": *, "ar-IQ": *, "kok-IN": *, "tn-ZA": *, "es-EC": *, "kn-IN": *, "ca-ES": *, "en-TT": *, "de-LI": *, "fr-MC": *, "es-UY": *, "ms-BN": *, "sw-KE": *, "es-ES": *, "ar-JO": *, "es-VE": *, "xh-ZA": *, pa: *, "tl-PH": *, "de-LU": *, "fr-LU": *, pl: *}}
+     * @private
      */
-    $functions.push('_RawData');
     const _RawData = function() {
         return {
             'af': _Translate('Afrikaans'),

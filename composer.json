@@ -19,7 +19,11 @@
     "ext-zlib": "*",
     "ext-openssl": "*",
     "ext-pdo": "*",
-    "ext-redis": "*",
-    "ext-zend-opcache": "*"
+    "ext-redis": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   }
 }

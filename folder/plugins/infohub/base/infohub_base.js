@@ -56,7 +56,7 @@ const _Default = function($default = {}, $in = {}) {
         $firstDefault = $default;
     }
 
-    if (Array.isArray($in)) {
+    if (Array.isArray($in) === true) {
         $in = {};
     }
 
@@ -175,7 +175,7 @@ const _Merge = function($object1 = {}, $object2 = {}) {
 
     if (typeof $object1 === 'object') {
         for (let $key in $object1) {
-            if ($object1.hasOwnProperty($key)) {
+            if ($object1.hasOwnProperty($key) === true) {
                 $newObject[$key] = $object1[$key];
             }
         }
@@ -183,7 +183,7 @@ const _Merge = function($object1 = {}, $object2 = {}) {
 
     if (typeof $object2 === 'object') {
         for (let $key in $object2) {
-            if ($object2.hasOwnProperty($key)) {
+            if ($object2.hasOwnProperty($key) === true) {
                 $newObject[$key] = $object2[$key];
             }
         }
@@ -212,7 +212,7 @@ const _MergeStringData = function($object1 = {}, $object2 = {}) {
 
     if (typeof $object1 === 'object') {
         for (let $key in $object1) {
-            if ($object1.hasOwnProperty($key)) {
+            if ($object1.hasOwnProperty($key) === true) {
                 $newObject[$key] = $object1[$key];
             }
         }
@@ -220,7 +220,7 @@ const _MergeStringData = function($object1 = {}, $object2 = {}) {
 
     if (typeof $object2 === 'object') {
         for (let $key in $object2) {
-            if ($object2.hasOwnProperty($key)) {
+            if ($object2.hasOwnProperty($key) === true) {
                 let $stringValue = $object2[$key];
                 if (_IsSet($object1[$key]) === 'true') {
                     $stringValue = $object1[$key] + $object2[$key];
@@ -554,6 +554,39 @@ const _SprintF = function($rowString = '', $substituteArray = []) {
     return $answer;
 };
 
+$functions.push('_SubString');
+/**
+ * Same as .substr but not using deprecated commands
+ *
+ * @param $string
+ * @param $start
+ * @param $length
+ * @returns {string}
+ * @private
+ */
+const _SubString = function(
+    $string = '',
+    $start = 0,
+    $length = 0
+) {
+    let $end = $start + $length;
+
+    const $stringLength = $string.length;
+    if ($end > $stringLength) {
+        $end = $stringLength;
+    }
+
+    if ($start > $end) {
+        const $swap = $start;
+        $start = $end;
+        $end = $swap;
+    }
+
+    let $result = $string.substring($start, $end);
+
+    return $result;
+};
+
 /**
  * Takes the first found key data from the object and gives it to you, removing it from the object.
  * Used in loops when sending one item at the time in a subcall.
@@ -617,7 +650,7 @@ const _SubCall = function($in = {}) {
  */
 $functions.push('_Count');
 const _Count = function($object) {
-    if (Array.isArray($object)) {
+    if (Array.isArray($object) === true) {
         return $object.length;
     }
 
@@ -864,7 +897,7 @@ const _GetClassName = function() {
 $functions.push('_GetCallerPluginName');
 const _GetCallerPluginName = function($in = {}) {
     const _GetLastInArray = function($dataArray) {
-        if (Array.isArray($dataArray)) {
+        if (Array.isArray($dataArray) === true) {
             if ($dataArray.length > 0) {
                 return $dataArray[$dataArray.length - 1];
             }
@@ -931,7 +964,7 @@ const _Alert = function($text = '') {
 $functions.push('_GetExtension');
 const _GetExtension = function($fileName = '') {
     const $extensionStart = $fileName.lastIndexOf('.') + 1;
-    const $extension = $fileName.substr($extensionStart);
+    const $extension = $fileName.substring($extensionStart);
     return $extension;
 };
 

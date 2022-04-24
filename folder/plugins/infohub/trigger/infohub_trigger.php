@@ -74,15 +74,17 @@ class infohub_trigger extends infohub_base
      * You will not get functions list for the js plugins. That will happen if you select a plugin.
      * You will not get the default message for a plugin that will happen if you select a function
      * and press send with an empty message
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
-     * @version 2020-08-17
+     * @version 2022-03-26
      * @since   2020-08-12
      */
     protected function get_plugin_list(array $in = []): array
     {
         $default = [
+            'plugin_status' => 'all', // all, emerging, normal, deprecated, removed
             'from_plugin' => [
                 'node' => ''
             ],
@@ -106,7 +108,7 @@ class infohub_trigger extends infohub_base
                         'function' => 'developer_get_all_plugin_data'
                     ],
                     'data' => [
-                        'plugin_status' => 'emerging'
+                        'plugin_status' => $in['plugin_status']
                     ],
                     'data_back' => [
                         'step' => 'step_ask_file_response'

@@ -97,7 +97,7 @@ function infohub_uuid() {
 
         let $first = '';
         for (let $key in $UuidIndex) {
-            if ($UuidIndex.hasOwnProperty($key)) {
+            if ($UuidIndex.hasOwnProperty($key) === true) {
                 $out.push($key);
                 if ($first === '') {
                     $first = $key;

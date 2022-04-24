@@ -70,7 +70,7 @@ function infohub_render_form() {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
 
         return $response;
@@ -1359,8 +1359,7 @@ function infohub_render_form() {
             $checked = ' checked';
         }
 
-        const $id = _GetId(
-            {'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
 
         $in.html = '<span><input' + $id + _GetParameters($in, $fields) +
             $destination + $event + $checked + '><label for="{box_id}_' +

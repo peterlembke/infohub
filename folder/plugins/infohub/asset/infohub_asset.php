@@ -119,7 +119,7 @@ class infohub_asset extends infohub_base
             goto leave;
         }
 
-        if (empty($pluginName)) {
+        if (empty($pluginName) === true) {
             $message = 'The plugin name is empty';
             goto leave;
         }

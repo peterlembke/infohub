@@ -96,11 +96,11 @@ class kick_out_tests_for_index
     protected function httpRefererTest(): void
     {
         $requestScheme = 'http';
-        if (isset($_SERVER['REQUEST_SCHEME'])) {
+        if (isset($_SERVER['REQUEST_SCHEME']) === true) {
             $requestScheme = $_SERVER['REQUEST_SCHEME'];
         }
         if ($requestScheme === 'http') {
-            if (isset($_SERVER['HTTPS'])) {
+            if (isset($_SERVER['HTTPS']) === true) {
                 if ($_SERVER['HTTPS'] === 'on') {
                     $requestScheme = 'https';
                 }
@@ -108,7 +108,7 @@ class kick_out_tests_for_index
         }
 
         $url = '';
-        if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['REQUEST_URI'])) {
+        if (isset($_SERVER['SERVER_NAME']) === true and isset($_SERVER['REQUEST_URI']) === true) {
             $fileName = $this->getFileName();
             $url = $requestScheme . '://' . $_SERVER['SERVER_NAME'] . str_replace(
                     $fileName,

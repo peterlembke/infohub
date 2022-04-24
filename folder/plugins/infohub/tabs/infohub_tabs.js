@@ -782,7 +782,7 @@ function infohub_tabs() {
 
         let $result = [];
         for (let $key in $tabs) {
-            if ($tabs.hasOwnProperty($key)) {
+            if ($tabs.hasOwnProperty($key) === true) {
                 let $oneTab = $tabs[$key];
                 $oneTab = _Default($default, $oneTab);
                 $result.push(_GetTabRenderData($oneTab.alias, $oneTab.label,

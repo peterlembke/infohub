@@ -460,7 +460,7 @@ class infohub_doc extends infohub_base
             'root' => ROOT,
         ];
 
-        if (isset($validPaths[$area])) {
+        if (isset($validPaths[$area]) === true) {
             $basePath = $validPaths[$area];
         }
 

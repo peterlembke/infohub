@@ -163,7 +163,7 @@ function infohub_exchange() {
     $functions.push('_GetUrlPluginName');
     const _GetUrlPluginName = function()
     {
-        const $getParameter = window.location.search.substr(1);
+        const $getParameter = window.location.search.substring(1);
 
         if (_Empty($getParameter) === 'true') {
             return '';

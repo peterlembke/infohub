@@ -1487,7 +1487,7 @@ function infohub_asset() {
 
                 for (let $key in $in.response.items) {
                     if ($in.response.items.hasOwnProperty($key) === true) {
-                        const $newKey = $key.substr($removeLength);
+                        const $newKey = $key.substring($removeLength);
                         $in.data_back.assets[$newKey] = $in.response.items[$key];
                     }
                 }

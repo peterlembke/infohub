@@ -38,6 +38,7 @@ function infohub_checksum() {
             'calculate_checksum': 'normal',
             'verify_checksum': 'normal',
             'get_available_options': 'normal',
+            'password_checksum': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -177,8 +178,16 @@ function infohub_checksum() {
     $functions.push('get_available_options');
     const get_available_options = function($in = {}) {
         const $options = [
-            {'type': 'option', 'value': 'crc32', 'label': 'CRC32'},
-            {'type': 'option', 'value': 'luhn', 'label': 'Luhn'},
+            {
+                'type': 'option',
+                'value': 'crc32',
+                'label': 'CRC32'
+            },
+            {
+                'type': 'option',
+                'value': 'luhn',
+                'label': 'Luhn'
+            },
             {
                 'type': 'option',
                 'value': 'md5',
@@ -204,6 +213,78 @@ function infohub_checksum() {
         };
     };
 
+    /**
+     * Runs a checksum method several times on a password.
+     * @version 2022-03-22
+     * @since   2022-03-22
+     * @author  Peter Lembke
+     * @param array $in
+     * @return array|bool
+     */
+    $functions.push('password_checksum');
+    const password_checksum = function($in = {}) {
+        const $default = {
+            'password': '',
+            'salt': '',
+            'iterations': 200,
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start') {
+
+            if ($in.salt.length < 16) {
+                return {
+                    'answer': 'false',
+                    'message': 'You are cheap on the salt. Give me at least 16 characters',
+                    'data': ''
+                };
+            }
+
+            if ($in.password.length < 8) {
+                return {
+                    'answer': 'false',
+                    'message': 'You are cheap on the password. Give me at least 8 characters. No point in protecting a weak password.',
+                    'data': ''
+                };
+            }
+
+            if ($in.iterations < 50) {
+                $in.iterations = 50;
+            }
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_checksum_md5',
+                    'function': 'password_checksum'
+                },
+                'data': {
+                    'password': $in.password, // in plain text
+                    'salt': $in.salt, // base64 encoded
+                    'iterations': $in.iterations
+                },
+                'data_back': {
+                    'step': 'step_response'
+                }
+            });
+        }
+
+        if ($in.step === 'step_response') {
+
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'data': $in.response.data
+        };
+    };
 }
 
 //# sourceURL=infohub_checksum.js

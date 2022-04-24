@@ -120,7 +120,7 @@ class infohub_file extends infohub_base
             return ['answer' => 'false', 'message' => 'Folder must be file or plugin'];
         }
 
-        if (str_contains($in['path'], '..')) {
+        if (str_contains($in['path'], '..') === true) {
             return ['answer' => 'false', 'message' => 'Path can not use ..'];
         }
 
@@ -886,7 +886,7 @@ class infohub_file extends infohub_base
                 'infohub_launcher' => ''
             ];
 
-            if (isset($avoid[$pluginName])) {
+            if (isset($avoid[$pluginName]) === true) {
                 continue;
             }
 
@@ -1102,19 +1102,21 @@ class infohub_file extends infohub_base
     }
 
     /**
-     * Get a list with all javascript plugin names
+     * Get a list with all plugin names
      * Used by infohub_plugin
      *
      * @param  array  $in
      * @return array
      * @author  Peter Lembke
-     * @version 2018-10-26
+     * @version 2022-03-24
      * @since   2018-10-26
      */
     protected function plugin_get_all_plugin_names(array $in = []): array
     {
         $default = [
-            'from_plugin' => ['node' => '', 'plugin' => '']
+            'from_plugin' => ['node' => '', 'plugin' => ''],
+            'type' => 'js', // js or php
+            'levels' => 5 // How deep down we want plugin names
         ];
         $in = $this->_Default($default, $in);
 
@@ -1132,13 +1134,16 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetFolderStructure',
-                'path' => PLUGINS,
-                'pattern' => '*.js',
-            ]
-        );
+        if ($in['type'] !== 'js' && $in['type'] !== 'php') {
+            $message = 'The type must be js or php';
+            goto leave;
+        }
+
+        $response = $this->internal_Cmd([
+            'func' => 'GetFolderStructure',
+            'path' => PLUGINS,
+            'pattern' => '*.' . $in['type'],
+        ]);
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -1150,19 +1155,27 @@ class infohub_file extends infohub_base
             $pluginName = $pathInfo['filename'];
 
             if (str_contains($pluginName, '_') === false) {
-                continue; // Skip js files without _ in the name
+                continue; // Skip files without _ in the name
             }
 
             if (strtolower($pluginName) !== $pluginName) {
-                continue; // Skip js files that contain upper case letters
+                continue; // Skip files that contain upper case letters
             }
 
             $avoid = [
                 'infohub_test_plugin_js' => '',
             ];
 
-            if (isset($avoid[$pluginName])) {
+            if (isset($avoid[$pluginName]) === true) {
                 continue;
+            }
+
+            if ($in['levels'] < 5) {
+                $parts = explode('_', $pluginName);
+                $maxParts = $in['levels'] + 1;
+                if (count($parts) > $maxParts) {
+                    continue;
+                }
             }
 
             $data[$pluginName] = '';
@@ -1175,6 +1188,7 @@ class infohub_file extends infohub_base
         return [
             'answer' => $answer,
             'message' => $message,
+            'type' => $in['type'],
             'data' => $data
         ];
     }
@@ -1230,13 +1244,11 @@ class infohub_file extends infohub_base
                 }
             }
 
-            $response = $this->internal_Cmd(
-                [
-                    'func' => 'GetFolderStructure',
-                    'path' => PLUGINS,
-                    'pattern' => '*.' . $extension,
-                ]
-            );
+            $response = $this->internal_Cmd([
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => '*.' . $extension,
+            ]);
 
             if ($response['answer'] === 'false') {
                 $message = $response['message'];
@@ -1259,7 +1271,7 @@ class infohub_file extends infohub_base
                     'infohub_test_plugin_js' => '',
                 ];
 
-                if (isset($avoid[$pluginName])) {
+                if (isset($avoid[$pluginName]) === true) {
                     continue;
                 }
 
@@ -1270,12 +1282,10 @@ class infohub_file extends infohub_base
                     }
                 }
 
-                $pluginInfo = $this->internal_Cmd(
-                    [
-                        'func' => 'Read',
-                        'path' => $path
-                    ]
-                );
+                $pluginInfo = $this->internal_Cmd([
+                    'func' => 'Read',
+                    'path' => $path
+                ]);
 
                 unset($pluginInfo['contents']);
 
@@ -1293,7 +1303,11 @@ class infohub_file extends infohub_base
 
                 $data[$node][$pluginName] = $pluginInfo;
             }
+
+            ksort($data[$node]); // Plugin names sorted
         }
+
+        ksort($data); // Node names sorted
 
         $answer = 'true';
         $message = 'Here are the list with all plugin names and their info';

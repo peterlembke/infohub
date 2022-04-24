@@ -870,7 +870,7 @@ function infohub_storage() {
             $in.path = $in.path.substr(0, $in.path.indexOf('*'));
 
             for (let $key in keys) {
-                if (keys.hasOwnProperty($key)) {
+                if (keys.hasOwnProperty($key) === true) {
                     const $path = keys[$key];
                     if ($path.indexOf($in.path) === 0) {
                         $data[$path] = {};

@@ -74,7 +74,7 @@ function infohub_render_common() {
             }
 
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
 
         return $response;
@@ -547,8 +547,8 @@ function infohub_render_common() {
         let $html = '';
 
         if ($in.data !== '') {
-            if ($in.data.substr(0, 10) !== 'data:image' &&
-                $in.data.substr(0, 1) !== '[') {
+            if ($in.data.substring(0, 10) !== 'data:image' &&
+                $in.data.substring(0, 1) !== '[') {
                 $in.data = 'data:image/png;base64,' + $in.data;
             }
 
@@ -583,11 +583,12 @@ function infohub_render_common() {
      * Make sure your svg sets width="100%" and height="100%" and have a viewBox parameter.
      * SVG that use (# will interfere with each other. In infohub_render_text.js -> _SvgIdsMoreUnique
      * we have a solution that make IDs unique.
+     *
      * @version 2018-12-30
      * @since   2018-12-30
      * @author  Peter Lembke
-     * @param {type} $in
-     * @returns {}
+     * @param $in
+     * @returns {{css_data, answer: string, html: string, message: string}}
      */
     const internal_Svg = function($in = {}) {
         const $default = {

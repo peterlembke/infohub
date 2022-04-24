@@ -73,7 +73,7 @@ function infohub_color() {
             }
 
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
 
         return $response;
@@ -842,7 +842,7 @@ function infohub_color() {
 
             const $eventDataArray = $in.event_data.split('|');
             const $elementId = $in.box_id + '_' + $eventDataArray[0] + '_';
-            const $hueDegree = parseInt($eventDataArray[1].substr(4));
+            const $hueDegree = parseInt($eventDataArray[1].substring(4));
             const $colorHex = $eventDataArray[2];
 
             $message = _SubCall({
@@ -999,8 +999,9 @@ function infohub_color() {
      * Click a light_bar_selector to get here
      * I will get the hex color. Convert to HSL and save light percent in the hidden box.
      * Render one box with the hex color.
+     *
      * @param $in
-     * @returns {}
+     * @returns {{answer, messages: [], message}}
      */
     const click_light_bar_selector = function($in = {}) {
         const $default = {
@@ -1023,8 +1024,7 @@ function infohub_color() {
 
             const $eventDataArray = $in.event_data.split('|');
             const $parentId = $in.box_id + '_' + $eventDataArray[0];
-            const $lightPercent = parseInt(
-                $eventDataArray[1].substr('light_'.length));
+            const $lightPercent = parseInt($eventDataArray[1].substring('light_'.length));
             const $hexColor = $eventDataArray[2];
             const $lightBoxContainer = $parentId + '_light_box_container';
             const $lightValueContainer = $parentId + '_light_value_container';
@@ -1230,9 +1230,9 @@ function infohub_color() {
      * @private
      */
     const _HexToRgb = function($colorCode = '') {
-        const $red = parseInt('0x' + $colorCode.substr(1, 2));
-        const $green = parseInt('0x' + $colorCode.substr(3, 2));
-        const $blue = parseInt('0x' + $colorCode.substr(5, 2));
+        const $red = parseInt('0x' + $colorCode.substring(1, 3));
+        const $green = parseInt('0x' + $colorCode.substring(3, 5));
+        const $blue = parseInt('0x' + $colorCode.substring(5, 7));
         const $rgbArray = [$red, $green, $blue];
 
         return $rgbArray;
@@ -1364,7 +1364,7 @@ function infohub_color() {
      */
     const _GetRGBArray = function($hueDegree = 0, $hp = 0, $x = 0, $c = 0) {
         let $rgbArray = [0, 0, 0];
-        if (isNaN($hueDegree)) {
+        if (isNaN($hueDegree) === true) {
             return $rgbArray;
         }
 

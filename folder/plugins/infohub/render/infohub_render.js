@@ -1936,8 +1936,7 @@ function infohub_render() {
                     }
                 }
 
-                if ($findMarkdown ===
-                    $content.substr(0, $findMarkdown.length)) {
+                if ($findMarkdown === $content.substr(0, $findMarkdown.length)) {
                     $content = $content.substr($findMarkdown.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));

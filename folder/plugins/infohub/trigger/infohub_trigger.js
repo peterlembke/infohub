@@ -46,8 +46,10 @@ function infohub_trigger() {
             'click_get_default_message': 'normal',
             'click_send': 'normal',
             'click_refresh_plugin_list': 'normal',
+            'click_filter': 'normal',
             'get_plugin_list': 'normal',
             'update_plugin_list': 'normal',
+            'populate_gui': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -62,6 +64,7 @@ function infohub_trigger() {
 
     /**
      * Set up the Workbench Graphical User Interface
+     *
      * @version 2019-03-13
      * @since   2017-10-03
      * @author  Peter Lembke
@@ -111,7 +114,7 @@ function infohub_trigger() {
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[button_refresh_plugin_list][select_node][select_plugin][select_function][button_get_default][textarea_message][select_filter][button_send][textarea_response]',
+                            'content': '[button_refresh_plugin_list][select_node][select_plugin][select_function][button_get_default][textarea_message_hidden][textarea_message][button_send][textarea_response_hidden][textarea_response]',
                             'label': _Translate('TRIGGER'),
                             'description': _Translate('YOU_AS_A_DEVELOPER_CAN_SEND_A_MESSAGE_TO_YOUR_EMERGING_PLUGIN.')
                         },
@@ -171,28 +174,31 @@ function infohub_trigger() {
                             "multiple": "false",
                             "options": []
                         },
-                        'select_filter': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'select',
-                            "label": _Translate("FILTER"),
-                            "description": _Translate("SELECT_THE_FILTER_YOU_WANT_TO_RUN_ON_THE_RESPONSE"),
-                            "size": "1",
-                            "multiple": "false",
-                            "options": [
-                                { "type": "option", "value": "get_all", "label": _Translate("GET_ALL") },
-                                { "type": "option", "value": "no_config", "label": _Translate("NO_CONFIG") },
-                                { "type": "option", "value": "bare_bone", "label": _Translate("BARE_BONE") }
-                            ]
+                        'textarea_message_hidden': {
+                            'type': 'form',
+                            'subtype': 'textarea',
+                            'display': 'none'
                         },
                         'textarea_message': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
                             'placeholder': _Translate('DEFAULT_MESSAGE_FOR_THE_SELECTED_FUNCTION'),
                             "label": _Translate("MESSAGE"),
-                            "description": _Translate('THIS_IS_THE_MESSAGE_YOU_CAN_SEND_TO_THE_SELECTED_PLUGIN.') + ' ' + _Translate('THE_MESSAGE_YOU_SEE_IS_THE_DEFAULT_VALUES_THE_FUNCTION_HAVE_SET.'),
+                            "description": _Translate('THIS_IS_THE_MESSAGE_YOU_CAN_SEND_TO_THE_SELECTED_PLUGIN.') + ' ' + _Translate('THE_MESSAGE_YOU_SEE_IS_THE_DEFAULT_VALUES_THE_FUNCTION_HAVE_SET.') + '[filter_default_radios]',
                             'resize': 'both',
                             'rows': 8,
                             'cols': 80,
+                        },
+                        'filter_default_radios': {
+                            'type': 'form',
+                            'subtype': 'radios',
+                            'group_name': 'filter_default',
+                            'to_plugin': 'infohub_trigger',
+                            'to_function': 'click_filter',
+                            "options": [
+                                { "group_name": "filter_default", "value": "get_all", "label": _Translate("GET_ALL") },
+                                { "group_name": "filter_default", "value": "bare_bone", "label": _Translate("BARE_BONE"), 'selected': 'true' },
+                            ]
                         },
                         'button_get_default': {
                             'plugin': 'infohub_renderform',
@@ -225,15 +231,32 @@ function infohub_trigger() {
                             'asset_name': 'ping',
                             'plugin_name': 'infohub_trigger',
                         },
+                        'textarea_response_hidden': {
+                            'type': 'form',
+                            'subtype': 'textarea',
+                            'display': 'none'
+                        },
                         'textarea_response': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
                             'placeholder': _Translate('RESPONSE_FROM_THE_FUNCTION'),
                             "label": _Translate("RESPONSE"),
-                            "description": _Translate("HERE_YOU_WILL_SEE_THE_RESPONSE_FROM_THE_FUNCTION."),
+                            "description": _Translate("HERE_YOU_WILL_SEE_THE_RESPONSE_FROM_THE_FUNCTION.") + '[filter_response_radios]',
                             'resize': 'both',
                             'rows': 12,
                             'cols': 80,
+                        },
+                        'filter_response_radios': {
+                            'type': 'form',
+                            'subtype': 'radios',
+                            'group_name': 'filter_response',
+                            'to_plugin': 'infohub_trigger',
+                            'to_function': 'click_filter',
+                            "options": [
+                                { "group_name": "filter_response", "value": "get_all", "label": _Translate("GET_ALL") },
+                                { "group_name": "filter_response", "value": "no_config", "label": _Translate("NO_CONFIG") },
+                                { "group_name": "filter_response", "value": "bare_bone", "label": _Translate("BARE_BONE"), 'selected': 'true' },
+                            ]
                         },
                     },
                     'how': {
@@ -245,6 +268,22 @@ function infohub_trigger() {
                         'max_width': 640,
                         'scroll_to_box_id': 'false',
                     },
+                },
+                'data_back': {
+                    'step': 'step_populate_gui',
+                },
+            });
+        }
+
+        if ($in['step'] === 'step_populate_gui') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_trigger',
+                    'function': 'populate_gui',
+                },
+                'data': {
+                    'box_id': 'main.body.infohub_trigger'
                 },
                 'data_back': {
                     'step': 'step_end',
@@ -261,6 +300,7 @@ function infohub_trigger() {
     /**
      * When selecting a node
      * Will update the plugins list
+     *
      * @version 2020-08-12
      * @since 2020-08-12
      * @author Peter Lembke
@@ -268,8 +308,8 @@ function infohub_trigger() {
     $functions.push('click_node');
     const click_node = function($in = {}) {
         const $default = {
-            'value': '', // Selected option in select lists
             'box_id': '', // The box we are in
+            'value': '', // Selected node name
             'step': 'step_get_plugin_list',
             'response': {
                 'answer': 'false',
@@ -294,8 +334,8 @@ function infohub_trigger() {
                 },
                 'data': {},
                 'data_back': {
-                    'value': $in.value, // Selected option in select lists
                     'box_id': $in.box_id, // The box we are in
+                    'value': $in.value, // Selected option in select lists
                     'step': 'step_get_plugin_list_response',
                 },
             });
@@ -311,16 +351,18 @@ function infohub_trigger() {
 
         if ($in.step === 'step_populate_plugin_name_dropdown') {
             const $data = $in.response.data;
-            const $list = $data[$in.value];
+            const $pluginListForNode = $data[$in.value];
 
             let $pluginNameArray = [];
             $pluginNameArray.push('');
-            for (let $pluginName in $list) {
-                if ($list.hasOwnProperty($pluginName) === false) {
+            for (let $pluginName in $pluginListForNode) {
+                if ($pluginListForNode.hasOwnProperty($pluginName) === false) {
                     continue;
                 }
                 $pluginNameArray.push($pluginName);
             }
+
+            const $optionList = _CreateOptionList($pluginNameArray, '');
 
             return _SubCall({
                 'to': {
@@ -329,15 +371,17 @@ function infohub_trigger() {
                     'function': 'form_write',
                 },
                 'data': {
-                    'id': $in.box_id + '_my_form_form',
+                    'id': $in.box_id + '.[my_form_form]',
                     'form_data': {
                         'select_plugin': {
-                            'value': $pluginNameArray,
-                            'mode': 'clean_and_add',
+                            'value': $optionList,
+                            'mode': 'clean_add_select',
                         },
                     },
                 },
                 'data_back': {
+                    'box_id': $in.box_id, // The box we are in
+                    'value': $in.value, // Selected option in select lists
                     'step': 'step_populate_plugin_name_dropdown_response',
                 },
             });
@@ -346,6 +390,9 @@ function infohub_trigger() {
         if ($in.step === 'step_populate_plugin_name_dropdown_response') {
             $out = $in.response;
             $out.ok = $out.answer;
+            if ($out.answer === 'true') {
+                $out.message = 'Have handled the click_node event';
+            }
         }
 
         return {
@@ -360,17 +407,21 @@ function infohub_trigger() {
      * @param $data
      * @private
      */
-    const _CreateOptionList = function($data) {
+    const _CreateOptionList = function($data = {}, $selectedValue = '') {
         let $list = [];
         for (let $key in $data) {
             if ($data.hasOwnProperty($key) === false) {
                 continue;
             }
 
+            const $label = $data[$key];
+            const $selected = $key === $selectedValue
+
             $list.push({
                 'type': 'option',
-                'value': $key,
-                'label': $key,
+                'value': $label,
+                'label': $label,
+                'selected': $selected
             });
         }
 
@@ -380,6 +431,7 @@ function infohub_trigger() {
     /**
      * When selecting a plugin
      * Will update the plugin functions list
+     *
      * @version 2020-08-12
      * @since 2020-08-12
      * @author Peter Lembke
@@ -387,8 +439,8 @@ function infohub_trigger() {
     $functions.push('click_plugin');
     const click_plugin = function($in = {}) {
         const $default = {
-            'value': '', // Selected option in select lists
             'box_id': '', // The box we are in
+            'value': '', // Selected option in select lists
             'step': 'step_get_selected_node',
             'response': {},
             'data_back': {
@@ -399,8 +451,7 @@ function infohub_trigger() {
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() +
-                ' -> click_plugin',
+            'message': 'Nothing to report from ' + _GetClassName() + ' -> click_plugin',
             'ok': 'false',
         };
 
@@ -412,11 +463,11 @@ function infohub_trigger() {
                     'function': 'form_read',
                 },
                 'data': {
-                    'id': $in.box_id + '_my_form_form',
+                    'id': $in.box_id + '.[my_form_form]',
                 },
                 'data_back': {
-                    'value': $in.value, // Selected option in select lists
                     'box_id': $in.box_id, // The box we are in
+                    'value': $in.value, // Selected option in select lists
                     'step': 'step_get_selected_node_response',
                 },
             });
@@ -453,8 +504,8 @@ function infohub_trigger() {
                     'include_direct_functions': 'false',
                 },
                 'data_back': {
-                    'value': $in.value, // Selected option in select lists
                     'box_id': $in.box_id, // The box we are in
+                    'value': $in.value, // Selected option in select lists
                     'node': $in.data_back.node,
                     'step': 'step_get_function_list_response',
                 },
@@ -470,7 +521,9 @@ function infohub_trigger() {
         }
 
         if ($in.step === 'step_populate_function_name_dropdown') {
-            const $pluginNameArray = $in.response.data;
+            const $functionNameArray = $in.response.data;
+
+            const $optionList = _CreateOptionList($functionNameArray, '');
 
             return _SubCall({
                 'to': {
@@ -479,15 +532,18 @@ function infohub_trigger() {
                     'function': 'form_write',
                 },
                 'data': {
-                    'id': $in.box_id + '_my_form_form',
+                    'id': $in.box_id + '.[my_form_form]',
                     'form_data': {
                         'select_function': {
-                            'value': $pluginNameArray,
-                            'mode': 'clean_and_add',
+                            'value': $optionList,
+                            'mode': 'clean_add_select',
                         },
                     },
                 },
                 'data_back': {
+                    'box_id': $in.box_id, // The box we are in
+                    'value': $in.value, // Selected option in select lists
+                    'node': $in.data_back.node,
                     'step': 'step_populate_function_name_dropdown_response',
                 },
             });
@@ -496,6 +552,9 @@ function infohub_trigger() {
         if ($in.step === 'step_populate_function_name_dropdown_response') {
             $out = $in.response;
             $out.ok = $out.answer;
+            if ($out.answer === 'true') {
+                $out.message = 'Have handled the click_plugin event';
+            }
         }
 
         return {
@@ -508,6 +567,7 @@ function infohub_trigger() {
     /**
      * Send an empty message to the plugin function and get the default in parameters
      * Show them in the message box as pretty JSON
+     *
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
@@ -527,10 +587,22 @@ function infohub_trigger() {
                 'node': '',
                 'plugin': '',
                 'function': '',
+                'filter_default': ''
             },
             'first_default': {},
         };
         $in = _Default($default, $in);
+
+        if ($in.step === 'step_get_form_data') {
+            const $online = _GetData({
+                'name': 'response/answer', // example: "response/data/checksum"
+                'default': 'true',
+                'data': $in
+            });
+            if ($online === 'false') {
+                $in.step = 'step_end';
+            }
+        }
 
         if ($in.step === 'step_get_form_data') {
             return _SubCall({
@@ -577,6 +649,16 @@ function infohub_trigger() {
                 'data': $in,
             });
 
+            $in.data_back.filter_default = 'get_all';
+            let $bareBone = _GetData({
+                'name': 'response/form_data/filter_default_radios.bare_bone/value',
+                'default': 'false',
+                'data': $in,
+            });
+            if ($bareBone === 'true') {
+                $in.data_back.filter_default = 'bare_bone';
+            }
+
             $in.step = 'step_get_default_message';
         }
 
@@ -589,6 +671,7 @@ function infohub_trigger() {
                 },
                 'data': {},
                 'data_back': {
+                    'filter_default': $in.data_back.filter_default,
                     'value': $in.value, // Selected option in select lists
                     'box_id': $in.box_id, // The box we are in
                     'step': 'step_get_default_message_response',
@@ -599,12 +682,30 @@ function infohub_trigger() {
         if ($in.step === 'step_get_default_message_response') {
             $in.step = 'step_show_default_message';
             if ($in.response.answer === 'false') {
-                $in.step = 'step_end';
+                // $in.step = 'step_end'; // We want the response anyhow
             }
         }
 
         if ($in.step === 'step_show_default_message') {
-            const $firstDefault = _JsonEncode($in.first_default);
+
+            let $fullResponse = $in.first_default;
+            let $filteredResponse = _ByVal($fullResponse);
+            let $filter = $in.data_back.filter_default;
+            if ($filter === 'bare_bone') {
+                delete($filteredResponse.step);
+                delete($filteredResponse.response);
+                delete($filteredResponse.config);
+                delete($filteredResponse.data_back);
+                delete($filteredResponse.answer);
+                delete($filteredResponse.message);
+                delete($filteredResponse.data);
+                delete($filteredResponse.callback_function);
+                delete($filteredResponse.to);
+                delete($filteredResponse.from);
+            }
+
+            const $fullResponseJson = _JsonEncode($fullResponse);
+            const $filteredResponseJson = _JsonEncode($filteredResponse);
 
             return _SubCall({
                 'to': {
@@ -615,7 +716,8 @@ function infohub_trigger() {
                 'data': {
                     'id': $in.box_id + '_my_form_form',
                     'form_data': {
-                        'textarea_message': {'value': $firstDefault},
+                        'textarea_message_hidden': {'value': $fullResponseJson},
+                        'textarea_message': {'value': $filteredResponseJson},
                     },
                 },
                 'data_back': {
@@ -638,6 +740,7 @@ function infohub_trigger() {
     /**
      * Send the message to the node plugin function
      * Filter the response and show as pretty JSON in the response textarea
+     *
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
@@ -659,6 +762,17 @@ function infohub_trigger() {
             'first_default': {},
         };
         $in = _Default($default, $in);
+
+        if ($in.step === 'step_get_form_data') {
+            const $online = _GetData({
+                'name': 'response/answer', // example: "response/data/checksum"
+                'default': 'true',
+                'data': $in
+            });
+            if ($online === 'false') {
+                $in.step = 'step_end';
+            }
+        }
 
         if ($in.step === 'step_get_form_data') {
             return _SubCall({
@@ -685,6 +799,14 @@ function infohub_trigger() {
                 'form_data': {},
             };
             $in.response = _Default($default, $in.response);
+
+            $in.step = 'step_send_message';
+            if ($in.response.answer === 'false') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_send_message') {
 
             $in.data_back.node = _GetData({
                 'name': 'response/form_data/select_node/value/0',
@@ -710,16 +832,21 @@ function infohub_trigger() {
                 'data': $in,
             }));
 
-            $in.data_back.filter = _GetData({
-                'name': 'response/form_data/select_filter/value/0',
-                'default': '',
-                'data': $in,
-            });
+            $in.data_back.filter = 'bare_bone';
+            const $filterArray = ['get_all', 'no_config', 'bare_bone'];
+            for (let $filterNumber in $filterArray) {
+                const $filter = $filterArray[$filterNumber];
+                let $value = _GetData({
+                    'name': "response/form_data/filter_default_radios." + $filter + "/value",
+                    'default': 'false',
+                    'data': $in,
+                });
+                if ($value === 'true') {
+                    $in.data_back.filter = $filter;
+                    break;
+                }
+            }
 
-            $in.step = 'step_send_message';
-        }
-
-        if ($in.step === 'step_send_message') {
             return _SubCall({
                 'to': {
                     'node': $in.data_back.node,
@@ -746,32 +873,29 @@ function infohub_trigger() {
             $in.step = 'step_filter_response';
 
             if ($in.response.answer === 'false') {
-                $in.step = 'step_end';
+                // $in.step = 'step_end'; // We want the response anyhow
             }
         }
 
         if ($in.step === 'step_filter_response') {
 
-            let $response = $in.response;
+            let $fullResponse = $in.response;
+            let $filteredResponse = _ByVal($fullResponse);
+
             const $filter = $in.data_back.filter;
 
-            if ($filter === 'bare_bone') {
-                delete ($response.first_default);
-                delete ($response.config);
-            }
-
             if ($filter === 'no_config') {
-                delete ($response.config);
+                delete ($filteredResponse.config);
             }
 
-            $in.data_back.filtered_response = _ByVal($response);
-            $in.step = 'step_show_response';
-        }
+            if ($filter === 'bare_bone') {
+                delete ($filteredResponse.first_default);
+                delete ($filteredResponse.config);
+                delete ($filteredResponse.execution_time);
+            }
 
-        if ($in.step === 'step_show_response') {
-
-            const $filteredResponseJson = _JsonEncode(
-                $in.data_back.filtered_response);
+            const $fullResponseJson = _JsonEncode($fullResponse);
+            const $filteredResponseJson = _JsonEncode($filteredResponse);
 
             return _SubCall({
                 'to': {
@@ -782,16 +906,73 @@ function infohub_trigger() {
                 'data': {
                     'id': $in.box_id + '_my_form_form',
                     'form_data': {
+                        'textarea_response_hidden': {'value': $fullResponseJson},
                         'textarea_response': {'value': $filteredResponseJson},
                     },
                 },
                 'data_back': {
+                    'box_id': $in.box_id, // The box we are in
                     'step': 'step_show_default_message_response',
                 },
             });
         }
 
         if ($in.step === 'step_show_default_message_response') {
+            $in.step = 'step_get_form_data_again';
+            if ($in.response.answer === 'false') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_get_form_data_again') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'form_read',
+                },
+                'data': {
+                    'id': $in.box_id + '_my_form_form',
+                },
+                'data_back': {
+                    'box_id': $in.box_id, // The box we are in
+                    'step': 'step_get_form_data_again_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_form_data_again_response') {
+            $in.step = 'step_save_form_data_to_storage';
+            if ($in.response.answer === 'false') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_save_form_data_to_storage') {
+
+            let $formData = _GetData({
+                'name': 'response/form_data',
+                'default': {},
+                'data': $in,
+            });
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write',
+                },
+                'data': {
+                    'path': 'infohub_trigger/my_selection',
+                    'data': $formData
+                },
+                'data_back': {
+                    'step': 'step_save_to_storage_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_save_form_data_to_storage_response') {
 
         }
 
@@ -804,6 +985,7 @@ function infohub_trigger() {
 
     /**
      * Click refresh to get new data from the server about the plugins for both nodes
+     *
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
@@ -844,8 +1026,125 @@ function infohub_trigger() {
     };
 
     /**
+     * Reads the hidden full default json. Filters it and displays it.
+     *
+     * @version 2022-04-10
+     * @since 2022-04-10
+     * @author Peter Lembke
+     */
+    $functions.push('click_filter');
+    const click_filter = function($in = {}) {
+        const $default = {
+            'box_id': '',
+            'value': '', // the option value
+            'name': '', // name of the option group
+            'step': 'step_get_original',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'text': '', // The hidden text box value
+            },
+        };
+        $in = _Default($default, $in);
+
+        const $originalDefault = $in.box_id + '_textarea_message_hidden';
+        const $destinationDefault = $in.box_id + '_textarea_message_form_element';
+        const $originalResponse = $in.box_id + '_textarea_response_hidden';
+        const $destinationResponse = $in.box_id + '_textarea_response_form_element';
+
+        let $data = {};
+        let $original = $originalDefault;
+        let $destination = $destinationDefault;
+
+        if ($in.name === 'filter_response') {
+            $original = $originalResponse;
+            $destination = $destinationResponse;
+        }
+
+        if ($in.step === 'step_get_original') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'get_text',
+                },
+                'data': {
+                    'id': $original,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'value': $in.value,
+                    'name': $in.name,
+                    'step': 'step_get_original_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_original_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $data = _JsonDecode($in.response.text);
+                $in.step = 'step_filter_' + $in.value;
+            }
+        }
+
+        if ($in.step === 'step_filter_get_all') {
+            $in.step = 'step_store_destination';
+        }
+
+        if ($in.step === 'step_filter_no_config') {
+            delete($data.config);
+            $in.step = 'step_store_destination';
+        }
+
+        if ($in.step === 'step_filter_bare_bone') {
+            delete($data.step);
+            delete($data.answer);
+            delete($data.message);
+            delete($data.func);
+            delete($data.config);
+            delete($data.response);
+            delete($data.data_back);
+            delete($data.first_default);
+            delete($data.execution_time);
+            $in.step = 'step_store_destination';
+        }
+
+        if ($in.step === 'step_store_destination') {
+
+            let $dataJSON = _JsonEncode($data);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'set_text',
+                },
+                'data': {
+                    'id': $destination,
+                    'text': $dataJSON
+                },
+                'data_back': {
+                    'step': 'step_store_destination_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_store_destination_response') {
+
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer
+        };
+    };
+
+    /**
      * Get the function list from local Storage.
      * If not there then update from the server and try again.
+     *
      * @version 2020-08-17
      * @since 2020-08-17
      * @author Peter Lembke
@@ -866,8 +1165,7 @@ function infohub_trigger() {
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() +
-                ' -> get_plugin_list',
+            'message': 'Nothing to report from ' + _GetClassName() + ' -> get_plugin_list',
             'data': {},
         };
 
@@ -944,6 +1242,7 @@ function infohub_trigger() {
 
     /**
      * Makes sure we have the latest list with all nodes, plugins and functions
+     *
      * @version 2020-08-16
      * @since 2020-08-16
      * @author Peter Lembke
@@ -962,8 +1261,7 @@ function infohub_trigger() {
 
         let $out = {
             'answer': 'false',
-            'message': 'Nothing to report from ' + _GetClassName() +
-                ' -> update_plugin_list',
+            'message': 'Nothing to report from ' + _GetClassName() + ' -> update_plugin_list',
         };
 
         if ($in.step === 'step_call_server') {
@@ -1019,6 +1317,82 @@ function infohub_trigger() {
         return {
             'answer': $out.answer,
             'message': $out.message,
+        };
+    };
+
+    /**
+     * Populate the GUI with the selections you have previously done.
+     * If I can not find any previous selections then I will skip this.
+     *
+     * @version 2022-03-26
+     * @since 2022-03-26
+     * @author Peter Lembke
+     */
+    $functions.push('populate_gui');
+    const populate_gui = function($in = {}) {
+        const $default = {
+            'box_id': '',
+            'step': 'step_get_previous_selections',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report from ' + _GetClassName() + ' -> populate_gui',
+                'data': {},
+            },
+            'data_back': {
+                'form_data': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_get_previous_selections') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read',
+                },
+                'data': {
+                    'path': 'infohub_trigger/my_selection',
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_get_previous_selections_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_previous_selections_response') {
+            $in.step = 'step_set_filters_and_textareas';
+            if ($in.response.answer === 'false') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_set_filters_and_textareas') {
+
+            let $formData = _ByVal($in.response.data);
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'form_write',
+                },
+                'data': {
+                    'id': $in.box_id + '.[my_form_form]',
+                    'form_data': $formData
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'form_data': $in.response.data,
+                    'step': 'step_set_plugin',
+                },
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
         };
     };
 }

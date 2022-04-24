@@ -546,6 +546,7 @@ function infohub_transfer() {
      * We just discovered that the server we want to communicate with do not answer.
      * The package we sent with messages in them must be unpacked and the messages will go back to
      * the $globalSendToNode variable so that internal_HandleOffline can handle them.
+     *
      * @version 2019-06-21
      * @since 2019-06-21
      * @author Peter Lembke
@@ -580,10 +581,8 @@ function infohub_transfer() {
                 $globalSendToNode[$nodeName] = [];
             }
 
-            for (let $messageNumber = 0; $messageNumber <
-            $messagesArray.length; $messageNumber = $messageNumber + 1) {
-                const $message = _PickUpCallStack(
-                    $messagesArray[$messageNumber]);
+            for (let $messageNumber = 0; $messageNumber < $messagesArray.length; $messageNumber = $messageNumber + 1) {
+                const $message = _PickUpCallStack($messagesArray[$messageNumber]);
                 $globalSendToNode[$nodeName].push($message);
             }
         }
@@ -1116,10 +1115,6 @@ function infohub_transfer() {
 
         leave:
         {
-            if ($message.to.node !== 'client') {
-                break leave;
-            }
-
             let $hubId = _GetData({
                 'name': 'data/data_back/callstack_hubid',
                 'default': '',

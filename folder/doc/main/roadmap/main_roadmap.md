@@ -21,7 +21,7 @@ For: Javascript
 
 # Darkhold
 You can send tail-less messages if you do not need the answer.
-If you want to send many messages and assemble all answer you need the Darkhold feature.
+If you want to send many messages and assemble all answers you need the Darkhold feature.
 Darkhold will also make it more efficient when I implement multi threading later with Swoole and Web workers.
 
 For: PHP

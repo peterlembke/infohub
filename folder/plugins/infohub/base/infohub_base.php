@@ -390,7 +390,7 @@ class infohub_base
         $functionsBase = $this->_GetCmdFunctionsBase();
         $functions = $this->_GetCmdFunctions();
         $functions = array_merge($functionsBase, $functions);
-        if (isset($functions[$functionName])) {
+        if (isset($functions[$functionName]) === true) {
             $status = $functions[$functionName];
         }
 
@@ -428,7 +428,7 @@ class infohub_base
             'value' => 0
         ];
 
-        if (isset($statuses[$status])) {
+        if (isset($statuses[$status]) === true) {
             $response = $statuses[$status];
             $response['information'] = str_replace('{this function}', $functionName, $response['information']);
 
@@ -467,7 +467,7 @@ class infohub_base
 
         $lastInCallStack = end($in['callstack']);
         if (is_array($lastInCallStack) === true) {
-            if (isset($lastInCallStack['to'])) {
+            if (isset($lastInCallStack['to']) === true) {
                 $fromPlugin = $lastInCallStack['to'];
             }
         }
@@ -534,7 +534,7 @@ class infohub_base
             'message' => $message
         ];
 
-        if (isset($in['data']['config']['log'])) {
+        if (isset($in['data']['config']['log']) === true) {
             // See example in infohub_checksum.json
 
             $this->configLog = (array) $this->_GetData([
@@ -550,8 +550,7 @@ class infohub_base
             ['message' => 'Will call: ' . $functionName, 'function_name' => 'cmd', 'object' => $in, 'depth' => 1]
         );
 
-        $callbackFunction = function ($callResponse)
-        use ($functionName, $out, &$in, $startTime, &$status) {
+        $callbackFunction = function ($callResponse) use ($functionName, $out, &$in, $startTime, &$status) {
             $message = '';
 
             if (is_array($callResponse) === false) {
@@ -659,7 +658,7 @@ class infohub_base
 
             $out['log_array'] = $this->globalLogArray;
 
-            if (isset($in['callback_function'])) {
+            if (isset($in['callback_function']) === true) {
                 if ($in['callback_function'] instanceof Closure) {
                     $in['callback_function']($out); // Call the callback function
                     return [];
@@ -772,21 +771,26 @@ class infohub_base
     {
         $default = [
             'date' => '',
+            'since' => '',
             'version' => '',
-            'checksum' => '',
             'class_name' => '',
+            'checksum' => '',
             'note' => '',
-            'status' => ''
+            'status' => '',
+            'SPDX-License-Identifier' => '',
+            'user_role' => ''
         ];
 
         $versionPlugin = $this->_Default($default, $this->_Version());
         $versionBase = $this->_Default($default, $this->_VersionBase());
+        $functionArray = $this->_GetCmdFunctions();
 
         return [
             'answer' => 'true',
             'message' => 'Here are the data',
             'plugin' => $versionPlugin,
             'base' => $versionBase,
+            'functions' => $functionArray,
             'version_code' => md5($versionPlugin['checksum'] . $versionBase['checksum'])
         ];
     }
@@ -935,14 +939,12 @@ class infohub_base
             $errorStack = $err->getTrace();
             $message = 'Can not call: ' . $functionName . ', error: ' . $err->getMessage();
 
-            $this->internal_Log(
-                [
-                    'level' => 'error',
-                    'message' => $message,
-                    'function_name' => 'internal_Cmd',
-                    'object' => $errorStack
-                ]
-            );
+            $this->internal_Log([
+                'level' => 'error',
+                'message' => $message,
+                'function_name' => 'internal_Cmd',
+                'object' => $errorStack
+            ]);
 
             $callResponse = [
                 'answer' => 'false',
@@ -950,18 +952,15 @@ class infohub_base
             ];
         }
 
-        $this->internal_Log(
-            [
-                'message' => 'Back from: ' . $functionName,
-                'function_name' => 'internal_Cmd',
-                'object' => $callResponse
-            ]
-        );
+        $this->internal_Log([
+            'message' => 'Back from: ' . $functionName,
+            'function_name' => 'internal_Cmd',
+            'object' => $callResponse
+        ]);
 
         if (is_array($callResponse) === false) {
-            $message = 'Function ' . $functionName . ' did not return an array as it should (' . gettype(
-                    $callResponse
-                ) . ')';
+            $type = gettype($callResponse);
+            $message = "Function $functionName did not return an array as it should ($type)";
             goto leave;
         }
 
@@ -976,46 +975,40 @@ class infohub_base
             $callResponse['answer'] = 'false';
             $callResponse['message'] = $message;
 
-            $this->internal_Log(
-                [
-                    'level' => 'error',
-                    'message' => 'Got error from: ' . $functionName . ',error: ' . $message,
-                    'function_name' => 'internal_Cmd',
-                    'object' => [
-                        'in' => $in,
-                        'out' => $callResponse
-                    ]
+            $this->internal_Log([
+                'level' => 'error',
+                'message' => 'Got error from: ' . $functionName . ',error: ' . $message,
+                'function_name' => 'internal_Cmd',
+                'object' => [
+                    'in' => $in,
+                    'out' => $callResponse
                 ]
-            );
+            ]);
         }
 
         $callResponse['execution_time'] = $this->_MicroTime() - $startTime;
 
-        $this->internal_Log(
-            [
-                'message' => 'Leaving internal_Cmd()',
-                'function_name' => 'Cmd',
-                'start_time' => $startTime,
-                'execution_time' => $callResponse['execution_time'],
-                'depth' => -1
-            ]
-        );
+        $this->internal_Log([
+            'message' => 'Leaving internal_Cmd()',
+            'function_name' => 'Cmd',
+            'start_time' => $startTime,
+            'execution_time' => $callResponse['execution_time'],
+            'depth' => -1
+        ]);
 
-        if (isset($this->configLog[$functionName])) {
+        if (isset($this->configLog[$functionName]) === true) {
             // See example in infohub_checksum.json
 
-            $this->internal_Log(
-                [
-                    'message' => 'Temporary debug logging',
-                    'level' => 'debug',
-                    'function_name' => $functionName,
-                    'execution_time' => $callResponse['execution_time'],
-                    'object' => [
-                        'in' => $in,
-                        'out' => $callResponse
-                    ]
+            $this->internal_Log([
+                'message' => 'Temporary debug logging',
+                'level' => 'debug',
+                'function_name' => $functionName,
+                'execution_time' => $callResponse['execution_time'],
+                'object' => [
+                    'in' => $in,
+                    'out' => $callResponse
                 ]
-            );
+            ]);
         }
 
         return $callResponse;
@@ -1057,7 +1050,7 @@ class infohub_base
                 foreach ($backtrace as $one) {
                     $default = ['file' => '', 'class' => '', 'function' => '', 'line' => 0];
                     $one = $this->_Default($default, $one);
-                    if (empty($one['class'])) {
+                    if (empty($one['class']) === true) {
                         $one['class'] = $one['file'];
                     }
                     $in['backtrace'][] = $one['class'] . '.' . $one['function'] . ' (' . $one['line'] . ")";
@@ -1091,20 +1084,17 @@ class infohub_base
     {
         $default = [
             'func' => 'SubCall',
-            'to' => ['node' => 'server', 'plugin' => 'exchange', 'function' => 'default'],
-            // Where to send this message
-            'data' => [],
-            // The data you want to be available to the sub-function you call.
-            'data_request' => [],
-            // Array with variable names you want from the sub-function. Leave blank to get everything.
-            'data_back' => [],
-            // Return these variables untouched in the returning message. (OPTIONAL)
-            'wait' => 10.0,
-            // Seconds you can wait before this message really need to be sent.
-            'track' => 'false',
-            // 'true' lets Cmd add an array of where this message has been.
-            'original_message' => []
-            // Original message that came into cmd().
+            'to' => [
+                'node' => 'server',
+                'plugin' => 'exchange',
+                'function' => 'default'
+            ], // Where to send this message
+            'data' => [], // The data you want to be available to the sub-function you call.
+            'data_request' => [], // Array with variable names you want from the sub-function. Leave blank to get everything.
+            'data_back' => [], // Return these variables untouched in the returning message. (OPTIONAL)
+            'wait' => 10.0, // Seconds you can wait before this message really need to be sent.
+            'track' => 'false', // 'true' lets Cmd add an array of where this message has been.
+            'original_message' => [] // Original message that came into cmd().
         ];
         $in = $this->_Default($default, $in);
 

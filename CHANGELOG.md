@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.8] - 2022-04-24
+
+* [Release notes](main,release_v1_v1v3_v1v3v8)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.8)
+
+Worked on the Tree plugin. The plugin that keeps your data private.
+
 # [1.3.7] - 2022-03-04
 
 * [Release notes](main,release_v1_v1v3_v1v3v7)

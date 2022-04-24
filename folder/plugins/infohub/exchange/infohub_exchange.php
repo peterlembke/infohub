@@ -213,13 +213,13 @@ class infohub_exchange extends infohub_base
             }
 
             $loopCount++;
-        } while ($moreToDo === 'true' and $loopCount < 150);
+        } while ($moreToDo === 'true' and $loopCount < $GLOBALS['main_loop_max_count']);
 
         $in['answer'] = 'true';
         $in['message'] = 'Have handled all messages in all queues';
         if ($moreToDo === 'true') {
             $in['answer'] = 'false';
-            $in['message'] = 'There are more messages to handle but we have already ran 150 loops. Will continue later';
+            $in['message'] = "There are more messages to handle but we have already ran $loopCount loops. I will stop now.";
             $this->internal_Log(
                 [
                     'func' => 'Log',

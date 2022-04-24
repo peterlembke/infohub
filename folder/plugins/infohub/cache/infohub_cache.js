@@ -435,7 +435,7 @@ function infohub_cache() {
             }
 
             for (let $key in $response.index) {
-                if ($response.index.hasOwnProperty($key)) {
+                if ($response.index.hasOwnProperty($key) === true) {
                     internal_Cmd({
                         'func': 'RemoveDataFromCache',
                         'prefix': $in.prefix,
@@ -690,8 +690,9 @@ function infohub_cache() {
      * @version 2015-06-06
      * @since   2015-05-18
      * @author  Peter Lembke
+     *
      * @param $in
-     * @returns {}
+     * @returns {{answer: string, index, same_checksum: string, message: string}}
      */
     const internal_SaveDataToIndex = function($in = {}) {
         const $default = {
