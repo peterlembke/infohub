@@ -85,7 +85,7 @@ class infohub_launcher extends infohub_base
             'list_checksum' => '',
             'with_assets' => 'false',
             'language_codes' => [],
-            'allowed_asset_types' => '',
+            'allowed_asset_types' => [],
             'max_asset_size_kb' => 0,
             'step' => 'step_get_full_list',
             'from_plugin' => [
@@ -109,7 +109,9 @@ class infohub_launcher extends infohub_base
 
         $answer = 'false';
         $message = 'Nothing to report';
-        $fullList = [];
+        $fullList = [
+            'list' => []
+        ];
         $assets = [];
 
         if ($in['step'] === 'step_get_full_list') {

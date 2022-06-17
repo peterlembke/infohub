@@ -400,7 +400,7 @@ function infohub_doc() {
         if ($in.step === 'step_start') {
             const $parts = $in.event_data.split(',');
             const $area = $parts[0];
-            const $docName = $parts[1];
+            const $documentName = $parts[1];
 
             return _SubCall({
                 'to': {
@@ -410,12 +410,12 @@ function infohub_doc() {
                 },
                 'data': {
                     'area': $area,
-                    'document_name': $docName,
+                    'document_name': $documentName,
                 },
                 'data_back': {
                     'event_data': $in.event_data,
                     'area': $area,
-                    'document_name': $docName,
+                    'document_name': $documentName,
                     'step': 'step_end',
                 },
             });
@@ -469,8 +469,7 @@ function infohub_doc() {
             if ($childName.indexOf($className + '_') !== 0) {
                 return {
                     'answer': 'false',
-                    'message': 'Only a child to ' + $className +
-                        ' can get events',
+                    'message': 'Only a child to ' + $className + ' can get events',
                     'ok': 'false',
                 };
             }
@@ -478,8 +477,7 @@ function infohub_doc() {
             if ($functionName.indexOf('click_') !== 0) {
                 return {
                     'answer': 'false',
-                    'message': 'Function name ' + $functionName +
-                        ' is not valid it must start with click_',
+                    'message': 'Function name ' + $functionName + ' is not valid it must start with click_',
                     'ok': 'false',
                 };
             }
@@ -548,8 +546,7 @@ function infohub_doc() {
             if ($in.from_plugin.plugin.indexOf($className + '_') !== 0) {
                 return {
                     'answer': 'false',
-                    'message': 'Only children to ' + $className +
-                        ' can call this function',
+                    'message': 'Only children to ' + $className + ' can call this function',
                 };
             }
 
@@ -618,7 +615,7 @@ function infohub_doc() {
             'response': {
                 'answer': 'false',
                 'message': 'Nothing to report from infohub_translate->render_doc',
-                'data': {
+                'document_data': {
                     'document': ''
                 },
             }
@@ -638,8 +635,8 @@ function infohub_doc() {
         if ($in.step === 'step_get_doc_file') {
             return _SubCall({
                 'to': {
-                    'node': 'server',
-                    'plugin': 'infohub_doc',
+                    'node': 'client',
+                    'plugin': 'infohub_doc_get',
                     'function': 'get_document',
                 },
                 'data': {
@@ -672,7 +669,7 @@ function infohub_doc() {
                         'my_doc': {
                             'plugin': 'infohub_renderdocument',
                             'type': 'document',
-                            'text': $in.response.data.document,
+                            'text': $in.response.document_data.document,
                         },
                     },
                     'how': {

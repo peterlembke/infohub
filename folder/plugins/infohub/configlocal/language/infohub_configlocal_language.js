@@ -106,7 +106,7 @@ function infohub_configlocal_language() {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('LANGUAGE_CODES'),
-                            'description': _Translate('LANGUAGE_CODES_YOU_PREFER._COMMA_SEPARATE_THEM._I_PREFER:_SV,EN'),
+                            'description': _Translate('LANGUAGE_CODES_YOU_PREFER._COMMA_SEPARATE_THEM.'),
                             'maxlength': '30',
                             'placeholder': '',
                             'show_characters_left': 'false',

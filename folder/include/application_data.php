@@ -121,9 +121,6 @@ class application_data extends infohub_base
             $this->getTitleAndDescription();
         }
         $keyWordsArray = explode(',', $this->keyWords);
-        if (empty($keyWordsArray) === true) {
-            $keyWordsArray = [];
-        }
 
         return $keyWordsArray;
     }

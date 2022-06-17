@@ -47,6 +47,10 @@ function infohub_doc_get() {
 
     /**
      * You can request one document
+     * If the document is in the browser Storage and is not old ten you get it.
+     * If the document is missing or is old then it is requested from teh server.
+     * The document is stored in the browser Storage and returned to you.
+     *
      * @version 2019-04-18
      * @since 2019-04-18
      * @author Peter Lembke
@@ -91,7 +95,7 @@ function infohub_doc_get() {
             $in.data_back.data.checksum = '';
 
             if (_Empty($in.response.data) === 'false') {
-                // We found a document in the Storage
+                // We found a document in the Browser Storage
                 $in.data_back.data = _ByVal($in.response.data);
                 $in.step = 'step_check_if_data_is_old';
             }
@@ -99,6 +103,7 @@ function infohub_doc_get() {
 
         if ($in.step === 'step_check_if_data_is_old') {
             // @todo Return the data we have and do a background update. That is quicker.
+            // @todo Add a setting for how old a document can be before we ask for an updated document
 
             const $days = 14,
                 $oldSeconds = $days * 24 * 60 * 60,
@@ -150,7 +155,7 @@ function infohub_doc_get() {
             }
 
             if ($in.response.answer === 'true') {
-                if ($in.response.data.checksum_same === 'false') {
+                if ($in.response.data.is_checksum_same === 'false') {
                     $in.data_back.data = _ByVal($in.response.data);
                     $in.step = 'step_save_data';
                 } else {
@@ -195,9 +200,9 @@ function infohub_doc_get() {
     /**
      * You can request the full document list. If the list exist then you get it.
      * If the list is old then a query is done to the server with a checksum.
-     * The server send back a "keep list" or a new version of the list.
-     * Store the new list in the Storage.
-     * If the request have still not been answered then the new list are given.
+     * The server compare your checksum with the current checksum and send back "keep your list",
+     * or you get a new version of the list. You store the new list in the Storage.
+     *
      * @version 2019-04-18
      * @since   2019-04-16
      * @author  Peter Lembke
@@ -212,7 +217,7 @@ function infohub_doc_get() {
                 'ok': 'false',
                 'data': {
                     'checksum': '',
-                    'checksum_same': '',
+                    'is_checksum_same': '',
                     'data': {},
                     'micro_time': 0.0,
                     'provided_checksum': '',
@@ -292,7 +297,7 @@ function infohub_doc_get() {
         if ($in.step === 'step_get_navigation_from_server_response') {
             $in.step = 'step_end';
             if ($in.response.answer === 'true') {
-                if ($in.response.data.checksum_same === 'false') {
+                if ($in.response.data.is_checksum_same === 'false') {
                     $in.data_back.data = _ByVal($in.response.data);
                     $in.step = 'step_save_data';
                 }
@@ -336,7 +341,9 @@ function infohub_doc_get() {
     };
 
     /**
-     * Here you get all documents, so you are prepared if you need to go offline
+     * Here you get all documents, so you have them in the browser Storage.
+     * Then you can go offline and still read the documents.
+     *
      * @version 2019-10-06
      * @since 2019-10-06
      * @author Peter Lembke
@@ -415,8 +422,7 @@ function infohub_doc_get() {
                         'function': 'write',
                     },
                     'data': {
-                        'path': 'infohub_doc_get/document/' + $area + '/' +
-                            $documentName,
+                        'path': 'infohub_doc_get/document/' + $area + '/' + $documentName,
                         'data': $document,
                     },
                     'data_back': {

@@ -386,12 +386,12 @@ class infohub_base
      */
     final function _GetCmdFunctionStatus(string $functionName = ''): array
     {
-        $status = 'never_existed';
+        $statusType = 'never_existed';
         $functionsBase = $this->_GetCmdFunctionsBase();
         $functions = $this->_GetCmdFunctions();
         $functions = array_merge($functionsBase, $functions);
         if (isset($functions[$functionName]) === true) {
-            $status = $functions[$functionName];
+            $statusType = $functions[$functionName];
         }
 
         $statuses = [
@@ -422,21 +422,21 @@ class infohub_base
             ]
         ];
 
-        $response = [
-            'status' => $status,
-            'information' => 'This is an unknown status. I will not try to call the function name',
-            'value' => 0
-        ];
-
-        if (isset($statuses[$status]) === true) {
-            $response = $statuses[$status];
-            $response['information'] = str_replace('{this function}', $functionName, $response['information']);
-
-            $pluginName = $this->_GetClassName();
-            $response['information'] = str_replace('{this plugin}', $pluginName, $response['information']);
+        if (isset($statuses[$statusType]) === false) {
+            return [
+                'status' => $statusType,
+                'information' => 'This is an unknown status. I will not try to call the function name',
+                'value' => 0,
+                'function_name' => $functionName
+            ];
         }
 
+        $response = $statuses[$statusType];
         $response['function_name'] = $functionName;
+
+        $pluginName = $this->_GetClassName();
+        $response['information'] = str_replace('{this plugin}', $pluginName, $response['information']);
+        $response['information'] = str_replace('{this function}', $functionName, $response['information']);
 
         return $response;
     }
@@ -505,12 +505,16 @@ class infohub_base
     final public function cmd(array $in = []): array
     {
         $startTime = $this->_MicroTime();
-        $status = [];
         $this->globalLogArray = [];
 
         $default = [
             'to' => [
                 'node' => 'server',
+                'plugin' => '',
+                'function' => ''
+            ],
+            'from' => [
+                'node' => '',
                 'plugin' => '',
                 'function' => ''
             ],
@@ -549,6 +553,8 @@ class infohub_base
         $this->internal_Log(
             ['message' => 'Will call: ' . $functionName, 'function_name' => 'cmd', 'object' => $in, 'depth' => 1]
         );
+
+        $status = $this->_GetCmdFunctionStatus($functionName);
 
         $callbackFunction = function ($callResponse) use ($functionName, $out, &$in, $startTime, &$status) {
             $message = '';
@@ -617,7 +623,7 @@ class infohub_base
                 'execution_time' => $out['data']['execution_time']
             ]);
 
-            if (empty($status) === false) {
+            if (isset($status['value']) === true) {
                 $out['function_status'] = $status;
 
                 if ($status['value'] === 1) {
@@ -674,7 +680,6 @@ class infohub_base
             goto leave;
         }
 
-        $status = $this->_GetCmdFunctionStatus($functionName);
         if ($status['value'] < 1) {
             $message = '(' . $status['status'] . ') ' . $status['information'];
             $callResponse['message'] = $message;
@@ -905,15 +910,13 @@ class infohub_base
         $callResponse = [];
         $functionName = 'internal_' . $in['func'];
 
-        $this->internal_Log(
-            [
-                'message' => 'Will call: ' . $functionName,
-                'function_name' => 'Cmd',
-                'object' => $in,
-                'depth' => 1,
-                'start_time' => $startTime
-            ]
-        );
+        $this->internal_Log([
+            'message' => 'Will call: ' . $functionName,
+            'function_name' => 'Cmd',
+            'object' => $in,
+            'depth' => 1,
+            'start_time' => $startTime
+        ]);
 
         if (method_exists($this, $functionName) === false) {
             $message = 'function name: ' . $functionName . ', does not exist or are not allowed to be called';
@@ -925,13 +928,11 @@ class infohub_base
             goto leave;
         }
 
-        $this->internal_Log(
-            [
-                'message' => 'Calling: ' . $functionName,
-                'function_name' => 'internal_Cmd',
-                'object' => $in
-            ]
-        );
+        $this->internal_Log([
+            'message' => 'Calling: ' . $functionName,
+            'function_name' => 'internal_Cmd',
+            'object' => $in
+        ]);
 
         try {
             $callResponse = $this->{$functionName}($in);
@@ -1100,6 +1101,7 @@ class infohub_base
 
         $out = [
             'to' => $in['to'],
+            'from' => $in['original_message']['to'],
             'data' => $in['data'],
             'data_back' => $in['data_back'],
             'wait' => abs($in['wait']),
@@ -1182,6 +1184,7 @@ class infohub_base
 
         $out = [
             'to' => $messageFromCallStack['to'], // To node
+            'from' => $in['original_message']['to'],
             'callstack' => $in['original_message']['callstack'], // Rest of the callstack
             'data' => array_merge($dataSend, $messageFromCallStack['data_back']) // Kept for legacy and for simplicity
         ];

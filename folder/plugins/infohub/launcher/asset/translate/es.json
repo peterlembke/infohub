@@ -13,12 +13,9 @@
     },
     "data": {
         "infohub_launcher": {
-            "SWITCH_LIST_KEY": "Cambiar lista",
-            "MY_LIST_KEY": "Mi lista",
-            "ALL_AVAILABLE_PLUGINS_KEY": "Todos los complementos disponibles",
-            "INSTRUCTIONS_KEY": "Instrucciones",
-            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Cambiar lista. Actualizar. Haga clic en el icono.",
-            "HELP_KEY": "Ayuda",
+            "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Mostrar favoritos o todas las aplicaciones",
+            "FAVORITES_KEY": "Favoritos",
+            "ALL_APPS_KEY": "Todas las aplicaciones",
             "MORE_KEY": "Más",
             "USER_NAME_KEY": "Nombre de usuario",
             "CURRENT_URL_KEY": "URL actual",
@@ -26,13 +23,14 @@
             "REFRESH_PAGE_KEY": "Actualizar página",
             "REFRESH_KEY": "Actualizar",
             "UPDATE_THIS_LIST_KEY": "Actualizar esta lista",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "La lista no tiene valores",
             "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Hubo un error en la adicción",
             "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon tiene una lista no válida",
             "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon tiene un elemento vacío",
-            "ADD_TO_MY_LIST_KEY": "Agregar a mi lista",
-            "REMOVE_FROM_LIST_KEY": "Eliminar de la lista",
-            "RUN_PLUGIN_KEY": "Ejecutar complemento",
-            "RUN_IN_NEW_WINDOW_KEY": "Ejecutar en una nueva ventana"
+            "FAVORITE_KEY": "Favorito",
+            "NO_FAVORITE_KEY": "Sin favorito",
+            "START_KEY": "Empezar",
+            "START_IN_NEW_WINDOW_KEY": "Iniciar en una ventana nueva"
         }
     }
 }

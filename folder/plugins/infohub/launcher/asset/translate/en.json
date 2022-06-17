@@ -13,26 +13,24 @@
     },
     "data": {
         "infohub_launcher": {
-            "SWITCH_LIST_KEY": "Switch list",
-            "MY_LIST_KEY": "My list",
-            "ALL_AVAILABLE_PLUGINS_KEY": "All available plugins",
-            "INSTRUCTIONS_KEY": "Instructions",
-            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Switch list. Refresh. Click icon.",
-            "HELP_KEY": "Help",
+            "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Show favorites or all apps",
+            "FAVORITES_KEY": "Favorites",
+            "ALL_APPS_KEY": "All apps",
             "MORE_KEY": "More",
-            "USER_NAME_KEY": "User name",
-            "CURRENT_URL_KEY": "Current url",
-            "LOGOUT_KEY": "Logout",
+            "USER_NAME_KEY": "AUser name",
+            "CURRENT_URL_KEY": "Current URL",
+            "LOGOUT_KEY": "Log out",
             "REFRESH_PAGE_KEY": "Refresh page",
-            "REFRESH_KEY": "Refresh",
+            "REFRESH_KEY": "Update",
             "UPDATE_THIS_LIST_KEY": "Update this list",
-            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "There was an error in addicon",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "The list have no values",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "There was an error in Addicon",
             "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon got an invalid list",
-            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon got an empty item",
-            "ADD_TO_MY_LIST_KEY": "Add to my list",
-            "REMOVE_FROM_LIST_KEY": "Remove from list",
-            "RUN_PLUGIN_KEY": "Run plugin",
-            "RUN_IN_NEW_WINDOW_KEY": "Run in new window"
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon have an empty item",
+            "FAVORITE_KEY": "Favorite",
+            "NO_FAVORITE_KEY": "No favorite",
+            "START_KEY": "Start",
+            "START_IN_NEW_WINDOW_KEY": "Start in a new window"
         }
     }
 }

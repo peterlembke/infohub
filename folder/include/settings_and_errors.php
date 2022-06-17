@@ -15,7 +15,7 @@
  */
 declare(strict_types=1);
 ini_set('zlib.output_compression', '4096');
-ini_set('memory_limit', '16M');
+ini_set('memory_limit', '12M');
 ini_set('max_execution_time', '5'); // seconds
 ini_set('default_socket_timeout', '4'); // seconds
 

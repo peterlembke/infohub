@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (file_exists('fullstop.flag') == true) {
+if (file_exists('fullstop.flag') === true) {
     exit('The site have gone into a full stop.');
 }
 

@@ -799,6 +799,12 @@ const _Translate = function($string) {
         return $result.toString();
     }
 
+    if ($string.includes('_') === true) {
+        // Convert a string to plain english
+        $string = _Replace('_', ' ', $string.toLowerCase());
+        $string = $string.charAt(0).toUpperCase() + $string.substring(1);
+    }
+
     return $string;
 };
 
@@ -1529,8 +1535,7 @@ const internal_Log = function($in = {}) {
     if ($minimumLogLevel === -1) {
         return {
             'answer': 'true',
-            'message': 'Can not handle infohub_minimum_error_level = ' +
-                $GLOBALS.infohub_minimum_error_level,
+            'message': 'Can not handle infohub_minimum_error_level = ' + $GLOBALS.infohub_minimum_error_level,
         };
     }
 

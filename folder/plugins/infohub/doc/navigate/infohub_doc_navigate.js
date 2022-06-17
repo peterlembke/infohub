@@ -302,21 +302,21 @@ function infohub_doc_navigate() {
                     continue;
                 }
 
-                for (let $docName in $in.data[$area]) {
-                    if ($in.data[$area].hasOwnProperty($docName) === false) {
+                for (let $documentName in $in.data[$area]) {
+                    if ($in.data[$area].hasOwnProperty($documentName) === false) {
                         continue;
                     }
 
                     const $pluginName = 'infohub_doc';
                     const $eventType = 'click';
-                    const $containerId = '{box_id}_' + $area + '_' + $docName + '.link';
+                    const $containerId = '{box_id}_' + $area + '_' + $documentName + '.link';
 
                     const $onClickParameters = '\'' + $pluginName + '\',' +
                         '\'' +
                         $eventType + '\',' + '\'' + $containerId + '\'';
                     const $onClick = 'onclick="go(' + $onClickParameters + ')" ';
 
-                    const $idData = 'id="' + $containerId + '" area="' + $area + '" document_name="' + $docName + '" ';
+                    const $idData = 'id="' + $containerId + '" area="' + $area + '" document_name="' + $documentName + '" ';
 
                     const $eventData = 'event_data="infohub_doc_navigate|click_document_name" ';
 
@@ -324,12 +324,12 @@ function infohub_doc_navigate() {
                     const $otherParams = 'href="#header" class="link" renderer="infohub_doc" type="link" ';
                     // You can put any parameters you like in the string above, and they will show up in the event_message function.
 
-                    const $label = $in.data[$area][$docName].label;
+                    const $label = $in.data[$area][$documentName].label;
                     const $html = '<a ' + $onClick + $idData + $eventData + $otherParams + '>' + _Translate($label) + '</a>';
 
                     $option.push({
                         'label': $html,
-                        'level': $area + '_' + $docName,
+                        'level': $area + '_' + $documentName,
                     });
                 }
             }

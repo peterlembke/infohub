@@ -206,7 +206,7 @@ class infohub_call extends infohub_base
         curl_setopt_array($curlHandle, $curlOptArray);
         $responseString = (string) curl_exec($curlHandle);
         $curlInfo = (array) curl_getinfo($curlHandle);
-        $code = $curlInfo['http_code'] ?? '';
+        $code = $curlInfo['http_code'];
         $curlError = (string) curl_error($curlHandle);
         curl_close($curlHandle);
 
@@ -227,7 +227,8 @@ class infohub_call extends infohub_base
             'curl_log' => $curlLog
         ];
 
-        if ($code !== '200' && $code !== '201' && empty($responseString) === true) {
+        $responseCodeSuccess = $code === 200 || $code === 201;
+        if ($responseCodeSuccess === false || empty($responseString) === true) {
             $out['answer'] = 'false';
             $out['message'] = $curlError;
         }

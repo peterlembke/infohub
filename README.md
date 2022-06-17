@@ -1,4 +1,6 @@
-![Infohub Logo](folder/doc/images/logotype/infohub-logo-done.png)   
+# InfoHub - Your private web operating system
+
+![InfoHub Logo](folder/doc/images/logotype/infohub-logo-done.png)   
 Infohub is your private operating system in your browser. You reach your encrypted data on all your devices and can run the Infohub applications you like.
 Infohub is not about sharing. InfoHub run on your own or your friends trusted server, on the Internet or in your private network.
 

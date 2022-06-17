@@ -158,13 +158,14 @@ class infohub_file extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $answer = 'false';
+        $answer = 'true'; // true = You can trust the result
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
         $contents = '';
         $checksum = '';
         $isBinary = 'unknown';
         $userRole = '';
         $pluginStatus = '';
+        $fileExist = 'false';
 
         $response = [
             'path' => '',
@@ -179,10 +180,17 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
+        $fileExist = $response['file_info']['file_exist'];
+        if ($fileExist === 'false') {
+            $message = $response['message'];
+            goto leave;
+        }
+
         $contents = file_get_contents($response['path']);
         if ($contents === false) {
             $contents = '';
             $message = 'Could not read the file';
+            $answer = 'false'; // Failure that we want to get logged
             goto leave;
         }
 
@@ -198,7 +206,6 @@ class infohub_file extends infohub_base
         $pluginStatus = $this->_GetPluginStatus($node, $contents);
         $checksum = $this->_Hash($contents);
 
-        $answer = 'true';
         $message = 'Here are the file contents';
 
         leave:
@@ -206,6 +213,7 @@ class infohub_file extends infohub_base
             'answer' => $answer,
             'message' => $message,
             'path' => $response['path'],
+            'file_exist' => $fileExist,
             'path_info' => $response['path_info'],
             'file_info' => $response['file_info'],
             'is_binary' => $isBinary,
@@ -293,12 +301,6 @@ class infohub_file extends infohub_base
         $contentsLength = strlen($in['contents']);
 
         $response = $this->_FileInformation($in);
-        /*
-        if ($response['answer'] === 'false') {
-            $message = $response['message'];
-            goto leave;
-        }
-        */
 
         $pathPartArray = pathinfo($in['path']);
 
@@ -893,14 +895,12 @@ class infohub_file extends infohub_base
             $dirName = $pathInfo['dirname'];
 
             foreach ($wantedAssets as $assetName) {
-                $response = $this->internal_Cmd(
-                    [
-                        'func' => 'Read',
-                        'path' => $dirName . DS . $assetName
-                    ]
-                );
+                $response = $this->internal_Cmd([
+                    'func' => 'Read',
+                    'path' => $dirName . DS . $assetName
+                ]);
 
-                if ($response['answer'] === 'true') {
+                if ($response['answer'] === 'true' && $response['file_exist'] === 'true') {
                     $data[$pluginName][$assetName] = $response['checksum'];
                 }
             }
@@ -951,13 +951,11 @@ class infohub_file extends infohub_base
 
         $assetPath = PLUGINS . '/' . str_replace('_', '/', $in['plugin_name']) . '/asset';
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetFolderStructure',
-                'path' => $assetPath,
-                'pattern' => '*',
-            ]
-        );
+        $response = $this->internal_Cmd([
+            'func' => 'GetFolderStructure',
+            'path' => $assetPath,
+            'pattern' => '*',
+        ]);
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -976,6 +974,10 @@ class infohub_file extends infohub_base
                 'func' => 'Read',
                 'path' => $path
             ]);
+
+            if ($fileData['file_exist'] === 'false') {
+                continue;
+            }
 
             $storedPath = $in['plugin_name'] . '/' . str_replace($assetPath . '/', '', $path);
 
@@ -1074,6 +1076,10 @@ class infohub_file extends infohub_base
                 'func' => 'Read',
                 'path' => $filePath
             ]);
+
+            if ($fileData['file_exist'] === 'false') {
+                continue;
+            }
 
             $storedPath = $prefix . $pluginName . '/' . $assetName;
 
@@ -1473,14 +1479,16 @@ class infohub_file extends infohub_base
             }
 
             foreach ($pluginList as $pluginName => $path) {
-                $fileData = $this->internal_Cmd(
-                    [
-                        'func' => 'Read',
-                        'path' => $path
-                    ]
-                );
+                $fileData = $this->internal_Cmd([
+                    'func' => 'Read',
+                    'path' => $path
+                ]);
 
                 if (empty($fileData['contents']) === true) {
+                    continue;
+                }
+
+                if ($fileData['file_exist'] === 'false') {
                     continue;
                 }
 

@@ -228,6 +228,10 @@ function infohub_start($progress) {
             'infohub_exchange',
             'infohub_keyboard',
             'infohub_launcher',
+            'infohub_login',
+            'infohub_login_contact',
+            'infohub_login_login',
+            'infohub_login_standalone',
             'infohub_offline',
             'infohub_plugin',
             'infohub_render',
@@ -235,6 +239,7 @@ function infohub_start($progress) {
             'infohub_render_form',
             'infohub_render_link',
             'infohub_render_text',
+            'infohub_renderdocument',
             'infohub_renderform',
             'infohub_rendermajor',
             'infohub_session',
@@ -359,6 +364,11 @@ function infohub_start($progress) {
      * @private
      */
     const _CallServer = function($package) {
+
+        if (_Empty($package) === 'true') {
+            return;
+        }
+
         let xmlHttp = new XMLHttpRequest();
         const $content = JSON.stringify($package);
         const $url = 'infohub.php';
@@ -509,8 +519,21 @@ function infohub_start($progress) {
         }
 
         _StorePlugins($response.items.plugins);
-        const $corePluginNames = _GetCorePluginNames();
-        _StartCore($corePluginNames);
+
+        let $neededPluginNames = _GetNeededPluginNames();
+        let $missingPluginNames = _GetMissingPluginNames($neededPluginNames);
+
+        if ($missingPluginNames.length > 0) {
+            // We can not start the core yet
+            const $package = _GetPackage($missingPluginNames);
+            $progress.whatArea('call_server', 0, 'Call the server');
+            _CallServer($package); // Ajax call, and it will run _StartCore later
+        }
+
+        if ($missingPluginNames.length === 0) {
+            const $corePluginNames = _GetCorePluginNames();
+            _StartCore($corePluginNames);
+        }
     };
 
     /**

@@ -13,12 +13,9 @@
     },
     "data": {
         "infohub_launcher": {
-            "SWITCH_LIST_KEY": "Byt lista",
-            "MY_LIST_KEY": "Min lista",
-            "ALL_AVAILABLE_PLUGINS_KEY": "Alla tillgängliga plugins",
-            "INSTRUCTIONS_KEY": "Instruktioner",
-            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Byt lista. Uppdatera. Klicka på ikonen.",
-            "HELP_KEY": "Hjälp",
+            "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Visa favoriter eller alla appar",
+            "FAVORITES_KEY": "Favoriter",
+            "ALL_APPS_KEY": "Alla appar",
             "MORE_KEY": "Mer",
             "USER_NAME_KEY": "Användarnamn",
             "CURRENT_URL_KEY": "Aktuell webbadress",
@@ -26,12 +23,14 @@
             "REFRESH_PAGE_KEY": "Uppdatera sida",
             "REFRESH_KEY": "Uppdatera",
             "UPDATE_THIS_LIST_KEY": "Uppdatera den här listan",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "Listan har inga värden",
             "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Det uppstod ett fel i addicon",
             "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon har en ogiltig lista",
             "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon har ett tomt objekt",
-            "ADD_TO_MY_LIST_KEY": "Lägg till i min lista",
-            "REMOVE_FROM_LIST_KEY": "Ta bort från listan",
-            "RUN_PLUGIN_KEY": "Kör plugin",
-            "RUN_IN_NEW_WINDOW_KEY": "Kör i nytt fönster"
-        }    }
+            "FAVORITE_KEY": "Favorit",
+            "NO_FAVORITE_KEY": "Ingen favorit",
+            "START_KEY": "Starta",
+            "START_IN_NEW_WINDOW_KEY": "Starta i nytt fönster"
+        }
+    }
 }

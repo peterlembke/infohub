@@ -130,42 +130,51 @@ class infohub_doc extends infohub_base
         $in = $this->_Default($default, $in);
 
         $area = $in['area'];
-        $docName = $this->_CleanName($area, $in['document_name']);
+        $documentName = $this->_CleanName($area, $in['document_name']);
 
         $basePath = $this->_GetBasePath($area);
-        $docFileName = $this->_GetFileName($area, $docName, $in['file_extension'], $basePath);
+        $docFileName = $this->_GetFileName($area, $documentName, $in['file_extension'], $basePath);
         $docContents = $this->_GetFileContents($docFileName);
 
-        $docContents = $this->_HandleImages($docContents, $docName, $area);
+        if ($in['file_extension'] === 'md') {
+            $docContents = strip_tags($docContents);
+        }
 
-        $checksumSame = 'false';
+        $docContents = $this->_HandleImages($docContents, $documentName, $area);
+
+        $isChecksumSame = 'false';
         $message = 'Here are the markdown document with embedded images';
 
         $checksum = md5($docContents);
         if ($in['checksum'] === $checksum) {
             $docContents = '';
-            $checksumSame = 'true';
+            $isChecksumSame = 'true';
             $message = 'The data you already have is valid. Keep using it';
         }
+
+        $documentSize = strlen($docContents);
 
         return [
             'answer' => 'true',
             'message' => $message,
             'data' => [
                 'document' => $docContents,
+                'document_size' => $documentSize,
                 'area' => $in['area'],
                 'document_name' => $in['document_name'],
                 'time_stamp' => $this->_TimeStamp(),
                 'micro_time' => $this->_MicroTime(),
                 'provided_checksum' => $in['checksum'],
                 'checksum' => $checksum,
-                'checksum_same' => $checksumSame
+                'is_checksum_same' => $isChecksumSame
             ]
         ];
     }
 
     /**
      * Get a list with all available documents
+     * You get the list from Storage.
+     * If the list is old then it is updated in Storage.
      *
      * @param array $in
      * @return array
@@ -176,156 +185,226 @@ class infohub_doc extends infohub_base
     protected function get_documents_list(array $in = []): array
     {
         $default = [
-            'checksum' => ''
+            'checksum' => '',
+            'config' => [
+                'document_list_cache_seconds' => 0
+            ],
+            'response' => [
+                'post_exist' => 'false',
+                'micro_time' => 0,
+                'data' => []
+            ],
+            'step' => 'step_read_storage'
         ];
         $in = $this->_Default($default, $in);
 
-        $checksumSame = 'false';
-        $message = 'Here are the navigation data';
+        if ($in['step'] === 'step_read_storage') {
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read'
+                ],
+                'data' => [
+                    'path' => 'infohub_doc/documents_list'
+                ],
+                'data_back' => [
+                    'checksum' => $in['checksum'],
+                    'step' => 'step_read_storage_response'
+                ]
+            ]);
+
+        }
+
+        if ($in['step'] === 'step_read_storage_response') {
+            if ($in['response']['post_exist'] === 'true') {
+                $cacheLimit = $in['config']['document_list_cache_seconds'];
+                $oldWhen = $this->_MicroTime() + $cacheLimit;
+                $data = $in['response']['data'];
+                $dataStored = $data['micro_time'];
+                $isOld = $dataStored > $oldWhen;
+                if ($isOld === false) {
+                    return [
+                        'answer' => 'true',
+                        'message' => 'Have read the documents list from storage',
+                        'data' => $data
+                    ];
+                }
+            }
+            $in['step'] = 'step_get_documents_list';
+        }
+
+        if ($in['step'] === 'step_get_documents_list') {
+            $isChecksumSame = 'false';
+            $message = 'Here are the navigation data';
+
+            $dataOut = $this->_GetDocumentsList();
+
+            $jsonDataOut = json_encode($dataOut);
+            if ($jsonDataOut === false) {
+                return [
+                    'answer' => 'false',
+                    'message' => 'Could not json encode the data in infohub_doc',
+                    'data' => []
+                ];
+            }
+
+            $size = strlen($jsonDataOut);
+
+            $currentChecksum = md5($jsonDataOut);
+            if ($in['checksum'] === $currentChecksum) {
+                $dataOut = [];
+                $isChecksumSame = 'true';
+                $message = 'The data you already have is valid. Keep using it';
+            }
+
+            $messages = [];
+
+            $data = [
+                'data' => $dataOut,
+                'time_stamp' => $this->_TimeStamp(),
+                'micro_time' => $this->_MicroTime(),
+                'provided_checksum' => $in['checksum'],
+                'checksum' => $currentChecksum,
+                'is_checksum_same' => $isChecksumSame,
+                'size' => $size
+            ];
+
+            $messages[] = $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'write'
+                ],
+                'data' => [
+                    'path' => 'infohub_doc/documents_list',
+                    'data' => $data
+                ],
+                'data_back' => [
+                    'step' => 'step_void'
+                ]
+            ]);
+
+            return [
+                'answer' => 'true',
+                'message' => $message,
+                'data' => $data,
+                'messages' => $messages
+            ];
+        }
+
+        return [
+            'answer' => 'true',
+            'message' => 'Task done'
+        ];
+    }
+
+    /**
+     * The actual logic that create the documents list
+     * @return array
+     */
+    protected function _GetDocumentsList(): array {
 
         $fileExtension = $this->_GetFileExtension();
 
         $data = [
-            'main' => $this->_GetAllDocNamesByArea('main', $fileExtension),
-            'plugin' => $this->_GetAllDocNamesByArea('plugin', $fileExtension),
+            'main' => $this->_GetAlldocumentNamesByArea('main', $fileExtension),
+            'plugin' => $this->_GetAlldocumentNamesByArea('plugin', $fileExtension),
+            'root' => $this->_GetAlldocumentNamesByArea('root', $fileExtension),
         ];
 
         $findFirst = '# ';
         $findLast = "\n";
 
         $dataOut = [];
-        foreach ($data as $area => $docNames) {
+        foreach ($data as $area => $documentNames) {
             $dataOut[$area] = [];
             $basePath = $this->_GetBasePath($area);
 
-            foreach ($docNames as $docName) {
-                $docFileName = $this->_GetFileName($area, $docName, $fileExtension, $basePath);
-                $docContents = $this->_GetFileContents($docFileName);
-                $label = $this->_GetPartOfString($docContents, $findFirst, $findLast);
+            foreach ($documentNames as $documentName) {
+                $documentFileName = $this->_GetFileName($area, $documentName, $fileExtension, $basePath);
+                $documentContents = $this->_GetFileContents($documentFileName);
+                $label = $this->_GetPartOfString($documentContents, $findFirst, $findLast);
+                if ($label === '') {
+                    $label = $documentName;
+                }
+
+                $checksum = md5($documentContents);
+                $size = strlen($documentContents);
 
                 $label = strtr($label, ['_' => ' ']);
 
-                $dataOut[$area][$docName] = [
-                    'doc_name' => $docName,
+                $dataOut[$area][$documentName] = [
+                    'document_name' => $documentName,
                     'label' => $label,
-                    'area' => $area
+                    'area' => $area,
+                    'checksum' => $checksum,
+                    'size' => $size
                 ];
             }
         }
-
-        $dataOut = $this->_AddRootDocuments($dataOut);
-
-        $jsonDataOut = json_encode($dataOut);
-        if ($jsonDataOut === false) {
-            return [
-                'answer' => 'false',
-                'message' => 'Could not json encode the data in infohub_doc',
-                'data' => []
-            ];
-        }
-
-        $checksum = md5($jsonDataOut);
-        if ($in['checksum'] === $checksum) {
-            $dataOut = [];
-            $checksumSame = 'true';
-            $message = 'The data you already have is valid. Keep using it';
-        }
-
-        return [
-            'answer' => 'true',
-            'message' => $message,
-            'data' => [
-                'data' => $dataOut,
-                'time_stamp' => $this->_TimeStamp(),
-                'micro_time' => $this->_MicroTime(),
-                'provided_checksum' => $in['checksum'],
-                'checksum' => $checksum,
-                'checksum_same' => $checksumSame
-            ]
-        ];
-    }
-
-    /**
-     * Add links to root documents that normally is not displayed in the doc index
-     *
-     * @param array $dataOut
-     * @return array
-     * @author  Peter Lembke
-     * @version 2019-05-30
-     * @since   2016-04-02
-     */
-    protected function _AddRootDocuments(
-        array $dataOut = []
-    ): array
-    {
-        $dataOut['root']['root'] = [
-            'doc_name' => 'root',
-            'label' => 'root',
-            'area' => 'root'
-        ];
-
-        $dataOut['root']['CHANGELOG'] = [
-            'doc_name' => 'CHANGELOG',
-            'label' => 'CHANGELOG',
-            'area' => 'root'
-        ];
-
-        $dataOut['root']['TERMS'] = [
-            'doc_name' => 'TERMS',
-            'label' => 'TERMS',
-            'area' => 'root'
-        ];
-
-        $dataOut['root']['LICENSE'] = [
-            'doc_name' => 'LICENSE',
-            'label' => 'LICENSE',
-            'area' => 'root'
-        ];
-
-        $dataOut['root']['README'] = [
-            'doc_name' => 'README',
-            'label' => 'README',
-            'area' => 'root'
-        ];
 
         return $dataOut;
     }
 
     /**
-     * Returns all documents in one big array
+     * Returns all wanted documents in one big array
+     *
+     * Provide a list with documents you want. The list format is the same as get_documents_list provide.
+     * You have asked get_documents_list, got the list and figured out what documents you have that you can
+     * keep (same checksum), delete (not in list). Left are the ones that are new and changed ( different checksum).
+     *
+     * You can now send the wanted_documents_list to get_all_documents and get the documents.
+     * If the size of the documents is more than he config allows then you only get just below the limit.
+     * The rest of the wanted_documents_list are returned to you, and you can try again.
      *
      * @param array $in
      * @return array
      * @author  Peter Lembke
-     * @version 2018-10-23
+     * @version 2022-06-05
      * @since   2018-10-23
      */
     protected function get_all_documents(array $in = []): array
     {
-        $default = [];
+        $default = [
+            'wanted_documents_list' => [],
+            'config' => [
+                'get_all_documents_max_size_kb' => 0
+            ]
+        ];
         $in = $this->_Default($default, $in);
 
-        $dataOut = [];
-
+        $maxSize = $in['config']['get_all_documents_max_size_kb'] * 1024;
+        $totalSize = 0;
         $fileExtension = $this->_GetFileExtension();
+        $dataOut = [];
+        $askAgainDocumentsList = [];
+        $failedToLoadDocumentsList = [];
 
-        $data = [
-            'main' => $this->_GetAllDocNamesByArea('main', $fileExtension),
-            'plugin' => $this->_GetAllDocNamesByArea('plugin', $fileExtension),
-        ];
+        foreach ($in['wanted_documents_list'] as $area => $documentNamesArray) {
+            foreach ($documentNamesArray as $documentName) {
 
-        foreach ($data as $area => $docNamesArray) {
-            foreach ($docNamesArray as $docName) {
-                $response = $this->internal_Cmd(
-                    [
-                        'func' => 'GetDocument',
-                        'area' => $area,
-                        'document_name' => $docName,
-                        'file_extension' => $fileExtension
-                    ]
-                );
+                $response = $this->internal_Cmd([
+                    'func' => 'GetDocument',
+                    'area' => $area,
+                    'document_name' => $documentName,
+                    'file_extension' => $fileExtension
+                ]);
 
-                $path = 'infohub_doc/document/' . $area . '/' . $docName;
+                if ($response['answer'] === 'false') {
+                    $failedToLoadDocumentsList[$area] = $failedToLoadDocumentsList[$area] ?? [];
+                    $failedToLoadDocumentsList[$area][] = $documentName;
+                    continue;
+                }
+
+                $size = $response['data']['document_size'];
+                if ($totalSize + $size > $maxSize) {
+                    $askAgainDocumentsList[$area] = $askAgainDocumentsList[$area] ?? [];
+                    $askAgainDocumentsList[$area][] = $documentName;
+                    continue;
+                }
+
+                $path = 'infohub_doc/document/' . $area . '/' . $documentName;
                 $dataOut[$path] = $response['data'];
             }
         }
@@ -333,7 +412,9 @@ class infohub_doc extends infohub_base
         return [
             'answer' => 'true',
             'message' => 'Here are all doc files. Ready to be saved locally',
-            'data' => $dataOut
+            'data' => $dataOut,
+            'ask_again_documents_list' => $askAgainDocumentsList,
+            'failed_to_load_documents_list' => $failedToLoadDocumentsList
         ];
     }
 
@@ -370,9 +451,13 @@ class infohub_doc extends infohub_base
         }
 
         // Proper doc names have at least one underscore that divide the string. Example: infohub_doc
-        $parts = explode($separator = '_', $name);
-        if (empty($parts) === true) {
-            $name = '';
+        $parts = explode($find = '_', $name);
+
+        foreach ($parts as $part) {
+            if (strlen($part) === 0) {
+                $name = '';
+                break;
+            }
         }
 
         return $name;
@@ -417,7 +502,7 @@ class infohub_doc extends infohub_base
     /**
      * I will construct a path and return that path to you.
      *
-     * @param string $docName | Name of the document or any other related document file: example: mydomain_myplugin
+     * @param string $documentName | Name of the document or any other related document file: example: mydomain_myplugin
      * @param string $imageName
      * @param string $basePath | any path. example: /var/www/infohub/folder/plugin
      * @return string
@@ -426,13 +511,18 @@ class infohub_doc extends infohub_base
      * @version 2019-05-30
      */
     protected function _GetImageFileName(
-        string $docName = '',
+        string $documentName = '',
         string $imageName = '',
         string $basePath = ''
     ): string
     {
-        $docPath = str_replace('_', DS, $docName);
-        $path = $basePath . DS . $docPath . DS . 'images' . DS . $imageName;
+        $isFullPath = strpos($imageName, 'folder/') === 0;
+        if ($isFullPath === true) {
+            $path = $basePath . DS . $imageName;
+        } else {
+            $docPath = str_replace('_', DS, $documentName);
+            $path = $basePath . DS . $docPath . DS . 'images' . DS . $imageName;
+        }
 
         return $path;
     }
@@ -498,7 +588,7 @@ class infohub_doc extends infohub_base
      * When the url do not have any / in it then we embed an image.
      *
      * @param string $text
-     * @param string $docName
+     * @param string $documentName
      * @param string $area
      * @return string
      * @version 2019-05-30
@@ -508,16 +598,40 @@ class infohub_doc extends infohub_base
      */
     protected function _HandleImages(
         string $text = '',
-        string $docName = '',
+        string $documentName = '',
         string $area = ''
     ): string
     {
-        if ($area === 'root') {
-            return $text;
-        }
+        $imageNamesArray = $this->_GetAllImageNamesByPath($text, $area);
+        $text = $this->_EmbedImages($text, $documentName, $area, $imageNamesArray);
+        $imageNamesArray = $this->_GetAllImageNamesByAreaAnddocumentName($area, $documentName);
+        $text = $this->_EmbedImages($text, $documentName, $area, $imageNamesArray);
 
-        $imageNamesArray = $this->_GetAllImageNamesByAreaAndDocName($area, $docName);
+        return $text;
+    }
 
+    /**
+     * Parses the ![My image](rendermajor-1.png) directives in the doc text.
+     *
+     * When the url do not have any / in it then we embed an image.
+     *
+     * @param string $text
+     * @param string $documentName
+     * @param string $area
+     * @param array $imageNamesArray
+     * @return string
+     * @version 2019-05-30
+     * @since   2016-04-02
+     * @author  Peter Lembke
+     * @uses _ImageHtml
+     */
+    protected function _EmbedImages(
+        string $text = '',
+        string $documentName = '',
+        string $area = '',
+        array $imageNamesArray = []
+    ): string
+    {
         foreach ($imageNamesArray as $imageName) {
             $find = '(' . $imageName . ')';
 
@@ -527,7 +641,7 @@ class infohub_doc extends infohub_base
 
             $imageBase64Data = $this->_ImageBase64Data([
                 'area' => $area,
-                'doc_name' => $docName,
+                'document_name' => $documentName,
                 'image_name' => $imageName
             ]);
 
@@ -542,8 +656,8 @@ class infohub_doc extends infohub_base
     /**
      * Show an image from the images sub folder.
      *
-     * {{command=image|image_name=my_image.png|label=My text under the image|doc_name=optional_doc_name|area=optional area name}}
-     * doc_name and area are optional parameters. If omitted then the document doc_name and area are used.
+     * {{command=image|image_name=my_image.png|label=My text under the image|document_name=optional_document_name|area=optional area name}}
+     * document_name and area are optional parameters. If omitted then the document document_name and area are used.
      *
      * @param array $in
      * @return string
@@ -557,13 +671,13 @@ class infohub_doc extends infohub_base
     {
         $default = [
             'area' => '',
-            'doc_name' => '',
+            'document_name' => '',
             'image_name' => ''
         ];
         $in = $this->_Default($default, $in);
 
         $basePath = $this->_GetBasePath($in['area']);
-        $imageFileName = $this->_GetImageFileName($in['doc_name'], $in['image_name'], $basePath);
+        $imageFileName = $this->_GetImageFileName($in['document_name'], $in['image_name'], $basePath);
         $imageContents = $this->_GetFileContents($imageFileName);
 
         $extension = pathinfo($imageFileName, PATHINFO_EXTENSION);
@@ -587,18 +701,22 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllDocNamesByArea(
+    protected function _GetAlldocumentNamesByArea(
         string $area = 'main',
         string $fileExtension = 'md'
     ): array
     {
+        if ($area === 'root') {
+            return ['root', 'CHANGELOG', 'LICENSE', 'README', 'TERMS'];
+        }
+
         $basePath = $this->_GetBasePath($area);
 
         $searchPath = $basePath . DS . '*.' . $fileExtension;
         $filesArray = $this->_RecursiveSearch($searchPath);
         sort($filesArray);
 
-        $documentNamesArray = $this->_GetAllDocNames($filesArray, $basePath);
+        $documentNamesArray = $this->_GetAlldocumentNames($filesArray, $basePath);
 
         return $documentNamesArray;
     }
@@ -607,19 +725,19 @@ class infohub_doc extends infohub_base
      * Get array with all image names for a document in an area
      *
      * @param string $area
-     * @param string $docName
+     * @param string $documentName
      * @return array
      * @version 2019-05-30
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllImageNamesByAreaAndDocName(
+    protected function _GetAllImageNamesByAreaAnddocumentName(
         string $area = 'main',
-        string $docName = ''
+        string $documentName = ''
     ): array
     {
         $basePath = $this->_GetBasePath($area);
-        $pluginPath = str_replace('_', DS, $docName);
+        $pluginPath = str_replace('_', DS, $documentName);
 
         $searchPath = $basePath . DS . $pluginPath . DS . 'images' . DS . '*';
 
@@ -630,6 +748,60 @@ class infohub_doc extends infohub_base
         foreach ($filesArray as $filePath) {
             $fileName = pathinfo($filePath, PATHINFO_BASENAME);
             $baseNames[] = $fileName;
+        }
+
+        return $baseNames;
+    }
+
+    /**
+     * Get array with all image paths mentioned in the document
+     *
+     * @version 2022-06-04
+     * @since   2022-06-04
+     * @author  Peter Lembke
+     * @param string $text
+     * @param string $area
+     * @return array
+     */
+    protected function _GetAllImageNamesByPath(
+        string $text = '',
+        string $area = ''
+    ): array
+    {
+        $findFirst = '![';
+        $findSecond = '](';
+        $findLast = ')';
+
+        $position = 0;
+        $length = strlen($text);
+
+        $baseNames = [];
+        while ($position <= $length) {
+
+            $nextPosition = strpos($text, $findFirst, $position);
+            if ($nextPosition === false) {
+                break;
+            }
+            $position = $nextPosition + 2;
+
+            $nextPosition = strpos($text, $findSecond, $position);
+            if ($nextPosition === false) {
+                break;
+            }
+            $position = $nextPosition + 2;
+
+            $stopPosition = strpos($text, $findLast, $position);
+            if ($stopPosition === false) {
+                break;
+            }
+            $path = substr($text, $position, $stopPosition-$position);
+            $position = $stopPosition + 1;
+
+            $isURL = strpos($path, '://') !== false;
+            if ($isURL === true) {
+                continue;
+            }
+            $baseNames[] = $path;
         }
 
         return $baseNames;
@@ -682,12 +854,12 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAllDocNames(
+    protected function _GetAlldocumentNames(
         array $fileNamesArray = [],
         string $basePath = ''
     ): array {
 
-        $docNamesArray = [];
+        $documentNamesArray = [];
 
         foreach ($fileNamesArray as $fullFileNameWithPath) {
             $fileNameParts = pathinfo($fullFileNameWithPath);
@@ -705,10 +877,10 @@ class infohub_doc extends infohub_base
                 continue; // The file name must be in a path with the same name
             }
 
-            $docNamesArray[] = $fileName;
+            $documentNamesArray[] = $fileName;
         }
 
-        return $docNamesArray;
+        return $documentNamesArray;
     }
 
     /**

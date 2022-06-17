@@ -171,6 +171,8 @@ class infohub_exchange extends infohub_base
      */
     protected function main(array $in = []): array
     {
+        $startTime = $this->_MicroTime();
+
         $default = [
             'package' => [],
             'answer' => 'false',
@@ -180,12 +182,10 @@ class infohub_exchange extends infohub_base
 
         $this->sendAnswer = 'true';
 
-        $this->internal_Cmd(
-            [
-                'func' => 'ToSort',
-                'package' => $in['package']
-            ]
-        );
+        $this->internal_Cmd([
+            'func' => 'ToSort',
+            'package' => $in['package']
+        ]);
         unset($in['package']);
         $addedTransferMessage = 'false';
 
@@ -207,7 +207,7 @@ class infohub_exchange extends infohub_base
             if ($moreToDo === 'false' and $addedTransferMessage === 'false') {
                 $moreToDo = 'true';
                 if ($this->sendAnswer === 'true') {
-                    $this->_AddTransferMessage();
+                    $this->_AddTransferMessage($startTime);
                 }
                 $addedTransferMessage = 'true';
             }
@@ -220,14 +220,12 @@ class infohub_exchange extends infohub_base
         if ($moreToDo === 'true') {
             $in['answer'] = 'false';
             $in['message'] = "There are more messages to handle but we have already ran $loopCount loops. I will stop now.";
-            $this->internal_Log(
-                [
-                    'func' => 'Log',
-                    'level' => 'error',
-                    'message' => $in['message'],
-                    'function_name' => 'main'
-                ]
-            );
+            $this->internal_Log([
+                'func' => 'Log',
+                'level' => 'error',
+                'message' => $in['message'],
+                'function_name' => 'main'
+            ]);
         }
 
         return [
@@ -240,29 +238,30 @@ class infohub_exchange extends infohub_base
      * This message is added when all other messages have been processed.
      * Its purpose is to call infohub_transfer -> send so that the processed
      * messages answers can be sent back to the querying node.
-     * @return string
+     *
      * @since 2016-01-31
      * @author Peter Lembke
      * @version 2020-04-07
+     * @param float $startTime
+     * @return string
      */
-    protected function _AddTransferMessage(): string
+    protected function _AddTransferMessage(float $startTime): string
     {
         if (count($this->ToNode) <= 0) {
             return 'true'; // Nothing to send. Mission accomplished
         }
 
-        $subCall = $this->_SubCall(
-            [
-                'to' => [
-                    'node' => 'server',
-                    'plugin' => 'infohub_transfer',
-                    'function' => 'send'
-                ],
-                'data' => [
-                    'to_node' => $this->ToNode
-                ]
+        $subCall = $this->_SubCall([
+            'to' => [
+                'node' => 'server',
+                'plugin' => 'infohub_transfer',
+                'function' => 'send'
+            ],
+            'data' => [
+                'to_node' => $this->ToNode,
+                'start_time' => $startTime
             ]
-        );
+        ]);
 
         $subCall['from'] = [
             'node' => 'server',
@@ -857,6 +856,11 @@ class infohub_exchange extends infohub_base
                 'plugin' => '',
                 'function' => ''
             ],
+            'from' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
             'wait' => 0.0,
             'execution_time' => 0.0,
             'message' => ''
@@ -925,6 +929,11 @@ class infohub_exchange extends infohub_base
                 'plugin' => '',
                 'function' => ''
             ],
+            'from' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
             'wait' => 0.0,
             'execution_time' => 0.0
         ];
@@ -966,6 +975,11 @@ class infohub_exchange extends infohub_base
     {
         $default = [
             'to' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
+            'from' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''
@@ -1066,6 +1080,11 @@ class infohub_exchange extends infohub_base
     {
         $default = [
             'to' => [
+                'node' => '',
+                'plugin' => '',
+                'function' => ''
+            ],
+            'from' => [
                 'node' => '',
                 'plugin' => '',
                 'function' => ''

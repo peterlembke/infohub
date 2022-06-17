@@ -1,6 +1,8 @@
 # Infohub Launcher
 
-Used to show plugin icons that can be clicked to start the plugin.
+You can see all available plugins and start them.
+You can put a plugin on your favorite list. 
+You can switch between your list and all plugins.
 
 # Introduction
 

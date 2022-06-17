@@ -1,7 +1,0 @@
-{
-    "plugin": "charzam_blog",
-    "title": "Blog",
-    "description": "Your blog that guests can read",
-    "keywords": "blog,markdown,public,guest,no_database,files",
-    "uses": []
-}

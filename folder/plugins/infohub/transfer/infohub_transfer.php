@@ -31,8 +31,6 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 class infohub_transfer extends infohub_base
 {
 
-    const PACKAGE_SIZE_GETTING_LARGE_IN_BYTES = 1024 * 1024;
-
     /**
      * Version information for this plugin
      * @return  string[]
@@ -98,9 +96,12 @@ class infohub_transfer extends infohub_base
         $default = [
             'step' => 'step_sign_code',
             'to_node' => [],
+            'start_time' => 0.0,
             'config' => [
                 'session_id' => '',
-                'add_clear_text_messages' => 'false' // for debug purposes
+                'add_clear_text_messages' => 'false', // for debug purposes
+                'log_if_memory_peak_usage_above_mb' => 0,
+                'log_if_execution_time_is_above_seconds' => 0.0
             ],
             'data_back' => [
                 'package' => []
@@ -131,7 +132,7 @@ class infohub_transfer extends infohub_base
 
                 $package = [ // to_node and messages must be first or the kick out tests will kick in.
                     'to_node' => $nodeName,
-                    'messages' => $messages,
+                    'messages' => $messages, // For debug purposes
                     'messages_encoded' => $messagesEncoded,
                     'messages_encoded_length' => strlen($messagesEncoded),
                     'messages_checksum' => $messagesChecksum,
@@ -152,6 +153,7 @@ class infohub_transfer extends infohub_base
                     'data' => [],
                     'data_back' => [
                         'package' => $package,
+                        'start_time' => $in['start_time'],
                         'step' => 'step_get_banned_until_response'
                     ],
                 ]);
@@ -197,6 +199,7 @@ class infohub_transfer extends infohub_base
                     ],
                     'data_back' => [
                         'package' => $in['data_back']['package'],
+                        'start_time' => $in['start_time'],
                         'step' => 'step_sign_code_response'
                     ],
                 ]
@@ -226,29 +229,64 @@ class infohub_transfer extends infohub_base
 
             unset($in['data_back']['package']['messages_checksum']);
 
+            // Return memory peak usage in Mb
+            $memoryPeakUsage = memory_get_peak_usage($realUsage = true);
+            $memoryPeakUsageMb = round($memoryPeakUsage / 1024 / 1024, $precision = 1);
+            $in['data_back']['package']['memory_peak_usage_mb'] = $memoryPeakUsageMb;
+
+            $logMessageArray = [];
+            $shouldLog = false;
+
+            // Log if memory peak usage is above the config value
+            $logIfPeakMemoryAboveMb = $in['config']['log_if_memory_peak_usage_above_mb'];
+            if ($logIfPeakMemoryAboveMb > 0) {
+                if ($memoryPeakUsageMb > $logIfPeakMemoryAboveMb) {
+                    $diff = $memoryPeakUsageMb - $logIfPeakMemoryAboveMb;
+                    $logMessageArray[] = "Memory peak usage: $memoryPeakUsageMb Mb. Allowed peak usage: $logIfPeakMemoryAboveMb Mb. Diff: $diff Mb";
+                    $shouldLog = true;
+                }
+            }
+
+            // Log if execution time is above seconds
+            $logIfExecutionTimeIsAboveSeconds = $in['config']['log_if_execution_time_is_above_seconds'];
+            if ($logIfExecutionTimeIsAboveSeconds > 0 && $in['start_time'] > 0) {
+                $executionTime = $this->_MicroTime() - $in['start_time'];
+                if ($executionTime > $logIfExecutionTimeIsAboveSeconds) {
+                    $diff = $executionTime - $logIfExecutionTimeIsAboveSeconds;
+                    $logMessageArray[] = "Execution time: $executionTime sec. Allowed: $logIfExecutionTimeIsAboveSeconds sec. Diff: $diff sec";
+                    $shouldLog = true;
+                }
+            }
+
+            if ($shouldLog === true) {
+                $this->internal_Log([
+                    'function_name' => __FUNCTION__,
+                    'message' => implode("\n", $logMessageArray),
+                    'level' => 'debug',
+                    'object' => $in['data_back']['package']['messages'],
+                ]);
+            }
+
             if ($in['config']['add_clear_text_messages'] === 'false') {
                 unset($in['data_back']['package']['messages']); // Can be kept for debug purposes
             }
-            if ($in['data_back']['package']['messages_encoded_length'] > self::PACKAGE_SIZE_GETTING_LARGE_IN_BYTES) {
-                unset($in['data_back']['package']['messages']); // We need to reduce the package size
-            }
 
             $packageJson = $this->_JsonEncode($in['data_back']['package']);
+            $length = strlen($packageJson);
 
             if ($nodeName === 'client') {
-                $chunks = str_split($packageJson, 64 * 1024);
-                if (count($chunks) > 1) {
-                    $debug = 1;
-                }
-                foreach ($chunks as $chunk) {
-                    print $chunk; // Print does not support unlimited lengths
+                $chunkNumber = 0;
+                $chunkSize = 64 * 1024;
+                $position = 0;
+                while ($position < $length) {
+                    echo substr($packageJson, $position, $chunkSize);
+                    $chunkNumber++;
+                    $position = $chunkNumber * $chunkSize;
                 }
             }
 
             $out['answer'] = 'true';
-            $out['message'] = 'Sent message to node:' . $nodeName . ', with ' . strlen(
-                    $packageJson
-                ) . ' bytes of data.';
+            $out['message'] = "Sent message to node: $nodeName, with $length bytes of data.";
         }
 
         return [
@@ -272,6 +310,7 @@ class infohub_transfer extends infohub_base
     {
         $default = [
             'to' => [],
+            'from' => [],
             'callstack' => [],
             'data' => [],
         ];

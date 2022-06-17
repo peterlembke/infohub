@@ -46,7 +46,7 @@ function infohub_launcher() {
 
     /**
      * Mandatory function list of public functions
-     * If you do not add your public function here then it can not be used
+     * Only functions added to this list can be used
      * @returns {{setup_gui: string, render_list: string, refresh_list: string, update_local_list: string, my_list_add: string, event_message: string}}
      * @private
      */
@@ -96,10 +96,12 @@ function infohub_launcher() {
             'box_id': '',
             'step': 'step_boxes',
             'response': {},
+            'data_back': {
+                'my_list_full': 'false',
+                'user_real_name': ''
+            }
         };
         $in = _Merge($default, $in);
-
-        let $userRealName = '';
 
         if ($in.step === 'step_boxes') {
             return _SubCall({
@@ -123,9 +125,9 @@ function infohub_launcher() {
                             'box_mode': 'data',
                             'box_alias': 'parts',
                             'boxes_data': {
-                                'switch_button': 'Switch list',
                                 'lists': 'My list and server list',
-                                'information': 'Information about a plugin',
+                                'information': '', // Information about a plugin
+                                'switch_button': 'Switch list',
                                 'more': '', // Name of logged-in user and a logout button + refresh button for touch devices
                             },
                         },
@@ -174,7 +176,39 @@ function infohub_launcher() {
 
         if ($in.step === 'step_get_translations_response') {
             $classTranslations = _ByVal($in.response.data);
+            $in.step = 'step_is_my_list_full';
+        }
+
+        if ($in.step === 'step_is_my_list_full') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_launcher',
+                    'function': 'get_list',
+                },
+                'data': {
+                    'list_name': 'my_list',
+                },
+                'data_back': {
+                    'debug_message': 'step_is_my_list_full',
+                    'box_id': $in.box_id,
+                    'step': 'step_is_my_list_full_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_is_my_list_full_response') {
+            const $list = _GetData({
+                'name': 'response/data/list',
+                'default': {},
+                'data': $in,
+                'split': '/',
+            });
+
             $in.step = 'step_get_user_real_name';
+            if (_Count($list) > 0) {
+                $in.data_back.my_list_full = 'true';
+            }
         }
 
         if ($in.step === 'step_get_user_real_name') {
@@ -186,6 +220,7 @@ function infohub_launcher() {
                 },
                 'data': {},
                 'data_back': {
+                    'my_list_full': $in.data_back.my_list_full,
                     'debug_message': 'step_get_user_real_name',
                     'box_id': $in.box_id,
                     'step': 'step_get_user_real_name_response',
@@ -201,7 +236,7 @@ function infohub_launcher() {
             };
             $in.response = _Default($default, $in.response);
 
-            $userRealName = $in.response.data;
+            $in.data_back.user_real_name = $in.response.data;
 
             $in.step = 'step_render';
         }
@@ -222,7 +257,7 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('SWITCH_LIST'),
+                            'button_label': _Translate('SHOW_FAVORITES_OR_ALL_APPS'),
                             'button_left_icon': '[switch_icon]',
                             'event_data': 'switch_button',
                             'to_plugin': 'infohub_launcher',
@@ -258,6 +293,13 @@ function infohub_launcher() {
             });
             $messagesArray.push($messageOut);
 
+            let $showMyList = 'false';
+            let $showFullList = 'true';
+            if ($in.data_back.my_list_full === 'true') {
+                $showMyList = 'true';
+                $showFullList = 'false';
+            }
+
             $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
@@ -269,7 +311,7 @@ function infohub_launcher() {
                         'my_list_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('MY_LIST'),
+                            'head_label': _Translate('FAVORITES'),
                             'foot_text': '',
                             'content_data': 'my_list',
                         },
@@ -280,6 +322,7 @@ function infohub_launcher() {
                     },
                     'where': {
                         'box_id': $in.box_id + '.lists.my_list',
+                        'set_visible': $showMyList,
                     },
                     'cache_key': 'mylist',
                 },
@@ -302,7 +345,7 @@ function infohub_launcher() {
                         'full_list_box': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('ALL_AVAILABLE_PLUGINS'),
+                            'head_label': _Translate('ALL_APPS'),
                             'foot_text': '',
                             'content_data': 'full_list',
                             'open': 'true',
@@ -314,7 +357,7 @@ function infohub_launcher() {
                     },
                     'where': {
                         'box_id': _GetBoxId() + '.lists.full_list',
-                        'set_visible': 'false',
+                        'set_visible': $showFullList,
                     },
                     'cache_key': 'fulllist',
                 },
@@ -358,6 +401,7 @@ function infohub_launcher() {
             });
             $messagesArray.push($messageOut);
 
+            /*
             $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
@@ -417,6 +461,7 @@ function infohub_launcher() {
                 },
             });
             $messagesArray.push($messageOut);
+             */
 
             $messageOut = _SubCall({
                 'to': {
@@ -449,7 +494,7 @@ function infohub_launcher() {
                         'user_name': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('USER_NAME') + ': ' + $userRealName,
+                            'data': _Translate('USER_NAME') + ': ' + $in.data_back.user_real_name,
                         },
                         'current_url': {
                             'type': 'common',
@@ -1125,9 +1170,9 @@ function infohub_launcher() {
                 'class': 'my_list_title',
                 'tag': 'div',
                 'css_data': {
-                    '.my_list_title': 'max-width: 78px; height: 32px; font-size: ' +
-                        $fontSize +
-                        '; text-align: center; padding: 1px; word-wrap:break-word; border-radius: 4px; box-sizing: border-box;',
+                    '.my_list_title': 'max-width: 78px; height: 32px; font-size: '
+                        + $fontSize
+                        + '; text-align: center; padding: 1px; word-wrap:break-word; border-radius: 4px; box-sizing: border-box;',
                 },
             };
 
@@ -1149,9 +1194,9 @@ function infohub_launcher() {
                 };
 
                 $what[$id + 'title'].css_data = {
-                    '.my_list_title': 'width: 64px; height: 32px; font-size: ' +
-                        $fontSize +
-                        '; text-align: center; padding:1px; word-wrap:break-word; box-sizing: border-box;',
+                    '.my_list_title': 'width: 64px; height: 32px; font-size: '
+                        + $fontSize
+                        + '; text-align: center; padding:1px; word-wrap:break-word; box-sizing: border-box;',
                 };
             }
 
@@ -2143,7 +2188,7 @@ function infohub_launcher() {
                         'my_form': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[my_icon_data][i][description][/i]\n[button_add][button_remove][button_run][link_new_window]',
+                            'content': '[my_icon_data][i][description][/i]\n[button_run][button_add][button_remove][link_new_window]',
                             'label': _Translate(_GetData({
                                 'name': 'response/data/title',
                                 'default': '',
@@ -2176,30 +2221,27 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('ADD_TO_MY_LIST'),
+                            'button_label': _Translate('FAVORITE'),
                             'button_left_icon': '[button_add_icon]',
-                            'event_data': $in.list_name + '|' +
-                                $in.plugin_name + '|add',
+                            'event_data': $in.list_name + '|' + $in.plugin_name + '|add',
                             'to_plugin': 'infohub_launcher',
                         },
                         'button_remove': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REMOVE_FROM_LIST'),
+                            'button_label': _Translate('NO_FAVORITE'),
                             'button_left_icon': '[button_remove_icon]',
-                            'event_data': $in.list_name + '|' +
-                                $in.plugin_name + '|remove',
+                            'event_data': $in.list_name + '|' + $in.plugin_name + '|remove',
                             'to_plugin': 'infohub_launcher',
                         },
                         'button_run': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('RUN_PLUGIN'),
+                            'button_label': _Translate('START'),
                             'button_left_icon': '[button_play_icon]',
-                            'event_data': $in.list_name + '|' +
-                                $in.plugin_name + '|run',
+                            'event_data': $in.list_name + '|' + $in.plugin_name + '|run',
                             'to_plugin': 'infohub_launcher',
                         },
                         'link_new_window': {
@@ -2207,7 +2249,7 @@ function infohub_launcher() {
                             'subtype': 'external',
                             'alias': 'link_new_window',
                             'data': 'link_new_window',
-                            'show': _Translate('RUN_IN_NEW_WINDOW'),
+                            'show': _Translate('START_IN_NEW_WINDOW'),
                             'url': window.location.origin + '?plugin_name=' + $in.plugin_name,
                         },
                         'button_add_icon': {

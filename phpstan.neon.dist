@@ -9,14 +9,5 @@ parameters:
             - folder/plugins/infohub/checksum/doublemetaphone/DoubleMetaphone.php
     ignoreErrors:
         -
-            message: '#Variable \$parts in empty\(\) always exists and is not falsy#'
-            path: folder/plugins/infohub/doc/infohub_doc.php
-        -
-            message: '#Parameter \#1 \$data of function bin2hex expects string, array<int, string> given.#'
-            path: folder/plugins/infohub/uuid/infohub_uuid.php
-        -
             message: '#no value type specified in iterable type array#'
             path: folder
-        -
-            message: '#Variable \$keyWordsArray in empty\(\) always exists and is not falsy.#'
-            path: folder/include/application_data.php

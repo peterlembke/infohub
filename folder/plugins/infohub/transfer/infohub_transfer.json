@@ -1,6 +1,8 @@
 {
     "server": {
-        "add_clear_text_messages": "false"
+        "add_clear_text_messages": "false",
+        "log_if_memory_peak_usage_above_mb": 8,
+        "log_if_execution_time_is_above_seconds": 1.0
     },
     "client": {
         "add_clear_text_messages": "false"

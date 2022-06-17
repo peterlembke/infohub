@@ -2,6 +2,8 @@
     "client": {
     },
     "server": {
-        "minify_js": "true"
+        "minify_js": "true",
+        "plugins_request_max_size": 512000,
+        "do_not_minify_these_plugin_names": []
     }
 }

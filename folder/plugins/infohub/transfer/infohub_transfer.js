@@ -115,6 +115,7 @@ function infohub_transfer() {
     $functions.push('send');
     /**
      * Used by infohub_exchange.js to trigger a sending of messages to the server when the ban time is up
+     *
      * @version 2020-07-05
      * @since 2013-11-21
      * @author Peter Lembke
@@ -281,6 +282,10 @@ function infohub_transfer() {
 
                 delete ($globalSendToNode[$nodeName]);
                 $messages = _SendingMessagesClean($messages);
+                if (_Count($messages) === 0) {
+                    continue; // If we only had one message, and it was a reset/restart message.
+                }
+
                 let $messagesJson = JSON.stringify($messages); // _JsonEncode($package.messages); // avoid prettify
                 const $messagesEncoded = btoa($messagesJson);
 
@@ -935,29 +940,35 @@ function infohub_transfer() {
             $oneMessage = _CleanMessage($oneMessage);
             $oneMessage = _LeaveCallStack($oneMessage);
 
+            let $addMessage = 'true';
             if ($oneMessage.to.node === 'server') {
                 if ($oneMessage.to.plugin === 'infohub_dummy') {
                     if ($oneMessage.to.function === 'reload_page') {
                         $messages = [];
                         location.reload();
+                        $addMessage = 'false';
                         break; // Break the for loop
                     }
                     if ($oneMessage.to.function === 'clear_storage_and_reload_page') {
                         $messages = [];
                         localStorage.clear();
                         location.reload();
+                        $addMessage = 'false';
                         break; // Break the for loop
                     }
                     if ($oneMessage.to.function === 'set_cold_start_and_reload_page') {
                         $messages = [];
                         localStorage.setItem('cold_start', '5');
                         location.reload();
+                        $addMessage = 'false';
                         break; // Break the for loop
                     }
                 }
             }
 
-            $messages[$key] = _ByVal($oneMessage);
+            if ($addMessage === 'true') {
+                $messages[$key] = _ByVal($oneMessage);
+            }
         }
 
         return $messages;
