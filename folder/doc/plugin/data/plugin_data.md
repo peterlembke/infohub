@@ -2,8 +2,8 @@
 How to download the data you need from the server to the client.  
 
 # Introduction
-start.js download the missing plugins you commonly need. Infohub Plugin download the plugins you need and do not have locally yet. Infohub Asset download the images and file data you need for a plugin you started.  
-So plugins and assets are covered. But what about other data. Infohub Doc download the missing documentation when you want to see it.  
+start.js download the missing plugins you commonly need. InfoHub Plugin download the plugins you need and do not have locally yet. InfoHub Asset download the images and file data you need for a plugin you started.  
+So plugins and assets are covered. But what about other data. InfoHub Doc download the missing documentation when you want to see it.  
 All these examples download as little data as possible to reduce bandwidth and waiting times. That data are then reused from the local Storage (localStorage and indexedDb).  
 
 # List with data
@@ -12,7 +12,7 @@ The list itself also has a checksum that makes it is easy to detect if a list ha
 The client can then figure out from the local list and the server list what data that are missing or changed, then it can request that data from the server.  
 
 # Bandwidth
-Infohub try to use as little bandwidth as possible and as few requests as possible.  
+InfoHub try to use as little bandwidth as possible and as few requests as possible.  
 It is always the client that request data lists and what data to download. The client must know how much Mb it can get in a response and not ask for more data than that.  
 Messages are automatically bundled together in packages. That means the client can send several requests to the server in one request.  
 
@@ -29,7 +29,7 @@ The client can then compare the local list with the latest server list and reque
 When you are offline then the local data have to make due. No update messages will be sent and that is that.  
 
 # Going offline on purpose
-Infohub_Offline can download all data. Right now it can download all client plugins, all assets, all documentation.  
+InfoHub_Offline can download all data. Right now it can download all client plugins, all assets, all documentation.  
 
 # License
 This documentation is copyright (C) 2018 Peter Lembke.  

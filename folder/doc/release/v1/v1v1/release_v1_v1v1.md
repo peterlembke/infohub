@@ -1,5 +1,5 @@
 # Release V1.1.x
-Series 1.1.x of Infohub.
+Series 1.1.x of InfoHub.
 
 # Introduction
 This series only contain one release.

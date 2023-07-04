@@ -1,7 +1,7 @@
 # Investigate How to design an installation guide
 I have already investigated the installation procedure [here](../installation/investigate_installation.md)
 
-The conclusion there is that I need to provide a way to configure Infohub after its files has been uploaded and started.  
+The conclusion there is that I need to provide a way to configure InfoHub after its files has been uploaded and started.  
 
 ## How to start
 

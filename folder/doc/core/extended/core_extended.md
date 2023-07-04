@@ -7,7 +7,7 @@ There are plugins that act just outside the Core and there are files you can add
 - [View](plugin,infohub_view) - (Client) Manages a system of view boxes in the browser window, and view HTML in them
 - [Timer](plugin,infohub_timer) - Sends your message when you want
 - [Subscribe](plugin,infohub_subscribe) - Subscribe to all messages that comes from or going to a destination
-- [Login](plugin,infohub_log in) - Provide log in app for the client and log in validation on the server
+- [Login](plugin,infohub_login) - Provide log in app for the client and log in validation on the server
 - [Session](plugin,infohub_session) - Server can keep track of what client send what with an anonymous session ID.
 
 # More additional plugins

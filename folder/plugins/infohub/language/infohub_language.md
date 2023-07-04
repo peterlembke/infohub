@@ -1,4 +1,4 @@
-# Infohub Language
+# InfoHub Language
 
 Plugin that can give your select box a list of languages. You can get all language names or just the main language group
 names.

@@ -1,4 +1,4 @@
-# Infohub Tools Package
+# InfoHub Tools Package
 
 These tools are for developers to examine the traffic to the server.
 
@@ -6,7 +6,7 @@ Paste a messages_encoded here to decode and show the JSON in a pretty format.
 
 # Introduction
 
-In previous Infohub version the package contained an array messages. You could see the JSON code and paste it in PHP
+In previous InfoHub version the package contained an array messages. You could see the JSON code and paste it in PHP
 Storm and have it automatically reformatted, so it could be read.
 
 Now the messages are in the messages_encoded, and they are json encoded and base64 encoded.

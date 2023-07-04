@@ -1,11 +1,11 @@
 # Publish on WordPress
-Would it not be cool to write articles in Infohub and then just press a button, and they will be published on WordPress.
+Would it not be cool to write articles in InfoHub and then just press a button, and they will be published on WordPress.
 
 && client,wordpress
 
 ## Comment 1
 Publish article on WordPress is not very useful since there are good tools for that already.
-Infohub is not about sharing. Infohub do not want the credentials to you WordPress to be stored/handled on the server.
+InfoHub is not about sharing. InfoHub do not want the credentials to you WordPress to be stored/handled on the server.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

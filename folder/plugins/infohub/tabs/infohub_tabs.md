@@ -1,4 +1,4 @@
-# Infohub Tabs
+# InfoHub Tabs
 
 Handle the windows so you can create tabs.
 
@@ -140,7 +140,7 @@ the data area made visible and all siblings are hidden. Then the tab is highligh
 
 # Demo
 
-Infohub Tabs are used in infohub_workbench.js , Search for "infohub_tabs" and you will see how tabs are used.
+InfoHub Tabs are used in infohub_workbench.js , Search for "infohub_tabs" and you will see how tabs are used.
 
 # License
 

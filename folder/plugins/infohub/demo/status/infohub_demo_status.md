@@ -1,11 +1,11 @@
-# Infohub Demo Menu
+# InfoHub Demo Menu
 
 Displays a menu with all demos
 
 # Introduction
 
 This plugin renders a menu with all the demos.  
-Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
+Read more about menus here: [InfoHub Render Menu](plugin,infohub_rendermenu)
 
 # Click the menu
 
@@ -31,7 +31,7 @@ The onClick event run the go() function that you can find in folder/include/the_
 The go() function will collect all parameters in the button and send them to plugin infohub_render and its function:
 event_message. The reason for that is because infohub_render_form rendered the button and the parent want to handle the
 event for the button.  
-Infohub Render send a message with all data it has to: to_node, to_plugin, to_function. Now the event ends up in
+InfoHub Render send a message with all data it has to: to_node, to_plugin, to_function. Now the event ends up in
 menu_click.  
 Why can I not say that the event should go to infohub_demo_menu and handle it there? That is because of the rules who is
 allowed to talk to whom. A plugin can answer its parent, get answers from its children and talk to its siblings. It is a

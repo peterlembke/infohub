@@ -1,11 +1,11 @@
-# Infohub Tools Menu
+# InfoHub Tools Menu
 
 Displays a menu with all tools
 
 # Introduction
 
 This plugin renders a menu with all the tools.  
-Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
+Read more about menus here: [InfoHub Render Menu](plugin,infohub_rendermenu)
 
 # License
 

@@ -6,9 +6,9 @@ I want to write texts and put them out on my own blog so that everyone can see t
 
 ## Comment 1
 Good for you. And you should absolutely do that. I like that too.
-Infohub is not for sharing. There can not be ways where the information in Infohub can be easily published to the web.
+InfoHub is not for sharing. There can not be ways where the information in InfoHub can be easily published to the web.
 
-You can write your Markdown texts in Infohub and copy/paste them to some other application. For example Grav or WordPress.
+You can write your Markdown texts in InfoHub and copy/paste them to some other application. For example Grav or WordPress.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

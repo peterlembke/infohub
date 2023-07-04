@@ -1,5 +1,5 @@
 # Twitter
-Would be cool to have a way to send out a tweet from Infohub.
+Would be cool to have a way to send out a tweet from InfoHub.
 
 && client
 
@@ -9,7 +9,7 @@ The data you provide to the Twitter sites and on their partner sites is the prop
 
 There will be a problem to safely store the login credentials on the server to your Twitter account.
 
-Twitter is about sharing. Infohub is about privacy. Not compatible.
+Twitter is about sharing. InfoHub is about privacy. Not compatible.
 
 See similar issue with [Facebook](main,idea_bad_facebook).
 

@@ -6,16 +6,16 @@ If I had a local database with a web interface on my computer that responded onl
 
 ## Comment 1
 Running a local database on localhost is not a bad idea. It is also a bit complicated to set up.
-The very point of Infohub is to protect your private data and have it available on all your devices.
+The very point of InfoHub is to protect your private data and have it available on all your devices.
 If you save data to indexedDb in the browser and then sync it up to the server or if you save data to a local server and sync it up to the server is just the same thing.
 
 The benefits of having a localhost server is that the browser storage is quite easy to erase. The indexedDb is slow.
 The indexedDb lack features and tools that other databases have.
 
 On the other hand. The client ONLY talk with the server. No exception.
-If you want a local storage on localhost then install the Infohub server locally. Then you have the full range of database engines to choose from.
+If you want a local storage on localhost then install the InfoHub server locally. Then you have the full range of database engines to choose from.
 
-I will later add features to sync data between Infohub servers. Then your local server will have all data.
+I will later add features to sync data between InfoHub servers. Then your local server will have all data.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

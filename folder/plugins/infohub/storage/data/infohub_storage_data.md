@@ -1,10 +1,10 @@
-# Infohub Storage Data
+# InfoHub Storage Data
 
 Sends the data to the right storage engine. Keeps track of database connection credentials.
 
 # Introduction
 
-Infohub Storage call this child plugin. The purpose is to get the connection credentials to the destination Storage.
+InfoHub Storage call this child plugin. The purpose is to get the connection credentials to the destination Storage.
 
 ## Javascript browser core
 
@@ -17,7 +17,7 @@ infohub_storage_data read the config file in the same folder to get the connecti
 infohub_storagemanager.  
 The path "infohub_storagemanager/connection/{plugin_name}" contain the connection to the plugin_name we want to
 read/write to.  
-Plugin: [Infohub_Storagemanager](plugin,infohub_storagemanager) can delete/write to the configuration file by saving
+Plugin: [InfoHub_Storagemanager](plugin,infohub_storagemanager) can delete/write to the configuration file by saving
 data to path: "infohub_storagemanager/config".  
 If a connection to the plugin_name is not found, then we create a table in the same database as infohub_storagemanager
 reference in the config file and name it "{plugin_name}".

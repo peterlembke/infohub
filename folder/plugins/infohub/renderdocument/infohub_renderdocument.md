@@ -1,13 +1,13 @@
-# Infohub RenderDocument
+# InfoHub RenderDocument
 
-This is a traditional Infohub renderer that render documents written in Markdown.   
+This is a traditional InfoHub renderer that render documents written in Markdown.   
 Links can be internal or external. Images can be assets or what you provide.
 
 [columns]
 
 ## Introduction
 
-Infohub uses a simple text format called Markdown. The text format is readable by both humans and computers, and is
+InfoHub uses a simple text format called Markdown. The text format is readable by both humans and computers, and is
 rendered good in a web browser.  
 When a plugin need a Markdown document to be rendered it can reference infohub_renderdocument in the rendering
 procedure. You can see examples of this later in this text.
@@ -151,7 +151,7 @@ that you perhaps have stored in the database.
 #### external images
 
 Normally when you write a Markdown text and want an image then you need a reference to that image.  
-Infohub do not allow references. Instead, Infohub insert data where it is needed.
+InfoHub do not allow references. Instead, InfoHub insert data where it is needed.
 
 You can NOT reference an image from the internet. If you use a URL like this:
 

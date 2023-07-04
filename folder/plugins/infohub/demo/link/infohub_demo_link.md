@@ -1,10 +1,10 @@
-# Infohub Demo Link
+# InfoHub Demo Link
 
-Shows a demo how you can use the Infohub render link plugin.
+Shows a demo how you can use the InfoHub render link plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render link plugin.  
+In this demo we show how to use the InfoHub render link plugin.  
 You will see all the supported link types.
 
 - event link - send event message to function event_message
@@ -14,8 +14,8 @@ You will see all the supported link types.
 
 Read more in the documentation about
 
-- [Infohub Render Link](plugin,infohub_render_link)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub Render Link](plugin,infohub_render_link)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # License
 

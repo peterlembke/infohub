@@ -1,4 +1,4 @@
-# Infohub Compress
+# InfoHub Compress
 
 Different methods to compress / decompress a data string.
 
@@ -7,7 +7,7 @@ Different methods to compress / decompress a data string.
 This plugin and its child plugins give you a set of compress functions you can use.  
 There are different kind of compression suitable for different kind of problems. Compression can be used to reduce the
 size of the data before you transfer it to a node, or before you store it in Storage.  
-Infohub will use compression in transfer of data between nodes. In Infohub Compress you will find different kind of
+InfoHub will use compression in transfer of data between nodes. In InfoHub Compress you will find different kind of
 compressions and each child plugin have its own documentation
 
 # A good compression
@@ -47,12 +47,12 @@ pieroxy.net</a>.
 
 There are many great libraries that do many nice things. InfoHub should remain simple, native, independent as far as
 possible. That is why I do not add libraries to InfoHub.  
-Infohub need one good compression function that can be implemented in all languages. Right now that need are covered
+InfoHub need one good compression function that can be implemented in all languages. Right now that need are covered
 with gzip and possible lz.
 
 # Testing
 
-Infohub Tools have a compress tool where you can compress/decompress on the client/server.
+InfoHub Tools have a compress tool where you can compress/decompress on the client/server.
 
 # License
 

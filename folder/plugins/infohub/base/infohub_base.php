@@ -1163,6 +1163,7 @@ class infohub_base
         $length = count($messageFromCallStack['data_request']);
         if ($length > 0) {
             // We only want specific variables in the response
+            // @todo HUB-1646, Improve this feature
             for ($i = 0; $i < $length; $i++) {
                 $variableName = $messageFromCallStack['data_request'][$i];
                 if (isset($in['variables'][$variableName]) === true) {

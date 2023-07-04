@@ -1,4 +1,4 @@
-# Infohub_Login_Standalone
+# InfoHub_Login_Standalone
 
 Stand-alone version of infohub_log in_log in.
 Renders a simpler GUI than the full log in. Uses the functions from infohub_log in_log in. 

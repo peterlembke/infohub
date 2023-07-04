@@ -1,5 +1,5 @@
 # Core PHP
-The Infohub PHP Server Core
+The InfoHub PHP Server Core
   
 @todo Update this document 
   

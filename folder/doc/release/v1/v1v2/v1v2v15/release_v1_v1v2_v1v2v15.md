@@ -18,7 +18,7 @@ Focused on support for large responses. Regression issues. Installation document
 * Server: infohub_storage.php children and infohub_transfer.php now use _JsonEncode instead of json_encode
 * Server: Minor refactor of infohub_plugin.php
 * HUB-735, Client: infohub_launcher.js changed cache time on full plugin list from 8 sec to 24 hours
-* Infohub_tools launcher.json now include validate and tools_package to reduce the number of server calls
+* InfoHub_tools launcher.json now include validate and tools_package to reduce the number of server calls
 * HUB-734, Doc changes: installation, core_root_definefolders, main_about, plugin_debug
 
 ## Removed

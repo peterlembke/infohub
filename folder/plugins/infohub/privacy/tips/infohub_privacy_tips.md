@@ -1,4 +1,4 @@
-# Infohub Privacy Tips
+# InfoHub Privacy Tips
 
 Additional tips to increase privacy.
 

@@ -1,4 +1,4 @@
-# Infohub Random
+# InfoHub Random
 
 Functions that give an unpredictable answer
 

@@ -21,5 +21,5 @@ Updated documentation about installation alternatives.
 ## Tested
 
 ## Investigated
-* HUB-1450, Investigate: Use Composer for Infohub
+* HUB-1450, Investigate: Use Composer for InfoHub
 * HUB-1451, Investigate: Interactive installation guide in one file

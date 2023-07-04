@@ -443,7 +443,7 @@ class infohub_plugin extends infohub_base
      * Check if the code have an SPDX license string.
      *
      * @param  string  $pluginCode
-     * @return bool
+     * @return string
      */
     protected function _HaveSPDXLicence(string &$pluginCode): string {
         $requiredText = [
@@ -668,10 +668,11 @@ class infohub_plugin extends infohub_base
     /**
      * Get the data from the config file
      * The use of configuration files is very mush discouraged. Always place all data in the database.
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
-     * @version 2018-12-26
+     * @version 2023-07-03
      * @since   2018-01-21
      */
     protected function internal_GetConfigFromFile(array $in = []): array
@@ -685,35 +686,38 @@ class infohub_plugin extends infohub_base
         $answer = 'true'; // We do not fail over some bad config
         $foundConfig = 'false';
         $message = '';
-        $config = [];
+        $nodeConfigLookup = [];
+        $configFileName = '';
 
-        if ($in['node'] !== 'client' && $in['node'] !== 'server') {
+        $isValidNode = $in['node'] === 'client' || $in['node'] === 'server';
+        if ($isValidNode === false) {
             $message = 'The node you want is not allowed in the config file';
             goto leave;
         }
 
         $pluginName = trim(strtolower($in['plugin_name']));
 
-        $fileName = CONFIG . DS . $pluginName . '.json';
-        if (file_exists($fileName) === false) {
-            $fileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.json';
-            if (file_exists($fileName) === false) {
-                $message = 'File does not exist';
+        $configFileName = CONFIG . DS . $pluginName . '.json'; // The config override path
+        $isConfigFileExisting = file_exists($configFileName) === true;
+        if ($isConfigFileExisting === false) {
+            // The config plugin path
+            $configFileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.json';
+            $isConfigFileExisting = file_exists($configFileName) === true;
+            if ($isConfigFileExisting === false) {
+                $message = 'Config file does not exist';
                 goto leave;
             }
         }
 
-        $data = file_get_contents($fileName);
-        if (empty($data) === true) {
-            $message = 'File exist but are empty';
-            $data = '';
+        $configFileJson = file_get_contents($configFileName);
+        if (empty($configFileJson) === true) {
+            $message = 'Config file exist but are empty';
             goto leave;
         }
 
-        $data = json_decode($data, true);
-        if (is_array($data) === false) {
-            $message = 'File data could not be decoded';
-            $data = [];
+        $fullConfigLookup = json_decode($configFileJson, true);
+        if (is_array($fullConfigLookup) === false) {
+            $message = 'Config file data could not be decoded from JSON';
             goto leave;
         }
 
@@ -721,12 +725,11 @@ class infohub_plugin extends infohub_base
             'server' => [],
             'client' => []
         ];
-        $data = $this->_Default($default, $data);
+        $fullConfigLookup = $this->_Default($default, $fullConfigLookup);
 
-        $node = $in['node'];
-        $config = $data[$node];
-        // $answer = 'true';
-        $message = 'Here are the config for your node';
+        $nodeName = $in['node'];
+        $nodeConfigLookup = $fullConfigLookup[$nodeName];
+        $message = 'Here is the config for your node';
         $foundConfig = 'true';
 
         leave:
@@ -734,16 +737,17 @@ class infohub_plugin extends infohub_base
             'answer' => $answer,
             'message' => $message,
             'found_config' => $foundConfig,
-            'config' => $config,
+            'config' => $nodeConfigLookup,
             'plugin_name' => $in['plugin_name'],
             'node' => $in['node'],
-            'file_name' => $fileName
+            'file_name' => $configFileName
         ];
     }
 
     /**
      * Get the data from the css file if it exists
      * The use of css files is discouraged
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
@@ -757,41 +761,41 @@ class infohub_plugin extends infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $data = '';
+        $cssData = '';
         $answer = 'false';
         $message = '';
 
         $pluginName = trim(strtolower($in['plugin_name']));
-        $fileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.css';
+        $cssFileName = PLUGINS . DS . str_replace('_', DS, $pluginName) . DS . $pluginName . '.css';
 
-        if (file_exists($fileName) === false) {
-            $message = 'File does not exist';
+        if (file_exists($cssFileName) === false) {
+            $message = 'CSS File does not exist';
             goto leave;
         }
 
-        $data = file_get_contents($fileName);
-        if (empty($data) === true) {
-            $message = 'File exist but are empty';
-            $data = '';
+        $cssFileContents = file_get_contents($cssFileName);
+        if (empty($cssFileContents) === true) {
+            $message = 'CSS File exist but are empty';
             goto leave;
         }
 
-        $data = base64_encode($data);
+        $cssData = base64_encode($cssFileContents);
         $answer = 'true';
-        $message = 'Here are the css data';
+        $message = 'Here are the CSS data, BASE64 encoded';
 
         leave:
         return [
             'answer' => $answer,
             'message' => $message,
             'plugin_name' => $in['plugin_name'],
-            'file_name' => $fileName,
-            'css_data' => $data
+            'file_name' => $cssFileName,
+            'css_data' => $cssData
         ];
     }
 
     /**
      * Get the plugin code from Storage if Storage exist and the plugin exist in the Storage
+     *
      * @param array $in
      * @return array
      * @author Peter Lembke
@@ -824,12 +828,14 @@ class infohub_plugin extends infohub_base
             ]
         );
 
-        if ($in['from_plugin']['node'] !== 'server') {
+        $isAllowedNode = $in['from_plugin']['node'] === 'server';
+        if ($isAllowedNode === false) {
             $out['message'] = 'Only node: server can call this function';
             goto leave;
         }
 
-        if ($in['from_plugin']['plugin'] !== 'infohub_plugin') {
+        $isAllowedPlugin = $in['from_plugin']['plugin'] === 'infohub_plugin';
+        if ($isAllowedPlugin === false) {
             $out['message'] = 'Only plugin: infohub_plugin can call this function';
             goto leave;
         }
@@ -837,21 +843,19 @@ class infohub_plugin extends infohub_base
         if ($in['step'] === 'step_ask_storage') {
             $pluginNode = $in['plugin_node'];
             $pluginName = $in['plugin_name'];
-            return $this->_SubCall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_storage',
-                        'function' => 'read'
-                    ],
-                    'data' => [
-                        'path' => "infohub_plugin/$pluginNode/$pluginName"
-                    ],
-                    'data_back' => [
-                        'step' => 'step_ask_storage_response'
-                    ]
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read'
+                ],
+                'data' => [
+                    'path' => "infohub_plugin/$pluginNode/$pluginName"
+                ],
+                'data_back' => [
+                    'step' => 'step_ask_storage_response'
                 ]
-            );
+            ]);
         }
 
         if ($in['step'] === 'step_ask_storage_response') {
@@ -874,6 +878,7 @@ class infohub_plugin extends infohub_base
 
     /**
      * Start a server plugin
+     *
      * @param array $in
      * @return array
      * @author Peter Lembke
@@ -902,17 +907,20 @@ class infohub_plugin extends infohub_base
         $message = 'An error occurred';
         $pluginStarted = 'false';
 
-        if ($in['from_plugin']['node'] !== 'server') {
-            $message = 'Only node: server can call this function';
+        $isAllowedNode = $in['from_plugin']['node'] === 'server';
+        if ($isAllowedNode === false) {
+            $out['message'] = 'Only node: server can call this function';
             goto leave;
         }
 
-        if ($in['from_plugin']['plugin'] !== 'infohub_plugin') {
-            $message = 'Only plugin: infohub_plugin can call this function';
+        $isAllowedPlugin = $in['from_plugin']['plugin'] === 'infohub_plugin';
+        if ($isAllowedPlugin === false) {
+            $out['message'] = 'Only plugin: infohub_plugin can call this function';
             goto leave;
         }
 
-        if ($in['plugin_node'] !== 'server') {
+        $isServerPlugin = $in['plugin_node'] === 'server';
+        if ($isServerPlugin === false) {
             $message = 'I can not start plugins for this node on the server';
             goto leave;
         }
@@ -930,14 +938,15 @@ class infohub_plugin extends infohub_base
             try {
                 eval($in['plugin_code']);
             } catch (Exception $err) {
-                $message = 'Can not evaluate the plugin class:' . $in['plugin_name'] . ', error:"' . $err->getMessage(
-                    ) . '"';
+                $errorMessage = 'Can not evaluate the plugin class: %s, error:"%s"';
+                $message = sprintf($errorMessage, $in['plugin_name'], $err->getMessage());
                 goto leave;
             }
         }
 
-        if (class_exists($in['plugin_name'], false) === false) {
-            $message = 'Could not start plugin:' . $in['plugin_name'];
+        $isClassLoaded = class_exists($in['plugin_name'], false) === true;
+        if ($isClassLoaded === false) {
+            $message = sprintf('Could not start plugin:%s', $in['plugin_name']);
             goto leave;
         }
 
@@ -1071,7 +1080,7 @@ class infohub_plugin extends infohub_base
      * @since 2016-01-25
      * @author Peter Lembke
      * @example "infohub_base" & "client" gives you "{web root}/infohub/folder/plugins/infohub/base/infohub_base.js"
-     * @version 2016-01-30
+     * @version 2023-07-03
      */
     protected function internal_GetPluginPath(array $in = []): array
     {
@@ -1092,26 +1101,27 @@ class infohub_plugin extends infohub_base
         $folders = explode('_', $in['plugin_name']);
         $pluginPath = PLUGINS . DS . implode(DS, $folders);
 
-        $extension = [
+        $extensionLookup = [
             'server' => '.php',
             'client' => '.js'
         ];
 
-        if (isset($extension[$in['plugin_node']]) === false) {
+        $haveExtension = isset($extensionLookup[$in['plugin_node']]) === true;
+        if ($haveExtension === false) {
             return [
                 'answer' => 'false',
-                'message' => 'Unknown node: ' . $in['plugin_node'],
+                'message' => 'Can not find find the plugin extension because of unknown node: ' . $in['plugin_node'],
                 'plugin_path' => ''
             ];
         }
 
-        $fileName = $in['plugin_name'] . $extension[$in['plugin_node']];
-        $fullPath = strtolower($pluginPath . DS . $fileName);
+        $pluginFileName = $in['plugin_name'] . $extensionLookup[$in['plugin_node']];
+        $pluginFullPath = strtolower($pluginPath . DS . $pluginFileName);
 
         return [
             'answer' => 'true',
             'message' => 'Here are the full path to the plugin',
-            'plugin_path' => $fullPath
+            'plugin_path' => $pluginFullPath
         ];
     }
 

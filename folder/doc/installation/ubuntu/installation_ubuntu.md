@@ -18,7 +18,7 @@ Then continue [here](/vagrant/README.md)
 
 ## Natively
 You can install each tool by [yourself](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04) on your Ubuntu machine.
-Just remember that Infohub uses PHP 8. You need to use Ubuntu 21.10 or later to get that.  
+Just remember that InfoHub uses PHP 8. You need to use Ubuntu 21.10 or later to get that.  
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

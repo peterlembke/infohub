@@ -13,7 +13,7 @@ Your Css is now added at the end of the existing css if you use the same class n
 
 ## Added
 * HUB-1170, Submit colours. Check if anything has changed before saving
-* HUB-1138, Infohub_Base -> _MergeStringData. Put together strings from two objects.
+* HUB-1138, InfoHub_Base -> _MergeStringData. Put together strings from two objects.
     To be used in css_data to merge css from two objects. Then you can override part of a css.
 * HUB-1139, Use _MergeStringData in the renderers. So you can add more css to the default css.
     Modified the audio streaming demo for Jamendo to show the link in 1.5em instead of 1.0em.
@@ -33,7 +33,7 @@ Your Css is now added at the end of the existing css if you use the same class n
 
 ## Changed
 * HUB-1167, Colour config: If no config then show the default one in the editor
-* HUB-1157, Render full list in the background. This took too long time in older versions of Infohub, but now it is quick.
+* HUB-1157, Render full list in the background. This took too long time in older versions of InfoHub, but now it is quick.
 * HUB-1173, infohub_color: Use rgb() instead of # colours to avoid getting them replaced
 * HUB-1177, configlocal_colour: Submit, refactor code
 * HUB-1179, configlocal_colour: Upload does not work. It was a cache key problem on the layer 0,1,2 grey shade. 

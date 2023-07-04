@@ -1,12 +1,12 @@
-# Infohub Exchange
+# InfoHub Exchange
 
 Your local message router
 
 # Introduction
 
-When Infohub get a package with messages the messages arrives to Infohub_Exchange for sorting. There are several message
+When InfoHub get a package with messages the messages arrives to InfoHub_Exchange for sorting. There are several message
 queues the message will pass through on its way to the destination.  
-Responses from plugins also goes into the queues and are rerouted to its destination by Infohub Exchange.
+Responses from plugins also goes into the queues and are rerouted to its destination by InfoHub Exchange.
 
 # Pre-sorting
 
@@ -61,9 +61,9 @@ infohub_plugin and its function: plugin_request
 
 # plugin_request - plugin_started
 
-Read more about this function in Infohub_Plugin. It gets the request from Infohub_Exchange, finds the plugin if
+Read more about this function in InfoHub_Plugin. It gets the request from InfoHub_Exchange, finds the plugin if
 available. If it is a server plugin then it is started.  
-Infohub_Exchange get a subcall to plugin_started with information about plugin_name and plugin_started=true/false. Now
+InfoHub_Exchange get a subcall to plugin_started with information about plugin_name and plugin_started=true/false. Now
 it can take care of the messages in queue Pending.  
 If plugin was NOT started then delete all messages for that plugin_name but leave the plugin_name in Pending. This means
 that we got word that it will never come a plugin.  
@@ -206,7 +206,7 @@ you call infohub_standalone and tell what plugin should be run.
 
 The normal start is to call infohub_workbench.
 
-With this you can see that the same Infohub can be used for presenting totally different web pages.
+With this you can see that the same InfoHub can be used for presenting totally different web pages.
 
 # License
 

@@ -1,4 +1,4 @@
-# Infohub Translate Create File
+# InfoHub Translate Create File
 
 Here you can select a plugin and get one translation file downloaded. You get the english file.
 

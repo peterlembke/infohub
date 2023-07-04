@@ -48,7 +48,7 @@ Colour schema configuration. Mocha chocolate default colour schema.
 * HUB-1164, Remove global css for Range
 
 ## Fixed
-* HUB-1153, make Infohub work on Firefox as it used to
+* HUB-1153, make InfoHub work on Firefox as it used to
     Also fixed progress colours to be equal on Brave (Chromium) and Firefox. 
 * HUB-1165, Fix text and textarea text colour on Firefox  
 

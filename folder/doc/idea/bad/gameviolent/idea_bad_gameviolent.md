@@ -1,5 +1,5 @@
 # Violent games
-I have a great idea for a game that runs in Infohub client and has resources and scorecards on the server.
+I have a great idea for a game that runs in InfoHub client and has resources and scorecards on the server.
 It is kind of violent with guns and shooting.
 
 && game
@@ -9,8 +9,8 @@ There are enough violent games. You can use a better suited platform for that.
 Violence in games are against the platform policy.
 
 You can write your standalone games in pygame or in phaser.io or pixi.js
-Then you need a library that connect to the Infohub server and a token that allow to access only the game data.
-Infohub is about private data. Creating a library and a token system and an administrator is a lot of work.
+Then you need a library that connect to the InfoHub server and a token that allow to access only the game data.
+InfoHub is about private data. Creating a library and a token system and an administrator is a lot of work.
 
 Closing this as a bad idea for infohub.
 

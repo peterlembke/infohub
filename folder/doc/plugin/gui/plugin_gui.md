@@ -5,7 +5,7 @@ How to give your plugin a graphical user interface (GUI)
 You can add a GUI to your plugin and use it in the Workbench. One good example you can look at is [infohub_doc](plugin,infohub_doc).  
 
 # Asset
-Add a folder called "asset" in your plugin folder. In there add a file called "launcher.json". This example come from Infohub Doc:  
+Add a folder called "asset" in your plugin folder. In there add a file called "launcher.json". This example come from InfoHub Doc:  
 
 ```
 {
@@ -20,7 +20,7 @@ Add a folder called "asset" in your plugin folder. In there add a file called "l
 # Icon
 Your plugin should have a nice looking icon. The plugin must be in SVG format (Scalable Vector Format). The benefits with this format is that you can zoom in and out, and it looks good.  
 In the plugin folder you should now have an "asset" folder, and in there you have your launcher.json with information about the plugin. Now create a folder in "asset" called "icon".
-In the "icon" folder you place your SVG icon and rename it to "launcher.svg". Each icon must have a license file so Infohub knows that you have rights to show this icon. This goes for all material.
+In the "icon" folder you place your SVG icon and rename it to "launcher.svg". Each icon must have a license file so InfoHub knows that you have rights to show this icon. This goes for all material.
 Create a file in "icon" called "launcher.json". Below is an example from infohub_doc:  
 
 ```
@@ -41,10 +41,10 @@ Create a file in "icon" called "launcher.json". Below is an example from infohub
 }
 ```
 
-Having proper license files to all material is a must. Infohub_Asset who handle all assets will simply delete assets that do not have a good license file.  
+Having proper license files to all material is a must. InfoHub_Asset who handle all assets will simply delete assets that do not have a good license file.  
 
 # get_launch_information
-You need to add two functions: "get_launch_information" and "set up_gui". The first is used by Infohub Workbench to get information about your plugin by calling your plugin and "get_launch_information".
+You need to add two functions: "get_launch_information" and "set up_gui". The first is used by InfoHub Workbench to get information about your plugin by calling your plugin and "get_launch_information".
 Your plugin ask infohub_asset for the content of asset/launcher.json, and you return that to Workbench. You can take the function as it is from infohub_doc. You need no changes.  
 
 # set up_gui

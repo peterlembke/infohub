@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * Get document from local storage. If old or none existing we download from the server
+ * Get a document list what documents exist.
+ * Get a server document list what documents exist in the server
+ *
+ * @author      Peter Lembke <info@infohub.se>
+ * @version     2022-10-15
+ * @since       2019-04-16
+ * @copyright   Copyright (c) 2019, Peter Lembke
+ * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
+ * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/doc/infohub_doc.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_doc_get() {
 
@@ -23,7 +19,7 @@ function infohub_doc_get() {
 
     const _Version = function() {
         return {
-            'date': '2019-04-18',
+            'date': '2022-10-15',
             'since': '2019-04-16',
             'version': '1.0.0',
             'checksum': '{{checksum}}',
@@ -40,6 +36,10 @@ function infohub_doc_get() {
             'get_document': 'normal',
             'get_documents_list': 'normal',
             'get_all_documents': 'normal',
+            'store_document': 'normal',
+            'build_local_documents_list': 'normal',
+            'get_local_documents_list': 'normal',
+            'get_wanted_documents_list': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -47,8 +47,8 @@ function infohub_doc_get() {
 
     /**
      * You can request one document
-     * If the document is in the browser Storage and is not old ten you get it.
-     * If the document is missing or is old then it is requested from teh server.
+     * If the document is in the browser Storage and is not old then you get it.
+     * If the document is missing or is old then it is requested from the server.
      * The document is stored in the browser Storage and returned to you.
      *
      * @version 2019-04-18
@@ -67,9 +67,12 @@ function infohub_doc_get() {
                 'document_name': '',
                 'data': {},
                 'document_exist_locally': 'false',
-            },
+            }
         };
         $in = _Default($default, $in);
+
+        let $shouldUpdateDocumentInTheBackground = 'false';
+        let $messageArray = [];
 
         if ($in.step === 'step_get_document_from_storage') {
             return _SubCall({
@@ -79,8 +82,7 @@ function infohub_doc_get() {
                     'function': 'read',
                 },
                 'data': {
-                    'path': 'infohub_doc_get/document/' + $in.area + '/' +
-                        $in.document_name,
+                    'path': 'infohub_doc_get/document/' + $in.area + '/' + $in.document_name,
                 },
                 'data_back': {
                     'area': $in.area,
@@ -94,7 +96,8 @@ function infohub_doc_get() {
             $in.step = 'step_get_document_from_server';
             $in.data_back.data.checksum = '';
 
-            if (_Empty($in.response.data) === 'false') {
+            const $isDocumentFound = _Empty($in.response.data) === 'false';
+            if ($isDocumentFound === true) {
                 // We found a document in the Browser Storage
                 $in.data_back.data = _ByVal($in.response.data);
                 $in.step = 'step_check_if_data_is_old';
@@ -102,24 +105,22 @@ function infohub_doc_get() {
         }
 
         if ($in.step === 'step_check_if_data_is_old') {
-            // @todo Return the data we have and do a background update. That is quicker.
-            // @todo Add a setting for how old a document can be before we ask for an updated document
 
-            const $days = 14,
-                $oldSeconds = $days * 24 * 60 * 60,
-                $now = _MicroTime(),
-                $gettingOld = $in.data_back.data.micro_time + $oldSeconds;
+            const $validUntil = $in.data_back.data.valid_until ?? 0;
+            const $now = _MicroTime();
+            const $isDocumentValid = $validUntil > $now;
 
-            $in.step = 'step_end';
+            $in.step = 'step_end'; // This will return the document we found in the local storage
             $in.response.ok = 'true';
 
-            if ($now > $gettingOld) {
+            if ($isDocumentValid === false) {
+                $shouldUpdateDocumentInTheBackground = 'true';
                 $in.step = 'step_get_document_from_server';
             }
         }
 
         if ($in.step === 'step_get_document_from_server') {
-            return _SubCall({
+            const $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
@@ -144,7 +145,16 @@ function infohub_doc_get() {
                     'step': 'step_get_document_from_server_response',
                 },
             });
+
+            if ($shouldUpdateDocumentInTheBackground === 'false') {
+                return $messageOut; // We do not have the document. We ask the server.
+            }
+
+            $in.step = 'step_end'; // This will return the document we found in the local storage
+            $messageArray.push($messageOut); // Will update the document in the local storage in the background
         }
+
+        let $writeMode = 'overwrite';
 
         if ($in.step === 'step_get_document_from_server_response') {
             $in.step = 'step_end';
@@ -155,12 +165,21 @@ function infohub_doc_get() {
             }
 
             if ($in.response.answer === 'true') {
-                if ($in.response.data.is_checksum_same === 'false') {
-                    $in.data_back.data = _ByVal($in.response.data);
-                    $in.step = 'step_save_data';
-                } else {
-                    // @todo We also need to fresh up the timestamp in the client copy of the document.
+
+                $in.data_back.data = _ByVal($in.response.data);
+
+                if ($in.response.data.is_checksum_same === 'true') {
+
+                    $writeMode = 'merge';
+
+                    $in.data_back.data = {
+                        'valid_until': $in.data_back.data['valid_until'],
+                        'time_stamp': $in.data_back.data['time_stamp'],
+                        'micro_time': $in.data_back.data['micro_time']
+                    };
                 }
+
+                $in.step = 'step_save_data';
             }
         }
 
@@ -172,9 +191,9 @@ function infohub_doc_get() {
                     'function': 'write',
                 },
                 'data': {
-                    'path': 'infohub_doc_get/document/' + $in.area + '/' +
-                        $in.document_name,
+                    'path': 'infohub_doc_get/document/' + $in.area + '/' + $in.document_name,
                     'data': $in.data_back.data,
+                    'mode': $writeMode
                 },
                 'data_back': {
                     'area': $in.area,
@@ -194,6 +213,7 @@ function infohub_doc_get() {
             'message': $in.response.message,
             'document_data': $in.data_back.data,
             'ok': $in.response.ok,
+            'messages': $messageArray
         };
     };
 
@@ -222,6 +242,7 @@ function infohub_doc_get() {
                     'micro_time': 0.0,
                     'provided_checksum': '',
                     'time_stamp': '',
+                    'valid_until': 0.0
                 },
                 'path': '',
                 'post_exist': 'false',
@@ -231,6 +252,9 @@ function infohub_doc_get() {
             },
         };
         $in = _Default($default, $in);
+
+        let $messageArray = [];
+        let $shouldUpdateDocumentListInTheBackground = 'false';
 
         if ($in.step === 'step_get_navigation_from_storage') {
             return _SubCall({
@@ -259,21 +283,22 @@ function infohub_doc_get() {
         }
 
         if ($in.step === 'step_check_if_data_is_old') {
-            // @todo Return the data we have and do a background update. That is quicker.
 
-            const $days = 14,
-                $oldSeconds = $days * 24 * 60 * 60,
-                $now = _MicroTime(),
-                $gettingOld = $in.data_back.data.micro_time + $oldSeconds;
+            const $validUntil = $in.data_back.data.valid_until ?? 0;
+            const $now = _MicroTime();
+            const $isDocumentValid = $validUntil > $now;
 
-            $in.step = 'step_end';
-            if ($now > $gettingOld) {
+            $in.step = 'step_end'; // This will return the document we found in the local storage
+            $in.response.ok = 'true';
+
+            if ($isDocumentValid === false) {
+                $shouldUpdateDocumentListInTheBackground = 'true';
                 $in.step = 'step_get_navigation_from_server';
             }
         }
 
         if ($in.step === 'step_get_navigation_from_server') {
-            return _SubCall({
+            const $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
                     'plugin': 'infohub_doc',
@@ -292,15 +317,37 @@ function infohub_doc_get() {
                     'step': 'step_get_navigation_from_server_response',
                 },
             });
+
+            if ($shouldUpdateDocumentListInTheBackground === 'false') {
+                return $messageOut; // We do not have the document. We ask the server.
+            }
+
+            $in.step = 'step_end'; // This will return the document list we found in the local storage
+            $messageArray.push($messageOut); // Will update the document list in the local storage in the background
         }
 
+        let $writeMode = 'overwrite';
+
         if ($in.step === 'step_get_navigation_from_server_response') {
+
             $in.step = 'step_end';
+
             if ($in.response.answer === 'true') {
-                if ($in.response.data.is_checksum_same === 'false') {
-                    $in.data_back.data = _ByVal($in.response.data);
-                    $in.step = 'step_save_data';
+
+                $in.data_back.data = _ByVal($in.response.data);
+
+                if ($in.response.data.is_checksum_same === 'true') {
+
+                    $writeMode = 'merge';
+
+                    $in.data_back.data = {
+                        'valid_until': $in.data_back.data['valid_until'],
+                        'time_stamp': $in.data_back.data['time_stamp'],
+                        'micro_time': $in.data_back.data['micro_time']
+                    };
                 }
+
+                $in.step = 'step_save_data';
             }
         }
 
@@ -314,6 +361,7 @@ function infohub_doc_get() {
                 'data': {
                     'path': 'infohub_doc_get/navigation',
                     'data': $in.data_back.data,
+                    'mode': $writeMode
                 },
                 'data_back': {
                     'data': $in.data_back.data,
@@ -337,52 +385,63 @@ function infohub_doc_get() {
             'answer': $in.response.answer,
             'message': $in.response.message,
             'data': $data,
+            'messages': $messageArray
         };
     };
 
     /**
-     * Here you get all documents, so you have them in the browser Storage.
-     * Then you can go offline and still read the documents.
+     * You get all documents downloaded to your browser Storage.
+     * You can then go offline and still read the documents.
      *
-     * @version 2019-10-06
+     * Load the wanted documents list
+     * Send the list to the server.
+     * Handle the response - save the documents.
+     * If there are items left on the list then send it again to the server, and so on.
+     *
+     * @version 2022-10-19
      * @since 2019-10-06
      * @author Peter Lembke
      */
     $functions.push('get_all_documents');
     const get_all_documents = function($in = {}) {
         const $default = {
-            'step': 'step_get_all_documents_from_server',
+            'step': 'step_get_wanted_documents_list',
             'response': {
                 'answer': 'false',
                 'message': '',
+                'wanted_documents_list': {},
+                'ask_again_documents_list': {},
+                'failed_to_load_documents_list': {},
                 'data': {},
                 'ok': 'false',
-            },
+            }
         };
         $in = _Default($default, $in);
 
-        let $messagesArray = [];
+        let $messageArray = [];
         let $message = {};
+        let $wantedDocumentsList = {};
 
-        if ($in.step === 'step_get_all_documents_from_server') {
+        if ($in.step === 'step_get_wanted_documents_list') {
             return _SubCall({
                 'to': {
                     'node': 'client',
-                    'plugin': 'infohub_doc',
-                    'function': 'call_server',
+                    'plugin': 'infohub_doc_get',
+                    'function': 'get_wanted_documents_list',
                 },
-                'data': {
-                    'to': {
-                        'node': 'server',
-                        'plugin': 'infohub_doc',
-                        'function': 'get_all_documents',
-                    },
-                    'data': {},
-                },
+                'data': {},
                 'data_back': {
-                    'step': 'step_get_all_documents_from_server_response',
+                    'step': 'step_get_wanted_documents_list_response',
                 },
             });
+        }
+
+        if ($in.step === 'step_get_wanted_documents_list_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $in.step = 'step_get_all_documents_from_server';
+                $wantedDocumentsList = $in.response.wanted_documents_list;
+            }
         }
 
         if ($in.step === 'step_get_all_documents_from_server_response') {
@@ -401,46 +460,603 @@ function infohub_doc_get() {
 
                 const $document = $in.response.data[$key];
 
-                const $area = _GetData({
-                    'name': 'response|data|' + $key + '|area',
-                    'default': '',
-                    'data': $in,
-                    'split': '|',
-                });
-
-                const $documentName = _GetData({
-                    'name': 'response|data|' + $key + '|document_name',
-                    'default': '',
-                    'data': $in,
-                    'split': '|',
-                });
-
                 $message = _SubCall({
                     'to': {
                         'node': 'client',
-                        'plugin': 'infohub_storage',
-                        'function': 'write',
+                        'plugin': 'infohub_doc_get',
+                        'function': 'store_document',
                     },
                     'data': {
-                        'path': 'infohub_doc_get/document/' + $area + '/' + $documentName,
-                        'data': $document,
+                        'area': $document['area'] ?? '',
+                        'document_name': $document['document_name'] ?? '',
+                        'document': $document,
                     },
                     'data_back': {
                         'step': 'step_end',
                     },
                 });
 
-                $messagesArray.push($message);
+                $messageArray.push($message);
+            }
+
+            $in.step = 'step_end';
+            $wantedDocumentsList = $in.response.ask_again_documents_list;
+            if (_Count($wantedDocumentsList) > 0) {
+                $in.step = 'step_get_all_documents_from_server';
+            }
+        }
+
+        if ($in.step === 'step_get_all_documents_from_server') {
+
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc',
+                    'function': 'call_server',
+                },
+                'data': {
+                    'to': {
+                        'node': 'server',
+                        'plugin': 'infohub_doc',
+                        'function': 'get_all_documents',
+                    },
+                    'data': {
+                        'wanted_documents_list': $wantedDocumentsList
+                    },
+                },
+                'data_back': {
+                    'step': 'step_get_all_documents_from_server_response',
+                },
+                'messages': $messageArray
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'messages': $messageArray,
+            'ok': $in.response.ok
+        };
+    };
+
+    $functions.push('store_document');
+    /**
+     * Store a document and update the local_documents_list
+     * You can add / update / delete a document
+     * Leave the document empty to delete it and remove it from the local documents list
+     *
+     * @version 2022-07-24
+     * @since 2022-07-13
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|*}
+     */
+    const store_document = function($in = {}) {
+        const $default = {
+            'area': '',
+            'document_name': '',
+            'document': { // Leave empty to delete it and remove it from the local documents list
+                'document': '',
+                "document_size": 0,
+                "area": "",
+                "document_name": "",
+                "time_stamp": "",
+                "micro_time": 0.0,
+                "checksum": "",
+            },
+            'step': 'step_get_local_documents_list',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': {},
+                'ok': 'false',
+            },
+            'data_back': {
+                'local_documents_list': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $messageArray = [];
+        let $messageOut = {};
+
+        if ($in.step === 'step_get_local_documents_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/local_documents_list',
+                },
+                'data_back': {
+                    'step': 'step_store',
+                    'area': $in.area,
+                    'document_name': $in.document_name,
+                    'document': $in.document
+                },
+            });
+        }
+
+        if ($in.step === 'step_store') {
+
+            let $default = {
+                "checksum": "",
+                "is_checksum_same": "false",
+                "data": {},
+                "micro_time": _MicroTime(),
+                "provided_checksum": "",
+                "time_stamp": _TimeStamp()
+            };
+
+            let $localList = _Default($default, $in.response.data);
+
+            if (_IsSet($localList.data[$in.area]) === 'false') {
+                $localList.data[$in.area] = {};
+            }
+
+            let $shouldDeleteDocument = _Empty($in.document.document);
+
+            if ($shouldDeleteDocument === 'true') {
+                delete $localList.data[$in.area][$in.document_name];
+                if (_Empty($localList.data[$in.area]) === 'true') {
+                    delete $localList.data[$in.area];
+                }
+            } else {
+                const $item = {
+                    "document_name": $in.document_name,
+                    "label": "",
+                    "area": $in.area,
+                    "checksum": $in.document.checksum ?? '',
+                    "size": $in.document.document_size ?? 0,
+                };
+                $localList.data[$in.area][$in.document_name] = $item;
+            }
+
+            $localList.micro_time = _MicroTime();
+            $localList.time_stamp = _TimeStamp();
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/document/' + $in.area + '/' + $in.document_name,
+                    'data': $in.document,
+                },
+                'data_back': {
+                    'step': 'step_end',
+                },
+            });
+            $messageArray.push($messageOut);
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/local_documents_list',
+                    'data': $localList
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+            $messageArray.push($messageOut);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Storage is done',
+            'messages': $messageArray
+        };
+    };
+
+    $functions.push('build_local_documents_list');
+    /**
+     * Checks what documents we have in the local Store and builds a new local_documents_list
+     * Saves the local_documents_list, overwriting the existing one.
+     *
+     * The document path start with infohub_doc_get/document
+     * And then you have one of: root, main, plugin
+     * And then the document name
+     * Example: infohub_doc_get/document/plugin/infohub_libretranslate_manual
+     *
+     * @version 2022-08-13
+     * @since 2022-08-13
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|*}
+     */
+    const build_local_documents_list = function($in = {}) {
+        const $default = {
+            'step': 'step_get_path_list_for_local_documents',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'items': {},
+                'ok': 'false',
+            },
+            'data_back': {
+                'local_documents_list': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $messageArray = [];
+        let $messageOut = {};
+        let $localList = {};
+
+        if ($in.step === 'step_get_path_list_for_local_documents') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read_pattern',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/document/*',
+                    // 'data_request': { // @todo HUB-1646
+                        // 'document_namne': '',
+                        // 'area': '',
+                        // 'checksum': '',
+                        // 'document_size': 0
+                    // }
+                },
+                'data_back': {
+                    'step': 'step_store'
+                },
+            });
+        }
+
+        if ($in.step === 'step_store') {
+
+            $localList = {
+                "checksum": "",
+                "is_checksum_same": "false",
+                "data": {}, // Indexed on [area][document_name][data_item]
+                "micro_time": _MicroTime(),
+                "provided_checksum": "",
+                "time_stamp": _TimeStamp()
+            };
+
+            for (let $key in $in.response.items) {
+                if ($in.response.items.hasOwnProperty($key) === false) {
+                    continue;
+                }
+
+                const $document = $in.response.items[$key];
+
+                const $dataItem = {
+                    "document_name": $document.document_name,
+                    "label": "",
+                    "area": $document.area,
+                    "checksum": $document.checksum ?? '',
+                    "size": $document.document_size ?? 0,
+                };
+
+                if (_IsSet($localList.data[$document.area]) === 'false') {
+                    $localList.data[$document.area] = {};
+                }
+
+                $localList.data[$document.area][$document.document_name] = $dataItem;
+            }
+
+            $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/local_documents_list',
+                    'data': $localList
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+            $messageArray.push($messageOut);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Storage of local list is on its way',
+            'data': $localList,
+            'messages': $messageArray
+        };
+    }
+
+    $functions.push('get_local_documents_list');
+    /**
+     * Load the local documents list.
+     * It is a list with all documents you have available locally.
+     *
+     *             let $localList = {
+     *                 "checksum": "",
+     *                 "is_checksum_same": "false",
+     *                 "data": {}, // Indexed on [area][document_name][data_item]
+     *                 "micro_time": _MicroTime(),
+     *                 "provided_checksum": "",
+     *                 "time_stamp": _TimeStamp()
+     *             };
+     *
+     * @version 2022-10-17
+     * @since 2022-10-17
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, messages: [], message: string}|{}|{}|{}|*}
+     */
+    const get_local_documents_list = function($in = {}) {
+        const $default = {
+            'step': 'step_load',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'post_exist': 'false',
+                'data': {},
+                'ok': 'false',
+            },
+            'data_back': {
+                'local_documents_list': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_load') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read',
+                },
+                'data': {
+                    'path': 'infohub_doc_get/local_documents_list',
+                },
+                'data_back': {
+                    'step': 'step_load_response'
+                },
+            });
+        }
+
+        if ($in.step === 'step_load_response') {
+            $in.step = 'step_handle_list';
+            if ($in.response.post_exist === 'false') {
+                $in.step = 'step_build_local_documents_list';
+            }
+        }
+
+        if ($in.step === 'step_build_local_documents_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_get',
+                    'function': 'build_local_documents_list',
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_handle_list'
+                },
+            });
+        }
+
+        if ($in.step === 'step_handle_list') {
+            let $default = {
+                "checksum": "",
+                "is_checksum_same": "false",
+                "data": {}, // Indexed on [area][document_name][data_item]
+                "micro_time": _MicroTime(),
+                "provided_checksum": "",
+                "time_stamp": _TimeStamp()
+            };
+            $in.response.data = _Default($default, $in.response.data);
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'data': $in.response.data
+        };
+    }
+
+    $functions.push('get_wanted_documents_list');
+    /**
+     * Call get_local_documents_list.
+     * Call get_documents_list
+     * Figure out what documents we will:
+     *
+     * keep (checksum same)
+     * delete (missing in documents_list)
+     * update (old or different checksum)
+     * new (missing in local_documents_list)
+     *
+     * Delete the ones we can delete.
+     * Return the wanted_documents_list
+     *
+     * @version 2022-11-30
+     * @since 2022-10-17
+     * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, messages: [], message: string}|{}|{}|{}|*}
+     */
+    const get_wanted_documents_list = function($in = {}) {
+        const $default = {
+            'step': 'step_get_local_documents_list',
+            'response': {
+                'answer': 'false',
+                'message': '',
+                'data': {},
+                'ok': 'false',
+            },
+            'data_back': {
+                'local_documents_list': {}
+            }
+        };
+        $in = _Default($default, $in);
+
+        let $wantedDocumentsList = {};
+        let $messageArray = [];
+
+        if ($in.step === 'step_get_local_documents_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_get',
+                    'function': 'get_local_documents_list',
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_get_local_documents_list_response'
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_local_documents_list_response') {
+            $in.step = 'step_get_documents_list';
+        }
+
+        if ($in.step === 'step_get_documents_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_get',
+                    'function': 'get_documents_list',
+                },
+                'data': {},
+                'data_back': {
+                    'local_documents_list': $in.response.data,
+                    'step': 'step_get_documents_list_response'
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_documents_list_response') {
+            $in.step = 'step_get_wanted_documents_list';
+        }
+
+        if ($in.step === 'step_get_wanted_documents_list') {
+
+            let $localList = _GetData({
+                'name': 'data_back/local_documents_list/data', // example: "response/data/checksum"
+                'default': {}, // example: ""
+                'data': $in, // an object with data where you want to pull out a part of it
+            });
+
+            let $serverList = _GetData({
+                'name': 'response/data', // example: "response/data/checksum"
+                'default': {}, // example: ""
+                'data': $in, // an object with data where you want to pull out a part of it
+            });
+
+            let $deleteList = {};
+
+            // What local documents are no longer available on the server but exist locally?
+            for (let $area in $localList) {
+                if ($localList.hasOwnProperty($area) === false) {
+                    continue;
+                }
+                if (_IsSet($serverList[$area]) === 'false') {
+                    // Delete the whole area
+                    $deleteList[$area] = _ByVal($localList[$area]);
+                    continue;
+                }
+
+                for (let $documentName in $localList[$area]) {
+                    if ($localList[$area].hasOwnProperty($documentName) === false) {
+                        continue;
+                    }
+                    if (_IsSet($serverList[$area][$documentName]) === 'true') {
+                        continue;
+                    }
+
+                    // Local document is missing from the server list. We store its name for later deletion
+                    if (_IsSet($deleteList[$area]) === 'false') {
+                        $deleteList[$area] = {};
+                    }
+                    $deleteList[$area][$documentName] = $localList[$area][$documentName];
+                }
+            }
+
+            let $messageOut = {};
+
+            // Delete the local documents that are no longer available on the server
+            for (let $area in $deleteList) {
+                if ($deleteList.hasOwnProperty($area) === false) {
+                    continue;
+                }
+                for (let $documentName in $deleteList[$area]) {
+                    if ($deleteList[$area].hasOwnProperty($documentName) === false) {
+                        continue;
+                    }
+
+                    $messageOut = _SubCall({
+                        'to': {
+                            'node': 'client',
+                            'plugin': 'infohub_doc_get',
+                            'function': 'store_document',
+                        },
+                        'data': {
+                            'area': $area,
+                            'document_name': $documentName,
+                            'document': {} // Will delete the document and update the local list
+                        },
+                        'data_back': {
+                            'step': 'step_end'
+                        },
+                    });
+                    $messageArray.push($messageOut);
+                }
+            }
+
+            // What local documents are missing or need to be updated
+            for (let $area in $serverList) {
+                if ($serverList.hasOwnProperty($area) === false) {
+                    continue;
+                }
+
+                const $isAreaMissing = _IsSet($localList[$area]) === 'false';
+                if ($isAreaMissing === true) {
+                    $wantedDocumentsList[$area] = Object.keys($serverList[$area]);
+                    continue;
+                }
+
+                for (let $documentName in $serverList[$area]) {
+                    if ($serverList[$area].hasOwnProperty($documentName) === false) {
+                        continue;
+                    }
+
+                    const $isDocumentMissing = _IsSet($localList[$area][$documentName]) === 'false';
+                    if ($isDocumentMissing === true) {
+                        if (_IsSet($wantedDocumentsList[$area]) === 'false') {
+                            $wantedDocumentsList[$area] = [];
+                        }
+                        $wantedDocumentsList[$area].push($documentName);
+                        continue;
+                    }
+
+                    const $isDocumentChanged = $localList[$area][$documentName]['checksum'] !== $serverList[$area][$documentName]['checksum'];
+                    if ($isDocumentChanged === true) {
+                        if (_IsSet($wantedDocumentsList[$area]) === 'false') {
+                            $wantedDocumentsList[$area] = [];
+                        }
+                        $wantedDocumentsList[$area].push($documentName);
+                    }
+                }
             }
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'messages': $messagesArray,
-            'ok': $in.response.ok,
+            'wanted_documents_list': $wantedDocumentsList,
+            'messages': $messageArray
         };
-    };
+    }
 }
 
 //# sourceURL=infohub_doc_get.js

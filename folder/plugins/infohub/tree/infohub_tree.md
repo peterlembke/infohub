@@ -1,4 +1,4 @@
-# Infohub Tree
+# InfoHub Tree
 
 Handle all private data. Makes sure it gets encrypted and synced to the server. You can back up/restore your data.
 
@@ -47,9 +47,9 @@ You can import files that are encrypted or in plain text. Data will be restored 
 
 Uses: __Storage. Is not used by anyone.
 
-## Infohub Tree (client)
+## InfoHub Tree (client)
 
-Other client plugins can use Infohub Tree to read/write personal data with the same syntax as the Storage uses.
+Other client plugins can use InfoHub Tree to read/write personal data with the same syntax as the Storage uses.
 
 * read
 * write
@@ -63,7 +63,7 @@ The path will be: infohub_tree_storage/{user_name}/other_plugin/{whatever the ot
 The other plugin give a path like: {whatever the other plugin wants} and we
 add `infohub_tree_storage/{user_name}/other_plugin/` to the path.
 
-## Infohub Tree (server)
+## InfoHub Tree (server)
 
 The infohub_tree (server) handle sync and storage.
 

@@ -1,4 +1,4 @@
-# Infohub Translate Doc
+# InfoHub Translate Doc
 
 This plugin view the documentation. You can read about the translation process and how to create translation files with
 this tool.
@@ -7,10 +7,10 @@ this tool.
 
 Plugins can have translation files in their assets. They are downloaded to the client when the plugin is used. The
 plugin can ask infohub_libretranslate for translation data and translate the texts before they are rendered and shown on the
-screen. You set your preferred languages in the preferred order in Infohub_ConfigLocal.
+screen. You set your preferred languages in the preferred order in InfoHub_ConfigLocal.
 
-Read more about Asset here: [Infohub Asset](plugin,infohub_asset)  
-Read more about ConfigLocal here: [Infohub ConfigLocal](plugin,infohub_configlocal)
+Read more about Asset here: [InfoHub Asset](plugin,infohub_asset)  
+Read more about ConfigLocal here: [InfoHub ConfigLocal](plugin,infohub_configlocal)
 
 ## Preferred languages
 

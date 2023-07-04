@@ -1,4 +1,4 @@
-# Infohub Render SVG
+# InfoHub Render SVG
 
 Render SVG images with this plugin.
 

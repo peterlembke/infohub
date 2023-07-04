@@ -1,5 +1,5 @@
 # IP lookup
-If my friends that use my Infohub server is all from one country then I could use IP lookup to see that the IPs origin from that country before I let them in.
+If my friends that use my InfoHub server is all from one country then I could use IP lookup to see that the IPs origin from that country before I let them in.
 
 && ip,security
 

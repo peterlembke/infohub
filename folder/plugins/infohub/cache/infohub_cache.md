@@ -1,18 +1,18 @@
-# Infohub Cache
+# InfoHub Cache
 
 Your browser plugin storage  
 [columns]
 
 # Introduction
 
-All major browsers have a feature called localStorage. It is a persistent key-value storage. Infohub_cache use this
+All major browsers have a feature called localStorage. It is a persistent key-value storage. InfoHub_cache use this
 storage to store plugins.  
-When the Infohub core in your browser require a plugin then infohub_cache can either give the plugin or conclude that it
+When the InfoHub core in your browser require a plugin then infohub_cache can either give the plugin or conclude that it
 does not have it.
 
-# Caching in Infohub
+# Caching in InfoHub
 
-Infohub avoid caching of data. It is better to rethink the solution again or optimize the code rather than using a
+InfoHub avoid caching of data. It is better to rethink the solution again or optimize the code rather than using a
 cache.
 
 Caches add extra complexity and speeds up bad solutions. Avoid them as much as you can.
@@ -31,7 +31,7 @@ This mini core and infohub_cache are the only two that can interact with the loc
 
 # Usage
 
-Do not use this plugin. Leave the caching to the Infohub core. Now, if you want to use this plugin anyhow
+Do not use this plugin. Leave the caching to the InfoHub core. Now, if you want to use this plugin anyhow
 then this is how you do it:
 
 * _save_data_to_cache_ : you give `{'prefix': '', 'key': '', 'data': {}, 'checksum': ''}`. The prefix for plugins are "

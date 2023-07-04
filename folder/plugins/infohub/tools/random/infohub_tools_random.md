@@ -1,10 +1,10 @@
-# Infohub Tools Random
+# InfoHub Tools Random
 
 Here you can generate random numbers
 
 # Introduction
 
-With this tool you can generate random numbers. The work is done by [Infohub Random](plugin,infohub_random).  
+With this tool you can generate random numbers. The work is done by [InfoHub Random](plugin,infohub_random).  
 Go to the link and read more about different random numbers.  
 This graphical user interface (GUI) show a node list, text boxes where you write the minimum number and the maximum
 number, a button you can press, a text box where you see the result, and a button to clear the box.
@@ -15,7 +15,7 @@ The plugin infohub_uuid that does all the work, it comes in a version for the se
 node. Some methods are the same, so you can verify your result between the nodes. Some methods only exist in one
 of the nodes due to practical reasons.  
 If you select the server node and press the button quickly to get many random numbers, then after 1 seconds you will get
-a lot of numbers at the same time. This is due to the way Infohub communicate with the server.
+a lot of numbers at the same time. This is due to the way InfoHub communicate with the server.
 
 # License
 

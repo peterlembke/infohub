@@ -1,4 +1,4 @@
-# Infohub Validate
+# InfoHub Validate
 
 Used for validating a value and return true or false.
 
@@ -43,7 +43,7 @@ I have moved the functions from infohub_render to infohub_validate. You can now 
 
 # Usage in infohub
 
-Infohub Tool - Random, have two input boxes, both have validators.
+InfoHub Tool - Random, have two input boxes, both have validators.
 
 # License
 

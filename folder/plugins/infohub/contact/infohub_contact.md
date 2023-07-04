@@ -1,4 +1,4 @@
-# Infohub Contact
+# InfoHub Contact
 
 Plugin that manager contact information.
 
@@ -74,10 +74,10 @@ Your server want to contact another server to get or put data.
 
 You check the server list for log in information to the other server.
 
-Your server can send messages to that node. Infohub Transfer will use the contact information to log in to the other
+Your server can send messages to that node. InfoHub Transfer will use the contact information to log in to the other
 server and leave the messages and collect all answers.  
 The contact information is used by the unique node name. In this case 'weather'.  
-The other server is found by the domain_address. Infohub Transfer will log in on that domain using the user_name.  
+The other server is found by the domain_address. InfoHub Transfer will log in on that domain using the user_name.  
 Then both parties have to prove that they know about the shared secret.
 
 #### Another server log in to my server
@@ -134,11 +134,11 @@ Puts together a list with all node names. The list come from the Storage keys.
 
 ### import_node_data
 
-Ask Infohub File to import a contact file and give it to this function.
+Ask InfoHub File to import a contact file and give it to this function.
 
 ### export_node_data
 
-Ask Infohub File to export contact data to a file.
+Ask InfoHub File to export contact data to a file.
 
 ## Client
 

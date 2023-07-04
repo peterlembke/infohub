@@ -1,6 +1,6 @@
 # .gitignore and .hgignore
 To keep track of all file versions you need a version system. Git is one system, and Mercurial os a similar system.  
-Git is very popular and can be used together with websites like [github.com](github.com) or [bitbucket.com](bitbucket.com). It can also be used standalone.  
+Git is very popular and can be used together with websites like [GitHub](github.com) or [BitBucket](bitbucket.com). It can also be used standalone.  
 Mercurial is the same as Git, and can be used with websites like bitbucket.com or standalone.  
 Not all files should go to the repository that git handles. The file .gitignore state what files to ignore.  
 Same goes for Mercurial, here the file .hgignore to the same thing.  

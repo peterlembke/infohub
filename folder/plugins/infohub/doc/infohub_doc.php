@@ -15,7 +15,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
  * Documentation system. Simple. Self sufficient.
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2019-05-30
+ * @version     2022-10-21
  * @since       2016-04-02
  * @copyright   Copyright (c) 2018, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -35,9 +35,9 @@ class infohub_doc extends infohub_base
     protected function _Version(): array
     {
         return [
-            'date' => '2019-05-30',
+            'date' => '2022-10-21',
             'since' => '2016-04-02',
-            'version' => '1.2.0',
+            'version' => '1.2.1',
             'class_name' => 'infohub_doc',
             'checksum' => '{{checksum}}',
             'note' => 'Documentation system. Simple. Self sufficient.',
@@ -93,7 +93,10 @@ class infohub_doc extends infohub_base
         $default = [
             'area' => 'main', // main or plugin
             'document_name' => 'main',
-            'checksum' => ''
+            'checksum' => '',
+            'config' => [
+                'document_seconds_valid' => 2592000 // 30 days
+            ]
         ];
         $in = $this->_Default($default, $in);
 
@@ -104,28 +107,92 @@ class infohub_doc extends infohub_base
             'area' => $in['area'],
             'document_name' => $in['document_name'],
             'checksum' => $in['checksum'],
-            'file_extension' => $fileExtension
+            'file_extension' => $fileExtension,
+            'document_seconds_valid' => $in['config']['document_seconds_valid']
         ]);
 
         return $response;
     }
 
     /**
-     * Returns the Markdown documentation text
+     * Returns the Markdown documentation text with embedded images,
+     * and all metadata about the document
      *
      * @param array $in
      * @return array
      * @author  Peter Lembke
-     * @version 2017-07-14
+     * @version 2022-10-21
      * @since   2017-07-14
      */
     protected function internal_GetDocument(array $in = []): array
     {
+        $response = $this->internal_GetDocumentMetaData($in);
+        if ($response['answer'] === false) {
+            return [
+                'answer' => false,
+                'message' => $response['message']
+            ];
+        }
+
+        $isDone = $response['answer'] === false || $response['data']['is_checksum_same'] === 'true';
+        if ($isDone === true) {
+            return $response;
+        }
+
+        $docContents = $this->_GetFileContents($response['document_file_name']);
+
+        if ($in['file_extension'] === 'md') {
+            $docContents = strip_tags($docContents);
+        }
+
+        $docContents = $this->_HandleImages($docContents, $in['document_name'], $in['area']);
+
+        $checksumWithImages = md5($docContents);
+        $sizeWithImages = strlen($docContents);
+
+        $message = 'Here is the MarkDown document with embedded images';
+
+        $out = [
+            'answer' => 'true',
+            'message' => $message,
+            'document_file_name' => $response['document_file_name'],
+            'data' => [
+                'document' => $docContents,
+                'label' => $response['data']['label'],
+                'document_size' => $response['data']['document_size'],
+                'document_size_with_images' => $sizeWithImages,
+                'area' => $response['data']['area'],
+                'document_name' => $response['data']['document_name'],
+                'time_stamp' => $response['data']['time_stamp'],
+                'micro_time' => $response['data']['micro_time'],
+                'valid_until' => $response['data']['valid_until'],
+                'provided_checksum' => $response['data']['provided_checksum'],
+                'checksum' => $response['data']['checksum'],
+                'is_checksum_same' => $response['data']['is_checksum_same'],
+                'checksum_with_images' => $checksumWithImages
+            ]
+        ];
+
+        return $out;
+    }
+
+    /**
+     * Returns the metadata about the document
+     *
+     * @param array $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2022-10-20
+     * @since   2022-10-20
+     */
+    protected function internal_GetDocumentMetaData(array $in = []): array
+    {
         $default = [
-            'area' => 'main', // main or plugin
+            'area' => 'main', // main or plugin or root
             'document_name' => 'main',
             'checksum' => '',
-            'file_extension' => 'md'
+            'file_extension' => 'md',
+            'document_seconds_valid' => 0
         ];
         $in = $this->_Default($default, $in);
 
@@ -134,41 +201,111 @@ class infohub_doc extends infohub_base
 
         $basePath = $this->_GetBasePath($area);
         $docFileName = $this->_GetFileName($area, $documentName, $in['file_extension'], $basePath);
-        $docContents = $this->_GetFileContents($docFileName);
 
-        if ($in['file_extension'] === 'md') {
-            $docContents = strip_tags($docContents);
+        $documentSize = $this->_GetFileSize($docFileName);
+        if ($documentSize === 0) {
+            return [
+                'answer' => 'false',
+                'message' => 'Could not get the file size',
+                'data' => []
+            ];
         }
 
-        $docContents = $this->_HandleImages($docContents, $documentName, $area);
+        $checksum =  $this->_GetFileHash($docFileName);
+        if ($checksum === '') {
+            return [
+                'answer' => 'false',
+                'message' => 'Could not hash the file',
+                'data' => []
+            ];
+        }
 
         $isChecksumSame = 'false';
         $message = 'Here are the markdown document with embedded images';
 
-        $checksum = md5($docContents);
         if ($in['checksum'] === $checksum) {
-            $docContents = '';
             $isChecksumSame = 'true';
             $message = 'The data you already have is valid. Keep using it';
         }
 
-        $documentSize = strlen($docContents);
+        $firstRow = $this->_GetFileFirstRow($docFileName);
+        $label = $this->_GetLabel($firstRow, $documentName);
+
+        $microTime = $this->_MicroTime();
+        $validUntil = $microTime + $in['document_seconds_valid'];
 
         return [
             'answer' => 'true',
             'message' => $message,
+            'document_file_name' => $docFileName,
             'data' => [
-                'document' => $docContents,
+                'document' => '',
+                'label' => $label,
                 'document_size' => $documentSize,
-                'area' => $in['area'],
-                'document_name' => $in['document_name'],
+                'document_size_with_images' => 0,
+                'area' => $area,
+                'document_name' => $documentName,
                 'time_stamp' => $this->_TimeStamp(),
-                'micro_time' => $this->_MicroTime(),
+                'micro_time' => $microTime,
+                'valid_until' => $validUntil,
                 'provided_checksum' => $in['checksum'],
                 'checksum' => $checksum,
-                'is_checksum_same' => $isChecksumSame
+                'is_checksum_same' => $isChecksumSame,
+                'checksum_with_images' => ''
             ]
         ];
+    }
+
+    /**
+     * Get the file size or 0 on failure
+     *
+     * @param  string  $file
+     * @return int
+     */
+    protected function _GetFileSize(string $file): int {
+
+        $exist = file_exists($file);
+        if ($exist === false) {
+            return 0;
+        }
+
+        try {
+            $size = filesize($file);
+        } catch (Exception $e) {
+            return 0;
+        }
+
+        if ($size === false) {
+            $size = 0;
+        }
+
+        return $size;
+    }
+
+    /**
+     * Get the file hash or an empty string on failure
+     *
+     * @param  string  $file
+     * @return string
+     */
+    protected function _GetFileHash(string $file): string {
+
+        $exist = file_exists($file);
+        if ($exist === false) {
+            return '';
+        }
+
+        try {
+            $hash = hash_file('md5', $file, $binary = false);
+        } catch (Exception $e) {
+            return '';
+        }
+
+        if ($hash === false) {
+            $hash = '';
+        }
+
+        return $hash;
     }
 
     /**
@@ -187,7 +324,7 @@ class infohub_doc extends infohub_base
         $default = [
             'checksum' => '',
             'config' => [
-                'document_list_cache_seconds' => 0
+                'document_list_seconds_valid' => 0
             ],
             'response' => [
                 'post_exist' => 'false',
@@ -217,31 +354,39 @@ class infohub_doc extends infohub_base
         }
 
         if ($in['step'] === 'step_read_storage_response') {
+
             if ($in['response']['post_exist'] === 'true') {
-                $cacheLimit = $in['config']['document_list_cache_seconds'];
-                $oldWhen = $this->_MicroTime() + $cacheLimit;
+
                 $data = $in['response']['data'];
-                $dataStored = $data['micro_time'];
-                $isOld = $dataStored > $oldWhen;
-                if ($isOld === false) {
+
+                $message = 'Have read the documents list from storage.';
+                if ($in['checksum'] === $data['checksum']) {
+                    $data['data'] = []; // No need to send back the documents list. The client already have it
+                    $message = $message . ' The data you already have is valid. Keep using it';
+                }
+
+                $now = $this->_MicroTime();
+                $isValid = $data['valid_until'] > $now;
+                if ($isValid === true) {
                     return [
                         'answer' => 'true',
-                        'message' => 'Have read the documents list from storage',
+                        'message' => $message,
                         'data' => $data
                     ];
                 }
             }
+
             $in['step'] = 'step_get_documents_list';
         }
 
         if ($in['step'] === 'step_get_documents_list') {
-            $isChecksumSame = 'false';
+
             $message = 'Here are the navigation data';
 
-            $dataOut = $this->_GetDocumentsList();
+            $documentsList = $this->_GetDocumentsList();
 
-            $jsonDataOut = json_encode($dataOut);
-            if ($jsonDataOut === false) {
+            $documentsListJson = json_encode($documentsList);
+            if ($documentsListJson === false) {
                 return [
                     'answer' => 'false',
                     'message' => 'Could not json encode the data in infohub_doc',
@@ -249,21 +394,25 @@ class infohub_doc extends infohub_base
                 ];
             }
 
-            $size = strlen($jsonDataOut);
+            $size = strlen($documentsListJson);
 
-            $currentChecksum = md5($jsonDataOut);
+            $isChecksumSame = 'false';
+            $currentChecksum = md5($documentsListJson);
             if ($in['checksum'] === $currentChecksum) {
-                $dataOut = [];
                 $isChecksumSame = 'true';
-                $message = 'The data you already have is valid. Keep using it';
+                $message = 'Have created the documents list. The data you already have is valid. Keep using it';
             }
 
             $messages = [];
 
+            $microTime =  $this->_MicroTime();
+            $validUntil = $microTime + $in['config']['document_list_seconds_valid'];
+
             $data = [
-                'data' => $dataOut,
+                'data' => $documentsList,
                 'time_stamp' => $this->_TimeStamp(),
-                'micro_time' => $this->_MicroTime(),
+                'micro_time' => $microTime,
+                'valid_until' => $validUntil ,
                 'provided_checksum' => $in['checksum'],
                 'checksum' => $currentChecksum,
                 'is_checksum_same' => $isChecksumSame,
@@ -284,6 +433,10 @@ class infohub_doc extends infohub_base
                     'step' => 'step_void'
                 ]
             ]);
+
+            if ($isChecksumSame === 'true') {
+                $data['data'] = []; // No need to send back the documents list. The client already have it
+            }
 
             return [
                 'answer' => 'true',
@@ -313,9 +466,6 @@ class infohub_doc extends infohub_base
             'root' => $this->_GetAlldocumentNamesByArea('root', $fileExtension),
         ];
 
-        $findFirst = '# ';
-        $findLast = "\n";
-
         $dataOut = [];
         foreach ($data as $area => $documentNames) {
             $dataOut[$area] = [];
@@ -323,16 +473,11 @@ class infohub_doc extends infohub_base
 
             foreach ($documentNames as $documentName) {
                 $documentFileName = $this->_GetFileName($area, $documentName, $fileExtension, $basePath);
-                $documentContents = $this->_GetFileContents($documentFileName);
-                $label = $this->_GetPartOfString($documentContents, $findFirst, $findLast);
-                if ($label === '') {
-                    $label = $documentName;
-                }
+                $checksum =  $this->_GetFileHash($documentFileName);
+                $size = $this->_GetFileSize($documentFileName);
 
-                $checksum = md5($documentContents);
-                $size = strlen($documentContents);
-
-                $label = strtr($label, ['_' => ' ']);
+                $firstRow = $this->_GetFileFirstRow($documentFileName);
+                $label = $this->_GetLabel($firstRow, $documentName);
 
                 $dataOut[$area][$documentName] = [
                     'document_name' => $documentName,
@@ -348,6 +493,33 @@ class infohub_doc extends infohub_base
     }
 
     /**
+     * Pull out the Markdown first header title. The one after the first #
+     *
+     * @param  string  $text
+     * @param  string  $fallback
+     * @return string
+     */
+    protected function _GetLabel(
+        string $text,
+        string $fallback = ''
+    ): string {
+
+        $findFirst = '# ';
+        $findLast = "\n";
+
+        $label = $this->_GetPartOfString($text, $findFirst, $findLast);
+
+        if ($label === '') {
+            $label = $fallback;
+        }
+
+        // Replace sub strings. In this case all _ to space.
+        $label = strtr($label, ['_' => ' ']);
+
+        return $label;
+    }
+
+    /**
      * Returns all wanted documents in one big array
      *
      * Provide a list with documents you want. The list format is the same as get_documents_list provide.
@@ -355,7 +527,7 @@ class infohub_doc extends infohub_base
      * keep (same checksum), delete (not in list). Left are the ones that are new and changed ( different checksum).
      *
      * You can now send the wanted_documents_list to get_all_documents and get the documents.
-     * If the size of the documents is more than he config allows then you only get just below the limit.
+     * If the size of the documents is more than the config allows then you only get just below the limit.
      * The rest of the wanted_documents_list are returned to you, and you can try again.
      *
      * @param array $in
@@ -369,10 +541,21 @@ class infohub_doc extends infohub_base
         $default = [
             'wanted_documents_list' => [],
             'config' => [
-                'get_all_documents_max_size_kb' => 0
+                'get_all_documents_max_size_kb' => 0,
+                'document_seconds_valid' => 2592000 // 30 days
             ]
         ];
         $in = $this->_Default($default, $in);
+
+        if ($this->_Empty($in['wanted_documents_list']) === 'true') {
+            return [
+                'answer' => 'false',
+                'message' => 'You must ask for specific documents',
+                'data' => [],
+                'ask_again_documents_list' => [],
+                'failed_to_load_documents_list' => []
+            ];
+        }
 
         $maxSize = $in['config']['get_all_documents_max_size_kb'] * 1024;
         $totalSize = 0;
@@ -381,11 +564,19 @@ class infohub_doc extends infohub_base
         $askAgainDocumentsList = [];
         $failedToLoadDocumentsList = [];
 
+        $done = false;
+
         foreach ($in['wanted_documents_list'] as $area => $documentNamesArray) {
             foreach ($documentNamesArray as $documentName) {
 
+                if ($done === true) {
+                    $askAgainDocumentsList[$area] = $askAgainDocumentsList[$area] ?? [];
+                    $askAgainDocumentsList[$area][] = $documentName;
+                    continue;
+                }
+
                 $response = $this->internal_Cmd([
-                    'func' => 'GetDocument',
+                    'func' => 'GetDocumentMetaData',
                     'area' => $area,
                     'document_name' => $documentName,
                     'file_extension' => $fileExtension
@@ -401,8 +592,20 @@ class infohub_doc extends infohub_base
                 if ($totalSize + $size > $maxSize) {
                     $askAgainDocumentsList[$area] = $askAgainDocumentsList[$area] ?? [];
                     $askAgainDocumentsList[$area][] = $documentName;
+                    $done = true;
                     continue;
                 }
+
+                $response = $this->internal_Cmd([
+                    'func' => 'GetDocument',
+                    'area' => $area,
+                    'document_name' => $documentName,
+                    'file_extension' => $fileExtension,
+                    'document_seconds_valid' => $in['config']['document_seconds_valid']
+                ]);
+
+                $sizeWithImages = $response['data']['document_size_with_images'];
+                $totalSize = $totalSize + $sizeWithImages;
 
                 $path = 'infohub_doc/document/' . $area . '/' . $documentName;
                 $dataOut[$path] = $response['data'];
@@ -583,6 +786,34 @@ class infohub_doc extends infohub_base
     }
 
     /**
+     * Returns the first row of the file or an empty string.
+     *
+     * @param string $file
+     * @return string
+     * @author  Peter Lembke
+     * @version 2022-10-21
+     * @since   2022-10-21
+     */
+    protected function _GetFileFirstRow(
+        string $file = ''
+    ): string
+    {
+        if (file_exists($file) === false) {
+            return '';
+        }
+
+        $row = '';
+
+        $handle = fopen($file, 'r');
+        if (feof($handle) === false) {
+            $row = fgets($handle);
+        }
+        fclose($handle);
+
+        return $row;
+    }
+
+    /**
      * Parses the ![My image](rendermajor-1.png) directives in the doc text.
      *
      * When the url do not have any / in it then we embed an image.
@@ -716,7 +947,7 @@ class infohub_doc extends infohub_base
         $filesArray = $this->_RecursiveSearch($searchPath);
         sort($filesArray);
 
-        $documentNamesArray = $this->_GetAlldocumentNames($filesArray, $basePath);
+        $documentNamesArray = $this->_GetAllDocumentNames($filesArray, $basePath);
 
         return $documentNamesArray;
     }
@@ -854,7 +1085,7 @@ class infohub_doc extends infohub_base
      * @since   2016-04-02
      * @author  Peter Lembke
      */
-    protected function _GetAlldocumentNames(
+    protected function _GetAllDocumentNames(
         array $fileNamesArray = [],
         string $basePath = ''
     ): array {

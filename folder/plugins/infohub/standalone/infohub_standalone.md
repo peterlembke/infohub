@@ -1,4 +1,4 @@
-# Infohub Standalone
+# InfoHub Standalone
 
 Starts ONE workbench plugin as standalone without any Workbench.
 
@@ -135,7 +135,7 @@ Standalone set up fewer boxes than Workbench does, here is a list of them
 From the example above I created three boxes: first_box, second_box, third_box. The full path for the first_box
 is: `main.body.{plugin_name}.first_box`  
 When you want to reference "first_box" in your plugin you use: `_GetBoxId() + '.first_box'`,  
-To learn more about how to use the boxes I recommend reading: [Infohub_View](plugin,infohub_view)
+To learn more about how to use the boxes I recommend reading: [InfoHub_View](plugin,infohub_view)
 
 # License
 

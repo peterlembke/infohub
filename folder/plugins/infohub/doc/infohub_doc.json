@@ -1,10 +1,8 @@
 {
-    "client": {
-        "document_list_cache_seconds": 86400,
-        "get_all_documents_max_size_kb": 1024
-    },
+    "client": {},
     "server": {
-        "document_list_cache_seconds": 86400,
-        "get_all_documents_max_size_kb": 1024
+        "document_list_seconds_valid": 45,
+        "get_all_documents_max_size_kb": 256,
+        "document_seconds_valid": 2592000
     }
 }

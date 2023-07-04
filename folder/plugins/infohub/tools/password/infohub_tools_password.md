@@ -1,4 +1,4 @@
-# Infohub Tools Password
+# InfoHub Tools Password
 
 Create random passwords
 
@@ -9,7 +9,7 @@ Crypt (Vera crypt) file.
 You can generate short passwords with 16 characters up to long ones with 64 characters. You can select what type of
 characters should be in your password.  
 There is an instruction at the top that you can unfold. It is folded so the tool look better on iPhone SE.  
-Read more about passwords here: [Infohub Password](plugin,infohub_password)
+Read more about passwords here: [InfoHub Password](plugin,infohub_password)
 
 # License
 

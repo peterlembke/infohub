@@ -1,4 +1,4 @@
-# Infohub Storage
+# InfoHub Storage
 
 Where all data is stored
 

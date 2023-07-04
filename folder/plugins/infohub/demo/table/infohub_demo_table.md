@@ -1,10 +1,10 @@
-# Infohub Demo Table
+# InfoHub Demo Table
 
-Shows a demo how you can use the Infohub render table plugin.
+Shows a demo how you can use the InfoHub render table plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render table plugin.
+In this demo we show how to use the InfoHub render table plugin.
 
 The demo will show a table with columns and one view button on each row.
 
@@ -12,7 +12,7 @@ You can click the view button and then a popup show you what id you clicked.
 
 Read more in the documentation about
 
-- [Infohub Render Table](plugin,infohub_render_table)
+- [InfoHub Render Table](plugin,infohub_render_table)
 
 # License
 

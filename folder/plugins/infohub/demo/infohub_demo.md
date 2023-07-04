@@ -1,11 +1,11 @@
-# Infohub Demo
+# InfoHub Demo
 
 Where ideas are tested
 
 # Introduction
 
-The demo plugin and its children is a way to show you how different things can be done in Infohub. Play with the demos,
-read the code, debug them. You will get ideas how to solve your things with Infohub.  
+The demo plugin and its children is a way to show you how different things can be done in InfoHub. Play with the demos,
+read the code, debug them. You will get ideas how to solve your things with InfoHub.  
 There are two sets of demos, the client (browser) demos and the server demos.
 
 # Client demos

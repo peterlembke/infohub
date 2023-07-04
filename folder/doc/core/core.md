@@ -12,13 +12,13 @@ I would like to see cores for other programming languages and systems. I am fond
 A core in ANSI-C that can be compiled to different systems would also be practical. Or a Swift core. Swift exist for Linux and macOS. Kotlin is also interesting.  
 
 ## Other Cores - ["There is another system"](https://en.wikipedia.org/wiki/Colossus:_The_Forbin_Project)
-The Infohub Core can be implemented in any language.
-The PHP/JS cores are template implementations how the systems work. If you implement an Infohub core in another language you might have to modify the systems to suite that platform. The important thing is that as a developer you can recognize the inner workings of the system when you jump between implementations.
+The InfoHub Core can be implemented in any language.
+The PHP/JS cores are template implementations how the systems work. If you implement an InfoHub core in another language you might have to modify the systems to suite that platform. The important thing is that as a developer you can recognize the inner workings of the system when you jump between implementations.
 
 The core concepts are:
 
 * Level 1
-    * Communication between nodes in the Infohub format
+    * Communication between nodes in the InfoHub format
     * Kick out tests
 * Level 2
     * Message queues system
@@ -28,7 +28,7 @@ The core concepts are:
     * Storage system
     * Rendering system for Graphical User Interface
 
-You could have a static software that implement Level 1 so other Infohub cores can communicate with it.
+You could have a static software that implement Level 1 so other InfoHub cores can communicate with it.
 You could implement Level 2 so other developers more easily can get started with the core and write plugins.
 You could implement what you need from Level 3. An internet service core, like the PHP core is, could need the storage system and log in & sessions but do not need a GUI.
 A Python Core that aim to be a desktop solution might implement all levels.

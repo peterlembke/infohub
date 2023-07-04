@@ -1,4 +1,4 @@
-# Infohub Base
+# InfoHub Base
 
 The class that all plugins extend from.  
 [columns]
@@ -8,7 +8,7 @@ The class that all plugins extend from.
 When you create a plugin you start by extending the base class. This is always the case. You do not extend any other
 class, and you do not use any fancy php tricks to implement features from other classes.
 
-Infohub Base give your plugin all the base features it needs to function within the InfoHub core and be a part of the
+InfoHub Base give your plugin all the base features it needs to function within the InfoHub core and be a part of the
 message system.
 
 # cmd()
@@ -321,7 +321,7 @@ Read more about logging in [debug tools](doc,plugin_debug).
 When you use `internal_Log` the data are stored in an array. That array is then passed into the response from cmd() in
 parameter `log_array`.
 
-The data come to Infohub Exchange and are sent to `internal_LogArrayToConsole` and each log entry are sent
+The data come to InfoHub Exchange and are sent to `internal_LogArrayToConsole` and each log entry are sent
 to `internal_Console`.
 
 In `internal_Console` if your log data is marked as `error` then it is written to `log/log-error.log`.

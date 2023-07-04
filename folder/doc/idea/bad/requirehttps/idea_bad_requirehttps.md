@@ -1,7 +1,7 @@
 # Require HTTPS
 All sites should use HTTPS. HTTPS gives your traffic a well needed encryption and validates that the certificate is valid.
 
-Then we could require HTTPS to always be there or else Infohub will not work.
+Then we could require HTTPS to always be there or else InfoHub will not work.
 
 && traffic,https
 
@@ -13,10 +13,10 @@ Auto-detecting HTTPS and set it as a requirement is not a good way to go.
 We will mention HTTPS in the installation document and urge site owners to use it.
 And we will urge site users to only enter sites that have HTTPS. That is common knowledge by now.
 
-If you want to run your local Infohub with HTTP then Infohub should not stop you.
-Infohub also has built in signing of all packages and optional encryption of the traffic data.
+If you want to run your local InfoHub with HTTP then InfoHub should not stop you.
+InfoHub also has built in signing of all packages and optional encryption of the traffic data.
 
-Require HTTPS for Infohub to work is a bad idea.
+Require HTTPS for InfoHub to work is a bad idea.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

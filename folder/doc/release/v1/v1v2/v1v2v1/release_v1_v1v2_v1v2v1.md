@@ -7,4 +7,4 @@ Translate icon titles and descriptions.
 ## Added
 - This release is about translation of the icon title and description.
 - Icon title and description added to all translation files in swedish, spanish and english.
-- Updated documentation in Infohub_Translate about this.
+- Updated documentation in InfoHub_Translate about this.

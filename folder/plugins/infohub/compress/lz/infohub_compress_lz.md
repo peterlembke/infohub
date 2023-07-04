@@ -1,4 +1,4 @@
-# Infohub Compress LZ
+# InfoHub Compress LZ
 
 Compress and decompress data with LZ.
 

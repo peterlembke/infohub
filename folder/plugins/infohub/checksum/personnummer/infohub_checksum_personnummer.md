@@ -1,4 +1,4 @@
-# Infohub Checksum Personnummer
+# InfoHub Checksum Personnummer
 
 Calculate the last digit in the Swedish personal number
 

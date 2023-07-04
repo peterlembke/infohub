@@ -245,7 +245,7 @@ function infohub_storage() {
             }
 
             if ($in.mode !== 'overwrite' && $in.mode !== 'merge') {
-                $out.message = 'I only accept mode overwrite (default) or merge';
+                $out.message = 'I only accept mode: overwrite (default) or: merge';
                 break leave;
             }
 
@@ -275,6 +275,7 @@ function infohub_storage() {
             }
 
             if ($in.step === 'step_read') {
+                // mode = merge
                 return _SubCall({
                     'to': {
                         'node': 'client',
@@ -283,20 +284,20 @@ function infohub_storage() {
                     },
                     'data': {
                         'path': $in.path,
-                        'calling_plugin': $in.calling_plugin,
+                        'calling_plugin': $in.from_plugin,
                     },
                     'data_back': {
                         'calling_plugin': $in.calling_plugin,
                         'path': $in.path,
-                        'data': $in.data,
-                        'mode': $in.mode,
+                        'data': $in.data, // The data you want to merge on top of the data we read now
+                        'mode': $in.mode, // mode = merge
                         'step': 'step_read_response'
                     },
                 });
             }
 
             if ($in.step === 'step_read_response') {
-                $in.data = _Merge($in.data_back.data, $in.response.data);
+                $in.data = _Merge($in.response.data, $in.data_back.data);
                 $in.step = 'step_write';
             }
 

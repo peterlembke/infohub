@@ -1,4 +1,4 @@
-# Infohub Trigger
+# InfoHub Trigger
 
 You as a developer can send messages to your plugin functions with this tool.
 

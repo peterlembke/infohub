@@ -1,4 +1,4 @@
-# Infohub Password
+# InfoHub Password
 
 Your password generator
 

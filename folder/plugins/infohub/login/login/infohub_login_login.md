@@ -1,14 +1,14 @@
-# Infohub_Login_Login
+# InfoHub_Login_Login
 
-Infohub_Login allow you to log in to another node. The PHP server version make sure the log-in is done without revealing
+InfoHub_Login allow you to log in to another node. The PHP server version make sure the log-in is done without revealing
 secrets.  
 The JS version has the same features as the PHP version and has a graphical user interface (GUI) where you can enter
 data that will be used in the log-in.
 
 ## Browser client log in to server
 
-In your browser as soon as start.js has done its work, and you got a working Infohub then the only option you have is to
-log in. Infohub_Login is the only plugin you have available. The server (infohub.php) will not allow you to send anything
+In your browser as soon as start.js has done its work, and you got a working InfoHub then the only option you have is to
+log in. InfoHub_Login is the only plugin you have available. The server (infohub.php) will not allow you to send anything
 else than a log in request. Everything else will be discarded, and you will be banned.
 
 When you see the plugin in Standalone mode it is much simpler than the full plugin you see in the Workbench. It is
@@ -43,17 +43,17 @@ The plugin infohub_session will handle the package_password after log in. See [i
 
 # infohub_transfer
 
-The plugin [infohub_transfer](plugin,infohub_transfer) see if a message want to leave the node. Infohub Transfer check if there is an open session, if not then ask infohub_log in to do a log in to that node.
+The plugin [infohub_transfer](plugin,infohub_transfer) see if a message want to leave the node. InfoHub Transfer check if there is an open session, if not then ask infohub_log in to do a log in to that node.
 
 # infohub_log in
 
-When Infohub_transfer want to send a package to a node but has no session_code to use it calls plugin infohub_log in.
+When InfoHub_transfer want to send a package to a node but has no session_code to use it calls plugin infohub_log in.
 
-* Infohub_Login ask Infohub_Contact for connection information.
-* Infohub_Login send out a log in_request message.
-* Infohub_Login get the log-in_request_response that contain a verification that the destination node is valid. Now you
+* InfoHub_Login ask InfoHub_Contact for connection information.
+* InfoHub_Login send out a log in_request message.
+* InfoHub_Login get the log-in_request_response that contain a verification that the destination node is valid. Now you
   must answer their validation request.
-* Infohub_Login send the log-in_challenge message and get back the log-in_challenge_response.
+* InfoHub_Login send the log-in_challenge message and get back the log-in_challenge_response.
 
 The response from the node contain the result. You will get a static session_id and a package_password.
 
@@ -62,9 +62,9 @@ in [infohub_session](plugin,infohub_session).
 
 ## log in_request
 
-Infohub Transfer ask Infohub_Login to initiate a session with a named node. Infohub_Login will create a log in request
-that infohub_transfer deliver to the node we want a connection with. First Infohub_Login ask Infohub_Contact for
-credentials how to approach the other node. If Infohub_Contact do not have any credentials then Transfer will get an answer with an error. If credentials exist then the `log in_request` message will look like this:
+InfoHub Transfer ask InfoHub_Login to initiate a session with a named node. InfoHub_Login will create a log in request
+that infohub_transfer deliver to the node we want a connection with. First InfoHub_Login ask InfoHub_Contact for
+credentials how to approach the other node. If InfoHub_Contact do not have any credentials then Transfer will get an answer with an error. If credentials exist then the `log in_request` message will look like this:
 
 ```
 {
@@ -98,7 +98,7 @@ stopped. The responding node answer like this in the `log in_request_response`:
 
 ## log in_challenge
 
-Now Infohub_Login must answer with an initiator_calculated_id_code in the `log in_challenge` message.
+Now InfoHub_Login must answer with an initiator_calculated_id_code in the `log in_challenge` message.
 
 ```
 "to": {"node": "{name of node}", "plugin": "infohub_log in", "function": "log in_challenge"},
@@ -130,7 +130,7 @@ The response from the responder node is in the `log in_challenge_response` messa
 }
 ```
 
-Now Infohub_Login must verify the responder_calculated_id_code and then decide to use the session_id and
+Now InfoHub_Login must verify the responder_calculated_id_code and then decide to use the session_id and
 package_password.
 
 ### Session_id and package_password
@@ -141,7 +141,7 @@ at [infohub_session](plugin,infohub_session).
 
 # calculated_id_code
 
-In the contact data in Infohub_Contact you have node, plugin, function to the function that will calculate and verify
+In the contact data in InfoHub_Contact you have node, plugin, function to the function that will calculate and verify
 the calculated_id_code. The same calculation method must be used on both nodes, so you get the same result. All data can
 be used in the calculations, including any data the both nodes already have about each other.
 
@@ -244,7 +244,7 @@ See infohub_log in.json
 
 The left side has the HOST URL and the right side have the file to download from `folder/file/infohub_log in/`.  
 You can prepare a log-in account and save it in that location. Then the users can download the file and log in. Everyone
-needs to log in. If the user can not handle this file then they will not handle the real Infohub experience.
+needs to log in. If the user can not handle this file then they will not handle the real InfoHub experience.
 
 # License
 

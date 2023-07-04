@@ -1,12 +1,12 @@
-# Infohub Transfer
+# InfoHub Transfer
 
 With no exceptions handle all communication that goes outside this node.
 
 # Introduction
 
-Infohub Transfer handle all traffic.   
-If you want to communicate with the outside of your node then Infohub Transfer handle that.   
-Infohub Transfer handle the messages that Infohub Exchange want to send to other nodes.
+InfoHub Transfer handle all traffic.   
+If you want to communicate with the outside of your node then InfoHub Transfer handle that.   
+InfoHub Transfer handle the messages that InfoHub Exchange want to send to other nodes.
 
 ## Client
 
@@ -20,12 +20,12 @@ with other server nodes.
 
 ## Other nodes
 
-There will be other types of Infohub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to
+There will be other types of InfoHub nodes. Some are built with NodeJs, Python, Ruby, Java. They will all be able to
 communicate with each other in the same way.
 
 # Send to a node
 
-Infohub Exchange send an array with nodes and their messages to Transfer. The send function in the Transfer plugin loop
+InfoHub Exchange send an array with nodes and their messages to Transfer. The send function in the Transfer plugin loop
 through the nodes, if it recognizes a node then it handles the messages.
 
 Server (PHP): For node 'client' it just makes a json package and echo it on screen because the client is always the
@@ -38,12 +38,12 @@ You will also get back a timestamp when it is OK to contact the node again.
 
 ## Authentication (log in)
 
-The client can log in to the server and get more rights. The plugin [infohub_log in](plugin,infohub_log in) handle the
+The client can log in to the server and get more rights. The plugin [infohub_log in](plugin,infohub_login) handle the
 login and uses the [infohub_session](plugin,infohub_session) to initiate a session.
 
 ## Sessions
 
-Session handling. Since Infohub is stateless you do not store session variables, but you do need to know what rights the
+Session handling. Since InfoHub is stateless you do not store session variables, but you do need to know what rights the
 logged-in session have. Not logged-in users will only have the right to log in if they can ask politely.
 
 PHP use cookies, we do not. The session information is of the package. That also make us independent of web technologies,
@@ -262,7 +262,7 @@ Features that will come to infohub_transfer.php
 
 ### Server to server
 
-The server node will be able to communicate with other Infohub nodes and exchange information. This will be used to get
+The server node will be able to communicate with other InfoHub nodes and exchange information. This will be used to get
 data from specialized nodes.
 
 ### Leave callstack behind
@@ -273,8 +273,8 @@ When calling other nodes the server also need to leave the callstack behind to n
 
 A lot of interesting services exist on the internet. You can use REST to get weather from yr.no or get radio programs
 from sr.se  
-The support in Infohub will be through the server through Transfer. The support for web services will be generic and can
-be misused for sharing. Do remember that Infohub is __NOT__ for sharing.
+The support in InfoHub will be through the server through Transfer. The support for web services will be generic and can
+be misused for sharing. Do remember that InfoHub is __NOT__ for sharing.
 
 # Other ways of communication
 
@@ -286,7 +286,7 @@ If we ever develop other ways to communicate then we can be sure infohub_transfe
 
 # Bad ideas
 
-Infohub is NOT about sharing. It is not about working together in small groups. Infohub is about personal data that only
+InfoHub is NOT about sharing. It is not about working together in small groups. InfoHub is about personal data that only
 you can access.  
 To achieve that we need to be very careful and think about security everywhere. Here are some bad ideas that will not be
 implemented and why.
@@ -304,21 +304,21 @@ WebRTC is appealing but would open up a side door to the client.
 ## Email
 
 Would be cool if we could send emails to people. Then we could use that to send out offers, order confirmations (
-transactional emails) and use it as we would in an e-commerce site. We could even use Infohub as a marketing tool.  
-Infohub is about privacy of your data. Email is insecure. Email can not handle private information. Even if we
+transactional emails) and use it as we would in an e-commerce site. We could even use InfoHub as a marketing tool.  
+InfoHub is about privacy of your data. Email is insecure. Email can not handle private information. Even if we
 restricted ourselves to only send emails to you when you ask them it would still be unencrypted and easily intercepted.
-You would also reveal yourself as a user of that Infohub server.  
-E-mail is an obsolete way to communicate. It should not be implemented in Infohub.
+You would also reveal yourself as a user of that InfoHub server.  
+E-mail is an obsolete way to communicate. It should not be implemented in InfoHub.
 
 ## Social
 
-Infohub is NOT about sharing. Social networks is a bout sharing. Do not mix them. You can still use social but not
-through Infohub.
+InfoHub is NOT about sharing. Social networks is a bout sharing. Do not mix them. You can still use social but not
+through InfoHub.
 
 ## SMS
 
 Sending SMS is an obsolete way of communicating. The amount of data is 120 byte unencrypted. It is easy to reroute the
-message to another phone. SMS is insecure and Infohub will not use it. It can also be used for sending to many
+message to another phone. SMS is insecure and InfoHub will not use it. It can also be used for sending to many
 recipients and that is just annoying.
 
 # License

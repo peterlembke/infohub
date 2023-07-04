@@ -1,4 +1,4 @@
-# Infohub ConfigLocal Image
+# InfoHub ConfigLocal Image
 
 Configure how you want assets to be downloaded.
 
@@ -68,8 +68,8 @@ The below formats work well in all supported browser.
 
 In the future all images will be AVIF. It superseded all other image formats.
 
-- [Infohub Render Link](plugin,infohub_render_link)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub Render Link](plugin,infohub_render_link)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # License
 

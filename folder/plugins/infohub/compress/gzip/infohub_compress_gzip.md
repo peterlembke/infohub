@@ -1,4 +1,4 @@
-# Infohub Compress Gzip
+# InfoHub Compress Gzip
 
 Compress and decompress data with gzip.
 

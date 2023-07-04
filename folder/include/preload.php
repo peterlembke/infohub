@@ -55,7 +55,9 @@ class preload {
      */
     protected function canCompile(): bool
     {
-        $functionExists = function_exists('opcache_compile_file');
+        $functionExists = function_exists(
+            function: 'opcache_compile_file'
+        );
 
         return $functionExists;
     }

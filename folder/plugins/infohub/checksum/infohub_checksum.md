@@ -1,4 +1,4 @@
-# Infohub Checksum
+# InfoHub Checksum
 
 Different methods to calculate a checksum
 
@@ -9,7 +9,7 @@ Different methods to calculate a checksum
 This plugin and its child plugins give you a set of checksum functions you can use.  
 There are different kind of checksums suitable for different kind of problems. Checksums can be used to find data,
 compare data, validate data.  
-Infohub use checksums for all plugins to detect changes in the code. In infohub_checksum you will find different kind of
+InfoHub use checksums for all plugins to detect changes in the code. In infohub_checksum you will find different kind of
 checksums and each child plugin have its own documentation
 
 # A good checksum
@@ -42,7 +42,7 @@ The CRC32 checksum was designed in 1962 to detect burst errors in data streams. 
 at <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check" target="_blank">Wikipedia</a>, it is an interesting
 story.  
 One feature with CRC32 is that you can continue adding data to the checksum when the data come from the stream.  
-Infohub do not use CRC32, instead the main checksum type is MD5.
+InfoHub do not use CRC32, instead the main checksum type is MD5.
 
 # Soundex (native php)
 
@@ -78,7 +78,7 @@ the verification, then we have a trust issue.
 
 There are many great libraries that do many nice things. InfoHub should remain simple, native, independent as far as
 possible. That is why I do not add libraries to InfoHub.  
-Infohub need one good checksum function that can be implemented in all languages. Right now that need are covered with
+InfoHub need one good checksum function that can be implemented in all languages. Right now that need are covered with
 MD5 and possible CRC32.  
 Other uses of checksum, like the Luhn and Personnummer that have a specific usage, will be added as child plugins.  
 When encryption are added as a plugin, then there will be need for encryption secure checksums, and those might be added

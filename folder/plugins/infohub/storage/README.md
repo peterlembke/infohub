@@ -1,6 +1,6 @@
 # Plan for one plugin
 
-Storage is today three levels of plugins. I want it to be snappy with one level.
+Storage JS is today three levels of plugins. I want it to be snappy with one level.
 The only storage code used is IndexedDB-KeyVal.
 
 If I have IndexedDB-KeyVal and infohub_storage_data built into infohub_storage then less subCalls are needed. Means less _ByVal needed.

@@ -1,4 +1,4 @@
-# Infohub Demo Major
+# InfoHub Demo Major
 
 Shows a demo how you can use the infohub_rendermajor plugin.
 
@@ -8,8 +8,8 @@ In this demo we show how to use the infohub_rendermajor plugin.
 You will see how the rendermajor box can be used in different ways.  
 Read more in the documentation about
 
-- [Infohub RenderMajor](plugin,infohub_rendermajor)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub RenderMajor](plugin,infohub_rendermajor)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # Presentation box
 

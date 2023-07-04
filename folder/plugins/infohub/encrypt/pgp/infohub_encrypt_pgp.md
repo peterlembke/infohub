@@ -1,4 +1,4 @@
-# Infohub Encrypt PGP
+# InfoHub Encrypt PGP
 
 Use OpenPGP to encrypt and decrypt your data on the client or on the server.
 

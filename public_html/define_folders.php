@@ -15,7 +15,7 @@ if (file_exists('fullstop.flag') == true) {
  * Folders created here
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2020-11-21
+ * @version     2022-11-04
  * @since       2015-11-15
  * @copyright   Copyright (c) 2015, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -28,6 +28,11 @@ $currentWorkingDirectory = getcwd();
 $lastPosition = strrpos($currentWorkingDirectory, DS);
 // remove public_html to get the root directory
 $rootDirectory = substr($currentWorkingDirectory, $start = 0, $length = $lastPosition);
+
+$isFolderInfohubExisting = is_dir($rootDirectory . DS . 'infohub');
+if ($isFolderInfohubExisting === true) {
+    $rootDirectory = $rootDirectory . DS . 'infohub';
+}
 
 define('ROOT', $rootDirectory);
 const MAIN = ROOT.DS.'folder';

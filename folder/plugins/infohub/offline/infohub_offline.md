@@ -1,4 +1,4 @@
-# Infohub Offline
+# InfoHub Offline
 
 Prepares you for going offline. Also handles the online/offline event, so you can subscribe to it.
 
@@ -87,7 +87,7 @@ All subscribers with this key will have their messages sent out.
 
 # Hard coded subscribers
 
-DEPRECATED: online and offline - Always sent to Infohub_Transfer.
+DEPRECATED: online and offline - Always sent to InfoHub_Transfer.
 
 # Service worker - update
 

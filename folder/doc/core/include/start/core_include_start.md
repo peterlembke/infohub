@@ -16,12 +16,12 @@ You can get more information from this article: [why-using-localStorage-directly
 And how to enable cookies is [here](https://support.google.com/accounts/answer/61416?co=GENIE.Platform%3DDesktop&hl=en).
  
 So why don't I use an in-memory variable as it is mentioned in the article above? After logging in I store data in indexedDb so that is OK. Then I reload the page.
-Then I need to download the Infohub Core plugins again and see if I am logged in with the data in indexedDb. That would have a major performance impact and would not be good for people with cell phones and slow internet connections.
+Then I need to download the InfoHub Core plugins again and see if I am logged in with the data in indexedDb. That would have a major performance impact and would not be good for people with cell phones and slow internet connections.
 
 I might change this in the future but for now I will just test if cookies are enabled in start.js  
 
 ## `_ColdStart`
-Sets a flag "cold_start" in localStorage containing the number of failed starts. In Infohub_launcher after the last thing has rendered the flag is removed.  
+Sets a flag "cold_start" in localStorage containing the number of failed starts. In InfoHub_launcher after the last thing has rendered the flag is removed.  
 If you need to reload the page before the flag is removed then it is considered a failed start. On the first failed start all the plugins are removed from localStorage.  
 On the second failed start both the plugins in the localStorage and the database in indexedDb are deleted. Now we have a clean start.  
 If the start takes longer than 20 seconds then a timer will do a full reload automatically.  

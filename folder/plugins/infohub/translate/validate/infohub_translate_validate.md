@@ -1,4 +1,4 @@
-# Infohub Translate Validate
+# InfoHub Translate Validate
 
 Since we do manual work on translation files they might accidentally get structural issues.  
 This validator will check that the translation file is valid.

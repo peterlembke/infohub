@@ -1,6 +1,6 @@
 # infohub_color
 
-I want to improve the colour templating in Infohub and learn more about colours.
+I want to improve the colour templating in InfoHub and learn more about colours.
 
 I have read a great [article](https://www.smashingmagazine.com/2020/08/application-color-schemes-css-custom-properties/)
 about that and got inspired of its [example](https://codepen.io/smashingmag/pen/LYNEXdw). I also tested
@@ -71,7 +71,7 @@ a [javascript function](https://gist.github.com/vahidk/05184faf3d92a0aa1b46aeaa9
 
 ## How it works
 
-If Infohub Render do not have the color data it will ask infohub_color for it. infohub_color return a pre-calculated
+If InfoHub Render do not have the color data it will ask infohub_color for it. infohub_color return a pre-calculated
 array to infohub_render:
 
 ```  
@@ -129,7 +129,7 @@ array to infohub_render:
         "shadow": ""
     }
 }
-Infohub_Render now parse the final HTML and insert colours from the array:
+InfoHub_Render now parse the final HTML and insert colours from the array:
 ```  
 
 const $color = _GetData({

@@ -1,13 +1,13 @@
-# Infohub Render
+# InfoHub Render
 
 Render frontend objects  
 [columns]
 
 # Introduction
 
-Infohub_Render is a client side (browser) javascript plugin that create HTML code. The HTML code are sent to
-Infohub_View for presentation on the screen.  
-Infohub_Render have child plugins that can render all common items that are used in a graphical user interface. If that
+InfoHub_Render is a client side (browser) javascript plugin that create HTML code. The HTML code are sent to
+InfoHub_View for presentation on the screen.  
+InfoHub_Render have child plugins that can render all common items that are used in a graphical user interface. If that
 is not enough it can also call other render plugins. You have an example in infohub_rendermajor.  
 The benefits are that the renderers can be improved without breaking any existing code. The rendered objects can have
 more features. One example is the text box that have a lot of extra features you can use if you want.  
@@ -163,7 +163,7 @@ exist).
 
 ## box_id
 
-The box_id tell where to put the rendered html. Read more in detail at [Infohub View](plugin,infohub_view) under "How to
+The box_id tell where to put the rendered html. Read more in detail at [InfoHub View](plugin,infohub_view) under "How to
 reference boxes".
 
 If you want to render something to your plugin GUI in Workbench then you need a function like the one below.

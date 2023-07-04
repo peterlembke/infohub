@@ -1,9 +1,9 @@
 # [1.3.2] - 2021-12-24
 
-Infohub now require PHP 8. I have stared using PHP8 commands.  
+InfoHub now require PHP 8. I have stared using PHP8 commands.  
 PHPStan code check implemented. Code now pass the level 9 checks.  
 Support for LibreTranslate implemented. Will be used for creating translation files.  
-Bad ideas; the documentation is now listing a lot of ideas that seem good but do not fit the Infohub security rules.  
+Bad ideas; the documentation is now listing a lot of ideas that seem good but do not fit the InfoHub security rules.  
 The good ideas will come later.
 
 * [Release notes](main,release_v1_v1v3_v1v3v2)
@@ -30,7 +30,7 @@ The good ideas will come later.
 * HUB-1391, LibreTranslate_Manual: Now has a Configuration for the default from_language, to_language
   * Default setting gives you a conversion from "en" (English) to "sv" (Swedish)
 * HUB-1396, Translate: Make it possible to call LibreTranslate before saving a file
-* HUB-1405, PHPStan to level 4. Infohub is now valid for PHPStan level 4.
+* HUB-1405, PHPStan to level 4. InfoHub is now valid for PHPStan level 4.
 * HUB-1406, PHPStan level 5 OK
 * HUB-1407, PHPStan level 6 OK
 * HUB-1410, infohub_renderdocument, use the image label to set image left/right
@@ -45,6 +45,6 @@ The good ideas will come later.
 ## Tested
 
 ## Investigated
-* HUB-1383, Investigate: Infohub server call LibreTranslate web service. I have infohub_call that can do curl requests.
+* HUB-1383, Investigate: InfoHub server call LibreTranslate web service. I have infohub_call that can do curl requests.
 * HUB-1404, Investigate: msgPack, wrote investigation documentation
 * 

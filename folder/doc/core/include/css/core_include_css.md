@@ -1,4 +1,4 @@
-# Infohub global css
+# InfoHub global css
 Some global css exist in file folder/include/infohub_global.css
 
 # Introduction

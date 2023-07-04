@@ -1,4 +1,4 @@
-# Infohub Launcher
+# InfoHub Launcher
 
 You can see all available plugins and start them.
 You can put a plugin on your favorite list. 

@@ -1,4 +1,4 @@
-# Infohub View
+# InfoHub View
 
 Manages display areas (boxes) on the screen
 
@@ -37,7 +37,7 @@ main.body.infohub_launcher.my_list.[my_list_box_content] (This example give 1201
 
 You see that you can use parent as an alias for the parent box. You can use [ and ] to add some string to the end of the
 id.  
-All functions in Infohub View that need to handle IDs call the parser and get the calculated ID.
+All functions in InfoHub View that need to handle IDs call the parser and get the calculated ID.
 
 ## Use of Workbench
 
@@ -45,11 +45,11 @@ If you use the Workbench to show boxes then the path to your plugin is main.body
 
 # CMD functions
 
-Infohub View have a lot of functions. All functions that need to manipulate the DOM must be here.
+InfoHub View have a lot of functions. All functions that need to manipulate the DOM must be here.
 
 # init
 
-Sets the View CSS. Used by Infohub_Workbench in its startup function.
+Sets the View CSS. Used by InfoHub_Workbench in its startup function.
 
 # get_box_id
 
@@ -327,7 +327,7 @@ Almost the same as boxes_insert except that you can have full details on each bo
 
 # Example
 
-This example comes from Infohub_Demo
+This example comes from InfoHub_Demo
 
 ```
 return _SubCall({
@@ -789,7 +789,7 @@ No, use set_visible instead.
 You can send a lot of commands in one request to View. The function mass_update will use the View internal functions.
 That is much quicker than doing a lot of requests to View, and it is also easier to debug if something unexpected
 happens.  
-In Infohub_Tabs I use mass_update to unselect all tabs except the selected tab that will be marked.  
+In InfoHub_Tabs I use mass_update to unselect all tabs except the selected tab that will be marked.  
 This is also a way to get access to the internal_ functions of View.
 
 ## Example

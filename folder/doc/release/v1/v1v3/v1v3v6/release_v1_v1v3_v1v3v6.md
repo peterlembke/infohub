@@ -1,6 +1,6 @@
 # [1.3.6] - 2022-01-09
 
-Created a blog. Speed improvements in Infohub.
+Created a blog. Speed improvements in InfoHub.
 
 * [Release notes](main,release_v1_v1v3_v1v3v6)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.6)
@@ -21,7 +21,7 @@ Created a blog. Speed improvements in Infohub.
  
 ## Fixed
 * HUB-1434, Updated infohub.se to the latest version v1.3.5
-* HUB-1456, Created a Infohub blog theme based on the theme: Story Book
+* HUB-1456, Created a InfoHub blog theme based on the theme: Story Book
 
 ## Tested
 

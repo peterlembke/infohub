@@ -5,7 +5,7 @@ Added a rendering cache. Improved Storage and a demo. Some @todo fixed. Assets c
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.16)
 
 ## Added
-* Server: Infohub_File.php, reading assets now add time stamp, so we know when the data was accurate.
+* Server: InfoHub_File.php, reading assets now add time stamp, so we know when the data was accurate.
 * Server, Client: Storage read_many now have wanted data in the paths' data array.
 * Server, Client: Storage read. Added wanted_data. If used you get only this data back from the read. 
 * HUB-710, Client: Asset index - update_specific_assets must update index
@@ -96,7 +96,7 @@ Added a rendering cache. Improved Storage and a demo. Some @todo fixed. Assets c
 * HUB-765, kick-out: Remove file test for infohub.php and update file list for index.php
 
 ## Fixed
-* Server: Infohub_Session.php -> responder_start_session registered in log-error.log that `data` had the wrong data type. Moved the response default values to each response segment. 
+* Server: InfoHub_Session.php -> responder_start_session registered in log-error.log that `data` had the wrong data type. Moved the response default values to each response segment. 
 * HUB-784, All translations fail in the plugins
     It was infohub_asset.php that did not convert json contents to array
 * HUB-785, Menu progress icon not showing in Tools, Welcome, Demo etc.
@@ -110,8 +110,8 @@ Added a rendering cache. Improved Storage and a demo. Some @todo fixed. Assets c
 ## Investigated
 * HUB-714, Client: Debug has code that delete the local database.
     // This code should logically be placed in storage_data_localforage
-    // but we use this code when we have a problem with Infohub.
-    // Nothing says we have a working Infohub that can reach that plugin.
+    // but we use this code when we have a problem with InfoHub.
+    // Nothing says we have a working InfoHub that can reach that plugin.
 * HUB-758, Client: Lower or document requests during startup
     The log in procedure need those requests in that order. I can not reduce the number of calls. 
     I saw an empty request in the startup.js. Will fix that in another task.

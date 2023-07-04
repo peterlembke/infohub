@@ -2,7 +2,7 @@
 Things examined to improve performance on the Javascript Core  
 
 # Introduction
-Javascript is quick, but the Infohub core does a lot of things. It adds up in time. This document describes what I have done to speed things up.  
+Javascript is quick, but the InfoHub core does a lot of things. It adds up in time. This document describes what I have done to speed things up.  
 But first a reminder of the three lead words: #1 Make it simple, #2 No exceptions, #3 Self containing. This means that we can do
  whatever we want as long as the lead words are fulfilled. None of the lead words say speed.  
 
@@ -23,7 +23,7 @@ It seems to not be enough to keep one item in the callstack that has step_end
 I have not given up this optimization just yet. It needs to mature a bit first. It could probably violate #1 Make it simple.  
     
 ## Web workers (Idea)
-The idea is to start all plugins as web workers. A comment in the code tells Infohub Exchange if the plugin should be started normally or as a web worker.  
+The idea is to start all plugins as web workers. A comment in the code tells InfoHub Exchange if the plugin should be started normally or as a web worker.  
 The plan is simple: The message are sent to the worker. When the worker is done an event are triggered. The event code takes the out message and put it on the queue for later sorting.  
 The gain here is that messages can be handled quicker from the queue. No need to wait for a response. Today with the JS Storage you do not need to wait because it is asynchronous, a callback says when it is finished.  
 With web workers all messages would be asynchronous. Too bad then that each message has its own trail with tasks to do. The work can not be split up unless there are messages from different sources where each has its own trail with tasks to do.  
@@ -83,7 +83,7 @@ This is already implemented on the PHP version, and it will be implemented on th
     
 ## Multiple messages (Done)
 When you want to send a bunch of messages, and you do not care about the answer, then it would be neat to just attach those messages to the return call / sub call and off they go.  
-I have done this and it works. There must be a small change in infohub_base, and you must use a message's parameter with an array in your return statement.
+I have done this, and it works. There must be a small change in infohub_base, and you must use a message's parameter with an array in your return statement.
   
 It works, but it gives no performance gain. It both breaks and honors rule #1 Make it simple.
             It breaks rule #2 No exceptions, meaning that you now can return messages in two ways. On teh other hand that rule is already broken since you already can return from a function by callback or return statement.  

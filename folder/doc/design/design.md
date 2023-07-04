@@ -1,5 +1,5 @@
 # Design
-Design decisions when creating Infohub.
+Design decisions when creating InfoHub.
 
 # Lead words in designing InfoHub
 I refer to these rules every time I am in doubt how to solve something.

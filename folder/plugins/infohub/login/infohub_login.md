@@ -1,13 +1,13 @@
-# Infohub_Login
+# InfoHub_Login
 
-Infohub_Login allow you to log in to another node. The PHP server version make sure the login is done without revealing
+InfoHub_Login allow you to log in to another node. The PHP server version make sure the login is done without revealing
 secrets.  
 The JS version has the same features as the PHP version and has a graphical user interface (GUI) where you can enter
 data that will be used in the login.
 
 ## First log in version
 
-The first thing you see when you start Infohub is a version of the log in plugin with a reduced interface. It is the same
+The first thing you see when you start InfoHub is a version of the log in plugin with a reduced interface. It is the same
 plugin rendered with fewer features. You can import a log in file, enter a password and log in.
 
 ### Information text
@@ -24,27 +24,27 @@ Observe that this feature is not bound to a domain. It is bound to an installati
 
 ## Client version
 
-This is what you see when you start the "Login" plugin in your browser. With the [menu](plugin,infohub_log in_menu) you
+This is what you see when you start the "Login" plugin in your browser. With the [menu](plugin,infohub_login_menu) you
 can navigate to different features of the plugin.
 
-In the [One contact](plugin,infohub_log in_contact) form you can see your contact information.
+In the [One contact](plugin,infohub_login_contact) form you can see your contact information.
 
-When you [log in](plugin,infohub_log in_log in) your browser start to negotiate with the server. If all went well then you
+When you [log in](plugin,infohub_login_login) your browser start to negotiate with the server. If all went well then you
 can communicate with the server.
 
-You can [import](plugin,infohub_log in_log in), [export](plugin,infohub_log in_export)
-, [forget](plugin,infohub_log in_forget) contact data.
+You can [import](plugin,infohub_login_login), [export](plugin,infohub_login_export)
+, [forget](plugin,infohub_login_forget) contact data.
 
-You can [set a password](plugin,infohub_log in_password) on your shared secret.
+You can [set a password](plugin,infohub_login_password) on your shared secret.
 
-You can also [log out](plugin,infohub_log in_password) from the server.
+You can also [log out](plugin,infohub_login_password) from the server.
 
 ## Server version
 
 The server version run on the server and handle the incoming log in request. The login is done in a way so both sides can
 prove that they know the shared_secret without revealing the shared_secret.
 
-You can read about this process in detail here: [log in](plugin,infohub_log in_log in)
+You can read about this process in detail here: [log in](plugin,infohub_login_log in)
 
 ## Translations
 

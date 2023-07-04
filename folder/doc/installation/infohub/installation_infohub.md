@@ -1,16 +1,16 @@
-# Install Infohub
-If you have fulfilled all requirements then it is time to install Infohub.
+# Install InfoHub
+If you have fulfilled all requirements then it is time to install InfoHub.
 
 If you use the Vagrant set up then you are done here. Surf to `http://vagrant.infohub.local`
 
 The below instructions cover installation on web hotel or own server.
 
 ## HTTPS
-If you have HTTPS you will also be able to run the service worker in Infohub. That will make Infohub useful even if you temporarily do not have internet on your device.
+If you have HTTPS you will also be able to run the service worker in InfoHub. That will make InfoHub useful even if you temporarily do not have internet on your device.
 We can manage without HTTPS.
 
 ## Public folder
-Some web hotels have a public folder. Everything in public_html should be there. The rest of the files will be placed on the outside of that folder. It does not matter what the public folder name is. Infohub will cope.
+Some web hotels have a public folder. Everything in public_html should be there. The rest of the files will be placed on the outside of that folder. It does not matter what the public folder name is. InfoHub will cope.
 
 ## Database
 You also need to configure a main database in file folder/config/infohub_storage_data.json

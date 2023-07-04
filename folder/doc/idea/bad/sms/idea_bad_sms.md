@@ -1,5 +1,5 @@
 # SMS
-Would be cool if Infohub could send and receive SMS. Then I could improve the log in procedure and send out one time password.
+Would be cool if InfoHub could send and receive SMS. Then I could improve the log in procedure and send out one time password.
 I could also get commands from SMS.
 
 && communication,share
@@ -22,7 +22,7 @@ There are better suited platforms for sending mass SMS.
 ## Comment 1
 SMS is unencrypted. SMS is stored by the telephone company.
 SMS is useless for privacy.
-Infohub is not about sharing information.
+InfoHub is not about sharing information.
 
 SMS is a bad idea.
 

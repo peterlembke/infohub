@@ -1,16 +1,16 @@
 # Email
 
-Infohub could send and receive emails. Building a safe place for reading and writing emails.
+InfoHub could send and receive emails. Building a safe place for reading and writing emails.
 
 Emails are not safe in any way. You need encryption and signing added and there is no standard way built in that everyone uses.
-Emails will not be implemented in Infohub.
+Emails will not be implemented in InfoHub.
 
 && communication,share
 
 ## Email send
 Send email trough transfer.
 
-Infohub can send email to a user that have verified the address.
+InfoHub can send email to a user that have verified the address.
 
 Getting log in information is the only use for sending emails.
 You never know who read and change your email.

@@ -1,4 +1,17 @@
-<?php
+<?php /** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpIfWithCommonPartsInspection */
+/** @noinspection PhpMissingReturnTypeInspection */
+/** @noinspection PhpMissingReturnTypeInspection */
+/** @noinspection PhpMissingReturnTypeInspection */
 /**
  * This class implements a "sounds like" algorithm developed
  * by Lawrence Philips which he published in the June, 2000 issue
@@ -1676,7 +1689,7 @@ class DoubleMetaphone
         return $result;
     }
 
-    private function StringAt($string, $start, $length, $list)
+    private function StringAt($string, $start, $length, $list): int
     {
         if (($start < 0) || ($start >= strlen($string))) {
             return 0;

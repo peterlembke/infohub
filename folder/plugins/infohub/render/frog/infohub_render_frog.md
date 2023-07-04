@@ -1,4 +1,4 @@
-# Infohub Render Frog
+# InfoHub Render Frog
 
 Fallback render plugin that render a frog where you make a mistake
 
@@ -10,7 +10,7 @@ that are the fallback in those cases.
 
 # Demo
 
-The [Infohub Demo Frog](plugin,infohub_demo_frog) show you in detail how this works.
+The [InfoHub Demo Frog](plugin,infohub_demo_frog) show you in detail how this works.
 
 ```
 $data = {

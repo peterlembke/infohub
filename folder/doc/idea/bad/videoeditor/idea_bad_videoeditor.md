@@ -11,7 +11,7 @@ Often you import a video from your phone.
 Cutting a video is quickly done in other software that is built for video handling.
 Same thing with converting a video. It is better done in other software.
 
-Fix the video first, then upload it to Infohub.
+Fix the video first, then upload it to InfoHub.
 
 See same problem with [Image editor](main,idea_bad_imageeditor).
 

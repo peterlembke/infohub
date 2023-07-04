@@ -1,15 +1,15 @@
-# Infohub Tools Uuid
+# InfoHub Tools Uuid
 
 Here you can generate UUIDs
 
 # Introduction
 
-With this tool you can generate UUIDs from [Infohub UUID](plugin,infohub_uuid).  
+With this tool you can generate UUIDs from [InfoHub UUID](plugin,infohub_uuid).  
 Go to the link and read more about UUID.
 
 # Introduction
 
-With this tool you can generate checksums from [Infohub Checksum](plugin,infohub_checksum).  
+With this tool you can generate checksums from [InfoHub Checksum](plugin,infohub_checksum).  
 There are different kinds of UUID. Check the link to read more about them.  
 This graphical user interface (GUI) show a node list, a function list, a button you can press, a text box where you see
 the result, and a button to clear the box.

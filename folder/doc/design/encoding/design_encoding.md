@@ -1,9 +1,9 @@
 # Encoding
 
-Today Infohub uses wrapper functions around json encode and json decode.
+Today InfoHub uses wrapper functions around json encode and json decode.
 
 I want to support [msgPack](https://github.com/msgpack/msgpack-php) if it holds up to the promise of being faster than JSON and produce smaller serialisation than JSON.
-Since Infohub heavily depend on object copy then msgPack could increase over all performance.
+Since InfoHub heavily depend on object copy then msgPack could increase over all performance.
 
 ## PHP
 

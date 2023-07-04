@@ -1,4 +1,4 @@
-# Infohub Storage Data IdbKeyval
+# InfoHub Storage Data IdbKeyval
 
 Stores data in your web browser
 

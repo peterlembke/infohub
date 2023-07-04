@@ -1,23 +1,23 @@
 # Slack
 
-Would be cool if I could send a message to a Slack channel from Infohub.
+Would be cool if I could send a message to a Slack channel from InfoHub.
 
 && communication,share
 
 ## Send to Slack
-Infohub could send in data to a Slack channel with the token that is generated.
-The token then have to be stored on the Infohub server.
-This is not a totally bad idea since you can always generate a new token if the Infohub server is compromised.
-On the other hand Infohub is not about sharing.
+InfoHub could send in data to a Slack channel with the token that is generated.
+The token then have to be stored on the InfoHub server.
+This is not a totally bad idea since you can always generate a new token if the InfoHub server is compromised.
+On the other hand InfoHub is not about sharing.
 
 ## Read from Slack
-Trigger events in Infohub from comments in Slack.
-Infohub have (or had) a callback feature, it will be (is) deprecated.
+Trigger events in InfoHub from comments in Slack.
+InfoHub have (or had) a callback feature, it will be (is) deprecated.
 
 ## Comment 1
-The problem with connecting to Slack is three things. Infohub is not about sharing. 
-Infohub do not want to store the token or credentials to reach the Slack channel.
-Infohub had a callback function, but it is now shut down to protect the data that is in Infohub.   
+The problem with connecting to Slack is three things. InfoHub is not about sharing. 
+InfoHub do not want to store the token or credentials to reach the Slack channel.
+InfoHub had a callback function, but it is now shut down to protect the data that is in InfoHub.   
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

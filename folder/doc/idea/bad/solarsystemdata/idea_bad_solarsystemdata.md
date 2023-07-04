@@ -1,10 +1,10 @@
 # Solar system data
-Would be cool to have solar system data in Infohub and calculate where the planets are.
+Would be cool to have solar system data in InfoHub and calculate where the planets are.
 
 && data,common_data
 
 ## Comment 1
-Infohub is about privacy and private data. Stockpiling public data in Infohub is not very useful unless you write private notes and want to give a reference to where you have been or saw or talked about.
+InfoHub is about privacy and private data. Stockpiling public data in InfoHub is not very useful unless you write private notes and want to give a reference to where you have been or saw or talked about.
 But even then perhaps an external link to Wikipedia would be better.
 
 # License

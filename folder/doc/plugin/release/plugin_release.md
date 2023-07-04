@@ -17,7 +17,7 @@ GitHub can host projects that are managed with the version system Git.
 Bitbucket is a popular repository with a lot of different software projects. You can place your plugin here and let anyone download it.  
 Bitbucket can host projects that are managed with the version system Git or with Mercurial.  
 
-# Infohub plugin index
+# InfoHub plugin index
 This index will let you search for plugins that are of high quality. They have a good documentation, test files, tests are passed, code is reviewed, assets have proper license files and so on.  
 When you find something you like you can download and review yourself, then add to your server.  
 

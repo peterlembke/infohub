@@ -17,7 +17,7 @@ Main focus in this release are log in and session. Many features are still missi
 - Table - Now tables use strings as ID instead of integers.
 - Table demo - Updated the demo to use hub_id
 - Debug, updated the documentation and the debug module doc how to debug infohub.
-- Infohub_cache - Updated the documentation
+- InfoHub_cache - Updated the documentation
 - infohub_contact - the user_id is now a hub_id with prefix `user_`
 - infohub_renderform - Removed the alert box on submit buttons that fail. You can handle that in your event function instead.
 - infohub_storage_data_idbkeyval.js - Now give accurate post_exist back

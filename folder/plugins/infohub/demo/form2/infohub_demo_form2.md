@@ -1,10 +1,10 @@
-# Infohub Demo Form2
+# InfoHub Demo Form2
 
-Shows a demo how you can use the plugin Infohub_RenderForm.
+Shows a demo how you can use the plugin InfoHub_RenderForm.
 
 # Introduction
 
-In this demo we show how to use the Infohub RenderForm plugin. [Infohub RenderForm](plugin,infohub_renderform)  
+In this demo we show how to use the InfoHub RenderForm plugin. [InfoHub RenderForm](plugin,infohub_renderform)  
 You will be shown an order form for a restaurant. If there are fields you need to fill in then they will be marked with
 a red frame. When you have filled your order you can press submit.
 

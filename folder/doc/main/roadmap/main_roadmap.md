@@ -5,16 +5,16 @@ You can find the releases [here](https://github.com/peterlembke/infohub/releases
 
 I also have a list with [planned parts I am working on](https://github.com/peterlembke/infohub#planned-parts-i-am-working-on) and [future plans](https://github.com/peterlembke/infohub#future-plans).
 
-This road map is about the [future plans](https://github.com/peterlembke/infohub#future-plans) for the Infohub domain. Planned milestone versions and when I aim to release them. 
-This also means that I can release applications ^^^for^^ the Infohub platform in separate domains and repositories. 
+This road map is about the [future plans](https://github.com/peterlembke/infohub#future-plans) for the InfoHub domain. Planned milestone versions and when I aim to release them. 
+This also means that I can release applications ^^^for^^ the InfoHub platform in separate domains and repositories. 
 
 Releases that do not contain any milestones have a smaller number like version 1.2.6.
-Smaller versions can still contain a lot of new things but are not considered a milestone for Infohub.
+Smaller versions can still contain a lot of new things but are not considered a milestone for InfoHub.
 
-Here are the short term plans for Infohub:
+Here are the short term plans for InfoHub:
 
 # Tree
-The Tree is the most important plugin in Infohub. It handles encryption and storage of your data locally and synced to the server.
+The Tree is the most important plugin in InfoHub. It handles encryption and storage of your data locally and synced to the server.
 Local plugins use the Tree plugin for all private data and do not talk with the server directly. 
 
 For: Javascript

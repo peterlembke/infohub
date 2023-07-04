@@ -1,6 +1,6 @@
 # InfoHub gallery
 
-Screenshots from Infohub. You can test Infohub for yourself at the [home page](https://infohub.se).
+Screenshots from InfoHub. You can test InfoHub for yourself at the [home page](https://infohub.se).
 
 # Workbench
 The workbench is where you start and manage your applications.
@@ -8,13 +8,13 @@ The workbench is where you start and manage your applications.
 ![The Workbench](../../images/launcher.jpeg)
 
 # Demo
-The demo application show what Infohub can do.
+The demo application show what InfoHub can do.
 
 ![The Demo](../../images/demo.jpeg)
 
 # Welcome
-The Welcome application give you inspiration what Infohub can do for you.
-Here you also get technical information how Infohub works.
+The Welcome application give you inspiration what InfoHub can do for you.
+Here you also get technical information how InfoHub works.
 
 ![Welcome](../../images/welcome.jpeg)
 

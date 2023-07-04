@@ -1,34 +1,34 @@
-# Infohub Translate
+# InfoHub Translate
 
 The plugin you start will be in your preferred language because it calls Translate and get the language data. The plugin
 is also a tool for creating language files. This document will describe how you do that.
 
 ## Preferred languages
 
-You set your preferred languages in the preferred order in [Infohub ConfigLocal](plugin,infohub_configlocal).
+You set your preferred languages in the preferred order in [InfoHub ConfigLocal](plugin,infohub_configlocal).
 
 ## Assets
 
-Plugins can have translation files in their assets, see [Infohub Asset](plugin,infohub_asset). The assets are downloaded
+Plugins can have translation files in their assets, see [InfoHub Asset](plugin,infohub_asset). The assets are downloaded
 to the client when the plugin is used.
 
-The plugin can ask Infohub_Translate for translation data and translate the texts before they are rendered and shown on
+The plugin can ask InfoHub_Translate for translation data and translate the texts before they are rendered and shown on
 the screen.
 
 ## Create translation files
 
 Pick a plugin name and create translation files. One key file and one file you will translate. Read more
-here: [Infohub_Translate_Createfiles](plugin,infohub_translate_createfiles).
+here: [InfoHub_Translate_Createfiles](plugin,infohub_translate_createfiles).
 
 ## Merge translation files
 
 When you have translated the file you can now merge it with the key file to get the final file. Read more
-here: [Infohub_Translate_Mergefiles](plugin,infohub_translate_mergefiles).
+here: [InfoHub_Translate_Mergefiles](plugin,infohub_translate_mergefiles).
 
 ## Update translation files
 
 You can update an existing language file with missing keys and then translate just those keys. Keys that no longer exist
-in the plugin will be removed. Read more here: [Infohub_Translate_Updatefiles](plugin,infohub_translate_updatefiles).
+in the plugin will be removed. Read more here: [InfoHub_Translate_Updatefiles](plugin,infohub_translate_updatefiles).
 
 ## Use in your plugin
 

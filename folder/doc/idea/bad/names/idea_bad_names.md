@@ -5,7 +5,7 @@ When I mention a name in my notes then I can link to the data.
 && data,common_data
 
 ## Comment 1
-Infohub is about privacy and private data. Stockpiling public data in Infohub is not very useful.
+InfoHub is about privacy and private data. Stockpiling public data in InfoHub is not very useful.
 It would be better to have an external link to Wikipedia.
 
 # License

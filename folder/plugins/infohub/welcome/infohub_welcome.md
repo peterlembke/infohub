@@ -1,4 +1,4 @@
-# Infohub Welcome
+# InfoHub Welcome
 
 An inspirational journey into what InfoHub are and will be. This plugin is the first plugin you will see when you start
 InfoHub. In this plugin you can read about what you gain with InfoHub.
@@ -14,20 +14,20 @@ review the code.
 
 # For your eyes only
 
-Infohub focus on privacy at all levels. The data you produce are for your eyes only.
+InfoHub focus on privacy at all levels. The data you produce are for your eyes only.
 
 # For your special eyes
 
 For your special eyes you have colour schemas and excellent zoom on all devices.  
 Celebral palsy and different kinds of shakes make it very hard to use a mouse. The target devices are: touch, keyboard
 and gamepad. Not mouse.  
-Stress is a condition that make you sensitive to information overload. There is no blip and blop in Infohub.  
+Stress is a condition that make you sensitive to information overload. There is no blip and blop in InfoHub.  
 A full audio feedback is in the planning. Useful for devices without a screen or when you do not use a screen.
 
 # Your language
 
-Select your preferred languages so Infohub can show you the right text.  
-The fallback language for Infohub is world-english. The kind of english that are taught in schools all over the world.
+Select your preferred languages so InfoHub can show you the right text.  
+The fallback language for InfoHub is world-english. The kind of english that are taught in schools all over the world.
 
 # My program
 

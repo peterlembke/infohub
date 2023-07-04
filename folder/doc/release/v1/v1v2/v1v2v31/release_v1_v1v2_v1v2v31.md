@@ -12,7 +12,7 @@ Development environment Vagrant now run xdebug 3.0.x. Fixed minor bugs.
 * HUB-1212, white or black background in startup depending on browser settings.
 
 ## Changed
-* HUB-1193, Infohub large logo. Make black text work on black background
+* HUB-1193, InfoHub large logo. Make black text work on black background
 * HUB-1213, Prepare Tree for next version. Removed "manage". Updated the todo for version 1.3
 
 ## Removed

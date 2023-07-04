@@ -1,4 +1,4 @@
-# Infohub Privacy Traffic
+# InfoHub Privacy Traffic
 
 How to protect your information on its way to/from your server.
 
@@ -34,7 +34,7 @@ logging your data.
 
 Single point encryption is another way of stopping viewing your information. You encrypt the data in your browser. The
 data are never decrypted. If you want the data it is still encrypted, and you are the only one that can decrypt the data
-in your browser. This is built into Infohub when you save data through the Tree plugin.
+in your browser. This is built into InfoHub when you save data through the Tree plugin.
 
 ## Manipulate information
 
@@ -42,7 +42,7 @@ Manipulation of information by a third party. The man in the middle. If for some
 hijacked and a person can monitor your traffic then they can also manipulate the traffic before it reaches then you or
 the server. Your encrypted traffic can not be manipulated but not all messages are encrypted.
 
-Infohub has a signing mechanism that uses checksums of the data and sign the checksum. It does still allow some
+InfoHub has a signing mechanism that uses checksums of the data and sign the checksum. It does still allow some
 manipulation, but it is much harder and much more limited what can be manipulated.
 
 # The tests

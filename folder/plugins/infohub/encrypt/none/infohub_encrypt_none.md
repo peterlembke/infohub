@@ -1,4 +1,4 @@
-# Infohub Encrypt None
+# InfoHub Encrypt None
 
 No encrypt/decrypt of the data.
 

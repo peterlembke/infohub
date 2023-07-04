@@ -1,4 +1,4 @@
-# Infohub Storage Data Redis
+# InfoHub Storage Data Redis
 
 Handles storage connections
 

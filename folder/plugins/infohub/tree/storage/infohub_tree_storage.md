@@ -1,4 +1,4 @@
-# Infohub Tree Storage
+# InfoHub Tree Storage
 
 Handle the storage of the personal data to browser Storage. Makes sure all data are encrypted before stored. Makes sure
 data get decrypted after read if you want it to be.

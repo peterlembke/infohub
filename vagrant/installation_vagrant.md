@@ -35,7 +35,7 @@ You need to add
 CTRL + O, CTRL + X
 
 ## use vagrant
-In the terminal you change folder to where you have downloaded the Infohub source.
+In the terminal you change folder to where you have downloaded the InfoHub source.
 
 * vagrant up - sets up the vagrant box / starts the vagrant box
 * vagrant provision - run this if you have changed something in the Vagrantfile or vagrant/vagrant.sh
@@ -48,7 +48,7 @@ All CLI commands are found [here](https://www.vagrantup.com/docs/cli).
 
 ## Time issues
 Many users have noted that the clock in the guest operating system can differ quite much compared to the host operating system.
-Infohub is sensitive with the timing. The transfer between the client and the server are signed with time.
+InfoHub is sensitive with the timing. The transfer between the client and the server are signed with time.
 
 Read more about the issue [here](https://github.com/laravel/homestead/issues/799).
 
@@ -74,7 +74,7 @@ Right now we run Ubuntu 20.04 LTS (ubuntu/focal64) and that version contains PHP
 See all Ubuntu boxes [here](https://app.vagrantup.com/ubuntu).
 
 ## Database
-Vagrant install the database MySQL 5.7. Infohub will use the database server without any more configuration.
+Vagrant install the database MySQL 5.7. InfoHub will use the database server without any more configuration.
 
 If you want to see what is in the database in the vagrant box then you can connect with a database viewer. My favourite is [dbeaver](https://dbeaver.io/).
 
@@ -105,7 +105,7 @@ A little down on the left side you find menu "Network" and then tab "SSH Tunnel"
 
 Press button "Test connection". If it works press "OK". 
 
-You can now see what Infohub does in the database.
+You can now see what InfoHub does in the database.
 
 # License
 This documentation is copyright (C) 2020 Peter Lembke.  

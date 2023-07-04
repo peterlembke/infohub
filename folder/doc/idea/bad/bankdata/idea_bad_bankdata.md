@@ -5,7 +5,7 @@ I would like to get the list with my transactions, so I can see my expenses and 
 
 ## Comment 1
 Data that does not exist can not be stolen. Keep your bank data at your bank. It is safer.
-You could download the transaction data and uploaded to Infohub in an appropriate Tree-app. That could be done.
+You could download the transaction data and uploaded to InfoHub in an appropriate Tree-app. That could be done.
 Accessing a Bank API is a bad idea.
 
 # License

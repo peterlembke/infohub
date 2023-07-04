@@ -1,4 +1,4 @@
-# Infohub Timer
+# InfoHub Timer
 
 This is a Client plugin only.  
 You can get a delayed response from this plugin. You can se a demo of this

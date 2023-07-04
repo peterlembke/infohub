@@ -32,7 +32,7 @@ const _GetCmdFunctions = function () {
 This is the bare minimum you need for a plugin to work. Suitable for normal plugins that have no GUI and are not a renderer.  
     
 ## Renderer
-If you create a renderer then this template is suitable as a start. You can also take a look at other renderers like Infohub Rendermajor.
+If you create a renderer then this template is suitable as a start. You can also take a look at other renderers like InfoHub Rendermajor.
   
 If your renderer do not work then put a break point in function "create" and see if it is reached. Then you can see if the input data is correct before and after `_Default`.
   
@@ -146,7 +146,7 @@ If your plugin is not loaded then check that: your web server has read rights on
 You should not install xdebug on a production server because PHP will be much slower. Instead, use selective logging.
 
 ## Avoid cache systems like Varnish
-Cache systems like `Varnish` do nothing for speeding up applications like Infohub. Instead, they are just an unnecessary layer that can mess things up.
+Cache systems like `Varnish` do nothing for speeding up applications like InfoHub. Instead, they are just an unnecessary layer that can mess things up.
 
 ## Get any response from web server
 If nothing works on the server then try to surf to
@@ -176,7 +176,7 @@ You can
 The `refresh` button you find in the Workbench Launcher triggers a SHIFT + CTRL + ATL + 3. It removes the local plugins and assets without touching local data.
 This is a useful button on touch devices that has no keyboard.
 
-## Infohub Debug
+## InfoHub Debug
 This plugin has the logic. Here you see the four buttons as on screen buttons, and you can use them on touch devices, if you can get that far and load the plugin. 
     
 # Return

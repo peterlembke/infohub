@@ -1,4 +1,4 @@
-# Infohub privacy
+# InfoHub privacy
 
 This plugin show you how you can improve the privacy and privacy on your computer and server.
 
@@ -8,15 +8,15 @@ Internet privacy is about your choice if you want to share or not share your per
 
 * Read about internet privacy at [Wikipedia](https://en.wikipedia.org/wiki/Information_privacy)
 
-## Infohub
+## InfoHub
 
-The aim for Infohub is to help you access your private data on your personal devices without revealing any private data
-to others. You can access your data from your phone, tablet, computer. Infohub is not about sharing and not about being
+The aim for InfoHub is to help you access your private data on your personal devices without revealing any private data
+to others. You can access your data from your phone, tablet, computer. InfoHub is not about sharing and not about being
 social.
 
-* Here you can read more about [Infohub](doc,main)
+* Here you can read more about [InfoHub](doc,main)
 
-## Infohub privacy
+## InfoHub privacy
 
 With this tool you can test your browser to see if some common ways of exposing private data are open. You will
 also get tips how to increase your privacy.

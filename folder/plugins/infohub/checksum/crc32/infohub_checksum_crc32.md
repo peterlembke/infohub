@@ -1,4 +1,4 @@
-# Infohub Checksum CRC32
+# InfoHub Checksum CRC32
 
 Calculate a CRC32 checksum
 
@@ -9,7 +9,7 @@ The CRC32 checksum was designed in 1962 to detect burst errors in data streams. 
 at <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check" target="_blank">Wikipedia</a>, it is an interesting
 story.  
 One feature with CRC32 is that you can continue adding data to the checksum when the data come from the stream.  
-Infohub do not use CRC32, instead the main checksum type is MD5.
+InfoHub do not use CRC32, instead the main checksum type is MD5.
 
 # CRC-32
 

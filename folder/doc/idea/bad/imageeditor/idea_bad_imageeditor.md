@@ -11,7 +11,7 @@ Often you import an image from your phone, and it gets rotated automatically.
 Cropping an image is quickly done in other software that is built for image handling.
 Same thing with converting an image. It is better done in other software.
 
-Fix the image first, then upload it to Infohub.
+Fix the image first, then upload it to InfoHub.
 
 See same problem with [Video editor](main,idea_bad_videoeditor).
 

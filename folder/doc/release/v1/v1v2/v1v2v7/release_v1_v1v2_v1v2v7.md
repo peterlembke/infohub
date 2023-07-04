@@ -5,7 +5,7 @@ Main focus in this release was to finish the login and sessions, but I got side 
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.7)
 
 ## Added
-- TERMS.md - To follow if you want to display the Infohub TOS logo (future feature)
+- TERMS.md - To follow if you want to display the InfoHub TOS logo (future feature)
 - folder/doc/design/ added documentation about design decisions.
 - infohub_encrypt_none.md - New documentation
 - infohub_encrypt_pgp.md - New documentation
@@ -16,8 +16,8 @@ Main focus in this release was to finish the login and sessions, but I got side 
 
 ## Changed
 - folder/plugins/plugin/plugin.md - Improved documentation
-- Infohub Login - Improved Swedish translations
-- Infohub Contact - Improved Swedish translations
+- InfoHub Login - Improved Swedish translations
+- InfoHub Contact - Improved Swedish translations
 - On all JS plugins: Removed the usage of all ++ and --.
 /jshint and put them in package.json instead.
 - Added missing ; on rows in JS plugins. jshint helped me find them.
@@ -27,7 +27,7 @@ Main focus in this release was to finish the login and sessions, but I got side 
 - jshint found, and I removed return value variables that are never used.
 - Loop key variables should not be `$i`. I renamed some of them but there are many more to change later.
 - There were still some "var" left that I changed to let or const.
-- Refactored Infohub JS files: uuid, transfer, template, asset, base, render, Markdown, launcher, markdown_own, demo_form2, checksum_personnummer, contact_client, compress, configlocal_allow, checksum_md5, cache, view, 
+- Refactored InfoHub JS files: uuid, transfer, template, asset, base, render, Markdown, launcher, markdown_own, demo_form2, checksum_personnummer, contact_client, compress, configlocal_allow, checksum_md5, cache, view, 
 
 ## Removed
 - On all JS plugins: Removed inline options for jslint

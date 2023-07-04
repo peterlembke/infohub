@@ -1,12 +1,12 @@
-# Infohub Demo Form
+# InfoHub Demo Form
 
-Shows a demo how you can use the Infohub Render Form plugin.
+Shows a demo how you can use the InfoHub Render Form plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub RenderForm plugin. [Infohub Render Form](plugin,infohub_render_form)  
+In this demo we show how to use the InfoHub RenderForm plugin. [InfoHub Render Form](plugin,infohub_render_form)  
 The Render Form is a child plugin to Render. The purpose is to create basic form elements. You can use the elements as part
-of something bigger, as it is done in Infohub_RenderForm.  
+of something bigger, as it is done in InfoHub_RenderForm.  
 In demo form2 you can see how the plugin RenderForm takes the basic elements from Render Form and add functionality to
 them.
 

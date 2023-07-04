@@ -1,4 +1,4 @@
-# Infohub Render Table
+# InfoHub Render Table
 
 You can render a table with columns and rows.
 

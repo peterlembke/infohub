@@ -62,14 +62,16 @@ function infohub_trigger() {
     // * Can only be reached through cmd()
     // ***********************************************************
 
+    $functions.push('setup_gui');
     /**
      * Set up the Workbench Graphical User Interface
      *
      * @version 2019-03-13
      * @since   2017-10-03
      * @author  Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}|*}
      */
-    $functions.push('setup_gui');
     const setup_gui = function($in = {}) {
         const $default = {
             'box_id': '',
@@ -297,6 +299,7 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('click_node');
     /**
      * When selecting a node
      * Will update the plugins list
@@ -304,8 +307,9 @@ function infohub_trigger() {
      * @version 2020-08-12
      * @since 2020-08-12
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string, ok: string}|*}
      */
-    $functions.push('click_node');
     const click_node = function($in = {}) {
         const $default = {
             'box_id': '', // The box we are in
@@ -402,12 +406,19 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('_CreateOptionList');
     /**
      * Give data and get an option list
+     *
      * @param $data
+     * @param $selectedValue
+     * @returns {[]}
      * @private
      */
-    const _CreateOptionList = function($data = {}, $selectedValue = '') {
+    const _CreateOptionList = function(
+        $data = {},
+        $selectedValue = ''
+    ) {
         let $list = [];
         for (let $key in $data) {
             if ($data.hasOwnProperty($key) === false) {
@@ -428,6 +439,7 @@ function infohub_trigger() {
         return $list;
     };
 
+    $functions.push('click_plugin');
     /**
      * When selecting a plugin
      * Will update the plugin functions list
@@ -435,8 +447,9 @@ function infohub_trigger() {
      * @version 2020-08-12
      * @since 2020-08-12
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string, ok: string}|*}
      */
-    $functions.push('click_plugin');
     const click_plugin = function($in = {}) {
         const $default = {
             'box_id': '', // The box we are in
@@ -564,6 +577,7 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('click_get_default_message');
     /**
      * Send an empty message to the plugin function and get the default in parameters
      * Show them in the message box as pretty JSON
@@ -571,8 +585,9 @@ function infohub_trigger() {
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|{}|{}|{}|*}
      */
-    $functions.push('click_get_default_message');
     const click_get_default_message = function($in = {}) {
         const $default = {
             'box_id': '',
@@ -737,6 +752,7 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('click_send');
     /**
      * Send the message to the node plugin function
      * Filter the response and show as pretty JSON in the response textarea
@@ -744,8 +760,9 @@ function infohub_trigger() {
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|{}|{}|{}|*}
      */
-    $functions.push('click_send');
     const click_send = function($in = {}) {
         const $default = {
             'box_id': '',
@@ -983,14 +1000,16 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('click_refresh_plugin_list');
     /**
      * Click refresh to get new data from the server about the plugins for both nodes
      *
      * @version 2020-08-13
      * @since 2020-08-13
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|{}|{}|{}|*}
      */
-    $functions.push('click_refresh_plugin_list');
     const click_refresh_plugin_list = function($in = {}) {
         const $default = {
             'box_id': '',
@@ -1025,25 +1044,30 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('click_filter');
     /**
      * Reads the hidden full default json. Filters it and displays it.
      *
      * @version 2022-04-10
      * @since 2022-04-10
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message, ok}|{}|{}|{}|*}
      */
-    $functions.push('click_filter');
     const click_filter = function($in = {}) {
         const $default = {
             'box_id': '',
             'value': '', // the option value
             'name': '', // name of the option group
-            'step': 'step_get_original',
+            'step': 'step_get_destination',
             'response': {
                 'answer': 'false',
                 'message': '',
                 'text': '', // The hidden text box value
             },
+            'data_back': {
+                'destination_data': {}
+            }
         };
         $in = _Default($default, $in);
 
@@ -1053,12 +1077,40 @@ function infohub_trigger() {
         const $destinationResponse = $in.box_id + '_textarea_response_form_element';
 
         let $data = {};
+        let $destinationData = {};
         let $original = $originalDefault;
         let $destination = $destinationDefault;
 
         if ($in.name === 'filter_response') {
             $original = $originalResponse;
             $destination = $destinationResponse;
+        }
+
+        if ($in.step === 'step_get_destination') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'get_text',
+                },
+                'data': {
+                    'id': $destination,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'value': $in.value,
+                    'name': $in.name,
+                    'step': 'step_get_destination_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_get_destination_response') {
+            $in.step = 'step_end';
+            if ($in.response.answer === 'true') {
+                $destinationData = _JsonDecode($in.response.text);
+                $in.step = 'step_get_original';
+            }
         }
 
         if ($in.step === 'step_get_original') {
@@ -1075,6 +1127,7 @@ function infohub_trigger() {
                     'box_id': $in.box_id,
                     'value': $in.value,
                     'name': $in.name,
+                    'destination_data': $destinationData,
                     'step': 'step_get_original_response',
                 },
             });
@@ -1112,6 +1165,8 @@ function infohub_trigger() {
 
         if ($in.step === 'step_store_destination') {
 
+            $data = _Default($data, $in.data_back.destination_data);
+
             let $dataJSON = _JsonEncode($data);
 
             return _SubCall({
@@ -1141,6 +1196,7 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('get_plugin_list');
     /**
      * Get the function list from local Storage.
      * If not there then update from the server and try again.
@@ -1148,8 +1204,9 @@ function infohub_trigger() {
      * @version 2020-08-17
      * @since 2020-08-17
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, data: {}, message: string}|{}|{}|{}|*}
      */
-    $functions.push('get_plugin_list');
     const get_plugin_list = function($in = {}) {
         const $default = {
             'use_local_version_if_available': 'true',
@@ -1240,14 +1297,16 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('update_plugin_list');
     /**
      * Makes sure we have the latest list with all nodes, plugins and functions
      *
      * @version 2020-08-16
      * @since 2020-08-16
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer: string, message: string}|{}|{}|{}|*}
      */
-    $functions.push('update_plugin_list');
     const update_plugin_list = function($in = {}) {
         const $default = {
             'step': 'step_call_server',
@@ -1320,6 +1379,7 @@ function infohub_trigger() {
         };
     };
 
+    $functions.push('populate_gui');
     /**
      * Populate the GUI with the selections you have previously done.
      * If I can not find any previous selections then I will skip this.
@@ -1327,8 +1387,9 @@ function infohub_trigger() {
      * @version 2022-03-26
      * @since 2022-03-26
      * @author Peter Lembke
+     * @param $in
+     * @returns {{answer, message}|{}|{}|{}|*}
      */
-    $functions.push('populate_gui');
     const populate_gui = function($in = {}) {
         const $default = {
             'box_id': '',

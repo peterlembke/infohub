@@ -1249,6 +1249,10 @@ function infohub_exchange() {
                 // Plugins launch faster. Test plugins: Tools, Welcome, Demo, Contact. Much quicker.
             }
 
+            if ($back.plugin === 'infohub_trigger') {
+                break leave; // Trigger must be able to send a message to any plugin, any function on the client node.
+            }
+
             if ($toPart.length - $backPart.length === 1) {
                 let $toPartCopy = _ByVal($toPart);
                 $toPartCopy.pop(); // Remove the child name from the end of the array

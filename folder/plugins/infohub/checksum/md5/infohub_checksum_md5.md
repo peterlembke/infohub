@@ -1,4 +1,4 @@
-# Infohub Checksum MD5
+# InfoHub Checksum MD5
 
 Checksum function that detect unintentional data corruption
 

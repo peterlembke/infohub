@@ -1,4 +1,4 @@
-# Infohub Storage Data File
+# InfoHub Storage Data File
 
 Stores data in a file structure on the persistent storage
 
@@ -41,7 +41,7 @@ In your main.xml you can write about the event and then reference to other xml f
 # Open format
 
 There is a difference between [open file formats](en.wikipedia.org/wiki/Open_format) and file formats that are free to
-use. Please do not use free to use or closed file formats with Infohub. Instead, use open file formats.  
+use. Please do not use free to use or closed file formats with InfoHub. Instead, use open file formats.  
 Being open is not enough, it must also be good and have support in the major web browsers (Chromium, Firefox, Opera). A
 major web browser must exist on all major operating systems (Linux, OSX, Windows, Android, IOS)
 
@@ -68,7 +68,7 @@ file format is perfect.
 
 # Data file types - proprietary formats
 
-Infohub will not stop you if you use proprietary formats. Proprietary formats risk being unreadable in the future by you
+InfoHub will not stop you if you use proprietary formats. Proprietary formats risk being unreadable in the future by you
 when you no longer have a license to the software that created them. Proprietary formats are also useless to people that
 do not run the specific software you used to create the file. Therefore, using open source is not enough you must also
 use an open format that can be read in many software programs on the major operating systems.  
@@ -89,7 +89,7 @@ want for your material.
 If you download material from the internet then you also need to copy the license and attach that to the media file in
 the database.  
 Only use material that you know that you are allowed to use. There must be a reference to a valid license. The license
-data will be used in Infohub to show credits for all material you use on the page.
+data will be used in InfoHub to show credits for all material you use on the page.
 
 # Image file types
 

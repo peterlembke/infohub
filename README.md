@@ -1,8 +1,8 @@
 # InfoHub - Your private web operating system
 
 ![InfoHub Logo](folder/doc/images/logotype/infohub-logo-done.png)   
-Infohub is your private operating system in your browser. You reach your encrypted data on all your devices and can run the Infohub applications you like.
-Infohub is not about sharing. InfoHub run on your own or your friends trusted server, on the Internet or in your private network.
+InfoHub is your private operating system in your browser. You reach your encrypted data on all your devices and can run the InfoHub applications you like.
+InfoHub is not about sharing. InfoHub run on your own or your friends trusted server, on the Internet or in your private network.
 
 Here are some [screenshots](folder/doc/main/gallery/main_gallery.md). 
 You can find [articles](https://github.com/peterlembke/infohub-articles#readme) in Swedish and English. 
@@ -22,11 +22,11 @@ On GitHub, you find the [documentation](https://github.com/peterlembke/infohub/t
 License: GNU [GPL-3.0-or-later](LICENSE.md). See license [details](folder/doc/license/license.md).
 
 # Site owner
-As a site owner, if you want to use the branding "**Applies to the Infohub terms**" and/or the corresponding logo ![Infohub logo](folder/favicon.png) you need to comply to the additional [TERMS.md](TERMS.md).
+As a site owner, if you want to use the branding "**Applies to the InfoHub terms**" and/or the corresponding logo ![InfoHub logo](folder/favicon.png) you need to comply to the additional [TERMS.md](TERMS.md).
 
 # Releases
-Infohub have been developed since 2010-01-01 and have some [releases](CHANGELOG.md).
-Infohub is complete. Infohub Core get new features. Applications for Infohub will be created once the Tree plugin is finished.
+InfoHub have been developed since 2010-01-01 and have some [releases](CHANGELOG.md).
+InfoHub is complete. InfoHub Core get new features. Applications for InfoHub will be created once the Tree plugin is finished.
 
 You can follow the releases on [Twitter](https://twitter.com/LembkePeter)
 

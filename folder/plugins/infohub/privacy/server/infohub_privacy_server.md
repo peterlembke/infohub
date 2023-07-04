@@ -1,4 +1,4 @@
-# Infohub Privacy Server
+# InfoHub Privacy Server
 
 You can do a lot of things to increase privacy/privacy on the server.
 

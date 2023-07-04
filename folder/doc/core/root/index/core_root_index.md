@@ -15,7 +15,7 @@ The meta tags are used for different things. They are found in index.php at the 
 <meta name="keywords" content="InfoHub" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Infohub">
+<meta name="apple-mobile-web-app-title" content="InfoHub">
 <meta name="allowed-outgoing-urls" content="origin">
 ```
 ## charset
@@ -44,7 +44,7 @@ The three meta tags help to show the app better on Apple IOS.
 This meta tag do not exist. I just wish it did. The thought would be to limit all outgoing requests to the URLs mentioned in this tag.
 The "origin" mean that the browser can contact the same origin.
 
-Then comma separate more URLs if you need. For Infohub I only want to communicate with the server.
+Then comma separate more URLs if you need. For InfoHub I only want to communicate with the server.
 
 The closest thing to a limit I have found is [this](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Setting_HTTP_request_headers) and [this](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests) but that is for Firefox only and for browser apps only.
 
@@ -65,10 +65,10 @@ I will add nothing more to this file.
 The favicon
 
 ## apple-touch-icon
-A larger icon for Infohub
+A larger icon for InfoHub
 
 ## manifest
-With the manifest you can put Infohub as a start icon to your Android/Apple phone/pad.
+With the manifest you can put InfoHub as a start icon to your Android/Apple phone/pad.
 
 # PHP files included
 These files are included and run on the server before you even get the page.  

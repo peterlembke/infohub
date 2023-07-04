@@ -13,7 +13,7 @@ You can now use all InfoHub features from InfoHub directly in your M2 modules. T
 InfoHub can be used with infohub_magento in API mode to have an extra frontend to the normal M2 frontend. You can then see how much sales both interfaces give you.  
 You set up a separate InfoHub installation and install plugin infohub_webshop. The web-shop provide the basic functions for a webshop, and you can reroute the data requests to infohub_magento  
 InfoHub will be what the customers see. With the rendering in the browser, and sharing of data between browsers, you get a very fast frontend on all devices.  
-Infohub PHP Core will handle the communication with M2, and the Javascript Browser Core will provide the visual parts.  
+InfoHub PHP Core will handle the communication with M2, and the Javascript Browser Core will provide the visual parts.  
 With InfoHub as a frontend you can zoom in infinitely, you can select a color schema and a font that suite your sight.  
 Since InfoHub only support touch and keyboard and keypad then it is easier to navigate. Nothing will overlay and nothing will trigger on hover.  
 Perhaps your preferred user interface is audio and a game pad, then you use that.  
@@ -21,7 +21,7 @@ Perhaps your preferred user interface is audio and a game pad, then you use that
 # InfoHub as an integration hub
 An integration hub is a neutral point that have interfaces to importers and exporters. With an integration hub you have importers and exporters. If you export data from your product data program to file then you can import that data to the hub. Then you select an exporter, perhaps export to Magento, that will receive the data.  
 If you later want to change any of the systems then you change the importer or the exporter. This means that the integration can be reused.  
-Infohub read import files and put the data in queues. The queues are imported and the data are sent to the M2 REST API.  
+InfoHub read import files and put the data in queues. The queues are imported and the data are sent to the M2 REST API.  
 A new module in M2 provide a REST API for the features that can not be reached through the normal API, like effective exports from M2 without polling.  
 
 # Hybrid usage

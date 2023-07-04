@@ -1,13 +1,13 @@
-# Infohub Workbench
+# InfoHub Workbench
 
 Handles the screen set up for your plugins.
 
 # Introduction
 
-Infohub Workbench handle what you see on the screen. It sets up the basic graphical user interface. And it
+InfoHub Workbench handle what you see on the screen. It sets up the basic graphical user interface. And it
 starts [infohub_launcher](plugin,infohub_launcher).
 
-Infohub Workbench gives you the possibility to start your plugins and switch between started plugins.
+InfoHub Workbench gives you the possibility to start your plugins and switch between started plugins.
 
 # Function startup
 
@@ -95,11 +95,11 @@ Workbench set up a lot of boxes, here is a list of them
 From the example above I created three boxes: first_box, second_box, third_box. The full path for the first_box is:
 main.body.{plugin_name}.first_box  
 When you want to reference the "first_box" in your plugin you use: `_GetBoxId() + '.first_box',`.  
-To learn more about how to use the boxes I recommend reading: [Infohub_View](plugin,infohub_view)
+To learn more about how to use the boxes I recommend reading: [InfoHub_View](plugin,infohub_view)
 
 # Launcher
 
-The plugin Infohub_Launcher is auto started by Workbench. Launcher show two lists. One is "Available plugins", that
+The plugin InfoHub_Launcher is auto started by Workbench. Launcher show two lists. One is "Available plugins", that
 is a list of plugins that can be started from Workbench. The list come from the server and is the same for every
 visitor.
 
@@ -108,7 +108,7 @@ list. This list is personal and stored in your browser cache.
 
 You can "Remove" and icon from "My list" and you can "Run" a plugin from "My list".
 
-Read more about: [Infohub_Launcher](plugin,infohub_launcher)
+Read more about: [InfoHub_Launcher](plugin,infohub_launcher)
 
 # License
 

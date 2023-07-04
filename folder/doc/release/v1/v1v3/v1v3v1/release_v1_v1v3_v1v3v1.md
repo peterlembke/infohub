@@ -19,7 +19,7 @@ Added password to the Tree private secret
 * infohub_view -> get_attribute to get values from an element.
 * HUB-1312, Render a status box with infohub_renderstatus + demo
 * HUB-1279, Login: Add the current full URL to the standalone log in page in a folded More-box
-* HUB-1330, Infohub_doc: Function to render doc in box id
+* HUB-1330, InfoHub_doc: Function to render doc in box id
 * HUB-1353, Translate: CreateFile - Add static country_code and country_name. Add language_name in the file
 * HUB-1361, infohub_plugin: Add minify_js = false to default config. Makes it easier to debug javascript files in the browser but takes more space
 * HUB-1358, Translate: GUI that validate translation files + backend

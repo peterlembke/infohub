@@ -1,4 +1,4 @@
-# Infohub Demo Advancedlist
+# InfoHub Demo Advancedlist
 
 Shows a demo how you can use the infohub_renderadvancedlist plugin.
 
@@ -8,8 +8,8 @@ In this demo we show how to use the infohub_renderadvancedlist plugin.
 You will see how the renderadvancedlist box can be used in different ways.    
 Read more in the documentation about
 
-- [Infohub RenderAdvancedlist](plugin,infohub_renderadvancedlist)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub RenderAdvancedlist](plugin,infohub_renderadvancedlist)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # License
 

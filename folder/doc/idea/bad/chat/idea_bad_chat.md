@@ -1,13 +1,13 @@
 # Chat
-If Infohub uses Swoole then WebSocket can be used. That means real time traffic between clients and that means a chat client can be created.
+If InfoHub uses Swoole then WebSocket can be used. That means real time traffic between clients and that means a chat client can be created.
 
 There are also open standards for Chat that would be cool to support.
 
 && communication,share
 
 ## Comment 1
-Infohub is not about sharing data.
-Building a chat client sound awesome, but don't do that within Infohub.
+InfoHub is not about sharing data.
+Building a chat client sound awesome, but don't do that within InfoHub.
 
 If you also want a secure client then use the app [Signal](https://signal.org/) instead.
 Signal exist for Windows, macOS, Linux, Android, IOS.

@@ -1,4 +1,4 @@
-# Infohub Uuid
+# InfoHub Uuid
 
 Universal Unique Identifier. You can get UUID0, UUID4 and the new infohub_uuid
 
@@ -22,7 +22,7 @@ Version 1,2,3,5 of the UUID standard also produce the same format but base their
 name. I have not implemented those versions because I do not want to reveal the MAC number or anything that can trace
 the UUID.
 
-# Infohub UUID (default)
+# InfoHub UUID (default)
 
 THe UUID4 is a totally random number. This means that an infinite number of UUIDs will eventually produce a UUID that
 is already in use. I do not like that.  
@@ -84,7 +84,7 @@ By leaving the call stack at home I also prevent it from being manipulated.
 
 ## Many UUIDs
 
-Infohub Transfer will need a lot of UUIDs to attach to the messages and will then ask for a bunch of UUIDs to use.
+InfoHub Transfer will need a lot of UUIDs to attach to the messages and will then ask for a bunch of UUIDs to use.
 
 # License
 

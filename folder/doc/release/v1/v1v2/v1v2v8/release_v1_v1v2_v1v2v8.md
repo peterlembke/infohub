@@ -5,17 +5,17 @@ Main focus in this release was to finish the login and sessions, but I got side 
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.8)
 
 ## Added
-- Infohub_Base.js got a new function _Full()
-- Infohub_Timer.js - New plugin to handel timers
-- Infohub_Demo_Timer.js - Plugin to show the new timer plugin.
-- Infohub_Demo_Menu.js - Menu option added for Timer.
+- InfoHub_Base.js got a new function _Full()
+- InfoHub_Timer.js - New plugin to handel timers
+- InfoHub_Demo_Timer.js - Plugin to show the new timer plugin.
+- InfoHub_Demo_Menu.js - Menu option added for Timer.
 - infohub_view.js - New function "set_style" can set a style on any element.
 
 ## Changed
 Tested xdebug profiler in PHP Storm. Got some valuable insights.
 
-- Infohub_Base.php - Cmd(), quicker check if function can be called.
-- Infohub_Base.php - Cmd(), Use of debug_backtrace() much faster now.
+- InfoHub_Base.php - Cmd(), quicker check if function can be called.
+- InfoHub_Base.php - Cmd(), Use of debug_backtrace() much faster now.
 - infohub_file.php - Speed improvements.
 
 ## Removed

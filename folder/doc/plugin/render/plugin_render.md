@@ -14,8 +14,8 @@ The renderer is a normal plugin, you need to have the functions _Version, and _G
 
 # create
 As you have learned by now, when you use a renderer you send the data to be rendered to [InfoHub Render](plugin,infohub_render).
-Infohub_Render then call each renderer. It might be a child renderer or a level 1 renderer like infohub_rendermajor. Infohub_Render know that each renderer always have the cmd function "create".  
-Infohub_Render only call a renderer if it has all the data needed for the renderer to perform its task.  
+InfoHub_Render then call each renderer. It might be a child renderer or a level 1 renderer like infohub_rendermajor. InfoHub_Render know that each renderer always have the cmd function "create".  
+InfoHub_Render only call a renderer if it has all the data needed for the renderer to perform its task.  
 The data can look like this:  
 
 ```
@@ -59,7 +59,7 @@ return {
 };
 ```
 
-Make sure you use 'mode': 'html' so that Infohub Render return the HTML to your renderer.  
+Make sure you use 'mode': 'html' so that InfoHub Render return the HTML to your renderer.  
     
 # Inspiration
 Ok, so now you know how to use a renderer, and you know how to create one for yourself. What can you do with all this? Here are some examples:  

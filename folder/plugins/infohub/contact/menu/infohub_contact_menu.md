@@ -1,4 +1,4 @@
-# Infohub Contact Menu
+# InfoHub Contact Menu
 
 Displays a menu with all options
 
@@ -6,7 +6,7 @@ Displays a menu with all options
 
 This plugin renders a menu with all the options you can select in the plugin.  
 Each menu alternative is a child plugin, and it will render its GUI.  
-Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
+Read more about menus here: [InfoHub Render Menu](plugin,infohub_rendermenu)
 
 ## License
 

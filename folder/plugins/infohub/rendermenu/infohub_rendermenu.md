@@ -1,8 +1,8 @@
-# Infohub RenderMenu
+# InfoHub RenderMenu
 
 Renders a static menu list and handles the events.
 
-See the demo [Infohub Demo Menu](plugin,infohub_demo_menu)
+See the demo [InfoHub Demo Menu](plugin,infohub_demo_menu)
 
 # Introduction
 
@@ -62,7 +62,7 @@ const $defaultOption = {
 
 # How to use
 
-This is part of the Infohub demo plugin how it shows its menu.
+This is part of the InfoHub demo plugin how it shows its menu.
 
 ```
 return _SubCall({

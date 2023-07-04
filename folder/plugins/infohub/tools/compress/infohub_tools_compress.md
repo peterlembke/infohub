@@ -1,10 +1,10 @@
-# Infohub Tools Compress
+# InfoHub Tools Compress
 
 Here you can test the compression plugin.
 
 # Introduction
 
-With this tool you can compress data with [Infohub Compress](plugin,infohub_compress).  
+With this tool you can compress data with [InfoHub Compress](plugin,infohub_compress).  
 There are different kinds of compressions. Check the link above to read more about them.
 
 # GUI

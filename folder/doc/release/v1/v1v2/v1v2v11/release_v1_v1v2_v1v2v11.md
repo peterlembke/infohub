@@ -1,5 +1,5 @@
 # [1.2.11] - 2020-04-15
-Main focus in this release was to improve the plugin icons. Introduce SPDX-License-Identifier. Refactor Infohub Transfer, so it can call Infohub Session and get one step closer to v1.3.0. Fix bugs in Infohub Asset. 
+Main focus in this release was to improve the plugin icons. Introduce SPDX-License-Identifier. Refactor InfoHub Transfer, so it can call InfoHub Session and get one step closer to v1.3.0. Fix bugs in InfoHub Asset. 
 
 I want to release all these small changes now so that the next release will be easier to see the differences in.
 
@@ -7,9 +7,9 @@ I want to release all these small changes now so that the next release will be e
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.11)
 
 ## Added
-- Infohub Asset - got a new icon
-- Infohub Doc - added a GFDL license icon
-- Infohub Launcher - Got a new icon 
+- InfoHub Asset - got a new icon
+- InfoHub Doc - added a GFDL license icon
+- InfoHub Launcher - Got a new icon 
 - README got links to TERMS and detailed license information
 - Package.json - added tags
 
@@ -27,7 +27,7 @@ I want to release all these small changes now so that the next release will be e
 - infohub_transfer - Added emerging function "Received".
 - infohub_exchange - Refactored _AddTransferMessage()
 - doc/license/license.md - Wrote about SPDX identifiers.
-- Infohub Contact, improved the default array.
+- InfoHub Contact, improved the default array.
 - Exchange.php, added PHPDOC and refactored
 - Kick out and infohub.php got some refactoring
 - Timer, bug fix. Checksum and Transfer got minor refactoring
@@ -36,5 +36,5 @@ I want to release all these small changes now so that the next release will be e
 ## Removed
 
 ## Fixed
-- Infohub Asset - GUI Update now renders newly used icons to already rendered plugins.
-- Infohub Asset - GUI now show all icons in the same size. There was a problem with the demo audio/video/map icons.
+- InfoHub Asset - GUI Update now renders newly used icons to already rendered plugins.
+- InfoHub Asset - GUI now show all icons in the same size. There was a problem with the demo audio/video/map icons.

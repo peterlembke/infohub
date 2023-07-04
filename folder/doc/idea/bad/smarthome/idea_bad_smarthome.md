@@ -5,7 +5,7 @@ With Telldus Live you can switch on and off all the lamps manually or on a timer
 && behaviour,track,client
 
 ## Comment 1
-There are good software that handle your smart home. If Infohub were to handle that you must give your keys to your login. Infohub do not want them.
+There are good software that handle your smart home. If InfoHub were to handle that you must give your keys to your login. InfoHub do not want them.
 Use your normal software for this.
 
 ## Comment 2

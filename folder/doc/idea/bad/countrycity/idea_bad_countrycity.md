@@ -5,10 +5,10 @@ When I mention a city in my notes then I can link to the data.
 && data,common_data
 
 ## Comment 1
-Infohub is about privacy and private data. Stockpiling public data in Infohub is not very useful.
+InfoHub is about privacy and private data. Stockpiling public data in InfoHub is not very useful.
 It would be better to have an external link to Wikipedia.
 
-Public data added to Infohub will be old. Better to link to Wikipedia.
+Public data added to InfoHub will be old. Better to link to Wikipedia.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

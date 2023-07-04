@@ -8,7 +8,7 @@ If we want a more secure way we can activate the iframe sandbox.
 YouTube have trackers in the iframes. There is no way to prevent the trackers, not even with sandbox. 
 Embedding YouTube videos have worked, but I have commented the code out due to privacy and license issues.
 
-There will be no YouTube API interface in Infohub.
+There will be no YouTube API interface in InfoHub.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

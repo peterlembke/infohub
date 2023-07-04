@@ -1,8 +1,8 @@
 # Games
 You can write your standalone games in pygame or in phaser.io or pixi.js
-Then you need a library that connect to the Infohub server and a token that allow to access only the game data.
+Then you need a library that connect to the InfoHub server and a token that allow to access only the game data.
 
-The Infohub platform would be perfect to store progress, so I can run my game on all my platforms.
+The InfoHub platform would be perfect to store progress, so I can run my game on all my platforms.
 
 * Guess the flag
 * Learning games
@@ -15,7 +15,7 @@ The Infohub platform would be perfect to store progress, so I can run my game on
 && game
 
 # Comment 1
-Infohub is about private data. Creating a library and a token system and an administrator is a lot of work.
+InfoHub is about private data. Creating a library and a token system and an administrator is a lot of work.
 It is better to use one of the game services that already exist.
 Gaming data is a bit private, how often you play and how much.
 

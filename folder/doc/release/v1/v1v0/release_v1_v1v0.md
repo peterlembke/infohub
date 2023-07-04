@@ -11,7 +11,7 @@ folder/include/kick_out_tests.php - If your request do not fulfill these rules t
 folder/include/settings_and_errors.php - Handles exceptions and errors. Used by infohub.php  
 
 # Callback
-The callback system was designed to receive callbacks from payment services. But it has also proven to be a good tool for easy input to the Infohub system.  
+The callback system was designed to receive callbacks from payment services. But it has also proven to be a good tool for easy input to the InfoHub system.  
 Callback are included i this release for your convenience when you want to trigger the documentation and the demos.  
 .htaccess - Instruct the Apache web server that all URLs that do not go to infohub.php will end up in callback.php  
 callback.php - this file just start the plugin infohub_callback and echo the response from that plugin.  
@@ -22,7 +22,7 @@ infohub_exchange - Handles messages between plugins.
 infohub_transfer - Transfers data in and out from this node.  
 infohub_plugin - Loads and starts plugins.  
 infohub_template - Your bare-bone plugin that you can copy and make your own plugins from.  
-infohub_callback - Convert URL requests into messages that Infohub can understand  
+infohub_callback - Convert URL requests into messages that InfoHub can understand  
 infohub_doc - Documentation viewer. All plugins have a documentation that you can study.  
 infohub_demo - Demo code that you can study.  
 infohub_callback - verifies the message and uses cURL to call infohub.php. Now your data comes into the system the proper way.  

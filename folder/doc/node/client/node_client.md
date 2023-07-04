@@ -21,10 +21,10 @@ When all plugins are in local storage then they are all started. Now we have the
 The first message will goto client->infohub_exchange->startup, but how will we get it into the system? If you look at the end of startup.js you see an event listener called infohub_call_main.
 The event listener are usually used when we have data from an event and want that as a message into the system. See [the_go_function.js](main,core_include_thegofunction). Now we send an event with the first message.  
 
-# Infohub Exchange
+# InfoHub Exchange
 When you send a message through the event infohub_call_main the message are put in a package (an array) with the destination client->infohub_exchange->main.
 And that package is given to infohub_exchange.cmd(). The return value are discarded.  
-You can read more about [Infohub Exchange](plugin,infohub_exchange).  
+You can read more about [InfoHub Exchange](plugin,infohub_exchange).  
 There is a configuration file called infohub_exchange.json that hold domain names and the start message for each domain name.
 In startup, it pulls the current domain name and checks the configuration what message to send.  
 

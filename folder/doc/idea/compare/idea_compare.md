@@ -1,11 +1,11 @@
-# Compare Infohub
-Here I will compare Infohub with other open source software that seem to be similar.
+# Compare InfoHub
+Here I will compare InfoHub with other open source software that seem to be similar.
 
-## Infohub
-* Infohub is for registering and storing your personal data that only YOU can access on all your devices.
-* Infohub is NOT about sharing data with others. 
-* Infohub is NOT about being anonymous on the internet.
-* Infohub is NOT about making it easier to use other services that handle personal data.
+## InfoHub
+* InfoHub is for registering and storing your personal data that only YOU can access on all your devices.
+* InfoHub is NOT about sharing data with others. 
+* InfoHub is NOT about being anonymous on the internet.
+* InfoHub is NOT about making it easier to use other services that handle personal data.
 
 ## WordPress / Joomla
 Is for writing texts and make them available to read by anyone.
@@ -20,7 +20,7 @@ If you want to collaborate in a company or a group then NextCloud can be for you
 NextCloud can be compared to Google Office or Microsoft 365. NextCloud is free to use and comply with GDPR when you run it on your own server.
 
 ## Conclusion
-Infohub is for you and your data.
+InfoHub is for you and your data.
 WordPress and Grav is for you sharing your articles.
 NextCloud is for collaboration in your group.
 

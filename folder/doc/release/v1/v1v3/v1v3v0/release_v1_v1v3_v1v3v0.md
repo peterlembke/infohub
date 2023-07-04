@@ -1,6 +1,6 @@
 # [1.3.0] - 2021-05-22
 
-Infohub Tree got new features but is not finished. All code is auto refactored. opcache prefilled. All plugins can now be run standalone as their own applications. This is a large service release with things I want to get out on the sites. It was so long ago since the last release and today is my 50th birthday.
+InfoHub Tree got new features but is not finished. All code is auto refactored. opcache prefilled. All plugins can now be run standalone as their own applications. This is a large service release with things I want to get out on the sites. It was so long ago since the last release and today is my 50th birthday.
 
 * [Release notes](main,release_v1_v1v3_v1v3v0)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3)
@@ -12,7 +12,7 @@ Infohub Tree got new features but is not finished. All code is auto refactored. 
 * robots.txt added to instruct crawlers to crawl away. Added file to allowed root files
 * HUB-1222, Now preloads all php at server start into the opcache. Only 49 files. No fail if opcache disabled
 * HUB-1000, Tree Encrypt GUI now working with create key file, import key file, forget key from browser 
-* HUB-1234, Recreated the square Infohub logo in SVG
+* HUB-1234, Recreated the square InfoHub logo in SVG
 * HUB-1232, Let URL pass with ?plugin_name=infohub_asset
 * HUB-1238, Show standalone plugin from GET parameter plugin_name
 * HUB-1236, All plugins get an icon.png so apple-touch-icon can use it in another task
@@ -58,4 +58,4 @@ Infohub Tree got new features but is not finished. All code is auto refactored. 
 ## Investigated
 * HUB-1215, updated the Trello tasks for this release
 * HUB-1264, Investigate: Login guide. I want the Login shared_secret and the Tree private_secret to be in the same log in file for convenience. But that is not logically sane to mix different features. Some might not even use the Tree. I will do this in steps instead and provide two file selectors and two password text boxes. Then you can ignore or reuse a private_secret. Created HUB-1280, 1281, 1282 to handle this.
-* HUB-1263, Investigate if the IOS start icon has GET parameters. They do. I connected the iPhone to Safari and saw the URLs on the desktop icons I started. But for Infohub it does not work. I now know it is at least not an IOS problem. Closing this task. Created HUB-1279 to handel this.
+* HUB-1263, Investigate if the IOS start icon has GET parameters. They do. I connected the iPhone to Safari and saw the URLs on the desktop icons I started. But for InfoHub it does not work. I now know it is at least not an IOS problem. Closing this task. Created HUB-1279 to handel this.

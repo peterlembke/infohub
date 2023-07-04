@@ -1,42 +1,42 @@
-# Terms of Infohub
+# Terms of InfoHub
 These terms are based on the work made by [tosdr.org](https://tosdr.org/) and their [checklist](https://github.com/tosdr/tosdr.org/wiki/checklist).
 
-The Infohub software is licensed under GNU GENERAL PUBLIC LICENSE Version 3. You can modify the software and use it however you want.
+The InfoHub software is licensed under GNU GENERAL PUBLIC LICENSE Version 3. You can modify the software and use it however you want.
 
-The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on your site if you, the site owner, apply to the terms in this document.
+The branding "Applies to the InfoHub terms" and/or the corresponding logo can only be used on your site if you, the site owner, apply to the terms in this document.
 
-Created at: 2020-02-08 by Peter Lembke, Infohub
-Updated at: 2021-09-23 by Peter Lembke, Infohub
+Created at: 2020-02-08 by Peter Lembke, InfoHub
+Updated at: 2021-09-23 by Peter Lembke, InfoHub
 
 ## Words we use in this document
 - **you** - that is you the responsible party for the site.
-- **site** - That is the Infohub website you are responsible for.
-- **Infohub** - That is we that create the Infohub software.
-- **Infohub software** - The software that you use on your site.
-- **users** - Persons and other Infohub servers that you invite log in to your site.
-- **we** - That is you and the people at Infohub and your users together.
+- **site** - That is the InfoHub website you are responsible for.
+- **InfoHub** - That is we that create the InfoHub software.
+- **InfoHub software** - The software that you use on your site.
+- **users** - Persons and other InfoHub servers that you invite log in to your site.
+- **we** - That is you and the people at InfoHub and your users together.
 
 ## Does the service use first-party and/or third-party cookies?
 
-Infohub never ever use ANY cookies on live sites. We are not allowed to add any cookies to Infohub on a live site.
+InfoHub never ever use ANY cookies on live sites. We are not allowed to add any cookies to InfoHub on a live site.
 
-While developing Infohub we use a debugging cookie so that xdebug and similar debug tools works during development.
+While developing InfoHub we use a debugging cookie so that xdebug and similar debug tools works during development.
 
-If you see Infohub using any cookie then please report an issue on [GitHub](https://github.com/peterlembke/infohub/issues). 
+If you see InfoHub using any cookie then please report an issue on [GitHub](https://github.com/peterlembke/infohub/issues). 
 
-## Can Infohub change the terms at any time?
+## Can InfoHub change the terms at any time?
 
-Infohub can change the terms in this document at every new version of the Infohub software.
+InfoHub can change the terms in this document at every new version of the InfoHub software.
 
 Old releases keep their terms.
 
 The terms will not have a changelog. If you are interested then you can compare terms from different releases on GitHub.
 
-The document has a date when it was first added and last modified by Infohub.
+The document has a date when it was first added and last modified by InfoHub.
 
-## Do Infohub claim copyright (or what sort of license) over your content (where applicable)?
+## Do InfoHub claim copyright (or what sort of license) over your content (where applicable)?
 
-The very purpose of Infohub is to be a private place on the web. The data provided by users remain their own property.
+The very purpose of InfoHub is to be a private place on the web. The data provided by users remain their own property.
 
 ## Do users have a right to leave your service?
 
@@ -46,7 +46,7 @@ Yes.
 - The user can delete private data.
 - The user can delete its log in account.
 
-Infohub software provide the tools for this.  
+InfoHub software provide the tools for this.  
 You, the site owner must make these tools available to all users.
 
 The user should not use a site if this download tool is missing.
@@ -57,7 +57,7 @@ A person can not register or demand to become a user of the site. A person can b
 
 You as a site owner has no obligation to take backups or care for the user data. The user must take backups of its own data and make sure they can read the data themselves. 
 
-Infohub software provide a data download tool for data added to the Tree plugin.
+InfoHub software provide a data download tool for data added to the Tree plugin.
  
 You the site owner must make that tool available to all users. 
  
@@ -65,9 +65,9 @@ If a user do not have that tool available then it is the users responsibility to
 
 ## How do we work with third parties (contractors we use)?
 
-A 3rd party is every service that the Infohub software exchange data with that is not a user.
+A 3rd party is every service that the InfoHub software exchange data with that is not a user.
 
-The Infohub software and the site owner can use any service from the server as long as it never ever share private user data in any way.
+The InfoHub software and the site owner can use any service from the server as long as it never ever share private user data in any way.
 
 - Examples of allowed services: RSS, Yr.no
 - Examples of prohibited practice: Scrape other sites pages.  
@@ -82,7 +82,7 @@ It is the users responsibility to not use a site that provide client side 3rd pa
 
 The user must protect its data by using secure web browsers like Firefox, Safari, Brave, DuckDuckGo. And also be sure not to use browser plugins that leak data to 3rd party. 
 
-The Infohub software need to be on a private web server or at a web hosting company so the users can connect. You as a site owner is responsible for using https in your domain address. The user is responsible for not using a site that have issues with the certificate.
+The InfoHub software need to be on a private web server or at a web hosting company so the users can connect. You as a site owner is responsible for using https in your domain address. The user is responsible for not using a site that have issues with the certificate.
 
 You the site owner is not allowed to remove the client side scanner that detects possible data breaches.
 
@@ -100,24 +100,24 @@ Examples of reasons could be that the user have poor security on its computer, b
 
 If you as a site owner do not want a specific user on your site then mark the user as "You got two weeks notice to move from this site, and then you will be automatically deleted".
 
-The Infohub software will refuse the user to save any more data to the server Storage.
+The InfoHub software will refuse the user to save any more data to the server Storage.
 
-The Infohub software show a message to the user when the user log in. The user can download its private data and delete the account.
+The InfoHub software show a message to the user when the user log in. The user can download its private data and delete the account.
 
-The user can later find another Infohub home to use and upload the data there.
+The user can later find another InfoHub home to use and upload the data there.
 
-After the time period the Infohub software will delete the user private data and the user account.
+After the time period the InfoHub software will delete the user private data and the user account.
 
 The deletion will occur regardless if the user have seen the message or not and regardless if the user have downloaded its data or not.
 
-There might be a situation where an older database backup have to be restored on the site and a user account are accidentally restored. That account will then be deleted by the Infohub software at the next clean out.
+There might be a situation where an older database backup have to be restored on the site and a user account are accidentally restored. That account will then be deleted by the InfoHub software at the next clean out.
 
 If the privacy of the site have been breached then the site owner might delete all user accounts and all user data without any notice to protect everyone's privacy.  
 
 ## Do they (try to) prohibit you from going to court against them?
 
-If you as a site owner want to go to court and sue Infohub then please do.
-The Infohub Software is licensed as GNU GPL v3, and we operate in Sweden.
+If you as a site owner want to go to court and sue InfoHub then please do.
+The InfoHub Software is licensed as GNU GPL v3, and we operate in Sweden.
 
 If the user want to sue you as a site owner the please do.
 The user is obligated to have read the TERMS.md and know about who is responsible for what.
@@ -130,9 +130,9 @@ It is the user's responsibility to regularly use the data download tool to have 
 
 It is the user's responsibility to have a working copy of its encryption key.
 
-You, the site owner that "Applies to the Infohub terms" must check with the site buyer if they intend to continue with "Applies to the Infohub terms" or not. If the new owner will apply then you only need to change the responsible persons name so all users can see that.
+You, the site owner that "Applies to the InfoHub terms" must check with the site buyer if they intend to continue with "Applies to the InfoHub terms" or not. If the new owner will apply then you only need to change the responsible persons name so all users can see that.
 
-If the new owner will not apply to the terms then you must mark all users with "New owner will not apply to the Infohub terms".
+If the new owner will not apply to the terms then you must mark all users with "New owner will not apply to the InfoHub terms".
 
 The users then have two weeks notice to accept the new owner by marking that. Or their account will be deleted. 
 
@@ -154,13 +154,13 @@ The user should only use sites that can tell what backup strategy they are follo
 
 ## Advertising
 
-The Infohub plugins must be clean from advertising. You could mention optional related plugins in the documentation.
+The InfoHub plugins must be clean from advertising. You could mention optional related plugins in the documentation.
 You must not show advertising to the user. Not even if the data comes from the server. If you want to promote something then use other channels for that, like social media.
 
 ## Log usage of features
 
 The client software are not allowed to track usage statistics, not even anonymous data. The client must be free from trackers.
-The Infohub server can have anonymous usage statistics but that need to be stored in a tool that you manage. Like https://matomo.org/ if you host it yourself.
+The InfoHub server can have anonymous usage statistics but that need to be stored in a tool that you manage. Like https://matomo.org/ if you host it yourself.
 
 ## Bugs
 

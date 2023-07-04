@@ -1,4 +1,4 @@
-# Infohub RenderMajor
+# InfoHub RenderMajor
 
 Render a content box with a top title, footer text, content with optional embedded content.
 
@@ -114,7 +114,7 @@ the link.
 
 # External services
 
-Infohub do not endorse the use of 3rd party services directly. That means you should not link to 3rd party scripts,
+InfoHub do not endorse the use of 3rd party services directly. That means you should not link to 3rd party scripts,
 images, iframe links etc. Reason is performance, security, privacy, bandwidth, stability.  
 The reality is that most people do not think about privacy, they want to see the YouTube video instead. As a middle way
 you can offer that video embedded in a major box with an option to click a link to see the video at YouTube instead.  

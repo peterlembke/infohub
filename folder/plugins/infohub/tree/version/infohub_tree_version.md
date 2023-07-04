@@ -1,4 +1,4 @@
-# Infohub Tree Version
+# InfoHub Tree Version
 
 Show version information for the main plugin and all child plugins.
 

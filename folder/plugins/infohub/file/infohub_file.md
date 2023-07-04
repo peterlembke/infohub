@@ -1,12 +1,12 @@
-# Infohub File
+# InfoHub File
 
 Owns the file system. Read and write file data.
 
 # Introduction
 
-Infohub_File.php OWNS the file system on the server. Other plugins on the server use Infohub_File to read and write data
+InfoHub_File.php OWNS the file system on the server. Other plugins on the server use InfoHub_File to read and write data
 to and from files.  
-Infohub_File only handle with files as the names says. It will not read/write data anywhere else than in files.  
+InfoHub_File only handle with files as the names says. It will not read/write data anywhere else than in files.  
 The usage of this plugin are locked to server plugins. There are no infohub_file on the client.
 
 # Folders in general
@@ -233,7 +233,7 @@ $response = array(
 
 # asset_get_data
 
-Infohub Asset is used to sync asset files from the server to the client. infohub_asset uses the special function
+InfoHub Asset is used to sync asset files from the server to the client. infohub_asset uses the special function
 asset_get_data to get the data from infohub_file.
 
 ```

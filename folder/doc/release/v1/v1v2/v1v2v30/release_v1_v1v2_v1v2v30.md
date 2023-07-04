@@ -23,6 +23,6 @@ Focus on updating the development environment with vagrant.
 
 ## Investigated
 * HUB-1202, macOS: https and Firefox gives QuotaExceededError for localStorage
-  After cleaning out web data for all Infohub sites it works again.
+  After cleaning out web data for all InfoHub sites it works again.
   I will close this task for now and see if it comes back.
   

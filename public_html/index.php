@@ -85,7 +85,7 @@ $files = [
     'install_service_worker.js'
 ];
 foreach ($files as $fileName) {
-    $fileContents = file_get_contents(INCLUDES.DS.$fileName);
+    $fileContents = file_get_contents(filename: INCLUDES.DS.$fileName);
     echo "<script>$fileContents</script>";
     $checksum = $checksum.md5($fileContents);
 }

@@ -13,7 +13,7 @@ Files with .txt extension can now act as json files. URL redirect function. Impr
 * Client: Redirect is now a new function in infohub_exchange.js. Used in infohub_exchange.json to redirect a URL.
 * Logo SVGs in folder/doc/images/logotype
 * serviceworker.js - added version date. That will clear the cached index.php
-* Support for slow 3G - Increased the time-out from 4 to 60 seconds until Infohub think we are offline. Now the page loads on slower broad band.
+* Support for slow 3G - Increased the time-out from 4 to 60 seconds until InfoHub think we are offline. Now the page loads on slower broad band.
 * Vagrant development environment added. See vagrant/README.md for details how to use
 * Vagrant VirtualBox clock gets out of sync. Added commands that sync the clock with the host.
 

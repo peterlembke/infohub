@@ -1,12 +1,12 @@
 # Offline
-What Infohub means about offline is when you do a sub-call to a node, and it is not answering within 5 seconds then it is considered offline.  
+What InfoHub means about offline is when you do a sub-call to a node, and it is not answering within 5 seconds then it is considered offline.  
  
-# Infohub_Transfer
-Infohub_Transfer keep track of what nodes are offline.  
+# InfoHub_Transfer
+InfoHub_Transfer keep track of what nodes are offline.  
 If a node is offline then all sub calls to that node are answered with an offline message.  
 All other messages that are answers from the other node will remain there until the node is online again.
 
-Infohub_Transfer will try to contact that node again after 3 minutes and will do three tries until the rest of the messages are deleted too.
+InfoHub_Transfer will try to contact that node again after 3 minutes and will do three tries until the rest of the messages are deleted too.
          
 # browser online
 The browser has an event that detect if you are online or not. Meaning if you can reach the internet.   

@@ -1,4 +1,4 @@
-# Infohub Storage Data MySQL
+# InfoHub Storage Data MySQL
 
 Stores data in a MySQL server
 
@@ -42,14 +42,14 @@ There are many other database managers out there if the ones above is not suffic
 # Database structure
 
 You must create the database and set up a user that are allowed to create tables. Then the plugin create the tables.
-Each level 1 plugin in Infohub can store data in Infohub Storage and if needed a table is created for each plugin
+Each level 1 plugin in InfoHub can store data in InfoHub Storage and if needed a table is created for each plugin
 name.  
 This means that plugins can not reach each other's data.
 
 # How to use the plugin
 
 There are two public function in this plugin. The plugin itself is intended to be used by infohub_storage_data, but you
-can use it standalone outside Infohub.  
+can use it standalone outside InfoHub.  
 infohub_storage_data send this kind of messages, and you can do the same. First you need a connection.
 
 ## Connection and path
@@ -75,7 +75,7 @@ $connect = array(
 
 ## read
 
-In this PHP example we use the connection credentials from above and send a message to Infohub Storage that we want to
+In this PHP example we use the connection credentials from above and send a message to InfoHub Storage that we want to
 read a path.
 
 ```
@@ -140,12 +140,12 @@ a path
 ### path
 
 (varchar 127 characters) - The full path. 127 characters seems to be both much and little depending on the user case.
-When this plugin is used with Infohub Storage then the path will be a unique checksum that take up less than 127
+When this plugin is used with InfoHub Storage then the path will be a unique checksum that take up less than 127
 characters. The reason is that if/when the database is stolen the data will not be useful.
 
 ### Bubble
 
-bubble - the medium size text (max 16 Mb) where the json data will be stored. If you use the plugin with Infohub Storage
+bubble - the medium size text (max 16 Mb) where the json data will be stored. If you use the plugin with InfoHub Storage
 then this information will be encrypted. The reason is that if/when the database is stolen then the data will not be
 useful.  
 The name "bubble" comes from an earlier more advanced database engine. I took the sad but logical decision to scrap the

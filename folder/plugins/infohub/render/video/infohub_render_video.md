@@ -1,4 +1,4 @@
-# Infohub Render Video
+# InfoHub Render Video
 
 Render links to video services
 
@@ -51,7 +51,7 @@ You can create a link that goes directly to Daily motion.
 
 # Self-hosting
 
-Plugins like Infohub_RenderVideoPlayer are on the todo list. It will help you to host the video yourself on your server
+Plugins like InfoHub_RenderVideoPlayer are on the todo list. It will help you to host the video yourself on your server
 without making the video public.
 
 # License

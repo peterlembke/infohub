@@ -5,7 +5,7 @@ I would like to use InfoHub to create a hub for InfoHub where you can:
 Central store for plugins. See how Magento and WordPress have done. Search for plugins, buy plugins, download plugins, read documentation and ask questions to the developer.  
 
 ## Find InfoHubs
-Find other Infohub servers that can provide services to your Infohub or to you directly. There should be quality on the list. Criteria and checks.  
+Find other InfoHub servers that can provide services to your InfoHub or to you directly. There should be quality on the list. Criteria and checks.  
 
 ## Documentation
 Find documentation in the wiki. Read guides how to do things.  
@@ -17,7 +17,7 @@ You can find Core files here and download them to set up your own InfoHub. All C
 Take a certification and become a certified developer. Find a certified developer  
 
 ## Certificate
-Central place for public certificates between Infohub servers
+Central place for public certificates between InfoHub servers
 
 ## Central log in
 Login service for normal users.

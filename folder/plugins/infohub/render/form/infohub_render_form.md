@@ -1,4 +1,4 @@
-# Infohub Render Form
+# InfoHub Render Form
 
 Render frontend form objects
 
@@ -90,7 +90,7 @@ You provide the object as described previously. If you omit set_data then data w
 then you get no data. If you omit get_original_data then you will not get the original data.  
 update_data will first get_data and get_original_data for you, and then set_data. When setting data, both input and
 original_data are set.  
-Render_Form call Infohub View for the actual setting/getting of data in the DOM.
+Render_Form call InfoHub View for the actual setting/getting of data in the DOM.
 
 # events
 

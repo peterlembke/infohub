@@ -16,7 +16,7 @@ You can see everything in action here: [infohub.se](https://www.infohub.se).
 ## Parts done in this release
 
 ###  PHP Core
-The plugins needed to get an Infohub core started on the server.
+The plugins needed to get an InfoHub core started on the server.
 
 ### PHP Storage
 - Simple key-value storage system that relay on a traditional database for storage. 
@@ -25,15 +25,15 @@ The plugins needed to get an Infohub core started on the server.
 - And storage to file is also supported. In cases where you can not install a database engine
 
 ### JS Core
-- The plugins needed to get an Infohub core started in the browser.
-- Infohub run on the most common browser in their latest versions: Firefox, Chrome (Chromium), Opera.
+- The plugins needed to get an InfoHub core started in the browser.
+- InfoHub run on the most common browser in their latest versions: Firefox, Chrome (Chromium), Opera.
 - probably work well in the new Microsoft Edge that is based on Chromium.
-- I have not tested Safari as much ob macOS and will do that. Infohub run smooth on iPhone and iPad.
-- Infohub run smooth on browsers run from: Ubuntu, macOS, Windows, IOS (iPhone, iPad) and Android.
+- I have not tested Safari as much ob macOS and will do that. InfoHub run smooth on iPhone and iPad.
+- InfoHub run smooth on browsers run from: Ubuntu, macOS, Windows, IOS (iPhone, iPad) and Android.
 
 ### JS Storage
 - Simple key-value storage that uses IndexedDb. Used for all data in the browser.
-- There are three implementations in Infohub that store in the IndexedDb, I have selected the fasted to be used.
+- There are three implementations in InfoHub that store in the IndexedDb, I have selected the fasted to be used.
 - The browsers all support IndexedDb and there are no viable alternatives to that.
 
 ### Translation system
@@ -49,11 +49,11 @@ The plugins needed to get an Infohub core started on the server.
 - A Doc viewer for the Markdown manual. 
 - Each plugin also has documentation.
 - I started with an XML like system but Markdown is much easier to learn and nicer to look at, so now I use that.
-- Some Markdown renderers are included but none are used for the documentation system. I found that the Infohub rendering system could handle Markdown without assistance.
+- Some Markdown renderers are included but none are used for the documentation system. I found that the InfoHub rendering system could handle Markdown without assistance.
 
 ### JS rendering system
 - All HTML are rendered in the browser. You can render things like Forms, Lists, text, images, frames and so on.
-- Infohub_View owns the screen. All rendered data goes to View for display on the screen. View has a box system that makes the viw scale smoothly on all screen sizes and also prevent ID collisions.
+- InfoHub_View owns the screen. All rendered data goes to View for display on the screen. View has a box system that makes the viw scale smoothly on all screen sizes and also prevent ID collisions.
 - Advanced rendering exist - based on the simple components. Builds things like presentation boxes, tabs, menus, advanced lists, advanced forms.
 
 ### Workbench

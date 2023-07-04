@@ -1,4 +1,4 @@
-# Infohub Tools
+# InfoHub Tools
 
 Small tools that might be useful
 
@@ -13,7 +13,7 @@ You can read all about the tools in the child documents
 
 The tool you see is the graphical user interface. When you press the button then your input data are sent to the right
 plugin. That plugin can be in your browser or the message goes to the server.  
-Asking the server is always slower. And Infohub also add a second ban time to each correct request. Your browser keep
+Asking the server is always slower. And InfoHub also add a second ban time to each correct request. Your browser keep
 track of this ban time and put all outgoing messages into a queue.  
 Start any of UUID, Time, Random, Password. They are all designed, so you can ask the server for the data, and you will get
 all results in a text box.  

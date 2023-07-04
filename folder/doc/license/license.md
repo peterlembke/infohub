@@ -1,9 +1,9 @@
-# The Infohub licenses
-All the code that is published in the Infohub.se brand is licensed as GNU General Public License version 3 or later. You can read the details of the license here: [GNU GPL](https://www.gnu.org/licenses/)
+# The InfoHub licenses
+All the code that is published in the InfoHub.se brand is licensed as GNU General Public License version 3 or later. You can read the details of the license here: [GNU GPL](https://www.gnu.org/licenses/)
   
 SPDX License Identifier: [GPL-3.0-or-later](https://spdx.org/licenses/)
 
-All the documentation that is published in the Infohub.se brand is licensed as GNU Free Documentation License version 1.3 or later. You can read the details of the license here: [GNU FDL](https://www.gnu.org/licenses/)
+All the documentation that is published in the InfoHub.se brand is licensed as GNU Free Documentation License version 1.3 or later. You can read the details of the license here: [GNU FDL](https://www.gnu.org/licenses/)
 
 SPDX License Identifier: [GFDL-1.3-or-later](https://spdx.org/licenses/)
   
@@ -31,16 +31,16 @@ Please read more here: [GNU Affero GPL](https://www.gnu.org/licenses/why-affero-
   
 So if you for example run a web server for your web store and your main focus is selling your products, then you should not have to care about making software available. That is why I DO NOT recommend using GNU Affero GPL.
   
-In later versions of Infohub there might be an optional system available that automatically provide source code and documentation for modified plugins. I recommend that you always use GNU GPL v3 or later, even if this optional (not yet existing) system is activated.  
+In later versions of InfoHub there might be an optional system available that automatically provide source code and documentation for modified plugins. I recommend that you always use GNU GPL v3 or later, even if this optional (not yet existing) system is activated.  
 
 # Other licenses
-The Infohub plugins do not have direct references to other plugins and can be used in projects that are not based on the Infohub system. Each plugin is considered to be a separate program. Each plugin must then have its own license.
+The InfoHub plugins do not have direct references to other plugins and can be used in projects that are not based on the InfoHub system. Each plugin is considered to be a separate program. Each plugin must then have its own license.
   
 One can claim that child plugins can only operate together with its parent and should then be covered by the parent license. That is not the case because there is only ONE type of plugins. A child plugin can in the right conditions operate without its parent and therefore need its own license.
   
 This means that if you create your own plugin from scratch, a plugin that is not based on any template, then you are free to use any license you want.
   
-On the other hand, if you want to run your plugin in the Infohub.se system, then Infohub will check if your plugin is licensed as "GNU GPL v3 or later", if not then your plugin will not start.
+On the other hand, if you want to run your plugin in the InfoHub.se system, then InfoHub will check if your plugin is licensed as "GNU GPL v3 or later", if not then your plugin will not start.
 
 This will change. Bug HUB-680 - Allow plugins to have any license.  
 
@@ -50,13 +50,13 @@ If you make changes to someone's plugin, and you think that the changes could be
 If you create your own general plugin and think that it can be useful to others, please make it available with good documentation and licensed as GNU GPL v3 or later. The extra effort will make you an "open software creator", and that can be beneficial for you in the long run.  
 
 # Content licenses
-Images, Videos, Sound, Data - All can easily be imported to Infohub, but you must also add detailed information about the license, or else you will not be able to import the material. You can read more here [infohub_file](plugin,infohub_file)  
+Images, Videos, Sound, Data - All can easily be imported to InfoHub, but you must also add detailed information about the license, or else you will not be able to import the material. You can read more here [infohub_file](plugin,infohub_file)  
 
 # Use of the name infohub.se
-The branding "Applies to the Infohub terms" and/or the corresponding logo can only be used on the site if you, the site owner apply to the terms in [TERMS.md](TERMS.md).
+The branding "Applies to the InfoHub terms" and/or the corresponding logo can only be used on the site if you, the site owner apply to the terms in [TERMS.md](TERMS.md).
 
 # SPDX-License-Identifiers
-All license codes used in Infohub must conform to the SPDX-License-Identifiers. It is a list with the most common licenses and a unique identifier code exist for each license.
+All license codes used in InfoHub must conform to the SPDX-License-Identifiers. It is a list with the most common licenses and a unique identifier code exist for each license.
 
 Read more [here](https://spdx.org/licenses/).
 

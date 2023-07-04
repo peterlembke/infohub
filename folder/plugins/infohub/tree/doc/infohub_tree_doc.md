@@ -1,4 +1,4 @@
-# Infohub Contact Doc
+# InfoHub Contact Doc
 
 Shows the doc files for this plugin and its child plugins.
 

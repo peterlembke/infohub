@@ -1,12 +1,12 @@
-# Infohub Contact Client
+# InfoHub Contact Client
 
-Create log in accounts to your Infohub server. Used by browser users and by external servers.
+Create log in accounts to your InfoHub server. Used by browser users and by external servers.
 
 ## Introduction
 
 If anyone wants to log in to your server then you must create log in credentials, export them and give to the person. There
 is no way the user can register for a login account them self. You have to do it, export it and distribute it to the
-user. You can read more about contacts in [Infohub Contact](plugin,infohub_contact)
+user. You can read more about contacts in [InfoHub Contact](plugin,infohub_contact)
 
 ## Client
 

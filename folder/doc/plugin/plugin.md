@@ -1,7 +1,7 @@
 # Make plugins
 How to create your own plugins.  
 
-You know you can install programs on the computer, or install apps on the phone, or install add-ons in your browser. Regardless of the name we call them it is just software. In Infohub you can install plugins, but it is the same thing.
+You know you can install programs on the computer, or install apps on the phone, or install add-ons in your browser. Regardless of the name we call them it is just software. In InfoHub you can install plugins, but it is the same thing.
 
 You can use existing plugins. You can also easily write your own plugins if you have basic knowledge of a programming language where there exist a core. I have written a core for PHP and for Javascript.
 A plugin is one single class that always extend the base class, that is it.
@@ -42,7 +42,7 @@ See here how you can release your work: [Plugin Release](doc,plugin_release)
 
 # Traditional web page
 You can run the [workbench](https://infohub.se) or start a plugin as a [standalone](https://demo.infohub.se) page.
-That means you can create a traditional web page with Infohub.
+That means you can create a traditional web page with InfoHub.
 
 # License
 This documentation is copyright (C) 2017 Peter Lembke.  

@@ -1,4 +1,4 @@
-# Infohub Demo Tabs
+# InfoHub Demo Tabs
 
 Shows a demo how you can use the infohub_tabs plugin.
 
@@ -9,7 +9,7 @@ In this demo you can see the exact same tab system in action. This demo uses uni
 different systems. I will remake this demo without unicode characters.  
 Read more in the documentation about
 
-- [Infohub Tabs](plugin,infohub_tabs)
+- [InfoHub Tabs](plugin,infohub_tabs)
 
 # License
 

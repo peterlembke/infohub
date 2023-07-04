@@ -6,7 +6,7 @@ Updated documentation and articles. Added new screenshots.
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.4)
 
 ## Added
-* HUB-1440, New screenshots from Infohub
+* HUB-1440, New screenshots from InfoHub
 * HUB-1441, Use screenshots in a doc gallery
 * HUB-1445, README - added badges and cleaned up the README
 * HUB-1447, Compare with NextCloud and Grav

@@ -1,4 +1,4 @@
-# Infohub Libre Translate
+# InfoHub Libre Translate
 
 You can use Libre Translate for your translation needs. It provides a graphical user interface for manual translations.
 And a level 1 function that will translate a lot of text for you.

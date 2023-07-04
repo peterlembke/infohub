@@ -12,16 +12,16 @@ Support for the excellent AVIF image format. Speed improvements. Bug fixes. Clea
 * Demo, Common got a demo for Progress. Press the button to affect the progress.
 * Welcome, got AVIF images, and they are now rendered OK if you have selected you can see avif in ConfigLocal.
 * folder/doc/images got avif images
-* HUB-468, Infohub ConfigLocal Image - Select what image types you can see
-* HUB-468, Infohub ConfigLocal Image - Updated documentation
-* HUB-1017, Infohub ConfigLocal Image - Save config / Load config
-* HUB-1019, Infohub ConfigLocal - Apply config to the infohub_asset plugin_config 
+* HUB-468, InfoHub ConfigLocal Image - Select what image types you can see
+* HUB-468, InfoHub ConfigLocal Image - Updated documentation
+* HUB-1017, InfoHub ConfigLocal Image - Save config / Load config
+* HUB-1019, InfoHub ConfigLocal - Apply config to the infohub_asset plugin_config 
 * infohub_asset, added more image types: webp, avif, gif 
 * infohub_plugin.js - added function set_plugin_config to set new base configuration for one plugin
 * HUB-1026, Translate configLocal - Image. Also set max width to 640 and made all config look the same.
 * HUB-1020, Launcher - Click icon, see Run button on small screen. 
     iPhone SE 2016 have a small screen and the run button did not show. Now it scrolls so the Run button is at the bottom of screen. 
-* infohub_call.php -> Added a curl plugin that will be used later to reach CouchDb servers, Infohub servers, REST APIs. And documentation of course.
+* infohub_call.php -> Added a curl plugin that will be used later to reach CouchDb servers, InfoHub servers, REST APIs. And documentation of course.
 * GnuPG added to the Vagrant environment. Preparing for adding pgp to infohub_encrypt.php
 * HUB-1034, infohub_color can now render three different color bars and handle events to select a color
 * HUB-1034, infohub_color can now render ColorSelector and ColorReader
@@ -52,7 +52,7 @@ Support for the excellent AVIF image format. Speed improvements. Bug fixes. Clea
     Original: infohub_cache, infohub_exchange, infohub_plugin, infohub_transfer. 
     Added to Core: infohub_session, infohub_keyboard, infohub_offline, infohub_checksum, infohub_timer.
 * Xdebug now write logs to the log folder outside "folder".
-* HUB-1027, Now shows warning popup during start if cookies are disabled. localStorage is not available when you have disabled all cookies. Infohub do not use cookies but use localStorage to store plugins for performance and to store number of failed startup attempt, so it can automatically correct the issues and start Infohub.  
+* HUB-1027, Now shows warning popup during start if cookies are disabled. localStorage is not available when you have disabled all cookies. InfoHub do not use cookies but use localStorage to store plugins for performance and to store number of failed startup attempt, so it can automatically correct the issues and start InfoHub.  
 * HUB-1030, Scroll to bottom does not work on cached blocks. Now it does
 * HUB-1025, Client: Asset, event_message - Read bitmap asset without extension
 * infohub_asset.php -> update_all_plugin_assets, added a test for empty file data (Found during Brave browser tests)

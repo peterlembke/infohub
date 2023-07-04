@@ -1,25 +1,25 @@
 # [1.2.21] - 2020-08-18
-Security roles instead of lists with plugin names makes it easier to be an admin. Updated the template files for developers. New plugin "Infohub Trigger" for developers to trigger their plugin functions during development. Textarea improvements. Purge of render cache for developers. Mouse/VR hover effects everywhere. Security improvements in File and Base. Cleaned up CSS. Improved translations. Exchanged some icons to more glossy ones. 
+Security roles instead of lists with plugin names makes it easier to be an admin. Updated the template files for developers. New plugin "InfoHub Trigger" for developers to trigger their plugin functions during development. Textarea improvements. Purge of render cache for developers. Mouse/VR hover effects everywhere. Security improvements in File and Base. Cleaned up CSS. Improved translations. Exchanged some icons to more glossy ones. 
 
 * [Release notes](main,release_v1_v1v2_v1v2v21)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.21)
 
 My plan was to write an article on how easy it is to develop plugins to infohub. I did not find it to be easy mainly due to the rights' system with lists of plugins. I needed to change that to roles instead: user, developer, admin. I also changed so the server admin can change role and the user only have to log out and in again.
 
-The article was still hard to write because there were no easy way to trigger the functions in the plugin. Normally I build a plugin with a GUI or extend Infohub in some way. Now I wanted to write a totally standalone server plugin and could not send a message to the plugin. I wrote plugin "Infohub Trigger" to help with that.
+The article was still hard to write because there were no easy way to trigger the functions in the plugin. Normally I build a plugin with a GUI or extend InfoHub in some way. Now I wanted to write a totally standalone server plugin and could not send a message to the plugin. I wrote plugin "InfoHub Trigger" to help with that.
 
 To write "Trigger" I needed to know what plugins had status "emerging". I needed to change infohub_file and also improved security there while I was there poking. 
-I also noticed that the function "function_names" that are in the base class could not be reached because it was not part of the available CMD functions list. I needed to change the Base class and change in all plugins in Infohub to include them.
+I also noticed that the function "function_names" that are in the base class could not be reached because it was not part of the available CMD functions list. I needed to change the Base class and change in all plugins in InfoHub to include them.
 
-Now I could finish Infohub Trigger, I thought. One of the features is a button to get the $default, so you have a starting point how your message should look like when sending it to the function. I already had that but there were a bug, and I also needed to return the data. While there I found the test function in the Base class. It is a security riek and now when first_default is working I could delete that function.
+Now I could finish InfoHub Trigger, I thought. One of the features is a button to get the $default, so you have a starting point how your message should look like when sending it to the function. I already had that but there were a bug, and I also needed to return the data. While there I found the test function in the Base class. It is a security riek and now when first_default is working I could delete that function.
 
-Another thing that happened was that I bought an Oculus Go VR headset. The product is phased out, and you can get them really cheap. I browsed to Infohub and found two things missing - hover effects to confirm what I was pointing at, and audio feedback, so I get a confirmation. I fixed hover effects and will take audio later.
+Another thing that happened was that I bought an Oculus Go VR headset. The product is phased out, and you can get them really cheap. I browsed to InfoHub and found two things missing - hover effects to confirm what I was pointing at, and audio feedback, so I get a confirmation. I fixed hover effects and will take audio later.
 
 During work with the hover effects I also fixed some CSS issues and found bugs that I fixed. And exchanged some lifeless icons to more vivid ones. I noticed that the render cache caused me trouble, so I cleared it when I clear the plugin cache.
 
-Fixed some regressions and added a new plugin: mydemo_myplugin that will show how you as a developer can use Infohub Trigger and a start to build your own app.
+Fixed some regressions and added a new plugin: mydemo_myplugin that will show how you as a developer can use InfoHub Trigger and a start to build your own app.
 
-I am ready to finish the article how easy it is to develop for Infohub, will just release these changes first.
+I am ready to finish the article how easy it is to develop for InfoHub, will just release these changes first.
 
 ## Added
 * Render textarea, added parameter for resize of the textarea
@@ -30,13 +30,13 @@ I am ready to finish the article how easy it is to develop for Infohub, will jus
 * Glossy logo added to folder/doc/images
 * HUB-948, Keyboard overlay for debugging buttons added to folder/doc/images 
 * Launcher, icons get highlighted with light grey
-* Client, Infohub_configlocal.js - Cache the path and config data to a class variable to gain read speed.
+* Client, InfoHub_configlocal.js - Cache the path and config data to a class variable to gain read speed.
     Saw that the language tag are read many times from the local database.
     Now the result are served quicker from the class variable.
 * Workbench icons are now highlighted when hovering on them. Useful for mouse and VR headsets     
 * HUB-971, Role list indexed on name in config available in every plugin
     Then you can check if a user has a specific security role
-* HUB-949, Infohub Trigger, a new plugin where you as a developer can select node, plugin and function. 
+* HUB-949, InfoHub Trigger, a new plugin where you as a developer can select node, plugin and function. 
     Get the default message. Modify it and send it. Then see the response. Useful while developing plugins.
 
 ## Changed
@@ -64,7 +64,7 @@ I am ready to finish the article how easy it is to develop for Infohub, will jus
 * ConfigLocal, changed to $path as index in the class variable
 * progress.js now got the progress written to console. Need to find why old sessions get stuck during start
 * _GetCmdFunctions, have changed on all PHP plugins to call `parent::_GetCmdFunctionsBase($list)` or
-    else we will not get the infohub_base function names. Infohub Trigger want to call the base function `function_names`.
+    else we will not get the infohub_base function names. InfoHub Trigger want to call the base function `function_names`.
 * RenderForm, textarea got better doc for the parameters
 * HUB-973, JS function_names. Done as I have done in Base PHP
 * HUB-972, _GetCmdFunctions, changed all JS files to also get base function names
@@ -88,7 +88,7 @@ I am ready to finish the article how easy it is to develop for Infohub, will jus
 * HUB-976, Regression: Can not get full list
 * HUB-975, Regression: All is in english. Make sure you set your preferred language in the browser config.
     I had installed the english version of the browser and forgot to set Swedish as default language.
-* HUB-979, Asset, Infohub demo gives a base64 string instead of the icon
+* HUB-979, Asset, InfoHub demo gives a base64 string instead of the icon
 
 ## Tested
 * HUB-969, Contact, server contact - All buttons do as expected

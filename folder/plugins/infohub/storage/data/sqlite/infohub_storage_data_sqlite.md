@@ -1,4 +1,4 @@
-# Infohub Storage Data Sqlite
+# InfoHub Storage Data Sqlite
 
 Stores data in SQLite databases
 

@@ -1,4 +1,4 @@
-# Infohub Render Audio
+# InfoHub Render Audio
 
 Renders a link to an audio service
 
@@ -49,7 +49,7 @@ make a link that opens at Spotify.
 
 # Self-hosting
 
-Plugins like Infohub_Audio, Infohub_RenderAudioPlayer are on the todo list. It will help you to host the audio yourself
+Plugins like InfoHub_Audio, InfoHub_RenderAudioPlayer are on the todo list. It will help you to host the audio yourself
 on your server without making the audio public. Then you do not need public services.
 
 # License

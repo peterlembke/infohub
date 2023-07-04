@@ -1,4 +1,4 @@
-# Infohub Tree Encrypt
+# InfoHub Tree Encrypt
 
 Encrypt/decrypt the data locally in the browser. You give an encryption key.
 

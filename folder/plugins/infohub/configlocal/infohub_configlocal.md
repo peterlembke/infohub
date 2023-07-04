@@ -1,4 +1,4 @@
-# Infohub ConfigLocal
+# InfoHub ConfigLocal
 
 Handle all configuration that is for your local browser.
 
@@ -6,7 +6,7 @@ Handle all configuration that is for your local browser.
 
 # Introduction
 
-Your local browser specific settings are handled with Infohub Config Local - this plugin.  
+Your local browser specific settings are handled with InfoHub Config Local - this plugin.  
 Here you can set zoom level, select a font, colour schema, preferred languages. You can also set what you allow or not.
 
 # The main menu

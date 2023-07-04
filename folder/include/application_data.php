@@ -251,11 +251,11 @@ class application_data extends infohub_base
         }
 
         $default = [
-            "node" => '', // "client",
-            "plugin" => '', // "infohub_standalone",
-            "function" => '', //"startup",
-            "data" => [
-                "plugin_name" => '' // "infohub_demo"
+            'node' => '', // 'client',
+            'plugin' => '', // 'infohub_standalone',
+            'function' => '', //'startup',
+            'data' => [
+                'plugin_name' => '' // 'infohub_demo'
             ]
         ];
 
@@ -303,4 +303,8 @@ class application_data extends infohub_base
     }
 }
 
-$appData = new application_data(MAIN, PLUGINS, CONFIG);
+$appData = new application_data(
+    mainPath: MAIN,
+    pluginPath: PLUGINS,
+    configPath:CONFIG
+);

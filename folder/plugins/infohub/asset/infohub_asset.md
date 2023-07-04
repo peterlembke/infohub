@@ -1,4 +1,4 @@
-# Infohub Asset
+# InfoHub Asset
 
 Syncs asset files from the server to the client. Provide asset to plugin tht owns it. Provide all assets to
 infohub_asset, infohub_launcher, infohub_translate.
@@ -9,7 +9,7 @@ Can also render an asset.
 
 # Introduction
 
-Infohub_asset is both a server plugin and a client plugin. Assets are data files that a plugin owns. Like icons,
+InfoHub_asset is both a server plugin and a client plugin. Assets are data files that a plugin owns. Like icons,
 translations, configuration and other data.
 
 When you start a plugin from the Workbench, the plugin assets are synced down and stored in the local database. Now the
@@ -20,11 +20,11 @@ client plugin can ask for its own specific assets.
 Only plugins that can be started from workbench can have assets.  
 When a plugin need one of its asset files it asks infohub_asset for the file data.
 
-Infohub Launcher want launcher data from all plugins that have launcher data, and the start icon and icon license.  
-Infohub Launcher can ask Infohub Asset for the data despite not being the owner of the assets.
+InfoHub Launcher want launcher data from all plugins that have launcher data, and the start icon and icon license.  
+InfoHub Launcher can ask InfoHub Asset for the data despite not being the owner of the assets.
 
-When a plugin want to use its translation files it asks Infohub Translate to merge together all translation files for
-the languages the user prefer. Infohub Translate is allowed to contact Infohub Asset to get all the wanted translation
+When a plugin want to use its translation files it asks InfoHub Translate to merge together all translation files for
+the languages the user prefer. InfoHub Translate is allowed to contact InfoHub Asset to get all the wanted translation
 assets.
 
 ## create
@@ -65,7 +65,7 @@ Calls get_asset_and_license for each asset
 ## get_asset_and_license
 
 Get the asset data and the asset license data for the asset you mention.  
-The plugin name is the caller's plugin name. Infohub_asset can get assets from any plugin name.  
+The plugin name is the caller's plugin name. InfoHub_asset can get assets from any plugin name.  
 Use by owner, infohub_asset
 
 # Server side
@@ -133,13 +133,13 @@ You have the same set up for the images. You can use JPEG, PNG and any other ima
 
 # infohub_file
 
-Infohub Asset on the server depend on the plugin Infohub_File for reading the asset files on the server. The
+InfoHub Asset on the server depend on the plugin InfoHub_File for reading the asset files on the server. The
 infohub_file plugin can read and write files.  
 If the file extension is any of  
 `'txt','csv','xml','json','svg'`
 then the file is a text file. If the extension is not any of those then the file is treated as a binary file and will be
 encoded to base64 text.  
-Base64 text takes more space but is needed if binary files are to be sent within Infohub.
+Base64 text takes more space but is needed if binary files are to be sent within InfoHub.
 
 # Asset types
 
@@ -177,7 +177,7 @@ Sends a message to update_plugin_assets for each plugin name on the list.
 
 Client function that update ALL assets for ONE plugin.  
 Only the plugin that owns the assets can call this function to get the local assets updated in the database.  
-Infohub Asset can call this function on behalf of a plugin.  
+InfoHub Asset can call this function on behalf of a plugin.  
 If the assets already have been recently updated within an hour then the request are ignored.  
 If there exist a local checksum index for the existing local assets then it will be sent to the server->
 update_plugin_assets.  

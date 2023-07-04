@@ -1,4 +1,4 @@
-# Infohub Call
+# InfoHub Call
 
 Calls a web page/API with
 
@@ -9,11 +9,11 @@ Calls a web page/API with
 
 # Introduction
 
-This plugin enables your plugins to call services on the internet. This plugin will be used by the Infohub server to
-reach other Infohub servers. Also used to get data from Web APIs. The main thing now is that I want to support the
+This plugin enables your plugins to call services on the internet. This plugin will be used by the InfoHub server to
+reach other InfoHub servers. Also used to get data from Web APIs. The main thing now is that I want to support the
 CouchDb database. It has an HTTP interface.
 
-# Other Infohub servers
+# Other InfoHub servers
 
 This is the communication part. There will be more code in this plugin around this in future releases.
 

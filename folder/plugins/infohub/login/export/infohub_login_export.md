@@ -1,4 +1,4 @@
-# Infohub_Login_Export
+# InfoHub_Login_Export
 
 Here you can export the current contact that you have previously imported. This is useful for backup or to import on another device, so you can log in there too.
 

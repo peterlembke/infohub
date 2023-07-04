@@ -1,10 +1,10 @@
-# Infohub Demo Map
+# InfoHub Demo Map
 
-Shows a demo how you can use the Infohub render map plugin.
+Shows a demo how you can use the InfoHub render map plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render map plugin.  
+In this demo we show how to use the InfoHub render map plugin.  
 You will see all the supported 3rd party services that you can use to display a map.  
 For now these services run directly in your browser. That is not good since you are being tracked. Use Open Street Map (
 OSM), they are the best when it comes to personal integrity.  
@@ -13,7 +13,7 @@ party services.
 In the future you will be able to get map data from your server instead. But for now that is not possible.  
 Read more in the documentation about
 
-- [Infohub Render Map](plugin,infohub_render_map)
+- [InfoHub Render Map](plugin,infohub_render_map)
 
 # License
 

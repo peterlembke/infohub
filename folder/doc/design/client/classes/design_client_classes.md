@@ -1,9 +1,9 @@
 # Design Client - Classes
-Design decisions when creating the Infohub Javascript client.
+Design decisions when creating the InfoHub Javascript client.
 
 ## Classes
 ES6, also known as ECMAScript2015, introduced classes.
-Infohub design has evolved since 2010. Back then there were no classes.
+InfoHub design has evolved since 2010. Back then there were no classes.
 But we can change that if classes are good enough in Javascript.
 
 Read more at [W3Schools](https://www.w3schools.com/js/js_classes.asp) and at [sitepoint](https://www.sitepoint.com/javascript-private-class-fields/). 

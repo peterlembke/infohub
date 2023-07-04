@@ -1,4 +1,4 @@
-# Infohub Demo Welcome
+# InfoHub Demo Welcome
 
 Gives you more information about InfoHub
 

@@ -201,6 +201,21 @@ function infohub_doc_navigate() {
         }
 
         if ($in.step === 'step_handle_documents_list') {
+
+            let $messageArray = [];
+            const $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_get',
+                    'function': 'build_local_documents_list',
+                },
+                'data': {},
+                'data_back': {
+                    'step': 'step_end'
+                },
+            });
+            $messageArray.push($messageOut);
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -213,6 +228,7 @@ function infohub_doc_navigate() {
                 'data_back': {
                     'step': 'step_end',
                 },
+                'messages': $messageArray
             });
         }
 

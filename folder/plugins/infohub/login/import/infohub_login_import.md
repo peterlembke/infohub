@@ -1,4 +1,4 @@
-# Infohub_Login_Import
+# InfoHub_Login_Import
 
 Here you can import the file you got from the server owner. The file will allow you to log in to the server. The file also tell you what rights you have on the server.
 
@@ -13,7 +13,7 @@ If the import was a failure then you will get a message and the button will have
 
 ## Get the file
 
-See the [export](plugin,infohub_log in_export) plugin for ways to transport the log in file.
+See the [export](plugin,infohub_login_export) plugin for ways to transport the log in file.
 
 # License
 

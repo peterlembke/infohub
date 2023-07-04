@@ -1,4 +1,4 @@
-# Infohub Debug
+# InfoHub Debug
 
 Handles the four refresh commands you can use to clear/update the local cache in your browser.
 
@@ -7,9 +7,9 @@ Handles the four refresh commands you can use to clear/update the local cache in
 If you refresh the page as you normally do wit CTRL + R or F5 then you could get caught in the ban system and get an
 error with more ban time.
 
-The refresh methods used in Infohub Debug wait for the ban time to end and then refresh the page.
+The refresh methods used in InfoHub Debug wait for the ban time to end and then refresh the page.
 
-Infohub is designed with speed in mind. The browser locally caches plugins, assets, settings. Normally all these are
+InfoHub is designed with speed in mind. The browser locally caches plugins, assets, settings. Normally all these are
 automatically updated when the cache gets old. If they are not updated, or you want to speed things up then you need to
 handle the cache yourself.
 
@@ -50,7 +50,7 @@ The #2 was intended to be faster than #3, but they are roughly at the same speed
 
 # Key listeners
 
-Infohub Debug register four keyboard key combinations and have listeners for them.
+InfoHub Debug register four keyboard key combinations and have listeners for them.
 
 You can see the keyboard subscriptions in [infohub_keyboard](plugin,infohub_keyboard).
 
@@ -69,7 +69,7 @@ Touch devices are computers that have no keyboard.
 When you refresh the page a couple of times then the first refresh will update the local plugins in the background. The
 second refresh will use the local plugins.
 
-## Use Infohub Debug GUI
+## Use InfoHub Debug GUI
 
 The gui gives you the four buttons on screen. But this is only useful if you can start the plugin. That is not always
 the case.

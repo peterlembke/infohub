@@ -1,5 +1,5 @@
 # Configuration file
-How to configure Infohub
+How to configure InfoHub
 
 ## Introduction
 A plugin can have a configuration file in the same folder as the plugin.  

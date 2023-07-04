@@ -1,16 +1,16 @@
 # Investigate installation
-How can we install Infohub in an easy way?
+How can we install InfoHub in an easy way?
 
 ## Background
 Installing systems like Magento2, WordPress, Joomla!, Laravel is not that hard but not easy.
 I remember that restoring a backup on Joomla! was very easy with uploading a php file that expanded the backup. 
 
-I want Infohub to be easy to install locally in the development environment.  
+I want InfoHub to be easy to install locally in the development environment.  
 Be easy to install on a hosted server where you do not have shell-access.
 
-## What Infohub need today
+## What InfoHub need today
 
-* Clone the Infohub repository
+* Clone the InfoHub repository
 * Copy the `folder/config_example` to `folder/config`.
 * If this is a production server then:
   * Change settings to the database `config/infohub_storage_data`
@@ -20,7 +20,7 @@ Be easy to install on a hosted server where you do not have shell-access.
   * Change settings for `config/infohub_login`
   * Change settings for `config/infohub_plugin`
 
-## How Infohub request plugins
+## How InfoHub request plugins
 
 Today if frontend need a plugin it checks the Storage.   
 If the plugin is not there then it asks the server.  
@@ -32,16 +32,16 @@ If there is still no plugin the return message will inform of that.
 The frontend store the plugin in Storage, 
 or store that no plugin exist so no requests are done for this plugin.  
 
-## Vision for Infohub
+## Vision for InfoHub
 
 I want the server to ask in more places for the plugin.  
-Login to an Infohub server that either give the plugin or know where it is.  
+Login to an InfoHub server that either give the plugin or know where it is.  
 Download a zip of the latest version and unzip it.  
 Download SQLite database and use that.  
 
 ## Insights
 
-I need some way to configure Infohub. I could have two sets of config files to copy.
+I need some way to configure InfoHub. I could have two sets of config files to copy.
 * development
 * production
 

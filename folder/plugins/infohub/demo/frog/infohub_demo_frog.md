@@ -1,4 +1,4 @@
-# Infohub Demo Frog
+# InfoHub Demo Frog
 
 Shows a demo what happens if you want to render something that do not exist.
 

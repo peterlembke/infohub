@@ -15,7 +15,7 @@
  */
 declare(strict_types=1);
 ini_set('zlib.output_compression', '4096');
-ini_set('memory_limit', '12M');
+ini_set('memory_limit', '16M');
 ini_set('max_execution_time', '5'); // seconds
 ini_set('default_socket_timeout', '4'); // seconds
 
@@ -37,9 +37,25 @@ set_exception_handler('myExceptionHandler');
 register_shutdown_function('shutdownFunction');
 
 // Turn off cache for ajax calls
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
+
+// Security headers. https://securityheaders.com/?q=infohub.se&followRedirects=on
+header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+
+// https://scotthelme.co.uk/content-security-policy-an-introduction/
+// https://content-security-policy.com/nonce/
+// header("Content-Security-Policy-Report-Only: default-src 'self'; script-src 'unsafe-eval' 'unsafe-inline' 'self' ; style-src 'unsafe-inline' 'self'; img-src data: 'unsafe-inline' 'self';");
+header("Content-Security-Policy: default-src 'self'; script-src 'unsafe-eval' 'unsafe-inline' 'self' ; style-src 'unsafe-inline' 'self'; img-src data: 'unsafe-inline' 'self';");
+
+header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: same-origin');
+
+// https://www.permissionspolicy.com/
+// Turn off features in your browser that could overstep your privacy or goes against the InfoHub purpose.
+header('Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(self), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(self), magnetometer=(), microphone=(), midi=(self), payment=(), picture-in-picture=(), publickey-credentials-get=(self), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(self)');
 
 $GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
 $GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'log' if you want to debug in general.

@@ -1,11 +1,11 @@
-# Infohub Keyboard
+# InfoHub Keyboard
 
 Handles the keyboard. You can subscribe to key combinations and get a message.
 
 # Introduction
 
 You can subscribe to keyboard key combinations and get a message when that combination happens.  
-Infohub Keyboard has a keyup observer that starts as soon as anyone subscribes.  
+InfoHub Keyboard has a keyup observer that starts as soon as anyone subscribes.  
 When you write on your keyboard and use combinations of special keys then an event are triggered and the key data are
 sent to infohub_keyboard.  
 This plugin check if the combination of key + special keys are OK and create an event_key for that combination.  
@@ -64,7 +64,7 @@ You can have ALT, ALT + SHIFT, CTRL, CTRL + ALT, CTRL + ALT + SHIFT, CTRL + SHIF
 
 # Hard coded subscribers
 
-Will be removed from the plugin. NO EXCEPTIONS. These have to be in Infohub_Debug instead.  
+Will be removed from the plugin. NO EXCEPTIONS. These have to be in InfoHub_Debug instead.  
 shift_alt_ctrl_49 ("1") - Refresh the page when the ban time has ended.  
 shift_alt_ctrl_49 ("2") - Updates the local plugins and refresh the page when the ban time has ended.  
 shift_alt_ctrl_50 ("3") - Removes the local plugins and refresh the page when the ban time has ended.  

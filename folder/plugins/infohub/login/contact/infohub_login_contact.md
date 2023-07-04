@@ -1,4 +1,4 @@
-# Infohub_Login_Contact
+# InfoHub_Login_Contact
 
 Here you can see your contact data. You can also change node name and note.
 
@@ -41,7 +41,7 @@ can read more about [Hub-UUID](plugin,infohub_uuid).
 You share this secret with the server. Do not reveal it with anyone else. Protect it to your best effort.
 
 The shared secret is 2048 byte long. You can scramble the shared secret with a password.
-See [password](plugin,infohub_log in_password).
+See [password](plugin,infohub_login_password).
 
 ## Checksum
 

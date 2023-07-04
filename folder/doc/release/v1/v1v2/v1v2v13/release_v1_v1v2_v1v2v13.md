@@ -6,7 +6,7 @@ Focused on deprecating test system and callback. Doc now read root files. New tr
 
 ## Added
 - HUB-621 - Server: Now config/user_name is populated so the plugin can act on it
-- HUB-604 - Server: Infohub Session - Get allowed plugins list
+- HUB-604 - Server: InfoHub Session - Get allowed plugins list
 - HUB-620 - Server: Check incoming messages against the session allowed plugins list
 - HUB-637 - Client: Exchange, Have a function ping that return pong
 - HUB-636 - Client: Support short tail messages in sub calls

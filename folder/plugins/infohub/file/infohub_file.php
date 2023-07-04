@@ -195,16 +195,19 @@ class infohub_file extends infohub_base
         }
 
         $extension = $response['path_info']['extension'];
+        $node = $this->_GetNodeFromExtension($extension);
+
+        if ($extension === 'php' || $extension === 'js') {
+            $userRole = $this->_GetUserRole($node, $contents);
+            $pluginStatus = $this->_GetPluginStatus($node, $contents);
+        }
+
+        $checksum = $this->_Hash($contents);
 
         $isBinary = $this->_IsBinaryFileExtension($extension);
         if ($isBinary === 'true') {
             $contents = base64_encode($contents);
         }
-
-        $node = $this->_GetNodeFromExtension($extension);
-        $userRole = $this->_GetUserRole($node, $contents);
-        $pluginStatus = $this->_GetPluginStatus($node, $contents);
-        $checksum = $this->_Hash($contents);
 
         $message = 'Here are the file contents';
 
@@ -1443,13 +1446,11 @@ class infohub_file extends infohub_base
 
             $pattern = '*' . $suffix;
 
-            $response = $this->internal_Cmd(
-                [
-                    'func' => 'GetFolderStructure',
-                    'path' => PLUGINS,
-                    'pattern' => $pattern,
-                ]
-            );
+            $response = $this->internal_Cmd([
+                'func' => 'GetFolderStructure',
+                'path' => PLUGINS,
+                'pattern' => $pattern,
+            ]);
 
             if ($response['answer'] === 'false') {
                 $message = $response['message'];
@@ -1492,7 +1493,7 @@ class infohub_file extends infohub_base
                     continue;
                 }
 
-                $role = $this->_GetUserRole($node, $fileData['contents']);
+                $role = $fileData['user_role'];
                 if (empty($role) === true) {
                     continue;
                 }
@@ -1535,7 +1536,7 @@ class infohub_file extends infohub_base
     }
 
     /**
-     * Pulls out the user_role from the source code
+     * Pulls out the user_role from the source code from a Javascript or PHP plugin
      *
      * @param  string  $node
      * @param  string  $contents
@@ -1543,8 +1544,6 @@ class infohub_file extends infohub_base
      */
     protected function _GetUserRole(string $node = '', string $contents = ''): string
     {
-        $decodedContents = base64_decode($contents);
-
         $rolePattern = "'user_role' => '";
         if ($node === 'client') {
             $rolePattern = "'user_role': '";
@@ -1552,24 +1551,24 @@ class infohub_file extends infohub_base
 
         $rolePatternLength = strlen($rolePattern);
 
-        $findStart = strpos($decodedContents, $rolePattern);
+        $findStart = strpos($contents, $rolePattern);
         if ($findStart === false) {
             return '';
         }
 
-        $findEnd = strpos($decodedContents, "'", $findStart + $rolePatternLength);
+        $findEnd = strpos($contents, "'", $findStart + $rolePatternLength);
         if ($findEnd === false) {
             return '';
         }
 
         $roleLength = $findEnd - $findStart - $rolePatternLength;
-        $role = substr($decodedContents, $findStart + $rolePatternLength, $roleLength);
+        $role = substr($contents, $findStart + $rolePatternLength, $roleLength);
 
         return $role;
     }
 
     /**
-     * Pulls out the plugin status from the source code
+     * Pulls out the plugin status from the source code from a Javascript or PHP plugin
      *
      * @param  string  $node
      * @param  string  $contents
@@ -1577,8 +1576,6 @@ class infohub_file extends infohub_base
      */
     protected function _GetPluginStatus(string $node = '', string $contents = ''): string
     {
-        $decodedContents = base64_decode($contents);
-
         $pattern = "'status' => '";
         if ($node === 'client') {
             $pattern = "'status': '";
@@ -1586,18 +1583,18 @@ class infohub_file extends infohub_base
 
         $patternLength = strlen($pattern);
 
-        $findStart = strpos($decodedContents, $pattern);
+        $findStart = strpos($contents, $pattern);
         if ($findStart === false) {
             return '';
         }
 
-        $findEnd = strpos($decodedContents, "'", $findStart + $patternLength);
+        $findEnd = strpos($contents, "'", $findStart + $patternLength);
         if ($findEnd === false) {
             return '';
         }
 
         $statusLength = $findEnd - $findStart - $patternLength;
-        $status = substr($decodedContents, $findStart + $patternLength, $statusLength);
+        $status = substr($contents, $findStart + $patternLength, $statusLength);
 
         return $status;
     }
@@ -1639,13 +1636,11 @@ class infohub_file extends infohub_base
 
             $requestedPath = PLUGINS . DS . str_replace('_', DS, $requestedPluginName);
 
-            $response = $this->internal_Cmd(
-                [
-                    'func' => 'GetFolderStructure',
-                    'path' => $requestedPath,
-                    'pattern' => '*.js',
-                ]
-            );
+            $response = $this->internal_Cmd([
+                'func' => 'GetFolderStructure',
+                'path' => $requestedPath,
+                'pattern' => '*.js',
+            ]);
 
             if ($response['answer'] === 'false') {
                 $message = $response['message'];

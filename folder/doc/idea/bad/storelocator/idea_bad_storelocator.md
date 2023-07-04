@@ -1,12 +1,12 @@
 # Store locator
 See and search for stores where you can buy things.
 Magento will export the store data to json.
-Infohub can use the data. 
+InfoHub can use the data. 
 
 && tool,public_static_data
 
 ## Comment 1
-I could invent a format and create a store locator. This is one of the steps in using Infohub as a separate e-commerce platform.
+I could invent a format and create a store locator. This is one of the steps in using InfoHub as a separate e-commerce platform.
 
 ## Comment 2
 The e-commerce are heading toward big trading places like Amazon and Alibaba. Smaller tools will be marginalized. It is just like the blogs. A lot of people blogged before. Now they use Facebook instead.

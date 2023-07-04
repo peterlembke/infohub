@@ -1,4 +1,4 @@
-# Infohub color
+# InfoHub color
 
 Configure dark mode and primary colors.
 

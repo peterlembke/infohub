@@ -1,10 +1,10 @@
-# Infohub Tools Checksum
+# InfoHub Tools Checksum
 
 Here you can generate checksums
 
 # Introduction
 
-With this tool you can generate checksums from [Infohub Checksum](plugin,infohub_checksum).  
+With this tool you can generate checksums from [InfoHub Checksum](plugin,infohub_checksum).  
 There are different kinds of checksums. Check the link above to read more about them.  
 This graphical user interface (GUI) show a text box where you enter the data, a list with nodes (client / server), a
 dropdown where you select the checksum method, and a submit button.  

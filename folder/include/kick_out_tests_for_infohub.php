@@ -261,15 +261,11 @@ class kick_out_tests_for_infohub extends infohub_base
         $messageOut = [
             'to' => [
                 'node' => 'client',
-                'plugin' => 'infohub_transfer',
-                'function' => 'ban_seconds'
+                'plugin' => 'infohub_view',
+                'function' => 'alert'
             ],
             'data' => [
-                'answer' => 'false',
-                'data' => 0,
-                'banned_until' => 0.0,
-                'ban_seconds' => 0.0,
-                'message' => $message
+                'text' => $message
             ]
         ];
         $package = ['to_node' => 'client', 'messages' => [$messageOut]];
@@ -278,7 +274,6 @@ class kick_out_tests_for_infohub extends infohub_base
         // echo $messageOut;
         exit($messageOut);
     }
-
 }
 
 $kick = new kick_out_tests_for_infohub();

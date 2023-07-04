@@ -1,6 +1,6 @@
-# Infohub.php
+# InfoHub.php
 The Client calls infohub.php on the server and deliver a POST package.  
-The difference between index.php and Infohub .php is that index.php is there to initialize the browser Javascript core. infohub.php is there to respond to POST messages.  
+The difference between index.php and InfoHub .php is that index.php is there to initialize the browser Javascript core. infohub.php is there to respond to POST messages.  
 index.php have to start a session with the browser. infohub.php expect the session to already be there.  
 Both files include the kick out tests where you are expected to fulfill a long list of requirements.  
 infohub.php first include some files:   

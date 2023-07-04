@@ -1,5 +1,5 @@
 # [1.2.4] - 2020-01-01
-I started developing Infohub at 2010-01-01 and today 10 years later I give you this release.   
+I started developing InfoHub at 2010-01-01 and today 10 years later I give you this release.   
 
 This is a service release with a lot of small changes but also a new feature with the table renderer and my view on doc/accessibility.
 

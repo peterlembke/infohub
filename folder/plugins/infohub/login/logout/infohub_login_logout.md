@@ -1,4 +1,4 @@
-# Infohub_Login_Logout
+# InfoHub_Login_Logout
 
 Here you can tell the remote server that you want to close the open connection for now. This will require you to log in
 the next time.

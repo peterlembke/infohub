@@ -1,6 +1,6 @@
 # [1.3.7] - 2022-03-04
 
-Infohub is much faster now on all browsers.
+InfoHub is much faster now on all browsers.
 Client Storage is now one plugin. Added a Storage memory cache.
 Launcher render the full list faster. Some plugins start faster. Removed many slow _ByVal and _Merge that was not needed.
 Used step_void in some places to avoid getting an answer I do not need.

@@ -1,11 +1,11 @@
-# Infohub Translate Menu
+# InfoHub Translate Menu
 
 Displays a menu with all options for your translation needs.
 
 # Introduction
 
 This plugin renders a menu with all the translation options.  
-Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
+Read more about menus here: [InfoHub Render Menu](plugin,infohub_rendermenu)
 
 # License
 

@@ -1,12 +1,12 @@
 # Accessibility
-Accessibility is for making the software in a way so that as many people as possible can use it. Infohub aim to be perfect at that.
+Accessibility is for making the software in a way so that as many people as possible can use it. InfoHub aim to be perfect at that.
 
 [columns]
-Not everyone has perfect locomotor activity together with sharp eyesight that see all colours.
+Not everyone has perfect loco-motor activity together with sharp eyesight that see all colours.
 
 People with normal sight also benefit from these systems. 
 
-Accessibility in Infohub include:
+Accessibility in InfoHub include:
 
 * Translations - Different languages
 * Colour - Colour schema that suit you best.
@@ -65,15 +65,15 @@ I will create labs on vibration.
 
 # Speech Recognition
 The browser has a [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) where you can get Speech Recognition and Speech Synthesis.
-I will create labs on speech recognition. If it works then Infohub will get that for navigation and for text input.
+I will create labs on speech recognition. If it works then InfoHub will get that for navigation and for text input.
   
 # Speech Synthesis
 The browser has a Web Speech API where you can get Speech Recognition and Speech Synthesis.
-I will create labs on speech synthesis. If it works then Infohub will get that for navigation and for reading text.
+I will create labs on speech synthesis. If it works then InfoHub will get that for navigation and for reading text.
 
 # Image
 There are different kinds of colour blindness. By modifying the colours on the image you can more easily see differences in colour. The image gives you more value.
-Infohub will support adding colour correction for the most common versions of colour blindness. I think there are four.
+InfoHub will support adding colour correction for the most common versions of colour blindness. I think there are four.
  
 # Keyboard navigation
 The target navigation devices are touch and keyboard. Mouse is not a target device.

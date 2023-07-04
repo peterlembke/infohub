@@ -1,15 +1,15 @@
-# Infohub Plugin
+# InfoHub Plugin
 
 Finds and starts your plugin
 
 # Introduction
 
-Purpose of Infohub Plugin is to find and start plugins. The plugin is part of the core and exist in a server version (
+Purpose of InfoHub Plugin is to find and start plugins. The plugin is part of the core and exist in a server version (
 PHP) and in a client version (Javascript).
 
-# Infohub Plugin on the server
+# InfoHub Plugin on the server
 
-The server version are started by infohub.php as one of the core plugins that need to be started before Infohub can
+The server version are started by infohub.php as one of the core plugins that need to be started before InfoHub can
 function properly.  
 When we get a plugin_request then we check if there is a plugin file in the plugin folder with the right extension. We
 can handle plugins for other nodes too.  
@@ -18,9 +18,9 @@ a "sorry, the plugin was not found".
 If the found plugin will be used on this node then we start the plugin. If the found plugin will be used on another node
 then we return the plugin code to that node can start the plugin.
 
-# Infohub Plugin on the client
+# InfoHub Plugin on the client
 
-The client version are started by start.js as one of the core plugins that need to be started before Infohub can
+The client version are started by start.js as one of the core plugins that need to be started before InfoHub can
 function properly.  
 When we get a plugin_request then we check in local storage if the plugin is here. If it is not too old then it is
 started.  
@@ -45,7 +45,7 @@ the Storage.
 
 Each plugin can have a CSS file. Having a CSS file is very much discouraged, and I urgently promote using no CSS at all,
 or second best use the existing CSS in the rendered components.  
-infohub_view has a global css file for the boxes to work. In Infohub View you find the string "{infohub_view.css}" that
+infohub_view has a global css file for the boxes to work. In InfoHub View you find the string "{infohub_view.css}" that
 will be substituted with the content from the css file.  
 The render plugins all use segmented CSS that are built into the code. So they do not use global CSS. Segmented CSS in
 the code is the preferred way to use CSS. Affect things globally is bad.  

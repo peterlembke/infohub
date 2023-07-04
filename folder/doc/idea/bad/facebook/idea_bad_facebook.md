@@ -1,9 +1,9 @@
 # Facebook
 I care for my privacy, but I also want to communicate with my friends on Facebook.
-Can't Infohub have a Facebook client that let the server communicate with Facebook and then the server communicate with my browser.
+Can't InfoHub have a Facebook client that let the server communicate with Facebook and then the server communicate with my browser.
 Then Facebook can not track all data, and I feel safer.
 
-Even if it was just for sending out a post it would still be cool to have in Infohub.
+Even if it was just for sending out a post it would still be cool to have in InfoHub.
 
 && client
 
@@ -16,7 +16,7 @@ Regardless of your Facebook privacy settings, all data are still stored at Faceb
 
 There will be a problem to safely store the login credentials on the server to your Twitter account.
 
-Infohub is a privacy platform, not a social or sharing platform. Facebook has no place here.
+InfoHub is a privacy platform, not a social or sharing platform. Facebook has no place here.
 
 The Facebook API can change. Users can be locked out. Fines can be introduced. Facebook do whatever they like.
 

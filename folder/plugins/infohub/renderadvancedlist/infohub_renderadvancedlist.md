@@ -1,10 +1,10 @@
-# Infohub RenderAdvancedList
+# InfoHub RenderAdvancedList
 
 Renders an advanced list.
 
 # Introduction
 
-With Infohub_AdvancedList you can show an advanced list with expandable nodes. The features are:
+With InfoHub_AdvancedList you can show an advanced list with expandable nodes. The features are:
 
 - HTML-list with optional indents (lists in lists)
 - Each node can be default expanded or contracted
@@ -89,7 +89,7 @@ nodes that are then put together as lists in lists.
 # HTML in the label
 
 If you want the items in the list to be clickable then you can see how that is done in infohub_doc.  
-This is a real example from the rendering of the navigator list in Infohub Doc:  
+This is a real example from the rendering of the navigator list in InfoHub Doc:  
 Observe that the "label" is not a proper string. All " need to be \" inside the string.
 
 ```

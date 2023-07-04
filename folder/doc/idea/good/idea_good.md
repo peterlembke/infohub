@@ -1,15 +1,15 @@
 # Good ideas
-A good idea is something that fit into the Infohub concept of a secure personal operating system.
+A good idea is something that fit into the InfoHub concept of a secure personal operating system.
 
-## What is/is not Infohub
+## What is/is not InfoHub
 
-### Infohub is
-* Infohub is for registering and storing your personal data so YOU can access it on all your devices.
+### InfoHub is
+* InfoHub is for registering and storing your personal data so YOU can access it on all your devices.
 
-### Infohub is NOT
-* Infohub is NOT about sharing data with others. 
-* Infohub is NOT about being anonymous on the internet.
-* Infohub is NOT about making it easier to use other services that handle personal data.
+### InfoHub is NOT
+* InfoHub is NOT about sharing data with others. 
+* InfoHub is NOT about being anonymous on the internet.
+* InfoHub is NOT about making it easier to use other services that handle personal data.
 
 ## Example areas with good ideas
 
@@ -60,7 +60,7 @@ Things I might implement.
 * Event - Register events you want to participate in or have participated in.
 
 ### Enrich personal data from outer sources
-Data that the server fetch from 3rd party API or from other Infohub servers and can enrich your personal data.
+Data that the server fetch from 3rd party API or from other InfoHub servers and can enrich your personal data.
 * Weather - Get the weather and temperature for a place and date.
 * Map - Get a snapshot from an open street map
 * Event - Get event details

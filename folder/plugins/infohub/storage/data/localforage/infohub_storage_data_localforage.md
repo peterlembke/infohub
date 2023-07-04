@@ -1,4 +1,4 @@
-# Infohub Storage Data LocalForage
+# InfoHub Storage Data LocalForage
 
 Stores data in your web browser
 

@@ -1,4 +1,4 @@
-# Infohub ConfigLocal Allow
+# InfoHub ConfigLocal Allow
 
 You can allow/disallow things in your local browser.
 
@@ -6,7 +6,7 @@ You can allow/disallow things in your local browser.
 
 Each user is different, have different view of things and different hardware and broadband.
 
-- [Infohub ConfigLocal](plugin,infohub_configlocal)
+- [InfoHub ConfigLocal](plugin,infohub_configlocal)
 
 # License
 

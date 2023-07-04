@@ -30,7 +30,7 @@ In this distribution you have php plugins and javascript plugins. The web browse
 - Support plugin
 
 ## Core plugin
-The bare minimum to start Infohub. These plugins do not use any other plugins.  
+The bare minimum to start InfoHub. These plugins do not use any other plugins.  
 
 Example: base, plugin, exchange, transfer
 

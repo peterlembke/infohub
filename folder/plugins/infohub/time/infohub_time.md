@@ -1,4 +1,4 @@
-# Infohub Time
+# InfoHub Time
 
 Get the current time stamp in different formats
 

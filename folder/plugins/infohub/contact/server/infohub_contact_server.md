@@ -1,4 +1,4 @@
-# Infohub Contact Server
+# InfoHub Contact Server
 
 The GUI to handle outgoing connections to other servers
 

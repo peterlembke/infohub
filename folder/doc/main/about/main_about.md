@@ -89,7 +89,7 @@ Pick your preferred colors, font and zoom level. That is then used on all InfoHu
 Login by scanning a QR code with your phone.  
 
 # Lead words in building InfoHub
-These three rules apply in all decisions about Infohub.  
+These three rules apply in all decisions about InfoHub.  
 
 ## 1, Make it simple
 - If you have to choose between simplicity and speed then choose simplicity.
@@ -102,7 +102,7 @@ These three rules apply in all decisions about Infohub.
 ## 2, No exceptions
 - There should be no exceptions. Meaning that your plugin does as all other plugin does. That makes it easier to learn.
 - Means that ALL data are stored in Storage. ALL traffic are exchanged between plugins with InfoExchange.
-- EVERYONE have to do a log in to access data. ALL data in/out from the node are handled by Infohub Transfer.
+- EVERYONE have to do a log in to access data. ALL data in/out from the node are handled by InfoHub Transfer.
 - Do not introduce surprises, that would break rule #1
 
 ## 3, Self containing
@@ -110,7 +110,7 @@ These three rules apply in all decisions about Infohub.
 - Small internal functions that you can copy to your plugin is better than external sub calls.
 - It is easier (see #1) to follow internal sub calls.
 - Your plugin must handle a rejection from each sub call.
-- Your plugin can be used in other none Infohub projects with no changes.
+- Your plugin can be used in other none InfoHub projects with no changes.
 - Self containing also mean that your plugin is distributed with a good documentation file, test data file, all assets, default config and so on, so you do not have to search for more information.
 
 # License

@@ -1,4 +1,4 @@
-# Infohub_Storage_Data_CouchDb
+# InfoHub_Storage_Data_CouchDb
 
 Stores data in a CouchDb server
 
@@ -19,13 +19,13 @@ the same computer. Each have its own port.
 # PouchDb
 
 PouchDb is run on in the browser and uses the IndexedDb database to store data. The main feature with PouchDb is the
-syncronisation of data with a CouchDb server. The aim for Infohub is to take control of all web requests. PouchDb do its
+syncronisation of data with a CouchDb server. The aim for InfoHub is to take control of all web requests. PouchDb do its
 own requests. That is not compatable.
 
 # CouchDb
 
-The Infohub server will contact the CouchDb server. The Client will not contact CouchDb directly. There will be a
-wrapper in Infohub, so you can us CouchDb just like any other Storage.
+The InfoHub server will contact the CouchDb server. The Client will not contact CouchDb directly. There will be a
+wrapper in InfoHub, so you can us CouchDb just like any other Storage.
 
 # License
 

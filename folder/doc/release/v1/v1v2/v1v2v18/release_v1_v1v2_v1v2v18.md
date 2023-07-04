@@ -25,7 +25,7 @@ Improved: the log-in/logout procedure. Missing rights shows on screen. Added pin
     This does not look good, but I'll have it like this until I figure out something better.
 
 ## Removed
-* Client: Infohub_Exchange, removed almost all typeof and use _IsSet instead
+* Client: InfoHub_Exchange, removed almost all typeof and use _IsSet instead
 
 ## Fixed
 * Doc, Fixed errors in infohub_render_common.md

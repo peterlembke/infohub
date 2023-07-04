@@ -1,4 +1,4 @@
-# Infohub Template
+# InfoHub Template
 
 Your quick start in InfoHub
 
@@ -6,7 +6,7 @@ Your quick start in InfoHub
 
 # Introduction
 
-Infohub_Template is just a bare-bone plugin to InfoHub that you can copy and rename.  
+InfoHub_Template is just a bare-bone plugin to InfoHub that you can copy and rename.  
 This gives you a quick start when you create your plugin.
 
 # Different files
@@ -31,12 +31,12 @@ InfoHub core to run other licenses, then you can not call the core InfoHub.
 
 Under the folder "plugins", create your own sub folder for your domain. It can be any low letter name. For this example
 we use: mydomain  
-Copy the entire folder: "template" from the Infohub folder to the new "mydomain" folder.  
+Copy the entire folder: "template" from the InfoHub folder to the new "mydomain" folder.  
 Set a name for your new plugin by renaming your template-folder. In this example we use: myplugin. This means the files
 are renamed to mydomain_myplugin.js, mydomain_myplugin.php, mydomain_myplugin.xml  
 Delete the json file. It is not needed and will be auto generated later when we test the new plugin.  
 If you only want to create a php plugin then delete the js file.  
-Make sure that you have read about the features in [Infohub_Base](plugin,infohub_base), so you know about the different
+Make sure that you have read about the features in [InfoHub_Base](plugin,infohub_base), so you know about the different
 function types.  
 In `_GetCmdFunctions()` then add all public function names you want to use. Now you can add public functions and
 internal functions to your plugin.  

@@ -1,4 +1,4 @@
-# Infohub Democall
+# InfoHub Democall
 
 What happens if we do a bad call
 
@@ -8,7 +8,7 @@ You can call a node, plugin, function and that will run the function. The answer
 happens if the function do not exist, or the plugin do not exist?  
 With democall you can test just that with calls to the client and to the server.  
 Who can call who? DemoCall also test if you can send a message to plugins that are self, child, sibling, parent, sibling
-child, level1. The rules are described in [Infohub Exchange](plugin,infohub_exchange)
+child, level1. The rules are described in [InfoHub Exchange](plugin,infohub_exchange)
 
 # Rules
 

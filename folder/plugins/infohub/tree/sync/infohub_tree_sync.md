@@ -1,11 +1,11 @@
-# Infohub Tree Sync
+# InfoHub Tree Sync
 
 Sync data between the browser local Storage and the server Storage. If in doubt then the GUI will ask the human what
 version to keep.
 
 ## Information
 
-Infohub_Tree_Storage keep a path_index in browser local Storage for each plugin.   
+InfoHub_Tree_Storage keep a path_index in browser local Storage for each plugin.   
 The index contain:
 path, current_checksum, server_checksum, updated_at, synced_at, delete
 

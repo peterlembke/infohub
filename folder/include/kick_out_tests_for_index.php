@@ -155,7 +155,12 @@ class kick_out_tests_for_index
             'infohub.svg',
             'infohub-512.png',
             'robots.txt',
-            'serviceworker.js'
+            'serviceworker.js',
+            'blog',
+            'demo',
+            'doc',
+            'private',
+            'flush_cache.php'
         ];
 
         $removeFiles = array_diff($foundFiles, $acceptedFiles);
@@ -173,6 +178,7 @@ class kick_out_tests_for_index
                 continue;
             }
         }
+
         $this->GetOut('Found files that are not accepted in the server root folder:' . implode(',', $removeFiles));
     }
 
@@ -201,6 +207,7 @@ class kick_out_tests_for_index
             '</div></body></html>';
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         echo $messageOut;
+
         exit();
     }
 

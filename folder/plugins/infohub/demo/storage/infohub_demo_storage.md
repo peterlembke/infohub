@@ -1,10 +1,10 @@
-# Infohub Demo Storage
+# InfoHub Demo Storage
 
 Show all features in Storage on client and server
 
 # Introduction
 
-In this demo we show how to use  [Infohub Storage](plugin,infohub_storage).
+In this demo we show how to use  [InfoHub Storage](plugin,infohub_storage).
 
 You will read a path, write to a path, read to many paths with different data, write to many paths with different data.
 

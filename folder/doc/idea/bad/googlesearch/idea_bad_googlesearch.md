@@ -7,7 +7,7 @@ Would be cool to have a completely anonymous search where you could get results 
 Google Search, Bing and others track you. The only search that can be used is DuckDuckGo.
 [DuckDuckGo](https://duckduckgo.com/) do not track you. If you want you can visit them with [Tor browser](https://www.torproject.org/download/) to be completely anonymous.
 
-With that in mind there is no point in having search in Infohub.
+With that in mind there is no point in having search in InfoHub.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  

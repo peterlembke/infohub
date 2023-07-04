@@ -1,4 +1,4 @@
-# Infohub Storage Data PgSQL
+# InfoHub Storage Data PgSQL
 
 Stores data in a PostgreSQL server
 

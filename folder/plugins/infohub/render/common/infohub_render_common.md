@@ -1,4 +1,4 @@
-# Infohub Render Common
+# InfoHub Render Common
 
 Render common objects like containers, iframes (deprecated), legends, images, lists
 

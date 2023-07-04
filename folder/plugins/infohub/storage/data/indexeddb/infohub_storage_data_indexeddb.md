@@ -1,4 +1,4 @@
-# Infohub Storage Data IndexedDb
+# InfoHub Storage Data IndexedDb
 
 Stores data in your web browser
 

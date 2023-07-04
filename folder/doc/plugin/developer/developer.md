@@ -11,8 +11,8 @@ Being a developer is a never ending battle of learning the new features in the f
 
 How much fun we could have if we at some point could stop learning and start thinking. We could take our knowledge and do amazing applications.
 
-## Infohub
-In Infohub a plugin is ONE class that always only extend the Base class. You send messages to other plugins and get answers. It works the same in PHP and Javascript.
+## InfoHub
+In InfoHub a plugin is ONE class that always only extend the Base class. You send messages to other plugins and get answers. It works the same in PHP and Javascript.
 
 ## License
 This documentation is copyright (C) 2020 Peter Lembke.

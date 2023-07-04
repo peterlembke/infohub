@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.10] - 2023-07-04
+
+* [Release notes](main,release_v1_v1v3_v1v3v10)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.10)
+
+You can now download all documentation to the browser. That is one step in preparing for going offline. 
+
 # [1.3.9] - 2022-05-02
 
-* [Release notes](main,release_v1_v1v3_v1v3v8)
-* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.8)
+* [Release notes](main,release_v1_v1v3_v1v3v9)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.9)
 
 Changes made to launcher to make it simpler and perhaps easier to understand.
 Reduced memory requirements on the server. Logging if peak memory or execution time is too large.
@@ -30,7 +37,7 @@ With get_call_schema you can see what server plugin functions you can call.
 * [Release notes](main,release_v1_v1v3_v1v3v7)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.7)
 
-Infohub is much faster now on all browsers.
+InfoHub is much faster now on all browsers.
 Client Storage is now one plugin. Added a Storage memory cache.
 Launcher render the full list faster. Some plugins start faster. Removed many slow _ByVal and _Merge that was not needed.
 Used step_void in some places to avoid getting an answer I do not need.
@@ -40,14 +47,14 @@ Used step_void in some places to avoid getting an answer I do not need.
 * [Release notes](main,release_v1_v1v3_v1v3v6)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.6)
 
-Created a blog. Speed improvements in Infohub.
+Created a blog. Speed improvements in InfoHub.
 
 # [1.3.5] - 2022-01-01
 
 * [Release notes](main,release_v1_v1v3_v1v3v5)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.5)
 
-Updated documentation about installation of Infohub. Investigated Composer. 
+Updated documentation about installation of InfoHub. Investigated Composer. 
 
 # [1.3.4] - 2021-12-27
 
@@ -82,7 +89,7 @@ You can now render password boxes with generate password, show/hide password. Yo
 * [Release notes](main,release_v1_v1v3_v1v3v0)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.0)
 
-Infohub Tree got new features but is not finished. All code is auto refactored. opcache prefilled. All plugins can now be run standalone as their own applications. This is a large service release with things I want to get out on the sites. It was so long ago since the last release and today is my 50th birthday.
+InfoHub Tree got new features but is not finished. All code is auto refactored. opcache prefilled. All plugins can now be run standalone as their own applications. This is a large service release with things I want to get out on the sites. It was so long ago since the last release and today is my 50th birthday.
 
 # [1.2.31] - 2021-01-24
 
@@ -118,7 +125,7 @@ Colour schema configuration. Mocha chocolate default colour schema.
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.27)
 
 Improved rendering speeds by grouping items that will go to the same renderer.
-This change breaks compatability with custom renderers. But since no one is reading this note, no one is using Infohub and certainly no one create their own renderers for Infohub then it does not matter.
+This change breaks compatability with custom renderers. But since no one is reading this note, no one is using InfoHub and certainly no one create their own renderers for InfoHub then it does not matter.
 
 # [1.2.26] - 2020-12-17
 
@@ -153,14 +160,14 @@ Support for the excellent AVIF image format. Speed improvements. Bug fixes. Clea
 * [Release notes](main,release_v1v2v22)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.22)
 
-Bugs found from last release. Added info about Infohub on Login page. Fixed rights. Added execution time and debug info. Added translations and translated Infohub Trigger. 
+Bugs found from last release. Added info about InfoHub on Login page. Fixed rights. Added execution time and debug info. Added translations and translated InfoHub Trigger. 
 
 # [1.2.21] - 2020-08-18
 
 * [Release notes](main,release_v1v2v21)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.21)
 
-Security roles instead of lists with plugin names makes it easier to be an admin. Updated the template files for developers. New plugin "Infohub Trigger" for developers to trigger their plugin functions during development. Textarea improvements. Purge of render cache for developers. Mouse/VR hover effects everywhere. Security improvements in File and Base. Cleaned up CSS. Improved translations. Exchanged some icons to more glossy ones. 
+Security roles instead of lists with plugin names makes it easier to be an admin. Updated the template files for developers. New plugin "InfoHub Trigger" for developers to trigger their plugin functions during development. Textarea improvements. Purge of render cache for developers. Mouse/VR hover effects everywhere. Security improvements in File and Base. Cleaned up CSS. Improved translations. Exchanged some icons to more glossy ones. 
 
 # [1.2.20] - 2020-07-24
 
@@ -230,7 +237,7 @@ Focused on deprecating test system and callback. Doc now read root files. New tr
 * [Release notes](folder/doc/release/v1v2v11/release_v1v2v11.md)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.11)
 
-Main focus in this release was to improve the plugin icons. Introduce SPDX-License-Identifier. Refactor Infohub Transfer, so it can call Infohub Session and get one step closer to v1.3.0. Fix bugs in Infohub Asset. 
+Main focus in this release was to improve the plugin icons. Introduce SPDX-License-Identifier. Refactor InfoHub Transfer, so it can call InfoHub Session and get one step closer to v1.3.0. Fix bugs in InfoHub Asset. 
   
 ## [1.2.10] - 2020-03-28
 
@@ -279,7 +286,7 @@ Main focus in this release are log in and session. Many features are still missi
 * [Release notes](folder/doc/release/v1v2v4/release_v1v2v4.md)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.4)
 
-I started developing Infohub at 2010-01-01 and today 10 years later I give you this release.   
+I started developing InfoHub at 2010-01-01 and today 10 years later I give you this release.   
 
 This is a service release with a lot of small changes but also a new feature with the table renderer and my view on doc/accessibility.
 

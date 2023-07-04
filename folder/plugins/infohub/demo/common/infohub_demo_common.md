@@ -1,16 +1,16 @@
-# Infohub Demo Common
+# InfoHub Demo Common
 
-Shows a demo how you can use the Infohub render common plugin.
+Shows a demo how you can use the InfoHub render common plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render common plugin.  
+In this demo we show how to use the InfoHub render common plugin.  
 You will see a combined usage of all the common blocks, and the result will be a DuckDuckGo search box. You will
 also see an image.  
 Read more in the documentation about
 
-- [Infohub Render common](plugin,infohub_render_common)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub Render common](plugin,infohub_render_common)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # iframe
 

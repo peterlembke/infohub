@@ -1,4 +1,4 @@
-# Infohub Tree Restore
+# InfoHub Tree Restore
 
 Restore your personal data from selected files that are then restored to your local storage.
 

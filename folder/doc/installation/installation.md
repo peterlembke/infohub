@@ -1,5 +1,5 @@
 # Installation
-How to install Infohub on your server
+How to install InfoHub on your server
 
 # requirements
 See [Requirements](requirements/installation_requirements.md)
@@ -58,10 +58,10 @@ Modify the file to suite you. Node is the name you call yourself. Modify node, d
 Once you have configured the database and are logged in you can run [Contact](plugin,infohub_contact) and create a new user with a completely random shared_secret and improve the first user data.
 
 ### Config database
-In `infohub_storage_data.json` you can configure your main database. You can leave section "client" and focus on section "server". You can read details here: [Infohub Storage](plugin,infohub_storage).
+In `infohub_storage_data.json` you can configure your main database. You can leave section "client" and focus on section "server". You can read details here: [InfoHub Storage](plugin,infohub_storage).
 
 # Done
-Surf to your domain and [log in](plugin,infohub_log in) with the log in file. 
+Surf to your domain and [log in](plugin,infohub_login) with the log in file. 
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

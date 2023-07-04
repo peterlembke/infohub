@@ -1,8 +1,8 @@
 # Release V1.2.x
-Series 1.2.x of Infohub.
+Series 1.2.x of InfoHub.
 
 # Introduction
-This series finalized Infohub up to the point that it was ready for the Tree. The Tree will be released in v1.3.0.
+This series finalized InfoHub up to the point that it was ready for the Tree. The Tree will be released in v1.3.0.
 
 # License
 This documentation is copyright (C) 2016 Peter Lembke.  

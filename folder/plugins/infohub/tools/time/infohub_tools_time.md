@@ -1,10 +1,10 @@
-# Infohub Tools Time
+# InfoHub Tools Time
 
 Here you can see the current time in different formats
 
 # Introduction
 
-With this tool you can see the current time, it uses [Infohub Time](plugin,infohub_time).  
+With this tool you can see the current time, it uses [InfoHub Time](plugin,infohub_time).  
 Go to the link and read more about time.  
 This graphical user interface (GUI) show a node list, a function list, a button you can press, a text box where you see
 the result, and a button to clear the box.

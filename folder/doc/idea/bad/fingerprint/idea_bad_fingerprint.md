@@ -9,7 +9,7 @@ Fingerprint is a way to detect data about the visitor.
 Could be used to prevent ill willing persons to enter the site.
 Data need to be calculated, stored, calculated again, compared.
 
-Infohub do not collect, store, use personal data.
+InfoHub do not collect, store, use personal data.
 This is a strain on the server to keep these persons out. There are better ways with site passwords, log ins.
 
 I'll move this task to bad ideas.

@@ -1,4 +1,4 @@
-# Infohub Translate Update plugin
+# InfoHub Translate Update plugin
 
 Here you can make sure your plugins have proper translation keys.  
 You select a plugin name and let this feature review the plugin. If a faulty key is found then a copy of the plugin is created in `file/infohub_libretranslate/{plugin_name.js}` and the translation key is changed.

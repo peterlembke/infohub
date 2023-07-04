@@ -1,17 +1,17 @@
-# Infohub Demo Audio
+# InfoHub Demo Audio
 
-Shows a demo how you can use the Infohub render audio plugin.
+Shows a demo how you can use the InfoHub render audio plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render audio plugin.  
+In this demo we show how to use the InfoHub render audio plugin.  
 You will see all the supported 3rd party services that you can use to display a music player and stream music from the
 internet.  
-If you want to host your own music or audio banks then use [Infohub Audio](plugin,infohub_audio) instead.  
+If you want to host your own music or audio banks then use [InfoHub Audio](plugin,infohub_audio) instead.  
 Read more in the documentation about
 
-- [Infohub Render Audio](plugin,infohub_render_audio)
-- [Infohub Asset](plugin,infohub_asset)
+- [InfoHub Render Audio](plugin,infohub_render_audio)
+- [InfoHub Asset](plugin,infohub_asset)
 
 # License
 

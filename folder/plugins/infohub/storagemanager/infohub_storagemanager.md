@@ -1,23 +1,23 @@
-# Infohub Storagemanager
+# InfoHub Storagemanager
 
-The assistant to Infohub_Storage
+The assistant to InfoHub_Storage
 
 # Introduction
 
 Only users that are members of the administrators group are allowed to use this plugin.  
 When you want to store data in other tables/database engines than the main one, then you need to store connections to
-those servers/tables into the main database. Infohub_Storagemanager is the only plugin that are allowed to store those
+those servers/tables into the main database. InfoHub_Storagemanager is the only plugin that are allowed to store those
 connections.  
-You can read more about Storage here [Infohub_Storage](plugin,infohub_storage) and see a demo
-here [Infohub_Demo_Storage](plugin,infohub_demo_storage)  
+You can read more about Storage here [InfoHub_Storage](plugin,infohub_storage) and see a demo
+here [InfoHub_Demo_Storage](plugin,infohub_demo_storage)  
 StorageManager can also ask infohub_file to read binary files and then store them in Storages that a specific plugin can
 read.
 
 # Configuration file
 
-Infohub_Storage use a configuration file with connection data to the main database table. With Infohub_Storagemanager
-you can instruct Infohub_Storage to save data in the config file.  
-Only this plugin is allowed to write data to path "config" in Infohub_Storage.  
+InfoHub_Storage use a configuration file with connection data to the main database table. With InfoHub_Storagemanager
+you can instruct InfoHub_Storage to save data in the config file.  
+Only this plugin is allowed to write data to path "config" in InfoHub_Storage.  
 You have these functions for the configuration: 'read_config', 'write_config', 'delete_config'
 
 # Connection
@@ -27,8 +27,8 @@ All connections are saved under this path: 'infohub_storagemanager/connection/{p
 
 # Binary files
 
-If your plugin ask Infohub_StorageManager (SM) to run function read_file() then it will take your plugin name and send
-it to Infohub file. Infohub file will then check if there is a folder with your plugin name and start reading the binary
+If your plugin ask InfoHub_StorageManager (SM) to run function read_file() then it will take your plugin name and send
+it to InfoHub file. InfoHub file will then check if there is a folder with your plugin name and start reading the binary
 files there.  
 SM will get an array with all metadata found about the files and start saving the data in a Storage under your plugin
 name.  

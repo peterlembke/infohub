@@ -1,4 +1,4 @@
-# Infohub Darkhold
+# InfoHub Darkhold
 
 Darkhold is used when you need to collect data from many short tail messages.
 

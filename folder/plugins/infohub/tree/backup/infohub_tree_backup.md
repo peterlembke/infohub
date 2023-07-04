@@ -1,4 +1,4 @@
-# Infohub Tree Backup
+# InfoHub Tree Backup
 
 Backup your personal data to one or many files that are downloaded to your computer/device.
 

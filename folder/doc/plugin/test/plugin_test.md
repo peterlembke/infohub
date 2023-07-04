@@ -1,12 +1,12 @@
 # Function test
-How to test a plugin in Infohub.  
+How to test a plugin in InfoHub.  
 
 # Introduction
 Test driven programming produces tests that can be run automatically to detect if an expected outcome have changed.
 
-Infohub has another approach. The data in and out from a plugin are recorded and stored. If the expected outcome change then you will be notified.
+InfoHub has another approach. The data in and out from a plugin are recorded and stored. If the expected outcome change then you will be notified.
 
-This is possible because Infohub uses one array in and one array out. The message structure with steps and return sub calls makes it easy to test the functions.
+This is possible because InfoHub uses one array in and one array out. The message structure with steps and return sub calls makes it easy to test the functions.
 
 # Activate testing
 Each plugin can have a configuration file in JSON format. The file is read if exist by both PHP and JS and the server och client section are passed to the cmd() function.
@@ -44,7 +44,7 @@ When a function have run then cmd() has both in and out data.
 cmd() has the config and know if you want to test the function.
 If you want to test the function then in and out are sent in a message without a tail to infohub_test.
 
-Infohub_test will check if there are data to compare with. If no data then store the data. If data exist then compare.
+InfoHub_test will check if there are data to compare with. If no data then store the data. If data exist then compare.
 
 # Notify
 If data is different from expected then that is written to the log.

@@ -1,11 +1,11 @@
-# Infohub Privacy Menu
+# InfoHub Privacy Menu
 
 Displays a menu with all privacy tools
 
 # Introduction
 
 This plugin renders a menu with all the privacy tools.  
-Read more about menus here: [Infohub Render Menu](plugin,infohub_rendermenu)
+Read more about menus here: [InfoHub Render Menu](plugin,infohub_rendermenu)
 
 # License
 

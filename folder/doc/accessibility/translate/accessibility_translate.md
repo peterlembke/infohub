@@ -5,13 +5,13 @@ You can see more [here](https://en.wikipedia.org/wiki/List_of_languages_by_total
 
 On [Wikipedia - Language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) you have a list with languages and their two characters letter code. 
 
-## Infohub translations
+## InfoHub translations
 
-All strings in all code call the _Translate() function. That makes it easy to find all strings and translate them.
+All strings in all code call the `_Translate()` function. That makes it easy to find all strings and translate them.
 
-## Infohub languages
+## InfoHub languages
 
-With the help of [LibreTranslate](https://libretranslate.com/) I can automatically translate Infohub to these languages. (2021-09-02)
+With the help of [LibreTranslate](https://libretranslate.com/) I can automatically translate InfoHub to these languages. (2021-09-02)
 
 * en - English
 * ar - Arabic
@@ -33,9 +33,9 @@ With the help of [LibreTranslate](https://libretranslate.com/) I can automatical
 * uk - Ukrainian
 * vi - Vietnamese
 
-More languages are probably [on the way of getting supported](https://github.com/argosopentech/argos-translate/discussions/91) in LibreTranslate, and then Infohub will support them too.
+More languages are probably [on the way of getting supported](https://github.com/argosopentech/argos-translate/discussions/91) in LibreTranslate, and then InfoHub will support them too.
 
-## Infohub extra language
+## InfoHub extra language
 
 LibreTranslate do [not yet support Swedish](https://github.com/argosopentech/argos-translate/discussions/91). 
 I will use Google Translate and Microsoft Translate and my self to translate all plugins to Swedish.
@@ -45,7 +45,7 @@ I will use Google Translate and Microsoft Translate and my self to translate all
 Note that the language codes is for the language and not for a specific country.  
 It is possible to have country specific translation files. You can read more [here](plugin,infohub_translate).
 
-For example. My browser is in Swedish and my Infohub language config might look like this
+For example. My browser is in Swedish and my InfoHub language config might look like this
 
 * sv-se, sv, en-gb, en
 

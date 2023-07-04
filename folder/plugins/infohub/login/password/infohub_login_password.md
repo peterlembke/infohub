@@ -1,4 +1,4 @@
-# Infohub_Login_Password
+# InfoHub_Login_Password
 
 Here you can set a password on your shared secret. This is an extra security in case someone gets hold of your contact
 information. The password will scramble the shared secret. Anyone that try to guess your password need to try to log in

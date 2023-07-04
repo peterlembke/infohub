@@ -1,4 +1,4 @@
-# Infohub Render Map
+# InfoHub Render Map
 
 Shows a link to a map.
 

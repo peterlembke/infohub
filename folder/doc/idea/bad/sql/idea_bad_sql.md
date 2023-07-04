@@ -57,7 +57,7 @@ I might have dot notation on the fields instead but not in the first version.
 This is a BAD idea because:
 
 * This is not simple - that violate the three ground rules where one is simplicity
-* Infohub is about personal data. KeyValue is sufficient in most cases
+* InfoHub is about personal data. KeyValue is sufficient in most cases
 * I have a task already that add some support for traditional tables
 
 # License

@@ -1,4 +1,4 @@
-# Infohub RenderForm
+# InfoHub RenderForm
 
 Add features to the basic form elements that infohub_render_form can render.
 
@@ -13,7 +13,7 @@ need to be re-rendered to be updated.
 
 # Demo
 
-You can see a full demo here [Infohub Demo Form2](plugin,infohub_demo_form2). That demo will show you all aspects of
+You can see a full demo here [InfoHub Demo Form2](plugin,infohub_demo_form2). That demo will show you all aspects of
 renderform.
 
 # infohub_render_form
@@ -44,7 +44,7 @@ error message from the validation, Character count, word count, line count, max 
 lot of information for each form element. So to keep everything together I have decided to use fieldset as a wrapper
 round each form element when you render them with infohub_renderform. There is no way to avoid the fieldset wrapper.  
 You can see in the HTML below how it looks like on then rendered page when we render radio buttons. The example is from
-the Infohub Demo Form Advanced.
+the InfoHub Demo Form Advanced.
 
 ```
 <span name="presentation_box" class="a120202_my_radios_bread_presentation_box">

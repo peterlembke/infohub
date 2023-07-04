@@ -14,7 +14,7 @@ But we could log exceptions and warnings to improve the code quality.
 This is a privacy system.
 
 ## Track position
-Tracking position even with user consent is bad. Infohub should not know the position.
+Tracking position even with user consent is bad. InfoHub should not know the position.
 Position can be misused. Use other applications than infohub. 
 
 # License

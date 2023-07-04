@@ -1,4 +1,4 @@
-# Infohub Render Text
+# InfoHub Render Text
 
 With render text you can put together different parts into one HTML.
 
@@ -11,7 +11,7 @@ The columns will be as many as needed to fill the page left to right. On a phone
 
 # Usage
 
-You can see how the render text are used in the Infohub Demo. Here is a short example:
+You can see how the render text are used in the InfoHub Demo. Here is a short example:
 
 ```
 $data = {

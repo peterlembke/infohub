@@ -16,17 +16,17 @@ Main focus in this release was to Deprecate iframes. Improve graphics with nicer
 - [Demo audio/video/map](plugin,infohub_demo_audio) - You can see how the deprecation of iframes looks like. Old code still works, it just renders a link instead of an iframe.
 - Documentation for [render video/audio/map](plugin,infohub_render_audio) - Removed everything about embedding and kept how to render a link.
 - README.md - updated with a better start and moved some information.
-- New icon for Infohub Contact, Demo, Demo call, Doc.
-- [infohub_welcome_youcan](plugin,infohub_welcome_youcan) - Removed "Shop". I know a lot about e-commerce with 8 years developing for Magento 1/2, but it is not a fit for Infohub.
+- New icon for InfoHub Contact, Demo, Demo call, Doc.
+- [infohub_welcome_youcan](plugin,infohub_welcome_youcan) - Removed "Shop". I know a lot about e-commerce with 8 years developing for Magento 1/2, but it is not a fit for InfoHub.
 - [infohub_transfer.js](plugin,infohub_transfer) - When doing a sub call to the server it leaves the callstack behind and have a matching hub_id to find it on the way back. This hub_id now has a prefix 'callstack-'.
 - Font size - changed everywhere from static px to dynamic em. Even the examples in the documentation got updated. I hope that will scale better on iPad when zooming.
 - Plugin docs - Added the column command on some of them. It becomes easier to read then. Example: [infohub_base](plugin,infohub_base).
-- [Infohub](plugin,infohub) - Documentation updated with links.
+- [InfoHub](plugin,infohub) - Documentation updated with links.
 - CHANGELOG.md - moved all details to the documentation. One document for each release. See [documentation](main,release)
 - TERMS.md - added an end of document
 - Documentation for [infohub_workbench](plugin,infohub_workbench) updated.
 - SVG assets - Changed some. Added viewBox and set width=100% and height=100%.
-- Infohub Tabs, Time, checksum_crc32, checksum_luhn, encrypt_none - Changed the last places that did not use dot notation in Javascript.
+- InfoHub Tabs, Time, checksum_crc32, checksum_luhn, encrypt_none - Changed the last places that did not use dot notation in Javascript.
 
 ## Removed
 - iframes - [Sanity check](main,core_include_sanitycheck) now report all iframes as a security breach. Sandbox does not give any real protection.

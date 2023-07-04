@@ -5,7 +5,7 @@
  * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
  *
  * @package     Infohub
- * @subpackage  infohub_demo
+ * @subpackage  infohub_storage_data_sqlite
  */
 
 declare(strict_types=1);

@@ -6,7 +6,7 @@ You can drag an item to another drag and drop container and drop it there.
 
 ## Useful for
 
-This container would be useful in Infohub LocalConfig when setting wanted languages in a specific order.
+This container would be useful in InfoHub LocalConfig when setting wanted languages in a specific order.
 Useful in GUI designer to link and rearrange objects in a container and in the main list.
 For creating a planner that looks like Trello or Jira.
 

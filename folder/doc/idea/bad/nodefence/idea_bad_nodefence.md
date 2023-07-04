@@ -1,12 +1,12 @@
 # Node fence
 Sensitive data like reading a GPS-position from a GPS plugin will mark that message response with `node_fence = ”true”`.
 Those messages will never be allowed to leave the node they are in. The flag will follow to the plugin that requested the data and will follow all data going out from the plugin.
-Infohub transfer refuse to send messages to other nodes that have this flag set.
+InfoHub transfer refuse to send messages to other nodes that have this flag set.
 
 && traffic
 
 ## Comment 1
-It is a very bad idea to use location. Infohub will not use location.
+It is a very bad idea to use location. InfoHub will not use location.
 Node fence is a false protection. It complicates the code. Node fence is a bad idea.
 
 # License

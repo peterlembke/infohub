@@ -1,17 +1,17 @@
-# Infohub Demo Text
+# InfoHub Demo Text
 
-Shows a demo how you can use the Infohub render text plugin.
+Shows a demo how you can use the InfoHub render text plugin.
 
 # Introduction
 
-In this demo we show how to use the Infohub render text plugin.  
+In this demo we show how to use the InfoHub render text plugin.  
 This demo will show you columns with titles and some features like substituted characters, highligted text, bold,
 italic, links.  
-You can render whatever you like in a text. A larger example is in Infohub Welcome.  
+You can render whatever you like in a text. A larger example is in InfoHub Welcome.  
 Read more in the documentation about
 
-- [Infohub Render Text](plugin,infohub_render_text)
-- [Infohub Welcome](plugin,infohub_welcome)
+- [InfoHub Render Text](plugin,infohub_render_text)
+- [InfoHub Welcome](plugin,infohub_welcome)
 
 # License
 

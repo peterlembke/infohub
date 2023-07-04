@@ -1,4 +1,4 @@
-# Infohub Doc
+# InfoHub Doc
 
 Here you can read all documentation. The general documentation and documentation for each installed plugin.
 
@@ -25,9 +25,9 @@ with .md that indicate the file is written in the MarkDown format. Markdown is a
 specific way that the computer can read.
 
 Read more about the [GitHub Markdown flavor](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-Read more about the [Infohub document format](plugin,infohub_renderdocument)
+Read more about the [InfoHub document format](plugin,infohub_renderdocument)
 
-You write in Markdown format but for Infohub to correctly handle event links and images I needed to modify how some
+You write in Markdown format but for InfoHub to correctly handle event links and images I needed to modify how some
 things are written.
 
 ### Special for infohub_doc

@@ -1,4 +1,4 @@
-# Infohub Render Link
+# InfoHub Render Link
 
 Render different kind of links on the screen
 
@@ -135,7 +135,7 @@ look like this:
 }
 ```
 
-Infohub View get the event_message, read the box_id and check if it is visible or not. Then sets the other state. Done.
+InfoHub View get the event_message, read the box_id and check if it is visible or not. Then sets the other state. Done.
 
 # type: external
 

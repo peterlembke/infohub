@@ -1,5 +1,5 @@
 # Design Client
-Design decisions when creating the Infohub Javascript client.
+Design decisions when creating the InfoHub Javascript client.
 
 # License
 This documentation is copyright (C) 2020 Peter Lembke.  

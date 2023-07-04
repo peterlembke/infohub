@@ -1,13 +1,13 @@
 # Learning morse code
 I want a game where I can learn morse code in a fun way.
-The Infohub platform would be perfect to store progress, so I can run my game on all my platforms.
+The InfoHub platform would be perfect to store progress, so I can run my game on all my platforms.
 
 && game
 
 # Comment 1
 You can write your standalone games in pygame or in phaser.io or pixi.js
-Then you need a library that connect to the Infohub server and a token that allow to access only the game data.
-Infohub is about private data. Creating a library and a token system and an administrator is a lot of work. 
+Then you need a library that connect to the InfoHub server and a token that allow to access only the game data.
+InfoHub is about private data. Creating a library and a token system and an administrator is a lot of work. 
 
 Closing this as a bad idea for infohub.
 

@@ -4,7 +4,7 @@
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.2.3)
 
 ## Added
-- Encryption - See Infohub Tools Encrypt.
+- Encryption - See InfoHub Tools Encrypt.
 - infohub_encrypt - adds encryption methods: pgp and none. Use them with a password. encrypt + decrypt.
 - Added a CHANGELOG
 

@@ -1,4 +1,4 @@
-# Infohub Demo Timer
+# InfoHub Demo Timer
 
 Shows a demo how you can use the infohub_timer plugin.
 
@@ -8,11 +8,11 @@ In this demo we show how to use the infohub_timer plugin.
 You will see how the timer can be used to change colors on an SVG image.  
 Read more in the documentation about
 
-- [Infohub Timer](plugin,infohub_timer)
+- [InfoHub Timer](plugin,infohub_timer)
 
 ## The tiger, the peacock and the rainbow
 
-To prepare this demo I made a Lab example outside Infohub.
+To prepare this demo I made a Lab example outside InfoHub.
 
 ## License
 

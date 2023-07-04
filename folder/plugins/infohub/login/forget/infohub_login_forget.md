@@ -1,4 +1,4 @@
-# Infohub_Login_Forget
+# InfoHub_Login_Forget
 
 Here you can let the browser forget your contact data. You can always import your file again.
 
