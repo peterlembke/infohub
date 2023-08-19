@@ -159,6 +159,13 @@ function infohub_demo_menu() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu',
                                 },
+                                'progress_demo': {
+                                    'alias': 'progress_demo_link',
+                                    'event_data': 'progress',
+                                    'button_label': _Translate('PROGRESS_BAR'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu',
+                                },
                                 'advancedlist_demo': {
                                     'alias': 'advancedlist_demo_link',
                                     'event_data': 'advancedlist',

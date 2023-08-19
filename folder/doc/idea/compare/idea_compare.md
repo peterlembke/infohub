@@ -19,10 +19,18 @@ Is similar to WordPress. You can write articles in Markdown format and no databa
 If you want to collaborate in a company or a group then NextCloud can be for you. You can reach 3rd party services and collaborate on documents in your browser.
 NextCloud can be compared to Google Office or Microsoft 365. NextCloud is free to use and comply with GDPR when you run it on your own server.
 
+## Laravel
+Is a generic PHP framework that you as a developer can extend to your liking.
+
+## Magento
+Mage-OS is the new take on the dormant Magento. It is an e-commerce platform.  
+
 ## Conclusion
 InfoHub is for you and your data.
 WordPress and Grav is for you sharing your articles.
 NextCloud is for collaboration in your group.
+Laravel is for developers.
+Magento is for e-commerce.
 
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  
@@ -30,4 +38,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2021-12-27 by Peter Lembke  
-Changed 2021-12-27 by Peter Lembke  
+Changed 2023-08-12 by Peter Lembke  

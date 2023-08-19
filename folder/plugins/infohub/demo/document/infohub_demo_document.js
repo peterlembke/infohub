@@ -174,8 +174,8 @@ function infohub_demo_document() {
 
                 const $findMarkdown = 'data:text/markdown;base64,';
                 if ($findMarkdown ===
-                    $content.substr(0, $findMarkdown.length)) {
-                    $content = $content.substr($findMarkdown.length);
+                    $content.substring(0, $findMarkdown.length)) {
+                    $content = $content.substring($findMarkdown.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
                     $in.response.files_data[$fileNumber].content = $content;

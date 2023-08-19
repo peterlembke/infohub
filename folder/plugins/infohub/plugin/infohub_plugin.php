@@ -150,7 +150,7 @@ class infohub_plugin extends infohub_base
                 $haveSPDXLicence = $this->_HaveSPDXLicence($plugin['plugin_code']);
                 if ($haveSPDXLicence === 'false') {
                     $wrongPluginLookup[$pluginName] = [
-                        'message' => 'You must have an SPDX license identifier in your code. ' . $in['plugin_name'] . ' do not have that'
+                        'message' => 'You must have an SPDX license identifier in your code. ' . $plugin['plugin_name'] . ' do not have that'
                     ];
                     continue;
                 }
@@ -452,7 +452,8 @@ class infohub_plugin extends infohub_base
         ];
 
         foreach ($requiredText as $licenseIdentifier) {
-            if (strpos($pluginCode, $licenseIdentifier) > 0) {
+            $haveSPDXLicense = strpos($pluginCode, $licenseIdentifier) > 0;
+            if ($haveSPDXLicense === true) {
                 return 'true';
             }
         }
@@ -497,6 +498,7 @@ class infohub_plugin extends infohub_base
                 if ($deleteMode === true && str_contains($rowString, '*/') === true) {
                     $deleteMode = false;
                 }
+                continue;
             }
             if ($part === '//') {
                 if (str_starts_with($rowString, $okRow1) === true) {
@@ -508,11 +510,32 @@ class infohub_plugin extends infohub_base
                 unset($rowArray[$rowNumber]);
                 continue;
             }
+
+            $startOfComment = strpos($rowString, '//');
+            if ($startOfComment !== false) {
+                $possibleComment = substr($rowString, $startOfComment + 2);
+
+                $isComment = true;
+                $needleArray = ["'", '"', '/', '}', ';'];
+                foreach ($needleArray as $needleString) {
+                    $isComment = str_contains($possibleComment, $needleString) === false;
+                    if ($isComment === false) {
+                        break 1;
+                    }
+                }
+
+                if ($isComment === true) {
+                    $rowString = trim(substr($rowString, 0, $startOfComment));
+                    $rowArray[$rowNumber] = $rowString;
+                }
+            }
         }
 
-        $result = implode("\r\n", $rowArray);
+        $separator = "\n"; // No need for "\r\n", The "\n" is enough.
 
-        return $result;
+        $resultString = implode($separator, $rowArray);
+
+        return $resultString;
     }
 
     /**

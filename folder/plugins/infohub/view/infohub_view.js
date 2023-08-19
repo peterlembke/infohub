@@ -180,7 +180,7 @@ function infohub_view() {
             const $a = 1; // For debug purposes
         }
 
-        if (Number($id) == $id) {
+        if (Number($id) == $id) { // Using == on purpose
             return $id;
         }
 
@@ -193,7 +193,7 @@ function infohub_view() {
 
             const $boxAlias = $parts[$partNumber];
 
-            if ($boxAlias.substr(0, 1) === '[') {
+            if ($boxAlias.substring(0, 1) === '[') {
                 continue;
             }
 
@@ -204,7 +204,7 @@ function infohub_view() {
                 if ($partNumber === '1') { // Yes string
                     const $tmpBoxId1 = $parts[0].split('_');
                     if ($tmpBoxId1.length > 1) {
-                        if (Number($tmpBoxId1[0]) == $tmpBoxId1[0]) {
+                        if (Number($tmpBoxId1[0]) == $tmpBoxId1[0]) { // Using == on purpose
                             $box = document.getElementById($tmpBoxId1[0]);
                         }
                     }
@@ -215,7 +215,7 @@ function infohub_view() {
 
             let $selector = '';
 
-            if (Number($boxAlias) == $boxAlias) {
+            if (Number($boxAlias) == $boxAlias) { // Using == on purpose
                 $selector = '[id=\'' + $boxAlias + '\']';
                 $box = $box.querySelector($selector);
                 continue;
@@ -274,7 +274,7 @@ function infohub_view() {
         }
 
         const $partNumber = $parts.length - 1;
-        if ($parts[$partNumber].substr(0, 1) === '[') {
+        if ($parts[$partNumber].substring(0, 1) === '[') {
             let $innerId = $parts[$partNumber];
             $innerId = $innerId.replace('[', '');
             $innerId = $innerId.replace(']', '');
@@ -716,8 +716,8 @@ function infohub_view() {
             if ($oldMode === 'data') {
                 // We switch from a data box, and then we need an 'end' box, creating one.
                 const $id = $box.id.toString();
-                const $topId = $id + '000'.substr(0, $digits);
-                const $maxId = $id + '999'.substr(0, $digits);
+                const $topId = $id + '000'.substring(0, $digits);
+                const $maxId = $id + '999'.substring(0, $digits);
                 $box.setAttribute('box_mode', $in.box_mode);
                 // $box.className = $in.box_mode;
                 $box.setAttribute('top_id', $topId);
@@ -4361,7 +4361,7 @@ function infohub_view() {
             const $node = _GetNode($in.id);
             if ($node) {
                 let $parentNode = $node.parentNode;
-                const $boxId = $in.box_id.substr(0, $in.box_id.indexOf('_'));
+                const $boxId = $in.box_id.substring(0, $in.box_id.indexOf('_'));
                 $data = $data.replace(new RegExp('{box_id}', 'gi'), $boxId); // gi = Global (all occurrences in the string), Ignore case.
                 $parentNode.innerHTML = $data;
             }

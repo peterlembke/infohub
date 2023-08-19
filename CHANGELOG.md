@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.11] - 2023-08-11
+
+* [Release notes](main,release_v1_v1v3_v1v3v11)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.11)
+
+Focused on bug fixes on the client. Improved the built-in JS minifier. Added a progress bar plugin.
+Removed the use of .substr() from all JS code
+
+
 # [1.3.10] - 2023-07-04
 
 * [Release notes](main,release_v1_v1v3_v1v3v10)

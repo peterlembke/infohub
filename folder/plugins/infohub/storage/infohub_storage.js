@@ -868,7 +868,7 @@ function infohub_storage() {
         let $data = {};
 
         window.idbKeyval.keys().then(function(keys) {
-            $in.path = $in.path.substr(0, $in.path.indexOf('*'));
+            $in.path = $in.path.substring(0, $in.path.indexOf('*'));
 
             for (let $key in keys) {
                 if (keys.hasOwnProperty($key) === true) {

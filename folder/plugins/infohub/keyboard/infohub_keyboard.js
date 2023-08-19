@@ -433,8 +433,7 @@ function infohub_keyboard() {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault,
-                    $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
 
                 if ($messageOut.to.node !== $in.from_plugin.node) {
                     $answer = 'false';
@@ -454,8 +453,7 @@ function infohub_keyboard() {
                     continue;
                 }
 
-                $messageOut = _Default($messageOutDefault,
-                    $in.subscriptions[$key]);
+                $messageOut = _Default($messageOutDefault, $in.subscriptions[$key]);
 
                 const $response = internal_Cmd({
                     'func': 'Subscribe',
@@ -569,6 +567,7 @@ function infohub_keyboard() {
 
     /**
      * You can unsubscribe to keyboard combinations
+     *
      * @version 2018-10-14
      * @since   2018-10-14
      * @author  Peter Lembke
@@ -910,6 +909,7 @@ function infohub_keyboard() {
     /**
      * Event message coming from the go() function.
      * Not all combinations of shift,alt,ctrl, keycode come here.
+     *
      * @version 2018-10-18
      * @since   2018-07-11
      * @author  Peter Lembke
@@ -987,27 +987,44 @@ function keyUp(event) {
 
     'use strict';
 
-    if (event.keyCode < 16 || event.keyCode > 18) { // 16=shift, 17=ctrl, 18=alt
+    // 16=shift, 17=ctrl, 18=alt
+    const $isKeyCodeSpecialKey = event.keyCode >= 16 && event.keyCode <= 18;
 
-        const $alt = event.altKey,
-            $ctrl = event.ctrlKey,
-            $shift = event.shiftKey;
-
-        if ($alt || $shift || $ctrl) {
-            // If shift is used then it can not be alone, must be in a combination with ctrl or alt or both.
-            if (($alt && !$shift && !$ctrl) || (!$alt && !$shift && $ctrl) ||
-                ($alt && !$shift && $ctrl) || ($alt && $shift && !$ctrl) ||
-                ($alt && $shift && $ctrl) || (!$alt && $shift && $ctrl)) {
-                sendMessage('infohub_keyboard', {
-                    'event_type': 'key_up',
-                    'ctrl_key': $ctrl ? 'true' : 'false',
-                    'alt_key': $alt ? 'true' : 'false',
-                    'shift_key': $shift ? 'true' : 'false',
-                    'key_code': event.keyCode,
-                });
-            }
-        }
+    if ($isKeyCodeSpecialKey === true) {
+        return;
     }
+
+    const $alt = event.altKey,
+        $ctrl = event.ctrlKey,
+        $shift = event.shiftKey;
+
+    const $isAnyKey = $alt || $shift || $ctrl;
+    if ($isAnyKey === false) {
+        return;
+    }
+
+    // If shift is used then it can not be alone, must be in a combination with ctrl or alt or both.
+
+    const $isOnlyAlt = $alt && !$shift && !$ctrl;
+    const $isOnlyCtrl = !$alt && !$shift && $ctrl;
+    const $isAltCtrl = $alt && !$shift && $ctrl;
+    const $isAltShift = $alt && $shift && !$ctrl;
+    const $isCtrlShift = !$alt && $shift && $ctrl;
+    const $isAllOfThem = $alt && $shift && $ctrl;
+
+    const $isValidCombination = $isOnlyAlt || $isOnlyCtrl || $isAltCtrl || $isAltShift || $isCtrlShift || $isAllOfThem;
+
+    if ($isValidCombination === false) {
+        return;
+    }
+
+    sendMessage('infohub_keyboard', {
+        'event_type': 'key_up',
+        'ctrl_key': $ctrl ? 'true' : 'false',
+        'alt_key': $alt ? 'true' : 'false',
+        'shift_key': $shift ? 'true' : 'false',
+        'key_code': event.keyCode,
+    });
 }
 
 window.addEventListener('keyup', keyUp);

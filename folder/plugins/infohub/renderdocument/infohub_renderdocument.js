@@ -518,6 +518,9 @@ function infohub_renderdocument() {
 
         const $notFound = -1;
 
+        let $from = 0;
+        let $length = 0;
+
         while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
 
@@ -530,7 +533,9 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $label = $in.text.substr($first + 2, $second - 2 - $first - 2);
+            $from = $first + 2;
+            $length = $second - 2 - $first - 2;
+            const $label = _SubString($in.text, $from, $length);
 
             if (_Empty($label) === 'true') {
                 continue;
@@ -549,7 +554,9 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $url = $in.text.substr($second, $first - $second);
+            $from = $second;
+            $length = $first - $second;
+            const $url = _SubString($in.text, $from, $length);
 
             if (_Empty($url) === 'true') {
                 continue;
@@ -563,7 +570,7 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            if ($url.toLowerCase().substr(0, 4) === 'http') {
+            if ($url.toLowerCase().substring(0, 4) === 'http') {
                 const $fullToFind = '![' + $label + '](' + $url + ')';
                 const $replaceWith = '';
                 $modifiedText = $modifiedText.replace($fullToFind, $replaceWith);
@@ -583,9 +590,9 @@ function infohub_renderdocument() {
 
                 let $cssData = {'.image': $css };
 
-                if ($url.substr(0, 11) === 'data:image/') {
+                if ($url.substring(0, 11) === 'data:image/') {
                     let $subtype = 'image'; // Render an image (jpeg/png) or an svg
-                    if ($url.substr(12, 3) === 'svg') {
+                    if ($url.substring(11, 14) === 'svg') {
                         $subtype = 'svg';
                         $cssData = {'.svg': $css };
                     }
@@ -684,7 +691,9 @@ function infohub_renderdocument() {
             $tagPrefix = 'link_',
             $modifiedText = $in.text,
             $what = $in.what,
-            $leave = 40;
+            $leave = 40,
+            $from = 0,
+            $length = 0;
 
         while ($in.text.indexOf('](', $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
@@ -698,8 +707,9 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $label = $in.text.substr($first + 1,
-                $second - 2 - $first - 1);
+            $from = $first + 1;
+            $length = $second - 2 - $first - 1;
+            const $label = _SubString($in.text, $from, $length);
 
             if (_Empty($label) === 'true') {
                 continue;
@@ -718,7 +728,9 @@ function infohub_renderdocument() {
                 continue;
             }
 
-            const $url = $in.text.substr($second, $first - $second);
+            $from = $second;
+            $length = $first - $second;
+            const $url = _SubString($in.text, $from, $length);
 
             if (_Empty($url) === 'true') {
                 continue;
@@ -736,7 +748,7 @@ function infohub_renderdocument() {
             $tag = $tagPrefix + $i;
 
             let $type = 'event';
-            if ($url.toLowerCase().substr(0, 4) === 'http') {
+            if ($url.toLowerCase().substring(0, 4) === 'http') {
                 $type = 'external';
             }
 
@@ -786,7 +798,8 @@ function infohub_renderdocument() {
 
     /**
      * Convert all header codes to h1 h2 and so on
-     * @version 2019-08-14
+     *
+     * @version 2023-08-19
      * @since   2019-08-14
      * @author  Peter Lembke
      */
@@ -807,10 +820,11 @@ function infohub_renderdocument() {
 
             let $first = 0,
                 $second = 0,
-                $leave = 40;
+                $leave = 40,
+                $from = 0,
+                $length = 0;
 
-            while ($in.text.indexOf($find, $second) !== $notFound && $leave >
-            0) {
+            while ($in.text.indexOf($find, $second) !== $notFound && $leave > 0) {
                 $leave = $leave - 1;
 
                 $first = $in.text.indexOf($find, $second);
@@ -822,18 +836,18 @@ function infohub_renderdocument() {
                     continue;
                 }
 
-                const $command = $in.text.substr($first, $second - $first);
+                $from = $first;
+                $length = $second - $first;
+                const $command = _SubString($in.text, $from, $length);
 
                 let $id = $command.toLowerCase();
                 $id = _Replace(' ', '-', $id);
                 $id = ' id="' + $id + '"';
 
                 const $findThis = $find + $command + '\n'; // Yes we will find and remove the newline at the end of the line
-                const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' +
-                    $i + '>';
+                const $replaceWith = '<h' + $i + $id + '>' + $command + '</h' + $i + '>';
                 $modifiedText = $modifiedText.replace($findThis, $replaceWith);
             }
-
         }
 
         return {
@@ -965,8 +979,7 @@ function infohub_renderdocument() {
             $tagPrefix = 'list_',
             $notFound = -1;
 
-        while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave >
-        0) {
+        while ($in.text.indexOf($findFirst, $second) !== $notFound && $leave > 0) {
             $leave = $leave - 1;
 
             $first = $in.text.indexOf($findFirst, $second);
@@ -981,7 +994,7 @@ function infohub_renderdocument() {
             $i = $i + 1;
             const $tag = $tagPrefix + $i;
 
-            const $command = $in.text.substr($first, $second - $first);
+            const $command = _SubString($in.text, $first, $second - $first);
             const $findThis = '\n* ' + $command + '\n';
             const $replaceWith = '[' + $tag + ']';
             $modifiedText = $modifiedText.replace($findThis, $replaceWith); // Yes we remove the newlines surrounding the list

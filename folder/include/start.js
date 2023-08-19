@@ -418,7 +418,7 @@ function infohub_start($progress) {
 
             if ($response[0] === '{') {
                 const $length = $response.indexOf('}') + 1;
-                $response = $response.substr(0, $length);
+                $response = $response.substring(0, $length);
             }
 
             let $text = 'Call the server - Invalid response';
@@ -487,7 +487,7 @@ function infohub_start($progress) {
             }
 
             const $errorMessage = $errorMessageArray[$key];
-            const $startOfResponse = $response.substr(0, $errorMessage.length);
+            const $startOfResponse = $response.substring(0, $errorMessage.length);
 
             if ($startOfResponse === $errorMessage) {
                 return 'true';

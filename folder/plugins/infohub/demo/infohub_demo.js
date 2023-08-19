@@ -403,7 +403,7 @@ function infohub_demo() {
 
         if ($in.step === 'step_start') {
             if ($in.from_plugin.node === 'client') {
-                if ($in.from_plugin.plugin.substr(0, $plugin.length) ===
+                if ($in.from_plugin.plugin.substring(0, $plugin.length) ===
                     $plugin) {
                     $in.send_data.data_back.step = 'step_response';
                     return _SubCall($in.send_data);

@@ -1,15 +1,20 @@
 # InfoHub Timer
 
 This is a Client plugin only.  
-You can get a delayed response from this plugin. You can se a demo of this
+The timer allow you to get a delayed response. This means your message return after a time delay that you specify.
+The timer triggers ONCE. You need to start it again if you want another trigger. 
+
+You can se a demo of this
 in [infohub_demo_timer](plugin,infohub_demo_timer).
+
+You can also see how the timer is used in [infohub_renderprogress](plugin,infohub_renderprogress) where it updates elapsed time and time left.
 
 ## Features
 
 The plugin has three functions
 
-* start_timer
-* start_timer_advanced
+* start_timer - uses a delay time - Triggers after tiome have passed
+* start_timer_advanced - uses time stamp ranges - Triggers when the clock has the right time
 * stop_timer
 
 Only plugins on the same node can start/stop a timer. The restriction is set because a timer takes up computer resources
@@ -54,6 +59,9 @@ let $messageOut = _SubCall({
 
 $messageArray.push($messageOut);
 ```
+
+Note that you get the response back to the SAME function you called from.   
+You can NOT send a time delayed message to some other function.
 
 ## Minimum and maximum value
 
@@ -125,4 +133,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2020-02-28 by Peter Lembke  
-Updated 2021-08-07 by Peter Lembke  
+Updated 2023-08-19 by Peter Lembke  

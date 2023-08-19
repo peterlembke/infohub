@@ -2681,7 +2681,7 @@ function infohub_launcher() {
         if ($in.step === 'step_start') {
             if ($command === 'refresh') {
                 const $lastIndex = $in.id.lastIndexOf('_');
-                const $id = $in.id.substr(0, $lastIndex);
+                const $id = $in.id.substring(0, $lastIndex);
 
                 return _SubCall({
                     'to': {

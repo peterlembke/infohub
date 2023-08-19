@@ -51,6 +51,7 @@ function infohub_offline() {
             'update_indicator': 'normal',
             'update_service_worker': 'normal',
             'event_message': 'normal',
+            'update_progress': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -270,6 +271,7 @@ function infohub_offline() {
                         'my_form': {
                             'type': 'form',
                             'subtype': 'form',
+                                // 'content': '[my_indicator][button_download_plugins][progress_download_plugins][button_download_assets][progress_download_assets][button_download_documentation][progress_download_documentation][button_show_subscribers][my_container]',
                             'content': '[my_indicator][button_download_plugins][button_download_assets][button_download_documentation][button_show_subscribers][my_container]',
                         },
                         'my_indicator': {
@@ -285,6 +287,11 @@ function infohub_offline() {
                             'to_plugin': 'infohub_offline',
                             'to_function': 'gui_download_plugins',
                         },
+                        'progress_download_plugins': {
+                            'plugin': 'infohub_renderprogress',
+                            'type': 'progress',
+                            'value_of_max_text': ' ' + _Translate('OF') + ' '
+                        },
                         'button_download_assets': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
@@ -294,6 +301,11 @@ function infohub_offline() {
                             'to_plugin': 'infohub_offline',
                             'to_function': 'gui_download_assets',
                         },
+                        'progress_download_assets': {
+                            'plugin': 'infohub_renderprogress',
+                            'type': 'progress',
+                            'value_of_max_text': ' ' + _Translate('OF') + ' '
+                        },
                         'button_download_documentation': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
@@ -302,6 +314,11 @@ function infohub_offline() {
                             'event_data': 'offline',
                             'to_plugin': 'infohub_offline',
                             'to_function': 'gui_download_documentation',
+                        },
+                        'progress_download_documentation': {
+                            'plugin': 'infohub_renderprogress',
+                            'type': 'progress',
+                            'value_of_max_text': ' ' + _Translate('OF') + ' '
                         },
                         'button_show_subscribers': {
                             'plugin': 'infohub_renderform',
@@ -1155,7 +1172,6 @@ function infohub_offline() {
             'key': $in.data_back.key,
         };
     };
-
 }
 
 // See folder/include/the_go_function.js

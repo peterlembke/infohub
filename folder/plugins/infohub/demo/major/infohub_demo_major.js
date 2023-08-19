@@ -69,7 +69,7 @@ function infohub_demo_major() {
             'step': 'step_start',
             'response': {
                 'answer': 'false',
-                'message': 'Nothing to report from infohub_demo_link',
+                'message': 'Nothing to report from infohub_demo_major',
             },
         };
         $in = _Default($default, $in);

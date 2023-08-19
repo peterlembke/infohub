@@ -369,7 +369,7 @@ function infohub_tools() {
 
         if ($in.step === 'step_start') {
             if ($in.from_plugin.node === 'client') {
-                if ($in.from_plugin.plugin.substr(0, 'infohub_tools_'.length) === 'infohub_tools_') {
+                if ($in.from_plugin.plugin.substring(0, 'infohub_tools_'.length) === 'infohub_tools_') {
                     if (_IsSet($in.send_data.data_back) === 'false') {
                         $in.send_data.data_back = {};
                     }

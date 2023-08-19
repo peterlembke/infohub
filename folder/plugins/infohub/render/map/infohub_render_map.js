@@ -181,7 +181,8 @@ function infohub_render_map() {
             }
 
             // iframes are deprecated as a security breach. Will show a link instead.
-            if ($data.subtype.substr($data.subtype.length - 4, 4) !== 'link') {
+            const $isLink = $data.subtype.substring($data.subtype.length - 4) === 'link';
+            if ($isLink === false) {
                 $data.subtype = $data.subtype + 'link';
             }
 

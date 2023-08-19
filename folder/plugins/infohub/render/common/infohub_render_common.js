@@ -121,6 +121,56 @@ function infohub_render_common() {
     };
 
     /**
+     * Get the rest of the html parameters.
+     * You get all parameters in `$in.custom_variables` and those mentioned in $fieldLookup
+     *
+     * @version 2018-05-31
+     * @since 2018-05-31
+     * @param $in | All data we have
+     * @param $fieldLookup | Indexed on $htmlParameterName -> $dataFieldName
+     * @returns {string}
+     * @private
+     */
+    const _GetParameters = function($in, $fieldLookup) {
+
+        let $useFields = [];
+
+        if (_IsSet($in.custom_variables) === 'true') {
+            $in = _Merge($in, $in.custom_variables);
+
+            for (let $customVariableFieldName in $in.custom_variables) {
+                if ($customVariableFieldName === 'custom_variables') { continue; }
+                if (_IsSet($fieldLookup[$customVariableFieldName]) === 'true') { continue; }
+                $fieldLookup[$customVariableFieldName] = $customVariableFieldName;
+            }
+            delete $in.custom_variables;
+        }
+
+        for (let $htmlParameterName in $fieldLookup) {
+
+            if ($fieldLookup.hasOwnProperty($htmlParameterName) === false) {
+                continue;
+            }
+
+            let $dataFieldName = $fieldLookup[$htmlParameterName];
+
+            let $data = $in[$dataFieldName];
+            if (_Empty($data) === 'true') {
+                continue;
+            }
+            const $field = $htmlParameterName + '="' + $data + '"';
+            $useFields.push($field);
+        }
+
+        let $disabled = '';
+        if (_IsSet($in.enabled) === 'true' && $in.enabled === 'false') {
+            $disabled = ' disabled';
+        }
+
+        return ' ' + $useFields.join(' ') + $disabled;
+    };
+
+    /**
      * Gives CSS for how to display on screen.
      * Display = "block", "inline", "none" or leave it empty
      * You can also set display = true, that equals to "block"
@@ -222,6 +272,7 @@ function infohub_render_common() {
             'alias': '',
             'class': 'container',
             'tag': 'div', // span, p, div
+            'custom_variables': {}
             // 'css_data': {}
             // You can not use css_data because it wraps around the html,
             // and this is only a start tag without an end tag.
@@ -241,7 +292,8 @@ function infohub_render_common() {
         }
 
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
-        const $html = '<' + $in.tag + ' ' + $id + '>';
+        const $fieldLookup = {};
+        const $html = '<' + $in.tag + ' ' + $id + _GetParameters($in, $fieldLookup) + '>';
 
         return {
             'answer': 'true',
@@ -300,6 +352,7 @@ function infohub_render_common() {
             'data': '',
             'css_data': {},
             'display': '', // leave empty, "block" or "inline" or "none".
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -315,7 +368,8 @@ function infohub_render_common() {
 
         const $display = _Display($in);
         const $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
-        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display + '>' + $in.data + '</' + $in.tag + '>';
+        const $fieldLookup = {};
+        const $html = '<' + $in.tag + ' ' + $id + ' ' + $display + _GetParameters($in, $fieldLookup) + '>' + $in.data + '</' + $in.tag + '>';
 
         let $cssData = $in.css_data;
 
@@ -370,6 +424,7 @@ function infohub_render_common() {
             'data': '',
             'tag': 'div', // div, span or nothing
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -390,7 +445,8 @@ function infohub_render_common() {
             $in.language + '" ' + $id + '>' + $data + '</code></pre>';
 
         if ($in.tag === 'div' || $in.tag === 'span') {
-            $html = '<' + $in.tag + ' class="' + $in.class + '">' + $html + '</' + $in.tag + '>';
+            const $fieldLookup = {};
+            $html = '<' + $in.tag + ' class="' + $in.class + _GetParameters($in, $fieldLookup) + '">' + $html + '</' + $in.tag + '>';
         }
 
         let $cssData = $in.css_data;
@@ -436,6 +492,7 @@ function infohub_render_common() {
             'class': 'iframe',
             'data': '', // Url to the external data
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -456,7 +513,9 @@ function infohub_render_common() {
             'src="' + $in.data + '"',
             $id,
         ];
-        const $html = '<iframe ' + $parameters.join(' ') + '></iframe>';
+
+        const $fieldLookup = {};
+        const $html = '<iframe ' + $parameters.join(' ') + _GetParameters($in, $fieldLookup) + '></iframe>';
 
         let $cssData = $in.css_data;
 
@@ -489,6 +548,7 @@ function infohub_render_common() {
             'data': '',
             'class': 'fieldset',
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -507,7 +567,8 @@ function infohub_render_common() {
             'class': $in.class
         });
 
-        $html = '<fieldset ' + $id + '>' + $html + '</fieldset>';
+        const $fieldLookup = {};
+        $html = '<fieldset ' + $id + _GetParameters($in, $fieldLookup) + '>' + $html + '</fieldset>';
 
         let $cssData = $in.css_data;
 
@@ -541,6 +602,7 @@ function infohub_render_common() {
             'alt_text': '',
             'class': 'image',
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -558,7 +620,8 @@ function infohub_render_common() {
                 'class': $in.class
             });
 
-            $html = '<img ' + $id + ' src="' + $in.data + '" alt="' + $in.alt_text + '">';
+            const $fieldLookup = {};
+            $html = '<img ' + $id + _GetParameters($in, $fieldLookup) + ' src="' + $in.data + '" alt="' + $in.alt_text + '">';
         }
 
         let $cssData = $in.css_data;
@@ -596,6 +659,7 @@ function infohub_render_common() {
             'data': '',
             'class': 'svg',
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -608,7 +672,8 @@ function infohub_render_common() {
                 'class': $in.class,
             });
 
-            $html = '<div ' + $parameters + '>' + $in.data + '</div>';
+            const $fieldLookup = {};
+            $html = '<div ' + $parameters + _GetParameters($in, $fieldLookup) + '>' + $in.data + '</div>';
         }
 
         let $cssData = $in.css_data;
@@ -716,6 +781,7 @@ function infohub_render_common() {
             'option': [],
             'css_data': {},
             'display': '', // leave empty or use "block" or "inline" or "none".
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -755,8 +821,9 @@ function infohub_render_common() {
             'class': $in.class
         });
 
+        const $fieldLookup = {};
         const $display = _Display($in);
-        $in.html = '<ul ' + $id + ' ' + $display + '>' + $in.html + '</ul>';
+        $in.html = '<ul ' + $id + _GetParameters($in, $fieldLookup) + ' ' + $display + '>' + $in.html + '</ul>';
 
         let $cssData = $in.css_data;
 
@@ -790,6 +857,7 @@ function infohub_render_common() {
             'data': '',
             'class': 'labeldata',
             'css_data': {},
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -811,7 +879,8 @@ function infohub_render_common() {
             'class': 'data',
         });
 
-        const $html = '<div ' + $id + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
+        const $fieldLookup = {};
+        const $html = '<div ' + $id + _GetParameters($in, $fieldLookup) + '><span ' + $idLabel + '>' + $in.label + '</span><span ' + $idData + '>' + $in.data + '</span></div>';
 
         let $cssData = $in.css_data;
 
@@ -848,6 +917,7 @@ function infohub_render_common() {
             'value': 0,
             'css_data': {},
             'display': '', // leave empty or use "block" or "inline" or "none".
+            'custom_variables': {}
         };
         $in = _Default($default, $in);
 
@@ -859,14 +929,15 @@ function infohub_render_common() {
             'class': $in.class
         });
 
-        const $html = '<progress ' + $id + ' max="' + $in.max + '" value="' + $in.value + '" ' + $display + '></progress>';
+        const $fieldLookup = {};
+        const $html = '<progress ' + $id + _GetParameters($in, $fieldLookup) + ' max="' + $in.max + '" value="' + $in.value + '" ' + $display + '></progress>';
 
         let $cssData = $in.css_data;
 
         if ($in.class === 'progress') {
             $cssData = {
                 'progress[value]':
-                    'appearance: none; border: none; width: 66%; display: block; ' +
+                    'appearance: none; border: none; width: 100%; display: block; ' +
                     'margin-left: auto; margin-right: auto;' +
                     'height: 20px; ' +
                     'background-color: #7df76d; ' +

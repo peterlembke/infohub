@@ -957,7 +957,7 @@ function infohub_color() {
             const $fromElementId = $in.box_id + '_' + $in.event_data + '_';
             const $lengthToSaveOnParent = $in.id.length -
                 'button_read_button'.length;
-            const $parentId = $in.id.substr(0, $lengthToSaveOnParent);
+            const $parentId = $in.id.substring(0, $lengthToSaveOnParent);
 
             return _SubCall({
                 'to': {
@@ -1121,7 +1121,7 @@ function infohub_color() {
             const $fromElementId = $in.box_id + '_' + $in.event_data + '_';
             const $lengthToSaveOnParent = $in.id.length -
                 'button_read_button'.length;
-            const $parentId = $in.id.substr(0, $lengthToSaveOnParent);
+            const $parentId = $in.id.substring(0, $lengthToSaveOnParent);
 
             return _SubCall({
                 'to': {

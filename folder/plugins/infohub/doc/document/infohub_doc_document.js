@@ -185,6 +185,8 @@ function infohub_doc_document() {
             let $markdownText = $in.response.document_data.document;
             $markdownText = _UpdateNavigationLinks($markdownText);
 
+            const $presentationBox = $boxId + '.[major_box_head]';
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -198,14 +200,14 @@ function infohub_doc_document() {
                             'type': 'document',
                             'text': $markdownText,
                             'what': {}, // See infohub_demo_document. You can insert any render object.
-                        },
+                        }
                     },
                     'how': {
                         'mode': 'one box',
                         'text': '[my_document]',
                     },
                     'where': {
-                        'box_id': $in.box_id,
+                        'box_id': $presentationBox,
                         'max_width': 0, // pixels
                         'set_visible': 'true',
                         'scroll_to_box_id': 'true',
@@ -263,7 +265,7 @@ function infohub_doc_document() {
                 continue;
             }
 
-            const $url = $text.substr($second, $first - $second);
+            const $url = $text.substring($second, $first);
 
             if (_Empty($url) === 'true') {
                 continue;

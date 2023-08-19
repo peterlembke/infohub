@@ -78,7 +78,7 @@ function infohub_renderform() {
                 continue;
             }
 
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substring(1);
         }
 
         return $response;
@@ -431,7 +431,7 @@ function infohub_renderform() {
         $newName = 'form_element'
     ) {
         const $lastIndex = $id.lastIndexOf('_' + $currentName);
-        const $parentId = $id.substr(0, $lastIndex);
+        const $parentId = $id.substring(0, $lastIndex);
         const $newId = $parentId + '_' + $newName;
 
         return $newId;

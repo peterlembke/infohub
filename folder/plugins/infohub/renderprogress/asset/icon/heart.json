@@ -1,0 +1,20 @@
+{
+    "publisher_name": "Evato tuts+",
+    "publisher_url": "https://webdesign.tutsplus.com/",
+    "publisher_note": "Learn creative skills\nExplore thousands of tutorials, tips and tricks from leading industry experts. Totally free.",
+    "publisher_video_url": "",
+    "collection_name": "",
+    "collection_url": "",
+    "collection_note": "",
+    "license_name": "CC0-1.0",
+    "license_url": "https://codepen.io/tutsplus/details/MLBMRw",
+    "license_note": "Copyright (c) 2023 by Envato Tuts+ (https://codepen.io/tutsplus/pen/MLBMRw)\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+    "author_name": "Ian Yates",
+    "author_url": "https://tutsplus.com/authors/ian-yates",
+    "author_note": "My name's Ian; I'm the web design editor round these parts and I also run the translation project. Ask me anything you like about web design, in any language… I'll find someone who knows the answer! https://www.instagram.com/lycra_against_litter/",
+    "icon_name": "Beating Heart Animation",
+    "icon_url": "https://webdesign.tutsplus.com/how-to-make-an-animated-beating-heart-with-svg--cms-32759t",
+    "icon_note": "How to Make a Beating Heart Animation for St. Valentine’s Day With SVG",
+    "derivative_work": "Saved through Inkscape. added meta data",
+    "attribute": "{icon_name|icon_url} from {collection_name|collection_url} by {author_name|author_url} from {publisher_name|publisher_url}, License {license_name|license_url}"
+}

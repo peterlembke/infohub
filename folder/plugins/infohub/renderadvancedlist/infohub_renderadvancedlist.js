@@ -189,16 +189,28 @@ function infohub_renderadvancedlist() {
 
         if ($in.class === 'list') {
             $cssData = {
-                '.list': 'font-size: 1.0em; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;',
+                '.list': 'font-size: 20px; list-style-type: none; margin: 0px; padding: 4px 0px 4px 10px;',
             };
             $cssData = _MergeStringData($cssData, $in.css_data);
         }
 
+        if (_Empty($in.expand_contract_css_data) === 'true') {
+            $in.expand_contract_css_data = {
+                '.link': 'padding: 0px 0px 0px 10px;',
+                '.link:hover': 'padding: 0px 0px 0px 10px;',
+            };
+        }
+
         const $data = _StructureData($in.option, $in.separator);
-        const $dataOut = _LabelData($data, $in.label_expand,
-            $in.label_contract);
-        const $what = _GetWhat($dataOut, $cssData, $in.label_expand,
-            $in.label_contract);
+        const $dataOut = _LabelData($data, $in.label_expand, $in.label_contract);
+
+        const $what = _GetWhat(
+            $dataOut,
+            $cssData,
+            $in.label_expand,
+            $in.label_contract,
+            $in.expand_contract_css_data
+        );
 
         return {
             'answer': 'true',
@@ -281,16 +293,16 @@ function infohub_renderadvancedlist() {
         for (let $parent in $dataOut) {
             for (let $level in $dataOut[$parent]) {
                 if (_IsSet($dataOut[$level]) === 'true') {
+
                     if ($expand === true) {
-                        $dataOut[$parent][$level] = $dataOut[$parent][$level] +
-                            '[toggle_' + $level + ']';
+                        $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[toggle_' + $level + ']';
                     }
+
                     if ($contract === true) {
-                        $dataOut[$parent][$level] = $dataOut[$parent][$level] +
-                            '[toggle2_' + $level + ']';
+                        $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[toggle2_' + $level + ']';
                     }
-                    $dataOut[$parent][$level] = $dataOut[$parent][$level] +
-                        '[childlist_' + $level + ']';
+
+                    $dataOut[$parent][$level] = $dataOut[$parent][$level] + '[childlist_' + $level + ']';
                 }
             }
         }
@@ -307,7 +319,7 @@ function infohub_renderadvancedlist() {
      * @since   2017-10-29
      * @author  Peter Lembke
      */
-    const _GetWhat = function($dataIn, $cssData, $labelExpand, $labelContract) {
+    const _GetWhat = function($dataIn, $cssData, $labelExpand, $labelContract, $expandContractCssData) {
         let $dataOut = _ByVal($dataIn);
         let $what = {};
 
@@ -324,6 +336,7 @@ function infohub_renderadvancedlist() {
                     'toggle_alias': $childId,
                     'other_alias': $toggleId2,
                     'block_type_visible': 'inline-block',
+                    'css_data': $expandContractCssData
                 };
             }
 
@@ -336,6 +349,7 @@ function infohub_renderadvancedlist() {
                     'other_alias': $toggleId,
                     'display': 'none',
                     'block_type_visible': 'inline-block',
+                    'css_data': $expandContractCssData
                 };
             }
 
@@ -356,7 +370,7 @@ function infohub_renderadvancedlist() {
                 'display': $display,
             };
 
-            // This is the children being added to the childlist
+            // This is the children being added to the child list
             for (let $childItemKey in $dataOut[$level]) {
                 const $row = {
                     'label': $dataOut[$level][$childItemKey],
@@ -414,16 +428,14 @@ function infohub_renderadvancedlist() {
                 $id = '';
 
             while (_Count($parts) > 0) {
-                $id = $in.box_id + '_' + $in.data_back.list_name +
-                    '_childlist_' + $parts.join('_');
+                $id = $in.box_id + '_' + $in.data_back.list_name + '_childlist_' + $parts.join('_');
                 $ids.push({
                     'func': 'SetVisible',
                     'id': $id,
                     'set_visible': 'true',
                 });
 
-                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle_' +
-                    $parts.join('_');
+                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle_' + $parts.join('_');
                 $ids.push({
                     'func': 'SetVisible',
                     'id': $id,
@@ -431,8 +443,7 @@ function infohub_renderadvancedlist() {
                     'block_type_visible': 'inline-block',
                 });
 
-                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle2_' +
-                    $parts.join('_');
+                $id = $in.box_id + '_' + $in.data_back.list_name + '_toggle2_' + $parts.join('_');
                 $ids.push({
                     'func': 'SetVisible',
                     'id': $id,

@@ -28,14 +28,16 @@ plugin.
 There are other arguments for using the plugins. You can intercept the message and exchange the type. You get a unified
 way of getting checksums.
 
-# MD5 (native php, JS plugin)
+# MD5 
+Found in: native php, JS plugin
 
 Checksum function that detect unintentional data corruption  
 Ronald Rivest created MD5 in 1991. MD5 was designed to be used in encryption, but it is no longer useful for that
 purpose. It can still be used as a checksum to verify data integrity, but only against unintentional corruption. You
 can read more about MD5 on <a href="https://en.wikipedia.org/wiki/MD5" target="_blank">Wikipedia</a>.
 
-# CRC32 (native php, JS plugin)
+# CRC32
+Found in: native php, JS plugin
 
 This plugin help you calculate CRC32 checksums.  
 The CRC32 checksum was designed in 1962 to detect burst errors in data streams. Read more about CRC
@@ -44,20 +46,23 @@ story.
 One feature with CRC32 is that you can continue adding data to the checksum when the data come from the stream.  
 InfoHub do not use CRC32, instead the main checksum type is MD5.
 
-# Soundex (native php)
+# Soundex
+Found in: native php
 
 Soundex is a phonetic algorithm for indexing names by sound, as pronounced in English.  
 The algorithm was invented in 1918 by Robert C. Russell and Margaret King Odell.  
 Soundex is used in databases and is the base for many more modern versions of phonetic algorithms. You can read more
 about Soundex on <a href="https://en.wikipedia.org/wiki/Soundex" target="_blank">Wikipedia</a>.
 
-# Metaphone (native php)
+# Metaphone
+Found in: native php
 
 Metaphone is a phonetic algorithm for indexing any word in English.  
 The algorithm was invented in 1990 by Lawrence Philips.  
 You can read more about Metaphone on <a href="https://en.wikipedia.org/wiki/Metaphone" target="_blank">Wikipedia</a>.
 
-# Double Metaphone (php plugin lib)
+# Double Metaphone
+Found in: php plugin lib
 
 Double Metaphone is a phonetic algorithm for indexing any word in English.  
 The algorithm was invented in 2000 by Lawrence Philips as the second generation of the Metahphone algorithm.  

@@ -192,45 +192,53 @@ function infohub_doc_index() {
             let $length = $in.response.document_html.length;
             let $startHere = 0;
 
+            let $whatLookup = {};
+
             do {
                 const $startTag = '<h';
-                const $foundStart = $in.response.document_html.indexOf(
-                    $startTag, $startHere);
+                const $foundStart = $in.response.document_html.indexOf($startTag, $startHere);
                 if ($foundStart < 0) {
                     break;
                 }
 
                 const $endTag = '</h';
-                const $foundEnd = $in.response.document_html.indexOf($endTag,
-                    $foundStart + 1);
+                const $foundEnd = $in.response.document_html.indexOf($endTag, $foundStart + 1);
                 if ($foundEnd < 0) {
                     break;
                 }
 
-                const $part = $in.response.document_html.substring($foundStart,
-                    $foundEnd);
+                const $part = $in.response.document_html.substring($foundStart, $foundEnd);
                 if ($part === '') {
                     continue;
                 }
 
-                const $indent = $part.substr(2, 1);
+                const $indent = $part.substring(2, 3);
                 const $startIdPosition = $part.indexOf('id="') + 4;
                 const $endIdPosition = $part.indexOf('">');
                 const $id = $part.substring($startIdPosition, $endIdPosition);
-                const $label = $part.substring($endIdPosition + 2);
-                const $html = '<a href="#' + $id + '">' + $label + '</a>';
+                const $show = $part.substring($endIdPosition + 2);
+
+                const $linkAlias = 'link_' + $id;
+                const $linkReference = '[' + $linkAlias + ']';
 
                 $data.push({
                     'indent': $indent - 1,
                     'id': $id,
-                    'label': $html,
+                    'label': $linkReference,
                 });
+
+                $whatLookup[$linkAlias] = {
+                    'type': 'link',
+                    'subtype': 'navigate',
+                    'show': $show,
+                    'navigate_to_id': $id
+                };
 
                 $startHere = $foundEnd;
 
             } while ($startHere < $length);
 
-            // Create an array suitable for use with advancedlist
+            // Create an array suitable for use with advanced list
             let $parentLevel = 0;
             let $previousItemId = '';
             let $parent = [];
@@ -267,6 +275,22 @@ function infohub_doc_index() {
             const $headLabel = _Translate('INDEX');
             const $boxId = _GetBoxId('index') + '.[list]';
 
+            $whatLookup['my_presentation_box'] = {
+                'plugin': 'infohub_rendermajor',
+                'type': 'presentation_box',
+                'head_label': $headLabel,
+                'foot_text': '',
+                'content_data': '[my_list]',
+            };
+
+            $whatLookup['my_list'] = {
+                'plugin': 'infohub_renderadvancedlist',
+                'type': 'advanced_list',
+                'subtype': 'list',
+                'option': $option,
+                'separator': $separator,
+            };
+
             return _SubCall({
                 'to': {
                     'node': 'client',
@@ -274,22 +298,7 @@ function infohub_doc_index() {
                     'function': 'create',
                 },
                 'data': {
-                    'what': {
-                        'my_presentation_box': {
-                            'plugin': 'infohub_rendermajor',
-                            'type': 'presentation_box',
-                            'head_label': $headLabel,
-                            'foot_text': '',
-                            'content_data': '[my_list]',
-                        },
-                        'my_list': {
-                            'plugin': 'infohub_renderadvancedlist',
-                            'type': 'advanced_list',
-                            'subtype': 'list',
-                            'option': $option,
-                            'separator': $separator,
-                        },
-                    },
+                    'what': $whatLookup,
                     'how': {
                         'mode': 'one box',
                         'text': '[my_presentation_box]',

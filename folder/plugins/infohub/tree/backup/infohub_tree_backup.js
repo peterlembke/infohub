@@ -66,7 +66,7 @@ function infohub_tree_backup() {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
         return $response;
     };

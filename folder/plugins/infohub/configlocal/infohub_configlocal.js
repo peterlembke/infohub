@@ -301,7 +301,8 @@ function infohub_configlocal() {
             }
 
             const $pluginName = 'infohub_configlocal_';
-            if ($in.from_plugin.plugin.substr(0, $pluginName.length) !== $pluginName) {
+            const $isChildCalling = $in.from_plugin.plugin.substring(0, $pluginName.length) === $pluginName;
+            if ($isChildCalling === false) {
                 $out.message = 'I only allow child plugins to use this function';
                 break leave;
             }

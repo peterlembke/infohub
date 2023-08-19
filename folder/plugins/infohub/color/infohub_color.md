@@ -1,4 +1,4 @@
-# infohub_color
+# InfoHub Color
 
 I want to improve the colour templating in InfoHub and learn more about colours.
 

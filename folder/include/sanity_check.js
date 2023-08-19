@@ -70,7 +70,7 @@ function sanity_check() {
                 if ($validUrl === $parts[0]) { continue; }
             }
 
-            if ($url.substr(0, 4) === 'http') {
+            if ($url.substring(0, 4) === 'http') {
                 if ($elements[$i].target === '_blank') { continue; }
             }
 

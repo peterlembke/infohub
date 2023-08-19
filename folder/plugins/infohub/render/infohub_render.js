@@ -1929,22 +1929,21 @@ function infohub_render() {
                     $in.response.files_data[$fileNumber].name);
 
                 if ($extension === 'txt') {
-                    if ($findText === $content.substr(0, $findText.length)) {
+                    if ($findText === $content.substring(0, $findText.length)) {
                         // Remove the text mime type and insert json instead
-                        $content = $findJson +
-                            $content.substr($findText.length);
+                        $content = $findJson + $content.substring($findText.length);
                     }
                 }
 
-                if ($findMarkdown === $content.substr(0, $findMarkdown.length)) {
-                    $content = $content.substr($findMarkdown.length);
+                if ($findMarkdown === $content.substring(0, $findMarkdown.length)) {
+                    $content = $content.substring($findMarkdown.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
                     $in.response.files_data[$fileNumber].content = $content;
                 }
 
-                if ($findJson === $content.substr(0, $findJson.length)) {
-                    $content = $content.substr($findJson.length);
+                if ($findJson === $content.substring(0, $findJson.length)) {
+                    $content = $content.substring($findJson.length);
                     $content = atob($content);
                     $content = decodeURIComponent(escape($content));
                     $in.response.files_data[$fileNumber].content = _JsonDecode(
@@ -2080,7 +2079,7 @@ function infohub_render() {
                     break external_link;
                 }
                 $data = atob($in.data);
-                if ($data.toLowerCase().substr(0, 5) !== 'https') {
+                if ($data.toLowerCase().substring(0, 5) !== 'https') {
                     const $text = 'Please add https to your link. Do not support an unencrypted web.';
                     $messageArray.push(_Alert($text));
                     break external_link;

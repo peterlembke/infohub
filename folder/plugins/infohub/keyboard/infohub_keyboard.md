@@ -23,8 +23,8 @@ You send a message to the subscribe function. Parameter:
 
 ```
 "subscriptions": {
-    "key_combination_string_1": { the message you want},
-    "key_combination_string_2": { the message you want},
+    "key_combination_string_1": { the message you want back },
+    "key_combination_string_2": { the message you want back },
     "key_combination_string_3": { },
 }
 ```
@@ -38,7 +38,7 @@ Many plugins can subscribe to the same key combination.
 $key = {
     "key_combination_string_1": {
         "client|infohub_debug": { the message to send },
-        "client|infohub_demo": { the message to send},
+        "client|infohub_demo": { the message to send },
     }
 }
 ```

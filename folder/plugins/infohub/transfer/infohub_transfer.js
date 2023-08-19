@@ -774,7 +774,7 @@ function infohub_transfer() {
             _SetGlobalOnline('true'); // We got a message, we are online
             clearTimeout($noResponseTimer); // We got a response before the timeout
 
-            if ($incomingData.substr(0, 7) === 'error: ') {
+            if ($incomingData.substring(0, 7) === 'error: ') {
                 _BoxError('Got server ' + $incomingData);
                 $globalWaitingForResponse = 'false';
                 return;

@@ -68,7 +68,7 @@ function infohub_render_link() {
             if ($parts.hasOwnProperty($key) === false) {
                 continue;
             }
-            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substr(1);
+            $response = $response + $parts[$key].charAt(0).toUpperCase() + $parts[$key].substring(1);
         }
 
         return $response;
@@ -115,37 +115,45 @@ function infohub_render_link() {
     };
 
     /**
-     * Get the rest of the html parameters
+     * Get the rest of the html parameters.
+     * You get all parameters in `$in.custom_variables` and those mentioned in $fieldLookup
+     *
      * @version 2018-05-31
      * @since 2018-05-31
-     * @param $in
-     * @param $fields
+     * @param $in | All data we have
+     * @param $fieldLookup | Indexed on $htmlParameterName -> $dataFieldName
      * @returns {string}
      * @private
      */
-    const _GetParameters = function($in, $fields) {
+    const _GetParameters = function($in, $fieldLookup) {
+
         let $useFields = [];
 
         if (_IsSet($in.custom_variables) === 'true') {
             $in = _Merge($in, $in.custom_variables);
 
-            for (let $keyOut in $in.custom_variables) {
-                if ($keyOut === 'custom_variables') { continue; }
-                if (_IsSet($fields[$keyOut]) === 'true') { continue; }
-                $fields[$keyOut] = $keyOut;
+            for (let $customVariableFieldName in $in.custom_variables) {
+                if ($customVariableFieldName === 'custom_variables') { continue; }
+                if (_IsSet($fieldLookup[$customVariableFieldName]) === 'true') { continue; }
+                $fieldLookup[$customVariableFieldName] = $customVariableFieldName;
             }
             delete $in.custom_variables;
         }
 
-        for (let $keyOut in $fields) {
-            if ($fields.hasOwnProperty($keyOut)) {
-                let $keyIn = $fields[$keyOut];
-                let $data = $in[$keyIn];
-                if (_Empty($data) === 'false') {
-                    const $field = $keyOut + '="' + $data + '"';
-                    $useFields.push($field);
-                }
+        for (let $htmlParameterName in $fieldLookup) {
+
+            if ($fieldLookup.hasOwnProperty($htmlParameterName) === false) {
+                continue;
             }
+
+            let $dataFieldName = $fieldLookup[$htmlParameterName];
+
+            let $data = $in[$dataFieldName];
+            if (_Empty($data) === 'true') {
+                continue;
+            }
+            const $field = $htmlParameterName + '="' + $data + '"';
+            $useFields.push($field);
         }
 
         let $disabled = '';
@@ -221,7 +229,8 @@ function infohub_render_link() {
             'final_function': 'event_message',
             'class': 'link',
             'css_data': {},
-            'custom_variables': {} // Variables that will be added to the dom element as attributes
+            'custom_variables': {}, // Variables that will be added to the dom element as attributes
+            'navigate_to_id': '' // The navigation link set this as href
         };
 
         const $defaultResponse = {
@@ -293,7 +302,7 @@ function infohub_render_link() {
         };
         $in = _Merge($in, $constants);
 
-        const $fields = {
+        const $fieldLookup = {
             'type': 'subtype',
             'renderer': 'renderer',
             'event_data': 'event_data',
@@ -316,7 +325,7 @@ function infohub_render_link() {
             $finalDestination = ' final_node="' + $in.final_node + '" final_plugin="' + $in.final_plugin + '" final_function="' + $in.final_function + '"';
         }
 
-        $in.html = '<a ' + $id + _GetParameters($in, $fields) + $destination + $finalDestination + $event + '>' + $in.show + '</a>';
+        $in.html = '<a ' + $id + _GetParameters($in, $fieldLookup) + $destination + $finalDestination + $event + '>' + $in.show + '</a>';
 
         let $cssData = $in.css_data;
 
@@ -536,6 +545,70 @@ function infohub_render_link() {
             'message': 'Rendered html for a link',
             'html': $in.html,
             'css_data': $cssData,
+        };
+    };
+
+    /**
+     * Create HTML for a navigation link where you jump within the page
+     * @version 2023-07-07
+     * @since   2023-07-07
+     * @author  Peter Lembke
+     */
+    const internal_Navigate = function($in = {}) {
+        const $default = {
+            'alias': '',
+            'show': '', // Text to show on screen
+            'navigate_to_id': '', // Example: document
+            'legend': 'false',
+            'display': 'inline', // nothing, block or inline
+            'css_data': {},
+            'class': 'link',
+            'custom_variables': {}
+        };
+        $in = _Default($default, $in);
+
+        const $constants = {
+            'renderer': 'infohub_render_link',
+            'type': 'link',
+            'subtype': 'navigate',
+            'event_type': '',
+        };
+        $in = _Merge($in, $constants);
+
+        const $fieldLookup = {
+            'type': 'subtype',
+            'renderer': 'renderer',
+            'event_data': 'event_data',
+            'alias': 'alias',
+        };
+
+        const $idString = ['{box_id}', $in.alias].join('_');
+        const $href = ' href="#' + $in.navigate_to_id + '"';
+
+        let $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': $in.class});
+        if ($in.legend === 'true') {
+            $id = _GetId({'id': $in.alias, 'name': $in.alias, 'class': 'legend'});
+            $in.show = '<p ' + $id + '>' + $in.show + '</p>';
+        }
+
+        $in.html = '<a ' + $href + $id + _GetParameters($in, $fieldLookup) + '>' + $in.show + '</a>';
+
+        let $cssData = $in.css_data;
+
+        if ($in.class === 'link') {
+            $cssData = {
+                '.link': 'color: #1b350a;',
+                '.link:hover': 'background: #6d8df7;',
+            };
+            $cssData = _MergeStringData($cssData, $in.css_data);
+        }
+
+        return {
+            'answer': 'true',
+            'message': 'Rendered html for a link',
+            'html': $in.html,
+            'css_data': $cssData,
+            'display': $in.display,
         };
     };
 }

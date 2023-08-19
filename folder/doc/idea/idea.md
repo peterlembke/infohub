@@ -19,10 +19,10 @@ infohub.se
 
 # TeamFakta
 Ideas that evolve around fitness. I am a big fan of training, food, mental health, sleep.  
-These ideas might become plugins that are optional and will not be part of InfoHub.  
+These ideas become plugins that are optional and will not be part of InfoHub.  
 teamfakta.se
 
 # CharZam
 Ideas that do not evolve around fitness.
-These ideas might become plugins that are optional and will not be part of InfoHub.  
+These ideas become plugins that are optional and will not be part of InfoHub.  
 charzam.com

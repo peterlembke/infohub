@@ -141,8 +141,26 @@ function infohub_doc_navigate() {
                     'cache_key': 'navigate',
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'box_id': $in.box_id,
+                    'step': 'step_click',
                 },
+            });
+        }
+
+        if ($in.step === 'step_click') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_navigate',
+                    'function': 'click_refresh',
+                },
+                'data': {
+                    'box_id': $in.box_id + '.list'
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_end'
+                }
             });
         }
 
@@ -278,6 +296,24 @@ function infohub_doc_navigate() {
                     'document_name': $in.document_name,
                 },
                 'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_update_index',
+                },
+            });
+        }
+
+        if ($in.step === 'step_update_index') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_doc_index',
+                    'function': 'click_refresh',
+                },
+                'data': {
+                    'box_id': $in.box_id + '.index'
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
                     'step': 'step_end',
                 },
             });
@@ -310,8 +346,9 @@ function infohub_doc_navigate() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_view') {
-            // Create option array with data for the advanced list
-            let $option = [];
+
+            let $whatLookup = {};
+            let $optionArray = [];
 
             for (let $area in $in.data) {
                 if ($in.data.hasOwnProperty($area) === false) {
@@ -323,34 +360,52 @@ function infohub_doc_navigate() {
                         continue;
                     }
 
-                    const $pluginName = 'infohub_doc';
-                    const $eventType = 'click';
-                    const $containerId = '{box_id}_' + $area + '_' + $documentName + '.link';
+                    const $level = $area + '_' + $documentName;
+                    const $linkAlias = 'option_link_' + $level;
 
-                    const $onClickParameters = '\'' + $pluginName + '\',' +
-                        '\'' +
-                        $eventType + '\',' + '\'' + $containerId + '\'';
-                    const $onClick = 'onclick="go(' + $onClickParameters + ')" ';
+                    const $label = '[' + $linkAlias + ']';
 
-                    const $idData = 'id="' + $containerId + '" area="' + $area + '" document_name="' + $documentName + '" ';
-
-                    const $eventData = 'event_data="infohub_doc_navigate|click_document_name" ';
-
-                    // In this case the event_message function will check what renderer you use and act on that.
-                    const $otherParams = 'href="#header" class="link" renderer="infohub_doc" type="link" ';
-                    // You can put any parameters you like in the string above, and they will show up in the event_message function.
-
-                    const $label = $in.data[$area][$documentName].label;
-                    const $html = '<a ' + $onClick + $idData + $eventData + $otherParams + '>' + _Translate($label) + '</a>';
-
-                    $option.push({
-                        'label': $html,
-                        'level': $area + '_' + $documentName,
+                    $optionArray.push({
+                        'label': $label,
+                        'level': $level,
                     });
+
+                    const $linkText = _Translate($in.data[$area][$documentName].label);
+
+                    $whatLookup[$linkAlias] = {
+                        'type': 'link',
+                        'subtype': 'link',
+                        'show': $linkText,
+                        'event_data': 'infohub_doc_navigate|click_document_name',
+                        'to_node': 'client',
+                        'to_plugin': 'infohub_doc',
+                        'to_function': 'event_message',
+                        'custom_variables': {
+                            'area': $area,
+                            'document_name': $documentName
+                        }
+                    };
                 }
             }
 
             const $headLabel = _Translate('NAVIGATION');
+
+            $whatLookup['my_presentation_box'] = {
+                'plugin': 'infohub_rendermajor',
+                'type': 'presentation_box',
+                'head_label': $headLabel,
+                'foot_text': '',
+                'content_data': '[my_list]',
+            };
+
+            $whatLookup['my_list'] = {
+                'plugin': 'infohub_renderadvancedlist',
+                'type': 'advanced_list',
+                'subtype': 'list',
+                'option': $optionArray,
+                'separator': '_',
+            };
+
             const $boxId = _GetBoxId('navigate') + '.[list]';
 
             return _SubCall({
@@ -360,22 +415,7 @@ function infohub_doc_navigate() {
                     'function': 'create',
                 },
                 'data': {
-                    'what': {
-                        'my_presentation_box': {
-                            'plugin': 'infohub_rendermajor',
-                            'type': 'presentation_box',
-                            'head_label': $headLabel,
-                            'foot_text': '',
-                            'content_data': '[my_list]',
-                        },
-                        'my_list': {
-                            'plugin': 'infohub_renderadvancedlist',
-                            'type': 'advanced_list',
-                            'subtype': 'list',
-                            'option': $option,
-                            'separator': '_',
-                        },
-                    },
+                    'what': $whatLookup,
                     'how': {
                         'mode': 'one box',
                         'text': '[my_presentation_box]',
@@ -383,7 +423,9 @@ function infohub_doc_navigate() {
                     'where': {
                         'box_id': $boxId,
                         'max_width': 320, // pixels
+                        'scroll_to_box_id': 'true',
                     },
+                    // 'cache_key': ''
                 },
                 'data_back': {
                     'data': $in.data_back.data,

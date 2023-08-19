@@ -1,5 +1,6 @@
 /*jshint esversion: 11 */
 /*jshint forin: false */
+/*jshint eqeqeq: true */
 
 let $functions = [], // Array with all function names
     $firstDefault = null, // Used by cmd() to get the default values for a cmd function
@@ -195,7 +196,7 @@ const _Merge = function($object1 = {}, $object2 = {}) {
 $functions.push('_MergeStringData');
 /**
  * Merge two objects strings, everything new from object2 or object1 are added to new object.
- * Every string that exist in both objects are glued together with object 1 firsts and object 2 second.
+ * Every string that exist in both objects are glued together with object 1 first and object 2 second.
  * Then the string are added to new object.
  * example: $in = _MergeStringData($object1,$object2);
  * Starts with $object1 and adds all keys from $object2.
@@ -434,32 +435,6 @@ const _JsonDecode = function($JsonString = '') {
 };
 
 /**
- * Convert from escaped string to UTF8 string
- * @param {string} $escapedString - An escaped string
- * @returns {string} UTF8 string
- * @private
- */
-$functions.push('_EncodeUtf8');
-const _EncodeUtf8 = function($escapedString = '') {
-    const $utf8DataString = unescape(encodeURIComponent($escapedString));
-
-    return $utf8DataString;
-};
-
-/**
- * Convert from UTF8 string to escaped string
- * @param {string} $utf8DataString - UTF8 data string
- * @returns {string} Escaped string
- * @private
- */
-$functions.push('_DecodeUtf8');
-const _DecodeUtf8 = function($utf8DataString = '') {
-    const $escapedString = decodeURIComponent(escape($utf8DataString));
-
-    return $escapedString;
-};
-
-/**
  * Read value from any data collection and get a result.
  * If the data do not exist or are the wrong data type then you get the default value.
  * Name can be 'just_a_name' or 'some/deep/level/data'
@@ -558,33 +533,30 @@ $functions.push('_SubString');
 /**
  * Same as .substr but not using deprecated commands
  *
+ * @since 2022-03-22
  * @param $string
- * @param $start
- * @param $length
+ * @param $startInt
+ * @param $lengthInt
  * @returns {string}
  * @private
  */
 const _SubString = function(
     $string = '',
-    $start = 0,
-    $length = 0
+    $startInt = 0,
+    $lengthInt = 0
 ) {
-    let $end = $start + $length;
 
     const $stringLength = $string.length;
-    if ($end > $stringLength) {
-        $end = $stringLength;
+
+    if ($startInt < 0) {
+        $startInt = $stringLength + $startInt;
     }
 
-    if ($start > $end) {
-        const $swap = $start;
-        $start = $end;
-        $end = $swap;
-    }
+    let $endInt = $startInt + $lengthInt;
 
-    let $result = $string.substring($start, $end);
+    let $resultString = $string.substring($startInt, $endInt);
 
-    return $result;
+    return $resultString;
 };
 
 /**
@@ -779,33 +751,39 @@ $functions.push('_Translate');
  * @private
  */
 const _Translate = function($string) {
-    if (typeof $classTranslations !== 'object') {
-        return $string.toString();
-    }
 
     let $key = $string;
-    if ($key.substr(-4,4) !== '_KEY') {
+    const $isEndingWithKey = _SubString($key, -4,4) === '_KEY';
+    if ($isEndingWithKey === false) {
         $key = $key + '_KEY';
     }
 
-    let $result = _GetData({
-        'name': _GetClassName() + '|' + $key,
-        'default': '',
-        'data': $classTranslations,
-        'split': '|',
-    });
-
-    if (_Full($result) === 'true') {
-        return $result.toString();
+    let $translatedString = '';
+    const $haveAnyTranslations = typeof $classTranslations === 'object';
+    if ($haveAnyTranslations === true) {
+        $translatedString = _GetData({
+            'name': _GetClassName() + '|' + $key,
+            'default': '',
+            'data': $classTranslations,
+            'split': '|',
+        });
     }
 
-    if ($string.includes('_') === true) {
-        // Convert a string to plain english
-        $string = _Replace('_', ' ', $string.toLowerCase());
-        $string = $string.charAt(0).toUpperCase() + $string.substring(1);
+    const $haveTranslatedString = _Full($translatedString) === 'true';
+    if ($haveTranslatedString === true) {
+        return $translatedString.toString();
     }
 
-    return $string;
+    // Remove the _KEY at the end.
+    // Yes I know. If there are no translations and the string is like THE_LOGIN_KEY then it will be wrong.
+    let $convertedString = $key.substring(0, $key.length - 4);
+
+    $convertedString = _Replace('_', ' ', $convertedString.toLowerCase());
+    $convertedString = $convertedString.charAt(0).toUpperCase() + $convertedString.substring(1);
+    // This is a compromise where most texts start with a capital letter.
+    // If you do not want the first letter to be capital then provide proper translation files.
+
+    return $convertedString;
 };
 
 /**
@@ -1330,13 +1308,13 @@ const function_names = function($in = {}) {
         $classMethods = [];
         for (let $key in $allClassMethods) {
             const $method = $allClassMethods[$key];
-            if ($method.substr(0, 'internal_'.length) === 'internal_') {
+            if ($method.substring(0, 'internal_'.length) === 'internal_') {
                 if ($in.include_internal_functions === 'true') {
                     $classMethods.push($method);
                 }
                 continue;
             }
-            if ($method.substr(0, '_'.length) === '_') {
+            if ($method.substring(0, '_'.length) === '_') {
                 if ($in.include_direct_functions === 'true') {
                     $classMethods.push($method);
                 }

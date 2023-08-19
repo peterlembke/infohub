@@ -61,7 +61,7 @@ function infohub_welcome_welcome() {
                 continue;
             }
             $response = $response + $parts[$key].charAt(0).toUpperCase() +
-                $parts[$key].substr(1);
+                $parts[$key].substring(1);
         }
 
         return $response;

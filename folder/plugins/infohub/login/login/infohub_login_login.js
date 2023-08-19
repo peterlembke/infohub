@@ -1031,7 +1031,7 @@ function infohub_login_login() {
     const _RotateBase64String = function($string1 = '', $steps = 0) {
         let $data1 = atob($string1);
 
-        const $result = $data1.substr($steps + 1) + $data1.substr(0, $steps);
+        const $result = $data1.substring($steps + 1) + $data1.substring(0, $steps);
 
         const $base64Result = btoa($result);
 

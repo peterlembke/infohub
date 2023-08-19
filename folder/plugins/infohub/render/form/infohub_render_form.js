@@ -238,7 +238,7 @@ function infohub_render_form() {
             }
 
             if ($data.label.length > 22) {
-                $data.label = $data.label.substr(0, 20) + '..'; // Cutting off so it looks ok on mobile
+                $data.label = $data.label.substring(0, 20) + '..'; // Cutting off so it looks OK on mobile
             }
 
             if ($data.type === 'option') {

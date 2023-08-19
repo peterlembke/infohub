@@ -251,7 +251,7 @@ function infohub_doc() {
                             'box_mode': 'data',
                             'box_alias': 'document',
                             'max_width': 0,
-                            'box_data': 'The document will render here',
+                            'box_data': '', // The document will render here
                         },
                     ],
                 },
@@ -301,7 +301,6 @@ function infohub_doc() {
             });
             $messages.push($messageOut);
 
-            /*
             $messageOut = _SubCall({
                 'to': {
                     'node': 'client',
@@ -319,7 +318,6 @@ function infohub_doc() {
                 }
             });
             $messages.push($messageOut);
-            */
 
             $messageOut = _SubCall({
                 'to': {
