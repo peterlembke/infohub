@@ -22,6 +22,43 @@ data to path: "infohub_storagemanager/config".
 If a connection to the plugin_name is not found, then we create a table in the same database as infohub_storagemanager
 reference in the config file and name it "{plugin_name}".
 
+# Config
+
+In file infohub_storage_data.json you have the database connections to the main database for the client and for the server.
+
+``` 
+"plugin_name_handler": "infohub_storage_data_sqlite", // Name of the storage child plugin that can handle this connection
+"plugin_name_owner": "", // Level 1 Plugin name that own the data
+"used_for": "all", // Plugin names this main connection is used for
+"not_used_for": "", // Plugin names this main connection is not used for
+"db_type": "sqlite", // One of the supported strings: psql, mysql, sqlite, redis, file, couchdb
+"db_host": "127.0.0.1", // If required, IP number or domain name to sql server. Empty for sqlite
+"db_port": "3306", // The IP port to the SQL server, or empty for sqlite
+"db_user": "infohubuser", // If required, username on sql server or empty for sqlite
+"db_password": "infohubpassword", // password for username, or empty for sqlite
+"db_name": "main", // name of the database / name of the sqlite file
+"path": "infohub_storagemanager\/config" // the path where this connection will be stored
+```
+
+## plugin_name_handler
+The plugin that manage this specific db_type of database
+
+## plugin_name_owner
+The name of the plugin that own this database connection.
+The main connection leave this empty, and it will be populated with the calling plugin name.
+A test is done that the path starts with the plugin_name_owner.
+
+## used_for and not_used_for
+Useful in main connection to avoid an extra call to see if there is a special config for your plugin.
+
+        if ($connect['used_for'] === 'all') {
+            if ($connect['not_used_for'] === '') {
+                $in['step'] = 'step_read';
+            }
+        } 
+
+TODO: This logic need to be improved and documented better.
+
 # Path
 
 The path is where you write/read/delete data. Path example: "{plugin_name}/what/ever/you/like"  

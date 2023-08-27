@@ -84,7 +84,9 @@ class infohub_storage_data extends infohub_base
     // *****************************************************************************
 
     /**
-     * General function for reading a bubble
+     * General function for reading a bubble.
+     * Uses the main db connection unless a specific connector have been defined for the calling plugin.
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke

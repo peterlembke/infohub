@@ -1,0 +1,15 @@
+[ req ]
+ default_bits       = 2048
+ default_md         = sha256
+ prompt             = no
+ encrypt_key        = no
+ distinguished_name = infohub_local
+# infohub_local
+ [ infohub_local ]
+ countryName            = "SE"                   # C=
+ stateOrProvinceName    = "Stockholm"           # ST=
+ localityName           = "Stockholm"            # L=
+ organizationName       = "Infohub SE"         # O=
+ organizationalUnitName = "Infohub IT department    # OU=
+ commonName             = "infohub.local"        # CN=
+ emailAddress           = "info@infohub.se" # CN/emailAddress=

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+openssl req -x509 -new -keyout infohub_local.key -out infohub_local.crt -config infohub_local.cnf -days 3650 -nodes
+openssl req -x509 -new -keyout demo_infohub_local.key -out demo_infohub_local.crt -config demo_infohub_local.cnf -days 3650 -nodes
+openssl req -x509 -new -keyout doc_infohub_local.key -out doc_infohub_local.crt -config doc_infohub_local.cnf -days 3650 -nodes
+openssl req -x509 -new -keyout private_infohub_local.key -out private_infohub_local.crt -config private_infohub_local.cnf -days 3650 -nodes
+openssl req -x509 -new -keyout random_infohub_local.key -out random_infohub_local.crt -config random_infohub_local.cnf -days 3650 -nodes
+openssl req -x509 -new -keyout local_infohub_se.key -out local_infohub_se.crt -config local_infohub_se.cnf -days 3650 -nodes

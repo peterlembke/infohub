@@ -13,16 +13,22 @@ See the [home page](https://infohub.se) for a demo.
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/peterlembke/infohub)
 
-![Twitter Follow](https://img.shields.io/twitter/follow/LembkePeter?style=social)
-
-# Documentation
-On GitHub, you find the [documentation](https://github.com/peterlembke/infohub/tree/master/folder/doc).
+![X Follow](https://img.shields.io/twitter/follow/LembkePeter?style=social)
 
 # License
 License: GNU [GPL-3.0-or-later](LICENSE.md). See license [details](folder/doc/license/license.md).
 
-# Site owner
-As a site owner, if you want to use the branding "**Applies to the InfoHub terms**" and/or the corresponding logo ![InfoHub logo](folder/favicon.png) you need to comply to the additional [TERMS.md](TERMS.md).
+# Installation
+
+Use the installation script to install a local development environment and configure InfoHub.
+```
+./install.sh 
+```
+
+If you want to do everything manually then there is the [installation](folder/doc/installation/installation.md) instructions.
+
+# Documentation
+On GitHub, you find the [documentation](https://github.com/peterlembke/infohub/tree/master/folder/doc).
 
 # Releases
 InfoHub have been developed since 2010-01-01 and have some [releases](CHANGELOG.md).
@@ -30,8 +36,8 @@ InfoHub is complete. InfoHub Core get new features. Applications for InfoHub wil
 
 You can follow the releases on [Twitter](https://twitter.com/LembkePeter)
 
-# Installation
-See the [installation](folder/doc/installation/installation.md) instructions.
+# Site owner
+As a site owner, if you want to use the branding "**Applies to the InfoHub terms**" and/or the corresponding logo ![InfoHub logo](folder/favicon.png) you need to comply to the additional [TERMS.md](TERMS.md).
 
 # Backer
 You can support my effort with money on [![PayPal.Me link](folder/doc/images/paypal.png)](https://www.paypal.com/paypalme/peterlembke).  
@@ -51,4 +57,4 @@ This documentation is copyright (C) 2016 Peter Lembke.
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
 
-Updated 2021-12-27
+Updated 2023-08-24
