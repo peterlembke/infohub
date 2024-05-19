@@ -297,13 +297,13 @@ function infohub_tools_time() {
         };
     };
 
+    $functions.push('click_handle_node_select');
     /**
      * In Encrypt when you select a node then one of the select boxes should be hidden
      * @version 2018-08-08
      * @since   2018-08-08
      * @author  Peter Lembke
      */
-    $functions.push('click_handle_node_select');
     const click_handle_node_select = function($in = {}) {
         const $default = {
             'step': 'step_start',

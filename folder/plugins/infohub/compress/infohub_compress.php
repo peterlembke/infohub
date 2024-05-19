@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -62,7 +62,7 @@ class infohub_compress extends infohub_base
     {
         $list = [
             'compress' => 'normal',
-            'uncompress' => 'normal',
+            'decompress' => 'normal',
             'get_available_options' => 'normal'
         ];
 
@@ -85,10 +85,10 @@ class infohub_compress extends infohub_base
     {
         $default = [
             'compression_method' => 'gzip',
-            'uncompressed_data' => '',
+            'decompressed_data' => '',
             'step' => 'step_start',
             'data_back' => [
-                'uncompressed_length' => 0,
+                'decompressed_length' => 0,
                 'compressed_length' => 0,
                 'size_percent_of_original' => 0.0
             ],
@@ -103,7 +103,7 @@ class infohub_compress extends infohub_base
         $functionName = '';
 
         if ($in['step'] === 'step_start') {
-            $in['data_back']['uncompressed_length'] = strlen($in['uncompressed_data']);
+            $in['data_back']['decompressed_length'] = strlen($in['decompressed_data']);
 
             $in['step'] = 'step_ask_child_plugin';
 
@@ -123,11 +123,11 @@ class infohub_compress extends infohub_base
                         'function' => 'compress'
                     ],
                     'data' => [
-                        'uncompressed_data' => $in['uncompressed_data']
+                        'decompressed_data' => $in['decompressed_data']
                     ],
                     'data_back' => [
                         'compression_method' => $in['compression_method'],
-                        'uncompressed_length' => $in['data_back']['uncompressed_length'],
+                        'decompressed_length' => $in['data_back']['decompressed_length'],
                         'step' => 'step_calculate_compressed_data_length'
                     ],
                 ]
@@ -138,7 +138,7 @@ class infohub_compress extends infohub_base
 
             $response = $this->internal_Cmd([
                 'func' => $functionName,
-                'uncompressed_data' => $in['uncompressed_data']
+                'decompressed_data' => $in['decompressed_data']
             ]);
 
             $in['response']['answer'] = $response['answer'];
@@ -148,12 +148,12 @@ class infohub_compress extends infohub_base
         }
 
         if ($in['step'] === 'step_calculate_compressed_data_length') {
-            $uncompressedLength = $in['data_back']['uncompressed_length'];
+            $decompressedLength = $in['data_back']['decompressed_length'];
 
             $compressedLength = strlen($in['response']['compressed_data']);
             $in['data_back']['compressed_length'] = $compressedLength;
 
-            $in['data_back']['size_percent_of_original'] = $compressedLength / $uncompressedLength * 100.0;
+            $in['data_back']['size_percent_of_original'] = $compressedLength / $decompressedLength * 100.0;
         }
 
         return [
@@ -161,35 +161,35 @@ class infohub_compress extends infohub_base
             'message' => $in['response']['message'],
             'compressed_data' => $in['response']['compressed_data'],
             'compression_method' => $in['compression_method'],
-            'uncompressed_length' => $in['data_back']['uncompressed_length'],
+            'decompressed_length' => $in['data_back']['decompressed_length'],
             'compressed_length' => $in['data_back']['compressed_length'],
             'size_percent_of_original' => $in['data_back']['size_percent_of_original']
         ];
     }
 
     /**
-     * Main uncompress function
+     * Main decompress function
      * @param array $in
      * @return array
      * @author  Peter Lembke
      * @version 2019-07-06
      * @since   2019-07-02
      */
-    protected function uncompress(array $in = []): array
+    protected function decompress(array $in = []): array
     {
         $default = [
             'compression_method' => 'gzip',
             'compressed_data' => '',
             'step' => 'step_start',
             'data_back' => [
-                'uncompressed_length' => 0,
+                'decompressed_length' => 0,
                 'compressed_length' => 0,
                 'size_percent_of_original' => 0.0
             ],
             'response' => [
                 'answer' => 'false',
-                'message' => 'Could not uncompress the data',
-                'uncompressed_data' => ''
+                'message' => 'Could not decompress the data',
+                'decompressed_data' => ''
             ]
         ];
         $in = $this->_Default($default, $in);
@@ -201,7 +201,7 @@ class infohub_compress extends infohub_base
 
             $in['step'] = 'step_ask_child_plugin';
 
-            $functionName = 'Uncompress' . ucwords($in['compression_method']);
+            $functionName = 'Decompress' . ucwords($in['compression_method']);
             if (method_exists($this, 'internal_' . $functionName) === true) {
                 $in['step'] = 'step_ask_function';
             }
@@ -214,7 +214,7 @@ class infohub_compress extends infohub_base
                     'to' => [
                         'node' => 'server',
                         'plugin' => $pluginName,
-                        'function' => 'uncompress'
+                        'function' => 'decompress'
                     ],
                     'data' => [
                         'compressed_data' => $in['compressed_data']
@@ -238,25 +238,25 @@ class infohub_compress extends infohub_base
 
             $in['response']['answer'] = $response['answer'];
             $in['response']['message'] = $response['message'];
-            $in['response']['uncompressed_data'] = $response['uncompressed_data'];
-            $in['step'] = 'step_calculate_uncompressed_data_length';
+            $in['response']['decompressed_data'] = $response['decompressed_data'];
+            $in['step'] = 'step_calculate_decompressed_data_length';
         }
 
-        if ($in['step'] === 'step_calculate_uncompressed_data_length') {
+        if ($in['step'] === 'step_calculate_decompressed_data_length') {
             $compressedLength = $in['data_back']['compressed_length'];
 
-            $uncompressedLength = strlen($in['response']['uncompressed_data']);
-            $in['data_back']['uncompressed_length'] = $uncompressedLength;
+            $decompressedLength = strlen($in['response']['decompressed_data']);
+            $in['data_back']['decompressed_length'] = $decompressedLength;
 
-            $in['data_back']['size_percent_of_original'] = $compressedLength / $uncompressedLength * 100.0;
+            $in['data_back']['size_percent_of_original'] = $compressedLength / $decompressedLength * 100.0;
         }
 
         return [
             'answer' => $in['response']['answer'],
             'message' => $in['response']['message'],
-            'uncompressed_data' => $in['response']['uncompressed_data'],
+            'decompressed_data' => $in['response']['decompressed_data'],
             'compression_method' => $in['compression_method'],
-            'uncompressed_length' => $in['data_back']['uncompressed_length'],
+            'decompressed_length' => $in['data_back']['decompressed_length'],
             'compressed_length' => $in['data_back']['compressed_length'],
             'size_percent_of_original' => $in['data_back']['size_percent_of_original']
         ];
@@ -274,7 +274,7 @@ class infohub_compress extends infohub_base
     protected function get_available_options(array $in = []): array
     {
         $options = [
-            ["type" => "option", "value" => 'gzip', "label" => 'Gzip']
+            ['type' => 'option', 'value' => 'gzip', 'label' => 'Gzip']
         ];
 
         return [
@@ -294,10 +294,10 @@ class infohub_compress extends infohub_base
      */
     protected function internal_CompressGzip(array $in = []): array
     {
-        $default = ['uncompressed_data' => ''];
+        $default = ['decompressed_data' => ''];
         $in = $this->_Default($default, $in);
 
-        $compressedString = gzencode($in['uncompressed_data']);
+        $compressedString = gzencode($in['decompressed_data']);
         if ($compressedString === false) {
             return [
                 'answer' => 'false',
@@ -316,14 +316,14 @@ class infohub_compress extends infohub_base
     }
 
     /**
-     * uncompress gzip data
+     * decompress gzip data
      * @param array $in
      * @return array
      * @author  Peter Lembke
      * @version 2019-07-02
      * @since   2019-07-02
      */
-    protected function internal_UncompressGzip(array $in = []): array
+    protected function internal_DecompressGzip(array $in = []): array
     {
         $default = [
             'compressed_data' => '' // gzip compressed data encoded with base64.
@@ -333,12 +333,12 @@ class infohub_compress extends infohub_base
         // https://stackoverflow.com/questions/621976/which-compression-method-to-use-in-php
         $binaryData = base64_decode($in['compressed_data']);
         $decodedData = gzdecode($binaryData);
-        $in['uncompressed_data'] = $decodedData;
+        $in['decompressed_data'] = $decodedData;
 
         return [
             'answer' => 'true',
-            'message' => 'Here are the uncompressed data I got from the gzip data',
-            'uncompressed_data' => $in['uncompressed_data']
+            'message' => 'Here are the decompressed data I got from the gzip data',
+            'decompressed_data' => $in['decompressed_data']
         ];
     }
 

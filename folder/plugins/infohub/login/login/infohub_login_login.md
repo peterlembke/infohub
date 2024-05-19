@@ -225,7 +225,7 @@ just logging in.
 
 The standalone environment can also show its own button that download a prepared user log in file.
 
-See infohub_log in.json
+See infohub_login.json
 
 ```
 {

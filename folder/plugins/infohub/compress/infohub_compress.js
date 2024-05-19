@@ -36,7 +36,7 @@ function infohub_compress() {
     const _GetCmdFunctions = function() {
         const $list = {
             'compress': 'normal',
-            'uncompress': 'normal',
+            'decompress': 'normal',
             'get_available_options': 'normal',
         };
 
@@ -59,10 +59,10 @@ function infohub_compress() {
     const compress = function($in = {}) {
         const $default = {
             'compression_method': 'gzip',
-            'uncompressed_data': '',
+            'decompressed_data': '',
             'step': 'step_start',
             'data_back': {
-                'uncompressed_length': 0,
+                'decompressed_length': 0,
                 'compressed_length': 0,
                 'size_percent_of_original': 0.0,
             },
@@ -77,7 +77,7 @@ function infohub_compress() {
         let $functionName;
 
         if ($in.step === 'step_start') {
-            $in.data_back.uncompressed_length = $in.uncompressed_data.length;
+            $in.data_back.decompressed_length = $in.decompressed_data.length;
 
             $in.step = 'step_ask_child_plugin';
 
@@ -96,11 +96,11 @@ function infohub_compress() {
                     'function': 'compress',
                 },
                 'data': {
-                    'uncompressed_data': $in.uncompressed_data,
+                    'decompressed_data': $in.decompressed_data,
                 },
                 'data_back': {
                     'compression_method': $in.compression_method,
-                    'uncompressed_length': $in.data_back.uncompressed_length,
+                    'decompressed_length': $in.data_back.decompressed_length,
                     'step': 'step_calculate_compressed_data_length',
                 },
             });
@@ -109,7 +109,7 @@ function infohub_compress() {
         if ($in.step === 'step_ask_function') {
             const $response = internal_Cmd({
                 'func': $functionName,
-                'uncompressed_data': $in.uncompressed_data,
+                'decompressed_data': $in.decompressed_data,
             });
 
             $in.response.answer = $response.answer;
@@ -119,13 +119,13 @@ function infohub_compress() {
         }
 
         if ($in.step === 'step_calculate_compressed_data_length') {
-            const $uncompressedLength = $in.data_back.uncompressed_length;
+            const $decompressedLength = $in.data_back.decompressed_length;
 
             const $compressedLength = $in.response.compressed_data.length;
             $in.data_back.compressed_length = $compressedLength;
 
             $in.data_back.size_percent_of_original = $compressedLength /
-                $uncompressedLength * 100.0;
+                $decompressedLength * 100.0;
         }
 
         return {
@@ -133,7 +133,7 @@ function infohub_compress() {
             'message': $in.response.message,
             'compressed_data': $in.response.compressed_data,
             'compression_method': $in.compression_method,
-            'uncompressed_length': $in.data_back.uncompressed_length,
+            'decompressed_length': $in.data_back.decompressed_length,
             'compressed_length': $in.data_back.compressed_length,
             'size_percent_of_original': $in.data_back.size_percent_of_original,
         };
@@ -147,21 +147,21 @@ function infohub_compress() {
      * @param $in
      * @returns {*}
      */
-    $functions.push('uncompress');
-    const uncompress = function($in = {}) {
+    $functions.push('decompress');
+    const decompress = function($in = {}) {
         const $default = {
             'compression_method': 'gzip',
             'compressed_data': '',
             'step': 'step_start',
             'data_back': {
-                'uncompressed_length': 0,
+                'decompressed_length': 0,
                 'compressed_length': 0,
                 'size_percent_of_original': 0.0,
             },
             'response': {
                 'answer': 'false',
                 'message': 'Could not compress the data',
-                'uncompressed_data': '',
+                'decompressed_data': '',
             },
         };
 
@@ -174,7 +174,7 @@ function infohub_compress() {
 
             $in.step = 'step_ask_child_plugin';
 
-            $functionName = 'Uncompress' + _UcWords($in.compression_method);
+            $functionName = 'Decompress' + _UcWords($in.compression_method);
             if (_MethodExists('internal_' + $functionName) === 'true') {
                 $in.step = 'step_ask_function';
             }
@@ -186,7 +186,7 @@ function infohub_compress() {
                 'to': {
                     'node': 'client',
                     'plugin': $pluginName,
-                    'function': 'uncompress',
+                    'function': 'decompress',
                 },
                 'data': {
                     'compressed_data': $in.compressed_data,
@@ -194,7 +194,7 @@ function infohub_compress() {
                 'data_back': {
                     'compression_method': $in.compression_method,
                     'compressed_length': $in.data_back.compressed_length,
-                    'step': 'step_calculate_uncompressed_data_length',
+                    'step': 'step_calculate_decompressed_data_length',
                 },
             });
         }
@@ -207,26 +207,26 @@ function infohub_compress() {
 
             $in.response.answer = $response.answer;
             $in.response.message = $response.message;
-            $in.response.uncompressed_data = $response.uncompressed_data;
-            $in.step = 'step_calculate_uncompressed_data_length';
+            $in.response.decompressed_data = $response.decompressed_data;
+            $in.step = 'step_calculate_decompressed_data_length';
         }
 
-        if ($in.step === 'step_calculate_uncompressed_data_length') {
+        if ($in.step === 'step_calculate_decompressed_data_length') {
             const $compressedLength = $in.data_back.compressed_length;
 
-            const $uncompressedLength = $in.response.uncompressed_data.length;
-            $in.data_back.uncompressed_length = $uncompressedLength;
+            const $decompressedLength = $in.response.decompressed_data.length;
+            $in.data_back.decompressed_length = $decompressedLength;
 
             $in.data_back.size_percent_of_original = $compressedLength /
-                $uncompressedLength * 100.0;
+                $decompressedLength * 100.0;
         }
 
         return {
             'answer': $in.response.answer,
             'message': $in.response.message,
-            'uncompressed_data': $in.response.uncompressed_data,
+            'decompressed_data': $in.response.decompressed_data,
             'compression_method': $in.compression_method,
-            'uncompressed_length': $in.data_back.uncompressed_length,
+            'decompressed_length': $in.data_back.decompressed_length,
             'compressed_length': $in.data_back.compressed_length,
             'size_percent_of_original': $in.data_back.size_percent_of_original,
         };

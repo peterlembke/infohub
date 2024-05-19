@@ -2,7 +2,7 @@
 /**
  * infohub_storage store data in databases and is part of InfoHub.
  *
- * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ * Support for SQLite3, MySQL, PostgreSQL, Future support: MongoDb
  * All data are stored in tables that holds keys and values.
  * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
  *
@@ -11,7 +11,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -104,6 +104,7 @@ class infohub_storage extends infohub_base
         $default = [
             'path' => '',
             'wanted_data' => [],
+            'delete_after_reading' => 'false',
             'step' => 'step_start',
             'from_plugin' => [
                 'node' => '',
@@ -161,7 +162,8 @@ class infohub_storage extends infohub_base
                     ],
                     'data' => [
                         'path' => $in['path'],
-                        'calling_plugin' => $in['from_plugin']
+                        'calling_plugin' => $in['from_plugin'],
+                        'delete_after_reading' => $in['delete_after_reading']
                     ],
                     'data_back' => [
                         'path' => $in['path'],
@@ -329,6 +331,7 @@ class infohub_storage extends infohub_base
     {
         $default = [
             'paths' => [], // key = path, data array = wanted_data (default is empty to get all)
+            'delete_after_reading' => 'false',
             'step' => 'step_start',
             'from_plugin' => [
                 'node' => '',
@@ -384,12 +387,14 @@ class infohub_storage extends infohub_base
                         ],
                         'data' => [
                             'path' => $pop['key'],
+                            'delete_after_reading' => $in['delete_after_reading'],
                             'wanted_data' => $pop['data'],
                             'calling_plugin' => $in['calling_plugin']
                         ],
                         'data_back' => [
                             'paths' => $pop['object'],
                             'items' => $in['data_back']['items'],
+                            'delete_after_reading' => $in['delete_after_reading'],
                             'calling_plugin' => $in['calling_plugin'],
                             'step' => 'step_read_response'
                         ]
@@ -526,6 +531,7 @@ class infohub_storage extends infohub_base
         $default = [
             'path' => '',
             'wanted_data' => [],
+            'delete_after_reading' => 'false',
             'step' => 'step_start',
             'from_plugin' => [
                 'node' => '',
@@ -573,6 +579,7 @@ class infohub_storage extends infohub_base
                     'data_back' => [
                         'path' => $in['path'],
                         'wanted_data' => $in['wanted_data'],
+                        'delete_after_reading' => $in['delete_after_reading'],
                         'calling_plugin' => $in['calling_plugin'],
                         'step' => 'step_read_paths_response'
                     ]
@@ -617,9 +624,11 @@ class infohub_storage extends infohub_base
                     ],
                     'data' => [
                         'paths' => $in['response']['data'],
-                        'calling_plugin' => $in['calling_plugin']
+                        'calling_plugin' => $in['calling_plugin'],
+                        'delete_after_reading' => $in['delete_after_reading']
                     ],
                     'data_back' => [
+                        'delete_after_reading' => $in['delete_after_reading'],
                         'step' => 'step_read_many_response'
                     ]
                 ]

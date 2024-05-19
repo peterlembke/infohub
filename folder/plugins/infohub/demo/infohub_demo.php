@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -67,7 +67,10 @@ class infohub_demo extends infohub_base
             'demo6' => 'normal',
             'demo_storage' => 'normal',
             'demo_file' => 'normal',
-            'demo_test' => 'normal'
+            'demo_test' => 'normal',
+            'send_batch_messages' => 'normal',
+            'send_batch_messages_with_plugin' => 'normal',
+            'send_batch_messages_with_plugin_in_memory' => 'normal'
         ];
 
         return parent::_GetCmdFunctionsBase($list);
@@ -643,5 +646,355 @@ class infohub_demo extends infohub_base
         }
 
         return $in;
+    }
+
+    /**
+     * Show how to send messages in a batch
+     *
+     * @param  array  $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2024-01-20
+     * @since   2024-01-20
+     */
+    protected function send_batch_messages(array $in = []): array
+    {
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'data_back' => [
+                'step' => 'step_start',
+                'is_last_batch_message' => 'false',
+                'batch_id' => '',
+                'batch_message_id' => '',
+            ],
+            'response' => [
+                'answer' => 'false',
+                'message' => 'An error occurred',
+                'hub_id' => '',
+                'items' => [],
+            ],
+            'step' => 'step_get_id',
+        ];
+        $in = $this->_Default($default, $in);
+
+        $hubIdArray = [];
+
+        if ($in['step'] === 'step_get_id') {
+
+            $messages = [
+                [
+                    'to' => ['node' => 'server', 'plugin' => 'infohub_demo_batch', 'function' => 'get_id'],
+                    'data' => [],
+                    'data_back' => ['step' => 'step_get_id_response']
+                ],
+                [
+                    'to' => ['node' => 'server', 'plugin' => 'infohub_demo_batch', 'function' => 'get_id'],
+                    'data' => [],
+                    'data_back' => ['step' => 'step_get_id_response']
+                ],
+                [
+                    'to' => ['node' => 'server', 'plugin' => 'infohub_demo_batch', 'function' => 'get_id'],
+                    'data' => [],
+                    'data_back' => ['step' => 'step_get_id_response']
+                ]
+            ];
+
+            return $this->_BatchCall([
+                'messages' => $messages
+            ]);
+        }
+
+        if ($in['step'] === 'step_get_id_response') {
+            $in['step'] = 'step_store_id';
+            if ($in['response']['answer'] === 'false') {
+                $in['step'] = 'step_end';
+            }
+        }
+
+        if ($in['step'] === 'step_store_id') {
+
+            $hubId = $in['response']['hub_id'];
+
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'write'
+                ],
+                'data' => [
+                    'path' => 'infohub_demo/batch/' . $in['data_back']['batch_id'] . '/' . $in['data_back']['batch_message_id'],
+                    'data' => [
+                        'hub_id' => $hubId
+                    ]
+                ],
+                'data_back' => [
+                    'step' => 'step_store_id_response',
+                    'is_last_batch_message' => $in['data_back']['is_last_batch_message'],
+                    'batch_id' => $in['data_back']['batch_id'],
+                ],
+            ]);
+        }
+
+        if ($in['step'] === 'step_store_id_response') {
+            $in['step'] = 'step_end';
+            $isLastBatchMessage = $this->_GetData([
+                'name' => 'data_back/is_last_batch_message',
+                'default' => 'false',
+                'data' => $in,
+            ]);
+            if ($isLastBatchMessage === 'true') {
+                $in['step'] = 'step_is_last_batch_message';
+            }
+        }
+
+        if ($in['step'] === 'step_is_last_batch_message') {
+            $batchId = $this->_GetData([
+                'name' => 'data_back/batch_id',
+                'default' => '',
+                'data' => $in,
+            ]);
+
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_storage',
+                    'function' => 'read_pattern'
+                ],
+                'data' => [
+                    'path' => 'infohub_demo/batch/' . $batchId . '/*',
+                    'delete_after_reading' => 'true' // Clean up the storage
+                ],
+                'data_back' => [
+                    'step' => 'step_is_last_batch_message_response',
+                ],
+            ]);
+        }
+
+        if ($in['step'] === 'step_is_last_batch_message_response') {
+            $in['step'] = 'step_end';
+            $itemLookup = (array) $this->_GetData([
+                'name' => 'response/items',
+                'default' => [],
+                'data' => $in,
+            ]);
+            $hubIdArray = array_column($itemLookup, 'hub_id');
+        }
+
+        $response = [
+            'answer' => 'true',
+            'message' => 'Done with the demo',
+            'hub_id_array' => $hubIdArray
+        ];
+        return $response;
+    }
+
+    /**
+     * Show how to send messages in a batch with the infohub_batch plugin
+     *
+     * @param  array  $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2024-01-20
+     * @since   2024-01-20
+     */
+    protected function send_batch_messages_with_plugin(array $in = []): array
+    {
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'data_back' => [
+                'step' => 'step_start',
+                'is_last_batch_message' => 'false',
+                'batch_id' => '',
+                'batch_message_id' => '',
+            ],
+            'response' => [
+                'answer' => 'false',
+                'message' => 'An error occurred',
+                'ok' => 'false',
+                'batch_response_array' => [],
+            ],
+            'step' => 'step_call_plugin',
+        ];
+        $in = $this->_Default($default, $in);
+
+        if ($in['step'] === 'step_call_plugin') {
+
+            $out = $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_batch',
+                    'function' => 'send_batch_messages_in_storage'
+                ],
+                'data' => [
+                    'batch_message_array' => [
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 1 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 1,
+                                'my_message' => 'Batch message #1'
+                            ]
+                        ],
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 2 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 2,
+                                'my_message' => 'Batch message #2'
+                            ],
+                        ],
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 3 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 3,
+                                'my_message' => 'Batch message #3'
+                            ]
+                        ],
+                    ]
+                ],
+                'data_back' => [
+                    'step' => 'step_call_response'
+                ]
+            ]);
+
+            return $out;
+        }
+
+        $response = [
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'batch_response_array' => $in['response']['batch_response_array']
+        ];
+        return $response;
+    }
+
+    /**
+     * Show how to send messages in a batch with the infohub_batch plugin
+     *
+     * @param  array  $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2024-01-20
+     * @since   2024-01-20
+     */
+    protected function send_batch_messages_with_plugin_in_memory(array $in = []): array
+    {
+        $default = [
+            'from_plugin' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'data_back' => [
+                'step' => 'step_start',
+                'is_last_batch_message' => 'false',
+                'batch_id' => '',
+                'batch_message_id' => '',
+            ],
+            'response' => [
+                'answer' => 'false',
+                'message' => 'An error occurred',
+                'ok' => 'false',
+                'batch_response_array' => [],
+            ],
+            'step' => 'step_call_plugin',
+        ];
+        $in = $this->_Default($default, $in);
+
+        if ($in['step'] === 'step_call_plugin') {
+
+            $out = $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_batch',
+                    'function' => 'send_batch_messages_in_memory'
+                ],
+                'data' => [
+                    'batch_message_array' => [
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 1 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 1,
+                                'my_message' => 'Batch message #1'
+                            ]
+                        ],
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 2 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 2,
+                                'my_message' => 'Batch message #2'
+                            ],
+                        ],
+                        [
+                            'to' => [
+                                'node' => 'server',
+                                'plugin' => 'infohub_checksum',
+                                'function' => 'calculate_checksum'
+                            ],
+                            'data' => [
+                                'type' => 'md5',
+                                'value' => 'Hello World 3 - Server Batch'
+                            ],
+                            'data_request' => ['answer', 'message', 'value', 'checksum'],
+                            'data_back' => [
+                                'sort_order' => 3,
+                                'my_message' => 'Batch message #3'
+                            ]
+                        ],
+                    ]
+                ],
+                'data_back' => [
+                    'step' => 'step_call_response'
+                ]
+            ]);
+
+            return $out;
+        }
+
+        $response = [
+            'answer' => $in['response']['answer'],
+            'message' => $in['response']['message'],
+            'batch_response_array' => $in['response']['batch_response_array']
+        ];
+        return $response;
     }
 }

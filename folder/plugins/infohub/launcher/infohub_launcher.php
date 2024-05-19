@@ -10,7 +10,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -70,7 +70,7 @@ class infohub_launcher extends infohub_base
     }
 
     /**
-     * Get a new updated full_list
+     * Get a new updated full_list of all plugins that have a launcher.json file.
      * The list key is plugin name, the data is the checksums of files launcher.json, icon/icon.svg, icon/icon.json
      *
      * @param  array  $in

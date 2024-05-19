@@ -105,15 +105,15 @@ $in = [
 ];
 $response = $infoHubExchange->cmd($in);
 
-$signCodeValid = $infoHubExchange->getSignCodeValid();
-$guestValid = $infoHubExchange->getGuestValid();
+$isSignCodeValid = $infoHubExchange->getSignCodeValid();
+$isGuestValid = $infoHubExchange->getGuestValid();
 
-if ($signCodeValid === 'false' and $guestValid === 'false') {
+if ($isSignCodeValid === 'false' and $isGuestValid === 'false') {
     $kick->GetOut('sign_code invalid and your messages are not OK for a guest to send');
 }
 
-$banned = $infoHubExchange->getBanned();
-if ($banned === 'true') {
+$isBanned = $infoHubExchange->getBanned();
+if ($isBanned === 'true') {
     $kick->GetOut('You already had ban time when you called the server again');
 }
 

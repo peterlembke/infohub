@@ -28,6 +28,7 @@ function infohub_renderprogress() {
             'user_role': 'user',
             'web_worker': 'true',
             'core_plugin': 'false',
+            'has_assets': 'true'
         };
     };
 
@@ -400,6 +401,24 @@ function infohub_renderprogress() {
             $messageItem.data.name = 'max_value';
             $messageItem.data.value1 = $maxValueInt.toString();
             $messageArray.push(_ByVal($messageItem));
+
+            // Below is calling document.getElementById('120202_my_progress_bar_heart_asset-heart-animation').beginElement();
+
+            $messageItem = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_view',
+                    'function': 'start_animation',
+                },
+                'data': {
+                    'box_id': $in.box_id + '_heart_asset-heart-animation',
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_void',
+                },
+            });
+            $messageArray.push(_ByVal($messageItem));
         }
 
         return {
@@ -546,7 +565,9 @@ function infohub_renderprogress() {
 
     /**
      * The actual progress component
-     * @version 2023-07-20
+     * Read the documentation to get the icons to show
+     *
+     * @version 2023-09-01
      * @since   2023-07-09
      * @author  Peter Lembke
      */
@@ -558,6 +579,7 @@ function infohub_renderprogress() {
             'view_percent': 'true',
             'view_elapsed_time': 'true',
             'view_time_left': 'true',
+            'view_heart': 'true',
             'original_alias': '',
             'class': '',
             'css_data': {},
@@ -579,6 +601,22 @@ function infohub_renderprogress() {
                 'original_alias': $in.original_alias,
                 'class': 'container-medium',
                 'tag': 'div', // span, p, div
+                'data': '[left_side_container][heart_icon]',
+                'custom_variables': {
+                    'value': 0,
+                    'max_value': $in.max_value,
+                    'start_time': 0,
+                    'end_time': 0,
+                    'value_of_max_text': $in.value_of_max_text,
+                    'percent_text': $in.percent_text
+                }
+            },
+            'left_side_container': {
+                'type': 'common',
+                'subtype': 'container',
+                'original_alias': $in.original_alias,
+                'class': 'container-medium',
+                'tag': 'span', // span, p, div
                 'data': '[progress_bar][value_of_max][percent][elapsed_time][time_left]',
                 'custom_variables': {
                     'value': 0,
@@ -641,6 +679,22 @@ function infohub_renderprogress() {
                 'visible': $in.view_time_left,
                 'class': $class,
                 'css_data': $cssData,
+            },
+            'heart_icon': {
+                'type': 'common',
+                'subtype': 'svg',
+                'data': '[heart_asset]',
+                'class': 'svg',
+                'visible': $in.view_heart,
+                'css_data': {
+                    '.svg': 'max-width:32px; max-height:32px; padding:0px; display: inline-block;',
+                },
+            },
+            'heart_asset': { // Read the documentation for the icon to show
+                'plugin': 'infohub_asset',
+                'type': 'icon',
+                'asset_name': 'heart',
+                'plugin_name': 'infohub_renderprogress',
             }
         };
 

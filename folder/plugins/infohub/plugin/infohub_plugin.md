@@ -132,7 +132,30 @@ const _Version = function() {
     };
 };
 ```
-Then the assets are downloaded using the function infohub_asset->update_all_plugin_assets. 
+Then the assets are downloaded using the function infohub_asset->update_all_plugin_assets.
+
+In this case you need top download the plugin before it will be used.
+If you do not then the rendering will be complete before the asset is downloaded.
+You can see this by pressing SHIFT+CONTROL+OPTION+9 to clear the render cache and render again. This time the icon appears.
+
+For example in the launcher.json
+Here I want to use the infohub_renderprogress in infohub_demo.
+```
+{
+    "plugin": "infohub_demo",
+    "title": "Demo",
+    "description": "Demo examples how you can use the features in Infohub",
+    "keywords": "demo,example,implementation",
+    "uses": [
+        "infohub_demo_menu",
+        "infohub_rendermenu",
+        "infohub_renderprogress"
+    ]
+} 
+```
+
+Another place is in folder/include/start.js -> _GetNeededPluginNames. They will be loaded on start. 
+Here you find for example infohub_renderform.
 
 # License
 

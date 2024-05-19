@@ -72,6 +72,9 @@ function infohub_time() {
             case 'timestamp_c':
                 $result = _TimeStamp('c');
                 break;
+            case 'timestamp_gmt':
+                $result = _TimeStamp('c', 'gmt');
+                break;
             case 'microtime':
                 $result = _MicroTime();
                 break;
@@ -130,10 +133,18 @@ function infohub_time() {
             },
             {
                 'type': 'option',
+                'value': 'timestamp_gmt',
+                'label': 'GMT Timestamp with offset',
+            },
+            {
+                'type': 'option',
                 'value': 'microtime',
                 'label': 'EPOC with fractions',
             },
-            {'type': 'option', 'value': 'time', 'label': 'Seconds since EPOC'},
+            {   'type': 'option',
+                'value': 'time',
+                'label': 'Seconds since EPOC'
+            },
         ];
 
         return {

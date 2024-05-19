@@ -387,7 +387,6 @@ function infohub_demo() {
      */
     $functions.push('call_server');
     const call_server = function($in = {}) {
-        const $plugin = 'infohub_demo_';
 
         const $default = {
             'step': 'step_start',
@@ -402,18 +401,27 @@ function infohub_demo() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_start') {
-            if ($in.from_plugin.node === 'client') {
-                if ($in.from_plugin.plugin.substring(0, $plugin.length) ===
-                    $plugin) {
-                    $in.send_data.data_back.step = 'step_response';
-                    return _SubCall($in.send_data);
-                }
+
+            const $isFromClient = $in.from_plugin.node === 'client';
+            if ($isFromClient === false) {
+                return {
+                    'answer': 'false',
+                    'message': 'The call do not come from the client node. I will do nothing.',
+                };
             }
 
-            return {
-                'answer': 'false',
-                'message': 'The call do not come from a child. I will do nothing.',
-            };
+            const $plugin = 'infohub_demo_';
+
+            const $isFromChildPlugin = $in.from_plugin.plugin.substring(0, $plugin.length) === $plugin;
+            if ($isFromChildPlugin === false) {
+                return {
+                    'answer': 'false',
+                    'message': 'The call do not come from a child. I will do nothing.',
+                };
+            }
+
+            $in.send_data.data_back.step = 'step_response';
+            return _SubCall($in.send_data);
         }
 
         return $in.response;

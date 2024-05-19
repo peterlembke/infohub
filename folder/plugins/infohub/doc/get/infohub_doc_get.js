@@ -61,6 +61,7 @@ function infohub_doc_get() {
             'area': 'main', // main or plugin
             'document_name': 'main',
             'step': 'step_get_document_from_storage',
+            'data': {},
             'response': {},
             'data_back': {
                 'area': '',
@@ -166,14 +167,14 @@ function infohub_doc_get() {
 
             if ($in.response.answer === 'true') {
 
-                $in.data_back.data = _ByVal($in.response.data);
+                $in.data_back.data = _ByVal($in.data);
 
-                if ($in.response.data.is_checksum_same === 'true') {
+                if ($in.data.is_checksum_same === 'true') {
 
                     $writeMode = 'merge';
 
                     $in.data_back.data = {
-                        'valid_until': $in.data_back.data['valid_until'],
+                        'valid_until': $in.data_back.data['valid_until'], // TODO: Check if this is correct
                         'time_stamp': $in.data_back.data['time_stamp'],
                         'micro_time': $in.data_back.data['micro_time']
                     };

@@ -1743,7 +1743,7 @@ function infohub_renderform() {
 
                     return {
                         'answer': 'true',
-                        'message': 'Sending some messages',
+                        'message': 'Sending some messages for infohub_exchange.event_message step: step_start',
                         'messages': $messageArray,
                     };
                 }
@@ -1882,7 +1882,7 @@ function infohub_renderform() {
 
                     return {
                         'answer': 'true',
-                        'message': 'Sending some messages',
+                        'message': 'Sending some messages for infohub_renderform.event_message step: step_button_result',
                         'messages': $messageArray,
                     };
                 }
@@ -2189,7 +2189,7 @@ function infohub_renderform() {
     };
 
     /**
-     * Set the button icon to either ok or fail.
+     * Set the button icon to either OK or fail.
      * @param $in
      * @returns {{answer: string, messages: [], message: string}}
      */
@@ -2245,7 +2245,7 @@ function infohub_renderform() {
 
         return {
             'answer': 'true',
-            'message': 'Sending some messages',
+            'message': 'Sending some messages for infohub_renderform.set_button_icon',
         };
     };
 }

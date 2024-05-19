@@ -38,7 +38,7 @@ function infohub_compress_gzip() {
     const _GetCmdFunctions = function() {
         const $list = {
             'compress': 'normal',
-            'uncompress': 'normal',
+            'decompress': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,11 +59,11 @@ function infohub_compress_gzip() {
     $functions.push('compress');
     const compress = function($in = {}) {
         const $default = {
-            'uncompressed_data': '',
+            'decompressed_data': '',
         };
         $in = _Default($default, $in);
 
-        const $utf8String = $in.uncompressed_data;
+        const $utf8String = $in.decompressed_data;
         const $utf8StringAsUint8Array = new TextEncoder().encode($utf8String);
 
         const $compressor = new Zlib.Gzip($utf8StringAsUint8Array);
@@ -85,15 +85,15 @@ function infohub_compress_gzip() {
     };
 
     /**
-     * uncompress from gzip to normal size data
+     * decompress from gzip to normal size data
      * @version 2019-07-02
      * @since   2019-07-02
      * @author  Peter Lembke
      * @param array $in
      * @return array|bool
      */
-    $functions.push('uncompress');
-    const uncompress = function($in = {}) {
+    $functions.push('decompress');
+    const decompress = function($in = {}) {
         const $default = {
             'compressed_data': '',
         };
@@ -107,17 +107,17 @@ function infohub_compress_gzip() {
         const $compressedBinaryDataAsUint8Array = new Uint8Array(
             $binaryDataArray);
 
-        const $uncompressor = new Zlib.Gunzip(
+        const $decompressor = new Zlib.Gunzip(
             $compressedBinaryDataAsUint8Array);
-        const $binaryDataAsUint8Array = $uncompressor.decompress();
+        const $binaryDataAsUint8Array = $decompressor.decompress();
 
         let $utf8String = new TextDecoder('utf-8').decode(
             $binaryDataAsUint8Array);
 
         return {
             'answer': 'true',
-            'message': 'Here are the result of the uncompression',
-            'uncompressed_data': $utf8String,
+            'message': 'Here are the result of the decompression',
+            'decompressed_data': $utf8String,
         };
     };
 
@@ -1535,13 +1535,13 @@ function infohub_compress_gzip() {
                         f = b.length, k = p, l = p, m = c.length, r = p;
                     this.d = this.f = 0;
                     d + 1 >= f &&
-                    n(Error('invalid uncompressed block header: LEN'));
+                    n(Error('invalid decompressed block header: LEN'));
                     k = b[d++] | b[d++] << 8;
                     d + 1 >= f &&
-                    n(Error('invalid uncompressed block header: NLEN'));
+                    n(Error('invalid decompressed block header: NLEN'));
                     l = b[d++] | b[d++] << 8;
                     k === ~l && n(Error(
-                        'invalid uncompressed block header: length verify'));
+                        'invalid decompressed block header: length verify'));
                     d + k > b.length && n(Error('input buffer is broken'));
                     switch (this.k) {
                         case N:

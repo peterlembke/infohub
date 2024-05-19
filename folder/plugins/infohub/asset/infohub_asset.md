@@ -1,6 +1,6 @@
 # InfoHub Asset
 
-Syncs asset files from the server to the client. Provide asset to plugin tht owns it. Provide all assets to
+Syncs asset files from the server to the client. Provides assets to the plugin that owns them. Provide all assets to
 infohub_asset, infohub_launcher, infohub_translate.
 
 Can also render an asset.
@@ -17,7 +17,11 @@ client plugin can ask for its own specific assets.
 
 # Client side
 
-Only plugins that can be started from workbench can have assets.  
+Only plugins that can be started from workbench can have assets.
+Read the above line again.
+
+Plugins that can not be started from Workbench can still have assets if you set _Version with `'has_assets': 'true'`. Example: infohub_renderform. See [infohub_plugin](plugin,infohub_plugin) for more information.
+
 When a plugin need one of its asset files it asks infohub_asset for the file data.
 
 InfoHub Launcher want launcher data from all plugins that have launcher data, and the start icon and icon license.  

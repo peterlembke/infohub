@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -140,7 +140,7 @@ class infohub_translate extends infohub_base
 
         if ($in['step'] === 'step_option_list') {
             foreach ($pluginList as $name => $data) {
-                $options[] = ["type" => "option", "value" => $name, "label" => $name];
+                $options[] = ['type' => 'option', 'value' => $name, 'label' => $name];
             }
             $ok = 'true';
         }
@@ -298,9 +298,9 @@ class infohub_translate extends infohub_base
 
                 $header = [
                     'version' => [
-                        "date" => $this->_TimeStamp(),
-                        "plugin" => $parentPluginName,
-                        "data_checksum" => md5($contentJson),
+                        'date' => $this->_TimeStamp(),
+                        'plugin' => $parentPluginName,
+                        'data_checksum' => md5($contentJson),
                         'language' => 'en',
                         'language_name' => 'english',
                         'country' => 'GB',
@@ -881,19 +881,19 @@ class infohub_translate extends infohub_base
         $log = [];
 
         $default = [
-            "version" => [
-                "date" => "",
-                "plugin" => "",
-                "data_checksum" => "",
-                "language" => "",
-                "country" => "",
-                "file_type" => ""
+            'version' => [
+                'date' => '',
+                'plugin' => '',
+                'data_checksum' => '',
+                'language' => '',
+                'country' => '',
+                'file_type' => ''
             ],
-            "launcher" => [
-                "title" => "",
-                "description" => ""
+            'launcher' => [
+                'title' => '',
+                'description' => ''
             ],
-            "data" => []
+            'data' => []
         ];
 
         $translationFileArray = $in['translation_file_array'];
@@ -908,7 +908,7 @@ class infohub_translate extends infohub_base
             if (empty($contentArray) === true) {
                 unset($translationFileArray[$languageCode]);
 
-                $row = "File could not be JSON decoded. Use an online validator like https://jsonlint.com/ to find the json issue";
+                $row = 'File could not be JSON decoded. Use an online validator like https://jsonlint.com/ to find the json issue';
                 $log = $this->_ToLog($log, $languageCode, $row);
                 continue;
             }

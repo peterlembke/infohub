@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file preload.php are run once when the web server is started.
  * Compiles all php files into byte code and stores them in opcache.

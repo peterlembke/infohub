@@ -787,8 +787,7 @@ function infohub_transfer() {
 
                     internal_Log({
                         'level': 'error',
-                        'message': 'Can not parse JSON. error: "' +
-                            $err.message + '"',
+                        'message': 'Can not parse JSON. error: "' + $err.message + '"',
                         'function_name': '*onreadystatechange',
                         'object': {'package': $incomingData},
                     });
@@ -879,8 +878,7 @@ function infohub_transfer() {
         try {
             xmlHttp.send($content);
             $answer = 'true';
-            $message = 'Sent message with ' + $content.length +
-                ' bytes of data';
+            $message = 'Sent message with ' + $content.length + ' bytes of data';
         } catch (exception) {
             $message = $message + ' Error: ' + exception.message;
         }
@@ -1190,22 +1188,25 @@ function infohub_transfer() {
                 $message = _HtmlToText($message);
             }
             $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
-
+            $boxError.style.display = 'block';
             return;
         }
 
         if (Array.isArray($message) === true) {
             const $messageLength = $message.length;
-            for (let $i = 0; $i < $messageLength; $i = $i + 1) {
-                $message[$i] = _HtmlToText($message[$i]);
-                $boxError.innerHTML = $message[$i] + '\n<br>' +
-                    $boxError.innerHTML;
+            if ($messageLength > 0) {
+                for (let $i = 0; $i < $messageLength; $i = $i + 1) {
+                    $message[$i] = _HtmlToText($message[$i]);
+                    $boxError.innerHTML = $message[$i] + '\n<br>' + $boxError.innerHTML;
+                }
+                $boxError.style.display = 'block';
             }
         }
 
         if (typeof $message === 'object') {
             $message = JSON.stringify($message);
             $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
+            $boxError.style.display = 'block';
         }
     };
 

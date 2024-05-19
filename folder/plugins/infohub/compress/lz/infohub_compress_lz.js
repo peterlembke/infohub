@@ -38,7 +38,7 @@ function infohub_compress_lz() {
     const _GetCmdFunctions = function() {
         const $list = {
             'compress': 'normal',
-            'uncompress': 'normal',
+            'decompress': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -59,11 +59,11 @@ function infohub_compress_lz() {
     $functions.push('compress');
     const compress = function($in = {}) {
         const $default = {
-            'uncompressed_data': '',
+            'decompressed_data': '',
         };
         $in = _Default($default, $in);
 
-        const $compressedData = LZString.compress($in.uncompressed_data);
+        const $compressedData = LZString.compress($in.decompressed_data);
 
         return {
             'answer': 'true',
@@ -73,26 +73,26 @@ function infohub_compress_lz() {
     };
 
     /**
-     * uncompress from lz to normal size data
+     * decompress from lz to normal size data
      * @version 2019-07-02
      * @since   2019-07-02
      * @author  Peter Lembke
      * @param array $in
      * @return array|bool
      */
-    $functions.push('uncompress');
-    const uncompress = function($in = {}) {
+    $functions.push('decompress');
+    const decompress = function($in = {}) {
         const $default = {
             'compressed_data': '',
         };
         $in = _Default($default, $in);
 
-        const $uncompressedData = LZString.decompress($in.compressed_data);
+        const $decompressedData = LZString.decompress($in.compressed_data);
 
         return {
             'answer': 'true',
-            'message': 'Here are the result of the uncompression',
-            'uncompressed_data': $uncompressedData,
+            'message': 'Here are the result of the decompression',
+            'decompressed_data': $decompressedData,
         };
     };
 
@@ -132,7 +132,7 @@ var LZString = function() {
                         return r + '=';
                 }
             },
-            uncompressFromBase64: function(r) {
+            decompressFromBase64: function(r) {
                 return null == r ? '' : '' == r
                     ? null
                     : i._decompress(r.length, 32,

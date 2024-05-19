@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -474,9 +474,9 @@ class infohub_tree extends infohub_base
                 $nodeName = $out['node_list'][$node]['node'];
                 $userName = $out['node_list'][$node]['user_name'];
                 $out['options'][] = [
-                    "type" => "option",
-                    "value" => $userName,
-                    "label" => $nodeName
+                    'type' => 'option',
+                    'value' => $userName,
+                    'label' => $nodeName
                 ];
             }
             $out['ok'] = 'true';
@@ -912,7 +912,7 @@ class infohub_tree extends infohub_base
             foreach ($groupList as $name => $data) {
                 $groupList[$name] = $this->_Default($default, $data);
                 $groupName = $groupList[$name]['name'];
-                $options[] = ["type" => "option", "value" => $groupName, "label" => $groupName];
+                $options[] = ['type' => 'option', 'value' => $groupName, 'label' => $groupName];
             }
 
             $ok = 'true';
@@ -996,7 +996,7 @@ class infohub_tree extends infohub_base
 
         if ($in['step'] === 'step_option_list') {
             foreach ($pluginList as $name => $data) {
-                $options[] = ["type" => "option", "value" => $name, "label" => $name];
+                $options[] = ['type' => 'option', 'value' => $name, 'label' => $name];
             }
             $ok = 'true';
         }

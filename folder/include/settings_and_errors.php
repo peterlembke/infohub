@@ -58,7 +58,7 @@ header('Referrer-Policy: same-origin');
 header('Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(self), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(self), magnetometer=(), microphone=(), midi=(self), payment=(), picture-in-picture=(), publickey-credentials-get=(self), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(self)');
 
 $GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
-$GLOBALS['infohub_minimum_error_level'] = 'error'; // error (default), write 'log' if you want to debug in general.
+$GLOBALS['infohub_minimum_error_level'] = 'log'; // error (default). debug, log, info, error
 $GLOBALS['main_loop_max_count'] = 500; // Number of runs in the main loop. To prevent jobs that will never finish.
 
 /**

@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -33,18 +33,23 @@ class infohub_base
     // * The only public variables, do not add your own
     // ***********************************************************
 
-    protected array $globalLogArray = []; // Used ONLY by internal_Log() and cmd()
-    protected ?array $firstDefault = null; // Used ONLY by the test() function. Contain array or null
-    protected array $configLog = []; // What functions to log even if answer = 'true';
+    private array $globalLogArray = []; // Used ONLY by internal_Log() and cmd()
+    private ?array $firstDefault = null; // Used ONLY by the test() function. Contain array or null
+    private array $configLog = []; // What functions to log even if answer = 'true';
+
+    private array $batch = []; // Used ONLY by cmd() to keep track of batch messages
 
     /**
      * Version information for this Base class
+     * Is private because it should only be used by the version() function.
+     *
      * @return array
      */
-    protected function _VersionBase(): array
+    private function _VersionBase(): array
     {
         return [
             'date' => '2016-01-26',
+            'since' => '2016-01-26',
             'version' => '1.0.0',
             'checksum' => '{{base_checksum}}',
             'class_name' => get_class($this),
@@ -57,7 +62,9 @@ class infohub_base
 
     /**
      * Adds the Base class public function names to the array
-     * @param array $childList
+     * Need to be protected, it is called from each plugin function: _GetCmdFunctions
+     *
+     * @param  array  $childList
      * @return array
      */
     protected function _GetCmdFunctionsBase(array $childList = []): array
@@ -75,6 +82,8 @@ class infohub_base
 
     /**
      * Version data. Implement this function in your plugin
+     * Need to be protected. It is overridden in other plugins
+     *
      * @return array
      */
     protected function _Version(): array
@@ -94,8 +103,10 @@ class infohub_base
     /**
      * All cmd functions in this plugin.
      * Implement in your plugin.
-     * Example: 'function_name' => 'emerging', or 'normal', or 'deprecated', or 'removed'
+     *
      * @return array
+     * @example: 'function_name' => 'emerging', or 'normal', or 'deprecated', or 'removed'
+     *
      */
     protected function _GetCmdFunctions(): array
     {
@@ -109,7 +120,13 @@ class infohub_base
     // *****************************************************************************
 
     /**
-     * Makes sure you get all default variables with at least default values, and the right data type.
+     * Makes sure we only get keys from $default, and get the data type for each key data in $default.
+     *
+     * You get all keys in the associative array $default and its data.
+     * If a key from $default exist in $in and the data type for that key is the same for both arrays,
+     * then the data from $in is used.
+     *
+     * If a key in $default have NULL as data, then we copy the key data from $in.
      *
      * Used by: EVERY function.
      * The $default variables, You can only use: array, string, integer, float, null
@@ -118,54 +135,74 @@ class infohub_base
      * @param  array  $default
      * @param  array  $in
      * @return array
-     * @since   2013-09-05
      * @author  Peter Lembke
+     * @version 2024-01-06
+     * @since   2013-09-05
      * @example: $in = _Default($default,$in);
-     * @version 2016-01-25
      */
     protected function _Default(array $default = [], array $in = []): array
     {
-        if (is_null($this->firstDefault) === true) {
+        $isFirstDefaultSet = is_null($this->firstDefault) === false;
+        if ($isFirstDefaultSet === false) {
             $this->firstDefault = $default;
         }
 
-        if (isset($in[0]) === true) {
-            // This is a traditional array, we just let it pass
+        $isInAnIndexedArray = array_is_list($in) === true;
+        if ($isInAnIndexedArray === true) {
             $answer = $in;
         } else {
-            // On this level: Remove all variables that are not in default. Add all variables that are only in default.
-            $answer = array_intersect_key(array_merge($default, $in), $default);
+            // Add all keys that are only in default.
+            $answer = array_merge($default, $in);
+
+            // Remove all keys that are not in default.
+            $answer = array_intersect_key($answer, $default);
         }
 
-        // Check the data types
-        foreach ($default as $key => $data) {
-            if (gettype($answer[$key]) !== gettype($data)) {
-                if (is_null($data) === false) {
-                    $this->internal_Log(
-                        [
-                            'level' => 'error',
-                            'message' => 'key:"' . $key . '", have wrong data type (' . gettype(
-                                    $in[$key]
-                                ) . '), instead got default value and data type (' . gettype($data) . ')',
-                            'function_name' => '_Default',
-                            'get_backtrace' => 'true'
-                        ]
-                    );
-                    $answer[$key] = $data;
-                }
+        $messageTemplate = 'key: %s, have wrong data type (%s), instead got default value and data type (%s)';
+
+        foreach ($default as $key => $defaultData) {
+
+            $isKeyInAnswer = isset($answer[$key]) === true;
+            if ($isKeyInAnswer === false) {
+                $answer[$key] = $defaultData;
                 continue;
             }
-            if (is_null($data) === true && is_null($answer[$key]) === true) {
+
+            $isSameDataType = gettype($defaultData) === gettype($answer[$key]);
+            if ($isSameDataType === false) {
+
+                $isDefaultDataNull = is_null($defaultData) === true;
+                if ($isDefaultDataNull === true) {
+                    continue; // We keep the data in the $answer key
+                }
+
+                $message = sprintf($messageTemplate, $key, gettype($in[$key]), gettype($defaultData));
+                $this->internal_Log([
+                    'level' => 'error',
+                    'message' => $message,
+                    'function_name' => '_Default',
+                    'get_backtrace' => 'true'
+                ]);
+
+                $answer[$key] = $defaultData;
+                continue;
+            }
+
+            $isBothNull = is_null($defaultData) === true && is_null($answer[$key]) === true;
+            if ($isBothNull === true) {
                 $answer[$key] = '';
                 continue;
             }
-            if (is_array($data) === false) {
+
+            if (is_array($defaultData) === false) {
                 continue;
             }
-            if (count($data) === 0) {
+
+            if (count($defaultData) === 0) {
                 continue;
             }
-            $answer[$key] = $this->_Default($data, $answer[$key]);
+
+            $answer[$key] = $this->_Default($defaultData, $answer[$key]);
         }
 
         return $answer;
@@ -174,8 +211,8 @@ class infohub_base
     /**
      * Merge two arrays together
      *
-     * @param array $default
-     * @param array $in
+     * @param  array  $default
+     * @param  array  $in
      * @return array
      */
     protected function _Merge(array $default = [], array $in = []): array
@@ -186,50 +223,70 @@ class infohub_base
     }
 
     /**
-     * Return current time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
+     * Return current local time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
+     * Example: 2023-08-31 05:51:40
+     *
      * Give 'c' to also get the time zone offset.
-     * @param  string  $in
+     * Example: 2023-08-31T05:51:40+02:00
+     *
+     * Set timeZone to 'gmt' to get the Greenwich mean time
+     * Example: 2023-08-31T03:51:40+00:00
+     *
+     * @param  string  $typeOfTimeStamp
+     * @param  string  $timeZone
      * @return string
      */
-    protected function _TimeStamp(string $in = ''): string
-    {
-        if ($in === 'c') {
-            $date = date('c');
-        } else {
-            $date = date('Y-m-d H:i:s');
+    protected function _TimeStamp(
+        string $typeOfTimeStamp = '',
+        string $timeZone = ''
+    ): string {
+        $format = 'Y-m-d H:i:s';
+        if ($typeOfTimeStamp === 'c') {
+            $format = 'c';
         }
 
-        return $date;
+        if ($timeZone === 'gmt') {
+            $dateString = gmdate($format);
+        } else {
+            $dateString = date($format);
+        }
+
+        return $dateString;
     }
 
     /**
      * Return a datetime with microseconds.
      * Used for logging purpose where seconds are not enough.
      * From: https://stackoverflow.com/questions/169428/php-datetime-microseconds-always-returns-0
+     *
      * @return string
      */
     protected function _TimeStampMicro(): string
     {
         $microTime = microtime(true);
-        $microSeconds = sprintf("%06d", ($microTime - floor($microTime)) * 1000000);
-        $date = date('Y-m-d H:i:s', (int)$microTime) . '.' . $microSeconds;
+        $microSecondsFloat = ($microTime - floor($microTime)) * 1000000;
+        $microSecondsString = sprintf("%06d", $microSecondsFloat);
+        $dateString = date('Y-m-d H:i:s', (int) $microTime).'.'.$microSecondsString;
 
-        return $date;
+        return $dateString;
     }
 
     /**
      * Return current time since EPOC (1970-01-01 00:00:00),
      * as seconds and fraction of seconds.
+     *
      * @return float
      */
     protected function _MicroTime(): float
     {
-        return microtime(true);
+        $microTime = microtime(as_float: true);
+
+        return $microTime;
     }
 
     /**
      * Exist because we have a JS function with the same name
-     * @param  mixed $object
+     * @param  mixed  $object
      * @return string
      */
     protected function _Empty(mixed $object): string
@@ -243,7 +300,7 @@ class infohub_base
 
     /**
      * Exist because we have a JS function with the same name
-     * @param  mixed $object
+     * @param  mixed  $object
      * @return string
      */
     protected function _IsSet(mixed $object): string
@@ -279,11 +336,17 @@ class infohub_base
      */
     protected function _JsonDecode(string $jsonString = ''): array
     {
-        if (str_starts_with($jsonString, '{') === false && str_starts_with($jsonString, '[') === false) {
+        $hasCorrectStartCharacter = str_starts_with($jsonString, needle: '{') === true ||
+            str_starts_with($jsonString, needle: '[') === true;
+
+        if ($hasCorrectStartCharacter === false) {
             return [];
         }
 
-        $data = json_decode($jsonString, $asArray = true);
+        $data = json_decode(
+            json: $jsonString,
+            associative: true
+        );
 
         if (is_null($data) === true) {
             return [];
@@ -296,6 +359,7 @@ class infohub_base
      * Read a value from any level in an array without having to check if a level exist.
      * Returns default value if any level do not exist
      * Name can be 'just_a_name' or 'some/deep/level/data'
+     *
      * @param  array  $in
      * @return mixed
      */
@@ -313,20 +377,24 @@ class infohub_base
 
         $length = count($nameArray);
         $answer = $in['data'];
-        for ($i = 0; $i < $length; $i++) {
-            if (isset($answer[$nameArray[$i]]) === true) {
-                $answer = $answer[$nameArray[$i]];
+        for ($position = 0; $position < $length; $position++) {
+
+            $doesPositionHaveAName = isset($answer[$nameArray[$position]]) === true;
+            if ($doesPositionHaveAName === true) {
+                $answer = $answer[$nameArray[$position]];
                 continue;
             }
 
             return $in['default'];
         }
 
-        if (gettype($answer) !== gettype($in['default'])) {
+        $isSameDataType = gettype($answer) === gettype($in['default']);
+        if ($isSameDataType === false) {
             $answer = $in['default'];
         }
 
-        if (is_array($in['default']) === true && empty($in['default']) === false) {
+        $haveArrayFallbackValue = is_array($in['default']) === true && empty($in['default']) === false;
+        if ($haveArrayFallbackValue === true) {
             $answer = $this->_Default($in['default'], $answer);
         }
 
@@ -335,7 +403,8 @@ class infohub_base
 
     /**
      * Takes the first found key data from the object and gives it to you, removing it from the object.
-     * Used in loops when sending one item at the time in a subcall.
+     * Used in loops when sending one item at the time in a sub call.
+     *
      * @param  array  $in
      * @return array
      */
@@ -360,7 +429,7 @@ class infohub_base
 
     /**
      * Create the subCall array to return to cmd.
-     * @param array $in
+     * @param  array  $in
      * @return array
      */
     protected function _SubCall(array $in = []): array
@@ -369,6 +438,7 @@ class infohub_base
             'func' => 'SubCall',
             'to' => ['node' => '', 'plugin' => '', 'function' => ''],
             'data' => [],
+            'data_request' => [],
             'data_back' => [],
             'messages' => [],
             'track' => 'false',
@@ -380,11 +450,58 @@ class infohub_base
     }
 
     /**
-     * Status on Cmd functions: never_existed, emerging, normal, deprecated, retired
-     * @param string $functionName
+     * Create the batchCall array to return to cmd.
+     * @param  array  $in
      * @return array
      */
-    final function _GetCmdFunctionStatus(string $functionName = ''): array
+    protected function _BatchCall(array $in = []): array
+    {
+        $default = [
+            'func' => 'BatchCall',
+            'data' => [],
+            'messages' => [],
+            'track' => 'false',
+            'wait' => 0.2
+        ];
+        $out = $this->_Default($default, $in);
+
+        $batchId = $this->_HubId();
+        $out['data']['batch_id'] = $batchId;
+
+        $this->batch[$batchId] = [
+            'callstack' => [], // Used to send back the callstack to the last message in the batch
+            'messages' => []
+        ];
+
+        foreach ($out['messages'] as $key => $message) {
+
+            $callType = $message['func'] ?? '';
+            if ($callType === '') {
+                $message = $this->_SubCall($message); // In case you did not use _SubCall
+            }
+
+            $message['data']['i_want_a_short_tail'] = 'true';
+            $message['data_back']['batch_id'] = $batchId;
+
+            $batchMessageId = $this->_HubId();
+            $message['data_back']['batch_message_id'] = $batchMessageId;
+
+            $this->batch[$batchId]['messages'][$batchMessageId] = 'true';
+
+            $out['messages'][$key] = $message;
+        }
+
+        return $out;
+    }
+
+    /**
+     * Status on Cmd functions: never_existed, emerging, normal, deprecated, retired
+     * Is private because it should only be used by the cmd() function.
+     *
+     * @param  string  $functionName
+     * @return array
+     */
+    private function _GetCmdFunctionStatus(string $functionName = ''): array
     {
         $statusType = 'never_existed';
         $functionsBase = $this->_GetCmdFunctionsBase();
@@ -435,6 +552,7 @@ class infohub_base
         $response['function_name'] = $functionName;
 
         $pluginName = $this->_GetClassName();
+        $response['information'] = 'Node: server, ' . $response['information'];
         $response['information'] = str_replace('{this plugin}', $pluginName, $response['information']);
         $response['information'] = str_replace('{this function}', $functionName, $response['information']);
 
@@ -445,7 +563,7 @@ class infohub_base
      * Get the class name in this plugin
      * @return string
      */
-    final function _GetClassName(): string
+    protected function _GetClassName(): string
     {
         return get_class($this);
     }
@@ -453,10 +571,10 @@ class infohub_base
     /**
      * Get name of the plugin that sent the message
      * Used in cmd(). Useless for you to use. Will give you an empty answer.
-     * @param array $in
+     * @param  array  $in
      * @return array
      */
-    final function _GetCallerPluginName(array $in = []): array
+    private function _GetCallerPluginName(array $in = []): array
     {
         $default = [
             'callstack' => []
@@ -486,19 +604,50 @@ class infohub_base
         ];
     }
 
+    /**
+     * The default InfoHub universal ID method that produce a unique identifier string
+     * Example: 1575709656.3529:4518025819754968159
+     * First the time since EPOC with decimals.
+     * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.
+     * Benefits are the simplicity. Also gives information when the id was created.
+     *
+     * Copied from infohub_uuid.php at 2024-01-20 to be available for batch messages
+     *
+     * @return string
+     * @author Peter Lembke
+     * @version 2024-01-20
+     * @since 2024-01-20
+     */
+    protected function _HubId(): string
+    {
+        try {
+            $randomNumber = random_int(0, PHP_INT_MAX); // PHP >= 7
+        } catch (Exception $e) {
+            return '';
+        }
+
+        $hubId = $this->_MicroTime() . ':' . $randomNumber;
+
+        return $hubId;
+    }
+
     // *****************************************************************************
     // * The only public functions, do not add your own, not even in your class
     // *****************************************************************************
 
     /**
-     * Execute one private function in this class
+     * Execute one protected function in this class
      * Used by: Infohub Exchange or if you use the class outside InfoHub.
      * Will only call function names that DO NOT start with internal_ or _
-     * Will ONLY reveal
-     * @param array $in
+     *
+     * Returns the outgoing message
+     *
+     * @param  array  $in
      * @return array
+     * @example ping, version, function_names from this plugin, and some more from your plugin.
+     *
      * @author  Peter Lembke
-     * @version 2013-12-29
+     * @version 2024-02-01
      * @since   2011-11-19
      * @uses message_to_function | string | The name of the function we want to call
      */
@@ -507,7 +656,7 @@ class infohub_base
         $startTime = $this->_MicroTime();
         $this->globalLogArray = [];
 
-        $default = [
+        $defaultMessage = [
             'to' => [
                 'node' => 'server',
                 'plugin' => '',
@@ -520,11 +669,12 @@ class infohub_base
             ],
             'callstack' => [],
             'data' => [],
+            'data_request' => [],
             'data_back' => [],
             'wait' => 0.2,
             'callback_function' => null
         ];
-        $in = $this->_Default($default, $in);
+        $in = $this->_Default($defaultMessage, $in);
 
         $answer = 'false';
         $message = '';
@@ -550,12 +700,20 @@ class infohub_base
         }
 
         $functionName = strtolower($in['to']['function']);
-        $this->internal_Log(
-            ['message' => 'Will call: ' . $functionName, 'function_name' => 'cmd', 'object' => $in, 'depth' => 1]
-        );
+        $this->internal_Log([
+            'message' => 'Will call: '.$functionName,
+            'function_name' => 'cmd',
+            'object' => $in,
+            'depth' => 1
+        ]);
 
         $status = $this->_GetCmdFunctionStatus($functionName);
 
+        /**
+         *
+         * @param $callResponse
+         * @return array|array[]
+         */
         $callbackFunction = function ($callResponse) use ($functionName, $out, &$in, $startTime, &$status) {
             $message = '';
 
@@ -566,7 +724,7 @@ class infohub_base
             }
 
             $this->internal_Log([
-                'message' => 'Back from: ' . $functionName,
+                'message' => 'Back from: '.$functionName,
                 'function_name' => $functionName,
                 'object' => $callResponse
             ]);
@@ -627,7 +785,7 @@ class infohub_base
                 $out['function_status'] = $status;
 
                 if ($status['value'] === 1) {
-                    $sleep = (int)($out['data']['execution_time'] * 1000);
+                    $sleep = (int) ($out['data']['execution_time'] * 1000);
                     usleep($sleep); // There is a cost in using emerging and deprecated functions.
                 }
             }
@@ -642,6 +800,7 @@ class infohub_base
 
             if ($iWantAShortTail === 'true') {
                 unset($out['data']['i_want_a_short_tail']);
+                // Remove all but the newest entry in the callstack
                 while (count($out['callstack']) > 1) {
                     array_shift($out['callstack']);
                 }
@@ -666,7 +825,7 @@ class infohub_base
 
             if (isset($in['callback_function']) === true) {
                 if ($in['callback_function'] instanceof Closure) {
-                    $in['callback_function']($out); // Call the callback function
+                    $in['callback_function']($out); // Call the callback function. Will put the message on the stack
                     return [];
                 }
             }
@@ -674,14 +833,19 @@ class infohub_base
             return $out;
         };
 
-        if ($functionName === 'cmd' or $functionName[0] === '_' or str_starts_with($functionName, 'internal_')) {
-            $message = 'function name: ' . $functionName . ', are not allowed to be called';
+        $canBeCalled = $functionName !== 'cmd' && // Do not call cmd() from cmd()
+            $functionName[0] !== '_' && // Do not call functions that start with _
+            str_starts_with($functionName, 'internal_') === false; // Do not call internal_ functions
+
+        if ($canBeCalled === false) {
+            $message = 'function name: '.$functionName.', are not allowed to be called';
             $callResponse['message'] = $message;
             goto leave;
         }
 
-        if ($status['value'] < 1) {
-            $message = '(' . $status['status'] . ') ' . $status['information'];
+        $isFunctionAvailable = $status['value'] > 0;
+        if ($isFunctionAvailable === false) {
+            $message = '('.$status['status'].') '.$status['information'];
             $callResponse['message'] = $message;
             goto leave;
         }
@@ -689,20 +853,50 @@ class infohub_base
         $response = $this->_GetCallerPluginName($in);
         $in['data']['from_plugin'] = $response['from_plugin']; // For rights purposes. Do not do this with the callstack or other data. You get node, plugin function name.
 
-        if (method_exists($this, $functionName) === false) {
-            $message = 'function name: ' . $functionName . ', does not exist or are not allowed to be called';
+        $doesFunctionExist = method_exists($this, $functionName) === true;
+        if ($doesFunctionExist === false) {
+            $message = 'function name: '.$functionName.', does not exist or are not allowed to be called';
             $callResponse['message'] = $message;
             goto leave;
         }
 
+        $isPartOfBatch = isset($in['data']['data_back']['batch_id']) === true &&
+            isset($in['data']['data_back']['batch_message_id']) === true;
+
+        if ($isPartOfBatch === true) {
+            $batchId = $in['data']['data_back']['batch_id'];
+            $batchMessageId = $in['data']['data_back']['batch_message_id'];
+            $doesBatchMessageExist = isset($this->batch[$batchId]['messages'][$batchMessageId]) === true;
+            if ($doesBatchMessageExist === false) {
+                $message = 'Batch message does not exist in memory';
+                $callResponse['message'] = $message;
+                goto leave;
+            }
+
+            unset($this->batch[$batchId]['messages'][$batchMessageId]);
+
+            $isLast = count($this->batch[$batchId]['messages']) === 0;
+            $in['data']['data_back']['is_last_batch_message'] = 'false';
+            if ($isLast === true) {
+                $in['data']['data_back']['is_last_batch_message'] = 'true';
+                $in['callstack'] = $this->batch[$batchId]['callstack'];
+                unset($this->batch[$batchId]);
+            }
+        }
+
         $in['data']['callback_function'] = $callbackFunction;
 
-        $this->internal_Log(['message' => 'Calling: ' . $functionName, 'function_name' => 'cmd', 'object' => $in]);
+        $this->internal_Log([
+            'message' => 'Calling: '.$functionName,
+            'function_name' => 'cmd',
+            'object' => $in
+        ]);
+
         try {
             $this->firstDefault = null;
             $callResponse = $this->{$functionName}($in['data']);
         } catch (Exception $err) {
-            $message = 'Can not call: ' . $functionName . ', error: ' . $err->getMessage();
+            $message = 'Can not call: '.$functionName.', error: '.$err->getMessage();
             $errorStack = $err->getTrace();
             $this->internal_Log([
                 'level' => 'error',
@@ -715,48 +909,64 @@ class infohub_base
 
         leave:
 
-        if ($this->_Empty($callResponse) === 'false') {
-            $messages = (array) $this->_GetData([
-                'name' => 'messages',
-                'default' => [],
-                'data' => $callResponse
-            ]);
+        $haveCallResponse = $this->_Empty($callResponse) === 'false';
 
-            if (count($messages) > 0) {
-                while (count($messages) > 0) {
-                    $oneCallResponse = (array) array_pop($messages);
-
-                    if (is_array($oneCallResponse['data']) === true) {
-                        $oneCallResponse['data']['i_want_a_short_tail'] = 'true';
-                        $callbackFunction($oneCallResponse);
-                    }
-                }
-                unset($callResponse['messages']);
-            }
-
-            $iWantAShortTail = $this->_GetData([
-                'name' => 'data/i_want_a_short_tail',
-                'default' => 'false',
-                'data' => $callResponse
-            ]);
-
-            if ($iWantAShortTail === 'true') {
-                $callResponse['data']['i_want_a_short_tail'] = 'false';
-            }
-
-            $this->configLog = [];
-
-            $callResponse['first_default'] = $this->firstDefault;
-
-            return $callbackFunction($callResponse);
-        } else {
+        if ($haveCallResponse === false) {
             if (isset($callResponse) === false) {
                 // If you use the callback then you must return an empty object {}
                 // window.alert('Function do not return anything. ' + $in.to.plugin + '.' + $functionName);
             }
+            return [];
         }
 
-        return [];
+        $func = $callResponse['func'] ?? '';
+        $isBatchCall = $func === 'BatchCall';
+        if ($isBatchCall === true) {
+            // Save the callstack for the last message that returns in the batch call
+            $this->batch[$callResponse['data']['batch_id']]['callstack'] = $in['callstack'];
+        }
+
+        $outgoingMessageArray = (array) $this->_GetData([
+            'name' => 'messages',
+            'default' => [],
+            'data' => $callResponse
+        ]);
+
+        if (count($outgoingMessageArray) > 0) {
+            while (count($outgoingMessageArray) > 0) {
+                $oneCallResponse = (array) array_pop($outgoingMessageArray);
+                $oneCallResponse['data'] = (array) $oneCallResponse['data'] ?? [];
+                $oneCallResponse['data']['i_want_a_short_tail'] = 'true';
+                $callbackFunction($oneCallResponse); // Put each outgoing short tail message on the stack
+            }
+            unset($callResponse['messages']);
+        }
+
+        $this->configLog = [];
+
+        if ($isBatchCall === true) {
+            return []; // We have no main message to send back
+        }
+
+        $callResponse['from'] = $in['to']; // Add the message origin
+
+        // Only messages[] are allowed to have a short tail ( = Have no call stack)
+        $iWantAShortTail = $this->_GetData([
+            'name' => 'data/i_want_a_short_tail',
+            'default' => 'false',
+            'data' => $callResponse
+        ]);
+
+        if ($iWantAShortTail === 'true') {
+            // Not always we have 'data' so it must be done like this.
+            $callResponse['data']['i_want_a_short_tail'] = 'false';
+        }
+
+        $callResponse['first_default'] = $this->firstDefault;
+
+        $outgoingMessage = $callbackFunction($callResponse);
+
+        return $outgoingMessage;
     }
 
     // *****************************************************************************
@@ -766,13 +976,15 @@ class infohub_base
 
     /**
      * Return version date of plugin class, base class, php version, server version
-     * @param array $in
+     * Call the function with cmd()
+     *
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2015-09-20
      * @since   2011-09-10
      */
-    protected function version(array $in = []): array
+    private function version(array $in = []): array
     {
         $default = [
             'date' => '',
@@ -796,19 +1008,22 @@ class infohub_base
             'plugin' => $versionPlugin,
             'base' => $versionBase,
             'functions' => $functionArray,
-            'version_code' => md5($versionPlugin['checksum'] . $versionBase['checksum'])
+            'version_code' => md5($versionPlugin['checksum'].$versionBase['checksum'])
         ];
     }
 
     /**
      * Return names of all methods in this class
-     * @param array $in
+     * Call the function with cmd()
+     *
+     * @param  array  $in
      * @return array
+     * @since   2012-04-01
+     *
      * @author  Peter Lembke
      * @version 2013-05-05
-     * @since   2012-04-01
      */
-    protected function function_names(array $in = []): array
+    private function function_names(array $in = []): array
     {
         $default = [
             'include_cmd_functions' => 'true',
@@ -863,16 +1078,16 @@ class infohub_base
 
     /**
      * Dummy function ping that return a pong
-     *
      * Useful for getting a pong or for sending messages in a sub call.
+     * Call the function with cmd()
      *
-     * @param array $in
+     * @param  array  $in
      * @return string[]
      * @author Peter Lembke
      * @version 2020-04-22
      * @since 2020-04-22
      */
-    protected function ping(array $in = []): array
+    private function ping(array $in = []): array
     {
         $answer = [
             'answer' => 'true',
@@ -894,11 +1109,11 @@ class infohub_base
      * Execute a private internal_ function in this class
      * Will only call function names that start with internal_
      *
-     * @param  array  $in all incoming variables
+     * @param  array  $in  all incoming variables
      * @return array
+     * @since   2013-04-12
      * @author  Peter Lembke
      * @version 2015-01-27
-     * @since   2013-04-12
      */
     protected function internal_Cmd(array $in = []): array
     {
@@ -908,10 +1123,10 @@ class infohub_base
 
         $message = '';
         $callResponse = [];
-        $functionName = 'internal_' . $in['func'];
+        $functionName = 'internal_'.$in['func'];
 
         $this->internal_Log([
-            'message' => 'Will call: ' . $functionName,
+            'message' => 'Will call: '.$functionName,
             'function_name' => 'Cmd',
             'object' => $in,
             'depth' => 1,
@@ -919,7 +1134,7 @@ class infohub_base
         ]);
 
         if (method_exists($this, $functionName) === false) {
-            $message = 'function name: ' . $functionName . ', does not exist or are not allowed to be called';
+            $message = 'function name: '.$functionName.', does not exist or are not allowed to be called';
             goto leave;
         }
 
@@ -929,7 +1144,7 @@ class infohub_base
         }
 
         $this->internal_Log([
-            'message' => 'Calling: ' . $functionName,
+            'message' => 'Calling: '.$functionName,
             'function_name' => 'internal_Cmd',
             'object' => $in
         ]);
@@ -938,7 +1153,7 @@ class infohub_base
             $callResponse = $this->{$functionName}($in);
         } catch (Exception $err) {
             $errorStack = $err->getTrace();
-            $message = 'Can not call: ' . $functionName . ', error: ' . $err->getMessage();
+            $message = 'Can not call: '.$functionName.', error: '.$err->getMessage();
 
             $this->internal_Log([
                 'level' => 'error',
@@ -954,7 +1169,7 @@ class infohub_base
         }
 
         $this->internal_Log([
-            'message' => 'Back from: ' . $functionName,
+            'message' => 'Back from: '.$functionName,
             'function_name' => 'internal_Cmd',
             'object' => $callResponse
         ]);
@@ -978,7 +1193,7 @@ class infohub_base
 
             $this->internal_Log([
                 'level' => 'error',
-                'message' => 'Got error from: ' . $functionName . ',error: ' . $message,
+                'message' => 'Got error from: '.$functionName.',error: '.$message,
                 'function_name' => 'internal_Cmd',
                 'object' => [
                     'in' => $in,
@@ -1018,10 +1233,12 @@ class infohub_base
     /**
      * Writes to the log array
      *
-     * @param array $in
+     * @param  array  $in
      * @return array
+     * @todo Clean up the plugins to not call this function directly, instead use internal_Cmd(). Set this function as private
+     *
      * @author  Peter Lembke
-     * @version 2015-09-16
+     * @version 2023-10-24
      * @since   2013-05-25
      */
     protected function internal_Log(array $in = []): array
@@ -1040,27 +1257,28 @@ class infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        if (count($in['object']) === 0) {
+        $haveObjectData = count($in['object']) === 0;
+        if ($haveObjectData === false) {
             unset($in['object']);
         }
 
-        if ($in['level'] === 'error') {
-            if ($in['get_backtrace'] === 'true') {
-                $in['backtrace'] = [];
-                $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
-                foreach ($backtrace as $one) {
-                    $default = ['file' => '', 'class' => '', 'function' => '', 'line' => 0];
-                    $one = $this->_Default($default, $one);
-                    if (empty($one['class']) === true) {
-                        $one['class'] = $one['file'];
-                    }
-                    $in['backtrace'][] = $one['class'] . '.' . $one['function'] . ' (' . $one['line'] . ")";
+        $isErrorWithBacktrace = $in['level'] === 'error' && $in['get_backtrace'] === 'true';
+        if ($isErrorWithBacktrace === true) {
+            $in['backtrace'] = [];
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
+            foreach ($backtrace as $one) {
+                $default = ['file' => '', 'class' => '', 'function' => '', 'line' => 0];
+                $one = $this->_Default($default, $one);
+                if (empty($one['class']) === true) {
+                    $one['class'] = $one['file'];
                 }
+                $in['backtrace'][] = $one['class'].'.'.$one['function'].' ('.$one['line'].')';
             }
         }
         unset($in['get_backtrace']);
 
-        if ($in['execution_time'] === 0.0) {
+        $haveExecutionTime = $in['execution_time'] > 0.0;
+        if ($haveExecutionTime === false) {
             unset($in['execution_time']);
         }
 
@@ -1074,14 +1292,15 @@ class infohub_base
 
     /**
      * Returns a sub call message. Used by cmd(), useless for you.
+     * Is private because it should only be used by the cmd() function.
      *
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2015-01-25
      * @since   2013-11-21
      */
-    protected function internal_SubCall(array $in = []): array
+    private function internal_SubCall(array $in = []): array
     {
         $default = [
             'func' => 'SubCall',
@@ -1091,7 +1310,8 @@ class infohub_base
                 'function' => 'default'
             ], // Where to send this message
             'data' => [], // The data you want to be available to the sub-function you call.
-            'data_request' => [], // Array with variable names you want from the sub-function. Leave blank to get everything.
+            'data_request' => [],
+            // Array with variable names you want from the sub-function. Leave blank to get everything.
             'data_back' => [], // Return these variables untouched in the returning message. (OPTIONAL)
             'wait' => 10.0, // Seconds you can wait before this message really need to be sent.
             'track' => 'false', // 'true' lets Cmd add an array of where this message has been.
@@ -1103,6 +1323,7 @@ class infohub_base
             'to' => $in['to'],
             'from' => $in['original_message']['to'],
             'data' => $in['data'],
+            'data_request' => $in['data_request'],
             'data_back' => $in['data_back'],
             'wait' => abs($in['wait']),
             'callstack' => []
@@ -1116,11 +1337,12 @@ class infohub_base
             $out['callstack'] = $in['original_message']['callstack'];
             $callStackAdd = [
                 'to' => $in['original_message']['to'],
-                'data_back' => $in['data_back'],
-                'data_request' => $in['data_request']
+                'data_request' => $in['data_request'],
+                'data_back' => $in['data_back']
             ];
             $out['callstack'][] = $callStackAdd;
         }
+
         return [
             'answer' => 'true',
             'message' => 'Here are a sub call message',
@@ -1129,15 +1351,16 @@ class infohub_base
     }
 
     /**
-     * Give you a return call message. Used by cmd(), useless for you.
+     * Gives you a return call message. Only useful for the cmd() function. Useless to you.
+     * Is private because it should only be used by the cmd() function.
      *
-     * @param array $in
+     * @param  array  $in
      * @return array
      * @author  Peter Lembke
      * @version 2013-11-22
      * @since   2013-11-22
      */
-    protected function internal_ReturnCall(array $in = []): array
+    private function internal_ReturnCall(array $in = []): array
     {
         $default = [
             'func' => 'ReturnCall',
@@ -1146,29 +1369,33 @@ class infohub_base
         ];
         $in = $this->_Default($default, $in);
 
-        $defaultMessageFromCallStack = [
-            'to' => [], // Node the return message will be sent to
-            'data_back' => [], // Data we want back untouched
-            'data_request' => [] // Names of specific response variables. If empty then you get the full response.
-        ];
         $messageFromCallStack = [];
-        $dataSend = [];
 
         if (count($in['original_message']['callstack']) > 0) {
             // array_pop() moves the last value of the array to your variable.
             $messageFromCallStack = array_pop($in['original_message']['callstack']);
         }
+
+        $defaultMessageFromCallStack = [
+            'to' => [], // Node the return message will be sent to
+            'data_back' => [], // Data we want back untouched
+            'data_request' => [] // Names of specific response variables. If empty then you get the full response.
+        ];
+
         $messageFromCallStack = $this->_Default($defaultMessageFromCallStack, $messageFromCallStack);
+
+        $dataSend = [];
 
         $length = count($messageFromCallStack['data_request']);
         if ($length > 0) {
             // We only want specific variables in the response
             // @todo HUB-1646, Improve this feature
-            for ($i = 0; $i < $length; $i++) {
-                $variableName = $messageFromCallStack['data_request'][$i];
-                if (isset($in['variables'][$variableName]) === true) {
-                    $dataSend[$variableName] = $in['variables'][$variableName];
+            for ($dataRequestIndex = 0; $dataRequestIndex < $length; $dataRequestIndex++) {
+                $variableName = $messageFromCallStack['data_request'][$dataRequestIndex];
+                if (isset($in['variables'][$variableName]) === false) {
+                    continue;
                 }
+                $dataSend[$variableName] = $in['variables'][$variableName];
             }
         } else {
             $dataSend = $in['variables']; // We want the full response.
@@ -1179,8 +1406,8 @@ class infohub_base
         $messageFromCallStack['data_back']['data_back'] = $messageFromCallStack['data_back'];
 
         // 'response' are for more advanced responses that can not be handled well with the normal array_merge below.
-        // Example: Response from two subcalls where the variable name is the same but have different data type.
-        // You validate the 'response' in the step that handle the subcall response.
+        // Example: Response from two sub calls where the variable name is the same but have different data type.
+        // You validate the 'response' in the step that handle the sub call response.
         $messageFromCallStack['data_back']['response'] = $dataSend;
 
         $out = [

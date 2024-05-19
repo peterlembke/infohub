@@ -93,17 +93,41 @@ function infohub_demo_progress() {
                             'head_label': _Translate('PROGRESS_BAR_DEMO'),
                             'content_data': '[my_start_button][my_progress_button][my_progress_bar]'
                         },
+                        'heart_icon': {
+                            'type': 'common',
+                            'subtype': 'svg',
+                            'data': '[heart_asset]',
+                            'class': 'svg',
+                            'css_data': {
+                                '.svg': 'max-width:16px; max-height:16px; padding:0px; display: inline-block;',
+                            },
+                        },
+                        'heart_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'icon',
+                            'asset_name': 'heart',
+                            'plugin_name': 'infohub_renderprogress',
+                        },
                         'my_progress_bar': {
                             'plugin': 'infohub_renderprogress',
                             'type': 'progress',
-                            'value_of_max_text': ' ' + _Translate('OF') + ' '
+                            'max_value': 100, // Will be updated below with the buttons
+                            'view_progress_bar': 'true',
+                            'view_value_of_max': 'true',
+                            'view_percent': 'true',
+                            'view_elapsed_time': 'true',
+                            'view_time_left': 'true',
+                            'view_heart': 'true',
+                            'value_of_max_text': ' ' + _Translate('OF') + ' ',
+                            'percent_text': '%'
+
                         },
                         'my_start_button': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
                             'button_label': _Translate('PRESS_TO_START'),
-                            'event_data': 'progress|button_start|100',
+                            'event_data': 'progress|button_start|' + (50 + Math.floor(Math.random() * 100)).toString(),
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
                             'to_function': 'click',
@@ -112,8 +136,8 @@ function infohub_demo_progress() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('PRESS_TO_PROGRESS'),
-                            'event_data': 'progress|button_progress|20',
+                            'button_label': '[heart_icon]' + _Translate('PRESS_TO_PROGRESS'),
+                            'event_data': 'progress|button_progress|' + (5 + Math.floor(Math.random() * 10)).toString(),
                             'to_node': 'client',
                             'to_plugin': 'infohub_demo',
                             'to_function': 'click',

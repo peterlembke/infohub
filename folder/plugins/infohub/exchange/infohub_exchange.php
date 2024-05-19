@@ -146,8 +146,9 @@ class infohub_exchange extends infohub_base
         if ($funcNumArgs == 0) {
             return;
         }
-        $includedCorePlugins = func_get_args();
-        foreach ($includedCorePlugins[0] as $pluginName) {
+        $arguments = func_get_args();
+        $includedCorePlugins = (array) $arguments[0];
+        foreach ($includedCorePlugins as $pluginName) {
             if ($pluginName !== 'infohub_exchange') {
                 $this->Plugin[$pluginName] = new $pluginName();
             }
@@ -729,6 +730,8 @@ class infohub_exchange extends infohub_base
                 unset($messageItem['data']['step']); // Client is not allowed to manipulate the step parameter
             }
 
+            $messageItem['from'] = $messageItem['callstack'][0]['to'];
+
             $messageItem['func'] = 'MessageCheck';
             $response = $this->internal_Cmd($messageItem);
 
@@ -904,7 +907,7 @@ class infohub_exchange extends infohub_base
             $response = $this->internal_Cmd($dataMessage);
 
             if ($response['answer'] === 'false') {
-                return; // Some messages do not even have a sender
+                return; // Some messages do not even have a sender. Some is expected to be thrown away here.
             }
 
             $dataMessage = $response['data_message'];
@@ -923,37 +926,40 @@ class infohub_exchange extends infohub_base
         $default = [
             'callstack' => [],
             'data' => [],
+            'data_request' => [],
             'data_back' => [],
-            'to' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
-            'from' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
+            'to' => ['node' => '', 'plugin' => '', 'function' => ''],
+            'from' => ['node' => '', 'plugin' => '', 'function' => ''],
             'wait' => 0.0,
             'execution_time' => 0.0
         ];
         $in = $this->_Default($default, $in);
 
-        $dataMessage = $in;
+        $defaultCallstackItem = [
+            'data_back' => [],
+            'data_request' => [],
+            'to' => ['node' => '', 'plugin' => '', 'function' => ''],
+        ];
 
-        $response = $this->_CheckMessageStructure($dataMessage);
-        if ($response['answer'] === 'false') {
+        foreach($in['callstack'] as $callstackItemNumber => $callstackItem) {
+            $in['callstack'][$callstackItemNumber] = $this->_Default(
+                $defaultCallstackItem,
+                $callstackItem
+            );
+        }
+
+        $response = $this->_CheckMessageStructure($in);
+        if ($response['ok'] === 'false') {
             goto leave;
         }
-        $dataMessage = $response['data_message'];
 
-        $response = $this->_CheckMessageNode($dataMessage);
-        if ($response['answer'] === 'false') {
+        $response = $this->_CheckMessageNode($in);
+        if ($response['ok'] === 'false') {
             goto leave;
         }
 
-        $response = $this->_CheckMessageCalling($dataMessage);
-        if ($response['answer'] === 'false') {
+        $response = $this->_CheckMessageCalling($in);
+        if ($response['ok'] === 'false') {
             goto leave;
         }
 
@@ -961,35 +967,21 @@ class infohub_exchange extends infohub_base
         return [
             'answer' => $response['answer'],
             'message' => $response['message'],
-            'data_message' => $response['data_message']
+            'data_message' => $response['data_message'],
+            'ok' => $response['ok']
         ];
     }
 
     /**
      * Makes sure the message have the right structure.
-     * If wrong structure then the message are MODIFIED
+     * No more, no less.
      * @param array $in
      * @return array
      */
     protected function _CheckMessageStructure(array $in = []): array
     {
-        $default = [
-            'to' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
-            'from' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
-            'callstack' => [],
-            'data' => []
-        ];
-        $in = $this->_Default($default, $in);
+        $ok = 'false';
 
-        $answer = 'false';
         $message = $this->_CheckMessageStructureTo($in);
         if ($message !== '') {
             goto leave;
@@ -997,28 +989,25 @@ class infohub_exchange extends infohub_base
 
         if (count($in['callstack']) === 0) {
             $message = 'Callstack is empty. That happens at some point.';
-            $answer = 'true';
+            $ok = 'true';
             goto leave;
         }
 
-        $defaultBack = [
-            'to' => ['node' => '', 'plugin' => '', 'function' => ''],
-            'data_back' => []
-        ];
-        $in['callstack'][0] = $this->_Default($defaultBack, $in['callstack'][0]);
         $message = $this->_CheckMessageStructureTo($in['callstack'][0]);
         if ($message !== '') {
             goto leave;
         }
 
-        $answer = 'true';
+        $ok = 'true';
         $message = 'Message is valid';
 
         leave:
+
         return [
-            'answer' => $answer,
+            'answer' => 'true',
             'message' => $message,
-            'data_message' => $in
+            'data_message' => $in,
+            'ok' => $ok
         ];
     }
 
@@ -1029,12 +1018,14 @@ class infohub_exchange extends infohub_base
      */
     protected function _CheckMessageStructureTo(array $in = []): string
     {
-        foreach ($in['to'] as $name => $data) {
-            if (empty($data)) {
-                return 'I want data in node, plugin and function';
+        $property = 'to';
+
+        foreach ($in[$property] as $name => $data) {
+            if (empty($data) === true) {
+                return "in.$property - I want data in node, plugin and function";
             }
             if (strtolower($data) !== $data) {
-                return 'I want lower case data in node, plugin and function';
+                return "in.$property - I want lower case data in node, plugin and function";
             }
         }
         
@@ -1048,26 +1039,36 @@ class infohub_exchange extends infohub_base
      */
     protected function _CheckMessageNode(array $in = []): array
     {
-        if (empty($in['callstack'])) {
-            return [
-                'answer' => 'true',
-                'message' => 'The message will soon reach its origin. I am OK with this',
-                'data_message' => $in
-            ];
+        $ok = 'true';
+        $message = 'Node is known, I am OK with this';
+
+        if (empty($in) === true) {
+            $ok = 'false';
+            $message = 'The message is empty. Something is wrong';
+            goto leave;
         }
 
-        $validNodesArray = ['client', 'server', 'cron', 'callback'];
-        if (in_array($in['callstack'][0]['to']['node'], $validNodesArray) === false) {
-            return [
-                'answer' => 'false',
-                'message' => 'I only send back the answer to a node that I know',
-                'data_message' => $in
-            ];
+        if (empty($in['callstack']) === true) {
+            $message = 'The message will soon reach its origin. I am OK with this';
+            goto leave;
         }
+
+        $toNode = $in['callstack'][0]['to']['node'] ?? '';
+        $validNodesArray = ['client', 'server', 'cron', 'callback'];
+        $isValidNode = in_array($toNode, $validNodesArray) === true;
+        if ($isValidNode === false) {
+            $ok = 'false';
+            $message = 'I only send back the answer to a node that I know. node:' . $toNode . ' is not known to me. I only know: ' . implode(', ', $validNodesArray);
+            goto leave;
+        }
+
+        leave:
+
         return [
             'answer' => 'true',
-            'message' => 'Node is known, I am OK with this',
-            'data_message' => $in
+            'message' => $message,
+            'data_message' => $in,
+            'ok' => $ok
         ];
     }
 
@@ -1078,24 +1079,9 @@ class infohub_exchange extends infohub_base
      */
     protected function _CheckMessageCalling(array $in = []): array
     {
-        $default = [
-            'to' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
-            'from' => [
-                'node' => '',
-                'plugin' => '',
-                'function' => ''
-            ],
-            'callstack' => [],
-            'data' => []
-        ];
-        $in = $this->_Default($default, $in);
-
         $answer = 'true';
         $message = 'I am OK with how you communicate in this message';
+        $ok = 'true';
 
         // If different from/to node then...
         // OK if plugins are level 1, to: foobar_hello, back: beebop_yesman
@@ -1106,9 +1092,17 @@ class infohub_exchange extends infohub_base
         // OK if query goes to a level 1 plugin. to: infohub_storage, back: infohub_contact_client
         // OK if you call a sibling. to: infohub_democall_sibling, back: infohub_democall_child
 
+        if (empty($in) === true) {
+            $ok = 'false';
+            $answer = 'false';
+            $message = 'The message is empty. Something is wrong';
+            goto leave;
+        }
+
         $to = $in['to'];
         $toPart = explode('_', $to['plugin']);
-        if (empty($in['callstack']) and count($toPart) === 2) {
+
+        if (empty($in['callstack']) === true and count($toPart) === 2) {
             $message = $message . ' OK to arrive at a plugin at level 1 when the callstack is empty';
             goto leave;
         }
@@ -1118,6 +1112,7 @@ class infohub_exchange extends infohub_base
         $backPart = explode('_', $back['plugin']);
 
         if ($to['node'] === 'client' && $back['node'] === 'server') {
+            $ok = 'false';
             $answer = 'false';
             $message = ' FAIL, Server can not get an answer from the client. The connection will close once the server have sent the package. Perhaps this will be allowed in the future.';
             goto fail;
@@ -1129,6 +1124,7 @@ class infohub_exchange extends infohub_base
         }
 
         if ($to['node'] !== $back['node']) { // Different nodes
+            $ok = 'false';
             $answer = 'false';
             $message = 'You send a message to a different node. Then both the caller and the called plugin must be on level 1. Now they were not';
             goto leave;
@@ -1166,16 +1162,19 @@ class infohub_exchange extends infohub_base
 
         $answer = 'false';
         $message = 'I am not happy with how you communicate in this message. Check the documentation to see what I will let you pass';
+        $ok = 'false';
 
         fail:
         $in['message'] = $message;
         $this->_SendMessageBackMessageFailedTests($in);
 
         leave:
+
         return [
             'answer' => $answer,
             'message' => $message,
-            'data_message' => $in
+            'data_message' => $in,
+            'ok' => $ok
         ];
     }
 

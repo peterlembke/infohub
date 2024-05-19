@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -98,7 +98,7 @@ class infohub_password extends infohub_base
             $lengthText = (string)$in['password_length'];
         }
 
-        $message = 'Password generator ' . $lengthText . " characters from group 0-" . $in['max_group_number'] . '.';
+        $message = 'Password generator ' . $lengthText . ' characters from group 0-' . $in['max_group_number'] . '.';
         $passwordArray = [];
 
         for ($i = $in['number_of_passwords']; $i > 0; $i--) {

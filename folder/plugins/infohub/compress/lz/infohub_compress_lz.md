@@ -27,19 +27,19 @@ The text I compress is not equal with the decompressed text.
 The original is:
 
 ```
-You can write some text in the text box labeled uncompressed text.
+You can write some text in the text box labeled decompressed text.
 You can select what node will compress the data.
 Click the button to compress the data.
-Remove the text you wrote. Now click the button uncompress.
+Remove the text you wrote. Now click the button decompress.
 ```
 
-The uncompressed text is:
+The decompressed text is:
 
 ```
-You can write some text in the text box labeled uncompressed text.
+You can write some text in the text box labeled decompressed text.
 You can select what node will compress the data.
 Click the button to compress the data.
-Remoje the text you wrote. Now click the button uncompress.
+Remoje the text you wrote. Now click the button decompress.
 ```
 
 Notice "Remoje".

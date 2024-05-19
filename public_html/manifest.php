@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 include_once 'define_folders.php';
 include_once INCLUDES . DS .'application_data.php';
 

@@ -5,6 +5,7 @@
     "keywords": "demo,example,implementation",
     "uses": [
         "infohub_demo_menu",
-        "infohub_rendermenu"
+        "infohub_rendermenu",
+        "infohub_renderprogress"
     ]
 }

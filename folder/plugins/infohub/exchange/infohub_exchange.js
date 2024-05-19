@@ -99,6 +99,7 @@ function infohub_exchange() {
                 $message = _HtmlToText($message);
             }
             $boxError.innerHTML = $message + '\n<br>' + $boxError.innerHTML;
+            $boxError.style.display = 'block';
             return;
         }
 
@@ -107,12 +108,15 @@ function infohub_exchange() {
         }
 
         const $messageLength = $message.length;
-        for (let $messageNumber = 0; $messageNumber <
-        $messageLength; $messageNumber = $messageNumber + 1) {
-            $message[$messageNumber] = _HtmlToText($message[$messageNumber]);
-            $boxError.innerHTML = $message[$messageNumber] + '\n<br>' +
-                $boxError.innerHTML;
+        if ($messageLength === 0) {
+            return;
         }
+
+        for (let $messageNumber = 0; $messageNumber < $messageLength; $messageNumber = $messageNumber + 1) {
+            $message[$messageNumber] = _HtmlToText($message[$messageNumber]);
+            $boxError.innerHTML = $message[$messageNumber] + '\n<br>' + $boxError.innerHTML;
+        }
+        $boxError.style.display = 'block';
     };
 
     $functions.push('_HtmlToText');
@@ -240,6 +244,13 @@ function infohub_exchange() {
                     _AddTransferMessage();
                     $addedTransferMessage = 'true';
                     $moreToDo = 'true';
+
+                    internal_Log({
+                        'level': 'log',
+                        'message': 'Added transfer message to stack. The messages will be sent back to their nodes',
+                        'function_name': 'main',
+                    });
+
                 }
             }
 
@@ -868,6 +879,9 @@ function infohub_exchange() {
             'message': '',
         };
 
+        let $toSortCount = 0;
+        let $sortCount = 0;
+
         block: {
             if (_IsSet($package.messages) === 'false' ||
                 Array.isArray($package.messages) === false) {
@@ -875,15 +889,17 @@ function infohub_exchange() {
                 break block;
             }
 
+            $toSortCount = $package.messages.length;
+
             // Copy all messages to array Sort if we have any
             for (let messageNumber = 0; messageNumber < $package.messages.length; messageNumber++) {
-                if (_IsSet($package.messages[messageNumber].error_array) ===
-                    'true') {
+                if (_IsSet($package.messages[messageNumber].error_array) === 'true') {
                     _BoxError($package.messages[messageNumber].error_array);
                     delete $package.messages[messageNumber].error_array;
                 }
 
                 $Sort.push($package.messages[messageNumber]);
+                $sortCount++;
             }
 
             $response.message = 'Placed messages in array $Sort';
@@ -892,6 +908,10 @@ function infohub_exchange() {
         return {
             'answer': $response.answer,
             'message': $response.message,
+            'count': {
+                'to_sort': $toSortCount, // Number of messages in the package
+                'sort_count': $sortCount // Number of messages placed in array Sort
+            }
         };
     };
 
@@ -976,13 +996,21 @@ function infohub_exchange() {
     $functions.push('_SortAdd');
     const _SortAdd = function($in = {}) {
 
-        const $test = $in.test ?? 'true';
         let $dataMessage = $in.message ?? {};
+        const $shouldTestTheDataMessage = $in.test ?? 'true';
 
-        if ($test === 'true') {
+        if ($shouldTestTheDataMessage === 'true') {
             $dataMessage.func = 'MessageCheck';
             const $response = internal_Cmd($dataMessage);
             if ($response.ok === 'false') {
+
+                internal_Log({
+                    'message': $response.message,
+                    'function_name': '_SortAdd',
+                    'object': $response,
+                    'level': 'warn'
+                });
+
                 return; // The message was not OK and will be skipped
             }
 
@@ -1025,6 +1053,7 @@ function infohub_exchange() {
         const $default = {
             'callstack': [],
             'data': {},
+            'data_request': [],
             'data_back': {},
             'to': {'node': '', 'plugin': '', 'function': ''},
             'wait': 0.0,
@@ -1092,6 +1121,7 @@ function infohub_exchange() {
         leave: {
             $message = _CheckMessageStructureTo($in);
             if ($message !== '') {
+                $message = 'in.' + $message;
                 break leave;
             }
 
@@ -1103,6 +1133,7 @@ function infohub_exchange() {
 
             $message = _CheckMessageStructureTo($in.callstack[0]);
             if ($message !== '') {
+                $message = '$in.callstack[0].' + $message;
                 break leave;
             }
 
@@ -1125,17 +1156,20 @@ function infohub_exchange() {
      */
     $functions.push('_CheckMessageStructureTo');
     const _CheckMessageStructureTo = function($in = {}) {
-        for (let $key in $in.to) {
-            if ($in.to.hasOwnProperty($key) === false) {
+
+        const $property = 'to';
+
+        for (let $key in $in[$property]) {
+            if ($in[$property].hasOwnProperty($key) === false) {
                 continue;
             }
 
-            if (_Empty($in.to[$key]) === 'true') {
-                return 'I want data in node, plugin and function';
+            if (_Empty($in[$property][$key]) === 'true') {
+                return 'in.'+$property+' - I want data in node, plugin and function';
             }
 
-            if ($in.to[$key].toLowerCase() !== $in.to[$key]) {
-                return 'I want lower case data in node, plugin and function';
+            if ($in[$property][$key].toLowerCase() !== $in[$property][$key]) {
+                return 'in.'+$property+' - I want lower case data in node, plugin and function';
             }
         }
 
@@ -1165,10 +1199,13 @@ function infohub_exchange() {
                 break leave;
             }
 
+            const $toNode = $in.callstack[0].to.node ?? '';
             const $validNodesArray = ['client', 'server', 'cron', 'callback'];
-            if ($validNodesArray.indexOf($in.callstack[0].to.node) === -1) {
+            const $isValidNode = $validNodesArray.indexOf($toNode) >= 0; // -1 is no match
+            if ($isValidNode === false) {
                 $ok = 'false';
-                $message = 'I only send back the answer to a node that I know';
+                $message = 'I only send back the answer to a node that I know. node: ' + $toNode + ' is not known to me. I only know: ' + $validNodesArray.join(', ') + '.';
+                break leave;
             }
         }
 
@@ -1290,7 +1327,7 @@ function infohub_exchange() {
     };
 
     /**
-     * Sort all messages in ToSort array => Stack, ToPending, ToNode
+     * Sort all messages in Sort array => Stack, ToPending, ToNode
      * Used by: main
      * @version 2015-09-20
      * @since 2013-08-18
@@ -1301,11 +1338,24 @@ function infohub_exchange() {
     $functions.push('internal_Sort');
     const internal_Sort = function($in = {}) {
 
+        const $sortCount = $Sort.length;
+        let $toNodeCount = 0;
+        let $toStackCount = 0;
+        let $toPendingCount = 0;
+
         while ($Sort.length > 0) {
             const $dataMessage = $Sort.pop(); // Move the last message from the array Sort
 
             if (_IsSet($dataMessage.to) === 'false' ||
                 _IsSet($dataMessage.to.node) === 'false') {
+
+                internal_Log({
+                    'message': 'The message has no destination node',
+                    'function_name': 'internal_Sort',
+                    'object': $dataMessage,
+                    'level': 'warn'
+                });
+
                 continue;
             }
 
@@ -1317,27 +1367,62 @@ function infohub_exchange() {
                 }
 
                 $ToNode[$nodeName].push($dataMessage);
+                $toNodeCount++;
+
+                internal_Log({
+                    'message': 'Message will be sent to node: ' + $nodeName,
+                    'function_name': 'internal_Sort',
+                    'object': $dataMessage,
+                    'level': 'debug'
+                });
+
                 continue;
             }
 
             const $pluginName = $dataMessage.to.plugin;
 
             if (_IsSet($PluginMissing[$pluginName]) === 'true') {
+
+                internal_Log({
+                    'message': 'Plugin missing: ' + $nodeName + '.' + $pluginName,
+                    'function_name': 'internal_Sort',
+                    'object': $dataMessage,
+                    'level': 'log' // This is normal, it is not a warning, but it is more interesting than debug, it is not a change in depth
+                });
+
                 _SendMessageBackPluginNotFound($dataMessage);
                 continue;
             }
 
             if (_IsSet($Plugin[$pluginName]) === 'false') {
+
+                internal_Log({
+                    'message': 'Message put in ToPending so we can ask the server and get plugin: ' + $nodeName + '.' + $pluginName,
+                    'function_name': 'internal_Sort',
+                    'object': $dataMessage,
+                    'level': 'log' // This is normal, it is not a warning, but it is more interesting than debug, it is not a change in depth
+                });
+
                 $ToPending.push($dataMessage);
+                $toPendingCount++;
                 continue;
             }
 
+            // I will not log when a message is put in stack. This is just too common to be slowed down by a log message.
+
             $Stack.push($dataMessage);
+            $toStackCount++;
         }
 
         return {
             'answer': 'true',
             'message': 'Sorted the messages in Sort',
+            'count': {
+                'sort_count': $sortCount, // Number of messages to sort
+                'to_node_count': $toNodeCount, // Messages that are sent to a node
+                'to_stack_count': $toStackCount, // Messages that are ready to be run
+                'to_pending_count': $toPendingCount // Messages that are waiting for a plugin to start
+            }
         };
     };
 
@@ -1352,6 +1437,11 @@ function infohub_exchange() {
      */
     $functions.push('internal_ToPending');
     const internal_ToPending = function($in = {}) {
+
+        const $toPendingCount = $ToPending.length;
+        let $pendingCount = 0;
+        let $pluginMissingCount = 0;
+        let $pluginRequestedCount = 0;
 
         while ($ToPending.length > 0) {
             const $dataMessage = $ToPending.pop();
@@ -1373,6 +1463,7 @@ function infohub_exchange() {
                     });
 
                     $PluginMissing[$pluginName] = {};
+                    $pluginMissingCount++;
                     _SendMessageBackPluginNotFound($dataMessage);
 
                     continue;
@@ -1380,12 +1471,15 @@ function infohub_exchange() {
 
                 // There are already messages here, add our message
                 $Pending[$pluginName].push($dataMessage);
-                continue;
+                $pendingCount++;
+
+                continue; // Skips the below code and goes to the next message
             }
 
             // This message is the first to come to this plugin name
             $Pending[$pluginName] = [];
             $Pending[$pluginName].push($dataMessage);
+            $pendingCount++;
 
             let $subCall = _SubCall({
                 'to': {
@@ -1410,12 +1504,26 @@ function infohub_exchange() {
                 'data_back': {},
             };
 
+            internal_Log({
+                'function_name': 'internal_ToPending',
+                'message': 'Asking server for plugin',
+                'level': 'log',
+                'object': {'plugin': $pluginName},
+            });
+
             _SortAdd({'message': $subCall});
+            $pluginRequestedCount++;
         }
 
         return {
             'answer': 'true',
             'message': 'Sorted the messages in ToPending',
+            'count': {
+                'to_pending_count': $toPendingCount, // Number of messages we need a plugin for
+                'pending_count': $pendingCount, // Number of messages placed in Pending waiting for a plugin
+                'plugin_requested_count': $pluginRequestedCount, // Number of plugins we requested
+                'plugin_missing_count': $pluginMissingCount, // Number of messages deleted due to none existing plugin
+            }
         };
     };
 
@@ -1431,6 +1539,11 @@ function infohub_exchange() {
     $functions.push('internal_Stack');
     const internal_Stack = function($in = {}) {
 
+        const $stackCount = $Stack.length;
+        let $pluginMissingCount = 0;
+        let $missingConfigDataCount = 0;
+        let $executedMessageCount = 0;
+
         while ($Stack.length > 0) {
             let $dataMessage = $Stack.pop();
             const $pluginName = $dataMessage.to.plugin;
@@ -1444,6 +1557,7 @@ function infohub_exchange() {
                 });
 
                 $PluginMissing[$pluginName] = {};
+                $pluginMissingCount++;
                 continue;
             }
 
@@ -1459,6 +1573,7 @@ function infohub_exchange() {
 
                 // $PluginMissing[$pluginName] = {}; // Do not set as missing, just try again instead.
                 delete $Plugin[$pluginName];
+                $missingConfigDataCount++;
                 continue;
             }
 
@@ -1478,11 +1593,18 @@ function infohub_exchange() {
             };
 
             $run.cmd($dataMessage); // callback_function is always used by cmd(). see above.
+            $executedMessageCount++;
         }
 
         return {
             'answer': 'true',
             'message': 'Have run all messages in the Stack, have put the responses in Sort',
+            'count': {
+                'stack_count': $stackCount, // Number of messages in the stack
+                'plugin_missing_count': $pluginMissingCount, // Number of messages deleted due to none existing plugin
+                'missing_config_data_count': $missingConfigDataCount, // Number of messages deleted due to missing config data
+                'executed_message_count': $executedMessageCount, // Number of messages executed
+            }
         };
     };
 
@@ -1546,7 +1668,9 @@ function infohub_exchange() {
 
         while ($corePluginNames.length > 0) {
             const $name = $corePluginNames.pop();
-            if (_IsSet($Plugin[$name]) === 'true') {
+
+            const $isAlreadyStarted = _IsSet($Plugin[$name]) === 'true';
+            if ($isAlreadyStarted === true) {
                 continue;
             }
 
@@ -1556,8 +1680,14 @@ function infohub_exchange() {
                 eval('$Plugin[$name] = new ' + $name + '();');
             } catch ($err) {
                 $out.answer = 'false';
-                $out.message = 'Can not instantiate class:"' + $name +
-                    '", error:"' + $err.message + '"';
+                $out.message = 'Can not instantiate class:"' + $name + '", error:"' + $err.message + '"';
+
+                internal_Log({
+                    'level': 'error',
+                    'message': $out.message,
+                    'function_name': 'internal_StartCore',
+                });
+
                 break;
             }
         }
@@ -1568,7 +1698,7 @@ function infohub_exchange() {
 
     $functions.push('redirect');
     /**
-     * Redirect infohub to another url
+     * Redirect InfoHub to another url
      * @param $in
      * @returns {{new_url: string, answer: string, message: string}}
      */

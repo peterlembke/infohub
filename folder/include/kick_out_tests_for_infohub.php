@@ -192,7 +192,7 @@ class kick_out_tests_for_infohub extends infohub_base
 
         $diff = microtime(true) - (float)$package['sign_code_created_at'];
         if ($diff < 0.0 or $diff > 4.0) {
-            $this->GetOut('Server says: Package sign_code_created_at is older than 4.0 seconds');
+            $this->GetOut('Server says: Package sign_code_created_at is older than 4.0 seconds. Check your computer clock');
         }
 
         $checksum = md5($package['messages_encoded']);
@@ -207,7 +207,7 @@ class kick_out_tests_for_infohub extends infohub_base
             $messagesJson = '{}';
         }
 
-        $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form, and you see that this is needed
+        // $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form, and you see that this is needed. Deprecated in PHP 8.2
         $messages = $this->_JsonDecode($messagesJson);
 
         if (empty($messages) === true) {
@@ -265,10 +265,34 @@ class kick_out_tests_for_infohub extends infohub_base
                 'function' => 'alert'
             ],
             'data' => [
-                'text' => $message
-            ]
+                'text' => $message,
+                'response' => [
+                    'answer' => 'false',
+                    'message' => $message,
+                ]
+            ],
         ];
-        $package = ['to_node' => 'client', 'messages' => [$messageOut]];
+
+        $messages = [$messageOut];
+
+        $messagesJson = $this->_JsonEncode($messages);
+        $messagesEncoded = base64_encode($messagesJson);
+        $messagesChecksum = md5($messagesEncoded);
+
+        $package = [ // to_node and messages must be first or the kick out tests will kick in.
+            'to_node' => 'client',
+            'messages' => $messages, // For debug purposes
+            'messages_encoded' => $messagesEncoded,
+            'messages_encoded_length' => strlen($messagesEncoded),
+            'messages_checksum' => $messagesChecksum,
+            'package_type' => '2020',
+            'session_id' => '',
+            'sign_code' => '',
+            'sign_code_created_at' => '',
+            'banned_seconds' => 0.0,
+            'banned_until' => 0.0
+        ];
+
         $messageOut = $this->_JsonEncode($package);
         // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         // echo $messageOut;

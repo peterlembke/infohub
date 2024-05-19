@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -419,7 +419,7 @@ class infohub_storage_data_mysql extends infohub_base
 
         $port = '';
         if ($in['connect']['db_port'] > 0) {
-            $port = "port=" . $in['connect']['db_port'] . ';';
+            $port = 'port=' . $in['connect']['db_port'] . ';';
         }
 
         $dbName = $in['connect']['db_name'] . ';';

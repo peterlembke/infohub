@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -155,9 +155,9 @@ class infohub_uuid extends infohub_base
             'answer' => 'true',
             'message' => 'All UUID versions',
             'options' => [
-                ["type" => "option", "value" => "0", "label" => "Server UUID v0"],
-                ["type" => "option", "value" => "4", "label" => "Server UUID v4"],
-                ["type" => "option", "value" => "100", "label" => "Server Hub Id", 'selected' => 'true']
+                ['type' => 'option', 'value' => '0', 'label' => 'Server UUID v0'],
+                ['type' => 'option', 'value' => '4', 'label' => 'Server UUID v4'],
+                ['type' => 'option', 'value' => '100', 'label' => 'Server Hub Id', 'selected' => 'true']
             ]
         ];
     }
@@ -263,41 +263,30 @@ class infohub_uuid extends infohub_base
      * First the time since EPOC with decimals.
      * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.
      * Benefits are the simplicity. Also gives information when the id was created.
+     *
      * @param array $in
      * @return array
      * @author Peter Lembke
-     * @version 2019-12-07
+     * @version 2024-01-20
      * @since 2018-07-28
      */
     protected function hub_id(array $in = []): array
     {
-        $answer = 'false';
-        $message = 'Can not create an infohub_uuid';
-        $result = '';
-
         try {
-            $randomNumber = '';
-            if (function_exists('random_int') === true) {
-                $randomNumber = random_int(0, PHP_INT_MAX); // PHP >= 7
-            } else {
-                if (function_exists('mt_rand') === true) {
-                    $randomNumber = mt_rand(0, PHP_INT_MAX); // PHP < 7
-                } else {
-                    goto leave;
-                }
-            }
-
-            $result = $this->_MicroTime() . ':' . $randomNumber;
-
-            $answer = 'true';
-            $message = 'Here are the hub_id';
+            $randomNumber = random_int(0, PHP_INT_MAX); // PHP >= 7
         } catch (Exception $e) {
+            return [
+                'answer' => 'false',
+                'message' => 'Can not create an infohub_uuid->hub_id',
+                'data' => ''
+            ];
         }
 
-        leave:
+        $result = $this->_MicroTime() . ':' . $randomNumber;
+
         return [
-            'answer' => $answer,
-            'message' => $message,
+            'answer' => 'true',
+            'message' => 'Here is the hub_id',
             'data' => $result
         ];
     }

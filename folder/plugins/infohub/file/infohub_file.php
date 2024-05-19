@@ -9,7 +9,7 @@
  */
 
 declare(strict_types = 1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -305,9 +305,11 @@ class infohub_file extends infohub_base
 
         $response = $this->_FileInformation($in);
 
-        $pathPartArray = pathinfo($in['path']);
+        $extension = pathinfo(
+            path: $in['path'],
+            flags: PATHINFO_EXTENSION
+        );
 
-        $extension = $pathPartArray['extension'] ?? '';
 
         if ($this->_IsBinaryFileExtensionWrite($extension) === 'true') {
             $result = base64_decode($in['contents']);
@@ -316,8 +318,13 @@ class infohub_file extends infohub_base
 
         $checksum = $this->_Hash($in['contents']);
 
+        $dirName = pathinfo(
+            path: $in['path'],
+            flags: PATHINFO_DIRNAME
+        );
+
         if ($response['file_info']['folder_exist'] === 'false') {
-            $result = mkdir($pathPartArray['dirname'], $mode = 0777, $recursive = true);
+            $result = mkdir(directory: $dirName, permissions: 0777, recursive: true);
             if ($result === false) {
                 $message = 'Folder do not exist and I can not create it';
                 goto leave;
@@ -607,7 +614,7 @@ class infohub_file extends infohub_base
             'filename' => '',
             'extension' => ''
         ];
-        $pathInfo = $pathInfoDefault;
+        $pathInfoLookup = $pathInfoDefault;
 
         $fileInfoDefault = [
             'folder_exist' => '',
@@ -625,10 +632,18 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $pathInfo = pathinfo($in['path']);
+        $pathInfoLookup = pathinfo(
+            path: $in['path'],
+            flags: PATHINFO_DIRNAME + PATHINFO_BASENAME + PATHINFO_FILENAME + PATHINFO_EXTENSION
+        );
+
+        $dirName = pathinfo(
+            path: $in['path'],
+            flags: PATHINFO_DIRNAME
+        );
 
         $fileInfo = [
-            'folder_exist' => is_dir($pathInfo['dirname']) ? 'true' : 'false',
+            'folder_exist' => is_dir($dirName) ? 'true' : 'false',
             'is_dir' => is_dir($in['path']) ? 'true' : 'false',
             'is_file' => is_file($in['path']) ? 'true' : 'false',
             'is_link' => is_link($in['path']) ? 'true' : 'false',
@@ -679,14 +694,14 @@ class infohub_file extends infohub_base
 
         leave:
 
-        $pathInfo = $this->_Default($pathInfoDefault, $pathInfo);
+        $pathInfoLookup = $this->_Default($pathInfoDefault, $pathInfoLookup);
         $fileInfo = $this->_Default($fileInfoDefault, $fileInfo);
 
         return [
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
-            'path_info' => $pathInfo,
+            'path_info' => $pathInfoLookup,
             'file_info' => $fileInfo,
             'file_size' => $fileSize
         ];
@@ -768,7 +783,7 @@ class infohub_file extends infohub_base
      */
     protected function _Hash(string $dataString = ''): string
     {
-        return (string) md5($dataString);
+        return md5($dataString);
     }
 
     /**
@@ -836,7 +851,10 @@ class infohub_file extends infohub_base
     protected function launcher_get_full_list(array $in = []): array
     {
         $default = [
-            'from_plugin' => ['node' => '', 'plugin' => '']
+            'from_plugin' => [
+                'node' => '',
+                'plugin' => ''
+            ]
         ];
         $in = $this->_Default($default, $in);
 
@@ -868,10 +886,15 @@ class infohub_file extends infohub_base
         $wantedAssets = ['launcher.json', 'icon/icon.json', 'icon/icon.svg'];
 
         foreach ($response['data'] as $path) {
-            $pathInfo = pathinfo($path);
-            $pathInfo['dirname'] = $this->_RemoveEndSlash($pathInfo['dirname']);
 
-            $pathCopy = $pathInfo['dirname'];
+            $dirName = pathinfo(
+                path: $path,
+                flags: PATHINFO_DIRNAME
+            );
+
+            $dirName = $this->_RemoveEndSlash($dirName);
+
+            $pathCopy = $dirName;
             $pathAfterPlugins = substr($pathCopy, strlen(PLUGINS) + 1);
             $parts = explode('/', $pathAfterPlugins);
 
@@ -894,8 +917,6 @@ class infohub_file extends infohub_base
             if (isset($avoid[$pluginName]) === true) {
                 continue;
             }
-
-            $dirName = $pathInfo['dirname'];
 
             foreach ($wantedAssets as $assetName) {
                 $response = $this->internal_Cmd([

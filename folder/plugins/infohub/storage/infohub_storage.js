@@ -68,7 +68,7 @@ function infohub_storage() {
 
     /**
      * General function for reading a bubble
-     * @version 2017-09-03
+     * @version 2024-05-04
      * @since   2016-01-30
      * @author  Peter Lembke
      * @param $in
@@ -79,6 +79,7 @@ function infohub_storage() {
         const $default = {
             'path': '',
             'wanted_data': {},
+            'delete_after_reading': 'false',
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
@@ -94,6 +95,22 @@ function infohub_storage() {
 
         $in.path = $in.path.toLowerCase().trim();
 
+        let $deleteMessage = _SubCall({
+            'to': {
+                'node': 'client',
+                'plugin': 'infohub_storage',
+                'function': 'write'
+            },
+            'data': {
+                'path': $in.path,
+                'data': {},
+                'calling_plugin': $in.calling_plugin
+            },
+            'data_back': {
+                'step': 'void',
+            },
+        });
+
         let $out = {
             'answer': 'false',
             'message': '',
@@ -101,6 +118,7 @@ function infohub_storage() {
             'data': {},
             'wanted_data': $in.wanted_data,
             'post_exist': 'false',
+            'messages': []
         };
 
         leave: {
@@ -138,6 +156,9 @@ function infohub_storage() {
                 $out.answer = 'true';
                 $out.message = 'Here are the data I found in the memory cache';
                 $out.post_exist = 'true';
+                if ($in.delete_after_reading === 'true') {
+                    $out.messages = [$deleteMessage];
+                }
                 break leave;
             }
 
@@ -163,23 +184,20 @@ function infohub_storage() {
                     $value = _Default($in.wanted_data, $value);
                 }
 
-                $in.callback_function({
-                    'answer': 'true',
-                    'message': 'Here are the data I found in IndexedDb',
-                    'path': $in.path,
-                    'data': $value,
-                    'wanted_data': $out.wanted_data,
-                    'post_exist': $postExist,
-                });
+                $out.answer = 'true';
+                $out.message = 'Here are the data I found in IndexedDb';
+                $out.data = $value;
+                $out.post_exist = $postExist;
+
+                if ($in.delete_after_reading === 'true') {
+                    $out.messages = [$deleteMessage];
+                }
+
+                $in.callback_function($out);
+
             }).catch(function(err) {
-                $in.callback_function({
-                    'answer': 'false',
-                    'message': 'Error' + err,
-                    'path': $in.path,
-                    'data': {},
-                    'wanted_data': $out.wanted_data,
-                    'post_exist': 'false',
-                });
+                $out.message = 'Error' + err;
+                $in.callback_function($out);
             });
 
             return {};
@@ -192,6 +210,7 @@ function infohub_storage() {
             'data': $out.data,
             'wanted_data': $out.wanted_data,
             'post_exist': $out.post_exist,
+            'messages': $out.messages,
         };
     };
 
@@ -386,6 +405,7 @@ function infohub_storage() {
     const read_many = function($in = {}) {
         const $default = {
             'paths': {},
+            'delete_after_reading': 'false',
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
@@ -445,12 +465,14 @@ function infohub_storage() {
                         },
                         'data': {
                             'path': $pop.key,
+                            'delete_after_reading': $in.delete_after_reading,
                             'wanted_data': $pop.data,
                             'calling_plugin': $in.calling_plugin,
                         },
                         'data_back': {
                             'paths': $pop.object,
                             'items': $in.data_back.items,
+                            'delete_after_reading': $in.delete_after_reading,
                             'calling_plugin': $in.calling_plugin,
                             'step': 'step_read_response',
                         },
@@ -581,6 +603,7 @@ function infohub_storage() {
         const $default = {
             'path': '',
             'wanted_data': {},
+            'delete_after_reading': 'false',
             'step': 'step_start',
             'from_plugin': {
                 'node': '',
@@ -633,6 +656,7 @@ function infohub_storage() {
                     'data_back': {
                         'path': $in.path,
                         'wanted_data': $in.wanted_data,
+                        'delete_after_reading': $in.delete_after_reading,
                         'calling_plugin': $in.calling_plugin,
                         'step': 'step_read_paths_response',
                     },
@@ -679,8 +703,10 @@ function infohub_storage() {
                     'data': {
                         'paths': $in.response.data,
                         'calling_plugin': $in.calling_plugin,
+                        'delete_after_reading': $in.delete_after_reading,
                     },
                     'data_back': {
+                        'delete_after_reading': $in.delete_after_reading,
                         'step': 'step_read_many_response',
                     },
                 });
@@ -903,6 +929,7 @@ function infohub_storage() {
  * idb-KeyVal
  * Use `var` so that it become global
  * https://github.com/jakearchibald/idb-keyval/blob/master/dist/idb-keyval-iife.js
+ * Newer version: https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/index.js
  * @type {{}}
  */
 var idbKeyval = (function(exports) {

@@ -10,7 +10,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -437,7 +437,7 @@ class infohub_transfer extends infohub_base
 
         $curlInfo = (array) curl_getinfo($curlHandle);
         $httpCode = $curlInfo['http_code'];
-        $curlError = (string) curl_error($curlHandle);
+        $curlError = curl_error($curlHandle);
         curl_close($curlHandle);
 
         fclose($fileHandle);

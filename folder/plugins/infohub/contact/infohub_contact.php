@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -466,9 +466,9 @@ class infohub_contact extends infohub_base
                 $nodeName = $out['node_list'][$node]['node'];
                 $userName = $out['node_list'][$node]['user_name'];
                 $out['options'][] = [
-                    "type" => "option",
-                    "value" => $userName,
-                    "label" => $nodeName
+                    'type' => 'option',
+                    'value' => $userName,
+                    'label' => $nodeName
                 ];
             }
             $out['ok'] = 'true';
@@ -584,7 +584,7 @@ class infohub_contact extends infohub_base
 
         if ($in['step'] === 'step_option_list') {
             foreach ($roleList as $name => $data) {
-                $options[] = ["type" => "option", "value" => $name, "label" => $name];
+                $options[] = ['type' => 'option', 'value' => $name, 'label' => $name];
             }
             $ok = 'true';
         }

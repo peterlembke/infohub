@@ -60,6 +60,11 @@ return _SubCall({
 });
 ```
 
+NOTE: This plugin is not started from Workbench. It does not have its icons preloaded.
+You must add the plugin to the launcher.json where it will be used.
+See [infohub_plugin](plugin,infohub_plugin) for more information about `has_assets`.
+See [infohub_asset](plugin,infohub_asset) for more information about this and everything about assets.
+
 ## max
 
 You can set a max value during rendering. 
@@ -151,4 +156,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2023-07-09 by Peter Lembke  
-Updated 2023-08-08 by Peter Lembke  
+Updated 2023-09-02 by Peter Lembke  

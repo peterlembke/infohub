@@ -4,7 +4,8 @@
 
 let $functions = [], // Array with all function names
     $firstDefault = null, // Used by cmd() to get the default values for a cmd function
-    $warnOnce = {}; // Warn about no return statement once in each plugin.function
+    $warnOnce = {}, // Warn about no return statement once in each plugin.function
+    $batch = {}; // Used ONLY by cmd() to keep track of batch messages
 
 $functions.push('_VersionBase');
 const _VersionBase = function() {
@@ -21,6 +22,14 @@ const _VersionBase = function() {
 };
 
 $functions.push('_GetCmdFunctionsBase');
+/**
+ * Adds the Base class public function names to the array
+ * It is called from each plugin function: _GetCmdFunctions
+ *
+ * @param $childList
+ * @returns {{}|{}|*}
+ * @private
+ */
 const _GetCmdFunctionsBase = function($childList = {}) {
     const $list = {
         'version': 'normal',
@@ -53,26 +62,32 @@ $functions.push('_Default');
  * @return {object} New object
  */
 const _Default = function($default = {}, $in = {}) {
-    if ($firstDefault === null) {
+
+    const $isFirstDefaultSet = $firstDefault !== null;
+    if ($isFirstDefaultSet === false) {
         $firstDefault = $default;
     }
 
-    if (Array.isArray($in) === true) {
+    const $isInAnIndexArray = Array.isArray($in) === true;
+    if ($isInAnIndexArray === true) {
         $in = {};
     }
 
     const $defaultType = typeof ($default);
     const $inType = typeof ($in);
 
-    if ($defaultType !== 'object' && $inType !== 'object') {
+    const $isBothNoObject = $defaultType !== 'object' && $inType !== 'object';
+    if ($isBothNoObject === true) {
         return {};
     }
 
-    if ($defaultType !== 'object' && $inType === 'object') {
+    const $isDefaultNoObject = $defaultType !== 'object' && $inType === 'object';
+    if ($isDefaultNoObject === true) {
         return _ByVal($in);
     }
 
-    if ($defaultType === 'object' && $inType !== 'object') {
+    const $isInNoObject = $defaultType === 'object' && $inType !== 'object';
+    if ($isInNoObject === true) {
         return _ByVal($default);
     }
 
@@ -91,25 +106,28 @@ const _Default = function($default = {}, $in = {}) {
             continue;
         }
 
-        if ($default[$key] === null && $in[$key] === null) { // No one want to set a value, you get a string
+        const $defaultData = $default[$key];
+
+        const $isBothNull = $defaultData === null && $in[$key] === null;
+        if ($isBothNull === true) {
             $answer[$key] = '';
             continue;
         }
 
-        if ($default[$key] === null) { // Default accept whatever value you have
+        if ($defaultData === null) { // Default accept whatever value you have
             $answer[$key] = $in[$key];
             continue;
         }
 
         const $inKeyType = typeof ($in[$key]);
         if ($inKeyType === 'undefined') { // No value in required property, you get the default value
-            $answer[$key] = $default[$key];
+            $answer[$key] = $defaultData;
             continue;
         }
 
-        const $defaultKeyType = typeof ($default[$key]);
+        const $defaultKeyType = typeof ($defaultData);
         if ($defaultKeyType !== $inKeyType) { // Different data types. You get the default value
-            $answer[$key] = $default[$key];
+            $answer[$key] = $defaultData;
             internal_Log({
                 'level': 'error',
                 'message': 'key:"' + $key + '", have wrong data type: ' +
@@ -128,11 +146,11 @@ const _Default = function($default = {}, $in = {}) {
             continue;
         }
 
-        if (_Count($default[$key]) === 0) { // We do not investigate in depth
+        if (_Count($defaultData) === 0) { // We do not investigate in depth
             continue;
         }
 
-        $answer[$key] = _Default($default[$key], $in[$key]);
+        $answer[$key] = _Default($defaultData, $in[$key]);
     }
 
     if (typeof $callbackFunction === 'function') {
@@ -233,8 +251,6 @@ const _MergeStringData = function($object1 = {}, $object2 = {}) {
 
     return _ByVal($newObject);
 };
-
-
 
 /**
  * Delete properties from object1. Name them in object2.
@@ -347,41 +363,53 @@ const _MethodExists = function($functionName = '') {
 };
 
 /**
- * Return current time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
+ * Return current local time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
+ * Example: 2023-08-31 05:51:40
+ *
  * Give 'c' to also get the time zone offset.
+ * Example: 2023-08-31T05:51:40+02:00
+ *
+ * Set timeZone to 'gmt' to get the Greenwich mean time
+ * Example: 2023-08-31T03:51:40+00:00
+ *
  * @param {string} $typeOfTimeStamp - Give a 'c' to get the time stamp with time zone
  * @return {string} Return current time stamp as a string in the format "yyyy-mm-dd hh:mm:ss"
  */
 $functions.push('_TimeStamp');
-const _TimeStamp = function($typeOfTimeStamp = '') {
-    const $date = new Date(),
-        yyyy = $date.getFullYear().toString(),
+const _TimeStamp = function($typeOfTimeStamp = '', $timeZone = '') {
+
+    let $date = new Date();
+    let offsetTotal = $date.getTimezoneOffset();
+
+    if ($timeZone === 'gmt') {
+        $typeOfTimeStamp = 'c';
+        $date.setMinutes($date.getMinutes() + offsetTotal);
+        offsetTotal = 0;
+    }
+
+    let yyyy = $date.getFullYear().toString(),
         mm = ('0' + ($date.getMonth() + 1).toString()).slice(-2), // getMonth() is zero-based
         dd = ('0' + $date.getDate().toString()).slice(-2),
         hh = ('0' + $date.getHours().toString()).slice(-2),
         min = ('0' + $date.getMinutes().toString()).slice(-2),
         sec = ('0' + $date.getSeconds().toString()).slice(-2);
 
-    let offsetTotal, offsetHours, offsetMinutes, offsetSign = '-',
-        offsetResult = '+01:00', $result;
+    let $dateString = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + min + ':' + sec;
 
-    if ($typeOfTimeStamp === 'c') {
-        offsetTotal = $date.getTimezoneOffset();
+    if ($typeOfTimeStamp === 'c') { // ISO 8601 date
+        let offsetSign = '-';
         if (offsetTotal < 0) {
             offsetSign = '+'; // Yes, -60 will become +01:00
             offsetTotal = Math.abs(offsetTotal);
         }
-        offsetHours = Math.floor(offsetTotal / 60);
-        offsetMinutes = offsetTotal - (offsetHours * 60);
-        offsetResult = offsetSign + ('00' + offsetHours).slice(-2) + ':' +
-            ('00' + offsetMinutes).slice(-2);
-        $result = yyyy + '-' + mm + '-' + dd + 'T' + hh + ':' + min + ':' +
-            sec + offsetResult;
-    } else {
-        $result = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + min + ':' + sec;
+        const offsetHours = Math.floor(offsetTotal / 60);
+        const offsetMinutes = offsetTotal - (offsetHours * 60);
+
+        const offsetResult = offsetSign + ('00' + offsetHours).slice(-2) + ':' + ('00' + offsetMinutes).slice(-2);
+        $dateString = yyyy + '-' + mm + '-' + dd + 'T' + hh + ':' + min + ':' + sec + offsetResult;
     }
 
-    return $result;
+    return $dateString;
 };
 
 /**
@@ -603,6 +631,7 @@ const _SubCall = function($in = {}) {
         'func': 'SubCall',
         'to': {'node': '', 'plugin': '', 'function': ''},
         'data': {},
+        'data_request': [],
         'data_back': {},
         'messages': [],
         'track': 'false',
@@ -613,6 +642,54 @@ const _SubCall = function($in = {}) {
 
     return $out;
 };
+
+/**
+ * Create the batchCall array to return to cmd.
+ * @param $in
+ * @returns {function(*): {}|{}|{}|*}
+ * @private
+ */
+$functions.push('_BatchCall');
+const _BatchCall = function ($in = {}) {
+    const $default = {
+        'func': 'BatchCall',
+        'data': [],
+        'messages': [],
+        'track': 'false',
+        'wait': 0.2,
+    };
+
+    let $out = _Default($default, $in);
+
+    let $batchId = _HubId();
+    $out.data.batch_id = $batchId;
+
+    $batch[$batchId] = {
+        'callstack': [], // Used to send back the callstack to the last message in the batch
+        'messages' : {}
+    };
+
+    for (let $key in $out.messages) {
+        let $message = $out.messages[$key];
+
+        const $callType = $message.func ?? '';
+        if ($callType === ''){
+            $message = _SubCall($message); // In case you did not use _SubCall
+        }
+
+        $message.data.i_want_a_short_tail ='true';
+        $message.data_back.batch_id  = $batchId;
+
+        let $batchMessageId = _HubId();
+        $message.data_back.batch_message_id = $batchMessageId;
+
+        $batch[$batchId].messages[$batchMessageId] = 'true';
+
+        $out.messages[$key] = $message;
+    }
+
+    return $out;
+}
 
 /**
  * Count number of items in an array or an object
@@ -839,6 +916,7 @@ const _GetCmdFunctionStatus = function($functionName = '') {
 
     if (_IsSet($statuses[$status]) === 'true') {
         $response = $statuses[$status];
+        $response.information = 'Node: client, ' + $response.information;
         $response.information = $response.information.replace('{this function}',
             $functionName);
 
@@ -952,6 +1030,56 @@ const _GetExtension = function($fileName = '') {
     return $extension;
 };
 
+/**
+ * The default InfoHub universal ID method that produce a unique identifier string
+ * Example: 1575709656.3529:4518025819754968159
+ * First the time since EPOC with decimals.
+ * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.
+ * Benefits are the simplicity. Also gives information when the id was created.
+ *
+ * Copied from infohub_uuid.js at 2024-01-28 to be available for batch messages
+ *
+ * @version 2018-07-28
+ * @since 2018-07-28
+ * @author Peter Lembke
+ * @param array $in
+ * @return string
+ */
+$functions.push('_HubId');
+const _HubId = function($in = {}) {
+    const $result = _MicroTime() + ':' +
+        Math.random().toString().substring(2);
+    // math.random produce a float between 0 and 1, example 0.4568548654
+    // substring(2) remove the 0. and leave 4568548654
+
+    return $result;
+};
+
+/**
+ * Get data from one column in the array
+ *
+ * @version 2024-05-03
+ * @since 2024-05-03
+ * @param $array
+ * @param $columnName
+ * @returns {*}
+ * @private
+ */
+$functions.push('_ArrayColumn');
+const _ArrayColumn = function ($array, $columnName) {
+    let $dataArray = [];
+
+    for (let $key in $array) {
+        let $value = $array[$key][$columnName] ?? null;
+        if ($value === null) {
+            continue;
+        }
+        $dataArray.push($value);
+    }
+
+    return $dataArray;
+}
+
 // *****************************************************************************
 // * The only public functions, do not add your own, not even in your plugin
 // *****************************************************************************
@@ -960,7 +1088,11 @@ const _GetExtension = function($fileName = '') {
  * Execute one private function in this class
  * Used by: Infohub Exchange or if you use the class outside InfoHub.
  * Will only call function names that DO NOT start with internal_ or _
- * @version 2014-01-01
+ *
+ * Returns the outgoing message
+ *
+ * @param $in
+ * @version 2024-01-01
  * @since 2012-01-01
  * @author Peter Lembke
  * @return object
@@ -977,8 +1109,14 @@ this.cmd = function($in = {}) {
             'plugin': '',
             'function': '',
         },
+        'from': {
+            'node': '',
+            'plugin': '',
+            'function': '',
+        },
         'callstack': [],
         'data': {},
+        'data_request': [],
         'data_back': {},
         'wait': 0.2,
         'callback_function': null,
@@ -1007,7 +1145,10 @@ this.cmd = function($in = {}) {
         'function_name': 'cmd',
         'object': $in,
         'depth': 1,
+        'level': 'info'
     });
+
+    $status = _GetCmdFunctionStatus($functionName);
 
     const callbackFunction = function($callResponse) {
         const $callResponseType = typeof $callResponse;
@@ -1020,6 +1161,7 @@ this.cmd = function($in = {}) {
             'message': 'Back from: ' + $functionName,
             'function_name': $functionName,
             'object': $callResponse,
+            'level': 'debug'
         });
 
         $out.execution_time = _MicroTime() - $startTime;
@@ -1062,6 +1204,7 @@ this.cmd = function($in = {}) {
                     'in': $in,
                     'out': $out,
                 },
+                'level': 'log'
             });
         }
 
@@ -1071,6 +1214,7 @@ this.cmd = function($in = {}) {
             'start_time': $startTime,
             'depth': -1,
             'execution_time': $out.data.execution_time,
+            'level': 'info'
         });
 
         const sleep = function($milliseconds) {
@@ -1122,15 +1266,19 @@ this.cmd = function($in = {}) {
 
     leave:
     {
-        if ($functionName === 'cmd' || $functionName.indexOf('internal_') === 0 || $functionName.indexOf('_') === 0) {
+        const $canBeCalled = $functionName !== 'cmd' && // Do not call cmd() from cmd()
+            $functionName.indexOf('_') !== 0 && // Do not call functions that start with _
+            $functionName.indexOf('internal_') !== 0; // Do not call internal_ functions
+
+        if ($canBeCalled === false) {
             $message = 'function name: ' + $functionName + ', are not allowed to be called';
             $callResponse.message = $message;
             internal_Log({'level': 'error', 'message': $message});
             break leave;
         }
 
-        $status = _GetCmdFunctionStatus($functionName);
-        if ($status.value < 1) {
+        const $isFunctionAvailable = $status.value > 0;
+        if ($isFunctionAvailable === false) {
             $message = '(' + $status.status + ') ' + $status.information;
             $callResponse.message = $message;
             internal_Log({'level': 'error', 'message': $message});
@@ -1140,11 +1288,36 @@ this.cmd = function($in = {}) {
         $response = _GetCallerPluginName($in);
         $in.data.from_plugin = $response.from_plugin;
 
-        if (_MethodExists($functionName) === 'false') {
+        const $doesFunctionExist = _MethodExists($functionName) === 'true';
+        if ($doesFunctionExist === false) {
             $message = 'function name: ' + $functionName + ', does not exist or are not allowed to be called';
             $callResponse.message = $message;
             internal_Log({'level': 'error', 'message': $message});
             break leave;
+        }
+
+        $in.data.data_back = _Merge({'batch_id': '', 'batch_message_id': ''}, $in.data.data_back);
+        const $batchId = $in.data.data_back.batch_id;
+        const $batchMessageId = $in.data.data_back.batch_message_id;
+        const $isPartOfBatch = $batchId !== '' && $batchMessageId !== '';
+
+        if ($isPartOfBatch === true) {
+            const $doesBatchMessageExist = _IsSet($batch[$batchId]['messages'][$batchMessageId]) === 'true';
+            if ($doesBatchMessageExist === false) {
+                $message = 'Batch message does not exist in memory';
+                $callResponse['message'] = $message;
+                break leave;
+            }
+
+            delete($batch[$batchId]['messages'][$batchMessageId]);
+
+            const $isLast = _Count($batch[$batchId]['messages']) === 0;
+            $in.data.data_back.is_last_batch_message = 'false';
+            if ($isLast === true) {
+                $in.data.data_back.is_last_batch_message = 'true';
+                $in['callstack'] = $batch[$batchId]['callstack'];
+                delete($batch[$batchId]);
+            }
         }
 
         $in.data.callback_function = callbackFunction;
@@ -1152,7 +1325,9 @@ this.cmd = function($in = {}) {
         internal_Log({
             'message': 'Calling: ' + $functionName,
             'function_name': $functionName,
+            'level': 'debug'
         });
+
         try {
             $firstDefault = null;
             $runThisRow = '$callResponse = ' + $functionName + '($in.data)';
@@ -1171,41 +1346,12 @@ this.cmd = function($in = {}) {
 
     }
 
-    if (_Empty($callResponse) === 'false') {
-        let $messages = _GetData({
-            'name': 'messages',
-            'default': [],
-            'data': $callResponse,
-        });
+    const $haveCallResponse = _Empty($callResponse) === 'false';
 
-        if ($messages.length > 0) {
-            while ($messages.length > 0) {
-                $oneCallResponse = $messages.pop();
-                if (_IsSet($oneCallResponse.data) === 'true') {
-                    $oneCallResponse.data.i_want_a_short_tail = 'true';
-                    callbackFunction($oneCallResponse);
-                }
-            }
-            delete $callResponse.messages;
-        }
-
-        let $iWantAShortTail = _GetData({
-            'name': 'data/i_want_a_short_tail',
-            'default': 'false',
-            'data': $callResponse,
-        });
-
-        if ($iWantAShortTail === 'true') {
-            $callResponse.data.i_want_a_short_tail = 'false';
-        }
-
-        $callResponse.first_default = $firstDefault;
-
-        return callbackFunction($callResponse);
-
-    } else {
+    if ($haveCallResponse === false) {
         if (typeof $callResponse === 'undefined') {
             // If you use the callback then you must return an empty object {}
+            // window.alert('Function do not return anything. ' + $in.to.plugin + '.' + $functionName);
 
             // Sends an alert and avoid sending again within 5 seconds.
             // Test by commenting out a return call in your function.
@@ -1227,9 +1373,51 @@ this.cmd = function($in = {}) {
                 callbackFunction($callResponse);
             }
         }
+        return {};
     }
 
-    return {};
+    const $func = $callResponse['func'] ?? '';
+    const $isBatchCall = $func === 'BatchCall';
+    if ($isBatchCall === true) {
+        // Save the callstack for the last message that returns in the batch call
+        $batch[$callResponse.data.batch_id]['callstack'] = $in.callstack;
+    }
+
+    let $outgoingMessageArray = _GetData({
+        'name': 'messages',
+        'default': [],
+        'data': $callResponse,
+    });
+
+    if ($outgoingMessageArray.length > 0) {
+        while ($outgoingMessageArray.length > 0) {
+            $oneCallResponse = $outgoingMessageArray.pop();
+            $oneCallResponse.data = $oneCallResponse.data ?? {};
+            $oneCallResponse.data.i_want_a_short_tail = 'true';
+            callbackFunction($oneCallResponse); // Put each outgoing short tail message on the stack
+        }
+        delete $callResponse.messages;
+    }
+
+    if ($isBatchCall === true) {
+        return []; // We have no main message to send back
+    }
+
+    let $iWantAShortTail = _GetData({
+        'name': 'data/i_want_a_short_tail',
+        'default': 'false',
+        'data': $callResponse,
+    });
+
+    if ($iWantAShortTail === 'true') {
+        $callResponse.data.i_want_a_short_tail = 'false';
+    }
+
+    $callResponse.first_default = $firstDefault;
+
+    const $outgoingMessage = callbackFunction($callResponse);
+
+    return $outgoingMessage;
 };
 
 // ***********************************************************
@@ -1360,7 +1548,7 @@ const ping = function() {
 // ***********************************************************
 
 /**
- * Exectute a private internal_ function in this class
+ * Execute a private internal_ function in this class
  * Will only call function names that start with internal_
  * @version 2013-09-15
  * @since   2013-09-15
@@ -1382,6 +1570,8 @@ const internal_Cmd = function($in = {}) {
     let $callResponse = {};
     let $functionName = 'internal_' + $in.func;
 
+    const $void = $functionName === 'internal_MessageCheck';
+
     tests:
     {
         internal_Log({
@@ -1390,11 +1580,12 @@ const internal_Cmd = function($in = {}) {
             'object': $in,
             'depth': 1,
             'start_time': $startTime,
+            'level': 'info',
+            'void': $void
         });
 
         if (_MethodExists($functionName) === 'false') {
-            $message = 'function name: ' + $functionName +
-                ', does not exist or are not allowed to be called';
+            $message = 'function name: ' + $functionName + ', does not exist or are not allowed to be called';
             break tests;
         }
 
@@ -1402,6 +1593,8 @@ const internal_Cmd = function($in = {}) {
             'message': 'Calling: ' + $functionName,
             'function_name': $functionName,
             'object': $in,
+            'level': 'debug',
+            'void': $void
         });
 
         try {
@@ -1409,41 +1602,40 @@ const internal_Cmd = function($in = {}) {
             eval($runThisRow);
         } catch ($err) {
             $errorStack = $err.stack.split('\n');
-            $message = 'Can not call: ' + $functionName + ', error: ' +
-                $err.message;
+            $message = 'Can not call: ' + $functionName + ', error: ' + $err.message;
             internal_Log({
                 'level': 'error',
                 'message': $message,
                 'function_name': $functionName,
                 'object': $errorStack,
+                'void': $void
             });
             $callResponse = {
                 'answer': 'false',
                 'message': $message,
             };
         }
+
         internal_Log({
             'message': 'Back from: ' + $functionName,
             'function_name': $functionName,
             'object': $callResponse,
+            'level': 'log',
+            'void': $void
         });
 
         if (typeof $callResponse !== 'object') {
-            $message = 'Function ' + $functionName +
-                ' did not return an object as it should (' +
-                typeof ($callResponse) + ')';
+            $message = 'Function ' + $functionName + ' did not return an object as it should (' + typeof($callResponse) + ')';
             break tests;
         }
 
         if (typeof $callResponse.answer === 'undefined') {
-            $message = 'Function ' + $functionName +
-                ' did not return object.answer as it should.';
+            $message = 'Function ' + $functionName + ' did not return object.answer as it should.';
             break tests;
         }
 
         if (typeof $callResponse.message === 'undefined') {
-            $message = 'Function ' + $functionName +
-                ' did not return object.message as it should.';
+            $message = 'Function ' + $functionName + ' did not return object.message as it should.';
             break tests;
         }
 
@@ -1459,10 +1651,10 @@ const internal_Cmd = function($in = {}) {
         $callResponse.message = $message;
         internal_Log({
             'level': 'error',
-            'message': 'Got error from: ' + $functionName + ', error: ' +
-                $message,
+            'message': 'Got error from: ' + $functionName + ', error: ' + $message,
             'function_name': $functionName,
             'object': {'in': $in, 'out': $callResponse},
+            'void': $void
         });
     }
 
@@ -1474,6 +1666,8 @@ const internal_Cmd = function($in = {}) {
         'start_time': $startTime,
         'execution_time': $callResponse.execution_time,
         'depth': -1,
+        'level': 'info',
+        'void': $void
     });
 
     return $callResponse;
@@ -1484,6 +1678,7 @@ const internal_Cmd = function($in = {}) {
  * used by: you
  * Moved from infohub_base and renamed at 2020-12-05 to prepare for web workers
  * @example: internal_Log({'message': 'I want to log this'});
+ * @see https://console.spec.whatwg.org/
  * @version 2016-09-01
  * @since 2013-04-25
  * @author Peter Lembke
@@ -1492,6 +1687,15 @@ const internal_Cmd = function($in = {}) {
  */
 $functions.push('internal_Log');
 const internal_Log = function($in = {}) {
+
+    const $void  = $in.void ?? false;
+    if ($void === true) {
+        return {
+            'answer': 'true',
+            'message': 'Did NOT write the log message to the console because void was set to true'
+        };
+    }
+
     if (!window.console) { // @todo Window is not available in a web worker
         return {
             'answer': 'false',
@@ -1506,7 +1710,7 @@ const internal_Log = function($in = {}) {
         };
     }
 
-    const $allowedLevels = ['log', 'info', 'warn', 'error'];
+    const $allowedLevels = ['debug', 'log', 'info', 'warn', 'error'];
 
     const $minimumLogLevel = $allowedLevels.indexOf($GLOBALS.infohub_minimum_error_level);
 
@@ -1523,11 +1727,11 @@ const internal_Log = function($in = {}) {
         'plugin_name': _GetClassName(),
         'function_name': '',
         'message': '', // Text row to show in the console
-        'level': 'log', // log, info, warn, error
+        'level': 'log', // debug, log, info, warn, error
         'object': {}, // if you want to show this object in the console
         'depth': 0, // 1=create group, 0=log, -1=close group
         'get_backtrace': 'false',
-        'execution_time': 0.0,
+        'execution_time': 0.0
     };
     $in = _Default($default, $in);
 
@@ -1548,7 +1752,7 @@ const internal_Log = function($in = {}) {
 
     let $message,
         $toScreen = '',
-        $errorBox;
+        $boxError;
 
     if ($in.level === 'error' && $in.get_backtrace === 'true') {
         $in.backtrace = new Error().stack.split('\n');
@@ -1567,49 +1771,56 @@ const internal_Log = function($in = {}) {
         window.errorIndicator = window.errorIndicator + '*';
     }
 
-    const $plugin = $in.node_name + '.' + $in.plugin_name + '.' +
-        $in.function_name;
-    $message = window.errorIndicator + ' ' + $in.time_stamp + ', ' + $plugin +
-        ', ' + $in.message;
+    const $plugin = $in.node_name + '.' + $in.plugin_name + '.' + $in.function_name;
+    $message = window.errorIndicator + ' ' + $in.time_stamp + ', ' + $plugin + ', ' + $in.message;
 
     if ($in.depth === 1) {
         window.console.groupCollapsed($message);
     }
 
-    if ($in.depth === 0) {
-        if ($in.level === 'log') {
+    if ($in.depth === 0 || $in.depth === -1) {
+        if ($in.level === 'debug') { // Any small thing that could be interesting
+            window.console.debug($message);
+        }
+        if ($in.level === 'log') { // Only in-data and out-data
             window.console.log($message);
         }
-        if ($in.level === 'info') {
+        if ($in.level === 'info') { // What function is called. Changes in depth: 1, -1
             window.console.info($message);
         }
-        if ($in.level === 'warn') {
+        if ($in.level === 'warn') { // Everything works, but we got into a state that could be something to look into
             window.console.warn($message);
         }
-        if ($in.level === 'error') {
+        if ($in.level === 'error') { // Something is wrong
             window.console.error($message);
-            $toScreen = $message;
         }
-        if (Object.getOwnPropertyNames($in.object).length > 0) {
-            window.console.dir($in.object);
-            if ($in.level === 'error') {
-                $toScreen = $toScreen + '<br><pre>' + JSON.stringify($in.object, null, '\t') + '</pre>';
-            }
+    }
+
+    if ($in.level === 'error') { // Something is wrong
+        $toScreen = $message;
+    }
+
+    if (Object.getOwnPropertyNames($in.object).length > 0) {
+        window.console.dir($in.object);
+        if ($in.level === 'error') {
+            $toScreen = $toScreen + '<br><pre>' + JSON.stringify($in.object, null, '\t') + '</pre>';
         }
+    }
 
-        if ($toScreen !== '') {
-            $errorBox = window.document.getElementById('error');
-            if ($errorBox !== null) {
-                let $currentContents = $errorBox.innerHTML;
-                if (_Empty($currentContents) === 'true') {
-                    const $link1 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'1\');location.reload();">(== Restart light update plugins ==)</a>';
-                    const $link2 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'3\');location.reload();">(== Restart hard keep data ==)</a>';
-                    const $link3 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'5\');location.reload();">(== Full clean out ==)</a>';
-                    $currentContents = $link1 + $link2 + $link3 + '<br><br>';
-                }
-
-                $errorBox.innerHTML = $toScreen + '<br>' + $currentContents;
+    if ($toScreen !== '') {
+        $boxError = window.document.getElementById('error');
+        if ($boxError !== null) {
+            let $currentContents = $boxError.innerHTML;
+            if (_Empty($currentContents) === 'true') {
+                const $link1 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'1\');location.reload();">(== Restart light update plugins ==)</a>';
+                const $link2 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'3\');location.reload();">(== Restart hard keep data ==)</a>';
+                const $link3 = '<a href="" onclick="localStorage.setItem(\'cold_start\', \'5\');location.reload();">(== Full clean out ==)</a>';
+                const $link4 = '<a href="" onclick="window.document.getElementById(\'error\').innerHTML=\'\'">(== Clear log window==)</a>';
+                $currentContents = $link1 + $link2 + $link3 + $link4 + '<br><br>';
             }
+
+            $boxError.innerHTML = $toScreen + '<br>' + $currentContents;
+            $boxError.style.display = 'block';
         }
     }
 
@@ -1658,6 +1869,7 @@ const internal_SubCall = function($in = {}) {
     let $out = {
         'to': $in.to,
         'data': $in.data,
+        'data_request': $in.data_request,
         'data_back': $in.data_back,
         'wait': Math.abs($in.wait),
         'callstack': [],
@@ -1671,8 +1883,8 @@ const internal_SubCall = function($in = {}) {
         $out.callstack = $in.original_message.callstack;
         const $callStackAdd = {
             'to': $in.original_message.to,
-            'data_back': $in.data_back,
             'data_request': $in.data_request,
+            'data_back': $in.data_back
         };
         $out.callstack.push($callStackAdd);
     }
@@ -1722,8 +1934,9 @@ const internal_ReturnCall = function($in = {}) {
 
     const $length = $messageFromCallStack.data_request.length;
     if ($length > 0) {
-        for (let dataRequestIndex = 0; dataRequestIndex < $length; dataRequestIndex++) {
-            const $variableName = $messageFromCallStack.data_request[dataRequestIndex];
+        // We only want specific variables in the response
+        for (let $dataRequestIndex = 0; $dataRequestIndex < $length; $dataRequestIndex++) {
+            const $variableName = $messageFromCallStack.data_request[$dataRequestIndex];
             if ($in.variables.hasOwnProperty($variableName) === false) {
                 continue;
             }
@@ -1744,6 +1957,7 @@ const internal_ReturnCall = function($in = {}) {
 
     const $out = {
         'to': $messageFromCallStack.to, // To Node
+        'from': $in.original_message.to,
         'callstack': $in.original_message.callstack, // Rest of the callstack
         'data': _Merge($dataSend, $messageFromCallStack.data_back), // Kept for legacy and for simplicity
     };

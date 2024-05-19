@@ -80,6 +80,7 @@ function infohub_view() {
             'file_read': 'normal',
             'file_write': 'normal',
             'set_style': 'normal',
+            'start_animation': 'normal',
             'progress': 'normal',
             'set_style_rule': 'normal',
             'alert': 'normal',
@@ -4084,6 +4085,55 @@ function infohub_view() {
         if ($element) {
             $element.style[$in.style_name] = $in.style_value;
             $message = 'Have set the style';
+        }
+
+        return {
+            'answer': 'true',
+            'message': $message,
+        };
+    };
+
+    /**
+     * Start an animation in an SVG icon
+     *
+     * @version 2023-09-01
+     * @since 2023-09-01
+     */
+    $functions.push('start_animation');
+    const start_animation = function($in = {}) {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'element_path': '', // Optional. example: 1233_some_box_id.svg.circle.0
+        };
+        $in = _Default($default, $in);
+
+        return internal_Cmd({
+            'func': 'StartAnimation',
+            'box_id': $in.box_id,
+            'element_path': $in.element_path
+        });
+    };
+
+    $functions.push('internal_StartAnimation');
+    const internal_StartAnimation = function($in = {}) {
+        const $default = {
+            'box_id': '', // Normal box_id
+            'element_path': '' // Optional. example: 1233_some_box_id.svg.circle.0
+        };
+        $in = _Default($default, $in);
+
+        let $boxId = _GetBoxId($in.box_id);
+        let $id = $boxId + '.' + $in.element_path;
+        if (_Empty($in.element_path) === 'true') {
+            $id = $boxId;
+        }
+
+        let $element = _GetElement($id);
+
+        let $message = 'Did not find the element';
+        if ($element) {
+            $element.beginElement();
+            $message = 'Have started the animation';
         }
 
         return {

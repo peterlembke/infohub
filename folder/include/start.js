@@ -425,7 +425,9 @@ function infohub_start($progress) {
             $progress.whatArea('call_server', 40, $text);
 
             $text = 'Error from server<br>' + $response;
-            document.getElementById('error').innerHTML = $text;
+            let $element = document.getElementById('error');
+            $element.innerHTML = $text;
+            $element.style.display = 'block';
         };
 
         xmlHttp.setRequestHeader('Content-type', 'application/json');
@@ -565,7 +567,7 @@ function infohub_start($progress) {
                 let $item = $messages[$key];
 
                 if (typeof $item.data.response === 'undefined') {
-                    $item.data.response = $item.data;
+                    $item.data.response = _ByVal($item.data);
                 }
 
                 if ($item.data.response.answer === 'false') {

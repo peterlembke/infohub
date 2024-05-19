@@ -31,6 +31,14 @@ Time format: timestamp_c
 Plugin: JS, PHP  
 Example: 2018-08-11T19:53:34+02:00
 
+## GMT Timestamp with offset
+
+The time is the GMT time. Greenwich mean time.  
+Variation of the normal time stamp. This has a T instead of a space. And +00:00 in the end.
+Time format: timestamp_gmt  
+Plugin: JS, PHP  
+Example: 2018-08-11T17:53:34+00:00
+
 ## Normal timestamp with fraction of second
 
 The time is the local time, where you are now. It has the same format as a normal timestamp except that you also have
@@ -113,4 +121,4 @@ You should have received a copy of the GNU Free Documentation License along with
 see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/). SPDX-License-Identifier: GFDL-1.3-or-later
 
 Since 2018-08-11 by Peter Lembke  
-Updated 2018-08-11 by Peter Lembke  
+Updated 2023-08-31 by Peter Lembke  

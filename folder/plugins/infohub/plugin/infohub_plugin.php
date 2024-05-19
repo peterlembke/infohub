@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -80,13 +80,13 @@ class infohub_plugin extends infohub_base
 
     /**
      * Request all missing_plugin_names
-     * You get minified JS plugins up to a limit so the answer do not get too large.
+     * You get minified JS plugins up to a limit, so the answer do not get too large.
      * You need to call again to get the rest of the missing plugins
      * It is done like this to reduce the memory consumption on the server
      *
      * @todo Remove plugins_request2
      * @todo Return list with still missing plugins
-     * @todo Plugin names that do not exist as file should be put ion a list and returned
+     * @todo Plugin names that do not exist as file should be put in a list and returned
      * @todo If all missing plugins do not exist as files then read them all from storage instead
      * @todo Return list with plugins that do not exist as file and not in storage
      *
@@ -733,12 +733,22 @@ class infohub_plugin extends infohub_base
         }
 
         $configFileJson = file_get_contents($configFileName);
-        if (empty($configFileJson) === true) {
+        if ($configFileJson === false) {
+            $message = 'Failed reading the Config file';
+            goto leave;
+        }
+
+        $isFileHavingContent = empty($configFileJson) === false;
+        if ($isFileHavingContent === false) {
             $message = 'Config file exist but are empty';
             goto leave;
         }
 
-        $fullConfigLookup = json_decode($configFileJson, true);
+        $fullConfigLookup = json_decode(
+            json: (string) $configFileJson,
+            associative: true
+        );
+
         if (is_array($fullConfigLookup) === false) {
             $message = 'Config file data could not be decoded from JSON';
             goto leave;
@@ -748,7 +758,7 @@ class infohub_plugin extends infohub_base
             'server' => [],
             'client' => []
         ];
-        $fullConfigLookup = $this->_Default($default, $fullConfigLookup);
+        $fullConfigLookup = $this->_Default($default, (array) $fullConfigLookup);
 
         $nodeName = $in['node'];
         $nodeConfigLookup = $fullConfigLookup[$nodeName];
@@ -797,16 +807,21 @@ class infohub_plugin extends infohub_base
         }
 
         $cssFileContents = file_get_contents($cssFileName);
+        if ($cssFileContents === false) {
+            $message = 'CSS File could not be opened';
+            goto leave;
+        }
         if (empty($cssFileContents) === true) {
             $message = 'CSS File exist but are empty';
             goto leave;
         }
 
-        $cssData = base64_encode($cssFileContents);
+        $cssData = base64_encode((string) $cssFileContents);
         $answer = 'true';
         $message = 'Here are the CSS data, BASE64 encoded';
 
         leave:
+
         return [
             'answer' => $answer,
             'message' => $message,

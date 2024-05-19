@@ -10,7 +10,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -411,13 +411,13 @@ class infohub_checksum extends infohub_base
     protected function get_available_options(array $in = []): array
     {
         $options = [
-            ["type" => "option", "value" => 'crc32', "label" => 'CRC32'],
-            ["type" => "option", "value" => 'soundex', "label" => 'Soundex'],
-            ["type" => "option", "value" => 'metaphone', "label" => 'Metaphone'],
-            ["type" => "option", "value" => 'doublemetaphone', "label" => 'Double metaphone'],
-            ["type" => "option", "value" => 'luhn', "label" => 'Luhn'],
-            ["type" => "option", "value" => 'md5', "label" => 'MD5', 'selected' => 'true'],
-            ["type" => "option", "value" => 'personnummer', "label" => 'Personnummer']
+            ['type' => 'option', 'value' => 'crc32', 'label' => 'CRC32'],
+            ['type' => 'option', 'value' => 'soundex', 'label' => 'Soundex'],
+            ['type' => 'option', 'value' => 'metaphone', 'label' => 'Metaphone'],
+            ['type' => 'option', 'value' => 'doublemetaphone', 'label' => 'Double metaphone'],
+            ['type' => 'option', 'value' => 'luhn', 'label' => 'Luhn'],
+            ['type' => 'option', 'value' => 'md5', 'label' => 'MD5', 'selected' => 'true'],
+            ['type' => 'option', 'value' => 'personnummer', 'label' => 'Personnummer']
         ];
 
         return [

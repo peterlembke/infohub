@@ -6,14 +6,14 @@
  * that then connects to the database and does the request.
  * infohub_storage store data in databases and is part of InfoHub.
  * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
- * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
+ * Support for SQLite3, MySQL, PostgreSQL, Future support: MongoDb
  *
  * @package     Infohub
  * @subpackage  infohub_storage_data
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -97,6 +97,7 @@ class infohub_storage_data extends infohub_base
     {
         $default = [
             'path' => '',
+            'delete_after_reading' => 'false',
             'step' => 'step_start',
             'calling_plugin' => [
                 'node' => '',
@@ -108,13 +109,15 @@ class infohub_storage_data extends infohub_base
                 'message' => 'Nothing to report',
                 'data' => [],
                 'post_exist' => 'false'
-            ]
+            ],
+            'data_back' => []
         ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report';
         $postExist = 'false';
+        $responseData = [];
 
         $connect = $this->_SetConnectionDefault($in['config']);
 
@@ -163,6 +166,7 @@ class infohub_storage_data extends infohub_base
                     'data_back' => [
                         'step' => 'step_get_final_connection_response',
                         'path' => $in['path'],
+                        'delete_after_reading' => $in['delete_after_reading'],
                         'calling_plugin' => $in['calling_plugin']
                     ]
                 ]
@@ -188,17 +192,64 @@ class infohub_storage_data extends infohub_base
                     ],
                     'data_back' => [
                         'path' => $in['path'],
+                        'delete_after_reading' => $in['delete_after_reading'],
                         'calling_plugin' => $in['calling_plugin'],
-                        'step' => 'step_final'
+                        'step' => 'step_read_response'
                     ]
                 ]
             );
         }
 
-        if ($in['step'] === 'step_final') {
+        if ($in['step'] === 'step_read_response') {
             $answer = $in['response']['answer'];
             $message = $in['response']['message'];
             $postExist = $in['response']['post_exist'];
+            $responseData = $in['response']['data'];
+
+            $in['step'] = 'step_end';
+
+            $shouldDelete = $in['delete_after_reading'] === 'true';
+            if ($shouldDelete === true) {
+                $in['step'] = 'step_delete';
+            }
+        }
+
+        if ($in['step'] === 'step_delete') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => $connect['plugin_name_handler'],
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'connect' => $connect,
+                        'path' => $in['path'],
+                        'data' => []
+                    ],
+                    'data_back' => [
+                        'path' => $in['path'],
+                        'delete_after_reading' => $in['delete_after_reading'],
+                        'calling_plugin' => $in['calling_plugin'],
+                        'step' => 'step_delete_response',
+                        'final_answer' => [
+                            'answer' => $answer,
+                            'message' => $message,
+                            'post_exist' => $postExist,
+                            'response_data' => $responseData
+                        ]
+                    ]
+                ]
+            );
+        }
+
+        if ($in['step'] === 'step_delete_response') {
+            $answer = $in['data_back']['final_answer']['answer'];
+            $message = $in['data_back']['final_answer']['message'];
+            $postExist = $in['data_back']['final_answer']['post_exist'];
+            $responseData = $in['data_back']['final_answer']['response_data'];
+
+            $in['step'] = 'step_end';
         }
 
         leave:
@@ -206,7 +257,7 @@ class infohub_storage_data extends infohub_base
             'answer' => $answer,
             'message' => $message,
             'path' => $in['path'],
-            'data' => $in['response']['data'],
+            'data' => $responseData,
             'post_exist' => $postExist
         ];
         return $response;

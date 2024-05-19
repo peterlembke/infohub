@@ -15,7 +15,10 @@ echo "---<<< Copying InfoHub ROX config files to ROX >>>---"
 
 echo ""
 echo "---<<< Copying InfoHub example config files to the config folder >>>---"
+\mkdir folder/config
 \cp -rfv folder/config_example/*.json folder/config/
+echo ""
+\cat folder/config_example/infohub_login/README.md
 
 echo ""
 echo "---<<< MANUAL STEPS >>>---"

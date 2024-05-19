@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -94,6 +94,9 @@ class infohub_time extends infohub_base
             case 'timestamp_c':
                 $result = $this->_TimeStamp('c'); // 2018-08-31T21:12:26+02:00
                 break;
+            case 'timestamp_gmt':
+                $result = $this->_TimeStamp('c', 'gmt'); // 2018-08-31T19:12:26+00:00
+                break;
             case 'timestampmicro':
                 $result = $this->_TimeStampMicro(); // 2018-08-31 21:12:47.658932
                 break;
@@ -130,11 +133,12 @@ class infohub_time extends infohub_base
     protected function get_available_options(array $in = []): array
     {
         $options = [
-            ["type" => "option", "value" => 'timestamp', "label" => 'Normal timestamp', 'selected' => 'true'],
-            ["type" => "option", "value" => 'timestamp_c', "label" => 'Timestamp with offset'],
-            ["type" => "option", "value" => 'timestampmicro', "label" => 'timestamp with fractions'],
-            ["type" => "option", "value" => 'microtime', "label" => 'EPOC and fractions'],
-            ["type" => "option", "value" => 'time', "label" => 'Seconds since EPOC']
+            ['type' => 'option', 'value' => 'timestamp', 'label' => 'Normal timestamp', 'selected' => 'true'],
+            ['type' => 'option', 'value' => 'timestamp_c', 'label' => 'Timestamp with offset'],
+            ['type' => 'option', 'value' => 'timestamp_gmt', 'label' => 'GMT Timestamp with offset'],
+            ['type' => 'option', 'value' => 'timestampmicro', 'label' => 'timestamp with fractions'],
+            ['type' => 'option', 'value' => 'microtime', 'label' => 'EPOC and fractions'],
+            ['type' => 'option', 'value' => 'time', 'label' => 'Seconds since EPOC']
         ];
 
         return [

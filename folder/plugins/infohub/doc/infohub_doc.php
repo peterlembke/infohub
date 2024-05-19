@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     exit; // This file must be included, not called directly
 }
 
@@ -129,14 +129,17 @@ class infohub_doc extends infohub_base
         $response = $this->internal_GetDocumentMetaData($in);
         if ($response['answer'] === false) {
             return [
-                'answer' => false,
+                'answer' => 'false',
                 'message' => $response['message']
             ];
         }
 
-        $isDone = $response['answer'] === false || $response['data']['is_checksum_same'] === 'true';
+        $isDone = $response['data']['is_checksum_same'] === 'true';
         if ($isDone === true) {
-            return $response;
+            return [
+                'answer' => 'true',
+                'message' => $response['message']
+            ];
         }
 
         $docContents = $this->_GetFileContents($response['document_file_name']);
@@ -225,7 +228,7 @@ class infohub_doc extends infohub_base
 
         if ($in['checksum'] === $checksum) {
             $isChecksumSame = 'true';
-            $message = 'The data you already have is valid. Keep using it';
+            $message = 'The document data you already have is valid. Keep using it';
         }
 
         $firstRow = $this->_GetFileFirstRow($docFileName);
@@ -362,7 +365,7 @@ class infohub_doc extends infohub_base
                 $message = 'Have read the documents list from storage.';
                 if ($in['checksum'] === $data['checksum']) {
                     $data['data'] = []; // No need to send back the documents list. The client already have it
-                    $message = $message . ' The data you already have is valid. Keep using it';
+                    $message = $message . ' The documents list you already have is valid. Keep using it';
                 }
 
                 $now = $this->_MicroTime();
@@ -719,7 +722,7 @@ class infohub_doc extends infohub_base
         string $basePath = ''
     ): string
     {
-        $isFullPath = strpos($imageName, 'folder/') === 0;
+        $isFullPath = str_starts_with($imageName, 'folder/') === true;
         if ($isFullPath === true) {
             $path = $basePath . DS . $imageName;
         } else {
@@ -805,9 +808,20 @@ class infohub_doc extends infohub_base
         $row = '';
 
         $handle = fopen($file, 'r');
-        if (feof($handle) === false) {
-            $row = fgets($handle);
+        $isOpenedSuccessfully = $handle !== false;
+        if ($isOpenedSuccessfully === false) {
+            return $row;
         }
+
+        $isEndOfFile = feof($handle) === true;
+        if ($isEndOfFile === false) {
+            $row = fgets($handle);
+            $isReadSuccessful = $row !== false;
+            if ($isReadSuccessful === false) {
+                $row = '';
+            }
+        }
+
         fclose($handle);
 
         return $row;
@@ -1028,7 +1042,7 @@ class infohub_doc extends infohub_base
             $path = substr($text, $position, $stopPosition-$position);
             $position = $stopPosition + 1;
 
-            $isURL = strpos($path, '://') !== false;
+            $isURL = str_contains($path, '://') === true;
             if ($isURL === true) {
                 continue;
             }
@@ -1093,16 +1107,23 @@ class infohub_doc extends infohub_base
         $documentNamesArray = [];
 
         foreach ($fileNamesArray as $fullFileNameWithPath) {
-            $fileNameParts = pathinfo($fullFileNameWithPath);
 
-            $fileName = $fileNameParts['filename'];
+            $fileName = pathinfo(
+                path: $fullFileNameWithPath,
+                flags: PATHINFO_FILENAME
+            );
 
             if (strtolower($fileName) !== $fileName) {
                 continue; // I only accept lower case file names
             }
 
-            $directory = substr($fileNameParts['dirname'], strlen($basePath) + 1);
-            $directory = str_replace('/', '_', $directory);
+            $dirName = pathinfo(
+                path: $fullFileNameWithPath,
+                flags: PATHINFO_DIRNAME
+            );
+
+            $directory = substr(string: $dirName, offset: strlen($basePath) + 1);
+            $directory = str_replace(search: '/', replace: '_', subject: $directory);
 
             if ($directory !== $fileName) {
                 continue; // The file name must be in a path with the same name

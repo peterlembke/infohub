@@ -229,6 +229,13 @@ function infohub_demo_menu() {
                                     'to_plugin': 'infohub_demo',
                                     'to_function': 'click_menu',
                                 },
+                                'batch_demo': {
+                                    'alias': 'batch_demo_link',
+                                    'event_data': 'batch',
+                                    'button_label': _Translate('BATCH'),
+                                    'to_plugin': 'infohub_demo',
+                                    'to_function': 'click_menu',
+                                },
                             },
                         },
                     },

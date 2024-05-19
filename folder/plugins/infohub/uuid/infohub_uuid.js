@@ -213,6 +213,12 @@ function infohub_uuid() {
     };
 
     /**
+     * The default InfoHub universal ID method that produce a unique identifier string
+     * Example: 1575709656.3529:4518025819754968159
+     * First the time since EPOC with decimals.
+     * Then a colon. Then a random number between 0 and the maximum number an integer can hold on this system.
+     * Benefits are the simplicity. Also gives information when the id was created.
+     *
      * @version 2018-07-28
      * @since 2018-07-28
      * @author Peter Lembke
