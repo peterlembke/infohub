@@ -727,7 +727,14 @@ class infohub_doc extends infohub_base
             $path = $basePath . DS . $imageName;
         } else {
             $docPath = str_replace('_', DS, $documentName);
-            $path = $basePath . DS . $docPath . DS . 'images' . DS . $imageName;
+
+            $imagesPath = 'images' . DS;
+            $hasImagesInPath = str_contains($imageName, $imagesPath) === true;
+            if ($hasImagesInPath === true) {
+                $imagesPath = '';
+            }
+
+            $path = $basePath . DS . $docPath . DS . $imagesPath . $imageName;
         }
 
         return $path;

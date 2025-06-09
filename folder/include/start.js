@@ -16,13 +16,13 @@
  along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
  */
 // Retrieve and start the core plugins
-// See bottom of this plugin for the command that trigger this start class
+// See the bottom of this plugin for the command that trigger this start class
 function infohub_start($progress) {
 
     'use strict';
 
-    let $globalOnline = 'true', // Indicate if the server have answered or not
-        $globalOnlineTimer = 0; // When server have not answered then $globalOnline is 'false' for 30 seconds
+    let $globalOnline = 'true', // Indicate if the server has answered or not
+        $globalOnlineTimer = 0; // When the server has not answered, then $globalOnline is 'false' for 30 seconds
 
     this.start = function() {
         _SetBackground();
@@ -106,7 +106,7 @@ function infohub_start($progress) {
 
     /**
      * Set/Check the cold_start flag in localStorage
-     * Will be removed in the end of this file when the first message have been sent. See end of _SendFirstMessage
+     * Will be removed at the end of this file when the first message has been sent. See the end of _SendFirstMessage
      *
      * @returns {boolean}
      * @private
@@ -292,7 +292,7 @@ function infohub_start($progress) {
     };
 
     /**
-     * Count number of items in an array or an object
+     * Count the number of items in an array or an object
      * @param $object
      * @returns {*}
      * @private
@@ -526,7 +526,7 @@ function infohub_start($progress) {
         let $missingPluginNames = _GetMissingPluginNames($neededPluginNames);
 
         if ($missingPluginNames.length > 0) {
-            // We can not start the core yet
+            // We cannot start the core yet
             const $package = _GetPackage($missingPluginNames);
             $progress.whatArea('call_server', 0, 'Call the server');
             _CallServer($package); // Ajax call, and it will run _StartCore later
@@ -800,6 +800,9 @@ function infohub_start($progress) {
             },
             'callstack': [],
             'data': {},
+            'data_back': {
+                'step': 'step_void'
+            },
             'alias': 'Run startup',
             'wait': 0.0,
         };
@@ -845,7 +848,7 @@ function infohub_start($progress) {
     };
 
     /**
-     * Set the background and text color depending on browser setting.
+     * Set the background and text colour depending on browser setting.
      * @private
      */
     const _SetBackground = function() {
@@ -876,7 +879,7 @@ function infohub_start($progress) {
 }
 
 /**
- * Handler for event 'infohub_call_main'
+ * This is a handler for the event named: 'infohub_call_main'
  * See event listener below
  * @param $eventData
  */
@@ -903,7 +906,12 @@ function infohubCallMainHandler($eventData) {
             'function': 'main',
         },
         'callstack': [],
-        'data': {'package': $in.package},
+        'data': {
+            'package': $in.package
+        },
+        'data_back': {
+            'step': 'step_void'
+        },
         'alias': 'First message',
         'wait': 0.0,
     };

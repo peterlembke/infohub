@@ -1,104 +1,114 @@
 {
-  "version": {
-    "date": "2020-12-16 18:52:04",
-    "plugin": "infohub_login",
-    "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
-    "language": "ru",
-    "country": "",
-    "file_type": "key_file"
-  },
-  "data": {
-    "infohub_login": {
-      "INSTRUCTIONS_KEY": "Инструкции",
-      "USE_THE_MENU._KEY": "Использовать меню.",
-      "WHAT_IS_THIS?_KEY": "Что это?"
+    "version": {
+        "date": "2025-06-08 18:32:55",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ru",
+        "language_name": "Russian",
+        "language_name_local": "Русский",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
-    "infohub_login_contact": {
-      "ONE_CONTACT_KEY": "Один контакт",
-      "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Это форма данных для одного контакта",
-      "NODE_KEY": "Узел",
-      "ANY_TEXT_YOU_WANT_KEY": "Любой текст по вашему желанию",
-      "NOTE_KEY": "Примечание",
-      "SAVE_KEY": "Сохранить",
-      "DOMAIN_ADDRESS_KEY": "Адрес домена",
-      "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Адрес домена для вашего сервера",
-      "USER_NAME_KEY": "Имя пользователя",
-      "THIS_IS_YOU_ON_THE_SERVER_KEY": "Это вы на сервере",
-      "SHARED_SECRET_KEY": "Общий секрет",
-      "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Вы делитесь этим секретом с сервером",
-      "CHECKSUM_KEY": "Контрольная сумма",
-      "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Контрольная сумма адреса домена + имя пользователя + общий секрет.",
-      "ALLOWED_SERVER_PLUGINS_KEY": "Разрешенные плагины сервера",
-      "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Список всех имен серверных плагинов, которым вы можете отправлять сообщения на удаленном узле"
+    "launcher": {
+        "title": "Входите",
+        "description": "Вы можете войти на сервер, выйти, установить или изменить свой пароль."
     },
-    "infohub_login_export": {
-      "EXPORT_CONTACT_KEY": "Экспорт контакта",
-      "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Здесь вы можете экспортировать контактные данные",
-      "EXPORT_KEY": "Экспорт"
-    },
-    "infohub_login_forget": {
-      "FORGET_CONTACT_KEY": "Забыть контакт",
-      "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Здесь вы можете позволить браузеру забыть контактные данные. Вы всегда можете импортировать файл снова.",
-      "FORGET_KEY": "Забыть"
-    },
-    "infohub_login_import": {
-      "IMPORT_KEY": "Импорт",
-      "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Импортировать контактную информацию из файла",
-      "SELECT_FILE_KEY": "Выбрать файл"
-    },
-    "infohub_login_login": {
-      "LOGIN_KEY": "Войти",
-      "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Здесь вы можете использовать импортированные контактные данные и войти на сервер",
-      "PASSWORD_KEY": "Пароль",
-      "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Пароль, необходимый для декодирования общего секрета",
-      "LOGIN_RESULT_KEY": "Результат входа",
-      "RELOAD_AFTER_LOGIN_KEY": "Обновить после входа в систему",
-      "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Вы уже вошли в систему",
-      "MISSING_USER_NAME_KEY": "Имя пользователя отсутствует",
-      "MISSING_RANDOM_CODE_KEY": "Отсутствует случайный код",
-      "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Ответ от сервера занял слишком много времени. Я откажусь от попытки входа в систему",
-      "FAILED_TO_LOGIN_KEY": "Не удалось войти в систему",
-      "SUCCESS_LOGGING_IN_KEY": "Успешный вход в систему",
-      "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Случайный код не имеет правильной длины",
-      "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Маловероятно, что общее среднее значение не имеет десятичных знаков",
-      "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Маловероятно, что среднее значение равно общему среднему",
-      "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Эти простые тесты показывают, что случайный код, по крайней мере, не представляет собой плоскую линию чисел"
-    },
-    "infohub_login_logout": {
-      "LOGOUT_KEY": "Выйти",
-      "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Здесь вы можете выйти из системы",
-      "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "В случае успеха отображается страница входа",
-      "LOGOUT_RESULT_KEY": "Результат выхода",
-      "FAILED_TO_LOGOUT_KEY": "Не удалось выйти",
-      "SUCCESS_LOGGING_OUT_KEY": "Успешный выход из системы"
-    },
-    "infohub_login_menu": {
-      "MENU_KEY": "Меню",
-      "IMPORT_CONTACT_DATA_KEY": "Импортировать контактные данные",
-      "LOGIN_KEY": "Войти",
-      "SET_PASSWORD_KEY": "Установить пароль",
-      "EXPORT_CONTACT_DATA_KEY": "Экспорт контактных данных",
-      "LOGOUT_KEY": "Выйти",
-      "FORGET_CONTACT_KEY": "Забыть контакт"
-    },
-    "infohub_login_password": {
-      "SET_PASSWORD_KEY": "Установить пароль",
-      "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Когда вы устанавливаете локальный пароль, вы шифруете общий секрет, чтобы он работал с вашим паролем",
-      "CURRENT_PASSWORD_KEY": "Текущий пароль",
-      "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Оставьте поле пустым, если у вас его нет",
-      "NEW_PASSWORD_KEY": "Новый пароль",
-      "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Оставьте поле пустым, если хотите удалить пароль",
-      "CHANGE_PASSWORD_KEY": "Изменить пароль"
-    },
-    "infohub_login_standalone": {
-      "LOGIN_KEY": "Войти",
-      "SELECT_FILE_KEY": "Выбрать файл",
-      "PASSWORD_KEY": "Пароль",
-      "DOWNLOAD_DEMO_ACCOUNT_KEY": "Загрузить демо-счет",
-      "LOGIN_RESULT_KEY": "Результат входа",
-      "MORE_KEY": "Еще",
-      "CURRENT_URL_KEY": "Текущий URL",
-      "REFRESH_PAGE_KEY": "Обновить страницу"
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Инструкции",
+            "USE_THE_MENU._KEY": "Используйте меню.",
+            "WHAT_IS_THIS?_KEY": "Что это такое?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Один контакт",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Форма данных для одного контакта",
+            "NODE_KEY": "Узел",
+            "ANY_TEXT_YOU_WANT_KEY": "Любой текст, который вы хотите",
+            "NOTE_KEY": "Примечание",
+            "SAVE_KEY": "Спасти",
+            "DOMAIN_ADDRESS_KEY": "Адрес домена",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Адрес домена на ваш сервер",
+            "USER_NAME_KEY": "Имя пользователя",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Это вы на сервере",
+            "SHARED_SECRET_KEY": "Общий секрет",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Вы делитесь этим секретом с сервером",
+            "CHECKSUM_KEY": "Контрольная сумма",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Контрольная сумма доменного адреса + имя пользователя + общий секрет.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Разрешенные серверные плагины",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Список со всеми именами плагинов сервера, на которые вы можете отправлять сообщения в удаленном узле"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Экспортный контакт",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Здесь вы можете экспортировать контактные данные",
+            "EXPORT_KEY": "Экспорт"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Забудьте о контакте",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Здесь вы можете позволить браузеру забыть контактные данные.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Вы всегда можете импортировать свой файл.",
+            "FORGET_KEY": "Забудь"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Импорт",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Импорт контактной информации из файла",
+            "SELECT_FILE_KEY": "Выбрать файл"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Логин",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Здесь вы можете использовать контактные данные, которые вы импортировали, и войти на сервер",
+            "PASSWORD_KEY": "Пароль",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Пароль, который вам нужен для декодирования общей тайны",
+            "LOGIN_RESULT_KEY": "Результат входа",
+            "RELOAD_AFTER_LOGIN_KEY": "Перезагрузка после входа",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Вы уже вошли в систему",
+            "MISSING_USER_NAME_KEY": "Пропавшее имя пользователя",
+            "MISSING_RANDOM_CODE_KEY": "Пропавший случайный код",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Ответ от сервера занял слишком много времени.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Я откажусь от попытки входа",
+            "FAILED_TO_LOGIN_KEY": "Не удалось войти",
+            "SUCCESS_LOGGING_IN_KEY": "Успех вход в",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Случайный код не имеет правильной длины",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Маловероятно, что общее среднее не имеет десятичных знаков",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Маловероятно, что среднее значение равно общему среднему",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Эти простые тесты показывают, что случайный код, по крайней мере, не является плоской линией чисел."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Выход",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Здесь вы можете выйти с сервера",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "В случае успеха страница входа показывает",
+            "LOGOUT_RESULT_KEY": "Результат",
+            "FAILED_TO_LOGOUT_KEY": "Не удалось выйти",
+            "SUCCESS_LOGGING_OUT_KEY": "Успех выходит"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Меню",
+            "IMPORT_CONTACT_DATA_KEY": "Импорт контактных данных",
+            "LOGIN_KEY": "Логин",
+            "SET_PASSWORD_KEY": "Установить пароль",
+            "EXPORT_CONTACT_DATA_KEY": "Экспорт контактных данных",
+            "LOGOUT_KEY": "Выход",
+            "FORGET_CONTACT_KEY": "Забудьте о контакте"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Установить пароль",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Когда вы устанавливаете свой локальный пароль, вы скремблируете общий секрет, чтобы он требовал, чтобы ваш пароль работал",
+            "CURRENT_PASSWORD_KEY": "Текущий пароль",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Оставьте пустой, если у вас его нет",
+            "NEW_PASSWORD_KEY": "Новый пароль",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Оставьте пустой, если вы хотите удалить пароль",
+            "CHANGE_PASSWORD_KEY": "Изменение пароля"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Логин",
+            "SELECT_FILE_KEY": "Выбрать файл",
+            "PASSWORD_KEY": "Пароль",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Скачать демо-счет",
+            "LOGIN_RESULT_KEY": "Результат входа",
+            "MORE_KEY": "Больше",
+            "CURRENT_URL_KEY": "Текущий URL",
+            "REFRESH_PAGE_KEY": "Обновить страницу"
+        }
     }
-  }
 }

@@ -1,11 +1,19 @@
 {
     "version": {
-        "date": "2020-12-16 18:52:04",
+        "date": "2025-06-08 19:05:00",
         "plugin": "infohub_login",
-        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
         "language": "nl",
+        "language_name": "Dutch",
+        "language_name_local": "Nederlands",
         "country": "",
-        "file_type": "key_file"
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Aanmelden",
+        "description": "U kunt inloggen op de server, uitloggen, uw wachtwoord instellen of wijzigen."
     },
     "data": {
         "infohub_login": {
@@ -14,104 +22,93 @@
             "WHAT_IS_THIS?_KEY": "Wat is dit?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Eén contactpersoon",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dit is het gegevensformulier voor één contactpersoon",
-            "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Elke gewenste tekst",
+            "ONE_CONTACT_KEY": "Eén contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dit is het gegevensformulier voor één contact",
+            "NODE_KEY": "Knooppunt",
+            "ANY_TEXT_YOU_WANT_KEY": "Elke sms die je wilt",
             "NOTE_KEY": "Opmerking",
             "SAVE_KEY": "Opslaan",
             "DOMAIN_ADDRESS_KEY": "Domeinadres",
-            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Het domeinadres naar uw server",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Het domeinadres van uw server",
             "USER_NAME_KEY": "Gebruikersnaam",
             "THIS_IS_YOU_ON_THE_SERVER_KEY": "Dit ben jij op de server",
             "SHARED_SECRET_KEY": "Gedeeld geheim",
-            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Je deelt dit geheim met de server",
-            "CHECKSUM_KEY": "Checksum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum van domeinadres + gebruikersnaam + gedeeld geheim.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Toegestane server plug-ins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lijst met alle server plug-in namen waarnaar je berichten kunt sturen op het externe knooppunt"
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "U deelt dit geheim met de server",
+            "CHECKSUM_KEY": "Controlesom",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Controlesom van domeinadres + gebruikersnaam + gedeeld geheim.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Toegestane serverplugins",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lijst met alle server-pluginnamen waarnaar u berichten kunt versturen op de externe knooppunt"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Exporteer contact",
+            "EXPORT_CONTACT_KEY": "Contact exporteren",
             "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hier kunt u de contactgegevens exporteren",
-            "EXPORT_KEY": "Exporteren"
+            "EXPORT_KEY": "Uitvoer"
         },
         "infohub_login_forget": {
             "FORGET_CONTACT_KEY": "Contact vergeten",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Hier kun je de browser de contactgegevens laten vergeten. Je kunt je bestand altijd opnieuw importeren.",
-            "FORGET_KEY": "Vergeten"
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Hier kunt u de browser de contactgegevens laten vergeten.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "U kunt altijd uw bestand opnieuw importeren.",
+            "FORGET_KEY": "Vergeet"
         },
         "infohub_login_import": {
             "IMPORT_KEY": "Importeren",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importeer de contactgegevens uit bestand",
-            "SELECT_FILE_KEY": "Selecteer bestand"
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Contactinformatie importeren uit bestand",
+            "SELECT_FILE_KEY": "Bestand selecteren"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Inloggen",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kun je de contactgegevens gebruiken die je hebt geïmporteerd en inloggen op de server",
+            "LOGIN_KEY": "Aanmelden",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kunt u gebruik maken van de contactgegevens die u importeerde en inloggen op de server",
             "PASSWORD_KEY": "Wachtwoord",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Het wachtwoord dat je nodig hebt om het shared_secret te decoderen",
-            "LOGIN_RESULT_KEY": "inlogresultaat",
-            "RELOAD_AFTER_LOGIN_KEY": "Herladen na inloggen",
-            "SELECT_FILE_KEY": "Selecteer bestand",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-account downloaden",
-            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Je bent al ingelogd",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Het wachtwoord dat u nodig hebt om het gedeelde geheim te decoderen",
+            "LOGIN_RESULT_KEY": "Aanmeldresultaat",
+            "RELOAD_AFTER_LOGIN_KEY": "Herladen na aanmelden",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "U bent al ingelogd",
             "MISSING_USER_NAME_KEY": "Ontbrekende gebruikersnaam",
             "MISSING_RANDOM_CODE_KEY": "Ontbrekende willekeurige code",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Het antwoord van de server duurde te lang. Ik zal de inlogpoging afbreken",
-            "FAILED_TO_LOGIN_KEY": "Inloggen mislukt",
-            "SUCCESS_LOGGING_IN_KEY": "Inloggen geslaagd",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Het antwoord van de server duurde te lang.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Ik zal de aanmeldpoging opgeven",
+            "FAILED_TO_LOGIN_KEY": "Aanmelden mislukt",
+            "SUCCESS_LOGGING_IN_KEY": "Aanmelden succesvol",
             "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "De willekeurige code heeft niet de juiste lengte",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Het is onwaarschijnlijk dat het totale gemiddelde geen decimalen heeft",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Het is onwaarschijnlijk dat het gemiddelde gelijk is aan het totale gemiddelde",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Deze eenvoudige tests tonen aan dat de random_code op zijn minst geen platte lijn van getallen is."
-        },
-        "infohub_login_standalone": {
-            "LOGIN_KEY": "Inloggen",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kun je de contactgegevens gebruiken die je hebt geïmporteerd en inloggen op de server",
-            "PASSWORD_KEY": "Wachtwoord",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Het wachtwoord dat je nodig hebt om het shared_secret te decoderen",
-            "LOGIN_RESULT_KEY": "inlogresultaat",
-            "RELOAD_AFTER_LOGIN_KEY": "Herladen na inloggen",
-            "SELECT_FILE_KEY": "Selecteer bestand",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-account downloaden",
-            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Je bent al ingelogd",
-            "MISSING_USER_NAME_KEY": "Ontbrekende gebruikersnaam",
-            "MISSING_RANDOM_CODE_KEY": "Ontbrekende willekeurige code",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Het antwoord van de server duurde te lang. Ik zal de inlogpoging afbreken",
-            "FAILED_TO_LOGIN_KEY": "Inloggen mislukt",
-            "SUCCESS_LOGGING_IN_KEY": "Inloggen geslaagd",
-            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "De willekeurige code heeft niet de juiste lengte",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Het is onwaarschijnlijk dat het totale gemiddelde geen decimalen heeft",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Het is onwaarschijnlijk dat het gemiddelde gelijk is aan het totale gemiddelde",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Deze eenvoudige tests tonen aan dat de random_code op zijn minst geen platte lijn van getallen is."
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Onwaarschijnlijk dat het totale gemiddelde geen decimalen heeft",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Onwaarschijnlijk dat het gemiddelde gelijk is aan het totale gemiddelde",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Deze eenvoudige tests tonen aan dat de willekeurige code tenminste geen platte lijn van getallen is."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Uitloggen",
-            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier kun je uitloggen van de server",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Als dit lukt, wordt de inlogpagina weergegeven",
-            "LOGOUT_RESULT_KEY": "uitlogresultaat",
-            "FAILED_TO_LOGOUT_KEY": "Uitloggen mislukt",
-            "SUCCESS_LOGGING_OUT_KEY": "Uitloggen gelukt"
+            "LOGOUT_KEY": "Afmelden",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier kunt u afmelden vanaf de server",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Indien succesvol dan wordt de login pagina getoond",
+            "LOGOUT_RESULT_KEY": "Afmeldresultaat",
+            "FAILED_TO_LOGOUT_KEY": "Afmelden mislukt",
+            "SUCCESS_LOGGING_OUT_KEY": "Afmelden succesvol"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Importeer contactgegevens",
-            "LOGIN_KEY": "Inloggen",
+            "IMPORT_CONTACT_DATA_KEY": "Contactgegevens importeren",
+            "LOGIN_KEY": "Aanmelden",
             "SET_PASSWORD_KEY": "Wachtwoord instellen",
-            "EXPORT_CONTACT_DATA_KEY": "Exporteer contactgegevens",
-            "LOGOUT_KEY": "Uitloggen",
+            "EXPORT_CONTACT_DATA_KEY": "Contactgegevens exporteren",
+            "LOGOUT_KEY": "Afmelden",
             "FORGET_CONTACT_KEY": "Contact vergeten"
         },
         "infohub_login_password": {
             "SET_PASSWORD_KEY": "Wachtwoord instellen",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wanneer je je lokale wachtwoord instelt, moet je het gedeelde geheim door elkaar halen zodat het werkt",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wanneer u uw lokale wachtwoord instelt scramble je het gedeelde geheim zodat het uw wachtwoord nodig heeft om te werken",
             "CURRENT_PASSWORD_KEY": "Huidig wachtwoord",
             "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Laat leeg als je er geen hebt",
             "NEW_PASSWORD_KEY": "Nieuw wachtwoord",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Laat leeg als je het wachtwoord wilt verwijderen",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Laat leeg als u het wachtwoord wilt verwijderen",
             "CHANGE_PASSWORD_KEY": "Wachtwoord wijzigen"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Aanmelden",
+            "SELECT_FILE_KEY": "Bestand selecteren",
+            "PASSWORD_KEY": "Wachtwoord",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-account downloaden",
+            "LOGIN_RESULT_KEY": "Aanmeldresultaat",
+            "MORE_KEY": "Meer",
+            "CURRENT_URL_KEY": "Huidige url",
+            "REFRESH_PAGE_KEY": "Pagina verversen"
         }
     }
 }
-

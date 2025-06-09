@@ -15,9 +15,6 @@ A good idea is something that fit into the InfoHub concept of a secure personal 
 
 ### Multi-processing
 * JS Web workers - So I can encapsulate plugins from reaching each other
-* JS Darkhold - Split a task on many web workers. Collect the web worker answers and return one answer.
-* PHP Cron - A cron you can subscribe to and get a message when it is time. Can be used to take backups, clean out expired data
-* JS Cron - A cron you can subscribe to and get a message when it is time. Can be used to save data to the server. Get updated data from the server in the background.
 
 ### Developer tools
 * PHP Plugin test system - Tests will write them self. Will record live data.
@@ -90,4 +87,4 @@ Permission is granted to copy, distribute and/or modify this document under the 
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2021-11-21 by Peter Lembke  
-Changed 2023-08-12 by Peter Lembke  
+Changed 2024-11-10 by Peter Lembke  

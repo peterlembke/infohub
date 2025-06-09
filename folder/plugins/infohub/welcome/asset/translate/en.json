@@ -1,13 +1,15 @@
 {
     "version": {
-        "date": "2021-08-29 07:51:22",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_welcome",
-        "data_checksum": "c341e0720c5602bb0dfe15bb08c52f45",
+        "data_checksum": "a5446a9e8eb740fc22989a8fdb4fe22b",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
         "title": "Welcome",
@@ -104,7 +106,7 @@
             "A_PLUGIN_ALWAYS_RETURN_A_VALID_MESSAGE_THAT_CAN_BE_RELEASED_TO_THE_FLOW._KEY": "A plugin always return a valid message that can be released to the flow.",
             "THE_MESSAGE_IS_EITHER_A_RETURN_MESSAGE,_OR_A_SUB-CALL_MESSAGE._KEY": "The message is either a return message, or a sub-call message.",
             "YOU_CAN_DO_A_SUB_CALL_IN_YOUR_FUNCTION_TO_ANYWHERE_AND_THEN_EXPECT_THE_VERY_SAME_FUNCTION_TO_GET_A_RETURN_MESSAGE_WITH_DATA._KEY": "You can do a sub call in your function to anywhere and then expect the very same function to get a return message with data.",
-            "YOU_CAN_ATTACH_VARIABLES_IN_THE_SUB_CALL_THAT_WILL_RETURN_UNTOUCHED._SEE_THE_DEMOS_FOR_A_\u201dSTEP\u201d_VARIABLE._KEY": "You can attach variables in the sub call that will return untouched. See the demos for a \u201dstep\u201d variable.",
+            "YOU_CAN_ATTACH_VARIABLES_IN_THE_SUB_CALL_THAT_WILL_RETURN_UNTOUCHED._SEE_THE_DEMOS_FOR_A_”STEP”_VARIABLE._KEY": "You can attach variables in the sub call that will return untouched. See the demos for a ”step” variable.",
             "STRONGLY_TYPED_KEY": "Strongly typed",
             "PHP_AND_JAVASCRIPT_CAN_DO_TYPE_JUGGLING_WITHOUT_SAYING_A_PIP._THAT_IS_GREAT._KEY": "Php and javascript can do type juggling without saying a pip. That is great.",
             "A_GREAT_SOURCE_OF_AGONY_WHEN_YOU_CAN_NOT_FIND_WHERE_IT_HAVE_TYPE_CASTED_AND_DESTROYED_YOUR_DATA._KEY": "A great source of agony when you can not find where it have type casted and destroyed your data.",

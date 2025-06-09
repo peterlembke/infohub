@@ -320,9 +320,9 @@ function infohub_exchange() {
     };
 
     /**
-     * First function to start
-     * Verify the session data and get the user_name.
-     * Get the current domain, then check the plugin settings for that domain,
+     * First function to start.
+     * Verifies the session data and get the user_name.
+     * Get the current domain, then check the plugin settings for that domain.
      * In the settings you have the first message to send to that domain.
      * @version 2020-04-25
      * @since 2015-02-12
@@ -672,7 +672,7 @@ function infohub_exchange() {
 
     /**
      * Check if the incoming data has a message to initiator_check_session_valid
-     * that inform that the session is invalid. Then we go into guest mode.
+     * that informs that the session is invalid. Then we go into guest mode.
      * @param $in
      * @returns {*}
      * @private
@@ -956,7 +956,7 @@ function infohub_exchange() {
 
     /**
      * Some messages could be answered with the error. Others have no sender.
-     * This function send back answers to those messages that has a sender.
+     * This function sends back answers to those messages that have a sender.
      * @param array $in
      */
     $functions.push('_SendMessageBackMessageFailedTests');
@@ -990,7 +990,7 @@ function infohub_exchange() {
     };
 
     /**
-     * If the message passes the tests then it is added to queue Sort, else it is thrown away.
+     * If the message passes the tests, then it is added to queue Sort, else it is thrown away.
      * @param array $in
      */
     $functions.push('_SortAdd');
@@ -1000,16 +1000,18 @@ function infohub_exchange() {
         const $shouldTestTheDataMessage = $in.test ?? 'true';
 
         if ($shouldTestTheDataMessage === 'true') {
-            $dataMessage.func = 'MessageCheck';
-            const $response = internal_Cmd($dataMessage);
+            // $dataMessage.func = 'MessageCheck';
+            const $response = internal_MessageCheck($dataMessage);
             if ($response.ok === 'false') {
 
-                internal_Log({
-                    'message': $response.message,
-                    'function_name': '_SortAdd',
-                    'object': $response,
-                    'level': 'warn'
-                });
+                if ($response.should_log === 'true') {
+                    internal_Log({
+                        'message': $response.message,
+                        'function_name': '_SortAdd',
+                        'object': $response,
+                        'level': 'warn'
+                    });
+                }
 
                 return; // The message was not OK and will be skipped
             }
@@ -1077,7 +1079,16 @@ function infohub_exchange() {
 
         let $response;
 
+        let $shouldLog = 'true';
+
         leave: {
+
+            $response = _CheckMessageVoid($in);
+            if ($response.ok === 'false') {
+                $shouldLog = $response.should_log;
+                break leave;
+            }
+
             $response = _CheckMessageStructure($in);
             if ($response.ok === 'false') {
                 break leave;
@@ -1102,11 +1113,59 @@ function infohub_exchange() {
             'message': $response.message,
             'data_message': $response.data_message,
             'ok': $response.ok,
+            'should_log': $shouldLog,
         };
     };
 
     /**
-     * Makes sure the message have the right structure.
+     * See if it is a message that we should just toss away without logging it.
+     * @param $in
+     * @returns {{answer: string, message: *, data_message: *}}
+     * @private
+     */
+    $functions.push('_CheckMessageVoid');
+    const _CheckMessageVoid = function($in = {}) {
+
+        let $ok = 'true';
+        let $shouldLog = 'true';
+        let $message = '';
+
+        leave: {
+            let $hasDestination = _Empty($in.to.node) === 'false' || _Empty($in.to.plugin) === 'false' || _Empty($in.to.function) === 'false';
+            if ($hasDestination === true) {
+                break leave;
+            }
+
+            let $isEmpty = _Empty($in.data) === 'true' && _Empty($in.data_request) === 'true' && _Empty($in.data_back) === 'true' && _Empty($in.callstack) === 'true';
+            if ($isEmpty === true) {
+                $message = 'The message is totally empty, so it is void';
+                $ok = 'false';
+                $shouldLog = 'false'; // Do not log this
+                break leave;
+            }
+
+            let $isStepVoid = _GetData({'name': 'data_back/step', 'data': $in, 'default': ''}) === 'step_void';
+            if ($isStepVoid === false) {
+                $message = 'The message is not a step_void message, so it is not void just yet';
+                break leave;
+            }
+
+            $ok = 'false';
+            $shouldLog = 'false'; // Do not log this
+            $message = 'The message is void. It has no destination and is a step_void message';
+        }
+
+        return {
+            'answer': 'true',
+            'message': $message,
+            'data_message': $in,
+            'ok': $ok,
+            'should_log': $shouldLog,
+        };
+    };
+
+    /**
+     * Makes sure the message has the right structure.
      * No more, no less.
      * @param $in
      * @returns {{answer: string, message: *, data_message: *}}
@@ -1177,7 +1236,7 @@ function infohub_exchange() {
     };
 
     /**
-     * Check that the message have a valid destination node.
+     * Check that the message has a valid destination node.
      * @param array $in
      * @return array
      */
@@ -1218,7 +1277,7 @@ function infohub_exchange() {
     };
 
     /**
-     * Check that the message follow the rules for whom it is allowed to talk to / answer to.
+     * Check that the message follows the rules for whom it is allowed to talk to / answer to.
      * @param array $in
      * @return array
      */
@@ -1501,7 +1560,9 @@ function infohub_exchange() {
                     'plugin': 'infohub_exchange',
                     'function': 'main',
                 },
-                'data_back': {},
+                'data_back': {
+                    'step': 'step_void'
+                },
             };
 
             internal_Log({

@@ -1,19 +1,32 @@
 # InfoHub - Your private web operating system
 
-![InfoHub Logo](folder/doc/images/logotype/infohub-logo-done.png)   
-InfoHub is your private operating system in your browser. You reach your encrypted data on all your devices and can run the InfoHub applications you like.
+![InfoHub Logo](folder/doc/images/logotype/infohub-logo-done.png)
+You reach your encrypted data on all your devices and can run the InfoHub applications you like.
 InfoHub is not about sharing. InfoHub run on your own or your friends trusted server, on the Internet or in your private network.
 
+After 15 years the core features are still being developed. InfoHub is stable and secure but lacks three things:
+* Automatic translations (LibreTranslate will be used) - Working on that now for version 1.3.40
+* Automatic sync of your data between client and server (The Three plugin) - Will be version 1.3.50 
+* Applications - Will come a lot of those when the Three plugin is finished.
+
+InfoHub send messages between plugins. That makes all your functions pure, and most core functions are also pure.
+
+Client is written in Javascript. Server is written in PHP. The core files are row by row identical between the languages.
+
+| Start your programs from the Workbench                 | Add favorite programs in its own list                        |
+|--------------------------------------------------------|--------------------------------------------------------------|
+| ![Start program](folder/doc/images/start-program.gif)  | ![Add favorite](folder/doc/images/favorite-add.gif)          |
+| Switch between favorites and all programs              | Open your favorite app directly                              |
+| ![List favorites](folder/doc/images/favorite-list.gif) | ![List favorites](folder/doc/images/open-app-new-window.gif) |
+
 Here are some [screenshots](folder/doc/main/gallery/main_gallery.md). 
-You can find [articles](https://github.com/peterlembke/infohub-articles#readme) in Swedish and English. 
-See the [home page](https://infohub.se) for a demo.
+You can test [Infohub](https://infohub.se) yourself. There are demo accounts.
+You can find [articles](https://github.com/peterlembke/infohub-articles#readme) in Swedish and English.
 
 ![GitHub Release Date](https://img.shields.io/github/release-date/peterlembke/infohub)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/peterlembke/infohub)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/peterlembke/infohub)
-
-![X Follow](https://img.shields.io/twitter/follow/LembkePeter?style=social)
 
 # License
 License: GNU [GPL-3.0-or-later](LICENSE.md). See license [details](folder/doc/license/license.md).
@@ -36,9 +49,6 @@ InfoHub is complete. InfoHub Core get new features. Applications for InfoHub wil
 
 You can follow the releases on [Twitter](https://twitter.com/LembkePeter)
 
-# Site owner
-As a site owner, if you want to use the branding "**Applies to the InfoHub terms**" and/or the corresponding logo ![InfoHub logo](folder/favicon.png) you need to comply to the additional [TERMS.md](TERMS.md).
-
 # Backer
 You can support my effort with money on [![PayPal.Me link](folder/doc/images/paypal.png)](https://www.paypal.com/paypalme/peterlembke).  
 Thank you for your contribution.
@@ -52,9 +62,9 @@ Check the existing issues to avoid duplicates.
 I need to get back on that when I have read up on how this works.  
 [How to contribute](https://www.dataschool.io/how-to-contribute-on-github/)
 
-# License
-This documentation is copyright (C) 2016 Peter Lembke.  
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
-You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later  
+# Contact
+* ![X Follow](https://img.shields.io/twitter/follow/LembkePeter?style=social)
+* [Github](https://github.com/peterlembke)
+* [Blog contact](https://blog.infohub.se/contact/)
 
-Updated 2023-08-24
+Updated 2024-06-03

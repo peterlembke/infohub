@@ -1,16 +1,18 @@
 {
     "version": {
-        "date": "2021-08-29 19:46:32",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_debug",
-        "data_checksum": "f743afdce460f3ad0ad8519b9d3efa30",
+        "data_checksum": "3fa25f0c79826e74e9c04bcb4cae91d9",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Debug",
+        "title": "Debugging tool",
         "description": "Tool for developers and testers."
     },
     "data": {

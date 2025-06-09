@@ -1198,11 +1198,12 @@ function infohub_login_login() {
                 'message': '',
                 'file_name': '',
                 'contents': '',
+                'file_exist': 'false',
             };
             $in.response = _Default($default, $in.response);
 
             $in.step = 'step_end';
-            if ($in.answer === 'true') {
+            if ($in.answer === 'true' && $in.response.file_exist === 'true') {
                 $in.step = 'step_file_write';
             }
         }

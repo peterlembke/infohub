@@ -1,13 +1,15 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_tools",
-        "data_checksum": "d3d207c732a704126fb48ec80dc23c12",
+        "data_checksum": "343295edb6aaa10ead51a598a2e8cbc3",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
         "title": "Tools",

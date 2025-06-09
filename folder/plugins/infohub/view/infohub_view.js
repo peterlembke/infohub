@@ -2513,6 +2513,34 @@ function infohub_view() {
     };
 
     /**
+     * Add value or innerHTML on an object
+     * @version 2024-11-10
+     * @since 2024-11-10
+     * @author Peter Lembke
+     */
+    $functions.push('internal_AddHtml');
+    const internal_AddHtml = function($in = {}) {
+        const $default = {
+            'id': '', // id for the object
+            'text': '', // Text you want to add to the object
+        };
+        $in = _Default($default, $in);
+
+        let $response = internal_Cmd({
+            'func': 'GetHtml',
+            'id': $in.id,
+        });
+
+        let $text = $response.html + "<br>" + $in.text;
+
+        return internal_Cmd({
+            'func': 'SetText',
+            'id': $in.id,
+            'text': $text,
+        });
+    };
+
+    /**
      * Set the font size for the whole document
      * @version 2018-08-23
      * @since 2018-08-23

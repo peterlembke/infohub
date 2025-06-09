@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:00:18",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ar",
+        "language_name": "Arabic",
+        "language_name_local": "العربية",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "اسحب",
+        "description": "يمكنك الدخول إلى الخادم، تسجيل، وضع أو تغيير كلمة السر الخاصة بك."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "التعليمات",
+            "USE_THE_MENU._KEY": "استخدم القائمة.",
+            "WHAT_IS_THIS?_KEY": "ما هذا؟?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "اتصال واحد",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "هذا هو استمارة البيانات لتواصل واحد",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "أي نص تريد",
+            "NOTE_KEY": "ملاحظة",
+            "SAVE_KEY": "أنقذ",
+            "DOMAIN_ADDRESS_KEY": "عنوان Domain",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "عنوان المجال لخادمكم",
+            "USER_NAME_KEY": "اسم المستخدم",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "هذا أنت على الخادم",
+            "SHARED_SECRET_KEY": "سرية مشتركة",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "تشارك هذا السر مع الخادم",
+            "CHECKSUM_KEY": "كشوف",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "كش ملك العنوان + اسم المستخدم + سر مشترك.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "الخادم المسموح به",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "قائمة بأسماء الخادم المزيفة يمكنك إرسال رسائل إلى على العقد البعيد"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "الاتصال بالصادرات",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "هنا يمكنك تصدير بيانات الاتصال",
+            "EXPORT_KEY": "الصادرات"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "انسى الاتصال",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "هنا يمكنك أن تدع المنظف ينسى بيانات الاتصال.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "يمكنك دائما استيراد ملفك مرة أخرى.",
+            "FORGET_KEY": "انسى"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "الواردات",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "استيراد معلومات الاتصال من الملف",
+            "SELECT_FILE_KEY": "ملفات مختارة"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "هنا يمكنك استخدام بيانات الاتصال التي استوردتها وتسجلها للخادم",
+            "PASSWORD_KEY": "كلمة السر",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "كلمة السر التي تحتاجها لتحلل السر المشترك",
+            "LOGIN_RESULT_KEY": "النتيجة",
+            "RELOAD_AFTER_LOGIN_KEY": "Reload after login",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "لقد سجلت بالفعل",
+            "MISSING_USER_NAME_KEY": "اسم المستخدم المفقود",
+            "MISSING_RANDOM_CODE_KEY": "الرمز العشوائي المفقود",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "الجواب من الخادم استغرق وقتاً طويلاً.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "أنا سَأَتْركُ محاولةَ الدخولَ",
+            "FAILED_TO_LOGIN_KEY": "فشل في الدخول",
+            "SUCCESS_LOGGING_IN_KEY": "قطع الأشجار بنجاح",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "الشفرة العشوائية ليس لها طول صحيح",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "من غير المحتمل أن المتوسط الكلي ليس له عشرات",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "من غير المحتمل أن يكون المتوسط مساويا للمتوسط الإجمالي",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "هذه الاختبارات البسيطة تظهر أن الشفرة العشوائية على الأقل ليست خط مسطح من الأرقام."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Logout",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "هنا يمكنك الدخول من الخادم",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "إذا نجحت في ذلك، فإن صفحة الدخول تظهر",
+            "LOGOUT_RESULT_KEY": "النتيجة",
+            "FAILED_TO_LOGOUT_KEY": "فشل في قطع الأشجار",
+            "SUCCESS_LOGGING_OUT_KEY": "النجاح في قطع الأشجار"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menu",
+            "IMPORT_CONTACT_DATA_KEY": "بيانات الاتصال بالواردات",
+            "LOGIN_KEY": "Login",
+            "SET_PASSWORD_KEY": "رمز كلمة السر",
+            "EXPORT_CONTACT_DATA_KEY": "بيانات الاتصال بالصادرات",
+            "LOGOUT_KEY": "Logout",
+            "FORGET_CONTACT_KEY": "انسى الاتصال"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "رمز كلمة السر",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "عندما تضعين كلمة المرور المحلية تحطمين السر المشترك حتى يتطلب الأمر كلمة المرور الخاصة بك",
+            "CURRENT_PASSWORD_KEY": "كلمة السر الحالية",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "إتركها فارغة إن لم يكن لديك",
+            "NEW_PASSWORD_KEY": "كلمة سر جديدة",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "إترك فارغاً إذا أردت إزالة كلمة السر",
+            "CHANGE_PASSWORD_KEY": "تغيير كلمة السر"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Login",
+            "SELECT_FILE_KEY": "ملفات مختارة",
+            "PASSWORD_KEY": "كلمة السر",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "حساب التحميل",
+            "LOGIN_RESULT_KEY": "النتيجة",
+            "MORE_KEY": "أكثر",
+            "CURRENT_URL_KEY": "الحالي",
+            "REFRESH_PAGE_KEY": "تنقيح الصفحة"
+        }
+    }
+}

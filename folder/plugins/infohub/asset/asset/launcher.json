@@ -1,6 +1,6 @@
 {
     "plugin": "infohub_asset",
-    "title": "Asset",
+    "title": "License information",
     "description": "Show license information for all used assets",
     "keywords": "icon,asset,license,view,creator,source,information",
     "uses": []

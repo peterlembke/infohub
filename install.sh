@@ -9,9 +9,22 @@ git clone git@github.com:peterlembke/rox.git
 
 echo ""
 echo "---<<< Copying InfoHub ROX config files to ROX >>>---"
-\cp -rfv folder/dev.local/project.conf rox/
-\cp -rfv folder/dev.local/images/app/* rox/images/app/
-\cp -rfv folder/dev.local/images/web/* rox/images/web/
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=linux;;
+    Darwin*)    machine=mac;;
+esac
+
+\cp -rfv folder/dev.local/project.conf."${machine}" rox/project.conf."${machine}"
+
+\cp -rfv folder/dev.local/images/app/.gitignore rox/images/app/
+\cp -rfv folder/dev.local/images/app/opcache-on.blacklist rox/images/app/
+
+\cp -rfv folder/dev.local/images/web/.gitignore rox/images/web/
+\cp -rfv folder/dev.local/images/web/certificates/*.cnf rox/images/web/certificates/
+\cp -rfv folder/dev.local/images/web/certificates/*.crt rox/images/web/certificates/
+\cp -rfv folder/dev.local/images/web/certificates/*.key rox/images/web/certificates/
 
 echo ""
 echo "---<<< Copying InfoHub example config files to the config folder >>>---"

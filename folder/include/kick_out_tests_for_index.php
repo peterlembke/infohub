@@ -23,7 +23,7 @@ class kick_out_tests_for_index
 {
 
     /**
-     * Main function that run all tests
+     * Main the function that runs all tests
      */
     public function tests(): void
     {
@@ -68,7 +68,7 @@ class kick_out_tests_for_index
 
     /**
      * Check that we only have valid cookies.
-     * Delete all others cookies
+     * Delete all other cookies
      */
     protected function validCookies(): void
     {
@@ -89,7 +89,7 @@ class kick_out_tests_for_index
 
     /**
      * Referer logging is used to allow websites and web servers to identify where people are visiting them from,
-     * for promotional or statistical purposes. InfoHub do not want that information.
+     * for promotional or statistical purposes. InfoHub does not want access to that information.
      * That is why I ask you to start the URL directly and not from a link.
      * https://en.wikipedia.org/wiki/HTTP_referer
      */
@@ -151,9 +151,16 @@ class kick_out_tests_for_index
             'fullstop.flag',
             'manifest.json',
             'manifest.php',
-            'infohub.png',
+            'images',
+            'images/infohub-72.png',
+            'images/infohub-96.png',
+            'images/infohub-128.png',
+            'images/infohub-144.png',
+            'images/infohub-152.png',
+            'images/infohub-192.png',
             'infohub.svg',
-            'infohub-512.png',
+            'images/infohub-384.png',
+            'images/infohub-512.png',
             'robots.txt',
             'serviceworker.js',
             'blog',
@@ -195,7 +202,7 @@ class kick_out_tests_for_index
     }
 
     /**
-     * If you end up here you will be thrown out
+     * If you end up here, you will be thrown out
      * @param  string  $message A message to display to the user
      * @return void
      */
@@ -212,6 +219,3 @@ class kick_out_tests_for_index
     }
 
 }
-
-$kick = new kick_out_tests_for_index();
-$kick->tests();

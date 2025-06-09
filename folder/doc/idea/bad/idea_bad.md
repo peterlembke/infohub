@@ -27,7 +27,8 @@ InfoHub can not safely handle your credentials.
 Garmin does not have an open API, so it is not cool to force break it. The data on Garmin is their property, so you must act according to Garmin rules.
 
 ### Client to a social network
-All information you store on for example Google, Facebook, Twitter, Instagram and so on is the property of the company. You may think that you own the data since you are allowed to delete some data but that is not the case.
+All information you store on for example Google, Facebook, Twitter, Instagram and so on is the property of the company. 
+You may think that you own the data since you are allowed to delete some data but that is not the case.
 Use the social networks as they were intended to be used, or don't use them at all.
 
 ### Embed contents
@@ -79,10 +80,15 @@ Data that was intended for view on a web page can be stolen. It is not cool to d
 InfoHub is about privacy and private data. Stockpiling public data in InfoHub is not very useful.
 Often an external link to Wikipedia would be better if you want to read publicly available information about a city, a name, a date etc.
 
+### Processing data and cron jobs
+InfoHub is not a data processing platform. It is a platform for your personal private data.
+If you want to process data in queues, please use Laravel for that.
+Same thing with maintenance jobs started with a scheduler like crontab. There should not be anything to maintain in InfoHub.
+
 # License
 This documentation is copyright (C) 2021 Peter Lembke.  
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  
 You should have received a copy of the GNU Free Documentation License along with this documentation. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).  SPDX-License-Identifier: GFDL-1.3-or-later
 
 Created 2021-11-21 by Peter Lembke  
-Changed 2021-11-21 by Peter Lembke  
+Changed 2024-11-10 by Peter Lembke  

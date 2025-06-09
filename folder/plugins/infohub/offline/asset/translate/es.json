@@ -1,29 +1,32 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:50",
         "plugin": "infohub_offline",
-        "data_checksum": "8f51ae67678e6cd58a53cfa62e4a57a2",
+        "data_checksum": "5c076bbee964fe439cd56f0065f900c6",
         "language": "es",
-        "language_name": "spanish",
-        "country": "ES",
-        "country_name": "Spain",
-        "file_type": "translate_file"
+        "language_name": "Spanish",
+        "language_name_local": "Español",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Offline",
-        "description": "Here you can prepare for offline. Also handle offline\/online event subscribers."
+        "title": "Trabajo sin internet",
+        "description": "Aquí puede prepararse para trabajar sin el acceso al servidor. Descargas datos que usted podría necesitar."
     },
     "data": {
         "infohub_offline": {
-            "OFFLINE_TOOLS_KEY": "Offline tools",
-            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Tools to see if you are online or offline.",
-            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "See what plugins are subscribing to that event.",
-            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Buttons to download and store data to prepare for offline usage.",
-            "DOWNLOAD_PLUGINS_KEY": "Download plugins",
-            "DOWNLOAD_ASSETS_KEY": "Download assets",
-            "DOWNLOAD_DOCUMENTATION_KEY": "Download documentation",
-            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
-            "STATUS_KEY": "Status"
+            "OFFLINE_TOOLS_KEY": "Herramientas de línea",
+            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Herramientas para ver si está en línea o fuera de línea.",
+            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "Vea qué plugins están subscribiendo a ese evento.",
+            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Botones para descargar y almacenar datos para prepararse para el uso offline.",
+            "DOWNLOAD_PLUGINS_KEY": "Descargar plugins",
+            "OF_KEY": "De",
+            "DOWNLOAD_ASSETS_KEY": "Descargar activos",
+            "DOWNLOAD_DOCUMENTATION_KEY": "Descargar documentación",
+            "SHOW_SUBSCRIBERS_KEY": "Mostrar suscriptores",
+            "STATUS_KEY": "Situación"
         }
     }
 }

@@ -1,27 +1,29 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:50",
         "plugin": "infohub_keyboard",
-        "data_checksum": "0d0487c89ba341103fd77fbb08b6e487",
+        "data_checksum": "c58e1022aafedc6fa6e96fbad571148c",
         "language": "es",
-        "language_name": "spanish",
-        "country": "ES",
-        "country_name": "Spain",
-        "file_type": "translate_file"
+        "language_name": "Spanish",
+        "language_name_local": "Español",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Keyboard",
-        "description": "Subscribe to key combinations."
+        "title": "Teclado",
+        "description": "Aquí puede suscribirse a combinaciones de teclado y atarlas a funciones."
     },
     "data": {
         "infohub_keyboard": {
-            "KEYBOARD_TESTS_KEY": "Keyboard tests",
-            "TRY_COMBINATIONS_ON_YOUR_KEYBOARD_KEY": "Try combinations on your keyboard",
-            "ANY_BUTTON_KEY": "Any button",
-            "SUBSCRIBE_KEY": "Subscribe",
-            "UNSUBSCRIBE_KEY": "Unsubscribe",
-            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
-            "KEYBOARD_DEMO_POPUP_KEY": "Keyboard demo popup"
+            "KEYBOARD_TESTS_KEY": "Pruebas de teclado",
+            "TRY_COMBINATIONS_ON_YOUR_KEYBOARD_KEY": "Prueba combinaciones en tu teclado",
+            "ANY_BUTTON_KEY": "Cualquier botón",
+            "SUBSCRIBE_KEY": "Suscríbete",
+            "UNSUBSCRIBE_KEY": "Suscripción",
+            "SHOW_SUBSCRIBERS_KEY": "Mostrar suscriptores",
+            "KEYBOARD_DEMO_POPUP_KEY": "Teclado demo popup"
         }
     }
 }

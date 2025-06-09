@@ -1,33 +1,35 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:49:04",
         "plugin": "infohub_doc",
-        "data_checksum": "0fb9ef526a1e13e98d26b8f25e55c1ed",
+        "data_checksum": "1c6cb8325b8b187828651c4f0c30c026",
         "language": "sv",
-        "language_name": "swedish",
-        "country": "SE",
-        "country_name": "Sweden",
-        "file_type": "translate_file"
+        "language_name": "Swedish",
+        "language_name_local": "Svenska",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Doc",
-        "description": "Full documentation over Infohub and all plugins."
+        "title": "Dokumentation",
+        "description": "Full dokumentation över InfoHub och alla plugins."
     },
     "data": {
         "infohub_doc_document": {
-            "DOCUMENT_KEY": "Document",
-            "HERE_YOU_WILL_SEE_THE_DOCUMENT_KEY": "Here you will see the document"
+            "DOCUMENT_KEY": "Dokument",
+            "HERE_YOU_WILL_SEE_THE_DOCUMENT_KEY": "Här ser du dokumentet"
         },
         "infohub_doc_index": {
             "REFRESH_INDEX_KEY": "Refresh index",
             "INDEX_KEY": "Index"
         },
         "infohub_doc_navigate": {
-            "REFRESH_NAVIGATE_KEY": "Refresh navigate",
+            "REFRESH_NAVIGATE_KEY": "Färsk navigat",
             "NAVIGATION_KEY": "Navigation"
         },
         "infohub_doc_visited": {
-            "REFRESH_VISITED_KEY": "Refresh visited"
+            "REFRESH_VISITED_KEY": "Refresh besökt"
         }
     }
 }

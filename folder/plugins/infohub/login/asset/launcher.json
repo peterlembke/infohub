@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_login",
-    "title": "Login",
-    "description": "Handles your login to the server",
+    "title": "Log in",
+    "description": "You can log in to the server, log out, set or change your password.",
     "keywords": "login,access,enter,sign,logout,encrypt",
     "uses": [
         "infohub_login_contact",

@@ -55,7 +55,7 @@ header('Referrer-Policy: same-origin');
 
 // https://www.permissionspolicy.com/
 // Turn off features in your browser that could overstep your privacy or goes against the InfoHub purpose.
-header('Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(self), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(self), magnetometer=(), microphone=(), midi=(self), payment=(), picture-in-picture=(), publickey-credentials-get=(self), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(self)');
+header('Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(self), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(self), magnetometer=(), microphone=(), midi=(self), payment=(), picture-in-picture=(), publickey-credentials-get=(self), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(self)');
 
 $GLOBALS['infohub_error_message'] = ''; // // Only used by infohub_base::test
 $GLOBALS['infohub_minimum_error_level'] = 'log'; // error (default). debug, log, info, error

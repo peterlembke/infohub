@@ -281,7 +281,7 @@ function infohub_contact_client() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_role_list]',
+                            'content': '[text_node][text_note][text_domain_address][text_user_name][text_shared_secret][list_role_list][checkbox_has_password]',
                             'label': _Translate('ONE_CONTACT'),
                             'description': _Translate('THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT')
                         },
@@ -350,6 +350,16 @@ function infohub_contact_client() {
                                 { "type": "option", "value": "admin", "label": _Translate("ADMIN") }
                             ],
                         },
+                        'checkbox_has_password': {
+                            'plugin': 'infohub_renderform',
+                            'type': 'checkboxes',
+                            "label": _Translate("HAS_PASSWORD"),
+                            "description": _Translate("IF_IMPORTED_FILE_HAS_A_CLIENT_PASSWORD_SET_BY_THE_USER"),
+                            "options": [
+                                { "value": "has_password", "label": _Translate("HAS_PASSWORD")}
+                            ],
+                            'enabled': 'false',
+                        },
                         'client_icon': {
                             'type': 'common',
                             'subtype': 'svg',
@@ -377,9 +387,31 @@ function infohub_contact_client() {
                     'cache_key': 'client',
                 },
                 'data_back': {
-                    'step': 'step_end',
+                    'step': 'step_refresh_list',
+                    'parent_box_id': $in.parent_box_id,
                 },
             });
+        }
+
+        if ($in.step === 'step_refresh_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_contact_client',
+                    'function': 'click_refresh',
+                },
+                'data': {
+                    'box_id': $in.parent_box_id + '02', // Hard coded. Not good.
+                },
+                'data_back': {
+                    'parent_box_id': $in.parent_box_id,
+                    'step': 'step_refresh_list_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_refresh_list_response') {
+            $in.step = 'step_end';
         }
 
         return {
@@ -418,7 +450,7 @@ function infohub_contact_client() {
                     'function': 'render_options',
                 },
                 'data': {
-                    'id': $in.box_id + '_list_contacts_form_element',
+                    'id': $in.box_id + '_list_contacts_list_contacts',
                     'source_node': 'server',
                     'source_plugin': 'infohub_contact',
                     'source_function': 'load_node_list',
@@ -473,6 +505,7 @@ function infohub_contact_client() {
                         'text_user_name': {'value': ''},
                         'text_shared_secret': {'value': ''},
                         'list_role_list': {'value': {}},
+                        'checkbox_has_password.has_password': {'value': 'false'}
                     },
                 },
                 'data_back': {
@@ -541,6 +574,7 @@ function infohub_contact_client() {
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
                     'role_list': $in.response.form_data.list_role_list.value,
+                    'has_password': $in.response.form_data["checkbox_has_password.has_password"].value === 'true' ? 'true' : 'false',
                 };
                 $in.step = 'step_save_node_data';
             }
@@ -577,8 +611,37 @@ function infohub_contact_client() {
 
         if ($in.step === 'step_save_node_data_response') {
             $ok = 'true';
+            $in.step = 'step_refresh_list';
             if ($in.answer === 'false') {
                 $in.step = 'step_end';
+                $ok = 'false';
+            }
+        }
+
+        if ($in.step === 'step_refresh_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_contact_client',
+                    'function': 'click_refresh',
+                },
+                'data': {
+                    'box_id': $in.box_id,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_refresh_list_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_refresh_list_response') {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.message = 'Contact saved and list refreshed';
+                $ok = 'true';
+            } else {
+                $in.message = 'Contact saved but list not refreshed';
                 $ok = 'false';
             }
         }
@@ -670,8 +733,37 @@ function infohub_contact_client() {
 
         if ($in.step === 'step_delete_node_data_response') {
             $ok = 'true';
+            $in.step = 'step_refresh_list';
             if ($in.answer === 'false') {
                 $in.step = 'step_end';
+                $ok = 'false';
+            }
+        }
+
+        if ($in.step === 'step_refresh_list') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_contact_client',
+                    'function': 'click_refresh',
+                },
+                'data': {
+                    'box_id': $in.box_id,
+                },
+                'data_back': {
+                    'box_id': $in.box_id,
+                    'step': 'step_refresh_list_response',
+                },
+            });
+        }
+
+        if ($in.step === 'step_refresh_list_response') {
+            $in.step = 'step_end';
+            if ($in.answer === 'true') {
+                $in.message = 'Contact deleted and list refreshed';
+                $ok = 'true';
+            } else {
+                $in.message = 'Contact deleted but list not refreshed';
                 $ok = 'false';
             }
         }
@@ -751,6 +843,9 @@ function infohub_contact_client() {
                         'text_user_name': {'value': $in.response.node_data.user_name},
                         'text_shared_secret': {'value': $in.response.node_data.shared_secret},
                         'list_role_list': {'value': $in.response.node_data.role_list},
+                        'checkbox_has_password.has_password': {
+                            'value': $in.response.node_data.has_password === 'true' ? 'true' : 'false',
+                        },
                     },
                 },
                 'data_back': {
@@ -815,6 +910,7 @@ function infohub_contact_client() {
                 'user_name': '',
                 'shared_secret': '',
                 'role_list': [],
+                'has_password': 'false',
             };
             $nodeData = _Default($defaultNodeData, $nodeData);
 
@@ -835,6 +931,9 @@ function infohub_contact_client() {
                         'list_role_list': {
                             'value': $nodeData.role_list,
                             'mode': '',
+                        },
+                        'checkbox_has_password.has_password': {
+                            'value': $nodeData.has_password === 'true' ? 'true' : 'false',
                         },
                     },
                 },
@@ -910,6 +1009,7 @@ function infohub_contact_client() {
                     'user_name': $in.response.form_data.text_user_name.value,
                     'shared_secret': $in.response.form_data.text_shared_secret.value,
                     'role_list': $in.response.form_data.list_role_list.value,
+                    'has_password': $in.response.form_data["checkbox_has_password.has_password"].value === 'true' ? 'true' : 'false',
                 };
                 $content = _JsonEncode($nodeData);
                 $in.step = 'step_file_write';
@@ -917,7 +1017,10 @@ function infohub_contact_client() {
         }
 
         if ($in.step === 'step_file_write') {
-            const $fileName = $nodeData.node + '.json';
+            let $fileName = $nodeData.node + '.json';
+
+            $fileName = 'infohub-contact-' + $fileName.toLowerCase().replaceAll(' ', '-');
+
             return _SubCall({
                 'to': {
                     'node': 'client',

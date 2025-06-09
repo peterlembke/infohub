@@ -313,13 +313,32 @@ class infohub_base
     }
 
     /**
-     * Wrapper so it is easier to change the places where json is used.
+     * Wrapper so it is easier to change the places where JSON is used.
+     *
      * @param  array  $dataArray
+     * @param  bool  $usePrettyPrint
+     * @param  bool  $usePreserveZeroFraction
+     * @param  bool  $useUnescapedUnicode
      * @return string
      */
-    protected function _JsonEncode(array $dataArray = []): string
+    protected function _JsonEncode(
+        array $dataArray = [],
+        bool $usePrettyPrint = false,
+        bool $usePreserveZeroFraction = true,
+        bool $useUnescapedUnicode = false
+    ): string
     {
-        $options = JSON_PRETTY_PRINT + JSON_PRESERVE_ZERO_FRACTION;
+        $options = 0;
+        if ($usePrettyPrint === true) {
+            $options += JSON_PRETTY_PRINT;
+        }
+        if ($usePreserveZeroFraction === true) {
+            $options += JSON_PRESERVE_ZERO_FRACTION;
+        }
+        if ($useUnescapedUnicode === true) {
+            $options += JSON_UNESCAPED_UNICODE;
+        }
+
         $jsonString = json_encode($dataArray, $options);
 
         if (empty($jsonString) === true) {
@@ -330,7 +349,7 @@ class infohub_base
     }
 
     /**
-     * Wrapper so it is easier to change the places where json is used.
+     * Wrapper so it is easier to change the places where JSON is used.
      * @param  string  $jsonString
      * @return array
      */
@@ -514,7 +533,7 @@ class infohub_base
         $statuses = [
             'never_existed' => [
                 'status' => 'never_existed',
-                'information' => 'Function "{this function}" have never existed in plugin {this plugin}. Or is it just missing in _GetCmdFunctions?',
+                'information' => 'Function "{this function}" have never existed in plugin {this plugin}.php. Or is it just missing in _GetCmdFunctions?',
                 'value' => 0
             ],
             'emerging' => [

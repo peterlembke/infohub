@@ -1,21 +1,23 @@
 {
     "version": {
-        "date": "2021-08-28 15:44:33",
+        "date": "2025-06-08 17:56:00",
         "plugin": "infohub_asset",
-        "data_checksum": "658df0d8a7b1de2d60e421f967a2e4a0",
+        "data_checksum": "4b8b2175f172389022784fdb24605692",
         "language": "hi",
-        "language_name": "hindi",
-        "country": "IN",
-        "country_name": "India",
-        "file_type": "translate_file"
+        "language_name": "Hindi",
+        "language_name_local": "हिन्दी",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "संपत्ति",
-        "description": "उपयोग की गई सभी संपत्तियों के लिए लाइसेंस जानकारी दिखाएं"
+        "title": "लाइसेंस जानकारी",
+        "description": "सभी प्रयुक्त परिसंपत्तियों के लिए लाइसेंस जानकारी दिखाएं"
     },
     "data": {
         "infohub_asset": {
-            "REFRESH_KEY": "ताज़ा करना"
+            "REFRESH_LIST_KEY": "ताज़ा सूची"
         }
     }
 }

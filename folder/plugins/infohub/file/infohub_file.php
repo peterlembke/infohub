@@ -514,6 +514,12 @@ class infohub_file extends infohub_base
     protected function _GetFileContent(
         string $path = ''
     ): string {
+
+        $isExisting = file_exists($path) === true;
+        if ($isExisting === false) {
+            return '';
+        }
+
         $fileContents = file_get_contents($path);
         if ($fileContents === false) {
             return '';
@@ -575,6 +581,7 @@ class infohub_file extends infohub_base
         $message = 'Here are the data';
 
         leave:
+
         return [
             'answer' => $answer,
             'message' => $message,
@@ -973,7 +980,8 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        $assetPath = PLUGINS . '/' . str_replace('_', '/', $in['plugin_name']) . '/asset';
+        $pluginName = $in['plugin_name'];
+        $assetPath = PLUGINS . '/' . str_replace('_', '/', $pluginName) . '/asset';
 
         $response = $this->internal_Cmd([
             'func' => 'GetFolderStructure',
@@ -989,21 +997,33 @@ class infohub_file extends infohub_base
         $data = [];
         $jsonIndex = [];
 
-        foreach ($response['data'] as $path) {
-            if (str_contains($path, '.') === false) {
+        foreach ($response['data'] as $filePath) {
+            if (str_contains($filePath, '.') === false) {
                 continue; // Path did not have a `.` in the name, meaning it is not a file and therefore not interesting.
+            }
+
+            $fileName = pathinfo($filePath, PATHINFO_BASENAME); // Example: sv.json
+            $storedPath = $pluginName . '/' . str_replace($assetPath . '/', '', $filePath);
+
+            $isTranslation = str_contains($filePath, '/asset/translate/') === true && str_ends_with($filePath, '.json') === true;
+            if ($isTranslation === true) {
+                // If there's an override in "folder/file/infohub_translate/" then we want to use that file instead.
+                $alternativeFilePath = FILE . DS . 'infohub_translate' . DS . $pluginName . DS . $fileName;
+                $isExisting = file_exists($alternativeFilePath) === true;
+                if ($isExisting === true) {
+                    $filePath = $alternativeFilePath;
+                    $storedPath = $pluginName . '/translate/' . $fileName;
+                }
             }
 
             $fileData = $this->internal_Cmd([
                 'func' => 'Read',
-                'path' => $path
+                'path' => $filePath
             ]);
 
             if ($fileData['file_exist'] === 'false') {
                 continue;
             }
-
-            $storedPath = $in['plugin_name'] . '/' . str_replace($assetPath . '/', '', $path);
 
             $lengthWithoutExtension = strlen($storedPath) - strlen($fileData['path_info']['extension']) - 1;
             $storedPathNoExtension = substr($storedPath, 0, $lengthWithoutExtension);
@@ -1096,6 +1116,18 @@ class infohub_file extends infohub_base
 
             $filePath = $assetPath . DS . $assetName;
 
+            $isTranslation = str_contains($filePath, '/asset/translate/') === true && str_ends_with($filePath, '.json') === true;
+            if ($isTranslation === true) {
+                // We want a translation file.
+                // However, if there's an override in "folder/file/infohub_translate/" then we want to use that file instead.
+                $alternativeFileName = pathinfo($filePath, PATHINFO_BASENAME); // Example: sv.json
+                $alternativeFilePath = FILE . DS . 'infohub_translate' . DS . $pluginName . DS . $alternativeFileName;
+                $isExisting = file_exists($alternativeFilePath) === true;
+                if ($isExisting === true) {
+                    $filePath = $alternativeFilePath;
+                }
+            }
+
             $fileData = $this->internal_Cmd([
                 'func' => 'Read',
                 'path' => $filePath
@@ -1146,7 +1178,8 @@ class infohub_file extends infohub_base
         $default = [
             'from_plugin' => ['node' => '', 'plugin' => ''],
             'type' => 'js', // js or php
-            'levels' => 5 // How deep down we want plugin names
+            'levels' => 5, // How deep down we want plugin names
+            'level1_plugin_name' => '' // Optional if you want to start from a specific plugin name
         ];
         $in = $this->_Default($default, $in);
 
@@ -1159,8 +1192,9 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
-        if ($in['from_plugin']['plugin'] !== 'infohub_plugin') {
-            $message = 'I only accept messages that origin from plugin infohub_plugin';
+        $isCorrectPlugin = in_array($in['from_plugin']['plugin'], ['infohub_plugin', 'infohub_libretranslate']) === true;
+        if ($isCorrectPlugin === false) {
+            $message = 'I only accept messages that origin from plugin infohub_plugin or infohub_libretranslate';
             goto leave;
         }
 
@@ -1169,9 +1203,14 @@ class infohub_file extends infohub_base
             goto leave;
         }
 
+        $pluginPath = PLUGINS;
+        if ($in['level1_plugin_name'] !== '') {
+            $pluginPath = PLUGINS . DS . str_replace(search: '_', replace: DS, subject: $in['level1_plugin_name']);
+        }
+
         $response = $this->internal_Cmd([
             'func' => 'GetFolderStructure',
-            'path' => PLUGINS,
+            'path' => $pluginPath,
             'pattern' => '*.' . $in['type'],
         ]);
 
@@ -1364,13 +1403,14 @@ class infohub_file extends infohub_base
     {
         $default = [
             'from_plugin' => ['node' => '', 'plugin' => ''],
-            'node' => 'server' // server or client
+            'node' => 'server', // server or client
+            'only_plugins_that_have_a_launcher' => 'false'
         ];
         $in = $this->_Default($default, $in);
 
         $answer = 'false';
         $message = 'Nothing to report from ' . $this->_GetClassName() . ' -> ' . __FUNCTION__;
-        $data = [];
+        $pluginNameLookup = [];
 
         if ($in['from_plugin']['node'] !== 'server') {
             $message = 'I only accept messages that origin from this server node';
@@ -1383,13 +1423,11 @@ class infohub_file extends infohub_base
         }
         $pattern = '*' . $suffix;
 
-        $response = $this->internal_Cmd(
-            [
-                'func' => 'GetFolderStructure',
-                'path' => PLUGINS,
-                'pattern' => $pattern,
-            ]
-        );
+        $response = $this->internal_Cmd([
+            'func' => 'GetFolderStructure',
+            'path' => PLUGINS,
+            'pattern' => $pattern,
+        ]);
 
         if ($response['answer'] === 'false') {
             $message = $response['message'];
@@ -1413,10 +1451,21 @@ class infohub_file extends infohub_base
             }
 
             $pluginName = substr($pluginName, 0, -$suffixLength);
-            $data[$pluginName] = [];
+            $pluginNameLookup[$pluginName] = [];
         }
 
-        ksort($data);
+        ksort($pluginNameLookup);
+
+        if ($in['only_plugins_that_have_a_launcher'] === 'true') {
+            foreach ($pluginNameLookup as $pluginName => $placeHolder) {
+                $pluginPath = str_replace('_', DS, $pluginName);
+                $requestedPath = PLUGINS . DS . $pluginPath . DS . 'asset' . DS . 'launcher.json';
+                $hasLauncher = file_exists($requestedPath) === true;
+                if ($hasLauncher === false) {
+                    unset($pluginNameLookup[$pluginName]);
+                }
+            }
+        }
 
         $answer = 'true';
         $message = 'Here are the list with all plugin names';
@@ -1425,7 +1474,7 @@ class infohub_file extends infohub_base
         return [
             'answer' => $answer,
             'message' => $message,
-            'data' => $data
+            'data' => $pluginNameLookup
         ];
     }
 
@@ -1621,8 +1670,9 @@ class infohub_file extends infohub_base
     }
 
     /**
-     * Give a plugin name array, and you get the source code for all js files indexed on each plugin name.
-     * Used ONLY by infohub_translate.php
+     * Give a plugin name array with level 1 plugins,
+     * and you get the source code for all js files indexed on each plugin name.
+     * Used ONLY by infohub_libretranslate.php
      *
      * @param  array  $in
      * @return array
@@ -1634,7 +1684,10 @@ class infohub_file extends infohub_base
     {
         $default = [
             'plugin_name_array' => [],
-            'from_plugin' => ['node' => '', 'plugin' => '']
+            'from_plugin' => [
+                'node' => '',
+                'plugin' => ''
+            ]
         ];
         $in = $this->_Default($default, $in);
 
@@ -1684,7 +1737,8 @@ class infohub_file extends infohub_base
                     'infohub_test_plugin_js' => '',
                 ];
 
-                if (isset($avoid[$pluginName])) {
+                $isToBeAvoided = isset($avoid[$pluginName]) === true;
+                if ($isToBeAvoided === true) {
                     continue;
                 }
 

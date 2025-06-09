@@ -25,30 +25,42 @@ if (file_exists('fullstop.flag') == true) {
 const DS = DIRECTORY_SEPARATOR;
 
 $currentWorkingDirectory = getcwd();
-$lastPosition = strrpos($currentWorkingDirectory, DS);
-// remove public_html to get the root directory
-$rootDirectory = substr($currentWorkingDirectory, $start = 0, $length = $lastPosition);
+$rootDirectory = str_replace('/public_html', '', $currentWorkingDirectory);
 
-$isFolderInfohubExisting = is_dir($rootDirectory . DS . 'infohub');
-if ($isFolderInfohubExisting === true) {
+$isFolderInfoHubExisting = is_dir($rootDirectory . DS . 'infohub') === true;
+if ($isFolderInfoHubExisting === true) {
     $rootDirectory = $rootDirectory . DS . 'infohub';
 }
 
 define('ROOT', $rootDirectory);
 const MAIN = ROOT.DS.'folder';
+setRights(path: MAIN);
 
-$folders = [
-    'INCLUDES' => MAIN . DS . 'include', // Files required by infohub.php or index.php
-    'PLUGINS' => MAIN . DS . 'plugins', // All plugins are here
-    'LOG' => ROOT . DS . 'log', // PHP logs and plugin logging
-    'DB' => MAIN . DS . 'db', // SQLite database files are stored here
-    'DOC' => MAIN . DS . 'doc', // All Infohub documentation
-    'CONFIG' => MAIN . DS . 'config', // Config file that override the one in the plugin folder
-    'FILE' => MAIN . DS . 'file' // Files for import/export. Used in the future for backup/restore of data
-];
+const INCLUDES = MAIN . DS . 'include'; // Files required by infohub.php or index.php
+setRights(path: INCLUDES);
 
-foreach ($folders as $name => $path) {
-    define($name, $path);
+const PLUGINS = MAIN . DS . 'plugins'; // All plugins are here
+setRights(path: PLUGINS);
+
+const LOG = ROOT . DS . 'log'; // PHP logs and plugin logging
+setRights(path: LOG);
+
+const DB = MAIN . DS . 'db'; // SQLite database files are stored here
+setRights(path: DB);
+
+const DOC = MAIN . DS . 'doc'; // All Infohub documentation
+setRights(path: DOC);
+
+const CONFIG = MAIN . DS . 'config'; // Config file that override the one in the plugin folder
+setRights(path: CONFIG);
+
+const FILE = MAIN . DS . 'file'; // Files for import/export. Used in the future for backup/restore of data
+setRights(path: FILE);
+
+const PUBLIC_HTML = ROOT . DS . 'public_html'; // Public files that are available for the web server
+setRights(path: PUBLIC_HTML);
+
+function setRights(string $path): void {
     if (is_dir($path) === false) {
         @mkdir($path, 0777, true);
     }
@@ -56,3 +68,4 @@ foreach ($folders as $name => $path) {
         @chmod($path, 0777);
     }
 }
+

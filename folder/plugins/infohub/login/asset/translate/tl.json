@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:21:52",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "tl",
+        "language_name": "Tagalog",
+        "language_name_local": "Tagalog",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Pumasok",
+        "description": "Maaari kang pumasok sa server, mag - log out, maglagay o magpalit ng password."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Tagubilin",
+            "USE_THE_MENU._KEY": "Gamitin ang menu.",
+            "WHAT_IS_THIS?_KEY": "Ano ito?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Isang pakikipag - ugnayan",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Ito ang anyong datos para sa isang contact",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Anumang teksto na gusto mo",
+            "NOTE_KEY": "Pansinin",
+            "SAVE_KEY": "Mag - ipon",
+            "DOMAIN_ADDRESS_KEY": "Pangunahing direksiyon",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Ang adres ng inyong server",
+            "USER_NAME_KEY": "Pangalan ng User",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Ito ang server",
+            "SHARED_SECRET_KEY": "Ibahagi ang sekreto",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Ibinabahagi mo ang sekretong ito sa server",
+            "CHECKSUM_KEY": "Pagsusuri",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum ng domain address + user na pangalan + kabahaging lihim.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Pinayagang mga plagin ng server",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "List na may lahat ng pangalan ng server plagin na maaari mong ipadala ang mga mensahe sa remote node"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Pakikipag - ugnayan sa ibang bansa",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Dito ay mailuluwas mo ang mga contact data",
+            "EXPORT_KEY": "Transportasyon"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Kalimutan ang pakikipag - ugnayan",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Dito ay maaari mong kalimutan ng browser ang contact data.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Maaari mong ipangkat muli ang iyong salansan.",
+            "FORGET_KEY": "Lumimot"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Pag - aangkat",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "I-port ang contact information mula sa talaksan",
+            "SELECT_FILE_KEY": "Pumili ng talaksan"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Dito ay magagamit mo ang impormasyon tungkol sa pag - uusap na inangkat mo at maipu - login sa server",
+            "PASSWORD_KEY": "Password",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Ang password na kailangan mong i - decode ang sekretong ibinigay sa iyo",
+            "LOGIN_RESULT_KEY": "Ang resulta ay Login",
+            "RELOAD_AFTER_LOGIN_KEY": "Muling pagkarga pagkatapos ng login",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Nakasulat ka na",
+            "MISSING_USER_NAME_KEY": "Nawawalang pangalan ng gumagamit",
+            "MISSING_RANDOM_CODE_KEY": "Nawawalang kodigong pasumala",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Ang sagot ng server ay napakatagal.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Iiwan ko ang login na pagtatangka",
+            "FAILED_TO_LOGIN_KEY": "Sawi ang pagpasok",
+            "SUCCESS_LOGGING_IN_KEY": "Matagumpay na pagtotroso",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Ang random code ay walang tamang haba",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Malamang na ang kabuuang katamtamang bilang ay walang mga numero",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Hindi malamang na ang katamtaman ay katumbas ng kabuuang katamtaman",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Ang simpleng mga pagsubok na ito ay nagpapakita na ang kodigong pasumalang sa paano man ay hindi isang patag na hanay ng mga numero."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Maingay",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Dito ay maaari kang mag - logout mula sa server",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Kung matagumpay nga ang mga palabas sa pahinang login",
+            "LOGOUT_RESULT_KEY": "Masamang resulta",
+            "FAILED_TO_LOGOUT_KEY": "Sawi sa pagpasok",
+            "SUCCESS_LOGGING_OUT_KEY": "Tagumpay sa pagtotroso"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menu",
+            "IMPORT_CONTACT_DATA_KEY": "I-port ang contact data",
+            "LOGIN_KEY": "Login",
+            "SET_PASSWORD_KEY": "Maglagay ng password",
+            "EXPORT_CONTACT_DATA_KEY": "I-port ang contact data",
+            "LOGOUT_KEY": "Maingay",
+            "FORGET_CONTACT_KEY": "Kalimutan ang pakikipag - ugnayan"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Maglagay ng password",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kapag naglagay ka ng password sa inyong lugar, naglilihim ka para kailangan mong magtrabaho ng password",
+            "CURRENT_PASSWORD_KEY": "Kasalukuyang password",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Umalis na blangko kung wala kang",
+            "NEW_PASSWORD_KEY": "Bagong password",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Itanggal ang password",
+            "CHANGE_PASSWORD_KEY": "Palitan ang password"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Login",
+            "SELECT_FILE_KEY": "Pumili ng talaksan",
+            "PASSWORD_KEY": "Password",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo account",
+            "LOGIN_RESULT_KEY": "Ang resulta ay Login",
+            "MORE_KEY": "Higit pa",
+            "CURRENT_URL_KEY": "Kasalukuyang url",
+            "REFRESH_PAGE_KEY": "Bagong pahina"
+        }
+    }
+}

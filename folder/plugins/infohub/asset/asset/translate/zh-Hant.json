@@ -1,0 +1,23 @@
+{
+    "version": {
+        "date": "2025-06-08 17:58:50",
+        "plugin": "infohub_asset",
+        "data_checksum": "4b8b2175f172389022784fdb24605692",
+        "language": "zh-Hant",
+        "language_name": "Chinese (traditional)",
+        "language_name_local": "中文( 傳統 )",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "授權資訊",
+        "description": "顯示所有已用資產的授權資訊"
+    },
+    "data": {
+        "infohub_asset": {
+            "REFRESH_LIST_KEY": "刷新清單"
+        }
+    }
+}

@@ -27,8 +27,19 @@ if (basename(__FILE__) !== basename($_SERVER['SCRIPT_FILENAME'])) {
 }
 include_once 'define_folders.php';
 include_once INCLUDES.DS.'settings_and_errors.php';
+
 include_once INCLUDES.DS.'kick_out_tests_for_index.php';
+$kick = new kick_out_tests_for_index();
+$kick->tests();
+
 include_once INCLUDES.DS.'application_data.php';
+
+$appData = new application_data(
+    mainPath: MAIN,
+    pluginPath: PLUGINS,
+    configPath:CONFIG
+);
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -48,7 +59,7 @@ include_once INCLUDES.DS.'application_data.php';
     <?php
     $globalCss = file_get_contents(INCLUDES.'/infohub_global.css');
     $faviconPng = $appData->getIconData('png');
-    $infohubSvg = file_get_contents(PLUGINS.'/infohub/welcome/asset/icon/infohub-logo-done.svg');
+    $infoHubSvg = file_get_contents(PLUGINS.'/infohub/welcome/asset/icon/infohub-logo-done.svg');
 
     $checksum = md5($globalCss).md5($faviconPng);
     ?>
@@ -62,7 +73,7 @@ include_once INCLUDES.DS.'application_data.php';
 <div id="sanity" class="sanity" box_alias="sanity"></div>
 <div id="log" class="log" box_alias="log"></div>
 <div id="1" box_mode="data" class="main" box_alias="main">
-    <div style="width:50%;display: block; margin-left: auto; margin-right: auto;"><?php echo $infohubSvg; ?></div>
+    <div style="width:50%;display: block; margin-left: auto; margin-right: auto;"><?php echo $infoHubSvg; ?></div>
     <progress id="progress" value="0" max="100"></progress>
     <div id="progress_text"></div>
     <noscript>

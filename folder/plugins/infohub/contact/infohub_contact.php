@@ -70,6 +70,25 @@ class infohub_contact extends infohub_base
     }
 
     /**
+     * Node data default item
+     *
+     * @return array
+     */
+    protected function _getDefaultNodeData(): array {
+        $defaultNodeData = [
+            'node' => '', // Name of this connection. This is also a node name in messages.
+            'note' => '',
+            'domain_address' => '', // We log in to this destination domain
+            'user_name' => '', // Your identity
+            'shared_secret' => '', // 2Kb random bytes base64 encoded
+            'role_list' => [],
+            'has_password' => 'false' // Password is a client affair.
+        ];
+
+        return $defaultNodeData;
+    }
+
+    /**
      * Save node data to Storage
      * @param array $in
      * @return array
@@ -81,14 +100,7 @@ class infohub_contact extends infohub_base
     {
         $default = [
             'type' => 'server', // server or client
-            'node_data' => [
-                'node' => '', // Name of this connection. This is also a node name in messages.
-                'note' => '',
-                'domain_address' => '', // We log in to this destination domain
-                'user_name' => '', // Your identity
-                'shared_secret' => '', // 2Kb random bytes base64 encoded
-                'role_list' => []
-            ],
+            'node_data' => $this->_getDefaultNodeData(),
             'from_plugin' => [
                 'node' => ''
             ],
@@ -284,14 +296,7 @@ class infohub_contact extends infohub_base
                 'post_exist' => 'false'
             ],
             'config' => [
-                'contact' => [
-                    'node' => '',
-                    'note' => '',
-                    'domain_address' => '',
-                    'user_name' => '',
-                    'shared_secret' => '',
-                    'role_list' => []
-                ]
+                'contact' => $this->_getDefaultNodeData()
             ],
             'from_plugin' => [
                 'node' => '',
@@ -363,14 +368,7 @@ class infohub_contact extends infohub_base
             }
         }
 
-        $default = [
-            'node' => '',
-            'note' => '',
-            'domain_address' => '',
-            'user_name' => '',
-            'shared_secret' => '',
-            'role_list' => []
-        ];
+        $default = $this->_getDefaultNodeData();
         $out['node_data'] = $this->_Default($default, $out['node_data']);
 
         return [
@@ -453,13 +451,8 @@ class infohub_contact extends infohub_base
         }
 
         if ($in['step'] === 'step_clean_list') {
-            $default = [
-                'node' => '',
-                'note' => '',
-                'domain_address' => '',
-                'user_name' => '',
-                'role_list' => []
-            ];
+            $default = $this->_getDefaultNodeData();
+            unset($default['shared_secret']); // We do not want to send the shared secret to the client in a list
 
             foreach ($out['node_list'] as $node => $data) {
                 $out['node_list'][$node] = $this->_Default($default, $data);

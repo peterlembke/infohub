@@ -672,6 +672,7 @@ class infohub_login extends infohub_base
             $default = [
                 'answer' => 'false',
                 'message' => '',
+                'file_exist' => 'false',
                 'contents' => '',
                 'path_info' => [
                     'basename' => ''
@@ -679,11 +680,18 @@ class infohub_login extends infohub_base
             ];
             $in['response'] = $this->_Default($default, $in['response']);
 
+            $isFileExisting = $in['response']['file_exist'] === 'true' ? 'true' : 'false';
+            if ($isFileExisting === 'false') {
+                $fileName = $in['response']['path_info']['basename'] ?? '';
+                $in['response']['message'] = 'The file does not exist: ' . $fileName . '. Ask the server admin to copy the file from folder/config_example/infohub_login to folder/file/infohub_login.';
+            }
+
             $out = [
-                'answer' => $in['response']['answer'],
+                'answer' => $isFileExisting,
                 'message' => $in['response']['message'],
                 'contents' => $in['response']['contents'],
-                'file_name' => $in['response']['path_info']['basename']
+                'file_name' => $in['response']['path_info']['basename'],
+                'file_exist' => $isFileExisting
             ];
         }
 
@@ -691,7 +699,8 @@ class infohub_login extends infohub_base
             'answer' => $out['answer'],
             'message' => $out['message'],
             'contents' => $out['contents'],
-            'file_name' => $out['file_name']
+            'file_name' => $out['file_name'],
+            'file_exist' => $out['file_exist'],
         ];
     }
 

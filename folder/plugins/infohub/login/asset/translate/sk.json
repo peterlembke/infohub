@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:27:20",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "sk",
+        "language_name": "Slovak",
+        "language_name_local": "Slovenský",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Prihlásiť sa",
+        "description": "Môžete sa prihlásiť na server, odhlásiť, nastaviť alebo zmeniť heslo."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Pokyny",
+            "USE_THE_MENU._KEY": "Použi menu.",
+            "WHAT_IS_THIS?_KEY": "Čo je to?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Jeden kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Toto je dátový formulár pre jeden kontakt",
+            "NODE_KEY": "Uzol",
+            "ANY_TEXT_YOU_WANT_KEY": "Akýkoľvek text, ktorý chcete",
+            "NOTE_KEY": "Poznámka",
+            "SAVE_KEY": "Uložiť",
+            "DOMAIN_ADDRESS_KEY": "Adresa domény",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Adresa domény na server",
+            "USER_NAME_KEY": "Meno užívateľa",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Toto si ty na serveri",
+            "SHARED_SECRET_KEY": "Spoločné tajomstvo",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Zdieľate toto tajomstvo so serverom",
+            "CHECKSUM_KEY": "Kontrolný súčet",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolný súčet doménovej adresy + užívateľské meno + zdieľané tajomstvo.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Povolené serverové moduly",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Zoznam všetkých názvov modulov serverov, do ktorých môžete posielať správy na vzdialenom uzle"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Kontakt na vývoz",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Tu môžete exportovať kontaktné údaje",
+            "EXPORT_KEY": "Vývoz"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Zabudnite na kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Tu môžete prehliadač zabudnúť na kontaktné údaje.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Vždy môžete znovu importovať svoj súbor.",
+            "FORGET_KEY": "Zabudni"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Dovoz",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importovať kontaktné informácie zo súboru",
+            "SELECT_FILE_KEY": "Vybrať súbor"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Prihlásenie",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Tu môžete použiť kontaktné údaje, ktoré ste doviezli a prihlásiť sa na server",
+            "PASSWORD_KEY": "Heslo",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Heslo, ktoré potrebujete dekódovať zdieľané tajomstvo",
+            "LOGIN_RESULT_KEY": "Výsledok prihlásenia",
+            "RELOAD_AFTER_LOGIN_KEY": "Znovu načítať po prihlásení",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Už ste prihlásený",
+            "MISSING_USER_NAME_KEY": "Chýbajúce užívateľské meno",
+            "MISSING_RANDOM_CODE_KEY": "Chýbajúci náhodný kód",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Odpoveď zo servera trvala príliš dlho.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Opustím pokus o prihlásenie",
+            "FAILED_TO_LOGIN_KEY": "Prihlásenie zlyhalo",
+            "SUCCESS_LOGGING_IN_KEY": "Prihlásenie úspechu",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Náhodný kód nemá správnu dĺžku",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Na rozdiel od toho, že celkový priemer nemá desatinné miesta",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Na rozdiel od toho sa priemer rovná celkovému priemeru",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Tieto jednoduché skúšky ukazujú, že aspoň náhodný kód nie je plochým radom čísel."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Odhlásenie",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Tu sa môžete odhlásiť zo servera",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Ak je úspešná, potom sa prihlasovacia stránka zobrazí",
+            "LOGOUT_RESULT_KEY": "Výsledok odhlásenia",
+            "FAILED_TO_LOGOUT_KEY": "Nepodarilo sa odhlásiť",
+            "SUCCESS_LOGGING_OUT_KEY": "Odhlásenie úspechu"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menu",
+            "IMPORT_CONTACT_DATA_KEY": "Importovať kontaktné údaje",
+            "LOGIN_KEY": "Prihlásenie",
+            "SET_PASSWORD_KEY": "Nastaviť heslo",
+            "EXPORT_CONTACT_DATA_KEY": "Údaje o kontaktoch pri vývoze",
+            "LOGOUT_KEY": "Odhlásenie",
+            "FORGET_CONTACT_KEY": "Zabudnite na kontakt"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Nastaviť heslo",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Keď si nastavíte lokálne heslo, spustíte zdieľané tajomstvo tak, aby vyžadovalo vaše heslo pracovať",
+            "CURRENT_PASSWORD_KEY": "Aktuálne heslo",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Ponechajte prázdne, ak nemáte",
+            "NEW_PASSWORD_KEY": "Nové heslo",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Ponechajte prázdne, ak chcete odstrániť heslo",
+            "CHANGE_PASSWORD_KEY": "Zmeniť heslo"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Prihlásenie",
+            "SELECT_FILE_KEY": "Vybrať súbor",
+            "PASSWORD_KEY": "Heslo",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Stiahnuť demo účet",
+            "LOGIN_RESULT_KEY": "Výsledok prihlásenia",
+            "MORE_KEY": "Viac",
+            "CURRENT_URL_KEY": "Aktuálna url",
+            "REFRESH_PAGE_KEY": "Obnoviť stránku"
+        }
+    }
+}

@@ -1,11 +1,11 @@
 # InfoHub_Login_Standalone
 
-Stand-alone version of infohub_log in_log in.
-Renders a simpler GUI than the full log in. Uses the functions from infohub_log in_log in. 
+Stand-alone version of infohub_login.
+Renders a simpler GUI than the full login. Uses the functions from infohub_login. 
 
 # desktop_environment
 
-The log in looks different when launched in the standalone environment. It is simpler with fewer features. Optimized for just logging in.
+The login looks different when launched in the standalone environment. It is simpler with fewer features. Optimized for just logging in.
 
 # License
 

@@ -15,3 +15,7 @@
 /rox/
 folder/plugins/charzam/
 folder/plugins/teamfakta/
+folder/plugins/infohub/*.zip
+/.phpdoc/
+/.vscode/
+/public_html/phpdoc

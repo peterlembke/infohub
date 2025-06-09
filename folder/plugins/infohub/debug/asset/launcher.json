@@ -1,6 +1,6 @@
 {
     "plugin": "infohub_debug",
-    "title": "Debug",
+    "title": "Debugging tool",
     "description": "Tool for developers and testers.",
     "keywords": "debug,bug,refresh,cache,clear,restart,update",
     "uses": []

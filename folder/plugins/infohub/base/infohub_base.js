@@ -883,7 +883,7 @@ const _GetCmdFunctionStatus = function($functionName = '') {
     const $statuses = {
         'never_existed': {
             'status': 'never_existed',
-            'information': 'Function "{this function}" have never existed in plugin {this plugin}. Or is it just missing in _GetCmdFunctions?',
+            'information': 'Function "{this function}" have never existed in plugin {this plugin}.js. Or is it just missing in _GetCmdFunctions?',
             'value': 0,
         },
         'emerging': {
@@ -893,7 +893,7 @@ const _GetCmdFunctionStatus = function($functionName = '') {
         },
         'normal': {
             'status': 'normal',
-            'information': 'You can use function "{this function}" in plugin {this plugin}. It will work in this major version. It will get bug fixes but will work as normal',
+            'information': 'You can use function "{this function}" in plugin {this plugin}. It will work in this major version. It will get bug fixes and will work as normal',
             'value': 2,
         },
         'deprecated': {
@@ -1227,7 +1227,7 @@ this.cmd = function($in = {}) {
             $out.function_status = $status;
 
             if ($status.value === 1) {
-                sleep($out.data.execution_time); // There is a cost in using emerging and deprecated functions.
+                sleep($out.data.execution_time); // This is the cost of using emerging and deprecated functions.
             }
         }
 
@@ -1950,9 +1950,9 @@ const internal_ReturnCall = function($in = {}) {
     // This is for being able to reduce the $default parameters to just the required ones.
     $messageFromCallStack.data_back.data_back = _ByVal($messageFromCallStack.data_back);
 
-    // 'response' are for more advanced responses that can not be handled well with the normal array_merge below.
-    // Example: Response from two sub calls where the variable name is the same but have different data type.
-    // You validate the 'response' in the step that handle the sub call response.
+    // The 'response' are for more advanced responses that cannot be handled well with the normal array_merge below.
+    // Example: Response from two sub calls where the variable name is the same but has a different data type.
+    // You validate the 'response' in the step that handles the sub call response.
     $messageFromCallStack.data_back.response = $dataSend;
 
     const $out = {

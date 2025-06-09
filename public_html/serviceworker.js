@@ -1,13 +1,13 @@
 /*
  * Code comes from
  * https://developers.google.com/web/fundamentals/primers/service-workers/
- * License: "Except as otherwise noted, the content of this page is 
- * licensed under the Creative Commons Attribution 3.0 License, 
- * and code samples are licensed under the Apache 2.0 License. 
- * For details, see our Site Policies." 
+ * License: "Except as otherwise noted, the content of this page is
+ * licensed under the Creative Commons Attribution 3.0 License,
+ * and code samples are licensed under the Apache 2.0 License.
+ * For details, see our Site Policies."
  * https://developers.google.com/terms/site-policies
  * Uppdaterades senast februari 12, 2019.
- * 
+ *
  * only minor modifications by Peter Lembke
  */
 
@@ -20,8 +20,14 @@ self.addEventListener('install', function (event) {
                 '/',
                 '/index.php',
                 '/manifest.json',
-                '/infohub.png',
-                '/infohub-512.png',
+                '/images/infohub-72.png',
+                '/images/infohub-96.png',
+                '/images/infohub-128.png',
+                '/images/infohub-144.png',
+                '/images/infohub-152.png',
+                '/images/infohub-192.png',
+                '/images/infohub-384.png',
+                '/images/infohub-512.png',
                 '/serviceworker.js'
             ]);
         })
@@ -61,8 +67,8 @@ self.addEventListener('fetch', function (event)
             }
 
             // response may be used only once
-            // we need to save clone to put one copy in cache
-            // and serve second one
+            // we need to save a clone to put one copy in cache
+            // and serve the second one
 
             let responseClone = response.clone();
 

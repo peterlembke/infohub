@@ -1,73 +1,71 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:50",
         "plugin": "infohub_translate",
-        "data_checksum": "666a4b9d249fc8667c5edeb988eb4483",
+        "data_checksum": "5a70d4c33b49496eb1d64b3af7582c75",
         "language": "es",
-        "language_name": "spanish",
-        "country": "ES",
-        "country_name": "Spain",
-        "file_type": "translate_file"
+        "language_name": "Spanish",
+        "language_name_local": "Español",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Translate",
-        "description": "Create template files that you can translate"
+        "title": "Traducir",
+        "description": "Traducir manualmente una frase. Crear archivos de lenguaje para plugins."
     },
     "data": {
         "infohub_translate": {
-            "INSTRUCTIONS_KEY": "Instructions",
-            "USE_THE_MENU._KEY": "Use the menu."
-        },
-        "infohub_translate_createfile": {
-            "CREATE_TRANSLATION_FILE_KEY": "Create translation file",
-            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
-            "SELECT_PLUGIN_KEY": "Select plugin",
-            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._SELECT_A_PLUGIN_AND_CLICK_CREATE_FILE._KEY": "Lists all client plugins that can have translation files. Select a plugin and click create file.",
-            "PLUGIN_NAME_KEY": "Plugin name",
-            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list. Only startable plugins are in the list.",
-            "DOWNLOAD_FILE_KEY": "Download file",
-            "SAVE_FILE_ON_SERVER_KEY": "Save file on server",
-            "CREATE_FILE_KEY": "Create file",
-            "YOU_GET_THE_ENGLISH_TRANSLATION_FILE._KEY": "You get the english translation file.",
-            "YOU_CAN_THEN_USE_THAT_FILE_ON_ONLINE_TRANSLATION_SERVICES_TO_TRANSLATE_IT_TO_OTHER_LANGUAGES._KEY": "You can then use that file on online translation services to translate it to other languages."
+            "INSTRUCTIONS_KEY": "Instrucciones",
+            "USE_THE_MENU._KEY": "Usa el menú."
         },
         "infohub_translate_doc": {
-            "DOCUMENTATION_WILL_RENDER_HERE_KEY": "Documentation will render here",
-            "MAIN_DOC_KEY": "Main doc",
-            "CREATE_TRANSLATION_FILE_KEY": "Create translation file",
-            "UPDATE_PLUGIN_KEYS_KEY": "Update plugin keys"
+            "DOCUMENTATION_WILL_RENDER_HERE_KEY": "La documentación rendirá aquí",
+            "MAIN_DOC_KEY": "Principal doc",
+            "MANUAL_TRANSLATION_KEY": "Traducción manual",
+            "PLUGIN_TRANSLATION_KEY": "Traducción en español"
+        },
+        "infohub_translate_manual": {
+            "MANUAL_TRANSLATION_KEY": "Traducción manual",
+            "REFRESH_LANGUAGE_LIST_KEY": "Lista de idiomas de referencia",
+            "SELECT_LANGUAGE_KEY": "Seleccionar idioma",
+            "SELECT_SOURCE_LANGUAGE._KEY": "Seleccione el idioma fuente.",
+            "SELECT_DESTINATION_LANGUAGE._KEY": "Seleccione el idioma de destino.",
+            "YOUR_TEXT_KEY": "Su texto",
+            "THE_TEXT_YOU_WANT_TO_TRANSLATE._KEY": "El texto que quieres traducir.",
+            "TRANSLATE_KEY": "Traducir",
+            "THE_TRANSLATED_TEXT_KEY": "El texto traducido",
+            "THE_TEXT_YOU_GET_AFTER_TRANSLATION._KEY": "El texto que recibe después de la traducción.",
+            "SELECT_DESTINATION_LANGUAGE._WRITE_TEXT._CLICK_TRANSLATE_KEY": "Seleccione el idioma de destino. Escribe texto. Haga clic en",
+            "PICK_A_LANGUAGE_TO_TRANSLATE_FROM_KEY": "Elija un idioma a traducir desde",
+            "WRITE_SOMETHING_SO_I_CAN_TRANSLATE_KEY": "Escribe algo para que pueda traducir",
+            "PICK_A_LANGUAGE_TO_TRANSLATE_TO_KEY": "Elija un idioma para traducir a",
+            "TRANSLATION_DONE_KEY": "Traducción hecha"
         },
         "infohub_translate_menu": {
-            "TRANSLATION_TOOL_KEY": "Translation tool",
-            "DOCUMENTATION_KEY": "Documentation",
-            "UPDATE_PLUGIN_KEYS_KEY": "Update plugin keys",
-            "CREATE_A_TRANSLATION_FILE_KEY": "Create a translation file",
-            "VALIDATE_TRANSLATION_FILES_KEY": "Validate translation files"
+            "TRANSLATION_TOOL_KEY": "Herramienta de traducción",
+            "DOCUMENTATION_KEY": "Documentación",
+            "MANUAL_TRANSLATION_KEY": "Traducción manual",
+            "PLUGIN_TRANSLATION_KEY": "Traducción en español"
         },
-        "infohub_translate_updateplugin": {
-            "UPDATE_PLUGIN_KEY": "Update plugin",
-            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
-            "SELECT_PLUGIN_KEY": "Select plugin",
-            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._KEY": "Lists all client plugins that can have translation files.",
-            "SELECT_A_PLUGIN_AND_CLICK_UPDATE_PLUGIN._KEY": "Select a plugin and click update plugin.",
-            "PLUGIN_NAME_KEY": "Plugin name",
-            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list.",
-            "ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "Only startable plugins are in the list.",
-            "THE_PLUGIN_YOU_SELECT_WILL_HAVE_ITS_TRANSLATE_TEXT_CONVERTED_TO_A_KEY_STRING._KEY": "The plugin you select will have its translate text converted to a key string.",
-            "PLUGIN_AND_CHILDREN_UPDATED._SEE_FOLDER:_KEY": "Plugin and children updated. See folder:"
-        },
-        "infohub_translate_validate": {
-            "VALIDATE_TRANSLATION_FILES_KEY": "Validate translation files",
-            "REFRESH_PLUGIN_LIST_KEY": "Refresh plugin list",
-            "SELECT_PLUGIN_KEY": "Select plugin",
-            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._KEY": "Lists all client plugins that can have translation files.",
-            "SELECT_A_PLUGIN_AND_CLICK_VALIDATE._KEY": "Select a plugin and click validate.",
-            "PLUGIN_NAME_KEY": "Plugin name",
-            "YOU_CAN_WRITE_THE_PLUGIN_NAME_HERE_IF_IT_IS_MISSING_FROM_THE_LIST._KEY": "You can write the plugin name here if it is missing from the list.",
-            "ONLY_STARTABLE_PLUGINS_ARE_IN_THE_LIST._KEY": "Only startable plugins are in the list.",
-            "VALIDATE_KEY": "Validate",
-            "VALIDATES_THE_TRANSLATION_FILES_FOR_THE_SELECTED_PLUGINS._KEY": "Validates the translation files for the selected plugins.",
-            "RESULT_KEY": "Result"
+        "infohub_translate_plugin": {
+            "REFRESH_LISTS_KEY": "Listas de referencia",
+            "SELECT_PLUGIN_KEY": "Seleccionar plugin",
+            "LISTS_ALL_CLIENT_PLUGINS_THAT_CAN_HAVE_TRANSLATION_FILES._KEY": "Lista todos los plugins cliente que pueden tener archivos de traducción.",
+            "SELECT_LANGUAGES_KEY": "Seleccionar idiomas",
+            "TRANSLATE_KEY": "Traducir",
+            "PLUGIN_TRANSLATION_KEY": "Traducción en español",
+            "SELECT_PLUGINS_AND_LANGUAGES_KEY": "Seleccione plugins e idiomas",
+            "CLICK_TRANSLATE_KEY": "Haga clic en",
+            "REFRESH_OF_THE_LISTS_IS_DONE_KEY": "Se hace referencia a las listas",
+            "PICK_ONE_OR_MORE_PLUGINS_TO_TRANSLATE_KEY": "Elija uno o más plugins para traducir",
+            "PICK_ONE_OR_MORE_LANGUAGES_TO_TRANSLATE_TO_KEY": "Elija uno o más idiomas para traducir a",
+            "ASKING_SERVER_TO_TRANSLATE_KEY": "Solicitar al servidor que traduzca",
+            "TO_LANGUAGES_KEY": "A los idiomas",
+            "TRANSLATION_DONE_KEY": "Traducción hecha",
+            "EXECUTION_TIME_KEY": "Tiempo de ejecución",
+            "SECONDS_KEY": "Segundos"
         }
     }
 }

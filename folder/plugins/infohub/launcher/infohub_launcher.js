@@ -288,7 +288,7 @@ function infohub_launcher() {
                 'data_back': {
                     'debug_message': 'step_render -> cache_key = gui',
                     'box_id': $in.box_id,
-                    'step': 'step_end', // One of the messages need to reach the last return, the rest have step_void
+                    'step': 'step_end', // One of the messages needs to reach the last return, the rest have step_void
                 },
             });
             $messagesArray.push($messageOut);
@@ -879,7 +879,7 @@ function infohub_launcher() {
 
             let $item = {
                 'plugin': 'refresh',
-                'title': _Translate('REFRESH'),
+                'title': _Translate('REFRESH THE LIST'),
                 'description': _Translate('UPDATE_THIS_LIST'),
                 'icon': $in.response.asset,
                 'icon_license': $in.response.asset_license,

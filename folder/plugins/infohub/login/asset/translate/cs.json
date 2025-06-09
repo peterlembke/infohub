@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 19:07:24",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "cs",
+        "language_name": "Czech",
+        "language_name_local": "Česká republika",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Přihlásit se",
+        "description": "Můžete se přihlásit na server, odhlásit, nastavit nebo změnit heslo."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Pokyny",
+            "USE_THE_MENU._KEY": "Použij menu.",
+            "WHAT_IS_THIS?_KEY": "Co je to?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Jeden kontakt",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Toto je datový formulář pro jeden kontakt",
+            "NODE_KEY": "Uzel",
+            "ANY_TEXT_YOU_WANT_KEY": "Jakýkoliv text, který chcete",
+            "NOTE_KEY": "Poznámka",
+            "SAVE_KEY": "Uložit",
+            "DOMAIN_ADDRESS_KEY": "Adresa domény",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Adresa domény na váš server",
+            "USER_NAME_KEY": "Uživatelské jméno",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Tohle jsi ty na serveru",
+            "SHARED_SECRET_KEY": "Sdílené tajemství",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Sdílíte toto tajemství se serverem",
+            "CHECKSUM_KEY": "Kontrolní součet",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolní součet adresy domény + uživatelské jméno + sdílené tajemství.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Povolené serverové pluginy",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Seznam se všemi názvy serverů, na které můžete posílat zprávy na vzdáleném nódu"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Exportní kontakt",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Zde můžete exportovat kontaktní data",
+            "EXPORT_KEY": "Vývoz"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Zapomeň na kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Zde můžete nechat prohlížeč zapomenout na kontaktní data.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Vždy můžete znovu importovat svůj soubor.",
+            "FORGET_KEY": "Zapomeň"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importovat",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importovat kontaktní informace ze souboru",
+            "SELECT_FILE_KEY": "Vybrat soubor"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Přihlášení",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Zde můžete použít kontaktní data, která jste importovali a přihlásili se na server",
+            "PASSWORD_KEY": "Heslo",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Heslo, které potřebujete k dekódování sdíleného tajemství",
+            "LOGIN_RESULT_KEY": "Výsledek přihlášení",
+            "RELOAD_AFTER_LOGIN_KEY": "Obnovit po přihlášení",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Už jste se přihlásili",
+            "MISSING_USER_NAME_KEY": "Chybějící uživatelské jméno",
+            "MISSING_RANDOM_CODE_KEY": "Chybějící náhodný kód",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Odpověď ze serveru trvala příliš dlouho.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Vzdám se přihlašovacího pokusu",
+            "FAILED_TO_LOGIN_KEY": "Přihlášení selhalo",
+            "SUCCESS_LOGGING_IN_KEY": "Přihlášení k úspěchu",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Náhodný kód nemá správnou délku",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Nepravděpodobné, že celkový průměr nemá žádná desetinná místa",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Nepravděpodobné, že se průměr rovná celkovému průměru",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Tyto jednoduché testy ukazují, že náhodný kód alespoň není plochý řádek čísel."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Odhlášení",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Zde se můžete odhlásit ze serveru",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Pokud uspějete, zobrazí se přihlašovací stránka",
+            "LOGOUT_RESULT_KEY": "Výsledek odhlášení",
+            "FAILED_TO_LOGOUT_KEY": "Nepodařilo se odhlásit",
+            "SUCCESS_LOGGING_OUT_KEY": "Úspěch při odhlášení"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Nabídka",
+            "IMPORT_CONTACT_DATA_KEY": "Importovat kontaktní údaje",
+            "LOGIN_KEY": "Přihlášení",
+            "SET_PASSWORD_KEY": "Nastavit heslo",
+            "EXPORT_CONTACT_DATA_KEY": "Kontaktní údaje pro vývoz",
+            "LOGOUT_KEY": "Odhlášení",
+            "FORGET_CONTACT_KEY": "Zapomeň na kontakt"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Nastavit heslo",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Když nastavíte místní heslo, zašifrujete sdílené tajemství tak, aby vyžadovalo, aby heslo fungovalo",
+            "CURRENT_PASSWORD_KEY": "Aktuální heslo",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Pokud žádné nemáte, nechte prázdné",
+            "NEW_PASSWORD_KEY": "Nové heslo",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Zanechat prázdné, pokud chcete odstranit heslo",
+            "CHANGE_PASSWORD_KEY": "Změnit heslo"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Přihlášení",
+            "SELECT_FILE_KEY": "Vybrat soubor",
+            "PASSWORD_KEY": "Heslo",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Stáhnout demo účet",
+            "LOGIN_RESULT_KEY": "Výsledek přihlášení",
+            "MORE_KEY": "Více",
+            "CURRENT_URL_KEY": "Aktuální url",
+            "REFRESH_PAGE_KEY": "Obnovit stránku"
+        }
+    }
+}

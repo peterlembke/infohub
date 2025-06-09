@@ -1,104 +1,114 @@
 {
     "version": {
-        "date": "2020-12-16 18:52:04",
+        "date": "2025-06-08 18:03:26",
         "plugin": "infohub_login",
-        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
         "language": "de",
+        "language_name": "German",
+        "language_name_local": "Deutsch",
         "country": "",
-        "file_type": "key_file"
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Anmeldung",
+        "description": "Sie können sich beim Server anmelden, sich ausloggen, Ihr Passwort einstellen oder ändern."
     },
     "data": {
         "infohub_login": {
-            "INSTRUCTIONS_KEY": "Anleitung",
-            "USE_THE_MENU._KEY": "Benutze das Menü.",
+            "INSTRUCTIONS_KEY": "Anweisungen",
+            "USE_THE_MENU._KEY": "Verwenden Sie das Menü.",
             "WHAT_IS_THIS?_KEY": "Was ist das?"
         },
         "infohub_login_contact": {
             "ONE_CONTACT_KEY": "Ein Kontakt",
             "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dies ist das Datenformular für einen Kontakt",
-            "NODE_KEY": "Knoten",
-            "ANY_TEXT_YOU_WANT_KEY": "Beliebiger Text",
-            "NOTE_KEY": "Hinweis",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Alle gewünschten Texte",
+            "NOTE_KEY": "Anmerkung",
             "SAVE_KEY": "Speichern",
             "DOMAIN_ADDRESS_KEY": "Domain-Adresse",
-            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Die Domain-Adresse Ihres Servers",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Die Domain-Adresse an Ihren Server",
             "USER_NAME_KEY": "Benutzername",
             "THIS_IS_YOU_ON_THE_SERVER_KEY": "Das sind Sie auf dem Server",
-            "SHARED_SECRET_KEY": "Gemeinsames Geheimnis",
+            "SHARED_SECRET_KEY": "Geheimhaltung",
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Sie teilen dieses Geheimnis mit dem Server",
             "CHECKSUM_KEY": "Prüfsumme",
-            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Prüfsumme von Domain-Adresse + Benutzername + gemeinsames Geheimnis.",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Annahme der Domain-Adresse + Benutzername + geteiltes Geheimnis.",
             "ALLOWED_SERVER_PLUGINS_KEY": "Erlaubte Server-Plugins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste mit allen Server-Plugin-Namen, an die Sie auf dem entfernten Knoten Nachrichten senden können"
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste mit allen Server-Pluginnamen, die Sie Nachrichten auf dem Remote-Knoten senden können"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Kontakt exportieren",
+            "EXPORT_CONTACT_KEY": "Ausfuhrkontakt",
             "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hier können Sie die Kontaktdaten exportieren",
-            "EXPORT_KEY": "Exportieren"
+            "EXPORT_KEY": "Ausfuhr"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Kontakt vergessen",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Hier können Sie den Browser die Kontaktdaten vergessen lassen. Sie können Ihre Datei jederzeit wieder importieren.",
+            "FORGET_CONTACT_KEY": "Forget Kontakt",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Hier können Sie den Browser die Kontaktdaten vergessen lassen.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Sie können Ihre Datei immer wieder importieren.",
             "FORGET_KEY": "Vergessen"
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importieren",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importieren Sie die Kontaktdaten aus der Datei",
-            "SELECT_FILE_KEY": "Datei auswählen"
+            "IMPORT_KEY": "Einfuhr",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importieren Sie die Kontaktinformationen aus der Datei",
+            "SELECT_FILE_KEY": "Wählen Sie die Datei"
         },
         "infohub_login_login": {
             "LOGIN_KEY": "Anmelden",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier können Sie die importierten Kontaktdaten verwenden und sich am Server anmelden",
-            "PASSWORD_KEY": "Passwort",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Das Passwort, das Sie benötigen, um das gemeinsame Geheimnis zu entschlüsseln",
-            "LOGIN_RESULT_KEY": "Login-Ergebnis",
-            "RELOAD_AFTER_LOGIN_KEY": "Nach Login neu laden",
-            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Sie sind bereits eingeloggt",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier können Sie die von Ihnen importierten Kontaktdaten nutzen und sich an den Server anmelden",
+            "PASSWORD_KEY": "Passwort vergessen",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Das Passwort, das Sie benötigen, um das freigegebene Geheimnis zu decodieren",
+            "LOGIN_RESULT_KEY": "Anmeldeergebnis",
+            "RELOAD_AFTER_LOGIN_KEY": "Nach dem Login neu laden",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Sie sind bereits angemeldet",
             "MISSING_USER_NAME_KEY": "Fehlender Benutzername",
-            "MISSING_RANDOM_CODE_KEY": "Zufallscode fehlt",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Die Antwort vom Server hat zu lange gedauert. Ich werde den Anmeldeversuch abbrechen",
-            "FAILED_TO_LOGIN_KEY": "Anmeldung fehlgeschlagen",
-            "SUCCESS_LOGGING_IN_KEY": "Erfolgreiche Anmeldung",
+            "MISSING_RANDOM_CODE_KEY": "Fehlen von Zufallscode",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Die Antwort vom Server dauerte zu lange.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Ich werde den Anmeldeversuch verlassen",
+            "FAILED_TO_LOGIN_KEY": "Nicht angemeldet",
+            "SUCCESS_LOGGING_IN_KEY": "Erfolgsprotokollierung",
             "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Der Zufallscode hat nicht die richtige Länge",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Unwahrscheinlich, dass der Gesamtdurchschnitt keine Dezimalstellen hat",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Unwahrscheinlich, dass der Durchschnitt dem Gesamtdurchschnitt entspricht",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Diese einfachen Tests zeigen, dass der Zufallscode zumindest keine Flatline von Zahlen ist."
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Im Gegensatz dazu hat der Gesamtdurchschnitt keine Dezimals",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Im Gegensatz dazu ist der Durchschnitt gleich dem Gesamtdurchschnitt",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Diese einfachen Tests zeigen, dass der Zufallscode zumindest keine flache Zahlenlinie ist."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Abmelden",
-            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier können Sie sich vom Server abmelden",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Wenn erfolgreich, wird die Anmeldeseite angezeigt",
-            "LOGOUT_RESULT_KEY": "Abmeldeergebnis",
-            "FAILED_TO_LOGOUT_KEY": "Fehler beim Abmelden",
-            "SUCCESS_LOGGING_OUT_KEY": "Erfolgreiche Abmeldung"
+            "LOGOUT_KEY": "Anmeldung",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier können Sie sich vom Server aus anmelden",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Wenn erfolgreich, dann zeigt die Anmeldeseite",
+            "LOGOUT_RESULT_KEY": "Logout Ergebnis",
+            "FAILED_TO_LOGOUT_KEY": "Nicht eingeloggt",
+            "SUCCESS_LOGGING_OUT_KEY": "Erfolgsprotokollierung"
         },
         "infohub_login_menu": {
-            "MENU_KEY": "Menü",
+            "MENU_KEY": "Menü schließen",
             "IMPORT_CONTACT_DATA_KEY": "Kontaktdaten importieren",
             "LOGIN_KEY": "Anmelden",
-            "SET_PASSWORD_KEY": "Passwort setzen",
+            "SET_PASSWORD_KEY": "Passwort vergessen",
             "EXPORT_CONTACT_DATA_KEY": "Kontaktdaten exportieren",
-            "LOGOUT_KEY": "Abmelden",
-            "FORGET_CONTACT_KEY": "Kontakt vergessen"
+            "LOGOUT_KEY": "Anmeldung",
+            "FORGET_CONTACT_KEY": "Forget Kontakt"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Passwort setzen",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wenn Sie Ihr lokales Passwort festlegen, verschlüsseln Sie das gemeinsame Geheimnis, damit Ihr Passwort funktioniert",
+            "SET_PASSWORD_KEY": "Passwort vergessen",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wenn Sie Ihr lokales Passwort festlegen, scramble Sie das freigegebene Geheimnis, so dass es Ihr Passwort benötigen, um zu arbeiten",
             "CURRENT_PASSWORD_KEY": "Aktuelles Passwort",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Leer lassen, wenn Sie keine haben",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Lassen Sie leer, wenn Sie keine",
             "NEW_PASSWORD_KEY": "Neues Passwort",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Leer lassen, wenn Sie das Passwort entfernen möchten",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Lassen Sie leer, wenn Sie das Passwort entfernen möchten",
             "CHANGE_PASSWORD_KEY": "Passwort ändern"
         },
         "infohub_login_standalone": {
             "LOGIN_KEY": "Anmelden",
-            "SELECT_FILE_KEY": "Datei auswählen",
-            "PASSWORD_KEY": "Passwort",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demokonto herunterladen",
-            "LOGIN_RESULT_KEY": "Login-Ergebnis",
+            "SELECT_FILE_KEY": "Wählen Sie die Datei",
+            "PASSWORD_KEY": "Passwort vergessen",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-Konto herunterladen",
+            "LOGIN_RESULT_KEY": "Anmeldeergebnis",
             "MORE_KEY": "Mehr",
-            "CURRENT_URL_KEY": "Aktuelle URL",
-            "REFRESH_PAGE_KEY": "Seite aktualisieren"
+            "CURRENT_URL_KEY": "Aktueller url",
+            "REFRESH_PAGE_KEY": "Seite nicht gefunden"
         }
     }
 }

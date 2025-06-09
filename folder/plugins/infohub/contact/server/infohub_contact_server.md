@@ -4,16 +4,27 @@ The GUI to handle outgoing connections to other servers
 
 ## Introduction
 
-Server mean that your server will log in to other servers and use the connection details.  
-The connection name is also the node name. You can send messages to this node, and they will reach the other server.
+Server means that your server will log in to other servers and use the connection details.  
 
-## GUI
+## Give access to other servers
 
-You have to get a json file from the other server and import it to your system. Then you can modify the name and the
-note if you want to.  
-You will also get the domain name to the server in the json. If for some reason you know that the domain name have
-changed then you can modify that too.  
-You can not modify the list of allowed plugins from the GUI. You can export the data to a json.  
+You can let other servers connect to your server.
+Create a normal client account and then export the JSON file. Give the file to the server admin.
+
+## Login to other servers
+
+Your server can log in to other servers.
+You have to get an InfoHub contact JSON file from the other server and import it to your system. 
+
+You can modify the node name and the note if you want to.
+The node name is important. Your sub calls will use that node name to reach the correct node.
+
+You will also get the domain name to the server in the JSON. If for some reason you know that the domain name has
+changed, then you can modify it.  
+
+You can't modify the list of allowed plugins from the GUI. It is also pointles since the server will not grant you any additional rights anyhow.
+
+You can export the data to a JSON.  
 You can test the communication with the button "Ping server".
 
 ## License
@@ -28,4 +39,4 @@ see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 ## footer
 
 Since 2018-09-19 by Peter Lembke  
-Updated 2019-03-14 by Peter Lembke
+Updated 2025-06-07 by Peter Lembke

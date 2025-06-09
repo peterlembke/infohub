@@ -1,11 +1,14 @@
 {
     "client": {
         "download_account": {
+            "localhost": "localhost.json",
             "local.infohub.se": "local.infohub.se.json",
+            "infohub.local": "public-infohub.local.json",
             "infohub.se": "public-infohub.se.json",
+            "demo.infohub.local": "public-demo.infohub.local.json",
             "demo.infohub.se": "public-demo.infohub.se.json",
-            "doc.infohub.se": "public-doc.infohub.se.json",
-            "localhost": "localhost.json"
+            "doc.infohub.local": "public-doc.infohub.local.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
         },
         "information": {
             "enable": "true",
@@ -44,11 +47,14 @@
     },
     "server": {
         "download_account": {
+            "localhost": "localhost.json",
             "local.infohub.se": "local.infohub.se.json",
+            "infohub.local": "public-infohub.local.json",
             "infohub.se": "public-infohub.se.json",
+            "demo.infohub.local": "public-demo.infohub.local.json",
             "demo.infohub.se": "public-demo.infohub.se.json",
-            "doc.infohub.se": "public-doc.infohub.se.json",
-            "localhost": "localhost.json"
+            "doc.infohub.local": "public-doc.infohub.local.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
         },
         "information": {
             "available_languages": [

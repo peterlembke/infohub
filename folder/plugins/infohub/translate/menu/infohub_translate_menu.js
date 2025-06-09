@@ -24,8 +24,8 @@ function infohub_translate_menu() {
     const _Version = function() {
         return {
             'date': '2021-09-09',
-            'since': '2019-09-27',
-            'version': '1.0.1',
+            'since': '2021-09-16',
+            'version': '1.0.0',
             'checksum': '{{checksum}}',
             'class_name': 'infohub_translate_menu',
             'note': 'Render a menu for infohub_translate',
@@ -96,27 +96,20 @@ function infohub_translate_menu() {
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'updateplugin': {
-                                    'alias': 'updateplugin_link',
-                                    'event_data': 'updateplugin',
-                                    'button_label': _Translate('UPDATE_PLUGIN_KEYS'),
+                                'manual': {
+                                    'alias': 'manual_link',
+                                    'event_data': 'manual',
+                                    'button_label': _Translate('MANUAL_TRANSLATION'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'createfile': {
-                                    'alias': 'createfile_link',
-                                    'event_data': 'createfile',
-                                    'button_label': _Translate('CREATE_A_TRANSLATION_FILE'),
+                                'plugin': {
+                                    'alias': 'plugin_link',
+                                    'event_data': 'plugin',
+                                    'button_label': _Translate('PLUGIN_TRANSLATION'),
                                     'to_plugin': 'infohub_translate',
                                     'to_function': 'click_menu'
                                 },
-                                'validate': {
-                                    'alias': 'validate_link',
-                                    'event_data': 'validate',
-                                    'button_label': _Translate('VALIDATE_TRANSLATION_FILES'),
-                                    'to_plugin': 'infohub_translate',
-                                    'to_function': 'click_menu'
-                                }
                             },
                         },
                     },

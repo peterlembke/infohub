@@ -137,9 +137,6 @@ function infohub_batch() {
 
         if ($in.step === 'step_batch_call_response') {
             $in.step = 'step_store';
-            if ($in.response.answer === 'false') {
-                $in.step = 'step_end';
-            }
         }
 
         if ($in.step === 'step_store') {
@@ -312,9 +309,6 @@ function infohub_batch() {
 
         if ($in.step === 'step_batch_call_response') {
             $in.step = 'step_store';
-            if ($in.response.answer === 'false') {
-                $in.step = 'step_end';
-            }
         }
 
         if ($in.step === 'step_store') {

@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:59:33",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "gl",
+        "language_name": "Galician",
+        "language_name_local": "Galego",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Log en",
+        "description": "Pode acceder ao servidor, iniciar sesión, configurar ou cambiar o seu contrasinal."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instrucións",
+            "USE_THE_MENU._KEY": "Utiliza o menú.",
+            "WHAT_IS_THIS?_KEY": "Que é isto?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Un contacto",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Este é o formulario de datos para un contacto",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Calquera texto que queiras",
+            "NOTE_KEY": "Nota",
+            "SAVE_KEY": "Save",
+            "DOMAIN_ADDRESS_KEY": "Enderezo de dominio",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "O enderezo de dominio ao teu servidor",
+            "USER_NAME_KEY": "Nome de usuario",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Vostede está no servidor",
+            "SHARED_SECRET_KEY": "Segredo compartido",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Comparte este segredo co servidor",
+            "CHECKSUM_KEY": "Checksum",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Comproba o enderezo de dominio + nome de usuario + segredo compartido.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Permitir plugins de servidor",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista con todos os nomes de plugins do servidor que pode enviar mensaxes nodo remoto"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Contacto Exportación",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Aquí podes exportar os datos de contacto",
+            "EXPORT_KEY": "Exportación"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Esquece contacto",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Aquí podes deixar o navegador esquecer os datos de contacto.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Sempre podes volver a importar o teu arquivo.",
+            "FORGET_KEY": "Esquecer"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importacións",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importar información de contacto do arquivo",
+            "SELECT_FILE_KEY": "Seleccione ficheiro"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Login",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Aquí pode usar os datos de contacto que importou e login para o servidor",
+            "PASSWORD_KEY": "Contrasinal",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "O contrasinal que necesitas para descodificar o segredo compartido",
+            "LOGIN_RESULT_KEY": "Resultados Login",
+            "RELOAD_AFTER_LOGIN_KEY": "Baixar login",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Xa estás rexistrado en",
+            "MISSING_USER_NAME_KEY": "Nome de usuario desaparecido",
+            "MISSING_RANDOM_CODE_KEY": "Falta código aleatorio",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "A resposta do servidor tardou moito tempo.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Vou abandonar o login",
+            "FAILED_TO_LOGIN_KEY": "Non se puido facer login",
+            "SUCCESS_LOGGING_IN_KEY": "Éxito de Blog en",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "O código aleatorio non ten a lonxitude correcta",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "A media total non ten decimais",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "A media é igual á media total",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Estas probas mostran que o código aleatorio polo menos non é unha liña plana de números."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Logout",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Aquí podes acceder ao servidor",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Se é así, a páxina de login aparece",
+            "LOGOUT_RESULT_KEY": "Logout resultado",
+            "FAILED_TO_LOGOUT_KEY": "Non foi posible logout",
+            "SUCCESS_LOGGING_OUT_KEY": "Éxito de Blog Out"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menú",
+            "IMPORT_CONTACT_DATA_KEY": "Importar datos de contacto",
+            "LOGIN_KEY": "Login",
+            "SET_PASSWORD_KEY": "Configurar contrasinal",
+            "EXPORT_CONTACT_DATA_KEY": "Exportar datos de contacto",
+            "LOGOUT_KEY": "Logout",
+            "FORGET_CONTACT_KEY": "Esquece contacto"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Configurar contrasinal",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Cando estableces o teu contrasinal local, corres o segredo compartido para que o teu contrasinal funcione",
+            "CURRENT_PASSWORD_KEY": "Contrasinal actual",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Deixar en branco se non hai ningún",
+            "NEW_PASSWORD_KEY": "Novo contrasinal",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Deixar en branco se queres eliminar o contrasinal",
+            "CHANGE_PASSWORD_KEY": "Cambiar contrasinal"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Login",
+            "SELECT_FILE_KEY": "Seleccione ficheiro",
+            "PASSWORD_KEY": "Contrasinal",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Baixar demo account",
+            "LOGIN_RESULT_KEY": "Resultados Login",
+            "MORE_KEY": "Máis",
+            "CURRENT_URL_KEY": "Url actual",
+            "REFRESH_PAGE_KEY": "Páxina refrescante"
+        }
+    }
+}

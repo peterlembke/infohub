@@ -15,7 +15,7 @@ if (file_exists('fullstop.flag') == true) {
  * Used by the client ajax
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2020-11-21
+ * @version     2024-06-29
  * @since       2015-11-15
  * @copyright   Copyright (c) 2010, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -30,6 +30,9 @@ if (basename(__FILE__) !== basename($_SERVER['SCRIPT_FILENAME'])) {
 include_once 'define_folders.php';
 include_once INCLUDES . DS . 'settings_and_errors.php';
 include_once INCLUDES . DS . 'kick_out_tests_for_infohub.php'; // we get $package
+
+$kick = new kick_out_tests_for_infohub();
+$package = $kick->tests();
 
 $corePlugins = [
     'infohub_base',
@@ -66,7 +69,7 @@ $myPackage = [
                 'function' => 'responder_verify_sign_code'
             ],
             'data' => [
-                'package' => $package
+                'package' => $package // Comes from kick_out_tests_for_infohub.php
             ],
             'callstack' => [
                 [
@@ -103,6 +106,7 @@ $in = [
         'package' => $myPackage
     ]
 ];
+
 $response = $infoHubExchange->cmd($in);
 
 $isSignCodeValid = $infoHubExchange->getSignCodeValid();

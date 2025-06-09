@@ -1,33 +1,35 @@
 {
     "version": {
-        "date": "2021-08-29 19:46:32",
+        "date": "2025-06-08 17:52:50",
         "plugin": "infohub_debug",
-        "data_checksum": "f743afdce460f3ad0ad8519b9d3efa30",
+        "data_checksum": "3fa25f0c79826e74e9c04bcb4cae91d9",
         "language": "es",
-        "language_name": "spanish",
-        "country": "ES",
-        "country_name": "Spain",
-        "file_type": "translate_file"
+        "language_name": "Spanish",
+        "language_name_local": "Español",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Debug",
-        "description": "Tool for developers and testers."
+        "title": "Herramienta depuradora",
+        "description": "Herramienta para desarrolladores y probadores."
     },
     "data": {
         "infohub_debug": {
-            "DONE_CLEARING_CACHE_KEY": "Done clearing cache",
-            "DONE_REFRESHING_PAGE_KEY": "Done refreshing page",
-            "RELOAD_PAGE._KEY": "Reload page.",
-            "CLEAN_OUT_OLD_PLUGINS_MARKED_BY_THE_SERVER._RELOAD_PAGE._KEY": "Clean out old plugins marked by the server. Reload page.",
-            "CLEAN_OUT_ALL_LOCAL_PLUGINS,_RELOAD_PAGE._KEY": "Clean out all local plugins, reload page.",
-            "CLEAN_OUT_ALL_LOCAL_DATA,_RELOAD_PAGE._KEY": "Clean out all local data, reload page.",
-            "INSTRUCTIONS_KEY": "Instructions",
-            "CLICK_ON_AN_OPTION_OR_USE_THE_KEYBOARD._THESE_KEYS_ALWAYS_WORKS_WHEREVER_YOU_ARE_IN_INFOHUB._KEY": "Click on an option or use the keyboard. These keys always works wherever you are in infohub.",
-            "INFORMATION_KEY": "Information",
-            "IS_ALSO_AT_THE_BOTTOM_OF_THE_LAUNCHER_SCREEN_AS_A_BUTTON_IN_CASE_YOU_CAN_NOT_START_DEBUG_AND_HAVE_NO_KEYBOARD_ON_YOUR_DEVICE._KEY": "Is also at the bottom of the launcher screen as a button in case you can not start debug and have no keyboard on your device.",
-            "IS_THE_ONLY_OPTION_THAT_ALSO_REMOVE_ICONS_AND_TRANSLATIONS_AND_SETTINGS_FROM_THE_LOCAL_STORAGE._KEY": "Is the only option that also remove icons and translations and settings from the local storage.",
-            "SILENTLY_DELETE_THE_RENDER_CACHE_FOR_THE_LOGGED_IN_USER_KEY": "Silently delete the render cache for the logged in user",
-            "LOGS_YOU_OUT_AND_REFRESH_THE_PAGE_KEY": "Logs you out and refresh the page"
+            "DONE_CLEARING_CACHE_KEY": "Hecho de limpieza",
+            "DONE_REFRESHING_PAGE_KEY": "Página de actualización",
+            "RELOAD_PAGE._KEY": "Recarga página.",
+            "CLEAN_OUT_OLD_PLUGINS_MARKED_BY_THE_SERVER._RELOAD_PAGE._KEY": "Limpia viejos plugins marcados por el servidor. Recarga página.",
+            "CLEAN_OUT_ALL_LOCAL_PLUGINS,_RELOAD_PAGE._KEY": "Limpiar todos los plugins locales, recargar página.",
+            "CLEAN_OUT_ALL_LOCAL_DATA,_RELOAD_PAGE._KEY": "Limpiar todos los datos locales, recargar página.",
+            "INSTRUCTIONS_KEY": "Instrucciones",
+            "CLICK_ON_AN_OPTION_OR_USE_THE_KEYBOARD._THESE_KEYS_ALWAYS_WORKS_WHEREVER_YOU_ARE_IN_INFOHUB._KEY": "Haga clic en una opción o use el teclado. Estas llaves siempre funcionan donde estés en infohub.",
+            "INFORMATION_KEY": "Información",
+            "IS_ALSO_AT_THE_BOTTOM_OF_THE_LAUNCHER_SCREEN_AS_A_BUTTON_IN_CASE_YOU_CAN_NOT_START_DEBUG_AND_HAVE_NO_KEYBOARD_ON_YOUR_DEVICE._KEY": "También está en la parte inferior de la pantalla del lanzador como un botón en caso de que no pueda empezar a depurar y no tener ningún teclado en su dispositivo.",
+            "IS_THE_ONLY_OPTION_THAT_ALSO_REMOVE_ICONS_AND_TRANSLATIONS_AND_SETTINGS_FROM_THE_LOCAL_STORAGE._KEY": "Es la única opción que también elimina iconos y traducciones y ajustes del almacenamiento local.",
+            "SILENTLY_DELETE_THE_RENDER_CACHE_FOR_THE_LOGGED_IN_USER_KEY": "Eliminar silenciosamente el caché de render para el usuario conectado",
+            "LOGS_YOU_OUT_AND_REFRESH_THE_PAGE_KEY": "Te registra y actualiza la página"
         }
     }
 }

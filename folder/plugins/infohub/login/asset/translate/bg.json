@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 19:10:18",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "bg",
+        "language_name": "Bulgarian",
+        "language_name_local": "Български",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Вход",
+        "description": "Можете да влезете в сървъра, да излезете, да зададете или промените паролата си."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Инструкции",
+            "USE_THE_MENU._KEY": "Използвай менюто.",
+            "WHAT_IS_THIS?_KEY": "Какво е това?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Един контакт",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Това е формуляр за данни за един контакт",
+            "NODE_KEY": "Възел",
+            "ANY_TEXT_YOU_WANT_KEY": "Всеки текст, който искате",
+            "NOTE_KEY": "Забележка",
+            "SAVE_KEY": "Запис",
+            "DOMAIN_ADDRESS_KEY": "Адрес на домейн",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Адрес на домейна до вашия сървър",
+            "USER_NAME_KEY": "Потребител",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Това си ти на сървъра",
+            "SHARED_SECRET_KEY": "Споделена тайна",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Споделяш тази тайна със сървъра",
+            "CHECKSUM_KEY": "Чексума",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Проверка на адреса на домейн + потребителско име + споделена тайна.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Позволени приставки за сървъри",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Списък с всички имена на приставката на сървъра, до които можете да изпращате съобщения на отдалечен възел"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Експортиране на контакт",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Тук можете да експортирате данните за контакт",
+            "EXPORT_KEY": "Експортиране"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Забравете контакта",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Тук можете да оставите браузъра да забрави данните за контакт.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Винаги можеш да импортираш досието си отново.",
+            "FORGET_KEY": "Забрави"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Внос",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Импортиране на информация за контакт от файл",
+            "SELECT_FILE_KEY": "Избор на файл"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Влизане",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Тук можете да използвате данните за контакт, които сте импортирали и да влезете в сървъра",
+            "PASSWORD_KEY": "Парола",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Паролата, която ви трябва, за да декодирате споделената тайна",
+            "LOGIN_RESULT_KEY": "Входящ резултат",
+            "RELOAD_AFTER_LOGIN_KEY": "Презареждане след влизане",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Вече сте влезли",
+            "MISSING_USER_NAME_KEY": "Липсващо потребителско име",
+            "MISSING_RANDOM_CODE_KEY": "Липсващ случаен код",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Отговорът от сървъра отне твърде много време.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Ще се откажа от опита за влизане",
+            "FAILED_TO_LOGIN_KEY": "Грешка при влизане",
+            "SUCCESS_LOGGING_IN_KEY": "Вход за успех",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Случайният код не е с правилната дължина",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Малко вероятно е общата средна стойност да няма десетични знаци",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Едва ли средната стойност е равна на общата средна стойност",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Тези прости тестове показват, че произволният код поне не е плоска линия от числа."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Изход",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Тук можете да влезете от сървъра",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Ако е успешен, страницата за влизане показва",
+            "LOGOUT_RESULT_KEY": "Изходен резултат",
+            "FAILED_TO_LOGOUT_KEY": "Грешка при изход",
+            "SUCCESS_LOGGING_OUT_KEY": "Отписване на успеха"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Меню",
+            "IMPORT_CONTACT_DATA_KEY": "Данни за контакт с вноса",
+            "LOGIN_KEY": "Влизане",
+            "SET_PASSWORD_KEY": "Задаване на парола",
+            "EXPORT_CONTACT_DATA_KEY": "Данни за контакт при износ",
+            "LOGOUT_KEY": "Изход",
+            "FORGET_CONTACT_KEY": "Забравете контакта"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Задаване на парола",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Когато зададете местна парола, разбърквате споделената тайна, така че тя изисква паролата ви да работи",
+            "CURRENT_PASSWORD_KEY": "Текуща парола",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Оставете празно ако нямате",
+            "NEW_PASSWORD_KEY": "Нова парола",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Оставете празно ако искате да премахнете паролата",
+            "CHANGE_PASSWORD_KEY": "Промяна на паролата"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Влизане",
+            "SELECT_FILE_KEY": "Избор на файл",
+            "PASSWORD_KEY": "Парола",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Изтегляне на демо сметка",
+            "LOGIN_RESULT_KEY": "Входящ резултат",
+            "MORE_KEY": "Още",
+            "CURRENT_URL_KEY": "Текущ URL",
+            "REFRESH_PAGE_KEY": "Обновяване на страницата"
+        }
+    }
+}
