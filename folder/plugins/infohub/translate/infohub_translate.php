@@ -1,6 +1,6 @@
 <?php
 /**
- * Collect strings to translate
+ * Uses Libre Translate. You can manually translate things or translate plugins
  *
  * The server part of translate collects strings that should be translated
  *
@@ -14,14 +14,12 @@ if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 /**
- * Collect strings to translate
- *
- * The server part of translate collects strings that should be translated
+ * Uses Libre Translate. You can manually translate things or translate plugins
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2019-03-23
- * @since       2019-03-23
- * @copyright   Copyright (c) 2019, Peter Lembke
+ * @version     2021-09-16
+ * @since       2021-09-16
+ * @copyright   Copyright (c) 2021, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
  * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/translate/infohub_translate.md Documentation
  * @link        https://infohub.se/ InfoHub main page
@@ -30,23 +28,24 @@ class infohub_translate extends infohub_base
 {
     /**
      * Version information for this plugin
+     *
      * @return  string[]
-     * @since   2019-03-23
+     * @since   2021-09-16
      * @author  Peter Lembke
-     * @version 2019-03-23
+     * @version 2021-09-16
      */
     protected function _Version(): array
     {
         return [
-            'date' => '2019-03-23',
-            'since' => '2019-03-23',
-            'version' => '1.0.0',
+            'date' => '2024-11-10',
+            'since' => '2021-09-16',
+            'version' => '1.1.0',
             'class_name' => 'infohub_translate',
             'checksum' => '{{checksum}}',
-            'note' => 'Creates template translation files you can copy to a new name and translate',
+            'note' => 'Uses Libre Translate. Manual translate or translate plugins.',
             'status' => 'normal',
             'SPDX-License-Identifier' => 'GPL-3.0-or-later',
-            'user_role' => 'developer'
+            'user_role' => 'user'
         ];
     }
 
@@ -61,43 +60,113 @@ class infohub_translate extends infohub_base
     protected function _GetCmdFunctions(): array
     {
         $list = [
-            'load_plugin_list' => 'normal',
-            'create_translation_files' => 'normal',
-            'translate_and_save' => 'normal',
-            'update_plugins' => 'normal',
-            'validate_translation_files' => 'normal',
-            'get_language_option_list' => 'normal'
+            'translate' => 'normal',
+            'get_plugin_option_list' => 'normal',
+            'get_language_option_list' => 'normal',
+            'translate_all_plugin_names' => 'normal',
+            'translate_one_plugin_to_one_language' => 'normal'
         ];
+
 
         return parent::_GetCmdFunctionsBase($list);
     }
 
     /**
-     * Give a plugin name, example infohub_contact_menu
-     * you get the main parent plugin name back, infohub_contact
-     * @param string $pluginName
-     * @return string
+     * Call libre translate to get this translated
+     *
+     * @param array $in
+     * @return array
+     * @author  Peter Lembke
+     * @version 2021-09-16
+     * @since   2021-09-16
      */
-    protected function _GetGrandPluginName(string $pluginName = ''): string
+    protected function translate(array $in = []): array
     {
-        $grandPluginName = $pluginName;
-        $parts = explode('_', $pluginName);
-        if (count($parts) > 2) {
-            $grandPluginName = $parts[0] . '_' . $parts[1];
+        $default = [
+            'from_text' => '',
+            'from_language' => 'en',
+            'to_language' => 'es',
+            'step' => 'step_call_libre_translate',
+            'response' => [],
+            'data_back' => [],
+            'config' => [
+                'libre_translate' => [
+                    'url' => 'https://libretranslate.com/languages',
+                    'port' => 443,
+                    'curl_logging' => 'false'
+                ]
+            ]
+        ];
+        $in = $this->_Default($default, $in);
+
+        $answer = 'false';
+        $message = 'Nothing to report from translate';
+        $ok = 'false';
+        $toText = '';
+
+        if ($in['step'] === 'step_call_libre_translate') {
+
+            $postData = $this->_JsonEncode([
+                'q' => $in['from_text'],
+                'source' => $in['from_language'],
+                'target' => $in['to_language']
+            ]);
+
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_call',
+                    'function' => 'call'
+                ],
+                'data' => [
+                    'url' => $in['config']['libre_translate']['url'] . '/translate',
+                    'port' => $in['config']['libre_translate']['port'],
+                    'post_data' => $postData,
+                    'mode' => 'post',
+                    'curl_logging' => $in['config']['libre_translate']['curl_logging'],
+                ],
+                'data_back' => [
+                    'step' => 'step_call_libre_translate_response'
+                ]
+            ]);
         }
 
-        return $grandPluginName;
+        if ($in['step'] === 'step_call_libre_translate_response') {
+            $answer = $in['response']['answer'];
+            $ok = $in['response']['answer'];
+            $message = $in['response']['message'];
+            $in['step'] = 'step_handle_response';
+            if ($answer === 'false') {
+                $in['step'] = 'step_end';
+            }
+        }
+
+        if ($in['step'] === 'step_handle_response') {
+            $responseLookup = $this->_JsonDecode($in['response']['response_string']);
+            $toText = $responseLookup['translatedText'];
+        }
+
+        return [
+            'answer' => $answer,
+            'message' => $message,
+            'to_text' => $toText,
+            'ok' => $ok
+        ];
     }
 
     /**
      * Load plugin list from infohub_file
+     * You get all level 1 plugin names in an array.
+     * You also get an option array, ready to be used in a form
+     * This option list is used to select a plugin to create a translation file for
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
      * @version 2019-02-23
      * @since   2019-02-23
      */
-    protected function load_plugin_list(array $in = []): array
+    protected function get_plugin_option_list(array $in = []): array
     {
         $default = [
             'step' => 'step_load_plugin_list',
@@ -113,19 +182,20 @@ class infohub_translate extends infohub_base
         $options = [];
 
         if ($in['step'] === 'step_load_plugin_list') {
-            return $this->_SubCall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'get_all_level1_plugin_names'
-                    ],
-                    'data' => [],
-                    'data_back' => [
-                        'step' => 'step_load_plugin_list_response'
-                    ]
+            return $this->_SubCall([
+                'to' => [
+                    'node' => 'server',
+                    'plugin' => 'infohub_file',
+                    'function' => 'get_all_level1_plugin_names'
+                ],
+                'data' => [
+                    'only_plugins_that_have_a_launcher' => 'true',
+                    'node' => 'client', // We want to translate client plugins (JavaScript)
+                ],
+                'data_back' => [
+                    'step' => 'step_load_plugin_list_response'
                 ]
-            );
+            ]);
         }
 
         if ($in['step'] === 'step_load_plugin_list_response') {
@@ -155,37 +225,287 @@ class infohub_translate extends infohub_base
     }
 
     /**
-     * Give a plugin name. Function examine the plugin and all children.
-     * Builds a translation json file with all phrases from the plugin and its children.
-     * @param array $in
-     * @return array
+     * Get the list with languages that libre translate can handle
+     *
      * @author  Peter Lembke
-     * @version 2020-12-15
-     * @since   2020-12-15
+     * @version 2021-09-17
+     * @since   2021-09-17
+     * @param  array  $in
+     * @return array
      */
-    protected function create_translation_files(array $in = []): array
+    protected function get_language_option_list(array $in = []): array
     {
         $default = [
-            'plugin_name_array' => [],
-            'file_download' => 'false',
-            'file_save' => 'false',
-            'step' => 'step_get_plugin_js_files_content',
+            'selected' => '',
+            'step' => 'step_call_libre_translate',
             'response' => [
                 'answer' => 'false',
-                'message' => 'Nothing',
-                'data' => [],
-                'launcher' => [],
-                'options' => [] // we get all available languages
+                'message' => '',
+                'response_string' => ''
             ],
-            'data_back' => [
-                'out' => []
+            'data_back' => [],
+            'config' => [
+                'libre_translate' => [
+                    'url' => 'https://libretranslate.com/languages',
+                    'port' => 443,
+                    'curl_logging' => 'false'
+                ]
             ]
         ];
         $in = $this->_Default($default, $in);
 
-        $messageArray = [];
+        $answer = 'false';
+        $message = 'Nothing to report from get_language_option_list';
+        $ok = 'false';
+        $options = [];
 
-        if ($in['step'] === 'step_get_plugin_js_files_content') {
+        if ($in['step'] === 'step_call_libre_translate') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_call',
+                        'function' => 'call'
+                    ],
+                    'data' => [
+                        'url' => $in['config']['libre_translate']['url'] . '/languages',
+                        'port' => $in['config']['libre_translate']['port'],
+                        'post_data' => '',
+                        'mode' => 'get',
+                        'curl_logging' => $in['config']['libre_translate']['curl_logging'],
+                    ],
+                    'data_back' => [
+                        'selected' => $in['selected'],
+                        'step' => 'step_call_libre_translate_response'
+                    ]
+                ]
+            );
+        }
+
+        if ($in['step'] === 'step_call_libre_translate_response') {
+            $answer = $in['response']['answer'];
+            $ok = $in['response']['answer'];
+            $message = $in['response']['message'];
+            $in['step'] = 'step_convert_to_options';
+            if ($answer === 'false') {
+                $message = 'Server got response from the LibreTranslate API: ' . $message;
+                $in['step'] = 'step_end';
+            }
+        }
+
+        if ($in['step'] === 'step_convert_to_options') {
+            $languageArray = $this->_JsonDecode($in['response']['response_string']);
+            foreach ($languageArray as $languageItem) {
+                $item = [
+                    "type" => "option",
+                    "value" => $languageItem['code'],
+                    "label" => $languageItem['name']
+                ];
+                if ($languageItem['code'] === $in['selected']) {
+                    $item['selected'] = 'true';
+                }
+                $options[] = $item;
+            }
+        }
+
+        return [
+            'answer' => $answer,
+            'message' => $message,
+            'options' => $options,
+            'ok' => $ok
+        ];
+    }
+
+    /**
+     * The data from the GUI arrive to this function: translate_all_plugin_names
+     * Data is an array with all selected level1 plugin names, and one array with all selected language codes.
+     * Combine one plugin name with all language codes. Send a short tail message to function translate_one_plugin_name. Use step_void
+     *
+     * @param array $in
+     * @return array
+     */
+    protected function translate_all_plugin_names(array $in = []): array
+    {
+        ini_set('max_memory', '2048M');
+
+        $default = [
+            'plugin_list' => [],
+            'language_list' => [],
+            'step' => 'step_start',
+            'response' => [],
+            'data_back' => []
+        ];
+        $in = $this->_Default($default, $in);
+
+        $messages = [];
+
+        if ($in['step'] === 'step_start') {
+
+            $isHavingValues = $this->_Empty($in['plugin_list']) === 'false' &&
+                $this->_Empty($in['language_list']) === 'false';
+
+            if ($isHavingValues === false) {
+                return [
+                    'answer' => 'false',
+                    'message' => 'No values in plugin_list or language_list',
+                    'ok' => 'false'
+                ];
+            }
+
+            foreach ($in['plugin_list'] as $pluginName) {
+                foreach($in['language_list'] as $languageCode) {
+                    $messageOut = $this->_SubCall([
+                        'to' => [
+                            'node' => 'server',
+                            'plugin' => 'infohub_translate',
+                            'function' => 'translate_one_plugin_to_one_language'
+                        ],
+                        'data' => [
+                            'plugin_name' => $pluginName,
+                            'language_code' => $languageCode
+                        ],
+                        'data_back' => [
+                            'step' => 'step_response'
+                        ]
+                    ]);
+                    $messages[] = $messageOut;
+                }
+            }
+
+            return [
+                'answer' => 'true',
+                'message' => 'Have sent one message for each combination of plugin and language',
+                'messages' => $messages
+            ];
+        }
+
+        if ($in['step'] === 'step_response') {
+            if ($in['response']['answer'] === 'false') {
+                return [
+                    'answer' => 'false',
+                    'message' => $in['response']['message'],
+                    'ok' => 'false'
+                ];
+            }
+            $isLast = $this->_GetData([
+                'name' => 'data_back/is_last_batch_message',
+                'default' => 'false',
+                'data' => $in
+            ]);
+            if ($isLast === 'false') {
+                return [];
+            }
+        }
+
+        return [
+            'answer' => 'true',
+            'message' => 'All plugins were translated to all languages',
+            'ok' => 'true',
+        ];
+    }
+
+    /**
+     * We get one level 1 plugin name and one language code.
+     * We will now get all child plugin names and pull out all text strings,
+     * and send them all in one call to the LibreTranslate API.
+     *
+     * @param array $in
+     * @return array
+     */
+    protected function translate_one_plugin_to_one_language(array $in = []): array
+    {
+        $default = [
+            'plugin_name' => '',
+            'language_code' => '',
+            'step' => 'step_start',
+            'response' => [
+                'answer' => 'false',
+                'message' => '',
+                'type' => '',
+                'data' => [],
+                'launcher' => [],
+                'response_string' => '',
+                'execution_time' => 0.0
+            ],
+            'data_back' => [
+                'is_last_batch_message' => 'false',
+                'plugin_names' => '',
+                'language_code' => '',
+                'key_array' => [],
+                'translation_lookup' => [],
+                'language_code_language_name_lookup' => [],
+            ],
+            'config' => [
+                'libre_translate' => [
+                    'url' => 'https://libretranslate.com/languages',
+                    'port' => 443,
+                    'curl_logging' => 'false'
+                ]
+            ]
+        ];
+        $in = $this->_Default($default, $in);
+
+        $messageItemArray = [];
+
+        if ($in['step'] === 'step_start') {
+
+            $isHavingValues = $this->_Empty($in['plugin_name']) === 'false' &&
+                $this->_Empty($in['language_code']) === 'false';
+
+            if ($isHavingValues === false) {
+                return [
+                    'answer' => 'false',
+                    'message' => 'No values in plugin_name or language_code',
+                    'ok' => 'false'
+                ];
+            }
+
+            $in['step'] = 'step_language';
+        }
+
+        if ($in['step'] === 'step_language') {
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_call',
+                        'function' => 'call'
+                    ],
+                    'data' => [
+                        'url' => $in['config']['libre_translate']['url'] . '/languages',
+                        'port' => $in['config']['libre_translate']['port'],
+                        'post_data' => '',
+                        'mode' => 'get',
+                        'curl_logging' => $in['config']['libre_translate']['curl_logging'],
+                    ],
+                    'data_back' => [
+                        'plugin_name' => $in['plugin_name'],
+                        'language_code' => $in['language_code'],
+                        'step' => 'step_language_response'
+                    ]
+                ]
+            );
+        }
+
+        if ($in['step'] === 'step_language_response') {
+            if ($in['response']['answer'] === 'false') {
+                return [
+                    'answer' => 'false',
+                    'message' => $in['response']['message'],
+                    'ok' => 'false'
+                ];
+            }
+
+            $languageArray = $this->_JsonDecode($in['response']['response_string']);
+            $languageCodeLanguageNameLookup = array_column(array: $languageArray, column_key: 'name', index_key: 'code');
+
+            $in['step'] = 'step_get_js_code';
+        }
+
+        if ($in['step'] === 'step_get_js_code') {
+
+            $pluginName = $in['plugin_name'];
+
             return $this->_SubCall([
                 'to' => [
                     'node' => 'server',
@@ -193,343 +513,359 @@ class infohub_translate extends infohub_base
                     'function' => 'get_plugin_js_files_content'
                 ],
                 'data' => [
-                    'plugin_name_array' => $in['plugin_name_array']
+                    'plugin_name_array' => [$pluginName]
                 ],
                 'data_back' => [
-                    'file_save' => $in['file_save'],
-                    'file_download' => $in['file_download'],
-                    'step' => 'step_get_plugin_js_files_content_response'
+                    'plugin_name' => $in['plugin_name'],
+                    'language_code' => $in['language_code'],
+                    'language_code_language_name_lookup' => $languageCodeLanguageNameLookup,
+                    'step' => 'step_get_js_code_response'
                 ]
             ]);
         }
 
-        if ($in['step'] === 'step_get_plugin_js_files_content_response') {
-            $in['step'] = 'step_pull_out_text_strings';
+        if ($in['step'] === 'step_get_js_code_response') {
             if ($in['response']['answer'] === 'false') {
-                goto leave;
-            }
-        }
-
-        if ($in['step'] === 'step_pull_out_text_strings') {
-            $find = '_Translate(';
-            $findLength = strlen($find);
-
-            $out = [];
-
-            foreach ($in['response']['data'] as $pluginName => $code) {
-                $offset = 0;
-                $done = false;
-                $codeLength = strlen($code);
-                $parentPluginName = $this->_GetParentPluginName($pluginName);
-
-                while ($done === false) {
-                    if ($offset >= $codeLength) {
-                        $done = 'true';
-                        continue;
-                    }
-
-                    $position = strpos($code, $find, $offset);
-
-                    if ($position === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $blipStart = $position + $findLength;
-                    $blip = substr($code, $blipStart, 1);
-                    if ($blip !== '"' && $blip !== "'") {
-                        $offset = $position + $findLength + 1;
-                        continue;
-                    }
-
-                    $textStart = $position + $findLength + 1;
-
-                    $findEnd = $blip . ')';
-                    $textEnd = strpos($code, $findEnd, $textStart);
-
-                    if ($textEnd === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $textLength = $textEnd - $textStart;
-                    $text = substr($code, $textStart, $textLength);
-
-                    $offset = $textEnd + 2;
-
-                    if (empty($text) === true) {
-                        continue;
-                    }
-
-                    if (isset($out[$parentPluginName]) === false) {
-                        $out[$parentPluginName] = [];
-                    }
-                    if (isset($out[$parentPluginName][$pluginName]) === false) {
-                        $out[$parentPluginName][$pluginName] = [];
-                    }
-
-                    $key = $this->textToKey($text);
-                    $finalText = $this->keyToText($text);
-
-                    $out[$parentPluginName][$pluginName][$key] = $finalText;
-                }
-            }
-
-            $in['step'] = 'step_end';
-
-            if (empty($out) === false) {
-                $in['data_back']['out'] = $out;
-
-                $in['step'] = 'step_create_header';
-            }
-        }
-
-        if ($in['step'] === 'step_create_header') {
-
-            foreach($in['data_back']['out'] as $parentPluginName => $contentArray) {
-                $contentJson = $this->_JsonEncode($contentArray);
-
-                $launcher = $this->_JsonDecode($in['response']['launcher'][$parentPluginName]);
-                $default = [
-                    'title' => '',
-                    'description' => ''
+                return [
+                    'answer' => 'false',
+                    'message' => $in['response']['message'],
+                    'ok' => 'false'
                 ];
-                $launcher = $this->_Default($default, $launcher);
+            }
 
-                $header = [
-                    'version' => [
-                        'date' => $this->_TimeStamp(),
-                        'plugin' => $parentPluginName,
-                        'data_checksum' => md5($contentJson),
-                        'language' => 'en',
-                        'language_name' => 'english',
-                        'country' => 'GB',
-                        'country_name' => 'Great Britain',
-                        'file_type' => 'translate_file'
+            $pluginNameCodeLookup = $in['response']['data'];
+            $launcherLookup = $in['response']['launcher'];
+            $translationLookup = $this->_PluginCodePullOutTextStrings($pluginNameCodeLookup);
+            $languageCode = $in['language_code'];
+            $languageName = $in['data_back']['language_code_language_name_lookup'][$languageCode] ?? 'Unknown';
+            $translationLookup = $this->_AddHeader($translationLookup, $launcherLookup, $languageCode, $languageName);
+            $libreTranslateMessage = $this->_GetLibreTranslateMessage($translationLookup);
+            $keyArray = $libreTranslateMessage['key_array'];
+            $textArray = $libreTranslateMessage['text_array'];
+
+            $postData = $this->_JsonEncode([
+                'q' => $textArray,
+                'source' => 'en',
+                'target' => $in['language_code'],
+                'alternatives' => 3
+            ]);
+
+            return $this->_SubCall(
+                [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_call',
+                        'function' => 'call'
                     ],
-                    'launcher' => [
-                        'title' => $launcher['title'],
-                        'description' => $launcher['description']
+                    'data' => [
+                        'url' => $in['config']['libre_translate']['url'] . '/translate',
+                        'port' => $in['config']['libre_translate']['port'],
+                        'post_data' => $postData,
+                        'mode' => 'post',
+                        'curl_logging' => $in['config']['libre_translate']['curl_logging'],
                     ],
-                    'data' => $contentArray
+                    'data_back' => [
+                        'key_array' => $keyArray,
+                        'translation_lookup' => $translationLookup,
+                        'step' => 'step_call_libre_translate_response'
+                    ]
+                ]
+            );
+        }
+
+        if ($in['step'] === 'step_call_libre_translate_response') {
+            if ($in['response']['answer'] === 'false') {
+                return [
+                    'answer' => 'false',
+                    'message' => $in['response']['message'],
+                    'ok' => 'false'
                 ];
-
-                $in['data_back']['out'][$parentPluginName] = $header;
             }
 
-            $in['response']['message'] = 'Here are the translation file';
-
-            $in['step'] = 'step_file_save_or_download';
+            $in['step'] = 'step_match_keys';
         }
 
-        if ($in['step'] === 'step_file_save_or_download') {
-            $in['step'] = 'step_file_download';
-            if ($in['file_save'] === 'true') {
-                $in['step'] = 'step_get_language_option_list';
+        if ($in['step'] === 'step_match_keys') {
+            $response = $this->_JsonDecode($in['response']['response_string']);
+            $translatedValueArray = $response['translatedText'];
+            $keyValueLookup = array_combine($in['data_back']['key_array'], $translatedValueArray);
+            $translationLookup = $this->_UpdateTranslationLookupWithTranslatedStrings($in['data_back']['translation_lookup'], $keyValueLookup);
+
+            foreach ($translationLookup as $parentPluginName => $contentArray) {
+
+                $path = $parentPluginName . DS . $contentArray['version']['language'] . '.json';
+
+                $messageOut = [
+                    'to' => [
+                        'node' => 'server',
+                        'plugin' => 'infohub_file',
+                        'function' => 'write'
+                    ],
+                    'data' => [
+                        'path' => $path,
+                        'contents' => $this->_JsonEncode(
+                            dataArray: $contentArray,
+                            usePrettyPrint: true, // Preserves åäö and other non-ASCII characters
+                            useUnescapedUnicode: true // Makes it easier to read the file for humans
+                        ),
+                        'allow_overwrite' => 'true'
+                    ],
+                    'data_back' => [
+                        'step' => 'step_write_to_file_response'
+                    ]
+                ];
+                $messageItemArray[] = $messageOut;
             }
-        }
 
-        if ($in['step'] === 'step_get_language_option_list') {
-            return $this->_SubCall([
-                'to' => [
-                    'node' => 'server',
-                    'plugin' => 'infohub_libretranslate',
-                    'function' => 'get_language_option_list'
-                ],
-                'data' => [
-                ],
-                'data_back' => [
-                    'step' => 'step_get_language_option_list_response',
-                    'out' => $in['data_back']['out']
-                ]
+            return $this->_BatchCall([
+                'messages' => $messageItemArray
             ]);
         }
 
-        if ($in['step'] === 'step_get_language_option_list_response') {
-            $optionArray = $in['response']['options'];
-        }
-
-        if ($in['step'] === 'step_translate_and_save') {
-
-            // https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers
-
-            $headerData = [
-                'en' => [
-                    'language' => 'en',
-                    'language_name' => 'english',
-                    'country' => 'GB',
-                    'country_name' => 'Great Britain',
-                ],
-                'zh' => [
-                    'language' => 'zh',
-                    'language_name' => 'chinese',
-                    'country' => 'CN',
-                    'country_name' => 'China'
-                ],
-                'hi' => [
-                    'language' => 'hi',
-                    'language_name' => 'hindi',
-                    'country' => 'IN',
-                    'country_name' => 'India',
-                ],
-                'es' => [
-                    'language' => 'es',
-                    'language_name' => 'spanish',
-                    'country' => 'ES',
-                    'country_name' => 'Spain',
-                ],
-                'sv' => [
-                    'language' => 'sv',
-                    'language_name' => 'swedish', // My language
-                    'country' => 'SE',
-                    'country_name' => 'Sweden',
-                ],
-            ];
-
-            foreach($in['data_back']['out'] as $parentPluginName => $contentArray) {
-
-                if (empty($contentArray) === true) {
-                    continue;
-                }
-
-                foreach ($headerData as $languageCode => $localizedHeaderData) {
-
-                    $path = 'translate' . DS . str_replace('_', '/', $parentPluginName) . DS . "$languageCode.json";
-
-                    $contentArray['version'] = array_merge($contentArray['version'], $localizedHeaderData);
-
-                    $messageOut = $this->_SubCall([
-                        'to' => [
-                            'node' => 'server',
-                            'plugin' => 'infohub_translate',
-                            'function' => 'translate_and_save'
-                        ],
-                        'data' => [
-                            'path' => $path,
-                            'from_language' => 'en',
-                            'to_language' => $languageCode,
-                            'translation_lookup' => $contentArray,
-                            'allow_overwrite' => 'true',
-                        ],
-                        'data_back' => [
-                            'step' => 'step_end'
-                        ]
-                    ]);
-                    $messageArray[] = $messageOut;
-                }
+        if ($in['step'] === 'step_write_to_file_response') {
+            if ($in['response']['answer'] === 'false') {
+                return [
+                    'answer' => 'false',
+                    'message' => $in['message'],
+                    'ok' => 'false'
+                ];
             }
-
-            $in['step'] = 'step_file_download';
-        }
-
-        if ($in['step'] === 'step_file_download') {
-            if ($in['file_download'] === 'false') {
-                $in['data_back']['out'] = [];
+            $isLast = $this->_GetData([
+                'name' => 'data_back/is_last_batch_message',
+                'default' => 'false',
+                'data' => $in
+            ]);
+            if ($isLast === 'false') {
+                return [];
             }
-        }
-
-        leave:
-        return [
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'file_lookup' => $in['data_back']['out'],
-            'messages' => $messageArray
-        ];
-    }
-
-    /**
-     * Get the english translation file.
-     * Get the localised header data
-     * Pull out the destination language
-     * Translate the data by calling libretranslate in a lot of tail less messages
-     * Save the translated file
-     * @param  array  $in
-     * @return string[]
-     */
-    public function translate_and_save(
-        array $in = []
-    ): array {
-        $default = [
-            'step' => 'step_file_save',
-            'path' => '',
-            'from_language' => '',
-            'to_language' => '',
-            'translation_lookup' => [],
-            'allow_overwrite' => 'true',
-            'response' => [
-                'answer' => 'false',
-                'message' => 'Nothing to report'
-            ],
-            'from_plugin' => [
-                'node' => '',
-                'plugin' => ''
-            ]
-        ];
-        $in = $this->_Default($default, $in);
-
-        if ($in['from_plugin']['node'] !== 'server') {
-            return [
-                'answer' => 'false',
-                'message' => 'I only accept messages from the server node'
-            ];
-        }
-
-        if ($in['from_plugin']['plugin'] !== 'infohub_translate') {
-            return [
-                'answer' => 'false',
-                'message' => 'I only accept messages from the translate plugin'
-            ];
-        }
-
-        if ($in['step'] === 'step_translate') {
-
-            // TODO: Loop through the data and create a message that Darkhold can process
-
-            return $this->_SubCall([
-                'to' => [
-                    'node' => 'server',
-                    'plugin' => 'infohub_libretranslate',
-                    'function' => 'translate'
-                ],
-                'data' => [
-                    'from_language' => $in['from_language'],
-                    'to_language' => $in['to_language'],
-                    'translation_lookup' => $in['translation_lookup']
-                ],
-                'data_back' => [
-                    'path' => $in['path'],
-                    'translation_lookup' => $in['translation_lookup'],
-                    'allow_overwrite' => $in['allow_overwrite'],
-                    'step' => 'step_file_save'
-                ]
-            ]);
-        }
-
-        if ($in['step'] === 'step_file_save') {
-
-            $contentsJson = $this->_JsonEncode($in['translation_lookup']);
-
-            return $this->_SubCall([
-                'to' => [
-                    'node' => 'server',
-                    'plugin' => 'infohub_file',
-                    'function' => 'write'
-                ],
-                'data' => [
-                    'path' => $in['path'],
-                    'contents' => $contentsJson,
-                    'allow_overwrite' => $in['allow_overwrite']
-                ],
-                'data_back' => [
-                    'step' => 'step_end'
-                ]
-            ]);
         }
 
         return [
             'answer' => 'true',
-            'message' => 'Sent file to be saved'
+            'message' => 'The translation file was written',
+            'ok' => 'true',
+            'messages' => $messageItemArray
         ];
+    }
+
+    /**
+     * Pull out all text strings from all the plugins code
+     * We now have the key and the english text
+     *
+     * @param array $pluginNameCodeLookup
+     * @return array
+     */
+    protected function _PluginCodePullOutTextStrings(
+        array $pluginNameCodeLookup = []
+    ): array {
+        $find = '_Translate(';
+        $findLength = strlen($find);
+
+        $translationLookup = [];
+
+        foreach ($pluginNameCodeLookup as $pluginName => $code) {
+            $offset = 0;
+            $done = false;
+            $codeLength = strlen($code);
+            $parentPluginName = $this->_GetParentPluginName($pluginName);
+
+            while ($done === false) {
+                if ($offset >= $codeLength) {
+                    $done = 'true';
+                    continue;
+                }
+
+                $position = strpos($code, $find, $offset);
+
+                if ($position === false) {
+                    $done = true;
+                    continue;
+                }
+
+                $blipStart = $position + $findLength;
+                $blip = substr($code, $blipStart, 1);
+                if ($blip !== '"' && $blip !== "'") {
+                    $offset = $position + $findLength + 1;
+                    continue;
+                }
+
+                $textStart = $position + $findLength + 1;
+
+                $findEnd = $blip . ')';
+                $textEnd = strpos($code, $findEnd, $textStart);
+
+                if ($textEnd === false) {
+                    $done = true;
+                    continue;
+                }
+
+                $textLength = $textEnd - $textStart;
+                $text = substr($code, $textStart, $textLength);
+
+                $offset = $textEnd + 2;
+
+                if (empty($text) === true) {
+                    continue;
+                }
+
+                if (isset($translationLookup[$parentPluginName]) === false) {
+                    $translationLookup[$parentPluginName] = [];
+                }
+                if (isset($translationLookup[$parentPluginName][$pluginName]) === false) {
+                    $translationLookup[$parentPluginName][$pluginName] = [];
+                }
+
+                $key = $this->textToKey($text);
+                $finalText = $this->keyToText($text);
+
+                $translationLookup[$parentPluginName][$pluginName][$key] = $finalText;
+            }
+        }
+
+        return $translationLookup;
+    }
+
+    /**
+     * Add the header to the translation lookup
+     *
+     * @param array $translationLookup
+     * @param array $launcherLookup
+     * @param string $languageCode
+     * @param string $languageName
+     * @return array
+     */
+    protected function _AddHeader(
+        array $translationLookup,
+        array $launcherLookup,
+        string $languageCode,
+        string $languageName
+    ): array {
+        foreach($translationLookup as $parentPluginName => $contentArray) {
+
+            $launcherJson = $launcherLookup[$parentPluginName] ?? '';
+
+            $launcher = $this->_JsonDecode($launcherJson);
+            $default = [
+                'title' => '',
+                'description' => ''
+            ];
+            $launcher = $this->_Default($default, $launcher);
+
+            $header = [
+                'version' => $this->_GetHeaderVersion($parentPluginName, $contentArray, $languageCode, $languageName),
+                'launcher' => [
+                    'title' => $launcher['title'],
+                    'description' => $launcher['description']
+                ],
+                'data' => $contentArray
+            ];
+
+            $translationLookup[$parentPluginName] = $header;
+        }
+
+        return $translationLookup;
+    }
+
+    /**
+     * Get the version header
+     *
+     * @param string $parentPluginName
+     * @param array $contentArray
+     * @param string $languageCode
+     * @param string $languageName
+     * @return array
+     */
+    protected function _GetHeaderVersion(
+        string $parentPluginName,
+        array $contentArray,
+        string $languageCode,
+        string $languageName
+    ): array {
+
+        $contentJson = $this->_JsonEncode($contentArray);
+
+        return [
+            'date' => $this->_TimeStamp(),
+            'plugin' => $parentPluginName,
+            'data_checksum' => md5($contentJson),
+            'language' => $languageCode, // en
+            'language_name' => $languageName, // english
+            'language_name_local' => $languageName, // english
+            'country' => '', // GB
+            'country_name' => '', // Great Britain
+            'file_type' => 'translate_file',
+            'has_manual_translations' => 'false',
+        ];
+    }
+
+    /**
+     * LibreTranslate can do batch translations in one call,
+     * but it has to be an array with all the text strings.
+     * Later we will get an array with all the translated text strings and need to match them with the keys.
+     *
+     * @param array $translationLookup
+     * @return array[]
+     */
+    protected function _GetLibreTranslateMessage(
+        array $translationLookup = []
+    ): array
+    {
+        $keyArray = [];
+        $textArray = [];
+
+        foreach ($translationLookup as $parentPluginName => $pluginItem) {
+            $keyArray[] =  $parentPluginName.'.launcher.title';
+            $textArray[] = $pluginItem['launcher']['title'];
+            $keyArray[] =  $parentPluginName.'.launcher.description';
+            $textArray[] = $pluginItem['launcher']['description'];
+            $keyArray[] =  $parentPluginName.'.version.language_name_local';
+            $textArray[] = $pluginItem['version']['language_name_local'];
+
+            foreach ($pluginItem['data'] as $pluginName => $keyTextLookup) {
+                foreach ($keyTextLookup as $key => $text) {
+                    $keyArray[] = $parentPluginName.'.data.'.$pluginName.'.'.$key;
+                    $textArray[] = $text;
+                }
+            }
+        }
+
+        return [
+            'key_array' => $keyArray,
+            'text_array' => $textArray
+        ];
+    }
+
+    /**
+     * We have the key->translated string.
+     * We want them to be written to the translation lookup in the right place
+     *
+     * @param array $translationLookup
+     * @param array $keyValueLookup
+     * @return array
+     */
+    protected function _UpdateTranslationLookupWithTranslatedStrings(
+        array $translationLookup,
+        array $keyValueLookup
+    ): array {
+        foreach ($keyValueLookup as $key => $value) {
+            $keyParts = explode('.', $key);
+            $parentPluginName = $keyParts[0] ?? '';
+            $area = $keyParts[1] ?? '';
+            $pluginName = $keyParts[2] ?? '';
+
+            // implode all $keyParts from 3 and onwards. In case we have "USE_THE_MENU._KEY" as the key, then the "." have split the string.
+            $keyArray = array_slice($keyParts, 3);
+            $key = implode('.', $keyArray);
+
+            if ($key === '') {
+                $translationLookup[$parentPluginName][$area][$pluginName] = $value;
+                continue;
+            }
+
+            $translationLookup[$parentPluginName][$area][$pluginName][$key] = $value;
+        }
+
+        return $translationLookup;
     }
 
     /**
@@ -593,494 +929,5 @@ class infohub_translate extends infohub_base
         $key = $key . '_KEY'; // These makes Google Translate avoid translating the single word key
 
         return $key;
-    }
-
-    /**
-     * Give a list with plugin names.
-     * Function adds the child plugin names to the list.
-     * Then walk through each plugin. Read the contents with the help of infohub_file.
-     * Paste the contents to a sub function.
-     * If changes was made then save the new plugin to the File folder with the help of infohub_file.
-     *
-     * @param array $in
-     * @return array
-     * @author  Peter Lembke
-     * @version 2021-08-15
-     * @since   2021-08-15
-     */
-    protected function update_plugins(array $in = []): array
-    {
-        $default = [
-            'plugin_name_array' => [],
-            'step' => 'step_get_plugin_js_files_content',
-            'response' => [
-                'answer' => 'false',
-                'message' => 'Nothing',
-                'data' => []
-            ],
-            'data_back' => [
-                'out' => []
-            ]
-        ];
-        $in = $this->_Default($default, $in);
-
-        $messageArray = [];
-
-        if ($in['step'] === 'step_get_plugin_js_files_content') {
-            return $this->_SubCall(
-                [
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'get_plugin_js_files_content'
-                    ],
-                    'data' => [
-                        'plugin_name_array' => $in['plugin_name_array']
-                    ],
-                    'data_back' => [
-                        'step' => 'step_get_plugin_js_files_content_response'
-                    ]
-                ]
-            );
-        }
-
-        if ($in['step'] === 'step_get_plugin_js_files_content_response') {
-            $in['step'] = 'step_pull_out_text_strings';
-            if ($in['response']['answer'] === 'false') {
-                goto leave;
-            }
-        }
-
-        if ($in['step'] === 'step_pull_out_text_strings') {
-
-            $find = '_Translate(';
-            $findLength = strlen($find);
-
-            $out = [];
-
-            foreach ($in['response']['data'] as $pluginName => $code) {
-                $offset = 0;
-                $done = false;
-                $codeLength = strlen($code);
-                $changed = false;
-
-                while ($done === false) {
-                    if ($offset >= $codeLength) {
-                        $done = 'true';
-                        continue;
-                    }
-
-                    $position = strpos($code, $find, $offset);
-
-                    if ($position === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $blipStart = $position + $findLength;
-                    $blip = substr($code, $blipStart, 1);
-                    if ($blip !== '"' && $blip !== "'") {
-                        $offset = $position + $findLength + 1;
-                        continue;
-                    }
-
-                    $textStart = $position + $findLength + 1;
-
-                    $findEnd = $blip . ')';
-                    $textEnd = strpos($code, $findEnd, $textStart);
-
-                    if ($textEnd === false) {
-                        $done = true;
-                        continue;
-                    }
-
-                    $textLength = $textEnd - $textStart;
-                    $text = substr($code, $textStart, $textLength);
-                    $offset = $textEnd + 2;
-
-                    if (empty($text) === true) {
-                        continue;
-                    }
-
-                    $keyValid = $this->_KeyValid($text);
-                    if ($keyValid === true) {
-                        continue;
-                    }
-
-                    $key = strtoupper($text);
-                    $key = str_replace($search = ' ', $replace = '_', $key);
-
-                    $code = substr($code, 0, $textStart) . $key . substr($code, $textEnd);
-                    $changed = true;
-                }
-
-                if ($changed === true) {
-                    $out[$pluginName] = $code;
-                }
-            }
-
-            $in['step'] = 'step_end';
-
-            if (empty($out) === false) {
-                $in['data_back']['out'] = $out;
-                $in['step'] = 'step_create_plugins';
-            }
-        }
-
-        if ($in['step'] === 'step_create_plugins') {
-
-            foreach ($in['data_back']['out'] as $pluginName => $contents) {
-
-                if (empty($contents) === true) {
-                    continue;
-                }
-
-                $path = 'plugins' . DS . $pluginName . '.js';
-
-                $messageOut = $this->_SubCall([
-                    'to' => [
-                        'node' => 'server',
-                        'plugin' => 'infohub_file',
-                        'function' => 'write'
-                    ],
-                    'data' => [
-                        'path' => $path,
-                        'contents' => $contents,
-                        'allow_overwrite' => 'true'
-                    ],
-                    'data_back' => []
-                ]);
-                $messageArray[] = $messageOut;
-            }
-        }
-
-        leave:
-        return [
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'plugins_created' => array_keys($in['data_back']['out']),
-            'messages' => $messageArray
-        ];
-    }
-
-    /**
-     * Check if the key is valid
-     * @param  string  $key
-     * @return bool
-     */
-    protected function _KeyValid(string $key = ''): bool {
-
-        if (strtoupper($key) !== $key) {
-            return false; // There are lower case characters in the key
-        }
-
-        if (str_contains($key, ' ') === true) {
-            return false; // There are spaces in the key
-        }
-
-        if (str_contains($key, '\\') === true) {
-            return false; // There are backslash in the key
-        }
-
-        return true;
-    }
-
-    /**
-     * Give a plugin name. Pulls out all translation files and validate each of them.
-     * Then compare each translation file with en.json to find differences in the properties
-     * Returns an array with strings that describe what has been found
-     *
-     * @param array $in
-     * @return array
-     * @author  Peter Lembke
-     * @version 2021-08-15
-     * @since   2021-08-15
-     */
-    protected function validate_translation_files(array $in = []): array
-    {
-        $default = [
-            'plugin_name_array' => [],
-            'step' => 'step_get_translation_files',
-            'response' => [
-                'answer' => 'false',
-                'message' => 'Nothing',
-                'data' => []
-            ],
-            'data_back' => [
-                'log' => [],
-                'latest_plugin_name' => ''
-            ]
-        ];
-        $in = $this->_Default($default, $in);
-
-        if ($in['step'] === 'step_get_translation_files_response') {
-
-            $pluginName = $in['data_back']['latest_plugin_name'];
-
-            if ($in['response']['answer'] === 'false') {
-                $message = $in['response']['message'];
-                $in['data_back']['log'][] = "$pluginName: $message";
-                $in['step'] = 'step_end';
-            }
-
-            if ($in['response']['answer'] === 'true') {
-                $response = $this->internal_Cmd([
-                    'func' => 'ValidateLanguageFiles',
-                    'translation_file_array' => $in['response']['data'],
-                    'plugin_name' => $in['data_back']['latest_plugin_name']
-                ]);
-                $in['data_back']['log'][$pluginName] = $response['log'];
-                $in['step'] = 'step_get_translation_files';
-            }
-        }
-
-        if ($in['step'] === 'step_get_translation_files') {
-            if (count($in['plugin_name_array']) > 0) {
-                $pluginName = array_pop($in['plugin_name_array']);
-                return $this->_SubCall(
-                    [
-                        'to' => [
-                            'node' => 'server',
-                            'plugin' => 'infohub_file',
-                            'function' => 'get_translation_files'
-                        ],
-                        'data' => [
-                            'plugin_name' => $pluginName
-                        ],
-                        'data_back' => [
-                            'plugin_name_array' => $in['plugin_name_array'],
-                            'log' => $in['data_back']['log'],
-                            'latest_plugin_name' => $pluginName,
-                            'step' => 'step_get_translation_files_response'
-                        ]
-                    ]
-                );
-            }
-        }
-
-        return [
-            'answer' => $in['response']['answer'],
-            'message' => $in['response']['message'],
-            'data' => $in['data_back']['log']
-        ];
-    }
-
-    /**
-     * Uses the array from infohub_file->get_translation_files
-     * and does the tests on them
-     * @param  array  $in
-     * @return array
-     */
-    protected function internal_ValidateLanguageFiles(array $in = []): array {
-        $default = [
-            'translation_file_array' => []
-        ];
-        $in = $this->_Default($default, $in);
-
-        $mainLanguage = 'en';
-        $log = [];
-
-        $default = [
-            'version' => [
-                'date' => '',
-                'plugin' => '',
-                'data_checksum' => '',
-                'language' => '',
-                'country' => '',
-                'file_type' => ''
-            ],
-            'launcher' => [
-                'title' => '',
-                'description' => ''
-            ],
-            'data' => []
-        ];
-
-        $translationFileArray = $in['translation_file_array'];
-        if (empty($translationFileArray) === true) {
-            goto leave;
-        }
-        
-        foreach ($translationFileArray as $languageCode => $contentString) {
-
-            $contentArray = $this->_JsonDecode($contentString);
-
-            if (empty($contentArray) === true) {
-                unset($translationFileArray[$languageCode]);
-
-                $row = 'File could not be JSON decoded. Use an online validator like https://jsonlint.com/ to find the json issue';
-                $log = $this->_ToLog($log, $languageCode, $row);
-                continue;
-            }
-
-            $log = $this->_CheckKeyHasData($default, $contentArray, $languageCode, $log, $prefix = '', $suffix = 'missing');
-            $translationFileArray[$languageCode] = $contentArray;
-        }
-
-        if (isset($translationFileArray[$mainLanguage]) === false) {
-            $row = 'English language file missing';
-            $log = $this->_ToLog($log, $mainLanguage, $row);
-            goto leave;
-        }
-
-        $mainData = $translationFileArray[$mainLanguage];
-
-        $prefix = '';
-        foreach ($translationFileArray as $languageCode => $contentArray) {
-            $log = $this->_CheckKeyHasData($mainData['data'], $contentArray['data'], $languageCode, $log, $prefix, $suffix = 'missing');
-            $log = $this->_CheckKeyHasData($contentArray['data'], $mainData['data'], $languageCode, $log, $prefix, $suffix = 'deprecated');
-        }
-
-        leave:
-        return [
-            'answer' => 'true',
-            'message' => 'Done validating the file. See the log',
-            'log' => $log
-        ];
-    }
-
-    /**
-     * Recursive function that logs if a key is missing in data2
-     * @param  array  $data1
-     * @param  array  $data2
-     * @param  string  $languageCode
-     * @param  array  $log
-     * @param  string  $prefix
-     * @param  string  $suffix
-     * @return array
-     */
-    protected function _CheckKeyHasData(
-        array $data1 = [],
-        array $data2 = [],
-        string $languageCode = '',
-        array $log = [],
-        string $prefix = '',
-        string $suffix = ''
-    ): array {
-        foreach ($data1 as $key => $value) {
-            $nextPrefix = $this->_GetNextPrefix($prefix, $key);
-            if (isset($data2[$key]) === false) {
-                $row = "Key `$nextPrefix` $suffix";
-                $log = $this->_ToLog($log, $languageCode, $row);
-                continue;
-            }
-            if (empty($data2[$key]) === true) {
-                $row = "Key `$nextPrefix` has no data";
-                $log = $this->_ToLog($log, $languageCode, $row);
-                continue;
-            }
-            if (is_array($value) === true && is_array($data2[$key]) === false) {
-                $row = "Key `$nextPrefix` should be an array";
-                $log = $this->_ToLog($log, $languageCode, $row);
-                continue;
-            }
-            if (is_array($value) === true && is_array($data2[$key]) === true) {
-                $log = $this->_CheckKeyHasData($value, $data2[$key], $languageCode, $log, $nextPrefix, $suffix);
-            }
-        }
-        return $log;
-    }
-
-    /**
-     * Gives you the next prefix
-     * @param  string  $prefix
-     * @param  string  $key
-     * @return string
-     */
-    protected function _GetNextPrefix(
-        string $prefix = '',
-        string $key = ''
-    ): string {
-        $nextPrefix = $prefix;
-        if ($nextPrefix !== '' && $key !== '') {
-            $nextPrefix = $nextPrefix . '->';
-        }
-        $nextPrefix = $nextPrefix . $key;
-
-        return $nextPrefix;
-    }
-
-    /**
-     * Put a string into the log
-     * @param  array  $log
-     * @param  string  $languageCode
-     * @param  string  $row
-     * @return array
-     */
-    protected function _ToLog(
-        array $log = [],
-        string $languageCode = '',
-        string $row = ''
-    ): array {
-
-        if ($row === '' || $languageCode === '') {
-            return $log;
-        }
-
-        if (isset($log[$languageCode]) === false) {
-            $log[$languageCode] = [];
-        }
-
-        $log[$languageCode][] = $row;
-
-        return $log;
-    }
-
-    /**
-     * Get all available languages that LibreTranslate can translate to
-     * @param  array  $in
-     * @return array
-     */
-    protected function get_language_option_list(
-        array $in = []
-    ): array {
-
-        $default = [
-            'config' => [
-                'libre_translate' => [
-                    'url' => '',
-                    'port' => 0
-                ]
-            ],
-            'step' => 'step_start',
-            'response' => [],
-            'data_back' => []
-        ];
-        $in = $this->_Default($default, $in);
-
-        if ($in['step'] === 'step_start') {
-            return $this->_SubCall([
-                'to' => [
-                    'node' => 'server',
-                    'plugin' => 'infohub_call',
-                    'function' => 'call'
-                ],
-                'data' => [
-                    'url' => $in['config']['libre_translate']['url'] . '/languages',
-                    'port' => $in['config']['libre_translate']['port'],
-                    'curl_logging' => 'true'
-                ],
-                'data_back' => [
-                    'step' => 'step_start_response'
-                ]
-            ]);
-        }
-
-        if ($in['step'] === 'step_start_response') {
-            $default = [
-                'answer' => 'true',
-                'message' => 'Got response',
-                'error' => '',
-                'request_array' => [],
-                'response_string' => '',
-                'curl_info' => [],
-                'code' => 0,
-                'curl_log' => []
-            ];
-            $in['response'] = $this->_Default($default, $in['response']);
-
-        }
-
-        return [];
     }
 }

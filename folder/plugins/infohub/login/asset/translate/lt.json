@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:39:46",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "lt",
+        "language_name": "Lithuanian",
+        "language_name_local": "Lietuvių",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Prisijungti",
+        "description": "Galite prisijungti prie serverio, prisijungti, nustatyti arba pakeisti slaptažodį."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instrukcijos",
+            "USE_THE_MENU._KEY": "Naudokite meniu.",
+            "WHAT_IS_THIS?_KEY": "Kas tai?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Vienas kontaktas",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Tai yra vieno kontakto duomenų forma",
+            "NODE_KEY": "Mazgas",
+            "ANY_TEXT_YOU_WANT_KEY": "Bet kokį norimą tekstą",
+            "NOTE_KEY": "Pastaba",
+            "SAVE_KEY": "Įrašyti",
+            "DOMAIN_ADDRESS_KEY": "Srities adresas",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Srities adresas jūsų serveryje",
+            "USER_NAME_KEY": "Naudotojo vardas",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Čia jūs serveryje",
+            "SHARED_SECRET_KEY": "Bendra paslaptis",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Jūs bendrinate šią paslaptį su serveriu",
+            "CHECKSUM_KEY": "Kontrolinė suma",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Domeno adreso + naudotojo vardo + bendros paslapties kontrolinė suma.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Leistini serverio įskiepiai",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Sąrašas su visais serverio įskiepio pavadinimais, kuriuos galite siųsti į nutolusį mazgą"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Kontaktas su eksportuotoju",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Čia galite eksportuoti kontaktinius duomenis",
+            "EXPORT_KEY": "Eksportuoti"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Užmiršti kontaktą",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Čia galite leisti naršyklei pamiršti kontaktinius duomenis.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Jūs visada galite importuoti savo failą vėl.",
+            "FORGET_KEY": "Pamiršti"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importuoti",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importuoti kontaktinę informaciją iš failo",
+            "SELECT_FILE_KEY": "Pasirinkite failą"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Prisijungti",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Čia galite naudoti importuotus kontaktinius duomenis ir prisijungti prie serverio",
+            "PASSWORD_KEY": "Slaptažodis",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Slaptažodis, kurį reikia iškoduoti bendrinamą paslaptį",
+            "LOGIN_RESULT_KEY": "Prisijungimo rezultatas",
+            "RELOAD_AFTER_LOGIN_KEY": "Įkelti iš naujo po prisijungimo",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Jūs jau prisijungęs",
+            "MISSING_USER_NAME_KEY": "Trūksta naudotojo vardo",
+            "MISSING_RANDOM_CODE_KEY": "Trūkstamas atsitiktinis kodas",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Serverio atsakymas užtruko per ilgai.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Aš atsisakysiu prisijungimo bandymo",
+            "FAILED_TO_LOGIN_KEY": "Nepavyko prisijungti",
+            "SUCCESS_LOGGING_IN_KEY": "Sėkminga medienos ruoša",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Atsitiktinis kodas nėra tinkamo ilgio",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Nepanašu, kad bendras vidurkis turi dešimtaines trupmenas",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Nepanašu, kad vidurkis lygus bendram vidurkiui",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Šie paprasti bandymai rodo, kad atsitiktinis kodas bent jau nėra plokščia linija skaičių."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Atsijungti",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Čia galite išsiregistruoti iš serverio",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Jei sėkmingai pavyksta, rodomas prisijungimo puslapis",
+            "LOGOUT_RESULT_KEY": "Įrašymo rezultatas",
+            "FAILED_TO_LOGOUT_KEY": "Nepavyko išsiregistruoti",
+            "SUCCESS_LOGGING_OUT_KEY": "Sėkminga medienos ruoša"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Meniu",
+            "IMPORT_CONTACT_DATA_KEY": "Importuoti kontaktinius duomenis",
+            "LOGIN_KEY": "Prisijungti",
+            "SET_PASSWORD_KEY": "Nustatyti slaptažodį",
+            "EXPORT_CONTACT_DATA_KEY": "Eksportuoti kontaktinius duomenis",
+            "LOGOUT_KEY": "Atsijungti",
+            "FORGET_CONTACT_KEY": "Užmiršti kontaktą"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Nustatyti slaptažodį",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kai nustatote savo vietos slaptažodį, subraižykite bendrą paslaptį, kad ji reikalautų, jog jūsų slaptažodis veiktų",
+            "CURRENT_PASSWORD_KEY": "Dabartinis slaptažodis",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Palikti tuščią, jei neturite",
+            "NEW_PASSWORD_KEY": "Naujas slaptažodis",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Palikti tuščią jei norite pašalinti slaptažodį",
+            "CHANGE_PASSWORD_KEY": "Keisti slaptažodį"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Prisijungti",
+            "SELECT_FILE_KEY": "Pasirinkite failą",
+            "PASSWORD_KEY": "Slaptažodis",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Atsisiųsti demo paskyrą",
+            "LOGIN_RESULT_KEY": "Prisijungimo rezultatas",
+            "MORE_KEY": "Daugiau",
+            "CURRENT_URL_KEY": "Dabartinis URL",
+            "REFRESH_PAGE_KEY": "Atnaujinti puslapį"
+        }
+    }
+}

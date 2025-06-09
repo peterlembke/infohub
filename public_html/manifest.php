@@ -3,6 +3,12 @@ declare(strict_types=1);
 include_once 'define_folders.php';
 include_once INCLUDES . DS .'application_data.php';
 
+$appData = new application_data(
+    mainPath: MAIN,
+    pluginPath: PLUGINS,
+    configPath:CONFIG
+);
+
 $manifestData = [
     'short_name' => $appData->getTitle(),
     'name' => $appData->getTitle(),

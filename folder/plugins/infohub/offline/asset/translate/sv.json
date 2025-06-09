@@ -1,28 +1,31 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:49:04",
         "plugin": "infohub_offline",
-        "data_checksum": "8f51ae67678e6cd58a53cfa62e4a57a2",
+        "data_checksum": "5c076bbee964fe439cd56f0065f900c6",
         "language": "sv",
-        "language_name": "swedish",
-        "country": "SE",
-        "country_name": "Sweden",
-        "file_type": "translate_file"
+        "language_name": "Swedish",
+        "language_name_local": "Svenska",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Offline",
-        "description": "Here you can prepare for offline. Also handle offline\/online event subscribers."
+        "title": "Arbeta utan internet",
+        "description": "Här kan du förbereda dig för att arbeta utan åtkomst till servern. Ladda ner data som du kanske behöver."
     },
     "data": {
         "infohub_offline": {
-            "OFFLINE_TOOLS_KEY": "Offline tools",
-            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Tools to see if you are online or offline.",
-            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "See what plugins are subscribing to that event.",
-            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Buttons to download and store data to prepare for offline usage.",
-            "DOWNLOAD_PLUGINS_KEY": "Download plugins",
-            "DOWNLOAD_ASSETS_KEY": "Download assets",
-            "DOWNLOAD_DOCUMENTATION_KEY": "Download documentation",
-            "SHOW_SUBSCRIBERS_KEY": "Show subscribers",
+            "OFFLINE_TOOLS_KEY": "Offline verktyg",
+            "TOOLS_TO_SEE_IF_YOU_ARE_ONLINE_OR_OFFLINE._KEY": "Verktyg för att se om du är online eller offline.",
+            "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "Se vilka plugins som prenumererar på den händelsen.",
+            "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Knappar att ladda ner och lagra data för att förbereda sig för offline-användning.",
+            "DOWNLOAD_PLUGINS_KEY": "Ladda ner plugins",
+            "OF_KEY": "Av",
+            "DOWNLOAD_ASSETS_KEY": "Ladda ner tillgångar",
+            "DOWNLOAD_DOCUMENTATION_KEY": "Ladda ner dokumentation",
+            "SHOW_SUBSCRIBERS_KEY": "Visa abonnenter",
             "STATUS_KEY": "Status"
         }
     }

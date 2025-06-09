@@ -1,18 +1,21 @@
 # InfoHub Contact Client
 
-Create log in accounts to your InfoHub server. Used by browser users and by external servers.
+You can create login accounts to your InfoHub server. The login account file is then used by your users, and by servers you want to let in.
 
 ## Introduction
 
-If anyone wants to log in to your server then you must create log in credentials, export them and give to the person. There
-is no way the user can register for a login account them self. You have to do it, export it and distribute it to the
+If anyone wants to log in to your server then you must create login credentials, export them and give to the person. There's no way the user can register for a login account by them self. You have to do it, export it and distribute it to the
 user. You can read more about contacts in [InfoHub Contact](plugin,infohub_contact)
 
 ## Client
 
-Refresh client to see a list of clients. Click a client to see client data in the form. Button "New" - Clear the form
-Button "Save" - Save form data Button "Delete" - Get node name from the form and delete the data with that name Button "
-Import" - Select a json file with data Button "Export" - Exkort the form data to a file
+Refresh client to see a list of clients.   
+Click a client to see client data in the form.   
+Button "New" - Clear the form.  
+Button "Save" - Save form data.   
+Button "Delete" - Get node name from the form and delete the data with that name.   
+Button "Import" - Select a json file with data.  
+Button "Export" - Export the form data to a file.
 
 ## Save
 
@@ -31,4 +34,4 @@ see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 ## footer
 
 Since 2018-09-19 by Peter Lembke  
-Updated 2018-09-19 by Peter Lembke
+Updated 2025-06-07 by Peter Lembke

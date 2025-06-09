@@ -97,7 +97,11 @@ function infohub_doc_get() {
             $in.step = 'step_get_document_from_server';
             $in.data_back.data.checksum = '';
 
-            const $isDocumentFound = _Empty($in.response.data) === 'false';
+            const $checksum = $in.response.data.checksum ?? '';
+
+            const $isDocumentFound = _Empty($in.response.data) === 'false' &&
+                _Empty($checksum) === 'false';
+
             if ($isDocumentFound === true) {
                 // We found a document in the Browser Storage
                 $in.data_back.data = _ByVal($in.response.data);
@@ -167,7 +171,7 @@ function infohub_doc_get() {
 
             if ($in.response.answer === 'true') {
 
-                $in.data_back.data = _ByVal($in.data);
+                $in.data_back.data = _ByVal($in.response.data);
 
                 if ($in.data.is_checksum_same === 'true') {
 
@@ -666,7 +670,7 @@ function infohub_doc_get() {
      * The document path start with infohub_doc_get/document
      * And then you have one of: root, main, plugin
      * And then the document name
-     * Example: infohub_doc_get/document/plugin/infohub_libretranslate_manual
+     * Example: infohub_doc_get/document/plugin/infohub_translate_manual
      *
      * @version 2022-08-13
      * @since 2022-08-13

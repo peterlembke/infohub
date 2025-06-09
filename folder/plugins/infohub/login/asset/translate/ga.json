@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:48:42",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ga",
+        "language_name": "Irish",
+        "language_name_local": "Gaeilge na hÉireann",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Logáil isteach",
+        "description": "Is féidir leat logáil isteach ar an bhfreastalaí, logáil amach, a leagtar nó a athrú do phasfhocal."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Treoracha",
+            "USE_THE_MENU._KEY": "Bain úsáid as an roghchlár.",
+            "WHAT_IS_THIS?_KEY": "Cad é seo?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Teagmháil amháin",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Is é seo an fhoirm sonraí le haghaidh teagmhála amháin",
+            "NODE_KEY": "Taiseachas aeir: fliuch",
+            "ANY_TEXT_YOU_WANT_KEY": "Aon téacs is mian leat",
+            "NOTE_KEY": "Tabhair do d’aire",
+            "SAVE_KEY": "Sábháil",
+            "DOMAIN_ADDRESS_KEY": "Seoladh fearainn",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "An seoladh fearainn le do fhreastalaí",
+            "USER_NAME_KEY": "Ainm úsáideora",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Níl an Tweet seo ar fáil",
+            "SHARED_SECRET_KEY": "Roinnte rúnda",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Roinneann tú an rún leis an bhfreastalaí",
+            "CHECKSUM_KEY": "Seiceáil",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Seiceáil seoladh fearainn + ainm úsáideora + rúnda roinnte.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Allowed plugins freastalaí",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liosta le gach ainmneacha breiseán freastalaí is féidir leat teachtaireachtaí a sheoladh chuig an nód iargúlta"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Déan teagmháil linn",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Anseo is féidir leat a onnmhairiú na sonraí teagmhála",
+            "EXPORT_KEY": "Easpórtáil"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Déan teagmháil Linn",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Anseo is féidir leat a ligean ar an bhrabhsálaí dearmad ar na sonraí teagmhála.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Is féidir leat a allmhairiú i gcónaí do chomhad arís.",
+            "FORGET_KEY": "Déan teagmháil Linn"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Allmhairiú Allamuigh",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Iompórtáil an fhaisnéis teagmhála ó chomhad",
+            "SELECT_FILE_KEY": "Roghnaigh comhad"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Taiseachas aeir: fliuch",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Anseo is féidir leat úsáid a bhaint as na sonraí teagmhála a d'allmhairigh tú agus logáil isteach ar an bhfreastalaí",
+            "PASSWORD_KEY": "Post a fhógairt",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "An focal faire is gá duit a dhíchódú an rún roinnte",
+            "LOGIN_RESULT_KEY": "Toradh Logáil isteach",
+            "RELOAD_AFTER_LOGIN_KEY": "Athlódáil tar éis logáil isteach",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Tá tú logáilte isteach cheana féin",
+            "MISSING_USER_NAME_KEY": "Ainm úsáideora ar iarraidh",
+            "MISSING_RANDOM_CODE_KEY": "Missing cód randamach",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Ghlac an freagra ón bhfreastalaí ró-fhada.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Beidh mé a thréigean an iarracht logáil isteach",
+            "FAILED_TO_LOGIN_KEY": "Failed chun logáil isteach",
+            "SUCCESS_LOGGING_IN_KEY": "Rath logáil isteach",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Níl an cód randamach bhfuil an fad ceart",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Murab ionann agus go bhfuil an meán iomlán aon deachúlacha",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Murab ionann agus go bhfuil an meán comhionann leis an meán iomlán",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Léiríonn na tástálacha simplí nach bhfuil an cód randamach ar a laghad líne cothrom na n-uimhreacha."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Logáil isteach",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Anseo is féidir leat logáil amach as an bhfreastalaí",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Má éiríonn leo ansin léiríonn an leathanach logála isteach",
+            "LOGOUT_RESULT_KEY": "Toradh Logála",
+            "FAILED_TO_LOGOUT_KEY": "Failed chun logáil amach",
+            "SUCCESS_LOGGING_OUT_KEY": "Rath logáil amach"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Roghchlár",
+            "IMPORT_CONTACT_DATA_KEY": "Sonraí teagmhála",
+            "LOGIN_KEY": "Taiseachas aeir: fliuch",
+            "SET_PASSWORD_KEY": "Socraigh do phasfhocal",
+            "EXPORT_CONTACT_DATA_KEY": "Sonraí teagmhála Easpórtála",
+            "LOGOUT_KEY": "Logáil isteach",
+            "FORGET_CONTACT_KEY": "Déan teagmháil Linn"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Socraigh do phasfhocal",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Nuair a leagtar tú do phasfhocal áitiúil tú scramble an rún roinnte ionas go n-éilíonn sé do phasfhocal a bheith ag obair",
+            "CURRENT_PASSWORD_KEY": "Focal faire reatha",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Cliceáil grianghraf a mhéadú",
+            "NEW_PASSWORD_KEY": "Focal faire nua",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Fág bán más mian leat a bhaint as an focal faire",
+            "CHANGE_PASSWORD_KEY": "Athrú focal faire"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Taiseachas aeir: fliuch",
+            "SELECT_FILE_KEY": "Roghnaigh comhad",
+            "PASSWORD_KEY": "Post a fhógairt",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Íoslódáil cuntas taispeána",
+            "LOGIN_RESULT_KEY": "Toradh Logáil isteach",
+            "MORE_KEY": "Tuilleadh eolais",
+            "CURRENT_URL_KEY": "Taiseachas aeir: fliuch",
+            "REFRESH_PAGE_KEY": "Leathanach refresh"
+        }
+    }
+}

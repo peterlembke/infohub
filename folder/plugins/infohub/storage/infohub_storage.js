@@ -107,7 +107,7 @@ function infohub_storage() {
                 'calling_plugin': $in.calling_plugin
             },
             'data_back': {
-                'step': 'void',
+                'step': 'step_void',
             },
         });
 

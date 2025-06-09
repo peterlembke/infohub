@@ -35,9 +35,9 @@ class infohub_call extends infohub_base
     protected function _Version(): array
     {
         return [
-            'date' => '2021-09-06',
+            'date' => '2024-06-03',
             'since' => '2020-10-04',
-            'version' => '1.0.0',
+            'version' => '1.0.1',
             'class_name' => 'infohub_call',
             'checksum' => '{{checksum}}',
             'note' => 'Does a HTTPS call to a URL and GET/POST data',
@@ -71,6 +71,7 @@ class infohub_call extends infohub_base
 
     /**
      * Same as call but there you can send in many calls
+     *
      * @param  array  $in
      * @return array
      */
@@ -104,6 +105,7 @@ class infohub_call extends infohub_base
      * Calls a web address and fetches an answer
      * Can pass GET-parameters and POST-data to that server
      * Supports certificates
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
@@ -112,6 +114,8 @@ class infohub_call extends infohub_base
      */
     protected function call(array $in = []): array
     {
+        $startTime = microtime(true);
+
         $fromNode = $this->_GetData([
             'name' => 'from_plugin/node',
             'default' => '',
@@ -131,10 +135,14 @@ class infohub_call extends infohub_base
         $response = $this->internal_Cmd($in);
 
         leave:
+
+        $executionTime = microtime(true) - $startTime;
+
         return [
             'answer' => $response['answer'],
             'message' => $response['message'],
-            'response_string' => $response['response_string']
+            'response_string' => $response['response_string'],
+            'execution_time' => $executionTime
         ];
     }
 
@@ -142,6 +150,7 @@ class infohub_call extends infohub_base
      * Calls a web address and fetches an answer
      * Can pass GET-parameters and POST-data to that server
      * Supports certificates
+     *
      * @param array $in
      * @return array
      * @author  Peter Lembke
@@ -216,6 +225,12 @@ class infohub_call extends infohub_base
             fclose($fileHandle);
         }
 
+        $isError = $code !== 200;
+        $haveCurlError = empty($curlError) === false;
+        if ($isError === true && $haveCurlError === false) {
+            $curlError = $this->_GetErrorMessage($responseString);
+        }
+
         $out = [
             'answer' => 'true',
             'message' => 'Got response',
@@ -238,6 +253,7 @@ class infohub_call extends infohub_base
 
     /**
      * Check if Curl and SSL are active in PHP
+     *
      * @return array
      */
     protected function _AreRequirementsFulfilled(): array
@@ -270,6 +286,7 @@ class infohub_call extends infohub_base
 
     /**
      * Get all parameters used in the call
+     *
      * @see http://php.net/manual/en/function.curl-setopt.php PHP manual for CURL
      * @param array $in
      * @return array
@@ -295,7 +312,7 @@ class infohub_call extends infohub_base
             CURLOPT_FRESH_CONNECT => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_FORBID_REUSE => 1,
-            CURLOPT_TIMEOUT => 4,
+            CURLOPT_TIMEOUT => 60,
             CURLOPT_HEADER => 0 // 0 = response string has data only. 1 = response string has all headers too
         ];
 
@@ -332,6 +349,7 @@ class infohub_call extends infohub_base
 
     /**
      * Get a file handler
+     *
      * @return false|resource
      */
     protected function _GetStdErrFileHandle()
@@ -346,6 +364,7 @@ class infohub_call extends infohub_base
 
     /**
      * Get the verbose curl logging for this call.
+     *
      * @see https://stackoverflow.com/questions/9550319/bad-request-connecting-to-sites-via-curl-on-host-and-system/62453208#62453208 stackoverflow
      * @param resource $fileHandle
      * @return string
@@ -361,5 +380,25 @@ class infohub_call extends infohub_base
         $safeLog = htmlspecialchars($verboseLog);
 
         return $safeLog;
+    }
+
+    /**
+     * The string can look like this
+     * "<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>"
+     * We only want what is in the last row without the tags.
+     * "The method is not allowed for the requested URL."
+     * @param string $fullMessage
+     * @return string
+     */
+    protected function _GetErrorMessage(
+        string $fullMessage = ''
+    ): string {
+
+        $parts = explode("\n", $fullMessage);
+        $parts = array_filter($parts); // remove empty elements
+        $lastRow = end($parts);
+        $text = strip_tags($lastRow);
+
+        return $text;
     }
 }

@@ -1,17 +1,19 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_contact",
-        "data_checksum": "f68f3b1d5f56bbc681e2a18fac0fd013",
+        "data_checksum": "8241fee35ac048e71f5beaaa44ffa342",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Node contacts",
-        "description": "Handles all node connections. Server uses this data to connect to other nodes."
+        "title": "Users and Nodes",
+        "description": "You can handle your users here. You can set up access to other server nodes here."
     },
     "data": {
         "infohub_contact": {
@@ -43,7 +45,9 @@
             "LIST_WITH_ALL_USER_ROLES_YOU_HAVE_KEY": "List with all user roles you have",
             "USER_KEY": "User",
             "DEVELOPER_KEY": "Developer",
-            "ADMIN_KEY": "Admin"
+            "ADMIN_KEY": "Admin",
+            "HAS_PASSWORD_KEY": "Has password",
+            "IF_IMPORTED_FILE_HAS_A_CLIENT_PASSWORD_SET_BY_THE_USER_KEY": "If imported file has a client password set by the user"
         },
         "infohub_contact_doc": {
             "DOCUMENTATION_WILL_RENDER_HERE_KEY": "Documentation will render here",

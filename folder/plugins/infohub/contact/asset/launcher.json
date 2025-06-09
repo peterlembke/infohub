@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_contact",
-    "title": "Node contacts",
-    "description": "Handles all node connections. Server uses this data to connect to other nodes.",
+    "title": "Users and Nodes",
+    "description": "You can handle your users here. You can set up access to other server nodes here.",
     "keywords": "contact,user,client,server,login",
     "uses": [
         "infohub_contact_menu",

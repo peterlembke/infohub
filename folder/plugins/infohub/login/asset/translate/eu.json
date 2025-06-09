@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 19:12:45",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "eu",
+        "language_name": "Basque",
+        "language_name_local": "Euskara",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Hasi saioa",
+        "description": "Zerbitzarian sar zaitezke, saioa amaitu, konfiguratu edo pasahitza aldatu."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instrukzioak",
+            "USE_THE_MENU._KEY": "Erabili menua.",
+            "WHAT_IS_THIS?_KEY": "Zer da hau?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Kontaktu bat",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Hau da kontaktu baten datuen inprimakia",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "Nahi duzun testua",
+            "NOTE_KEY": "Oharra",
+            "SAVE_KEY": "Gorde",
+            "DOMAIN_ADDRESS_KEY": "Domeinuaren helbidea",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domeinuaren helbidea zerbitzarira",
+            "USER_NAME_KEY": "Erabiltzaile-izena",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Hemen zaude zerbitzari honetan",
+            "SHARED_SECRET_KEY": "Sekretu partekatua",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Sekretu hau zerbitzariarekin partekatzen duzu",
+            "CHECKSUM_KEY": "Checksum",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Domeinu-helbidea + erabiltzaile-izena + ezkutukoa.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Baimendutako zerbitzariaren pluginak",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Zerrendatu zerbitzariaren pluginen izen guztiak urruneko nodoari mezuak bidaltzeko"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Esportatu kontaktua",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hemen kontaktuen datuak esportatu ditzakezu",
+            "EXPORT_KEY": "Esportatu"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Ahaztu kontaktua",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Hemen uzten diozu arakatzaileari kontaktu-datuak ahazten.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Beti inporta dezakezu fitxategia berriro.",
+            "FORGET_KEY": "Ahaztu"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Inportatu",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Inportatu kontaktuaren informazioa fitxategitik",
+            "SELECT_FILE_KEY": "Hautatu fitxategia"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Saio-hasiera",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hemen inportatutako kontaktu-datuak erabil ditzakezu eta zerbitzarian saioa hasi",
+            "PASSWORD_KEY": "Pasahitza",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Partekatutako sekretua deskodetu behar duzun pasahitza",
+            "LOGIN_RESULT_KEY": "Saio-hasierako emaitza",
+            "RELOAD_AFTER_LOGIN_KEY": "Birkargatu saioa hasi ondoren",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Jadanik saioa hasita daukazu",
+            "MISSING_USER_NAME_KEY": "Erabiltzaile-izena falta da",
+            "MISSING_RANDOM_CODE_KEY": "Ausazko kodea falta da",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Zerbitzariaren erantzuna luzeegia izan da.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Saioa hasteko saiakera bertan behera utziko dut",
+            "FAILED_TO_LOGIN_KEY": "Huts egin du saioa hastean",
+            "SUCCESS_LOGGING_IN_KEY": "Arrakastaren erregistroa",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Ausazko kodeak ez du luzera zuzena",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Ez da harritzekoa, batez besteko osoak ez duela hamartarrik",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Ez dirudi batezbestekoa batezbestekoaren berdina denik",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Proba sinple hauek erakusten dute ausazko kodea ez dela zenbaki-lerro laua."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Saioa amaitu",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hemen zerbitzaritik irten zaitezke",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Arrakasta izanez gero, saio-hasierako orriak erakusten du",
+            "LOGOUT_RESULT_KEY": "Saioaren emaitza",
+            "FAILED_TO_LOGOUT_KEY": "Huts egin du saioa amaitzean",
+            "SUCCESS_LOGGING_OUT_KEY": "Arrakastaren bilaketa"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Menua",
+            "IMPORT_CONTACT_DATA_KEY": "Inportatu kontaktuen datuak",
+            "LOGIN_KEY": "Saio-hasiera",
+            "SET_PASSWORD_KEY": "Ezarri pasahitza",
+            "EXPORT_CONTACT_DATA_KEY": "Esportatu kontaktuen datuak",
+            "LOGOUT_KEY": "Saioa amaitu",
+            "FORGET_CONTACT_KEY": "Ahaztu kontaktua"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Ezarri pasahitza",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Zure tokiko pasahitza ezartzen duzunean, ezkutuko partekatua saltatuko duzu, zure pasahitza behar izateko",
+            "CURRENT_PASSWORD_KEY": "Uneko pasahitza",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Utzi hutsik ez baduzu",
+            "NEW_PASSWORD_KEY": "Pasahitz berria",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Utzi hutsik pasahitza kendu nahi baduzu",
+            "CHANGE_PASSWORD_KEY": "Aldatu pasahitza"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Saio-hasiera",
+            "SELECT_FILE_KEY": "Hautatu fitxategia",
+            "PASSWORD_KEY": "Pasahitza",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Deskargatu demo kontua",
+            "LOGIN_RESULT_KEY": "Saio-hasierako emaitza",
+            "MORE_KEY": "Gehiago",
+            "CURRENT_URL_KEY": "Uneko url",
+            "REFRESH_PAGE_KEY": "Freskatu orrialdea"
+        }
+    }
+}

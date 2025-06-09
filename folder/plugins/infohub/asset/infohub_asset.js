@@ -306,7 +306,7 @@ function infohub_asset() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REFRESH'),
+                            'button_label': _Translate('REFRESH_LIST'),
                             'event_data': 'refresh',
                             'to_plugin': 'infohub_asset',
                             'to_function': 'setup_gui',
@@ -1167,7 +1167,7 @@ function infohub_asset() {
             $message = 'Only infohub_asset, infohub_launcher is allowed to call this function.';
             $in.step = 'step_end';
         }
-        
+
         if ($in.step === 'step_save_assets_to_storage') {
 
             const $data = $in.list;

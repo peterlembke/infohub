@@ -15,21 +15,6 @@ to the client when the plugin is used.
 The plugin can ask InfoHub_Translate for translation data and translate the texts before they are rendered and shown on
 the screen.
 
-## Create translation files
-
-Pick a plugin name and create translation files. One key file and one file you will translate. Read more
-here: [InfoHub_Translate_Createfiles](plugin,infohub_translate_createfiles).
-
-## Merge translation files
-
-When you have translated the file you can now merge it with the key file to get the final file. Read more
-here: [InfoHub_Translate_Mergefiles](plugin,infohub_translate_mergefiles).
-
-## Update translation files
-
-You can update an existing language file with missing keys and then translate just those keys. Keys that no longer exist
-in the plugin will be removed. Read more here: [InfoHub_Translate_Updatefiles](plugin,infohub_translate_updatefiles).
-
 ## Use in your plugin
 
 You have several examples how to use language files in your plugins. See infohub_demo, infohub_tools, infohub_welcome
@@ -113,6 +98,75 @@ translation files:
 
 See how this is done in the plugins infohub_demo, infohub_tools etc.
 
+## Libre Translate
+
+You can use Libre Translate for your translation needs. It provides a graphical user interface for manual translations.
+And a level 1 function that will translate a lot of text for you.
+
+In the background it calls the server that calls the LibreTranslate service.
+
+### Manual translation GUI
+
+See [infohub_translate_manual](plugin,infohub_libretranslate_manual) for more information.
+
+### Test the access
+
+You can run wget to see if LibreTranslate answer.
+```
+wget -O test.json https://libretranslate.com/languages
+cat test.json
+```
+
+Then test your Docker box
+```
+wget -O test.json http://0.0.0.0:5050/languages
+cat test.json
+```
+And then test inside your App Docker box that it can reach the LibreTranslate Docker box.
+```
+dox shell app root 
+wget -O test.json http://translate:5000/languages
+cat test.json
+```
+
+### Get the language list
+```
+return _SubCall({
+    'to': {
+        'node': 'server',
+        'plugin': 'infohub_libretranslate',
+        'function': 'get_language_option_list',
+    },
+    'data': {
+        'selected': $in.selected
+    },
+    'data_back': {
+        'step': 'step_store_in_cache',
+        'selected': $in.selected,
+        'use_cache': $in.use_cache
+    }
+});
+```
+
+### Translate a phrase
+```
+return _SubCall({
+    'to': {
+        'node': 'server',
+        'plugin': 'infohub_libretranslate',
+        'function': 'translate',
+    },
+    'data': {
+        'from_language': $in.from_language,
+        'to_language': $in.to_language,
+        'from_text': $in.from_text
+    },
+    'data_back': {
+        'step': 'step_end'
+    }
+}); 
+```
+
 ## License
 
 This documentation is copyright (C) 2019 Peter Lembke.  
@@ -124,4 +178,4 @@ see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ## footer
 
-Updated 2019-11-01 by Peter Lembke Since 2019-03-14 by Peter Lembke  
+Updated 2024-11-18 by Peter Lembke Since 2019-03-14 by Peter Lembke  

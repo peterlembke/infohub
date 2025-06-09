@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_configlocal",
-    "title": "Config Local",
-    "description": "Configuration you want on this device",
+    "title": "Settings",
+    "description": "The settings you want on this device. Colour schema, zoom level, language, etc.",
     "keywords": "configuration,local,settings,colour,color,zoom,language",
     "uses": [
         "infohub_configlocal_menu",

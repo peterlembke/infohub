@@ -38,9 +38,8 @@ function infohub_translate_doc() {
         const $list = {
             'create': 'normal',
             'click_main': 'normal',
-            'click_createfile': 'normal',
-            'click_updateplugin': 'normal',
-            'click_validate': 'normal',
+            'click_manual': 'normal',
+            'click_plugin': 'normal'
         };
 
         return _GetCmdFunctionsBase($list);
@@ -87,7 +86,7 @@ function infohub_translate_doc() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'div',
-                            'data': '[button_main][button_createfile][button_updateplugin][button_validate]',
+                            'data': '[button_main][button_manual][button_plugin]',
                             'class': 'container-small',
                         },
                         'container_doc': {
@@ -106,30 +105,21 @@ function infohub_translate_doc() {
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
                         },
-                        'button_createfile': {
+                        'button_manual': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('CREATE_TRANSLATION_FILE'),
-                            'event_data': 'doc|createfile',
+                            'button_label': _Translate('MANUAL_TRANSLATION'),
+                            'event_data': 'doc|manual',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
                         },
-                        'button_updateplugin': {
+                        'button_plugin': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('UPDATE_PLUGIN_KEYS'),
-                            'event_data': 'doc|updateplugin',
-                            'to_plugin': 'infohub_translate',
-                            'to_function': 'click',
-                        },
-                        'button_validate': {
-                            'plugin': 'infohub_renderform',
-                            'type': 'button',
-                            'mode': 'button',
-                            'button_label': _Translate('VALIDATE_TRANSLATION_FILES'),
-                            'event_data': 'doc|validate',
+                            'button_label': _Translate('PLUGIN_TRANSLATION'),
+                            'event_data': 'doc|plugin',
                             'to_plugin': 'infohub_translate',
                             'to_function': 'click',
                         },
@@ -191,8 +181,8 @@ function infohub_translate_doc() {
      * @since   2019-03-13
      * @author  Peter Lembke
      */
-    $functions.push('click_createfile');
-    const click_createfile = function($in = {}) {
+    $functions.push('click_manual');
+    const click_manual = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
@@ -203,7 +193,7 @@ function infohub_translate_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('infohub_translate_createfile');
+            return _GetCall('infohub_translate_manual');
         }
 
         return {
@@ -215,12 +205,12 @@ function infohub_translate_doc() {
 
     /**
      * Show the documentation
-     * @version 2019-03-13
-     * @since   2019-03-13
+     * @version 2024-11-18
+     * @since   2024-11-18
      * @author  Peter Lembke
      */
-    $functions.push('click_updateplugin');
-    const click_updateplugin = function($in = {}) {
+    $functions.push('click_plugin');
+    const click_plugin = function($in = {}) {
         const $default = {
             'step': 'step_render',
             'response': {
@@ -231,35 +221,7 @@ function infohub_translate_doc() {
         $in = _Default($default, $in);
 
         if ($in.step === 'step_render') {
-            return _GetCall('infohub_translate_updateplugin');
-        }
-
-        return {
-            'answer': $in.response.answer,
-            'message': $in.response.message,
-            'ok': $in.response.answer
-        };
-    };
-
-    /**
-     * Show the documentation
-     * @version 2019-03-13
-     * @since   2019-03-13
-     * @author  Peter Lembke
-     */
-    $functions.push('button_validate');
-    const click_validate = function($in = {}) {
-        const $default = {
-            'step': 'step_render',
-            'response': {
-                'answer': 'false',
-                'message': ''
-            },
-        };
-        $in = _Default($default, $in);
-
-        if ($in.step === 'step_render') {
-            return _GetCall('infohub_translate_validate');
+            return _GetCall('infohub_translate_plugin');
         }
 
         return {

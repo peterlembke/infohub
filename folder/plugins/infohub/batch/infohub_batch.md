@@ -6,8 +6,8 @@ Batch is the fourth way you can design a return message.
 
 * normal return message
 * subCall message
-* messages - normal return message or subcall message or empty return -> with short tail messages attached.
-* batch messages - short tail messages where the last mnessage to return have a flag that it is the last message in the batch 
+* messages - normal return message or subCall message or empty return -> with short tail messages attached.
+* batch messages - short tail messages where the last message to return have a flag that it is the last message in the batch 
 
 ## How batch messages works
 

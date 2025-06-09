@@ -284,7 +284,7 @@ class infohub_exchange extends infohub_base
         $this->ToNode = [];
         $this->Sort[] = $subCall;
 
-        return 'true';// Message added. Mission accomplished
+        return 'true';// Message added. Mission done
     }
 
     /**
@@ -730,7 +730,7 @@ class infohub_exchange extends infohub_base
                 unset($messageItem['data']['step']); // Client is not allowed to manipulate the step parameter
             }
 
-            $messageItem['from'] = $messageItem['callstack'][0]['to'];
+            $messageItem['from'] = $messageItem['callstack'][0]['to'] ?? []; // TODO Fallback added after log errors
 
             $messageItem['func'] = 'MessageCheck';
             $response = $this->internal_Cmd($messageItem);
@@ -1028,7 +1028,7 @@ class infohub_exchange extends infohub_base
                 return "in.$property - I want lower case data in node, plugin and function";
             }
         }
-        
+
         return '';
     }
 

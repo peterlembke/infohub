@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_democall",
-    "title": "Demo Call",
-    "description": "Shows what happens when you call a plugin or function that do not exist.",
+    "title": "Test send messages",
+    "description": "As a developer you can see what happens when you send a message to a plugin or function that do not exist.",
     "keywords": "demo,call,plugin,message,test,tool",
     "uses": [
         "infohub_democall_menu",

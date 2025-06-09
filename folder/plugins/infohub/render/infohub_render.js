@@ -1137,6 +1137,7 @@ function infohub_render() {
                 'message': '',
                 'options': [],
                 'html': '',
+                'updated': '', // true or false
             },
         };
         $in = _Default($default, $in);
@@ -1218,7 +1219,7 @@ function infohub_render() {
         if ($in.step === 'step_view_html_response') {
             $out.message = $in.response.message;
 
-            if ($in.response.answer === 'true') {
+            if ($in.response.updated === 'true') {
                 $out.answer = 'true';
                 $out.message = 'Done updating the select box with new options';
                 $out.ok = 'true';

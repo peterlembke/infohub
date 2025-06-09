@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_keyboard",
     "title": "Keyboard",
-    "description": "Subscribe to key combinations.",
+    "description": "Here you can subscribe to keyboard combinations and bind them to functions.",
     "keywords": "keyboard,key,bind,event,subscribe,subscriptions",
     "uses": []
 }

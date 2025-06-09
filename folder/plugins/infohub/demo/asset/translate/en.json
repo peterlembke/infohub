@@ -1,17 +1,19 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_demo",
-        "data_checksum": "6b5fa5e25156182ef624c11b4ca77b56",
+        "data_checksum": "127658befbb13fcfe745d51fb41470f2",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Demo",
-        "description": "Demo examples how you can use the features in Infohub"
+        "title": "Demonstration",
+        "description": "Demonstration examples. You can use these features in InfoHub"
     },
     "data": {
         "infohub_demo": {
@@ -52,6 +54,27 @@
             "THIS_IS_A_%S_KEY": "This is a %s",
             "%S_IS_A_3RD_PARTY_AUDIO_STREAMING_SERVICE._KEY": "%s is a 3rd party audio streaming service.",
             "IN_NEW_TAB_KEY": "In new tab"
+        },
+        "infohub_demo_batch": {
+            "DEMO_BATCH_KEY": "Demo batch",
+            "THREE_MESSAGES_WILL_BE_SENT_TO_GET_HUB_ID_KEY": "Three messages will be sent to get hub id",
+            "THE_LAST_MESSAGE_WILL_RETURN_THEM_ALL_KEY": "The last message will return them all",
+            "THAT_IS_HOW_A_BATCH_CALL_WORKS_KEY": "That is how a batch call works",
+            "BATCH_DEMO_ON_SERVER_KEY": "Batch demo on server",
+            "BATCH_DEMO_ON_SERVER_CUSTOM_CODE_KEY": "Batch demo on server custom code",
+            "START_BATCH_DEMO_ON_SERVER_KEY": "Start batch demo on server",
+            "THE_RESPONSE_WILL_SHOW_HERE_KEY": "The response will show here",
+            "BATCH_DEMO_ON_CLIENT_KEY": "Batch demo on client",
+            "BATCH_DEMO_ON_CLIENT_CUSTOM_CODE_KEY": "Batch demo on client custom code",
+            "START_BATCH_DEMO_HERE_KEY": "Start batch demo here",
+            "BATCH_DEMO_ON_CLIENT_WITH_PLUGIN_KEY": "Batch demo on client with plugin",
+            "USE_BATCH_PLUGIN_ON_CLIENT_KEY": "Use batch plugin on client",
+            "BATCH_DEMO_ON_SERVER_WITH_PLUGIN_KEY": "Batch demo on server with plugin",
+            "USE_BATCH_PLUGIN_ON_SERVER_KEY": "Use batch plugin on server",
+            "BATCH_DEMO_ON_CLIENT_WITH_PLUGIN_THAT_USES_MEMORY_TO_STORE_THE_MESSAGES_KEY": "Batch demo on client with plugin that uses memory to store the messages",
+            "USE_BATCH_PLUGIN_ON_CLIENT_IN_MEMORY_KEY": "Use batch plugin on client in memory",
+            "BATCH_DEMO_ON_SERVER_WITH_PLUGIN_THAT_USES_MEMORY_TO_STORE_THE_MESSAGES_KEY": "Batch demo on server with plugin that uses memory to store the messages",
+            "USE_BATCH_PLUGIN_ON_SERVER_IN_MEMORY_KEY": "Use batch plugin on server in memory"
         },
         "infohub_demo_common": {
             "TIME_KEY": "Time",
@@ -187,8 +210,8 @@
             "IF_YOU_RENDER_AN_OBJECT_WITH_AN_UNKNOWN_TYPE_OR_SUBTYPE_THEN_A_FROG_APPEAR_INSTEAD._KEY": "If you render an object with an unknown type or subtype then a frog appear instead.",
             "MAKE_A_FROG_KEY": "Make a frog",
             "CORRECT_WAY_KEY": "Correct way",
-            "MISTAKE_#1_-_WRONG_SUBTYPE_KEY": "Misstake #1 - wrong subtype",
-            "MISTAKE_#2_-_WRONG_TYPE_KEY": "Misstake #2 - wrong type",
+            "MISTAKE_#1_-_WRONG_SUBTYPE_KEY": "Mistake #1 - wrong subtype",
+            "MISTAKE_#2_-_WRONG_TYPE_KEY": "Mistake #2 - wrong type",
             "CORRECT,_THE_FROG_IS_RENDERED_BY_CALLING_THE_RENDER_FROG_PLUGIN._KEY": "Correct, the frog is rendered by calling the render frog plugin.",
             "MISTAKE_#1,_THE_FROG_WERE_RENDERED_BY_CALLING_RENDER_COMMON_WITH_THE_NONE_EXISTING_SUBTYPE_FIZBAZ._KEY": "Mistake #1, the frog were rendered by calling render common with the none existing subtype fizbaz.",
             "THAT_GIVES_A_FROG_AND_AN_ERROR_MESSAGE_ON_TOP._KEY": "That gives a frog and an error message on top.",
@@ -236,6 +259,7 @@
             "MAP_SERVICES_KEY": "Map services",
             "LINK_-_DIFFERENT_KINDS_KEY": "Link - different kinds",
             "PRESENTATION_BOX_KEY": "Presentation box",
+            "PROGRESS_BAR_KEY": "Progress bar",
             "ADVANCED_LIST_KEY": "Advanced list",
             "TABS_LIST_KEY": "Tabs list",
             "FORM_-_SIMPLE_KEY": "Form - simple",
@@ -244,7 +268,14 @@
             "DOCUMENT_TEXT_KEY": "Document text",
             "TIMER_KEY": "Timer",
             "STORAGE_KEY": "Storage",
-            "STATUS_KEY": "Status"
+            "STATUS_KEY": "Status",
+            "BATCH_KEY": "Batch"
+        },
+        "infohub_demo_progress": {
+            "PROGRESS_BAR_DEMO_KEY": "Progress bar demo",
+            "OF_KEY": "Of",
+            "PRESS_TO_START_KEY": "Press to start",
+            "PRESS_TO_PROGRESS_KEY": "Press to progress"
         },
         "infohub_demo_status": {
             "DEMO_STATUS_KEY": "Demo status",

@@ -1,6 +1,6 @@
 {
     "plugin": "infohub_launcher",
-    "title": "Launcher",
+    "title": "Start applications",
     "description": "Plugin with a GUI that show icons for available plugins that you can start. The actual starting are handled by the Workbench.",
     "keywords": "launch,start,run,plugin,manage,discover",
     "uses": []

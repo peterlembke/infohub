@@ -852,6 +852,9 @@ function infohub_transfer() {
                 'data': {
                     'package': $package,
                 },
+                'data_back': {
+                    'step': 'step_void'
+                },
             };
 
             const $package1 = {

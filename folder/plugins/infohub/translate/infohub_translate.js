@@ -44,7 +44,9 @@ function infohub_translate() {
             'click': 'normal',
             'call_server': 'normal',
             'get_translate_data': 'normal',
-            'get_language_option_list': 'normal'
+            'get_option_list': 'normal',
+            'translate': 'normal',
+            'translate_plugin': 'normal',
         };
 
         return _GetCmdFunctionsBase($list);
@@ -599,16 +601,266 @@ function infohub_translate() {
     };
 
     /**
+     * Get the list with languages that libre translate can handle
      *
-     * @version 2021-09-09
+     * @version 2024-06-14
      * @since   2021-09-09
      * @author  Peter Lembke
      */
-    $functions.push('get_language_option_list');
-    const get_language_option_list = function($in = {}) {
-        let $a = 1;
+    $functions.push('get_option_list');
+    const get_option_list = function($in = {}) {
+        const $default = {
+            'type': 'language', // language or plugin
+            'selected': '',
+            'use_cache': 'false',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report',
+                'options': [],
+                'data': {
+                    'options': [] // When reading from storage
+                }
+            },
+            'data_back': {}
+        };
+        $in = _Default($default, $in);
+
+        let $messageArray = [];
+
+        if ($in.step === 'step_start') {
+            $in.step = 'step_ask_server';
+            if ($in.use_cache === 'true') {
+                $in.step = 'step_use_cache'
+            }
+        }
+
+        if ($in.step === 'step_use_cache') {
+            return _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'read',
+                },
+                'data': {
+                    'path': 'infohub_translate/'+$in.type+'_list',
+                },
+                'data_back': {
+                    'step': 'step_use_cache_response',
+                    'type': $in.type, // 'language' or 'plugin'
+                    'selected': $in.selected,
+                    'use_cache': $in.use_cache
+                }
+            });
+        }
+
+        if ($in.step === 'step_use_cache_response') {
+            $in.step = 'step_ask_server';
+            if (_Count($in.response.data.options) > 0) {
+                $in.response.options = $in.response.data.options;
+                $in.step = 'step_set_selected';
+            }
+        }
+
+        if ($in.step === 'step_set_selected') {
+
+            let $optionLength = $in.response.options.length;
+
+            for (let $number = 0; $number < $optionLength; $number++) {
+
+                const $languageCode = $in.response.options[$number].value;
+                if ($languageCode === $in.selected) {
+                    $in.response.options[$number].selected = 'true';
+                    continue;
+                }
+
+                if (_IsSet($in.response.options[$number].selected) === 'true') {
+                    delete($in.response.options[$number].selected);
+                }
+            }
+
+            $in.step = 'step_end';
+        }
+
+        if ($in.step === 'step_ask_server') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_translate',
+                    'function': 'get_'+$in.type+'_option_list',
+                },
+                'data': {
+                    'selected': $in.selected
+                },
+                'data_back': {
+                    'step': 'step_ask_server_response',
+                    'type': $in.type, // 'language' or 'plugin'
+                    'selected': $in.selected,
+                    'use_cache': $in.use_cache
+                },
+                'wait': 0.2
+            });
+        }
+
+        if ($in.step === 'step_ask_server_response') {
+            $in.step = 'step_store_in_cache';
+            if ($in.response.answer === 'false') {
+                $in.step = 'step_end';
+            }
+        }
+
+        if ($in.step === 'step_store_in_cache') {
+            let $messageOut = _SubCall({
+                'to': {
+                    'node': 'client',
+                    'plugin': 'infohub_storage',
+                    'function': 'write',
+                },
+                'data': {
+                    'path': 'infohub_translate/'+$in.type+'_list',
+                    'data': {
+                        'options': $in.response.options
+                    }
+                },
+                'data_back': {
+                    'step': 'step_void' // Do not inform me how it went
+                }
+            });
+            $messageArray.push($messageOut);
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer,
+            'options': $in.response.options,
+            'messages': $messageArray
+        };
     }
 
+    /**
+     * Ask the server to do a translation.
+     *
+     * @version 2021-09-20
+     * @since   2021-09-20
+     * @author  Peter Lembke
+     */
+    $functions.push('translate');
+    const translate = function($in = {}) {
+        const $default = {
+            'from_language': '',
+            'to_language': '',
+            'from_text': '',
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report',
+                'to_text': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start') {
+
+            if (_Empty($in.from_language) === 'true') {
+                return {
+                    'answer': 'false',
+                    'message': 'From language is missing',
+                    'ok': 'false',
+                    'to_text': ''
+                };
+            }
+
+            if (_Empty($in.to_language) === 'true') {
+                return {
+                    'answer': 'false',
+                    'message': 'To language is missing',
+                    'ok': 'false',
+                    'to_text': ''
+                };
+            }
+
+            if (_Empty($in.from_text) === 'true') {
+                return {
+                    'answer': 'false',
+                    'message': 'Please give me a text to translate',
+                    'ok': 'false',
+                    'to_text': ''
+                };
+            }
+
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_translate',
+                    'function': 'translate',
+                },
+                'data': {
+                    'from_language': $in.from_language,
+                    'to_language': $in.to_language,
+                    'from_text': $in.from_text
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+                'wait': 0.2
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer,
+            'to_text': $in.response.to_text
+        };
+    }
+
+    /**
+     * Ask the server to translate listed plugins to all the listed languages
+     *
+     * @version 2024-11-10
+     * @since   2024-11-10
+     * @author  Peter Lembke
+     */
+    $functions.push('translate_plugin');
+    const translate_plugin = function($in = {}) {
+        const $default = {
+            'plugin_list': [],
+            'language_list': [],
+            'step': 'step_start',
+            'response': {
+                'answer': 'false',
+                'message': 'Nothing to report',
+                'to_text': ''
+            }
+        };
+        $in = _Default($default, $in);
+
+        if ($in.step === 'step_start') {
+            return _SubCall({
+                'to': {
+                    'node': 'server',
+                    'plugin': 'infohub_translate',
+                    'function': 'translate_all_plugin_names',
+                },
+                'data': {
+                    'plugin_list': $in.plugin_list,
+                    'language_list': $in.language_list,
+                },
+                'data_back': {
+                    'step': 'step_end'
+                },
+                'wait': 0.2
+            });
+        }
+
+        return {
+            'answer': $in.response.answer,
+            'message': $in.response.message,
+            'ok': $in.response.answer,
+            'to_text': $in.response.to_text
+        };
+    }
 }
 
 //# sourceURL=infohub_translate.js

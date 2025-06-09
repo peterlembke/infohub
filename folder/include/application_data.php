@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-include_once 'define_folders.php';
+include_once PUBLIC_HTML . DS . 'define_folders.php';
 include_once PLUGINS . DS . 'infohub' . DS . 'base' . DS . 'infohub_base.php';
 
 /**
@@ -58,7 +58,7 @@ class application_data extends infohub_base
     }
 
     /**
-     * Get the icon data as BASE64 encoded string with the data:image type
+     * Get the icon data as a BASE64 encoded string with the data:image type
      *
      * @param string $iconType
      * @return string
@@ -172,7 +172,7 @@ class application_data extends infohub_base
     }
 
     /**
-     * Get full path to the existing icon file
+     * Get the full path to the existing icon file
      * @param string $iconType
      * @return string
      */
@@ -197,7 +197,7 @@ class application_data extends infohub_base
     }
 
     /**
-     * Get full path to the existing icon file
+     * Get the full path to the existing icon file
      * @param string $pluginName
      * @return string
      */
@@ -281,7 +281,7 @@ class application_data extends infohub_base
 
     /**
      * Read a file, return the data
-     * If anything goes wrong you get an empty string back.
+     * If anything goes wrong, you get an empty string back.
      *
      * @param  string  $path
      * @return string
@@ -293,7 +293,7 @@ class application_data extends infohub_base
         if (file_exists($path) === false) {
             return '';
         }
-        
+
         $fileContents = file_get_contents($path);
         if ($fileContents === false) {
             return '';
@@ -302,9 +302,3 @@ class application_data extends infohub_base
         return $fileContents;
     }
 }
-
-$appData = new application_data(
-    mainPath: MAIN,
-    pluginPath: PLUGINS,
-    configPath:CONFIG
-);

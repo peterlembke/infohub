@@ -1,116 +1,114 @@
 {
     "version": {
-        "date": "2020-12-16 18:52:04",
+        "date": "2025-06-08 18:55:22",
         "plugin": "infohub_login",
-        "data_checksum": "779e08e2f4f7417afdddf599c4d734da",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
         "language": "el",
+        "language_name": "Greek",
+        "language_name_local": "Ελληνικά",
         "country": "",
-        "file_type": "key_file"
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Σύνδεση",
+        "description": "Μπορείτε να συνδεθείτε στον εξυπηρετητή, να συνδεθείτε, να ρυθμίσετε ή να αλλάξετε τον κωδικό σας."
     },
     "data": {
         "infohub_login": {
             "INSTRUCTIONS_KEY": "Οδηγίες",
-            "USE_THE_MENU._KEY": "Χρησιμοποιήστε το μενού.",
-            "WHAT_IS_THIS?_KEY": "Τι είναι αυτό;"
+            "USE_THE_MENU._KEY": "Χρησιμοποίησε το μενού.",
+            "WHAT_IS_THIS?_KEY": "Τι είναι αυτό?"
         },
         "infohub_login_contact": {
             "ONE_CONTACT_KEY": "Μία επαφή",
             "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Αυτή είναι η φόρμα δεδομένων για μία επαφή",
             "NODE_KEY": "Κόμβος",
-            "ANY_TEXT_YOU_WANT_KEY": "Οποιοδήποτε κείμενο θέλετε",
+            "ANY_TEXT_YOU_WANT_KEY": "Οποιοδήποτε μήνυμα θέλετε",
             "NOTE_KEY": "Σημείωση",
             "SAVE_KEY": "Αποθήκευση",
             "DOMAIN_ADDRESS_KEY": "Διεύθυνση τομέα",
-            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Η διεύθυνση τομέα στον διακομιστή σας",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Η διεύθυνση τομέα στον εξυπηρετητή σας",
             "USER_NAME_KEY": "Όνομα χρήστη",
-            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Είστε εσείς στον διακομιστή",
-            "SHARED_SECRET_KEY": "Κοινόχρηστο μυστικό",
-            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Μοιράζεστε αυτό το μυστικό με τον διακομιστή",
-            "CHECKSUM_KEY": "Checksum",
-            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Έλεγχος διεύθυνσης τομέα + όνομα χρήστη + κοινόχρηστο μυστικό.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Επιτρεπόμενες προσθήκες διακομιστή",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Λίστα με όλα τα ονόματα προσθηκών διακομιστή στα οποία μπορείτε να στέλνετε μηνύματα στον απομακρυσμένο κόμβο"
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Αυτός είσαι εσύ στο διακομιστή",
+            "SHARED_SECRET_KEY": "Κοινό μυστικό",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Μοιράζεσαι αυτό το μυστικό με τον εξυπηρετητή",
+            "CHECKSUM_KEY": "Άθροισμα ελέγχου",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Μέγεθος της διεύθυνσης τομέα + όνομα χρήστη + κοινόχρηστο μυστικό.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Επιτρεπόμενα πρόσθετα εξυπηρετητή",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Λίστα με όλα τα ονόματα πρόσθετων του εξυπηρετητή που μπορείτε να στείλετε μηνύματα στον απομακρυσμένο κόμβο"
         },
         "infohub_login_export": {
             "EXPORT_CONTACT_KEY": "Εξαγωγή επαφής",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Εδώ μπορείτε να εξαγάγετε τα δεδομένα επικοινωνίας",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Εδώ μπορείτε να εξάγετε τα δεδομένα επικοινωνίας",
             "EXPORT_KEY": "Εξαγωγή"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Ξεχάστε την επαφή",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Εδώ μπορείτε να αφήσετε το πρόγραμμα περιήγησης να ξεχάσει τα δεδομένα επικοινωνίας. Μπορείτε πάντα να εισαγάγετε ξανά το αρχείο σας.",
-            "FORGET_KEY": "Ξεχάστε"
+            "FORGET_CONTACT_KEY": "Ξέχνα την επαφή",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Εδώ μπορείτε να αφήσετε το πρόγραμμα περιήγησης να ξεχάσει τα δεδομένα επικοινωνίας.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Μπορείς πάντα να εισάγεις το αρχείο σου ξανά.",
+            "FORGET_KEY": "Ξέχνα το"
         },
         "infohub_login_import": {
             "IMPORT_KEY": "Εισαγωγή",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Εισαγάγετε τα στοιχεία επικοινωνίας από το αρχείο",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Εισαγωγή των στοιχείων επικοινωνίας από το αρχείο",
             "SELECT_FILE_KEY": "Επιλογή αρχείου"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Είσοδος",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Εδώ μπορείτε να χρησιμοποιήσετε τα δεδομένα επαφής που εισαγάγατε και να συνδεθείτε στο διακομιστή",
+            "LOGIN_KEY": "Σύνδεση",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Εδώ μπορείτε να χρησιμοποιήσετε τα δεδομένα επικοινωνίας που εισαγάγατε και συνδεθείτε στον εξυπηρετητή",
             "PASSWORD_KEY": "Κωδικός πρόσβασης",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Ο κωδικός πρόσβασης που πρέπει να αποκωδικοποιήσετε το shared_secret",
-            "LOGIN_RESULT_KEY": "αποτέλεσμα σύνδεσης",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Ο κωδικός πρόσβασης που χρειάζεστε για να αποκωδικοποιήσετε το κοινό μυστικό",
+            "LOGIN_RESULT_KEY": "Αποτέλεσμα σύνδεσης",
             "RELOAD_AFTER_LOGIN_KEY": "Επαναφόρτωση μετά τη σύνδεση",
-            "SELECT_FILE_KEY": "Επιλογή αρχείου",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Λήψη δοκιμαστικού λογαριασμού",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Έχετε ήδη συνδεθεί",
             "MISSING_USER_NAME_KEY": "Λείπει το όνομα χρήστη",
             "MISSING_RANDOM_CODE_KEY": "Λείπει τυχαίος κωδικός",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Η απάντηση από τον διακομιστή χρειάστηκε πολύς χρόνος. Θα εγκαταλείψω την προσπάθεια σύνδεσης",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Η απάντηση από το διακομιστή πήρε πολύ χρόνο.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Θα εγκαταλείψω την προσπάθεια σύνδεσης",
             "FAILED_TO_LOGIN_KEY": "Αποτυχία σύνδεσης",
-            "SUCCESS_LOGGING_IN_KEY": "Επιτυχής σύνδεση",
+            "SUCCESS_LOGGING_IN_KEY": "Επιτυχία σύνδεσης",
             "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Ο τυχαίος κώδικας δεν έχει το σωστό μήκος",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Είναι απίθανο ότι ο συνολικός μέσος όρος δεν έχει δεκαδικά ψηφία",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Είναι απίθανο ο μέσος όρος να είναι ίσος με τον συνολικό μέσο όρο",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Αυτές οι απλές δοκιμές δείχνουν ότι ο τυχαίος_ κωδικός τουλάχιστον δεν είναι μια επίπεδη γραμμή αριθμών."
-        },
-        "infohub_login_standalone": {
-            "LOGIN_KEY": "Είσοδος",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Εδώ μπορείτε να χρησιμοποιήσετε τα δεδομένα επαφής που εισαγάγατε και να συνδεθείτε στο διακομιστή",
-            "PASSWORD_KEY": "Κωδικός πρόσβασης",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Ο κωδικός πρόσβασης που πρέπει να αποκωδικοποιήσετε το shared_secret",
-            "LOGIN_RESULT_KEY": "αποτέλεσμα σύνδεσης",
-            "RELOAD_AFTER_LOGIN_KEY": "Επαναφόρτωση μετά τη σύνδεση",
-            "SELECT_FILE_KEY": "Επιλογή αρχείου",
-            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Λήψη δοκιμαστικού λογαριασμού",
-            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Έχετε ήδη συνδεθεί",
-            "MISSING_USER_NAME_KEY": "Λείπει το όνομα χρήστη",
-            "MISSING_RANDOM_CODE_KEY": "Λείπει τυχαίος κωδικός",
-            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Η απάντηση από τον διακομιστή χρειάστηκε πολύς χρόνος. Θα εγκαταλείψω την προσπάθεια σύνδεσης",
-            "FAILED_TO_LOGIN_KEY": "Αποτυχία σύνδεσης",
-            "SUCCESS_LOGGING_IN_KEY": "Επιτυχής σύνδεση",
-            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Ο τυχαίος κώδικας δεν έχει το σωστό μήκος",
-            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Είναι απίθανο ότι ο συνολικός μέσος όρος δεν έχει δεκαδικά ψηφία",
-            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Είναι απίθανο ο μέσος όρος να είναι ίσος με τον συνολικό μέσο όρο",
-            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLATLINE_OF_NUMBERS._KEY": "Αυτές οι απλές δοκιμές δείχνουν ότι ο τυχαίος_ κωδικός τουλάχιστον δεν είναι μια επίπεδη γραμμή αριθμών."
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Σε αντίθεση με το ότι ο συνολικός μέσος όρος δεν έχει δεκαδικά ψηφία",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Αντίθετα, ο μέσος όρος ισούται με τον συνολικό μέσο όρο",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Αυτές οι απλές δοκιμές δείχνουν ότι ο τυχαίος κώδικας τουλάχιστον δεν είναι μια επίπεδη γραμμή αριθμών."
         },
         "infohub_login_logout": {
             "LOGOUT_KEY": "Αποσύνδεση",
-            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Εδώ μπορείτε να αποσυνδεθείτε από το διακομιστή",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Εάν είναι επιτυχής, τότε εμφανίζεται η σελίδα σύνδεσης",
-            "LOGOUT_RESULT_KEY": "αποτέλεσμα αποσύνδεσης",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Εδώ μπορείτε να συνδεθείτε από τον εξυπηρετητή",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Αν πετύχει, τότε η σελίδα σύνδεσης εμφανίζει",
+            "LOGOUT_RESULT_KEY": "Αποτέλεσμα αποσύνδεσης",
             "FAILED_TO_LOGOUT_KEY": "Αποτυχία αποσύνδεσης",
-            "SUCCESS_LOGGING_OUT_KEY": "Επιτυχής αποσύνδεση"
+            "SUCCESS_LOGGING_OUT_KEY": "Αποσύνδεση επιτυχίας"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Μενού",
             "IMPORT_CONTACT_DATA_KEY": "Εισαγωγή δεδομένων επαφής",
-            "LOGIN_KEY": "Είσοδος",
+            "LOGIN_KEY": "Σύνδεση",
             "SET_PASSWORD_KEY": "Ορισμός κωδικού πρόσβασης",
             "EXPORT_CONTACT_DATA_KEY": "Εξαγωγή δεδομένων επαφής",
             "LOGOUT_KEY": "Αποσύνδεση",
-            "FORGET_CONTACT_KEY": "Ξεχάστε την επαφή"
+            "FORGET_CONTACT_KEY": "Ξέχνα την επαφή"
         },
         "infohub_login_password": {
             "SET_PASSWORD_KEY": "Ορισμός κωδικού πρόσβασης",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Όταν ορίζετε τον τοπικό σας κωδικό πρόσβασης, ανακατεύετε το κοινόχρηστο μυστικό,",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Όταν ορίζετε τον τοπικό σας κωδικό πρόσβασης, ομαδοποιείτε το κοινό μυστικό ώστε να απαιτεί τον κωδικό σας για να λειτουργήσει",
             "CURRENT_PASSWORD_KEY": "Τρέχων κωδικός πρόσβασης",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Αφήστε κενό εάν δεν έχετε κανένα",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Αφήστε το κενό αν δεν έχετε",
             "NEW_PASSWORD_KEY": "Νέος κωδικός πρόσβασης",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Αφήστε κενό εάν θέλετε να καταργήσετε τον κωδικό πρόσβασης",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Αφήστε το κενό αν θέλετε να αφαιρέσετε τον κωδικό πρόσβασης",
             "CHANGE_PASSWORD_KEY": "Αλλαγή κωδικού πρόσβασης"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Σύνδεση",
+            "SELECT_FILE_KEY": "Επιλογή αρχείου",
+            "PASSWORD_KEY": "Κωδικός πρόσβασης",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Λήψη λογαριασμού επίδειξης",
+            "LOGIN_RESULT_KEY": "Αποτέλεσμα σύνδεσης",
+            "MORE_KEY": "Περισσότερα",
+            "CURRENT_URL_KEY": "Τρέχων url",
+            "REFRESH_PAGE_KEY": "Ανανέωση σελίδας"
         }
     }
 }

@@ -1,16 +1,46 @@
 {
     "short_name": "InfoHub",
     "name": "Infohub",
-    "description": "Run InfoHub on your server or your friends server so you can store your private data and keep them away from every one else. Away from social networks and away from sharing.",
+    "description": "Your private web operating system. You reach your encrypted data on all your devices and can run the InfoHub applications you like.",
     "categories": ["lifestyle", "personalization", "security"],
     "icons": [
         {
-            "src": "infohub.png",
+            "src": "images/infohub-72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "images/infohub-96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "images/infohub-128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "images/infohub-144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "images/infohub-152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "images/infohub-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "infohub-512.png",
+            "src": "images/infohub-384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "images/infohub-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
@@ -19,5 +49,6 @@
     "background_color": "#FFFFFF",
     "display": "fullscreen",
     "scope": "/",
-    "theme_color": "#FFFFFF"
+    "theme_color": "#FFFFFF",
+    "splash_pages": null
 }

@@ -1,16 +1,18 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_tree",
-        "data_checksum": "7a034f2638dd33539e338cba26f66194",
+        "data_checksum": "70055e735244f30d228027d790b314dd",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Tree",
+        "title": "The tree",
         "description": "Handles your personal data."
     },
     "data": {
@@ -54,6 +56,8 @@
         },
         "infohub_tree_encrypt": {
             "IMPORT_KEY_FILE_KEY": "Import key file",
+            "ONE_CONTACT_KEY": "One contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "This is the data form for one contact",
             "IMPORT_PASSWORD_KEY": "Import password",
             "YOUR_PASSWORD_FOR_THE_FILE_KEY": "Your password for the file",
             "FORGET_IMPORTED_KEY_KEY": "Forget imported",

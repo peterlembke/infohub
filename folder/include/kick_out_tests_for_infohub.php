@@ -14,7 +14,7 @@ include_once PLUGINS . DS . 'infohub' . DS . 'base' . DS . 'infohub_base.php';
  * Kick out tests that will be run in infohub.php
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2020-04-17
+ * @version     2024-06-29
  * @since       2015-11-15
  * @copyright   Copyright (c) 2015, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -199,7 +199,7 @@ class kick_out_tests_for_infohub extends infohub_base
         $package['messages_checksum'] = $checksum;
 
         if ($package['messages_encoded'] === 'W10=') { // W10= encoded for []
-            $this->GetOut('Server says: Package messages missing');
+            $this->GetOut('Server says: Package messages missing. Please send some messages in the package');
         }
 
         $messagesJson = base64_decode($package['messages_encoded'], $strict = true);
@@ -208,6 +208,9 @@ class kick_out_tests_for_infohub extends infohub_base
         }
 
         // $messagesJson = utf8_encode($messagesJson); // Try saving åäö in a form, and you see that this is needed. Deprecated in PHP 8.2
+        $fromEncoding = 'ISO-8859-1';
+        $toEncoding = 'UTF-8';
+        $messagesJson = mb_convert_encoding(string: $messagesJson, to_encoding: $toEncoding, from_encoding: $fromEncoding);
         $messages = $this->_JsonDecode($messagesJson);
 
         if (empty($messages) === true) {
@@ -216,7 +219,7 @@ class kick_out_tests_for_infohub extends infohub_base
 
         $messageCount = count($messages);
         if (empty($messageCount) === true) {
-            $this->GetOut('Server says: Package messages missing');
+            $this->GetOut('Server says: Package messages missing after json_decode');
         }
         if ($messageCount > 100) {
             $this->GetOut('Server says: Package messages too many');
@@ -252,7 +255,7 @@ class kick_out_tests_for_infohub extends infohub_base
     }
 
     /**
-     * If you end up here you will be thrown out
+     * If you end up here, you will be thrown out
      * @param  string  $message A message to display to the user
      * @return void
      */
@@ -299,6 +302,3 @@ class kick_out_tests_for_infohub extends infohub_base
         exit($messageOut);
     }
 }
-
-$kick = new kick_out_tests_for_infohub();
-$package = $kick->tests();

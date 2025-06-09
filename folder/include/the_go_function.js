@@ -129,6 +129,9 @@ function sendMessage($pluginName, $data) {
         },
         'callstack': [],
         'data': $data,
+        'data_back': {
+            'step': 'step_void'
+        }
     };
 
     const $package = {

@@ -1,17 +1,19 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_login",
-        "data_checksum": "53c9dfabdbe197f877dcb85f0ffc15fb",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Login",
-        "description": "Handles your login to the server"
+        "title": "Log in",
+        "description": "You can log in to the server, log out, set or change your password."
     },
     "data": {
         "infohub_login": {

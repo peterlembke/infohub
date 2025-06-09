@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_offline",
-    "title": "Offline",
-    "description": "Here you can prepare for offline. Also handle offline/online event subscribers.",
+    "title": "Work without internet",
+    "description": "Here you can prepare for working without the access to the server. Downloads data that you might need.",
     "keywords": "offline,prepare,download,buffer,cache,data",
     "uses": []
 }

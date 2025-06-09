@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:14:52",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "uk",
+        "language_name": "Ukrainian",
+        "language_name_local": "Українська",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Увійти",
+        "description": "Ви можете увійти в сервер, увійти, встановити або змінити пароль."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Інструкції",
+            "USE_THE_MENU._KEY": "Використовуйте меню.",
+            "WHAT_IS_THIS?_KEY": "Що це таке?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Один контакт",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Це форма даних для одного контакту",
+            "NODE_KEY": "Нід",
+            "ANY_TEXT_YOU_WANT_KEY": "Будь-який текст, який ви хочете",
+            "NOTE_KEY": "Зареєструватися",
+            "SAVE_KEY": "Зберегти",
+            "DOMAIN_ADDRESS_KEY": "Адреса домену",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Адреса домену на сервер",
+            "USER_NAME_KEY": "Ім'я користувача",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Ви на сервері",
+            "SHARED_SECRET_KEY": "Загальний секрет",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Ви розділяєте цей секрет з сервером",
+            "CHECKSUM_KEY": "Проксимус",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Перевірити доменну адресу + ім'я користувача + загальний секрет.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Додавання плагінів сервера",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Список з усіма іменами додатків сервера ви можете надсилати повідомлення на віддалений вузол"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Контакти",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Тут ви можете експортувати контактні дані",
+            "EXPORT_KEY": "Експорт"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Контакти",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Тут ви можете дозволити браузер забути контактні дані.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Ви завжди можете імпортувати файл знову.",
+            "FORGET_KEY": "Забудувати"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Імпорт",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Імпорт контактної інформації з файлу",
+            "SELECT_FILE_KEY": "Виберіть файл"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Логін",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Тут ви можете використовувати контактні дані, які ви імпортували та ввімкнулися на сервер",
+            "PASSWORD_KEY": "Логін",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Введіть номер мобільного, який Ви вказали при укладаннi договору з банком - для ідентифікації",
+            "LOGIN_RESULT_KEY": "Вхід",
+            "RELOAD_AFTER_LOGIN_KEY": "Перевантаження після входу",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Ви вже зареєстровані",
+            "MISSING_USER_NAME_KEY": "Ім'я користувача",
+            "MISSING_RANDOM_CODE_KEY": "Змішаний випадковий код",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Відповідність з сервера займала занадто довго.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Я відкинувся на логін",
+            "FAILED_TO_LOGIN_KEY": "Зареєструватися",
+            "SUCCESS_LOGGING_IN_KEY": "Послідовний запис",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "У випадковому коді немає правильної довжини",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "На відміну від того, що загальний середній не має десятків",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "На відміну від того, що середня дорівнює загальному середньому",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Ці прості тести показують, що випадковий код принаймні не є плоским рядком чисел."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Зареєструватися",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Тут ви можете відобразити від сервера",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Якщо вдалим чином, на сторінці входу відображається",
+            "LOGOUT_RESULT_KEY": "Результати пошуку",
+            "FAILED_TO_LOGOUT_KEY": "Ввімкнути логотип",
+            "SUCCESS_LOGGING_OUT_KEY": "Успіхи"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Навігація",
+            "IMPORT_CONTACT_DATA_KEY": "Імпорт контактних даних",
+            "LOGIN_KEY": "Логін",
+            "SET_PASSWORD_KEY": "Налаштування пароля",
+            "EXPORT_CONTACT_DATA_KEY": "Експорт контактних даних",
+            "LOGOUT_KEY": "Зареєструватися",
+            "FORGET_CONTACT_KEY": "Контакти"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Налаштування пароля",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Коли ви встановили локальний пароль, ви розширите загальний секрет, щоб він вимагає вашого пароля для роботи",
+            "CURRENT_PASSWORD_KEY": "Поточний пароль",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Залишити заявку, якщо у вас немає",
+            "NEW_PASSWORD_KEY": "Новий пароль",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Залишити заявку, якщо ви хочете видалити пароль",
+            "CHANGE_PASSWORD_KEY": "Зміна пароля"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Логін",
+            "SELECT_FILE_KEY": "Виберіть файл",
+            "PASSWORD_KEY": "Логін",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Завантажити демо-рахунок",
+            "LOGIN_RESULT_KEY": "Вхід",
+            "MORE_KEY": "Детальніше",
+            "CURRENT_URL_KEY": "Поточний URL",
+            "REFRESH_PAGE_KEY": "Веб-сайт"
+        }
+    }
+}

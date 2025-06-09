@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:12:36",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ur",
+        "language_name": "Urdu",
+        "language_name_local": "اُردو",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "لاگ ان",
+        "description": "آپ سرور کے پاس لاگ ان کر سکتے ہیں، لاگ آؤٹ کرو، مقرر کرو یا اپنا خفیہ لفظ تبدیل کر سکتے ہیں۔."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "ہدایات",
+            "USE_THE_MENU._KEY": "مینو استعمال کریں.",
+            "WHAT_IS_THIS?_KEY": "یہ کیا ہے؟?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "ایک رابطہ",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "یہ ڈیٹا فارم ایک رابطہ کے لیے ہے۔",
+            "NODE_KEY": "Node",
+            "ANY_TEXT_YOU_WANT_KEY": "آپ چاہتے ہیں کوئی متن",
+            "NOTE_KEY": "نوٹ",
+            "SAVE_KEY": "محفوظ کریں",
+            "DOMAIN_ADDRESS_KEY": "جگہ",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "آپ کے سرور کے لیے ڈومین پتہ",
+            "USER_NAME_KEY": "صا_رف کا نام",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "یہ آپ سرور پر ہے",
+            "SHARED_SECRET_KEY": "شیئر کردہ راز",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "آپ سرور کے ساتھ اس راز کو شیئر کرتے ہیں۔",
+            "CHECKSUM_KEY": "چیک",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "ڈومین پتے کا چیک + صارف کا نام + شیئر خفیہ۔.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "جائز سرور پلگ انس",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "تمام سرور پلگ انس کے نام سے آپ دور دراز پلگ انس کے پیغامات بھیج سکتے ہیں۔"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "رابطہ داخل کرو",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "یہاں آپ رابطہ اعداد کو برآمد کر سکتے ہیں۔",
+            "EXPORT_KEY": "برآمد"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "رابطہ بھول جاؤ",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "یہاں آپ براؤزر کو رابطہ ڈاٹا بھول سکتے ہیں.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "آپ ہمیشہ اپنی فائل دوبارہ درآمد کر سکتے ہیں.",
+            "FORGET_KEY": "بھول جاؤ"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "غیر متصل",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "فائل کی معلومات کو محفوظ کریں",
+            "SELECT_FILE_KEY": "فائل منتخب کریں"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "لاگ ان",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "یہاں آپ رابطہ ڈاٹا کو استعمال کر سکتے ہیں جو آپ نے سرور کے پاس درآمد کیا تھا اور ان کے نام سے",
+            "PASSWORD_KEY": "پاس ورڈ",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "پاس ورڈ آپکو شیئر خفیہ کوڈ کرنے کی ضرورت ہے",
+            "LOGIN_RESULT_KEY": "لاگ ان نتائج",
+            "RELOAD_AFTER_LOGIN_KEY": "لاگ انس دوبارہ لوڈ کرنے کے بعد",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "تم پہلے ہی لاگ ان ہو",
+            "MISSING_USER_NAME_KEY": "نا معلوم صارف کا نام",
+            "MISSING_RANDOM_CODE_KEY": "غیر متصل کوڈ",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "سرور سے اس کا جواب بہت عرصہ لگا۔.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "میں غیر متصل کوشش چھوڑ دوں گا",
+            "FAILED_TO_LOGIN_KEY": "غیر متصل",
+            "SUCCESS_LOGGING_IN_KEY": "کامیابی میں اضافہ",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "غیر معمولی کوڈ درست لمبائی نہیں ہے۔",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "اس کے برعکس کہ مجموعی اوسط کوئی اشارہ نہیں ہے۔",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "اس کے برعکس اوسط اوسط اوسط اوسط اوسط اوسط کے برابر ہے۔",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "ان سادہ امتحانات سے پتہ چلتا ہے کہ کم از کم غیر یقینی کوڈ نمبروں کی پلیٹ لائن نہیں ہے۔."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "لاگ ان",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "یہاں آپ سرور سے رابطہ کر سکتے ہیں",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "اگر پھر کامیابی حاصل کرنے میں کامیاب صفحے سے پتہ چلتا ہے۔",
+            "LOGOUT_RESULT_KEY": "لاگ آؤٹ نتیجہ",
+            "FAILED_TO_LOGOUT_KEY": "غیر متصل",
+            "SUCCESS_LOGGING_OUT_KEY": "کامیابی حاصل کرنا"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "طےشدہ",
+            "IMPORT_CONTACT_DATA_KEY": "رابطہ معلومات",
+            "LOGIN_KEY": "لاگ ان",
+            "SET_PASSWORD_KEY": "پاس ورڈ منتخب کریں",
+            "EXPORT_CONTACT_DATA_KEY": "رابطہ معلومات داخل کریں",
+            "LOGOUT_KEY": "لاگ ان",
+            "FORGET_CONTACT_KEY": "رابطہ بھول جاؤ"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "پاس ورڈ منتخب کریں",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "جب آپ اپنے مقامی خفیہ لفظ آپ کو شیئر راز میں داخل کرتے ہیں تاکہ آپ کا پاس ورڈ کام کرنا ضروری ہو۔",
+            "CURRENT_PASSWORD_KEY": "موجودہ خفیہ لفظ",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "پس اگر تم کسی کے زیرفرمان نہیں",
+            "NEW_PASSWORD_KEY": "نیا خفیہ لفظ",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "پاس ورڈ حذف کرنے کے لیے اگر آپ چاہتے ہیں کہ پاس ورڈ حذف کردیں",
+            "CHANGE_PASSWORD_KEY": "پاس ورڈ تبدیل کریں"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "لاگ ان",
+            "SELECT_FILE_KEY": "فائل منتخب کریں",
+            "PASSWORD_KEY": "پاس ورڈ",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "ڈیم بند کریں",
+            "LOGIN_RESULT_KEY": "لاگ ان نتائج",
+            "MORE_KEY": "مزید",
+            "CURRENT_URL_KEY": "حالیہ پلگ ان",
+            "REFRESH_PAGE_KEY": "تسلی‌بخش صفحہ"
+        }
+    }
+}

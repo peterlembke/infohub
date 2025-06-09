@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:43:05",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ko",
+        "language_name": "Korean",
+        "language_name_local": "한국어",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "로그인",
+        "description": "서버에 로그인, 로그 아웃, 설정 또는 암호를 변경할 수 있습니다."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "이름 *",
+            "USE_THE_MENU._KEY": "메뉴를 사용하십시오.",
+            "WHAT_IS_THIS?_KEY": "이것은 무엇입니까?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "연락처",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "이것은 1개의 접촉을 위한 자료 모양입니다",
+            "NODE_KEY": "이름 *",
+            "ANY_TEXT_YOU_WANT_KEY": "당신이 원하는 모든 텍스트",
+            "NOTE_KEY": "이름 *",
+            "SAVE_KEY": "제품 정보",
+            "DOMAIN_ADDRESS_KEY": "도메인 주소",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "서버에 도메인 주소",
+            "USER_NAME_KEY": "사용자 이름",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "서버에서",
+            "SHARED_SECRET_KEY": "공유 비밀",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "이 비밀을 서버로 공유",
+            "CHECKSUM_KEY": "체크섬",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum의 도메인 주소 + 사용자 이름 + 공유 비밀.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "허용된 서버 플러그인",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "모든 서버 플러그인 이름 목록은 원격 노드에 메시지를 보낼 수 있습니다"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "수출문의",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "여기에서 당신은 접촉 자료를 수출할 수 있습니다",
+            "EXPORT_KEY": "수출입"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Forget 연락처",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "브라우저가 연락처 데이터를 잊을 수 있습니다.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "파일을 다시 가져올 수 있습니다.",
+            "FORGET_KEY": "제품 정보"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "제품정보",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "파일에서 연락처 정보를 가져옵니다",
+            "SELECT_FILE_KEY": "파일 선택"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "로그인",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "여기에 당신이 가져온 연락처 데이터를 사용할 수 있으며 서버에 로그인",
+            "PASSWORD_KEY": "비밀번호",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "비밀번호는 공유 비밀을 해독해야 합니다",
+            "LOGIN_RESULT_KEY": "로그인 결과",
+            "RELOAD_AFTER_LOGIN_KEY": "로그인 후",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "이미 로그인",
+            "MISSING_USER_NAME_KEY": "사용자 이름",
+            "MISSING_RANDOM_CODE_KEY": "무작위 코드",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "서버의 대답은 너무 오래 걸렸다.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "로그인 시도를 포기합니다",
+            "FAILED_TO_LOGIN_KEY": "로그인",
+            "SUCCESS_LOGGING_IN_KEY": "성공 로그인",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "임의 코드는 올바른 길이가 없습니다",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "총 평균은 소수점이 없다",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "평균은 총 평균과 같습니다",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "이 간단한 테스트는 무작위 코드가 적어도 숫자의 플랫 라인이 아닙니다."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "로그아웃",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "서버에서 로그아웃 할 수 있습니다",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "성공하면 로그인 페이지가 표시됩니다",
+            "LOGOUT_RESULT_KEY": "Logout 결과",
+            "FAILED_TO_LOGOUT_KEY": "로그아웃에 실패",
+            "SUCCESS_LOGGING_OUT_KEY": "성공 사례"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "(주)",
+            "IMPORT_CONTACT_DATA_KEY": "수입 접촉 자료",
+            "LOGIN_KEY": "로그인",
+            "SET_PASSWORD_KEY": "비밀번호",
+            "EXPORT_CONTACT_DATA_KEY": "수출 접촉 자료",
+            "LOGOUT_KEY": "로그아웃",
+            "FORGET_CONTACT_KEY": "Forget 연락처"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "비밀번호",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "로컬 암호를 설정하면 공유 비밀을 스크램블하여 비밀번호가 필요합니다",
+            "CURRENT_PASSWORD_KEY": "현재 비밀번호",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "아무도 없는 경우에 공백을 남겨두십시오",
+            "NEW_PASSWORD_KEY": "새로운 비밀번호",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "암호를 제거하려면 공백을 남기십시오",
+            "CHANGE_PASSWORD_KEY": "비밀번호"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "로그인",
+            "SELECT_FILE_KEY": "파일 선택",
+            "PASSWORD_KEY": "비밀번호",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "데모 계정 다운로드",
+            "LOGIN_RESULT_KEY": "로그인 결과",
+            "MORE_KEY": "더 보기",
+            "CURRENT_URL_KEY": "현재 URL",
+            "REFRESH_PAGE_KEY": "새 페이지"
+        }
+    }
+}

@@ -1,17 +1,19 @@
 {
     "version": {
-        "date": "2021-08-28 22:07:03",
+        "date": "2025-06-08 17:52:32",
         "plugin": "infohub_offline",
-        "data_checksum": "8f51ae67678e6cd58a53cfa62e4a57a2",
+        "data_checksum": "5c076bbee964fe439cd56f0065f900c6",
         "language": "en",
-        "language_name": "english",
-        "country": "GB",
-        "country_name": "Great Britain",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Offline",
-        "description": "Here you can prepare for offline. Also handle offline\/online event subscribers."
+        "title": "Work without internet",
+        "description": "Here you can prepare for working without the access to the server. Downloads data that you might need."
     },
     "data": {
         "infohub_offline": {
@@ -20,6 +22,7 @@
             "SEE_WHAT_PLUGINS_ARE_SUBSCRIBING_TO_THAT_EVENT._KEY": "See what plugins are subscribing to that event.",
             "BUTTONS_TO_DOWNLOAD_AND_STORE_DATA_TO_PREPARE_FOR_OFFLINE_USAGE._KEY": "Buttons to download and store data to prepare for offline usage.",
             "DOWNLOAD_PLUGINS_KEY": "Download plugins",
+            "OF_KEY": "Of",
             "DOWNLOAD_ASSETS_KEY": "Download assets",
             "DOWNLOAD_DOCUMENTATION_KEY": "Download documentation",
             "SHOW_SUBSCRIBERS_KEY": "Show subscribers",

@@ -1,6 +1,6 @@
 {
     "plugin": "infohub_trigger",
-    "title": "Trigger",
+    "title": "Send custom message",
     "description": "As a developer you can send messages to your functions.",
     "keywords": "trigger,message,development,test",
     "uses": []

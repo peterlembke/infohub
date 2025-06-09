@@ -1,15 +1,14 @@
 {
     "plugin": "infohub_translate",
     "title": "Translate",
-    "description": "Create + validate translation files.",
+    "description": "Manually translate a phrase. Create language files for plugins.",
     "keywords": "translations,translate,language",
     "uses": [
         "infohub_language",
-        "infohub_translate_createfile",
         "infohub_translate_doc",
+        "infohub_translate_manual",
         "infohub_translate_menu",
-        "infohub_translate_updateplugin",
-        "infohub_translate_validate",
+        "infohub_translate_plugin",
         "infohub_renderadvancedlist",
         "infohub_rendermenu"
     ]

@@ -20,7 +20,7 @@
     RewriteCond %{REQUEST_FILENAME} !-l
 
     ### every other url go to callback.php. callback.php have been removed for now. Might return later.
-    RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
+    # RewriteRule  ^(.*)$ callback.php?param=$1 [QSA,L]
 
     # Password. https://www.askapache.com/htaccess/#developing_sites
     # AuthName "Infohub password barrier"

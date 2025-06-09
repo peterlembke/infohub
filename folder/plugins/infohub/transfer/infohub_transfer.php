@@ -130,7 +130,7 @@ class infohub_transfer extends infohub_base
                 $messagesEncoded = base64_encode($messagesJson);
                 $messagesChecksum = md5($messagesEncoded);
 
-                $package = [ // to_node and messages must be first or the kick out tests will kick in.
+                $package = [ // to_node and messages must be first, or the kick out tests will kick in.
                     'to_node' => $nodeName,
                     'messages' => $messages, // For debug purposes
                     'messages_encoded' => $messagesEncoded,

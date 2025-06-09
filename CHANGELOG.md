@@ -7,10 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.40] - 2024-06-09
+
+* [Release notes](main,release_v1_v1v3_v1v3v40)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.40)
+
+Focus on fixing bugs in translate.
+
+
 # [1.3.30] - 2024-05-20
 
-* [Release notes](main,release_v1_v1v3_v1v3v12)
-* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.12)
+* [Release notes](main,release_v1_v1v3_v1v3v30)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.30)
 
 Focus on batch messages. Send messages and get a flag on the lastly returned message.
 Storage: Added flag for 'delete_after_reading'.

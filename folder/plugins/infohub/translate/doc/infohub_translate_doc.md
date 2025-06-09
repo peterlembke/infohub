@@ -6,7 +6,7 @@ this tool.
 ## Introduction
 
 Plugins can have translation files in their assets. They are downloaded to the client when the plugin is used. The
-plugin can ask InfoHub_Translate for translation data and translate the texts before they are rendered and shown on the
+plugin can ask infohub_libretranslate for translation data and translate the texts before they are rendered and shown on the
 screen. You set your preferred languages in the preferred order in InfoHub_ConfigLocal.
 
 Read more about Asset here: [InfoHub Asset](plugin,infohub_asset)  

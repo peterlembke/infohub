@@ -1,7 +1,7 @@
 {
     "plugin": "infohub_doc",
-    "title": "Doc",
-    "description": "Full documentation over Infohub and all plugins.",
+    "title": "Documentation",
+    "description": "Full documentation over InfoHub and all plugins.",
     "keywords": "documentation,viewer,markdown",
     "uses": [
         "infohub_doc_get",

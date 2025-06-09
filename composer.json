@@ -13,22 +13,31 @@
         "phpstan/phpstan": "^1.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "squizlabs/php_codesniffer": "^3.0"
+        "squizlabs/php_codesniffer": "^3.0",
+        "phpunit/phpunit": "^9.5"
     },
     "require": {
+        "php": "^8.1",
         "ext-curl": "*",
         "ext-zlib": "*",
         "ext-openssl": "*",
         "ext-pdo": "*",
         "ext-redis": "*",
-        "ext-zend-opcache": "*"
+        "ext-zend-opcache": "*",
+        "synida/hunspell-php-wrapper": "^0.2.5",
+        "ext-posix": "*"
     },
     "config": {
         "allow-plugins": {
             "phpstan/extension-installer": true
-        }
+        },
+        "platform-check": true,
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "scripts": {
-        "phpcs": "phpcs --standard=PSR2"
+        "phpcs": "phpcs --standard=PSR2",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
     }
 }

@@ -1,0 +1,114 @@
+{
+    "version": {
+        "date": "2025-06-08 18:32:55",
+        "plugin": "infohub_login",
+        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "language": "ro",
+        "language_name": "Romanian",
+        "language_name_local": "Română",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
+    },
+    "launcher": {
+        "title": "Autentificare",
+        "description": "Vă puteți conecta la server, deconecta, seta sau modifica parola."
+    },
+    "data": {
+        "infohub_login": {
+            "INSTRUCTIONS_KEY": "Instrucţiuni",
+            "USE_THE_MENU._KEY": "Foloseşte meniul.",
+            "WHAT_IS_THIS?_KEY": "Ce e asta?"
+        },
+        "infohub_login_contact": {
+            "ONE_CONTACT_KEY": "Un contact",
+            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Acesta este formularul de date pentru un singur contact",
+            "NODE_KEY": "Nod",
+            "ANY_TEXT_YOU_WANT_KEY": "Orice mesaj vrei",
+            "NOTE_KEY": "Notă",
+            "SAVE_KEY": "Salvează",
+            "DOMAIN_ADDRESS_KEY": "Adresa domeniului",
+            "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Adresa domeniului către serverul dumneavoastră",
+            "USER_NAME_KEY": "Nume utilizator",
+            "THIS_IS_YOU_ON_THE_SERVER_KEY": "Asta eşti tu pe server",
+            "SHARED_SECRET_KEY": "Secret partajat",
+            "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Împărţiţi acest secret cu serverul",
+            "CHECKSUM_KEY": "Suma de verificare",
+            "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Verificarea adresei domeniului + numele utilizatorului + secretul partajat.",
+            "ALLOWED_SERVER_PLUGINS_KEY": "Module de server permise",
+            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista cu toate numele de modul server puteți trimite mesaje la nodul de la distanță"
+        },
+        "infohub_login_export": {
+            "EXPORT_CONTACT_KEY": "Exportă contactul",
+            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Aici puteți exporta datele de contact",
+            "EXPORT_KEY": "Exportă"
+        },
+        "infohub_login_forget": {
+            "FORGET_CONTACT_KEY": "Uită de contact",
+            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Aici puteți lăsa browserul să uite datele de contact.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Puteți importa oricând fișierul din nou.",
+            "FORGET_KEY": "Uită"
+        },
+        "infohub_login_import": {
+            "IMPORT_KEY": "Importă",
+            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importă informațiile de contact din fișier",
+            "SELECT_FILE_KEY": "Alegeți fișierul"
+        },
+        "infohub_login_login": {
+            "LOGIN_KEY": "Autentificare",
+            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Aici puteți utiliza datele de contact pe care le-ați importat și vă puteți conecta la server",
+            "PASSWORD_KEY": "Parolă",
+            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Parola de care aveți nevoie pentru a decoda secretul comun",
+            "LOGIN_RESULT_KEY": "Rezultatul autentificării",
+            "RELOAD_AFTER_LOGIN_KEY": "Reîncarcă după autentificare",
+            "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Sunteți deja conectat",
+            "MISSING_USER_NAME_KEY": "Lipsește numele utilizatorului",
+            "MISSING_RANDOM_CODE_KEY": "Lipsește codul aleatoriu",
+            "THE_ANSWER_FROM_THE_SERVER_TOOK_TOO_LONG_TIME._KEY": "Răspunsul serverului a durat prea mult timp.",
+            "I_WILL_ABANDON_THE_LOGIN_ATTEMPT_KEY": "Voi abandona încercarea de conectare",
+            "FAILED_TO_LOGIN_KEY": "Autentificare eșuată",
+            "SUCCESS_LOGGING_IN_KEY": "Înregistrarea succesului",
+            "THE_RANDOM_CODE_DO_NOT_HAVE_THE_CORRECT_LENGTH_KEY": "Codul aleatoriu nu au lungimea corectă",
+            "UNLIKELY_THAT_THE_TOTAL_AVERAGE_HAS_NO_DECIMALS_KEY": "Puţin probabil ca media totală să nu aibă zecimale",
+            "UNLIKELY_THAT_THE_AVERAGE_IS_EQUAL_TO_THE_TOTAL_AVERAGE_KEY": "Puţin probabil ca media să fie egală cu media totală",
+            "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Aceste teste simple arată că codul aleatoriu cel puțin nu este o linie plană de numere."
+        },
+        "infohub_login_logout": {
+            "LOGOUT_KEY": "Deconectare",
+            "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Aici puteți deconecta de pe server",
+            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Dacă aveți succes atunci pagina de autentificare arată",
+            "LOGOUT_RESULT_KEY": "Rezultat de autentificare",
+            "FAILED_TO_LOGOUT_KEY": "Eșec la autentificare",
+            "SUCCESS_LOGGING_OUT_KEY": "Succesul de logare"
+        },
+        "infohub_login_menu": {
+            "MENU_KEY": "Meniu",
+            "IMPORT_CONTACT_DATA_KEY": "Importă date de contact",
+            "LOGIN_KEY": "Autentificare",
+            "SET_PASSWORD_KEY": "Stabilește parola",
+            "EXPORT_CONTACT_DATA_KEY": "Exportă date de contact",
+            "LOGOUT_KEY": "Deconectare",
+            "FORGET_CONTACT_KEY": "Uită de contact"
+        },
+        "infohub_login_password": {
+            "SET_PASSWORD_KEY": "Stabilește parola",
+            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Când setați parola locală vă amestecați secretul comun astfel încât să necesita parola pentru a lucra",
+            "CURRENT_PASSWORD_KEY": "Parolă curentă",
+            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Lasă-l gol dacă nu ai niciuna",
+            "NEW_PASSWORD_KEY": "Parolă nouă",
+            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Lasă gol dacă doriți să eliminați parola",
+            "CHANGE_PASSWORD_KEY": "Schimbă parola"
+        },
+        "infohub_login_standalone": {
+            "LOGIN_KEY": "Autentificare",
+            "SELECT_FILE_KEY": "Alegeți fișierul",
+            "PASSWORD_KEY": "Parolă",
+            "DOWNLOAD_DEMO_ACCOUNT_KEY": "Descărcaţi contul demo",
+            "LOGIN_RESULT_KEY": "Rezultatul autentificării",
+            "MORE_KEY": "Mai mult",
+            "CURRENT_URL_KEY": "Url curent",
+            "REFRESH_PAGE_KEY": "Reîmprospătează pagina"
+        }
+    }
+}
