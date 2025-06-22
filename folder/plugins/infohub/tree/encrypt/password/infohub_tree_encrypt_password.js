@@ -8,6 +8,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/tree/encrypt/infohub_tree_encrypt.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_tree_encrypt_password() {
 
@@ -178,7 +180,6 @@ function infohub_tree_encrypt_password() {
      * Convert a base64 string with binary data to an array buffer.
      * The binary data in the array buffer can then be manipulated.
      *
-     * @link https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer
      * @param $base64String
      * @returns {ArrayBufferLike}
      * @private
@@ -199,7 +200,6 @@ function infohub_tree_encrypt_password() {
      * Convert an array buffer with binary data to a base64 string.
      * The base64 string can be stored in a database or transferred in a message.
      *
-     * @link https://stackoverflow.com/questions/9267899/arraybuffer-to-base64-encoded-string
      * @param $arrayBuffer
      * @returns string
      * @private

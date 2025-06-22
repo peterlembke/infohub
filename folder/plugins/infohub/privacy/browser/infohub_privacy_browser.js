@@ -8,6 +8,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/privacy/browser/infohub_privacy_browser.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_privacy_browser() {
 
@@ -198,8 +200,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link http://www.webondevices.com/9-javascript-apis-accessing-device-sensors/
-     * @link https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -275,8 +275,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link http://www.webondevices.com/9-javascript-apis-accessing-device-sensors/
-     * @link https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -330,7 +328,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link
         * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -506,7 +503,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link https://www.w3schools.com/jsref/obj_navigator.asp
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */

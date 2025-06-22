@@ -6,8 +6,6 @@
  * @since       2017-02-25
  * @copyright   Copyright (c) 2017, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/doublemetaphone/infohub_checksum_doublemetaphone.md Documentation
- * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_doublemetaphone() {
 

@@ -1,14 +1,5 @@
-/**
- * infohub_base
- * Parent class in ALL plugins. Manages the traffic in the plugin
- *
- * @package     Infohub
- * @subpackage  infohub_base
- * @since       2016-01-06
- * @author      Peter Lembke <info@infohub.se>
- * @license     GPL-3.0-or-later
- * @copyright   Copyright (C) 2010- Peter Lembke
- */
+/*jshint esversion: 11 */
+/*jshint forin: false */
 /*jshint eqeqeq: true */
 
 let $functions = [], // Array with all function names

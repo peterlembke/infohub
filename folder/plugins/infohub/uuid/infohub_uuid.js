@@ -8,6 +8,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/uuid/infohub_uuid.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_uuid() {
 
@@ -174,7 +176,6 @@ function infohub_uuid() {
      * @author Jeff Ward (jcward.com).
      * @license MIT license
      * Modified 2018-07-28 by Peter Lembke to fit in Infohub
-     * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
      **/
     $functions.push('guidv4b');
     const guidv4b = function($in = {}) {

@@ -8,6 +8,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/tree/infohub_tree.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_tree() {
 

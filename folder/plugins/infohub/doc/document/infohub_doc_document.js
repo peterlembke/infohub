@@ -7,6 +7,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/doc/document/infohub_doc_document.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_doc_document() {
 

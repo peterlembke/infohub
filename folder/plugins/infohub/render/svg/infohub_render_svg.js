@@ -8,6 +8,8 @@
  * @author      Peter Lembke <info@infohub.se>
  * @license     GPL-3.0-or-later
  * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/render/svg/infohub_render_svg.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_render_svg() {
 
@@ -194,7 +196,6 @@ function infohub_render_svg() {
      * Check if tag is a valid svg content tag
      * @version 2020-04-19
      * @since 2020-04-19
-     * @link
         * @param $tag
      * @returns {string}
      * @private
