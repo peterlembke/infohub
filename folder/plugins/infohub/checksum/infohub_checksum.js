@@ -1,15 +1,13 @@
 /**
- * Checksums are calculated and verified here
+ * infohub_checksum
+ * Here you can get checksums in many different formats
  *
- * Support a lot of different checksums
- *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2017-02-25
+ * @package     Infohub
+ * @subpackage  infohub_checksum
  * @since       2017-02-25
- * @copyright   Copyright (c) 2017, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/infohub_checksum.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_checksum() {
 

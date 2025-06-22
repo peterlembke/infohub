@@ -6,7 +6,7 @@
  * @package     Infohub
  * @subpackage  infohub_exchange
  * @author      Peter Lembke <info@infohub.se>
- * @version     2020-11-26
+ * @version     2025-06-16
  * @since       2010-01-01
  * @copyright   Copyright (c) 2010, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -15,12 +15,12 @@
  */
 declare(strict_types=1);
 ini_set('zlib.output_compression', '4096');
-ini_set('memory_limit', '16M');
-ini_set('max_execution_time', '5'); // seconds
+ini_set('memory_limit', '32M');
+ini_set('max_execution_time', '8'); // seconds
 ini_set('default_socket_timeout', '4'); // seconds
 
-ini_set('post_max_size', '2M');
-ini_set('upload_max_filesize', '2M');
+ini_set('post_max_size', '8M');
+ini_set('upload_max_filesize', '8M');
 
 // Set a default time zone. If you exclude this row then you will get an error
 // See: https://www.php.net/manual/en/timezones.php

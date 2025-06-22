@@ -1,13 +1,13 @@
 /**
+ * infohub_demo_svg
  * Render a SVG demo for infohub_demo
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-04-19
+ * @package     Infohub
+ * @subpackage  infohub_demo_svg
  * @since       2020-04-19
- * @copyright   Copyright (c) 2020, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/svg/infohub_demo_svg.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_demo_svg() {
 

@@ -1,21 +1,13 @@
 /**
- * Renderer for color pickers. Also calculates color schemas.
+ * infohub_color
+ * Handles the infohub color schema
  *
- * ColorSelector - Create a color selector with a color bar
- * ColorReader - Creates a color reader that reads the ColorSelector data
- * LightBarSelector - Renders a light bar that you can click and see your selection
- * ColorBar - Create a color bar with base colors
- * HueBar - Create a color bar with a hue range of colors
- * LightBar - Create a color bar with a base color in different light
- * ColorBox - Create a color box
- *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-10-31
+ * @package     Infohub
+ * @subpackage  infohub_color
  * @since       2020-10-18
- * @copyright   Copyright (c) 2017, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/color/infohub_color.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_color() {
 

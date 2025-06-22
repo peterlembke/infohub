@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:27:20",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "sl",
         "language_name": "Slovenian",
         "language_name_local": "Slovenski",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Kaj je to?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "En stik",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "To je obrazec podatkov za en stik",
+            "YOUR_CONTACT_INFORMATION_KEY": "Vaši kontaktni podatki",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "To so vaši kontaktni podatki",
             "NODE_KEY": "Vozlič",
-            "ANY_TEXT_YOU_WANT_KEY": "Vsako sporočilo, ki ga želite",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Tu napišite svoje človeško ime ali ime strežnika",
             "NOTE_KEY": "Opomba",
-            "SAVE_KEY": "Shrani",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Napišite vse, kar želite shraniti s svojimi kontaktnimi podatki",
+            "SAVE_THE_DATA_KEY": "Shrani podatke",
             "DOMAIN_ADDRESS_KEY": "Naslov domene",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Naslov domene na strežniku",
             "USER_NAME_KEY": "Uporabniško ime",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "To skrivnost delite s strežnikom",
             "CHECKSUM_KEY": "Kontrolna vsota",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolna vsota naslova domene + uporabniško ime + skupna skrivnost.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Dovoljeni vstavki strežnikov",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Seznam z vsemi imeni vstavkov strežnika, ki jih lahko pošljete sporočila na oddaljeno vozlišče"
+            "ROLES_KEY": "Vloge",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Dostop do različnih programov dobite glede na vloge, ki jih imajo vaši kontaktni podatki"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Izvozi stik",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Tu lahko izvozite kontaktne podatke",
-            "EXPORT_KEY": "Izvoz"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Izvozi svoje kontaktne podatke",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Tu lahko izvozite svoje kontaktne podatke v novo datoteko",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Uporabno, če imate nastavljeno geslo v datoteki s kontaktnimi podatki"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Pozabi stik",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Tu lahko pustite, da brskalnik pozabi kontaktne podatke.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Vedno lahko znova uvozite svojo datoteko.",
-            "FORGET_KEY": "Pozabi"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Pozabite kontaktne podatke",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Naj brskalnik pozabi vaše kontaktne podatke o javnih strojih.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Vedno lahko znova uvozite svojo datoteko s kontaktnimi podatki."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Uvozi",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Uvozi kontaktne podatke iz datoteke",
-            "SELECT_FILE_KEY": "Izberite datoteko"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Uvozite svoje kontaktne podatke",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Uvozi podatke o stiku iz datoteke",
+            "SELECT_A_FILE_KEY": "Izberite datoteko"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Prijava",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Tu lahko uporabite podatke o stiku, ki ste jih uvozili, in se prijavite na strežnik",
+            "LOG_IN_KEY": "Prijava",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Tu lahko uporabite podatke o stiku, ki ste jih uvozili, in se prijavite na strežnik",
             "PASSWORD_KEY": "Geslo",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Geslo, ki ga potrebujete za dešifriranje skupne skrivnosti",
-            "LOGIN_RESULT_KEY": "Rezultat prijave",
-            "RELOAD_AFTER_LOGIN_KEY": "Znova naloži po prijavi",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Če ste nastavili geslo za dešifriranje skupne skrivnosti, jo vnesite tukaj",
+            "RESULT_FROM_LOG_IN_KEY": "Rezultat prijave",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Posodobi stran po prijavi",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Ste že prijavljeni",
             "MISSING_USER_NAME_KEY": "Manjkajoče uporabniško ime",
             "MISSING_RANDOM_CODE_KEY": "Manjka naključna koda",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Ti preprosti testi kažejo, da naključna koda vsaj ni ravna črta številk."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Odjava",
+            "LOG_OUT_KEY": "Odjava",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Tu se lahko odjavite s strežnika",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Če uspe, se prikaže prijavna stran",
-            "LOGOUT_RESULT_KEY": "Rezultat odjave",
-            "FAILED_TO_LOGOUT_KEY": "Odjava ni uspela",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Ko ste se odjavili, boste preusmerjeni na prijavno stran",
+            "RESULT_OF_LOGGING_OUT_KEY": "Rezultat odjave",
+            "FAILED_TO_LOG_OUT_KEY": "Ni se moč odjaviti",
             "SUCCESS_LOGGING_OUT_KEY": "Odjava uspeha"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Meni",
-            "IMPORT_CONTACT_DATA_KEY": "Uvozi kontaktne podatke",
-            "LOGIN_KEY": "Prijava",
-            "SET_PASSWORD_KEY": "Nastavi geslo",
-            "EXPORT_CONTACT_DATA_KEY": "Izvozi kontaktne podatke",
-            "LOGOUT_KEY": "Odjava",
-            "FORGET_CONTACT_KEY": "Pozabi stik"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Uvozite svoje kontaktne podatke",
+            "LOG_IN_KEY": "Prijava",
+            "SET_A_PASSWORD_KEY": "Nastavi geslo",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Izvozi svoje kontaktne podatke",
+            "LOG_OUT_KEY": "Odjava",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Pozabite kontaktne podatke"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Nastavi geslo",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Ko nastavite lokalno geslo, zmešate skupno skrivnost, tako da za delo potrebujete geslo",
-            "CURRENT_PASSWORD_KEY": "Trenutno geslo",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Pustite prazno, če ga nimate",
-            "NEW_PASSWORD_KEY": "Novo geslo",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Pustite prazno, če želite odstraniti geslo",
-            "CHANGE_PASSWORD_KEY": "Spremeni geslo"
+            "SET_A_PASSWORD_KEY": "Nastavi geslo",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Ko nastavite lokalno geslo, potem zmešate skupno skrivnost, tako da zahteva vaše geslo za delo",
+            "YOUR_CURRENT_PASSWORD_KEY": "Vaše trenutno geslo",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Pustite prazno, če niste nastavili gesla",
+            "YOUR_NEW_PASSWORD_KEY": "Vaše novo geslo",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "To lahko pustite prazno, če želite odstraniti geslo",
+            "CHANGE_THE_PASSWORD_KEY": "Spremeni geslo"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Prijava",
+            "LOG_IN_KEY": "Prijava",
             "SELECT_FILE_KEY": "Izberite datoteko",
             "PASSWORD_KEY": "Geslo",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Prenesi demo račun",
-            "LOGIN_RESULT_KEY": "Rezultat prijave",
-            "MORE_KEY": "Več",
-            "CURRENT_URL_KEY": "Trenutni url",
-            "REFRESH_PAGE_KEY": "Osveži stran"
+            "RESULT_KEY": "Rezultat",
+            "SHOW_MORE_KEY": "Pokaži več",
+            "CURRENT_ADDRESS_KEY": "Trenutni naslov",
+            "UPDATE_THE_PAGE_KEY": "Posodobi stran"
         }
     }
 }

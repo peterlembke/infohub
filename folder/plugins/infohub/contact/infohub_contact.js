@@ -1,13 +1,13 @@
 /**
+ * Node contacts
  * GUI to manage login contacts between nodes
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-03-13
+ * @package     Infohub
+ * @subpackage  infohub_contact
  * @since       2019-01-16
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/contact/infohub_contact.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_contact() {
 

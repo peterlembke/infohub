@@ -1,24 +1,13 @@
 /**
- * infohub_storage store data in databases and is part of InfoHub.
- * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
- * Support for SQLite3, MySQL, PostgreSQL, indexedDb, Future support:Oracle, MS SQL, localForage
- * @category infohub
- * @package storage
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2018-03-17
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_storage_data_idbkeyval
+ * Uses the local storage engine indexedDb through the library idbkeyval to store key value
+ *
+ * @package     Infohub
+ * @subpackage  infohub_storage_data_idbkeyval
+ * @since       2019-03-09
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_storage_data_idbkeyval() {
 

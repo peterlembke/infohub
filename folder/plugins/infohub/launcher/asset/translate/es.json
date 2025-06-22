@@ -1,36 +1,42 @@
 {
     "version": {
-        "date": "2019-10-27 08:01:25",
+        "date": "2025-06-16 21:04:45",
         "plugin": "infohub_launcher",
-        "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
+        "data_checksum": "0879d4227ba98c20e5160ec4270580fc",
         "language": "es",
-        "country": "ES",
-        "file_type": "finished_file"
+        "language_name": "Spanish",
+        "language_name_local": "Español",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Comienzo",
-        "description": "Complemento con una GUI que muestra íconos de los complementos disponibles que puede iniciar. Workbench maneja el inicio real."
+        "title": "Aplicaciones de inicio",
+        "description": "Enchufe con un GUI que muestra iconos para plugins disponibles que puedes comenzar. El comienzo real es manejado por el Workbench."
     },
     "data": {
         "infohub_launcher": {
             "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Mostrar favoritos o todas las aplicaciones",
             "FAVORITES_KEY": "Favoritos",
             "ALL_APPS_KEY": "Todas las aplicaciones",
+            "INSTRUCTIONS_KEY": "Instrucciones",
+            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Lista de cambios. Refrescante. Haga clic en icono.",
+            "HELP_KEY": "Ayuda",
             "MORE_KEY": "Más",
             "USER_NAME_KEY": "Nombre de usuario",
-            "CURRENT_URL_KEY": "URL actual",
+            "CURRENT_URL_KEY": "Url actual",
             "LOGOUT_KEY": "Cerrar sesión",
-            "REFRESH_PAGE_KEY": "Actualizar página",
-            "REFRESH_KEY": "Actualizar",
+            "REFRESH_PAGE_KEY": "Página de referencia",
             "UPDATE_THIS_LIST_KEY": "Actualizar esta lista",
-            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "La lista no tiene valores",
-            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Hubo un error en la adicción",
-            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon tiene una lista no válida",
-            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon tiene un elemento vacío",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST_KEY": "Obtener lista de opciones no puede dar valores de opción para la lista",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Hubo un error en addicon",
+            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon tiene una lista inválida",
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon tiene un objeto vacío",
             "FAVORITE_KEY": "Favorito",
-            "NO_FAVORITE_KEY": "Sin favorito",
-            "START_KEY": "Empezar",
-            "START_IN_NEW_WINDOW_KEY": "Iniciar en una ventana nueva"
+            "NO_FAVORITE_KEY": "No favoritos",
+            "START_KEY": "Comienzo",
+            "START_IN_NEW_WINDOW_KEY": "Empieza en nueva ventana"
         }
     }
 }

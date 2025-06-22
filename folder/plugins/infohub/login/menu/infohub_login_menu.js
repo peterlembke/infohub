@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_menu
+ * Render a menu for infohub_login
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_menu
+ * @since       2019-09-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_login_menu() {
 
@@ -93,21 +87,21 @@ function infohub_login_menu() {
                                     'alias': 'import',
                                     'event_data': 'import', // child plugin
                                     'button_left_icon': '[import_icon]',
-                                    'button_label': _Translate('IMPORT_CONTACT_DATA'),
+                                    'button_label': _Translate('IMPORT_YOUR_CONTACT_INFORMATION'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },
                                 'login': {
                                     'alias': 'login',
                                     'event_data': 'login',
-                                    'button_label': _Translate('LOGIN'),
+                                    'button_label': _Translate('LOG_IN'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },
                                 'password': {
                                     'alias': 'password',
                                     'event_data': 'password',
-                                    'button_label': _Translate('SET_PASSWORD'),
+                                    'button_label': _Translate('SET_A_PASSWORD'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },
@@ -115,21 +109,21 @@ function infohub_login_menu() {
                                     'alias': 'export',
                                     'event_data': 'export',
                                     'button_left_icon': '[export_icon]',
-                                    'button_label': _Translate('EXPORT_CONTACT_DATA'),
+                                    'button_label': _Translate('EXPORT_YOUR_CONTACT_INFORMATION'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },
                                 'logout': {
                                     'alias': 'logout',
                                     'event_data': 'logout',
-                                    'button_label': _Translate('LOGOUT'),
+                                    'button_label': _Translate('LOG_OUT'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },
                                 'forget': {
                                     'alias': 'forget',
                                     'event_data': 'forget',
-                                    'button_label': _Translate('FORGET_CONTACT'),
+                                    'button_label': _Translate('FORGET_YOUR_CONTACT_INFORMATION'),
                                     'to_plugin': 'infohub_login',
                                     'to_function': 'click_menu',
                                 },

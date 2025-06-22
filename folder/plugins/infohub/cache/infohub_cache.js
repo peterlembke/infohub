@@ -1,15 +1,13 @@
 /**
- * Handle localStorage
+ * infohub_cache
+ * Used by infohub_plugin to store plugins in local storage. Can be used for temporary data that will expire
  *
- * This plugin OWN localStorage. Here the core plugins are saved.
- *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-11-27
+ * @package     Infohub
+ * @subpackage  infohub_cache
  * @since       2015-06-06
- * @copyright   Copyright (c) 2015, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/cache/infohub_cache.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_cache() {
 

@@ -1,15 +1,13 @@
 /**
- * Get document from local storage. If old or none existing we download from the server
- * Get a document list what documents exist.
- * Get a server document list what documents exist in the server
+ * Get
+ * Keep data updated locally and get new data from the server.
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2022-10-15
+ * @package     Infohub
+ * @subpackage  infohub_doc_get
  * @since       2019-04-16
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/doc/infohub_doc.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_doc_get() {
 

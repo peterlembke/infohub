@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:37:12",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "pl",
         "language_name": "Polish",
         "language_name_local": "Polski",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Co to jest?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Jeden kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Jest to formularz danych dla jednego kontaktu",
+            "YOUR_CONTACT_INFORMATION_KEY": "Dane kontaktowe",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "To twoje dane kontaktowe",
             "NODE_KEY": "Węzeł",
-            "ANY_TEXT_YOU_WANT_KEY": "Każdy tekst, który chcesz",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Napisz swoje ludzkie imię lub nazwę węzła serwera tutaj",
             "NOTE_KEY": "Uwaga",
-            "SAVE_KEY": "Zapisz",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Napisz wszystko, co chcesz przechowywać z danymi kontaktowymi",
+            "SAVE_THE_DATA_KEY": "Zapisz dane",
             "DOMAIN_ADDRESS_KEY": "Adres domeny",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Adres domeny do serwera",
             "USER_NAME_KEY": "Nazwa użytkownika",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Dzielisz ten sekret z serwerem",
             "CHECKSUM_KEY": "Suma kontrolna",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Suma kontrolna adresu domeny + nazwa użytkownika + wspólna tajemnica.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Dozwolone wtyczki serwera",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista ze wszystkimi nazwami wtyczki serwera można wysyłać wiadomości do zdalnego węzła"
+            "ROLES_KEY": "Role",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Masz dostęp do różnych aplikacji w zależności od ról, jakie posiadają dane kontaktowe"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksportuj kontakt",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Tutaj można eksportować dane kontaktowe",
-            "EXPORT_KEY": "Eksport"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportuj swoje dane kontaktowe",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Tutaj możesz eksportować swoje dane kontaktowe do nowego pliku",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Przydatne, jeśli ustawiono hasło w pliku danych kontaktowych"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Zapomnij o kontakcie",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Tutaj możesz pozwolić przeglądarce zapomnieć o danych kontaktowych.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Zawsze możesz zaimportować swoje akta ponownie.",
-            "FORGET_KEY": "Zapomnij"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Zapomnij o swoich danych kontaktowych",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Niech przeglądarka zapomni o Państwa danych kontaktowych dotyczących maszyn publicznych.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Zawsze możesz ponownie zaimportować swoje dane kontaktowe."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Import",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importuj dane kontaktowe z pliku",
-            "SELECT_FILE_KEY": "Wybierz plik"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importuj dane kontaktowe",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importuj dane kontaktowe z pliku",
+            "SELECT_A_FILE_KEY": "Wybierz plik"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Zaloguj",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Tutaj możesz użyć danych kontaktowych, które zaimportowałeś i zaloguj się na serwer",
+            "LOG_IN_KEY": "Zaloguj się",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Tutaj można użyć danych kontaktowych zaimportowanych i zalogowanych do serwera",
             "PASSWORD_KEY": "Hasło",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Hasło potrzebne do odkodowania wspólnej tajemnicy",
-            "LOGIN_RESULT_KEY": "Wynik logowania",
-            "RELOAD_AFTER_LOGIN_KEY": "Wczytaj ponownie po zalogowaniu",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Jeśli ustawiłeś hasło do dekodowania współdzielonego sekretu, wpisz go tutaj",
+            "RESULT_FROM_LOG_IN_KEY": "Wynik logowania",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Aktualizuj stronę po zalogowaniu",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Jesteś już zalogowany",
             "MISSING_USER_NAME_KEY": "Brak nazwy użytkownika",
             "MISSING_RANDOM_CODE_KEY": "Brak kodu losowego",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Te proste testy pokazują, że kod losowy przynajmniej nie jest płaską linią liczb."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Wyloguj",
+            "LOG_OUT_KEY": "Wyloguj się",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Tutaj możesz wylogować się z serwera",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Jeśli powiodło się to strona logowania pokazuje",
-            "LOGOUT_RESULT_KEY": "Wynik wylogowania",
-            "FAILED_TO_LOGOUT_KEY": "Nie udało się wylogować",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Po wylogowaniu zostaniesz przekierowany do strony logowania",
+            "RESULT_OF_LOGGING_OUT_KEY": "Wynik wylogowania",
+            "FAILED_TO_LOG_OUT_KEY": "Nie udało się wylogować",
             "SUCCESS_LOGGING_OUT_KEY": "Sukces wylogowania"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Importuj dane kontaktowe",
-            "LOGIN_KEY": "Zaloguj",
-            "SET_PASSWORD_KEY": "Ustaw hasło",
-            "EXPORT_CONTACT_DATA_KEY": "Eksportuj dane kontaktowe",
-            "LOGOUT_KEY": "Wyloguj",
-            "FORGET_CONTACT_KEY": "Zapomnij o kontakcie"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importuj dane kontaktowe",
+            "LOG_IN_KEY": "Zaloguj się",
+            "SET_A_PASSWORD_KEY": "Ustaw hasło",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportuj swoje dane kontaktowe",
+            "LOG_OUT_KEY": "Wyloguj się",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Zapomnij o swoich danych kontaktowych"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Ustaw hasło",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kiedy ustawiasz lokalne hasło, kodujesz wspólny sekret tak, że potrzebne jest hasło do pracy",
-            "CURRENT_PASSWORD_KEY": "Aktualne hasło",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Zostaw puste, jeśli nie masz żadnych",
-            "NEW_PASSWORD_KEY": "Nowe hasło",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Zostaw puste, jeśli chcesz usunąć hasło",
-            "CHANGE_PASSWORD_KEY": "Zmień hasło"
+            "SET_A_PASSWORD_KEY": "Ustaw hasło",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Kiedy ustawisz lokalne hasło, wtedy zaszyfrujesz wspólny sekret, tak aby hasło działało",
+            "YOUR_CURRENT_PASSWORD_KEY": "Twoje aktualne hasło",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Zostaw puste jeśli nie ustawiłeś żadnego hasła",
+            "YOUR_NEW_PASSWORD_KEY": "Twoje nowe hasło",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Możesz zostawić to puste, jeśli chcesz usunąć hasło",
+            "CHANGE_THE_PASSWORD_KEY": "Zmień hasło"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Zaloguj",
+            "LOG_IN_KEY": "Zaloguj się",
             "SELECT_FILE_KEY": "Wybierz plik",
             "PASSWORD_KEY": "Hasło",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Pobierz konto demo",
-            "LOGIN_RESULT_KEY": "Wynik logowania",
-            "MORE_KEY": "Więcej",
-            "CURRENT_URL_KEY": "Bieżący url",
-            "REFRESH_PAGE_KEY": "Odśwież stronę"
+            "RESULT_KEY": "Wynik",
+            "SHOW_MORE_KEY": "Pokaż więcej",
+            "CURRENT_ADDRESS_KEY": "Aktualny adres",
+            "UPDATE_THE_PAGE_KEY": "Aktualizuj stronę"
         }
     }
 }

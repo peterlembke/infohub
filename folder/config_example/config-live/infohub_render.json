@@ -1,0 +1,7 @@
+{
+    "client": {
+        "use_render_cache": "true",
+        "store_render_cache": "true"
+    },
+    "server": {}
+}

@@ -7,13 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I have moved all release log details to the [documentation](folder/doc/release/release.md)
 
+# [1.3.41] - 2024-06-22
+
+* [Release notes](main,release_v1_v1v3_v1v3v41)
+* [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.41)
+
+Minor but important release. Improving translations. Increasing memory limits. Improved folder structure compatibility.
+Launcher functionality improved. Config options improved.
+
 # [1.3.40] - 2024-06-09
 
 * [Release notes](main,release_v1_v1v3_v1v3v40)
 * [GitHub release notes](https://github.com/peterlembke/infohub/releases/tag/v1.3.40)
 
-Focus on fixing bugs in translate.
-
+Focus on fixing bugs in translate. Now the translate plugin works with the new translation system.
 
 # [1.3.30] - 2024-05-20
 

@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:48:42",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "hu",
         "language_name": "Hungarian",
         "language_name_local": "Magyar",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Mi ez?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Egy kapcsolat",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Ez egy kapcsolatfelvétel adatlapja",
+            "YOUR_CONTACT_INFORMATION_KEY": "Az Ön elérhetőségei",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Ez az Ön elérhetősége",
             "NODE_KEY": "Csomópont",
-            "ANY_TEXT_YOU_WANT_KEY": "Bármilyen üzenetet, amit csak akarsz",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Írja le az emberi nevét vagy a szerver csomópont nevét ide",
             "NOTE_KEY": "Megjegyzés",
-            "SAVE_KEY": "Mentés",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Írjon bármit, amit el szeretne tárolni az elérhetőségével",
+            "SAVE_THE_DATA_KEY": "Az adatok mentése",
             "DOMAIN_ADDRESS_KEY": "Tartománycím",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "A kiszolgáló domain címe",
             "USER_NAME_KEY": "Felhasználónév",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Megosztod ezt a titkot a szerverrel",
             "CHECKSUM_KEY": "Ellenőrzés",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "A domain cím + felhasználónév + megosztott titok ellenőrzése.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "A kiszolgáló bővítményei",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista az összes kiszolgáló plugin nevek lehet küldeni üzeneteket a távoli csomópont"
+            "ROLES_KEY": "Színpad",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Különböző alkalmazásokhoz férhet hozzá attól függően, hogy milyen szerepei vannak kapcsolattartási adatainak"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Exportkapcsolat",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Itt exportálhatja a kapcsolattartási adatokat",
-            "EXPORT_KEY": "Export"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Az elérhetőségek exportálása",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Itt exportálhatja elérhetőségét egy új fájlba",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Hasznos, ha jelszót állított be az elérhetőségi fájlba"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Felejtsd el a kapcsolatot",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Itt lehet hagyni, hogy a böngésző elfelejtse az elérhetőségeket.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Még mindig importálhatod az aktádat.",
-            "FORGET_KEY": "Felejtsd el"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Felejtse el kapcsolattartási adatait",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Hagyja, hogy a böngésző elfelejtse a nyilvános gépek elérhetőségét.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Mindig importálhatod újra a kapcsolattartási adatállományodat."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Import",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Az elérhetőségek importálása fájlból",
-            "SELECT_FILE_KEY": "Fájl kiválasztása"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Az elérhetőségek importálása",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Elérhetőségei importálása fájlból",
+            "SELECT_A_FILE_KEY": "Válasszon ki egy fájlt"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Bejelentkezés",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Itt lehet használni a kapcsolattartási adatokat importált és bejelentkezett a szerver",
+            "LOG_IN_KEY": "Bejelentkezés",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Itt használhatja az Ön által importált elérhetőségeket és bejelentkezhet a szerverre",
             "PASSWORD_KEY": "Jelszó",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "A jelszó kell dekódolni a megosztott titkot",
-            "LOGIN_RESULT_KEY": "Bejelentkezési eredmény",
-            "RELOAD_AFTER_LOGIN_KEY": "Újratöltés bejelentkezés után",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Ha beállított egy jelszót, hogy dekódolja a megosztott titkot, akkor írja be ide",
+            "RESULT_FROM_LOG_IN_KEY": "A bejelentkezés eredménye",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Az oldal frissítése bejelentkezés után",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Már bejelentkeztél",
             "MISSING_USER_NAME_KEY": "Hiányzó felhasználónév",
             "MISSING_RANDOM_CODE_KEY": "Hiányzó véletlenszerű kód",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Ezek az egyszerű vizsgálatok azt mutatják, hogy a véletlenszerű kód legalább nem egy sima sor számok."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Kijelentkezés",
+            "LOG_OUT_KEY": "Kijelentkezés",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Itt kijelentkezhet a szerverről",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Ha sikeres, akkor a bejelentkezési oldal megmutatja",
-            "LOGOUT_RESULT_KEY": "Kijelentkezési eredmény",
-            "FAILED_TO_LOGOUT_KEY": "Nem sikerült kijelentkezni",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Miután kijelentkezett, átirányítjuk a bejelentkezési oldalra",
+            "RESULT_OF_LOGGING_OUT_KEY": "A kijelentkezés eredménye",
+            "FAILED_TO_LOG_OUT_KEY": "Nem sikerült kijelentkezni",
             "SUCCESS_LOGGING_OUT_KEY": "Sikeres kijelentkezés"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menü",
-            "IMPORT_CONTACT_DATA_KEY": "Kapcsolattartási adatok importálása",
-            "LOGIN_KEY": "Bejelentkezés",
-            "SET_PASSWORD_KEY": "Jelszó beállítása",
-            "EXPORT_CONTACT_DATA_KEY": "Kapcsolattartási adatok exportálása",
-            "LOGOUT_KEY": "Kijelentkezés",
-            "FORGET_CONTACT_KEY": "Felejtsd el a kapcsolatot"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Az elérhetőségek importálása",
+            "LOG_IN_KEY": "Bejelentkezés",
+            "SET_A_PASSWORD_KEY": "Jelszó beállítása",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Az elérhetőségek exportálása",
+            "LOG_OUT_KEY": "Kijelentkezés",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Felejtse el kapcsolattartási adatait"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Jelszó beállítása",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Amikor beállítod a helyi jelszavadat, a megosztott titkot úgy kódolod, hogy a jelszavad működjön",
-            "CURRENT_PASSWORD_KEY": "Jelenlegi jelszó",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Hagyd üresen, ha nincs",
-            "NEW_PASSWORD_KEY": "Új jelszó",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Ha el szeretné távolítani a jelszót, hagyja üresen",
-            "CHANGE_PASSWORD_KEY": "Jelszó módosítása"
+            "SET_A_PASSWORD_KEY": "Jelszó beállítása",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Amikor beállítasz egy helyi jelszót, akkor megfejted a megosztott titkot, hogy a jelszavad működjön",
+            "YOUR_CURRENT_PASSWORD_KEY": "A jelenlegi jelszó",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Ha nem állított be jelszót, hagyja üresen",
+            "YOUR_NEW_PASSWORD_KEY": "Az új jelszó",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Ha el szeretné távolítani a jelszót",
+            "CHANGE_THE_PASSWORD_KEY": "A jelszó módosítása"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Bejelentkezés",
+            "LOG_IN_KEY": "Bejelentkezés",
             "SELECT_FILE_KEY": "Fájl kiválasztása",
             "PASSWORD_KEY": "Jelszó",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo fiók letöltése",
-            "LOGIN_RESULT_KEY": "Bejelentkezési eredmény",
-            "MORE_KEY": "Több",
-            "CURRENT_URL_KEY": "Aktuális URl",
-            "REFRESH_PAGE_KEY": "Új oldal"
+            "RESULT_KEY": "Eredmény",
+            "SHOW_MORE_KEY": "Bővebben",
+            "CURRENT_ADDRESS_KEY": "Jelenlegi cím",
+            "UPDATE_THE_PAGE_KEY": "Az oldal frissítése"
         }
     }
 }

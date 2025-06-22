@@ -1,13 +1,13 @@
 /**
+ * infohub_contact_menu
  * Render a menu for infohub_contact
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-08-02
+ * @package     Infohub
+ * @subpackage  infohub_contact_menu
  * @since       2019-02-16
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/contact/menu/infohub_contact_menu.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_contact_menu() {
 

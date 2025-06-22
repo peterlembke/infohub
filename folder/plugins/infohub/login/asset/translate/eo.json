@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:02:00",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "eo",
         "language_name": "Esperanto",
         "language_name_local": "Esperanto",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Kio estas tio?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Unu kontakto",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Tio estas la datumformularo por unu kontakto",
+            "YOUR_CONTACT_INFORMATION_KEY": "Via kontakto informo",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Tio estas via kontaktinformoj",
             "NODE_KEY": "Neniu",
-            "ANY_TEXT_YOU_WANT_KEY": "Ĉiu teksto, kiun vi volas",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Skribi vian homan nomon aŭ la servilo node nomo ĉi tie",
             "NOTE_KEY": "Notu",
-            "SAVE_KEY": "Savi",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Skribu ion, kion vi volas stoki kun viaj kontaktaj informoj",
+            "SAVE_THE_DATA_KEY": "Savi la datumojn",
             "DOMAIN_ADDRESS_KEY": "Domain adreso",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "La domajna adreso al via servilo",
             "USER_NAME_KEY": "Uzantnomo",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Vi dividas ĉi tiun sekreton kun la servilo",
             "CHECKSUM_KEY": "Kontrolu",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolu de domajna adreso + uzantnomo + komuna sekreto.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Permesita servilo kromaĵoj",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Listo kun ĉiuj servilo kromaĵo nomoj vi povas sendi mesaĝojn al la malproksima nodo"
+            "ROLES_KEY": "Roloj",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Vi ricevas aliron al malsamaj aplikoj depende de la roloj via kontaktinformoj"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksporto de kontakto",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Ĉi tie vi povas eksporti la kontaktajn datumojn",
-            "EXPORT_KEY": "Eksporto"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportu viajn kontaktinformojn",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Ĉi tie vi povas eksporti viajn kontaktinformojn al nova dosiero",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Utila se vi metis pasvorton sur via kontakta informo dosiero"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Forgesu kontakton",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Ĉi tie vi povas lasi la retumilon forgesi la kontaktajn datumojn.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Vi ĉiam povas importi vian dosieron denove.",
-            "FORGET_KEY": "Forgesu forgesas"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Forgesu viajn kontaktinformojn",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "La retumilo forgesas viajn kontaktinformojn pri publikaj maŝinoj.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Vi ĉiam povas importi vian kontaktan informon dosieron denove."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importado",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importu la kontaktinformojn de dosiero",
-            "SELECT_FILE_KEY": "Elektu dosieron"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importu viajn kontaktinformojn",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importu viajn kontaktinformojn de dosiero",
+            "SELECT_A_FILE_KEY": "Elektu dosieron"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Login",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Ĉi tie vi povas uzi la kontaktajn datumojn vi importis kaj ensaluti al la servilo",
+            "LOG_IN_KEY": "Registri en",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Ĉi tie vi povas uzi la kontaktinformojn vi importis kaj ensaluti al la servilo",
             "PASSWORD_KEY": "Pasvorto",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "La pasvorton vi devas deĉifri la komunan sekreton",
-            "LOGIN_RESULT_KEY": "Login-rezulto",
-            "RELOAD_AFTER_LOGIN_KEY": "Reŝargo post tagalo",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Se vi metis pasvorton por deĉifri la komunan sekreton tiam eniri ĝin ĉi tie",
+            "RESULT_FROM_LOG_IN_KEY": "Resto de tagalo en",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Ĝisdatigu la paĝon post tagalo",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Vi jam estas ensalutinta en",
             "MISSING_USER_NAME_KEY": "Mankanta uzantnomo",
             "MISSING_RANDOM_CODE_KEY": "Mankanta hazarda kodo",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Tiuj simplaj testoj montras ke la hazarda kodo minimume ne estas plata linio de nombroj."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Diskuto",
+            "LOG_OUT_KEY": "Registriĝi",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Ĉi tie vi povas logout de la servilo",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Se sukcese tiam la loginpaĝo montras",
-            "LOGOUT_RESULT_KEY": "Logo rezulto",
-            "FAILED_TO_LOGOUT_KEY": "Malsukcesa al logout",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Post kiam vi registradis vi estos redirektita al la ensalutpaĝo",
+            "RESULT_OF_LOGGING_OUT_KEY": "Resulto de arbodehakado",
+            "FAILED_TO_LOG_OUT_KEY": "Malsukcesis elsaluti",
             "SUCCESS_LOGGING_OUT_KEY": "Sukceso elsalutanta"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Importo datumoj",
-            "LOGIN_KEY": "Login",
-            "SET_PASSWORD_KEY": "Aro pasvorton",
-            "EXPORT_CONTACT_DATA_KEY": "Eksporto de kontaktaj datumoj",
-            "LOGOUT_KEY": "Diskuto",
-            "FORGET_CONTACT_KEY": "Forgesu kontakton"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importu viajn kontaktinformojn",
+            "LOG_IN_KEY": "Registri en",
+            "SET_A_PASSWORD_KEY": "Akiri pasvorton",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportu viajn kontaktinformojn",
+            "LOG_OUT_KEY": "Registriĝi",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Forgesu viajn kontaktinformojn"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Aro pasvorton",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kiam vi metis vian lokan pasvorton vi hastas la komunan sekreton tiel ke ĝi postulas vian pasvorton labori",
-            "CURRENT_PASSWORD_KEY": "Nuna pasvorton",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Se vi havas neniun",
-            "NEW_PASSWORD_KEY": "Nova pasvorton",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Se vi volas forigi la pasvorton",
-            "CHANGE_PASSWORD_KEY": "Ŝanĝi pasvorton"
+            "SET_A_PASSWORD_KEY": "Akiri pasvorton",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Kiam vi metis lokan pasvorton tiam vi hastas la komunan sekreton tiel ke ĝi postulas vian pasvorton labori",
+            "YOUR_CURRENT_PASSWORD_KEY": "Via aktuala pasvorton",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Se vi ne havas ajnan pasvorton",
+            "YOUR_NEW_PASSWORD_KEY": "Via nova pasvorton",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Vi povas lasi ĉi tiun malplenan se vi volas forigi la pasvorton",
+            "CHANGE_THE_PASSWORD_KEY": "Ŝanĝi la pasvorton"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Login",
+            "LOG_IN_KEY": "Registri en",
             "SELECT_FILE_KEY": "Elektu dosieron",
             "PASSWORD_KEY": "Pasvorto",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo konto",
-            "LOGIN_RESULT_KEY": "Login-rezulto",
-            "MORE_KEY": "Pli",
-            "CURRENT_URL_KEY": "Nuna url",
-            "REFRESH_PAGE_KEY": "Refresh paĝo"
+            "RESULT_KEY": "RESult",
+            "SHOW_MORE_KEY": "Montri pli",
+            "CURRENT_ADDRESS_KEY": "Nuna adreso",
+            "UPDATE_THE_PAGE_KEY": "Ĝisdatigu la paĝon"
         }
     }
 }

@@ -1,13 +1,13 @@
 /**
- * CRC32 Checksums are calculated and verified here
+ * infohub_checksum_crc32
+ * Cyclic redundancy check from 1961 are well suited for detecting burst errors
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2017-02-25
+ * @package     Infohub
+ * @subpackage  infohub_checksum_crc32
  * @since       2017-02-25
- * @copyright   Copyright (c) 2017, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/crc32/infohub_checksum_crc32.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_checksum_crc32() {
 

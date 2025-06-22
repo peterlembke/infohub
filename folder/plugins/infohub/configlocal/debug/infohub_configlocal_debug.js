@@ -1,13 +1,13 @@
 /**
+ * infohub_configlocal_debug
  * Here you can set the debug level
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2018-05-25
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_debug
  * @since       2018-05-25
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/debug/infohub_configlocal_debug.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_configlocal_debug() {
 

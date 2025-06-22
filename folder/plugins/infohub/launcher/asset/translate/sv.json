@@ -1,36 +1,42 @@
 {
     "version": {
-        "date": "2019-10-27 08:01:25",
+        "date": "2025-06-16 21:04:45",
         "plugin": "infohub_launcher",
-        "data_checksum": "ee0b95e953c37853317b946e9b80a74b",
+        "data_checksum": "0879d4227ba98c20e5160ec4270580fc",
         "language": "sv",
-        "country": "SE",
-        "file_type": "finished_file"
+        "language_name": "Swedish",
+        "language_name_local": "Svenska",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Start",
-        "description": "Plugin med ett grafiskt gränssnitt som visar ikoner för tillgängliga plugins som du kan starta. Den faktiska starten hanteras av Workbench."
+        "title": "Starta applikationer",
+        "description": "Plugin med en GUI som visar ikoner för tillgängliga plugins som du kan börja. Den faktiska starten hanteras av Workbench."
     },
     "data": {
         "infohub_launcher": {
             "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Visa favoriter eller alla appar",
             "FAVORITES_KEY": "Favoriter",
             "ALL_APPS_KEY": "Alla appar",
+            "INSTRUCTIONS_KEY": "Instruktioner",
+            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Växla lista. Refresh. Klicka på ikonen.",
+            "HELP_KEY": "Hjälp",
             "MORE_KEY": "Mer",
             "USER_NAME_KEY": "Användarnamn",
-            "CURRENT_URL_KEY": "Aktuell webbadress",
-            "LOGOUT_KEY": "Logga ut",
-            "REFRESH_PAGE_KEY": "Uppdatera sida",
-            "REFRESH_KEY": "Uppdatera",
-            "UPDATE_THIS_LIST_KEY": "Uppdatera den här listan",
-            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "Listan har inga värden",
-            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Det uppstod ett fel i addicon",
-            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon har en ogiltig lista",
-            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon har ett tomt objekt",
+            "CURRENT_URL_KEY": "Nuvarande url",
+            "LOGOUT_KEY": "Logout",
+            "REFRESH_PAGE_KEY": "Refresh page",
+            "UPDATE_THIS_LIST_KEY": "Uppdatera denna lista",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST_KEY": "Få alternativlista kan inte ge alternativvärden för listan",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "Det fanns ett fel i addicon",
+            "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon fick en ogiltig lista",
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon fick ett tomt objekt",
             "FAVORITE_KEY": "Favorit",
             "NO_FAVORITE_KEY": "Ingen favorit",
-            "START_KEY": "Starta",
-            "START_IN_NEW_WINDOW_KEY": "Starta i nytt fönster"
+            "START_KEY": "Börja",
+            "START_IN_NEW_WINDOW_KEY": "Börja i nytt fönster"
         }
     }
 }

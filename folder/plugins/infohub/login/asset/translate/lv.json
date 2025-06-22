@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:43:05",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "lv",
         "language_name": "Latvian",
         "language_name_local": "Latviešu",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Kas tas ir?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Viens kontakts",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Šī ir viena kontakta datu veidlapa",
+            "YOUR_CONTACT_INFORMATION_KEY": "Jūsu kontaktinformācija",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Šī ir jūsu kontaktinformācija",
             "NODE_KEY": "Mezgls",
-            "ANY_TEXT_YOU_WANT_KEY": "Jebkurš teksts, ko vēlaties",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Šeit ierakstiet cilvēka vārdu vai servera mezgla nosaukumu",
             "NOTE_KEY": "Piezīme",
-            "SAVE_KEY": "Saglabāt",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Uzrakstiet visu kontaktinformāciju, ko vēlaties saglabāt",
+            "SAVE_THE_DATA_KEY": "Saglabāt datus",
             "DOMAIN_ADDRESS_KEY": "Domēna adrese",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domēna adrese uz jūsu serveri",
             "USER_NAME_KEY": "Lietotājvārds",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Jūs kopīgojat šo noslēpumu ar serveri",
             "CHECKSUM_KEY": "Kontrolsumma",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Domēna adreses pārbaude + lietotāja vārds + dalīts noslēpums.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Atļautie servera spraudņi",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Saraksts ar visiem servera spraudņu nosaukumiem, uz kuriem varat nosūtīt vēstules uz attālināto mezglu"
+            "ROLES_KEY": "Lomas",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Jūs varat piekļūt dažādām programmām atkarībā no jūsu kontaktinformācijas"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksportēt kontaktu",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Šeit jūs varat eksportēt kontaktinformāciju",
-            "EXPORT_KEY": "Eksports"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportēt savu kontaktinformāciju",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Šeit jūs varat eksportēt savu kontaktinformāciju uz jaunu failu",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Noderīga, ja kontaktinformācijas failā esat uzstādījis paroli"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Aizmirst kontaktu",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Šeit jūs varat ļaut pārlūkam aizmirst kontaktinformāciju.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Jūs vienmēr varat importēt savu failu vēlreiz.",
-            "FORGET_KEY": "Aizmirst"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Aizmirstiet savu kontaktinformāciju",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Ļaujiet pārlūkprogrammai aizmirst jūsu kontaktinformāciju par publiskajām mašīnām.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Jūs vienmēr varat importēt savu kontaktinformāciju failu vēlreiz."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importēt",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importēt kontaktinformāciju no faila",
-            "SELECT_FILE_KEY": "Izvēlieties failu"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importēt jūsu kontaktinformāciju",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importēt jūsu kontaktinformāciju no faila",
+            "SELECT_A_FILE_KEY": "Izvēlieties failu"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Pieteikties",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Šeit jūs varat izmantot jūsu importētos kontaktinformāciju datus un pieteikties uz serveri",
+            "LOG_IN_KEY": "Pieteikties",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Šeit jūs varat izmantot jūsu importēto kontaktinformāciju un pieteikties uz serveri",
             "PASSWORD_KEY": "Parole",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Parole, kas jums jāatšifrē kopīgoto noslēpumu",
-            "LOGIN_RESULT_KEY": "Pieteikšanās rezultāts",
-            "RELOAD_AFTER_LOGIN_KEY": "Pārlādēt pēc pieteikšanās",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Ja esat uzstādījis paroli kopīgotā noslēpuma atšifrēšanai, tad ievadiet to šeit",
+            "RESULT_FROM_LOG_IN_KEY": "Žurnalēšanas rezultāts",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Atjaunināt lapu pēc pieteikšanās",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Jūs jau esat pieslēdzies",
             "MISSING_USER_NAME_KEY": "Trūkst lietotāja vārda",
             "MISSING_RANDOM_CODE_KEY": "Trūkst gadījuma koda",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Šie vienkāršie testi rāda, ka izlases kods vismaz nav plakana rindu numuru."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Atteikties",
+            "LOG_OUT_KEY": "Atteikties",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Šeit jūs varat atteikties no servera",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Ja veiksmīgi, tad pieteikšanās lapa rāda",
-            "LOGOUT_RESULT_KEY": "Atteikšanās rezultāts",
-            "FAILED_TO_LOGOUT_KEY": "Neizdevās atslēgties",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Pēc tam, kad esat pieteicies out jums tiks novirzīts uz pieteikšanās lapu",
+            "RESULT_OF_LOGGING_OUT_KEY": "Izslēgšanas rezultāts",
+            "FAILED_TO_LOG_OUT_KEY": "Neizdevās iziet",
             "SUCCESS_LOGGING_OUT_KEY": "Veiksmīga atteikšanās"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Izvēlne",
-            "IMPORT_CONTACT_DATA_KEY": "Importēt kontaktinformāciju",
-            "LOGIN_KEY": "Pieteikties",
-            "SET_PASSWORD_KEY": "Rādīt paroli",
-            "EXPORT_CONTACT_DATA_KEY": "Eksportēt kontaktinformāciju",
-            "LOGOUT_KEY": "Atteikties",
-            "FORGET_CONTACT_KEY": "Aizmirst kontaktu"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importēt jūsu kontaktinformāciju",
+            "LOG_IN_KEY": "Pieteikties",
+            "SET_A_PASSWORD_KEY": "Iestatīt paroli",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportēt savu kontaktinformāciju",
+            "LOG_OUT_KEY": "Atteikties",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Aizmirstiet savu kontaktinformāciju"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Rādīt paroli",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kad jūs iestatāt vietējo paroli, jūs sakrat kopīgoto noslēpumu tā, lai parole darbotos",
-            "CURRENT_PASSWORD_KEY": "Pašreizējā parole",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Atstāt tukšu, ja jums nav",
-            "NEW_PASSWORD_KEY": "Jauna parole",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Atstāt tukšu, ja vēlaties noņemt paroli",
-            "CHANGE_PASSWORD_KEY": "Mainīt paroli"
+            "SET_A_PASSWORD_KEY": "Iestatīt paroli",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Kad jūs uzstādījāt vietējo paroli, jūs sakratat kopīgoto noslēpumu tā, lai parole darbotos",
+            "YOUR_CURRENT_PASSWORD_KEY": "Jūsu pašreizējā parole",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Atstāt tukšu, ja neesat uzstādījis paroli",
+            "YOUR_NEW_PASSWORD_KEY": "Jaunā parole",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Jūs varat atstāt šo tukšu, ja vēlaties noņemt paroli",
+            "CHANGE_THE_PASSWORD_KEY": "Mainīt paroli"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Pieteikties",
+            "LOG_IN_KEY": "Pieteikties",
             "SELECT_FILE_KEY": "Izvēlieties failu",
             "PASSWORD_KEY": "Parole",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Lejupielādēt demo kontu",
-            "LOGIN_RESULT_KEY": "Pieteikšanās rezultāts",
-            "MORE_KEY": "Vairāk",
-            "CURRENT_URL_KEY": "Pašreizējais URL",
-            "REFRESH_PAGE_KEY": "Atsvaidzināt lapu"
+            "RESULT_KEY": "Rezultāts",
+            "SHOW_MORE_KEY": "Rādīt vairāk",
+            "CURRENT_ADDRESS_KEY": "Pašreizējā adrese",
+            "UPDATE_THE_PAGE_KEY": "Atjaunināt lapu"
         }
     }
 }

@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_tools_package
+ * The messages_encoded data can be unpacked and viewed here
+ *
+ * @package     Infohub
+ * @subpackage  infohub_tools_package
+ * @since       2020-04-18
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_tools_package() {
 

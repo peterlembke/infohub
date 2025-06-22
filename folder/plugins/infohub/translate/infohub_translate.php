@@ -299,13 +299,19 @@ class infohub_translate extends infohub_base
                 $item = [
                     "type" => "option",
                     "value" => $languageItem['code'],
-                    "label" => $languageItem['name']
+                    "label" => $languageItem['name'] . ' ' . $languageItem['code'],
+                    'sort_by' => $languageItem['name'],
                 ];
                 if ($languageItem['code'] === $in['selected']) {
                     $item['selected'] = 'true';
                 }
                 $options[] = $item;
             }
+
+            // sort by the sort_by key
+            usort($options, function ($a, $b) {
+                return strcmp($a['sort_by'], $b['sort_by']);
+            });
         }
 
         return [

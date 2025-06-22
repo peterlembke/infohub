@@ -1,0 +1,8 @@
+{
+    "server": {
+        "ban_time_seconds": 1.0
+    },
+    "client": {
+        "ban_time_seconds": 1.1
+    }
+}

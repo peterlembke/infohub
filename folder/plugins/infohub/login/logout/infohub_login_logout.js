@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_logout
+ * Logout from the server
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_logout
+ * @since       2019-09-03
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_login_logout() {
 
@@ -83,16 +77,16 @@ function infohub_login_logout() {
                         'container_logout': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('LOGOUT'),
+                            'head_label': _Translate('LOG_OUT'),
                             'content_data': '[button_logout][status_message]',
                             'head_text': _Translate('HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER'),
-                            'foot_text': _Translate('IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS')
+                            'foot_text': _Translate('AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE') + '.',
                         },
                         'button_logout': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('LOGOUT'),
+                            'button_label': _Translate('LOG_OUT'),
                             'event_data': 'logout|logout',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',
@@ -101,7 +95,7 @@ function infohub_login_logout() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': _Translate('LOGOUT_RESULT') + ':',
+                            'data': _Translate('RESULT_OF_LOGGING_OUT') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block',
                         },
@@ -174,7 +168,7 @@ function infohub_login_logout() {
 
         if ($in.step === 'step_logout_response')
         {
-            $in.response.message = _Translate('FAILED_TO_LOGOUT') + ': ' + $in.response.message;
+            $in.response.message = _Translate('FAILED_TO_LOG_OUT') + ': ' + $in.response.message;
             $in.step = 'step_end';
 
             if ($in.response.answer === 'true') {

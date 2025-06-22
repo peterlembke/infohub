@@ -1,13 +1,13 @@
 /**
+ * infohub_demo_progress
  * Collection of demos to demonstrate InfoHub Client Render and View
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2023-07-09
+ * @package     Infohub
+ * @subpackage  infohub_demo_progress
  * @since       2023-07-09
- * @copyright   Copyright (c) 2023, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/progress/infohub_demo_progress.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_demo_progress() {
 

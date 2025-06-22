@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:46:01",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "ja",
         "language_name": "Japanese",
         "language_name_local": "日本語 English",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "これは何ですか?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "1つの接触",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "1つの連絡先のデータフォームです",
+            "YOUR_CONTACT_INFORMATION_KEY": "あなたの連絡先情報",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "お問い合わせ情報はこちら",
             "NODE_KEY": "ノード",
-            "ANY_TEXT_YOU_WANT_KEY": "必要なテキスト",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "人名またはサーバーのノード名をここに記述する",
             "NOTE_KEY": "お問い合わせ",
-            "SAVE_KEY": "保存する",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "あなたの連絡先情報で保存したいものを書く",
+            "SAVE_THE_DATA_KEY": "データの保存",
             "DOMAIN_ADDRESS_KEY": "ドメインアドレス",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "サーバーへのドメインアドレス",
             "USER_NAME_KEY": "ユーザー名",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "この秘密をサーバーと共有",
             "CHECKSUM_KEY": "チェックサム",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "ドメインアドレスのチェックサム + ユーザー名 + 共有シークレット.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "許可されたサーバー プラグイン",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "リモートノードにメッセージを送ることができるすべてのサーバープラグイン名のリスト"
+            "ROLES_KEY": "ロール",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "連絡先情報が持つ役割に応じて、さまざまなアプリケーションにアクセスできます"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "輸出接触",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "ここでは、連絡先データをエクスポートすることができます",
-            "EXPORT_KEY": "エクスポート"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "連絡先情報をエクスポートする",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "ここでは、連絡先情報を新しいファイルにエクスポートすることができます",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "連絡先情報ファイルにパスワードを設定すると便利です"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Forget の接触",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "ここでは、ブラウザが連絡先データを忘れることができます.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "ファイルを再びインポートすることができます.",
-            "FORGET_KEY": "トピックス"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "あなたの連絡先情報を忘れる",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "ブラウザは、パブリックマシンの連絡先情報を忘れないでください.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "コンタクト情報ファイルを再びインポートすることができます."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "インポート",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "ファイルから連絡先情報をインポートする",
-            "SELECT_FILE_KEY": "ファイルの選択"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "コンタクト情報をインポート",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "ファイルから連絡先情報をインポートする",
+            "SELECT_A_FILE_KEY": "ファイルを選択"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "ログイン",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "ここでは、インポートした連絡先データとサーバーにログインすることができます",
+            "LOG_IN_KEY": "ログイン",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "ここでは、インポートした連絡先情報を使用して、サーバーにログインすることができます",
             "PASSWORD_KEY": "パスワード",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "共有シークレットをデコードする必要があるパスワード",
-            "LOGIN_RESULT_KEY": "ログイン結果",
-            "RELOAD_AFTER_LOGIN_KEY": "ログイン後のリロード",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "共有シークレットをデコードするパスワードを設定すると、ここに入力します",
+            "RESULT_FROM_LOG_IN_KEY": "ログから検索結果",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "ログイン後にページを更新する",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "既にログインしている",
             "MISSING_USER_NAME_KEY": "ユーザー名の欠損",
             "MISSING_RANDOM_CODE_KEY": "ランダムコードの欠損",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "これらの簡単なテストでは、少なくともランダムなコードが数字のフラットな行ではないことを示しています."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "ログイン",
+            "LOG_OUT_KEY": "ログイン",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "サーバからログアウトできます",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "成功するとログインページが表示されます",
-            "LOGOUT_RESULT_KEY": "ログアウト結果",
-            "FAILED_TO_LOGOUT_KEY": "ログアウト失敗",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "ログアウト後、ログイン画面にリダイレクトされます",
+            "RESULT_OF_LOGGING_OUT_KEY": "ログアウト結果",
+            "FAILED_TO_LOG_OUT_KEY": "ログアウト失敗",
             "SUCCESS_LOGGING_OUT_KEY": "成功ログアウト"
         },
         "infohub_login_menu": {
             "MENU_KEY": "メニュー",
-            "IMPORT_CONTACT_DATA_KEY": "コンタクトデータのインポート",
-            "LOGIN_KEY": "ログイン",
-            "SET_PASSWORD_KEY": "パスワードを設定する",
-            "EXPORT_CONTACT_DATA_KEY": "コンタクトデータのエクスポート",
-            "LOGOUT_KEY": "ログイン",
-            "FORGET_CONTACT_KEY": "Forget の接触"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "コンタクト情報をインポート",
+            "LOG_IN_KEY": "ログイン",
+            "SET_A_PASSWORD_KEY": "パスワードを設定する",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "連絡先情報をエクスポートする",
+            "LOG_OUT_KEY": "ログイン",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "あなたの連絡先情報を忘れる"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "パスワードを設定する",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "ローカルパスワードを設定すると、共有シークレットをスクランブルして、パスワードが動作するようにします",
-            "CURRENT_PASSWORD_KEY": "現在のパスワード",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "何もないと空白を残す",
-            "NEW_PASSWORD_KEY": "新しいパスワード",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "パスワードを削除したい場合",
-            "CHANGE_PASSWORD_KEY": "パスワード変更"
+            "SET_A_PASSWORD_KEY": "パスワードを設定する",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "ローカルパスワードを設定すると、共有シークレットをスクランブルして、パスワードが動作するようにします",
+            "YOUR_CURRENT_PASSWORD_KEY": "現在のパスワード",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "パスワードが設定されていない場合は空白のままに",
+            "YOUR_NEW_PASSWORD_KEY": "新しいパスワード",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "パスワードを削除したい場合は、この空白を残すことができます",
+            "CHANGE_THE_PASSWORD_KEY": "パスワードの変更"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "ログイン",
+            "LOG_IN_KEY": "ログイン",
             "SELECT_FILE_KEY": "ファイルの選択",
             "PASSWORD_KEY": "パスワード",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "デモ口座をダウンロード",
-            "LOGIN_RESULT_KEY": "ログイン結果",
-            "MORE_KEY": "ニュース",
-            "CURRENT_URL_KEY": "現在の URL",
-            "REFRESH_PAGE_KEY": "リフレッシュページ"
+            "RESULT_KEY": "結果発表",
+            "SHOW_MORE_KEY": "もっと表示",
+            "CURRENT_ADDRESS_KEY": "現在のアドレス",
+            "UPDATE_THE_PAGE_KEY": "ページの更新"
         }
     }
 }

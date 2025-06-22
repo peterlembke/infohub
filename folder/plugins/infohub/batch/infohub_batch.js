@@ -1,17 +1,13 @@
 /**
- * Sends out short tail messages, wait for the last one to return,
- * put together all answers and return them
+ * infohub_batch
+ * Park the space ship and send out a swarm of smaller ships with messages. When the last small ship returns then the space ship can continue
  *
- * This plugin is a part of the InfoHub system.
- * Working on the batch system since 2021. Working name was Darkhold.
- *
+ * @package     Infohub
+ * @subpackage  infohub_batch
+ * @since       2024-01-20
  * @author      Peter Lembke <info@infohub.se>
- * @version     2024-05-05
- * @since       2021-10-10
- * @copyright   Copyright (c) 2021, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/batch/infohub_batch.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_batch() {
 

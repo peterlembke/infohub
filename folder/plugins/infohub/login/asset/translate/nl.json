@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:05:00",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "nl",
         "language_name": "Dutch",
         "language_name_local": "Nederlands",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Wat is dit?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Eén contact",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dit is het gegevensformulier voor één contact",
+            "YOUR_CONTACT_INFORMATION_KEY": "Uw contactgegevens",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Dit is uw contactgegevens",
             "NODE_KEY": "Knooppunt",
-            "ANY_TEXT_YOU_WANT_KEY": "Elke sms die je wilt",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Schrijf hier uw menselijke naam of de naam van de serverknooppunt",
             "NOTE_KEY": "Opmerking",
-            "SAVE_KEY": "Opslaan",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Schrijf alles wat u wilt opslaan bij uw contactgegevens",
+            "SAVE_THE_DATA_KEY": "Gegevens opslaan",
             "DOMAIN_ADDRESS_KEY": "Domeinadres",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Het domeinadres van uw server",
             "USER_NAME_KEY": "Gebruikersnaam",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "U deelt dit geheim met de server",
             "CHECKSUM_KEY": "Controlesom",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Controlesom van domeinadres + gebruikersnaam + gedeeld geheim.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Toegestane serverplugins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lijst met alle server-pluginnamen waarnaar u berichten kunt versturen op de externe knooppunt"
+            "ROLES_KEY": "Rol",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "U krijgt toegang tot verschillende toepassingen, afhankelijk van de rollen die uw contactinformatie heeft"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Contact exporteren",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Hier kunt u de contactgegevens exporteren",
-            "EXPORT_KEY": "Uitvoer"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Uw contactgegevens exporteren",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Hier kunt u uw contactgegevens exporteren naar een nieuw bestand",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Handig als u een wachtwoord hebt ingesteld op uw contactinformatiebestand"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Contact vergeten",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Hier kunt u de browser de contactgegevens laten vergeten.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "U kunt altijd uw bestand opnieuw importeren.",
-            "FORGET_KEY": "Vergeet"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Vergeet uw contactgegevens",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Laat de browser uw contactgegevens op openbare machines vergeten.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "U kunt altijd uw contactinformatiebestand opnieuw importeren."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importeren",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Contactinformatie importeren uit bestand",
-            "SELECT_FILE_KEY": "Bestand selecteren"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importeer uw contactgegevens",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importeer uw contactgegevens uit bestand",
+            "SELECT_A_FILE_KEY": "Een bestand selecteren"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Aanmelden",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kunt u gebruik maken van de contactgegevens die u importeerde en inloggen op de server",
+            "LOG_IN_KEY": "Aanmelden",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Hier kunt u gebruik maken van de contactgegevens die u importeerde en inloggen op de server",
             "PASSWORD_KEY": "Wachtwoord",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Het wachtwoord dat u nodig hebt om het gedeelde geheim te decoderen",
-            "LOGIN_RESULT_KEY": "Aanmeldresultaat",
-            "RELOAD_AFTER_LOGIN_KEY": "Herladen na aanmelden",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Als u een wachtwoord hebt ingesteld om het gedeelde geheim te decoderen, voer het dan hier in",
+            "RESULT_FROM_LOG_IN_KEY": "Resultaat van login",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Pagina bijwerken na aanmelden",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "U bent al ingelogd",
             "MISSING_USER_NAME_KEY": "Ontbrekende gebruikersnaam",
             "MISSING_RANDOM_CODE_KEY": "Ontbrekende willekeurige code",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Deze eenvoudige tests tonen aan dat de willekeurige code tenminste geen platte lijn van getallen is."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Afmelden",
+            "LOG_OUT_KEY": "Afmelden",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Hier kunt u afmelden vanaf de server",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Indien succesvol dan wordt de login pagina getoond",
-            "LOGOUT_RESULT_KEY": "Afmeldresultaat",
-            "FAILED_TO_LOGOUT_KEY": "Afmelden mislukt",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Nadat u bent uitgelogd wordt u doorgestuurd naar de login pagina",
+            "RESULT_OF_LOGGING_OUT_KEY": "Resultaat van uitloggen",
+            "FAILED_TO_LOG_OUT_KEY": "Afmelden mislukt",
             "SUCCESS_LOGGING_OUT_KEY": "Afmelden succesvol"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Contactgegevens importeren",
-            "LOGIN_KEY": "Aanmelden",
-            "SET_PASSWORD_KEY": "Wachtwoord instellen",
-            "EXPORT_CONTACT_DATA_KEY": "Contactgegevens exporteren",
-            "LOGOUT_KEY": "Afmelden",
-            "FORGET_CONTACT_KEY": "Contact vergeten"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importeer uw contactgegevens",
+            "LOG_IN_KEY": "Aanmelden",
+            "SET_A_PASSWORD_KEY": "Een wachtwoord instellen",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Uw contactgegevens exporteren",
+            "LOG_OUT_KEY": "Afmelden",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Vergeet uw contactgegevens"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Wachtwoord instellen",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Wanneer u uw lokale wachtwoord instelt scramble je het gedeelde geheim zodat het uw wachtwoord nodig heeft om te werken",
-            "CURRENT_PASSWORD_KEY": "Huidig wachtwoord",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Laat leeg als je er geen hebt",
-            "NEW_PASSWORD_KEY": "Nieuw wachtwoord",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Laat leeg als u het wachtwoord wilt verwijderen",
-            "CHANGE_PASSWORD_KEY": "Wachtwoord wijzigen"
+            "SET_A_PASSWORD_KEY": "Een wachtwoord instellen",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Wanneer u een lokaal wachtwoord instelt dan scrambelt u het gedeelde geheim zodat het uw wachtwoord nodig heeft om te werken",
+            "YOUR_CURRENT_PASSWORD_KEY": "Uw huidige wachtwoord",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Laat leeg als u geen wachtwoord heeft ingesteld",
+            "YOUR_NEW_PASSWORD_KEY": "Uw nieuwe wachtwoord",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "U kunt dit leeg laten als u het wachtwoord wilt verwijderen",
+            "CHANGE_THE_PASSWORD_KEY": "Wachtwoord wijzigen"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Aanmelden",
+            "LOG_IN_KEY": "Aanmelden",
             "SELECT_FILE_KEY": "Bestand selecteren",
             "PASSWORD_KEY": "Wachtwoord",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demo-account downloaden",
-            "LOGIN_RESULT_KEY": "Aanmeldresultaat",
-            "MORE_KEY": "Meer",
-            "CURRENT_URL_KEY": "Huidige url",
-            "REFRESH_PAGE_KEY": "Pagina verversen"
+            "RESULT_KEY": "Resultaat",
+            "SHOW_MORE_KEY": "Meer tonen",
+            "CURRENT_ADDRESS_KEY": "Huidig adres",
+            "UPDATE_THE_PAGE_KEY": "De pagina bijwerken"
         }
     }
 }

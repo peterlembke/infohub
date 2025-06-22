@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 17:57:35",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "zh-Hans",
         "language_name": "Chinese",
         "language_name_local": "中国语",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "这是什么?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "一个联系人",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "这是一个联系人的数据表单",
+            "YOUR_CONTACT_INFORMATION_KEY": "您的联系方式",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "这是您的联络信息",
             "NODE_KEY": "节点",
-            "ANY_TEXT_YOU_WANT_KEY": "您想要的任何文本",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "在此写入您的人类名称或服务器节点名称",
             "NOTE_KEY": "说明",
-            "SAVE_KEY": "保存",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "使用联系信息写入您想要存储的任何信息",
+            "SAVE_THE_DATA_KEY": "保存数据",
             "DOMAIN_ADDRESS_KEY": "域地址",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "服务器的域地址",
             "USER_NAME_KEY": "用户名",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "您与服务器共享此秘密",
             "CHECKSUM_KEY": "校验和",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "域名+用户名+共享密钥的校验和.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "允许的服务器插件",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "在远程节点上列出所有服务器插件名称"
+            "ROLES_KEY": "角色",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "根据联系人信息所扮演的角色,您可以访问不同的应用程序"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "导出联系人",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "您可以在此导出联系人数据",
-            "EXPORT_KEY": "导出"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "导出您的联系人信息",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "您可以在此将联系人信息导出到新文件",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "如果您在联系人信息文件中设置了密码, 则有用"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "忘记联系",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "您可以让浏览器忘记联系数据 .",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "您永远可以导入您的文件 .",
-            "FORGET_KEY": "忘记"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "忘记您的联系信息",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "让浏览器忘记你在公共机器上的联络信息.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "您总是可以再次导入您的联系人信息文件 ."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "导入",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "从文件导入联系人信息",
-            "SELECT_FILE_KEY": "选择文件"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "导入您的联系信息",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "从文件导入您的联系人信息",
+            "SELECT_A_FILE_KEY": "选择文件"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "登录",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "您可以在此使用您导入的联系人数据并登录到服务器",
+            "LOG_IN_KEY": "登录",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "您可以在此使用您导入的联系人信息并登录到服务器",
             "PASSWORD_KEY": "密码",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "解码共享机密所需的密码",
-            "LOGIN_RESULT_KEY": "登录结果",
-            "RELOAD_AFTER_LOGIN_KEY": "登录后重新加载",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "如果您设置了解码共享密钥的密码, 请在此输入",
+            "RESULT_FROM_LOG_IN_KEY": "登录结果",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "登录后更新页面",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "您已经登录",
             "MISSING_USER_NAME_KEY": "缺少用户名",
             "MISSING_RANDOM_CODE_KEY": "缺少随机代码",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "这些简单的测试显示,随机代码至少不是一个平整的数字线."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "注销",
+            "LOG_OUT_KEY": "注销",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "您可以在此从服务器登录",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "如果成功, 登录页面显示",
-            "LOGOUT_RESULT_KEY": "注销结果",
-            "FAILED_TO_LOGOUT_KEY": "登录失败",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "登录完毕后, 您将被重定向到登录页面",
+            "RESULT_OF_LOGGING_OUT_KEY": "伐木结果",
+            "FAILED_TO_LOG_OUT_KEY": "登录失败",
             "SUCCESS_LOGGING_OUT_KEY": "成功伐木"
         },
         "infohub_login_menu": {
             "MENU_KEY": "菜单",
-            "IMPORT_CONTACT_DATA_KEY": "导入联系人数据",
-            "LOGIN_KEY": "登录",
-            "SET_PASSWORD_KEY": "设置密码",
-            "EXPORT_CONTACT_DATA_KEY": "导出联系人数据",
-            "LOGOUT_KEY": "注销",
-            "FORGET_CONTACT_KEY": "忘记联系"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "导入您的联系信息",
+            "LOG_IN_KEY": "登录",
+            "SET_A_PASSWORD_KEY": "设置密码",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "导出您的联系人信息",
+            "LOG_OUT_KEY": "注销",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "忘记您的联系信息"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "设置密码",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "当您设定本地密码时, 您会打开共享的密钥, 以便您需要密码才能工作 ",
-            "CURRENT_PASSWORD_KEY": "当前密码",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "空的,如果你没有的话",
-            "NEW_PASSWORD_KEY": "新密码",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "如果您想要删除密码, 请留下空白",
-            "CHANGE_PASSWORD_KEY": "更改密码"
+            "SET_A_PASSWORD_KEY": "设置密码",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "当您设置本地密码时, 您会打开共享的密钥, 以便您需要密码才能工作 ",
+            "YOUR_CURRENT_PASSWORD_KEY": "您当前的密码",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "未设置密码时留空",
+            "YOUR_NEW_PASSWORD_KEY": "您的新密码",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "如果您想要删除密码, 您可以将此保留为空白",
+            "CHANGE_THE_PASSWORD_KEY": "更改密码"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "登录",
+            "LOG_IN_KEY": "登录",
             "SELECT_FILE_KEY": "选择文件",
             "PASSWORD_KEY": "密码",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "下载演示账户",
-            "LOGIN_RESULT_KEY": "登录结果",
-            "MORE_KEY": "更多",
-            "CURRENT_URL_KEY": "当前url",
-            "REFRESH_PAGE_KEY": "刷新页面"
+            "RESULT_KEY": "结果",
+            "SHOW_MORE_KEY": "显示更多",
+            "CURRENT_ADDRESS_KEY": "当前地址",
+            "UPDATE_THE_PAGE_KEY": "更新页面"
         }
     }
 }

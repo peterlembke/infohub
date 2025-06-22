@@ -1,13 +1,13 @@
 /**
+ * infohub_configlocal_colour
  * Here you can set the colour schema
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-10-19
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_colour
  * @since       2019-10-19
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/colour/infohub_configlocal_colour.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_configlocal_colour() {
 

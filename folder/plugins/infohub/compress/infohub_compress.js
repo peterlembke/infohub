@@ -1,15 +1,13 @@
 /**
- * You can compress/decompress data here
+ * infohub_compress
+ * Compress data. You need less internet capacity and less storage space
  *
- * Supports lz, gzip, none
- *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-07-07
+ * @package     Infohub
+ * @subpackage  infohub_compress
  * @since       2019-07-02
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/compress/infohub_compress.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_compress() {
 

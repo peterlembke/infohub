@@ -1,14 +1,13 @@
 /**
- * You can add a password to the private secret. The password are added on top of the private secret.
- * When you restore your secret the password are removed from the top of the private secret.
+ * infohub_tree_encrypt
+ * Add a password to the private secret
  *
+ * @package     Infohub
+ * @subpackage  infohub_tree_encrypt
+ * @since       2020-07-25
  * @author      Peter Lembke <info@infohub.se>
- * @version     2022-03-13
- * @since       2022-03-13
- * @copyright   Copyright (c) 2022, Peter Lembke, CharZam soft
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/tree/encrypt/password/infohub_tree_encrypt_password.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_tree_encrypt_password() {
 

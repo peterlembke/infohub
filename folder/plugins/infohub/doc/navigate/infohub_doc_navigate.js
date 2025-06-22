@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * Navigate
+ * Render navigation and handle click events on the list
+ *
+ * @package     Infohub
+ * @subpackage  infohub_doc_navigate
+ * @since       2019-04-13
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_doc_navigate() {
 
@@ -91,7 +85,7 @@ function infohub_doc_navigate() {
         if ($in.step === 'step_start') {
             $classTranslations = $in.translations;
 
-            const $buttonLabel = _Translate('REFRESH_NAVIGATE');
+            const $buttonLabel = _Translate('UPDATE_THE_DOCUMENTS_LIST');
             const $boxId = _GetBoxId('navigate');
 
             return _SubCall({
@@ -388,7 +382,7 @@ function infohub_doc_navigate() {
                 }
             }
 
-            const $headLabel = _Translate('NAVIGATION');
+            const $headLabel = _Translate('DOCUMENTS_LIST');
 
             $whatLookup['my_presentation_box'] = {
                 'plugin': 'infohub_rendermajor',

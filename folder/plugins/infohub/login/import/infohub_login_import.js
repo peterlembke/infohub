@@ -1,19 +1,13 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_import
+ * Import contact data to local storage
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_import
+ * @since       2019-09-03
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_login_import() {
 
@@ -113,13 +107,13 @@ function infohub_login_import() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_file_selector]',
-                            'label': _Translate('IMPORT'),
-                            'description': _Translate('IMPORT_THE_CONTACT_INFORMATION_FROM_FILE')
+                            'label': _Translate('IMPORT_YOUR_CONTACT_INFORMATION'),
+                            'description': _Translate('IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE')
                         },
                         'my_file_selector': {
                             'plugin': 'infohub_renderform',
                             'type': 'file',
-                            'button_label': _Translate('SELECT_FILE'),
+                            'button_label': _Translate('SELECT_A_FILE'),
                             'accept': '*.json',
                             'event_data': 'import|import',
                             'to_node': 'client',

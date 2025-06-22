@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 17:58:50",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "zh-Hant",
         "language_name": "Chinese (traditional)",
         "language_name_local": "中文( 傳統 )",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "這是什麼?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "一個聯絡人",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "這是一個聯絡人的資料表單",
+            "YOUR_CONTACT_INFORMATION_KEY": "您的聯絡人信息",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "這是您的聯絡方式",
             "NODE_KEY": "節點",
-            "ANY_TEXT_YOU_WANT_KEY": "你想要的任何文字",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "在此寫入您的人類名稱或伺服器節點名稱",
             "NOTE_KEY": "注",
-            "SAVE_KEY": "保存",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "用聯絡人資訊寫入任何您要儲存的東西",
+            "SAVE_THE_DATA_KEY": "儲存資料",
             "DOMAIN_ADDRESS_KEY": "域位址",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "您伺服器的域位址",
             "USER_NAME_KEY": "使用者名稱",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "您與伺服器分享此秘密",
             "CHECKSUM_KEY": "檢查和",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "域位址的檢查和 + 使用者名稱 + 共享秘密 .",
-            "ALLOWED_SERVER_PLUGINS_KEY": "允許的伺服器外掛程式",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "列出所有伺服器外掛程式名稱, 您可以在遠端節點上傳送信件"
+            "ROLES_KEY": "角色",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "根據聯絡人資訊所扮演的角色, 您可以存取不同的應用程式"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "匯出聯絡人",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "您可以在此匯出聯絡人資料",
-            "EXPORT_KEY": "匯出"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "匯出您的聯絡人資訊",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "您可以在此匯出您的聯絡人資訊到新檔案",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "如果您在聯絡人資訊檔案上設定了密碼, 則有用"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "忘了聯絡人",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "您可以讓瀏覽器忘記聯絡資料 .",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "你可以再匯入您的檔案 .",
-            "FORGET_KEY": "忘了"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "忘了您的聯絡人資訊",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "讓瀏覽器忘記你對公共機器的聯絡方式.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "您可以再匯入您的聯絡人資訊檔 ."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "匯入",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "從檔案匯入聯絡人資訊",
-            "SELECT_FILE_KEY": "選擇檔案"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "匯入您的聯絡人信息",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "從檔案匯入您的聯絡人資訊",
+            "SELECT_A_FILE_KEY": "選擇檔案"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "登入",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "您可以在此使用您匯入的聯絡人資料並登入伺服器",
+            "LOG_IN_KEY": "登入",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "您可以在此使用您匯入的聯絡人資訊並登入伺服器",
             "PASSWORD_KEY": "密碼",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "解碼共享秘密的密碼",
-            "LOGIN_RESULT_KEY": "登入結果",
-            "RELOAD_AFTER_LOGIN_KEY": "登入后重新載入",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "如果您設定了解碼共享秘密的密碼, 請在此輸入",
+            "RESULT_FROM_LOG_IN_KEY": "登入的結果",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "登入後更新頁面",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "您已登入",
             "MISSING_USER_NAME_KEY": "缺少使用者名稱",
             "MISSING_RANDOM_CODE_KEY": "缺少隨機碼",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "這些簡單的測試顯示, 隨機代碼至少不是一整串數字 ."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "登出",
+            "LOG_OUT_KEY": "登出",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "您可以在此登入伺服器",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "如果成功, 登入頁面會顯示",
-            "LOGOUT_RESULT_KEY": "登出結果",
-            "FAILED_TO_LOGOUT_KEY": "登出失敗",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "登入後您會重新定向到登入頁面",
+            "RESULT_OF_LOGGING_OUT_KEY": "伐木成果",
+            "FAILED_TO_LOG_OUT_KEY": "登出失敗",
             "SUCCESS_LOGGING_OUT_KEY": "成功登出"
         },
         "infohub_login_menu": {
             "MENU_KEY": "選單",
-            "IMPORT_CONTACT_DATA_KEY": "匯入聯絡人資料",
-            "LOGIN_KEY": "登入",
-            "SET_PASSWORD_KEY": "設定密碼",
-            "EXPORT_CONTACT_DATA_KEY": "匯出聯絡人資料",
-            "LOGOUT_KEY": "登出",
-            "FORGET_CONTACT_KEY": "忘了聯絡人"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "匯入您的聯絡人信息",
+            "LOG_IN_KEY": "登入",
+            "SET_A_PASSWORD_KEY": "設定密碼",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "匯出您的聯絡人資訊",
+            "LOG_OUT_KEY": "登出",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "忘了您的聯絡人資訊"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "設定密碼",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "當您設定本地密碼時, 您會拼接共享的密件, 讓密碼生效 ",
-            "CURRENT_PASSWORD_KEY": "目前密碼",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "沒有就留下空白",
-            "NEW_PASSWORD_KEY": "新密碼",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "如果您要移除密碼, 請留下空白",
-            "CHANGE_PASSWORD_KEY": "更改密碼"
+            "SET_A_PASSWORD_KEY": "設定密碼",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "當您設定本地端密碼時, 您便會拼接共享的密件, 讓它需要您的密碼才能工作 ",
+            "YOUR_CURRENT_PASSWORD_KEY": "您目前的密碼",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "如果您沒有設定任何密碼, 請留下空白",
+            "YOUR_NEW_PASSWORD_KEY": "您的新密碼",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "如果您要移除密碼, 您可以留下空白",
+            "CHANGE_THE_PASSWORD_KEY": "更改密碼"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "登入",
+            "LOG_IN_KEY": "登入",
             "SELECT_FILE_KEY": "選擇檔案",
             "PASSWORD_KEY": "密碼",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "下載演示帳號",
-            "LOGIN_RESULT_KEY": "登入結果",
-            "MORE_KEY": "更多",
-            "CURRENT_URL_KEY": "目前 URL",
-            "REFRESH_PAGE_KEY": "刷新頁面"
+            "RESULT_KEY": "成果",
+            "SHOW_MORE_KEY": "顯示更多",
+            "CURRENT_ADDRESS_KEY": "目前地址",
+            "UPDATE_THE_PAGE_KEY": "更新頁面"
         }
     }
 }

@@ -1,13 +1,13 @@
 /**
+ * infohub_demo_storage
  * Show all features in Storage on client and server
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-06-19
+ * @package     Infohub
+ * @subpackage  infohub_demo_storage
  * @since       2020-06-19
- * @copyright   Copyright (c) 2020, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/storage/infohub_demo_storage.md Documentation
- * @link        https://infohub.se/ InfoHub main page
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
  */
 function infohub_demo_storage() {
 

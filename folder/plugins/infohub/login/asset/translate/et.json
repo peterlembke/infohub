@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:02:00",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "et",
         "language_name": "Estonian",
         "language_name_local": "Eesti",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Mis see on?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Üks kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "See on ühe kontakti andmevorm",
+            "YOUR_CONTACT_INFORMATION_KEY": "Teie kontaktandmed",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Siin on teie kontaktandmed",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Iga tekst, mida soovid",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Kirjuta siia oma inimnimi või serverisõlme nimi",
             "NOTE_KEY": "Märkus",
-            "SAVE_KEY": "Päästa",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Kirjutage kõik, mida soovite oma kontaktandmetega salvestada",
+            "SAVE_THE_DATA_KEY": "Salvesta andmed",
             "DOMAIN_ADDRESS_KEY": "Domeeni aadress",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domeeniaadress sinu serveris",
             "USER_NAME_KEY": "Kasutajanimi",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Sa jagad seda saladust serveriga",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Domeeniaadressi kontrollsumma + kasutajanimi + jagatud saladus.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Lubatud serveripluginad",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Nimekiri kõigi serveri pluginate nimedega, kuhu saab saata sõnumeid võrgusõlmes"
+            "ROLES_KEY": "Rollid",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Saate juurdepääsu erinevatele rakendustele sõltuvalt teie kontaktandmete rollist"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Ekspordikontakt",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Siin saab eksportida kontaktandmeid",
-            "EXPORT_KEY": "Eksport"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Ekspordi oma kontaktandmed",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Siin saab eksportida oma kontaktandmed uude faili",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Kasulik, kui olete oma kontaktandmete failile määranud parooli"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Unustage kontakt",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Siin saate lasta brauseril kontaktandmeid unustada.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Faili saab alati uuesti importida.",
-            "FORGET_KEY": "Unusta"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Unustage oma kontaktandmed",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Las brauser unustab teie kontaktandmed avalikes masinates.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Saate alati uuesti oma kontaktandmete faili importida."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Import",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Kontaktandmete import failist",
-            "SELECT_FILE_KEY": "Faili valimine"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Impordi oma kontaktandmed",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Impordi oma kontaktandmed failist",
+            "SELECT_A_FILE_KEY": "Faili valimine"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Sisselogimine",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Siin saab kasutada imporditud kontaktandmeid ja sisse logida serverisse",
+            "LOG_IN_KEY": "Logi sisse",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Siin saab kasutada imporditud kontaktandmeid ja sisse logida serverisse",
             "PASSWORD_KEY": "Parool",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Parool, mida on vaja jagatud saladuse dekodeerimiseks",
-            "LOGIN_RESULT_KEY": "Sisselogimise tulemus",
-            "RELOAD_AFTER_LOGIN_KEY": "Laadi uuesti pärast sisselogimist",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Kui oled määranud jagatud saladuse dekodeerimiseks parooli, sisesta see siia",
+            "RESULT_FROM_LOG_IN_KEY": "Sisselogimise tulemus",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Lehe uuendamine pärast sisselogimist",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Oled juba sisse logitud",
             "MISSING_USER_NAME_KEY": "Puuduv kasutajanimi",
             "MISSING_RANDOM_CODE_KEY": "Juhuslik kood puudub",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Need lihtsad testid näitavad, et juhuslik kood ei ole vähemalt lame rida numbreid."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logi välja",
+            "LOG_OUT_KEY": "Logi sisse",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Siin saab serverist välja logida",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Kui see õnnestub, kuvatakse sisselogimisleht",
-            "LOGOUT_RESULT_KEY": "Väljalogimise tulemus",
-            "FAILED_TO_LOGOUT_KEY": "Väljalogimine nurjus",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Pärast sisselogimist suunatakse teid sisselogimislehele",
+            "RESULT_OF_LOGGING_OUT_KEY": "Väljaraie tulemus",
+            "FAILED_TO_LOG_OUT_KEY": "Väljalogimine nurjus",
             "SUCCESS_LOGGING_OUT_KEY": "Edu väljalogimisel"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menüü",
-            "IMPORT_CONTACT_DATA_KEY": "Kontaktandmete import",
-            "LOGIN_KEY": "Sisselogimine",
-            "SET_PASSWORD_KEY": "Parooli määramine",
-            "EXPORT_CONTACT_DATA_KEY": "Kontaktandmete eksport",
-            "LOGOUT_KEY": "Logi välja",
-            "FORGET_CONTACT_KEY": "Unustage kontakt"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Impordi oma kontaktandmed",
+            "LOG_IN_KEY": "Logi sisse",
+            "SET_A_PASSWORD_KEY": "Parooli määramine",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Ekspordi oma kontaktandmed",
+            "LOG_OUT_KEY": "Logi sisse",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Unustage oma kontaktandmed"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Parooli määramine",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kui määrate oma kohaliku parooli, segate jagatud saladust nii, et see vajab teie parooli töötamiseks",
-            "CURRENT_PASSWORD_KEY": "Aktiivne parool",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Jäta tühjaks, kui sul neid pole",
-            "NEW_PASSWORD_KEY": "Uus parool",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Jäta tühjaks, kui soovid parooli eemaldada",
-            "CHANGE_PASSWORD_KEY": "Parooli muutmine"
+            "SET_A_PASSWORD_KEY": "Parooli määramine",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Kui määrate kohaliku parooli, siis segate jagatud saladust nii, et see nõuab teie parooli tööd",
+            "YOUR_CURRENT_PASSWORD_KEY": "Praegune parool",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Jäta tühjaks, kui sa ei ole parooli määranud",
+            "YOUR_NEW_PASSWORD_KEY": "Sinu uus parool",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Võite selle tühjaks jätta, kui soovite parooli eemaldada",
+            "CHANGE_THE_PASSWORD_KEY": "Parooli muutmine"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Sisselogimine",
+            "LOG_IN_KEY": "Logi sisse",
             "SELECT_FILE_KEY": "Faili valimine",
             "PASSWORD_KEY": "Parool",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Demokonto allalaadimine",
-            "LOGIN_RESULT_KEY": "Sisselogimise tulemus",
-            "MORE_KEY": "Rohkem",
-            "CURRENT_URL_KEY": "Praegune URL",
-            "REFRESH_PAGE_KEY": "Värskenda lehte"
+            "RESULT_KEY": "Tulemus",
+            "SHOW_MORE_KEY": "Näita rohkem",
+            "CURRENT_ADDRESS_KEY": "Aktiivne aadress",
+            "UPDATE_THE_PAGE_KEY": "Lehe uuendamine"
         }
     }
 }
