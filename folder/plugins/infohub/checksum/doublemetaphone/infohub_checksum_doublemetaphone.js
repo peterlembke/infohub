@@ -1,15 +1,4 @@
 /**
- * infohub_checksum_doublemetaphone
- * The Double Metaphone phonetic encoding algorithm is the second generation of this algorithm.
- *
- * @package     Infohub
- * @subpackage  infohub_checksum_doublemetaphone
- * @since       2017-03-01
- * @author      Peter Lembke <info@infohub.se>
- * @license     GPL-3.0-or-later
- * @copyright   Copyright (C) 2010- Peter Lembke
- */
-/**
  * doublemetaphone Checksums are calculated and verified here
  *
  * @author      Peter Lembke <info@infohub.se>
