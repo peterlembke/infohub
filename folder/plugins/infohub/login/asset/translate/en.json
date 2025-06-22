@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 17:52:32",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "en",
         "language_name": "English",
         "language_name_local": "English",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "What is this?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "One contact",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "This is the data form for one contact",
+            "YOUR_CONTACT_INFORMATION_KEY": "Your contact information",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "This is your contact information",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Any text you want",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Write your human name or the server node name here",
             "NOTE_KEY": "Note",
-            "SAVE_KEY": "Save",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Write anything you want to store with your contact information",
+            "SAVE_THE_DATA_KEY": "Save the data",
             "DOMAIN_ADDRESS_KEY": "Domain address",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "The domain address to your server",
             "USER_NAME_KEY": "User name",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "You share this secret with the server",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum of domain address + user name + shared secret.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Allowed server plugins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "List with all server plugin names you can send messages to on the remote node"
+            "ROLES_KEY": "Roles",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "You get access to different applications depending on the roles your contact information has"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Export contact",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Here you can export the contact data",
-            "EXPORT_KEY": "Export"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Export your contact information",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Here you can export your contact information to a new file",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Useful if you have set a password on your contact information file"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Forget contact",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Here you can let the browser forget the contact data.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "You can always import your file again.",
-            "FORGET_KEY": "Forget"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Forget your contact information",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Let the browser forget your contact information on public machines.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "You can always import your contact information file again."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Import",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Import the contact information from file",
-            "SELECT_FILE_KEY": "Select file"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Import your contact information",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Import your contact information from file",
+            "SELECT_A_FILE_KEY": "Select a file"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Login",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Here you can use the contact data you imported and login to the server",
+            "LOG_IN_KEY": "Log in",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Here you can use the contact information you imported and login to the server",
             "PASSWORD_KEY": "Password",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "The password you need to decode the shared secret",
-            "LOGIN_RESULT_KEY": "Login result",
-            "RELOAD_AFTER_LOGIN_KEY": "Reload after login",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "If you have set a password to decode the shared secret then enter it here",
+            "RESULT_FROM_LOG_IN_KEY": "Result from log in",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Update the page after login",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "You are already logged in",
             "MISSING_USER_NAME_KEY": "Missing user name",
             "MISSING_RANDOM_CODE_KEY": "Missing random code",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "These simple tests show that the random code at least is not a flat line of numbers."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logout",
+            "LOG_OUT_KEY": "Log out",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Here you can logout from the server",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "If successful then the login page shows",
-            "LOGOUT_RESULT_KEY": "Logout result",
-            "FAILED_TO_LOGOUT_KEY": "Failed to logout",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "After you have logged out you will be redirected to the login page",
+            "RESULT_OF_LOGGING_OUT_KEY": "Result of logging out",
+            "FAILED_TO_LOG_OUT_KEY": "Failed to log out",
             "SUCCESS_LOGGING_OUT_KEY": "Success logging out"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Import contact data",
-            "LOGIN_KEY": "Login",
-            "SET_PASSWORD_KEY": "Set password",
-            "EXPORT_CONTACT_DATA_KEY": "Export contact data",
-            "LOGOUT_KEY": "Logout",
-            "FORGET_CONTACT_KEY": "Forget contact"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Import your contact information",
+            "LOG_IN_KEY": "Log in",
+            "SET_A_PASSWORD_KEY": "Set a password",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Export your contact information",
+            "LOG_OUT_KEY": "Log out",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Forget your contact information"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Set password",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "When you set your local password you scramble the shared secret so that it require your password to work",
-            "CURRENT_PASSWORD_KEY": "Current password",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Leave blank if you have none",
-            "NEW_PASSWORD_KEY": "New password",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Leave blank if you want to remove the password",
-            "CHANGE_PASSWORD_KEY": "Change password"
+            "SET_A_PASSWORD_KEY": "Set a password",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "When you set a local password then you scramble the shared secret so that it requires your password to work",
+            "YOUR_CURRENT_PASSWORD_KEY": "Your current password",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Leave blank if you have not set any password",
+            "YOUR_NEW_PASSWORD_KEY": "Your new password",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "You can leave this blank if you want to remove the password",
+            "CHANGE_THE_PASSWORD_KEY": "Change the password"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Login",
+            "LOG_IN_KEY": "Log in",
             "SELECT_FILE_KEY": "Select file",
             "PASSWORD_KEY": "Password",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo account",
-            "LOGIN_RESULT_KEY": "Login result",
-            "MORE_KEY": "More",
-            "CURRENT_URL_KEY": "Current url",
-            "REFRESH_PAGE_KEY": "Refresh page"
+            "RESULT_KEY": "Result",
+            "SHOW_MORE_KEY": "Show more",
+            "CURRENT_ADDRESS_KEY": "Current address",
+            "UPDATE_THE_PAGE_KEY": "Update the page"
         }
     }
 }

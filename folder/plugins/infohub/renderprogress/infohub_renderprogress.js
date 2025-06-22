@@ -1,12 +1,14 @@
 /**
- * Renders a more advanced progress bar. Adds features upon the common progress.
+ * infohub_renderprogress
+ * Renders a progress bar, percent completed, value/maxValue
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2023-07-20
+ * @package     Infohub
+ * @subpackage  infohub_renderprogress
  * @since       2023-07-09
- * @copyright   Copyright (c) 2023, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/renderprogress/infohub_renderprogress.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/renderprogress/infohub_renderprogress.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_renderprogress() {

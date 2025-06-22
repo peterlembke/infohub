@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 17:56:00",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "hi",
         "language_name": "Hindi",
         "language_name_local": "हिन्दी",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "यह क्या है?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "एक संपर्क",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "यह एक संपर्क के लिए डेटा फॉर्म है",
+            "YOUR_CONTACT_INFORMATION_KEY": "आपकी संपर्क जानकारी",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "यह आपकी संपर्क जानकारी है",
             "NODE_KEY": "नोड",
-            "ANY_TEXT_YOU_WANT_KEY": "आप चाहते हैं कि कोई भी पाठ",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "अपने मानव नाम या सर्वर नोड नाम को यहां लिखें",
             "NOTE_KEY": "नोट",
-            "SAVE_KEY": "सहेजें",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "कुछ भी आप अपने संपर्क जानकारी के साथ स्टोर करना चाहते हैं लिखें",
+            "SAVE_THE_DATA_KEY": "डेटा सेव करें",
             "DOMAIN_ADDRESS_KEY": "डोमेन पता",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "अपने सर्वर पर डोमेन एड्रेस",
             "USER_NAME_KEY": "उपयोगकर्ता का नाम",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "आप सर्वर के साथ इस रहस्य को साझा करते हैं",
             "CHECKSUM_KEY": "चेकसूम",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "डोमेन एड्रेस + उपयोगकर्ता नाम + साझा गुप्त की चेकम।.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "अनुमति सर्वर प्लगइन",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "सभी सर्वर प्लगइन नामों के साथ सूची आप दूरस्थ नोड पर संदेश भेज सकते हैं"
+            "ROLES_KEY": "भूमिका",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "आपकी संपर्क जानकारी की भूमिका के आधार पर आपको विभिन्न अनुप्रयोगों तक पहुंच मिलती है"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "संपर्क निर्यात करें",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "यहाँ आप संपर्क डेटा निर्यात कर सकते हैं",
-            "EXPORT_KEY": "निर्यात"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी निर्यात करें",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "यहां आप अपनी संपर्क जानकारी को एक नई फाइल में निर्यात कर सकते हैं",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "यदि आपने अपनी संपर्क जानकारी फ़ाइल पर पासवर्ड सेट किया है तो उपयोगी"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "सम्पर्क",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "यहां आप ब्राउज़र को संपर्क डेटा को भूल सकते हैं।.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "आप हमेशा अपनी फाइल को फिर से आयात कर सकते हैं।.",
-            "FORGET_KEY": "भूल"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी प्राप्त करें",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "ब्राउज़र को सार्वजनिक मशीनों पर अपनी संपर्क जानकारी भूल जाते हैं।.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "आप हमेशा अपनी संपर्क जानकारी फाइल को फिर से आयात कर सकते हैं।."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "आयात",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "फाइल से संपर्क जानकारी आयात करें",
-            "SELECT_FILE_KEY": "फ़ाइल चुनें"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी आयात करें",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "अपनी संपर्क जानकारी फाइल से आयात करें",
+            "SELECT_A_FILE_KEY": "एक फ़ाइल चुनें"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "लॉग इन",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "यहाँ आप अपने द्वारा आयातित संपर्क डेटा का उपयोग कर सकते हैं और सर्वर पर लॉगिन कर सकते हैं",
+            "LOG_IN_KEY": "लॉग इन करें",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "यहां आप उन संपर्क जानकारी का उपयोग कर सकते हैं जिन्हें आप आयात और लॉग इन करते हैं सर्वर",
             "PASSWORD_KEY": "पासवर्ड",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "आपको साझा रहस्य को डीकोड करने की आवश्यकता है",
-            "LOGIN_RESULT_KEY": "लॉग इन करें",
-            "RELOAD_AFTER_LOGIN_KEY": "लॉगिन के बाद पुनः लोड करें",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "यदि आपने साझा रहस्य को डीकोड करने के लिए एक पासवर्ड सेट किया है तो इसे यहां दर्ज करें",
+            "RESULT_FROM_LOG_IN_KEY": "लॉग इन",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "लॉग इन करने के बाद पेज को अपडेट करें",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "आप पहले से ही लॉग इन कर रहे हैं",
             "MISSING_USER_NAME_KEY": "मिसिंग यूज़र नाम",
             "MISSING_RANDOM_CODE_KEY": "मिसिंग यादृच्छिक कोड",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "इन सरल परीक्षणों से पता चलता है कि कम से कम यादृच्छिक कोड संख्याओं की एक फ्लैट लाइन नहीं है।."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "लॉग-इन",
+            "LOG_OUT_KEY": "लॉग आउट",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "यहाँ आप सर्वर से लॉगआउट कर सकते हैं",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "यदि सफल हो तो लॉगिन पेज शो",
-            "LOGOUT_RESULT_KEY": "लॉग इन करें",
-            "FAILED_TO_LOGOUT_KEY": "लॉगआउट में विफल",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "लॉग आउट करने के बाद आपको लॉगिन पेज पर रीडायरेक्ट किया जाएगा",
+            "RESULT_OF_LOGGING_OUT_KEY": "लॉग आउट का परिणाम",
+            "FAILED_TO_LOG_OUT_KEY": "लॉग आउट करने में विफल",
             "SUCCESS_LOGGING_OUT_KEY": "सफलता लॉग आउट"
         },
         "infohub_login_menu": {
             "MENU_KEY": "मेनू",
-            "IMPORT_CONTACT_DATA_KEY": "संपर्क डेटा आयात करें",
-            "LOGIN_KEY": "लॉग इन",
-            "SET_PASSWORD_KEY": "पासवर्ड सेट करें",
-            "EXPORT_CONTACT_DATA_KEY": "संपर्क डेटा निर्यात करें",
-            "LOGOUT_KEY": "लॉग-इन",
-            "FORGET_CONTACT_KEY": "सम्पर्क"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी आयात करें",
+            "LOG_IN_KEY": "लॉग इन करें",
+            "SET_A_PASSWORD_KEY": "पासवर्ड सेट करें",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी निर्यात करें",
+            "LOG_OUT_KEY": "लॉग आउट",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "अपनी संपर्क जानकारी प्राप्त करें"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "पासवर्ड सेट करें",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "जब आप अपना स्थानीय पासवर्ड सेट करते हैं तो आप साझा रहस्य को तोड़ते हैं ताकि इसे आपके पासवर्ड को काम करने की आवश्यकता हो।",
-            "CURRENT_PASSWORD_KEY": "वर्तमान पासवर्ड",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "यदि आपके पास कोई नहीं है तो खाली छोड़ दें",
-            "NEW_PASSWORD_KEY": "नया पासवर्ड",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "यदि आप पासवर्ड हटाना चाहते हैं तो खाली छोड़ दें",
-            "CHANGE_PASSWORD_KEY": "पासवर्ड बदलें"
+            "SET_A_PASSWORD_KEY": "पासवर्ड सेट करें",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "जब आप एक स्थानीय पासवर्ड सेट करते हैं तो आप साझा रहस्य को तोड़ते हैं ताकि इसे आपके पासवर्ड को काम करने की आवश्यकता हो।",
+            "YOUR_CURRENT_PASSWORD_KEY": "आपका वर्तमान पासवर्ड",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "यदि आपने पासवर्ड सेट नहीं किया है तो खाली छोड़ दें",
+            "YOUR_NEW_PASSWORD_KEY": "आपका नया पासवर्ड",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "यदि आप पासवर्ड हटाना चाहते हैं तो आप इस खाली को छोड़ सकते हैं",
+            "CHANGE_THE_PASSWORD_KEY": "पासवर्ड बदलें"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "लॉग इन",
+            "LOG_IN_KEY": "लॉग इन करें",
             "SELECT_FILE_KEY": "फ़ाइल चुनें",
             "PASSWORD_KEY": "पासवर्ड",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "डेमो खाता डाउनलोड करें",
-            "LOGIN_RESULT_KEY": "लॉग इन करें",
-            "MORE_KEY": "अधिक",
-            "CURRENT_URL_KEY": "वर्तमान यूआरएल",
-            "REFRESH_PAGE_KEY": "ताज़ा पेज"
+            "RESULT_KEY": "परिणाम",
+            "SHOW_MORE_KEY": "और देखो",
+            "CURRENT_ADDRESS_KEY": "वर्तमान पता",
+            "UPDATE_THE_PAGE_KEY": "पेज को अपडेट करें"
         }
     }
 }

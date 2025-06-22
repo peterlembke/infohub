@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:05:00",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "da",
         "language_name": "Danish",
         "language_name_local": "Dansk",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Hvad er det?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "En kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Dette er dataformularen for én kontakt",
+            "YOUR_CONTACT_INFORMATION_KEY": "Dine kontaktoplysninger",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Dette er din kontaktinformation",
             "NODE_KEY": "Knude",
-            "ANY_TEXT_YOU_WANT_KEY": "Enhver tekst du ønsker",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Skriv dit menneskenavn eller serverknudenavnet her",
             "NOTE_KEY": "Bemærkning",
-            "SAVE_KEY": "Gem",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Skriv hvad du vil gemme med dine kontaktoplysninger",
+            "SAVE_THE_DATA_KEY": "Gem data",
             "DOMAIN_ADDRESS_KEY": "Domæne adresse",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domænets adresse til din server",
             "USER_NAME_KEY": "Brugernavn",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Du deler denne hemmelighed med serveren",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum af domæneadresse + brugernavn + delt hemmelighed.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Tilladte server- plugins",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Liste med alle server- pluginnavne du kan sende breve til på den eksterne knude"
+            "ROLES_KEY": "Ruller",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Du får adgang til forskellige programmer afhængigt af de roller, din kontaktinformation har"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksportér kontakt",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Her kan du eksportere kontaktdata",
-            "EXPORT_KEY": "Eksport"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportér dine kontaktoplysninger",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Her kan du eksportere dine kontaktoplysninger til en ny fil",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Nyttigt hvis du har sat en adgangskode på din kontaktinformationsfil"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Glem kontakten",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Her kan du lade browseren glemme kontaktdata.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Du kan altid importere din fil igen.",
-            "FORGET_KEY": "Glem det"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Glem dine kontaktoplysninger",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Lad browseren glemme dine kontaktoplysninger på offentlige maskiner.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Du kan altid importere din kontakt information fil igen."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importér",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importér kontaktoplysningerne fra filen",
-            "SELECT_FILE_KEY": "Vælg fil"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importér dine kontaktoplysninger",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importér dine kontaktoplysninger fra filen",
+            "SELECT_A_FILE_KEY": "Vælg en fil"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Login",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Her kan du bruge de kontaktdata du importerede og logge ind på serveren",
+            "LOG_IN_KEY": "Log ind",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Her kan du bruge den kontaktinformation du importerede og logge ind på serveren",
             "PASSWORD_KEY": "Adgangskode",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Adgangskoden du skal bruge for at afkode den delte hemmelighed",
-            "LOGIN_RESULT_KEY": "Login resultat",
-            "RELOAD_AFTER_LOGIN_KEY": "Genindlæs efter login",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Hvis du har sat et kodeord for at afkode den delte hemmelighed så indtast det her",
+            "RESULT_FROM_LOG_IN_KEY": "Resultat af log in",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Opdatér siden efter login",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Du er allerede logget ind",
             "MISSING_USER_NAME_KEY": "Manglende brugernavn",
             "MISSING_RANDOM_CODE_KEY": "Manglende tilfældig kode",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Disse enkle tests viser, at den tilfældige kode i det mindste ikke er en flad linje af tal."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logout",
+            "LOG_OUT_KEY": "Log ud",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Her kan du logge ud fra serveren",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Hvis det lykkes så login side viser",
-            "LOGOUT_RESULT_KEY": "Logningsresultat",
-            "FAILED_TO_LOGOUT_KEY": "Logning mislykkedes",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Når du har logget ud, vil du blive omdirigeret til login-siden",
+            "RESULT_OF_LOGGING_OUT_KEY": "Resultat af logning ud",
+            "FAILED_TO_LOG_OUT_KEY": "Kunne ikke logge ud",
             "SUCCESS_LOGGING_OUT_KEY": "Logning af succes"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Importér kontaktdata",
-            "LOGIN_KEY": "Login",
-            "SET_PASSWORD_KEY": "Sæt adgangskode",
-            "EXPORT_CONTACT_DATA_KEY": "Eksportér kontaktdata",
-            "LOGOUT_KEY": "Logout",
-            "FORGET_CONTACT_KEY": "Glem kontakten"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importér dine kontaktoplysninger",
+            "LOG_IN_KEY": "Log ind",
+            "SET_A_PASSWORD_KEY": "Sæt en adgangskode",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksportér dine kontaktoplysninger",
+            "LOG_OUT_KEY": "Log ud",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Glem dine kontaktoplysninger"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Sæt adgangskode",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Når du sætter din lokale adgangskode, du scramble den delte hemmelighed, så det kræver din adgangskode til at arbejde",
-            "CURRENT_PASSWORD_KEY": "Nuværende adgangskode",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Efterlad blank hvis du ikke har",
-            "NEW_PASSWORD_KEY": "Ny adgangskode",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Efterlad blank hvis du vil fjerne adgangskoden",
-            "CHANGE_PASSWORD_KEY": "Ændr adgangskode"
+            "SET_A_PASSWORD_KEY": "Sæt en adgangskode",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Når du sætter en lokal adgangskode, så du scramble den delte hemmelighed, så det kræver din adgangskode til at arbejde",
+            "YOUR_CURRENT_PASSWORD_KEY": "Dit nuværende kodeord",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Efterlad blank hvis du ikke har sat nogen adgangskode",
+            "YOUR_NEW_PASSWORD_KEY": "Dit nye kodeord",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Du kan efterlade denne blank hvis du vil fjerne adgangskoden",
+            "CHANGE_THE_PASSWORD_KEY": "Ændr adgangskode"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Login",
+            "LOG_IN_KEY": "Log ind",
             "SELECT_FILE_KEY": "Vælg fil",
             "PASSWORD_KEY": "Adgangskode",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Download demo-konto",
-            "LOGIN_RESULT_KEY": "Login resultat",
-            "MORE_KEY": "Mere",
-            "CURRENT_URL_KEY": "Nuværende url",
-            "REFRESH_PAGE_KEY": "Genopfrisk side"
+            "RESULT_KEY": "Resultat",
+            "SHOW_MORE_KEY": "Flere",
+            "CURRENT_ADDRESS_KEY": "Nuværende adresse",
+            "UPDATE_THE_PAGE_KEY": "Opdatér siden"
         }
     }
 }

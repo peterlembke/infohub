@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:15:45",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "sq",
         "language_name": "Albanian",
         "language_name_local": "Shqip",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Çfarë është kjo?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Një kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Kjo është forma e të dhënave për një kontakt",
+            "YOUR_CONTACT_INFORMATION_KEY": "Informacione mbi kontaktin",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Ky është informacioni i kontaktit tuaj",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Çdo tekst që dëshironi",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Shkruaj emrin tuaj njerëzor ose emrin e nyjes së serverit këtu",
             "NOTE_KEY": "Shënim",
-            "SAVE_KEY": "Ruaj",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Shkruaj çdo gjë që dëshiron të ruash me informacionet e kontaktit",
+            "SAVE_THE_DATA_KEY": "Ruaj të dhënat",
             "DOMAIN_ADDRESS_KEY": "Adresa Domain",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Adresa e domainës tek serveri juaj",
             "USER_NAME_KEY": "Emri i përdoruesit",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "E ndan këtë sekret me serverin",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Kontrolli i adresës së domain + emrit të përdoruesit të ndarë + sekret.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Plugin e serverit të lejuar",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Lista me të gjithë emrat e plugin të serverit ku mund të dërgoni mesazhe në nyjën remote"
+            "ROLES_KEY": "Roli",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Merr qasje në programe të ndryshme në varësi të roleve që ka informacioni i kontaktit"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Eksporto kontaktin",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Këtu mund të eksportoni të dhënat e kontaktit",
-            "EXPORT_KEY": "Eksporto"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksporto informacionet e kontaktit",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Këtu mund të eksportoni informacionet e kontaktit në një file të ri",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "I dobishëm nëse keni vendosur një fjalëkalim në file e informacionit të kontaktit"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Harro kontaktin",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Këtu mund ta lejoni shfletuesin të harrojë të dhënat e kontaktit.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Gjithmonë importo file.",
-            "FORGET_KEY": "Harro"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Harro informacionet e kontaktit",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Le ta harrojë shfletuesi informacionin tuaj të kontaktit në makinat publike.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Mund të importoni gjithmonë file e informacionit të kontaktit tuaj."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importo",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importo informacionet e kontaktit nga file",
-            "SELECT_FILE_KEY": "Zgjidh _gjithçka"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importo informacionet e kontaktit tuaj",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importo informacionet e kontaktit tuaj nga file",
+            "SELECT_A_FILE_KEY": "Zgjidh"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Futu",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Këtu mund të përdorësh të dhënat e kontaktit që importove dhe hyre në server",
+            "LOG_IN_KEY": "Fillo seancën",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Këtu mund të përdorni informacionet e kontaktit të importuara dhe të hyrjes në server",
             "PASSWORD_KEY": "Fjalëkalimi",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Fjalëkalimi që ju duhet të dekodoni sekretin e përbashkët",
-            "LOGIN_RESULT_KEY": "Rezultati i hyrjes",
-            "RELOAD_AFTER_LOGIN_KEY": "Rilexo mbas",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Nëse keni vendosur një fjalëkalim për të deshifruar sekretin e përbashkët, atëherë shkruani këtu",
+            "RESULT_FROM_LOG_IN_KEY": "Rezultati nga në",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Rifresko faqen mbas hyrjes",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Jeni rregullisht i futur",
             "MISSING_USER_NAME_KEY": "Mungon përdoruesi",
             "MISSING_RANDOM_CODE_KEY": "Mungon kodi",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Këto analiza të thjeshta tregojnë se kodi i rastit të paktën nuk është një linjë e sheshtë numrash."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logout",
+            "LOG_OUT_KEY": "Dil jashtë",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Këtu mund të dilni nga serveri",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Nëse është i suksesshëm, faqja e hyrjes shfaq",
-            "LOGOUT_RESULT_KEY": "Rezultati i logout",
-            "FAILED_TO_LOGOUT_KEY": "Gabim gjatë ndërprerjes së file",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Pasi të keni dalë, do të ridrejtoheni në faqen e hyrjes",
+            "RESULT_OF_LOGGING_OUT_KEY": "Rezultati i bllokimit",
+            "FAILED_TO_LOG_OUT_KEY": "Gabim gjatë regjistrimit të file",
             "SUCCESS_LOGGING_OUT_KEY": "Me sukses"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Importo të dhënat e kontaktit",
-            "LOGIN_KEY": "Futu",
-            "SET_PASSWORD_KEY": "Përcakto fjalëkalimin",
-            "EXPORT_CONTACT_DATA_KEY": "Eksporto të dhënat e kontaktit",
-            "LOGOUT_KEY": "Logout",
-            "FORGET_CONTACT_KEY": "Harro kontaktin"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importo informacionet e kontaktit tuaj",
+            "LOG_IN_KEY": "Fillo seancën",
+            "SET_A_PASSWORD_KEY": "Shkruaj një fjalëkalim",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Eksporto informacionet e kontaktit",
+            "LOG_OUT_KEY": "Dil jashtë",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Harro informacionet e kontaktit"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Përcakto fjalëkalimin",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Kur vendosni fjalëkalimin lokal ndryshoni sekretin e përbashkët në mënyrë që të kërkohet fjalëkalimi juaj për të punuar",
-            "CURRENT_PASSWORD_KEY": "Fjalëkalimi aktual",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Lëre të zbrazët nëse nuk ke",
-            "NEW_PASSWORD_KEY": "Fjalëkalimi i ri",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Dil bosh nëse dëshiron të heqësh fjalëkalimin",
-            "CHANGE_PASSWORD_KEY": "Ndrysho fjalëkalimin"
+            "SET_A_PASSWORD_KEY": "Shkruaj një fjalëkalim",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Kur vendosni një fjalëkalim lokal, atëhere mundoni sekretin e përbashkët në mënyrë që fjalëkalimi juaj të funksionojë",
+            "YOUR_CURRENT_PASSWORD_KEY": "Fjalëkalimi juaj aktual",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Dil bosh nëse nuk ke vendosur asnjë fjalëkalim",
+            "YOUR_NEW_PASSWORD_KEY": "Fjalëkalimi juaj i ri",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Mund ta lini bosh këtë nëse dëshironi të eleminoni fjalëkalimin",
+            "CHANGE_THE_PASSWORD_KEY": "Ndrysho fjalëkalimin"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Futu",
+            "LOG_IN_KEY": "Fillo seancën",
             "SELECT_FILE_KEY": "Zgjidh _gjithçka",
             "PASSWORD_KEY": "Fjalëkalimi",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Duke shkarkuar llogarinë",
-            "LOGIN_RESULT_KEY": "Rezultati i hyrjes",
-            "MORE_KEY": "Më shumë",
-            "CURRENT_URL_KEY": "Aktual",
-            "REFRESH_PAGE_KEY": "Rifresko faqe"
+            "RESULT_KEY": "Rezultati",
+            "SHOW_MORE_KEY": "Shfaq më shumë",
+            "CURRENT_ADDRESS_KEY": "Adresa aktuale",
+            "UPDATE_THE_PAGE_KEY": "Rifresko faqen"
         }
     }
 }

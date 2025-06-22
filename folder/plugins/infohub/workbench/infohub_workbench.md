@@ -1,23 +1,23 @@
 # InfoHub Workbench
 
-Handles the screen set up for your plugins.
+Handle the screen set up for your plugins.
 
 # Introduction
 
-InfoHub Workbench handle what you see on the screen. It sets up the basic graphical user interface. And it
+InfoHub Workbench handles what you see on the screen. It sets up the basic graphical user interface. And it
 starts [infohub_launcher](plugin,infohub_launcher).
 
 InfoHub Workbench gives you the possibility to start your plugins and switch between started plugins.
 
 # Function startup
 
-The function "startup" has nothing to do with Workbench. The very first message sent by include/start.js send the
+The function "startup" has nothing to do with Workbench. The very first message sent by include/start.js sends the
 message to infohub_exchange->startup.
 
 Then startup reads infohub_exchange.json to determine where the next message should go by looking at the URL domain you
 used.
 
-So startup really has nothing to do with Workbench. You will usually not use any function called "startup" in your
+Startup has nothing to do with Workbench. You will usually not use any function called "startup" in your
 plugins. You can read more about the startup procedure at: [Node Client](main,node_client)
 
 # Function set up_gui
@@ -86,24 +86,24 @@ Now you have some boxes to start with, and you can continue creating more boxes 
 
 Workbench set up a lot of boxes, here is a list of them
 
-- Box "main" contain child boxes "head" and "body" under each other.
-- Box "main.head" contain child boxes side by side with icon+title of started plugins.
+- Box "main" contains child boxes "head" and "body" under each other.
+- Box "main.head" contains child boxes side by side with icon+title of started plugins.
 - Box "main.head.{plugin_name}" one box for each started plugin. Shows plugin icon and title.
-- Box "main.body" contain one child box for each started plugin.
+- Box "main.body" contains one child box for each started plugin.
 - Box "main.body.{plugin_name}" This is your box.
 
-From the example above I created three boxes: first_box, second_box, third_box. The full path for the first_box is:
+From the example above, I created three boxes: first_box, second_box, third_box. The full path for the first_box is:
 main.body.{plugin_name}.first_box  
 When you want to reference the "first_box" in your plugin you use: `_GetBoxId() + '.first_box',`.  
-To learn more about how to use the boxes I recommend reading: [InfoHub_View](plugin,infohub_view)
+To learn more about how to use the boxes, I recommend reading: [InfoHub_View](plugin,infohub_view)
 
 # Launcher
 
-The plugin InfoHub_Launcher is auto started by Workbench. Launcher show two lists. One is "Available plugins", that
-is a list of plugins that can be started from Workbench. The list come from the server and is the same for every
+The plugin InfoHub_Launcher is auto started by Workbench. The Launcher shows two lists. One is "Available plugins", that
+is a list of plugins that can be started from Workbench. The list comes from the server and is the same for every
 visitor.
 
-You can click an icon and add it to "My list". The other list is "My list". That list show all plugins you want in your
+You can click an icon and add it to "My list". The other list is "My list". That list shows all plugins you want in your
 list. This list is personal and stored in your browser cache.
 
 You can "Remove" and icon from "My list" and you can "Run" a plugin from "My list".

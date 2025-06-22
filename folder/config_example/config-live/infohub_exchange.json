@@ -1,0 +1,115 @@
+{
+    "client": {
+        "domain": {
+            "default": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "www.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_exchange",
+                "function": "redirect",
+                "data": {
+                    "new_url": "https://infohub.se"
+                }
+            },
+            "private.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "infohub.se": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "doc.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
+            },
+            "demo.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
+            },
+            "vagrant.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "local.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "infohub.local": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "private.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_workbench",
+                "function": "startup"
+            },
+            "doc.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_doc"
+                }
+            },
+            "demo.infohub.local": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_demo"
+                }
+            },
+            "random.infohub.local": {
+                "node": "server",
+                "plugin": "infohub_random",
+                "function": "random_number",
+                "data": {
+                    "min": 1,
+                    "max": 100
+                }
+            }
+        },
+        "domain_guest": {
+            "default": {
+                "node": "client",
+                "plugin": "infohub_standalone",
+                "function": "startup",
+                "data": {
+                    "plugin_name": "infohub_login"
+                }
+            },
+            "www.infohub.se": {
+                "node": "client",
+                "plugin": "infohub_exchange",
+                "function": "redirect",
+                "data": {
+                    "new_url": "https://infohub.se"
+                }
+            }
+        }
+    },
+    "server": {
+        "log": {
+            "main": "",
+            "internal_ToSort": "",
+            "internal_GetConfigFromFile": ""
+        }
+    }
+}

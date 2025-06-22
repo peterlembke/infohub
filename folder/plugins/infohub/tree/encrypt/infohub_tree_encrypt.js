@@ -1,12 +1,14 @@
 /**
- * Protects your data with encryption before sending it to storage.
+ * infohub_tree_encrypt
+ * Makes sure no one else can read your personal data
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2022-03-13
+ * @package     Infohub
+ * @subpackage  infohub_tree_encrypt
  * @since       2020-07-25
- * @copyright   Copyright (c) 2020, Peter Lembke, CharZam soft
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/tree/storage/infohub_tree_storage.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/tree/encrypt/infohub_tree_encrypt.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_tree_encrypt() {

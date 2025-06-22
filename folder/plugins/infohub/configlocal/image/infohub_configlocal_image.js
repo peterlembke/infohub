@@ -1,12 +1,14 @@
 /**
+ * infohub_configlocal_image
  * Here you select what images you can see. Then we can provide the best images for you
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-09-24
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_image
  * @since       2020-09-07
- * @copyright   Copyright (c) 2020, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/image/infohub_configlocal_image.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/configlocal/image/infohub_configlocal_image.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_configlocal_image() {

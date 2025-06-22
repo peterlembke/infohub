@@ -1,0 +1,83 @@
+{
+    "client": {
+        "download_account": {
+            "localhost": "localhost.json",
+            "local.infohub.se": "local.infohub.se.json",
+            "infohub.local": "public-infohub.local.json",
+            "infohub.se": "public-infohub.se.json",
+            "demo.infohub.local": "public-demo.infohub.local.json",
+            "demo.infohub.se": "public-demo.infohub.se.json",
+            "doc.infohub.local": "public-doc.infohub.local.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
+        },
+        "information": {
+            "enable": "true",
+            "default_language": "en",
+            "available_languages": [
+                "en",
+                "sv",
+                "es",
+                "zh",
+                "da",
+                "de",
+                "el",
+                "et",
+                "fi",
+                "fr",
+                "hi",
+                "is",
+                "it",
+                "ja",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "ru"
+            ],
+            "folder": "plugin",
+            "path": "start_page_text",
+            "links": {
+                "Github Source": "https://github.com/peterlembke/infohub",
+                "Github Wiki": "https://github.com/peterlembke/infohub-articles#readme",
+                "X": "https://twitter.com/LembkePeter",
+                "LinkedIn Peter": "https://www.linkedin.com/in/peter-lembke-4b607293/",
+                "Support my effort with Paypal": "https://www.paypal.com/paypalme/peterlembke"
+            }
+        }
+    },
+    "server": {
+        "download_account": {
+            "localhost": "localhost.json",
+            "local.infohub.se": "local.infohub.se.json",
+            "infohub.local": "public-infohub.local.json",
+            "infohub.se": "public-infohub.se.json",
+            "demo.infohub.local": "public-demo.infohub.local.json",
+            "demo.infohub.se": "public-demo.infohub.se.json",
+            "doc.infohub.local": "public-doc.infohub.local.json",
+            "doc.infohub.se": "public-doc.infohub.se.json"
+        },
+        "information": {
+            "available_languages": [
+                "en",
+                "sv",
+                "es",
+                "zh",
+                "da",
+                "de",
+                "el",
+                "et",
+                "fi",
+                "fr",
+                "hi",
+                "is",
+                "it",
+                "ja",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "ru"
+            ]
+        }
+    }
+}

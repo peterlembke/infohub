@@ -1,12 +1,14 @@
 /**
+ * infohub_configlocal_language
  * Here you can set your preferred languages
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-03-12
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_language
  * @since       2019-03-12
- * @copyright   Copyright (c) 2019, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/language/infohub_configlocal_language.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/configlocal/language/infohub_configlocal_language.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_configlocal_language() {

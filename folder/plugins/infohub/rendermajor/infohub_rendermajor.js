@@ -1,22 +1,15 @@
 /**
- * infohub_rendermajor.js contact the renderers to get HTML and then send it to infohub_view
- * infohub_rendermajor and infohub_view are the only plugions that handle the DOM
- * @category InfoHub
- * @package infohub_rendermajor
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_rendermajor
+ * Renders a display box for content by assembling smaller standard parts
+ *
+ * @package     Infohub
+ * @subpackage  infohub_rendermajor
+ * @since       2016-10-26
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/rendermajor/infohub_rendermajor.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_rendermajor() {
 

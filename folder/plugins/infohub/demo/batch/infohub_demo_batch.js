@@ -1,12 +1,14 @@
 /**
- * Render a demo for batch messages
+ * infohub_demo_batch
+ * Render a demo for batch messages in infohub_demo
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2024-05-05
+ * @package     Infohub
+ * @subpackage  infohub_demo_batch
  * @since       2024-01-20
- * @copyright   Copyright (c) 2024, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/status/infohub_demo_status.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/demo/batch/infohub_demo_batch.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_demo_batch() {

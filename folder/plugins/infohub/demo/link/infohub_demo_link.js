@@ -1,12 +1,14 @@
 /**
+ * infohub_demo_link
  * Render a link demo for infohub_demo
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-03-28
+ * @package     Infohub
+ * @subpackage  infohub_demo_link
  * @since       2018-04-23
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/link/infohub_demo_link.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/demo/link/infohub_demo_link.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_demo_link() {

@@ -1,0 +1,9 @@
+{
+    "server": {
+        "add_clear_text_messages": "false",
+        "log_if_memory_peak_usage_above_mb": 10
+    },
+    "client": {
+        "add_clear_text_messages": "false"
+    }
+}

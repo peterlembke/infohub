@@ -1,24 +1,15 @@
 /**
- * infohub_storage store data in databases and is part of InfoHub.
- * Started writing code 2010-04-15 Peter Lembke - Team Fakta CharZam soft
- * Support for SQLite3, MySQL, PostgreSQL, Future support:Oracle, MS SQL
- * @category infohub
- * @package storage_mysql
- * @copyright Copyright (c) 2010, Peter Lembke, CharZam soft
- * @since 2014-12-06
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_storage_data_indexeddb
+ * Uses the local storage enginge IndexedDb
+ *
+ * @package     Infohub
+ * @subpackage  infohub_storage_data_indexeddb
+ * @since       
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/storage/data/indexeddb/infohub_storage_data_indexeddb.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_storage_data_indexeddb() {
 

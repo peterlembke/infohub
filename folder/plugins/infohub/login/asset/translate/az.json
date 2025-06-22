@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:12:45",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "az",
         "language_name": "Azerbaijani",
         "language_name_local": "Bakı",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Bu nədir?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Bir kontakt",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Bu, bir kontakt üçün məlumat forması",
+            "YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Bu sizin kontakt məlumat",
             "NODE_KEY": "Qeydiyyat",
-            "ANY_TEXT_YOU_WANT_KEY": "Axtarış",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "İnsan adı və ya server node adı yazın",
             "NOTE_KEY": "Qeyd",
-            "SAVE_KEY": "Yadda saxla",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "SAVE_THE_DATA_KEY": " data",
             "DOMAIN_ADDRESS_KEY": "Domain ünvanı",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Domen adı",
             "USER_NAME_KEY": "Ad Soyad",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Siz server ilə bu gizli paylaş",
             "CHECKSUM_KEY": "Bakı",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Domen adı + istifadəçi adı + paylaşılan gizli.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Yadda saxla",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Bütün server plugin adları ilə siyahı nodeyabrda mesaj göndərmək olar"
+            "ROLES_KEY": "Qeydiyyat",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "E-poçt ünvanı"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "İqtisadiyyat",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Burada əlaqə məlumatları ixrac edə bilərsiniz",
-            "EXPORT_KEY": "İdman"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Burada əlaqə məlumatlarınızı yeni fayla əlavə edə bilərsiniz",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "E-poçt ünvanı"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Axtarış",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Burada browser əlaqə məlumat unutmaq edə bilərsiniz.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Siz hər zaman yeni faylınızı səyahət edə bilərsiniz.",
-            "FORGET_KEY": "Tarix"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Kontakt məlumatını unut",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Browser ictimai maşınlarda kontakt məlumat unutmaq.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Siz hər zaman əlaqə məlumat faylını yeniləyə bilərsiniz."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Avtomobil",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Əməliyyatdan əlaqə məlumat",
-            "SELECT_FILE_KEY": "Proqram"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "E-poçt ünvanı",
+            "SELECT_A_FILE_KEY": "Bir fayl seçin"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Daxil ol",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Burada səyahətli məlumatlardan istifadə edə bilərsiniz və serverinə giriş",
+            "LOG_IN_KEY": "Daxil ol",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Burada avtomatik və server giriş əlaqə məlumat istifadə edə bilərsiniz",
             "PASSWORD_KEY": "Qeydiyyat",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Əgər məlumat kodlaşdırmaq lazımdır",
-            "LOGIN_RESULT_KEY": "Daxil ol",
-            "RELOAD_AFTER_LOGIN_KEY": "Giriş",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Siz paylaşılan gizli kodlaşdırmaq üçün bir şəkil əlavə etdiyiniz zaman, buraya da girin",
+            "RESULT_FROM_LOG_IN_KEY": "Qeydiyyatdan keçin",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Qeydiyyatdan sonra səhifə",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Siz artıq giriş",
             "MISSING_USER_NAME_KEY": "İstifadəçi adı",
             "MISSING_RANDOM_CODE_KEY": "Müxtəlif kod",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Bu sadə sınaqlar nümayəndəli kodun ən azı sayı düz bir sıra olmadığını göstərir."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Daxil ol",
+            "LOG_OUT_KEY": "Daxil ol",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Burada serverut ola bilərsiniz",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Yadda saxla",
-            "LOGOUT_RESULT_KEY": "Giriş",
-            "FAILED_TO_LOGOUT_KEY": "Şərh etmək",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Qeydiyyatdan sonra giriş səhifəsinə yönəcəksiniz",
+            "RESULT_OF_LOGGING_OUT_KEY": "Giriş növü",
+            "FAILED_TO_LOG_OUT_KEY": "Qeydiyyatdan keçin",
             "SUCCESS_LOGGING_OUT_KEY": "Müddət giriş"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Bakı",
-            "IMPORT_CONTACT_DATA_KEY": "Avtomatik məlumat",
-            "LOGIN_KEY": "Daxil ol",
-            "SET_PASSWORD_KEY": "Qeydiyyat",
-            "EXPORT_CONTACT_DATA_KEY": "İdman məlumatları",
-            "LOGOUT_KEY": "Daxil ol",
-            "FORGET_CONTACT_KEY": "Axtarış"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "LOG_IN_KEY": "Daxil ol",
+            "SET_A_PASSWORD_KEY": "Qeydiyyat",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "E-poçt ünvanı",
+            "LOG_OUT_KEY": "Daxil ol",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Kontakt məlumatını unut"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Qeydiyyat",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Siz yerli şəxsinizi dəyişdirdiyiniz zaman, bu, işləmək üçün şəkil dəstəyir",
-            "CURRENT_PASSWORD_KEY": "Qeydiyyat",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Siz heç bir şey deyil",
-            "NEW_PASSWORD_KEY": "Yeni şifre",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Qeydiyyatdan istifadə etmək istəyirsinizsə",
-            "CHANGE_PASSWORD_KEY": "Qeydiyyat"
+            "SET_A_PASSWORD_KEY": "Qeydiyyat",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Bir yerli şəkil dəyişdirdiyiniz zaman, o zaman siz paylaşılan gizli səfə edirsiniz, bu iş iş üçün şəkil lazımdır",
+            "YOUR_CURRENT_PASSWORD_KEY": "E-poçt ünvanı",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Heç bir şəkil qeyd etdiyiniz zaman boş oxu",
+            "YOUR_NEW_PASSWORD_KEY": "Yeni şifre",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Siz şəkil qarşısını almaq istəyirsiniz",
+            "CHANGE_THE_PASSWORD_KEY": "Qeydiyyatdan keçin"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Daxil ol",
+            "LOG_IN_KEY": "Daxil ol",
             "SELECT_FILE_KEY": "Proqram",
             "PASSWORD_KEY": "Qeydiyyat",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Proqram hesabı",
-            "LOGIN_RESULT_KEY": "Daxil ol",
-            "MORE_KEY": "Daha çox",
-            "CURRENT_URL_KEY": "Daxil ol",
-            "REFRESH_PAGE_KEY": "Axtarış"
+            "RESULT_KEY": "Sonuncu",
+            "SHOW_MORE_KEY": "Daha çox",
+            "CURRENT_ADDRESS_KEY": "Ad Soyad",
+            "UPDATE_THE_PAGE_KEY": " the"
         }
     }
 }

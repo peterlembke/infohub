@@ -1,12 +1,14 @@
 /**
- * Swedish personnummer (personal number) Checksums are calculated and verified here
+ * infohub_checksum_personnummer
+ * Swedish personnummer (personal ID number) are using a modified Luth formula to calculate the last checksum digit
  *
+ * @package     Infohub
+ * @subpackage  infohub_checksum_personnummer
+ * @since       2017-03-01
  * @author      Peter Lembke <info@infohub.se>
- * @version     2017-02-25
- * @since       2017-02-25
- * @copyright   Copyright (c) 2017, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/personnummer/infohub_checksum_personnummer.md Documentation
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/checksum/personnummer/infohub_checksum_personnummer.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_personnummer() {

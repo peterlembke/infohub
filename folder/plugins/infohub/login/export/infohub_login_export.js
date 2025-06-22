@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_export
+ * Export the contact data you have in the local storage
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_export
+ * @since       2019-09-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/export/infohub_login_export.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_export() {
 
@@ -83,15 +79,15 @@ function infohub_login_export() {
                         'container_export': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('EXPORT_CONTACT'),
-                            'foot_text': _Translate('HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA'),
+                            'head_label': _Translate('EXPORT_YOUR_CONTACT_INFORMATION'),
+                            'foot_text': _Translate('HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE')  + '. ' + _Translate('USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE') + '.',
                             'content_data': '[button_export]'
                         },
                         'button_export': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('EXPORT'),
+                            'button_label': _Translate('EXPORT_YOUR_CONTACT_INFORMATION'),
                             'event_data': 'export|export',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',

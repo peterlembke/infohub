@@ -1,36 +1,42 @@
 {
     "version": {
-        "date": "2021-08-12 12:24:28",
+        "date": "2025-06-16 21:04:45",
         "plugin": "infohub_launcher",
-        "data_checksum": "97c802d3f1aa93c3f7c76ec7c8314923",
+        "data_checksum": "0879d4227ba98c20e5160ec4270580fc",
         "language": "en",
-        "country": "GB",
-        "file_type": "translate_file"
+        "language_name": "English",
+        "language_name_local": "English",
+        "country": "",
+        "country_name": "",
+        "file_type": "translate_file",
+        "has_manual_translations": "false"
     },
     "launcher": {
-        "title": "Start",
-        "description": "Plugin with a graphical user interface that allow you to start plugins. The actual start is done by the Workbench."
+        "title": "Start applications",
+        "description": "Plugin with a GUI that show icons for available plugins that you can start. The actual starting are handled by the Workbench."
     },
     "data": {
         "infohub_launcher": {
             "SHOW_FAVORITES_OR_ALL_APPS_KEY": "Show favorites or all apps",
             "FAVORITES_KEY": "Favorites",
             "ALL_APPS_KEY": "All apps",
+            "INSTRUCTIONS_KEY": "Instructions",
+            "SWITCH_LIST._REFRESH._CLICK_ICON._KEY": "Switch list. Refresh. Click icon.",
+            "HELP_KEY": "Help",
             "MORE_KEY": "More",
-            "USER_NAME_KEY": "AUser name",
-            "CURRENT_URL_KEY": "Current URL",
-            "LOGOUT_KEY": "Log out",
+            "USER_NAME_KEY": "User name",
+            "CURRENT_URL_KEY": "Current url",
+            "LOGOUT_KEY": "Logout",
             "REFRESH_PAGE_KEY": "Refresh page",
-            "REFRESH_KEY": "Update",
             "UPDATE_THIS_LIST_KEY": "Update this list",
-            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST": "The list have no values",
-            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "There was an error in Addicon",
+            "GET_OPTION_LIST_CAN_NOT_GIVE_OPTION_VALUES_FOR_THE_LIST_KEY": "Get option list can not give option values for the list",
+            "THERE_WAS_AN_ERROR_IN_ADDICON_KEY": "There was an error in addicon",
             "ADDICON_GOT_AN_INVALID_LIST_KEY": "Addicon got an invalid list",
-            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon have an empty item",
+            "ADDICON_GOT_AN_EMPTY_ITEM_KEY": "Addicon got an empty item",
             "FAVORITE_KEY": "Favorite",
             "NO_FAVORITE_KEY": "No favorite",
             "START_KEY": "Start",
-            "START_IN_NEW_WINDOW_KEY": "Start in a new window"
+            "START_IN_NEW_WINDOW_KEY": "Start in new window"
         }
     }
 }

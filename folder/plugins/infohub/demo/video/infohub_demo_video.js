@@ -1,12 +1,14 @@
 /**
+ * infohub_demo_video
  * Render a video demo for infohub_demo
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2020-07-05
+ * @package     Infohub
+ * @subpackage  infohub_demo_video
  * @since       2018-04-15
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/demo/video/infohub_demo_video.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/demo/video/infohub_demo_video.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_demo_video() {

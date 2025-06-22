@@ -1,12 +1,14 @@
 /**
+ * infohub_configlocal_allow
  * Here you can set the allow level
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2018-05-25
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_allow
  * @since       2018-05-25
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/allow/infohub_configlocal_allow.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/configlocal/allow/infohub_configlocal_allow.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_configlocal_allow() {

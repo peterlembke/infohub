@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:10:18",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "bn",
         "language_name": "Bengali",
         "language_name_local": "বাংলা",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "এটা কি?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "একটি পরিচিতি নির্বাচন করুন",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "এই পরিচিতির তথ্য একটি নতুন পরিচিতির তথ্য",
+            "YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি সংক্রান্ত তথ্য",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "এই আপনার পরিচিতি সংক্রান্ত তথ্য",
             "NODE_KEY": "নোড",
-            "ANY_TEXT_YOU_WANT_KEY": "যে কোনো লেখা",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "আপনার মানব নাম অথবা সার্ভারের নোড লিখুন",
             "NOTE_KEY": "নোট",
-            "SAVE_KEY": "সংরক্ষণ",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি সম্পর্কিত তথ্য সংরক্ষণ করতে আপনি যা লিখেছেন তা লিখুন",
+            "SAVE_THE_DATA_KEY": "তথ্য সংরক্ষণ করো",
             "DOMAIN_ADDRESS_KEY": "ডোমেইনের ঠিকানা",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "আপনার সার্ভারের ডোমেইন",
             "USER_NAME_KEY": "ব্যবহারকারীর নাম",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "চিহ্নিত সার্ভারের সাথে এই গোপন সংযোগ স্থাপন করুন",
             "CHECKSUM_KEY": "চেকসাম",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "ডোমেন ঠিকানার উচ্চ পর্যায়ের + ব্যবহারকারীর নাম + + নম্বর গোপনভাবে ভাগ করা হয়েছে।.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "ব্যবহারযোগ্য সার্ভারের প্লাগ-ইন",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "দূরবর্তী নোডের মধ্যে উপস্থিত সকল সার্ভারের সাথে সংযোগ স্থাপন করা হবে"
+            "ROLES_KEY": "ভূমিকা",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "আপনার পরিচিতির তথ্য প্রাপ্তির জন্য বিভিন্ন অ্যাপ্লিকেশন দ্বারা আপনার পরিচিতি তথ্য ব্যবহার করা হচ্ছে"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "পরিচিতি এক্সপোর্ট করুন",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "এখানে আপনি পরিচিতিদের তথ্য এক্সপোর্ট করতে পারবেন",
-            "EXPORT_KEY": "এক্সপোর্ট করুন"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি তথ্য এক্সপোর্ট করুন",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "এখানে আপনি আপনার পরিচিতি নির্বাচন করতে পারেন",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "যোগাযোগ সংক্রান্ত তথ্য পরিবর্তন করতে সহায়ক প্রযুক্তি"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "যোগাযোগ মনে রাখা হবে না",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "এখানে ব্রাউজার পরিচিতিকে ভুলে যেতে পারেন।.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "আপনার ফাইল ইম্পোর্ট করা যাবে।.",
-            "FORGET_KEY": "ভুলে যাও"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "যোগাযোগ সংক্রান্ত তথ্য পরিবর্তন করুন",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "ব্রাউজার রিমোট কন্ট্রোলের মাধ্যমে আপনার পরিচিতি তথ্য ভুলে যেতে দিন।.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "আপনি সবসময় আপনার পরিচিতি ফাইল ইম্পোর্ট করতে পারবেন।."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "ইম্পোর্ট",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "ফাইল থেকে তথ্য ইম্পোর্ট করুন",
-            "SELECT_FILE_KEY": "ফাইল নির্বাচন করুন"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি তথ্য ইম্পোর্ট করুন",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "আপনার ফাইল থেকে তথ্য ইম্পোর্ট করুন",
+            "SELECT_A_FILE_KEY": "একটি ফাইল নির্বাচন করুন"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "লগ-ইন",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "এই সার্ভারে আপনার পরিচিতিগুলো ব্যবহার করে লগ-ইন করতে পারবেন।",
+            "LOG_IN_KEY": "লগিন",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "এই সার্ভারে আপনি পরিচিতিদের তথ্য এবং লগ-ইন করতে পারেন",
             "PASSWORD_KEY": "পাসওয়ার্ড",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "শেয়ার করা পাসওয়ার্ডটি আন-লক করা আবশ্যক",
-            "LOGIN_RESULT_KEY": "লগ-ইন ফলাফল",
-            "RELOAD_AFTER_LOGIN_KEY": "লগ-ইনের পরে পুনরায় লোড করুন",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "শেয়ার করতে পাসওয়ার্ড উল্লেখ করে..",
+            "RESULT_FROM_LOG_IN_KEY": "লগ থেকে প্রাপ্ত ফলাফল",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "লগ-ইন করার পরে আপডেট করুন",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "আপনি লগ-ইন করা অবস্থায় রয়েছে",
             "MISSING_USER_NAME_KEY": "অনুপস্থিত নাম",
             "MISSING_RANDOM_CODE_KEY": "অনুপস্থিত কোড",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "এই সহজ পরীক্ষা দেখায় যে, এলোমেলো কোড অন্তত সংখ্যা একটি সমতল লাইন নয় ।."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "লগ-আউট করুন",
+            "LOG_OUT_KEY": "লগ-আউট",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "এই সার্ভার থেকে লগ-আউট করা যাবে",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "লগ-ইন পৃষ্ঠা প্রদর্শনের সময় যদি সফল হয়",
-            "LOGOUT_RESULT_KEY": "লগ-আউটের ফলাফল",
-            "FAILED_TO_LOGOUT_KEY": "লগ-আউট করতে ব্যর্থ",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "লগ-আউট করার পরে, লগ-ইন করা হবে",
+            "RESULT_OF_LOGGING_OUT_KEY": "লগ করার ফলাফল",
+            "FAILED_TO_LOG_OUT_KEY": "লগ-আউট করতে ব্যর্থ",
             "SUCCESS_LOGGING_OUT_KEY": "লগ-আউট সফল হয়েছে"
         },
         "infohub_login_menu": {
             "MENU_KEY": "মেনু",
-            "IMPORT_CONTACT_DATA_KEY": "পরিচিতির তথ্য ইম্পোর্ট করুন",
-            "LOGIN_KEY": "লগ-ইন",
-            "SET_PASSWORD_KEY": "পাসওয়ার্ড নির্ধারণ করুন",
-            "EXPORT_CONTACT_DATA_KEY": "পরিচিতির তথ্য এক্সপোর্ট করুন",
-            "LOGOUT_KEY": "লগ-আউট করুন",
-            "FORGET_CONTACT_KEY": "যোগাযোগ মনে রাখা হবে না"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি তথ্য ইম্পোর্ট করুন",
+            "LOG_IN_KEY": "লগিন",
+            "SET_A_PASSWORD_KEY": "নতুন পাসওয়ার্ড: (_N)",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "আপনার পরিচিতি তথ্য এক্সপোর্ট করুন",
+            "LOG_OUT_KEY": "লগ-আউট",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "যোগাযোগ সংক্রান্ত তথ্য পরিবর্তন করুন"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "পাসওয়ার্ড নির্ধারণ করুন",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "যখন আপনি আপনার স্থানীয় পাসওয়ার্ড নিযুক্ত করেন তখন গোপন পাসওয়ার্ড লিখুন যেন এটি কাজে আসে",
-            "CURRENT_PASSWORD_KEY": "বর্তমান পাসওয়ার্ড",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "না থাকলে ফাঁকা রাখুন",
-            "NEW_PASSWORD_KEY": "নতুন পাসওয়ার্ড",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "পাসওয়ার্ড মুছে ফেলার পূর্বে নিশ্চিত হও",
-            "CHANGE_PASSWORD_KEY": "পাসওয়ার্ড পরিবর্তন"
+            "SET_A_PASSWORD_KEY": "নতুন পাসওয়ার্ড: (_N)",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "যখন আপনি একটি স্থানীয় পাসওয়ার্ড নিযুক্ত করেন তখন আপনাকে শেয়ারকৃত পাসওয়ার্ড পুনরায় উল্লেখ করতে হবে",
+            "YOUR_CURRENT_PASSWORD_KEY": "বর্তমান পাসওয়ার্ড লিখুন",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "যদি কোনো পাসওয়ার্ড নির্ধারণ না করা হয় তবে ফাঁকা রাখুন",
+            "YOUR_NEW_PASSWORD_KEY": "আপনার নতুন পাসওয়ার্ড",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "অাপনি পাসওয়ার্ড সরাতে চাইলে আপনি এই ফাঁকা রাখতে পারেন",
+            "CHANGE_THE_PASSWORD_KEY": "পাসওয়ার্ড পরিবর্তন"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "লগ-ইন",
+            "LOG_IN_KEY": "লগিন",
             "SELECT_FILE_KEY": "ফাইল নির্বাচন করুন",
             "PASSWORD_KEY": "পাসওয়ার্ড",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "অ্যাকাউন্ট ডাউনলোড করো",
-            "LOGIN_RESULT_KEY": "লগ-ইন ফলাফল",
-            "MORE_KEY": "মডেল",
-            "CURRENT_URL_KEY": "বর্তমান url",
-            "REFRESH_PAGE_KEY": "নতুন করে প্রদর্শন"
+            "RESULT_KEY": "ফলাফল",
+            "SHOW_MORE_KEY": "আরো বেশি দেখাও",
+            "CURRENT_ADDRESS_KEY": "বর্তমান ঠিকানা",
+            "UPDATE_THE_PAGE_KEY": "পেজ আপডেট করুন"
         }
     }
 }

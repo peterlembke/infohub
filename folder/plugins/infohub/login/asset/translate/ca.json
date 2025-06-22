@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 19:07:24",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "ca",
         "language_name": "Catalan",
         "language_name_local": "CatalàName",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Què és això?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Un contacte",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Aquesta és la forma de dades d' un contacte",
+            "YOUR_CONTACT_INFORMATION_KEY": "La vostra informació de contacte",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Aquesta és la vostra informació de contacte",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "Qualsevol text que vulgueu",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Escriviu aquí el vostre nom humà o el nom del node del servidor",
             "NOTE_KEY": "Nota",
-            "SAVE_KEY": "Desa",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Escriviu tot el que vulgueu desar amb la vostra informació de contacte",
+            "SAVE_THE_DATA_KEY": "Desa les dades",
             "DOMAIN_ADDRESS_KEY": "Adreça de domini",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "L' adreça de domini al servidor",
             "USER_NAME_KEY": "Nom d' usuari",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Compartiu aquest secret amb el servidor",
             "CHECKSUM_KEY": "Suma de verificació",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Suma de l' adreça de domini + nom d' usuari + secret compartit.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Connectors permesos del servidor",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Llista amb tots els noms de connectors del servidor, podeu enviar missatges al node remot"
+            "ROLES_KEY": "Rols",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Podeu accedir a aplicacions diferents depenent del rol que tingui la informació de contacte"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Exporta el contacte",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Aquí podeu exportar les dades del contacte",
-            "EXPORT_KEY": "Exporta"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Exporta la informació de contacte",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Aquí podeu exportar la vostra informació de contacte a un nou fitxer",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "És útil si heu establert una contrasenya en el vostre fitxer d' informació de contacte"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Oblida el contacte",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Aquí podeu deixar que el navegador oblidi les dades de contacte.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Sempre podeu tornar a importar el vostre fitxer.",
-            "FORGET_KEY": "Oblida"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Oblida la informació del contacte",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Que el navegador oblidi la teva informació de contacte en màquines públiques.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Sempre podeu importar el vostre fitxer d' informació de contacte de nou."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Importa",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Importa la informació de contacte des del fitxer",
-            "SELECT_FILE_KEY": "Selecció de fitxer"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importa la vostra informació de contacte",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Importa la informació de contacte des del fitxer",
+            "SELECT_A_FILE_KEY": "Seleccioneu un fitxer"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Entrada",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Aquí podeu usar les dades de contacte que heu importat i accedir al servidor",
+            "LOG_IN_KEY": "Registre en",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Aquí podeu usar la informació de contacte que heu importat i accedir al servidor",
             "PASSWORD_KEY": "Contrasenya",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "La contrasenya que heu de descodificar el secret compartit",
-            "LOGIN_RESULT_KEY": "Resultat de l' entrada",
-            "RELOAD_AFTER_LOGIN_KEY": "Recarrega després d' entrar",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Si heu establert una contrasenya per descodificar el secret compartit, llavors introduïu- la aquí",
+            "RESULT_FROM_LOG_IN_KEY": "Resultat del registre en",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Actualitza la pàgina després d' iniciar la sessió",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Ja esteu connectat",
             "MISSING_USER_NAME_KEY": "Falta nom d' usuari",
             "MISSING_RANDOM_CODE_KEY": "Falta el codi aleatori",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Aquestes proves simples mostren que el codi aleatori almenys no és una línia plana de números."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Surt",
+            "LOG_OUT_KEY": "Sortida",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Aquí podeu sortir del servidor",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Si es té èxit, la pàgina d' accés mostra",
-            "LOGOUT_RESULT_KEY": "Resultat de la sortida",
-            "FAILED_TO_LOGOUT_KEY": "Ha fallat en sortir",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Després d' accedir- vos a la pàgina d' accés se us redirigirà",
+            "RESULT_OF_LOGGING_OUT_KEY": "Resultat del registre",
+            "FAILED_TO_LOG_OUT_KEY": "Ha fallat en desconnectar",
             "SUCCESS_LOGGING_OUT_KEY": "S' ha completat el registre"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menú",
-            "IMPORT_CONTACT_DATA_KEY": "Importa dades de contacte",
-            "LOGIN_KEY": "Entrada",
-            "SET_PASSWORD_KEY": "Estableix la contrasenya",
-            "EXPORT_CONTACT_DATA_KEY": "Exporta les dades de contacte",
-            "LOGOUT_KEY": "Surt",
-            "FORGET_CONTACT_KEY": "Oblida el contacte"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Importa la vostra informació de contacte",
+            "LOG_IN_KEY": "Registre en",
+            "SET_A_PASSWORD_KEY": "Estableix una contrasenya",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Exporta la informació de contacte",
+            "LOG_OUT_KEY": "Sortida",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Oblida la informació del contacte"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Estableix la contrasenya",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Quan heu establert la vostra contrasenya local, tanqueu el secret compartit per tal que necessiti la vostra contrasenya per treballar",
-            "CURRENT_PASSWORD_KEY": "Contrasenya actual",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Deixa en blanc si no en teniu cap",
-            "NEW_PASSWORD_KEY": "Contrasenya nova",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Deixa en blanc si voleu eliminar la contrasenya",
-            "CHANGE_PASSWORD_KEY": "Canvia la contrasenya"
+            "SET_A_PASSWORD_KEY": "Estableix una contrasenya",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Quan heu establert una contrasenya local i després tanqueu el secret compartit per tal que requereix la vostra contrasenya per treballar",
+            "YOUR_CURRENT_PASSWORD_KEY": "La vostra contrasenya actual",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "Deixa en blanc si no heu establert cap contrasenya",
+            "YOUR_NEW_PASSWORD_KEY": "La vostra nova contrasenya",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Podeu deixar això en blanc si voleu eliminar la contrasenya",
+            "CHANGE_THE_PASSWORD_KEY": "Canvia la contrasenya"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Entrada",
+            "LOG_IN_KEY": "Registre en",
             "SELECT_FILE_KEY": "Selecció de fitxer",
             "PASSWORD_KEY": "Contrasenya",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Descarrega el compte de demostració",
-            "LOGIN_RESULT_KEY": "Resultat de l' entrada",
-            "MORE_KEY": "Més",
-            "CURRENT_URL_KEY": "URL actual",
-            "REFRESH_PAGE_KEY": "Refresca la pàgina"
+            "RESULT_KEY": "Resultat",
+            "SHOW_MORE_KEY": "Mostra més",
+            "CURRENT_ADDRESS_KEY": "Adreça actual",
+            "UPDATE_THE_PAGE_KEY": "Actualitza la pàgina"
         }
     }
 }

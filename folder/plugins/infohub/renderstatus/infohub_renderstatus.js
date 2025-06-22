@@ -1,12 +1,14 @@
 /**
- * Render a status indicator
+ * infohub_renderstatus
+ * Render a status indicator. You can switch between the statuses
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2021-07-25
+ * @package     Infohub
+ * @subpackage  infohub_renderstatus
  * @since       2021-07-25
- * @copyright   Copyright (c) 2021, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/renderstatus/infohub_renderstatus.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/renderstatus/infohub_renderstatus.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_renderstatus() {

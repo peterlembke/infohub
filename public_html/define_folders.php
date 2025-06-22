@@ -15,7 +15,7 @@ if (file_exists('fullstop.flag') == true) {
  * Folders created here
  *
  * @author      Peter Lembke <info@infohub.se>
- * @version     2022-11-04
+ * @version     2025-06-13
  * @since       2015-11-15
  * @copyright   Copyright (c) 2015, Peter Lembke
  * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
@@ -25,6 +25,11 @@ if (file_exists('fullstop.flag') == true) {
 const DS = DIRECTORY_SEPARATOR;
 
 $currentWorkingDirectory = getcwd();
+define('WORKING_DIRECTORY', $currentWorkingDirectory);
+
+const PUBLIC_HTML = WORKING_DIRECTORY; // Public files that are available for the web server
+setRights(path: PUBLIC_HTML);
+
 $rootDirectory = str_replace('/public_html', '', $currentWorkingDirectory);
 
 $isFolderInfoHubExisting = is_dir($rootDirectory . DS . 'infohub') === true;
@@ -57,9 +62,6 @@ setRights(path: CONFIG);
 const FILE = MAIN . DS . 'file'; // Files for import/export. Used in the future for backup/restore of data
 setRights(path: FILE);
 
-const PUBLIC_HTML = ROOT . DS . 'public_html'; // Public files that are available for the web server
-setRights(path: PUBLIC_HTML);
-
 function setRights(string $path): void {
     if (is_dir($path) === false) {
         @mkdir($path, 0777, true);
@@ -68,4 +70,3 @@ function setRights(string $path): void {
         @chmod($path, 0777);
     }
 }
-

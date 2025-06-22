@@ -1,20 +1,15 @@
-/**    infohub_uuid.js
-
- Copyright (C) 2018 Peter Lembke , Infohub.se
- the program is distributed under the terms of the GNU General Public License
-
- infohub_uuid.js is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- infohub_uuid.js is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with infohub_uuid.js.    If not, see <https://www.gnu.org/licenses/>.
+/**
+ * infohub_uuid
+ * Universally Unique IDentifier (UUID)
+ *
+ * @package     Infohub
+ * @subpackage  infohub_uuid
+ * @since       2018-05-19
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/uuid/infohub_uuid.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_uuid() {
 
@@ -181,7 +176,6 @@ function infohub_uuid() {
      * @author Jeff Ward (jcward.com).
      * @license MIT license
      * Modified 2018-07-28 by Peter Lembke to fit in Infohub
-     * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
      **/
     $functions.push('guidv4b');
     const guidv4b = function($in = {}) {

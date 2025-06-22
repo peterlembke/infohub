@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_login
+ * Login to the server with the imported contact data
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_login
+ * @since       2019-09-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/login/infohub_login_login.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_login() {
 
@@ -101,14 +97,14 @@ function infohub_login_login() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_password][button_login][status_message][button_refresh]',
-                            'label': _Translate('LOGIN'),
-                            'description': _Translate('HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER')
+                            'label': _Translate('LOG_IN'),
+                            'description': _Translate('HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER')
                         },
                         'text_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'password',
                             'label': _Translate('PASSWORD'),
-                            'description': _Translate('THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET'),
+                            'description': _Translate('IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
@@ -121,7 +117,7 @@ function infohub_login_login() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('LOGIN'),
+                            'button_label': _Translate('LOG_IN'),
                             'event_data': 'login|login',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',
@@ -133,7 +129,7 @@ function infohub_login_login() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': _Translate('LOGIN_RESULT') + ':',
+                            'data': _Translate('RESULT_FROM_LOG_IN') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block',
                         },
@@ -141,7 +137,7 @@ function infohub_login_login() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('RELOAD_AFTER_LOGIN'),
+                            'button_label': _Translate('UPDATE_THE_PAGE_AFTER_LOGIN'),
                             'event_data': 'login|reload',
                             'to_plugin': 'infohub_debug',
                             'to_function': 'reload_page',

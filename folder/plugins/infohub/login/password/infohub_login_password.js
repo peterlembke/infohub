@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_password
+ * Change local password on the shared_secret and private_secret
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_password
+ * @since       2019-09-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/password/infohub_login_password.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_password() {
 
@@ -95,14 +91,14 @@ function infohub_login_password() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_current_password][text_new_password][button_change]',
-                            'label': _Translate('SET_PASSWORD'),
-                            'description': _Translate('WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK')
+                            'label': _Translate('SET_A_PASSWORD'),
+                            'description': _Translate('WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK')
                         },
                         'text_current_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'password',
-                            'label': _Translate('CURRENT_PASSWORD'),
-                            'description': _Translate('LEAVE_BLANK_IF_YOU_HAVE_NONE'),
+                            'label': _Translate('YOUR_CURRENT_PASSWORD'),
+                            'description': _Translate('LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD'),
                             'maxlength': '30',
                             'show_characters_left': 'false',
                             'show_generate_password': 'false',
@@ -113,8 +109,8 @@ function infohub_login_password() {
                         'text_new_password': {
                             'plugin': 'infohub_renderform',
                             'type': 'password',
-                            'label': _Translate('NEW_PASSWORD'),
-                            'description': _Translate('LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD'),
+                            'label': _Translate('YOUR_NEW_PASSWORD'),
+                            'description': _Translate('YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD'),
                             'maxlength': '30',
                             'show_characters_left': 'true',
                             'show_generate_password': 'true',
@@ -127,7 +123,7 @@ function infohub_login_password() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('CHANGE_PASSWORD'),
+                            'button_label': _Translate('CHANGE_THE_PASSWORD'),
                             'event_data': 'password|password_change',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',

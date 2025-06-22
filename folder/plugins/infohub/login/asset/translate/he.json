@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:55:22",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "he",
         "language_name": "Hebrew",
         "language_name_local": "עברית",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "מה זה?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "מגע אחד",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "זהו טופס הנתונים ליצירת קשר אחד",
+            "YOUR_CONTACT_INFORMATION_KEY": "פרטי הקשר שלך",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "זהו פרטי הקשר שלך",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "כל טקסט שאתה רוצה",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "כתוב את השם האנושי שלך או את שם השרת",
             "NOTE_KEY": "Note",
-            "SAVE_KEY": "להציל",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "כתוב כל מה שאתה רוצה לאחסן עם פרטי הקשר שלך",
+            "SAVE_THE_DATA_KEY": "להציל את הנתונים",
             "DOMAIN_ADDRESS_KEY": "כתובת Domain",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "כתובת התחום לשרת שלך",
             "USER_NAME_KEY": "שם המשתמש",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "אתה משתף את הסוד הזה עם השרת",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "בדוק את כתובת התחום + שם המשתמש + סוד משותף.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "תוסף Server",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "רשימה עם כל שמות תוסף השרת שאתה יכול לשלוח הודעות על הצומת המרוחק"
+            "ROLES_KEY": "תפקידים",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "אתה מקבל גישה יישומים שונים בהתאם לתפקידים של פרטי הקשר שלך יש"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "צור קשר",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "כאן תוכל לייצא את נתוני הקשר",
-            "EXPORT_KEY": "יצוא"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "ייצוא פרטי הקשר שלך",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "כאן תוכל לייצא את פרטי הקשר שלך לקובץ חדש",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "שימושי אם יש לך להגדיר סיסמה על קובץ פרטי הקשר שלך"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "שכח מגע",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "כאן אתה יכול לתת לדפדפן לשכוח את נתוני הקשר.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "תמיד ניתן לייבא את הקובץ שוב.",
-            "FORGET_KEY": "שכחה"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "שכח את פרטי הקשר שלך",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "תן לדפדפן לשכוח את פרטי הקשר שלך על מכונות ציבוריות.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "אתה תמיד יכול לייבא את קובץ פרטי הקשר שלך שוב."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "יבוא",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "ייבוא פרטי הקשר מקובץ",
-            "SELECT_FILE_KEY": "קובץ"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "ייבוא פרטי הקשר שלך",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "ייבוא פרטי הקשר שלך מקובץ",
+            "SELECT_A_FILE_KEY": "בחר קובץ"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "כניסה",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "כאן אתה יכול להשתמש בנתונים ליצירת קשר שאתה מיובא ומכניסה לשרת",
+            "LOG_IN_KEY": "היכנס",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "כאן אתה יכול להשתמש פרטי הקשר שאתה מיובא ולהיכנס לשרת",
             "PASSWORD_KEY": "סיסמה",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "הסיסמה שאתה צריך לפענח את הסוד המשותף",
-            "LOGIN_RESULT_KEY": "תוצאות",
-            "RELOAD_AFTER_LOGIN_KEY": "Reload לאחר כניסה",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "אם הגדרת סיסמה כדי לפענח את הסוד המשותף ואז הזן אותו כאן",
+            "RESULT_FROM_LOG_IN_KEY": "מקור: Log In",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "עדכון הדף לאחר כניסה",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "אתה כבר מחובר",
             "MISSING_USER_NAME_KEY": "שם המשתמש החסר",
             "MISSING_RANDOM_CODE_KEY": "קוד אקראי חסר",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "בדיקות פשוטות אלה מראות כי קוד אקראי לפחות אינו קו שטוח של מספרים."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logout",
+            "LOG_OUT_KEY": "עקבו",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "כאן אתה יכול להתנתק מהשרת",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "אם יצליח, דף הכניסה מראה",
-            "LOGOUT_RESULT_KEY": "תוצאות Logout",
-            "FAILED_TO_LOGOUT_KEY": "נכשלת כדי להיכנס",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "לאחר שחתמת, תפנה לדף הכניסה",
+            "RESULT_OF_LOGGING_OUT_KEY": "תוצאות של logging",
+            "FAILED_TO_LOG_OUT_KEY": "נכשל לצאת",
             "SUCCESS_LOGGING_OUT_KEY": "הצלחה יוצאת החוצה"
         },
         "infohub_login_menu": {
             "MENU_KEY": "תפריט",
-            "IMPORT_CONTACT_DATA_KEY": "ייבוא Contact Data",
-            "LOGIN_KEY": "כניסה",
-            "SET_PASSWORD_KEY": "הגדרת סיסמה",
-            "EXPORT_CONTACT_DATA_KEY": "נתוני צור קשר",
-            "LOGOUT_KEY": "Logout",
-            "FORGET_CONTACT_KEY": "שכח מגע"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "ייבוא פרטי הקשר שלך",
+            "LOG_IN_KEY": "היכנס",
+            "SET_A_PASSWORD_KEY": "הגדר סיסמה",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "ייצוא פרטי הקשר שלך",
+            "LOG_OUT_KEY": "עקבו",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "שכח את פרטי הקשר שלך"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "הגדרת סיסמה",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "כאשר אתה מגדיר את הסיסמה המקומית שלך אתה מזיז את הסוד המשותף כך שהוא דורש את הסיסמה שלך לעבוד",
-            "CURRENT_PASSWORD_KEY": "הסיסמה הנוכחית",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "עזוב אם אין לך",
-            "NEW_PASSWORD_KEY": "סיסמה חדשה",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "להשאיר ריק אם אתה רוצה להסיר את הסיסמה",
-            "CHANGE_PASSWORD_KEY": "שינוי הסיסמה"
+            "SET_A_PASSWORD_KEY": "הגדר סיסמה",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "כאשר אתה מגדיר סיסמה מקומית, אתה מתאמץ את הסוד המשותף כך שהוא דורש את הסיסמה שלך לעבוד",
+            "YOUR_CURRENT_PASSWORD_KEY": "הסיסמה הנוכחית שלך",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "להשאיר ריק אם לא הגדרת סיסמה",
+            "YOUR_NEW_PASSWORD_KEY": "הסיסמה החדשה שלך",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "אתה יכול להשאיר את הריק אם אתה רוצה להסיר את הסיסמה",
+            "CHANGE_THE_PASSWORD_KEY": "לשנות את הסיסמה"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "כניסה",
+            "LOG_IN_KEY": "היכנס",
             "SELECT_FILE_KEY": "קובץ",
             "PASSWORD_KEY": "סיסמה",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "הורד חשבון ההדגמה",
-            "LOGIN_RESULT_KEY": "תוצאות",
-            "MORE_KEY": "עוד יותר",
-            "CURRENT_URL_KEY": "Url",
-            "REFRESH_PAGE_KEY": "דף מרעננים"
+            "RESULT_KEY": "תוצאה",
+            "SHOW_MORE_KEY": "הצג עוד",
+            "CURRENT_ADDRESS_KEY": "הכתובת הנוכחית",
+            "UPDATE_THE_PAGE_KEY": "עדכון הדף"
         }
     }
 }

@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_contact
+ * Store, View, Load the contact from Storage
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_contact
+ * @since       2019-09-08
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/contact/infohub_login_contact.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_contact() {
 
@@ -118,15 +114,15 @@ function infohub_login_contact() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[text_node][text_note][button_save][text_domain_address][text_user_name][text_shared_secret][text_checksum][list_role_list]',
-                            'label': _Translate('ONE_CONTACT'),
-                            'description': _Translate('THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT'),
+                            'label': _Translate('YOUR_CONTACT_INFORMATION'),
+                            'description': _Translate('THIS_IS_YOUR_CONTACT_INFORMATION'),
                             'open': 'false'
                         },
                         'text_node': {
                             'plugin': 'infohub_renderform',
                             'type': 'text',
                             'label': _Translate('NODE'),
-                            'description': _Translate('ANY_TEXT_YOU_WANT'),
+                            'description': _Translate('WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE'),
                             'maxlength': '30',
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
@@ -136,7 +132,7 @@ function infohub_login_contact() {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
                             'label': _Translate('NOTE'),
-                            'description': _Translate('ANY_TEXT_YOU_WANT'),
+                            'description': _Translate('WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION'),
                             'validator_plugin': 'infohub_validate',
                             'validator_function': 'validate_has_data',
                             'show_characters': 'false',
@@ -148,7 +144,7 @@ function infohub_login_contact() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('SAVE'),
+                            'button_label': _Translate('SAVE_THE_DATA'),
                             'event_data': 'contact|save',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',
@@ -193,8 +189,8 @@ function infohub_login_contact() {
                         'list_role_list': {
                             'plugin': 'infohub_renderform',
                             'type': 'textarea',
-                            "label": _Translate("ALLOWED_SERVER_PLUGINS"),
-                            "description": _Translate("LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE"),
+                            "label": _Translate("ROLES"),
+                            "description": _Translate("YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS"),
                             'show_characters': 'false',
                             'show_words': 'false',
                             'show_rows': 'false',

@@ -1,12 +1,14 @@
 /**
+ * infohub_configlocal_zoom
  * Here you can set the zoom level
  *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2019-10-18
+ * @package     Infohub
+ * @subpackage  infohub_configlocal_zoom
  * @since       2018-05-25
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/configlocal/zoom/infohub_configlocal_zoom.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/configlocal/zoom/infohub_configlocal_zoom.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_configlocal_zoom() {

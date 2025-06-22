@@ -4,4 +4,4 @@ This is version 1.3.x
 
 Main focus here is to get InfoHub Tree working.
 
-Then add a lot of plugins that uses InfoHub Tree.
+Then add a lot of plugins that use InfoHub Tree.

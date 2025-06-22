@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:21:52",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "th",
         "language_name": "Thai",
         "language_name_local": "ภาษาไทยName",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "นี่อะไร?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "1 คน",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "นี่เป็นแบบฟอร์มข้อมูลสําหรับการติดต่อเดียว",
+            "YOUR_CONTACT_INFORMATION_KEY": "ข้อมูลที่อยู่ติดต่อของคุณ",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "นี่เป็นข้อมูลติดต่อของคุณ",
             "NODE_KEY": "โหนด",
-            "ANY_TEXT_YOU_WANT_KEY": "ข้อความที่คุณต้องการ",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "เขียนชื่อของมนุษย์ หรือชื่อโหนดของแม่ข่ายที่นี่",
             "NOTE_KEY": "บันทึกย่อ",
-            "SAVE_KEY": "บันทึก",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "เขียนสิ่งที่คุณต้องการจัดเก็บโดยใช้ข้อมูลที่อยู่ติดต่อของคุณ",
+            "SAVE_THE_DATA_KEY": "บันทึกข้อมูล",
             "DOMAIN_ADDRESS_KEY": "ที่อยู่โดเมน",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "ที่อยู่โดเมนของเซิร์ฟเวอร์ของคุณ",
             "USER_NAME_KEY": "ชื่อผู้ใช้",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "คุณแบ่งปันความลับนี้กับเซิร์ฟเวอร์",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Checksum ของโดเมน + ชื่อผู้ใช้ + แบ่งปันความลับ.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "โปรแกรมเสริมของแม่ข่ายที่อนุญาต",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "แสดงรายการส่วนเสริมของแม่ข่ายทั้งหมด คุณสามารถส่งจดหมายไปยังโหนดทางไกลได้"
+            "ROLES_KEY": "บทบาท",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "คุณเข้าถึงโปรแกรมอื่น ๆ ได้ ขึ้นอยู่กับบทบาทที่ข้อมูลติดต่อของคุณ"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "ส่งออกที่อยู่ติดต่อ",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "คุณสามารถส่งออกข้อมูลที่อยู่ติดต่อได้ที่นี่",
-            "EXPORT_KEY": "ส่งออก"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "ส่งออกข้อมูลที่อยู่ติดต่อของคุณ",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "คุณสามารถส่งออกข้อมูลที่อยู่ติดต่อของคุณไปยังแฟ้มใหม่ได้ที่นี่",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "มีประโยชน์ หากคุณได้ตั้งค่ารหัสผ่านบนแฟ้มข้อมูลที่อยู่ติดต่อของคุณ"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "ลืมที่อยู่ติดต่อ",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "คุณสามารถให้เบราว์เซอร์ลืมข้อมูลที่อยู่ติดต่อได้ที่นี่.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "คุณสามารถนําเข้าไฟล์ของคุณอีกครั้ง.",
-            "FORGET_KEY": "ลืม"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "ลืมข้อมูลที่อยู่ติดต่อของคุณ",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "ให้เว็บเบราว์เซอร์ลืมข้อมูลการติดต่อของเครื่องสาธารณะ.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "คุณสามารถนําเข้าข้อมูลติดต่อได้อีกครั้ง."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "นําเข้า",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "นําเข้าข้อมูลที่อยู่ติดต่อจากแฟ้ม",
-            "SELECT_FILE_KEY": "เลือกแฟ้ม"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "นําเข้าข้อมูลที่อยู่ติดต่อของคุณ",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "นําเข้าข้อมูลที่อยู่ติดต่อของคุณจากแฟ้ม",
+            "SELECT_A_FILE_KEY": "เลือกแฟ้ม"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "ล็อกอิน",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "คุณสามารถใช้ข้อมูลติดต่อที่คุณนําเข้าและล็อกอินไปยังเซิร์ฟเวอร์ได้ที่นี่",
+            "LOG_IN_KEY": "ล็อกอิน",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "คุณสามารถใช้ข้อมูลติดต่อที่คุณนําเข้าและล็อกอินไปยังเซิร์ฟเวอร์ได้ที่นี่",
             "PASSWORD_KEY": "รหัสผ่าน",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "รหัสผ่านที่คุณต้องการเพื่อถอดรหัสความลับที่ใช้ร่วมกัน",
-            "LOGIN_RESULT_KEY": "ผลการล็อกอิน",
-            "RELOAD_AFTER_LOGIN_KEY": "โหลดใหม่หลังจากล็อกอินแล้ว",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "หากคุณได้ตั้งค่ารหัสผ่านที่จะถอดรหัสความลับที่ใช้ร่วมกันแล้วใส่มันที่นี่",
+            "RESULT_FROM_LOG_IN_KEY": "ผลมาจากปูมบันทึก",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "ปรับปรุงหน้าหลังจากล็อกอินแล้ว",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "คุณล็อคแล้ว",
             "MISSING_USER_NAME_KEY": "ชื่อของผู้ใช้สูญหาย",
             "MISSING_RANDOM_CODE_KEY": "สุ่มรหัส",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "การทดสอบง่ายๆ เหล่านี้แสดงให้เห็นว่า รหัสสุ่มอย่างน้อย ไม่ใช่เส้นราบของตัวเลข."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "ออกจากระบบ",
+            "LOG_OUT_KEY": "ออกจากระบบ",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "คุณสามารถออกจากเซิร์ฟเวอร์ได้ที่นี่",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "ถ้าสําเร็จ จะแสดงหน้าล็อกอิน",
-            "LOGOUT_RESULT_KEY": "ผลการออกจากระบบ",
-            "FAILED_TO_LOGOUT_KEY": "การออกจากระบบล้มเหลว",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "หลังจากออกจากระบบแล้ว คุณจะถูกส่งไปยังหน้าล็อกอิน",
+            "RESULT_OF_LOGGING_OUT_KEY": "ผล ของ การ ตัด ไม้",
+            "FAILED_TO_LOG_OUT_KEY": "ล้มเหลวในการออกจากระบบ",
             "SUCCESS_LOGGING_OUT_KEY": "สําเร็จ"
         },
         "infohub_login_menu": {
             "MENU_KEY": "เมนู",
-            "IMPORT_CONTACT_DATA_KEY": "นําเข้าข้อมูลที่อยู่ติดต่อ",
-            "LOGIN_KEY": "ล็อกอิน",
-            "SET_PASSWORD_KEY": "ตั้งค่ารหัสผ่าน",
-            "EXPORT_CONTACT_DATA_KEY": "ส่งออกข้อมูลที่อยู่ติดต่อ",
-            "LOGOUT_KEY": "ออกจากระบบ",
-            "FORGET_CONTACT_KEY": "ลืมที่อยู่ติดต่อ"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "นําเข้าข้อมูลที่อยู่ติดต่อของคุณ",
+            "LOG_IN_KEY": "ล็อกอิน",
+            "SET_A_PASSWORD_KEY": "ตั้งค่ารหัสผ่าน",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "ส่งออกข้อมูลที่อยู่ติดต่อของคุณ",
+            "LOG_OUT_KEY": "ออกจากระบบ",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "ลืมข้อมูลที่อยู่ติดต่อของคุณ"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "ตั้งค่ารหัสผ่าน",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "เมื่อคุณตั้งค่ารหัสผ่านในเครื่องของคุณ คุณอ่านค่าลับที่ใช้ร่วมกันเพื่อให้มันต้องการรหัสผ่านของคุณในการทํางาน",
-            "CURRENT_PASSWORD_KEY": "รหัสผ่านปัจจุบัน",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "ทิ้งช่องว่างไว้ หากคุณไม่มี",
-            "NEW_PASSWORD_KEY": "รหัสผ่านใหม่",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "ทิ้งช่องว่างไว้ หากคุณต้องการลบรหัสผ่าน",
-            "CHANGE_PASSWORD_KEY": "เปลี่ยนรหัสผ่าน"
+            "SET_A_PASSWORD_KEY": "ตั้งค่ารหัสผ่าน",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "เมื่อคุณตั้งค่ารหัสผ่านในเครื่อง คุณจะทําการสลับกุญแจที่ใช้ร่วมกันเพื่อให้มันต้องการรหัสผ่านของคุณในการทํางาน",
+            "YOUR_CURRENT_PASSWORD_KEY": "รหัสผ่านปัจจุบันของคุณ",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "ทิ้งช่องว่างไว้ หากคุณยังไม่ได้ตั้งรหัสผ่าน",
+            "YOUR_NEW_PASSWORD_KEY": "รหัสผ่านตัวใหม่ของคุณ",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "คุณสามารถปล่อยช่องว่างนี้ไว้ได้ หากคุณต้องการลบรหัสผ่าน",
+            "CHANGE_THE_PASSWORD_KEY": "เปลี่ยนรหัสผ่าน"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "ล็อกอิน",
+            "LOG_IN_KEY": "ล็อกอิน",
             "SELECT_FILE_KEY": "เลือกแฟ้ม",
             "PASSWORD_KEY": "รหัสผ่าน",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "ดาวน์โหลดบัญชีผู้ใช้ของสาธิต",
-            "LOGIN_RESULT_KEY": "ผลการล็อกอิน",
-            "MORE_KEY": "เพิ่มเติม",
-            "CURRENT_URL_KEY": "Url ปัจจุบัน",
-            "REFRESH_PAGE_KEY": "ปรับปรุงหน้าใหม่"
+            "RESULT_KEY": "ผลลัพธ์",
+            "SHOW_MORE_KEY": "แสดงเพิ่มเติม",
+            "CURRENT_ADDRESS_KEY": "ที่อยู่ปัจจุบัน",
+            "UPDATE_THE_PAGE_KEY": "ปรับปรุงหน้า"
         }
     }
 }

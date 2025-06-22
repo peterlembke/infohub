@@ -1,29 +1,15 @@
 /**
- * Class infohub_encrypt
- * To keep your data secret and pointless to steal you can encrypt your data.
- * Encryption hide your data in a data mess. Decryption restores your data.
- * You need to provide a random and long encryption_key
- * @category InfoHub
- * @package Encrypt
- * @copyright Copyright (c) 2019, Peter Lembke, CharZam soft
- * @since 2019-11-19
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_encrypt
+ * You can encrypt/decrypt your data to keep the contents secret
  *
- * https://openpgpjs.org/
- * https://openpgpjs.org/openpgpjs/doc/#encrypt-and-decrypt-uint8array-data-with-a-password
- * https://github.com/openpgpjs/openpgpjs/tree/master/dist
+ * @package     Infohub
+ * @subpackage  infohub_encrypt
+ * @since       2019-11-19
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/encrypt/infohub_encrypt.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_encrypt() {
 

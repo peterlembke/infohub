@@ -1,20 +1,15 @@
-/**    infohub_compress_gzip
-
- Copyright (C) 2019 Peter Lembke , CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- infohub_compress_gzip is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- infohub_compress_gzip is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Infohub_Checksum.    If not, see <https://www.gnu.org/licenses/>.
+/**
+ * infohub_compress_gzip
+ * The gzip compression is both fast and compress good. Suitable for storage and for data transfer
+ *
+ * @package     Infohub
+ * @subpackage  infohub_compress_gzip
+ * @since       2019-07-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/compress/gzip/infohub_compress_gzip.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_compress_gzip() {
 

@@ -1,22 +1,15 @@
 /**
- * infohub_renderform.js contact the renderers to get HTML and then send it to infohub_view
- * infohub_renderform and infohub_view are the only plugions that handle the DOM
- * @category InfoHub
- * @package infohub_renderform
- * @copyright Copyright (c) 2010-, Peter Lembke, CharZam soft
- * @author Peter Lembke <peter.lembke@infohub.se>
- * @link https://infohub.se/ InfoHub main page
- * @license InfoHub is distributed under the terms of the GNU General Public License
- * InfoHub is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * InfoHub is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with InfoHub.    If not, see <https://www.gnu.org/licenses/>.
+ * infohub_renderform
+ * Adds more features to the basic render form elements
+ *
+ * @package     Infohub
+ * @subpackage  infohub_renderform
+ * @since       2018-05-30
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/renderform/infohub_renderform.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_renderform() {
 
@@ -84,6 +77,8 @@ function infohub_renderform() {
         return $response;
     };
 
+    let $classTranslations = {};
+
     // *****************************************************************************
     // * Functions you only can reach with CMD()
     // * Observe function names are lower_case
@@ -102,6 +97,7 @@ function infohub_renderform() {
         const $default = {
             'item_index': {},
             'config': {},
+            'translations': {},
             'data_back': {
                 'item_name': '',
                 'item_index_done': {},
@@ -126,6 +122,7 @@ function infohub_renderform() {
         }
 
         if ($in.step === 'step_create') {
+            $classTranslations = $in.translations;
             if (_Count($in.item_index) > 0) {
                 const $itemData = _Pop($in.item_index);
                 const $itemName = $itemData.key;
@@ -780,7 +777,7 @@ function infohub_renderform() {
             $parts.characters_left = {
                 'type': 'common',
                 'subtype': 'label_data',
-                'label': 'Left',
+                'label': _Translate('Left'),
                 'data': '-',
             };
             $parts.presentation_box.content_data = $parts.presentation_box.content_data + '[characters_left]';
@@ -1004,7 +1001,7 @@ function infohub_renderform() {
             $parts.characters_left = {
                 'type': 'common',
                 'subtype': 'label_data',
-                'label': 'Left',
+                'label': _Translate('Left'),
                 'data': '-',
             };
         }

@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_standalone
+ * Login to the server with the imported contact data
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_standalone
+ * @since       2021-08-10
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/standalone/infohub_login_standalone.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_standalone() {
 
@@ -100,7 +96,7 @@ function infohub_login_standalone() {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
                             'content': '[my_file_selector][text_password][button_login][status_message][button_export]',
-                            'label': _Translate('LOGIN')
+                            'label': _Translate('LOG_IN')
                         },
                         'my_file_selector': {
                             'plugin': 'infohub_renderform',
@@ -122,7 +118,7 @@ function infohub_login_standalone() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('LOGIN'),
+                            'button_label': _Translate('LOG_IN'),
                             'event_data': 'login|login',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',
@@ -159,15 +155,15 @@ function infohub_login_standalone() {
                             'type': 'common',
                             'subtype': 'container',
                             'tag': 'span',
-                            'data': _Translate('LOGIN_RESULT') + ':',
+                            'data': _Translate('RESULT') + ':',
                             'class': 'container-pretty',
                             'display': 'inline-block',
                         },
                         'form_more': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[current_url]<br>[button_refresh]',
-                            'label': _Translate('MORE'),
+                            'content': '[current_url]<br>[button_refresh][keyboard_icon]',
+                            'label': _Translate('SHOW_MORE'),
                             'label_icon': '[down_icon]',
                             'description': '',
                             'open': 'false',
@@ -186,14 +182,14 @@ function infohub_login_standalone() {
                         'current_url': {
                             'type': 'common',
                             'subtype': 'value',
-                            'data': _Translate('CURRENT_URL') + ': ' + window.location.href,
+                            'data': _Translate('CURRENT_ADDRESS') + ': ' + window.location.href,
                         },
                         'button_refresh': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'subtype': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REFRESH_PAGE'),
+                            'button_label': _Translate('UPDATE_THE_PAGE'),
                             'button_left_icon': '[refresh_icon]',
                             'to_plugin': 'infohub_debug',
                             'to_function': 'refresh_plugins_and_reload_page',
@@ -208,6 +204,21 @@ function infohub_login_standalone() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'refresh',
+                            'plugin_name': 'infohub_login',
+                        },
+                        'keyboard_icon': {
+                            'type': 'common',
+                            'subtype': 'image',
+                            'data': '[keyboard_asset]',
+                            'css_data': {
+                                '.image': 'width:640px;padding: 4px;',
+                            },
+                        },
+                        'keyboard_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'image',
+                            'subtype': 'png',
+                            'asset_name': 'keyboard-diagram-function-buttons',
                             'plugin_name': 'infohub_login',
                         },
                     },

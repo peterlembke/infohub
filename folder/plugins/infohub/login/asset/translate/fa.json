@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:07:10",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "fa",
         "language_name": "Persian",
         "language_name_local": "فارسی",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "این چیست؟?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "یک تماس",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "این نوع داده ها برای یک تماس",
+            "YOUR_CONTACT_INFORMATION_KEY": "اطلاعات تماس شما",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "این اطلاعات تماس شما است",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "هر متن که می خواهید",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "نام انسان یا نام گره سرور را اینجا بنویسید",
             "NOTE_KEY": "توجه داشته باشید",
-            "SAVE_KEY": "Save",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "هر چیزی را که می خواهید با اطلاعات تماس خود ذخیره کنید بنویسید",
+            "SAVE_THE_DATA_KEY": "ذخیره داده ها",
             "DOMAIN_ADDRESS_KEY": "Domain Address",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "آدرس دامنه به سرور شما",
             "USER_NAME_KEY": "نام کاربری",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "این راز را با سرور به اشتراک می گذارید",
             "CHECKSUM_KEY": "بررسی",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "بررسی آدرس دامنه + نام کاربری + راز مشترک.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "افزونه های Server",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "لیست با تمام نام های پلاگین سرور شما می توانید پیام ها را در گره دور ارسال کنید"
+            "ROLES_KEY": "نقش ها",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "شما دسترسی به برنامه های مختلف بسته به نقش های اطلاعات تماس خود را"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "تماس با صادرات",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "در اینجا می توانید داده های تماس را صادر کنید",
-            "EXPORT_KEY": "صادرات"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "صادرات اطلاعات تماس شما",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "در اینجا می توانید اطلاعات تماس خود را به یک فایل جدید صادر کنید",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "مفید اگر شما یک رمز عبور در فایل اطلاعات تماس خود تنظیم کرده اید"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "فراموش کردن تماس",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "در اینجا می توانید اجازه دهید مرورگر اطلاعات تماس را فراموش کند.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "شما همیشه می توانید فایل خود را دوباره وارد کنید.",
-            "FORGET_KEY": "فراموش نکنید"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "اطلاعات تماس خود را فراموش کنید",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "اجازه دهید مرورگر اطلاعات تماس شما را در دستگاه های عمومی فراموش کند.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "شما همیشه می توانید فایل اطلاعات تماس خود را دوباره وارد کنید."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "واردات",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "واردات اطلاعات تماس از فایل",
-            "SELECT_FILE_KEY": "انتخاب فایل"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "واردات اطلاعات تماس شما",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "اطلاعات تماس خود را از فایل وارد کنید",
+            "SELECT_A_FILE_KEY": "انتخاب فایل"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "ورود",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "در اینجا می توانید از داده های تماسی که وارد کرده اید و به سرور وارد می شوید استفاده کنید",
+            "LOG_IN_KEY": "ورود در",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "در اینجا می توانید از اطلاعات تماسی که وارد کرده اید و به سرور وارد می شوید استفاده کنید",
             "PASSWORD_KEY": "Password",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "رمز عبور شما نیاز به رمزگشایی راز مشترک",
-            "LOGIN_RESULT_KEY": "نتیجه ورود",
-            "RELOAD_AFTER_LOGIN_KEY": "Reload پس از ورود",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "اگر یک رمز عبور برای رمزگشایی راز مشترک تنظیم کرده اید، آن را در اینجا وارد کنید",
+            "RESULT_FROM_LOG_IN_KEY": "نتیجه گیری از log in",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "به روز رسانی صفحه پس از ورود",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "شما قبلا وارد شده اید",
             "MISSING_USER_NAME_KEY": "نام کاربری گمشده",
             "MISSING_RANDOM_CODE_KEY": "کد تصادفی گم شده",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "این تست های ساده نشان می دهند که کد تصادفی حداقل یک خط صاف از اعداد نیست."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logout",
+            "LOG_OUT_KEY": "ورود",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "در اینجا می توانید از سرور خارج شوید",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "اگر موفقیت آمیز باشد، صفحه ورود نشان می دهد",
-            "LOGOUT_RESULT_KEY": "نتیجه ورود",
-            "FAILED_TO_LOGOUT_KEY": "شکست در ورود",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "پس از ثبت نام شما به صفحه ورود هدایت می شود",
+            "RESULT_OF_LOGGING_OUT_KEY": "نتیجه ورود به خارج",
+            "FAILED_TO_LOG_OUT_KEY": "شکست در ورود",
             "SUCCESS_LOGGING_OUT_KEY": "موفقیت"
         },
         "infohub_login_menu": {
             "MENU_KEY": "منوی menu",
-            "IMPORT_CONTACT_DATA_KEY": "اطلاعات تماس واردات",
-            "LOGIN_KEY": "ورود",
-            "SET_PASSWORD_KEY": "گزینه Password",
-            "EXPORT_CONTACT_DATA_KEY": "اطلاعات تماس صادرات",
-            "LOGOUT_KEY": "Logout",
-            "FORGET_CONTACT_KEY": "فراموش کردن تماس"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "واردات اطلاعات تماس شما",
+            "LOG_IN_KEY": "ورود در",
+            "SET_A_PASSWORD_KEY": "ایجاد یک رمز عبور",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "صادرات اطلاعات تماس شما",
+            "LOG_OUT_KEY": "ورود",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "اطلاعات تماس خود را فراموش کنید"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "گزینه Password",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "هنگامی که رمز عبور محلی خود را تنظیم می کنید، راز مشترک را به کار می برید تا نیاز به رمز عبور شما برای کار داشته باشد",
-            "CURRENT_PASSWORD_KEY": "Current Password",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "اگر هیچ",
-            "NEW_PASSWORD_KEY": "رمز عبور جدید",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "اگر می خواهید رمز عبور را حذف کنید",
-            "CHANGE_PASSWORD_KEY": "تغییر رمز عبور"
+            "SET_A_PASSWORD_KEY": "ایجاد یک رمز عبور",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "هنگامی که یک رمز عبور محلی را تنظیم می کنید، راز مشترک را به کار می برید تا به رمز عبور شما برای کار نیاز داشته باشد",
+            "YOUR_CURRENT_PASSWORD_KEY": "رمز عبور فعلی شما",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "اگر هیچ رمز عبوری را تنظیم نکرده اید",
+            "YOUR_NEW_PASSWORD_KEY": "رمز عبور جدید شما",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "شما می توانید این سفید را ترک کنید اگر می خواهید رمز عبور را حذف کنید",
+            "CHANGE_THE_PASSWORD_KEY": "تغییر رمز عبور"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "ورود",
+            "LOG_IN_KEY": "ورود در",
             "SELECT_FILE_KEY": "انتخاب فایل",
             "PASSWORD_KEY": "Password",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "دانلود بازی Demo account",
-            "LOGIN_RESULT_KEY": "نتیجه ورود",
-            "MORE_KEY": "بیشتر",
-            "CURRENT_URL_KEY": "URL فعلی",
-            "REFRESH_PAGE_KEY": "صفحه بازسازی"
+            "RESULT_KEY": "نتیجه",
+            "SHOW_MORE_KEY": "نمایش بیشتر",
+            "CURRENT_ADDRESS_KEY": "آدرس فعلی",
+            "UPDATE_THE_PAGE_KEY": "به روز رسانی صفحه"
         }
     }
 }

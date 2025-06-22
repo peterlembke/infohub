@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_login_forget
+ * Forget the contact data that might exist in the storage
+ *
+ * @package     Infohub
+ * @subpackage  infohub_login_forget
+ * @since       2019-09-14
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/login/forget/infohub_login_forget.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_login_forget() {
 
@@ -104,16 +100,16 @@ function infohub_login_forget() {
                         'container_forget': {
                             'plugin': 'infohub_rendermajor',
                             'type': 'presentation_box',
-                            'head_label': _Translate('FORGET_CONTACT'),
-                            'foot_text': _Translate('HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA.') + ' ' +
-                                _Translate('YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN.'),
+                            'head_label': _Translate('FORGET_YOUR_CONTACT_INFORMATION'),
+                            'foot_text': _Translate('LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES.') + ' ' +
+                                _Translate('YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN.'),
                             'content_data': '[button_forget]'
                         },
                         'button_forget': {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('FORGET'),
+                            'button_label': _Translate('FORGET_YOUR_CONTACT_INFORMATION'),
                             'event_data': 'forget|forget',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',

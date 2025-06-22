@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2010- Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * infohub_privacy_browser
+ * Browser tests to show you what information you reveal
+ *
+ * @package     Infohub
+ * @subpackage  infohub_privacy_browser
+ * @since       2020-05-01
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/privacy/browser/infohub_privacy_browser.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_privacy_browser() {
 
@@ -204,8 +200,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link http://www.webondevices.com/9-javascript-apis-accessing-device-sensors/
-     * @link https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -281,8 +275,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link http://www.webondevices.com/9-javascript-apis-accessing-device-sensors/
-     * @link https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -336,7 +328,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link
         * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */
@@ -512,7 +503,6 @@ function infohub_privacy_browser() {
      * @version 2020-05-02
      * @since   2020-05-02
      * @author  Peter Lembke
-     * @link https://www.w3schools.com/jsref/obj_navigator.asp
      * @param $in
      * @returns {{answer: *, message: *, ok: *}}
      */

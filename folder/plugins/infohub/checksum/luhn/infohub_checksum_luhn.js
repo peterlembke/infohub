@@ -1,12 +1,14 @@
 /**
- * Luhn Checksums are calculated and verified here
+ * infohub_checksum_luhn
+ * The Luhn algorithm from 1954 are used in US and Canadian social security numbers
  *
+ * @package     Infohub
+ * @subpackage  infohub_checksum_luhn
+ * @since       2017-03-01
  * @author      Peter Lembke <info@infohub.se>
- * @version     2017-02-25
- * @since       2017-02-25
- * @copyright   Copyright (c) 2017, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/checksum/luhn/infohub_checksum_luhn.md Documentation
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/checksum/luhn/infohub_checksum_luhn.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_checksum_luhn() {

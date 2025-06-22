@@ -1,8 +1,8 @@
 {
     "version": {
-        "date": "2025-06-08 18:39:46",
+        "date": "2025-06-18 07:06:41",
         "plugin": "infohub_login",
-        "data_checksum": "3a54ba3a88dc75f26a5466d65d0f5ea6",
+        "data_checksum": "f3bdf01463f3971dfb292dcf076f4c9c",
         "language": "ms",
         "language_name": "Malay",
         "language_name_local": "Bahasa Melayu",
@@ -22,12 +22,13 @@
             "WHAT_IS_THIS?_KEY": "Apa ini?"
         },
         "infohub_login_contact": {
-            "ONE_CONTACT_KEY": "Satu kontak",
-            "THIS_IS_THE_DATA_FORM_FOR_ONE_CONTACT_KEY": "Ini adalah bentuk data untuk satu kontak",
+            "YOUR_CONTACT_INFORMATION_KEY": "Informasi kontak Anda",
+            "THIS_IS_YOUR_CONTACT_INFORMATION_KEY": "Ini adalah informasi kontak Anda",
             "NODE_KEY": "Node",
-            "ANY_TEXT_YOU_WANT_KEY": "SMS apapun yang kau mau",
+            "WRITE_YOUR_HUMAN_NAME_OR_THE_SERVER_NODE_NAME_HERE_KEY": "Woinchi Tulis nama manusia Anda atau nama nod server di sini",
             "NOTE_KEY": "Catatan:",
-            "SAVE_KEY": "Simpan",
+            "WRITE_ANYTHING_YOU_WANT_TO_STORE_WITH_YOUR_CONTACT_INFORMATION_KEY": "Anda ingin menyimpan informasi kontak Anda",
+            "SAVE_THE_DATA_KEY": "Simpan data",
             "DOMAIN_ADDRESS_KEY": "Alamat Domain Domain",
             "THE_DOMAIN_ADDRESS_TO_YOUR_SERVER_KEY": "Alamat domain ke server Anda",
             "USER_NAME_KEY": "Nama pengguna:",
@@ -36,32 +37,31 @@
             "YOU_SHARE_THIS_SECRET_WITH_THE_SERVER_KEY": "Anda berbagi rahasia ini dengan server",
             "CHECKSUM_KEY": "Checksum",
             "CHECKSUM_OF_DOMAIN_ADDRESS_+_USER_NAME_+_SHARED_SECRET._KEY": "Woadon Checksum dari alamat domain + nama pengguna + rahasia bersama.",
-            "ALLOWED_SERVER_PLUGINS_KEY": "Plugin server yang diizinkan",
-            "LIST_WITH_ALL_SERVER_PLUGIN_NAMES_YOU_CAN_SEND_MESSAGES_TO_ON_THE_REMOTE_NODE_KEY": "Senaraikan dengan semua nama plugin server yang dapat anda kirim ke node jauh"
+            "ROLES_KEY": "Peranan",
+            "YOU_GET_ACCESS_TO_DIFFERENT_APPLICATIONS_DEPENDING_ON_THE_ROLES_YOUR_CONTACT_INFORMATION_HAS_KEY": "Anda mendapatkan akses ke aplikasi yang berbeda tergantung pada peran informasi kontak Anda"
         },
         "infohub_login_export": {
-            "EXPORT_CONTACT_KEY": "Ekspor kontak",
-            "HERE_YOU_CAN_EXPORT_THE_CONTACT_DATA_KEY": "Di sini Anda dapat mengekspor data kontak",
-            "EXPORT_KEY": "Ekspor"
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Informasi kontak Anda",
+            "HERE_YOU_CAN_EXPORT_YOUR_CONTACT_INFORMATION_TO_A_NEW_FILE_KEY": "Di sini anda dapat mengekspor informasi kontak anda ke berkas baru",
+            "USEFUL_IF_YOU_HAVE_SET_A_PASSWORD_ON_YOUR_CONTACT_INFORMATION_FILE_KEY": "Berguna jika anda telah menetapkan kata sandi pada berkas informasi kontak anda"
         },
         "infohub_login_forget": {
-            "FORGET_CONTACT_KEY": "Lupa kontak",
-            "HERE_YOU_CAN_LET_THE_BROWSER_FORGET_THE_CONTACT_DATA._KEY": "Di sini Anda dapat membiarkan peramban melupakan data kontak.",
-            "YOU_CAN_ALWAYS_IMPORT_YOUR_FILE_AGAIN._KEY": "Kau selalu bisa mengimpor berkasmu lagi.",
-            "FORGET_KEY": "Lupakan"
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Lupa informasi kontak Anda",
+            "LET_THE_BROWSER_FORGET_YOUR_CONTACT_INFORMATION_ON_PUBLIC_MACHINES._KEY": "Melupakan informasi kontak Anda pada mesin publik.",
+            "YOU_CAN_ALWAYS_IMPORT_YOUR_CONTACT_INFORMATION_FILE_AGAIN._KEY": "Anda selalu dapat mengimpor file informasi kontak Anda lagi."
         },
         "infohub_login_import": {
-            "IMPORT_KEY": "Import",
-            "IMPORT_THE_CONTACT_INFORMATION_FROM_FILE_KEY": "Maklumat kontak dari berkas",
-            "SELECT_FILE_KEY": "Pilih berkas"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Liat informasi kontak Anda",
+            "IMPORT_YOUR_CONTACT_INFORMATION_FROM_FILE_KEY": "Impor informasi kontak Anda dari berkas",
+            "SELECT_A_FILE_KEY": "Pilih sebuah berkas"
         },
         "infohub_login_login": {
-            "LOGIN_KEY": "Log masuk",
-            "HERE_YOU_CAN_USE_THE_CONTACT_DATA_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Di sini anda dapat menggunakan data kontak yang anda import dan log masuk ke server",
+            "LOG_IN_KEY": "Log masuk",
+            "HERE_YOU_CAN_USE_THE_CONTACT_INFORMATION_YOU_IMPORTED_AND_LOGIN_TO_THE_SERVER_KEY": "Di sini anda dapat menggunakan informasi kontak yang anda import dan log masuk ke server",
             "PASSWORD_KEY": "Kata Sandi",
-            "THE_PASSWORD_YOU_NEED_TO_DECODE_THE_SHARED_SECRET_KEY": "Kata sandi yang Anda butuhkan untuk memecahkan kode rahasia bersama",
-            "LOGIN_RESULT_KEY": "Hasil Daftar Masuk",
-            "RELOAD_AFTER_LOGIN_KEY": "Muat semula setelah login",
+            "IF_YOU_HAVE_SET_A_PASSWORD_TO_DECODE_THE_SHARED_SECRET_THEN_ENTER_IT_HERE_KEY": "Jika Anda telah menetapkan kata sandi untuk memecahkan kode rahasia terbagi maka masukkan di sini",
+            "RESULT_FROM_LOG_IN_KEY": "Hasil dari catatan masuk",
+            "UPDATE_THE_PAGE_AFTER_LOGIN_KEY": "Update halaman setelah login",
             "YOU_ARE_ALREADY_LOGGED_IN_KEY": "Anda sudah log masuk",
             "MISSING_USER_NAME_KEY": "Nama pengguna hilang XML",
             "MISSING_RANDOM_CODE_KEY": "Hilang kode acak",
@@ -75,40 +75,40 @@
             "THESE_SIMPLE_TESTS_SHOW_THAT_THE_RANDOM_CODE_AT_LEAST_IS_NOT_A_FLAT_LINE_OF_NUMBERS._KEY": "Tes sederhana ini menunjukkan bahwa kode acak setidaknya bukan garis rata angka."
         },
         "infohub_login_logout": {
-            "LOGOUT_KEY": "Logkeluar",
+            "LOG_OUT_KEY": "Log keluar",
             "HERE_YOU_CAN_LOGOUT_FROM_THE_SERVER_KEY": "Di sini anda dapat log keluar dari server",
-            "IF_SUCCESSFUL_THEN_THE_LOGIN_PAGE_SHOWS_KEY": "Jika Anda berhasil maka halaman login akan ditampilkan",
-            "LOGOUT_RESULT_KEY": "Hasil Logkeluar",
-            "FAILED_TO_LOGOUT_KEY": "Gagal logkeluar",
+            "AFTER_YOU_HAVE_LOGGED_OUT_YOU_WILL_BE_REDIRECTED_TO_THE_LOGIN_PAGE_KEY": "Setelah anda log keluar, anda akan dialihkan ke halaman log masuk",
+            "RESULT_OF_LOGGING_OUT_KEY": "Hasil pencatatan keluar",
+            "FAILED_TO_LOG_OUT_KEY": "Gagal log keluar",
             "SUCCESS_LOGGING_OUT_KEY": "Pengelogan sukses keluar"
         },
         "infohub_login_menu": {
             "MENU_KEY": "Menu",
-            "IMPORT_CONTACT_DATA_KEY": "Import data kontak",
-            "LOGIN_KEY": "Log masuk",
-            "SET_PASSWORD_KEY": "Kata sandi",
-            "EXPORT_CONTACT_DATA_KEY": "Eksport data kontak",
-            "LOGOUT_KEY": "Logkeluar",
-            "FORGET_CONTACT_KEY": "Lupa kontak"
+            "IMPORT_YOUR_CONTACT_INFORMATION_KEY": "Liat informasi kontak Anda",
+            "LOG_IN_KEY": "Log masuk",
+            "SET_A_PASSWORD_KEY": "Alfa",
+            "EXPORT_YOUR_CONTACT_INFORMATION_KEY": "Informasi kontak Anda",
+            "LOG_OUT_KEY": "Log keluar",
+            "FORGET_YOUR_CONTACT_INFORMATION_KEY": "Lupa informasi kontak Anda"
         },
         "infohub_login_password": {
-            "SET_PASSWORD_KEY": "Kata sandi",
-            "WHEN_YOU_SET_YOUR_LOCAL_PASSWORD_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRE_YOUR_PASSWORD_TO_WORK_KEY": "Ketika Anda menetapkan kata sandi lokal Anda Anda mengocok rahasia bersama sehingga perlu kata sandi Anda untuk bekerja",
-            "CURRENT_PASSWORD_KEY": "Kata sandi saat ini",
-            "LEAVE_BLANK_IF_YOU_HAVE_NONE_KEY": "Biarkan kosong jika Anda tidak punya",
-            "NEW_PASSWORD_KEY": "Kata sandi baru",
-            "LEAVE_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "*** Biarkan kosong jika anda ingin membuang kata sandi",
-            "CHANGE_PASSWORD_KEY": "Kata sandi"
+            "SET_A_PASSWORD_KEY": "Alfa",
+            "WHEN_YOU_SET_A_LOCAL_PASSWORD_THEN_YOU_SCRAMBLE_THE_SHARED_SECRET_SO_THAT_IT_REQUIRES_YOUR_PASSWORD_TO_WORK_KEY": "Bila anda menetapkan kata sandi lokal maka anda mengocok rahasia yang dibagikan sehingga memerlukan kata sandi anda untuk bekerja",
+            "YOUR_CURRENT_PASSWORD_KEY": "Kata sandi Anda saat ini",
+            "LEAVE_BLANK_IF_YOU_HAVE_NOT_SET_ANY_PASSWORD_KEY": "*** Biarkan kosong jika anda tidak menetapkan kata sandi apapun",
+            "YOUR_NEW_PASSWORD_KEY": "Kata sandi baru Anda",
+            "YOU_CAN_LEAVE_THIS_BLANK_IF_YOU_WANT_TO_REMOVE_THE_PASSWORD_KEY": "Anda boleh membiarkan kosong ini jika anda ingin membuang kata sandi",
+            "CHANGE_THE_PASSWORD_KEY": "Kata sandinya berubah"
         },
         "infohub_login_standalone": {
-            "LOGIN_KEY": "Log masuk",
+            "LOG_IN_KEY": "Log masuk",
             "SELECT_FILE_KEY": "Pilih berkas",
             "PASSWORD_KEY": "Kata Sandi",
             "DOWNLOAD_DEMO_ACCOUNT_KEY": "Muat turun akun demo",
-            "LOGIN_RESULT_KEY": "Hasil Daftar Masuk",
-            "MORE_KEY": "Amerika Serikat",
-            "CURRENT_URL_KEY": "Url saat ini",
-            "REFRESH_PAGE_KEY": "Halaman baru"
+            "RESULT_KEY": "Hasil",
+            "SHOW_MORE_KEY": "Lebih banyak pertunjukan",
+            "CURRENT_ADDRESS_KEY": "Alamat saat ini",
+            "UPDATE_THE_PAGE_KEY": "Update halaman"
         }
     }
 }

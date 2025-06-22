@@ -1,19 +1,15 @@
 /**
- Copyright (C) 2017 Peter Lembke, CharZam soft
- the program is distributed under the terms of the GNU General Public License
-
- InfoHub is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- InfoHub is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with InfoHub.  If not, see <https://www.gnu.org/licenses/>.'
+ * Launcher
+ * Plugin with a GUI where you can start other plugins
+ *
+ * @package     Infohub
+ * @subpackage  infohub_launcher
+ * @since       2017-06-02
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/launcher/infohub_launcher.md Documentation
+ * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_launcher() {
 
@@ -474,8 +470,8 @@ function infohub_launcher() {
                         'form_contact': {
                             'plugin': 'infohub_renderform',
                             'type': 'form',
-                            'content': '[user_name]<br>[current_url]<br>[button_logout]<br>[button_refresh]',
-                            'label': _Translate('MORE'),
+                            'content': '[user_name]<br>[current_url]<br>[button_logout]<br>[button_refresh]<br>[keyboard_icon]',
+                            'label': _Translate('SHOW_MORE'),
                             'label_icon': '[down_icon]',
                             'description': '',
                             'open': 'false',
@@ -505,7 +501,7 @@ function infohub_launcher() {
                             'plugin': 'infohub_renderform',
                             'type': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('LOGOUT'),
+                            'button_label': _Translate('LOG_OUT'),
                             'event_data': 'logout|logout',
                             'to_plugin': 'infohub_login',
                             'to_function': 'click',
@@ -515,7 +511,7 @@ function infohub_launcher() {
                             'type': 'button',
                             'subtype': 'button',
                             'mode': 'button',
-                            'button_label': _Translate('REFRESH_PAGE'),
+                            'button_label': _Translate('UPDATE_THE_PAGE'),
                             'button_left_icon': '[refresh_icon]',
                             'to_plugin': 'infohub_debug',
                             'to_function': 'refresh_plugins_and_reload_page',
@@ -530,6 +526,21 @@ function infohub_launcher() {
                             'plugin': 'infohub_asset',
                             'type': 'icon',
                             'asset_name': 'refresh',
+                            'plugin_name': 'infohub_launcher',
+                        },
+                        'keyboard_icon': {
+                            'type': 'common',
+                            'subtype': 'image',
+                            'data': '[keyboard_asset]',
+                            'css_data': {
+                                '.image': 'width:640px;padding: 4px;',
+                            },
+                        },
+                        'keyboard_asset': {
+                            'plugin': 'infohub_asset',
+                            'type': 'image',
+                            'subtype': 'png',
+                            'asset_name': 'keyboard-diagram-function-buttons',
                             'plugin_name': 'infohub_launcher',
                         },
                     },
@@ -879,7 +890,7 @@ function infohub_launcher() {
 
             let $item = {
                 'plugin': 'refresh',
-                'title': _Translate('REFRESH THE LIST'),
+                'title': _Translate('UPDATE_THIS_LIST'),
                 'description': _Translate('UPDATE_THIS_LIST'),
                 'icon': $in.response.asset,
                 'icon_license': $in.response.asset_license,
@@ -1284,7 +1295,7 @@ function infohub_launcher() {
             }
 
             if ($in.response.answer === 'false') {
-                $message = $in.response.message; // Perhaps we are off-line and can not get a full_list.
+                $message = $in.response.message; // Perhaps we are off-line and can't get a full_list.
 
                 return _SubCall({
                     'to': {

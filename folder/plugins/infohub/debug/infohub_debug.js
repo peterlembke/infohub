@@ -1,21 +1,14 @@
 /**
- * Render debug buttons. Can clean out plugins, databases, caches.
+ * infohub_debug
+ * Tool for clearing caches and refresh the page when the ban time says ok
  *
- * Subscribes to the debug buttons and react on pressing them.
- * SHIFT + CTRL + ALT +
- * 1 - reload_page
- * 2 - refresh_plugins_and_reload_page
- * 3 - clear_storage_and_reload_page
- * 4 - set_cold_start_and_reload_page
- * 9 - delete_render_cache_for_user_name
- * 0 - logout
- *
- * @author      Peter Lembke <info@infohub.se>
- * @version     2018-09-09
+ * @package     Infohub
+ * @subpackage  infohub_debug
  * @since       2018-09-09
- * @copyright   Copyright (c) 2018, Peter Lembke
- * @license     https://opensource.org/licenses/gpl-license.php GPL-3.0-or-later
- * @see         https://github.com/peterlembke/infohub/blob/master/folder/plugins/infohub/debug/infohub_debug.md Documentation
+ * @author      Peter Lembke <info@infohub.se>
+ * @license     GPL-3.0-or-later
+ * @copyright   Copyright (C) 2010- Peter Lembke
+ * @see         https://github.com/peterlembke/infohub/blob/main/folder/plugins/infohub/debug/infohub_debug.md Documentation
  * @link        https://infohub.se/ InfoHub main page
  */
 function infohub_debug() {
